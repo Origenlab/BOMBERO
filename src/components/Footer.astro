@@ -1,0 +1,141 @@
+---
+/**
+ * ─── Footer Component ───
+ * Site footer with navigation columns, contact info, and copyright.
+ * Uses proper heading hierarchy (h2 for section titles).
+ */
+import { footerNav } from "@data/navigation";
+import { SITE } from "@data/site";
+
+const year = new Date().getFullYear();
+
+const columnTitles: Record<string, string> = {
+  productos: "Productos",
+  servicios: "Servicios",
+  empresa: "Empresa",
+  legal: "Legal",
+};
+---
+
+<footer class="footer section section--dark" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <!-- Brand Column -->
+      <div class="footer__brand">
+        <p class="footer__brand-name">{SITE.name}</p>
+        <p class="footer__tagline">{SITE.tagline}</p>
+        <div class="footer__contact">
+          <a href={`mailto:${SITE.contact.email}`}>{SITE.contact.email}</a>
+          <a href={`tel:${SITE.contact.phoneRaw}`} aria-label={`Llamar al ${SITE.contact.phone}`}>
+            {SITE.contact.phone}
+          </a>
+        </div>
+      </div>
+
+      <!-- Nav Columns -->
+      {Object.entries(footerNav).map(([key, items]) => (
+        <div class="footer__col">
+          <h2 class="footer__nav-title">{columnTitles[key] ?? key}</h2>
+          <ul class="footer__nav-list" role="list">
+            {items.map((item) => (
+              <li>
+                <a href={item.href} class="footer__link">{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer__bottom">
+      <p>&copy; {year} {SITE.organization.name}. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, 1fr);
+    gap: var(--space-2xl);
+  }
+
+  .footer__brand-name {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    margin-block-end: var(--space-sm);
+  }
+
+  .footer__tagline {
+    color: var(--color-text-light);
+    margin-block-end: var(--space-lg);
+  }
+
+  .footer__contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .footer__contact a {
+    color: var(--color-text-on-dark);
+    text-decoration: none;
+    font-size: var(--text-sm);
+  }
+
+  .footer__contact a:hover {
+    color: var(--color-accent);
+  }
+
+  .footer__nav-title {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-on-dark);
+    margin-block-end: var(--space-md);
+  }
+
+  .footer__nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .footer__link {
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: color var(--transition-fast);
+  }
+
+  .footer__link:hover {
+    color: var(--color-text-on-dark);
+  }
+
+  .footer__bottom {
+    margin-block-start: var(--space-3xl);
+    padding-block-start: var(--space-lg);
+    border-block-start: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: var(--text-xs);
+    color: var(--color-text-light);
+  }
+
+  @media (max-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

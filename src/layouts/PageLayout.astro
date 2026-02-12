@@ -1,0 +1,25 @@
+---
+/**
+ * ─── PageLayout ───
+ * Standard page layout with Header + main content + Footer.
+ * Used for static pages (home, about, services, contact).
+ */
+import BaseLayout from "./BaseLayout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import type { SEOProps } from "@data/site";
+
+type Props = SEOProps & {
+  jsonLd?: Record<string, unknown>[];
+};
+
+const { jsonLd, ...seoProps } = Astro.props;
+---
+
+<BaseLayout {...seoProps} jsonLd={jsonLd}>
+  <Header />
+  <main id="main-content">
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>

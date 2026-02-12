@@ -1,0 +1,56 @@
+---
+/**
+ * ─── Stats Component ───
+ * Displays trust-building statistics in a horizontal layout.
+ */
+
+type Stat = {
+  value: string;
+  label: string;
+};
+
+type Props = {
+  stats: Stat[];
+};
+
+const { stats } = Astro.props;
+---
+
+<div class="stats">
+  {stats.map((stat) => (
+    <div class="stats__item">
+      <span class="stats__value">{stat.value}</span>
+      <span class="stats__label">{stat.label}</span>
+    </div>
+  ))}
+</div>
+
+<style>
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-xl);
+    padding: var(--space-2xl) 0;
+  }
+
+  .stats__item {
+    text-align: center;
+  }
+
+  .stats__value {
+    display: block;
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .stats__label {
+    display: block;
+    margin-block-start: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+/**
+ * ─── TrustBadges Component ───
+ * Displays certification badges and trust signals.
+ */
+
+type Props = {
+  title?: string;
+};
+
+const { title = "Certificaciones y Estándares" } = Astro.props;
+
+const certifications = [
+  { name: "NFPA", description: "National Fire Protection Association" },
+  { name: "UL", description: "Underwriters Laboratories" },
+  { name: "EN", description: "European Standards" },
+  { name: "ISO", description: "ISO 9001:2015" },
+  { name: "NOM", description: "Norma Oficial Mexicana" },
+];
+---
+
+<div class="trust-badges">
+  {title && <p class="trust-badges__title">{title}</p>}
+  <div class="trust-badges__list">
+    {certifications.map((cert) => (
+      <div class="trust-badge" title={cert.description}>
+        <span class="trust-badge__name">{cert.name}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .trust-badges {
+    text-align: center;
+  }
+
+  .trust-badges__title {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-block-end: var(--space-lg);
+  }
+
+  .trust-badges__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+  }
+
+  .trust-badge:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent-light);
+  }
+
+  .trust-badge__name {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+  }
+</style>

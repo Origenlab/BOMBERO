@@ -1,0 +1,678 @@
+---
+/**
+ * ─── Home Page ───
+ * Landing page principal de BOMBERO.MX
+ * Venta de equipo para bomberos certificado NFPA en México
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import Hero from "@components/Hero.astro";
+import CTA from "@components/CTA.astro";
+import CategoryCard from "@components/CategoryCard.astro";
+import FeatureCard from "@components/FeatureCard.astro";
+import ServiceCard from "@components/ServiceCard.astro";
+import Stats from "@components/Stats.astro";
+import TrustBadges from "@components/TrustBadges.astro";
+import { productCategories } from "@data/navigation";
+
+const stats = [
+  { value: "500+", label: "Productos" },
+  { value: "15+", label: "Años de experiencia" },
+  { value: "1,000+", label: "Clientes satisfechos" },
+  { value: "32", label: "Estados atendidos" },
+];
+
+const features = [
+  {
+    title: "Certificación NFPA",
+    description: "Todos nuestros productos cumplen con las normas NFPA, UL y EN para garantizar tu seguridad.",
+    icon: "certificate",
+  },
+  {
+    title: "Envío a todo México",
+    description: "Entregamos tu equipo en cualquier parte de la República Mexicana con seguimiento en tiempo real.",
+    icon: "truck",
+  },
+  {
+    title: "Asesoría especializada",
+    description: "Técnicos certificados te ayudan a elegir el equipo adecuado para tus necesidades específicas.",
+    icon: "headphones",
+  },
+  {
+    title: "Garantía extendida",
+    description: "Respaldamos todos nuestros productos con garantía y servicio post-venta profesional.",
+    icon: "shield",
+  },
+  {
+    title: "Atención 24/7",
+    description: "Servicio de emergencia disponible las 24 horas para situaciones críticas.",
+    icon: "clock",
+  },
+  {
+    title: "Capacitación incluida",
+    description: "Ofrecemos cursos de capacitación en el uso correcto de equipos con constancias DC-3.",
+    icon: "users",
+  },
+];
+
+const services = [
+  {
+    title: "Mantenimiento de Equipos",
+    description: "Servicio técnico especializado para SCBA, trajes y herramientas de rescate.",
+    icon: "wrench",
+    href: "/servicios#mantenimiento",
+  },
+  {
+    title: "Recarga de Extintores",
+    description: "Recarga y mantenimiento de extintores con certificación NOM.",
+    icon: "reload",
+    href: "/servicios#recarga",
+  },
+  {
+    title: "Capacitación NFPA",
+    description: "Cursos certificados en combate de incendios, rescate y primeros auxilios.",
+    icon: "graduation",
+    href: "/capacitacion",
+  },
+  {
+    title: "Consultoría",
+    description: "Diseño de sistemas contra incendio y planes de emergencia.",
+    icon: "clipboard",
+    href: "/servicios#consultoria",
+  },
+];
+---
+
+<PageLayout
+  title="Venta de Equipo para Bomberos en México"
+  description="BOMBERO.MX - Tu centro de mando para equipo de bomberos certificado NFPA. Trajes estructurales, SCBA, cascos, guantes, herramientas de rescate y más. Envíos a toda la República."
+>
+  <!-- Hero Section -->
+  <section class="hero-main">
+    <div class="container">
+      <div class="hero-main__content">
+        <span class="hero-main__badge">Equipo Certificado NFPA</span>
+        <h1 class="hero-main__title">
+          Tu centro de mando para
+          <span class="hero-main__highlight">equipo de bomberos</span>
+          en México
+        </h1>
+        <p class="hero-main__description">
+          Equipamos a héroes con protección profesional certificada. Trajes estructurales,
+          SCBA, cascos, guantes y herramientas de rescate para enfrentar cualquier emergencia.
+        </p>
+        <div class="hero-main__actions cluster">
+          <a href="/productos" class="btn btn--primary btn--lg">
+            Ver catálogo
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="/cotizar" class="btn btn--outline-light">
+            Solicitar cotización
+          </a>
+        </div>
+        <div class="hero-main__trust">
+          <TrustBadges title="Trabajamos con los mejores estándares" />
+        </div>
+      </div>
+    </div>
+    <div class="hero-main__bg" aria-hidden="true"></div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="section stats-section" aria-labelledby="stats-heading">
+    <div class="container">
+      <h2 id="stats-heading" class="sr-only">Nuestros números</h2>
+      <Stats stats={stats} />
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="section" aria-labelledby="categories-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="categories-heading" class="section__title">Categorías de productos</h2>
+        <p class="section__subtitle">
+          Encuentra todo el equipamiento que necesitas para tu estación o brigada.
+          Productos certificados con los más altos estándares de calidad.
+        </p>
+      </div>
+      <div class="grid grid--4">
+        {productCategories.map((category) => (
+          <CategoryCard
+            name={category.name}
+            description={category.description}
+            icon={category.icon}
+            href={category.href}
+          />
+        ))}
+      </div>
+      <div class="section-footer">
+        <a href="/productos" class="btn btn--primary">
+          Ver todos los productos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section section--alt" aria-labelledby="features-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="features-heading" class="section__title">¿Por qué elegirnos?</h2>
+        <p class="section__subtitle">
+          Más de 15 años equipando a bomberos, brigadas industriales y cuerpos de
+          protección civil en todo México.
+        </p>
+      </div>
+      <div class="grid grid--3">
+        {features.map((feature) => (
+          <FeatureCard
+            title={feature.title}
+            description={feature.description}
+            icon={feature.icon}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="section" aria-labelledby="featured-heading">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="featured-heading" class="section__title">Productos destacados</h2>
+        <p class="section__subtitle">
+          Equipamiento de alta calidad para profesionales que no pueden fallar.
+        </p>
+      </div>
+      <div class="featured-products">
+        <article class="product-featured">
+          <div class="product-featured__image">
+            <div class="product-featured__placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+            </div>
+            <span class="product-featured__badge">Más vendido</span>
+          </div>
+          <div class="product-featured__content">
+            <span class="product-featured__category">EPP Bomberos</span>
+            <h3 class="product-featured__title">Traje Estructural NFPA 1971</h3>
+            <p class="product-featured__description">
+              Chaquetón y pantalón bunker gear con protección térmica avanzada.
+              Certificado NFPA 1971, EN469 y listado UL. Tela exterior Nomex/Kevlar
+              con barrera de humedad transpirable.
+            </p>
+            <ul class="product-featured__specs">
+              <li>Protección térmica TPP 35+ cal/cm²</li>
+              <li>Resistente a cortes y abrasión</li>
+              <li>Cintas reflectivas 3M Scotchlite</li>
+              <li>Disponible en tallas XS a 4XL</li>
+            </ul>
+            <a href="/productos/epp-bomberos/traje-estructural" class="btn btn--primary">
+              Ver detalles
+            </a>
+          </div>
+        </article>
+
+        <article class="product-featured product-featured--reverse">
+          <div class="product-featured__image">
+            <div class="product-featured__placeholder">
+              <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6.081 20C2.951 20 2 17.5 2 15.5c0-3 2-5 2-8 0-3.5 3-3.5 4-3.5 1 0 2 0 2 2v10c0 2-1 4-4 4z"/><path d="M17.919 20C21.049 20 22 17.5 22 15.5c0-3-2-5-2-8 0-3.5-3-3.5-4-3.5-1 0-2 0-2 2v10c0 2 1 4 4 4z"/><path d="M12 4v16"/></svg>
+            </div>
+            <span class="product-featured__badge">Nuevo</span>
+          </div>
+          <div class="product-featured__content">
+            <span class="product-featured__category">SCBA</span>
+            <h3 class="product-featured__title">Equipo de Respiración Autónoma SCBA</h3>
+            <p class="product-featured__description">
+              Sistema de respiración autónoma de última generación con hasta 45 minutos
+              de autonomía. Incluye máscara panorámica, regulador de demanda y cilindro
+              de fibra de carbono.
+            </p>
+            <ul class="product-featured__specs">
+              <li>Autonomía de 30-45 minutos</li>
+              <li>Cilindro 6.8L a 300 bar</li>
+              <li>HUD integrado para presión</li>
+              <li>Certificado NFPA 1981</li>
+            </ul>
+            <a href="/productos/scba/equipo-respiracion-autonoma" class="btn btn--primary">
+              Ver detalles
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section section--dark" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="section-header section-header--light">
+        <h2 id="services-heading" class="section__title">Servicios profesionales</h2>
+        <p class="section__subtitle">
+          No solo vendemos equipo, te acompañamos con servicios completos para
+          mantener tu equipo en óptimas condiciones.
+        </p>
+      </div>
+      <div class="grid grid--4">
+        {services.map((service) => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            icon={service.icon}
+            href={service.href}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="section section--alt" aria-labelledby="testimonial-heading">
+    <div class="container container--narrow">
+      <h2 id="testimonial-heading" class="sr-only">Testimonios</h2>
+      <blockquote class="testimonial">
+        <p class="testimonial__quote">
+          "BOMBERO.MX nos ha equipado durante los últimos 5 años. La calidad de sus
+          productos y el servicio post-venta son excepcionales. Cuando se trata de
+          proteger a nuestros bomberos, no escatimamos en calidad."
+        </p>
+        <footer class="testimonial__footer">
+          <cite class="testimonial__author">
+            <strong>Cmdte. Roberto Hernández</strong>
+            <span>Cuerpo de Bomberos de Guadalajara</span>
+          </cite>
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <CTA
+    title="¿Necesitas equipar a tu estación o brigada?"
+    description="Solicita una cotización personalizada. Atendemos corporaciones de bomberos, brigadas industriales, protección civil y empresas de seguridad."
+    buttonLabel="Solicitar cotización"
+    buttonHref="/cotizar"
+    variant="dark"
+  />
+
+  <!-- Contact Info -->
+  <section class="section contact-info" aria-labelledby="contact-heading">
+    <div class="container">
+      <h2 id="contact-heading" class="sr-only">Información de contacto</h2>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <div class="contact-item__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="contact-item__content">
+            <h3>Ventas</h3>
+            <a href="tel:+525512345678">+52 55 1234 5678</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-item__content">
+            <h3>Email</h3>
+            <a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item__icon contact-item__icon--whatsapp">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <div class="contact-item__content">
+            <h3>WhatsApp</h3>
+            <a href="https://wa.me/525512345678" target="_blank" rel="noopener">Enviar mensaje</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-item__content">
+            <h3>Ubicación</h3>
+            <span>Ciudad de México, México</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* Hero Main */
+  .hero-main {
+    position: relative;
+    padding-block: var(--space-4xl);
+    background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-darker) 100%);
+    overflow: hidden;
+  }
+
+  .hero-main__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-main__content {
+    position: relative;
+    max-width: 720px;
+    color: var(--color-text-on-dark);
+  }
+
+  .hero-main__badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    background: var(--color-accent);
+    color: var(--color-text-on-accent);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: var(--radius-full);
+    margin-block-end: var(--space-lg);
+  }
+
+  .hero-main__title {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-block-end: var(--space-lg);
+  }
+
+  .hero-main__highlight {
+    color: var(--color-accent);
+  }
+
+  .hero-main__description {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-block-end: var(--space-xl);
+  }
+
+  .hero-main__actions {
+    margin-block-end: var(--space-3xl);
+  }
+
+  .hero-main__trust {
+    padding-block-start: var(--space-2xl);
+    border-block-start: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Button variants */
+  .btn--lg {
+    padding: 1em 2em;
+    font-size: var(--text-base);
+  }
+
+  .btn--outline-light {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--color-text-on-dark);
+    background: transparent;
+  }
+
+  .btn--outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Stats Section */
+  .stats-section {
+    background: var(--color-bg);
+    border-block-end: 1px solid var(--color-border-light);
+    padding-block: var(--space-2xl);
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+    margin-block-end: var(--space-3xl);
+  }
+
+  .section-header--light .section__title,
+  .section-header--light .section__subtitle {
+    color: var(--color-text-on-dark);
+  }
+
+  .section-header--light .section__subtitle {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .section__title {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    margin-block-end: var(--space-md);
+  }
+
+  .section__subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-light);
+    line-height: 1.6;
+  }
+
+  .section-footer {
+    text-align: center;
+    margin-block-start: var(--space-3xl);
+  }
+
+  /* Grid 4 columns */
+  .grid--4 {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  }
+
+  /* Featured Products */
+  .featured-products {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+  }
+
+  .product-featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .product-featured--reverse {
+    direction: rtl;
+  }
+
+  .product-featured--reverse > * {
+    direction: ltr;
+  }
+
+  .product-featured__image {
+    position: relative;
+    aspect-ratio: 4/3;
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .product-featured__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--color-border);
+  }
+
+  .product-featured__badge {
+    position: absolute;
+    top: var(--space-md);
+    left: var(--space-md);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--color-accent);
+    color: var(--color-text-on-accent);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+  }
+
+  .product-featured__category {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-block-end: var(--space-sm);
+  }
+
+  .product-featured__title {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    margin-block-end: var(--space-md);
+  }
+
+  .product-featured__description {
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-block-end: var(--space-lg);
+  }
+
+  .product-featured__specs {
+    list-style: none;
+    margin-block-end: var(--space-xl);
+  }
+
+  .product-featured__specs li {
+    position: relative;
+    padding-inline-start: var(--space-lg);
+    padding-block: var(--space-xs);
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+  }
+
+  .product-featured__specs li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--color-success);
+    border-radius: var(--radius-full);
+  }
+
+  /* Testimonial */
+  .testimonial {
+    text-align: center;
+    padding: var(--space-3xl);
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .testimonial__quote {
+    font-size: var(--text-xl);
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--color-text);
+    margin-block-end: var(--space-xl);
+  }
+
+  .testimonial__quote::before {
+    content: open-quote;
+  }
+
+  .testimonial__quote::after {
+    content: close-quote;
+  }
+
+  .testimonial__author {
+    font-style: normal;
+  }
+
+  .testimonial__author strong {
+    display: block;
+    font-size: var(--text-base);
+    color: var(--color-primary);
+  }
+
+  .testimonial__author span {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+  }
+
+  /* Contact Info */
+  .contact-info {
+    background: var(--color-bg-alt);
+    padding-block: var(--space-3xl);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .contact-item__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--color-primary);
+    color: var(--color-text-on-dark);
+    border-radius: var(--radius-md);
+  }
+
+  .contact-item__icon--whatsapp {
+    background: #25D366;
+  }
+
+  .contact-item__content h3 {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-block-end: var(--space-xs);
+  }
+
+  .contact-item__content a,
+  .contact-item__content span {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .contact-item__content a:hover {
+    color: var(--color-accent);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-main {
+      padding-block: var(--space-3xl);
+    }
+
+    .product-featured {
+      grid-template-columns: 1fr;
+    }
+
+    .product-featured--reverse {
+      direction: ltr;
+    }
+
+    .product-featured__image {
+      order: -1;
+    }
+  }
+</style>
