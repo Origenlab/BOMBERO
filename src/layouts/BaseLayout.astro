@@ -6,8 +6,10 @@
  */
 import SEOHead from "@components/SEOHead.astro";
 import JsonLd from "@components/JsonLd.astro";
+import WhatsAppFloat from "@components/WhatsAppFloat.astro";
+import BackToTop from "@components/BackToTop.astro";
 import { SITE, type SEOProps } from "@data/site";
-import { organizationJsonLd, websiteJsonLd } from "@utils/seo";
+import { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@utils/seo";
 import "@styles/global.css";
 
 type Props = SEOProps & {
@@ -16,8 +18,8 @@ type Props = SEOProps & {
 
 const { jsonLd = [], ...seoProps } = Astro.props;
 
-// Always include Organization + WebSite structured data
-const allJsonLd = [organizationJsonLd(), websiteJsonLd(), ...jsonLd];
+// Always include Organization + WebSite + LocalBusiness structured data
+const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(), ...jsonLd];
 ---
 
 <!doctype html>
@@ -48,5 +50,11 @@ const allJsonLd = [organizationJsonLd(), websiteJsonLd(), ...jsonLd];
     <a href="#main-content" class="skip-link">Saltar al contenido</a>
 
     <slot />
+
+    <!-- WhatsApp Floating Button -->
+    <WhatsAppFloat />
+
+    <!-- Back to Top Button -->
+    <BackToTop />
   </body>
 </html>

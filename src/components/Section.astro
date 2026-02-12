@@ -1,0 +1,209 @@
+---
+/**
+ * ─── Section Component ───
+ * Componente de sección reutilizable con variantes de fondo y espaciado.
+ *
+ * Props:
+ * - variant: "default" | "light" | "dark" | "gradient" | "fire"
+ * - spacing: "sm" | "md" | "lg" | "xl" | "none"
+ * - container: boolean (envuelve contenido en container)
+ * - id: string (para navegación por anclas)
+ * - title: string (título de sección opcional)
+ * - subtitle: string (subtítulo opcional)
+ * - centered: boolean (centra el título)
+ */
+
+interface Props {
+  variant?: "default" | "light" | "dark" | "gradient" | "fire";
+  spacing?: "sm" | "md" | "lg" | "xl" | "none";
+  container?: boolean;
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  centered?: boolean;
+  class?: string;
+}
+
+const {
+  variant = "default",
+  spacing = "lg",
+  container = true,
+  id,
+  title,
+  subtitle,
+  centered = true,
+  class: className = "",
+} = Astro.props;
+
+const sectionClasses = [
+  "section",
+  `section--${variant}`,
+  `section--spacing-${spacing}`,
+  className,
+].filter(Boolean).join(" ");
+
+const headerClasses = [
+  "section__header",
+  centered && "section__header--centered",
+].filter(Boolean).join(" ");
+---
+
+<section class={sectionClasses} id={id}>
+  {container ? (
+    <div class="container">
+      {(title || subtitle) && (
+        <div class={headerClasses}>
+          {title && <h2 class="section__title">{title}</h2>}
+          {subtitle && <p class="section__subtitle">{subtitle}</p>}
+        </div>
+      )}
+      <slot />
+    </div>
+  ) : (
+    <>
+      {(title || subtitle) && (
+        <div class="container">
+          <div class={headerClasses}>
+            {title && <h2 class="section__title">{title}</h2>}
+            {subtitle && <p class="section__subtitle">{subtitle}</p>}
+          </div>
+        </div>
+      )}
+      <slot />
+    </>
+  )}
+</section>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION COMPONENT
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  .section {
+    position: relative;
+  }
+
+  /* ═══ Spacing Variants ═══ */
+  .section--spacing-none {
+    padding: 0;
+  }
+
+  .section--spacing-sm {
+    padding: var(--space-8) 0;
+  }
+
+  .section--spacing-md {
+    padding: var(--space-12) 0;
+  }
+
+  .section--spacing-lg {
+    padding: var(--space-16) 0;
+  }
+
+  .section--spacing-xl {
+    padding: var(--space-20) 0;
+  }
+
+  /* ═══ Color Variants ═══ */
+  .section--default {
+    background: white;
+    color: var(--color-smoke-800);
+  }
+
+  .section--light {
+    background: var(--color-smoke-50);
+    color: var(--color-smoke-800);
+  }
+
+  .section--dark {
+    background: var(--color-smoke-900);
+    color: white;
+  }
+
+  .section--gradient {
+    background: linear-gradient(135deg, var(--color-smoke-50) 0%, var(--color-smoke-100) 100%);
+    color: var(--color-smoke-800);
+  }
+
+  .section--fire {
+    background: linear-gradient(135deg, var(--color-fire-600) 0%, var(--color-fire-700) 100%);
+    color: white;
+  }
+
+  /* ═══ Section Header ═══ */
+  .section__header {
+    margin-bottom: var(--space-10);
+  }
+
+  .section__header--centered {
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section__title {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 var(--space-4);
+    letter-spacing: -0.02em;
+  }
+
+  .section--dark .section__title,
+  .section--fire .section__title {
+    color: white;
+  }
+
+  .section__subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-smoke-600);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .section--dark .section__subtitle {
+    color: var(--color-smoke-400);
+  }
+
+  .section--fire .section__subtitle {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 768px) {
+    .section--spacing-lg {
+      padding: var(--space-12) 0;
+    }
+
+    .section--spacing-xl {
+      padding: var(--space-16) 0;
+    }
+
+    .section__title {
+      font-size: var(--text-2xl);
+    }
+
+    .section__subtitle {
+      font-size: var(--text-base);
+    }
+
+    .section__header {
+      margin-bottom: var(--space-8);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .section--spacing-md {
+      padding: var(--space-8) 0;
+    }
+
+    .section--spacing-lg {
+      padding: var(--space-10) 0;
+    }
+
+    .section__title {
+      font-size: var(--text-xl);
+    }
+  }
+</style>

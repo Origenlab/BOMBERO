@@ -1,0 +1,143 @@
+---
+/**
+ * ─── Logo Component ───
+ * Componente del logotipo reutilizable en todo el sitio.
+ *
+ * Props:
+ * - variant: "default" | "white" | "dark" (opcional)
+ * - size: "sm" | "md" | "lg" (opcional)
+ * - showText: boolean (mostrar nombre junto al logo)
+ */
+import { SITE } from "@data/site";
+
+interface Props {
+  variant?: "default" | "white" | "dark";
+  size?: "sm" | "md" | "lg";
+  showText?: boolean;
+}
+
+const { variant = "default", size = "md", showText = false } = Astro.props;
+
+const sizes = {
+  sm: { height: 40, width: 100 },
+  md: { height: 70, width: 175 },
+  lg: { height: 100, width: 250 },
+};
+
+const currentSize = sizes[size];
+
+const logoClasses = [
+  "logo",
+  `logo--${variant}`,
+  `logo--${size}`,
+].join(" ");
+---
+
+<a href="/" class={logoClasses} aria-label={`${SITE.name} — Ir al inicio`}>
+  <img
+    src="/images/bombero.png"
+    alt={`${SITE.name} - Venta de Equipo para Bomberos en México`}
+    class="logo__image"
+    width={currentSize.width}
+    height={currentSize.height}
+    loading="eager"
+    decoding="async"
+  />
+  {showText && (
+    <span class="logo__text">
+      <span class="logo__name">{SITE.name}</span>
+      <span class="logo__tagline">Equipo para Bomberos</span>
+    </span>
+  )}
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .logo:hover {
+    opacity: 0.9;
+  }
+
+  .logo:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
+  }
+
+  .logo__image {
+    display: block;
+    height: auto;
+    width: auto;
+    max-height: 100%;
+  }
+
+  /* Size variants */
+  .logo--sm .logo__image {
+    height: 40px;
+  }
+
+  .logo--md .logo__image {
+    height: 70px;
+  }
+
+  .logo--lg .logo__image {
+    height: 100px;
+  }
+
+  /* Text */
+  .logo__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .logo__name {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    letter-spacing: -0.02em;
+  }
+
+  .logo__tagline {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    font-weight: 500;
+  }
+
+  /* Color variants */
+  .logo--white .logo__name {
+    color: white;
+  }
+
+  .logo--white .logo__tagline {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .logo--dark .logo__name {
+    color: var(--color-smoke-900);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .logo--md .logo__image {
+      height: 55px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .logo--md .logo__image {
+      height: 45px;
+    }
+
+    .logo__text {
+      display: none;
+    }
+  }
+</style>

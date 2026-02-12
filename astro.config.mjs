@@ -11,10 +11,50 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes("/draft/"),
+      filter: (page) => !page.includes("/draft/") && !page.includes("/api/"),
       changefreq: "weekly",
       priority: 0.7,
       lastmod: new Date(),
+      // Custom serialization for SEO priorities
+      serialize: (item) => {
+        // Homepage - highest priority
+        if (item.url === "https://bombero.mx/") {
+          return { ...item, priority: 1.0, changefreq: "daily" };
+        }
+        // Product pages - high priority
+        if (item.url.includes("/productos/")) {
+          return { ...item, priority: 0.9, changefreq: "weekly" };
+        }
+        // Category pages - high priority
+        if (item.url.includes("/categoria/")) {
+          return { ...item, priority: 0.85, changefreq: "weekly" };
+        }
+        // Services pages - medium-high priority
+        if (item.url.includes("/servicios") || item.url.includes("/capacitacion")) {
+          return { ...item, priority: 0.8, changefreq: "monthly" };
+        }
+        // Contact and quote pages - medium priority
+        if (item.url.includes("/contacto") || item.url.includes("/cotizar")) {
+          return { ...item, priority: 0.75, changefreq: "monthly" };
+        }
+        // Blog posts - medium priority
+        if (item.url.includes("/blog/")) {
+          return { ...item, priority: 0.7, changefreq: "weekly" };
+        }
+        // About and other pages - lower priority
+        if (item.url.includes("/nosotros") || item.url.includes("/privacidad") || item.url.includes("/terminos")) {
+          return { ...item, priority: 0.5, changefreq: "monthly" };
+        }
+        // Default
+        return { ...item, priority: 0.6, changefreq: "weekly" };
+      },
+      // i18n configuration for Mexico
+      i18n: {
+        defaultLocale: "es",
+        locales: {
+          es: "es-MX",
+        },
+      },
     }),
   ],
 
@@ -28,13 +68,15 @@ export default defineConfig({
 
   // ─── Image Optimization ───
   image: {
-    domains: ["example.com"],
+    domains: ["bombero.mx"],
     remotePatterns: [{ protocol: "https" }],
   },
 
   // ─── Build Configuration ───
   build: {
     inlineStylesheets: "auto",
+    // Generate clean URLs
+    format: "directory",
   },
 
   // ─── Dev Server ───
@@ -42,14 +84,28 @@ export default defineConfig({
     port: 4321,
   },
 
-  // ─── Prefetch (performance) ───
+  // ─── Prefetch (performance + SEO) ───
   prefetch: {
     prefetchAll: false,
     defaultStrategy: "hover",
   },
 
-  // ─── Redirects (add as needed) ───
+  // ─── Trailing Slash (SEO consistency) ───
+  trailingSlash: "never",
+
+  // ─── Compression ───
+  compressHTML: true,
+
+  // ─── Redirects for SEO ───
   redirects: {
-    // "/old-path": "/new-path",
+    // Common misspellings and variations
+    "/equipo-bomberos": "/productos",
+    "/trajes-bombero": "/productos/epp-bomberos",
+    "/cascos-bombero": "/productos/cascos",
+    "/extintores-mexico": "/productos/extintores",
+    "/equipo-scba": "/productos/scba",
+    // Old URLs (if any)
+    "/tienda": "/productos",
+    "/catalogo": "/productos",
   },
 });

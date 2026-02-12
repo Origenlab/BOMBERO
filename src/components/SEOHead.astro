@@ -1,9 +1,14 @@
 ---
 /**
  * ─── SEOHead Component ───
- * Renders all <head> meta tags: title, description, Open Graph,
- * Twitter Cards, canonical URL, and robots directives.
- * Used inside BaseLayout.
+ * Complete SEO meta tags optimized for Mexico market:
+ * - Primary meta tags
+ * - Open Graph (Facebook, WhatsApp)
+ * - Twitter Cards
+ * - Geo tags for local SEO
+ * - Keywords meta
+ * - Canonical URL
+ * - Hreflang for Spanish Mexico
  */
 import { SITE, type SEOProps } from "@data/site";
 import { resolveSEO, canonicalURL } from "@utils/seo";
@@ -15,22 +20,56 @@ const canonical = resolved.canonical ?? canonicalURL(Astro.url.pathname);
 const imageURL = resolved.image?.startsWith("http")
   ? resolved.image
   : canonicalURL(resolved.image);
+
+// Merge page keywords with default keywords
+const allKeywords = [
+  ...(resolved.keywords || []),
+  ...SITE.seo.keywords,
+].join(", ");
 ---
 
 <!-- Primary Meta Tags -->
 <title>{resolved.title}</title>
 <meta name="description" content={resolved.description} />
+<meta name="keywords" content={allKeywords} />
+<meta name="author" content={SITE.organization.name} />
+<meta name="publisher" content={SITE.organization.name} />
+<meta name="copyright" content={`© ${new Date().getFullYear()} ${SITE.organization.name}`} />
 {resolved.noindex && <meta name="robots" content="noindex, nofollow" />}
+{!resolved.noindex && <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
 <link rel="canonical" href={canonical} />
 
-<!-- Open Graph -->
+<!-- Language & Region -->
+<meta name="language" content={SITE.language} />
+<meta http-equiv="content-language" content={SITE.locale} />
+<link rel="alternate" hreflang="es-MX" href={canonical} />
+<link rel="alternate" hreflang="es" href={canonical} />
+<link rel="alternate" hreflang="x-default" href={canonical} />
+
+<!-- Geo Tags for Local SEO Mexico -->
+<meta name="geo.region" content={SITE.geo.region} />
+<meta name="geo.placename" content={SITE.geo.placename} />
+<meta name="geo.position" content={SITE.geo.position} />
+<meta name="ICBM" content={SITE.geo.icbm} />
+
+<!-- Dublin Core Meta Tags -->
+<meta name="DC.title" content={resolved.title} />
+<meta name="DC.description" content={resolved.description} />
+<meta name="DC.language" content={SITE.language} />
+<meta name="DC.coverage" content="México" />
+
+<!-- Open Graph / Facebook / WhatsApp -->
 <meta property="og:type" content={resolved.type} />
 <meta property="og:title" content={resolved.title} />
 <meta property="og:description" content={resolved.description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${SITE.name} - Equipo para Bomberos en México`} />
 <meta property="og:locale" content={SITE.locale} />
 <meta property="og:site_name" content={SITE.name} />
+<meta property="og:see_also" content={SITE.social.facebook} />
 {resolved.publishedTime && (
   <meta property="article:published_time" content={resolved.publishedTime} />
 )}
@@ -38,9 +77,29 @@ const imageURL = resolved.image?.startsWith("http")
   <meta property="article:modified_time" content={resolved.modifiedTime} />
 )}
 
-<!-- Twitter -->
+<!-- Twitter Cards -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content={SITE.social.twitter} />
+<meta name="twitter:creator" content={SITE.social.twitter} />
 <meta name="twitter:title" content={resolved.title} />
 <meta name="twitter:description" content={resolved.description} />
 <meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={`${SITE.name} - Equipo para Bomberos en México`} />
+
+<!-- Additional SEO Tags -->
+<meta name="rating" content="General" />
+<meta name="distribution" content="global" />
+<meta name="revisit-after" content="7 days" />
+<meta name="target" content="all" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+
+<!-- Business/E-commerce specific -->
+<meta name="classification" content="Equipo de Seguridad, Equipo para Bomberos, Protección Civil" />
+<meta name="category" content="Equipos de Protección Personal" />
+<meta name="coverage" content="México, América Latina" />
+
+<!-- Verification tags (add your IDs) -->
+<!-- <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_ID" /> -->
+<!-- <meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_ID" /> -->
+<!-- <meta name="yandex-verification" content="YOUR_YANDEX_VERIFICATION_ID" /> -->
