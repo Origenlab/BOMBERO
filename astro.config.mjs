@@ -4,8 +4,8 @@ import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   // ─── Site URL (required for sitemap, canonical URLs, OG images) ───
-  site: "https://origenlab.github.io",
-  base: "/BOMBERO",
+  site: "https://bombero.mx",
+  base: "/",
 
   // ─── Integrations ───
   integrations: [
