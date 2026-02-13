@@ -1,0 +1,161 @@
+---
+/**
+ * ─── Certifications Component ───
+ * Muestra las certificaciones y estándares de calidad.
+ * Reutilizable en cualquier parte del sitio.
+ *
+ * Props:
+ * - title: string (opcional, título de la sección)
+ * - variant: "default" | "compact" | "dark" (opcional)
+ * - showTitle: boolean (opcional, mostrar/ocultar título)
+ */
+
+interface Props {
+  title?: string;
+  variant?: "default" | "compact" | "dark";
+  showTitle?: boolean;
+}
+
+const {
+  title = "Certificaciones y estándares que nos respaldan",
+  variant = "default",
+  showTitle = true,
+} = Astro.props;
+
+const certifications = [
+  { logo: "NFPA", name: "National Fire Protection" },
+  { logo: "UL", name: "Underwriters Lab" },
+  { logo: "EN", name: "European Standards" },
+  { logo: "ISO", name: "9001:2015" },
+  { logo: "NOM", name: "Norma Oficial MX" },
+];
+
+const sectionClasses = [
+  "certifications",
+  `certifications--${variant}`,
+].join(" ");
+---
+
+<section class={sectionClasses}>
+  <div class="container">
+    {showTitle && <p class="certifications__title">{title}</p>}
+    <div class="certifications__list">
+      {certifications.map((cert) => (
+        <div class="certifications__item">
+          <span class="certifications__logo">{cert.logo}</span>
+          <span class="certifications__name">{cert.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .certifications {
+    background: var(--color-bg);
+    padding: var(--space-12) 0;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .certifications__title {
+    text-align: center;
+    font-size: var(--text-sm);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wider);
+    margin-bottom: var(--space-8);
+    font-weight: 600;
+  }
+
+  .certifications__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-12);
+  }
+
+  .certifications__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .certifications__logo {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-fire-600);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .certifications__name {
+    font-size: var(--text-xs);
+    color: white;
+    font-weight: 500;
+  }
+
+  /* ═══ Compact Variant ═══ */
+  .certifications--compact {
+    padding: var(--space-8) 0;
+  }
+
+  .certifications--compact .certifications__title {
+    margin-bottom: var(--space-6);
+  }
+
+  .certifications--compact .certifications__list {
+    gap: var(--space-8);
+  }
+
+  .certifications--compact .certifications__logo {
+    font-size: var(--text-2xl);
+  }
+
+  .certifications--compact .certifications__name {
+    display: none;
+  }
+
+  /* ═══ Dark Variant ═══ */
+  .certifications--dark {
+    background: var(--color-smoke-900);
+    border-bottom: 1px solid var(--color-smoke-800);
+  }
+
+  .certifications--dark .certifications__title {
+    color: var(--color-smoke-400);
+  }
+
+  .certifications--dark .certifications__logo {
+    color: var(--color-fire-400);
+  }
+
+  .certifications--dark .certifications__name {
+    color: var(--color-smoke-400);
+  }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 768px) {
+    .certifications__list {
+      gap: var(--space-8);
+    }
+
+    .certifications__logo {
+      font-size: var(--text-2xl);
+    }
+
+    .certifications__name {
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .certifications__list {
+      gap: var(--space-6);
+    }
+
+    .certifications__item {
+      min-width: 70px;
+    }
+  }
+</style>
