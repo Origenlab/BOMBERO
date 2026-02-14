@@ -1,529 +1,610 @@
 ---
-/**
- * ─── Footer Component ───
- * Footer profesional para BOMBERO.MX
- * Incluye: Logo, descripción SEO, contacto, redes sociales, navegación, newsletter
- *
- * Props:
- * - variant: "default" | "minimal" (opcional)
- */
-import Logo from "./Logo.astro";
-import { footerNav } from "@data/navigation";
-import { SITE } from "@data/site";
-
-interface Props {
-  variant?: "default" | "minimal";
-}
-
-const { variant = "default" } = Astro.props;
-
 const year = new Date().getFullYear();
-
-const columnTitles: Record<string, string> = {
-  productos: "Productos",
-  servicios: "Servicios",
-  empresa: "Empresa",
-  legal: "Legal",
-};
-
-const footerClasses = [
-  "footer",
-  `footer--${variant}`,
-].join(" ");
 ---
 
-<footer class={footerClasses} role="contentinfo">
-  {variant === "default" && (
-    <!-- Newsletter Section -->
-    <div class="footer__newsletter">
-      <div class="container">
-        <div class="footer__newsletter-inner">
-          <div class="footer__newsletter-content">
-            <h2 class="footer__newsletter-title">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              Recibe ofertas exclusivas
-            </h2>
-            <p class="footer__newsletter-text">
-              Suscríbete y obtén descuentos especiales en equipo para bomberos
-            </p>
-          </div>
-          <form class="footer__newsletter-form" action="/api/newsletter" method="POST">
-            <input
-              type="email"
-              name="email"
-              placeholder="Tu correo electrónico"
-              required
-              aria-label="Correo electrónico para newsletter"
-              class="footer__newsletter-input"
-            />
-            <button type="submit" class="footer__newsletter-btn">
-              Suscribirme
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  )}
+<footer class="pro-footer">
+  <!-- Upper Section -->
+  <div class="pro-footer__upper">
+    <div class="pro-footer__container">
+      <div class="pro-footer__grid">
 
-  <!-- Main Footer -->
-  <div class="footer__main">
-    <div class="container">
-      <div class="footer__grid">
         <!-- Brand Column -->
-        <div class="footer__brand">
-          <Logo variant="white" size="md" />
-
-          <p class="footer__description">
-            Somos distribuidores autorizados de equipo profesional para bomberos en México.
-            Ofrecemos trajes estructurales, cascos, equipos SCBA y herramientas de rescate
-            con certificación NFPA.
+        <div class="pro-footer__brand">
+          <a href="/" class="pro-footer__logo">
+            BOMBERO<span>.MX</span>
+          </a>
+          <p class="pro-footer__slogan">
+            Protegiendo a quienes nos protegen
+          </p>
+          <p class="pro-footer__desc">
+            Distribuidor líder de equipo profesional para bomberos en México.
+            Más de 15 años equipando a cuerpos de bomberos, protección civil
+            y brigadas industriales con equipo certificado NFPA.
           </p>
 
-          <!-- Contact Info -->
-          <div class="footer__contact">
-            <a href={`tel:${SITE.contact.phoneRaw}`} class="footer__contact-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-              <span>{SITE.contact.phoneTollFree}</span>
-            </a>
-            <a href={`mailto:${SITE.contact.email}`} class="footer__contact-item">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              <span>{SITE.contact.email}</span>
-            </a>
-            <a href={`https://wa.me/${SITE.contact.whatsapp}`} class="footer__contact-item footer__contact-item--whatsapp" target="_blank" rel="noopener noreferrer">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              <span>WhatsApp</span>
-            </a>
-          </div>
-
-          <!-- Social Links -->
-          <div class="footer__social">
-            <a href={SITE.social.facebook} class="footer__social-link" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-              </svg>
-            </a>
-            <a href={SITE.social.instagram} class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-              </svg>
-            </a>
-            <a href={SITE.social.youtube} class="footer__social-link" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-            </a>
-            <a href={SITE.social.linkedin} class="footer__social-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
+          <!-- Trust Badges -->
+          <div class="pro-footer__trust">
+            <div class="pro-footer__trust-item">
+              <span class="pro-footer__trust-number">15+</span>
+              <span class="pro-footer__trust-label">Años de<br>experiencia</span>
+            </div>
+            <div class="pro-footer__trust-item">
+              <span class="pro-footer__trust-number">500+</span>
+              <span class="pro-footer__trust-label">Estaciones<br>equipadas</span>
+            </div>
+            <div class="pro-footer__trust-item">
+              <span class="pro-footer__trust-number">32</span>
+              <span class="pro-footer__trust-label">Estados con<br>cobertura</span>
+            </div>
           </div>
         </div>
 
-        <!-- Nav Columns -->
-        {Object.entries(footerNav).map(([key, items]) => (
-          <div class="footer__col">
-            <h2 class="footer__col-title">{columnTitles[key] ?? key}</h2>
-            <ul class="footer__nav" role="list">
-              {items.map((item) => (
-                <li>
-                  <a href={item.href} class="footer__link">{item.label}</a>
-                </li>
-              ))}
+        <!-- Navigation Columns -->
+        <div class="pro-footer__nav">
+          <div class="pro-footer__col">
+            <h4>Productos</h4>
+            <ul>
+              <li><a href="/productos/trajes">Trajes Estructurales</a></li>
+              <li><a href="/productos/cascos">Cascos Certificados</a></li>
+              <li><a href="/productos/botas">Botas de Bombero</a></li>
+              <li><a href="/productos/guantes">Guantes de Protección</a></li>
+              <li><a href="/productos/scba">Equipos SCBA</a></li>
+              <li><a href="/productos/herramientas">Herramientas de Rescate</a></li>
+              <li><a href="/productos">Ver Todo el Catálogo</a></li>
             </ul>
           </div>
-        ))}
-      </div>
 
-      <!-- Certifications -->
-      <div class="footer__certifications">
-        <span class="footer__cert-label">Certificaciones:</span>
-        <div class="footer__cert-badges">
-          <span class="footer__cert-badge">NFPA</span>
-          <span class="footer__cert-badge">NOM</span>
-          <span class="footer__cert-badge">UL</span>
-          <span class="footer__cert-badge">ISO 9001</span>
+          <div class="pro-footer__col">
+            <h4>Servicios</h4>
+            <ul>
+              <li><a href="/cotizar">Cotización Gratuita</a></li>
+              <li><a href="/asesoria">Asesoría Técnica</a></li>
+              <li><a href="/licitaciones">Licitaciones y Gobierno</a></li>
+              <li><a href="/mantenimiento">Mantenimiento SCBA</a></li>
+              <li><a href="/capacitacion">Capacitación</a></li>
+              <li><a href="/financiamiento">Financiamiento</a></li>
+            </ul>
+          </div>
+
+          <div class="pro-footer__col">
+            <h4>Directorio</h4>
+            <ul>
+              <li><a href="/directorio">Estaciones de Bomberos</a></li>
+              <li><a href="/directorio/ciudad-de-mexico">Bomberos CDMX</a></li>
+              <li><a href="/directorio/estado-de-mexico">Bomberos Edomex</a></li>
+              <li><a href="/directorio/jalisco">Bomberos Jalisco</a></li>
+              <li><a href="/directorio/nuevo-leon">Bomberos Nuevo León</a></li>
+              <li><a href="/directorio/veracruz">Bomberos Veracruz</a></li>
+            </ul>
+          </div>
+
+          <div class="pro-footer__col">
+            <h4>Empresa</h4>
+            <ul>
+              <li><a href="/nosotros">Sobre Nosotros</a></li>
+              <li><a href="/marcas">Marcas Autorizadas</a></li>
+              <li><a href="/certificaciones">Certificaciones</a></li>
+              <li><a href="/clientes">Nuestros Clientes</a></li>
+              <li><a href="/blog">Blog y Noticias</a></li>
+              <li><a href="/contacto">Contacto</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Contact Bar -->
+  <div class="pro-footer__contact">
+    <div class="pro-footer__container">
+      <div class="pro-footer__contact-grid">
+
+        <div class="pro-footer__contact-item">
+          <span class="pro-footer__contact-label">Teléfono de Ventas</span>
+          <a href="tel:+525512345678" class="pro-footer__contact-value">55 1234 5678</a>
+        </div>
+
+        <div class="pro-footer__contact-item">
+          <span class="pro-footer__contact-label">WhatsApp Directo</span>
+          <a href="https://wa.me/5215512345678" class="pro-footer__contact-value pro-footer__contact-value--wa">55 1234 5678</a>
+        </div>
+
+        <div class="pro-footer__contact-item">
+          <span class="pro-footer__contact-label">Correo Electrónico</span>
+          <a href="mailto:ventas@bombero.mx" class="pro-footer__contact-value">ventas@bombero.mx</a>
+        </div>
+
+        <div class="pro-footer__contact-item">
+          <span class="pro-footer__contact-label">Horario de Atención</span>
+          <span class="pro-footer__contact-value">Lun-Vie 9:00-18:00</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Certifications & Brands -->
+  <div class="pro-footer__certs">
+    <div class="pro-footer__container">
+      <div class="pro-footer__certs-grid">
+
+        <div class="pro-footer__certs-col">
+          <span class="pro-footer__certs-title">Certificaciones</span>
+          <div class="pro-footer__certs-list">
+            <span class="pro-footer__cert">NFPA</span>
+            <span class="pro-footer__cert">UL</span>
+            <span class="pro-footer__cert">NOM</span>
+            <span class="pro-footer__cert">EN</span>
+            <span class="pro-footer__cert">ISO 9001</span>
+          </div>
+        </div>
+
+        <div class="pro-footer__certs-col">
+          <span class="pro-footer__certs-title">Marcas Autorizadas</span>
+          <div class="pro-footer__certs-list">
+            <span class="pro-footer__brand-tag">MSA Safety</span>
+            <span class="pro-footer__brand-tag">Honeywell</span>
+            <span class="pro-footer__brand-tag">Globe</span>
+            <span class="pro-footer__brand-tag">Bullard</span>
+            <span class="pro-footer__brand-tag">Cairns</span>
+            <span class="pro-footer__brand-tag">Holmatro</span>
+            <span class="pro-footer__brand-tag">Scott</span>
+          </div>
+        </div>
+
+        <div class="pro-footer__certs-col pro-footer__certs-col--address">
+          <span class="pro-footer__certs-title">Oficinas Centrales</span>
+          <address class="pro-footer__address">
+            Av. Tamaulipas 150, Piso 13<br>
+            Col. Condesa, Cuauhtémoc<br>
+            06140 Ciudad de México, CDMX<br>
+            México
+          </address>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- Bottom Bar -->
-  <div class="footer__bottom">
-    <div class="container footer__bottom-inner">
-      <p class="footer__copyright">
-        &copy; {year} {SITE.organization.name}. Todos los derechos reservados.
-      </p>
-      <p class="footer__location">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-          <circle cx="12" cy="10" r="3"/>
-        </svg>
-        Ciudad de México, México
-      </p>
+  <div class="pro-footer__bottom">
+    <div class="pro-footer__container">
+      <div class="pro-footer__bottom-grid">
+
+        <div class="pro-footer__copyright">
+          <p>&copy; {year} <strong>BOMBERO.MX</strong> — Todos los derechos reservados</p>
+          <p class="pro-footer__legal-note">Distribuidor autorizado de equipo profesional para bomberos en México</p>
+        </div>
+
+        <div class="pro-footer__legal">
+          <a href="/privacidad">Aviso de Privacidad</a>
+          <a href="/terminos">Términos y Condiciones</a>
+          <a href="/devoluciones">Política de Devoluciones</a>
+          <a href="/envios">Política de Envíos</a>
+        </div>
+
+      </div>
     </div>
   </div>
 </footer>
 
 <style>
   /* ═══════════════════════════════════════════════════════════════════════
-     FOOTER COMPONENT
+     PRO FOOTER - Diseño Premium
      ═══════════════════════════════════════════════════════════════════════ */
 
-  .footer {
-    background: var(--color-smoke-900);
-    color: var(--color-smoke-300);
+  .pro-footer {
+    background: #0a0a0a;
+    color: #999;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  /* ═══ Newsletter Section ═══ */
-  .footer__newsletter {
-    background: linear-gradient(135deg, var(--color-fire-600) 0%, var(--color-fire-700) 100%);
-    padding: var(--space-10) 0;
+  .pro-footer__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
   }
 
-  .footer__newsletter-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-8);
+  /* ═══ Upper Section ═══ */
+  .pro-footer__upper {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid #1a1a1a;
   }
 
-  .footer__newsletter-content {
-    flex: 1;
-  }
-
-  .footer__newsletter-title {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: white;
-    margin: 0 0 var(--space-2);
-  }
-
-  .footer__newsletter-text {
-    color: rgba(255, 255, 255, 0.85);
-    margin: 0;
-  }
-
-  .footer__newsletter-form {
-    display: flex;
-    gap: var(--space-3);
-    flex: 1;
-    max-width: 500px;
-  }
-
-  .footer__newsletter-input {
-    flex: 1;
-    padding: var(--space-4) var(--space-5);
-    background: white;
-    border: none;
-    border-radius: var(--radius-lg);
-    font-size: var(--text-base);
-    color: var(--color-smoke-900);
-  }
-
-  .footer__newsletter-input::placeholder {
-    color: var(--color-smoke-500);
-  }
-
-  .footer__newsletter-input:focus {
-    outline: 2px solid white;
-    outline-offset: 2px;
-  }
-
-  .footer__newsletter-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-4) var(--space-6);
-    background: var(--color-smoke-900);
-    color: white;
-    font-weight: 600;
-    border: none;
-    border-radius: var(--radius-lg);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    white-space: nowrap;
-  }
-
-  .footer__newsletter-btn:hover {
-    background: var(--color-smoke-800);
-    transform: translateY(-2px);
-  }
-
-  /* ═══ Main Footer ═══ */
-  .footer__main {
-    padding: var(--space-16) 0 var(--space-10);
-  }
-
-  .footer__grid {
+  .pro-footer__grid {
     display: grid;
-    grid-template-columns: 1.5fr repeat(4, 1fr);
-    gap: var(--space-10);
+    grid-template-columns: 420px 1fr;
+    gap: 80px;
   }
 
-  /* ═══ Brand Column ═══ */
-  .footer__brand {
-    padding-right: var(--space-8);
+  /* Brand */
+  .pro-footer__brand {
+    padding-right: 40px;
   }
 
-  .footer__description {
-    margin: var(--space-5) 0;
-    font-size: var(--text-sm);
-    line-height: 1.7;
-    color: var(--color-smoke-400);
-  }
-
-  .footer__contact {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    margin-bottom: var(--space-6);
-  }
-
-  .footer__contact-item {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    color: var(--color-smoke-300);
+  .pro-footer__logo {
+    display: inline-block;
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
     text-decoration: none;
-    font-size: var(--text-sm);
+    letter-spacing: -0.02em;
   }
 
-  .footer__contact-item svg {
-    flex-shrink: 0;
-    opacity: 0.7;
+  .pro-footer__logo span {
+    color: #dc2626;
   }
 
-  .footer__social {
+  .pro-footer__slogan {
+    font-size: 16px;
+    font-weight: 600;
+    color: #666;
+    font-style: italic;
+    margin: 8px 0 20px;
+  }
+
+  .pro-footer__desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #666;
+    margin: 0 0 32px;
+  }
+
+  /* Trust Badges */
+  .pro-footer__trust {
     display: flex;
-    gap: var(--space-3);
+    gap: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #1a1a1a;
   }
 
-  .footer__social-link {
+  .pro-footer__trust-item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: var(--color-smoke-800);
-    border-radius: var(--radius-lg);
-    color: var(--color-smoke-400);
+    gap: 12px;
   }
 
-  /* ═══ Nav Columns ═══ */
-  .footer__col-title {
-    font-size: var(--text-sm);
+  .pro-footer__trust-number {
+    font-size: 32px;
+    font-weight: 900;
+    color: #dc2626;
+    line-height: 1;
+  }
+
+  .pro-footer__trust-label {
+    font-size: 11px;
+    color: #555;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  /* Navigation */
+  .pro-footer__nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .pro-footer__col h4 {
+    font-size: 13px;
     font-weight: 700;
+    color: #fff;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: white;
-    margin: 0 0 var(--space-5);
-  }
-
-  .footer__nav {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .footer__link {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-    font-size: var(--text-sm);
+    margin: 0 0 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #dc2626;
     display: inline-block;
   }
 
-  /* ═══ Certifications ═══ */
-  .footer__certifications {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    margin-top: var(--space-10);
-    padding-top: var(--space-8);
-    border-top: 1px solid var(--color-smoke-800);
+  .pro-footer__col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
-  .footer__cert-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
+  .pro-footer__col li {
+    margin-bottom: 12px;
+  }
+
+  .pro-footer__col a {
+    font-size: 14px;
+    color: #777;
+    text-decoration: none;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+    display: inline-block;
+  }
+
+  .pro-footer__col a:hover {
+    color: #fff;
+    padding-left: 6px;
+  }
+
+  /* ═══ Contact Bar ═══ */
+  .pro-footer__contact {
+    background: #111;
+    padding: 32px 0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .pro-footer__contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .pro-footer__contact-item {
+    text-align: center;
+    padding: 0 16px;
+    border-right: 1px solid #222;
+  }
+
+  .pro-footer__contact-item:last-child {
+    border-right: none;
+  }
+
+  .pro-footer__contact-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: #555;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .pro-footer__contact-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .pro-footer__contact-value:hover {
+    color: #dc2626;
+  }
+
+  .pro-footer__contact-value--wa {
+    color: #25D366;
+  }
+
+  .pro-footer__contact-value--wa:hover {
+    color: #128C7E;
+  }
+
+  /* ═══ Certifications ═══ */
+  .pro-footer__certs {
+    padding: 40px 0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .pro-footer__certs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .pro-footer__certs-title {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+
+  .pro-footer__certs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pro-footer__cert {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
     letter-spacing: 0.05em;
   }
 
-  .footer__cert-badges {
-    display: flex;
-    gap: var(--space-2);
+  .pro-footer__brand-tag {
+    padding: 6px 12px;
+    background: #151515;
+    border: 1px solid #252525;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
   }
 
-  .footer__cert-badge {
-    padding: var(--space-1) var(--space-3);
-    background: var(--color-smoke-800);
-    border: 1px solid var(--color-smoke-700);
-    border-radius: var(--radius-md);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--color-smoke-300);
+  .pro-footer__certs-col--address {
+    text-align: right;
+  }
+
+  .pro-footer__address {
+    font-style: normal;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.8;
   }
 
   /* ═══ Bottom Bar ═══ */
-  .footer__bottom {
-    background: rgba(0, 0, 0, 0.3);
-    padding: var(--space-5) 0;
+  .pro-footer__bottom {
+    padding: 24px 0;
+    background: #050505;
   }
 
-  .footer__bottom-inner {
+  .pro-footer__bottom-grid {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 32px;
   }
 
-  .footer__copyright {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
+  .pro-footer__copyright p {
+    font-size: 13px;
+    color: #555;
     margin: 0;
   }
 
-  .footer__location {
+  .pro-footer__copyright strong {
+    color: #888;
+  }
+
+  .pro-footer__legal-note {
+    font-size: 11px !important;
+    color: #444 !important;
+    margin-top: 4px !important;
+  }
+
+  .pro-footer__legal {
     display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    margin: 0;
+    gap: 32px;
   }
 
-  /* ═══ Minimal Variant ═══ */
-  .footer--minimal .footer__newsletter {
-    display: none;
+  .pro-footer__legal a {
+    font-size: 12px;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s ease;
   }
 
-  .footer--minimal .footer__main {
-    padding: var(--space-10) 0;
-  }
-
-  .footer--minimal .footer__grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .footer--minimal .footer__brand {
-    padding-right: 0;
-  }
-
-  .footer--minimal .footer__col {
-    display: none;
-  }
-
-  .footer--minimal .footer__social {
-    justify-content: center;
-  }
-
-  .footer--minimal .footer__certifications {
-    justify-content: center;
+  .pro-footer__legal a:hover {
+    color: #fff;
   }
 
   /* ═══ Responsive ═══ */
-  @media (max-width: 1024px) {
-    .footer__grid {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-8);
+  @media (max-width: 1200px) {
+    .pro-footer__grid {
+      grid-template-columns: 1fr;
+      gap: 60px;
     }
 
-    .footer__brand {
-      grid-column: 1 / -1;
+    .pro-footer__brand {
       padding-right: 0;
       text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
-    .footer__contact {
-      align-items: center;
-    }
-
-    .footer__social {
+    .pro-footer__trust {
       justify-content: center;
     }
 
-    .footer__newsletter-inner {
-      flex-direction: column;
-      text-align: center;
+    .pro-footer__certs-grid {
+      grid-template-columns: 1fr 1fr;
     }
 
-    .footer__newsletter-form {
-      max-width: 100%;
-      width: 100%;
-    }
-
-    .footer__certifications {
-      flex-direction: column;
+    .pro-footer__certs-col--address {
+      grid-column: 1 / -1;
       text-align: center;
     }
   }
 
-  @media (max-width: 768px) {
-    .footer__grid {
+  @media (max-width: 900px) {
+    .pro-footer__upper {
+      padding: 60px 0 48px;
+    }
+
+    .pro-footer__nav {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .pro-footer__contact-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .pro-footer__contact-item {
+      border-right: none;
+      padding: 16px;
+      background: #0d0d0d;
+      border-radius: 8px;
+    }
+
+    .pro-footer__certs-grid {
       grid-template-columns: 1fr;
+      gap: 32px;
       text-align: center;
     }
 
-    .footer__col {
-      padding-top: var(--space-6);
-      border-top: 1px solid var(--color-smoke-800);
-    }
-
-    .footer__nav {
-      align-items: center;
-    }
-
-    .footer__newsletter-form {
-      flex-direction: column;
-    }
-
-    .footer__newsletter-input,
-    .footer__newsletter-btn {
-      width: 100%;
+    .pro-footer__certs-list {
       justify-content: center;
     }
 
-    .footer__bottom-inner {
-      flex-direction: column;
-      gap: var(--space-3);
+    .pro-footer__certs-col--address {
       text-align: center;
     }
   }
 
-  @media (max-width: 480px) {
-    .footer__main {
-      padding: var(--space-10) 0 var(--space-8);
+  @media (max-width: 640px) {
+    .pro-footer__container {
+      padding: 0 20px;
     }
 
-    .footer__newsletter {
-      padding: var(--space-8) 0;
+    .pro-footer__upper {
+      padding: 48px 0 40px;
     }
 
-    .footer__social-link {
-      width: 36px;
-      height: 36px;
+    .pro-footer__logo {
+      font-size: 28px;
+    }
+
+    .pro-footer__trust {
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .pro-footer__trust-item {
+      flex-direction: column;
+      text-align: center;
+      gap: 4px;
+    }
+
+    .pro-footer__trust-label {
+      text-align: center;
+    }
+
+    .pro-footer__nav {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      text-align: center;
+    }
+
+    .pro-footer__col h4 {
+      display: block;
+      text-align: center;
+    }
+
+    .pro-footer__col ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pro-footer__contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .pro-footer__bottom-grid {
+      flex-direction: column;
+      text-align: center;
+      gap: 20px;
+    }
+
+    .pro-footer__legal {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
     }
   }
 </style>
