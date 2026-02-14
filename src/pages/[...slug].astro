@@ -5,7 +5,6 @@
  * Handles: /nosotros, /servicios, /contacto, etc.
  */
 import PageLayout from "@layouts/PageLayout.astro";
-import Hero from "@components/Hero.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -26,15 +25,28 @@ const { Content } = await page.render();
   image={page.data.image}
   noindex={page.data.noindex}
 >
-  <!-- Optional Hero from frontmatter -->
+  <!-- Simple Hero Section -->
   {page.data.hero && (
-    <Hero
-      title={page.data.hero.title}
-      description={page.data.hero.description}
-      primaryCTA={page.data.hero.primaryCTA}
-      secondaryCTA={page.data.hero.secondaryCTA}
-      backgroundImage={page.data.hero.backgroundImage}
-    />
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-hero__title">{page.data.hero.title}</h1>
+        {page.data.hero.description && (
+          <p class="page-hero__desc">{page.data.hero.description}</p>
+        )}
+        <div class="page-hero__actions">
+          {page.data.hero.primaryCTA && (
+            <a href={page.data.hero.primaryCTA.href} class="btn btn--primary">
+              {page.data.hero.primaryCTA.label}
+            </a>
+          )}
+          {page.data.hero.secondaryCTA && (
+            <a href={page.data.hero.secondaryCTA.href} class="btn btn--ghost">
+              {page.data.hero.secondaryCTA.label}
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
   )}
 
   <!-- Page Content -->
@@ -44,3 +56,32 @@ const { Content } = await page.render();
     </div>
   </section>
 </PageLayout>
+
+<style>
+  .page-hero {
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-950);
+    text-align: center;
+  }
+
+  .page-hero__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: white;
+    margin: 0 0 var(--space-4);
+  }
+
+  .page-hero__desc {
+    font-size: var(--text-lg);
+    color: var(--color-smoke-300);
+    max-width: 640px;
+    margin: 0 auto var(--space-8);
+  }
+
+  .page-hero__actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+</style>

@@ -1,36 +1,9 @@
 /**
  * ─── Content Collections Configuration ───
- * Defines schemas for blog posts and static pages.
+ * Defines schemas for static pages.
  * Astro validates frontmatter at build time using these schemas.
  */
 import { defineCollection, z } from "astro:content";
-
-const blog = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string().max(70),
-    description: z.string().max(160),
-    date: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
-    image: z.string().optional(),
-    author: z.string().default("Equipo Editorial"),
-    tags: z.array(z.string()).default([]),
-    draft: z.boolean().default(false),
-
-    // SEO overrides (optional)
-    seoTitle: z.string().max(70).optional(),
-    seoDescription: z.string().max(160).optional(),
-    noindex: z.boolean().default(false),
-
-    // CTA (optional per-post override)
-    cta: z
-      .object({
-        label: z.string(),
-        href: z.string(),
-      })
-      .optional(),
-  }),
-});
 
 const pages = defineCollection({
   type: "content",
@@ -57,4 +30,4 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { blog, pages };
+export const collections = { pages };

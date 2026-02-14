@@ -107,7 +107,6 @@ export const footerNav: Record<string, NavItem[]> = {
   ],
   empresa: [
     { label: "Nosotros", href: "/nosotros" },
-    { label: "Blog", href: "/blog" },
     { label: "Contacto", href: "/contacto" },
     { label: "Cotizaciones", href: "/cotizar" },
   ],
