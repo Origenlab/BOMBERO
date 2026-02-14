@@ -1,0 +1,166 @@
+---
+/**
+ * ─── SectionHeader Component ───
+ * ÚNICO componente de títulos para todo el sitio BOMBERO.MX
+ * Diseño de dos columnas.
+ * Izquierda: label, título, descripción
+ * Derecha: contenido complementario (slot)
+ *
+ * Props:
+ * - label: Etiqueta superior (ej: "Catálogo de Productos")
+ * - title: Título principal
+ * - description: Descripción corta
+ */
+
+interface Props {
+  label?: string;
+  title: string;
+  description?: string;
+}
+
+const {
+  label,
+  title,
+  description,
+} = Astro.props;
+
+const hasRightContent = Astro.slots.has("default");
+const headerClasses = [
+  "section-header",
+  !hasRightContent && "section-header--single",
+].filter(Boolean).join(" ");
+---
+
+<div class={headerClasses}>
+  <div class="section-header__left">
+    {label && <span class="section-header__label">{label}</span>}
+    <h2 class="section-header__title">{title}</h2>
+    {description && <p class="section-header__desc">{description}</p>}
+  </div>
+  {hasRightContent && (
+    <div class="section-header__right">
+      <slot />
+    </div>
+  )}
+</div>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTION HEADER COMPONENT
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    margin-bottom: var(--space-12);
+    align-items: center;
+  }
+
+  .section-header--single {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+  }
+
+  /* ═══ Left Column ═══ */
+  .section-header__left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .section-header__label {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-fire-600);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-3);
+  }
+
+  .section-header__title {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    line-height: 1.1;
+    margin: 0 0 var(--space-4);
+  }
+
+  .section-header__desc {
+    font-size: var(--text-lg);
+    color: var(--color-smoke-600);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ═══ Right Column ═══ */
+  .section-header__right {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .section-header__right :global(p) {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .section-header__right :global(strong) {
+    color: var(--color-smoke-800);
+    font-weight: 600;
+  }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1200px) {
+    .section-header {
+      gap: var(--space-10);
+    }
+
+    .section-header__title {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  @media (max-width: 968px) {
+    .section-header {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+      text-align: left;
+    }
+
+    .section-header__title {
+      font-size: var(--text-2xl);
+    }
+
+    .section-header__right :global(p) {
+      font-size: var(--text-sm);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .section-header {
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+
+    .section-header__label {
+      font-size: 11px;
+    }
+
+    .section-header__title {
+      font-size: var(--text-xl);
+    }
+
+    .section-header__desc {
+      font-size: var(--text-sm);
+    }
+
+    .section-header__right :global(p) {
+      font-size: var(--text-xs);
+      line-height: 1.6;
+    }
+  }
+</style>
