@@ -1,0 +1,957 @@
+---
+/**
+ * ─── Directorio de Estaciones de Bomberos Estado de México ───
+ * Página con todas las estaciones de bomberos en el Estado de México
+ * El estado más poblado de México con 16+ millones de habitantes
+ * Organizado por municipio con información de contacto completa
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import StationCard from "@components/StationCard.astro";
+import { estacionesEdoMex, getMunicipios } from "@data/estaciones-edomex";
+
+// Obtener municipios
+const municipios = getMunicipios();
+
+// Estados vecinos para interlinking
+const estadosVecinos = [
+  { nombre: "Ciudad de México", slug: "ciudad-de-mexico" },
+  { nombre: "Hidalgo", slug: "hidalgo" },
+  { nombre: "Tlaxcala", slug: "tlaxcala" },
+  { nombre: "Puebla", slug: "puebla" },
+  { nombre: "Morelos", slug: "morelos" },
+  { nombre: "Guerrero", slug: "guerrero" },
+  { nombre: "Michoacán", slug: "michoacan" },
+  { nombre: "Querétaro", slug: "queretaro" },
+];
+---
+
+<PageLayout
+  title="Estaciones de Bomberos en Estado de México | Directorio BOMBERO.MX"
+  description="Directorio completo de las estaciones de bomberos en el Estado de México. Teléfonos de emergencia, direcciones y servicios. Más de 20 estaciones cubriendo los 125 municipios. Emergencias 911."
+>
+  <!-- Hero Section -->
+  <section class="edomex-hero">
+    <div class="edomex-hero__bg">
+      <div class="edomex-hero__gradient"></div>
+      <div class="edomex-hero__pattern"></div>
+    </div>
+    <div class="container">
+      <div class="edomex-hero__container">
+        <!-- Left Column -->
+        <div class="edomex-hero__content">
+          <nav class="edomex-hero__breadcrumb">
+            <a href="/">Inicio</a>
+            <span>/</span>
+            <a href="/directorio">Directorio</a>
+            <span>/</span>
+            <span>Estado de México</span>
+          </nav>
+          <span class="edomex-hero__badge">
+            <span class="edomex-hero__badge-dot"></span>
+            EDOMEX
+          </span>
+          <h1 class="edomex-hero__title">
+            Estaciones de Bomberos en
+            <span class="edomex-hero__highlight">Estado de México</span>
+          </h1>
+          <p class="edomex-hero__desc">
+            Directorio completo del <strong>H. Cuerpo de Bomberos del Estado de México</strong>.
+            Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones en el estado más poblado de México.
+          </p>
+          <div class="edomex-hero__stats">
+            <div class="edomex-hero__stat">
+              <span class="edomex-hero__stat-number">{estacionesEdoMex.length}</span>
+              <span class="edomex-hero__stat-label">Estaciones</span>
+            </div>
+            <div class="edomex-hero__stat">
+              <span class="edomex-hero__stat-number">{municipios.length}</span>
+              <span class="edomex-hero__stat-label">Municipios</span>
+            </div>
+            <div class="edomex-hero__stat">
+              <span class="edomex-hero__stat-number">24/7</span>
+              <span class="edomex-hero__stat-label">Servicio</span>
+            </div>
+            <div class="edomex-hero__stat">
+              <span class="edomex-hero__stat-number">16M+</span>
+              <span class="edomex-hero__stat-label">Habitantes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - SEO Content -->
+        <div class="edomex-hero__seo">
+          <h2 class="edomex-hero__seo-title">H. Cuerpo de Bomberos del Estado de México</h2>
+          <p class="edomex-hero__seo-text">
+            El <strong>Estado de México es la entidad más poblada del país</strong> con más de
+            <strong>16 millones de habitantes</strong> distribuidos en 125 municipios. Los bomberos
+            mexiquenses atienden emergencias en zonas metropolitanas como <strong>Ecatepec, Naucalpan,
+            Tlalnepantla y Nezahualcóyotl</strong>, así como en la capital <strong>Toluca</strong>.
+          </p>
+          <h2 class="edomex-hero__seo-title">Zona Metropolitana del Valle de México</h2>
+          <p class="edomex-hero__seo-text">
+            Gran parte del Estado de México forma parte de la <strong>Zona Metropolitana del Valle de México</strong>,
+            la megalópolis más grande de América. Los bomberos atienden <strong>incendios estructurales e industriales,
+            rescates vehiculares, materiales peligrosos y emergencias en zonas de alta densidad poblacional</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Banner -->
+  <section class="edomex-emergency">
+    <div class="container">
+      <div class="edomex-emergency__content">
+        <div class="edomex-emergency__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="edomex-emergency__text">
+          <span class="edomex-emergency__label">Emergencias en Estado de México</span>
+          <span class="edomex-emergency__number">911</span>
+        </div>
+        <p class="edomex-emergency__desc">
+          Número único de emergencias en todo el Estado de México. Disponible las 24 horas, los 365 días del año.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="edomex-main">
+    <div class="container">
+      <div class="edomex-main__grid">
+        <!-- Stations Grid -->
+        <div class="edomex-main__content">
+          <SectionHeader
+            label="Directorio Completo"
+            title="Estaciones de Bomberos en Estado de México"
+            description="Información de contacto actualizada de todas las estaciones del H. Cuerpo de Bomberos en el Estado de México. Selecciona una estación para ver sus datos de contacto, servicios y zonas de cobertura."
+          />
+
+          <!-- Stations Grid -->
+          <div class="edomex-stations-grid">
+            {estacionesEdoMex.map((estacion) => (
+              <StationCard
+                nombre={estacion.nombreCorto}
+                slug={estacion.slug}
+                direccion={`${estacion.direccion}, ${estacion.colonia}`}
+                alcaldia={estacion.municipio}
+                telefono={estacion.telefono}
+                servicios={estacion.servicios}
+                horario={estacion.horario}
+              />
+            ))}
+          </div>
+
+          <!-- SEO Content -->
+          <div class="edomex-seo">
+            <h2>El H. Cuerpo de Bomberos del Estado de México</h2>
+            <p>
+              El <strong>H. Cuerpo de Bomberos del Estado de México</strong> es la institución encargada de
+              proteger la vida, el medio ambiente y el patrimonio de los más de <strong>16 millones de mexiquenses</strong>.
+              Con presencia en los principales municipios del estado, los bomberos del Edomex atienden emergencias
+              las <strong>24 horas del día, los 365 días del año</strong>.
+            </p>
+
+            <h3>¿Cómo contactar a los bomberos en Estado de México?</h3>
+            <p>
+              En caso de <strong>emergencia en el Estado de México</strong>, marca el <strong>911</strong> desde
+              cualquier teléfono. Este número conecta con el <strong>C5 del Estado de México</strong> que coordina
+              la respuesta de bomberos, policía y servicios médicos. También puedes comunicarte directamente a la
+              estación más cercana usando los teléfonos de este directorio.
+            </p>
+
+            <h3>Zonas de Mayor Riesgo en el Estado de México</h3>
+            <p>
+              El Estado de México presenta diversos riesgos que los bomberos atienden constantemente:
+              <strong>incendios industriales</strong> en los corredores Tlalnepantla-Cuautitlán y Lerma-Toluca,
+              <strong>incendios forestales</strong> en las zonas boscosas de la Sierra de las Cruces y el Nevado de Toluca,
+              <strong>inundaciones</strong> en el Valle de Chalco y zonas bajas del oriente, y <strong>accidentes
+              vehiculares</strong> en las principales autopistas del estado.
+            </p>
+
+            <h3>Servicios de los Bomberos Mexiquenses</h3>
+            <p>
+              Los bomberos del Estado de México están capacitados para atender:
+              <strong>incendios estructurales, industriales y forestales</strong>;
+              <strong>rescate vehicular en accidentes de tránsito</strong>;
+              <strong>materiales peligrosos (HAZMAT)</strong>;
+              <strong>rescate de personas atrapadas</strong>;
+              <strong>control de fugas de gas</strong>;
+              <strong>inundaciones y rescate acuático</strong>;
+              <strong>rescate en montaña y zonas de difícil acceso</strong>; y muchos otros servicios
+              vitales para la seguridad de la población.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="edomex-sidebar">
+          <!-- Quick Access -->
+          <div class="edomex-sidebar__card">
+            <h4>Filtrar por Municipio</h4>
+            <ul class="edomex-sidebar__municipios">
+              {municipios.map((municipio) => (
+                <li>
+                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}`}>
+                    <span class="edomex-sidebar__bullet"></span>
+                    <span>{municipio}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Emergency Numbers -->
+          <div class="edomex-sidebar__card edomex-sidebar__card--emergency">
+            <h4>Teléfonos de Emergencia</h4>
+            <div class="edomex-sidebar__emergency-list">
+              <div class="edomex-sidebar__emergency-item">
+                <span class="edomex-sidebar__emergency-number">911</span>
+                <span class="edomex-sidebar__emergency-label">Emergencias</span>
+              </div>
+              <div class="edomex-sidebar__emergency-item">
+                <span class="edomex-sidebar__emergency-number">722 215 7790</span>
+                <span class="edomex-sidebar__emergency-label">Bomberos Toluca</span>
+              </div>
+              <div class="edomex-sidebar__emergency-item">
+                <span class="edomex-sidebar__emergency-number">800 019 0000</span>
+                <span class="edomex-sidebar__emergency-label">Protección Civil Edomex</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Regiones -->
+          <div class="edomex-sidebar__card">
+            <h4>Regiones del Estado</h4>
+            <ul class="edomex-sidebar__regiones">
+              <li>
+                <span class="edomex-sidebar__region-name">Zona Norte</span>
+                <span class="edomex-sidebar__region-desc">Ecatepec, Tlalnepantla, Cuautitlán Izcalli, Tecámac</span>
+              </li>
+              <li>
+                <span class="edomex-sidebar__region-name">Zona Oriente</span>
+                <span class="edomex-sidebar__region-desc">Nezahualcóyotl, Chalco, Valle de Chalco, Ixtapaluca</span>
+              </li>
+              <li>
+                <span class="edomex-sidebar__region-name">Zona Poniente</span>
+                <span class="edomex-sidebar__region-desc">Naucalpan, Huixquilucan, Atizapán</span>
+              </li>
+              <li>
+                <span class="edomex-sidebar__region-name">Valle de Toluca</span>
+                <span class="edomex-sidebar__region-desc">Toluca, Metepec, Lerma, Zinacantepec</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Nearby States -->
+          <div class="edomex-sidebar__card">
+            <h4>Estados Vecinos</h4>
+            <ul class="edomex-sidebar__states">
+              {estadosVecinos.map((estado) => (
+                <li>
+                  <a href={`/directorio/${estado.slug}`}>
+                    <span>{estado.nombre}</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <div class="edomex-sidebar__card edomex-sidebar__card--cta">
+            <h4>¿Equipas una Estación en Edomex?</h4>
+            <p>Somos distribuidores de equipo certificado NFPA para cuerpos de bomberos en todo el Estado de México</p>
+            <a href="/cotizar" class="edomex-sidebar__cta-btn">Solicitar Cotización</a>
+          </div>
+
+          <!-- Products -->
+          <div class="edomex-sidebar__card">
+            <h4>Equipo para Bomberos</h4>
+            <ul class="edomex-sidebar__products">
+              <li><a href="/productos/trajes">Trajes Estructurales NFPA</a></li>
+              <li><a href="/productos/cascos">Cascos de Bombero</a></li>
+              <li><a href="/productos/scba">Equipos SCBA</a></li>
+              <li><a href="/productos/herramientas-rescate">Herramientas de Rescate</a></li>
+            </ul>
+            <a href="/productos" class="edomex-sidebar__link">
+              Ver catálogo completo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Back to Directory -->
+          <div class="edomex-sidebar__card">
+            <a href="/directorio" class="edomex-sidebar__back">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              <span>Ver todos los estados</span>
+            </a>
+          </div>
+
+          <!-- Contact -->
+          <div class="edomex-sidebar__card">
+            <h4>Contacto BOMBERO.MX</h4>
+            <ul class="edomex-sidebar__contact">
+              <li><a href="tel:+525520780102">55 2078 0102</a></li>
+              <li><a href="https://wa.me/525520780102">WhatsApp</a></li>
+              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     DIRECTORIO ESTADO DE MÉXICO - ESTACIONES DE BOMBEROS
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ═══ Hero Section ═══ */
+  .edomex-hero {
+    position: relative;
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-950);
+    overflow: hidden;
+  }
+
+  .edomex-hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .edomex-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
+      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
+  }
+
+  .edomex-hero__pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .edomex-hero__container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .edomex-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+
+  .edomex-hero__breadcrumb a {
+    color: var(--color-smoke-400);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .edomex-hero__breadcrumb a:hover {
+    color: var(--color-fire-400);
+  }
+
+  .edomex-hero__breadcrumb span {
+    color: var(--color-smoke-600);
+  }
+
+  .edomex-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin-bottom: var(--space-4);
+  }
+
+  .edomex-hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-ember-500);
+    border-radius: 50%;
+  }
+
+  .edomex-hero__title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin: 0 0 var(--space-5);
+  }
+
+  .edomex-hero__highlight {
+    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .edomex-hero__desc {
+    font-size: var(--text-base);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0 0 var(--space-6);
+  }
+
+  .edomex-hero__desc strong {
+    color: white;
+  }
+
+  .edomex-hero__stats {
+    display: flex;
+    gap: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .edomex-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .edomex-hero__stat-number {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-fire-400);
+  }
+
+  .edomex-hero__stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .edomex-hero__seo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .edomex-hero__seo-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin: 0;
+  }
+
+  .edomex-hero__seo-text {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .edomex-hero__seo-text strong {
+    color: white;
+  }
+
+  /* ═══ Emergency Banner ═══ */
+  .edomex-emergency {
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+    padding: var(--space-5) 0;
+  }
+
+  .edomex-emergency__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .edomex-emergency__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+  }
+
+  .edomex-emergency__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .edomex-emergency__label {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .edomex-emergency__number {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: white;
+  }
+
+  .edomex-emergency__desc {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    max-width: 400px;
+  }
+
+  /* ═══ Main Section ═══ */
+  .edomex-main {
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .edomex-main__grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  /* ═══ Stations Grid ═══ */
+  .edomex-stations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  /* ═══ SEO Content ═══ */
+  .edomex-seo {
+    margin-top: var(--space-12);
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .edomex-seo h2 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+  }
+
+  .edomex-seo h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin: var(--space-6) 0 var(--space-3);
+  }
+
+  .edomex-seo p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
+  }
+
+  .edomex-seo p:last-child {
+    margin-bottom: 0;
+  }
+
+  .edomex-seo strong {
+    color: var(--color-smoke-800);
+  }
+
+  /* ═══ Sidebar ═══ */
+  .edomex-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .edomex-sidebar__card {
+    padding: var(--space-5);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .edomex-sidebar__card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-fire-500);
+  }
+
+  .edomex-sidebar__card > p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+  }
+
+  /* Municipios List */
+  .edomex-sidebar__municipios {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  .edomex-sidebar__municipios li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .edomex-sidebar__municipios li a:hover {
+    background: var(--color-smoke-50);
+    color: var(--color-fire-600);
+  }
+
+  .edomex-sidebar__bullet {
+    width: 6px;
+    height: 6px;
+    background: var(--color-fire-500);
+    border-radius: 50%;
+  }
+
+  /* Regiones */
+  .edomex-sidebar__regiones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .edomex-sidebar__regiones li {
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .edomex-sidebar__region-name {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin-bottom: 2px;
+  }
+
+  .edomex-sidebar__region-desc {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    line-height: 1.4;
+  }
+
+  /* Emergency Card */
+  .edomex-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
+  }
+
+  .edomex-sidebar__card--emergency h4 {
+    color: white;
+    border-bottom-color: var(--color-fire-500);
+  }
+
+  .edomex-sidebar__emergency-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .edomex-sidebar__emergency-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+  }
+
+  .edomex-sidebar__emergency-number {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-fire-400);
+  }
+
+  .edomex-sidebar__emergency-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+  }
+
+  /* States List */
+  .edomex-sidebar__states {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .edomex-sidebar__states li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .edomex-sidebar__states li a:hover {
+    background: var(--color-smoke-100);
+    color: var(--color-fire-600);
+  }
+
+  .edomex-sidebar__states li a svg {
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s;
+  }
+
+  .edomex-sidebar__states li a:hover svg {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Products */
+  .edomex-sidebar__products {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .edomex-sidebar__products li a {
+    display: block;
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-fire-600);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .edomex-sidebar__products li a:hover {
+    color: var(--color-fire-700);
+  }
+
+  .edomex-sidebar__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
+    text-decoration: none;
+  }
+
+  .edomex-sidebar__link:hover {
+    color: var(--color-fire-700);
+  }
+
+  .edomex-sidebar__link svg {
+    transition: transform 0.2s;
+  }
+
+  .edomex-sidebar__link:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* CTA Card */
+  .edomex-sidebar__card--cta {
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+  }
+
+  .edomex-sidebar__card--cta h4 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .edomex-sidebar__card--cta > p {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .edomex-sidebar__cta-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-3);
+    background: white;
+    color: var(--color-fire-600);
+    text-align: center;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    border-radius: var(--radius-lg);
+    transition: all 0.2s;
+  }
+
+  .edomex-sidebar__cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Back Link */
+  .edomex-sidebar__back {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .edomex-sidebar__back:hover {
+    background: var(--color-smoke-100);
+    color: var(--color-fire-600);
+  }
+
+  /* Contact */
+  .edomex-sidebar__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .edomex-sidebar__contact a {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
+    text-decoration: none;
+  }
+
+  .edomex-sidebar__contact a:hover {
+    color: var(--color-fire-700);
+  }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1200px) {
+    .edomex-stations-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .edomex-hero__container {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .edomex-hero__seo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .edomex-main__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .edomex-stations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .edomex-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .edomex-sidebar__card--emergency,
+    .edomex-sidebar__card--cta {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .edomex-hero {
+      padding: var(--space-10) 0;
+    }
+
+    .edomex-hero__seo {
+      grid-template-columns: 1fr;
+    }
+
+    .edomex-emergency__content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .edomex-main {
+      padding: var(--space-10) 0;
+    }
+
+    .edomex-stations-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .edomex-sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .edomex-hero__title {
+      font-size: 1.5rem;
+    }
+
+    .edomex-hero__stats {
+      flex-wrap: wrap;
+    }
+  }
+</style>

@@ -65,10 +65,10 @@ export function organizationJsonLd() {
     },
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Av. Insurgentes Sur 1234, Col. Del Valle",
+      streetAddress: "Av. Tamaulipas 150, Piso 13, Col. Condesa",
       addressLocality: "Ciudad de México",
       addressRegion: "CDMX",
-      postalCode: "03100",
+      postalCode: "06140",
       addressCountry: "MX",
     },
     contactPoint: [
@@ -123,10 +123,10 @@ export function localBusinessJsonLd() {
     paymentAccepted: SITE.business.paymentAccepted.join(", "),
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Av. Insurgentes Sur 1234, Col. Del Valle",
+      streetAddress: "Av. Tamaulipas 150, Piso 13, Col. Condesa",
       addressLocality: "Ciudad de México",
       addressRegion: "CDMX",
-      postalCode: "03100",
+      postalCode: "06140",
       addressCountry: "MX",
     },
     geo: {

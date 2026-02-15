@@ -1,0 +1,1254 @@
+---
+/**
+ * ─────────────────────────────────────────────────────────────────────────────
+ * DIRECTORIO DE ESTACIONES DE BOMBEROS - BAJA CALIFORNIA
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Página optimizada para SEO con información completa del H. Cuerpo de Bomberos
+ * del Estado de Baja California. Incluye las principales ciudades:
+ * - Mexicali (Capital)
+ * - Tijuana (Ciudad más poblada)
+ * - Ensenada (Puerto y zona vitivinícola)
+ * - Tecate (Ciudad cervecera)
+ * - Playas de Rosarito (Turismo de playa)
+ *
+ * Keywords principales:
+ * - Bomberos Tijuana, Bomberos Mexicali, Bomberos Ensenada
+ * - Emergencias Baja California, 911 Baja California
+ * - Incendios forestales Baja California
+ * - Estaciones de bomberos frontera México-USA
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import StationCard from "@components/StationCard.astro";
+import { estacionesBajaCalifornia, getMunicipios, getEstadisticas } from "@data/estaciones-baja-california";
+
+// Obtener datos
+const municipios = getMunicipios();
+const estadisticas = getEstadisticas();
+
+// Estados vecinos para interlinking SEO
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+// Datos de municipios con información SEO
+const municipiosInfo = [
+  { nombre: "Tijuana", poblacion: "2.2M", desc: "Ciudad fronteriza más visitada del mundo" },
+  { nombre: "Mexicali", poblacion: "1.1M", desc: "Capital estatal, clima extremo" },
+  { nombre: "Ensenada", poblacion: "520K", desc: "Puerto turístico y zona vitivinícola" },
+  { nombre: "Tecate", poblacion: "115K", desc: "Capital cervecera de México" },
+  { nombre: "Playas de Rosarito", poblacion: "110K", desc: "Destino turístico de playa" },
+];
+---
+
+<PageLayout
+  title="Estaciones de Bomberos en Baja California | Directorio Completo 2024 | BOMBERO.MX"
+  description="Directorio oficial de las 22 estaciones de bomberos en Baja California. Teléfonos de emergencia en Tijuana, Mexicali, Ensenada, Tecate y Rosarito. Números 911 y contacto directo. Cobertura las 24 horas."
+>
+  <!-- Hero Section con SEO optimizado -->
+  <section class="bc-hero">
+    <div class="bc-hero__bg">
+      <div class="bc-hero__gradient"></div>
+      <div class="bc-hero__pattern"></div>
+    </div>
+    <div class="container">
+      <div class="bc-hero__container">
+        <!-- Left Column - Content Principal -->
+        <div class="bc-hero__content">
+          <nav class="bc-hero__breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Inicio</a>
+            <span aria-hidden="true">/</span>
+            <a href="/directorio">Directorio Nacional</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">Baja California</span>
+          </nav>
+
+          <span class="bc-hero__badge">
+            <span class="bc-hero__badge-dot"></span>
+            BC
+          </span>
+
+          <h1 class="bc-hero__title">
+            Estaciones de Bomberos en
+            <span class="bc-hero__highlight">Baja California</span>
+          </h1>
+
+          <p class="bc-hero__desc">
+            Directorio oficial del <strong>Heroico Cuerpo de Bomberos del Estado de Baja California</strong>.
+            Acceso inmediato a teléfonos de emergencia, direcciones y servicios de las <strong>{estadisticas.totalEstaciones} estaciones</strong>
+            que protegen a los <strong>3.8 millones de habitantes</strong> del estado fronterizo más dinámico de México.
+          </p>
+
+          <div class="bc-hero__stats">
+            <div class="bc-hero__stat">
+              <span class="bc-hero__stat-number">{estadisticas.totalEstaciones}</span>
+              <span class="bc-hero__stat-label">Estaciones</span>
+            </div>
+            <div class="bc-hero__stat">
+              <span class="bc-hero__stat-number">{estadisticas.totalMunicipios}</span>
+              <span class="bc-hero__stat-label">Municipios</span>
+            </div>
+            <div class="bc-hero__stat">
+              <span class="bc-hero__stat-number">24/7</span>
+              <span class="bc-hero__stat-label">Servicio</span>
+            </div>
+            <div class="bc-hero__stat">
+              <span class="bc-hero__stat-number">3.8M</span>
+              <span class="bc-hero__stat-label">Habitantes</span>
+            </div>
+          </div>
+
+          <!-- Call to Action de Emergencia -->
+          <div class="bc-hero__cta">
+            <a href="tel:911" class="bc-hero__cta-btn bc-hero__cta-btn--primary">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+              </svg>
+              Emergencias: 911
+            </a>
+            <a href="#estaciones" class="bc-hero__cta-btn bc-hero__cta-btn--secondary">
+              Ver todas las estaciones
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column - SEO Content Premium -->
+        <div class="bc-hero__seo">
+          <h2 class="bc-hero__seo-title">Bomberos en la Frontera Norte de México</h2>
+          <p class="bc-hero__seo-text">
+            <strong>Baja California</strong> es el estado fronterizo más importante de México, con
+            <strong>Tijuana</strong> como la ciudad fronteriza más visitada del mundo (50+ millones de cruces anuales)
+            y <strong>Mexicali</strong> como capital con temperaturas extremas de hasta 50°C. Los bomberos
+            bajacalifornianos mantienen <strong>cooperación binacional con California Fire Department</strong>
+            para atender emergencias transfronterizas.
+          </p>
+
+          <h2 class="bc-hero__seo-title">Industria Maquiladora y Turismo Internacional</h2>
+          <p class="bc-hero__seo-text">
+            El estado alberga <strong>más de 1,000 plantas maquiladoras</strong> de sectores como
+            electrónica, aeroespacial y dispositivos médicos, generando emergencias industriales de alta complejidad.
+            Además, destinos como <strong>Ensenada, Valle de Guadalupe y Playas de Rosarito</strong>
+            reciben millones de turistas anuales, requiriendo atención especializada en <strong>eventos masivos,
+            rescate acuático y emergencias hoteleras</strong>.
+          </p>
+
+          <h2 class="bc-hero__seo-title">Desafíos Únicos: Clima y Geografía</h2>
+          <p class="bc-hero__seo-text">
+            Los bomberos de Baja California enfrentan <strong>incendios forestales en temporada seca</strong>
+            (mayo-octubre), <strong>rescates en la carretera La Rumorosa</strong>, emergencias por
+            <strong>deslaves en Tijuana</strong> durante lluvias, y <strong>ondas de calor extremo en Mexicali</strong>.
+            Cada zona presenta retos únicos que requieren equipamiento y capacitación especializada.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Banner con Schema Markup -->
+  <section class="bc-emergency" itemscope itemtype="https://schema.org/EmergencyService">
+    <div class="container">
+      <div class="bc-emergency__content">
+        <div class="bc-emergency__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="bc-emergency__text">
+          <span class="bc-emergency__label">Emergencias en Baja California</span>
+          <span class="bc-emergency__number" itemprop="telephone">911</span>
+        </div>
+        <div class="bc-emergency__info">
+          <p class="bc-emergency__desc">
+            <strong>Número único de emergencias</strong> que conecta con bomberos, policía y servicios médicos.
+            Disponible las <strong>24 horas, 365 días</strong> en todo el estado de Baja California.
+          </p>
+          <meta itemprop="areaServed" content="Baja California, México" />
+          <meta itemprop="availableLanguage" content="Spanish, English" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Municipios Quick Access -->
+  <section class="bc-municipios">
+    <div class="container">
+      <div class="bc-municipios__grid">
+        {municipiosInfo.map((mun) => (
+          <a href={`#${mun.nombre.toLowerCase().replace(/\s+/g, '-')}`} class="bc-municipios__card">
+            <span class="bc-municipios__name">{mun.nombre}</span>
+            <span class="bc-municipios__pop">{mun.poblacion} habitantes</span>
+            <span class="bc-municipios__desc">{mun.desc}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="bc-main" id="estaciones">
+    <div class="container">
+      <div class="bc-main__grid">
+        <!-- Stations Grid -->
+        <div class="bc-main__content">
+          <SectionHeader
+            label="Directorio Oficial 2024"
+            title="Estaciones de Bomberos en Baja California"
+            description="Información verificada y actualizada de las 22 estaciones del Heroico Cuerpo de Bomberos en Baja California. Selecciona una estación para acceder a datos de contacto, servicios especializados, zonas de cobertura y equipamiento disponible."
+          />
+
+          <!-- Stations Grid -->
+          <div class="bc-stations-grid">
+            {estacionesBajaCalifornia.map((estacion) => (
+              <StationCard
+                nombre={estacion.nombreCorto}
+                slug={estacion.slug}
+                direccion={`${estacion.direccion}, ${estacion.colonia}`}
+                alcaldia={estacion.municipio}
+                telefono={estacion.telefono}
+                servicios={estacion.servicios}
+                horario={estacion.horario}
+                baseUrl="/directorio/baja-california"
+              />
+            ))}
+          </div>
+
+          <!-- SEO Content Premium -->
+          <article class="bc-seo">
+            <h2>El Heroico Cuerpo de Bomberos de Baja California</h2>
+            <p>
+              El <strong>H. Cuerpo de Bomberos de Baja California</strong> representa la primera línea de defensa
+              contra emergencias en el estado fronterizo más dinámico de México. Con <strong>{estadisticas.totalEstaciones} estaciones
+              estratégicamente ubicadas</strong> y más de <strong>{estadisticas.totalPersonal} elementos activos</strong>,
+              este cuerpo profesional protege a los <strong>3.8 millones de habitantes</strong> distribuidos en los
+              municipios de Tijuana, Mexicali, Ensenada, Tecate y Playas de Rosarito.
+            </p>
+
+            <h3>¿Cómo Contactar a los Bomberos en Baja California?</h3>
+            <p>
+              Ante cualquier <strong>emergencia en Baja California</strong>, el número <strong>911</strong> conecta
+              inmediatamente con el <strong>Centro de Comando, Control, Comunicaciones y Cómputo (C4)</strong> de cada municipio.
+              Este sistema coordina la respuesta de bomberos, policía, paramédicos y Protección Civil. Para emergencias específicas
+              en <strong>Tijuana</strong>, también puedes marcar <strong>664 684 0580</strong>; en <strong>Mexicali</strong>
+              el <strong>686 558 1616</strong>; y en <strong>Ensenada</strong> el <strong>646 178 2388</strong>.
+            </p>
+
+            <h3>Emergencias más Frecuentes en Baja California</h3>
+            <p>
+              Los bomberos bajacalifornianos atienden una amplia gama de emergencias características de la región fronteriza:
+            </p>
+            <ul class="bc-seo__list">
+              <li><strong>Incendios industriales</strong> en más de 1,000 plantas maquiladoras de Tijuana y Mexicali</li>
+              <li><strong>Incendios forestales</strong> en temporada seca (mayo-octubre) en sierras y cañones</li>
+              <li><strong>Rescate vehicular</strong> en carreteras de alta peligrosidad como La Rumorosa</li>
+              <li><strong>Materiales peligrosos (HAZMAT)</strong> en zonas industriales y puertos fronterizos</li>
+              <li><strong>Emergencias por calor extremo</strong> en Mexicali (temperaturas de hasta 50°C)</li>
+              <li><strong>Deslaves e inundaciones</strong> en temporada de lluvias en Tijuana</li>
+              <li><strong>Rescate acuático</strong> en playas del Pacífico y Presa Abelardo L. Rodríguez</li>
+              <li><strong>Emergencias en cruceros</strong> en el Puerto de Ensenada</li>
+            </ul>
+
+            <h3>Cooperación Binacional México-Estados Unidos</h3>
+            <p>
+              Dado su carácter fronterizo, los bomberos de Baja California mantienen <strong>acuerdos de cooperación
+              binacional</strong> con agencias de emergencia de California, incluyendo el <strong>San Diego Fire-Rescue
+              Department</strong>, <strong>CAL FIRE</strong> y la <strong>Imperial County Fire Department</strong>.
+              Esta cooperación permite atender emergencias transfronterizas, compartir capacitación especializada
+              y recibir apoyo mutuo en desastres de gran magnitud.
+            </p>
+
+            <h3>Equipamiento Especializado</h3>
+            <p>
+              Las estaciones de bomberos de Baja California cuentan con <strong>equipamiento de última generación</strong>
+              adaptado a las condiciones únicas del estado:
+            </p>
+            <ul class="bc-seo__list">
+              <li><strong>Unidades HAZMAT</strong> con capacidad de descontaminación masiva para emergencias industriales</li>
+              <li><strong>Autobombas con sistemas de enfriamiento</strong> para operar en temperaturas extremas de Mexicali</li>
+              <li><strong>Equipos forestales todoterreno</strong> para combate en sierras y cañones</li>
+              <li><strong>Unidades de rescate acuático</strong> con motos acuáticas y lanchas en zonas costeras</li>
+              <li><strong>Escaleras telescópicas de 35 metros</strong> para edificios de altura en Tijuana</li>
+              <li><strong>Drones con cámaras térmicas</strong> para búsqueda y rescate</li>
+            </ul>
+
+            <h3>Capacitación Continua</h3>
+            <p>
+              El personal del H. Cuerpo de Bomberos de Baja California recibe <strong>capacitación continua</strong>
+              en instituciones nacionales e internacionales. Muchos elementos cuentan con certificaciones del
+              <strong>National Fire Protection Association (NFPA)</strong>, cursos del <strong>Texas A&M Engineering
+              Extension Service (TEEX)</strong> y entrenamiento especializado del <strong>San Diego Fire-Rescue Training Center</strong>.
+            </p>
+          </article>
+        </div>
+
+        <!-- Sidebar Optimizado -->
+        <aside class="bc-sidebar">
+          <!-- Filtro por Municipio -->
+          <div class="bc-sidebar__card">
+            <h4>Buscar por Municipio</h4>
+            <ul class="bc-sidebar__municipios">
+              {municipios.map((municipio) => (
+                <li>
+                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-')}`}>
+                    <span class="bc-sidebar__bullet"></span>
+                    <span>{municipio}</span>
+                    <span class="bc-sidebar__count">
+                      {estadisticas.estacionesPorMunicipio.find(m => m.municipio === municipio)?.cantidad}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Teléfonos de Emergencia -->
+          <div class="bc-sidebar__card bc-sidebar__card--emergency">
+            <h4>Teléfonos de Emergencia</h4>
+            <div class="bc-sidebar__emergency-list">
+              <div class="bc-sidebar__emergency-item">
+                <span class="bc-sidebar__emergency-number">911</span>
+                <span class="bc-sidebar__emergency-label">Emergencias Generales</span>
+              </div>
+              <div class="bc-sidebar__emergency-item">
+                <span class="bc-sidebar__emergency-number">664 684 0580</span>
+                <span class="bc-sidebar__emergency-label">Bomberos Tijuana</span>
+              </div>
+              <div class="bc-sidebar__emergency-item">
+                <span class="bc-sidebar__emergency-number">686 558 1616</span>
+                <span class="bc-sidebar__emergency-label">Bomberos Mexicali</span>
+              </div>
+              <div class="bc-sidebar__emergency-item">
+                <span class="bc-sidebar__emergency-number">646 178 2388</span>
+                <span class="bc-sidebar__emergency-label">Bomberos Ensenada</span>
+              </div>
+              <div class="bc-sidebar__emergency-item">
+                <span class="bc-sidebar__emergency-number">665 654 1313</span>
+                <span class="bc-sidebar__emergency-label">Bomberos Tecate</span>
+              </div>
+              <div class="bc-sidebar__emergency-item">
+                <span class="bc-sidebar__emergency-number">661 612 0808</span>
+                <span class="bc-sidebar__emergency-label">Bomberos Rosarito</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estadísticas del Estado -->
+          <div class="bc-sidebar__card">
+            <h4>Baja California en Números</h4>
+            <ul class="bc-sidebar__stats">
+              <li>
+                <span class="bc-sidebar__stat-value">3.8M</span>
+                <span class="bc-sidebar__stat-label">Habitantes protegidos</span>
+              </li>
+              <li>
+                <span class="bc-sidebar__stat-value">{estadisticas.totalEstaciones}</span>
+                <span class="bc-sidebar__stat-label">Estaciones de bomberos</span>
+              </li>
+              <li>
+                <span class="bc-sidebar__stat-value">{estadisticas.totalPersonal}+</span>
+                <span class="bc-sidebar__stat-label">Bomberos activos</span>
+              </li>
+              <li>
+                <span class="bc-sidebar__stat-value">250km</span>
+                <span class="bc-sidebar__stat-label">Línea fronteriza con USA</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Estados Vecinos -->
+          <div class="bc-sidebar__card">
+            <h4>Estados Vecinos</h4>
+            <ul class="bc-sidebar__states">
+              {estadosVecinos.map((estado) => (
+                <li>
+                  <a href={`/directorio/${estado.slug}`}>
+                    <span>{estado.nombre}</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTA Equipamiento -->
+          <div class="bc-sidebar__card bc-sidebar__card--cta">
+            <h4>¿Equipas Bomberos en BC?</h4>
+            <p>Distribuimos equipo certificado NFPA a estaciones de bomberos en Tijuana, Mexicali, Ensenada y todo Baja California</p>
+            <a href="/cotizar" class="bc-sidebar__cta-btn">Solicitar Cotización</a>
+          </div>
+
+          <!-- Productos -->
+          <div class="bc-sidebar__card">
+            <h4>Equipo para Bomberos</h4>
+            <ul class="bc-sidebar__products">
+              <li><a href="/productos/trajes">Trajes Estructurales NFPA 1971</a></li>
+              <li><a href="/productos/cascos">Cascos Certificados NFPA</a></li>
+              <li><a href="/productos/scba">Equipos SCBA Scott / MSA</a></li>
+              <li><a href="/productos/herramientas-rescate">Herramientas Holmatro</a></li>
+              <li><a href="/productos/hazmat">Trajes HAZMAT Nivel A</a></li>
+            </ul>
+            <a href="/productos" class="bc-sidebar__link">
+              Ver catálogo completo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Volver al Directorio -->
+          <div class="bc-sidebar__card">
+            <a href="/directorio" class="bc-sidebar__back">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              <span>Ver todos los estados</span>
+            </a>
+          </div>
+
+          <!-- Contacto -->
+          <div class="bc-sidebar__card">
+            <h4>Contacto BOMBERO.MX</h4>
+            <ul class="bc-sidebar__contact">
+              <li><a href="tel:+525520780102">55 2078 0102</a></li>
+              <li><a href="https://wa.me/525520780102">WhatsApp Directo</a></li>
+              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════
+     DIRECTORIO BAJA CALIFORNIA - ESTACIONES DE BOMBEROS
+     Estilos optimizados con BEM y design tokens
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  /* ═══ Hero Section ═══ */
+  .bc-hero {
+    position: relative;
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-950);
+    overflow: hidden;
+  }
+
+  .bc-hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .bc-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
+      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
+  }
+
+  .bc-hero__pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .bc-hero__container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .bc-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+
+  .bc-hero__breadcrumb a {
+    color: var(--color-smoke-400);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .bc-hero__breadcrumb a:hover {
+    color: var(--color-fire-400);
+  }
+
+  .bc-hero__breadcrumb span {
+    color: var(--color-smoke-600);
+  }
+
+  .bc-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin-bottom: var(--space-4);
+  }
+
+  .bc-hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-ember-500);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .bc-hero__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin: 0 0 var(--space-5);
+  }
+
+  .bc-hero__highlight {
+    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bc-hero__desc {
+    font-size: var(--text-lg);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0 0 var(--space-6);
+  }
+
+  .bc-hero__desc strong {
+    color: white;
+  }
+
+  .bc-hero__stats {
+    display: flex;
+    gap: var(--space-8);
+    padding: var(--space-5) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: var(--space-6);
+  }
+
+  .bc-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .bc-hero__stat-number {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-fire-400);
+  }
+
+  .bc-hero__stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .bc-hero__cta {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .bc-hero__cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-base);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .bc-hero__cta-btn--primary {
+    background: linear-gradient(135deg, var(--color-fire-500), var(--color-fire-600));
+    color: white;
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+  }
+
+  .bc-hero__cta-btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(220, 38, 38, 0.5);
+  }
+
+  .bc-hero__cta-btn--secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .bc-hero__cta-btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* SEO Content */
+  .bc-hero__seo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    padding: var(--space-6);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-xl);
+  }
+
+  .bc-hero__seo-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin: 0;
+  }
+
+  .bc-hero__seo-text {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-300);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .bc-hero__seo-text strong {
+    color: white;
+  }
+
+  /* ═══ Emergency Banner ═══ */
+  .bc-emergency {
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+    padding: var(--space-6) 0;
+  }
+
+  .bc-emergency__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+
+  .bc-emergency__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    animation: pulse 1.5s infinite;
+  }
+
+  .bc-emergency__text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .bc-emergency__label {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bc-emergency__number {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    color: white;
+    letter-spacing: 0.05em;
+  }
+
+  .bc-emergency__info {
+    max-width: 400px;
+  }
+
+  .bc-emergency__desc {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  /* ═══ Municipios Quick Access ═══ */
+  .bc-municipios {
+    background: var(--color-smoke-100);
+    padding: var(--space-8) 0;
+  }
+
+  .bc-municipios__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-4);
+  }
+
+  .bc-municipios__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4);
+    background: white;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid var(--color-smoke-200);
+  }
+
+  .bc-municipios__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-fire-300);
+  }
+
+  .bc-municipios__name {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+  }
+
+  .bc-municipios__pop {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
+  }
+
+  .bc-municipios__desc {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    line-height: 1.4;
+  }
+
+  /* ═══ Main Section ═══ */
+  .bc-main {
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .bc-main__grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  /* ═══ Stations Grid ═══ */
+  .bc-stations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  /* ═══ SEO Content Premium ═══ */
+  .bc-seo {
+    margin-top: var(--space-12);
+    padding: var(--space-10);
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .bc-seo h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-5);
+    padding-bottom: var(--space-4);
+    border-bottom: 3px solid var(--color-fire-500);
+  }
+
+  .bc-seo h3 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin: var(--space-8) 0 var(--space-4);
+  }
+
+  .bc-seo p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.9;
+    margin: 0 0 var(--space-5);
+  }
+
+  .bc-seo p:last-child {
+    margin-bottom: 0;
+  }
+
+  .bc-seo strong {
+    color: var(--color-smoke-800);
+  }
+
+  .bc-seo__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-5);
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .bc-seo__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-700);
+    line-height: 1.6;
+  }
+
+  .bc-seo__list li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--color-fire-500);
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .bc-seo__list li strong {
+    color: var(--color-smoke-900);
+  }
+
+  /* ═══ Sidebar ═══ */
+  .bc-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .bc-sidebar__card {
+    padding: var(--space-5);
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  }
+
+  .bc-sidebar__card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-fire-500);
+  }
+
+  .bc-sidebar__card > p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+  }
+
+  /* Municipios List */
+  .bc-sidebar__municipios {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .bc-sidebar__municipios li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .bc-sidebar__municipios li a:hover {
+    background: var(--color-smoke-50);
+    color: var(--color-fire-600);
+  }
+
+  .bc-sidebar__bullet {
+    width: 6px;
+    height: 6px;
+    background: var(--color-fire-500);
+    border-radius: 50%;
+  }
+
+  .bc-sidebar__count {
+    margin-left: auto;
+    padding: 2px 8px;
+    background: var(--color-smoke-100);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-smoke-500);
+  }
+
+  /* Stats */
+  .bc-sidebar__stats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+  }
+
+  .bc-sidebar__stats li {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .bc-sidebar__stat-value {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-fire-600);
+  }
+
+  .bc-sidebar__stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    margin-top: 2px;
+  }
+
+  /* Emergency Card */
+  .bc-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
+  }
+
+  .bc-sidebar__card--emergency h4 {
+    color: white;
+    border-bottom-color: var(--color-fire-500);
+  }
+
+  .bc-sidebar__emergency-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .bc-sidebar__emergency-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+  }
+
+  .bc-sidebar__emergency-number {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-fire-400);
+  }
+
+  .bc-sidebar__emergency-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+  }
+
+  /* States List */
+  .bc-sidebar__states {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .bc-sidebar__states li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .bc-sidebar__states li a:hover {
+    background: var(--color-smoke-100);
+    color: var(--color-fire-600);
+  }
+
+  .bc-sidebar__states li a svg {
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s;
+  }
+
+  .bc-sidebar__states li a:hover svg {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Products */
+  .bc-sidebar__products {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .bc-sidebar__products li a {
+    display: block;
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-fire-600);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .bc-sidebar__products li a:hover {
+    color: var(--color-fire-700);
+  }
+
+  .bc-sidebar__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
+    text-decoration: none;
+  }
+
+  .bc-sidebar__link:hover {
+    color: var(--color-fire-700);
+  }
+
+  .bc-sidebar__link svg {
+    transition: transform 0.2s;
+  }
+
+  .bc-sidebar__link:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* CTA Card */
+  .bc-sidebar__card--cta {
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+  }
+
+  .bc-sidebar__card--cta h4 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .bc-sidebar__card--cta > p {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .bc-sidebar__cta-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-3);
+    background: white;
+    color: var(--color-fire-600);
+    text-align: center;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    border-radius: var(--radius-lg);
+    transition: all 0.2s;
+  }
+
+  .bc-sidebar__cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Back Link */
+  .bc-sidebar__back {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .bc-sidebar__back:hover {
+    background: var(--color-smoke-100);
+    color: var(--color-fire-600);
+  }
+
+  /* Contact */
+  .bc-sidebar__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .bc-sidebar__contact a {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
+    text-decoration: none;
+  }
+
+  .bc-sidebar__contact a:hover {
+    color: var(--color-fire-700);
+  }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1280px) {
+    .bc-main__grid {
+      grid-template-columns: 1fr 340px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .bc-stations-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bc-municipios__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .bc-hero__container {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .bc-main__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bc-stations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bc-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .bc-sidebar__card--emergency {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .bc-hero {
+      padding: var(--space-10) 0;
+    }
+
+    .bc-hero__stats {
+      flex-wrap: wrap;
+      gap: var(--space-4);
+    }
+
+    .bc-hero__stat {
+      flex: 1 1 45%;
+    }
+
+    .bc-hero__cta {
+      flex-direction: column;
+    }
+
+    .bc-hero__cta-btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .bc-emergency__content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .bc-municipios__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bc-main {
+      padding: var(--space-10) 0;
+    }
+
+    .bc-stations-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bc-sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .bc-sidebar__card--emergency {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bc-hero__title {
+      font-size: 1.75rem;
+    }
+
+    .bc-municipios__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bc-seo {
+      padding: var(--space-6);
+    }
+  }
+</style>

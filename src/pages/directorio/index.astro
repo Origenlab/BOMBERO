@@ -1,0 +1,971 @@
+---
+/**
+ * ─── Directorio de Estaciones de Bomberos ───
+ * Página principal del directorio nacional
+ * Grid de 32 estados + sidebar con interlinking
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+
+// Datos de los 32 estados con información relevante
+interface Estado {
+  name: string;
+  slug: string;
+  abbr: string;
+  capital: string;
+  stations: number;
+  featured?: boolean;
+}
+
+const estados: Estado[] = [
+  { name: "Aguascalientes", slug: "aguascalientes", abbr: "AGS", capital: "Aguascalientes", stations: 8 },
+  { name: "Baja California", slug: "baja-california", abbr: "BC", capital: "Mexicali", stations: 22, featured: true },
+  { name: "Baja California Sur", slug: "baja-california-sur", abbr: "BCS", capital: "La Paz", stations: 6 },
+  { name: "Campeche", slug: "campeche", abbr: "CAM", capital: "Campeche", stations: 7 },
+  { name: "Chiapas", slug: "chiapas", abbr: "CHIS", capital: "Tuxtla Gutiérrez", stations: 18 },
+  { name: "Chihuahua", slug: "chihuahua", abbr: "CHIH", capital: "Chihuahua", stations: 28, featured: true },
+  { name: "Ciudad de México", slug: "ciudad-de-mexico", abbr: "CDMX", capital: "Ciudad de México", stations: 45, featured: true },
+  { name: "Coahuila", slug: "coahuila", abbr: "COAH", capital: "Saltillo", stations: 24 },
+  { name: "Colima", slug: "colima", abbr: "COL", capital: "Colima", stations: 5 },
+  { name: "Durango", slug: "durango", abbr: "DGO", capital: "Durango", stations: 12 },
+  { name: "Estado de México", slug: "estado-de-mexico", abbr: "EDOMEX", capital: "Toluca", stations: 42, featured: true },
+  { name: "Guanajuato", slug: "guanajuato", abbr: "GTO", capital: "Guanajuato", stations: 32, featured: true },
+  { name: "Guerrero", slug: "guerrero", abbr: "GRO", capital: "Chilpancingo", stations: 15 },
+  { name: "Hidalgo", slug: "hidalgo", abbr: "HGO", capital: "Pachuca", stations: 14 },
+  { name: "Jalisco", slug: "jalisco", abbr: "JAL", capital: "Guadalajara", stations: 38, featured: true },
+  { name: "Michoacán", slug: "michoacan", abbr: "MICH", capital: "Morelia", stations: 20 },
+  { name: "Morelos", slug: "morelos", abbr: "MOR", capital: "Cuernavaca", stations: 10 },
+  { name: "Nayarit", slug: "nayarit", abbr: "NAY", capital: "Tepic", stations: 8 },
+  { name: "Nuevo León", slug: "nuevo-leon", abbr: "NL", capital: "Monterrey", stations: 35, featured: true },
+  { name: "Oaxaca", slug: "oaxaca", abbr: "OAX", capital: "Oaxaca", stations: 16 },
+  { name: "Puebla", slug: "puebla", abbr: "PUE", capital: "Puebla", stations: 26, featured: true },
+  { name: "Querétaro", slug: "queretaro", abbr: "QRO", capital: "Querétaro", stations: 12 },
+  { name: "Quintana Roo", slug: "quintana-roo", abbr: "QROO", capital: "Chetumal", stations: 14 },
+  { name: "San Luis Potosí", slug: "san-luis-potosi", abbr: "SLP", capital: "San Luis Potosí", stations: 15 },
+  { name: "Sinaloa", slug: "sinaloa", abbr: "SIN", capital: "Culiacán", stations: 18 },
+  { name: "Sonora", slug: "sonora", abbr: "SON", capital: "Hermosillo", stations: 22 },
+  { name: "Tabasco", slug: "tabasco", abbr: "TAB", capital: "Villahermosa", stations: 12 },
+  { name: "Tamaulipas", slug: "tamaulipas", abbr: "TAMPS", capital: "Ciudad Victoria", stations: 20 },
+  { name: "Tlaxcala", slug: "tlaxcala", abbr: "TLAX", capital: "Tlaxcala", stations: 6 },
+  { name: "Veracruz", slug: "veracruz", abbr: "VER", capital: "Xalapa", stations: 28, featured: true },
+  { name: "Yucatán", slug: "yucatan", abbr: "YUC", capital: "Mérida", stations: 14 },
+  { name: "Zacatecas", slug: "zacatecas", abbr: "ZAC", capital: "Zacatecas", stations: 10 },
+];
+
+const totalEstaciones = estados.reduce((sum, e) => sum + e.stations, 0);
+const estadosDestacados = estados.filter(e => e.featured);
+
+// Regiones para interlinking
+const regiones = [
+  { name: "Norte", states: ["Baja California", "Sonora", "Chihuahua", "Coahuila", "Nuevo León", "Tamaulipas"] },
+  { name: "Centro", states: ["Ciudad de México", "Estado de México", "Puebla", "Querétaro", "Guanajuato", "Hidalgo"] },
+  { name: "Sur", states: ["Oaxaca", "Chiapas", "Guerrero", "Veracruz", "Tabasco"] },
+  { name: "Occidente", states: ["Jalisco", "Michoacán", "Colima", "Nayarit", "Sinaloa"] },
+];
+---
+
+<PageLayout
+  title="Directorio de Estaciones de Bomberos en México | BOMBERO.MX"
+  description="Directorio completo de estaciones de bomberos en los 32 estados de México. Encuentra teléfonos de emergencia, direcciones y contacto de tu cuerpo de bomberos local. Información actualizada 2024."
+>
+  <!-- Hero Section - Two Columns -->
+  <section class="dir-hero">
+    <div class="dir-hero__bg">
+      <div class="dir-hero__gradient"></div>
+      <div class="dir-hero__grid-pattern"></div>
+    </div>
+    <div class="container">
+      <div class="dir-hero__container">
+        <!-- Left Column -->
+        <div class="dir-hero__content">
+          <span class="dir-hero__badge">
+            <span class="dir-hero__badge-dot"></span>
+            Directorio Nacional
+          </span>
+          <h1 class="dir-hero__title">
+            Estaciones de Bomberos en
+            <span class="dir-hero__highlight">México</span>
+          </h1>
+          <p class="dir-hero__desc">
+            El directorio más completo de <strong>estaciones de bomberos</strong> en la República Mexicana.
+            Encuentra información de contacto, teléfonos de emergencia y ubicación de los
+            <strong>H. Cuerpos de Bomberos</strong> en los 32 estados.
+          </p>
+          <div class="dir-hero__stats">
+            <div class="dir-hero__stat">
+              <span class="dir-hero__stat-number">32</span>
+              <span class="dir-hero__stat-label">Estados</span>
+            </div>
+            <div class="dir-hero__stat">
+              <span class="dir-hero__stat-number">{totalEstaciones}+</span>
+              <span class="dir-hero__stat-label">Estaciones</span>
+            </div>
+            <div class="dir-hero__stat">
+              <span class="dir-hero__stat-number">24/7</span>
+              <span class="dir-hero__stat-label">Emergencias</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - SEO Content -->
+        <div class="dir-hero__seo">
+          <div class="dir-hero__seo-block">
+            <h2 class="dir-hero__seo-title">El Directorio de Bomberos Más Completo de México</h2>
+            <p class="dir-hero__seo-text">
+              En <strong>BOMBERO.MX</strong> hemos desarrollado la base de datos más completa y actualizada de
+              <strong>estaciones de bomberos en México</strong>. Nuestro directorio incluye información verificada
+              de los <strong>H. Cuerpos de Bomberos</strong> en cada uno de los 32 estados: <strong>Ciudad de México,
+              Monterrey, Guadalajara, Puebla, Tijuana, León, Cancún, Mérida, Querétaro</strong> y todas las
+              entidades federativas del país.
+            </p>
+          </div>
+          <div class="dir-hero__seo-block">
+            <h2 class="dir-hero__seo-title">Información de Emergencia al Alcance de Todos</h2>
+            <p class="dir-hero__seo-text">
+              Cada ficha incluye <strong>teléfonos de emergencia locales</strong>, dirección física, horarios de
+              atención y servicios especializados: rescate vehicular, atención de incendios estructurales,
+              <strong>materiales peligrosos (HAZMAT)</strong>, rescate acuático y servicios pre-hospitalarios.
+              Un <strong>servicio gratuito</strong> para facilitar el acceso a los servicios de emergencia en
+              todo el territorio nacional.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="dir-main">
+    <div class="container">
+      <div class="dir-main__grid">
+        <!-- Estados Grid -->
+        <div class="dir-main__content">
+          <SectionHeader
+            label="32 Estados"
+            title="Selecciona tu Estado"
+            description="Haz clic en cualquier estado para ver el directorio completo de estaciones de bomberos, teléfonos de emergencia y ubicaciones."
+          />
+
+          <div class="dir-states">
+            {estados.map((estado) => (
+              <a href={`/directorio/${estado.slug}`} class={`dir-state ${estado.featured ? 'dir-state--featured' : ''}`}>
+                <div class="dir-state__abbr">{estado.abbr}</div>
+                <div class="dir-state__info">
+                  <h3 class="dir-state__name">{estado.name}</h3>
+                  <p class="dir-state__meta">
+                    <span class="dir-state__capital">{estado.capital}</span>
+                    <span class="dir-state__stations">{estado.stations} estaciones</span>
+                  </p>
+                </div>
+                <div class="dir-state__arrow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <!-- SEO Content -->
+          <div class="dir-seo">
+            <h2>Directorio Nacional de Bomberos de México</h2>
+            <p>
+              <strong>BOMBERO.MX</strong> presenta el directorio más completo y actualizado de
+              <strong>estaciones de bomberos en México</strong>. Nuestra base de datos incluye información
+              verificada de los <strong>H. Cuerpos de Bomberos</strong> en cada uno de los 32 estados de la
+              República Mexicana: <strong>Ciudad de México, Jalisco, Nuevo León, Estado de México, Veracruz,
+              Puebla, Guanajuato, Chihuahua</strong> y todas las entidades federativas.
+            </p>
+            <p>
+              Cada ficha de estación incluye: <strong>teléfonos de emergencia locales</strong>, dirección física,
+              horarios de atención, servicios especializados (rescate vehicular, HAZMAT, rescate acuático,
+              atención pre-hospitalaria) y datos de contacto directo. Este directorio es un <strong>servicio
+              gratuito para la comunidad</strong> mexicana que busca facilitar el acceso a los servicios de
+              emergencia en todo el país.
+            </p>
+            <h3>¿Por qué es importante conocer tu estación de bomberos local?</h3>
+            <p>
+              Los <strong>bomberos de México</strong> son héroes que arriesgan su vida para proteger a la ciudadanía.
+              Conocer la ubicación y teléfono de tu <strong>estación de bomberos más cercana</strong> puede marcar
+              la diferencia en una emergencia. Además de atender incendios, los cuerpos de bomberos ofrecen servicios
+              de <strong>rescate, atención de fugas de gas, retiro de enjambres, rescate de personas atrapadas</strong>
+              y muchos otros servicios vitales para la comunidad.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="dir-sidebar">
+          <!-- Estados Destacados -->
+          <div class="dir-sidebar__card">
+            <h4>Estados Más Buscados</h4>
+            <ul class="dir-sidebar__list">
+              {estadosDestacados.map((estado) => (
+                <li>
+                  <a href={`/directorio/${estado.slug}`}>
+                    <span class="dir-sidebar__bullet"></span>
+                    <span class="dir-sidebar__state-name">{estado.name}</span>
+                    <span class="dir-sidebar__state-count">{estado.stations}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Regiones -->
+          <div class="dir-sidebar__card">
+            <h4>Buscar por Región</h4>
+            <div class="dir-sidebar__regions">
+              {regiones.map((region) => (
+                <div class="dir-sidebar__region">
+                  <h5>{region.name}</h5>
+                  <div class="dir-sidebar__region-states">
+                    {region.states.map((stateName) => {
+                      const estado = estados.find(e => e.name === stateName);
+                      return estado ? (
+                        <a href={`/directorio/${estado.slug}`}>{estado.abbr}</a>
+                      ) : null;
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Emergencias -->
+          <div class="dir-sidebar__card dir-sidebar__card--emergency">
+            <h4>Números de Emergencia</h4>
+            <div class="dir-sidebar__emergency">
+              <div class="dir-sidebar__emergency-item">
+                <span class="dir-sidebar__emergency-number">911</span>
+                <span class="dir-sidebar__emergency-label">Emergencias Nacional</span>
+              </div>
+              <div class="dir-sidebar__emergency-item">
+                <span class="dir-sidebar__emergency-number">068</span>
+                <span class="dir-sidebar__emergency-label">Bomberos (algunas ciudades)</span>
+              </div>
+            </div>
+            <p class="dir-sidebar__emergency-note">
+              En caso de emergencia, llama inmediatamente al <strong>911</strong>.
+              Es el número único de emergencias en toda la República Mexicana.
+            </p>
+          </div>
+
+          <!-- CTA Equipamiento -->
+          <div class="dir-sidebar__card dir-sidebar__card--cta">
+            <h4>¿Eres Bombero?</h4>
+            <p>Equipamos a estaciones de bomberos en los 32 estados con equipo certificado NFPA</p>
+            <a href="/cotizar" class="dir-sidebar__cta-btn">Solicitar Cotización</a>
+          </div>
+
+          <!-- Links Útiles -->
+          <div class="dir-sidebar__card">
+            <h4>Explora Nuestro Sitio</h4>
+            <ul class="dir-sidebar__links">
+              <li><a href="/productos/trajes">Trajes de Bombero</a></li>
+              <li><a href="/productos/cascos">Cascos Certificados</a></li>
+              <li><a href="/productos/scba">Equipos SCBA</a></li>
+              <li><a href="/productos/botas">Botas de Bombero</a></li>
+              <li><a href="/productos/guantes">Guantes de Protección</a></li>
+              <li><a href="/#preguntas-frecuentes">Preguntas Frecuentes</a></li>
+            </ul>
+          </div>
+
+          <!-- Contacto -->
+          <div class="dir-sidebar__card">
+            <h4>Contacto BOMBERO.MX</h4>
+            <ul class="dir-sidebar__contact">
+              <li>
+                <a href="tel:+525520780102">55 2078 0102</a>
+              </li>
+              <li>
+                <a href="https://wa.me/525520780102">WhatsApp</a>
+              </li>
+              <li>
+                <a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a>
+              </li>
+            </ul>
+            <address class="dir-sidebar__address">
+              Av. Tamaulipas 150, Piso 13<br>
+              Col. Condesa, Cuauhtémoc<br>
+              06140 CDMX
+            </address>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     DIRECTORIO - PÁGINA PRINCIPAL
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ═══ Hero Section - Two Columns ═══ */
+  .dir-hero {
+    position: relative;
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-950);
+    overflow: hidden;
+  }
+
+  .dir-hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .dir-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
+      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
+  }
+
+  .dir-hero__grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .dir-hero__container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .dir-hero__content {
+    color: white;
+  }
+
+  .dir-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-400);
+    margin-bottom: var(--space-6);
+  }
+
+  .dir-hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-ember-500);
+    border-radius: 50%;
+  }
+
+  .dir-hero__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin: 0 0 var(--space-6);
+    letter-spacing: -0.02em;
+  }
+
+  .dir-hero__highlight {
+    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .dir-hero__desc {
+    font-size: var(--text-lg);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0 0 var(--space-8);
+  }
+
+  .dir-hero__desc strong {
+    color: white;
+  }
+
+  .dir-hero__stats {
+    display: flex;
+    gap: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .dir-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .dir-hero__stat-number {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-fire-400);
+  }
+
+  .dir-hero__stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  /* Hero SEO Content - Right Column */
+  .dir-hero__seo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .dir-hero__seo-block {
+    padding: var(--space-6);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-xl);
+    backdrop-filter: blur(10px);
+  }
+
+  .dir-hero__seo-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin: 0 0 var(--space-3);
+    line-height: 1.4;
+  }
+
+  .dir-hero__seo-text {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-300);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .dir-hero__seo-text strong {
+    color: white;
+    font-weight: 600;
+  }
+
+  /* ═══ Main Grid ═══ */
+  .dir-main {
+    padding: var(--space-20) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .dir-main__grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  /* ═══ Estados Grid ═══ */
+  .dir-states {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .dir-state {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-5);
+    background: white;
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dir-state::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-fire-500);
+    transform: scaleY(0);
+    transition: transform 0.2s ease;
+  }
+
+  .dir-state:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .dir-state:hover::before {
+    transform: scaleY(1);
+  }
+
+  .dir-state--featured {
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.03), rgba(249, 115, 22, 0.03));
+    border: 1px solid rgba(220, 38, 38, 0.1);
+  }
+
+  .dir-state__abbr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    background: var(--color-smoke-100);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 800;
+    color: var(--color-smoke-600);
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+  }
+
+  .dir-state:hover .dir-state__abbr {
+    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
+    color: white;
+  }
+
+  .dir-state__info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .dir-state__name {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-1);
+  }
+
+  .dir-state__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin: 0;
+  }
+
+  .dir-state__capital {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+  }
+
+  .dir-state__stations {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-fire-600);
+    padding: var(--space-1) var(--space-2);
+    background: rgba(220, 38, 38, 0.08);
+    border-radius: var(--radius-full);
+  }
+
+  .dir-state__arrow {
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.2s ease;
+    color: var(--color-fire-500);
+  }
+
+  .dir-state:hover .dir-state__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ═══ SEO Content ═══ */
+  .dir-seo {
+    margin-top: var(--space-12);
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .dir-seo h2 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+  }
+
+  .dir-seo h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin: var(--space-6) 0 var(--space-3);
+  }
+
+  .dir-seo p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
+  }
+
+  .dir-seo p:last-child {
+    margin-bottom: 0;
+  }
+
+  .dir-seo strong {
+    color: var(--color-smoke-800);
+  }
+
+  /* ═══ Sidebar ═══ */
+  .dir-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .dir-sidebar__card {
+    padding: var(--space-6);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .dir-sidebar__card h4 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-fire-500);
+  }
+
+  .dir-sidebar__card > p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+  }
+
+  /* Estados List */
+  .dir-sidebar__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .dir-sidebar__list li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .dir-sidebar__list li a:hover {
+    background: var(--color-smoke-100);
+  }
+
+  .dir-sidebar__bullet {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    background: var(--color-fire-500);
+    border-radius: 50%;
+  }
+
+  .dir-sidebar__state-name {
+    flex: 1;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-700);
+  }
+
+  .dir-sidebar__state-count {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-fire-600);
+    padding: var(--space-1) var(--space-2);
+    background: rgba(220, 38, 38, 0.08);
+    border-radius: var(--radius-full);
+  }
+
+  /* Regiones */
+  .dir-sidebar__regions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .dir-sidebar__region h5 {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-smoke-700);
+    margin: 0 0 var(--space-2);
+  }
+
+  .dir-sidebar__region-states {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .dir-sidebar__region-states a {
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-smoke-100);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .dir-sidebar__region-states a:hover {
+    background: var(--color-fire-500);
+    color: white;
+  }
+
+  /* Emergency Card */
+  .dir-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
+  }
+
+  .dir-sidebar__card--emergency h4 {
+    color: white;
+    border-bottom-color: var(--color-fire-500);
+  }
+
+  .dir-sidebar__emergency {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .dir-sidebar__emergency-item {
+    flex: 1;
+    text-align: center;
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+  }
+
+  .dir-sidebar__emergency-number {
+    display: block;
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-fire-400);
+    margin-bottom: var(--space-1);
+  }
+
+  .dir-sidebar__emergency-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+  }
+
+  .dir-sidebar__emergency-note {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-300);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .dir-sidebar__emergency-note strong {
+    color: white;
+  }
+
+  /* CTA Card */
+  .dir-sidebar__card--cta {
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+  }
+
+  .dir-sidebar__card--cta h4 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .dir-sidebar__card--cta > p {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .dir-sidebar__cta-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-4);
+    background: white;
+    color: var(--color-fire-600);
+    text-align: center;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    border-radius: var(--radius-lg);
+    transition: all 0.2s ease;
+  }
+
+  .dir-sidebar__cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Links */
+  .dir-sidebar__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .dir-sidebar__links a {
+    display: block;
+    padding: var(--space-2) 0;
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-smoke-100);
+    transition: color 0.2s ease;
+  }
+
+  .dir-sidebar__links a:hover {
+    color: var(--color-fire-600);
+  }
+
+  .dir-sidebar__links li:last-child a {
+    border-bottom: none;
+  }
+
+  /* Contact */
+  .dir-sidebar__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .dir-sidebar__contact a {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
+    text-decoration: none;
+  }
+
+  .dir-sidebar__contact a:hover {
+    color: var(--color-fire-700);
+  }
+
+  .dir-sidebar__address {
+    font-style: normal;
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    line-height: 1.6;
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-smoke-200);
+  }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1200px) {
+    .dir-states {
+      grid-template-columns: 1fr;
+    }
+
+    .dir-hero__container {
+      gap: var(--space-8);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .dir-hero__container {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    .dir-hero__seo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .dir-main__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .dir-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .dir-sidebar__card--emergency,
+    .dir-sidebar__card--cta {
+      grid-column: span 2;
+    }
+
+    .dir-states {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .dir-hero {
+      padding: var(--space-12) 0;
+    }
+
+    .dir-hero__seo {
+      grid-template-columns: 1fr;
+    }
+
+    .dir-hero__stats {
+      flex-wrap: wrap;
+      gap: var(--space-6);
+    }
+
+    .dir-main {
+      padding: var(--space-12) 0;
+    }
+
+    .dir-sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .dir-sidebar__card--emergency,
+    .dir-sidebar__card--cta {
+      grid-column: span 1;
+    }
+
+    .dir-states {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .dir-hero__title {
+      font-size: 1.75rem;
+    }
+
+    .dir-hero__stat-number {
+      font-size: var(--text-2xl);
+    }
+
+    .dir-hero__seo-block {
+      padding: var(--space-5);
+    }
+
+    .dir-sidebar__emergency {
+      flex-direction: column;
+    }
+  }
+</style>

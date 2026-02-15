@@ -26,8 +26,8 @@ export const mainNav: NavItem[] = [
       { label: "Extintores", href: "/productos/extintores" },
     ],
   },
+  { label: "Directorio", href: "/directorio" },
   { label: "Servicios", href: "/servicios" },
-  { label: "Capacitación", href: "/capacitacion" },
   { label: "Nosotros", href: "/nosotros" },
   { label: "Contacto", href: "/contacto" },
 ];
@@ -104,6 +104,13 @@ export const footerNav: Record<string, NavItem[]> = {
     { label: "Recarga de Extintores", href: "/servicios#recarga" },
     { label: "Capacitación NFPA", href: "/capacitacion" },
     { label: "Consultoría", href: "/servicios#consultoria" },
+  ],
+  directorio: [
+    { label: "Todas las Estaciones", href: "/directorio" },
+    { label: "CDMX", href: "/directorio/ciudad-de-mexico" },
+    { label: "Jalisco", href: "/directorio/jalisco" },
+    { label: "Nuevo León", href: "/directorio/nuevo-leon" },
+    { label: "Estado de México", href: "/directorio/estado-de-mexico" },
   ],
   empresa: [
     { label: "Nosotros", href: "/nosotros" },

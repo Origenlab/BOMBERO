@@ -1,0 +1,819 @@
+---
+/**
+ * ─── Directorio de Estaciones de Bomberos CDMX ───
+ * Página con todas las estaciones de bomberos en la Ciudad de México
+ * Organizado por alcaldía con información de contacto completa
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import StationCard from "@components/StationCard.astro";
+import { estacionesCDMX, getAlcaldias } from "@data/estaciones-cdmx";
+
+// Obtener alcaldías
+const alcaldias = getAlcaldias();
+
+// Estados vecinos para interlinking
+const estadosVecinos = [
+  { nombre: "Estado de México", slug: "estado-de-mexico" },
+  { nombre: "Morelos", slug: "morelos" },
+  { nombre: "Hidalgo", slug: "hidalgo" },
+  { nombre: "Tlaxcala", slug: "tlaxcala" },
+  { nombre: "Puebla", slug: "puebla" },
+];
+---
+
+<PageLayout
+  title="Estaciones de Bomberos en CDMX | Directorio Ciudad de México"
+  description="Directorio completo de las estaciones de bomberos en la Ciudad de México. Teléfonos de emergencia, direcciones y servicios del Heroico Cuerpo de Bomberos de CDMX. Encuentra la estación más cercana."
+>
+  <!-- Hero Section -->
+  <section class="cdmx-hero">
+    <div class="cdmx-hero__bg">
+      <div class="cdmx-hero__gradient"></div>
+      <div class="cdmx-hero__pattern"></div>
+    </div>
+    <div class="container">
+      <div class="cdmx-hero__container">
+        <!-- Left Column -->
+        <div class="cdmx-hero__content">
+          <nav class="cdmx-hero__breadcrumb">
+            <a href="/">Inicio</a>
+            <span>/</span>
+            <a href="/directorio">Directorio</a>
+            <span>/</span>
+            <span>Ciudad de México</span>
+          </nav>
+          <span class="cdmx-hero__badge">
+            <span class="cdmx-hero__badge-dot"></span>
+            CDMX
+          </span>
+          <h1 class="cdmx-hero__title">
+            Estaciones de Bomberos en
+            <span class="cdmx-hero__highlight">Ciudad de México</span>
+          </h1>
+          <p class="cdmx-hero__desc">
+            Directorio completo del <strong>Heroico Cuerpo de Bomberos de la Ciudad de México</strong>.
+            Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones en las 16 alcaldías.
+          </p>
+          <div class="cdmx-hero__stats">
+            <div class="cdmx-hero__stat">
+              <span class="cdmx-hero__stat-number">{estacionesCDMX.length}</span>
+              <span class="cdmx-hero__stat-label">Estaciones</span>
+            </div>
+            <div class="cdmx-hero__stat">
+              <span class="cdmx-hero__stat-number">16</span>
+              <span class="cdmx-hero__stat-label">Alcaldías</span>
+            </div>
+            <div class="cdmx-hero__stat">
+              <span class="cdmx-hero__stat-number">24/7</span>
+              <span class="cdmx-hero__stat-label">Servicio</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="cdmx-hero__seo">
+          <h2 class="cdmx-hero__seo-title">Heroico Cuerpo de Bomberos de la Ciudad de México</h2>
+          <p class="cdmx-hero__seo-text">
+            El <strong>Heroico Cuerpo de Bomberos de la Ciudad de México</strong> es una de las instituciones
+            de emergencia más antiguas y prestigiosas de América Latina. Fundado en 1887, cuenta con más de
+            <strong>1,500 elementos activos</strong> distribuidos en estaciones estratégicamente ubicadas
+            para garantizar una respuesta rápida en toda la capital del país.
+          </p>
+          <h2 class="cdmx-hero__seo-title">Servicios de Emergencia en la Capital</h2>
+          <p class="cdmx-hero__seo-text">
+            Las estaciones de bomberos de CDMX ofrecen servicios especializados: <strong>combate de incendios
+            estructurales e industriales, rescate vehicular, atención de fugas de gas, materiales peligrosos
+            (HAZMAT), rescate en alturas y espacios confinados</strong>. Para emergencias marca el
+            <strong>911</strong>, el número único de emergencias en todo México.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Banner -->
+  <section class="cdmx-emergency">
+    <div class="container">
+      <div class="cdmx-emergency__content">
+        <div class="cdmx-emergency__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="cdmx-emergency__text">
+          <span class="cdmx-emergency__label">Emergencias</span>
+          <span class="cdmx-emergency__number">911</span>
+        </div>
+        <p class="cdmx-emergency__desc">
+          Número único de emergencias en CDMX. Disponible las 24 horas, los 365 días del año.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="cdmx-main">
+    <div class="container">
+      <div class="cdmx-main__grid">
+        <!-- Stations Grid -->
+        <div class="cdmx-main__content">
+          <SectionHeader
+            label="Directorio Completo"
+            title="Estaciones de Bomberos en CDMX"
+            description="Información de contacto actualizada de todas las estaciones del Heroico Cuerpo de Bomberos en la Ciudad de México. Selecciona una estación para ver sus datos de contacto y servicios."
+          />
+
+          <!-- Stations Grid -->
+          <div class="cdmx-stations-grid">
+            {estacionesCDMX.map((estacion) => (
+              <StationCard
+                nombre={estacion.nombreCorto}
+                slug={estacion.slug}
+                direccion={`${estacion.direccion}, ${estacion.colonia}`}
+                alcaldia={estacion.alcaldia}
+                telefono={estacion.telefono}
+                servicios={estacion.servicios}
+                horario={estacion.horario}
+              />
+            ))}
+          </div>
+
+          <!-- SEO Content -->
+          <div class="cdmx-seo">
+            <h2>El Heroico Cuerpo de Bomberos de la Ciudad de México</h2>
+            <p>
+              El <strong>Heroico Cuerpo de Bomberos de la Ciudad de México</strong> es una institución de servicio
+              público dedicada a la protección de la vida, el medio ambiente y el patrimonio de los habitantes de
+              la capital mexicana. Con más de 135 años de historia, los bomberos de CDMX son reconocidos por su
+              valentía, profesionalismo y compromiso con la comunidad.
+            </p>
+            <h3>¿Cómo contactar a los bomberos en CDMX?</h3>
+            <p>
+              En caso de <strong>emergencia en la Ciudad de México</strong>, marca el <strong>911</strong> desde
+              cualquier teléfono. Este número conecta directamente con los servicios de emergencia y coordina la
+              respuesta de bomberos, policía y servicios médicos según sea necesario. También puedes comunicarte
+              directamente a la <strong>Estación Central de Bomberos</strong> al teléfono 55 5768 3700.
+            </p>
+            <h3>Servicios que ofrecen los bomberos de CDMX</h3>
+            <p>
+              Los bomberos de la Ciudad de México atienden una amplia variedad de emergencias:
+              <strong>incendios estructurales e industriales, rescate vehicular en accidentes de tránsito,
+              atención de fugas de gas y materiales peligrosos (HAZMAT), rescate de personas atrapadas,
+              retiro de enjambres de abejas, inundaciones</strong> y muchos otros servicios vitales para la seguridad
+              de los más de 9 millones de habitantes de la capital.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="cdmx-sidebar">
+          <!-- Quick Access -->
+          <div class="cdmx-sidebar__card">
+            <h4>Filtrar por Alcaldía</h4>
+            <ul class="cdmx-sidebar__alcaldias">
+              {alcaldias.map((alcaldia) => (
+                <li>
+                  <a href={`#${alcaldia.toLowerCase().replace(/\s+/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}`}>
+                    <span class="cdmx-sidebar__bullet"></span>
+                    <span>{alcaldia}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Emergency Numbers -->
+          <div class="cdmx-sidebar__card cdmx-sidebar__card--emergency">
+            <h4>Teléfonos de Emergencia CDMX</h4>
+            <div class="cdmx-sidebar__emergency-list">
+              <div class="cdmx-sidebar__emergency-item">
+                <span class="cdmx-sidebar__emergency-number">911</span>
+                <span class="cdmx-sidebar__emergency-label">Emergencias</span>
+              </div>
+              <div class="cdmx-sidebar__emergency-item">
+                <span class="cdmx-sidebar__emergency-number">55 5768 3700</span>
+                <span class="cdmx-sidebar__emergency-label">Bomberos Central</span>
+              </div>
+              <div class="cdmx-sidebar__emergency-item">
+                <span class="cdmx-sidebar__emergency-number">55 5658 1111</span>
+                <span class="cdmx-sidebar__emergency-label">Protección Civil</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nearby States -->
+          <div class="cdmx-sidebar__card">
+            <h4>Estados Cercanos</h4>
+            <ul class="cdmx-sidebar__states">
+              {estadosVecinos.map((estado) => (
+                <li>
+                  <a href={`/directorio/${estado.slug}`}>
+                    <span>{estado.nombre}</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <div class="cdmx-sidebar__card cdmx-sidebar__card--cta">
+            <h4>¿Equipas una Estación en CDMX?</h4>
+            <p>Somos distribuidores de equipo certificado NFPA para el Heroico Cuerpo de Bomberos</p>
+            <a href="/cotizar" class="cdmx-sidebar__cta-btn">Solicitar Cotización</a>
+          </div>
+
+          <!-- Back to Directory -->
+          <div class="cdmx-sidebar__card">
+            <a href="/directorio" class="cdmx-sidebar__back">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              <span>Ver todos los estados</span>
+            </a>
+          </div>
+
+          <!-- Contact -->
+          <div class="cdmx-sidebar__card">
+            <h4>Contacto BOMBERO.MX</h4>
+            <ul class="cdmx-sidebar__contact">
+              <li><a href="tel:+525520780102">55 2078 0102</a></li>
+              <li><a href="https://wa.me/525520780102">WhatsApp</a></li>
+              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     DIRECTORIO CDMX - ESTACIONES DE BOMBEROS
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ═══ Hero Section ═══ */
+  .cdmx-hero {
+    position: relative;
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-950);
+    overflow: hidden;
+  }
+
+  .cdmx-hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .cdmx-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
+      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
+  }
+
+  .cdmx-hero__pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .cdmx-hero__container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .cdmx-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+
+  .cdmx-hero__breadcrumb a {
+    color: var(--color-smoke-400);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .cdmx-hero__breadcrumb a:hover {
+    color: var(--color-fire-400);
+  }
+
+  .cdmx-hero__breadcrumb span {
+    color: var(--color-smoke-600);
+  }
+
+  .cdmx-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin-bottom: var(--space-4);
+  }
+
+  .cdmx-hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-ember-500);
+    border-radius: 50%;
+  }
+
+  .cdmx-hero__title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin: 0 0 var(--space-5);
+  }
+
+  .cdmx-hero__highlight {
+    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cdmx-hero__desc {
+    font-size: var(--text-base);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0 0 var(--space-6);
+  }
+
+  .cdmx-hero__desc strong {
+    color: white;
+  }
+
+  .cdmx-hero__stats {
+    display: flex;
+    gap: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .cdmx-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cdmx-hero__stat-number {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-fire-400);
+  }
+
+  .cdmx-hero__stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .cdmx-hero__seo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .cdmx-hero__seo-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin: 0;
+  }
+
+  .cdmx-hero__seo-text {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .cdmx-hero__seo-text strong {
+    color: white;
+  }
+
+  /* ═══ Emergency Banner ═══ */
+  .cdmx-emergency {
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+    padding: var(--space-5) 0;
+  }
+
+  .cdmx-emergency__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .cdmx-emergency__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+  }
+
+  .cdmx-emergency__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cdmx-emergency__label {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .cdmx-emergency__number {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: white;
+  }
+
+  .cdmx-emergency__desc {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    max-width: 400px;
+  }
+
+  /* ═══ Main Section ═══ */
+  .cdmx-main {
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .cdmx-main__grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  /* ═══ Stations Grid ═══ */
+  .cdmx-stations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  /* ═══ SEO Content ═══ */
+  .cdmx-seo {
+    margin-top: var(--space-12);
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .cdmx-seo h2 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+  }
+
+  .cdmx-seo h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin: var(--space-6) 0 var(--space-3);
+  }
+
+  .cdmx-seo p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
+  }
+
+  .cdmx-seo p:last-child {
+    margin-bottom: 0;
+  }
+
+  .cdmx-seo strong {
+    color: var(--color-smoke-800);
+  }
+
+  /* ═══ Sidebar ═══ */
+  .cdmx-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .cdmx-sidebar__card {
+    padding: var(--space-5);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .cdmx-sidebar__card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-fire-500);
+  }
+
+  .cdmx-sidebar__card > p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+  }
+
+  /* Alcaldías List */
+  .cdmx-sidebar__alcaldias {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  .cdmx-sidebar__alcaldias li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cdmx-sidebar__alcaldias li a:hover {
+    background: var(--color-smoke-50);
+    color: var(--color-fire-600);
+  }
+
+  .cdmx-sidebar__bullet {
+    width: 6px;
+    height: 6px;
+    background: var(--color-fire-500);
+    border-radius: 50%;
+  }
+
+  /* Emergency Card */
+  .cdmx-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
+  }
+
+  .cdmx-sidebar__card--emergency h4 {
+    color: white;
+    border-bottom-color: var(--color-fire-500);
+  }
+
+  .cdmx-sidebar__emergency-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .cdmx-sidebar__emergency-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+  }
+
+  .cdmx-sidebar__emergency-number {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-fire-400);
+  }
+
+  .cdmx-sidebar__emergency-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+  }
+
+  /* States List */
+  .cdmx-sidebar__states {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .cdmx-sidebar__states li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cdmx-sidebar__states li a:hover {
+    background: var(--color-smoke-100);
+    color: var(--color-fire-600);
+  }
+
+  .cdmx-sidebar__states li a svg {
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s;
+  }
+
+  .cdmx-sidebar__states li a:hover svg {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* CTA Card */
+  .cdmx-sidebar__card--cta {
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+  }
+
+  .cdmx-sidebar__card--cta h4 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .cdmx-sidebar__card--cta > p {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .cdmx-sidebar__cta-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-3);
+    background: white;
+    color: var(--color-fire-600);
+    text-align: center;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    border-radius: var(--radius-lg);
+    transition: all 0.2s;
+  }
+
+  .cdmx-sidebar__cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Back Link */
+  .cdmx-sidebar__back {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cdmx-sidebar__back:hover {
+    background: var(--color-smoke-100);
+    color: var(--color-fire-600);
+  }
+
+  /* Contact */
+  .cdmx-sidebar__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .cdmx-sidebar__contact a {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
+    text-decoration: none;
+  }
+
+  .cdmx-sidebar__contact a:hover {
+    color: var(--color-fire-700);
+  }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1200px) {
+    .cdmx-stations-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .cdmx-hero__container {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .cdmx-hero__seo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .cdmx-main__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cdmx-stations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cdmx-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .cdmx-sidebar__card--emergency,
+    .cdmx-sidebar__card--cta {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cdmx-hero {
+      padding: var(--space-10) 0;
+    }
+
+    .cdmx-hero__seo {
+      grid-template-columns: 1fr;
+    }
+
+    .cdmx-emergency__content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .cdmx-main {
+      padding: var(--space-10) 0;
+    }
+
+    .cdmx-stations-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cdmx-sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cdmx-hero__title {
+      font-size: 1.5rem;
+    }
+
+    .cdmx-hero__stats {
+      flex-wrap: wrap;
+    }
+  }
+</style>

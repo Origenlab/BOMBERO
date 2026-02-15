@@ -1,0 +1,953 @@
+---
+/**
+ * ─── Directorio de Estaciones de Bomberos Aguascalientes ───
+ * Página con todas las estaciones de bomberos en Aguascalientes
+ * Estado del centro-norte de México con gran industria automotriz
+ * Organizado por municipio con información de contacto completa
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import StationCard from "@components/StationCard.astro";
+import { estacionesAguascalientes, getMunicipios } from "@data/estaciones-aguascalientes";
+
+// Obtener municipios
+const municipios = getMunicipios();
+
+// Estados vecinos para interlinking
+const estadosVecinos = [
+  { nombre: "Zacatecas", slug: "zacatecas" },
+  { nombre: "San Luis Potosí", slug: "san-luis-potosi" },
+  { nombre: "Jalisco", slug: "jalisco" },
+];
+---
+
+<PageLayout
+  title="Estaciones de Bomberos en Aguascalientes | Directorio BOMBERO.MX"
+  description="Directorio completo de las estaciones de bomberos en Aguascalientes. Teléfonos de emergencia, direcciones y servicios. 13 estaciones cubriendo los 11 municipios. Emergencias 911."
+>
+  <!-- Hero Section -->
+  <section class="ags-hero">
+    <div class="ags-hero__bg">
+      <div class="ags-hero__gradient"></div>
+      <div class="ags-hero__pattern"></div>
+    </div>
+    <div class="container">
+      <div class="ags-hero__container">
+        <!-- Left Column -->
+        <div class="ags-hero__content">
+          <nav class="ags-hero__breadcrumb">
+            <a href="/">Inicio</a>
+            <span>/</span>
+            <a href="/directorio">Directorio</a>
+            <span>/</span>
+            <span>Aguascalientes</span>
+          </nav>
+          <span class="ags-hero__badge">
+            <span class="ags-hero__badge-dot"></span>
+            AGS
+          </span>
+          <h1 class="ags-hero__title">
+            Estaciones de Bomberos en
+            <span class="ags-hero__highlight">Aguascalientes</span>
+          </h1>
+          <p class="ags-hero__desc">
+            Directorio completo del <strong>H. Cuerpo de Bomberos de Aguascalientes</strong>.
+            Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones en el estado de la industria automotriz.
+          </p>
+          <div class="ags-hero__stats">
+            <div class="ags-hero__stat">
+              <span class="ags-hero__stat-number">{estacionesAguascalientes.length}</span>
+              <span class="ags-hero__stat-label">Estaciones</span>
+            </div>
+            <div class="ags-hero__stat">
+              <span class="ags-hero__stat-number">{municipios.length}</span>
+              <span class="ags-hero__stat-label">Municipios</span>
+            </div>
+            <div class="ags-hero__stat">
+              <span class="ags-hero__stat-number">24/7</span>
+              <span class="ags-hero__stat-label">Servicio</span>
+            </div>
+            <div class="ags-hero__stat">
+              <span class="ags-hero__stat-number">1.5M+</span>
+              <span class="ags-hero__stat-label">Habitantes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - SEO Content -->
+        <div class="ags-hero__seo">
+          <h2 class="ags-hero__seo-title">H. Cuerpo de Bomberos de Aguascalientes</h2>
+          <p class="ags-hero__seo-text">
+            <strong>Aguascalientes</strong> es uno de los estados más dinámicos de México, con más de
+            <strong>1.5 millones de habitantes</strong> distribuidos en 11 municipios. Los bomberos
+            aguascalentenses atienden emergencias en zonas industriales de clase mundial, incluyendo
+            las plantas de <strong>Nissan, Jatco y múltiples proveedores automotrices</strong>.
+          </p>
+          <h2 class="ags-hero__seo-title">La Feria Nacional de San Marcos</h2>
+          <p class="ags-hero__seo-text">
+            Aguascalientes es sede de la <strong>Feria Nacional de San Marcos</strong>, el evento
+            más importante de su tipo en México. Los bomberos están especialmente capacitados para
+            atender <strong>emergencias en eventos masivos y zonas de alta concentración de personas</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Banner -->
+  <section class="ags-emergency">
+    <div class="container">
+      <div class="ags-emergency__content">
+        <div class="ags-emergency__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="ags-emergency__text">
+          <span class="ags-emergency__label">Emergencias en Aguascalientes</span>
+          <span class="ags-emergency__number">911</span>
+        </div>
+        <p class="ags-emergency__desc">
+          Número único de emergencias en todo Aguascalientes. Disponible las 24 horas, los 365 días del año.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="ags-main">
+    <div class="container">
+      <div class="ags-main__grid">
+        <!-- Stations Grid -->
+        <div class="ags-main__content">
+          <SectionHeader
+            label="Directorio Completo"
+            title="Estaciones de Bomberos en Aguascalientes"
+            description="Información de contacto actualizada de todas las estaciones del H. Cuerpo de Bomberos en Aguascalientes. Selecciona una estación para ver sus datos de contacto, servicios y zonas de cobertura."
+          />
+
+          <!-- Stations Grid -->
+          <div class="ags-stations-grid">
+            {estacionesAguascalientes.map((estacion) => (
+              <StationCard
+                nombre={estacion.nombreCorto}
+                slug={estacion.slug}
+                direccion={`${estacion.direccion}, ${estacion.colonia}`}
+                alcaldia={estacion.municipio}
+                telefono={estacion.telefono}
+                servicios={estacion.servicios}
+                horario={estacion.horario}
+                baseUrl="/directorio/aguascalientes"
+              />
+            ))}
+          </div>
+
+          <!-- SEO Content -->
+          <div class="ags-seo">
+            <h2>El H. Cuerpo de Bomberos de Aguascalientes</h2>
+            <p>
+              El <strong>H. Cuerpo de Bomberos de Aguascalientes</strong> es la institución encargada de
+              proteger la vida, el medio ambiente y el patrimonio de los más de <strong>1.5 millones de aguascalentenses</strong>.
+              Con presencia en los principales municipios del estado, los bomberos atienden emergencias
+              las <strong>24 horas del día, los 365 días del año</strong>.
+            </p>
+
+            <h3>¿Cómo contactar a los bomberos en Aguascalientes?</h3>
+            <p>
+              En caso de <strong>emergencia en Aguascalientes</strong>, marca el <strong>911</strong> desde
+              cualquier teléfono. Este número conecta con el <strong>C4 de Aguascalientes</strong> que coordina
+              la respuesta de bomberos, policía y servicios médicos. También puedes comunicarte directamente a la
+              estación más cercana usando los teléfonos de este directorio.
+            </p>
+
+            <h3>Zonas de Mayor Riesgo en Aguascalientes</h3>
+            <p>
+              Aguascalientes presenta diversos riesgos que los bomberos atienden constantemente:
+              <strong>emergencias industriales</strong> en los parques industriales y plantas automotrices,
+              <strong>incendios forestales</strong> en la Sierra Fría y zonas boscosas de Calvillo,
+              <strong>eventos masivos</strong> durante la Feria de San Marcos, y <strong>accidentes
+              vehiculares</strong> en las principales carreteras del estado.
+            </p>
+
+            <h3>Servicios de los Bomberos Aguascalentenses</h3>
+            <p>
+              Los bomberos de Aguascalientes están capacitados para atender:
+              <strong>incendios estructurales, industriales y forestales</strong>;
+              <strong>rescate vehicular en accidentes de tránsito</strong>;
+              <strong>materiales peligrosos (HAZMAT)</strong>;
+              <strong>rescate de personas atrapadas</strong>;
+              <strong>control de fugas de gas</strong>;
+              <strong>rescate acuático en la Presa Calles</strong>;
+              <strong>rescate en montaña en la Sierra Fría</strong>; y muchos otros servicios
+              vitales para la seguridad de la población.
+            </p>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="ags-sidebar">
+          <!-- Quick Access -->
+          <div class="ags-sidebar__card">
+            <h4>Filtrar por Municipio</h4>
+            <ul class="ags-sidebar__municipios">
+              {municipios.map((municipio) => (
+                <li>
+                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}`}>
+                    <span class="ags-sidebar__bullet"></span>
+                    <span>{municipio}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Emergency Numbers -->
+          <div class="ags-sidebar__card ags-sidebar__card--emergency">
+            <h4>Teléfonos de Emergencia</h4>
+            <div class="ags-sidebar__emergency-list">
+              <div class="ags-sidebar__emergency-item">
+                <span class="ags-sidebar__emergency-number">911</span>
+                <span class="ags-sidebar__emergency-label">Emergencias</span>
+              </div>
+              <div class="ags-sidebar__emergency-item">
+                <span class="ags-sidebar__emergency-number">449 910 2030</span>
+                <span class="ags-sidebar__emergency-label">Bomberos Central</span>
+              </div>
+              <div class="ags-sidebar__emergency-item">
+                <span class="ags-sidebar__emergency-number">449 910 3300</span>
+                <span class="ags-sidebar__emergency-label">Protección Civil AGS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Regiones -->
+          <div class="ags-sidebar__card">
+            <h4>Regiones del Estado</h4>
+            <ul class="ags-sidebar__regiones">
+              <li>
+                <span class="ags-sidebar__region-name">Zona Metropolitana</span>
+                <span class="ags-sidebar__region-desc">Aguascalientes, Jesús María, San Francisco</span>
+              </li>
+              <li>
+                <span class="ags-sidebar__region-name">Zona Norte</span>
+                <span class="ags-sidebar__region-desc">Rincón de Romos, Cosío, Tepezalá, Asientos</span>
+              </li>
+              <li>
+                <span class="ags-sidebar__region-name">Zona Sur</span>
+                <span class="ags-sidebar__region-desc">Calvillo, San José de Gracia</span>
+              </li>
+              <li>
+                <span class="ags-sidebar__region-name">Zona Oriente</span>
+                <span class="ags-sidebar__region-desc">El Llano, Pabellón de Arteaga</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Nearby States -->
+          <div class="ags-sidebar__card">
+            <h4>Estados Vecinos</h4>
+            <ul class="ags-sidebar__states">
+              {estadosVecinos.map((estado) => (
+                <li>
+                  <a href={`/directorio/${estado.slug}`}>
+                    <span>{estado.nombre}</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <div class="ags-sidebar__card ags-sidebar__card--cta">
+            <h4>¿Equipas una Estación en AGS?</h4>
+            <p>Somos distribuidores de equipo certificado NFPA para cuerpos de bomberos en todo Aguascalientes</p>
+            <a href="/cotizar" class="ags-sidebar__cta-btn">Solicitar Cotización</a>
+          </div>
+
+          <!-- Products -->
+          <div class="ags-sidebar__card">
+            <h4>Equipo para Bomberos</h4>
+            <ul class="ags-sidebar__products">
+              <li><a href="/productos/trajes">Trajes Estructurales NFPA</a></li>
+              <li><a href="/productos/cascos">Cascos de Bombero</a></li>
+              <li><a href="/productos/scba">Equipos SCBA</a></li>
+              <li><a href="/productos/herramientas-rescate">Herramientas de Rescate</a></li>
+            </ul>
+            <a href="/productos" class="ags-sidebar__link">
+              Ver catálogo completo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Back to Directory -->
+          <div class="ags-sidebar__card">
+            <a href="/directorio" class="ags-sidebar__back">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              <span>Ver todos los estados</span>
+            </a>
+          </div>
+
+          <!-- Contact -->
+          <div class="ags-sidebar__card">
+            <h4>Contacto BOMBERO.MX</h4>
+            <ul class="ags-sidebar__contact">
+              <li><a href="tel:+525520780102">55 2078 0102</a></li>
+              <li><a href="https://wa.me/525520780102">WhatsApp</a></li>
+              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     DIRECTORIO AGUASCALIENTES - ESTACIONES DE BOMBEROS
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ═══ Hero Section ═══ */
+  .ags-hero {
+    position: relative;
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-950);
+    overflow: hidden;
+  }
+
+  .ags-hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .ags-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
+      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
+  }
+
+  .ags-hero__pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .ags-hero__container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .ags-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+
+  .ags-hero__breadcrumb a {
+    color: var(--color-smoke-400);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .ags-hero__breadcrumb a:hover {
+    color: var(--color-fire-400);
+  }
+
+  .ags-hero__breadcrumb span {
+    color: var(--color-smoke-600);
+  }
+
+  .ags-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin-bottom: var(--space-4);
+  }
+
+  .ags-hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-ember-500);
+    border-radius: 50%;
+  }
+
+  .ags-hero__title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin: 0 0 var(--space-5);
+  }
+
+  .ags-hero__highlight {
+    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .ags-hero__desc {
+    font-size: var(--text-base);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0 0 var(--space-6);
+  }
+
+  .ags-hero__desc strong {
+    color: white;
+  }
+
+  .ags-hero__stats {
+    display: flex;
+    gap: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .ags-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ags-hero__stat-number {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-fire-400);
+  }
+
+  .ags-hero__stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .ags-hero__seo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .ags-hero__seo-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin: 0;
+  }
+
+  .ags-hero__seo-text {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .ags-hero__seo-text strong {
+    color: white;
+  }
+
+  /* ═══ Emergency Banner ═══ */
+  .ags-emergency {
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+    padding: var(--space-5) 0;
+  }
+
+  .ags-emergency__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .ags-emergency__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+  }
+
+  .ags-emergency__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ags-emergency__label {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .ags-emergency__number {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: white;
+  }
+
+  .ags-emergency__desc {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    max-width: 400px;
+  }
+
+  /* ═══ Main Section ═══ */
+  .ags-main {
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .ags-main__grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  /* ═══ Stations Grid ═══ */
+  .ags-stations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  /* ═══ SEO Content ═══ */
+  .ags-seo {
+    margin-top: var(--space-12);
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .ags-seo h2 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+  }
+
+  .ags-seo h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin: var(--space-6) 0 var(--space-3);
+  }
+
+  .ags-seo p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
+  }
+
+  .ags-seo p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ags-seo strong {
+    color: var(--color-smoke-800);
+  }
+
+  /* ═══ Sidebar ═══ */
+  .ags-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .ags-sidebar__card {
+    padding: var(--space-5);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .ags-sidebar__card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-fire-500);
+  }
+
+  .ags-sidebar__card > p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+  }
+
+  /* Municipios List */
+  .ags-sidebar__municipios {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  .ags-sidebar__municipios li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .ags-sidebar__municipios li a:hover {
+    background: var(--color-smoke-50);
+    color: var(--color-fire-600);
+  }
+
+  .ags-sidebar__bullet {
+    width: 6px;
+    height: 6px;
+    background: var(--color-fire-500);
+    border-radius: 50%;
+  }
+
+  /* Regiones */
+  .ags-sidebar__regiones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ags-sidebar__regiones li {
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .ags-sidebar__region-name {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin-bottom: 2px;
+  }
+
+  .ags-sidebar__region-desc {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    line-height: 1.4;
+  }
+
+  /* Emergency Card */
+  .ags-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
+  }
+
+  .ags-sidebar__card--emergency h4 {
+    color: white;
+    border-bottom-color: var(--color-fire-500);
+  }
+
+  .ags-sidebar__emergency-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ags-sidebar__emergency-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+  }
+
+  .ags-sidebar__emergency-number {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-fire-400);
+  }
+
+  .ags-sidebar__emergency-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+  }
+
+  /* States List */
+  .ags-sidebar__states {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .ags-sidebar__states li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .ags-sidebar__states li a:hover {
+    background: var(--color-smoke-100);
+    color: var(--color-fire-600);
+  }
+
+  .ags-sidebar__states li a svg {
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s;
+  }
+
+  .ags-sidebar__states li a:hover svg {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Products */
+  .ags-sidebar__products {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .ags-sidebar__products li a {
+    display: block;
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-fire-600);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .ags-sidebar__products li a:hover {
+    color: var(--color-fire-700);
+  }
+
+  .ags-sidebar__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
+    text-decoration: none;
+  }
+
+  .ags-sidebar__link:hover {
+    color: var(--color-fire-700);
+  }
+
+  .ags-sidebar__link svg {
+    transition: transform 0.2s;
+  }
+
+  .ags-sidebar__link:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* CTA Card */
+  .ags-sidebar__card--cta {
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+  }
+
+  .ags-sidebar__card--cta h4 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .ags-sidebar__card--cta > p {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .ags-sidebar__cta-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-3);
+    background: white;
+    color: var(--color-fire-600);
+    text-align: center;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    border-radius: var(--radius-lg);
+    transition: all 0.2s;
+  }
+
+  .ags-sidebar__cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Back Link */
+  .ags-sidebar__back {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .ags-sidebar__back:hover {
+    background: var(--color-smoke-100);
+    color: var(--color-fire-600);
+  }
+
+  /* Contact */
+  .ags-sidebar__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .ags-sidebar__contact a {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
+    text-decoration: none;
+  }
+
+  .ags-sidebar__contact a:hover {
+    color: var(--color-fire-700);
+  }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1200px) {
+    .ags-stations-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .ags-hero__container {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .ags-hero__seo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .ags-main__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ags-stations-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ags-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+
+    .ags-sidebar__card--emergency,
+    .ags-sidebar__card--cta {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ags-hero {
+      padding: var(--space-10) 0;
+    }
+
+    .ags-hero__seo {
+      grid-template-columns: 1fr;
+    }
+
+    .ags-emergency__content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .ags-main {
+      padding: var(--space-10) 0;
+    }
+
+    .ags-stations-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ags-sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ags-hero__title {
+      font-size: 1.5rem;
+    }
+
+    .ags-hero__stats {
+      flex-wrap: wrap;
+    }
+  }
+</style>

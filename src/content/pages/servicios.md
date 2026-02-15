@@ -63,6 +63,6 @@ Av. Tamaulipas 150, Piso 13
 Col. Condesa, Cuauhtémoc
 06140 Ciudad de México, CDMX
 
-**Teléfono:** 55 1234 5678
-**WhatsApp:** 55 1234 5678
+**Teléfono:** 55 2078 0102
+**WhatsApp:** 55 2078 0102
 **Email:** ventas@bombero.mx
