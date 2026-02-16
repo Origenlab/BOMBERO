@@ -1,0 +1,991 @@
+---
+/**
+ * ╔═══════════════════════════════════════════════════════════════════════════╗
+ * ║  DIRECTORIO DE BOMBEROS DE COLIMA (COL)                                  ║
+ * ║  Página Principal del Estado - SEO Ultra Premium                         ║
+ * ╠═══════════════════════════════════════════════════════════════════════════╣
+ * ║  5 Estaciones | 185 Bomberos | 4 Zonas Geográficas                       ║
+ * ║                                                                           ║
+ * ║  ZONAS:                                                                   ║
+ * ║  • Metropolitana (Colima-Villa de Álvarez): 2 estaciones                 ║
+ * ║  • Portuaria (Manzanillo): 1 estación                                    ║
+ * ║  • Agrícola (Tecomán): 1 estación                                        ║
+ * ║  • Volcánica (Comala): 1 estación                                        ║
+ * ║                                                                           ║
+ * ║  RIESGOS CRÍTICOS: Volcán de Fuego, tsunamis, huracanes                  ║
+ * ╚═══════════════════════════════════════════════════════════════════════════╝
+ */
+
+import PageLayout from "@layouts/PageLayout.astro";
+import StationCard from "@components/StationCard.astro";
+import {
+  estacionesColima,
+  COLIMA_SEO,
+  ESTADISTICAS_COLIMA,
+  getEstacionesMetropolitanas,
+  getEstacionesVolcanicas,
+  getEstacionesPortuarias,
+} from "@data/estaciones-colima";
+
+// SEO Metadata
+const title = `Bomberos de Colima | ${ESTADISTICAS_COLIMA.total_estaciones} Estaciones | Directorio Oficial COL`;
+const description = `Directorio completo de las ${ESTADISTICAS_COLIMA.total_estaciones} estaciones de bomberos en Colima. ${ESTADISTICAS_COLIMA.total_bomberos} bomberos protegiendo la zona del Volcán de Fuego, Puerto de Manzanillo y la capital limonera de México. Teléfonos, direcciones y servicios 24/7.`;
+const keywords = [
+  ...COLIMA_SEO.keywords.principales,
+  ...COLIMA_SEO.keywords.manzanillo.slice(0, 3),
+  ...COLIMA_SEO.keywords.volcanicos.slice(0, 3),
+  ...COLIMA_SEO.keywords.portuarios.slice(0, 3),
+].join(', ');
+
+// Agrupar estaciones por zona
+const zonas = {
+  metropolitana: estacionesColima.filter(e => ['Colima', 'Villa de Álvarez'].includes(e.ciudad)),
+  portuaria: estacionesColima.filter(e => e.ciudad === 'Manzanillo'),
+  agricola: estacionesColima.filter(e => e.ciudad === 'Tecomán'),
+  volcanica: estacionesColima.filter(e => e.ciudad === 'Comala'),
+};
+---
+
+<PageLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/colima"
+>
+  <!-- Schema.org ItemList -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Estaciones de Bomberos en Colima",
+    "description": description,
+    "numberOfItems": ESTADISTICAS_COLIMA.total_estaciones,
+    "itemListElement": estacionesColima.map((estacion, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "FireStation",
+        "name": estacion.nombre,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": estacion.direccion,
+          "addressLocality": estacion.ciudad,
+          "addressRegion": "Colima",
+          "addressCountry": "MX",
+          "postalCode": estacion.codigoPostal
+        },
+        "telephone": estacion.telefono,
+        "url": `https://bombero.mx/directorio/colima/${estacion.slug}`
+      }
+    }))
+  })} />
+
+  <main class="col-main">
+    <!-- ═══════════════════════════════════════════════════════════════════
+         HERO SECTION - Tema Esmeralda Tropical
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="col-hero">
+      <div class="col-hero__container">
+        <div class="col-hero__badge">
+          <span class="col-hero__badge-code">COL</span>
+          <span class="col-hero__badge-text">Tierra del Volcán de Fuego</span>
+        </div>
+
+        <h1 class="col-hero__title">
+          Bomberos de <span class="col-hero__title-accent">Colima</span>
+        </h1>
+
+        <p class="col-hero__subtitle">
+          Directorio oficial de las {ESTADISTICAS_COLIMA.total_estaciones} estaciones de bomberos
+          que protegen el estado del Volcán de Fuego y el Puerto más importante del Pacífico
+        </p>
+
+        <!-- Estadísticas Hero -->
+        <div class="col-hero__stats">
+          <div class="col-hero__stat">
+            <span class="col-hero__stat-number">{ESTADISTICAS_COLIMA.total_estaciones}</span>
+            <span class="col-hero__stat-label">Estaciones</span>
+          </div>
+          <div class="col-hero__stat">
+            <span class="col-hero__stat-number">{ESTADISTICAS_COLIMA.total_bomberos}</span>
+            <span class="col-hero__stat-label">Bomberos</span>
+          </div>
+          <div class="col-hero__stat">
+            <span class="col-hero__stat-number">{ESTADISTICAS_COLIMA.total_unidades}</span>
+            <span class="col-hero__stat-label">Unidades</span>
+          </div>
+          <div class="col-hero__stat">
+            <span class="col-hero__stat-number">{ESTADISTICAS_COLIMA.municipios_cubiertos}</span>
+            <span class="col-hero__stat-label">Municipios</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         ALERTA VOLCÁNICA
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="col-volcanic-alert">
+      <div class="col-volcanic-alert__container">
+        <div class="col-volcanic-alert__content">
+          <div class="col-volcanic-alert__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="28" height="28">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <div class="col-volcanic-alert__text">
+            <h2 class="col-volcanic-alert__title">Volcán de Fuego de Colima - Monitoreo Permanente</h2>
+            <p class="col-volcanic-alert__info">
+              Uno de los volcanes más activos de Norteamérica | Radio de exclusión: {COLIMA_SEO.volcan.radio_exclusion_km} km |
+              Coordina con CENAPRED
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         BANNER DE EMERGENCIA
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="col-emergency">
+      <div class="col-emergency__container">
+        <div class="col-emergency__content">
+          <div class="col-emergency__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32" height="32">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </div>
+          <div class="col-emergency__text">
+            <h2 class="col-emergency__title">Emergencias en Colima</h2>
+            <p class="col-emergency__numbers">
+              <strong>911</strong> Nacional |
+              <strong>{COLIMA_SEO.telefonos.bomberos_colima}</strong> Colima |
+              <strong>{COLIMA_SEO.telefonos.bomberos_manzanillo}</strong> Manzanillo
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CONTENIDO PRINCIPAL
+         ═══════════════════════════════════════════════════════════════════ -->
+    <div class="col-content">
+      <div class="col-content__container">
+
+        <!-- Columna Principal -->
+        <div class="col-content__main">
+
+          <!-- Introducción SEO Premium -->
+          <section class="col-intro">
+            <h2 class="col-intro__title">Heroico Cuerpo de Bomberos de Colima</h2>
+            <div class="col-intro__text">
+              <p>
+                <strong>Colima</strong>, el estado más pequeño de México continental con
+                <strong>{COLIMA_SEO.superficie_km2.toLocaleString('es-MX')} km²</strong>, enfrenta retos extraordinarios
+                que lo convierten en un territorio único para los servicios de emergencia. Con <strong>{ESTADISTICAS_COLIMA.total_estaciones} estaciones
+                de bomberos</strong> y <strong>{ESTADISTICAS_COLIMA.total_bomberos} bomberos profesionales</strong>,
+                el estado protege a sus <strong>{(COLIMA_SEO.poblacion / 1_000).toFixed(0)} mil habitantes</strong>
+                y su invaluable infraestructura portuaria, agrícola y turística.
+              </p>
+              <p>
+                La presencia del <strong>Volcán de Fuego de Colima</strong>, uno de los más activos de Norteamérica,
+                exige especialización única en <strong>evacuaciones volcánicas, respuesta a lahares y caída de ceniza</strong>.
+                Simultáneamente, el <strong>Puerto de Manzanillo</strong> —el más importante del Pacífico mexicano con
+                3.4 millones de TEU anuales— requiere capacidades en <strong>HAZMAT marítimo y emergencias portuarias</strong>.
+              </p>
+              <p>
+                Colima es también <strong>#1 nacional en producción de limón</strong> (35% del país),
+                con el municipio de Tecomán como capital mundial del cítrico. El Pueblo Mágico de <strong>Comala</strong>,
+                escenario de "Pedro Páramo" de Juan Rulfo, añade responsabilidades de protección patrimonial
+                en zona de riesgo volcánico.
+              </p>
+            </div>
+          </section>
+
+          <!-- ═══ ZONA METROPOLITANA (COLIMA-VILLA DE ÁLVAREZ) ═══ -->
+          <section class="col-zone col-zone--metropolitana" id="colima">
+            <div class="col-zone__header">
+              <h2 class="col-zone__title">
+                <span class="col-zone__icon">🏛️</span>
+                Zona Metropolitana Colima-Villa de Álvarez (Capital)
+              </h2>
+              <span class="col-zone__count">{zonas.metropolitana.length} estaciones</span>
+            </div>
+            <p class="col-zone__description">
+              <strong>Capital del estado</strong> y centro de coordinación para emergencias volcánicas del Volcán de Fuego.
+              Villa de Álvarez es el municipio de mayor crecimiento. Enlace permanente con CENAPRED.
+              Especialización: <strong>evacuación volcánica, coordinación estatal</strong>.
+            </p>
+            <div class="col-stations-grid">
+              {zonas.metropolitana.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/colima/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+          <!-- ═══ ZONA PORTUARIA (MANZANILLO) ═══ -->
+          <section class="col-zone col-zone--portuaria" id="manzanillo">
+            <div class="col-zone__header">
+              <h2 class="col-zone__title">
+                <span class="col-zone__icon">🚢</span>
+                Zona Portuaria Manzanillo (Puerto #1 del Pacífico)
+              </h2>
+              <span class="col-zone__count">{zonas.portuaria.length} estación</span>
+            </div>
+            <p class="col-zone__description">
+              <strong>Puerto más importante del Pacífico mexicano</strong> y #1 nacional en contenedores (3.4 millones TEU).
+              Terminales de carga, cruceros y zona hotelera. Riesgo de tsunamis.
+              Especialización: <strong>HAZMAT marítimo, incendios portuarios, rescate acuático</strong>.
+            </p>
+            <div class="col-stations-grid">
+              {zonas.portuaria.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/colima/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+          <!-- ═══ ZONA AGRÍCOLA (TECOMÁN) ═══ -->
+          <section class="col-zone col-zone--agricola" id="tecoman">
+            <div class="col-zone__header">
+              <h2 class="col-zone__title">
+                <span class="col-zone__icon">🍋</span>
+                Zona Agrícola Tecomán (Capital Mundial del Limón)
+              </h2>
+              <span class="col-zone__count">{zonas.agricola.length} estación</span>
+            </div>
+            <p class="col-zone__description">
+              <strong>#1 productor de limón mexicano</strong> a nivel nacional (35% de la producción).
+              Empacadoras de cítricos, agroindustria y Laguna de Cuyutlán.
+              Especialización: <strong>emergencias agrícolas, incendios en empacadoras, agroquímicos</strong>.
+            </p>
+            <div class="col-stations-grid">
+              {zonas.agricola.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/colima/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+          <!-- ═══ ZONA VOLCÁNICA (COMALA) ═══ -->
+          <section class="col-zone col-zone--volcanica" id="comala">
+            <div class="col-zone__header">
+              <h2 class="col-zone__title">
+                <span class="col-zone__icon">🌋</span>
+                Zona Volcánica Comala (Pueblo Mágico)
+              </h2>
+              <span class="col-zone__count">{zonas.volcanica.length} estación</span>
+            </div>
+            <p class="col-zone__description">
+              <strong>Pueblo Mágico</strong> en zona de influencia directa del Volcán de Fuego de Colima.
+              "El Pueblo Blanco" escenario de "Pedro Páramo". Radio de riesgo volcánico.
+              Especialización: <strong>evacuación volcánica, protección patrimonial, incendios forestales</strong>.
+            </p>
+            <div class="col-stations-grid">
+              {zonas.volcanica.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/colima/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════════
+             SIDEBAR
+             ═══════════════════════════════════════════════════════════════════ -->
+        <aside class="col-sidebar">
+
+          <!-- Teléfonos de Emergencia -->
+          <div class="col-sidebar__card col-sidebar__card--emergency">
+            <h3 class="col-sidebar__title">Teléfonos de Emergencia</h3>
+            <ul class="col-sidebar__list">
+              <li class="col-sidebar__item">
+                <span class="col-sidebar__label">Emergencias Nacional</span>
+                <a href="tel:911" class="col-sidebar__phone">911</a>
+              </li>
+              <li class="col-sidebar__item">
+                <span class="col-sidebar__label">Bomberos Colima</span>
+                <a href="tel:+523123123456" class="col-sidebar__phone">{COLIMA_SEO.telefonos.bomberos_colima}</a>
+              </li>
+              <li class="col-sidebar__item">
+                <span class="col-sidebar__label">Bomberos Manzanillo</span>
+                <a href="tel:+523143320911" class="col-sidebar__phone">{COLIMA_SEO.telefonos.bomberos_manzanillo}</a>
+              </li>
+              <li class="col-sidebar__item">
+                <span class="col-sidebar__label">Monitoreo Volcánico</span>
+                <a href="tel:+523123162020" class="col-sidebar__phone">{COLIMA_SEO.telefonos.monitoreo_volcanico}</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Alerta Volcánica -->
+          <div class="col-sidebar__card col-sidebar__card--volcano">
+            <h3 class="col-sidebar__title">Volcán de Fuego</h3>
+            <ul class="col-sidebar__facts">
+              <li><strong>Altura:</strong> {COLIMA_SEO.volcan.altura_msnm.toLocaleString('es-MX')} msnm</li>
+              <li><strong>Estado:</strong> {COLIMA_SEO.volcan.estado_actual}</li>
+              <li><strong>Exclusión:</strong> {COLIMA_SEO.volcan.radio_exclusion_km} km</li>
+              <li><strong>Población en riesgo:</strong> {(COLIMA_SEO.volcan.poblacion_riesgo / 1_000).toFixed(0)} mil</li>
+              <li><strong>Última erupción mayor:</strong> {COLIMA_SEO.volcan.ultima_erupcion_mayor}</li>
+            </ul>
+          </div>
+
+          <!-- Navegación por Zona -->
+          <div class="col-sidebar__card">
+            <h3 class="col-sidebar__title">Navegación por Zona</h3>
+            <div class="col-sidebar__zones">
+              <a href="#colima" class="col-sidebar__zone-link col-sidebar__zone-link--metropolitana">Metropolitana (2)</a>
+              <a href="#manzanillo" class="col-sidebar__zone-link col-sidebar__zone-link--portuaria">Manzanillo (1)</a>
+              <a href="#tecoman" class="col-sidebar__zone-link col-sidebar__zone-link--agricola">Tecomán (1)</a>
+              <a href="#comala" class="col-sidebar__zone-link col-sidebar__zone-link--volcanica">Comala (1)</a>
+            </div>
+          </div>
+
+          <!-- Datos del Estado -->
+          <div class="col-sidebar__card">
+            <h3 class="col-sidebar__title">Colima en Números</h3>
+            <ul class="col-sidebar__facts">
+              <li><strong>Superficie:</strong> {COLIMA_SEO.superficie_km2.toLocaleString('es-MX')} km²</li>
+              <li><strong>Población:</strong> {(COLIMA_SEO.poblacion / 1_000).toFixed(0)} mil</li>
+              <li><strong>Capital:</strong> Colima</li>
+              <li><strong>Litoral:</strong> {COLIMA_SEO.litoral_km} km</li>
+              <li><strong>Municipios:</strong> {COLIMA_SEO.municipios}</li>
+              <li><strong>Densidad:</strong> {COLIMA_SEO.densidad} hab/km²</li>
+            </ul>
+          </div>
+
+          <!-- Puerto de Manzanillo -->
+          <div class="col-sidebar__card">
+            <h3 class="col-sidebar__title">Puerto de Manzanillo</h3>
+            <ul class="col-sidebar__facts">
+              <li><strong>Ranking:</strong> {COLIMA_SEO.puertoManzanillo.ranking}</li>
+              <li><strong>Contenedores:</strong> 3.4M TEU/año</li>
+              <li><strong>Carga:</strong> Contenedores, autos, cruceros</li>
+              <li><strong>Riesgos:</strong> HAZMAT, buques, tsunami</li>
+            </ul>
+          </div>
+
+          <!-- Producción de Limón -->
+          <div class="col-sidebar__card">
+            <h3 class="col-sidebar__title">Capital del Limón</h3>
+            <ul class="col-sidebar__facts">
+              <li><strong>Ranking:</strong> #1 Nacional</li>
+              <li><strong>Producción:</strong> {COLIMA_SEO.produccionLimon.porcentaje_nacional}% del país</li>
+              <li><strong>Toneladas:</strong> {(COLIMA_SEO.produccionLimon.toneladas_anuales / 1_000).toFixed(0)}K/año</li>
+              <li><strong>Capital:</strong> Tecomán</li>
+            </ul>
+          </div>
+
+          <!-- Pueblo Mágico -->
+          <div class="col-sidebar__card">
+            <h3 class="col-sidebar__title">Pueblo Mágico</h3>
+            <ul class="col-sidebar__facts">
+              <li><strong>Comala:</strong> "El Pueblo Blanco"</li>
+              <li><strong>Fama:</strong> Escenario de Pedro Páramo</li>
+              <li><strong>Designación:</strong> 2002</li>
+              <li><strong>Riesgo volcánico:</strong> Alto</li>
+            </ul>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+
+    <!-- Breadcrumb SEO -->
+    <nav class="col-breadcrumb" aria-label="Breadcrumb">
+      <ol class="col-breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li class="col-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Inicio</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <li class="col-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/directorio" itemprop="item"><span itemprop="name">Directorio</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <li class="col-breadcrumb__item col-breadcrumb__item--active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span itemprop="name">Colima</span>
+          <meta itemprop="position" content="3" />
+        </li>
+      </ol>
+    </nav>
+  </main>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     VARIABLES CSS - TEMA ESMERALDA TROPICAL
+     ═══════════════════════════════════════════════════════════════════════ */
+  :root {
+    --col-emerald: rgb(16, 185, 129);
+    --col-emerald-light: rgb(52, 211, 153);
+    --col-emerald-dark: rgb(6, 78, 59);
+    --col-emerald-50: rgb(236, 253, 245);
+    --col-emerald-100: rgb(209, 250, 229);
+    --col-emerald-200: rgb(167, 243, 208);
+    --col-emerald-600: rgb(5, 150, 105);
+    --col-emerald-800: rgb(6, 95, 70);
+    --col-amber: rgb(245, 158, 11);
+    --col-orange: rgb(249, 115, 22);
+    --col-white: #ffffff;
+    --col-red: #dc2626;
+    --col-gray-50: rgb(249, 250, 251);
+    --col-gray-600: rgb(75, 85, 99);
+    --col-gray-800: rgb(31, 41, 55);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     MAIN CONTAINER
+     ═══════════════════════════════════════════════════════════════════════ */
+  .col-main {
+    min-height: 100vh;
+    background-color: var(--col-emerald-50);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════════════════════════════════════ */
+  .col-hero {
+    background: linear-gradient(135deg, var(--col-emerald-dark) 0%, var(--col-emerald-600) 50%, var(--col-emerald) 100%);
+    padding: 3rem 1rem;
+    color: var(--col-white);
+  }
+
+  .col-hero__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .col-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .col-hero__badge-code {
+    background: var(--col-white);
+    color: var(--col-emerald-600);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .col-hero__badge-text {
+    font-size: 0.875rem;
+    opacity: 0.95;
+  }
+
+  .col-hero__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .col-hero__title-accent {
+    display: block;
+    font-size: 3rem;
+    color: var(--col-amber);
+  }
+
+  .col-hero__subtitle {
+    font-size: 1.125rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .col-hero__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .col-hero__stat {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+  }
+
+  .col-hero__stat-number {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--col-amber);
+  }
+
+  .col-hero__stat-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     VOLCANIC ALERT BANNER
+     ═══════════════════════════════════════════════════════════════════════ */
+  .col-volcanic-alert {
+    background: linear-gradient(90deg, var(--col-orange), var(--col-amber));
+    color: var(--col-white);
+    padding: 0.75rem 1rem;
+  }
+
+  .col-volcanic-alert__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .col-volcanic-alert__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .col-volcanic-alert__icon {
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  .col-volcanic-alert__text {
+    text-align: center;
+  }
+
+  .col-volcanic-alert__title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.125rem;
+  }
+
+  .col-volcanic-alert__info {
+    font-size: 0.8125rem;
+    opacity: 0.95;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     EMERGENCY BANNER
+     ═══════════════════════════════════════════════════════════════════════ */
+  .col-emergency {
+    background: var(--col-red);
+    color: var(--col-white);
+    padding: 1rem;
+  }
+
+  .col-emergency__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .col-emergency__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .col-emergency__icon {
+    flex-shrink: 0;
+  }
+
+  .col-emergency__text {
+    text-align: center;
+  }
+
+  .col-emergency__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .col-emergency__numbers {
+    font-size: 0.9375rem;
+  }
+
+  .col-emergency__numbers strong {
+    font-weight: 700;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     CONTENT LAYOUT
+     ═══════════════════════════════════════════════════════════════════════ */
+  .col-content {
+    padding: 2rem 1rem;
+  }
+
+  .col-content__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+  }
+
+  .col-content__main {
+    min-width: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     INTRO SECTION
+     ═══════════════════════════════════════════════════════════════════════ */
+  .col-intro {
+    background: var(--col-white);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .col-intro__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--col-gray-800);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--col-emerald);
+  }
+
+  .col-intro__text p {
+    color: var(--col-gray-600);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .col-intro__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .col-intro__text strong {
+    color: var(--col-gray-800);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     ZONE SECTIONS
+     ═══════════════════════════════════════════════════════════════════════ */
+  .col-zone {
+    margin-bottom: 2.5rem;
+  }
+
+  .col-zone__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .col-zone__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--col-gray-800);
+  }
+
+  .col-zone__icon {
+    font-size: 1.5rem;
+  }
+
+  .col-zone__count {
+    background: var(--col-emerald);
+    color: var(--col-white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  /* Zone-specific colors */
+  .col-zone--metropolitana .col-zone__count { background: #059669; }
+  .col-zone--portuaria .col-zone__count { background: #2563eb; }
+  .col-zone--agricola .col-zone__count { background: #84cc16; }
+  .col-zone--volcanica .col-zone__count { background: #f97316; }
+
+  .col-zone__description {
+    color: var(--col-gray-600);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+  }
+
+  .col-stations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════════════════════════════ */
+  .col-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .col-sidebar__card {
+    background: var(--col-white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .col-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--col-emerald-dark), var(--col-emerald-600));
+    color: var(--col-white);
+  }
+
+  .col-sidebar__card--emergency .col-sidebar__title {
+    color: var(--col-white);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .col-sidebar__card--volcano {
+    background: linear-gradient(135deg, var(--col-orange), var(--col-amber));
+    color: var(--col-white);
+  }
+
+  .col-sidebar__card--volcano .col-sidebar__title {
+    color: var(--col-white);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .col-sidebar__card--volcano .col-sidebar__facts li {
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .col-sidebar__card--volcano .col-sidebar__facts strong {
+    color: var(--col-white);
+  }
+
+  .col-sidebar__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--col-gray-800);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--col-emerald-100);
+  }
+
+  .col-sidebar__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .col-sidebar__item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .col-sidebar__item:last-child {
+    border-bottom: none;
+  }
+
+  .col-sidebar__label {
+    font-size: 0.8125rem;
+    opacity: 0.9;
+  }
+
+  .col-sidebar__phone {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--col-white);
+    text-decoration: none;
+  }
+
+  .col-sidebar__phone:hover {
+    text-decoration: underline;
+  }
+
+  .col-sidebar__zones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .col-sidebar__zone-link {
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .col-sidebar__zone-link--metropolitana { background: #d1fae5; color: #047857; }
+  .col-sidebar__zone-link--metropolitana:hover { background: #059669; color: white; }
+  .col-sidebar__zone-link--portuaria { background: #dbeafe; color: #1e40af; }
+  .col-sidebar__zone-link--portuaria:hover { background: #2563eb; color: white; }
+  .col-sidebar__zone-link--agricola { background: #ecfccb; color: #4d7c0f; }
+  .col-sidebar__zone-link--agricola:hover { background: #84cc16; color: white; }
+  .col-sidebar__zone-link--volcanica { background: #ffedd5; color: #c2410c; }
+  .col-sidebar__zone-link--volcanica:hover { background: #f97316; color: white; }
+
+  .col-sidebar__facts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .col-sidebar__facts li {
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+    color: var(--col-gray-600);
+    border-bottom: 1px solid var(--col-emerald-50);
+  }
+
+  .col-sidebar__facts li:last-child {
+    border-bottom: none;
+  }
+
+  .col-sidebar__facts strong {
+    color: var(--col-gray-800);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     BREADCRUMB
+     ═══════════════════════════════════════════════════════════════════════ */
+  .col-breadcrumb {
+    background: var(--col-white);
+    padding: 1rem;
+    border-top: 1px solid var(--col-emerald-100);
+  }
+
+  .col-breadcrumb__list {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    font-size: 0.875rem;
+  }
+
+  .col-breadcrumb__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .col-breadcrumb__item::after {
+    content: '/';
+    color: var(--col-emerald-200);
+  }
+
+  .col-breadcrumb__item:last-child::after {
+    display: none;
+  }
+
+  .col-breadcrumb__item a {
+    color: var(--col-emerald-600);
+    text-decoration: none;
+  }
+
+  .col-breadcrumb__item a:hover {
+    text-decoration: underline;
+  }
+
+  .col-breadcrumb__item--active {
+    color: var(--col-gray-600);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .col-content__container {
+      grid-template-columns: 1fr;
+    }
+
+    .col-sidebar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .col-hero__title {
+      font-size: 1.875rem;
+    }
+
+    .col-hero__title-accent {
+      font-size: 2.25rem;
+    }
+
+    .col-hero__stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .col-zone__header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .col-zone__description {
+      padding-left: 0;
+    }
+
+    .col-stations-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .col-sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
