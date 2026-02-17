@@ -1,0 +1,144 @@
+---
+import PageLayout from "@layouts/PageLayout.astro";
+
+type EstadoPendiente = {
+  slug: string;
+  nombre: string;
+};
+
+const estadosPublicados = [
+  { slug: "aguascalientes", nombre: "Aguascalientes" },
+  { slug: "baja-california", nombre: "Baja California" },
+  { slug: "baja-california-sur", nombre: "Baja California Sur" },
+  { slug: "campeche", nombre: "Campeche" },
+  { slug: "chiapas", nombre: "Chiapas" },
+  { slug: "chihuahua", nombre: "Chihuahua" },
+  { slug: "ciudad-de-mexico", nombre: "Ciudad de México" },
+  { slug: "coahuila", nombre: "Coahuila" },
+  { slug: "colima", nombre: "Colima" },
+  { slug: "durango", nombre: "Durango" },
+  { slug: "estado-de-mexico", nombre: "Estado de México" },
+];
+
+export function getStaticPaths() {
+  const estadosPendientes: EstadoPendiente[] = [
+    { slug: "guerrero", nombre: "Guerrero" },
+    { slug: "hidalgo", nombre: "Hidalgo" },
+    { slug: "jalisco", nombre: "Jalisco" },
+    { slug: "michoacan", nombre: "Michoacán" },
+    { slug: "morelos", nombre: "Morelos" },
+    { slug: "nayarit", nombre: "Nayarit" },
+    { slug: "nuevo-leon", nombre: "Nuevo León" },
+    { slug: "oaxaca", nombre: "Oaxaca" },
+    { slug: "puebla", nombre: "Puebla" },
+    { slug: "queretaro", nombre: "Querétaro" },
+    { slug: "quintana-roo", nombre: "Quintana Roo" },
+    { slug: "san-luis-potosi", nombre: "San Luis Potosí" },
+    { slug: "sinaloa", nombre: "Sinaloa" },
+    { slug: "sonora", nombre: "Sonora" },
+    { slug: "tabasco", nombre: "Tabasco" },
+    { slug: "tamaulipas", nombre: "Tamaulipas" },
+    { slug: "tlaxcala", nombre: "Tlaxcala" },
+    { slug: "veracruz", nombre: "Veracruz" },
+    { slug: "yucatan", nombre: "Yucatán" },
+    { slug: "zacatecas", nombre: "Zacatecas" },
+  ];
+
+  return estadosPendientes.map((estado) => ({
+    params: { estado: estado.slug },
+    props: { estado },
+  }));
+}
+
+const { estado } = Astro.props as { estado: EstadoPendiente };
+---
+
+<PageLayout
+  title={`Bomberos en ${estado.nombre} | Directorio en Actualización`}
+  description={`Estamos completando la cobertura del directorio de estaciones de bomberos en ${estado.nombre}. Mientras tanto, consulta los estados ya publicados.`}
+  noindex={true}
+  canonical={`https://bombero.mx/directorio/${estado.slug}`}
+>
+  <section class="pending-state section">
+    <div class="container container--narrow">
+      <nav class="pending-state__breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Inicio</a>
+        <span>/</span>
+        <a href="/directorio">Directorio</a>
+        <span>/</span>
+        <span>{estado.nombre}</span>
+      </nav>
+
+      <h1>Directorio de Bomberos en {estado.nombre}</h1>
+      <p>
+        Esta sección está en proceso de publicación editorial.
+        Nuestro equipo está validando teléfonos, direcciones y cobertura operativa
+        para mantener calidad y precisión en cada ficha.
+      </p>
+
+      <h2>Estados disponibles actualmente</h2>
+      <ul class="pending-state__list">
+        {estadosPublicados.map((item) => (
+          <li>
+            <a href={`/directorio/${item.slug}`}>{item.nombre}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .pending-state {
+    padding-top: var(--space-14);
+  }
+
+  .pending-state__breadcrumb {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+  }
+
+  .pending-state__breadcrumb a {
+    color: var(--color-fire-700);
+    text-decoration: none;
+  }
+
+  .pending-state h1 {
+    margin-bottom: var(--space-4);
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+  }
+
+  .pending-state p {
+    margin-bottom: var(--space-8);
+    color: var(--color-smoke-700);
+  }
+
+  .pending-state h2 {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-xl);
+  }
+
+  .pending-state__list {
+    columns: 2;
+    gap: var(--space-8);
+    padding-left: var(--space-5);
+  }
+
+  .pending-state__list li {
+    margin-bottom: var(--space-2);
+  }
+
+  .pending-state__list a {
+    color: var(--color-fire-700);
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .pending-state__list {
+      columns: 1;
+    }
+  }
+</style>

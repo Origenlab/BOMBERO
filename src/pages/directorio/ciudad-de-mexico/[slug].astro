@@ -5,7 +5,7 @@
  * Incluye interlinking completo con el resto del sitio
  */
 import PageLayout from "@layouts/PageLayout.astro";
-import { estacionesCDMX, getEstacionBySlug, getEstacionesCercanas, getAlcaldias } from "@data/estaciones-cdmx";
+import { estacionesCDMX, getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-cdmx";
 
 // Generar rutas estáticas
 export function getStaticPaths() {
@@ -22,7 +22,6 @@ if (!estacion) {
 }
 
 const estacionesCercanas = getEstacionesCercanas(slug as string, 3);
-const alcaldias = getAlcaldias();
 
 // Estados vecinos para interlinking
 const estadosVecinos = [
@@ -42,12 +41,61 @@ const productosRelacionados = [
 
 // Formatear teléfono
 const telefonoLink = estacion.telefono.replace(/\s/g, '');
-const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(estacion.nombre + ' ' + estacion.direccion + ' ' + estacion.colonia + ' CDMX')}`;
+const ubicacion = estacion.alcaldia ?? estacion.ciudad;
+const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(estacion.nombre + ' ' + estacion.direccion + ' ' + estacion.colonia + ' ' + ubicacion + ' CDMX')}`;
+const canonical = `https://bombero.mx/directorio/ciudad-de-mexico/${estacion.slug}`;
+const seoKeywords = [
+  `bomberos ${ubicacion.toLowerCase()}`,
+  `estacion de bomberos ${ubicacion.toLowerCase()}`,
+  `telefono bomberos ${ubicacion.toLowerCase()}`,
+  "bomberos cdmx",
+  "estaciones de bomberos en mexico",
+];
+const stationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FireStation",
+  name: estacion.nombre,
+  description: estacion.descripcion,
+  url: canonical,
+  telephone: estacion.telefono,
+  email: estacion.email,
+  openingHours: "Mo-Su 00:00-23:59",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: [estacion.direccion, estacion.colonia].filter(Boolean).join(", "),
+    addressLocality: estacion.ciudad,
+    addressRegion: "Ciudad de México",
+    postalCode: estacion.codigoPostal,
+    addressCountry: "MX",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: estacion.coordenadas.lat,
+    longitude: estacion.coordenadas.lng,
+  },
+  areaServed: {
+    "@type": "AdministrativeArea",
+    name: ubicacion,
+  },
+};
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+    { "@type": "ListItem", position: 3, name: "Ciudad de México", item: "https://bombero.mx/directorio/ciudad-de-mexico" },
+    { "@type": "ListItem", position: 4, name: estacion.nombre, item: canonical },
+  ],
+};
 ---
 
 <PageLayout
-  title={`${estacion.nombreCorto} | Directorio de Bomberos CDMX`}
-  description={`${estacion.descripcion} Teléfono: ${estacion.telefono}. Dirección: ${estacion.direccion}, ${estacion.colonia}, ${estacion.alcaldia}, CDMX.`}
+  title={`${estacion.nombreCorto} | Bomberos ${ubicacion}, CDMX`}
+  description={`${estacion.descripcion} Teléfono: ${estacion.telefono}. Dirección: ${estacion.direccion}, ${estacion.colonia}, ${ubicacion}, CDMX.`}
+  keywords={seoKeywords}
+  canonical={canonical}
+  jsonLd={[stationJsonLd, breadcrumbJsonLd]}
 >
   <!-- Hero Section -->
   <section class="est-hero">

@@ -18,6 +18,8 @@ export function canonicalURL(path: string): string {
 /** Apply the title template from site config */
 export function formatTitle(title?: string): string {
   if (!title) return SITE.seo.title;
+  // Avoid duplicate branding when a page title already includes the site name.
+  if (title.toLowerCase().includes(SITE.name.toLowerCase())) return title;
   return SITE.seo.titleTemplate.replace("%s", title);
 }
 

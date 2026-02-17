@@ -16,14 +16,16 @@
  */
 
 interface Props {
-  nombre: string;
+  nombre?: string;
   slug: string;
   direccion: string;
-  alcaldia: string;
+  alcaldia?: string;
   telefono: string;
   servicios: string[];
   horario?: string;
   image?: string;
+  baseUrl?: string;
+  href?: string;
 }
 
 const {
@@ -35,17 +37,22 @@ const {
   servicios,
   horario = "24 horas",
   image,
+  baseUrl = "/directorio/ciudad-de-mexico",
+  href,
 } = Astro.props;
 
-// URL de la página de detalle
-const detalleUrl = `/directorio/ciudad-de-mexico/${slug}`;
+// URL de la página de detalle (acepta slug absoluto o relativo)
+const cleanBaseUrl = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+const detalleUrl = href ?? (slug.startsWith("/") ? slug : `${cleanBaseUrl}/${slug}`);
+const nombreEstacion = nombre ?? "Estación de Bomberos";
+const zona = alcaldia ?? "Cobertura local";
 ---
 
 <article class="station-card">
   <!-- Image Section -->
   <a href={detalleUrl} class="station-card__image">
     {image ? (
-      <img src={image} alt={nombre} loading="lazy" />
+      <img src={image} alt={nombreEstacion} loading="lazy" />
     ) : (
       <div class="station-card__placeholder">
         <div class="station-card__icon">
@@ -61,12 +68,12 @@ const detalleUrl = `/directorio/ciudad-de-mexico/${slug}`;
       </div>
     )}
     <span class="station-card__badge">{horario}</span>
-    <span class="station-card__alcaldia">{alcaldia}</span>
+    <span class="station-card__alcaldia">{zona}</span>
   </a>
 
   <!-- Content Section -->
   <div class="station-card__content">
-    <h3 class="station-card__title">{nombre}</h3>
+    <h3 class="station-card__title">{nombreEstacion}</h3>
 
     <!-- Info List -->
     <ul class="station-card__info">
@@ -100,7 +107,7 @@ const detalleUrl = `/directorio/ciudad-de-mexico/${slug}`;
 
     <!-- Single CTA Button -->
     <a href={detalleUrl} class="station-card__btn">
-      <span>{nombre}</span>
+      <span>{nombreEstacion}</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>

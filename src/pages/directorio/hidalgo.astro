@@ -1,0 +1,1167 @@
+---
+/**
+ * ╔═══════════════════════════════════════════════════════════════════════════════════════╗
+ * ║  DIRECTORIO DE BOMBEROS DE HIDALGO (HGO)                                              ║
+ * ║  Página Principal del Estado - SEO Profesional Avanzado                               ║
+ * ╠═══════════════════════════════════════════════════════════════════════════════════════╣
+ * ║  18 Estaciones | 650+ Bomberos | 7 Zonas Geográficas                                  ║
+ * ║                                                                                       ║
+ * ║  ZONAS ESTRATÉGICAS:                                                                  ║
+ * ║  • Metropolitana Pachuca: 4 estaciones (Capital, Norte, Mineral Reforma, Real Monte) ║
+ * ║  • Corredor Industrial Tula-Tepeji: 3 estaciones (HAZMAT, Refinería PEMEX)           ║
+ * ║  • Tulancingo-Sierra: 3 estaciones (Textil, Sierra Norte)                            ║
+ * ║  • Pueblos Mágicos: 3 estaciones (Huasca, El Chico, Huichapan)                       ║
+ * ║  • Valle del Mezquital: 2 estaciones (Actopan, Ixmiquilpan)                          ║
+ * ║  • Huasteca: 2 estaciones (Huejutla, Molango)                                         ║
+ * ║  • Corredor Sur: 1 estación (Tizayuca - conexión CDMX)                               ║
+ * ║                                                                                       ║
+ * ║  ESPECIALIDADES: HAZMAT Petroquímico, Rescate Minero, Incendios Forestales           ║
+ * ╚═══════════════════════════════════════════════════════════════════════════════════════╝
+ */
+
+import PageLayout from "@layouts/PageLayout.astro";
+import StationCard from "@components/StationCard.astro";
+import {
+  estacionesHidalgo,
+  HIDALGO_SEO,
+  ESTADISTICAS_HIDALGO,
+  getEstacionesPachuca,
+  getEstacionesCorredorIndustrial,
+  getEstacionesTulancingo,
+  getEstacionesPueblosMagicos,
+  getEstacionesMezquital,
+  getEstacionesHuasteca,
+} from "@data/estaciones-hidalgo";
+
+// ═══════════════════════════════════════════════════════════════════════════════════════
+// SEO METADATA AVANZADO
+// ═══════════════════════════════════════════════════════════════════════════════════════
+const title = `Bomberos de Hidalgo | ${ESTADISTICAS_HIDALGO.total_estaciones} Estaciones | Directorio Oficial HGO 2024`;
+const description = `Directorio completo de las ${ESTADISTICAS_HIDALGO.total_estaciones} estaciones de bomberos en Hidalgo. ${ESTADISTICAS_HIDALGO.total_bomberos}+ bomberos profesionales protegiendo Pachuca, Tula (Refinería PEMEX), Tulancingo, Real del Monte y ${HIDALGO_SEO.turismo.pueblos_magicos.length} Pueblos Mágicos. Teléfonos de emergencia: ${HIDALGO_SEO.telefonos.bomberos_pachuca}. Servicios 24/7.`;
+const keywords = [
+  ...HIDALGO_SEO.keywords.principales,
+  ...HIDALGO_SEO.keywords.pachuca.slice(0, 4),
+  ...HIDALGO_SEO.keywords.industrial.slice(0, 3),
+  ...HIDALGO_SEO.keywords.turismo.slice(0, 3),
+].join(', ');
+
+// ═══════════════════════════════════════════════════════════════════════════════════════
+// AGRUPACIÓN DE ESTACIONES POR ZONA
+// ═══════════════════════════════════════════════════════════════════════════════════════
+const zonas = {
+  pachuca: getEstacionesPachuca(),
+  industrial: getEstacionesCorredorIndustrial(),
+  tulancingo: getEstacionesTulancingo(),
+  pueblosMagicos: estacionesHidalgo.filter(e =>
+    ['Huasca de Ocampo', 'Mineral del Chico', 'Huichapan'].includes(e.ciudad)
+  ),
+  mezquital: getEstacionesMezquital(),
+  huasteca: getEstacionesHuasteca(),
+  sur: estacionesHidalgo.filter(e => e.ciudad === 'Tizayuca'),
+};
+---
+
+<PageLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/hidalgo"
+>
+  <!-- ═══════════════════════════════════════════════════════════════════════════════════
+       SCHEMA.ORG - STRUCTURED DATA PARA SEO
+       ═══════════════════════════════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Estaciones de Bomberos en Hidalgo, México",
+    "description": description,
+    "numberOfItems": ESTADISTICAS_HIDALGO.total_estaciones,
+    "itemListElement": estacionesHidalgo.map((estacion, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "FireStation",
+        "name": estacion.nombre,
+        "description": estacion.descripcion?.slice(0, 200),
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": estacion.direccion,
+          "addressLocality": estacion.ciudad,
+          "addressRegion": "Hidalgo",
+          "addressCountry": "MX",
+          "postalCode": estacion.codigoPostal
+        },
+        "telephone": estacion.telefono,
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": estacion.coordenadas.lat,
+          "longitude": estacion.coordenadas.lng
+        },
+        "openingHours": "Mo-Su 00:00-23:59",
+        "url": `https://bombero.mx/directorio/hidalgo/${estacion.slug}`
+      }
+    }))
+  })} />
+
+  <!-- Schema.org - Organization -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "GovernmentOrganization",
+    "name": "Heroico Cuerpo de Bomberos de Hidalgo",
+    "description": "Cuerpo de bomberos del estado de Hidalgo, México. Protección contra incendios, rescate y emergencias.",
+    "areaServed": {
+      "@type": "State",
+      "name": "Hidalgo",
+      "containedInPlace": {
+        "@type": "Country",
+        "name": "México"
+      }
+    },
+    "numberOfEmployees": ESTADISTICAS_HIDALGO.total_bomberos,
+    "telephone": HIDALGO_SEO.telefonos.bomberos_pachuca,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Pachuca de Soto",
+      "addressRegion": "Hidalgo",
+      "addressCountry": "MX"
+    }
+  })} />
+
+  <div class="hgo-main">
+    <!-- ═══════════════════════════════════════════════════════════════════════════════
+         HERO SECTION - Tema Plata/Azul Minero
+         ═══════════════════════════════════════════════════════════════════════════════ -->
+    <section class="hgo-hero">
+      <div class="hgo-hero__container">
+        <div class="hgo-hero__badge">
+          <span class="hgo-hero__badge-code">HGO</span>
+          <span class="hgo-hero__badge-text">La Bella Airosa</span>
+        </div>
+
+        <h1 class="hgo-hero__title">
+          Bomberos de <span class="hgo-hero__title-accent">Hidalgo</span>
+        </h1>
+
+        <p class="hgo-hero__subtitle">
+          Directorio oficial de las {ESTADISTICAS_HIDALGO.total_estaciones} estaciones de bomberos
+          que protegen la capital minera de México, {HIDALGO_SEO.turismo.pueblos_magicos.length} Pueblos Mágicos,
+          la Refinería Tula y más de {(HIDALGO_SEO.poblacion / 1_000_000).toFixed(1)} millones de habitantes
+        </p>
+
+        <!-- Estadísticas Hero -->
+        <div class="hgo-hero__stats">
+          <div class="hgo-hero__stat">
+            <span class="hgo-hero__stat-number">{ESTADISTICAS_HIDALGO.total_estaciones}</span>
+            <span class="hgo-hero__stat-label">Estaciones</span>
+          </div>
+          <div class="hgo-hero__stat">
+            <span class="hgo-hero__stat-number">{ESTADISTICAS_HIDALGO.total_bomberos}+</span>
+            <span class="hgo-hero__stat-label">Bomberos</span>
+          </div>
+          <div class="hgo-hero__stat">
+            <span class="hgo-hero__stat-number">{ESTADISTICAS_HIDALGO.total_unidades}</span>
+            <span class="hgo-hero__stat-label">Unidades</span>
+          </div>
+          <div class="hgo-hero__stat">
+            <span class="hgo-hero__stat-number">{ESTADISTICAS_HIDALGO.municipios_cubiertos}</span>
+            <span class="hgo-hero__stat-label">Municipios</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════
+         ALERTA INDUSTRIAL - Refinería y Corredor
+         ═══════════════════════════════════════════════════════════════════════════════ -->
+    <section class="hgo-industry-alert">
+      <div class="hgo-industry-alert__container">
+        <div class="hgo-industry-alert__content">
+          <div class="hgo-industry-alert__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="28" height="28">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <div class="hgo-industry-alert__text">
+            <h2 class="hgo-industry-alert__title">Corredor Industrial Tula-Tepeji - HAZMAT Especializado</h2>
+            <p class="hgo-industry-alert__info">
+              Refinería PEMEX {HIDALGO_SEO.industria.refineria_tula.capacidad_barriles_dia.toLocaleString('es-MX')} barriles/día |
+              Cementeras CEMEX, Cruz Azul, Holcim | Termoeléctrica CFE |
+              Capacitación HAZMAT nivel técnico
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════
+         BANNER DE EMERGENCIA
+         ═══════════════════════════════════════════════════════════════════════════════ -->
+    <section class="hgo-emergency">
+      <div class="hgo-emergency__container">
+        <div class="hgo-emergency__content">
+          <div class="hgo-emergency__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32" height="32">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+          </div>
+          <div class="hgo-emergency__text">
+            <h2 class="hgo-emergency__title">Emergencias en Hidalgo - Línea Directa 24/7</h2>
+            <p class="hgo-emergency__numbers">
+              <strong>911</strong> Nacional |
+              <strong>{HIDALGO_SEO.telefonos.bomberos_pachuca}</strong> Pachuca |
+              <strong>{HIDALGO_SEO.telefonos.bomberos_tula}</strong> Tula |
+              <strong>{HIDALGO_SEO.telefonos.bomberos_tulancingo}</strong> Tulancingo
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════
+         CONTENIDO PRINCIPAL
+         ═══════════════════════════════════════════════════════════════════════════════ -->
+    <div class="hgo-content">
+      <div class="hgo-content__container">
+
+        <!-- Columna Principal -->
+        <div class="hgo-content__main">
+
+          <!-- Introducción SEO Enriquecida -->
+          <section class="hgo-intro">
+            <h2 class="hgo-intro__title">Heroico Cuerpo de Bomberos de Hidalgo</h2>
+            <div class="hgo-intro__text">
+              <p>
+                <strong>Hidalgo</strong>, conocido como <strong>"La Bella Airosa"</strong>, es un estado con
+                <strong>{(HIDALGO_SEO.poblacion / 1_000_000).toFixed(1)} millones de habitantes</strong> que combina
+                <strong>500 años de tradición minera</strong>, patrimonio UNESCO, y uno de los
+                <strong>corredores industriales más importantes de México</strong>. Con
+                <strong>{ESTADISTICAS_HIDALGO.total_estaciones} estaciones de bomberos</strong> y más de
+                <strong>{ESTADISTICAS_HIDALGO.total_bomberos} bomberos profesionales</strong>, el estado
+                protege infraestructura crítica y millones de turistas anuales.
+              </p>
+              <p>
+                La <strong>Refinería Miguel Hidalgo de PEMEX</strong> en Tula, con capacidad de
+                <strong>{HIDALGO_SEO.industria.refineria_tula.capacidad_barriles_dia.toLocaleString('es-MX')} barriles diarios</strong>,
+                es la segunda más grande del país y requiere <strong>especialización HAZMAT de alto nivel</strong>.
+                El corredor industrial Tula-Tepeji incluye tres cementeras de clase mundial, termoeléctrica y
+                decenas de industrias químicas.
+              </p>
+              <p>
+                <strong>Real del Monte</strong>, cuna del fútbol mexicano y los famosos <strong>pastes</strong>,
+                junto con <strong>{HIDALGO_SEO.turismo.pueblos_magicos.length} Pueblos Mágicos</strong> incluyendo
+                <strong>Huasca de Ocampo</strong> (Prismas Basálticos), <strong>Mineral del Chico</strong>
+                (primer parque nacional) y <strong>Huichapan</strong> (primera lectura del Acta de Independencia),
+                atraen más de <strong>{(HIDALGO_SEO.turismo.visitantes_anuales / 1_000_000).toFixed(1)} millones de visitantes</strong> anuales.
+              </p>
+            </div>
+          </section>
+
+          <!-- ═══ ZONA METROPOLITANA PACHUCA ═══ -->
+          <section class="hgo-zone hgo-zone--pachuca" id="pachuca">
+            <div class="hgo-zone__header">
+              <h2 class="hgo-zone__title">
+                <span class="hgo-zone__icon">🏛️</span>
+                Zona Metropolitana de Pachuca
+              </h2>
+              <span class="hgo-zone__count">{zonas.pachuca.length} estaciones</span>
+            </div>
+            <p class="hgo-zone__description">
+              <strong>Capital del estado "La Bella Airosa"</strong> con más de 350,000 habitantes en su zona
+              metropolitana. Sede del icónico <strong>Reloj Monumental</strong>, la <strong>Universidad
+              Autónoma de Hidalgo (UAEH)</strong> y <strong>Real del Monte</strong>, Pueblo Mágico cuna del
+              fútbol mexicano. Especialización: <strong>emergencias urbanas, rescate vehicular en autopista
+              México-Pachuca, protección del patrimonio minero</strong>.
+            </p>
+            <div class="hgo-stations-grid">
+              {zonas.pachuca.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/hidalgo/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+          <!-- ═══ CORREDOR INDUSTRIAL TULA-TEPEJI ═══ -->
+          <section class="hgo-zone hgo-zone--industrial" id="industrial">
+            <div class="hgo-zone__header">
+              <h2 class="hgo-zone__title">
+                <span class="hgo-zone__icon">🏭</span>
+                Corredor Industrial Tula-Tepeji
+              </h2>
+              <span class="hgo-zone__count">{zonas.industrial.length} estaciones</span>
+            </div>
+            <p class="hgo-zone__description">
+              <strong>Principal polo industrial del estado</strong> con la Refinería Miguel Hidalgo
+              ({HIDALGO_SEO.industria.refineria_tula.capacidad_barriles_dia.toLocaleString('es-MX')} barriles/día),
+              cementeras <strong>CEMEX, Cruz Azul y Holcim</strong>, termoeléctrica CFE y la
+              <strong>Zona Arqueológica de Tula</strong> (capital tolteca). Especialización:
+              <strong>HAZMAT petroquímico, emergencias industriales, derrames de hidrocarburos,
+              protección del patrimonio arqueológico</strong>.
+            </p>
+            <div class="hgo-stations-grid">
+              {zonas.industrial.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/hidalgo/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+          <!-- ═══ ZONA TULANCINGO-SIERRA ═══ -->
+          <section class="hgo-zone hgo-zone--tulancingo" id="tulancingo">
+            <div class="hgo-zone__header">
+              <h2 class="hgo-zone__title">
+                <span class="hgo-zone__icon">🧵</span>
+                Zona Tulancingo - Sierra Norte
+              </h2>
+              <span class="hgo-zone__count">{zonas.tulancingo.length} estaciones</span>
+            </div>
+            <p class="hgo-zone__description">
+              <strong>Segunda ciudad más importante del estado</strong> y capital de la industria textil
+              con más de <strong>450 empresas</strong> del ramo. Incluye la <strong>Sierra Norte</strong>
+              con <strong>Acaxochitlán</strong>, el "Pueblo de las Flores". Carretera México-Tuxpan con
+              alto tránsito de carga. Especialización: <strong>emergencias textiles, incendios forestales
+              en sierra, rescate vehicular en carretera de montaña</strong>.
+            </p>
+            <div class="hgo-stations-grid">
+              {zonas.tulancingo.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/hidalgo/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+          <!-- ═══ PUEBLOS MÁGICOS Y TURISMO ═══ -->
+          <section class="hgo-zone hgo-zone--magicos" id="pueblos-magicos">
+            <div class="hgo-zone__header">
+              <h2 class="hgo-zone__title">
+                <span class="hgo-zone__icon">🏞️</span>
+                Pueblos Mágicos y Zona Turística
+              </h2>
+              <span class="hgo-zone__count">{zonas.pueblosMagicos.length} estaciones</span>
+            </div>
+            <p class="hgo-zone__description">
+              <strong>Huasca de Ocampo</strong>: Prismas Basálticos, haciendas coloniales.
+              <strong>Mineral del Chico</strong>: Primer Parque Nacional de México (1898), escalada en peñas.
+              <strong>Huichapan</strong>: Primera lectura del Acta de Independencia, aguas termales.
+              Más de <strong>{(HIDALGO_SEO.turismo.visitantes_anuales / 1_000_000).toFixed(1)} millones de visitantes anuales</strong>.
+              Especialización: <strong>rescate en montaña, emergencias turísticas, protección de patrimonio</strong>.
+            </p>
+            <div class="hgo-stations-grid">
+              {zonas.pueblosMagicos.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/hidalgo/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+          <!-- ═══ VALLE DEL MEZQUITAL ═══ -->
+          <section class="hgo-zone hgo-zone--mezquital" id="mezquital">
+            <div class="hgo-zone__header">
+              <h2 class="hgo-zone__title">
+                <span class="hgo-zone__icon">🌵</span>
+                Valle del Mezquital
+              </h2>
+              <span class="hgo-zone__count">{zonas.mezquital.length} estaciones</span>
+            </div>
+            <p class="hgo-zone__description">
+              <strong>Corazón de la cultura otomí (hñähñu)</strong>, famoso por la barbacoa, el pulque
+              y sus balnearios de aguas termales. <strong>Ixmiquilpan</strong> atrae miles de visitantes
+              a sus parques acuáticos. <strong>Actopan</strong> alberga el Ex Convento de San Nicolás (s. XVI).
+              Especialización: <strong>rescate acuático en balnearios, emergencias en carretera
+              México-Laredo, atención a comunidades indígenas</strong>.
+            </p>
+            <div class="hgo-stations-grid">
+              {zonas.mezquital.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/hidalgo/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+          <!-- ═══ HUASTECA HIDALGUENSE ═══ -->
+          <section class="hgo-zone hgo-zone--huasteca" id="huasteca">
+            <div class="hgo-zone__header">
+              <h2 class="hgo-zone__title">
+                <span class="hgo-zone__icon">🌴</span>
+                Huasteca Hidalguense
+              </h2>
+              <span class="hgo-zone__count">{zonas.huasteca.length} estaciones</span>
+            </div>
+            <p class="hgo-zone__description">
+              <strong>Región tropical con importante población nahua</strong>. <strong>Huejutla</strong>
+              es el centro comercial de la Huasteca, mientras que <strong>Molango</strong> alberga la
+              zona minera de manganeso. Ríos y arroyos presentan riesgo de inundaciones en temporada
+              de lluvias. Especialización: <strong>rescate en ríos, emergencias por inundaciones,
+              atención a comunidades indígenas con personal bilingüe náhuatl</strong>.
+            </p>
+            <div class="hgo-stations-grid">
+              {zonas.huasteca.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/hidalgo/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+          <!-- ═══ CORREDOR SUR (CONEXIÓN CDMX) ═══ -->
+          <section class="hgo-zone hgo-zone--sur" id="corredor-sur">
+            <div class="hgo-zone__header">
+              <h2 class="hgo-zone__title">
+                <span class="hgo-zone__icon">🚛</span>
+                Corredor Sur (Conexión CDMX)
+              </h2>
+              <span class="hgo-zone__count">{zonas.sur.length} estación</span>
+            </div>
+            <p class="hgo-zone__description">
+              <strong>Tizayuca: Puerta de entrada a Hidalgo desde la CDMX</strong> a solo 52 km de la
+              capital del país. Importante centro logístico e industrial con parques industriales y
+              centros de distribución. La <strong>autopista México-Pachuca</strong> es una de las más
+              transitadas del país. Especialización: <strong>rescate vehicular de alta frecuencia,
+              emergencias industriales, HAZMAT básico</strong>.
+            </p>
+            <div class="hgo-stations-grid">
+              {zonas.sur.map(estacion => (
+                <StationCard
+                  nombre={estacion.nombre}
+                  slug={`/directorio/hidalgo/${estacion.slug}`}
+                  direccion={estacion.direccion}
+                  alcaldia={estacion.ciudad}
+                  telefono={estacion.telefono}
+                  servicios={estacion.servicios}
+                  horario={estacion.horario}
+                />
+              ))}
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════════════
+             SIDEBAR INFORMATIVO
+             ═══════════════════════════════════════════════════════════════════════════════ -->
+        <aside class="hgo-sidebar">
+
+          <!-- Teléfonos de Emergencia -->
+          <div class="hgo-sidebar__card hgo-sidebar__card--emergency">
+            <h3 class="hgo-sidebar__title">Teléfonos de Emergencia</h3>
+            <ul class="hgo-sidebar__list">
+              <li class="hgo-sidebar__item">
+                <span class="hgo-sidebar__label">Emergencias Nacional</span>
+                <a href="tel:911" class="hgo-sidebar__phone">911</a>
+              </li>
+              <li class="hgo-sidebar__item">
+                <span class="hgo-sidebar__label">Bomberos Pachuca</span>
+                <a href="tel:+527717131414" class="hgo-sidebar__phone">{HIDALGO_SEO.telefonos.bomberos_pachuca}</a>
+              </li>
+              <li class="hgo-sidebar__item">
+                <span class="hgo-sidebar__label">Bomberos Tula</span>
+                <a href="tel:+527737320303" class="hgo-sidebar__phone">{HIDALGO_SEO.telefonos.bomberos_tula}</a>
+              </li>
+              <li class="hgo-sidebar__item">
+                <span class="hgo-sidebar__label">Bomberos Tulancingo</span>
+                <a href="tel:+527757530202" class="hgo-sidebar__phone">{HIDALGO_SEO.telefonos.bomberos_tulancingo}</a>
+              </li>
+              <li class="hgo-sidebar__item">
+                <span class="hgo-sidebar__label">Protección Civil Estatal</span>
+                <a href="tel:+527717174100" class="hgo-sidebar__phone">{HIDALGO_SEO.telefonos.proteccion_civil_estatal}</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Refinería Tula -->
+          <div class="hgo-sidebar__card hgo-sidebar__card--refinery">
+            <h3 class="hgo-sidebar__title">Refinería Tula - PEMEX</h3>
+            <ul class="hgo-sidebar__facts">
+              <li><strong>Nombre:</strong> {HIDALGO_SEO.industria.refineria_tula.nombre}</li>
+              <li><strong>Capacidad:</strong> {HIDALGO_SEO.industria.refineria_tula.capacidad_barriles_dia.toLocaleString('es-MX')} bbl/día</li>
+              <li><strong>Ranking:</strong> 2ª más grande de México</li>
+              <li><strong>Operación:</strong> Desde {HIDALGO_SEO.industria.refineria_tula.año_inicio}</li>
+              <li><strong>Empleos:</strong> {HIDALGO_SEO.industria.refineria_tula.empleos_directos.toLocaleString('es-MX')} directos</li>
+              <li><strong>Emergencias:</strong> {HIDALGO_SEO.telefonos.emergencias_refineria}</li>
+            </ul>
+          </div>
+
+          <!-- Navegación por Zona -->
+          <div class="hgo-sidebar__card">
+            <h3 class="hgo-sidebar__title">Navegación por Zona</h3>
+            <div class="hgo-sidebar__zones">
+              <a href="#pachuca" class="hgo-sidebar__zone-link hgo-sidebar__zone-link--pachuca">Pachuca ({zonas.pachuca.length})</a>
+              <a href="#industrial" class="hgo-sidebar__zone-link hgo-sidebar__zone-link--industrial">Industrial ({zonas.industrial.length})</a>
+              <a href="#tulancingo" class="hgo-sidebar__zone-link hgo-sidebar__zone-link--tulancingo">Tulancingo ({zonas.tulancingo.length})</a>
+              <a href="#pueblos-magicos" class="hgo-sidebar__zone-link hgo-sidebar__zone-link--magicos">P. Mágicos ({zonas.pueblosMagicos.length})</a>
+              <a href="#mezquital" class="hgo-sidebar__zone-link hgo-sidebar__zone-link--mezquital">Mezquital ({zonas.mezquital.length})</a>
+              <a href="#huasteca" class="hgo-sidebar__zone-link hgo-sidebar__zone-link--huasteca">Huasteca ({zonas.huasteca.length})</a>
+              <a href="#corredor-sur" class="hgo-sidebar__zone-link hgo-sidebar__zone-link--sur">Sur ({zonas.sur.length})</a>
+            </div>
+          </div>
+
+          <!-- Datos del Estado -->
+          <div class="hgo-sidebar__card">
+            <h3 class="hgo-sidebar__title">Hidalgo en Números</h3>
+            <ul class="hgo-sidebar__facts">
+              <li><strong>Superficie:</strong> {HIDALGO_SEO.superficie_km2.toLocaleString('es-MX')} km²</li>
+              <li><strong>Población:</strong> {(HIDALGO_SEO.poblacion / 1_000_000).toFixed(1)} millones</li>
+              <li><strong>Capital:</strong> {HIDALGO_SEO.capital}</li>
+              <li><strong>Municipios:</strong> {HIDALGO_SEO.municipios}</li>
+              <li><strong>Altitud capital:</strong> {HIDALGO_SEO.altitud_capital_msnm.toLocaleString('es-MX')} msnm</li>
+              <li><strong>Distancia a CDMX:</strong> {HIDALGO_SEO.infraestructura.distancia_cdmx_km} km</li>
+            </ul>
+          </div>
+
+          <!-- Pueblos Mágicos -->
+          <div class="hgo-sidebar__card hgo-sidebar__card--tourism">
+            <h3 class="hgo-sidebar__title">6 Pueblos Mágicos</h3>
+            <ul class="hgo-sidebar__facts">
+              {HIDALGO_SEO.turismo.pueblos_magicos.map(pueblo => (
+                <li><strong>{pueblo.nombre}:</strong> {pueblo.atractivos[0]}</li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Patrimonio Minero -->
+          <div class="hgo-sidebar__card">
+            <h3 class="hgo-sidebar__title">Patrimonio Minero</h3>
+            <ul class="hgo-sidebar__facts">
+              <li><strong>Historia:</strong> {HIDALGO_SEO.mineria.historia}</li>
+              <li><strong>Real del Monte:</strong> Capital minera colonial</li>
+              <li><strong>Herencia Cornish:</strong> Pastes, Fútbol</li>
+              <li><strong>Primer partido:</strong> {HIDALGO_SEO.mineria.real_del_monte.herencia_cornish.primer_partido_futbol}</li>
+            </ul>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════════
+         BREADCRUMB SEO
+         ═══════════════════════════════════════════════════════════════════════════════ -->
+    <nav class="hgo-breadcrumb" aria-label="Breadcrumb">
+      <ol class="hgo-breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li class="hgo-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/" itemprop="item"><span itemprop="name">Inicio</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <li class="hgo-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="/directorio" itemprop="item"><span itemprop="name">Directorio</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <li class="hgo-breadcrumb__item hgo-breadcrumb__item--active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span itemprop="name">Hidalgo</span>
+          <meta itemprop="position" content="3" />
+        </li>
+      </ol>
+    </nav>
+  </div>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     VARIABLES CSS - TEMA PLATA/AZUL MINERO
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  :root {
+    --hgo-slate: rgb(71, 85, 105);
+    --hgo-slate-light: rgb(100, 116, 139);
+    --hgo-slate-dark: rgb(30, 41, 59);
+    --hgo-slate-50: rgb(248, 250, 252);
+    --hgo-slate-100: rgb(241, 245, 249);
+    --hgo-slate-200: rgb(226, 232, 240);
+    --hgo-blue: rgb(59, 130, 246);
+    --hgo-blue-dark: rgb(37, 99, 235);
+    --hgo-amber: rgb(245, 158, 11);
+    --hgo-amber-100: rgb(254, 243, 199);
+    --hgo-white: #ffffff;
+    --hgo-red: #dc2626;
+    --hgo-orange: #ea580c;
+    --hgo-gray-600: rgb(75, 85, 99);
+    --hgo-gray-800: rgb(31, 41, 55);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     MAIN CONTAINER
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  .hgo-main {
+    min-height: 100vh;
+    background-color: var(--hgo-slate-50);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  .hgo-hero {
+    background: linear-gradient(135deg, var(--hgo-slate-dark) 0%, var(--hgo-slate) 50%, var(--hgo-slate-light) 100%);
+    padding: 3rem 1rem;
+    color: var(--hgo-white);
+  }
+
+  .hgo-hero__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hgo-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .hgo-hero__badge-code {
+    background: var(--hgo-white);
+    color: var(--hgo-slate);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.875rem;
+  }
+
+  .hgo-hero__badge-text {
+    font-size: 0.875rem;
+    opacity: 0.95;
+  }
+
+  .hgo-hero__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .hgo-hero__title-accent {
+    display: block;
+    font-size: 3rem;
+    color: var(--hgo-amber);
+  }
+
+  .hgo-hero__subtitle {
+    font-size: 1.125rem;
+    opacity: 0.95;
+    max-width: 750px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .hgo-hero__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .hgo-hero__stat {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+  }
+
+  .hgo-hero__stat-number {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--hgo-amber);
+  }
+
+  .hgo-hero__stat-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     INDUSTRY ALERT BANNER
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  .hgo-industry-alert {
+    background: linear-gradient(90deg, #ea580c, var(--hgo-orange));
+    color: var(--hgo-white);
+    padding: 0.75rem 1rem;
+  }
+
+  .hgo-industry-alert__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hgo-industry-alert__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .hgo-industry-alert__icon {
+    flex-shrink: 0;
+  }
+
+  .hgo-industry-alert__text {
+    text-align: center;
+  }
+
+  .hgo-industry-alert__title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.125rem;
+  }
+
+  .hgo-industry-alert__info {
+    font-size: 0.8125rem;
+    opacity: 0.95;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     EMERGENCY BANNER
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  .hgo-emergency {
+    background: var(--hgo-red);
+    color: var(--hgo-white);
+    padding: 1rem;
+  }
+
+  .hgo-emergency__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hgo-emergency__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .hgo-emergency__icon {
+    flex-shrink: 0;
+  }
+
+  .hgo-emergency__text {
+    text-align: center;
+  }
+
+  .hgo-emergency__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .hgo-emergency__numbers {
+    font-size: 0.9375rem;
+  }
+
+  .hgo-emergency__numbers strong {
+    font-weight: 700;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     CONTENT LAYOUT
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  .hgo-content {
+    padding: 2rem 1rem;
+  }
+
+  .hgo-content__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 2rem;
+  }
+
+  .hgo-content__main {
+    min-width: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     INTRO SECTION
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  .hgo-intro {
+    background: var(--hgo-white);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .hgo-intro__title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--hgo-gray-800);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid var(--hgo-slate);
+  }
+
+  .hgo-intro__text p {
+    color: var(--hgo-gray-600);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .hgo-intro__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .hgo-intro__text strong {
+    color: var(--hgo-gray-800);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     ZONE SECTIONS
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  .hgo-zone {
+    margin-bottom: 2.5rem;
+  }
+
+  .hgo-zone__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hgo-zone__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--hgo-gray-800);
+  }
+
+  .hgo-zone__icon {
+    font-size: 1.5rem;
+  }
+
+  .hgo-zone__count {
+    background: var(--hgo-slate);
+    color: var(--hgo-white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  /* Zone-specific colors */
+  .hgo-zone--pachuca .hgo-zone__count { background: #475569; }
+  .hgo-zone--industrial .hgo-zone__count { background: #ea580c; }
+  .hgo-zone--tulancingo .hgo-zone__count { background: #4f46e5; }
+  .hgo-zone--magicos .hgo-zone__count { background: #059669; }
+  .hgo-zone--mezquital .hgo-zone__count { background: #d97706; }
+  .hgo-zone--huasteca .hgo-zone__count { background: #65a30d; }
+  .hgo-zone--sur .hgo-zone__count { background: #6b7280; }
+
+  .hgo-zone__description {
+    color: var(--hgo-gray-600);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+  }
+
+  .hgo-stations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  .hgo-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .hgo-sidebar__card {
+    background: var(--hgo-white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .hgo-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--hgo-slate-dark), var(--hgo-slate));
+    color: var(--hgo-white);
+  }
+
+  .hgo-sidebar__card--emergency .hgo-sidebar__title {
+    color: var(--hgo-white);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .hgo-sidebar__card--refinery {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    color: var(--hgo-white);
+  }
+
+  .hgo-sidebar__card--refinery .hgo-sidebar__title {
+    color: var(--hgo-white);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .hgo-sidebar__card--refinery .hgo-sidebar__facts li {
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .hgo-sidebar__card--refinery .hgo-sidebar__facts strong {
+    color: var(--hgo-white);
+  }
+
+  .hgo-sidebar__card--tourism {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: var(--hgo-white);
+  }
+
+  .hgo-sidebar__card--tourism .hgo-sidebar__title {
+    color: var(--hgo-white);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .hgo-sidebar__card--tourism .hgo-sidebar__facts li {
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .hgo-sidebar__card--tourism .hgo-sidebar__facts strong {
+    color: var(--hgo-white);
+  }
+
+  .hgo-sidebar__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--hgo-gray-800);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--hgo-slate-200);
+  }
+
+  .hgo-sidebar__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hgo-sidebar__item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .hgo-sidebar__item:last-child {
+    border-bottom: none;
+  }
+
+  .hgo-sidebar__label {
+    font-size: 0.8125rem;
+    opacity: 0.9;
+  }
+
+  .hgo-sidebar__phone {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--hgo-white);
+    text-decoration: none;
+  }
+
+  .hgo-sidebar__phone:hover {
+    text-decoration: underline;
+  }
+
+  .hgo-sidebar__zones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .hgo-sidebar__zone-link {
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .hgo-sidebar__zone-link--pachuca { background: #f1f5f9; color: #475569; }
+  .hgo-sidebar__zone-link--pachuca:hover { background: #475569; color: white; }
+  .hgo-sidebar__zone-link--industrial { background: #ffedd5; color: #c2410c; }
+  .hgo-sidebar__zone-link--industrial:hover { background: #ea580c; color: white; }
+  .hgo-sidebar__zone-link--tulancingo { background: #e0e7ff; color: #4338ca; }
+  .hgo-sidebar__zone-link--tulancingo:hover { background: #4f46e5; color: white; }
+  .hgo-sidebar__zone-link--magicos { background: #d1fae5; color: #047857; }
+  .hgo-sidebar__zone-link--magicos:hover { background: #059669; color: white; }
+  .hgo-sidebar__zone-link--mezquital { background: #fef3c7; color: #92400e; }
+  .hgo-sidebar__zone-link--mezquital:hover { background: #d97706; color: white; }
+  .hgo-sidebar__zone-link--huasteca { background: #ecfccb; color: #3f6212; }
+  .hgo-sidebar__zone-link--huasteca:hover { background: #65a30d; color: white; }
+  .hgo-sidebar__zone-link--sur { background: #f3f4f6; color: #4b5563; }
+  .hgo-sidebar__zone-link--sur:hover { background: #6b7280; color: white; }
+
+  .hgo-sidebar__facts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .hgo-sidebar__facts li {
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+    color: var(--hgo-gray-600);
+    border-bottom: 1px solid var(--hgo-slate-100);
+  }
+
+  .hgo-sidebar__facts li:last-child {
+    border-bottom: none;
+  }
+
+  .hgo-sidebar__facts strong {
+    color: var(--hgo-gray-800);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     BREADCRUMB
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  .hgo-breadcrumb {
+    background: var(--hgo-white);
+    padding: 1rem;
+    border-top: 1px solid var(--hgo-slate-200);
+  }
+
+  .hgo-breadcrumb__list {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    font-size: 0.875rem;
+  }
+
+  .hgo-breadcrumb__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hgo-breadcrumb__item::after {
+    content: '/';
+    color: var(--hgo-slate-200);
+  }
+
+  .hgo-breadcrumb__item:last-child::after {
+    display: none;
+  }
+
+  .hgo-breadcrumb__item a {
+    color: var(--hgo-blue);
+    text-decoration: none;
+  }
+
+  .hgo-breadcrumb__item a:hover {
+    text-decoration: underline;
+  }
+
+  .hgo-breadcrumb__item--active {
+    color: var(--hgo-gray-600);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════════
+     RESPONSIVE DESIGN
+     ═══════════════════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .hgo-content__container {
+      grid-template-columns: 1fr;
+    }
+
+    .hgo-sidebar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hgo-hero__title {
+      font-size: 1.875rem;
+    }
+
+    .hgo-hero__title-accent {
+      font-size: 2.25rem;
+    }
+
+    .hgo-hero__stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hgo-zone__header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hgo-zone__description {
+      padding-left: 0;
+    }
+
+    .hgo-stations-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hgo-sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

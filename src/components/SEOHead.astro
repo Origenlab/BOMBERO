@@ -21,11 +21,14 @@ const imageURL = resolved.image?.startsWith("http")
   ? resolved.image
   : canonicalURL(resolved.image);
 
-// Merge page keywords with default keywords
-const allKeywords = [
-  ...(resolved.keywords || []),
-  ...SITE.seo.keywords,
-].join(", ");
+// Normalize page keywords (supports array or comma-separated string)
+const pageKeywords = Array.isArray(resolved.keywords)
+  ? resolved.keywords
+  : typeof resolved.keywords === "string"
+    ? resolved.keywords.split(",").map((k) => k.trim()).filter(Boolean)
+    : [];
+
+const allKeywords = [...new Set([...pageKeywords, ...SITE.seo.keywords])].join(", ");
 ---
 
 <!-- Primary Meta Tags -->

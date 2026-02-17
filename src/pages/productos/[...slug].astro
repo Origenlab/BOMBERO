@@ -1,0 +1,102 @@
+---
+import PageLayout from "@layouts/PageLayout.astro";
+
+type ProductoRuta = {
+  slug: string;
+  nombre: string;
+};
+
+export function getStaticPaths() {
+  const rutas: ProductoRuta[] = [
+    { slug: "epp-bomberos", nombre: "EPP Bomberos" },
+    { slug: "trajes", nombre: "Trajes" },
+    { slug: "trajes/estructural", nombre: "Trajes Estructurales" },
+    { slug: "trajes/forestal", nombre: "Trajes Forestales" },
+    { slug: "trajes/arff", nombre: "Trajes ARFF" },
+    { slug: "trajes/aproximacion", nombre: "Trajes de Aproximación" },
+    { slug: "trajes/hazmat", nombre: "Trajes HAZMAT" },
+    { slug: "cascos", nombre: "Cascos" },
+    { slug: "cascos/estructural", nombre: "Cascos Estructurales" },
+    { slug: "cascos/forestal", nombre: "Cascos Forestales" },
+    { slug: "cascos/rescate", nombre: "Cascos de Rescate" },
+    { slug: "cascos/accesorios", nombre: "Accesorios para Cascos" },
+    { slug: "guantes-botas", nombre: "Guantes y Botas" },
+    { slug: "botas", nombre: "Botas" },
+    { slug: "botas/estructural", nombre: "Botas Estructurales" },
+    { slug: "botas/caucho", nombre: "Botas de Caucho" },
+    { slug: "botas/forestal", nombre: "Botas Forestales" },
+    { slug: "guantes", nombre: "Guantes" },
+    { slug: "guantes/estructurales", nombre: "Guantes Estructurales" },
+    { slug: "guantes/rescate", nombre: "Guantes de Rescate" },
+    { slug: "guantes/hazmat", nombre: "Guantes HAZMAT" },
+    { slug: "guantes/forestales", nombre: "Guantes Forestales" },
+    { slug: "capuchas", nombre: "Capuchas" },
+    { slug: "capuchas/nomex", nombre: "Capuchas Nomex" },
+    { slug: "capuchas/pbi", nombre: "Capuchas PBI" },
+    { slug: "capuchas/particulada", nombre: "Capuchas Particuladas" },
+    { slug: "gafas", nombre: "Gafas" },
+    { slug: "gafas/goggle", nombre: "Goggles" },
+    { slug: "gafas/seguridad", nombre: "Gafas de Seguridad" },
+    { slug: "scba", nombre: "SCBA" },
+    { slug: "equipo-contra-incendios", nombre: "Equipo Contra Incendios" },
+    { slug: "herramientas-rescate", nombre: "Herramientas de Rescate" },
+    { slug: "tecnologia", nombre: "Tecnología" },
+    { slug: "extintores", nombre: "Extintores" },
+    { slug: "forestales", nombre: "Equipos Forestales" },
+    { slug: "rescate-acuatico", nombre: "Rescate Acuático" },
+    { slug: "hazmat", nombre: "Equipos HAZMAT" },
+    { slug: "buceo", nombre: "Equipos de Buceo" },
+  ];
+
+  return rutas.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props as { item: ProductoRuta };
+---
+
+<PageLayout
+  title={`${item.nombre} | Catálogo en Actualización`}
+  description={`Estamos preparando la ficha técnica de ${item.nombre} con especificaciones, comparativos y opciones de cotización.`}
+  noindex={true}
+  canonical={`https://bombero.mx/productos/${item.slug}`}
+>
+  <section class="section">
+    <div class="container container--narrow">
+      <nav aria-label="Breadcrumb" class="products-breadcrumb">
+        <a href="/">Inicio</a>
+        <span>/</span>
+        <a href="/productos">Productos</a>
+        <span>/</span>
+        <span>{item.nombre}</span>
+      </nav>
+
+      <h1>{item.nombre}</h1>
+      <p>
+        Esta categoría está en actualización editorial.
+        Próximamente publicaremos información técnica detallada,
+        aplicaciones recomendadas y guías de selección por riesgo operativo.
+      </p>
+      <a class="products-link" href="/cotizar">Solicitar cotización</a>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .products-breadcrumb {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+  }
+
+  .products-breadcrumb a,
+  .products-link {
+    color: var(--color-fire-700);
+    text-decoration: none;
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,1065 @@
+---
+/**
+ * ╔═══════════════════════════════════════════════════════════════════════════╗
+ * ║  PÁGINA DINÁMICA DE ESTACIÓN DE BOMBEROS - GUANAJUATO                    ║
+ * ║  Genera 15 páginas individuales con SEO optimizado                       ║
+ * ╠═══════════════════════════════════════════════════════════════════════════╣
+ * ║  Zonas: León, Corredor Industrial, Capital, Bajío Norte, Pueblos Mágicos ║
+ * ║  Especialidades: Industrial, HAZMAT Refinería, Protección UNESCO         ║
+ * ╚═══════════════════════════════════════════════════════════════════════════╝
+ */
+
+import PageLayout from "@layouts/PageLayout.astro";
+import {
+  estacionesGuanajuato,
+  generarMetaSEO,
+  getContextoZona,
+  GUANAJUATO_SEO,
+} from "@data/estaciones-guanajuato";
+
+export function getStaticPaths() {
+  return estacionesGuanajuato.map(estacion => ({
+    params: { slug: estacion.slug },
+    props: { estacion }
+  }));
+}
+
+const { estacion } = Astro.props;
+const metaSEO = generarMetaSEO(estacion);
+const contextoZona = getContextoZona(estacion.ciudad);
+
+// Determinar tipo de zona para contexto SEO enriquecido
+const esLeon = estacion.ciudad === 'León';
+const esSilao = estacion.ciudad === 'Silao de la Victoria';
+const esCelaya = estacion.ciudad === 'Celaya';
+const esSalamanca = estacion.ciudad === 'Salamanca';
+const esCapital = estacion.ciudad === 'Guanajuato';
+const esIrapuato = estacion.ciudad === 'Irapuato';
+const esSanMiguel = estacion.ciudad === 'San Miguel de Allende';
+const esDolores = estacion.ciudad === 'Dolores Hidalgo';
+const esCorredorIndustrial = ['Celaya', 'Salamanca', 'Villagrán', 'Apaseo el Grande'].includes(estacion.ciudad);
+
+// Fecha de actualización
+const fechaActualizacion = new Date().toISOString().split('T')[0];
+---
+
+<PageLayout
+  title={metaSEO.title}
+  description={metaSEO.description}
+  keywords={metaSEO.keywords.join(', ')}
+  canonical={metaSEO.canonical}
+>
+  <!-- Schema.org FireStation -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FireStation",
+    "name": estacion.nombre,
+    "description": estacion.descripcion,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": estacion.direccion,
+      "addressLocality": estacion.ciudad,
+      "addressRegion": "Guanajuato",
+      "postalCode": estacion.codigoPostal,
+      "addressCountry": "MX"
+    },
+    "telephone": estacion.telefono,
+    "email": estacion.email,
+    "openingHours": "Mo-Su 00:00-23:59",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": estacion.coordenadas.lat,
+      "longitude": estacion.coordenadas.lng
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": estacion.ciudad
+    },
+    "numberOfEmployees": estacion.personal,
+    "url": metaSEO.canonical,
+    "sameAs": estacion.redes ? Object.values(estacion.redes) : []
+  })} />
+
+  <!-- Schema.org BreadcrumbList -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bombero.mx" },
+      { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bombero.mx/directorio" },
+      { "@type": "ListItem", "position": 3, "name": "Guanajuato", "item": "https://bombero.mx/directorio/guanajuato" },
+      { "@type": "ListItem", "position": 4, "name": estacion.nombre, "item": metaSEO.canonical }
+    ]
+  })} />
+
+  <div class="gto-station">
+    <!-- ═══════════════════════════════════════════════════════════════════
+         HERO SECTION
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="gto-station-hero">
+      <div class="gto-station-hero__container">
+        <!-- Badges -->
+        <div class="gto-station-hero__badges">
+          <span class="gto-station-hero__badge gto-station-hero__badge--state">GTO</span>
+          <span class="gto-station-hero__badge gto-station-hero__badge--zone">{contextoZona.tipo}</span>
+          {esLeon && <span class="gto-station-hero__badge gto-station-hero__badge--special">Capital del Calzado</span>}
+          {esSilao && <span class="gto-station-hero__badge gto-station-hero__badge--special">Zona Automotriz</span>}
+          {esSalamanca && <span class="gto-station-hero__badge gto-station-hero__badge--special">Refinería PEMEX</span>}
+          {esCapital && <span class="gto-station-hero__badge gto-station-hero__badge--special">UNESCO</span>}
+          {esSanMiguel && <span class="gto-station-hero__badge gto-station-hero__badge--special">#1 Ciudad del Mundo</span>}
+          {esDolores && <span class="gto-station-hero__badge gto-station-hero__badge--special">Cuna de la Independencia</span>}
+          {esIrapuato && <span class="gto-station-hero__badge gto-station-hero__badge--special">Capital de la Fresa</span>}
+        </div>
+
+        <h1 class="gto-station-hero__title">{estacion.nombre}</h1>
+
+        <p class="gto-station-hero__location">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          {estacion.ciudad}, Guanajuato, México
+        </p>
+
+        <!-- Estadísticas rápidas -->
+        <div class="gto-station-hero__stats">
+          <div class="gto-station-hero__stat">
+            <span class="gto-station-hero__stat-value">{estacion.personal}</span>
+            <span class="gto-station-hero__stat-label">Bomberos</span>
+          </div>
+          <div class="gto-station-hero__stat">
+            <span class="gto-station-hero__stat-value">{estacion.unidades}</span>
+            <span class="gto-station-hero__stat-label">Unidades</span>
+          </div>
+          <div class="gto-station-hero__stat">
+            <span class="gto-station-hero__stat-value">24/7</span>
+            <span class="gto-station-hero__stat-label">Servicio</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         BANNER DE EMERGENCIA
+         ═══════════════════════════════════════════════════════════════════ -->
+    <section class="gto-station-emergency">
+      <div class="gto-station-emergency__container">
+        <div class="gto-station-emergency__phone">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+          </svg>
+          <div>
+            <span class="gto-station-emergency__label">Teléfono de emergencia</span>
+            <a href={`tel:${estacion.telefono.replace(/[^\d+]/g, '')}`} class="gto-station-emergency__number">
+              {estacion.telefono}
+            </a>
+          </div>
+        </div>
+        <div class="gto-station-emergency__national">
+          <span>Emergencias Nacional:</span>
+          <a href="tel:911"><strong>911</strong></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         CONTENIDO PRINCIPAL
+         ═══════════════════════════════════════════════════════════════════ -->
+    <div class="gto-station-content">
+      <div class="gto-station-content__container">
+
+        <!-- Columna Principal -->
+        <div class="gto-station-content__main">
+
+          <!-- Descripción y Contexto -->
+          <section class="gto-station-section">
+            <h2 class="gto-station-section__title">Acerca de esta Estación</h2>
+            <div class="gto-station-section__content">
+              <p>{estacion.descripcion}</p>
+
+              {/* Contexto específico por zona */}
+              {esLeon && (
+                <div class="gto-station-context gto-station-context--leon">
+                  <h3>Capital Mundial del Calzado y la Piel</h3>
+                  <p>
+                    <strong>León</strong> es la ciudad más poblada de Guanajuato con más de <strong>1.6 millones
+                    de habitantes</strong> y el motor industrial del estado. Conocida como la <strong>Capital
+                    Mundial del Calzado</strong>, concentra el <strong>70% de la producción nacional</strong> de
+                    calzado con más de 1,500 empresas. Los bomberos de León tienen especialización en emergencias
+                    en curtidurías, manejo de solventes y adhesivos industriales.
+                  </p>
+                </div>
+              )}
+
+              {esSilao && (
+                <div class="gto-station-context gto-station-context--silao">
+                  <h3>Corredor Automotriz del Bajío</h3>
+                  <p>
+                    <strong>Silao</strong> es el epicentro de la industria automotriz mexicana, albergando plantas
+                    de <strong>Toyota, Mazda y Honda</strong>. El <strong>Puerto Interior</strong> es el principal
+                    puerto seco del país para logística automotriz. Los bomberos de Silao tienen capacitación
+                    especializada en emergencias industriales automotrices, incluyendo manejo de pinturas,
+                    solventes y procesos de manufactura avanzada.
+                  </p>
+                </div>
+              )}
+
+              {esSalamanca && (
+                <div class="gto-station-context gto-station-context--salamanca">
+                  <h3>Zona Petroquímica - Refinería PEMEX</h3>
+                  <p>
+                    Esta estación tiene especialización única en <strong>emergencias petroquímicas</strong> por
+                    su proximidad a la <strong>Refinería Antonio M. Amor</strong> de PEMEX, con capacidad de
+                    <strong>220,000 barriles diarios</strong>. Personal certificado en respuesta HAZMAT de alto
+                    nivel, manejo de hidrocarburos, uso de espuma AFFF y coordinación con brigadas industriales
+                    de PEMEX bajo el Plan de Auxilio Mutuo.
+                  </p>
+                </div>
+              )}
+
+              {esCapital && (
+                <div class="gto-station-context gto-station-context--capital">
+                  <h3>Patrimonio de la Humanidad UNESCO</h3>
+                  <p>
+                    La ciudad de <strong>Guanajuato</strong> es Patrimonio de la Humanidad desde <strong>1988</strong>.
+                    Su singular geografía con <strong>túneles viales</strong>, callejones estrechos y edificios
+                    coloniales históricos requiere técnicas especializadas de combate de incendios. Personal
+                    capacitado en protección de patrimonio cultural y atención durante el <strong>Festival
+                    Internacional Cervantino</strong>, que reúne más de 200,000 visitantes.
+                  </p>
+                </div>
+              )}
+
+              {esSanMiguel && (
+                <div class="gto-station-context gto-station-context--san-miguel">
+                  <h3>San Miguel de Allende - La Mejor Ciudad del Mundo</h3>
+                  <p>
+                    <strong>San Miguel de Allende</strong> ha sido votada múltiples veces como la <strong>#1
+                    Ciudad del Mundo</strong> por Condé Nast Traveler y Travel+Leisure. Ciudad <strong>Patrimonio
+                    UNESCO</strong> con importante comunidad de residentes extranjeros. Personal capacitado en
+                    protección de patrimonio arquitectónico colonial, <strong>atención multilingüe</strong>
+                    en inglés y español, y emergencias en el sector hotelero de lujo y galerías de arte.
+                  </p>
+                </div>
+              )}
+
+              {esDolores && (
+                <div class="gto-station-context gto-station-context--dolores">
+                  <h3>Cuna de la Independencia Nacional</h3>
+                  <p>
+                    <strong>Dolores Hidalgo</strong> es donde el padre Miguel Hidalgo dio el <strong>Grito de
+                    Independencia en 1810</strong>. Pueblo Mágico reconocido por su cerámica artesanal Talavera
+                    y su importancia histórica. Personal capacitado en protección del patrimonio histórico
+                    nacional, emergencias en los numerosos talleres de cerámica con hornos de alta temperatura
+                    y atención turística.
+                  </p>
+                </div>
+              )}
+
+              {esIrapuato && (
+                <div class="gto-station-context gto-station-context--irapuato">
+                  <h3>Capital Mundial de la Fresa</h3>
+                  <p>
+                    <strong>Irapuato</strong> es la segunda ciudad más poblada del estado con más de
+                    <strong>580,000 habitantes</strong>. Reconocida como la <strong>Capital Mundial de la
+                    Fresa</strong>, su economía gira en torno a la agroindustria fresera, empacadoras y
+                    cámaras de refrigeración. Centro estratégico del Bajío agroindustrial con cobertura
+                    a zonas comerciales e industriales.
+                  </p>
+                </div>
+              )}
+
+              {esCorredorIndustrial && !esSalamanca && !esCelaya && (
+                <div class="gto-station-context gto-station-context--corredor">
+                  <h3>Corredor Industrial del Bajío</h3>
+                  <p>
+                    Esta estación forma parte del <strong>principal corredor industrial de México</strong>,
+                    donde operan plantas automotrices y manufactureras de clase mundial. El Bajío se ha
+                    consolidado como el <strong>#1 productor de vehículos del país</strong>, requiriendo
+                    personal especializado en emergencias industriales, manejo de materiales peligrosos
+                    y coordinación con brigadas empresariales.
+                  </p>
+                </div>
+              )}
+            </div>
+          </section>
+
+          <!-- Servicios -->
+          <section class="gto-station-section">
+            <h2 class="gto-station-section__title">Servicios de Emergencia</h2>
+            <ul class="gto-station-services">
+              {estacion.servicios.map(servicio => (
+                <li class="gto-station-services__item">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{servicio}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- Equipamiento -->
+          {estacion.equipamiento && estacion.equipamiento.length > 0 && (
+            <section class="gto-station-section">
+              <h2 class="gto-station-section__title">Equipamiento y Unidades</h2>
+              <div class="gto-station-equipment">
+                {estacion.equipamiento.map(equipo => (
+                  <div class="gto-station-equipment__item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="18" height="18">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>{equipo}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Mapa -->
+          <section class="gto-station-section">
+            <h2 class="gto-station-section__title">Ubicación</h2>
+            <div class="gto-station-map">
+              <div class="gto-station-map__placeholder">
+                <p><strong>Dirección:</strong> {estacion.direccion}</p>
+                <p><strong>Código Postal:</strong> {estacion.codigoPostal}</p>
+                <p><strong>Coordenadas:</strong> {estacion.coordenadas.lat}, {estacion.coordenadas.lng}</p>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${estacion.coordenadas.lat},${estacion.coordenadas.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="gto-station-map__link"
+                >
+                  Ver en Google Maps
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="gto-station-sidebar">
+
+          <!-- Información de Contacto -->
+          <div class="gto-station-card gto-station-card--contact">
+            <h3 class="gto-station-card__title">Información de Contacto</h3>
+            <ul class="gto-station-card__list">
+              <li>
+                <strong>Teléfono:</strong>
+                <a href={`tel:${estacion.telefono.replace(/[^\d+]/g, '')}`}>{estacion.telefono}</a>
+              </li>
+              {estacion.email && (
+                <li>
+                  <strong>Email:</strong>
+                  <a href={`mailto:${estacion.email}`}>{estacion.email}</a>
+                </li>
+              )}
+              <li>
+                <strong>Horario:</strong>
+                <span>{estacion.horario}</span>
+              </li>
+              <li>
+                <strong>Dirección:</strong>
+                <span>{estacion.direccion}</span>
+              </li>
+              <li>
+                <strong>C.P.:</strong>
+                <span>{estacion.codigoPostal}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Estadísticas -->
+          <div class="gto-station-card">
+            <h3 class="gto-station-card__title">Datos de la Estación</h3>
+            <ul class="gto-station-card__list">
+              <li>
+                <strong>Personal:</strong>
+                <span>{estacion.personal} bomberos</span>
+              </li>
+              <li>
+                <strong>Unidades:</strong>
+                <span>{estacion.unidades} vehículos</span>
+              </li>
+              {estacion.fechaFundacion && (
+                <li>
+                  <strong>Fundación:</strong>
+                  <span>{estacion.fechaFundacion}</span>
+                </li>
+              )}
+              <li>
+                <strong>Zona:</strong>
+                <span>{contextoZona.tipo}</span>
+              </li>
+              <li>
+                <strong>Actualizado:</strong>
+                <span>{fechaActualizacion}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Teléfonos Regionales -->
+          <div class="gto-station-card gto-station-card--phones">
+            <h3 class="gto-station-card__title">Emergencias Guanajuato</h3>
+            <ul class="gto-station-card__phones">
+              <li>
+                <span>Emergencias Nacional</span>
+                <a href="tel:911">911</a>
+              </li>
+              <li>
+                <span>Bomberos León</span>
+                <a href="tel:+524777125555">(477) 712-5555</a>
+              </li>
+              <li>
+                <span>Bomberos Celaya</span>
+                <a href="tel:+524616123222">(461) 612-3222</a>
+              </li>
+              <li>
+                <span>Bomberos Salamanca</span>
+                <a href="tel:+524646480808">(464) 648-0808</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Redes Sociales -->
+          {estacion.redes && Object.keys(estacion.redes).length > 0 && (
+            <div class="gto-station-card">
+              <h3 class="gto-station-card__title">Redes Sociales</h3>
+              <div class="gto-station-social">
+                {estacion.redes.facebook && (
+                  <a href={estacion.redes.facebook} target="_blank" rel="noopener noreferrer" class="gto-station-social__link">
+                    Facebook
+                  </a>
+                )}
+                {estacion.redes.twitter && (
+                  <a href={estacion.redes.twitter} target="_blank" rel="noopener noreferrer" class="gto-station-social__link">
+                    Twitter/X
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+
+          <!-- Volver al directorio -->
+          <div class="gto-station-card gto-station-card--back">
+            <a href="/directorio/guanajuato" class="gto-station-back-link">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Ver todas las estaciones de Guanajuato
+            </a>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <nav class="gto-station-breadcrumb" aria-label="Breadcrumb">
+      <ol class="gto-station-breadcrumb__list">
+        <li class="gto-station-breadcrumb__item"><a href="/">Inicio</a></li>
+        <li class="gto-station-breadcrumb__item"><a href="/directorio">Directorio</a></li>
+        <li class="gto-station-breadcrumb__item"><a href="/directorio/guanajuato">Guanajuato</a></li>
+        <li class="gto-station-breadcrumb__item gto-station-breadcrumb__item--active">{estacion.nombreCorto || estacion.nombre}</li>
+      </ol>
+    </nav>
+  </div>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     VARIABLES CSS - TEMA AZUL COLONIAL/DORADO
+     ═══════════════════════════════════════════════════════════════════════ */
+  :root {
+    --gto-blue: rgb(30, 64, 175);
+    --gto-blue-light: rgb(59, 130, 246);
+    --gto-blue-dark: rgb(30, 58, 138);
+    --gto-blue-50: rgb(239, 246, 255);
+    --gto-blue-100: rgb(219, 234, 254);
+    --gto-blue-200: rgb(191, 219, 254);
+    --gto-amber: rgb(202, 138, 4);
+    --gto-white: #ffffff;
+    --gto-red: #dc2626;
+    --gto-slate-50: rgb(248, 250, 252);
+    --gto-slate-100: rgb(241, 245, 249);
+    --gto-slate-200: rgb(226, 232, 240);
+    --gto-slate-400: rgb(148, 163, 184);
+    --gto-slate-600: rgb(71, 85, 105);
+    --gto-slate-800: rgb(30, 41, 59);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     STATION PAGE LAYOUT
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station {
+    min-height: 100vh;
+    background-color: var(--gto-blue-50);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station-hero {
+    background: linear-gradient(135deg, var(--gto-blue-dark) 0%, var(--gto-blue) 50%, var(--gto-blue-light) 100%);
+    padding: 2.5rem 1rem;
+    color: var(--gto-white);
+  }
+
+  .gto-station-hero__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .gto-station-hero__badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .gto-station-hero__badge {
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .gto-station-hero__badge--state {
+    background: var(--gto-white);
+    color: var(--gto-blue);
+  }
+
+  .gto-station-hero__badge--zone {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--gto-white);
+  }
+
+  .gto-station-hero__badge--special {
+    background: var(--gto-amber);
+    color: var(--gto-white);
+  }
+
+  .gto-station-hero__title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .gto-station-hero__location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.125rem;
+    opacity: 0.95;
+    margin-bottom: 1.5rem;
+  }
+
+  .gto-station-hero__stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .gto-station-hero__stat {
+    text-align: center;
+  }
+
+  .gto-station-hero__stat-value {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--gto-amber);
+  }
+
+  .gto-station-hero__stat-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     EMERGENCY BANNER
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station-emergency {
+    background: var(--gto-red);
+    color: var(--gto-white);
+    padding: 1rem;
+  }
+
+  .gto-station-emergency__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .gto-station-emergency__phone {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .gto-station-emergency__label {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+
+  .gto-station-emergency__number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gto-white);
+    text-decoration: none;
+  }
+
+  .gto-station-emergency__number:hover {
+    text-decoration: underline;
+  }
+
+  .gto-station-emergency__national {
+    font-size: 0.9375rem;
+  }
+
+  .gto-station-emergency__national a {
+    color: var(--gto-white);
+    text-decoration: none;
+    margin-left: 0.25rem;
+  }
+
+  .gto-station-emergency__national a:hover {
+    text-decoration: underline;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     CONTENT LAYOUT
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station-content {
+    padding: 2rem 1rem;
+  }
+
+  .gto-station-content__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 2rem;
+  }
+
+  .gto-station-content__main {
+    min-width: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SECTIONS
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station-section {
+    background: var(--gto-white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .gto-station-section__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gto-slate-800);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--gto-blue);
+  }
+
+  .gto-station-section__content p {
+    color: var(--gto-slate-600);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .gto-station-section__content p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Context Boxes */
+  .gto-station-context {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--gto-blue);
+    background: var(--gto-blue-100);
+  }
+
+  .gto-station-context h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gto-blue-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .gto-station-context p {
+    font-size: 0.9375rem;
+    color: var(--gto-slate-600);
+    margin-bottom: 0;
+  }
+
+  .gto-station-context--leon { border-left-color: #1e40af; background: #dbeafe; }
+  .gto-station-context--leon h3 { color: #1e40af; }
+  .gto-station-context--silao { border-left-color: #4338ca; background: #e0e7ff; }
+  .gto-station-context--silao h3 { color: #4338ca; }
+  .gto-station-context--salamanca { border-left-color: #ea580c; background: #ffedd5; }
+  .gto-station-context--salamanca h3 { color: #c2410c; }
+  .gto-station-context--capital { border-left-color: #ca8a04; background: #fef3c7; }
+  .gto-station-context--capital h3 { color: #92400e; }
+  .gto-station-context--san-miguel { border-left-color: #be185d; background: #fce7f3; }
+  .gto-station-context--san-miguel h3 { color: #9d174d; }
+  .gto-station-context--dolores { border-left-color: #dc2626; background: #fee2e2; }
+  .gto-station-context--dolores h3 { color: #991b1b; }
+  .gto-station-context--irapuato { border-left-color: #16a34a; background: #dcfce7; }
+  .gto-station-context--irapuato h3 { color: #166534; }
+  .gto-station-context--corredor { border-left-color: #6366f1; background: #e0e7ff; }
+  .gto-station-context--corredor h3 { color: #4338ca; }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SERVICES LIST
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station-services {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .gto-station-services__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--gto-blue-50);
+    border-radius: 8px;
+    color: var(--gto-slate-600);
+  }
+
+  .gto-station-services__item svg {
+    flex-shrink: 0;
+    color: var(--gto-blue);
+    margin-top: 0.125rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     EQUIPMENT
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station-equipment {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .gto-station-equipment__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    background: var(--gto-blue-100);
+    border-radius: 6px;
+    font-size: 0.9375rem;
+    color: var(--gto-slate-600);
+  }
+
+  .gto-station-equipment__item svg {
+    flex-shrink: 0;
+    color: var(--gto-blue);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     MAP SECTION
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station-map__placeholder {
+    background: var(--gto-blue-100);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .gto-station-map__placeholder p {
+    color: var(--gto-slate-600);
+    margin-bottom: 0.5rem;
+  }
+
+  .gto-station-map__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--gto-blue);
+    color: var(--gto-white);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .gto-station-map__link:hover {
+    background: var(--gto-blue-dark);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     SIDEBAR
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .gto-station-card {
+    background: var(--gto-white);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .gto-station-card--contact {
+    border: 2px solid var(--gto-blue);
+  }
+
+  .gto-station-card__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gto-slate-800);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gto-blue-200);
+  }
+
+  .gto-station-card__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .gto-station-card__list li {
+    padding: 0.5rem 0;
+    font-size: 0.875rem;
+    color: var(--gto-slate-600);
+    border-bottom: 1px solid var(--gto-blue-100);
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .gto-station-card__list li:last-child {
+    border-bottom: none;
+  }
+
+  .gto-station-card__list strong {
+    color: var(--gto-slate-800);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+
+  .gto-station-card__list a {
+    color: var(--gto-blue);
+    text-decoration: none;
+  }
+
+  .gto-station-card__list a:hover {
+    text-decoration: underline;
+  }
+
+  /* Phone Card */
+  .gto-station-card--phones {
+    background: linear-gradient(135deg, var(--gto-blue-dark), var(--gto-blue));
+    color: var(--gto-white);
+  }
+
+  .gto-station-card--phones .gto-station-card__title {
+    color: var(--gto-white);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .gto-station-card__phones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .gto-station-card__phones li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.875rem;
+  }
+
+  .gto-station-card__phones li:last-child {
+    border-bottom: none;
+  }
+
+  .gto-station-card__phones a {
+    color: var(--gto-white);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .gto-station-card__phones a:hover {
+    text-decoration: underline;
+  }
+
+  /* Social Links */
+  .gto-station-social {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .gto-station-social__link {
+    flex: 1;
+    padding: 0.625rem;
+    background: var(--gto-blue-100);
+    color: var(--gto-blue-dark);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .gto-station-social__link:hover {
+    background: var(--gto-blue);
+    color: var(--gto-white);
+  }
+
+  /* Back Link */
+  .gto-station-card--back {
+    background: var(--gto-blue-100);
+  }
+
+  .gto-station-back-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--gto-blue);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem;
+  }
+
+  .gto-station-back-link:hover {
+    text-decoration: underline;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     BREADCRUMB
+     ═══════════════════════════════════════════════════════════════════════ */
+  .gto-station-breadcrumb {
+    background: var(--gto-white);
+    padding: 1rem;
+    border-top: 1px solid var(--gto-blue-200);
+  }
+
+  .gto-station-breadcrumb__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    font-size: 0.875rem;
+  }
+
+  .gto-station-breadcrumb__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--gto-slate-600);
+  }
+
+  .gto-station-breadcrumb__item::after {
+    content: '/';
+    color: var(--gto-blue-200);
+  }
+
+  .gto-station-breadcrumb__item:last-child::after {
+    display: none;
+  }
+
+  .gto-station-breadcrumb__item a {
+    color: var(--gto-blue);
+    text-decoration: none;
+  }
+
+  .gto-station-breadcrumb__item a:hover {
+    text-decoration: underline;
+  }
+
+  .gto-station-breadcrumb__item--active {
+    color: var(--gto-slate-500);
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .gto-station-content__container {
+      grid-template-columns: 1fr;
+    }
+
+    .gto-station-sidebar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .gto-station-hero__title {
+      font-size: 1.5rem;
+    }
+
+    .gto-station-hero__stats {
+      gap: 1rem;
+    }
+
+    .gto-station-hero__stat-value {
+      font-size: 1.5rem;
+    }
+
+    .gto-station-emergency__container {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .gto-station-emergency__phone {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .gto-station-equipment {
+      grid-template-columns: 1fr;
+    }
+
+    .gto-station-sidebar {
+      grid-template-columns: 1fr;
+    }
+
+    .gto-station-breadcrumb__list {
+      font-size: 0.75rem;
+    }
+  }
+</style>

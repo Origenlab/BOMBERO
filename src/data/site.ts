@@ -19,7 +19,7 @@ export const SITE = {
     titleTemplate: "%s | BOMBERO.MX - Equipo para Bomberos",
     description:
       "Distribuidor líder de equipo para bomberos en México. Trajes estructurales NFPA 1971, cascos, guantes, botas, equipos SCBA, extintores y herramientas de rescate certificadas. Envíos a CDMX, Monterrey, Guadalajara y los 32 estados. Cotiza sin compromiso.",
-    image: "/images/og-bombero-mx.jpg",
+    image: "/images/bombero.png",
     type: "website" as const,
     keywords: [
       "equipo para bomberos",
@@ -150,5 +150,5 @@ export type SEOProps = {
   publishedTime?: string;
   modifiedTime?: string;
   author?: string;
-  keywords?: string[];
+  keywords?: string[] | string;
 };
