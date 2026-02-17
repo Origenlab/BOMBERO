@@ -4,39 +4,20 @@
  * Información actualizada para SEO y directorio
  */
 
-export interface Estacion {
-  slug: string;
-  nombre: string;
-  nombreCorto: string;
-  direccion: string;
-  colonia: string;
-  codigoPostal: string;
-  alcaldia: string;
-  telefono: string;
-  telefonoEmergencia: string;
-  email?: string;
-  servicios: string[];
-  especialidades: string[];
-  horario: string;
-  coordenadas: { lat: number; lng: number };
-  descripcion: string;
-  historia?: string;
-  equipamiento?: string[];
-  zonasCobertura: string[];
-  tiempoRespuesta?: string;
-  personalActivo?: number;
-  unidadesDisponibles?: string[];
-}
+import type { Estacion } from './types';
 
 export const estacionesCDMX: Estacion[] = [
   {
+    id: "cdmx-central",
     slug: "estacion-central",
     nombre: "Estación Central de Bomberos de la Ciudad de México",
     nombreCorto: "Estación Central de Bomberos",
     direccion: "Av. Río de la Loza 156",
     colonia: "Doctores",
+    ciudad: "Ciudad de México",
     codigoPostal: "06720",
     alcaldia: "Cuauhtémoc",
+    estado: "Ciudad de México",
     telefono: "55 5768 3700",
     telefonoEmergencia: "911",
     email: "contacto@bomberos.cdmx.gob.mx",
@@ -68,17 +49,22 @@ export const estacionesCDMX: Estacion[] = [
     ],
     zonasCobertura: ["Centro Histórico", "Colonia Doctores", "Colonia Roma", "Colonia Condesa", "Zona Rosa"],
     tiempoRespuesta: "5-8 minutos",
+    personal: 120,
     personalActivo: 120,
+    unidades: 9,
     unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Unidad HAZMAT"]
   },
   {
+    id: "cdmx-tacubaya",
     slug: "estacion-tacubaya",
     nombre: "Estación de Bomberos Tacubaya",
     nombreCorto: "Estación de Bomberos Tacubaya",
     direccion: "Av. Jalisco 318",
     colonia: "Tacubaya",
+    ciudad: "Ciudad de México",
     codigoPostal: "11870",
     alcaldia: "Miguel Hidalgo",
+    estado: "Ciudad de México",
     telefono: "55 5516 1092",
     telefonoEmergencia: "911",
     servicios: [
@@ -98,17 +84,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Tacubaya brinda cobertura a una de las zonas más transitadas de la Ciudad de México, incluyendo áreas residenciales, comerciales y la importante zona de Santa Fe.",
     zonasCobertura: ["Tacubaya", "Observatorio", "Escandón", "Mixcoac", "Santa Fe"],
     tiempoRespuesta: "6-10 minutos",
+    personal: 45,
     personalActivo: 45,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "cdmx-tlalpan",
     slug: "estacion-tlalpan",
     nombre: "Estación de Bomberos Tlalpan",
     nombreCorto: "Estación de Bomberos Tlalpan",
     direccion: "Av. San Fernando 547",
     colonia: "Peña Pobre",
+    ciudad: "Ciudad de México",
     codigoPostal: "14060",
     alcaldia: "Tlalpan",
+    estado: "Ciudad de México",
     telefono: "55 5573 1396",
     telefonoEmergencia: "911",
     servicios: [
@@ -129,17 +120,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Tlalpan es especialista en incendios forestales y rescate en montaña, cubriendo las zonas boscosas del sur de la ciudad, incluyendo el Ajusco y áreas protegidas.",
     zonasCobertura: ["Tlalpan Centro", "Ajusco", "Pedregal", "Coapa", "Coyoacán Sur"],
     tiempoRespuesta: "8-15 minutos",
+    personal: 50,
     personalActivo: 50,
+    unidades: 5,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Unidad de Rescate en Montaña", "1 Ambulancia"]
   },
   {
+    id: "cdmx-coyoacan",
     slug: "estacion-coyoacan",
     nombre: "Estación de Bomberos Coyoacán",
     nombreCorto: "Estación de Bomberos Coyoacán",
     direccion: "Av. División del Norte 1540",
     colonia: "Letrán Valle",
+    ciudad: "Ciudad de México",
     codigoPostal: "03650",
     alcaldia: "Benito Juárez",
+    estado: "Ciudad de México",
     telefono: "55 5524 6312",
     telefonoEmergencia: "911",
     servicios: [
@@ -159,17 +155,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Coyoacán atiende una de las zonas más pobladas del sur de la ciudad, con especialización en emergencias residenciales y comerciales.",
     zonasCobertura: ["Coyoacán", "Del Valle", "Narvarte", "Portales", "General Anaya"],
     tiempoRespuesta: "5-8 minutos",
+    personal: 40,
     personalActivo: 40,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "cdmx-azcapotzalco",
     slug: "estacion-azcapotzalco",
     nombre: "Estación de Bomberos Azcapotzalco",
     nombreCorto: "Estación de Bomberos Azcapotzalco",
     direccion: "Av. Azcapotzalco 378",
     colonia: "Azcapotzalco Centro",
+    ciudad: "Ciudad de México",
     codigoPostal: "02000",
     alcaldia: "Azcapotzalco",
+    estado: "Ciudad de México",
     telefono: "55 5352 8901",
     telefonoEmergencia: "911",
     servicios: [
@@ -190,17 +191,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Azcapotzalco se especializa en emergencias industriales, atendiendo la zona con mayor concentración de fábricas y bodegas en la Ciudad de México.",
     zonasCobertura: ["Azcapotzalco", "Vallejo", "Pantaco", "Industrial Vallejo", "Clavería"],
     tiempoRespuesta: "5-10 minutos",
+    personal: 55,
     personalActivo: 55,
+    unidades: 5,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad HAZMAT", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "cdmx-gam",
     slug: "estacion-gustavo-a-madero",
     nombre: "Estación de Bomberos Gustavo A. Madero",
     nombreCorto: "Estación de Bomberos Gustavo A. Madero",
     direccion: "Calzada de Guadalupe 574",
     colonia: "Gustavo A. Madero",
+    ciudad: "Ciudad de México",
     codigoPostal: "07050",
     alcaldia: "Gustavo A. Madero",
+    estado: "Ciudad de México",
     telefono: "55 5781 2345",
     telefonoEmergencia: "911",
     servicios: [
@@ -220,17 +226,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos GAM cubre una de las alcaldías más pobladas de la ciudad, con especial atención a la Basílica de Guadalupe y zonas comerciales de alta afluencia.",
     zonasCobertura: ["Villa de Guadalupe", "La Villa", "Lindavista", "Tepeyac", "Martín Carrera"],
     tiempoRespuesta: "6-12 minutos",
+    personal: 48,
     personalActivo: 48,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "cdmx-iztapalapa",
     slug: "estacion-iztapalapa",
     nombre: "Estación de Bomberos Iztapalapa",
     nombreCorto: "Estación de Bomberos Iztapalapa",
     direccion: "Av. Ermita Iztapalapa 3428",
     colonia: "Santa María Aztahuacán",
+    ciudad: "Ciudad de México",
     codigoPostal: "09500",
     alcaldia: "Iztapalapa",
+    estado: "Ciudad de México",
     telefono: "55 5686 4523",
     telefonoEmergencia: "911",
     servicios: [
@@ -251,17 +262,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Iztapalapa atiende la alcaldía más poblada de la Ciudad de México, con especialización en inundaciones durante temporada de lluvias.",
     zonasCobertura: ["Iztapalapa", "Santa Cruz Meyehualco", "Ermita", "Central de Abasto", "Cabeza de Juárez"],
     tiempoRespuesta: "8-15 minutos",
+    personal: 60,
     personalActivo: 60,
+    unidades: 6,
     unidadesDisponibles: ["3 Autobombas", "1 Unidad de Rescate", "2 Ambulancias"]
   },
   {
+    id: "cdmx-xochimilco",
     slug: "estacion-xochimilco",
     nombre: "Estación de Bomberos Xochimilco",
     nombreCorto: "Estación de Bomberos Xochimilco",
     direccion: "Av. Guadalupe I. Ramírez 279",
     colonia: "Barrio El Rosario",
+    ciudad: "Ciudad de México",
     codigoPostal: "16070",
     alcaldia: "Xochimilco",
+    estado: "Ciudad de México",
     telefono: "55 5676 0912",
     telefonoEmergencia: "911",
     servicios: [
@@ -282,17 +298,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Xochimilco se especializa en rescate acuático, atendiendo los famosos canales de Xochimilco y zonas de conservación ecológica.",
     zonasCobertura: ["Xochimilco Centro", "San Gregorio", "Santa Cruz Acalpixca", "Tulyehualco", "Los canales"],
     tiempoRespuesta: "8-12 minutos",
+    personal: 35,
     personalActivo: 35,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad Acuática", "1 Ambulancia"]
   },
   {
+    id: "cdmx-alvaro-obregon",
     slug: "estacion-alvaro-obregon",
     nombre: "Estación de Bomberos Álvaro Obregón",
     nombreCorto: "Estación de Bomberos Álvaro Obregón",
     direccion: "Av. Revolución 1267",
     colonia: "Los Alpes",
+    ciudad: "Ciudad de México",
     codigoPostal: "01010",
     alcaldia: "Álvaro Obregón",
+    estado: "Ciudad de México",
     telefono: "55 5593 7821",
     telefonoEmergencia: "911",
     servicios: [
@@ -313,17 +334,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Álvaro Obregón se especializa en rescate en barrancas y zonas de riesgo geológico, características de esta alcaldía.",
     zonasCobertura: ["San Ángel", "Mixcoac", "Las Águilas", "Olivar de los Padres", "Santa Fe Sur"],
     tiempoRespuesta: "7-12 minutos",
+    personal: 42,
     personalActivo: 42,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "cdmx-cuajimalpa",
     slug: "estacion-cuajimalpa",
     nombre: "Estación de Bomberos Cuajimalpa",
     nombreCorto: "Estación de Bomberos Cuajimalpa",
     direccion: "Av. Veracruz 10",
     colonia: "Cuajimalpa Centro",
+    ciudad: "Ciudad de México",
     codigoPostal: "05000",
     alcaldia: "Cuajimalpa de Morelos",
+    estado: "Ciudad de México",
     telefono: "55 5812 3456",
     telefonoEmergencia: "911",
     servicios: [
@@ -344,17 +370,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Cuajimalpa atiende zonas boscosas y carreteras de montaña, incluyendo la autopista México-Toluca y el Desierto de los Leones.",
     zonasCobertura: ["Cuajimalpa Centro", "Santa Fe", "Contadero", "Desierto de los Leones", "La Marquesa"],
     tiempoRespuesta: "10-18 minutos",
+    personal: 38,
     personalActivo: 38,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Ambulancia"]
   },
   {
+    id: "cdmx-venustiano-carranza",
     slug: "estacion-venustiano-carranza",
     nombre: "Estación de Bomberos Venustiano Carranza",
     nombreCorto: "Estación de Bomberos Venustiano Carranza",
     direccion: "Calzada Ignacio Zaragoza 1134",
     colonia: "Juan Escutia",
+    ciudad: "Ciudad de México",
     codigoPostal: "09100",
     alcaldia: "Venustiano Carranza",
+    estado: "Ciudad de México",
     telefono: "55 5764 8901",
     telefonoEmergencia: "911",
     servicios: [
@@ -375,17 +406,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Venustiano Carranza brinda apoyo al Aeropuerto Internacional y atiende importantes zonas comerciales e industriales del oriente.",
     zonasCobertura: ["Venustiano Carranza Centro", "Aeropuerto AICM", "Jamaica", "Moctezuma", "Balbuena"],
     tiempoRespuesta: "5-10 minutos",
+    personal: 52,
     personalActivo: 52,
+    unidades: 5,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad HAZMAT", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "cdmx-iztacalco",
     slug: "estacion-iztacalco",
     nombre: "Estación de Bomberos Iztacalco",
     nombreCorto: "Estación de Bomberos Iztacalco",
     direccion: "Calzada de la Viga 1392",
     colonia: "El Triunfo",
+    ciudad: "Ciudad de México",
     codigoPostal: "09430",
     alcaldia: "Iztacalco",
+    estado: "Ciudad de México",
     telefono: "55 5654 2187",
     telefonoEmergencia: "911",
     servicios: [
@@ -405,17 +441,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Iztacalco atiende una zona densamente poblada con numerosas unidades habitacionales y mercados.",
     zonasCobertura: ["Iztacalco", "Agrícola Oriental", "Pantitlán", "Granjas México", "Santa Anita"],
     tiempoRespuesta: "5-10 minutos",
+    personal: 38,
     personalActivo: 38,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "cdmx-milpa-alta",
     slug: "estacion-milpa-alta",
     nombre: "Estación de Bomberos Milpa Alta",
     nombreCorto: "Estación de Bomberos Milpa Alta",
     direccion: "Av. Constitución 5",
     colonia: "Villa Milpa Alta",
+    ciudad: "Ciudad de México",
     codigoPostal: "12000",
     alcaldia: "Milpa Alta",
+    estado: "Ciudad de México",
     telefono: "55 5844 1234",
     telefonoEmergencia: "911",
     servicios: [
@@ -436,17 +477,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Milpa Alta es especialista en incendios forestales y atención a las comunidades rurales más alejadas de la Ciudad de México.",
     zonasCobertura: ["Milpa Alta", "San Antonio Tecómitl", "San Pablo Oztotepec", "San Pedro Atocpan", "Santa Ana Tlacotenco"],
     tiempoRespuesta: "12-25 minutos",
+    personal: 28,
     personalActivo: 28,
+    unidades: 3,
     unidadesDisponibles: ["1 Autobomba", "1 Unidad Forestal", "1 Ambulancia"]
   },
   {
+    id: "cdmx-tlahuac",
     slug: "estacion-tlahuac",
     nombre: "Estación de Bomberos Tláhuac",
     nombreCorto: "Estación de Bomberos Tláhuac",
     direccion: "Av. Tláhuac 5469",
     colonia: "Miguel Hidalgo",
+    ciudad: "Ciudad de México",
     codigoPostal: "13200",
     alcaldia: "Tláhuac",
+    estado: "Ciudad de México",
     telefono: "55 5842 6789",
     telefonoEmergencia: "911",
     servicios: [
@@ -467,17 +513,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Tláhuac atiende la zona de chinampas y las comunidades lacustres del sureste de la Ciudad de México.",
     zonasCobertura: ["Tláhuac Centro", "San Pedro Tláhuac", "Los Olivos", "Zapotitla", "San Francisco Tlaltenco"],
     tiempoRespuesta: "8-15 minutos",
+    personal: 32,
     personalActivo: 32,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad Acuática", "1 Ambulancia"]
   },
   {
+    id: "cdmx-magdalena-contreras",
     slug: "estacion-magdalena-contreras",
     nombre: "Estación de Bomberos Magdalena Contreras",
     nombreCorto: "Estación de Bomberos Magdalena Contreras",
     direccion: "Av. Luis Cabrera 1",
     colonia: "San Jerónimo Lídice",
+    ciudad: "Ciudad de México",
     codigoPostal: "10200",
     alcaldia: "La Magdalena Contreras",
+    estado: "Ciudad de México",
     telefono: "55 5595 4567",
     telefonoEmergencia: "911",
     servicios: [
@@ -498,17 +549,22 @@ export const estacionesCDMX: Estacion[] = [
     descripcion: "La Estación de Bomberos Magdalena Contreras se especializa en rescate en barrancas y atención de emergencias en la zona de Los Dinamos y áreas boscosas.",
     zonasCobertura: ["San Jerónimo", "Contreras", "Los Dinamos", "San Bernabé", "Pedregal de San Ángel"],
     tiempoRespuesta: "10-18 minutos",
+    personal: 30,
     personalActivo: 30,
+    unidades: 4,
     unidadesDisponibles: ["1 Autobomba", "1 Unidad Forestal", "1 Unidad de Rescate en Montaña", "1 Ambulancia"]
   },
   {
+    id: "cdmx-aeropuerto-aicm",
     slug: "estacion-aeropuerto-aicm",
     nombre: "Estación de Bomberos del Aeropuerto Internacional de la Ciudad de México",
     nombreCorto: "Estación de Bomberos del Aeropuerto AICM",
     direccion: "Terminal 1, Aeropuerto Internacional de la Ciudad de México",
     colonia: "Peñón de los Baños",
+    ciudad: "Ciudad de México",
     codigoPostal: "15620",
     alcaldia: "Venustiano Carranza",
+    estado: "Ciudad de México",
     telefono: "55 5786 9012",
     telefonoEmergencia: "911",
     servicios: [
@@ -535,7 +591,9 @@ export const estacionesCDMX: Estacion[] = [
     ],
     zonasCobertura: ["Aeropuerto Internacional CDMX", "Pistas", "Terminales 1 y 2", "Hangares", "Zona de carga"],
     tiempoRespuesta: "3 minutos (dentro del aeropuerto)",
+    personal: 80,
     personalActivo: 80,
+    unidades: 10,
     unidadesDisponibles: ["4 Vehículos ARFF", "2 Camiones de espuma", "2 Unidades de rescate", "2 Ambulancias"]
   }
 ];

@@ -1,37 +1,43 @@
 /**
- * ─── Datos de Estaciones de Bomberos Aguascalientes ───
- * Base de datos completa del H. Cuerpo de Bomberos de Aguascalientes
- * Información actualizada para SEO y directorio profesional
+ * ╔═══════════════════════════════════════════════════════════════════════════╗
+ * ║  BOMBEROS DE AGUASCALIENTES (AGS) - DIRECTORIO OFICIAL                    ║
+ * ║  Base de datos completa del H. Cuerpo de Bomberos de Aguascalientes       ║
+ * ╠═══════════════════════════════════════════════════════════════════════════╣
+ * ║  Capital: Aguascalientes | Código: AGS | Región: Centro-Norte             ║
+ * ║  13 Estaciones | 396 Bomberos | Cobertura en 11 Municipios                ║
+ * ╚═══════════════════════════════════════════════════════════════════════════╝
  */
 
-export interface Estacion {
-  slug: string;
-  nombre: string;
-  nombreCorto: string;
-  direccion: string;
-  colonia: string;
-  codigoPostal: string;
-  municipio: string;
-  ciudad: string;
-  telefono: string;
-  telefonoEmergencia: string;
-  email?: string;
-  servicios: string[];
-  especialidades: string[];
-  horario: string;
-  coordenadas: { lat: number; lng: number };
-  descripcion: string;
-  historia?: string;
-  equipamiento?: string[];
-  zonasCobertura: string[];
-  tiempoRespuesta?: string;
-  personalActivo?: number;
-  unidadesDisponibles?: string[];
-}
+import type { Estacion } from './types';
+
+// ═══════════════════════════════════════════════════════════════════════════
+// CONSTANTES SEO - AGUASCALIENTES
+// ═══════════════════════════════════════════════════════════════════════════
+
+export const AGUASCALIENTES_SEO = {
+  estado: 'Aguascalientes',
+  estadoCorto: 'Aguascalientes',
+  codigo: 'AGS',
+  capital: 'Aguascalientes',
+  gentilicio: 'aguascalentense',
+  region: 'Centro-Norte de México',
+  poblacion: 1_425_607,
+  superficie_km2: 5_618,
+  municipios: 11,
+};
+
+export const ESTADISTICAS_AGUASCALIENTES = {
+  total_estaciones: 13,
+  total_bomberos: 396,
+  total_unidades: 52,
+  municipios_cubiertos: 11,
+};
 
 export const estacionesAguascalientes: Estacion[] = [
   {
+    id: "ags-central",
     slug: "estacion-central-aguascalientes",
+    estado: "Aguascalientes",
     nombre: "Estación Central de Bomberos de Aguascalientes",
     nombreCorto: "Estación Central Aguascalientes",
     direccion: "Av. Adolfo López Mateos Oriente 1801",
@@ -70,11 +76,15 @@ export const estacionesAguascalientes: Estacion[] = [
     ],
     zonasCobertura: ["Centro Histórico", "Lomas del Campestre", "Jardines de la Asunción", "Colinas del Río", "Las Américas"],
     tiempoRespuesta: "5-8 minutos",
+    personal: 85,
     personalActivo: 85,
+    unidades: 9,
     unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Unidad HAZMAT"]
   },
   {
+    id: "ags-norte",
     slug: "estacion-bomberos-norte-aguascalientes",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos Zona Norte de Aguascalientes",
     nombreCorto: "Estación Zona Norte AGS",
     direccion: "Blvd. Siglo XXI 1502",
@@ -104,11 +114,15 @@ export const estacionesAguascalientes: Estacion[] = [
     descripcion: "La Estación Zona Norte atiende los desarrollos habitacionales y comerciales del norte de la ciudad de Aguascalientes, una de las zonas de mayor crecimiento del estado.",
     zonasCobertura: ["Bosques del Prado Norte", "Morelos", "Jardines del Parque", "Villas de Nuestra Señora de la Asunción", "Trojes de Alonso"],
     tiempoRespuesta: "6-10 minutos",
+    personal: 42,
     personalActivo: 42,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "ags-sur",
     slug: "estacion-bomberos-sur-aguascalientes",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos Zona Sur de Aguascalientes",
     nombreCorto: "Estación Zona Sur AGS",
     direccion: "Av. Convención de 1914 Sur 701",
@@ -139,11 +153,15 @@ export const estacionesAguascalientes: Estacion[] = [
     historia: "Esta estación fue establecida estratégicamente para atender la zona de la Feria de San Marcos, el evento más importante del estado que recibe millones de visitantes cada año.",
     zonasCobertura: ["San Marcos", "La Cantera", "Ojocaliente", "Jardines de la Cruz", "Villa de Nuestra Señora de la Asunción"],
     tiempoRespuesta: "5-9 minutos",
+    personal: 45,
     personalActivo: 45,
+    unidades: 5,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia", "1 Unidad de Eventos Masivos"]
   },
   {
+    id: "ags-jesus-maria",
     slug: "estacion-bomberos-jesus-maria",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de Jesús María",
     nombreCorto: "Estación de Bomberos Jesús María",
     direccion: "Av. Independencia 210",
@@ -173,11 +191,15 @@ export const estacionesAguascalientes: Estacion[] = [
     descripcion: "La Estación de Bomberos de Jesús María protege el segundo municipio más poblado del estado, parte fundamental de la Zona Metropolitana de Aguascalientes. Cubre zonas urbanas y rurales con especialidad en incendios forestales.",
     zonasCobertura: ["Centro de Jesús María", "Tapias Viejas", "La Labor", "Cañada Honda", "Gracias a Dios"],
     tiempoRespuesta: "8-15 minutos",
+    personal: 32,
     personalActivo: 32,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Ambulancia"]
   },
   {
+    id: "ags-san-francisco-romo",
     slug: "estacion-bomberos-san-francisco-romo",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de San Francisco de los Romo",
     nombreCorto: "Estación de Bomberos San Francisco",
     direccion: "Av. San Francisco 105",
@@ -213,11 +235,15 @@ export const estacionesAguascalientes: Estacion[] = [
     ],
     zonasCobertura: ["Centro de San Francisco", "Parque Industrial San Francisco", "Parque Industrial Altec", "Zona Industrial Nissan", "Comunidades rurales"],
     tiempoRespuesta: "6-12 minutos",
+    personal: 38,
     personalActivo: 38,
+    unidades: 5,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad HAZMAT", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "ags-rincon-romos",
     slug: "estacion-bomberos-rincon-romos",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de Rincón de Romos",
     nombreCorto: "Estación de Bomberos Rincón de Romos",
     direccion: "Calle Juárez 45",
@@ -247,11 +273,15 @@ export const estacionesAguascalientes: Estacion[] = [
     descripcion: "La Estación de Bomberos de Rincón de Romos protege uno de los municipios más importantes en actividad agrícola de Aguascalientes. Especializada en incendios agrícolas y atención a comunidades rurales.",
     zonasCobertura: ["Centro de Rincón de Romos", "La Punta", "Las Camas", "Escaleras", "Pabellón de Hidalgo"],
     tiempoRespuesta: "10-18 minutos",
+    personal: 25,
     personalActivo: 25,
+    unidades: 4,
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate Rural", "1 Ambulancia"]
   },
   {
+    id: "ags-calvillo",
     slug: "estacion-bomberos-calvillo",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de Calvillo",
     nombreCorto: "Estación de Bomberos Calvillo",
     direccion: "Calle Victoria 120",
@@ -289,11 +319,15 @@ export const estacionesAguascalientes: Estacion[] = [
     ],
     zonasCobertura: ["Centro de Calvillo", "Presa de los Serna", "El Sauz", "Malpaso", "La Sierra Fría"],
     tiempoRespuesta: "12-25 minutos",
+    personal: 28,
     personalActivo: 28,
+    unidades: 5,
     unidadesDisponibles: ["1 Autobomba", "2 Unidades de Rescate en Montaña", "1 Unidad Forestal", "1 Ambulancia"]
   },
   {
+    id: "ags-pabellon-arteaga",
     slug: "estacion-bomberos-pabellon-arteaga",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de Pabellón de Arteaga",
     nombreCorto: "Estación de Bomberos Pabellón",
     direccion: "Av. Constitución 310",
@@ -323,11 +357,15 @@ export const estacionesAguascalientes: Estacion[] = [
     descripcion: "La Estación de Bomberos de Pabellón de Arteaga atiende un importante centro industrial y comercial del estado, con tradición en la industria textil y manufacturas.",
     zonasCobertura: ["Centro de Pabellón", "Santiago", "El Garabato", "Ojo de Agua de Crucitas", "Las Ánimas"],
     tiempoRespuesta: "8-15 minutos",
+    personal: 22,
     personalActivo: 22,
+    unidades: 3,
     unidadesDisponibles: ["1 Autobomba", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "ags-asientos",
     slug: "estacion-bomberos-asientos",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de Asientos",
     nombreCorto: "Estación de Bomberos Asientos",
     direccion: "Calle Hidalgo 56",
@@ -358,11 +396,15 @@ export const estacionesAguascalientes: Estacion[] = [
     historia: "Asientos fue un importante centro minero durante la época colonial. Su cuerpo de bomberos mantiene capacitación especial para atender emergencias en las antiguas estructuras mineras.",
     zonasCobertura: ["Centro de Asientos", "Villa Juárez", "Pilotos", "El Llavero", "Ciénega Grande"],
     tiempoRespuesta: "12-20 minutos",
+    personal: 18,
     personalActivo: 18,
+    unidades: 3,
     unidadesDisponibles: ["1 Autobomba", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "ags-tepezala",
     slug: "estacion-bomberos-tepezala",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de Tepezalá",
     nombreCorto: "Estación de Bomberos Tepezalá",
     direccion: "Plaza Principal s/n",
@@ -392,11 +434,15 @@ export const estacionesAguascalientes: Estacion[] = [
     descripcion: "La Estación de Bomberos de Tepezalá atiende un municipio principalmente rural con vocación agrícola y ganadera. Especializada en emergencias en zonas de difícil acceso.",
     zonasCobertura: ["Centro de Tepezalá", "El Tule", "Puerto de la Concepción", "San Antonio", "Mesillas"],
     tiempoRespuesta: "15-25 minutos",
+    personal: 15,
     personalActivo: 15,
+    unidades: 3,
     unidadesDisponibles: ["1 Autobomba", "1 Unidad Rural", "1 Ambulancia"]
   },
   {
+    id: "ags-cosio",
     slug: "estacion-bomberos-cosio",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de Cosío",
     nombreCorto: "Estación de Bomberos Cosío",
     direccion: "Calle Morelos 78",
@@ -426,11 +472,15 @@ export const estacionesAguascalientes: Estacion[] = [
     descripcion: "La Estación de Bomberos de Cosío protege el municipio más al norte del estado, con fuerte vocación ganadera. Punto estratégico en la carretera federal hacia Zacatecas.",
     zonasCobertura: ["Centro de Cosío", "Soledad de Arriba", "La Punta de Cosío", "El Salero", "Tanque de Guadalupe"],
     tiempoRespuesta: "15-30 minutos",
+    personal: 12,
     personalActivo: 12,
+    unidades: 2,
     unidadesDisponibles: ["1 Autobomba", "1 Unidad Rural"]
   },
   {
+    id: "ags-el-llano",
     slug: "estacion-bomberos-el-llano",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de El Llano",
     nombreCorto: "Estación de Bomberos El Llano",
     direccion: "Av. Juárez 89",
@@ -460,11 +510,15 @@ export const estacionesAguascalientes: Estacion[] = [
     descripcion: "La Estación de Bomberos de El Llano atiende el municipio más oriental del estado, punto estratégico en la carretera hacia San Luis Potosí. Zona agrícola con comunidades dispersas.",
     zonasCobertura: ["Palo Alto", "El Llano Centro", "Ojo de Agua", "La Escondida", "El Garabato"],
     tiempoRespuesta: "12-22 minutos",
+    personal: 14,
     personalActivo: 14,
+    unidades: 2,
     unidadesDisponibles: ["1 Autobomba", "1 Unidad de Rescate"]
   },
   {
+    id: "ags-san-jose-gracia",
     slug: "estacion-bomberos-san-jose-gracia",
+    estado: "Aguascalientes",
     nombre: "Estación de Bomberos de San José de Gracia",
     nombreCorto: "Estación de Bomberos San José de Gracia",
     direccion: "Plaza Principal 12",
@@ -501,7 +555,9 @@ export const estacionesAguascalientes: Estacion[] = [
     ],
     zonasCobertura: ["Centro de San José de Gracia", "Presa Calles", "Potrero de los López", "La Congoja", "Sierra Fría"],
     tiempoRespuesta: "10-20 minutos",
+    personal: 20,
     personalActivo: 20,
+    unidades: 4,
     unidadesDisponibles: ["1 Autobomba", "1 Unidad Forestal", "1 Lancha de Rescate", "1 Ambulancia"]
   }
 ];

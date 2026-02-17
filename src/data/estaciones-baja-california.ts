@@ -17,37 +17,16 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-export interface Estacion {
-  slug: string;
-  nombre: string;
-  nombreCorto: string;
-  direccion: string;
-  colonia: string;
-  codigoPostal: string;
-  municipio: string;
-  ciudad: string;
-  telefono: string;
-  telefonoEmergencia: string;
-  email?: string;
-  servicios: string[];
-  especialidades: string[];
-  horario: string;
-  coordenadas: { lat: number; lng: number };
-  descripcion: string;
-  historia?: string;
-  equipamiento?: string[];
-  zonasCobertura: string[];
-  tiempoRespuesta?: string;
-  personalActivo?: number;
-  unidadesDisponibles?: string[];
-}
+import type { Estacion } from './types';
 
 export const estacionesBajaCalifornia: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   // MEXICALI - CAPITAL DEL ESTADO (6 estaciones)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bc-central-mexicali",
     slug: "estacion-central-mexicali",
+    estado: "Baja California",
     nombre: "Estación Central de Bomberos de Mexicali",
     nombreCorto: "Estación Central Mexicali",
     direccion: "Calzada Independencia 998",
@@ -91,10 +70,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Centro Cívico", "Centro Histórico", "Zona Río Nuevo", "Industrial", "Pueblo Nuevo", "Ex-Ejido Coahuila"],
     tiempoRespuesta: "4-7 minutos en zona urbana",
     personalActivo: 95,
-    unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Unidad HAZMAT", "1 Comando Móvil"]
+    personal: 95,
+    unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Unidad HAZMAT", "1 Comando Móvil"],
+    unidades: 10
   },
   {
+    id: "bc-mexicali-zona-este",
     slug: "estacion-bomberos-mexicali-zona-este",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Mexicali Zona Este",
     nombreCorto: "Estación Zona Este Mexicali",
     direccion: "Blvd. Lázaro Cárdenas 2100",
@@ -132,10 +115,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Ex-Ejido Coahuila", "Colonia Progreso", "Ejido Nuevo León", "Valle de Mexicali Este", "Zona Agrícola Oriental"],
     tiempoRespuesta: "8-15 minutos",
     personalActivo: 42,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad Todoterreno", "1 Unidad de Rescate", "1 Ambulancia"]
+    personal: 42,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad Todoterreno", "1 Unidad de Rescate", "1 Ambulancia"],
+    unidades: 5
   },
   {
+    id: "bc-mexicali-zona-industrial",
     slug: "estacion-bomberos-mexicali-zona-industrial",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Mexicali Zona Industrial",
     nombreCorto: "Estación Industrial Mexicali",
     direccion: "Blvd. Venustiano Carranza 1500",
@@ -177,10 +164,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Parque Industrial El Vigía", "Parque Industrial Cachanilla", "Parque Industrial Mexicali", "Corredor Industrial 2000", "Zona Industrial Sur"],
     tiempoRespuesta: "5-10 minutos en zona industrial",
     personalActivo: 55,
-    unidadesDisponibles: ["2 Autobombas Industriales", "1 Unidad HAZMAT", "1 Unidad de Rescate Pesado", "1 Ambulancia"]
+    personal: 55,
+    unidadesDisponibles: ["2 Autobombas Industriales", "1 Unidad HAZMAT", "1 Unidad de Rescate Pesado", "1 Ambulancia"],
+    unidades: 5
   },
   {
+    id: "bc-mexicali-zona-rio",
     slug: "estacion-bomberos-mexicali-zona-rio",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Mexicali Zona Río",
     nombreCorto: "Estación Zona Río Mexicali",
     direccion: "Blvd. Adolfo López Mateos 800",
@@ -212,10 +203,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Zona Río", "Nueva Mexicali", "Zona Dorada", "Centro Comercial La Cachanilla", "Hoteles Boulevard López Mateos"],
     tiempoRespuesta: "4-8 minutos",
     personalActivo: 38,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
+    personal: 38,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"],
+    unidades: 4
   },
   {
+    id: "bc-mexicali-sur",
     slug: "estacion-bomberos-mexicali-sur",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Mexicali Zona Sur",
     nombreCorto: "Estación Sur Mexicali",
     direccion: "Av. Calafia 2500",
@@ -246,10 +241,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Residencial del Bosque", "Fraccionamiento Valle Dorado", "UABC Campus Mexicali", "CETYS Universidad", "Colonia Calafia"],
     tiempoRespuesta: "6-10 minutos",
     personalActivo: 32,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
+    personal: 32,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"],
+    unidades: 4
   },
   {
+    id: "bc-san-luis-rio-colorado",
     slug: "estacion-bomberos-san-luis-rio-colorado",
+    estado: "Baja California",
     nombre: "Estación de Bomberos de San Luis Río Colorado",
     nombreCorto: "Estación San Luis Río Colorado",
     direccion: "Av. Kino 450",
@@ -282,14 +281,18 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Centro de San Luis RC", "Zona Agrícola", "Puerto Fronterizo", "Colonia Comercial", "Ejidos aledaños"],
     tiempoRespuesta: "6-12 minutos",
     personalActivo: 35,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Unidad Todoterreno", "1 Ambulancia"]
+    personal: 35,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Unidad Todoterreno", "1 Ambulancia"],
+    unidades: 5
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // TIJUANA - CIUDAD MÁS POBLADA (8 estaciones)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bc-central-tijuana",
     slug: "estacion-central-tijuana",
+    estado: "Baja California",
     nombre: "Estación Central de Bomberos de Tijuana",
     nombreCorto: "Estación Central Tijuana",
     direccion: "Blvd. Agua Caliente 4500",
@@ -334,10 +337,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Zona Río Tijuana", "Aviación", "Cacho", "Chapultepec", "Hipódromo", "Zona Centro", "Zona Urbana Río"],
     tiempoRespuesta: "4-8 minutos en zona urbana central",
     personalActivo: 110,
-    unidadesDisponibles: ["4 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Unidad HAZMAT", "1 Comando Móvil"]
+    personal: 110,
+    unidadesDisponibles: ["4 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Unidad HAZMAT", "1 Comando Móvil"],
+    unidades: 11
   },
   {
+    id: "bc-tijuana-otay",
     slug: "estacion-bomberos-tijuana-otay",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Tijuana Otay",
     nombreCorto: "Estación Otay Tijuana",
     direccion: "Blvd. Industrial Otay 500",
@@ -378,10 +385,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Ciudad Industrial Nueva Tijuana", "Parque Industrial Otay", "El Florido Industrial", "Mesa de Otay", "Puerto Fronterizo Otay Mesa"],
     tiempoRespuesta: "5-10 minutos en zona industrial",
     personalActivo: 65,
-    unidadesDisponibles: ["3 Autobombas", "1 Unidad HAZMAT", "2 Unidades de Rescate", "1 Ambulancia"]
+    personal: 65,
+    unidadesDisponibles: ["3 Autobombas", "1 Unidad HAZMAT", "2 Unidades de Rescate", "1 Ambulancia"],
+    unidades: 7
   },
   {
+    id: "bc-tijuana-playas",
     slug: "estacion-bomberos-tijuana-playas",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Tijuana Playas",
     nombreCorto: "Estación Playas de Tijuana",
     direccion: "Paseo Playas de Tijuana 1200",
@@ -420,10 +431,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Playas de Tijuana Sección Costa", "Playas de Tijuana Sección Jardines", "Monumental", "San Antonio del Mar", "Playas Coronado"],
     tiempoRespuesta: "5-10 minutos",
     personalActivo: 35,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate Acuático", "1 Ambulancia"]
+    personal: 35,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate Acuático", "1 Ambulancia"],
+    unidades: 4
   },
   {
+    id: "bc-tijuana-zona-este",
     slug: "estacion-bomberos-tijuana-zona-este",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Tijuana Zona Este",
     nombreCorto: "Estación Zona Este Tijuana",
     direccion: "Blvd. Insurgentes 15000",
@@ -455,10 +470,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["La Presa Este", "Valle Redondo", "Cañón del Padre", "Terrazas del Valle", "Lomas del Valle"],
     tiempoRespuesta: "8-15 minutos",
     personalActivo: 38,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad Todoterreno", "1 Unidad de Rescate", "1 Ambulancia"]
+    personal: 38,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad Todoterreno", "1 Unidad de Rescate", "1 Ambulancia"],
+    unidades: 5
   },
   {
+    id: "bc-tijuana-zona-norte",
     slug: "estacion-bomberos-tijuana-zona-norte",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Tijuana Zona Norte",
     nombreCorto: "Estación Zona Norte Tijuana",
     direccion: "Calle Segunda 8050",
@@ -490,10 +509,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Zona Norte", "Zona Centro", "Avenida Revolución", "Colonia Federal", "Colonia Libertad"],
     tiempoRespuesta: "4-7 minutos",
     personalActivo: 42,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
+    personal: 42,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"],
+    unidades: 4
   },
   {
+    id: "bc-tijuana-mesa",
     slug: "estacion-bomberos-tijuana-mesa",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Tijuana La Mesa",
     nombreCorto: "Estación La Mesa Tijuana",
     direccion: "Blvd. Díaz Ordaz 12500",
@@ -525,10 +548,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["La Mesa", "Otay Universidad", "Las Palmas", "Santa Fe", "Vista Hermosa"],
     tiempoRespuesta: "5-10 minutos",
     personalActivo: 35,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
+    personal: 35,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"],
+    unidades: 4
   },
   {
+    id: "bc-tijuana-san-antonio",
     slug: "estacion-bomberos-tijuana-san-antonio",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Tijuana San Antonio de los Buenos",
     nombreCorto: "Estación San Antonio Tijuana",
     direccion: "Blvd. 2000 km 18",
@@ -560,10 +587,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["San Antonio de los Buenos", "Real del Mar", "Popotla", "Puerto Nuevo", "Carretera Escénica"],
     tiempoRespuesta: "10-18 minutos",
     personalActivo: 28,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Unidad de Rescate", "1 Ambulancia"]
+    personal: 28,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Unidad de Rescate", "1 Ambulancia"],
+    unidades: 5
   },
   {
+    id: "bc-tijuana-presa",
     slug: "estacion-bomberos-tijuana-presa",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Tijuana La Presa",
     nombreCorto: "Estación La Presa Tijuana",
     direccion: "Blvd. Cucapah 26000",
@@ -595,14 +626,18 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["La Presa", "Ejido Francisco Villa", "Villa del Campo", "Los Valles", "Zona de la Presa Abelardo L. Rodríguez"],
     tiempoRespuesta: "8-15 minutos",
     personalActivo: 32,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate Acuático", "1 Unidad Forestal", "1 Ambulancia"]
+    personal: 32,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate Acuático", "1 Unidad Forestal", "1 Ambulancia"],
+    unidades: 5
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // ENSENADA - PUERTO Y ZONA VITIVINÍCOLA (4 estaciones)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bc-central-ensenada",
     slug: "estacion-central-ensenada",
+    estado: "Baja California",
     nombre: "Estación Central de Bomberos de Ensenada",
     nombreCorto: "Estación Central Ensenada",
     direccion: "Calle Novena 650",
@@ -644,10 +679,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Centro Histórico", "Zona Portuaria", "Terminal de Cruceros", "Muelle Fiscal", "Colonia Popular 89", "Bahía de Todos Santos"],
     tiempoRespuesta: "5-8 minutos en zona central",
     personalActivo: 65,
-    unidadesDisponibles: ["3 Autobombas", "1 Unidad de Rescate Marítimo", "1 Unidad HAZMAT", "2 Ambulancias", "1 Escalera"]
+    personal: 65,
+    unidadesDisponibles: ["3 Autobombas", "1 Unidad de Rescate Marítimo", "1 Unidad HAZMAT", "2 Ambulancias", "1 Escalera"],
+    unidades: 8
   },
   {
+    id: "bc-ensenada-valle-guadalupe",
     slug: "estacion-bomberos-ensenada-valle-guadalupe",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Ensenada Valle de Guadalupe",
     nombreCorto: "Estación Valle de Guadalupe",
     direccion: "Carretera Tecate-Ensenada km 75",
@@ -687,10 +726,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Valle de Guadalupe", "San Antonio de las Minas", "El Porvenir", "Francisco Zarco", "Ruta del Vino"],
     tiempoRespuesta: "10-20 minutos",
     personalActivo: 28,
-    unidadesDisponibles: ["2 Autobombas", "2 Unidades Forestales", "1 Tanque Nodriza", "1 Ambulancia"]
+    personal: 28,
+    unidadesDisponibles: ["2 Autobombas", "2 Unidades Forestales", "1 Tanque Nodriza", "1 Ambulancia"],
+    unidades: 6
   },
   {
+    id: "bc-ensenada-sur",
     slug: "estacion-bomberos-ensenada-sur",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Ensenada Zona Sur",
     nombreCorto: "Estación Sur Ensenada",
     direccion: "Av. Reforma 3500",
@@ -722,10 +765,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Maneadero", "Ejido Chapultepec", "Rodolfo Sánchez Taboada", "Santo Tomás", "Zona Agrícola Sur"],
     tiempoRespuesta: "8-15 minutos",
     personalActivo: 25,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad Rural", "1 Ambulancia"]
+    personal: 25,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad Rural", "1 Ambulancia"],
+    unidades: 4
   },
   {
+    id: "bc-san-quintin",
     slug: "estacion-bomberos-san-quintin",
+    estado: "Baja California",
     nombre: "Estación de Bomberos de San Quintín",
     nombreCorto: "Estación San Quintín",
     direccion: "Carretera Transpeninsular km 178",
@@ -757,14 +804,18 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["San Quintín", "Vicente Guerrero", "Camalú", "Colonet", "Valle de San Quintín"],
     tiempoRespuesta: "15-30 minutos",
     personalActivo: 22,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad Rural", "1 Ambulancia"]
+    personal: 22,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad Rural", "1 Ambulancia"],
+    unidades: 4
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // TECATE - CIUDAD CERVECERA (2 estaciones)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bc-central-tecate",
     slug: "estacion-central-tecate",
+    estado: "Baja California",
     nombre: "Estación Central de Bomberos de Tecate",
     nombreCorto: "Estación Central Tecate",
     direccion: "Av. Juárez 500",
@@ -805,10 +856,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Centro de Tecate", "Zona Industrial Cervecera", "El Descanso", "La Puerta", "Zona Fronteriza"],
     tiempoRespuesta: "5-10 minutos en zona urbana",
     personalActivo: 38,
-    unidadesDisponibles: ["2 Autobombas", "2 Unidades Forestales", "1 Unidad de Rescate", "1 Ambulancia"]
+    personal: 38,
+    unidadesDisponibles: ["2 Autobombas", "2 Unidades Forestales", "1 Unidad de Rescate", "1 Ambulancia"],
+    unidades: 6
   },
   {
+    id: "bc-la-rumorosa",
     slug: "estacion-bomberos-la-rumorosa",
+    estado: "Baja California",
     nombre: "Estación de Bomberos de La Rumorosa",
     nombreCorto: "Estación La Rumorosa",
     direccion: "Carretera Tecate-Mexicali km 50",
@@ -848,14 +903,18 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["La Rumorosa", "El Condor", "Parque Nacional Constitución de 1857", "Laguna Hanson", "Carretera Federal 2"],
     tiempoRespuesta: "10-20 minutos según condiciones climáticas",
     personalActivo: 25,
-    unidadesDisponibles: ["2 Autobombas Forestales", "2 Unidades de Rescate", "1 Ambulancia 4x4"]
+    personal: 25,
+    unidadesDisponibles: ["2 Autobombas Forestales", "2 Unidades de Rescate", "1 Ambulancia 4x4"],
+    unidades: 5
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // PLAYAS DE ROSARITO (2 estaciones)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bc-central-rosarito",
     slug: "estacion-central-rosarito",
+    estado: "Baja California",
     nombre: "Estación Central de Bomberos de Playas de Rosarito",
     nombreCorto: "Estación Central Rosarito",
     direccion: "Blvd. Benito Juárez 900",
@@ -896,10 +955,14 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Centro de Rosarito", "Zona Hotelera", "Playas del Norte", "Puerto Nuevo", "Calafia"],
     tiempoRespuesta: "5-10 minutos",
     personalActivo: 42,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate Acuático", "1 Unidad de Rescate", "2 Ambulancias"]
+    personal: 42,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate Acuático", "1 Unidad de Rescate", "2 Ambulancias"],
+    unidades: 6
   },
   {
+    id: "bc-rosarito-sur",
     slug: "estacion-bomberos-rosarito-sur",
+    estado: "Baja California",
     nombre: "Estación de Bomberos Playas de Rosarito Zona Sur",
     nombreCorto: "Estación Sur Rosarito",
     direccion: "Blvd. Popotla km 35",
@@ -931,7 +994,9 @@ export const estacionesBajaCalifornia: Estacion[] = [
     zonasCobertura: ["Primo Tapia", "La Fonda", "Las Gaviotas", "K-38", "Campo López", "La Misión"],
     tiempoRespuesta: "10-18 minutos",
     personalActivo: 22,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Ambulancia"]
+    personal: 22,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Ambulancia"],
+    unidades: 4
   }
 ];
 

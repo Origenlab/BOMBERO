@@ -4,33 +4,11 @@
  * Información actualizada para SEO y directorio profesional
  */
 
-export interface Estacion {
-  slug: string;
-  nombre: string;
-  nombreCorto: string;
-  direccion: string;
-  colonia: string;
-  codigoPostal: string;
-  municipio: string;
-  ciudad: string;
-  telefono: string;
-  telefonoEmergencia: string;
-  email?: string;
-  servicios: string[];
-  especialidades: string[];
-  horario: string;
-  coordenadas: { lat: number; lng: number };
-  descripcion: string;
-  historia?: string;
-  equipamiento?: string[];
-  zonasCobertura: string[];
-  tiempoRespuesta?: string;
-  personalActivo?: number;
-  unidadesDisponibles?: string[];
-}
+import type { Estacion } from './types';
 
 export const estacionesEdoMex: Estacion[] = [
   {
+    id: "edomex-central-toluca",
     slug: "estacion-central-toluca",
     nombre: "Estación Central de Bomberos de Toluca",
     nombreCorto: "Estación Central Toluca",
@@ -39,9 +17,12 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "50000",
     municipio: "Toluca",
     ciudad: "Toluca de Lerdo",
+    estado: "Estado de México",
     telefono: "722 215 7790",
     telefonoEmergencia: "911",
     email: "bomberos@toluca.gob.mx",
+    personal: 95,
+    unidades: 9,
     servicios: [
       "Incendios estructurales",
       "Rescate vehicular",
@@ -74,6 +55,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Unidad HAZMAT"]
   },
   {
+    id: "edomex-ecatepec",
     slug: "estacion-bomberos-ecatepec",
     nombre: "Estación de Bomberos de Ecatepec de Morelos",
     nombreCorto: "Estación de Bomberos Ecatepec",
@@ -82,8 +64,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "55120",
     municipio: "Ecatepec de Morelos",
     ciudad: "Ecatepec",
+    estado: "Estado de México",
     telefono: "55 5787 4512",
     telefonoEmergencia: "911",
+    personal: 75,
+    unidades: 8,
     servicios: [
       "Incendios estructurales",
       "Incendios industriales",
@@ -108,6 +93,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Unidad HAZMAT", "2 Ambulancias"]
   },
   {
+    id: "edomex-naucalpan",
     slug: "estacion-bomberos-naucalpan",
     nombre: "Estación de Bomberos de Naucalpan de Juárez",
     nombreCorto: "Estación de Bomberos Naucalpan",
@@ -116,9 +102,12 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "53100",
     municipio: "Naucalpan de Juárez",
     ciudad: "Naucalpan",
+    estado: "Estado de México",
     telefono: "55 5374 8900",
     telefonoEmergencia: "911",
     email: "bomberos@naucalpan.gob.mx",
+    personal: 65,
+    unidades: 6,
     servicios: [
       "Incendios estructurales",
       "Incendios industriales",
@@ -149,6 +138,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "2 Unidades de Rescate", "1 Unidad HAZMAT", "1 Ambulancia"]
   },
   {
+    id: "edomex-tlalnepantla",
     slug: "estacion-bomberos-tlalnepantla",
     nombre: "Estación de Bomberos de Tlalnepantla de Baz",
     nombreCorto: "Estación de Bomberos Tlalnepantla",
@@ -157,8 +147,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "54030",
     municipio: "Tlalnepantla de Baz",
     ciudad: "Tlalnepantla",
+    estado: "Estado de México",
     telefono: "55 5390 4100",
     telefonoEmergencia: "911",
+    personal: 58,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Incendios industriales",
@@ -183,6 +176,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Unidad HAZMAT", "1 Ambulancia"]
   },
   {
+    id: "edomex-nezahualcoyotl",
     slug: "estacion-bomberos-nezahualcoyotl",
     nombre: "Estación de Bomberos de Nezahualcóyotl",
     nombreCorto: "Estación de Bomberos Nezahualcóyotl",
@@ -191,8 +185,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "57000",
     municipio: "Nezahualcóyotl",
     ciudad: "Ciudad Nezahualcóyotl",
+    estado: "Estado de México",
     telefono: "55 5765 3200",
     telefonoEmergencia: "911",
+    personal: 52,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Rescate vehicular",
@@ -217,6 +214,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "2 Unidades de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-metepec",
     slug: "estacion-bomberos-metepec",
     nombre: "Estación de Bomberos de Metepec",
     nombreCorto: "Estación de Bomberos Metepec",
@@ -225,8 +223,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "52170",
     municipio: "Metepec",
     ciudad: "Metepec",
+    estado: "Estado de México",
     telefono: "722 232 5660",
     telefonoEmergencia: "911",
+    personal: 35,
+    unidades: 4,
     servicios: [
       "Incendios estructurales",
       "Rescate vehicular",
@@ -251,6 +252,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-atizapan",
     slug: "estacion-bomberos-atizapan",
     nombre: "Estación de Bomberos de Atizapán de Zaragoza",
     nombreCorto: "Estación de Bomberos Atizapán",
@@ -259,8 +261,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "52900",
     municipio: "Atizapán de Zaragoza",
     ciudad: "Atizapán",
+    estado: "Estado de México",
     telefono: "55 5822 3400",
     telefonoEmergencia: "911",
+    personal: 42,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Incendios forestales",
@@ -285,6 +290,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-cuautitlan-izcalli",
     slug: "estacion-bomberos-cuautitlan-izcalli",
     nombre: "Estación de Bomberos de Cuautitlán Izcalli",
     nombreCorto: "Estación de Bomberos Cuautitlán Izcalli",
@@ -293,8 +299,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "54700",
     municipio: "Cuautitlán Izcalli",
     ciudad: "Cuautitlán Izcalli",
+    estado: "Estado de México",
     telefono: "55 5873 9800",
     telefonoEmergencia: "911",
+    personal: 48,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Incendios industriales",
@@ -325,6 +334,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad HAZMAT", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-huixquilucan",
     slug: "estacion-bomberos-huixquilucan",
     nombre: "Estación de Bomberos de Huixquilucan",
     nombreCorto: "Estación de Bomberos Huixquilucan",
@@ -333,8 +343,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "52760",
     municipio: "Huixquilucan",
     ciudad: "Huixquilucan",
+    estado: "Estado de México",
     telefono: "55 5247 5500",
     telefonoEmergencia: "911",
+    personal: 55,
+    unidades: 6,
     servicios: [
       "Incendios estructurales",
       "Incendios forestales",
@@ -365,6 +378,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Escalera", "1 Unidad Forestal", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-texcoco",
     slug: "estacion-bomberos-texcoco",
     nombre: "Estación de Bomberos de Texcoco",
     nombreCorto: "Estación de Bomberos Texcoco",
@@ -373,8 +387,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "56100",
     municipio: "Texcoco",
     ciudad: "Texcoco de Mora",
+    estado: "Estado de México",
     telefono: "595 954 3100",
     telefonoEmergencia: "911",
+    personal: 38,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Incendios forestales",
@@ -399,6 +416,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Unidad de Rescate en Montaña", "1 Ambulancia"]
   },
   {
+    id: "edomex-chalco",
     slug: "estacion-bomberos-chalco",
     nombre: "Estación de Bomberos de Chalco",
     nombreCorto: "Estación de Bomberos Chalco",
@@ -407,8 +425,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "56600",
     municipio: "Chalco",
     ciudad: "Chalco de Díaz Covarrubias",
+    estado: "Estado de México",
     telefono: "55 5975 3400",
     telefonoEmergencia: "911",
+    personal: 45,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Rescate vehicular",
@@ -433,6 +454,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate Acuático", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-coacalco",
     slug: "estacion-bomberos-coacalco",
     nombre: "Estación de Bomberos de Coacalco de Berriozábal",
     nombreCorto: "Estación de Bomberos Coacalco",
@@ -441,8 +463,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "55710",
     municipio: "Coacalco de Berriozábal",
     ciudad: "Coacalco",
+    estado: "Estado de México",
     telefono: "55 5872 3500",
     telefonoEmergencia: "911",
+    personal: 35,
+    unidades: 4,
     servicios: [
       "Incendios estructurales",
       "Rescate vehicular",
@@ -467,6 +492,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-ixtapaluca",
     slug: "estacion-bomberos-ixtapaluca",
     nombre: "Estación de Bomberos de Ixtapaluca",
     nombreCorto: "Estación de Bomberos Ixtapaluca",
@@ -475,8 +501,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "56530",
     municipio: "Ixtapaluca",
     ciudad: "Ixtapaluca",
+    estado: "Estado de México",
     telefono: "55 5972 5400",
     telefonoEmergencia: "911",
+    personal: 40,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Rescate vehicular",
@@ -501,6 +530,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-tultitlan",
     slug: "estacion-bomberos-tultitlan",
     nombre: "Estación de Bomberos de Tultitlán",
     nombreCorto: "Estación de Bomberos Tultitlán",
@@ -509,8 +539,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "54900",
     municipio: "Tultitlán",
     ciudad: "Tultitlán de Mariano Escobedo",
+    estado: "Estado de México",
     telefono: "55 5884 3200",
     telefonoEmergencia: "911",
+    personal: 42,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Incendios industriales",
@@ -535,6 +568,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad HAZMAT", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-zinacantepec",
     slug: "estacion-bomberos-zinacantepec",
     nombre: "Estación de Bomberos de Zinacantepec",
     nombreCorto: "Estación de Bomberos Zinacantepec",
@@ -543,8 +577,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "51350",
     municipio: "Zinacantepec",
     ciudad: "San Miguel Zinacantepec",
+    estado: "Estado de México",
     telefono: "722 218 3100",
     telefonoEmergencia: "911",
+    personal: 32,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Incendios forestales",
@@ -575,6 +612,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["1 Autobomba", "2 Unidades de Rescate en Montaña", "1 Unidad Forestal", "1 Ambulancia"]
   },
   {
+    id: "edomex-chimalhuacan",
     slug: "estacion-bomberos-chimalhuacan",
     nombre: "Estación de Bomberos de Chimalhuacán",
     nombreCorto: "Estación de Bomberos Chimalhuacán",
@@ -583,8 +621,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "56330",
     municipio: "Chimalhuacán",
     ciudad: "Chimalhuacán",
+    estado: "Estado de México",
     telefono: "55 5853 4700",
     telefonoEmergencia: "911",
+    personal: 38,
+    unidades: 4,
     servicios: [
       "Incendios estructurales",
       "Rescate vehicular",
@@ -609,6 +650,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-nicolas-romero",
     slug: "estacion-bomberos-nicolas-romero",
     nombre: "Estación de Bomberos de Nicolás Romero",
     nombreCorto: "Estación de Bomberos Nicolás Romero",
@@ -617,8 +659,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "54400",
     municipio: "Nicolás Romero",
     ciudad: "Ciudad Nicolás Romero",
+    estado: "Estado de México",
     telefono: "55 5824 3600",
     telefonoEmergencia: "911",
+    personal: 35,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Incendios forestales",
@@ -643,6 +688,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad Forestal", "1 Unidad de Rescate", "1 Ambulancia"]
   },
   {
+    id: "edomex-valle-de-chalco",
     slug: "estacion-bomberos-valle-de-chalco",
     nombre: "Estación de Bomberos de Valle de Chalco Solidaridad",
     nombreCorto: "Estación de Bomberos Valle de Chalco",
@@ -651,8 +697,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "56617",
     municipio: "Valle de Chalco Solidaridad",
     ciudad: "Valle de Chalco",
+    estado: "Estado de México",
     telefono: "55 5971 5800",
     telefonoEmergencia: "911",
+    personal: 42,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Rescate vehicular",
@@ -683,6 +732,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "2 Unidades de Rescate Acuático", "1 Ambulancia"]
   },
   {
+    id: "edomex-tecamac",
     slug: "estacion-bomberos-tecamac",
     nombre: "Estación de Bomberos de Tecámac",
     nombreCorto: "Estación de Bomberos Tecámac",
@@ -691,8 +741,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "55764",
     municipio: "Tecámac",
     ciudad: "Tecámac de Felipe Villanueva",
+    estado: "Estado de México",
     telefono: "55 5876 4100",
     telefonoEmergencia: "911",
+    personal: 45,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Rescate vehicular",
@@ -717,6 +770,7 @@ export const estacionesEdoMex: Estacion[] = [
     unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Ambulancia", "1 Vehículo de Respuesta Rápida"]
   },
   {
+    id: "edomex-lerma",
     slug: "estacion-bomberos-lerma",
     nombre: "Estación de Bomberos de Lerma",
     nombreCorto: "Estación de Bomberos Lerma",
@@ -725,8 +779,11 @@ export const estacionesEdoMex: Estacion[] = [
     codigoPostal: "52000",
     municipio: "Lerma",
     ciudad: "Lerma de Villada",
+    estado: "Estado de México",
     telefono: "728 285 3200",
     telefonoEmergencia: "911",
+    personal: 55,
+    unidades: 5,
     servicios: [
       "Incendios estructurales",
       "Incendios industriales",

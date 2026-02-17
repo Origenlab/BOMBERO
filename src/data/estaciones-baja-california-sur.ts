@@ -30,38 +30,17 @@
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-export interface Estacion {
-  slug: string;
-  nombre: string;
-  nombreCorto: string;
-  direccion: string;
-  colonia: string;
-  codigoPostal: string;
-  municipio: string;
-  ciudad: string;
-  telefono: string;
-  telefonoEmergencia: string;
-  email?: string;
-  servicios: string[];
-  especialidades: string[];
-  horario: string;
-  coordenadas: { lat: number; lng: number };
-  descripcion: string;
-  historia?: string;
-  equipamiento?: string[];
-  zonasCobertura: string[];
-  tiempoRespuesta?: string;
-  personalActivo?: number;
-  unidadesDisponibles?: string[];
-}
+import type { Estacion } from './types';
 
 export const estacionesBajaCaliforniaSur: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   // LA PAZ - CAPITAL DEL ESTADO (1 estación)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bcs-la-paz-central",
     slug: "estacion-central-la-paz",
     nombre: "Estación Central de Bomberos de La Paz",
+    estado: "Baja California Sur",
     nombreCorto: "Estación Central La Paz",
     direccion: "Calle Ignacio Altamirano 2790",
     colonia: "Centro",
@@ -108,15 +87,19 @@ export const estacionesBajaCaliforniaSur: Estacion[] = [
     zonasCobertura: ["Centro Histórico", "Malecón de La Paz", "Zona Portuaria", "Bahía de La Paz", "El Mogote", "Costa Baja", "Palmira"],
     tiempoRespuesta: "4-8 minutos en zona urbana central",
     personalActivo: 85,
-    unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Unidad HAZMAT", "1 Lancha de Rescate", "1 Comando Móvil"]
+    personal: 85,
+    unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Unidad HAZMAT", "1 Lancha de Rescate", "1 Comando Móvil"],
+    unidades: 7
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // LOS CABOS - DESTINO TURÍSTICO DE CLASE MUNDIAL (2 estaciones)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bcs-san-jose-del-cabo",
     slug: "estacion-bomberos-san-jose-del-cabo",
     nombre: "Estación de Bomberos de San José del Cabo",
+    estado: "Baja California Sur",
     nombreCorto: "Estación San José del Cabo",
     direccion: "Blvd. Antonio Mijares s/n",
     colonia: "Centro",
@@ -160,10 +143,14 @@ export const estacionesBajaCaliforniaSur: Estacion[] = [
     zonasCobertura: ["Centro Histórico San José", "Zona Hotelera Fonatur", "Estero de San José", "Puerto Los Cabos", "Campos de Golf", "Palmilla", "Querencia"],
     tiempoRespuesta: "5-10 minutos",
     personalActivo: 55,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Unidad Acuática", "2 Ambulancias"]
+    personal: 55,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Unidad Acuática", "2 Ambulancias"],
+    unidades: 4
   },
   {
+    id: "bcs-cabo-san-lucas",
     slug: "estacion-bomberos-cabo-san-lucas",
+    estado: "Baja California Sur",
     nombre: "Estación de Bomberos de Cabo San Lucas",
     nombreCorto: "Estación Cabo San Lucas",
     direccion: "Calle 20 de Noviembre s/n",
@@ -210,15 +197,19 @@ export const estacionesBajaCaliforniaSur: Estacion[] = [
     zonasCobertura: ["Centro de Cabo San Lucas", "Marina Cabo San Lucas", "Playa El Médano", "Playa del Amor", "El Arco", "Zona Hotelera", "Pedregal de Cabo San Lucas"],
     tiempoRespuesta: "4-8 minutos",
     personalActivo: 72,
-    unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Lancha de Rescate", "2 Motos Acuáticas"]
+    personal: 72,
+    unidadesDisponibles: ["3 Autobombas", "2 Unidades de Rescate", "1 Escalera", "2 Ambulancias", "1 Lancha de Rescate", "2 Motos Acuáticas"],
+    unidades: 6
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // LORETO - PUEBLO MÁGICO Y TURISMO ECOLÓGICO (1 estación)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bcs-loreto",
     slug: "estacion-bomberos-loreto",
     nombre: "Estación de Bomberos de Loreto",
+    estado: "Baja California Sur",
     nombreCorto: "Estación Loreto",
     direccion: "Calle Salvatierra s/n",
     colonia: "Centro",
@@ -263,15 +254,19 @@ export const estacionesBajaCaliforniaSur: Estacion[] = [
     zonasCobertura: ["Centro Histórico Loreto", "Bahía de Loreto", "Isla Coronado", "Isla Carmen", "Isla Danzante", "Nopoló", "Puerto Escondido", "Sierra de la Giganta"],
     tiempoRespuesta: "5-10 minutos en zona urbana, 30-60 minutos en islas",
     personalActivo: 32,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Unidad Forestal", "1 Lancha", "1 Ambulancia"]
+    personal: 32,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Unidad Forestal", "1 Lancha", "1 Ambulancia"],
+    unidades: 5
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // COMONDÚ - ZONA AGRÍCOLA (1 estación)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bcs-ciudad-constitucion",
     slug: "estacion-bomberos-ciudad-constitucion",
     nombre: "Estación de Bomberos de Ciudad Constitución",
+    estado: "Baja California Sur",
     nombreCorto: "Estación Ciudad Constitución",
     direccion: "Calle Agustín Olachea s/n",
     colonia: "Centro",
@@ -315,15 +310,19 @@ export const estacionesBajaCaliforniaSur: Estacion[] = [
     zonasCobertura: ["Ciudad Constitución", "Valle de Santo Domingo", "Puerto San Carlos", "Puerto Adolfo López Mateos", "Ejidos agrícolas", "Ciudad Insurgentes"],
     tiempoRespuesta: "8-15 minutos en zona urbana, 20-40 minutos en zona rural",
     personalActivo: 28,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad Rural", "1 Unidad de Rescate", "1 Ambulancia", "1 Tanque Nodriza"]
+    personal: 28,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad Rural", "1 Unidad de Rescate", "1 Ambulancia", "1 Tanque Nodriza"],
+    unidades: 5
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
   // MULEGÉ - ZONA HISTÓRICA Y MINERA (1 estación)
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "bcs-santa-rosalia",
     slug: "estacion-bomberos-santa-rosalia",
     nombre: "Estación de Bomberos de Santa Rosalía",
+    estado: "Baja California Sur",
     nombreCorto: "Estación Santa Rosalía",
     direccion: "Calle Constitución s/n",
     colonia: "Mesa México",
@@ -367,7 +366,9 @@ export const estacionesBajaCaliforniaSur: Estacion[] = [
     zonasCobertura: ["Santa Rosalía Centro", "Mesa México", "Mesa Francia", "Puerto de Ferry", "Zona Minera El Boleo", "San Lucas", "San Bruno"],
     tiempoRespuesta: "5-10 minutos en zona urbana",
     personalActivo: 24,
-    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Lancha", "1 Ambulancia"]
+    personal: 24,
+    unidadesDisponibles: ["2 Autobombas", "1 Unidad de Rescate", "1 Lancha", "1 Ambulancia"],
+    unidades: 4
   }
 ];
 

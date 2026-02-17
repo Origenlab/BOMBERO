@@ -65,56 +65,7 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
-/**
- * Interfaz TypeScript para estación de bomberos
- * Incluye todos los campos requeridos para SEO y Schema.org
- */
-export interface Estacion {
-  /** Identificador único URL-friendly */
-  slug: string;
-  /** Nombre completo oficial de la estación */
-  nombre: string;
-  /** Nombre corto para cards y listados */
-  nombreCorto: string;
-  /** Calle y número */
-  direccion: string;
-  /** Colonia o fraccionamiento */
-  colonia: string;
-  /** Código postal de 5 dígitos */
-  codigoPostal: string;
-  /** Municipio de Campeche */
-  municipio: string;
-  /** Ciudad o localidad */
-  ciudad: string;
-  /** Teléfono directo de la estación */
-  telefono: string;
-  /** Número de emergencias (911) */
-  telefonoEmergencia: string;
-  /** Email institucional (opcional) */
-  email?: string;
-  /** Lista de servicios de emergencia ofrecidos */
-  servicios: string[];
-  /** Especialidades y capacidades únicas */
-  especialidades: string[];
-  /** Horario de servicio */
-  horario: string;
-  /** Coordenadas GPS para mapas */
-  coordenadas: { lat: number; lng: number };
-  /** Descripción SEO extendida (150-300 palabras) */
-  descripcion: string;
-  /** Historia de la estación (opcional) */
-  historia?: string;
-  /** Lista de equipamiento disponible */
-  equipamiento?: string[];
-  /** Zonas de cobertura prioritaria */
-  zonasCobertura: string[];
-  /** Tiempo de respuesta promedio */
-  tiempoRespuesta?: string;
-  /** Número de bomberos en servicio activo */
-  personalActivo?: number;
-  /** Lista de unidades vehiculares disponibles */
-  unidadesDisponibles?: string[];
-}
+import type { Estacion } from './types';
 
 /**
  * Base de datos de estaciones de bomberos de Campeche
@@ -126,6 +77,7 @@ export const estacionesCampeche: Estacion[] = [
   // Ciudad Histórica Fortificada - Patrimonio UNESCO
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "camp-central",
     slug: "estacion-central-campeche",
     nombre: "Estación Central de Bomberos de San Francisco de Campeche",
     nombreCorto: "Estación Central Campeche",
@@ -134,6 +86,7 @@ export const estacionesCampeche: Estacion[] = [
     codigoPostal: "24050",
     municipio: "Campeche",
     ciudad: "San Francisco de Campeche",
+    estado: "Campeche",
     telefono: "981 811 3636",
     telefonoEmergencia: "911",
     email: "bomberos.central@campeche.gob.mx",
@@ -186,7 +139,9 @@ export const estacionesCampeche: Estacion[] = [
       "Zona Hotelera Campeche"
     ],
     tiempoRespuesta: "4-8 minutos en zona urbana central",
+    personal: 78,
     personalActivo: 78,
+    unidades: 11,
     unidadesDisponibles: [
       "3 Autobombas",
       "2 Unidades de Rescate",
@@ -203,6 +158,7 @@ export const estacionesCampeche: Estacion[] = [
   // Sonda de Campeche - Mayor producción petrolera del país
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "camp-carmen",
     slug: "estacion-bomberos-ciudad-del-carmen",
     nombre: "Estación de Bomberos de Ciudad del Carmen",
     nombreCorto: "Estación Ciudad del Carmen",
@@ -211,6 +167,7 @@ export const estacionesCampeche: Estacion[] = [
     codigoPostal: "24100",
     municipio: "Carmen",
     ciudad: "Ciudad del Carmen",
+    estado: "Campeche",
     telefono: "938 382 5050",
     telefonoEmergencia: "911",
     email: "bomberos@carmen.gob.mx",
@@ -264,7 +221,9 @@ export const estacionesCampeche: Estacion[] = [
       "Coordinación offshore Sonda de Campeche"
     ],
     tiempoRespuesta: "5-10 minutos zona urbana, 45-90 minutos offshore",
+    personal: 92,
     personalActivo: 92,
+    unidades: 11,
     unidadesDisponibles: [
       "3 Autobombas Industriales",
       "2 Unidades HAZMAT",
@@ -279,6 +238,7 @@ export const estacionesCampeche: Estacion[] = [
   // Punto de conexión hacia Chetumal, Villahermosa y Campeche
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "camp-escarcega",
     slug: "estacion-bomberos-escarcega",
     nombre: "Estación de Bomberos de Escárcega",
     nombreCorto: "Estación Escárcega",
@@ -287,6 +247,7 @@ export const estacionesCampeche: Estacion[] = [
     codigoPostal: "24350",
     municipio: "Escárcega",
     ciudad: "Escárcega",
+    estado: "Campeche",
     telefono: "982 824 0066",
     telefonoEmergencia: "911",
     email: "bomberos.escarcega@campeche.gob.mx",
@@ -334,7 +295,9 @@ export const estacionesCampeche: Estacion[] = [
       "Ejidos aledaños"
     ],
     tiempoRespuesta: "6-12 minutos zona urbana, 15-30 minutos carreteras",
+    personal: 35,
     personalActivo: 35,
+    unidades: 5,
     unidadesDisponibles: [
       "2 Autobombas",
       "1 Unidad de Rescate Pesado",
@@ -348,6 +311,7 @@ export const estacionesCampeche: Estacion[] = [
   // Puerto pesquero y turístico
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "camp-champoton",
     slug: "estacion-bomberos-champoton",
     nombre: "Estación de Bomberos de Champotón",
     nombreCorto: "Estación Champotón",
@@ -356,6 +320,7 @@ export const estacionesCampeche: Estacion[] = [
     codigoPostal: "24400",
     municipio: "Champotón",
     ciudad: "Champotón",
+    estado: "Campeche",
     telefono: "982 828 0038",
     telefonoEmergencia: "911",
     servicios: [
@@ -400,7 +365,9 @@ export const estacionesCampeche: Estacion[] = [
       "Comunidades costeras"
     ],
     tiempoRespuesta: "5-10 minutos zona urbana",
+    personal: 28,
     personalActivo: 28,
+    unidades: 5,
     unidadesDisponibles: [
       "2 Autobombas",
       "1 Unidad de Rescate",
@@ -414,6 +381,7 @@ export const estacionesCampeche: Estacion[] = [
   // Zona de artesanías y haciendas históricas
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "camp-calkini",
     slug: "estacion-bomberos-calkini",
     nombre: "Estación de Bomberos de Calkiní",
     nombreCorto: "Estación Calkiní",
@@ -422,6 +390,7 @@ export const estacionesCampeche: Estacion[] = [
     codigoPostal: "24900",
     municipio: "Calkiní",
     ciudad: "Calkiní",
+    estado: "Campeche",
     telefono: "996 963 0033",
     telefonoEmergencia: "911",
     servicios: [
@@ -463,7 +432,9 @@ export const estacionesCampeche: Estacion[] = [
       "Zona de haciendas"
     ],
     tiempoRespuesta: "5-10 minutos zona urbana, 15-25 minutos comunidades",
+    personal: 22,
     personalActivo: 22,
+    unidades: 5,
     unidadesDisponibles: [
       "2 Autobombas",
       "1 Unidad de Rescate",
@@ -477,6 +448,7 @@ export const estacionesCampeche: Estacion[] = [
   // Zona selvática y cruces fronterizos
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "camp-candelaria",
     slug: "estacion-bomberos-candelaria",
     nombre: "Estación de Bomberos de Candelaria",
     nombreCorto: "Estación Candelaria",
@@ -485,6 +457,7 @@ export const estacionesCampeche: Estacion[] = [
     codigoPostal: "24330",
     municipio: "Candelaria",
     ciudad: "Candelaria",
+    estado: "Campeche",
     telefono: "982 826 0025",
     telefonoEmergencia: "911",
     servicios: [
@@ -530,7 +503,9 @@ export const estacionesCampeche: Estacion[] = [
       "Zona selvática"
     ],
     tiempoRespuesta: "10-15 minutos zona urbana, 30-60 minutos rural",
+    personal: 25,
     personalActivo: 25,
+    unidades: 6,
     unidadesDisponibles: [
       "2 Autobombas Rurales",
       "1 Unidad Forestal 4x4",
@@ -545,6 +520,7 @@ export const estacionesCampeche: Estacion[] = [
   // Mayor zona maya de México y reserva natural
   // ═══════════════════════════════════════════════════════════════════════════
   {
+    id: "camp-calakmul",
     slug: "estacion-bomberos-calakmul",
     nombre: "Estación de Bomberos de Calakmul",
     nombreCorto: "Estación Calakmul",
@@ -553,6 +529,7 @@ export const estacionesCampeche: Estacion[] = [
     codigoPostal: "24640",
     municipio: "Calakmul",
     ciudad: "Xpujil",
+    estado: "Campeche",
     telefono: "983 871 6036",
     telefonoEmergencia: "911",
     email: "bomberos.calakmul@campeche.gob.mx",
@@ -603,7 +580,9 @@ export const estacionesCampeche: Estacion[] = [
       "Zona de amortiguamiento"
     ],
     tiempoRespuesta: "15-30 minutos zona accesible, 1-3 horas zonas remotas",
+    personal: 42,
     personalActivo: 42,
+    unidades: 11,
     unidadesDisponibles: [
       "3 Unidades Forestales 4x4",
       "2 Autobombas Rurales",
