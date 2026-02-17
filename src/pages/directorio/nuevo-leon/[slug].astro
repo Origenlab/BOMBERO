@@ -1,0 +1,1519 @@
+---
+/**
+ * ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+ * ║  PÁGINA DINÁMICA DE ESTACIÓN - NUEVO LEÓN                                                                                              ║
+ * ║  "La Capital Industrial de México" - Páginas Individuales de Estaciones                                                               ║
+ * ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+ * ║                                                                                                                                        ║
+ * ║  SEO ULTRA-PROFESIONAL:                                                                                                                ║
+ * ║  • Schema.org FireStation + BreadcrumbList + LocalBusiness                                                                            ║
+ * ║  • Interlinking a estaciones relacionadas, estados vecinos, productos                                                                 ║
+ * ║  • Contenido contextual: HAZMAT, Sierra Madre, Industrial, Carretero                                                                  ║
+ * ║  • Rich snippets con información verificada                                                                                           ║
+ * ║  • Keywords semánticas por tipo de estación                                                                                           ║
+ * ║                                                                                                                                        ║
+ * ║  TIPOS DE ESTACIONES:                                                                                                                  ║
+ * ║  • 🏭 HAZMAT Industrial - TERNIUM, CEMEX, Vitro, petroquímica                                                                         ║
+ * ║  • 🏔️ Sierra Madre - Rescate montaña, incendios forestales, cascadas                                                                 ║
+ * ║  • 🛣️ Corredor Carretero - Tractocamiones, comercio internacional                                                                    ║
+ * ║  • 🏙️ Zona Metro - Edificios altos, metro, eventos masivos                                                                           ║
+ * ║  • 🍊 Zona Citrícola - Agroindustria, empacadoras                                                                                     ║
+ * ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import {
+  estacionesNuevoLeon,
+  NUEVO_LEON_SEO,
+  ZONAS_NUEVO_LEON,
+  ALERTAS_NUEVO_LEON,
+  EMPRESAS_NUEVO_LEON,
+  generarSchemaEstacion,
+  generarInterlinking
+} from '../../../data/estaciones-nuevo-leon';
+
+export function getStaticPaths() {
+  return estacionesNuevoLeon.map((estacion) => ({
+    params: { slug: estacion.slug },
+    props: { estacion },
+  }));
+}
+
+const { estacion } = Astro.props;
+
+// Meta SEO optimizado
+const title = `${estacion.nombre} | Bomberos ${estacion.ciudad}, Nuevo León - Tel: ${estacion.telefono}`;
+const description = `${estacion.nombre} en ${estacion.direccion}, ${estacion.ciudad}. Tel: ${estacion.telefono}. Servicios 24/7: ${estacion.servicios.slice(0, 3).join(", ")}. Cobertura: ${estacion.cobertura?.slice(0, 3).join(", ") || estacion.ciudad}. ${estacion.historia?.slice(0, 100) || 'Atención de emergencias en Nuevo León.'}`;
+
+// Schema.org FireStation
+const schemaData = generarSchemaEstacion(estacion);
+
+// Schema.org BreadcrumbList
+const schemaBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bomberosmexico.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bomberosmexico.com/directorio" },
+    { "@type": "ListItem", "position": 3, "name": "Nuevo León", "item": "https://bomberosmexico.com/directorio/nuevo-leon" },
+    { "@type": "ListItem", "position": 4, "name": estacion.nombre, "item": `https://bomberosmexico.com/directorio/nuevo-leon/${estacion.slug}` }
+  ]
+};
+
+// Obtener zona y configuración
+const zonaConfig = ZONAS_NUEVO_LEON.find(z => {
+  if (z.id === "centro") return estacion.zona === "Zona Centro Monterrey";
+  if (z.id === "industrial-norte") return estacion.zona === "Corredor Industrial Norte";
+  if (z.id === "industrial-sur") return estacion.zona === "Corredor Industrial Sur";
+  if (z.id === "poniente") return estacion.zona === "Zona Metropolitana Poniente";
+  if (z.id === "oriente") return estacion.zona === "Zona Metropolitana Oriente";
+  if (z.id === "carretero-norte") return estacion.zona === "Corredor Carretero Norte";
+  if (z.id === "sierra") return estacion.zona === "Sierra Madre Oriental";
+  if (z.id === "citricola") return estacion.zona === "Zona Citrícola";
+  return false;
+});
+
+// Generar interlinking
+const interlinking = generarInterlinking(estacion);
+
+// Detectar tipo de estación para contenido especial
+const esHAZMAT = estacion.especialidades?.some(e => e.toLowerCase().includes('hazmat'));
+const esIndustrialNorte = estacion.zona === "Corredor Industrial Norte";
+const esIndustrialSur = estacion.zona === "Corredor Industrial Sur";
+const esSierra = estacion.zona === "Sierra Madre Oriental";
+const esCarretero = estacion.zona === "Corredor Carretero Norte";
+const esSanPedro = estacion.slug.includes('san-pedro');
+const esCentral = estacion.slug.includes('central') && estacion.ciudad === "Monterrey";
+const esSantiago = estacion.slug.includes('santiago');
+const esCitricola = estacion.zona === "Zona Citrícola";
+
+// Detectar temporada de incendios forestales
+const mesActual = new Date().getMonth();
+const esTemporadaIncendios = mesActual >= 2 && mesActual <= 5;
+
+// ════════════════════════════════════════════════════════════════════════════════════════════════════
+// ALERTAS CONTEXTUALES
+// ════════════════════════════════════════════════════════════════════════════════════════════════════
+const alertas: { tipo: string; icono: string; titulo: string; mensaje: string; color: string }[] = [];
+
+// Alertas HAZMAT
+if (esHAZMAT) {
+  alertas.push({
+    tipo: "hazmat",
+    icono: "☢️",
+    titulo: "Estación HAZMAT Certificada",
+    mensaje: `Respuesta especializada a materiales peligrosos. En emergencia industrial: evacúe en dirección contraria al viento.`,
+    color: "#7c2d12"
+  });
+}
+
+// Alertas Industrial
+if (esIndustrialNorte || esIndustrialSur) {
+  alertas.push({
+    tipo: "industrial",
+    icono: "🏭",
+    titulo: "Corredor Industrial - Alto Riesgo",
+    mensaje: "Zona de manufactura pesada con materiales peligrosos. Siga protocolos de seguridad industrial.",
+    color: "#78350f"
+  });
+}
+
+// Alertas Sierra Madre
+if (esSierra && esTemporadaIncendios) {
+  alertas.push({
+    tipo: "forestal",
+    icono: "🔥",
+    titulo: "TEMPORADA DE INCENDIOS FORESTALES ACTIVA",
+    mensaje: "Marzo-Junio: Alto riesgo en Sierra Madre, Chipinque y La Huasteca. Reporte columnas de humo al 911.",
+    color: "#dc2626"
+  });
+}
+
+// Alertas Carretero
+if (esCarretero) {
+  alertas.push({
+    tipo: "carretero",
+    icono: "🛣️",
+    titulo: "Corredor Comercial Monterrey-Laredo",
+    mensaje: "15,000+ tractocamiones diarios. Rescate especializado para vehículos de carga pesada.",
+    color: "#1e40af"
+  });
+}
+
+// Obtener estaciones relacionadas
+const estacionesZona = estacionesNuevoLeon.filter(e => e.zona === estacion.zona && e.slug !== estacion.slug).slice(0, 4);
+const estacionesHAZMAT = esHAZMAT ? [] : estacionesNuevoLeon.filter(e => e.especialidades?.some(esp => esp.toLowerCase().includes('hazmat'))).slice(0, 3);
+---
+
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
+
+  <div class="station-page">
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <!-- ALERTAS CONTEXTUALES                                                                 -->
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    {alertas.length > 0 && (
+      <div class="alerts-container">
+        {alertas.slice(0, 2).map((alerta) => (
+          <div class="alert-banner" style={`background: ${alerta.color}`}>
+            <div class="alert-content">
+              <span class="alert-icon">{alerta.icono}</span>
+              <div class="alert-text">
+                <strong>{alerta.titulo}</strong>
+                <span>{alerta.mensaje}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <!-- HERO SECTION                                                                         -->
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <section class="hero" style={`--zone-color: ${zonaConfig?.color || '#1e40af'}`}>
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Inicio</a>
+          <span>/</span>
+          <a href="/directorio">Directorio</a>
+          <span>/</span>
+          <a href="/directorio/nuevo-leon">Nuevo León</a>
+          <span>/</span>
+          <span class="current">{estacion.ciudad}</span>
+        </nav>
+
+        <div class="hero-badges">
+          {zonaConfig && (
+            <div class="hero-badge zone">
+              <span class="badge-icon">{zonaConfig.icono}</span>
+              <span>{zonaConfig.nombre}</span>
+            </div>
+          )}
+          {esHAZMAT && (
+            <div class="hero-badge hazmat">
+              <span class="badge-icon">☢️</span>
+              <span>HAZMAT Certificado</span>
+            </div>
+          )}
+          {estacion.especialidades && estacion.especialidades.slice(0, 2).map((esp) => (
+            <div class="hero-badge specialty">
+              <span>{esp}</span>
+            </div>
+          ))}
+        </div>
+
+        <h1>{estacion.nombre}</h1>
+
+        <div class="hero-meta">
+          <span class="meta-item">
+            <span class="meta-icon">📍</span>
+            <span>{estacion.ciudad}, Nuevo León</span>
+          </span>
+          <span class="meta-item">
+            <span class="meta-icon">🕐</span>
+            <span>{estacion.horario}</span>
+          </span>
+          {estacion.tiempoRespuesta && (
+            <span class="meta-item highlight">
+              <span class="meta-icon">⏱️</span>
+              <span>{estacion.tiempoRespuesta}</span>
+            </span>
+          )}
+        </div>
+
+        <div class="emergency-buttons">
+          <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`} class="btn-emergency primary">
+            <span class="btn-icon">📞</span>
+            <span class="btn-text">
+              <strong>{estacion.telefono}</strong>
+              <small>Línea principal</small>
+            </span>
+          </a>
+          {estacion.telefono2 && (
+            <a href={`tel:${estacion.telefono2.replace(/\D/g, '')}`} class="btn-emergency secondary">
+              <span class="btn-icon">📱</span>
+              <span class="btn-text">
+                <strong>{estacion.telefono2}</strong>
+                <small>Línea alterna</small>
+              </span>
+            </a>
+          )}
+          <a href="tel:911" class="btn-emergency emergency">
+            <span class="btn-icon">🚨</span>
+            <span class="btn-text">
+              <strong>911</strong>
+              <small>Emergencias</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <!-- CONTENIDO PRINCIPAL                                                                  -->
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <div class="main-container">
+      <div class="content-grid">
+        <main class="main-content">
+          <!-- Información de Contacto -->
+          <section class="info-card contact-card">
+            <h2>📍 Ubicación y Contacto</h2>
+            <div class="contact-grid">
+              <div class="contact-item">
+                <span class="contact-label">Dirección</span>
+                <span class="contact-value">{estacion.direccion}</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Ciudad</span>
+                <span class="contact-value">{estacion.ciudad}, Nuevo León</span>
+              </div>
+              {estacion.cp && (
+                <div class="contact-item">
+                  <span class="contact-label">Código Postal</span>
+                  <span class="contact-value">{estacion.cp}</span>
+                </div>
+              )}
+              <div class="contact-item">
+                <span class="contact-label">Teléfono Principal</span>
+                <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`} class="contact-phone">{estacion.telefono}</a>
+              </div>
+              {estacion.telefono2 && (
+                <div class="contact-item">
+                  <span class="contact-label">Teléfono Alterno</span>
+                  <a href={`tel:${estacion.telefono2.replace(/\D/g, '')}`} class="contact-phone">{estacion.telefono2}</a>
+                </div>
+              )}
+              <div class="contact-item">
+                <span class="contact-label">Horario</span>
+                <span class="contact-value highlight">{estacion.horario}</span>
+              </div>
+            </div>
+
+            {estacion.coordenadas && (
+              <div class="map-container">
+                <a
+                  href={`https://www.google.com/maps?q=${estacion.coordenadas.lat},${estacion.coordenadas.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="map-link"
+                >
+                  <span class="map-icon">🗺️</span>
+                  <span>Ver ubicación en Google Maps</span>
+                  <span class="map-coords">({estacion.coordenadas.lat.toFixed(4)}, {estacion.coordenadas.lng.toFixed(4)})</span>
+                </a>
+              </div>
+            )}
+          </section>
+
+          <!-- Servicios -->
+          <section class="info-card services-card">
+            <h2>🚒 Servicios de Emergencia</h2>
+            <ul class="services-list">
+              {estacion.servicios.map((servicio) => (
+                <li class="service-item">
+                  <span class="service-icon">
+                    {servicio.toLowerCase().includes("incendio") && servicio.toLowerCase().includes("forestal") ? "🌲" :
+                     servicio.toLowerCase().includes("incendio") ? "🔥" :
+                     servicio.toLowerCase().includes("hazmat") || servicio.toLowerCase().includes("material") ? "☢️" :
+                     servicio.toLowerCase().includes("rescate") && servicio.toLowerCase().includes("montaña") ? "🏔️" :
+                     servicio.toLowerCase().includes("rescate") && servicio.toLowerCase().includes("carretero") ? "🚗" :
+                     servicio.toLowerCase().includes("rescate") && servicio.toLowerCase().includes("urbano") ? "🏗️" :
+                     servicio.toLowerCase().includes("rescate") ? "🆘" :
+                     servicio.toLowerCase().includes("metro") ? "🚇" :
+                     servicio.toLowerCase().includes("edificio") || servicio.toLowerCase().includes("altura") ? "🏢" :
+                     servicio.toLowerCase().includes("industrial") ? "🏭" :
+                     servicio.toLowerCase().includes("cascada") ? "💧" :
+                     servicio.toLowerCase().includes("espacios confinados") ? "⚠️" :
+                     servicio.toLowerCase().includes("descontaminación") ? "🧪" :
+                     servicio.toLowerCase().includes("coordinación") ? "📋" :
+                     servicio.toLowerCase().includes("academia") ? "🎓" :
+                     servicio.toLowerCase().includes("tractocamión") || servicio.toLowerCase().includes("carga") ? "🚛" :
+                     servicio.toLowerCase().includes("aeropuerto") || servicio.toLowerCase().includes("arff") ? "✈️" :
+                     "✓"}
+                  </span>
+                  <span class="service-text">{servicio}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- Especialidades -->
+          {estacion.especialidades && estacion.especialidades.length > 0 && (
+            <section class="info-card specialties-card">
+              <h2>🎖️ Especialidades Certificadas</h2>
+              <div class="specialties-grid">
+                {estacion.especialidades.map((esp) => (
+                  <div class="specialty-item" data-type={
+                    esp.toLowerCase().includes("hazmat") ? "hazmat" :
+                    esp.toLowerCase().includes("usar") ? "usar" :
+                    esp.toLowerCase().includes("forestal") ? "forest" :
+                    esp.toLowerCase().includes("montaña") || esp.toLowerCase().includes("cascada") ? "mountain" :
+                    esp.toLowerCase().includes("carretero") || esp.toLowerCase().includes("tractocamiones") ? "highway" :
+                    esp.toLowerCase().includes("industrial") || esp.toLowerCase().includes("metales") ? "industrial" :
+                    esp.toLowerCase().includes("metro") ? "metro" :
+                    esp.toLowerCase().includes("edificio") || esp.toLowerCase().includes("altura") ? "building" :
+                    esp.toLowerCase().includes("arff") || esp.toLowerCase().includes("aeropuerto") ? "arff" :
+                    esp.toLowerCase().includes("vip") || esp.toLowerCase().includes("alto valor") ? "vip" :
+                    "default"
+                  }>
+                    <span class="specialty-name">{esp}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Cobertura -->
+          {estacion.cobertura && estacion.cobertura.length > 0 && (
+            <section class="info-card coverage-card">
+              <h2>🗺️ Zonas de Cobertura</h2>
+              <div class="coverage-grid">
+                {estacion.cobertura.map((zona) => (
+                  <span class="coverage-tag">{zona}</span>
+                ))}
+              </div>
+              {estacion.tiempoRespuesta && (
+                <div class="response-info">
+                  <span class="response-icon">⏱️</span>
+                  <span class="response-text">Tiempo de respuesta estimado: <strong>{estacion.tiempoRespuesta}</strong></span>
+                </div>
+              )}
+            </section>
+          )}
+
+          <!-- Historia -->
+          {estacion.historia && (
+            <section class="info-card history-card">
+              <h2>📜 Historia y Contexto</h2>
+              <p class="history-text">{estacion.historia}</p>
+              <div class="history-meta">
+                {estacion.fundacion && (
+                  <div class="meta-badge">
+                    <span class="meta-icon">🏛️</span>
+                    <span>Fundada en {estacion.fundacion}</span>
+                  </div>
+                )}
+                {estacion.personal && (
+                  <div class="meta-badge">
+                    <span class="meta-icon">👨‍🚒</span>
+                    <span>{estacion.personal} bomberos</span>
+                  </div>
+                )}
+                {estacion.unidades && (
+                  <div class="meta-badge">
+                    <span class="meta-icon">🚒</span>
+                    <span>{estacion.unidades} unidades</span>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: HAZMAT INDUSTRIAL                                        -->
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          {esHAZMAT && (
+            <section class="info-card special-card hazmat">
+              <h2>☢️ Estación HAZMAT Certificada</h2>
+              <div class="special-content">
+                <p>
+                  Esta estación cuenta con <strong>certificación HAZMAT</strong> (Hazardous Materials) para
+                  atender emergencias con <strong>materiales peligrosos</strong> en el corredor industrial
+                  de Nuevo León, que alberga más de <strong>4,500 empresas</strong> con sustancias peligrosas.
+                </p>
+
+                <div class="hazmat-features">
+                  <div class="feature">
+                    <span class="feature-icon">🧪</span>
+                    <span>Descontaminación masiva</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🔥</span>
+                    <span>Incendios Clase A, B, C, D</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">⚠️</span>
+                    <span>Espacios confinados</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🌡️</span>
+                    <span>Metales fundidos</span>
+                  </div>
+                </div>
+
+                <div class="hazmat-warning">
+                  <strong>En caso de emergencia industrial:</strong>
+                  <ul>
+                    <li>Evacúe en dirección contraria al viento</li>
+                    <li>No toque sustancias desconocidas</li>
+                    <li>Mantenga distancia mínima de 500m</li>
+                    <li>Siga instrucciones de brigadas y bomberos</li>
+                    <li>Emergencia HAZMAT: {estacion.telefono}</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: SIERRA MADRE / SANTIAGO                                  -->
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          {esSantiago && (
+            <section class="info-card special-card sierra">
+              <h2>🏔️ Santiago - Pueblo Mágico y Sierra Madre</h2>
+              <div class="special-content">
+                <p>
+                  <strong>Santiago</strong> es <a href="https://www.gob.mx/sectur/articulos/santiago-nuevo-leon" target="_blank" rel="noopener">Pueblo Mágico desde 2006</a>
+                  y puerta de entrada a la <strong>Sierra Madre Oriental</strong>. Esta estación es la más
+                  especializada en <strong>rescate de montaña</strong> del noreste de México, atendiendo
+                  más de <strong>1.5 millones de visitantes anuales</strong>.
+                </p>
+
+                <div class="attractions-grid">
+                  <div class="attraction">
+                    <span class="attraction-icon">💧</span>
+                    <div class="attraction-info">
+                      <strong>Cola de Caballo</strong>
+                      <span>Cascada de 25m - Rescate activo</span>
+                    </div>
+                  </div>
+                  <div class="attraction">
+                    <span class="attraction-icon">🌊</span>
+                    <div class="attraction-info">
+                      <strong>El Chipitín</strong>
+                      <span>Cascada natural - Zona de rappel</span>
+                    </div>
+                  </div>
+                  <div class="attraction">
+                    <span class="attraction-icon">🌲</span>
+                    <div class="attraction-info">
+                      <strong>Chipinque</strong>
+                      <span>Parque ecológico - Incendios forestales</span>
+                    </div>
+                  </div>
+                  <div class="attraction">
+                    <span class="attraction-icon">⛰️</span>
+                    <div class="attraction-info">
+                      <strong>La Huasteca</strong>
+                      <span>Cañón - Escalada y rappel</span>
+                    </div>
+                  </div>
+                </div>
+
+                {esTemporadaIncendios && (
+                  <div class="fire-season-alert">
+                    <strong>🔥 TEMPORADA DE INCENDIOS ACTIVA (Marzo-Junio)</strong>
+                    <p>100,000+ hectáreas de bosque en monitoreo. Coordina con CONAFOR.</p>
+                  </div>
+                )}
+
+                <div class="sierra-warning">
+                  <strong>Recomendaciones para excursionistas:</strong>
+                  <ul>
+                    <li>Registre su ruta antes de subir</li>
+                    <li>Lleve agua suficiente y protección solar</li>
+                    <li>Use calzado adecuado para senderos</li>
+                    <li>En emergencia: (81) 8285-1414</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: SAN PEDRO GARZA GARCÍA                                   -->
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          {esSanPedro && (
+            <section class="info-card special-card sanpedro">
+              <h2>🏙️ San Pedro Garza García - Municipio de Mayor Ingreso de LatAm</h2>
+              <div class="special-content">
+                <p>
+                  <strong>San Pedro Garza García</strong> es el municipio con <strong>mayor ingreso per cápita
+                  de América Latina</strong>. Esta estación atiende las zonas residenciales más exclusivas de
+                  México, edificios corporativos de clase mundial como <strong>Torre KOI</strong> (280m, el más
+                  alto de México), y el <strong>Parque Ecológico Chipinque</strong>.
+                </p>
+
+                <div class="premium-features">
+                  <div class="feature">
+                    <span class="feature-icon">🏢</span>
+                    <span>Torre KOI - 280m (más alto de México)</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🌲</span>
+                    <span>Parque Ecológico Chipinque</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🏡</span>
+                    <span>Residencias alto valor</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">👔</span>
+                    <span>Atención VIP ejecutivos</span>
+                  </div>
+                </div>
+
+                <div class="corporate-coverage">
+                  <h4>Cobertura de edificios corporativos:</h4>
+                  <ul>
+                    <li>Torre KOI (280m)</li>
+                    <li>Pabellón M</li>
+                    <li>Torre Avalanz</li>
+                    <li>Valle Oriente corporativo</li>
+                    <li>Galerías Valle Oriente</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: ESTACIÓN CENTRAL                                         -->
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          {esCentral && (
+            <section class="info-card special-card central">
+              <h2>🏛️ Estación Central - Coordinación Metropolitana</h2>
+              <div class="special-content">
+                <p>
+                  Fundado en <strong>1885</strong>, el <strong>H. Cuerpo de Bomberos de Monterrey</strong> es
+                  uno de los más antiguos y prestigiosos de México. La Estación Central coordina todas las
+                  operaciones de la <strong>Zona Metropolitana de Monterrey</strong> (5.3 millones de habitantes)
+                  y cuenta con la única certificación <strong>HAZMAT Nivel III</strong> del norte de México.
+                </p>
+
+                <div class="central-stats">
+                  <div class="stat">
+                    <span class="stat-number">139</span>
+                    <span class="stat-label">años de servicio</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-number">120</span>
+                    <span class="stat-label">bomberos</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-number">18</span>
+                    <span class="stat-label">unidades</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">municipios coordinados</span>
+                  </div>
+                </div>
+
+                <div class="central-coverage">
+                  <h4>Servicios especiales:</h4>
+                  <ul>
+                    <li>Centro de Operaciones de Emergencia (COE)</li>
+                    <li>Academia de formación bomberil</li>
+                    <li>Emergencias Metro de Monterrey (L1, L2, L3)</li>
+                    <li>HAZMAT Nivel III certificado</li>
+                    <li>Coordinación metropolitana 12 municipios</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: CORREDOR CARRETERO                                       -->
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          {esCarretero && (
+            <section class="info-card special-card carretero">
+              <h2>🛣️ Corredor Comercial Monterrey-Laredo</h2>
+              <div class="special-content">
+                <p>
+                  La <strong>autopista Monterrey-Colombia-Laredo</strong> es el corredor comercial terrestre
+                  más importante de México hacia Estados Unidos, con más de <strong>15,000 tractocamiones
+                  diarios</strong>. Esta estación está especializada en rescate de vehículos de carga pesada
+                  y emergencias HAZMAT en tránsito internacional.
+                </p>
+
+                <div class="highway-stats">
+                  <div class="stat">
+                    <span class="stat-number">15K+</span>
+                    <span class="stat-label">tractocamiones/día</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-number">800+</span>
+                    <span class="stat-label">accidentes/año</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-number">8-20</span>
+                    <span class="stat-label">min respuesta</span>
+                  </div>
+                </div>
+
+                <div class="highway-warning">
+                  <strong>Seguridad en autopista:</strong>
+                  <ul>
+                    <li>Respete límites de velocidad</li>
+                    <li>Precaución con tractocamiones</li>
+                    <li>En accidente: señalice y aléjese</li>
+                    <li>Ángeles Verdes: 078</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- Comandancia -->
+          {estacion.comandancia && (
+            <section class="info-card comandancia-card">
+              <h2>🎖️ Comandancia</h2>
+              <div class="comandancia-info">
+                <span class="comandancia-icon">🏛️</span>
+                <span class="comandancia-name">{estacion.comandancia}</span>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          <!-- INTERLINKING: ESTADOS RELACIONADOS                                           -->
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          <section class="info-card interlink-card">
+            <h2>🔗 Bomberos en Estados Vecinos</h2>
+            <p class="interlink-intro">
+              Nuevo León coordina emergencias con estados vecinos para cobertura regional:
+            </p>
+            <div class="states-links">
+              {interlinking.estadosRelacionados.map((estado) => (
+                <a href={`/directorio/${estado.slug}`} class="state-link">
+                  <span class="state-name">{estado.nombre}</span>
+                  <span class="state-reason">{estado.razon}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          <!-- INTERLINKING: PRODUCTOS RELACIONADOS                                         -->
+          <!-- ════════════════════════════════════════════════════════════════════════════ -->
+          <section class="info-card products-card">
+            <h2>🛡️ Equipamiento Relacionado</h2>
+            <p class="products-intro">
+              Proveemos equipo certificado NFPA a estaciones de bomberos:
+            </p>
+            <div class="products-links">
+              {interlinking.productosRelacionados.map((producto) => (
+                <a href={producto.slug} class="product-link">
+                  {producto.nombre}
+                </a>
+              ))}
+              <a href="/cotizar" class="product-link cta">Solicitar Cotización</a>
+            </div>
+          </section>
+        </main>
+
+        <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+        <!-- SIDEBAR                                                                          -->
+        <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+        <aside class="sidebar">
+          <!-- Emergencias -->
+          <div class="sidebar-card emergency-card">
+            <h3>🚨 Emergencias</h3>
+            <div class="emergency-main">
+              <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`} class="emergency-btn">
+                <span class="emergency-icon">📞</span>
+                <span class="emergency-number">{estacion.telefono}</span>
+              </a>
+            </div>
+            <ul class="emergency-list">
+              <li>
+                <span>Emergencias Nacional</span>
+                <a href="tel:911"><strong>911</strong></a>
+              </li>
+              <li>
+                <span>Bomberos Monterrey</span>
+                <a href="tel:8183452424">(81) 8345-2424</a>
+              </li>
+              <li>
+                <span>HAZMAT Industrial</span>
+                <a href="tel:8183506060">(81) 8350-6060</a>
+              </li>
+              <li>
+                <span>Protección Civil</span>
+                <a href="tel:8183432020">(81) 8343-2020</a>
+              </li>
+              <li>
+                <span>Cruz Roja</span>
+                <a href="tel:8183433535">(81) 8343-3535</a>
+              </li>
+              <li>
+                <span>Ángeles Verdes</span>
+                <a href="tel:078">078</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Zona geográfica -->
+          {zonaConfig && (
+            <div class="sidebar-card zone-card" style={`--zone-color: ${zonaConfig.color}`}>
+              <h3>{zonaConfig.icono} {zonaConfig.nombre}</h3>
+              <p class="zone-desc">{zonaConfig.descripcion}</p>
+              {zonaConfig.poblacion && (
+                <span class="zone-pop">👥 {zonaConfig.poblacion}</span>
+              )}
+              {zonaConfig.riesgos && zonaConfig.riesgos.length > 0 && (
+                <div class="zone-risks">
+                  <span class="risks-title">Riesgos principales:</span>
+                  <ul>
+                    {zonaConfig.riesgos.slice(0, 4).map((riesgo) => (
+                      <li>{riesgo}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+
+          <!-- Otras estaciones de la zona -->
+          {estacionesZona.length > 0 && (
+            <div class="sidebar-card related-card">
+              <h3>🚒 Otras Estaciones en la Zona</h3>
+              <ul class="related-list">
+                {estacionesZona.map((est) => (
+                  <li>
+                    <a href={`/directorio/nuevo-leon/${est.slug}`}>
+                      <span class="related-name">{est.nombre}</span>
+                      <span class="related-city">{est.ciudad}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <a href="/directorio/nuevo-leon" class="view-all">Ver todas las estaciones →</a>
+            </div>
+          )}
+
+          <!-- Estaciones HAZMAT (si no es HAZMAT) -->
+          {!esHAZMAT && estacionesHAZMAT.length > 0 && (
+            <div class="sidebar-card hazmat-stations">
+              <h3>☢️ Estaciones HAZMAT</h3>
+              <p class="hazmat-intro">Para emergencias industriales:</p>
+              <ul class="hazmat-list">
+                {estacionesHAZMAT.map((est) => (
+                  <li>
+                    <a href={`/directorio/nuevo-leon/${est.slug}`}>
+                      <strong>{est.nombre}</strong>
+                      <span>{est.telefono}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <!-- Info Nuevo León -->
+          <div class="sidebar-card info-card-sidebar">
+            <h3>📊 Nuevo León</h3>
+            <ul class="info-list">
+              <li><span>Capital</span><strong>Monterrey</strong></li>
+              <li><span>Población</span><strong>5.78M</strong></li>
+              <li><span>Municipios</span><strong>51</strong></li>
+              <li><span>PIB Nacional</span><strong>7.3%</strong></li>
+              <li><span>Empresas HAZMAT</span><strong>4,500+</strong></li>
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <div class="sidebar-card cta-card">
+            <h3>🚒 ¿Eres Bombero?</h3>
+            <p>Equipamos estaciones de bomberos con equipo certificado NFPA</p>
+            <a href="/cotizar" class="cta-btn">Solicitar Cotización</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- CTA Final -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>¿Necesitas contactar otra estación?</h2>
+        <p>Consulta el directorio completo de bomberos en Nuevo León</p>
+        <div class="cta-buttons">
+          <a href="/directorio/nuevo-leon" class="cta-main">Ver todas las estaciones en Nuevo León</a>
+          <a href="/directorio" class="cta-secondary">Directorio Nacional →</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</PageLayout>
+
+<style>
+  /* Variables */
+  :root {
+    --nl-primary: #1e40af;
+    --nl-secondary: #3b82f6;
+    --nl-dark: #1e3a5f;
+    --nl-light: #eff6ff;
+  }
+
+  .station-page {
+    min-height: 100vh;
+    background: #f8fafc;
+  }
+
+  /* Alertas */
+  .alerts-container { display: flex; flex-direction: column; }
+
+  .alert-banner {
+    padding: 0.75rem 1.5rem;
+    color: white;
+  }
+
+  .alert-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .alert-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .alert-text { display: flex; flex-direction: column; gap: 0.15rem; }
+  .alert-text strong { font-size: 0.9rem; }
+  .alert-text span { font-size: 0.8rem; opacity: 0.9; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--zone-color, #1e40af), color-mix(in srgb, var(--zone-color, #1e40af) 70%, #0f172a));
+    padding: 2.5rem 1.5rem 3rem;
+    color: white;
+    position: relative;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+    opacity: 0.9;
+  }
+
+  .breadcrumb a { color: white; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .current { font-weight: 600; }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-badge.zone { background: rgba(255,255,255,0.2); }
+  .hero-badge.specialty { background: rgba(0,0,0,0.2); }
+  .hero-badge.hazmat { background: rgba(220, 38, 38, 0.3); border: 1px solid rgba(220, 38, 38, 0.5); }
+
+  .hero h1 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    opacity: 0.95;
+  }
+
+  .meta-item.highlight {
+    background: rgba(255,255,255,0.2);
+    padding: 0.3rem 0.7rem;
+    border-radius: 1rem;
+  }
+
+  .emergency-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .btn-emergency {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-emergency.primary { background: rgba(0,0,0,0.3); }
+  .btn-emergency.secondary { background: rgba(0,0,0,0.2); }
+  .btn-emergency.emergency { background: #dc2626; }
+
+  .btn-emergency:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  .btn-icon { font-size: 1.3rem; }
+  .btn-text { display: flex; flex-direction: column; text-align: left; }
+  .btn-text strong { font-size: 1rem; }
+  .btn-text small { font-size: 0.7rem; opacity: 0.85; }
+
+  /* Main Container */
+  .main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr 350px;
+    }
+  }
+
+  /* Info Cards */
+  .info-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .info-card h2 {
+    font-size: 1.15rem;
+    color: #1e293b;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  /* Contact */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .contact-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-value { font-size: 0.95rem; color: #1e293b; }
+  .contact-value.highlight { color: var(--nl-primary); font-weight: 600; }
+  .contact-phone { font-size: 1.1rem; color: var(--nl-primary); font-weight: 700; text-decoration: none; }
+  .contact-phone:hover { text-decoration: underline; }
+
+  .map-container {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .map-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #475569;
+    transition: background 0.2s;
+  }
+
+  .map-link:hover { background: #e2e8f0; }
+  .map-icon { font-size: 1.25rem; }
+  .map-coords { font-size: 0.75rem; color: #94a3b8; margin-left: auto; }
+
+  /* Services */
+  .services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    border-left: 3px solid var(--nl-primary);
+  }
+
+  .service-icon { font-size: 1rem; flex-shrink: 0; }
+  .service-text { font-size: 0.9rem; color: #334155; }
+
+  /* Specialties */
+  .specialties-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .specialty-item {
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .specialty-item[data-type="hazmat"] { background: linear-gradient(135deg, #dc2626, #ef4444); color: white; }
+  .specialty-item[data-type="usar"] { background: linear-gradient(135deg, #f97316, #ea580c); color: white; }
+  .specialty-item[data-type="forest"] { background: linear-gradient(135deg, #16a34a, #22c55e); color: white; }
+  .specialty-item[data-type="mountain"] { background: linear-gradient(135deg, #0891b2, #06b6d4); color: white; }
+  .specialty-item[data-type="highway"] { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; }
+  .specialty-item[data-type="industrial"] { background: linear-gradient(135deg, #78350f, #a16207); color: white; }
+  .specialty-item[data-type="metro"] { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; }
+  .specialty-item[data-type="building"] { background: linear-gradient(135deg, #0f766e, #14b8a6); color: white; }
+  .specialty-item[data-type="arff"] { background: linear-gradient(135deg, #0369a1, #0ea5e9); color: white; }
+  .specialty-item[data-type="vip"] { background: linear-gradient(135deg, #a855f7, #c084fc); color: white; }
+  .specialty-item[data-type="default"] { background: #e2e8f0; color: #475569; }
+
+  /* Coverage */
+  .coverage-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .coverage-tag {
+    padding: 0.4rem 0.8rem;
+    background: var(--nl-light);
+    border: 1px solid #bfdbfe;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    color: #1e40af;
+  }
+
+  .response-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, var(--nl-primary), var(--nl-secondary));
+    color: white;
+    border-radius: 0.5rem;
+  }
+
+  .response-icon { font-size: 1.25rem; }
+  .response-text { font-size: 0.9rem; }
+
+  /* History */
+  .history-text {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .history-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #f1f5f9;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+
+  /* Special Cards */
+  .special-card { border-left: 4px solid var(--nl-primary); }
+
+  .special-card.hazmat { border-left-color: #dc2626; background: linear-gradient(to bottom, white, #fef2f2); }
+  .special-card.sierra { border-left-color: #16a34a; background: linear-gradient(to bottom, white, #f0fdf4); }
+  .special-card.sanpedro { border-left-color: #7c3aed; background: linear-gradient(to bottom, white, #faf5ff); }
+  .special-card.central { border-left-color: #1e40af; background: linear-gradient(to bottom, white, #eff6ff); }
+  .special-card.carretero { border-left-color: #0891b2; background: linear-gradient(to bottom, white, #ecfeff); }
+
+  .special-content p {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .special-content a { color: #1e40af; }
+
+  .hazmat-features,
+  .premium-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0,0,0,0.03);
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+
+  .feature-icon { font-size: 1.1rem; }
+
+  .hazmat-warning,
+  .sierra-warning,
+  .highway-warning {
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .hazmat-warning { background: #fef2f2; border: 1px solid #fecaca; }
+  .sierra-warning { background: #f0fdf4; border: 1px solid #bbf7d0; }
+  .highway-warning { background: #ecfeff; border: 1px solid #a5f3fc; }
+
+  .hazmat-warning strong { color: #991b1b; }
+  .sierra-warning strong { color: #166534; }
+  .highway-warning strong { color: #0e7490; }
+
+  .hazmat-warning ul,
+  .sierra-warning ul,
+  .highway-warning ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  .hazmat-warning li { color: #7f1d1d; }
+  .sierra-warning li { color: #14532d; }
+  .highway-warning li { color: #164e63; }
+
+  .attractions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .attraction {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(22, 163, 74, 0.1);
+    border-radius: 0.5rem;
+  }
+
+  .attraction-icon { font-size: 1.5rem; }
+  .attraction-info { display: flex; flex-direction: column; }
+  .attraction-info strong { font-size: 0.9rem; color: #166534; }
+  .attraction-info span { font-size: 0.75rem; color: #15803d; }
+
+  .fire-season-alert {
+    padding: 1rem;
+    background: #dc2626;
+    color: white;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .fire-season-alert strong { display: block; margin-bottom: 0.25rem; }
+  .fire-season-alert p { margin: 0; font-size: 0.85rem; opacity: 0.9; }
+
+  .central-stats,
+  .highway-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .stat {
+    text-align: center;
+    padding: 0.75rem;
+    background: rgba(30, 64, 175, 0.1);
+    border-radius: 0.5rem;
+  }
+
+  .stat-number { display: block; font-size: 1.25rem; font-weight: 700; color: #1e40af; }
+  .stat-label { font-size: 0.65rem; color: #1e40af; }
+
+  .corporate-coverage,
+  .central-coverage {
+    padding: 1rem;
+    background: rgba(124, 58, 237, 0.1);
+    border-radius: 0.5rem;
+  }
+
+  .corporate-coverage h4,
+  .central-coverage h4 { font-size: 0.9rem; color: #6b21a8; margin: 0 0 0.5rem; }
+
+  .corporate-coverage ul,
+  .central-coverage ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    font-size: 0.85rem;
+    color: #7c3aed;
+  }
+
+  /* Interlinking Cards */
+  .interlink-card,
+  .products-card {
+    background: linear-gradient(to bottom, white, #f8fafc);
+    border: 1px solid #e2e8f0;
+  }
+
+  .interlink-intro,
+  .products-intro {
+    font-size: 0.9rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+  }
+
+  .states-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .state-link {
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .state-link:hover { border-color: #1e40af; background: #eff6ff; }
+  .state-name { font-size: 0.9rem; font-weight: 600; color: #1e40af; }
+  .state-reason { font-size: 0.75rem; color: #64748b; }
+
+  .products-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .product-link {
+    padding: 0.5rem 1rem;
+    background: #f1f5f9;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    color: #475569;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .product-link:hover { background: #1e40af; color: white; }
+  .product-link.cta { background: #1e40af; color: white; }
+
+  /* Comandancia */
+  .comandancia-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+  }
+
+  .comandancia-icon { font-size: 1.5rem; }
+  .comandancia-name { font-size: 1rem; color: #334155; font-weight: 600; }
+
+  /* Sidebar */
+  .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .sidebar-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .sidebar-card h3 {
+    font-size: 1rem;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  /* Emergency Card */
+  .emergency-card {
+    background: linear-gradient(135deg, #0f172a, #1e3a5f);
+    color: white;
+  }
+
+  .emergency-card h3 { color: white; border-bottom-color: rgba(255,255,255,0.2); }
+
+  .emergency-main { margin-bottom: 1rem; }
+
+  .emergency-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 1rem;
+    background: #dc2626;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: white;
+  }
+
+  .emergency-btn:hover { background: #b91c1c; }
+  .emergency-icon { font-size: 1.5rem; }
+  .emergency-number { font-size: 1.25rem; font-weight: 700; }
+
+  .emergency-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .emergency-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+  }
+
+  .emergency-list li:last-child { border-bottom: none; }
+  .emergency-list span { opacity: 0.8; }
+  .emergency-list a { color: #fcd34d; text-decoration: none; font-weight: 600; }
+
+  /* Zone Card */
+  .zone-card { border-left: 4px solid var(--zone-color); }
+  .zone-desc { font-size: 0.85rem; color: #475569; line-height: 1.6; margin-bottom: 0.75rem; }
+  .zone-pop { display: inline-block; font-size: 0.8rem; color: var(--zone-color); font-weight: 500; margin-bottom: 0.75rem; }
+  .zone-risks { padding-top: 0.75rem; border-top: 1px solid #e2e8f0; }
+  .risks-title { display: block; font-size: 0.75rem; color: #dc2626; font-weight: 600; margin-bottom: 0.4rem; }
+  .zone-risks ul { margin: 0; padding-left: 1rem; font-size: 0.8rem; color: #64748b; }
+  .zone-risks li { margin-bottom: 0.2rem; }
+
+  /* Related Card */
+  .related-list { list-style: none; padding: 0; margin: 0 0 1rem 0; }
+  .related-list li { border-bottom: 1px solid #e2e8f0; }
+  .related-list li:last-child { border-bottom: none; }
+  .related-list a { display: flex; flex-direction: column; gap: 0.15rem; padding: 0.6rem 0; text-decoration: none; }
+  .related-list a:hover { background: #f1f5f9; margin: 0 -0.5rem; padding-left: 0.5rem; }
+  .related-name { font-size: 0.85rem; color: var(--nl-primary); font-weight: 500; }
+  .related-city { font-size: 0.75rem; color: #64748b; }
+  .view-all { display: block; text-align: center; font-size: 0.85rem; color: var(--nl-primary); text-decoration: none; font-weight: 600; }
+  .view-all:hover { text-decoration: underline; }
+
+  /* HAZMAT Stations */
+  .hazmat-stations { background: linear-gradient(to bottom, #fef2f2, white); border: 1px solid #fecaca; }
+  .hazmat-stations h3 { border-bottom-color: #dc2626; }
+  .hazmat-intro { font-size: 0.8rem; color: #991b1b; margin-bottom: 0.5rem; }
+  .hazmat-list { list-style: none; padding: 0; margin: 0; }
+  .hazmat-list li { border-bottom: 1px solid #fecaca; }
+  .hazmat-list li:last-child { border-bottom: none; }
+  .hazmat-list a { display: flex; flex-direction: column; padding: 0.5rem 0; text-decoration: none; }
+  .hazmat-list a:hover strong { color: #dc2626; }
+  .hazmat-list strong { font-size: 0.85rem; color: #7f1d1d; }
+  .hazmat-list span { font-size: 0.75rem; color: #991b1b; }
+
+  /* Info Card */
+  .info-list { list-style: none; padding: 0; margin: 0; }
+  .info-list li { display: flex; justify-content: space-between; padding: 0.45rem 0; border-bottom: 1px solid #e2e8f0; font-size: 0.8rem; }
+  .info-list li:last-child { border-bottom: none; }
+  .info-list span { color: #64748b; }
+  .info-list strong { color: var(--nl-dark); }
+
+  /* CTA Card */
+  .cta-card { background: linear-gradient(135deg, var(--nl-primary), var(--nl-secondary)); color: white; }
+  .cta-card h3 { color: white; border-bottom-color: rgba(255,255,255,0.3); }
+  .cta-card p { font-size: 0.85rem; opacity: 0.9; margin-bottom: 1rem; }
+  .cta-btn { display: block; width: 100%; padding: 0.75rem; background: white; color: var(--nl-primary); text-align: center; text-decoration: none; font-weight: 700; border-radius: 0.5rem; transition: all 0.2s; }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #0f172a, var(--nl-dark));
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: white;
+  }
+
+  .cta-content { max-width: 700px; margin: 0 auto; }
+  .cta-section h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .cta-section p { opacity: 0.9; margin-bottom: 1.5rem; }
+  .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+  .cta-main { padding: 0.875rem 2rem; background: #3b82f6; color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 600; transition: all 0.2s; }
+  .cta-main:hover { background: #2563eb; transform: translateY(-2px); }
+  .cta-secondary { padding: 0.875rem 1.5rem; background: rgba(255,255,255,0.1); color: white; text-decoration: none; border-radius: 0.5rem; font-weight: 500; transition: all 0.2s; }
+  .cta-secondary:hover { background: rgba(255,255,255,0.2); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-meta { flex-direction: column; gap: 0.5rem; }
+    .emergency-buttons { flex-direction: column; }
+    .alert-content { flex-direction: column; text-align: center; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .hazmat-features { grid-template-columns: 1fr; }
+    .attractions-grid { grid-template-columns: 1fr; }
+    .states-links { grid-template-columns: 1fr; }
+    .cta-buttons { flex-direction: column; }
+  }
+</style>
