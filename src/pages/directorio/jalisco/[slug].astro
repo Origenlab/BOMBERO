@@ -1,0 +1,1337 @@
+---
+/**
+ * JALISCO - Páginas Dinámicas de Estaciones de Bomberos
+ * Contenido SEO profesional con contexto geográfico y cultural
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import { estacionesJalisco, JALISCO_SEO, generarMetaSEO, getContextoZona } from '../../../data/estaciones-jalisco';
+
+export function getStaticPaths() {
+  return estacionesJalisco.map((estacion) => ({
+    params: { slug: estacion.slug },
+    props: { estacion }
+  }));
+}
+
+const { estacion } = Astro.props;
+const metaSEO = generarMetaSEO(estacion);
+const contextoZona = estacion.zona ? getContextoZona(estacion.zona) : null;
+
+// Schema.org para la estación
+const stationSchema = {
+  "@context": "https://schema.org",
+  "@type": "FireStation",
+  "name": estacion.nombre,
+  "description": `Estación de bomberos en ${estacion.ciudad}, Jalisco. ${estacion.servicios.slice(0, 3).join(", ")}.`,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": estacion.direccion,
+    "addressLocality": estacion.ciudad,
+    "addressRegion": "Jalisco",
+    "postalCode": estacion.cp,
+    "addressCountry": "MX"
+  },
+  "telephone": estacion.telefono,
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "geo": estacion.coordenadas ? {
+    "@type": "GeoCoordinates",
+    "latitude": estacion.coordenadas.lat,
+    "longitude": estacion.coordenadas.lng
+  } : undefined,
+  "areaServed": estacion.cobertura?.map(area => ({
+    "@type": "City",
+    "name": area
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://bomberosmexico.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Directorio",
+      "item": "https://bomberosmexico.com/directorio"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Jalisco",
+      "item": "https://bomberosmexico.com/directorio/jalisco"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": estacion.nombre,
+      "item": `https://bomberosmexico.com/directorio/jalisco/${estacion.slug}`
+    }
+  ]
+};
+
+// Determinar tipo de contexto para contenido especial
+const esZMG = estacion.zona?.includes("Guadalajara");
+const esVallarta = estacion.zona?.includes("Vallarta");
+const esTequila = estacion.zona?.includes("Tequila");
+const esChapala = estacion.zona?.includes("Chapala");
+const esAeropuerto = estacion.slug.includes("aeropuerto");
+const esZonaSur = estacion.zona === "Zona Sur";
+const esIndustrial = estacion.zona?.includes("Industrial") || estacion.zona?.includes("Altos");
+---
+
+<PageLayout title={metaSEO.title} description={metaSEO.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(stationSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <div class="station-page">
+    <!-- Hero -->
+    <section class="station-hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <nav class="breadcrumb">
+          <a href="/">Inicio</a>
+          <span>/</span>
+          <a href="/directorio">Directorio</a>
+          <span>/</span>
+          <a href="/directorio/jalisco">Jalisco</a>
+          <span>/</span>
+          <span class="current">{estacion.ciudad}</span>
+        </nav>
+
+        <div class="hero-badges">
+          {estacion.zona && (
+            <span class="badge zone">{estacion.zona}</span>
+          )}
+          {estacion.especialidades?.map((esp) => (
+            <span class="badge specialty" data-type={esp.toLowerCase().includes("hazmat") ? "hazmat" : esp.toLowerCase().includes("arff") ? "arff" : esp.toLowerCase().includes("acuático") ? "aquatic" : esp.toLowerCase().includes("volcán") ? "volcanic" : "default"}>
+              {esp}
+            </span>
+          ))}
+        </div>
+
+        <h1>{estacion.nombre}</h1>
+        <p class="hero-location">
+          <span class="icon">📍</span>
+          {estacion.direccion}, {estacion.ciudad}, Jalisco C.P. {estacion.cp}
+        </p>
+
+        <div class="hero-phones">
+          <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`} class="phone-main">
+            <span class="phone-icon">📞</span>
+            <span class="phone-number">{estacion.telefono}</span>
+          </a>
+          {estacion.telefono2 && (
+            <a href={`tel:${estacion.telefono2.replace(/\D/g, '')}`} class="phone-secondary">
+              {estacion.telefono2}
+            </a>
+          )}
+        </div>
+
+        <div class="hero-status">
+          <span class="status-badge open">
+            <span class="pulse"></span>
+            Abierto 24 horas
+          </span>
+          {estacion.tiempoRespuesta && (
+            <span class="response-time">
+              ⚡ Respuesta: {estacion.tiempoRespuesta}
+            </span>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Alerta contextual -->
+    {esZMG && (
+      <div class="context-alert zmg">
+        <span class="alert-icon">🏙️</span>
+        <div class="alert-text">
+          <strong>Zona Metropolitana de Guadalajara</strong>
+          <span>Segunda metrópoli más grande de México con más de 5.2 millones de habitantes. Centro económico, industrial y tecnológico del Occidente del país.</span>
+        </div>
+      </div>
+    )}
+
+    {esVallarta && (
+      <div class="context-alert vallarta">
+        <span class="alert-icon">🏖️</span>
+        <div class="alert-text">
+          <strong>Puerto Vallarta - Destino Turístico Internacional</strong>
+          <span>Más de 7 millones de visitantes anuales. Especialización en rescate acuático, emergencias hoteleras y protocolos de temporada de huracanes.</span>
+        </div>
+      </div>
+    )}
+
+    {esTequila && (
+      <div class="context-alert tequila">
+        <span class="alert-icon">🌵</span>
+        <div class="alert-text">
+          <strong>Paisaje Agavero - Patrimonio UNESCO</strong>
+          <span>Región productora de tequila con destilerías históricas. Especialización en incendios con alto contenido de alcohol y protección del patrimonio.</span>
+        </div>
+      </div>
+    )}
+
+    {esChapala && (
+      <div class="context-alert chapala">
+        <span class="alert-icon">🚣</span>
+        <div class="alert-text">
+          <strong>Lago de Chapala - Mayor Lago Natural de México</strong>
+          <span>Hogar de la mayor comunidad de jubilados estadounidenses y canadienses fuera de sus países. Rescate acuático lacustre especializado.</span>
+        </div>
+      </div>
+    )}
+
+    {esAeropuerto && (
+      <div class="context-alert arff">
+        <span class="alert-icon">✈️</span>
+        <div class="alert-text">
+          <strong>Servicios de Emergencia Aeroportuaria ARFF</strong>
+          <span>Unidad especializada en rescate y extinción de incendios aeronáuticos con certificación internacional y simulacros periódicos.</span>
+        </div>
+      </div>
+    )}
+
+    {esZonaSur && (
+      <div class="context-alert volcanic">
+        <span class="alert-icon">🌋</span>
+        <div class="alert-text">
+          <strong>Zona de Influencia Volcán de Colima</strong>
+          <span>Uno de los volcanes más activos de México. Estación con protocolos especiales de evacuación, monitoreo sísmico y emergencias volcánicas.</span>
+        </div>
+      </div>
+    )}
+
+    <!-- Main Content -->
+    <div class="main-container">
+      <div class="content-grid">
+        <main class="station-main">
+          <!-- Servicios -->
+          <section class="info-card services">
+            <h2>🚒 Servicios de Emergencia</h2>
+            <ul class="services-list">
+              {estacion.servicios.map((servicio) => (
+                <li>
+                  <span class="service-icon">✓</span>
+                  {servicio}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- Especialidades -->
+          {estacion.especialidades && estacion.especialidades.length > 0 && (
+            <section class="info-card specialties-section">
+              <h2>🎯 Especialidades</h2>
+              <div class="specialties-grid">
+                {estacion.especialidades.map((esp) => (
+                  <div class="specialty-card" data-type={esp.toLowerCase().includes("hazmat") ? "hazmat" : esp.toLowerCase().includes("arff") ? "arff" : esp.toLowerCase().includes("acuático") ? "aquatic" : esp.toLowerCase().includes("volcán") || esp.toLowerCase().includes("sism") ? "volcanic" : "default"}>
+                    <span class="specialty-icon">
+                      {esp.toLowerCase().includes("hazmat") ? "☣️" :
+                       esp.toLowerCase().includes("arff") ? "✈️" :
+                       esp.toLowerCase().includes("acuático") || esp.toLowerCase().includes("náutico") ? "🌊" :
+                       esp.toLowerCase().includes("volcán") || esp.toLowerCase().includes("sism") ? "🌋" :
+                       esp.toLowerCase().includes("forestal") ? "🌲" :
+                       esp.toLowerCase().includes("rescate") ? "⛑️" :
+                       esp.toLowerCase().includes("urbano") ? "🏢" :
+                       esp.toLowerCase().includes("vehicular") || esp.toLowerCase().includes("carretero") ? "🚗" :
+                       esp.toLowerCase().includes("peregrin") || esp.toLowerCase().includes("masivo") ? "👥" :
+                       esp.toLowerCase().includes("turístic") ? "🏨" :
+                       esp.toLowerCase().includes("patrimoni") ? "🏛️" : "🔧"}
+                    </span>
+                    <span class="specialty-name">{esp}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Cobertura -->
+          {estacion.cobertura && estacion.cobertura.length > 0 && (
+            <section class="info-card coverage">
+              <h2>🗺️ Área de Cobertura</h2>
+              <div class="coverage-tags">
+                {estacion.cobertura.map((area) => (
+                  <span class="coverage-tag">{area}</span>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Historia -->
+          {estacion.historia && (
+            <section class="info-card history">
+              <h2>📜 Historia</h2>
+              <p>{estacion.historia}</p>
+            </section>
+          )}
+
+          <!-- Contexto de Zona -->
+          {contextoZona && (
+            <section class="info-card zone-context">
+              <h2>📍 Contexto Regional: {estacion.zona}</h2>
+              <p class="zone-description">{contextoZona.descripcion}</p>
+
+              <div class="zone-details">
+                <div class="zone-risks">
+                  <h3>⚠️ Riesgos Principales</h3>
+                  <ul>
+                    {contextoZona.riesgos.map((riesgo) => (
+                      <li>{riesgo}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="zone-features">
+                  <h3>🏛️ Características</h3>
+                  <ul>
+                    {contextoZona.caracteristicas.map((caract) => (
+                      <li>{caract}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- Contenido especial por tipo -->
+          {estacion.slug === "estacion-central-guadalajara" && (
+            <section class="info-card special-content">
+              <h2>🏛️ Cuerpo de Bomberos de Guadalajara</h2>
+              <p>
+                Fundado en <strong>1873</strong>, el Cuerpo de Bomberos de Guadalajara es una de las
+                corporaciones bomberiles más antiguas y prestigiosas de México. La Estación Central
+                coordina todas las operaciones de la capital jalisciense y sirve como centro de
+                capacitación para nuevos elementos.
+              </p>
+              <div class="special-facts">
+                <div class="fact">
+                  <span class="fact-number">151+</span>
+                  <span class="fact-label">Años de servicio</span>
+                </div>
+                <div class="fact">
+                  <span class="fact-number">1.5M</span>
+                  <span class="fact-label">Habitantes GDL</span>
+                </div>
+                <div class="fact">
+                  <span class="fact-number">HAZMAT III</span>
+                  <span class="fact-label">Certificación</span>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {estacion.slug === "estacion-central-puerto-vallarta" && (
+            <section class="info-card special-content vallarta-special">
+              <h2>🏖️ Bomberos de Puerto Vallarta</h2>
+              <p>
+                Puerto Vallarta recibe más de <strong>7 millones de visitantes</strong> anualmente,
+                incluyendo turismo nacional e internacional. Los bomberos de Vallarta cuentan con
+                personal bilingüe y especialización en emergencias turísticas, rescate acuático
+                oceánico y protocolos de temporada de huracanes (junio-noviembre).
+              </p>
+              <div class="vallarta-services">
+                <h3>Servicios Especializados</h3>
+                <ul>
+                  <li>🏊 Rescate acuático en playas y mar abierto</li>
+                  <li>🏨 Emergencias en zona hotelera</li>
+                  <li>🚢 Incidentes náuticos y marina</li>
+                  <li>🌀 Protocolo huracanes activo</li>
+                  <li>🗣️ Atención bilingüe español/inglés</li>
+                </ul>
+              </div>
+            </section>
+          )}
+
+          {estacion.slug === "estacion-bomberos-tequila" && (
+            <section class="info-card special-content tequila-special">
+              <h2>🥃 Bomberos en la Cuna del Tequila</h2>
+              <p>
+                La zona de Tequila es <strong>Patrimonio de la Humanidad por la UNESCO</strong> desde 2006.
+                Los bomberos de esta región están especializados en incendios en destilerías y emergencias
+                con alto contenido de alcohol, que requieren técnicas especiales de extinción debido
+                a la naturaleza inflamable de los destilados.
+              </p>
+              <div class="tequila-info">
+                <div class="unesco-badge">
+                  <span class="unesco-icon">🏛️</span>
+                  <span>Patrimonio UNESCO 2006</span>
+                </div>
+                <p class="tequila-note">
+                  Las destilerías históricas de José Cuervo, Sauza y otras casas tequileras
+                  requieren protocolos especiales de protección contra incendios.
+                </p>
+              </div>
+            </section>
+          )}
+
+          {esChapala && (
+            <section class="info-card special-content chapala-special">
+              <h2>🚣 Emergencias en el Lago de Chapala</h2>
+              <p>
+                El Lago de Chapala es el <strong>lago natural más grande de México</strong> y hogar
+                de la mayor comunidad de jubilados estadounidenses y canadienses fuera de sus países.
+                Las estaciones de la ribera cuentan con equipos de rescate acuático lacustre y
+                personal capacitado para atender a residentes internacionales.
+              </p>
+              <div class="chapala-stats">
+                <div class="chapala-stat">
+                  <span class="stat-icon">🌊</span>
+                  <span class="stat-text">1,100 km² de superficie</span>
+                </div>
+                <div class="chapala-stat">
+                  <span class="stat-icon">🇺🇸</span>
+                  <span class="stat-text">+30,000 expatriados</span>
+                </div>
+                <div class="chapala-stat">
+                  <span class="stat-icon">🏘️</span>
+                  <span class="stat-text">Ajijic, Chapala, Jocotepec</span>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {esZonaSur && (
+            <section class="info-card special-content volcanic-special">
+              <h2>🌋 Zona de Riesgo Volcánico</h2>
+              <p>
+                La zona sur de Jalisco está bajo la influencia del <strong>Volcán de Colima</strong>,
+                uno de los más activos de México. Ciudad Guzmán fue afectada por el sismo de 1985
+                y cuenta con protocolos especiales de respuesta a emergencias sísmicas y volcánicas.
+              </p>
+              <div class="volcanic-protocols">
+                <h3>⚠️ Protocolos Especiales</h3>
+                <ul>
+                  <li>Monitoreo constante de actividad volcánica</li>
+                  <li>Rutas de evacuación preestablecidas</li>
+                  <li>Coordinación con Protección Civil estatal</li>
+                  <li>Simulacros periódicos de emergencia volcánica</li>
+                  <li>Equipo para lahares y caída de ceniza</li>
+                </ul>
+              </div>
+            </section>
+          )}
+
+          {estacion.slug === "estacion-bomberos-san-juan-lagos" && (
+            <section class="info-card special-content pilgrimage-special">
+              <h2>⛪ Centro de Peregrinación</h2>
+              <p>
+                San Juan de los Lagos es el <strong>segundo centro de peregrinación más importante
+                de México</strong> después de la Basílica de Guadalupe. Recibe millones de peregrinos
+                anualmente, especialmente durante la Candelaria (febrero) y la fiesta patronal.
+              </p>
+              <div class="pilgrimage-info">
+                <h3>🙏 Eventos de Alta Concentración</h3>
+                <ul>
+                  <li>Fiesta de la Candelaria - 2 de febrero</li>
+                  <li>Fiesta de la Asunción - 15 de agosto</li>
+                  <li>Peregrinaciones durante Semana Santa</li>
+                </ul>
+                <p class="pilgrimage-note">
+                  Estación capacitada para emergencias en eventos masivos y aglomeraciones.
+                </p>
+              </div>
+            </section>
+          )}
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="station-sidebar">
+          <!-- Contacto -->
+          <div class="sidebar-card contact-card">
+            <h3>📞 Contacto de Emergencia</h3>
+            <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`} class="contact-phone main">
+              <span class="phone-icon">🚒</span>
+              <span class="phone-info">
+                <strong>{estacion.telefono}</strong>
+                <small>Línea principal</small>
+              </span>
+            </a>
+            {estacion.telefono2 && (
+              <a href={`tel:${estacion.telefono2.replace(/\D/g, '')}`} class="contact-phone secondary">
+                <span class="phone-icon">📞</span>
+                <span class="phone-info">
+                  <strong>{estacion.telefono2}</strong>
+                  <small>Línea secundaria</small>
+                </span>
+              </a>
+            )}
+            <a href="tel:911" class="contact-phone emergency">
+              <span class="phone-icon">🆘</span>
+              <span class="phone-info">
+                <strong>911</strong>
+                <small>Emergencias Nacional</small>
+              </span>
+            </a>
+          </div>
+
+          <!-- Ubicación -->
+          <div class="sidebar-card location-card">
+            <h3>📍 Ubicación</h3>
+            <address>
+              {estacion.direccion}<br />
+              {estacion.ciudad}, Jalisco<br />
+              C.P. {estacion.cp}
+            </address>
+            {estacion.coordenadas && (
+              <a
+                href={`https://www.google.com/maps?q=${estacion.coordenadas.lat},${estacion.coordenadas.lng}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="map-link"
+              >
+                Ver en Google Maps →
+              </a>
+            )}
+          </div>
+
+          <!-- Horario -->
+          <div class="sidebar-card hours-card">
+            <h3>🕐 Horario de Servicio</h3>
+            <div class="hours-status">
+              <span class="status-dot"></span>
+              <span class="status-text">Operativo 24/7</span>
+            </div>
+            <p class="hours-detail">{estacion.horario || "24 horas, 365 días del año"}</p>
+            {estacion.tiempoRespuesta && (
+              <div class="response-info">
+                <span class="response-icon">⚡</span>
+                <span>Tiempo de respuesta: {estacion.tiempoRespuesta}</span>
+              </div>
+            )}
+          </div>
+
+          <!-- Comandancia -->
+          {estacion.comandancia && (
+            <div class="sidebar-card command-card">
+              <h3>🏛️ Comandancia</h3>
+              <p>{estacion.comandancia}</p>
+            </div>
+          )}
+
+          <!-- Jalisco Info -->
+          <div class="sidebar-card state-card">
+            <h3>🔵 Jalisco</h3>
+            <ul class="state-info">
+              <li><strong>Capital:</strong> Guadalajara</li>
+              <li><strong>Población:</strong> {JALISCO_SEO.poblacion}</li>
+              <li><strong>ZMG:</strong> {JALISCO_SEO.zmg.poblacion} hab.</li>
+              <li><strong>Municipios:</strong> {JALISCO_SEO.municipios}</li>
+            </ul>
+            <a href="/directorio/jalisco" class="back-link">
+              ← Ver todas las estaciones de Jalisco
+            </a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</PageLayout>
+
+<style>
+  /* Variables de tema Jalisco */
+  :root {
+    --jalisco-primary: #1e3a8a;
+    --jalisco-secondary: #f59e0b;
+    --jalisco-accent: #dc2626;
+    --jalisco-dark: #0f172a;
+    --jalisco-light: #f8fafc;
+    --jalisco-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #f59e0b 100%);
+  }
+
+  .station-page {
+    min-height: 100vh;
+    background: var(--jalisco-light);
+  }
+
+  /* Hero */
+  .station-hero {
+    position: relative;
+    background: var(--jalisco-gradient);
+    padding: 3rem 1.5rem 4rem;
+    color: white;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .breadcrumb a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .badge {
+    padding: 0.35rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .badge.zone {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .badge.specialty[data-type="hazmat"] {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #78350f;
+  }
+
+  .badge.specialty[data-type="arff"] {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  }
+
+  .badge.specialty[data-type="aquatic"] {
+    background: linear-gradient(135deg, #22d3ee, #06b6d4);
+    color: #164e63;
+  }
+
+  .badge.specialty[data-type="volcanic"] {
+    background: linear-gradient(135deg, #f87171, #dc2626);
+  }
+
+  .badge.specialty[data-type="default"] {
+    background: rgba(255,255,255,0.25);
+  }
+
+  .station-hero h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .hero-location {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 1rem;
+    opacity: 0.95;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-phones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .phone-main {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    color: var(--jalisco-primary);
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+  }
+
+  .phone-main:hover {
+    transform: translateY(-2px);
+  }
+
+  .phone-secondary {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.2);
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .hero-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #16a34a;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .pulse {
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  .response-time {
+    background: rgba(255,255,255,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+  }
+
+  /* Context Alerts */
+  .context-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    color: white;
+  }
+
+  .context-alert.zmg {
+    background: linear-gradient(90deg, #1e40af, #3b82f6);
+  }
+
+  .context-alert.vallarta {
+    background: linear-gradient(90deg, #0891b2, #22d3ee);
+  }
+
+  .context-alert.tequila {
+    background: linear-gradient(90deg, #16a34a, #22c55e);
+  }
+
+  .context-alert.chapala {
+    background: linear-gradient(90deg, #0284c7, #38bdf8);
+  }
+
+  .context-alert.arff {
+    background: linear-gradient(90deg, #6366f1, #818cf8);
+  }
+
+  .context-alert.volcanic {
+    background: linear-gradient(90deg, #dc2626, #f87171);
+  }
+
+  .alert-icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+  }
+
+  .alert-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .alert-text strong {
+    font-size: 1rem;
+  }
+
+  .alert-text span {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.5;
+  }
+
+  /* Main Container */
+  .main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr 320px;
+    }
+  }
+
+  /* Info Cards */
+  .info-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .info-card h2 {
+    font-size: 1.25rem;
+    color: var(--jalisco-dark);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  /* Services */
+  .services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .services-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    color: #334155;
+  }
+
+  .service-icon {
+    color: #16a34a;
+    font-weight: 700;
+  }
+
+  /* Specialties */
+  .specialties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .specialty-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    background: #f1f5f9;
+    transition: transform 0.2s;
+  }
+
+  .specialty-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .specialty-card[data-type="hazmat"] {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    border: 1px solid #f59e0b;
+  }
+
+  .specialty-card[data-type="arff"] {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border: 1px solid #3b82f6;
+  }
+
+  .specialty-card[data-type="aquatic"] {
+    background: linear-gradient(135deg, #cffafe, #a5f3fc);
+    border: 1px solid #06b6d4;
+  }
+
+  .specialty-card[data-type="volcanic"] {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    border: 1px solid #dc2626;
+  }
+
+  .specialty-icon {
+    font-size: 1.5rem;
+  }
+
+  .specialty-name {
+    font-weight: 600;
+    color: #334155;
+    font-size: 0.9rem;
+  }
+
+  /* Coverage */
+  .coverage-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .coverage-tag {
+    background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+    color: #3730a3;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  /* History */
+  .history p {
+    color: #475569;
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  /* Zone Context */
+  .zone-description {
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .zone-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .zone-risks, .zone-features {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .zone-risks {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+  }
+
+  .zone-features {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+  }
+
+  .zone-risks h3, .zone-features h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    color: var(--jalisco-dark);
+  }
+
+  .zone-risks ul, .zone-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .zone-risks li, .zone-features li {
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+    color: #475569;
+  }
+
+  /* Special Content */
+  .special-content {
+    border-left: 4px solid var(--jalisco-primary);
+  }
+
+  .special-content p {
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .special-facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .fact {
+    text-align: center;
+    padding: 1rem;
+    background: var(--jalisco-gradient);
+    border-radius: 0.75rem;
+    color: white;
+  }
+
+  .fact-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .fact-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+
+  /* Vallarta Special */
+  .vallarta-special {
+    border-left-color: #0891b2;
+  }
+
+  .vallarta-services h3 {
+    color: #0891b2;
+    margin: 1rem 0 0.75rem;
+    font-size: 1rem;
+  }
+
+  .vallarta-services ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .vallarta-services li {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #334155;
+  }
+
+  /* Tequila Special */
+  .tequila-special {
+    border-left-color: #16a34a;
+  }
+
+  .tequila-info {
+    background: #f0fdf4;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .unesco-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #16a34a;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .tequila-note {
+    font-size: 0.9rem;
+    color: #166534;
+    margin: 0;
+  }
+
+  /* Chapala Special */
+  .chapala-special {
+    border-left-color: #0284c7;
+  }
+
+  .chapala-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .chapala-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: #f0f9ff;
+    border-radius: 0.5rem;
+  }
+
+  .stat-icon {
+    font-size: 1.25rem;
+  }
+
+  .stat-text {
+    font-size: 0.85rem;
+    color: #0369a1;
+    font-weight: 500;
+  }
+
+  /* Volcanic Special */
+  .volcanic-special {
+    border-left-color: #dc2626;
+  }
+
+  .volcanic-protocols {
+    background: #fef2f2;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .volcanic-protocols h3 {
+    color: #dc2626;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .volcanic-protocols ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .volcanic-protocols li {
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    color: #7f1d1d;
+  }
+
+  /* Pilgrimage Special */
+  .pilgrimage-special {
+    border-left-color: #7c3aed;
+  }
+
+  .pilgrimage-info {
+    background: #f5f3ff;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .pilgrimage-info h3 {
+    color: #7c3aed;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .pilgrimage-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+  }
+
+  .pilgrimage-info li {
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    color: #5b21b6;
+  }
+
+  .pilgrimage-note {
+    font-size: 0.85rem;
+    color: #6d28d9;
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* Sidebar */
+  .station-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .sidebar-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .sidebar-card h3 {
+    font-size: 1rem;
+    color: var(--jalisco-dark);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  /* Contact Card */
+  .contact-phone {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    transition: transform 0.2s;
+  }
+
+  .contact-phone:hover {
+    transform: translateX(4px);
+  }
+
+  .contact-phone.main {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: white;
+  }
+
+  .contact-phone.secondary {
+    background: #f1f5f9;
+    color: #334155;
+  }
+
+  .contact-phone.emergency {
+    background: linear-gradient(135deg, #dc2626, #f87171);
+    color: white;
+  }
+
+  .phone-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .phone-info strong {
+    font-size: 1.1rem;
+  }
+
+  .phone-info small {
+    font-size: 0.75rem;
+    opacity: 0.85;
+  }
+
+  /* Location Card */
+  .location-card address {
+    font-style: normal;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .map-link {
+    display: inline-block;
+    color: var(--jalisco-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .map-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Hours Card */
+  .hours-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    background: #16a34a;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  .status-text {
+    font-weight: 600;
+    color: #16a34a;
+  }
+
+  .hours-detail {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .response-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #fef3c7;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    color: #92400e;
+  }
+
+  /* Command Card */
+  .command-card p {
+    color: #475569;
+    font-weight: 500;
+  }
+
+  /* State Card */
+  .state-card {
+    border: 2px solid var(--jalisco-primary);
+    background: linear-gradient(to bottom, white, #eff6ff);
+  }
+
+  .state-info {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+  }
+
+  .state-info li {
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .state-info li:last-child {
+    border-bottom: none;
+  }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    color: var(--jalisco-primary);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 0.5rem;
+    border: 1px solid var(--jalisco-primary);
+    transition: background 0.2s;
+  }
+
+  .back-link:hover {
+    background: var(--jalisco-primary);
+    color: white;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .special-facts {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-badges {
+      justify-content: center;
+    }
+
+    .hero-phones {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

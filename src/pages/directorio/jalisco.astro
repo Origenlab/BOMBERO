@@ -1,0 +1,1216 @@
+---
+/**
+ * JALISCO - Directorio Profesional de Estaciones de Bomberos
+ * Segunda zona metropolitana de México (Guadalajara)
+ * Puerto Vallarta - Destino turístico de clase mundial
+ * Ruta del Tequila - Patrimonio UNESCO
+ * Lago de Chapala - Mayor lago natural de México
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import { estacionesJalisco, JALISCO_SEO, getEstacionesZMG, getEstacionesCosta, getEstacionesTequila, getEstacionesChapala, ESTADISTICAS_JALISCO } from '../../data/estaciones-jalisco';
+
+const title = `Bomberos en Jalisco - ${JALISCO_SEO.estado} | Directorio Oficial de Estaciones`;
+const description = JALISCO_SEO.metaDescripcion;
+const canonical = "https://bomberosmexico.com/directorio/jalisco";
+
+// Organización por zonas geográficas
+const zonas = [
+  {
+    id: "zmg",
+    nombre: "Zona Metropolitana de Guadalajara",
+    icono: "🏙️",
+    color: "#1e40af",
+    descripcion: "Segunda metrópoli de México, centro económico del Occidente",
+    estaciones: estacionesJalisco.filter(e => e.zona === "Zona Metropolitana de Guadalajara")
+  },
+  {
+    id: "costa",
+    nombre: "Costa - Puerto Vallarta",
+    icono: "🏖️",
+    color: "#0891b2",
+    descripcion: "Destino turístico internacional, Bahía de Banderas",
+    estaciones: estacionesJalisco.filter(e => e.zona?.includes("Puerto Vallarta"))
+  },
+  {
+    id: "tequila",
+    nombre: "Zona Tequila - Valles",
+    icono: "🌵",
+    color: "#16a34a",
+    descripcion: "Paisaje Agavero, Patrimonio de la Humanidad UNESCO",
+    estaciones: estacionesJalisco.filter(e => e.zona?.includes("Tequila"))
+  },
+  {
+    id: "chapala",
+    nombre: "Lago de Chapala",
+    icono: "🚣",
+    color: "#0284c7",
+    descripcion: "Lago natural más grande de México, comunidad internacional",
+    estaciones: estacionesJalisco.filter(e => e.zona?.includes("Chapala"))
+  },
+  {
+    id: "altos",
+    nombre: "Altos de Jalisco - Industrial",
+    icono: "🏭",
+    color: "#7c3aed",
+    descripcion: "Corredor del Bajío, industria agrícola y religiosa",
+    estaciones: estacionesJalisco.filter(e => e.zona?.includes("Altos") || e.zona?.includes("Ciénega"))
+  },
+  {
+    id: "costalegre",
+    nombre: "Costa Sur - Costalegre",
+    icono: "🌊",
+    color: "#059669",
+    descripcion: "Costa virgen, Reserva de la Biosfera Sierra de Manantlán",
+    estaciones: estacionesJalisco.filter(e => e.zona?.includes("Costalegre"))
+  },
+  {
+    id: "sur",
+    nombre: "Zona Sur",
+    icono: "🌋",
+    color: "#dc2626",
+    descripcion: "Proximidad Volcán de Colima, zona sísmica activa",
+    estaciones: estacionesJalisco.filter(e => e.zona === "Zona Sur")
+  },
+  {
+    id: "norte",
+    nombre: "Zona Norte - Sierra Huichola",
+    icono: "⛰️",
+    color: "#ca8a04",
+    descripcion: "Territorio Wixárika, sierra y comunidades indígenas",
+    estaciones: estacionesJalisco.filter(e => e.zona?.includes("Norte"))
+  }
+];
+
+// Schema.org estructurado
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Jalisco, México",
+  "description": description,
+  "numberOfItems": estacionesJalisco.length,
+  "itemListElement": estacionesJalisco.map((estacion, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": estacion.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": estacion.direccion,
+        "addressLocality": estacion.ciudad,
+        "addressRegion": "Jalisco",
+        "postalCode": estacion.cp,
+        "addressCountry": "MX"
+      },
+      "telephone": estacion.telefono,
+      "url": `https://bomberosmexico.com/directorio/jalisco/${estacion.slug}`
+    }
+  }))
+};
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentOrganization",
+  "name": "Cuerpos de Bomberos del Estado de Jalisco",
+  "description": "Red de estaciones de bomberos que protegen el estado de Jalisco, incluyendo la Zona Metropolitana de Guadalajara, Puerto Vallarta y todo el territorio estatal",
+  "areaServed": {
+    "@type": "State",
+    "name": "Jalisco",
+    "containedIn": "México"
+  },
+  "memberOf": {
+    "@type": "Organization",
+    "name": "Sistema Nacional de Protección Civil"
+  }
+};
+---
+
+<PageLayout title={title} description={description}>
+  <!-- Schema.org -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+
+  <div class="jalisco-page">
+    <!-- Hero Section -->
+    <section class="hero-jalisco">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <nav class="breadcrumb" aria-label="Navegación">
+          <a href="/">Inicio</a>
+          <span>/</span>
+          <a href="/directorio">Directorio</a>
+          <span>/</span>
+          <span class="current">Jalisco</span>
+        </nav>
+
+        <div class="hero-badge">
+          <span class="badge-icon">🔥</span>
+          <span>Segunda Metrópoli de México</span>
+        </div>
+
+        <h1>Bomberos en Jalisco</h1>
+        <p class="hero-subtitle">
+          Directorio oficial de <strong>{estacionesJalisco.length} estaciones de bomberos</strong>
+          protegiendo la Zona Metropolitana de Guadalajara, Puerto Vallarta, la Ruta del Tequila
+          y más de <strong>8.3 millones de habitantes</strong>
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">{ESTADISTICAS_JALISCO.totalEstaciones}</span>
+            <span class="stat-label">Estaciones</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">{ESTADISTICAS_JALISCO.estacionesZMG}</span>
+            <span class="stat-label">En ZMG</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">5.2M</span>
+            <span class="stat-label">Hab. ZMG</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">Servicio</span>
+          </div>
+        </div>
+
+        <div class="emergency-phones">
+          <a href="tel:911" class="phone-btn emergency">
+            <span class="phone-icon">📞</span>
+            <span class="phone-text">
+              <strong>911</strong>
+              <small>Emergencias</small>
+            </span>
+          </a>
+          <a href="tel:3336191515" class="phone-btn bomberos">
+            <span class="phone-icon">🚒</span>
+            <span class="phone-text">
+              <strong>(33) 3619-1515</strong>
+              <small>Bomberos GDL</small>
+            </span>
+          </a>
+          <a href="tel:3222220109" class="phone-btn vallarta">
+            <span class="phone-icon">🏖️</span>
+            <span class="phone-text">
+              <strong>(322) 222-0109</strong>
+              <small>Bomberos Vallarta</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alert Banner ZMG -->
+    <div class="alert-banner zmg">
+      <div class="alert-content">
+        <span class="alert-icon">🏙️</span>
+        <div class="alert-text">
+          <strong>Zona Metropolitana de Guadalajara</strong>
+          <span>Segunda área metropolitana más grande de México con {ESTADISTICAS_JALISCO.estacionesZMG} estaciones especializadas</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+      <div class="content-grid">
+        <!-- Estaciones por Zona -->
+        <main class="stations-main">
+          {zonas.map((zona) => (
+            zona.estaciones.length > 0 && (
+              <section class="zone-section" id={zona.id}>
+                <div class="zone-header" style={`--zone-color: ${zona.color}`}>
+                  <div class="zone-icon">{zona.icono}</div>
+                  <div class="zone-info">
+                    <h2>{zona.nombre}</h2>
+                    <p>{zona.descripcion}</p>
+                  </div>
+                  <span class="zone-count">{zona.estaciones.length} estaciones</span>
+                </div>
+
+                <div class="stations-grid">
+                  {zona.estaciones.map((estacion) => (
+                    <article class="station-card">
+                      <div class="card-header">
+                        <h3>
+                          <a href={`/directorio/jalisco/${estacion.slug}`}>
+                            {estacion.nombre}
+                          </a>
+                        </h3>
+                        {estacion.especialidades && estacion.especialidades.length > 0 && (
+                          <div class="specialties">
+                            {estacion.especialidades.slice(0, 2).map((esp) => (
+                              <span class="specialty-badge" data-type={esp.toLowerCase().includes("hazmat") ? "hazmat" : esp.toLowerCase().includes("arff") ? "arff" : esp.toLowerCase().includes("acuático") ? "aquatic" : "default"}>
+                                {esp}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      <div class="card-body">
+                        <p class="address">
+                          <span class="icon">📍</span>
+                          {estacion.direccion}, {estacion.ciudad}
+                        </p>
+                        <p class="phone">
+                          <span class="icon">📞</span>
+                          <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`}>
+                            {estacion.telefono}
+                          </a>
+                        </p>
+                        {estacion.cobertura && (
+                          <p class="coverage">
+                            <span class="icon">🗺️</span>
+                            {estacion.cobertura.slice(0, 3).join(", ")}
+                          </p>
+                        )}
+                      </div>
+
+                      <div class="card-footer">
+                        <span class="hours">
+                          <span class="icon">🕐</span>
+                          24 horas
+                        </span>
+                        <a href={`/directorio/jalisco/${estacion.slug}`} class="btn-details">
+                          Ver detalles →
+                        </a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            )
+          ))}
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <!-- Navegación por zonas -->
+          <div class="sidebar-card zones-nav">
+            <h3>🗺️ Zonas de Jalisco</h3>
+            <nav class="zones-list">
+              {zonas.map((zona) => (
+                zona.estaciones.length > 0 && (
+                  <a href={`#${zona.id}`} class="zone-link" style={`--zone-color: ${zona.color}`}>
+                    <span class="zone-icon-small">{zona.icono}</span>
+                    <span class="zone-name">{zona.nombre}</span>
+                    <span class="zone-count-small">{zona.estaciones.length}</span>
+                  </a>
+                )
+              ))}
+            </nav>
+          </div>
+
+          <!-- ZMG Destacado -->
+          <div class="sidebar-card zmg-highlight">
+            <h3>🏙️ Zona Metropolitana</h3>
+            <div class="zmg-data">
+              <div class="zmg-stat">
+                <span class="zmg-number">5.2M</span>
+                <span class="zmg-label">Habitantes</span>
+              </div>
+              <div class="zmg-stat">
+                <span class="zmg-number">2°</span>
+                <span class="zmg-label">Metrópoli Nacional</span>
+              </div>
+            </div>
+            <ul class="zmg-list">
+              <li><strong>Guadalajara</strong> - Capital</li>
+              <li><strong>Zapopan</strong> - Mayor municipio</li>
+              <li><strong>Tlaquepaque</strong> - Artesanías</li>
+              <li><strong>Tonalá</strong> - Cerámica</li>
+              <li><strong>Tlajomulco</strong> - Expansión sur</li>
+            </ul>
+          </div>
+
+          <!-- Puerto Vallarta -->
+          <div class="sidebar-card vallarta-highlight">
+            <h3>🏖️ Puerto Vallarta</h3>
+            <p class="vallarta-desc">Destino turístico de clase mundial en la Bahía de Banderas</p>
+            <ul class="vallarta-features">
+              <li>🌴 7.5 millones de visitantes anuales</li>
+              <li>🚢 Terminal de cruceros</li>
+              <li>🏄 Rescate acuático especializado</li>
+              <li>🌀 Protocolo huracanes activo</li>
+            </ul>
+          </div>
+
+          <!-- Tequila UNESCO -->
+          <div class="sidebar-card tequila-highlight">
+            <h3>🌵 Patrimonio UNESCO</h3>
+            <p class="tequila-title">Paisaje Agavero y Antiguas Instalaciones de Tequila</p>
+            <p class="tequila-year">Patrimonio de la Humanidad desde 2006</p>
+            <ul class="tequila-features">
+              <li>🥃 Destilerías históricas</li>
+              <li>🔥 Equipo anti-incendios alcohol</li>
+              <li>🚂 Tren José Cuervo Express</li>
+            </ul>
+          </div>
+
+          <!-- Volcán de Colima -->
+          <div class="sidebar-card volcano-alert">
+            <h3>🌋 Volcán de Colima</h3>
+            <p class="volcano-desc">Uno de los volcanes más activos de México afecta la zona sur de Jalisco</p>
+            <div class="volcano-info">
+              <span class="volcano-badge">Monitoreo Constante</span>
+              <p>Estaciones en Ciudad Guzmán con protocolos de evacuación y emergencias volcánicas</p>
+            </div>
+          </div>
+
+          <!-- Lago de Chapala -->
+          <div class="sidebar-card chapala-highlight">
+            <h3>🚣 Lago de Chapala</h3>
+            <p>Lago natural más grande de México</p>
+            <ul class="chapala-features">
+              <li>🌊 Rescate acuático lacustre</li>
+              <li>🇺🇸 Mayor comunidad expatriada</li>
+              <li>🏘️ Ajijic, Chapala, Jocotepec</li>
+            </ul>
+          </div>
+
+          <!-- Teléfonos de Emergencia -->
+          <div class="sidebar-card emergency-phones-card">
+            <h3>📞 Teléfonos de Emergencia</h3>
+            <ul class="emergency-list">
+              <li>
+                <span class="emergency-label">Emergencias Nacional</span>
+                <a href="tel:911">911</a>
+              </li>
+              <li>
+                <span class="emergency-label">Bomberos Guadalajara</span>
+                <a href="tel:3336191515">(33) 3619-1515</a>
+              </li>
+              <li>
+                <span class="emergency-label">Bomberos Zapopan</span>
+                <a href="tel:3338182267">(33) 3818-2267</a>
+              </li>
+              <li>
+                <span class="emergency-label">Bomberos Vallarta</span>
+                <a href="tel:3222220109">(322) 222-0109</a>
+              </li>
+              <li>
+                <span class="emergency-label">Protección Civil Jalisco</span>
+                <a href="tel:3338232838">(33) 3823-2838</a>
+              </li>
+              <li>
+                <span class="emergency-label">Cruz Roja Guadalajara</span>
+                <a href="tel:3336145600">(33) 3614-5600</a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- SEO Content Section -->
+    <section class="seo-content">
+      <div class="seo-container">
+        <h2>Bomberos en Jalisco: Protección para el Occidente de México</h2>
+
+        <div class="seo-grid">
+          <div class="seo-block">
+            <h3>Zona Metropolitana de Guadalajara</h3>
+            <p>
+              La <strong>Zona Metropolitana de Guadalajara (ZMG)</strong> es la segunda más grande de México
+              con más de 5.2 millones de habitantes. El Cuerpo de Bomberos de Guadalajara, fundado en 1873,
+              es uno de los más antiguos y profesionales del país. Las {ESTADISTICAS_JALISCO.estacionesZMG} estaciones
+              de la ZMG cubren una extensa área que incluye los municipios de Guadalajara, Zapopan, Tlaquepaque,
+              Tonalá y Tlajomulco, atendiendo emergencias en zonas residenciales, comerciales e industriales.
+            </p>
+          </div>
+
+          <div class="seo-block">
+            <h3>Puerto Vallarta y la Costa</h3>
+            <p>
+              <strong>Puerto Vallarta</strong> es el principal destino turístico de playa del Pacífico mexicano,
+              recibiendo más de 7 millones de visitantes anualmente. Los bomberos de Vallarta están especializados
+              en <strong>rescate acuático</strong>, emergencias hoteleras y protocolos de huracanes. La estación
+              cuenta con equipo bilingüe para atender a turistas internacionales y personal capacitado en
+              emergencias náuticas.
+            </p>
+          </div>
+
+          <div class="seo-block">
+            <h3>Ruta del Tequila - Patrimonio UNESCO</h3>
+            <p>
+              El <strong>Paisaje Agavero</strong> fue declarado Patrimonio de la Humanidad por la UNESCO en 2006.
+              Los bomberos de Tequila y Amatitán están especializados en <strong>incendios en destilerías</strong>
+              y emergencias con materiales peligrosos relacionados con la producción de tequila. La concentración
+              de alcohol y las instalaciones históricas requieren protocolos especiales de extinción.
+            </p>
+          </div>
+
+          <div class="seo-block">
+            <h3>Infraestructura y Transporte</h3>
+            <p>
+              Jalisco cuenta con dos aeropuertos internacionales: el <strong>Aeropuerto de Guadalajara (GDL)</strong>
+              con 14 millones de pasajeros anuales y el <strong>Aeropuerto de Puerto Vallarta (PVR)</strong> con
+              6 millones. Ambos cuentan con estaciones de bomberos aeronáuticos especializadas en rescate ARFF.
+              El Tren Ligero de Guadalajara transporta 280,000 pasajeros diarios.
+            </p>
+          </div>
+        </div>
+
+        <div class="seo-keywords">
+          <h3>Servicios de Emergencia en Jalisco</h3>
+          <p>
+            Las estaciones de bomberos en Jalisco ofrecen servicios de <strong>combate de incendios</strong>,
+            <strong>rescate urbano y vehicular</strong>, <strong>materiales peligrosos HAZMAT</strong>,
+            <strong>rescate acuático</strong>, <strong>rescate en alturas</strong> y <strong>atención
+            prehospitalaria</strong>. La coordinación entre municipios de la ZMG permite respuestas
+            eficientes ante emergencias de gran escala.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</PageLayout>
+
+<style>
+  /* Variables de tema Jalisco - Azul Real/Oro Tapatío */
+  :root {
+    --jalisco-primary: #1e3a8a;
+    --jalisco-secondary: #f59e0b;
+    --jalisco-accent: #dc2626;
+    --jalisco-dark: #0f172a;
+    --jalisco-light: #f8fafc;
+    --jalisco-gradient: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #f59e0b 100%);
+  }
+
+  .jalisco-page {
+    min-height: 100vh;
+    background: var(--jalisco-light);
+  }
+
+  /* Hero */
+  .hero-jalisco {
+    position: relative;
+    background: var(--jalisco-gradient);
+    padding: 3rem 1.5rem 4rem;
+    color: white;
+    overflow: hidden;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .breadcrumb a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .breadcrumb .current {
+    font-weight: 600;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-jalisco h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    max-width: 700px;
+    line-height: 1.7;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat {
+    text-align: center;
+    background: rgba(255,255,255,0.15);
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    opacity: 0.9;
+  }
+
+  .emergency-phones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .phone-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .phone-btn.emergency {
+    background: #dc2626;
+  }
+
+  .phone-btn.bomberos {
+    background: #ea580c;
+  }
+
+  .phone-btn.vallarta {
+    background: #0891b2;
+  }
+
+  .phone-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  .phone-icon {
+    font-size: 1.5rem;
+  }
+
+  .phone-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .phone-text strong {
+    font-size: 1.1rem;
+  }
+
+  .phone-text small {
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+
+  /* Alert Banner */
+  .alert-banner {
+    padding: 1rem 1.5rem;
+    color: white;
+  }
+
+  .alert-banner.zmg {
+    background: linear-gradient(90deg, #1e40af, #3b82f6);
+  }
+
+  .alert-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .alert-icon {
+    font-size: 1.5rem;
+  }
+
+  .alert-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .alert-text strong {
+    font-size: 1rem;
+  }
+
+  .alert-text span {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  /* Main Container */
+  .main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr 350px;
+    }
+  }
+
+  /* Zone Sections */
+  .zone-section {
+    margin-bottom: 3rem;
+  }
+
+  .zone-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: white;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-left: 4px solid var(--zone-color);
+  }
+
+  .zone-icon {
+    font-size: 2rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--zone-color), color-mix(in srgb, var(--zone-color) 70%, white));
+    border-radius: 0.75rem;
+  }
+
+  .zone-info h2 {
+    font-size: 1.25rem;
+    color: var(--jalisco-dark);
+    margin-bottom: 0.25rem;
+  }
+
+  .zone-info p {
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+
+  .zone-count {
+    margin-left: auto;
+    background: var(--zone-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  /* Stations Grid */
+  .stations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .station-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .station-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  }
+
+  .card-header {
+    padding: 1.25rem 1.25rem 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .card-header h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-header h3 a {
+    color: var(--jalisco-primary);
+    text-decoration: none;
+  }
+
+  .card-header h3 a:hover {
+    text-decoration: underline;
+  }
+
+  .specialties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .specialty-badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .specialty-badge[data-type="hazmat"] {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #78350f;
+  }
+
+  .specialty-badge[data-type="arff"] {
+    background: linear-gradient(135deg, #60a5fa, #3b82f6);
+    color: white;
+  }
+
+  .specialty-badge[data-type="aquatic"] {
+    background: linear-gradient(135deg, #22d3ee, #06b6d4);
+    color: #164e63;
+  }
+
+  .specialty-badge[data-type="default"] {
+    background: #e2e8f0;
+    color: #475569;
+  }
+
+  .card-body {
+    padding: 1rem 1.25rem;
+    flex: 1;
+  }
+
+  .card-body p {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body .icon {
+    flex-shrink: 0;
+  }
+
+  .card-body a {
+    color: var(--jalisco-primary);
+    text-decoration: none;
+  }
+
+  .card-body a:hover {
+    text-decoration: underline;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background: #f8fafc;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .hours {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: #16a34a;
+    font-weight: 500;
+  }
+
+  .btn-details {
+    font-size: 0.85rem;
+    color: var(--jalisco-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: gap 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .btn-details:hover {
+    gap: 0.5rem;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .sidebar-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .sidebar-card h3 {
+    font-size: 1rem;
+    color: var(--jalisco-dark);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  /* Zones Navigation */
+  .zones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .zone-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #334155;
+    transition: background 0.2s;
+    border-left: 3px solid var(--zone-color);
+  }
+
+  .zone-link:hover {
+    background: #f1f5f9;
+  }
+
+  .zone-icon-small {
+    font-size: 1.1rem;
+  }
+
+  .zone-name {
+    flex: 1;
+    font-size: 0.85rem;
+  }
+
+  .zone-count-small {
+    background: var(--zone-color);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 1rem;
+  }
+
+  /* ZMG Highlight */
+  .zmg-highlight {
+    border: 2px solid #1e40af;
+    background: linear-gradient(to bottom, white, #eff6ff);
+  }
+
+  .zmg-data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .zmg-stat {
+    text-align: center;
+    padding: 0.75rem;
+    background: #1e40af;
+    border-radius: 0.5rem;
+    color: white;
+  }
+
+  .zmg-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .zmg-label {
+    font-size: 0.7rem;
+    opacity: 0.9;
+  }
+
+  .zmg-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .zmg-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+    color: #475569;
+  }
+
+  .zmg-list li:last-child {
+    border-bottom: none;
+  }
+
+  /* Vallarta Highlight */
+  .vallarta-highlight {
+    border: 2px solid #0891b2;
+    background: linear-gradient(to bottom, white, #ecfeff);
+  }
+
+  .vallarta-desc {
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 1rem;
+  }
+
+  .vallarta-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .vallarta-features li {
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+
+  /* Tequila Highlight */
+  .tequila-highlight {
+    border: 2px solid #16a34a;
+    background: linear-gradient(to bottom, white, #f0fdf4);
+  }
+
+  .tequila-title {
+    font-weight: 600;
+    color: #166534;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .tequila-year {
+    font-size: 0.85rem;
+    color: #65a30d;
+    margin-bottom: 1rem;
+  }
+
+  .tequila-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tequila-features li {
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+
+  /* Volcano Alert */
+  .volcano-alert {
+    border: 2px solid #dc2626;
+    background: linear-gradient(to bottom, white, #fef2f2);
+  }
+
+  .volcano-desc {
+    font-size: 0.9rem;
+    color: #7f1d1d;
+    margin-bottom: 1rem;
+  }
+
+  .volcano-badge {
+    display: inline-block;
+    background: #dc2626;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .volcano-info p {
+    font-size: 0.85rem;
+    color: #991b1b;
+  }
+
+  /* Chapala Highlight */
+  .chapala-highlight {
+    border: 2px solid #0284c7;
+    background: linear-gradient(to bottom, white, #f0f9ff);
+  }
+
+  .chapala-highlight > p {
+    font-size: 0.9rem;
+    color: #0369a1;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .chapala-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .chapala-features li {
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+
+  /* Emergency Phones */
+  .emergency-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .emergency-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .emergency-list li:last-child {
+    border-bottom: none;
+  }
+
+  .emergency-label {
+    font-size: 0.85rem;
+    color: #64748b;
+  }
+
+  .emergency-list a {
+    font-weight: 700;
+    color: var(--jalisco-primary);
+    text-decoration: none;
+  }
+
+  .emergency-list a:hover {
+    text-decoration: underline;
+  }
+
+  /* SEO Content */
+  .seo-content {
+    background: white;
+    padding: 3rem 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .seo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .seo-content h2 {
+    font-size: 1.75rem;
+    color: var(--jalisco-dark);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .seo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .seo-block {
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 1rem;
+    border-left: 4px solid var(--jalisco-primary);
+  }
+
+  .seo-block h3 {
+    font-size: 1.1rem;
+    color: var(--jalisco-dark);
+    margin-bottom: 0.75rem;
+  }
+
+  .seo-block p {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.7;
+  }
+
+  .seo-keywords {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+  }
+
+  .seo-keywords h3 {
+    margin-bottom: 1rem;
+  }
+
+  .seo-keywords p {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+    opacity: 0.95;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-stats {
+      justify-content: center;
+    }
+
+    .emergency-phones {
+      flex-direction: column;
+    }
+
+    .zone-header {
+      flex-wrap: wrap;
+    }
+
+    .zone-count {
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
+
+    .stations-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
