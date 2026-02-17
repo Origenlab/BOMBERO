@@ -1,0 +1,1608 @@
+---
+/**
+ * ╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗
+ * ║  DIRECTORIO DE BOMBEROS - MORELOS                                                                 ║
+ * ║  "La Ciudad de la Eterna Primavera" - Página Principal del Estado                                ║
+ * ╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣
+ * ║  16 Estaciones | 1 Sitio UNESCO | 2 Pueblos Mágicos | 85 km de CDMX                              ║
+ * ║  DISEÑO: Ultra-profesional con énfasis en turismo de fin de semana y cercanía CDMX              ║
+ * ╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import {
+  estacionesMorelos,
+  MORELOS_SEO,
+  ZONAS_MORELOS,
+  ESTADISTICAS_MORELOS
+} from '../../data/estaciones-morelos';
+
+const title = `Bomberos en Morelos - Directorio Oficial 2024 | ${MORELOS_SEO.capital} y Todo el Estado`;
+const description = MORELOS_SEO.metaDescripcion;
+
+// Organizar estaciones por zona
+const estacionesPorZona = ZONAS_MORELOS.map(zona => ({
+  ...zona,
+  estaciones: estacionesMorelos.filter(e => {
+    if (zona.id === "cuernavaca") return e.zona === "Zona Metropolitana Cuernavaca";
+    if (zona.id === "civac") return e.zona === "Zona Industrial CIVAC";
+    if (zona.id === "altos") return e.zona === "Altos de Morelos";
+    if (zona.id === "cuautla") return e.zona === "Valle de Cuautla";
+    if (zona.id === "sur") return e.zona === "Haciendas del Sur";
+    if (zona.id === "norte") return e.zona === "Corredor Norte CDMX";
+    return false;
+  })
+}));
+
+// Schema.org - ItemList
+const schemaItemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Morelos, México",
+  "description": description,
+  "numberOfItems": estacionesMorelos.length,
+  "itemListElement": estacionesMorelos.map((estacion, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": estacion.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": estacion.direccion,
+        "addressLocality": estacion.ciudad,
+        "addressRegion": "Morelos",
+        "postalCode": estacion.cp,
+        "addressCountry": "MX"
+      },
+      "telephone": estacion.telefono,
+      "openingHours": "Mo-Su 00:00-23:59"
+    }
+  }))
+};
+
+// Schema.org - GovernmentOrganization
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentOrganization",
+  "name": "Heroico Cuerpo de Bomberos de Morelos",
+  "description": "Sistema estatal de bomberos de Morelos con cobertura en Cuernavaca, Cuautla, Tepoztlán y todo el estado",
+  "areaServed": {
+    "@type": "State",
+    "name": "Morelos",
+    "containedInPlace": {
+      "@type": "Country",
+      "name": "México"
+    }
+  },
+  "telephone": MORELOS_SEO.emergencias.bomberosCuernavaca,
+  "foundingDate": "1943"
+};
+
+// Schema.org - BreadcrumbList
+const schemaBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bomberosmexico.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bomberosmexico.com/directorio" },
+    { "@type": "ListItem", "position": 3, "name": "Morelos", "item": "https://bomberosmexico.com/directorio/morelos" }
+  ]
+};
+---
+
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaItemList)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
+
+  <div class="morelos-page">
+    <!-- Hero Section - Ciudad de la Eterna Primavera -->
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-particles"></div>
+      <div class="hero-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Inicio</a>
+          <span aria-hidden="true">/</span>
+          <a href="/directorio">Directorio</a>
+          <span aria-hidden="true">/</span>
+          <span class="current" aria-current="page">Morelos</span>
+        </nav>
+
+        <div class="hero-badges">
+          <div class="hero-badge primary">
+            <span class="badge-icon">🌸</span>
+            <span>La Ciudad de la Eterna Primavera</span>
+          </div>
+          <div class="hero-badge secondary">
+            <span class="badge-icon">📍</span>
+            <span>A solo 85 km de CDMX</span>
+          </div>
+        </div>
+
+        <h1>Bomberos en Morelos</h1>
+        <p class="hero-subtitle">
+          Directorio oficial de <strong>{estacionesMorelos.length} estaciones de bomberos</strong>
+          protegiendo Cuernavaca, Cuautla, Tepoztlán, zona industrial CIVAC y más de
+          <strong>{MORELOS_SEO.demografia.poblacion} habitantes</strong>.
+          Rescate carretero Autopista del Sol, emergencias en balnearios y cobertura total 24/7.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">{ESTADISTICAS_MORELOS.totalEstaciones}</span>
+            <span class="stat-label">Estaciones</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">{MORELOS_SEO.demografia.municipios}</span>
+            <span class="stat-label">Municipios</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">1</span>
+            <span class="stat-label">UNESCO</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">2</span>
+            <span class="stat-label">Pueblos Mágicos</span>
+          </div>
+          <div class="stat highlight">
+            <span class="stat-number">85 km</span>
+            <span class="stat-label">de CDMX</span>
+          </div>
+        </div>
+
+        <div class="emergency-phones">
+          <a href="tel:911" class="phone-btn emergency" aria-label="Llamar a emergencias 911">
+            <span class="phone-icon">📞</span>
+            <span class="phone-text">
+              <strong>911</strong>
+              <small>Emergencias Nacional</small>
+            </span>
+          </a>
+          <a href="tel:7773123636" class="phone-btn primary" aria-label="Llamar a Bomberos Cuernavaca">
+            <span class="phone-icon">🚒</span>
+            <span class="phone-text">
+              <strong>(777) 312-3636</strong>
+              <small>Bomberos Cuernavaca</small>
+            </span>
+          </a>
+          <a href="tel:7353522424" class="phone-btn secondary" aria-label="Llamar a Bomberos Cuautla">
+            <span class="phone-icon">♨️</span>
+            <span class="phone-text">
+              <strong>(735) 352-2424</strong>
+              <small>Bomberos Cuautla</small>
+            </span>
+          </a>
+          <a href="tel:7773204545" class="phone-btn industrial" aria-label="Llamar a Bomberos CIVAC">
+            <span class="phone-icon">🏭</span>
+            <span class="phone-text">
+              <strong>(777) 320-4545</strong>
+              <small>HAZMAT CIVAC</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alert Banners -->
+    <div class="alerts-container">
+      <!-- Sismo Alert -->
+      <div class="alert-banner seismic">
+        <div class="alert-content">
+          <span class="alert-icon">⚠️</span>
+          <div class="alert-text">
+            <strong>Zona Sísmica Activa</strong>
+            <span>Morelos fue severamente afectado por el sismo del 19 de septiembre de 2017 (Mw 7.1). Conoce las rutas de evacuación.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Autopista Alert -->
+      <div class="alert-banner autopista">
+        <div class="alert-content">
+          <span class="alert-icon">🚗</span>
+          <div class="alert-text">
+            <strong>Autopista del Sol - Alto Flujo Vehicular</strong>
+            <span>40+ millones de vehículos anuales. Rescate carretero disponible 24/7 en todo el corredor México-Cuernavaca-Acapulco.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+      <div class="content-grid">
+        <!-- Estaciones por Zona -->
+        <main class="stations-main">
+          <div class="section-intro">
+            <h2>Estaciones de Bomberos por Zona Geográfica</h2>
+            <p>
+              Morelos cuenta con <strong>{estacionesMorelos.length} estaciones</strong> estratégicamente
+              distribuidas en {ZONAS_MORELOS.length} zonas operativas, garantizando tiempos de respuesta
+              óptimos para los <strong>{MORELOS_SEO.demografia.poblacion} habitantes</strong> y los
+              más de <strong>4 millones de visitantes anuales</strong>.
+            </p>
+          </div>
+
+          {estacionesPorZona.map((zona) => (
+            zona.estaciones.length > 0 && (
+              <section class="zone-section" id={zona.id}>
+                <div class="zone-header" style={`--zone-color: ${zona.color}; --zone-color-light: ${zona.colorSecundario}`}>
+                  <div class="zone-icon">{zona.icono}</div>
+                  <div class="zone-info">
+                    <h2>{zona.nombre}</h2>
+                    <p>{zona.descripcion}</p>
+                    {zona.poblacion && <span class="zone-pop">👥 {zona.poblacion}</span>}
+                  </div>
+                  <span class="zone-count">{zona.estaciones.length} {zona.estaciones.length === 1 ? 'estación' : 'estaciones'}</span>
+                </div>
+
+                {zona.riesgos && zona.riesgos.length > 0 && (
+                  <div class="zone-risks">
+                    <span class="risks-label">⚠️ Riesgos principales:</span>
+                    {zona.riesgos.map((riesgo) => (
+                      <span class="risk-tag">{riesgo}</span>
+                    ))}
+                  </div>
+                )}
+
+                <div class="stations-grid">
+                  {zona.estaciones.map((estacion) => (
+                    <article class="station-card" itemscope itemtype="https://schema.org/FireStation">
+                      <div class="card-header">
+                        <h3 itemprop="name">
+                          <a href={`/directorio/morelos/${estacion.slug}`} itemprop="url">
+                            {estacion.nombre}
+                          </a>
+                        </h3>
+                        {estacion.especialidades && estacion.especialidades.length > 0 && (
+                          <div class="specialties">
+                            {estacion.especialidades.slice(0, 3).map((esp) => (
+                              <span class="specialty-badge" data-type={
+                                esp.toLowerCase().includes("hazmat") ? "hazmat" :
+                                esp.toLowerCase().includes("carretero") || esp.toLowerCase().includes("vehicular") ? "highway" :
+                                esp.toLowerCase().includes("acuático") || esp.toLowerCase().includes("balneario") ? "aquatic" :
+                                esp.toLowerCase().includes("forestal") || esp.toLowerCase().includes("montaña") ? "forest" :
+                                esp.toLowerCase().includes("industrial") ? "industrial" :
+                                esp.toLowerCase().includes("pueblo mágico") ? "magic" :
+                                "default"
+                              }>
+                                {esp}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      <div class="card-body">
+                        <p class="address" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                          <span class="icon">📍</span>
+                          <span>
+                            <span itemprop="streetAddress">{estacion.direccion}</span>,
+                            <span itemprop="addressLocality">{estacion.ciudad}</span>
+                          </span>
+                        </p>
+                        <p class="phone">
+                          <span class="icon">📞</span>
+                          <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`} itemprop="telephone">
+                            {estacion.telefono}
+                          </a>
+                          {estacion.telefono2 && (
+                            <span class="phone-secondary">
+                              / <a href={`tel:${estacion.telefono2.replace(/\D/g, '')}`}>{estacion.telefono2}</a>
+                            </span>
+                          )}
+                        </p>
+                        {estacion.cobertura && (
+                          <p class="coverage">
+                            <span class="icon">🗺️</span>
+                            <span>{estacion.cobertura.slice(0, 4).join(", ")}</span>
+                          </p>
+                        )}
+                        {estacion.tiempoRespuesta && (
+                          <p class="response-time">
+                            <span class="icon">⏱️</span>
+                            <span>{estacion.tiempoRespuesta}</span>
+                          </p>
+                        )}
+                      </div>
+
+                      <div class="card-footer">
+                        <span class="hours">
+                          <span class="hours-icon">🕐</span>
+                          <span itemprop="openingHours" content="Mo-Su 00:00-23:59">24 horas</span>
+                        </span>
+                        <a href={`/directorio/morelos/${estacion.slug}`} class="btn-details">
+                          Ver información completa →
+                        </a>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            )
+          ))}
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <!-- Navegación por zonas -->
+          <div class="sidebar-card zones-nav">
+            <h3>🗺️ Navegación Rápida</h3>
+            <p class="zones-intro">Salta directamente a cada zona del estado</p>
+            <nav class="zones-list" aria-label="Zonas de Morelos">
+              {estacionesPorZona.map((zona) => (
+                zona.estaciones.length > 0 && (
+                  <a href={`#${zona.id}`} class="zone-link" style={`--zone-color: ${zona.color}`}>
+                    <span class="zone-icon-small">{zona.icono}</span>
+                    <span class="zone-name">{zona.nombre}</span>
+                    <span class="zone-count-small">{zona.estaciones.length}</span>
+                  </a>
+                )
+              ))}
+            </nav>
+          </div>
+
+          <!-- UNESCO Xochicalco -->
+          <div class="sidebar-card unesco-highlight">
+            <h3>🏛️ Patrimonio UNESCO</h3>
+            <div class="unesco-item">
+              <strong>Zona Arqueológica de Xochicalco</strong>
+              <span class="unesco-year">1999 - Cultural</span>
+              <p>Centro ceremonial prehispánico con la Pirámide de la Serpiente Emplumada</p>
+              <span class="unesco-detail">Protección coordinada con bomberos de Puente de Ixtla</span>
+            </div>
+          </div>
+
+          <!-- Pueblos Mágicos -->
+          <div class="sidebar-card magicos-highlight">
+            <h3>✨ Pueblos Mágicos</h3>
+            <div class="magico-item">
+              <div class="magico-header">
+                <strong>Tepoztlán</strong>
+                <span class="magico-year">2002</span>
+              </div>
+              <p>Cerro del Tepozteco, misticismo, artesanías</p>
+              <span class="magico-alert">🥾 Rescate de montaña activo</span>
+            </div>
+            <div class="magico-item">
+              <div class="magico-header">
+                <strong>Tlayacapan</strong>
+                <span class="magico-year">2011</span>
+              </div>
+              <p>Convento agustino, Carnaval de Chinelos</p>
+            </div>
+          </div>
+
+          <!-- Balnearios -->
+          <div class="sidebar-card balnearios-highlight">
+            <h3>♨️ Zona de Balnearios</h3>
+            <p class="balnearios-intro">Emergencias acuáticas especializadas</p>
+            <ul class="balnearios-list">
+              <li>💧 Centro Vacacional Oaxtepec IMSS</li>
+              <li>💧 Balneario Agua Hedionda</li>
+              <li>💧 Las Estacas</li>
+              <li>💧 Ex-Hacienda de Temixco</li>
+            </ul>
+            <p class="balnearios-note">Rescate acuático disponible en temporada alta y fines de semana</p>
+          </div>
+
+          <!-- Zona Industrial -->
+          <div class="sidebar-card industrial-highlight">
+            <h3>🏭 Zona Industrial CIVAC</h3>
+            <p class="industrial-intro">Principal parque industrial del centro de México</p>
+            <ul class="industrial-features">
+              <li>🚗 Nissan Mexicana</li>
+              <li>🛞 Bridgestone</li>
+              <li>💊 Roche</li>
+              <li>☢️ HAZMAT Nivel III</li>
+            </ul>
+            <div class="industrial-contact">
+              <span>Emergencias industriales:</span>
+              <a href="tel:7773204545">(777) 320-4545</a>
+            </div>
+          </div>
+
+          <!-- Autopista del Sol -->
+          <div class="sidebar-card autopista-highlight">
+            <h3>🛣️ Autopista del Sol</h3>
+            <p class="autopista-intro">Corredor México-Cuernavaca-Acapulco</p>
+            <div class="autopista-stats">
+              <div class="autopista-stat">
+                <span class="autopista-number">40M+</span>
+                <span class="autopista-label">vehículos/año</span>
+              </div>
+              <div class="autopista-stat">
+                <span class="autopista-number">200+</span>
+                <span class="autopista-label">accidentes/año</span>
+              </div>
+            </div>
+            <p class="autopista-note">Rescate carretero 24/7 con tiempos de respuesta de 3-8 minutos</p>
+          </div>
+
+          <!-- Teléfonos de Emergencia -->
+          <div class="sidebar-card emergency-card">
+            <h3>📞 Teléfonos de Emergencia</h3>
+            <ul class="emergency-list">
+              <li>
+                <span>Emergencias Nacional</span>
+                <a href="tel:911"><strong>911</strong></a>
+              </li>
+              <li>
+                <span>Bomberos Cuernavaca</span>
+                <a href="tel:7773123636">(777) 312-3636</a>
+              </li>
+              <li>
+                <span>Bomberos Cuautla</span>
+                <a href="tel:7353522424">(735) 352-2424</a>
+              </li>
+              <li>
+                <span>Bomberos CIVAC</span>
+                <a href="tel:7773204545">(777) 320-4545</a>
+              </li>
+              <li>
+                <span>Bomberos Tepoztlán</span>
+                <a href="tel:7393950505">(739) 395-0505</a>
+              </li>
+              <li>
+                <span>Bomberos Jojutla</span>
+                <a href="tel:7343431212">(734) 343-1212</a>
+              </li>
+              <li>
+                <span>Protección Civil</span>
+                <a href="tel:7771001100">(777) 100-1100</a>
+              </li>
+              <li>
+                <span>Cruz Roja Cuernavaca</span>
+                <a href="tel:7773153535">(777) 315-3535</a>
+              </li>
+              <li>
+                <span>Ángeles Verdes</span>
+                <a href="tel:078">078</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Información Rápida -->
+          <div class="sidebar-card info-card">
+            <h3>📊 Datos de Morelos</h3>
+            <ul class="info-list">
+              <li><span>Población</span><strong>{MORELOS_SEO.demografia.poblacion}</strong></li>
+              <li><span>Superficie</span><strong>{MORELOS_SEO.demografia.superficie}</strong></li>
+              <li><span>Densidad</span><strong>{MORELOS_SEO.demografia.densidad}</strong></li>
+              <li><span>Municipios</span><strong>{MORELOS_SEO.demografia.municipios}</strong></li>
+              <li><span>Visitantes/año</span><strong>4.2 millones</strong></li>
+              <li><span>Distancia CDMX</span><strong>85 km (1 hora)</strong></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- SEO Content - Contenido Rico para Posicionamiento -->
+    <section class="seo-content">
+      <div class="seo-container">
+        <h2>Bomberos en Morelos: Protección para la Ciudad de la Eterna Primavera</h2>
+
+        <div class="seo-intro">
+          <p>
+            <strong>Morelos</strong>, conocido como "La Ciudad de la Eterna Primavera" por su clima
+            templado todo el año, es el <strong>destino de fin de semana favorito</strong> para los
+            habitantes de la Ciudad de México. A solo <strong>85 kilómetros de la capital</strong>,
+            el estado recibe más de <strong>4 millones de visitantes anuales</strong>, requiriendo
+            un sistema de emergencias robusto y especializado.
+          </p>
+        </div>
+
+        <div class="seo-grid">
+          <div class="seo-block cuernavaca">
+            <h3>🏛️ Cuernavaca - Capital de Morelos</h3>
+            <p>
+              La <strong>Zona Metropolitana de Cuernavaca</strong> alberga más de 1.2 millones de
+              habitantes y es sede del <strong>Palacio de Cortés</strong> (1535), uno de los
+              edificios civiles más antiguos de América continental. Los bomberos de Cuernavaca
+              están especializados en <strong>protección de patrimonio histórico</strong>,
+              <strong>rescate en barrancas urbanas</strong> y atención al turismo de fin de semana.
+            </p>
+          </div>
+
+          <div class="seo-block tepoztlan">
+            <h3>🌄 Tepoztlán - Pueblo Mágico</h3>
+            <p>
+              <strong>Tepoztlán</strong> es uno de los Pueblos Mágicos más visitados de México,
+              famoso por el <strong>Cerro del Tepozteco</strong> y su pirámide prehispánica a
+              600 metros de altura. Los bomberos locales realizan numerosos <strong>rescates
+              de excursionistas</strong> cada año y protegen los frágiles ecosistemas de la
+              <strong>Sierra de Tepoztlán</strong> contra incendios forestales.
+            </p>
+          </div>
+
+          <div class="seo-block civac">
+            <h3>🏭 Zona Industrial CIVAC</h3>
+            <p>
+              <strong>CIVAC</strong> (Ciudad Industrial del Valle de Cuernavaca) es el parque
+              industrial más importante del centro de México, sede de <strong>Nissan Mexicana</strong>,
+              <strong>Bridgestone</strong>, <strong>Roche</strong> y más de 150 empresas.
+              La estación de bomberos cuenta con certificación <strong>HAZMAT Nivel III</strong>
+              y brigadas especializadas en emergencias automotrices y químicas.
+            </p>
+          </div>
+
+          <div class="seo-block cuautla">
+            <h3>♨️ Cuautla - Ciudad de los Manantiales</h3>
+            <p>
+              <strong>Cuautla</strong> es famosa por sus <strong>aguas termales y balnearios</strong>,
+              incluyendo el <strong>Centro Vacacional Oaxtepec del IMSS</strong>, el parque
+              acuático más grande de América Latina. Los bomberos de la zona están especializados
+              en <strong>rescate acuático</strong> y atienden emergencias en los numerosos
+              balnearios durante temporada alta.
+            </p>
+          </div>
+
+          <div class="seo-block autopista">
+            <h3>🛣️ Autopista del Sol</h3>
+            <p>
+              La <strong>Autopista del Sol</strong> (México-Cuernavaca-Acapulco) es una de las
+              carreteras más transitadas del país con más de <strong>40 millones de vehículos
+              anuales</strong>. Las estaciones de bomberos del corredor norte atienden
+              <strong>más de 200 accidentes al año</strong>, con tiempos de respuesta
+              de <strong>3-8 minutos</strong> en la autopista.
+            </p>
+          </div>
+
+          <div class="seo-block sismo">
+            <h3>⚠️ Preparación Sísmica</h3>
+            <p>
+              Morelos fue <strong>severamente afectado</strong> por el sismo del 19 de septiembre
+              de 2017 (Mw 7.1), con <strong>74 fallecidos</strong> y miles de edificios dañados,
+              especialmente en Jojutla. Los cuerpos de bomberos han reforzado sus protocolos
+              de <strong>rescate urbano USAR</strong> y coordinación con Protección Civil
+              para futuras emergencias sísmicas.
+            </p>
+          </div>
+        </div>
+
+        <div class="seo-services">
+          <h3>Servicios de Emergencia en Morelos</h3>
+          <div class="services-grid">
+            <div class="service-item">
+              <span class="service-icon">🔥</span>
+              <span class="service-name">Combate de incendios</span>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">🚗</span>
+              <span class="service-name">Rescate vehicular carretero</span>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">🏊</span>
+              <span class="service-name">Rescate acuático (balnearios)</span>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">☢️</span>
+              <span class="service-name">HAZMAT industrial</span>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">🥾</span>
+              <span class="service-name">Rescate de montaña</span>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">🌲</span>
+              <span class="service-name">Incendios forestales</span>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">🏛️</span>
+              <span class="service-name">Protección patrimonial</span>
+            </div>
+            <div class="service-item">
+              <span class="service-icon">🏗️</span>
+              <span class="service-name">Rescate urbano USAR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="seo-keywords">
+          <h3>Cobertura Completa en Todo el Estado</h3>
+          <p>
+            Las <strong>{estacionesMorelos.length} estaciones de bomberos en Morelos</strong> ofrecen
+            cobertura total en los <strong>{MORELOS_SEO.demografia.municipios} municipios</strong>
+            del estado. Desde el <strong>rescate carretero</strong> en la Autopista del Sol hasta
+            <strong>emergencias en balnearios</strong> de Cuautla, <strong>rescate de montaña</strong>
+            en Tepoztlán, <strong>HAZMAT industrial</strong> en CIVAC y <strong>protección sísmica</strong>
+            en todo el territorio. Servicio de emergencias <strong>24 horas, 365 días del año</strong>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * VARIABLES DE TEMA - MORELOS
+   * Verde primaveral con acentos cálidos (Ciudad de la Eterna Primavera)
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+  :root {
+    --mor-primary: #059669;
+    --mor-secondary: #10b981;
+    --mor-accent: #f59e0b;
+    --mor-warm: #f97316;
+    --mor-dark: #064e3b;
+    --mor-light: #ecfdf5;
+    --mor-gradient: linear-gradient(135deg, #059669 0%, #10b981 40%, #34d399 70%, #f59e0b 100%);
+    --mor-gradient-dark: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%);
+  }
+
+  .morelos-page {
+    min-height: 100vh;
+    background: var(--mor-light);
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * HERO SECTION
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    background: var(--mor-gradient);
+    padding: 3rem 1.5rem 4rem;
+    color: white;
+    overflow: hidden;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.4) 50%, transparent 50%),
+      radial-gradient(2px 2px at 30% 60%, rgba(255,255,255,0.3) 50%, transparent 50%),
+      radial-gradient(2px 2px at 50% 30%, rgba(255,255,255,0.4) 50%, transparent 50%),
+      radial-gradient(2px 2px at 70% 70%, rgba(255,255,255,0.3) 50%, transparent 50%),
+      radial-gradient(2px 2px at 90% 40%, rgba(255,255,255,0.4) 50%, transparent 50%);
+    pointer-events: none;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .breadcrumb a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .breadcrumb a:hover { opacity: 0.8; text-decoration: underline; }
+  .breadcrumb .current { font-weight: 600; }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-badge.primary {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .hero-badge.secondary {
+    background: rgba(245,158,11,0.3);
+    border: 1px solid rgba(245,158,11,0.5);
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    max-width: 750px;
+    line-height: 1.7;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat {
+    text-align: center;
+    background: rgba(255,255,255,0.15);
+    padding: 0.875rem 1.25rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.2s;
+  }
+
+  .stat:hover { transform: translateY(-2px); }
+
+  .stat.highlight {
+    background: rgba(245,158,11,0.3);
+    border-color: rgba(245,158,11,0.5);
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    opacity: 0.9;
+  }
+
+  .emergency-phones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+  }
+
+  .phone-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .phone-btn.emergency { background: #dc2626; }
+  .phone-btn.primary { background: var(--mor-dark); }
+  .phone-btn.secondary { background: #0891b2; }
+  .phone-btn.industrial { background: #1e40af; }
+
+  .phone-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  .phone-icon { font-size: 1.4rem; }
+  .phone-text { display: flex; flex-direction: column; text-align: left; }
+  .phone-text strong { font-size: 1rem; }
+  .phone-text small { font-size: 0.7rem; opacity: 0.9; }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * ALERT BANNERS
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+  .alerts-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .alert-banner {
+    padding: 0.875rem 1.5rem;
+    color: white;
+  }
+
+  .alert-banner.seismic {
+    background: linear-gradient(90deg, #dc2626, #f97316);
+  }
+
+  .alert-banner.autopista {
+    background: linear-gradient(90deg, #1e40af, #0891b2);
+  }
+
+  .alert-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .alert-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .alert-text { display: flex; flex-direction: column; gap: 0.2rem; }
+  .alert-text strong { font-size: 0.95rem; }
+  .alert-text span { font-size: 0.85rem; opacity: 0.9; }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * MAIN CONTAINER
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+  .main-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr 380px;
+    }
+  }
+
+  .section-intro {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--mor-primary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .section-intro h2 {
+    font-size: 1.25rem;
+    color: var(--mor-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .section-intro p {
+    color: #475569;
+    line-height: 1.6;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * ZONE SECTIONS
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+  .zone-section {
+    margin-bottom: 3rem;
+  }
+
+  .zone-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: white;
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-left: 5px solid var(--zone-color);
+  }
+
+  .zone-icon {
+    font-size: 2rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--zone-color), var(--zone-color-light));
+    border-radius: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .zone-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .zone-info h2 {
+    font-size: 1.2rem;
+    color: #1e293b;
+    margin-bottom: 0.3rem;
+  }
+
+  .zone-info p {
+    font-size: 0.875rem;
+    color: #64748b;
+    line-height: 1.5;
+  }
+
+  .zone-pop {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: var(--zone-color);
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+
+  .zone-count {
+    background: var(--zone-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .zone-risks {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .risks-label {
+    font-size: 0.8rem;
+    color: #c2410c;
+    font-weight: 600;
+  }
+
+  .risk-tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: #fdba74;
+    color: #9a3412;
+    border-radius: 1rem;
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * STATION CARDS
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+  .stations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .station-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .station-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  }
+
+  .card-header {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .card-header h3 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.4;
+  }
+
+  .card-header h3 a {
+    color: var(--mor-primary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .card-header h3 a:hover {
+    color: var(--mor-dark);
+    text-decoration: underline;
+  }
+
+  .specialties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .specialty-badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .specialty-badge[data-type="hazmat"] {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #78350f;
+  }
+
+  .specialty-badge[data-type="highway"] {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+  }
+
+  .specialty-badge[data-type="aquatic"] {
+    background: linear-gradient(135deg, #22d3ee, #06b6d4);
+    color: #164e63;
+  }
+
+  .specialty-badge[data-type="forest"] {
+    background: linear-gradient(135deg, #4ade80, #22c55e);
+    color: #14532d;
+  }
+
+  .specialty-badge[data-type="industrial"] {
+    background: linear-gradient(135deg, #64748b, #475569);
+    color: white;
+  }
+
+  .specialty-badge[data-type="magic"] {
+    background: linear-gradient(135deg, #c084fc, #a855f7);
+    color: white;
+  }
+
+  .specialty-badge[data-type="default"] {
+    background: #e2e8f0;
+    color: #475569;
+  }
+
+  .card-body {
+    padding: 1rem 1.25rem;
+    flex: 1;
+  }
+
+  .card-body p {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #475569;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+
+  .card-body .icon { flex-shrink: 0; }
+
+  .card-body a {
+    color: var(--mor-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .card-body a:hover { text-decoration: underline; }
+
+  .phone-secondary {
+    color: #64748b;
+    font-size: 0.8rem;
+  }
+
+  .phone-secondary a {
+    color: #64748b;
+    font-weight: normal;
+  }
+
+  .response-time {
+    color: var(--mor-primary) !important;
+    font-weight: 500;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background: #f8fafc;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .hours {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: #16a34a;
+    font-weight: 500;
+  }
+
+  .btn-details {
+    font-size: 0.8rem;
+    color: var(--mor-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .btn-details:hover {
+    color: var(--mor-dark);
+    text-decoration: underline;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * SIDEBAR
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .sidebar-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .sidebar-card h3 {
+    font-size: 1rem;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  /* Zones Navigation */
+  .zones-intro {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 0.75rem;
+  }
+
+  .zones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .zone-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #334155;
+    transition: background 0.2s;
+    border-left: 3px solid var(--zone-color);
+  }
+
+  .zone-link:hover { background: #f1f5f9; }
+  .zone-icon-small { font-size: 1rem; }
+  .zone-name { flex: 1; font-size: 0.8rem; }
+
+  .zone-count-small {
+    background: var(--zone-color);
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 1rem;
+    font-weight: 600;
+  }
+
+  /* UNESCO Card */
+  .unesco-highlight {
+    border: 2px solid var(--mor-primary);
+    background: linear-gradient(to bottom, white, #ecfdf5);
+  }
+
+  .unesco-item {
+    padding: 0.75rem;
+    background: #d1fae5;
+    border-radius: 0.5rem;
+  }
+
+  .unesco-item strong {
+    display: block;
+    color: var(--mor-dark);
+    font-size: 0.9rem;
+  }
+
+  .unesco-year {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: white;
+    background: var(--mor-primary);
+    padding: 0.15rem 0.5rem;
+    border-radius: 1rem;
+    margin: 0.25rem 0;
+  }
+
+  .unesco-item p {
+    font-size: 0.8rem;
+    color: #475569;
+    margin: 0.25rem 0;
+  }
+
+  .unesco-detail {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--mor-primary);
+    font-style: italic;
+    margin-top: 0.5rem;
+  }
+
+  /* Pueblos Mágicos */
+  .magicos-highlight {
+    border: 2px solid #a855f7;
+    background: linear-gradient(to bottom, white, #faf5ff);
+  }
+
+  .magico-item {
+    padding: 0.75rem;
+    background: #f3e8ff;
+    border-radius: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .magico-item:last-child { margin-bottom: 0; }
+
+  .magico-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
+  }
+
+  .magico-header strong {
+    color: #7c3aed;
+    font-size: 0.9rem;
+  }
+
+  .magico-year {
+    font-size: 0.7rem;
+    background: #a855f7;
+    color: white;
+    padding: 0.1rem 0.4rem;
+    border-radius: 1rem;
+  }
+
+  .magico-item p {
+    font-size: 0.8rem;
+    color: #6b21a8;
+    margin: 0;
+  }
+
+  .magico-alert {
+    display: inline-block;
+    font-size: 0.75rem;
+    color: #dc2626;
+    font-weight: 500;
+    margin-top: 0.4rem;
+  }
+
+  /* Balnearios */
+  .balnearios-highlight {
+    border: 2px solid #0891b2;
+    background: linear-gradient(to bottom, white, #ecfeff);
+  }
+
+  .balnearios-intro {
+    font-size: 0.85rem;
+    color: #0891b2;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .balnearios-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .balnearios-list li {
+    padding: 0.35rem 0;
+    font-size: 0.8rem;
+    color: #0e7490;
+  }
+
+  .balnearios-note {
+    font-size: 0.75rem;
+    color: #155e75;
+    font-style: italic;
+    margin: 0;
+  }
+
+  /* Industrial */
+  .industrial-highlight {
+    border: 2px solid #1e40af;
+    background: linear-gradient(to bottom, white, #eff6ff);
+  }
+
+  .industrial-intro {
+    font-size: 0.85rem;
+    color: #1e40af;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .industrial-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+  }
+
+  .industrial-features li {
+    padding: 0.35rem 0;
+    font-size: 0.8rem;
+    color: #1e3a8a;
+  }
+
+  .industrial-contact {
+    background: #1e40af;
+    color: white;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+
+  .industrial-contact a {
+    color: #fbbf24;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* Autopista */
+  .autopista-highlight {
+    border: 2px solid #dc2626;
+    background: linear-gradient(to bottom, white, #fef2f2);
+  }
+
+  .autopista-intro {
+    font-size: 0.85rem;
+    color: #dc2626;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .autopista-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .autopista-stat {
+    text-align: center;
+    background: #fee2e2;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+  }
+
+  .autopista-number {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #dc2626;
+  }
+
+  .autopista-label {
+    font-size: 0.7rem;
+    color: #991b1b;
+  }
+
+  .autopista-note {
+    font-size: 0.75rem;
+    color: #b91c1c;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Emergency Card */
+  .emergency-card {
+    background: var(--mor-gradient-dark);
+    color: white;
+  }
+
+  .emergency-card h3 {
+    color: white;
+    border-bottom-color: rgba(255,255,255,0.2);
+  }
+
+  .emergency-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .emergency-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+  }
+
+  .emergency-list li:last-child { border-bottom: none; }
+  .emergency-list span { opacity: 0.8; }
+
+  .emergency-list a {
+    color: #fbbf24;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* Info Card */
+  .info-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+
+  .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .info-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.8rem;
+  }
+
+  .info-list li:last-child { border-bottom: none; }
+  .info-list span { color: #64748b; }
+  .info-list strong { color: var(--mor-dark); }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * SEO CONTENT
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+  .seo-content {
+    background: white;
+    padding: 3rem 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .seo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .seo-content h2 {
+    font-size: 1.75rem;
+    color: var(--mor-dark);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .seo-intro {
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    text-align: center;
+  }
+
+  .seo-intro p {
+    font-size: 1.05rem;
+    color: #475569;
+    line-height: 1.8;
+  }
+
+  .seo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .seo-block {
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 1rem;
+    border-left: 4px solid var(--mor-primary);
+  }
+
+  .seo-block.cuernavaca { border-left-color: #7c3aed; }
+  .seo-block.tepoztlan { border-left-color: #16a34a; }
+  .seo-block.civac { border-left-color: #1e40af; }
+  .seo-block.cuautla { border-left-color: #0891b2; }
+  .seo-block.autopista { border-left-color: #dc2626; }
+  .seo-block.sismo { border-left-color: #f97316; }
+
+  .seo-block h3 {
+    font-size: 1.05rem;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+  }
+
+  .seo-block p {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.7;
+  }
+
+  .seo-services {
+    background: #f1f5f9;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .seo-services h3 {
+    text-align: center;
+    color: var(--mor-dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .service-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  .service-icon { font-size: 1.25rem; }
+  .service-name { font-size: 0.85rem; color: #334155; }
+
+  .seo-keywords {
+    background: var(--mor-gradient);
+    color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    text-align: center;
+  }
+
+  .seo-keywords h3 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .seo-keywords p {
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+    opacity: 0.95;
+    font-size: 1rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+   * RESPONSIVE
+   * ═══════════════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .hero-badges { flex-direction: column; }
+    .hero-stats { justify-content: center; }
+    .emergency-phones { flex-direction: column; }
+    .zone-header { flex-wrap: wrap; }
+    .zone-count { margin-left: 0; margin-top: 0.75rem; width: 100%; text-align: center; }
+    .stations-grid { grid-template-columns: 1fr; }
+    .alert-content { flex-direction: column; text-align: center; }
+    .seo-grid { grid-template-columns: 1fr; }
+  }
+</style>

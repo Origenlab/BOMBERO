@@ -1,0 +1,1989 @@
+---
+/**
+ * ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+ * ║  PÁGINA DINÁMICA DE ESTACIÓN - NAYARIT                                                                                    ║
+ * ║  "La Puerta de Oro del Pacífico Mexicano" - Riviera Nayarit                                                              ║
+ * ╠═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
+ * ║  🌊 Soporte bilingüe (Español/English) para turismo internacional                                                         ║
+ * ║  🌀 Alertas de huracanes con detección de temporada activa (Junio-Noviembre)                                             ║
+ * ║  🌊 Protocolo de tsunami para toda la costa del Pacífico                                                                  ║
+ * ║  🌋 Monitoreo volcán Ceboruco para zona serrana                                                                           ║
+ * ║  🐊 Alertas de cocodrilos para San Blas y estuarios                                                                       ║
+ * ║  🏄 Rescate de surfistas para Sayulita y playas                                                                           ║
+ * ║  ✈️ Servicios ARFF certificados para Aeropuerto Internacional PVR                                                         ║
+ * ║  🏨 Emergencias en resorts de ultra lujo (Four Seasons, St. Regis, W, Conrad)                                            ║
+ * ║  📍 SEO optimizado • Schema.org FireStation • Información consular                                                        ║
+ * ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import {
+  estacionesNayarit,
+  NAYARIT_SEO,
+  ZONAS_NAYARIT,
+  ALERTAS_NAYARIT,
+  generarSchemaEstacion,
+  getContextoZona
+} from '../../../data/estaciones-nayarit';
+
+export function getStaticPaths() {
+  return estacionesNayarit.map((estacion) => ({
+    params: { slug: estacion.slug },
+    props: { estacion },
+  }));
+}
+
+const { estacion } = Astro.props;
+
+// Detectar si es zona turística internacional para contenido bilingüe
+const esZonaTuristica = estacion.zona?.includes("Riviera") ||
+  estacion.ciudad === "Bahía de Banderas" ||
+  estacion.slug.includes("sayulita") ||
+  estacion.slug.includes("punta-mita") ||
+  estacion.slug.includes("aeropuerto");
+
+// Detectar temporada de huracanes (Junio 1 - Noviembre 30)
+const fechaActual = new Date();
+const mesActual = fechaActual.getMonth(); // 0-11
+const esTemporadaHuracanes = mesActual >= 5 && mesActual <= 10; // Junio (5) a Noviembre (10)
+
+// Meta SEO (con versión en inglés para zonas turísticas)
+const titleES = `${estacion.nombre} | Bomberos ${estacion.ciudad}, Nayarit - Tel: ${estacion.telefono}`;
+const titleEN = esZonaTuristica ? `${estacion.nombre} | Fire Department ${estacion.ciudad}, Nayarit Mexico` : null;
+const title = titleES;
+
+const descriptionES = `${estacion.nombre} en ${estacion.direccion}, ${estacion.ciudad}. Tel: ${estacion.telefono}. Servicios 24/7: ${estacion.servicios.slice(0, 3).join(", ")}. Cobertura: ${estacion.cobertura?.slice(0, 3).join(", ") || estacion.ciudad}. ${estacion.historia?.slice(0, 100) || 'Atención de emergencias en Nayarit.'}`;
+const descriptionEN = esZonaTuristica
+  ? `Fire station ${estacion.ciudad}, Riviera Nayarit Mexico. Emergency: ${estacion.telefono}. 24/7 services: water rescue, hotel emergencies, hurricane evacuation. Coverage: ${estacion.cobertura?.slice(0, 3).join(", ") || estacion.ciudad}.`
+  : null;
+const description = descriptionES;
+
+// Schema.org
+const schemaData = generarSchemaEstacion(estacion);
+
+// Schema.org BreadcrumbList
+const schemaBreadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bomberosmexico.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bomberosmexico.com/directorio" },
+    { "@type": "ListItem", "position": 3, "name": "Nayarit", "item": "https://bomberosmexico.com/directorio/nayarit" },
+    { "@type": "ListItem", "position": 4, "name": estacion.nombre, "item": `https://bomberosmexico.com/directorio/nayarit/${estacion.slug}` }
+  ]
+};
+
+// Determinar zona y contexto
+const zonaConfig = ZONAS_NAYARIT.find(z => {
+  if (z.id === "tepic") return estacion.zona === "Zona Metropolitana Tepic";
+  if (z.id === "riviera-sur") return estacion.zona === "Riviera Nayarit Sur";
+  if (z.id === "riviera-norte") return estacion.zona === "Riviera Nayarit Norte";
+  if (z.id === "san-blas") return estacion.zona === "Zona Histórica San Blas";
+  if (z.id === "llanura-norte") return estacion.zona === "Llanura Costera Norte";
+  if (z.id === "sierra") return estacion.zona === "Sierra del Nayar";
+  if (z.id === "corredor-sur") return estacion.zona === "Corredor Industrial Sur";
+  return false;
+});
+
+// ════════════════════════════════════════════════════════════════════════════════════════════════════
+// SISTEMA DE ALERTAS CONTEXTUALES AVANZADO
+// ════════════════════════════════════════════════════════════════════════════════════════════════════
+const alertas: {
+  tipo: string;
+  icono: string;
+  titulo: string;
+  tituloEN?: string;
+  mensaje: string;
+  mensajeEN?: string;
+  color: string;
+  prioridad: number;
+}[] = [];
+
+// 🌀 ALERTA DE HURACANES - Temporada activa
+if (esTemporadaHuracanes && (estacion.zona?.includes("Riviera") || estacion.zona?.includes("San Blas") || estacion.zona?.includes("Costera"))) {
+  alertas.push({
+    tipo: "huracan",
+    icono: "🌀",
+    titulo: "TEMPORADA DE HURACANES ACTIVA",
+    tituloEN: "ACTIVE HURRICANE SEASON",
+    mensaje: `Temporada activa hasta noviembre. Conozca rutas de evacuación. Refugios: ${ALERTAS_NAYARIT.huracanes.telefonoEvacuacion}`,
+    mensajeEN: "Active season through November. Know evacuation routes. Emergency: 911",
+    color: "#dc2626",
+    prioridad: 1
+  });
+}
+
+// 🌊 ALERTA DE TSUNAMI - Zonas costeras
+if (estacion.zona?.includes("Riviera") || estacion.zona?.includes("San Blas") || estacion.servicios.some(s => s.toLowerCase().includes("tsunami"))) {
+  alertas.push({
+    tipo: "tsunami",
+    icono: "🌊",
+    titulo: "Zona de Alerta de Tsunami del Pacífico",
+    tituloEN: "Pacific Tsunami Warning Zone",
+    mensaje: "En caso de sismo fuerte, diríjase a zonas altas. Tiempo de evacuación: 20-30 min.",
+    mensajeEN: "In case of strong earthquake, move to high ground. Evacuation time: 20-30 min.",
+    color: "#0369a1",
+    prioridad: 2
+  });
+}
+
+// 🌋 ALERTA VOLCÁNICA - Volcán Ceboruco
+if (estacion.zona === "Sierra del Nayar" || estacion.servicios.some(s => s.toLowerCase().includes("volcán") || s.toLowerCase().includes("ceboruco"))) {
+  alertas.push({
+    tipo: "volcan",
+    icono: "🌋",
+    titulo: "Volcán Ceboruco - Monitoreo Activo",
+    mensaje: "Volcán activo monitoreado por CENAPRED. Respete señalizaciones y zonas restringidas.",
+    color: "#b91c1c",
+    prioridad: 3
+  });
+}
+
+// 🐊 ALERTA DE COCODRILOS - San Blas y manglares
+if (estacion.zona === "Zona Histórica San Blas" || estacion.servicios.some(s => s.toLowerCase().includes("cocodrilo") || s.toLowerCase().includes("manglar"))) {
+  alertas.push({
+    tipo: "cocodrilo",
+    icono: "🐊",
+    titulo: "Zona con Presencia de Cocodrilos",
+    tituloEN: "Crocodile Presence Area",
+    mensaje: "No nade en esteros o zonas no habilitadas. Reporte avistamientos al 911.",
+    mensajeEN: "Do not swim in estuaries or unmarked areas. Report sightings to 911.",
+    color: "#15803d",
+    prioridad: 4
+  });
+}
+
+// 🏄 ALERTA DE SURF - Sayulita y playas
+if (estacion.slug.includes("sayulita") || estacion.especialidades?.some(e => e.toLowerCase().includes("surf"))) {
+  alertas.push({
+    tipo: "surf",
+    icono: "🏄",
+    titulo: "Capital del Surf en México",
+    tituloEN: "Surf Capital of Mexico",
+    mensaje: "Rescate de surfistas activo. Respete banderas de seguridad. No surfee solo.",
+    mensajeEN: "Active surf rescue. Respect safety flags. Never surf alone.",
+    color: "#f59e0b",
+    prioridad: 5
+  });
+}
+
+// ✈️ ALERTA ARFF - Aeropuerto
+if (estacion.slug.includes("aeropuerto") || estacion.especialidades?.some(e => e.toLowerCase().includes("arff"))) {
+  alertas.push({
+    tipo: "arff",
+    icono: "✈️",
+    titulo: "Servicios ARFF Certificados OACI Cat. 9",
+    tituloEN: "ICAO Cat. 9 Certified ARFF Services",
+    mensaje: "Rescate y extinción de incendios en aeronaves. 5.5M+ pasajeros anuales.",
+    mensajeEN: "Aircraft Rescue and Fire Fighting. 5.5M+ passengers annually.",
+    color: "#1e40af",
+    prioridad: 3
+  });
+}
+
+// 🏨 ALERTA RESORTS ULTRA LUJO - Punta de Mita
+if (estacion.slug.includes("punta-mita") || estacion.servicios.some(s => s.toLowerCase().includes("four seasons") || s.toLowerCase().includes("st. regis"))) {
+  alertas.push({
+    tipo: "luxury",
+    icono: "🏨",
+    titulo: "Cobertura Resorts de Ultra Lujo",
+    tituloEN: "Ultra-Luxury Resort Coverage",
+    mensaje: "Four Seasons • St. Regis • W • Conrad - Personal bilingüe certificado.",
+    mensajeEN: "Four Seasons • St. Regis • W • Conrad - Certified bilingual staff.",
+    color: "#7c3aed",
+    prioridad: 5
+  });
+}
+
+// 🏝️ ISLAS MARIETAS
+if (estacion.servicios.some(s => s.toLowerCase().includes("marietas"))) {
+  alertas.push({
+    tipo: "marietas",
+    icono: "🏝️",
+    titulo: "Cobertura Islas Marietas (ANP)",
+    tituloEN: "Marietas Islands Coverage (Protected Area)",
+    mensaje: "Rescate en Área Natural Protegida. Playa del Amor - acceso restringido.",
+    mensajeEN: "Protected Area rescue. Playa del Amor - restricted access.",
+    color: "#0d9488",
+    prioridad: 6
+  });
+}
+
+// Ordenar alertas por prioridad
+alertas.sort((a, b) => a.prioridad - b.prioridad);
+
+// Obtener otras estaciones de la misma zona
+const estacionesZona = estacionesNayarit.filter(e => e.zona === estacion.zona && e.slug !== estacion.slug).slice(0, 4);
+
+// ════════════════════════════════════════════════════════════════════════════════════════════════════
+// DETECCIÓN DE CONTENIDO ESPECIAL
+// ════════════════════════════════════════════════════════════════════════════════════════════════════
+const esEstacionCentral = estacion.slug.includes("central");
+const esSayulita = estacion.slug.includes("sayulita");
+const esPuntaMita = estacion.slug.includes("punta-mita");
+const esAeropuerto = estacion.slug.includes("aeropuerto");
+const esSanBlas = estacion.slug.includes("san-blas");
+const esBahiaBanderas = estacion.slug.includes("bahia-banderas") && estacion.slug.includes("central");
+const esGuayabitos = estacion.slug.includes("guayabitos");
+const esCompostela = estacion.slug.includes("compostela");
+const esIslasMarietasCobertura = estacion.servicios.some(s => s.toLowerCase().includes("marietas"));
+
+// Resorts de lujo en cobertura
+const resortsLujo = [
+  { nombre: "Four Seasons Punta Mita", estrellas: 5 },
+  { nombre: "St. Regis Punta Mita", estrellas: 5 },
+  { nombre: "W Punta de Mita", estrellas: 5 },
+  { nombre: "Conrad Punta de Mita", estrellas: 5 },
+  { nombre: "One&Only Mandarina", estrellas: 5 }
+];
+---
+
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
+
+  <div class="station-page">
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <!-- ALERTAS CONTEXTUALES CON SOPORTE BILINGÜE                                           -->
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    {alertas.length > 0 && (
+      <div class="alerts-container">
+        {alertas.slice(0, 2).map((alerta) => (
+          <div class="alert-banner" style={`background: ${alerta.color}`}>
+            <div class="alert-content">
+              <span class="alert-icon">{alerta.icono}</span>
+              <div class="alert-text">
+                <strong>{alerta.titulo}</strong>
+                {esZonaTuristica && alerta.tituloEN && (
+                  <span class="alert-title-en">{alerta.tituloEN}</span>
+                )}
+                <span class="alert-message">{alerta.mensaje}</span>
+                {esZonaTuristica && alerta.mensajeEN && (
+                  <span class="alert-message-en">{alerta.mensajeEN}</span>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <!-- HERO SECTION CON TEMA OCEÁNICO                                                       -->
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <section class="hero" style={`--zone-color: ${zonaConfig?.color || '#0891b2'}`}>
+      <div class="hero-ocean-effect"></div>
+      <div class="hero-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Inicio</a>
+          <span>/</span>
+          <a href="/directorio">Directorio</a>
+          <span>/</span>
+          <a href="/directorio/nayarit">Nayarit</a>
+          <span>/</span>
+          <span class="current">{estacion.ciudad}</span>
+        </nav>
+
+        <!-- Badges de zona y especialidades -->
+        <div class="hero-badges">
+          {zonaConfig && (
+            <div class="hero-badge zone">
+              <span class="badge-icon">{zonaConfig.icono}</span>
+              <span>{zonaConfig.nombre}</span>
+            </div>
+          )}
+          {esZonaTuristica && (
+            <div class="hero-badge bilingual">
+              <span class="badge-icon">🌐</span>
+              <span>Español / English</span>
+            </div>
+          )}
+          {estacion.especialidades && estacion.especialidades.slice(0, 2).map((esp) => (
+            <div class="hero-badge specialty">
+              <span>{esp}</span>
+            </div>
+          ))}
+          {esTemporadaHuracanes && (estacion.zona?.includes("Riviera") || estacion.zona?.includes("San Blas")) && (
+            <div class="hero-badge hurricane">
+              <span class="badge-icon">🌀</span>
+              <span>Temporada Huracanes</span>
+            </div>
+          )}
+        </div>
+
+        <h1>{estacion.nombre}</h1>
+        {esZonaTuristica && (
+          <p class="hero-subtitle-en">Fire Department - {estacion.ciudad}, Riviera Nayarit, Mexico</p>
+        )}
+
+        <div class="hero-meta">
+          <span class="meta-item">
+            <span class="meta-icon">📍</span>
+            <span>{estacion.ciudad}, Nayarit</span>
+          </span>
+          <span class="meta-item">
+            <span class="meta-icon">🕐</span>
+            <span>{estacion.horario}</span>
+          </span>
+          {estacion.tiempoRespuesta && (
+            <span class="meta-item highlight">
+              <span class="meta-icon">⏱️</span>
+              <span>{estacion.tiempoRespuesta}</span>
+            </span>
+          )}
+          {esZonaTuristica && (
+            <span class="meta-item bilingual-tag">
+              <span class="meta-icon">🌐</span>
+              <span>Bilingual Staff</span>
+            </span>
+          )}
+        </div>
+
+        <!-- Botones de emergencia -->
+        <div class="emergency-buttons">
+          <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`} class="btn-emergency primary">
+            <span class="btn-icon">📞</span>
+            <span class="btn-text">
+              <strong>{estacion.telefono}</strong>
+              <small>Línea principal / Main line</small>
+            </span>
+          </a>
+          {estacion.telefono2 && (
+            <a href={`tel:${estacion.telefono2.replace(/\D/g, '')}`} class="btn-emergency secondary">
+              <span class="btn-icon">📱</span>
+              <span class="btn-text">
+                <strong>{estacion.telefono2}</strong>
+                <small>Línea alterna</small>
+              </span>
+            </a>
+          )}
+          <a href="tel:911" class="btn-emergency emergency">
+            <span class="btn-icon">🚨</span>
+            <span class="btn-text">
+              <strong>911</strong>
+              <small>Emergency / Emergencias</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <!-- CONTENIDO PRINCIPAL                                                                  -->
+    <!-- ════════════════════════════════════════════════════════════════════════════════════ -->
+    <div class="main-container">
+      <div class="content-grid">
+        <main class="main-content">
+          <!-- Información de Contacto -->
+          <section class="info-card contact-card">
+            <h2>📍 Ubicación y Contacto <span class="h2-en">/ Location & Contact</span></h2>
+            <div class="contact-grid">
+              <div class="contact-item">
+                <span class="contact-label">Dirección / Address</span>
+                <span class="contact-value">{estacion.direccion}</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-label">Ciudad / City</span>
+                <span class="contact-value">{estacion.ciudad}, Nayarit, México</span>
+              </div>
+              {estacion.cp && (
+                <div class="contact-item">
+                  <span class="contact-label">Código Postal / ZIP</span>
+                  <span class="contact-value">{estacion.cp}</span>
+                </div>
+              )}
+              <div class="contact-item">
+                <span class="contact-label">Teléfono Principal / Main Phone</span>
+                <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`} class="contact-phone">{estacion.telefono}</a>
+              </div>
+              {estacion.telefono2 && (
+                <div class="contact-item">
+                  <span class="contact-label">Teléfono Alterno / Alt Phone</span>
+                  <a href={`tel:${estacion.telefono2.replace(/\D/g, '')}`} class="contact-phone">{estacion.telefono2}</a>
+                </div>
+              )}
+              <div class="contact-item">
+                <span class="contact-label">Horario / Hours</span>
+                <span class="contact-value highlight">{estacion.horario}</span>
+              </div>
+            </div>
+
+            {estacion.coordenadas && (
+              <div class="map-container">
+                <a
+                  href={`https://www.google.com/maps?q=${estacion.coordenadas.lat},${estacion.coordenadas.lng}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="map-link"
+                >
+                  <span class="map-icon">🗺️</span>
+                  <span>Ver ubicación en Google Maps / View on Google Maps</span>
+                  <span class="map-coords">({estacion.coordenadas.lat.toFixed(4)}, {estacion.coordenadas.lng.toFixed(4)})</span>
+                </a>
+              </div>
+            )}
+          </section>
+
+          <!-- Servicios -->
+          <section class="info-card services-card">
+            <h2>🚒 Servicios de Emergencia <span class="h2-en">/ Emergency Services</span></h2>
+            <ul class="services-list">
+              {estacion.servicios.map((servicio) => (
+                <li class="service-item">
+                  <span class="service-icon">
+                    {servicio.toLowerCase().includes("incendio") ? "🔥" :
+                     servicio.toLowerCase().includes("rescate") && servicio.toLowerCase().includes("acuático") ? "🏊" :
+                     servicio.toLowerCase().includes("rescate") ? "🆘" :
+                     servicio.toLowerCase().includes("hazmat") || servicio.toLowerCase().includes("material") ? "☢️" :
+                     servicio.toLowerCase().includes("surf") ? "🏄" :
+                     servicio.toLowerCase().includes("oceánico") || servicio.toLowerCase().includes("marítimo") ? "🌊" :
+                     servicio.toLowerCase().includes("tsunami") ? "🌊" :
+                     servicio.toLowerCase().includes("huracán") || servicio.toLowerCase().includes("evacuación") ? "🌀" :
+                     servicio.toLowerCase().includes("forestal") ? "🌲" :
+                     servicio.toLowerCase().includes("vehicular") || servicio.toLowerCase().includes("carretero") ? "🚗" :
+                     servicio.toLowerCase().includes("volcán") || servicio.toLowerCase().includes("ceboruco") ? "🌋" :
+                     servicio.toLowerCase().includes("arff") || servicio.toLowerCase().includes("aeronave") ? "✈️" :
+                     servicio.toLowerCase().includes("hotel") || servicio.toLowerCase().includes("resort") ? "🏨" :
+                     servicio.toLowerCase().includes("manglar") || servicio.toLowerCase().includes("cocodrilo") ? "🐊" :
+                     servicio.toLowerCase().includes("tortuga") || servicio.toLowerCase().includes("ballena") ? "🐢" :
+                     servicio.toLowerCase().includes("coordinación") ? "📋" :
+                     servicio.toLowerCase().includes("academia") || servicio.toLowerCase().includes("formación") ? "🎓" :
+                     servicio.toLowerCase().includes("golf") ? "⛳" :
+                     "✓"}
+                  </span>
+                  <span class="service-text">{servicio}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <!-- Especialidades -->
+          {estacion.especialidades && estacion.especialidades.length > 0 && (
+            <section class="info-card specialties-card">
+              <h2>🎖️ Especialidades Certificadas <span class="h2-en">/ Certified Specialties</span></h2>
+              <div class="specialties-grid">
+                {estacion.especialidades.map((esp) => (
+                  <div class="specialty-item" data-type={
+                    esp.toLowerCase().includes("hazmat") ? "hazmat" :
+                    esp.toLowerCase().includes("usar") || esp.toLowerCase().includes("urbano") ? "usar" :
+                    esp.toLowerCase().includes("acuático") || esp.toLowerCase().includes("oceánico") ? "aquatic" :
+                    esp.toLowerCase().includes("surf") ? "surf" :
+                    esp.toLowerCase().includes("arff") ? "arff" :
+                    esp.toLowerCase().includes("tsunami") ? "tsunami" :
+                    esp.toLowerCase().includes("volcán") ? "volcano" :
+                    esp.toLowerCase().includes("turismo") || esp.toLowerCase().includes("hotelera") ? "tourism" :
+                    esp.toLowerCase().includes("lujo") ? "luxury" :
+                    esp.toLowerCase().includes("marietas") ? "marietas" :
+                    esp.toLowerCase().includes("pueblo mágico") ? "magic" :
+                    esp.toLowerCase().includes("ecoturismo") || esp.toLowerCase().includes("manglar") ? "eco" :
+                    "default"
+                  }>
+                    <span class="specialty-name">{esp}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Cobertura -->
+          {estacion.cobertura && estacion.cobertura.length > 0 && (
+            <section class="info-card coverage-card">
+              <h2>🗺️ Zonas de Cobertura <span class="h2-en">/ Coverage Areas</span></h2>
+              <div class="coverage-grid">
+                {estacion.cobertura.map((zona) => (
+                  <span class="coverage-tag">{zona}</span>
+                ))}
+              </div>
+              {estacion.tiempoRespuesta && (
+                <div class="response-info">
+                  <span class="response-icon">⏱️</span>
+                  <span class="response-text">
+                    Tiempo de respuesta / Response time: <strong>{estacion.tiempoRespuesta}</strong>
+                  </span>
+                </div>
+              )}
+            </section>
+          )}
+
+          <!-- Historia (si existe) -->
+          {estacion.historia && (
+            <section class="info-card history-card">
+              <h2>📜 Historia y Contexto <span class="h2-en">/ History & Context</span></h2>
+              <p class="history-text">{estacion.historia}</p>
+              <div class="history-meta">
+                {estacion.fundacion && (
+                  <div class="foundation-badge">
+                    <span class="foundation-icon">🏛️</span>
+                    <span>Fundada en / Founded in {estacion.fundacion}</span>
+                  </div>
+                )}
+                {estacion.personal && (
+                  <div class="foundation-badge">
+                    <span class="foundation-icon">👨‍🚒</span>
+                    <span>{estacion.personal} bomberos / firefighters</span>
+                  </div>
+                )}
+                {estacion.unidades && (
+                  <div class="foundation-badge">
+                    <span class="foundation-icon">🚒</span>
+                    <span>{estacion.unidades} unidades / units</span>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: SAYULITA - PUEBLO MÁGICO Y CAPITAL DEL SURF                 -->
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          {esSayulita && (
+            <section class="info-card special-card sayulita">
+              <h2>🏄 Sayulita - Pueblo Mágico & Capital del Surf</h2>
+              <p class="subtitle-en">Magical Town & Surf Capital of Mexico</p>
+              <div class="special-content">
+                <p>
+                  <strong>Sayulita</strong> es uno de los Pueblos Mágicos más emblemáticos de México,
+                  reconocido mundialmente como la <strong>Capital del Surf en México</strong>. Este
+                  pueblo bohemio recibe más de <strong>500,000 visitantes anuales</strong>,
+                  principalmente surfistas y turistas alternativos internacionales.
+                </p>
+                <p class="text-en">
+                  <em>Sayulita is one of Mexico's most iconic Magical Towns, world-renowned as the
+                  Surf Capital of Mexico. This bohemian town receives over 500,000 visitors annually,
+                  primarily international surfers and alternative tourists.</em>
+                </p>
+
+                <div class="special-features">
+                  <div class="feature">
+                    <span class="feature-icon">🏄</span>
+                    <span>Rescate de surfistas 24/7</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🌊</span>
+                    <span>Olas de 1-3m todo el año</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🎪</span>
+                    <span>Festival Sayulita anual</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🐢</span>
+                    <span>Liberación de tortugas</span>
+                  </div>
+                </div>
+
+                <div class="special-warning surf-safety">
+                  <strong>Surf Safety / Seguridad en el Surf:</strong>
+                  <div class="bilingual-list">
+                    <ul>
+                      <li>🏄 Nunca surfee solo / Never surf alone</li>
+                      <li>🚩 Respete banderas de seguridad / Respect safety flags</li>
+                      <li>📍 Informe su ubicación / Report your location</li>
+                      <li>🌊 Conozca las corrientes / Know the currents</li>
+                      <li>📞 Emergencias: (329) 291-3636</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: PUNTA DE MITA - RESORTS ULTRA LUJO                          -->
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          {esPuntaMita && (
+            <section class="info-card special-card punta-mita">
+              <h2>🏨 Punta de Mita - Destino de Ultra Lujo</h2>
+              <p class="subtitle-en">Ultra-Luxury Resort Destination</p>
+              <div class="special-content">
+                <p>
+                  <strong>Punta de Mita</strong> alberga los resorts más exclusivos de México y
+                  América Latina, con propiedades de marcas como <strong>Four Seasons, St. Regis,
+                  W Hotels y Conrad</strong>. Esta estación está especializada en atención a
+                  huéspedes internacionales VIP.
+                </p>
+                <p class="text-en">
+                  <em>Punta de Mita hosts the most exclusive resorts in Mexico and Latin America,
+                  with properties from brands like Four Seasons, St. Regis, W Hotels, and Conrad.
+                  This station specializes in VIP international guest care.</em>
+                </p>
+
+                <div class="resort-grid">
+                  {resortsLujo.map((resort) => (
+                    <div class="resort-card">
+                      <span class="resort-stars">{"⭐".repeat(resort.estrellas)}</span>
+                      <span class="resort-name">{resort.nombre}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="special-features luxury">
+                  <div class="feature">
+                    <span class="feature-icon">🌐</span>
+                    <span>Personal bilingüe certificado</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🏝️</span>
+                    <span>Acceso Islas Marietas</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">⛳</span>
+                    <span>Emergencias campos de golf</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🚁</span>
+                    <span>Evacuación VIP huracanes</span>
+                  </div>
+                </div>
+
+                <div class="special-warning luxury-info">
+                  <strong>Resort Emergency Protocol / Protocolo de Emergencia Resort:</strong>
+                  <div class="bilingual-list">
+                    <ul>
+                      <li>🏨 Contacte recepción primero / Contact front desk first</li>
+                      <li>🚨 Emergencias: 911 o (329) 291-5500</li>
+                      <li>🌀 Huracanes: Siga instrucciones del hotel / Follow hotel instructions</li>
+                      <li>🇺🇸 US Consulate: (322) 222-0069</li>
+                      <li>🇨🇦 Canada Consulate: (322) 293-0098</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: AEROPUERTO INTERNACIONAL PVR                                 -->
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          {esAeropuerto && (
+            <section class="info-card special-card aeropuerto">
+              <h2>✈️ Aeropuerto Internacional Gustavo Díaz Ordaz (PVR)</h2>
+              <p class="subtitle-en">International Airport ARFF Services</p>
+              <div class="special-content">
+                <p>
+                  El <strong>Aeropuerto Internacional de Puerto Vallarta/Riviera Nayarit (PVR)</strong>
+                  es el segundo aeropuerto más importante del Pacífico mexicano, operando más de
+                  <strong>5.5 millones de pasajeros anuales</strong> con vuelos directos desde
+                  Estados Unidos, Canadá, Europa y Sudamérica.
+                </p>
+                <p class="text-en">
+                  <em>Puerto Vallarta/Riviera Nayarit International Airport (PVR) is the second
+                  most important airport on Mexico's Pacific coast, handling over 5.5 million
+                  passengers annually with direct flights from USA, Canada, Europe, and South America.</em>
+                </p>
+
+                <div class="arff-stats">
+                  <div class="stat-item arff">
+                    <span class="stat-number">Cat. 9</span>
+                    <span class="stat-label">OACI/ICAO</span>
+                  </div>
+                  <div class="stat-item arff">
+                    <span class="stat-number">5.5M+</span>
+                    <span class="stat-label">Pasajeros/año</span>
+                  </div>
+                  <div class="stat-item arff">
+                    <span class="stat-number">45+</span>
+                    <span class="stat-label">Aerolíneas</span>
+                  </div>
+                  <div class="stat-item arff">
+                    <span class="stat-number">3 min</span>
+                    <span class="stat-label">Respuesta máx.</span>
+                  </div>
+                </div>
+
+                <div class="special-features arff-features">
+                  <div class="feature">
+                    <span class="feature-icon">🔥</span>
+                    <span>Combate incendios aeronaves</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">⛽</span>
+                    <span>Emergencias combustible aviación</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">☢️</span>
+                    <span>HAZMAT aeroportuario</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🛩️</span>
+                    <span>Atención jets privados VIP</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: SAN BLAS - MANGLARES Y COCODRILOS                           -->
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          {esSanBlas && (
+            <section class="info-card special-card san-blas">
+              <h2>🐊 San Blas - Puerto Histórico y Manglares</h2>
+              <p class="subtitle-en">Historic Port & Mangrove Reserves</p>
+              <div class="special-content">
+                <p>
+                  <strong>San Blas</strong> fue el puerto más importante del Pacífico mexicano durante
+                  la Colonia, punto de partida de las expediciones a California. Hoy es centro de
+                  <strong>ecoturismo</strong> con los famosos manglares de <strong>La Tovara</strong>
+                  y reservas de aves migratorias.
+                </p>
+                <p class="text-en">
+                  <em>San Blas was the most important port on Mexico's Pacific coast during colonial
+                  times, departure point for California expeditions. Today it's an ecotourism center
+                  with the famous La Tovara mangroves and migratory bird reserves.</em>
+                </p>
+
+                <div class="special-features eco">
+                  <div class="feature">
+                    <span class="feature-icon">🐊</span>
+                    <span>Emergencias con cocodrilos</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🌿</span>
+                    <span>Rescate en manglares</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🏛️</span>
+                    <span>Protección patrimonio colonial</span>
+                  </div>
+                  <div class="feature">
+                    <span class="feature-icon">🦅</span>
+                    <span>Rescate fauna silvestre</span>
+                  </div>
+                </div>
+
+                <div class="special-warning crocodile">
+                  <strong>🐊 Seguridad con Cocodrilos / Crocodile Safety:</strong>
+                  <div class="bilingual-list">
+                    <ul>
+                      <li>🚫 No nade en esteros / Don't swim in estuaries</li>
+                      <li>📏 Mantenga distancia de manglares / Keep distance from mangroves</li>
+                      <li>🍖 No alimente fauna / Don't feed wildlife</li>
+                      <li>📱 Reporte avistamientos al 911 / Report sightings to 911</li>
+                      <li>🚣 Siga indicaciones de guías / Follow guide instructions</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: BAHÍA DE BANDERAS CENTRAL                                    -->
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          {esBahiaBanderas && (
+            <section class="info-card special-card bahia-banderas">
+              <h2>🏖️ Riviera Nayarit - Coordinación Central</h2>
+              <p class="subtitle-en">Riviera Nayarit Central Coordination</p>
+              <div class="special-content">
+                <p>
+                  La <strong>Estación Central de Bahía de Banderas</strong> coordina las operaciones
+                  de emergencia para toda la <strong>Riviera Nayarit</strong>, uno de los destinos
+                  turísticos de más rápido crecimiento en México con más de
+                  <strong>3 millones de turistas internacionales anuales</strong>.
+                </p>
+                <p class="text-en">
+                  <em>Bahía de Banderas Central Station coordinates emergency operations for all
+                  of Riviera Nayarit, one of Mexico's fastest-growing tourist destinations with
+                  over 3 million international tourists annually.</em>
+                </p>
+
+                <div class="special-stats riviera">
+                  <div class="stat-item">
+                    <span class="stat-number">3M+</span>
+                    <span class="stat-label">Turistas/año</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number">5-12</span>
+                    <span class="stat-label">min respuesta</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Operación</span>
+                  </div>
+                </div>
+
+                <div class="coordination-info">
+                  <h4>Zonas de Cobertura Coordinada:</h4>
+                  <ul>
+                    <li>🏖️ Nuevo Vallarta</li>
+                    <li>🌴 Bucerías</li>
+                    <li>⛵ Cruz de Huanacaxtle</li>
+                    <li>🏡 Flamingos</li>
+                    <li>🌺 Jardín del Edén</li>
+                    <li>🏘️ Mezcales</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          <!-- CONTENIDO ESPECIAL: COMPOSTELA - VOLCÁN CEBORUCO                                 -->
+          <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+          {esCompostela && (
+            <section class="info-card special-card volcan">
+              <h2>🌋 Volcán Ceboruco - Monitoreo Activo</h2>
+              <div class="special-content">
+                <p>
+                  El <strong>Volcán Ceboruco</strong> es el único volcán activo de Nayarit, con su
+                  última erupción registrada en <strong>1870</strong>. La estación de Compostela
+                  coordina el monitoreo junto con <strong>CENAPRED</strong> y mantiene protocolos
+                  de evacuación para las comunidades cercanas.
+                </p>
+
+                <div class="volcano-stats">
+                  <div class="stat-item volcano">
+                    <span class="stat-number">2,280m</span>
+                    <span class="stat-label">Altitud</span>
+                  </div>
+                  <div class="stat-item volcano">
+                    <span class="stat-number">1870</span>
+                    <span class="stat-label">Última erupción</span>
+                  </div>
+                  <div class="stat-item volcano">
+                    <span class="stat-number">8 km</span>
+                    <span class="stat-label">Radio evacuación</span>
+                  </div>
+                </div>
+
+                <div class="special-warning volcano-safety">
+                  <strong>🌋 Seguridad Volcánica:</strong>
+                  <ul>
+                    <li>Monitoreo continuo CENAPRED</li>
+                    <li>Respete zonas restringidas</li>
+                    <li>No acampe cerca del cráter</li>
+                    <li>Conozca rutas de evacuación</li>
+                    <li>Emergencias: (311) 215-4141</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          )}
+
+          <!-- Comandancia (si existe) -->
+          {estacion.comandancia && (
+            <section class="info-card comandancia-card">
+              <h2>🎖️ Comandancia</h2>
+              <div class="comandancia-info">
+                <span class="comandancia-icon">🏛️</span>
+                <span class="comandancia-name">{estacion.comandancia}</span>
+              </div>
+            </section>
+          )}
+        </main>
+
+        <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+        <!-- SIDEBAR CON INFORMACIÓN CONTEXTUAL                                               -->
+        <!-- ════════════════════════════════════════════════════════════════════════════════ -->
+        <aside class="sidebar">
+          <!-- Llamada de emergencia -->
+          <div class="sidebar-card emergency-card">
+            <h3>🚨 Emergencias / Emergency</h3>
+            <div class="emergency-main">
+              <a href={`tel:${estacion.telefono.replace(/\D/g, '')}`} class="emergency-btn">
+                <span class="emergency-icon">📞</span>
+                <span class="emergency-number">{estacion.telefono}</span>
+              </a>
+            </div>
+            <ul class="emergency-list">
+              <li>
+                <span>Emergencias Nacional</span>
+                <a href="tel:911"><strong>911</strong></a>
+              </li>
+              <li>
+                <span>Bomberos Tepic</span>
+                <a href="tel:3112132232">(311) 213-2232</a>
+              </li>
+              <li>
+                <span>Bomberos Bahía Banderas</span>
+                <a href="tel:3292916060">(329) 291-6060</a>
+              </li>
+              <li>
+                <span>Protección Civil</span>
+                <a href="tel:3112151200">(311) 215-1200</a>
+              </li>
+              <li>
+                <span>Cruz Roja Tepic</span>
+                <a href="tel:3112140000">(311) 214-0000</a>
+              </li>
+              <li>
+                <span>Ángeles Verdes</span>
+                <a href="tel:078">078</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Información consular para zonas turísticas -->
+          {esZonaTuristica && (
+            <div class="sidebar-card consular-card">
+              <h3>🌐 Consulados / Consulates</h3>
+              <ul class="consular-list">
+                <li>
+                  <span class="flag">🇺🇸</span>
+                  <div class="consular-info">
+                    <span class="consular-country">USA Consulate</span>
+                    <a href="tel:3222220069">(322) 222-0069</a>
+                  </div>
+                </li>
+                <li>
+                  <span class="flag">🇨🇦</span>
+                  <div class="consular-info">
+                    <span class="consular-country">Canada Consulate</span>
+                    <a href="tel:3222930098">(322) 293-0098</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          )}
+
+          <!-- Temporada de huracanes -->
+          {(estacion.zona?.includes("Riviera") || estacion.zona?.includes("San Blas") || estacion.zona?.includes("Costera")) && (
+            <div class="sidebar-card hurricane-card" data-active={esTemporadaHuracanes}>
+              <h3>🌀 Temporada de Huracanes</h3>
+              <div class="hurricane-status">
+                <span class={`status-badge ${esTemporadaHuracanes ? 'active' : 'inactive'}`}>
+                  {esTemporadaHuracanes ? '⚠️ ACTIVA' : '✓ Inactiva'}
+                </span>
+                <span class="hurricane-dates">Junio 1 - Nov 30</span>
+              </div>
+              {esTemporadaHuracanes && (
+                <div class="hurricane-tips">
+                  <p>Mantenga kit de emergencia listo. Conozca refugios temporales.</p>
+                  <a href="tel:3292910909" class="hurricane-emergency">
+                    Evacuación: (329) 291-0909
+                  </a>
+                </div>
+              )}
+            </div>
+          )}
+
+          <!-- Zona geográfica -->
+          {zonaConfig && (
+            <div class="sidebar-card zone-card" style={`--zone-color: ${zonaConfig.color}`}>
+              <h3>{zonaConfig.icono} {zonaConfig.nombre}</h3>
+              <p class="zone-desc">{zonaConfig.descripcion}</p>
+              {zonaConfig.poblacion && (
+                <span class="zone-pop">👥 {zonaConfig.poblacion}</span>
+              )}
+              {zonaConfig.riesgos && zonaConfig.riesgos.length > 0 && (
+                <div class="zone-risks">
+                  <span class="risks-title">Riesgos principales:</span>
+                  <ul>
+                    {zonaConfig.riesgos.slice(0, 4).map((riesgo) => (
+                      <li>{riesgo}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+
+          <!-- Otras estaciones de la zona -->
+          {estacionesZona.length > 0 && (
+            <div class="sidebar-card related-card">
+              <h3>🚒 Otras Estaciones en la Zona</h3>
+              <ul class="related-list">
+                {estacionesZona.map((est) => (
+                  <li>
+                    <a href={`/directorio/nayarit/${est.slug}`}>
+                      <span class="related-name">{est.nombre}</span>
+                      <span class="related-city">{est.ciudad}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <a href="/directorio/nayarit" class="view-all">Ver todas las estaciones →</a>
+            </div>
+          )}
+
+          <!-- Patrimonio Natural -->
+          <div class="sidebar-card patrimony-card">
+            <h3>🏝️ Patrimonio Natural</h3>
+            <ul class="patrimony-list">
+              <li>
+                <span class="patrimony-icon">🏝️</span>
+                <span>Islas Marietas (ANP)</span>
+              </li>
+              <li>
+                <span class="patrimony-icon">🌿</span>
+                <span>Marismas Nacionales (RAMSAR)</span>
+              </li>
+              <li>
+                <span class="patrimony-icon">🦅</span>
+                <span>Isla Isabel (Parque Nacional)</span>
+              </li>
+              <li>
+                <span class="patrimony-icon">🌋</span>
+                <span>Volcán Ceboruco</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Info Nayarit -->
+          <div class="sidebar-card info-card-sidebar">
+            <h3>📊 Nayarit</h3>
+            <ul class="info-list">
+              <li><span>Capital</span><strong>Tepic</strong></li>
+              <li><span>Población</span><strong>{NAYARIT_SEO.demografia.poblacion}</strong></li>
+              <li><span>Litoral</span><strong>{NAYARIT_SEO.demografia.litoralCostero}</strong></li>
+              <li><span>Turistas/año</span><strong>5M+</strong></li>
+              <li><span>Pueblos Mágicos</span><strong>2</strong></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- CTA Final -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h2>¿Necesitas contactar otra estación?</h2>
+        <p class="cta-subtitle-en">Need to contact another station?</p>
+        <p>Consulta el directorio completo de bomberos en Nayarit</p>
+        <a href="/directorio/nayarit" class="cta-button">Ver todas las estaciones en Nayarit</a>
+      </div>
+    </section>
+  </div>
+</PageLayout>
+
+<style>
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  /* VARIABLES Y TEMA OCEÁNICO - NAYARIT                                                          */
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  :root {
+    --nay-primary: #0891b2;
+    --nay-secondary: #06b6d4;
+    --nay-dark: #164e63;
+    --nay-light: #ecfeff;
+    --nay-ocean: #0369a1;
+    --nay-sand: #fef3c7;
+    --nay-sunset: #fb923c;
+  }
+
+  .station-page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 100%);
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  /* ALERTAS CON SOPORTE BILINGÜE                                                                 */
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  .alerts-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .alert-banner {
+    padding: 0.85rem 1.5rem;
+    color: white;
+  }
+
+  .alert-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .alert-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .alert-text { display: flex; flex-direction: column; gap: 0.2rem; }
+  .alert-text strong { font-size: 0.95rem; }
+  .alert-title-en { font-size: 0.8rem; opacity: 0.9; font-style: italic; }
+  .alert-message { font-size: 0.8rem; opacity: 0.95; }
+  .alert-message-en { font-size: 0.75rem; opacity: 0.85; font-style: italic; }
+
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  /* HERO CON EFECTO OCEÁNICO                                                                     */
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--zone-color, #0891b2), color-mix(in srgb, var(--zone-color, #0891b2) 60%, #164e63));
+    padding: 2.5rem 1.5rem 3rem;
+    color: white;
+    overflow: hidden;
+  }
+
+  .hero-ocean-effect {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath fill='%23f0f9ff' d='M0,60 C300,120 400,0 600,60 C800,120 900,0 1200,60 L1200,120 L0,120 Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
+    background-size: cover;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 1.25rem;
+    opacity: 0.9;
+  }
+
+  .breadcrumb a { color: white; text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .current { font-weight: 600; }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-badge.zone { background: rgba(255,255,255,0.2); }
+  .hero-badge.specialty { background: rgba(0,0,0,0.2); }
+  .hero-badge.bilingual { background: rgba(255,255,255,0.3); font-weight: 600; }
+  .hero-badge.hurricane { background: #dc2626; animation: pulse-alert 2s infinite; }
+
+  @keyframes pulse-alert {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  .hero h1 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+  .hero-subtitle-en {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    opacity: 0.95;
+  }
+
+  .meta-item.highlight {
+    background: rgba(255,255,255,0.2);
+    padding: 0.3rem 0.7rem;
+    border-radius: 1rem;
+  }
+
+  .meta-item.bilingual-tag {
+    background: rgba(255,255,255,0.3);
+    padding: 0.3rem 0.7rem;
+    border-radius: 1rem;
+    font-weight: 600;
+  }
+
+  .emergency-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .btn-emergency {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    border-radius: 0.6rem;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-emergency.primary { background: rgba(0,0,0,0.3); }
+  .btn-emergency.secondary { background: rgba(0,0,0,0.2); }
+  .btn-emergency.emergency { background: #dc2626; }
+
+  .btn-emergency:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  .btn-icon { font-size: 1.3rem; }
+  .btn-text { display: flex; flex-direction: column; text-align: left; }
+  .btn-text strong { font-size: 1rem; }
+  .btn-text small { font-size: 0.7rem; opacity: 0.85; }
+
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  /* CONTENEDOR PRINCIPAL                                                                         */
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  .main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr 350px;
+    }
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  /* TARJETAS DE INFORMACIÓN                                                                      */
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  .info-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .info-card h2 {
+    font-size: 1.15rem;
+    color: #1e293b;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .h2-en {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #64748b;
+    font-style: italic;
+  }
+
+  .subtitle-en {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-style: italic;
+    margin: -0.75rem 0 1rem 0;
+  }
+
+  .text-en {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  /* Contact Card */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .contact-label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-value {
+    font-size: 0.95rem;
+    color: #1e293b;
+  }
+
+  .contact-value.highlight {
+    color: var(--nay-primary);
+    font-weight: 600;
+  }
+
+  .contact-phone {
+    font-size: 1.1rem;
+    color: var(--nay-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .contact-phone:hover { text-decoration: underline; }
+
+  .map-container {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .map-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #475569;
+    transition: background 0.2s;
+    flex-wrap: wrap;
+  }
+
+  .map-link:hover { background: #e2e8f0; }
+  .map-icon { font-size: 1.25rem; }
+  .map-coords { font-size: 0.75rem; color: #94a3b8; margin-left: auto; }
+
+  /* Services */
+  .services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    border-left: 3px solid var(--nay-primary);
+  }
+
+  .service-icon { font-size: 1rem; flex-shrink: 0; }
+  .service-text { font-size: 0.9rem; color: #334155; }
+
+  /* Specialties */
+  .specialties-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .specialty-item {
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .specialty-item[data-type="hazmat"] { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #78350f; }
+  .specialty-item[data-type="usar"] { background: linear-gradient(135deg, #f97316, #ea580c); color: white; }
+  .specialty-item[data-type="aquatic"] { background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #164e63; }
+  .specialty-item[data-type="surf"] { background: linear-gradient(135deg, #fcd34d, #f59e0b); color: #78350f; }
+  .specialty-item[data-type="arff"] { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+  .specialty-item[data-type="tsunami"] { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; }
+  .specialty-item[data-type="volcano"] { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+  .specialty-item[data-type="tourism"] { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; }
+  .specialty-item[data-type="luxury"] { background: linear-gradient(135deg, #a855f7, #9333ea); color: white; }
+  .specialty-item[data-type="marietas"] { background: linear-gradient(135deg, #14b8a6, #0d9488); color: white; }
+  .specialty-item[data-type="magic"] { background: linear-gradient(135deg, #c084fc, #a855f7); color: white; }
+  .specialty-item[data-type="eco"] { background: linear-gradient(135deg, #4ade80, #22c55e); color: #14532d; }
+  .specialty-item[data-type="default"] { background: #e2e8f0; color: #475569; }
+
+  /* Coverage */
+  .coverage-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .coverage-tag {
+    padding: 0.4rem 0.8rem;
+    background: #ecfeff;
+    border: 1px solid #a5f3fc;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    color: #0e7490;
+  }
+
+  .response-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, var(--nay-primary), var(--nay-secondary));
+    color: white;
+    border-radius: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .response-icon { font-size: 1.25rem; }
+  .response-text { font-size: 0.9rem; }
+
+  /* History */
+  .history-text {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .history-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .foundation-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #f1f5f9;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  /* TARJETAS ESPECIALES CON TEMAS                                                                */
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  .special-card {
+    border-left: 4px solid var(--nay-primary);
+  }
+
+  .special-card.sayulita { border-left-color: #f59e0b; background: linear-gradient(to bottom, white, #fffbeb); }
+  .special-card.punta-mita { border-left-color: #7c3aed; background: linear-gradient(to bottom, white, #faf5ff); }
+  .special-card.aeropuerto { border-left-color: #1e40af; background: linear-gradient(to bottom, white, #eff6ff); }
+  .special-card.san-blas { border-left-color: #15803d; background: linear-gradient(to bottom, white, #f0fdf4); }
+  .special-card.bahia-banderas { border-left-color: #0891b2; background: linear-gradient(to bottom, white, #ecfeff); }
+  .special-card.volcan { border-left-color: #dc2626; background: linear-gradient(to bottom, white, #fef2f2); }
+
+  .special-content p {
+    font-size: 0.95rem;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .special-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0,0,0,0.03);
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    color: #334155;
+  }
+
+  .feature-icon { font-size: 1.1rem; }
+
+  /* Resort Grid */
+  .resort-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .resort-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+
+  .resort-stars { font-size: 0.7rem; margin-bottom: 0.25rem; }
+  .resort-name { font-size: 0.8rem; font-weight: 600; color: #5b21b6; }
+
+  /* Stats Grids */
+  .special-stats,
+  .arff-stats,
+  .volcano-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 0.75rem;
+    background: #ecfeff;
+    border-radius: 0.5rem;
+  }
+
+  .stat-item.arff { background: #eff6ff; }
+  .stat-item.volcano { background: #fef2f2; }
+
+  .stat-number {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--nay-primary);
+  }
+
+  .stat-item.arff .stat-number { color: #1e40af; }
+  .stat-item.volcano .stat-number { color: #dc2626; }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: #64748b;
+  }
+
+  .stat-item.riviera {
+    background: linear-gradient(135deg, #ecfeff, #cffafe);
+  }
+
+  /* Special Warnings */
+  .special-warning {
+    padding: 1rem;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.5rem;
+  }
+
+  .special-warning.surf-safety { background: #fffbeb; border-color: #fde68a; }
+  .special-warning.luxury-info { background: #faf5ff; border-color: #e9d5ff; }
+  .special-warning.crocodile { background: #f0fdf4; border-color: #bbf7d0; }
+  .special-warning.volcano-safety { background: #fef2f2; border-color: #fecaca; }
+
+  .special-warning strong {
+    display: block;
+    font-size: 0.9rem;
+    color: #9a3412;
+    margin-bottom: 0.5rem;
+  }
+
+  .special-warning.surf-safety strong { color: #b45309; }
+  .special-warning.luxury-info strong { color: #7c3aed; }
+  .special-warning.crocodile strong { color: #15803d; }
+  .special-warning.volcano-safety strong { color: #dc2626; }
+
+  .bilingual-list ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    font-size: 0.85rem;
+  }
+
+  .bilingual-list li {
+    margin-bottom: 0.4rem;
+    color: #475569;
+  }
+
+  /* Coordination Info */
+  .coordination-info {
+    padding: 1rem;
+    background: #f0f9ff;
+    border-radius: 0.5rem;
+  }
+
+  .coordination-info h4 {
+    font-size: 0.9rem;
+    color: #0369a1;
+    margin-bottom: 0.5rem;
+  }
+
+  .coordination-info ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: #475569;
+  }
+
+  /* Comandancia */
+  .comandancia-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f1f5f9;
+    border-radius: 0.5rem;
+  }
+
+  .comandancia-icon { font-size: 1.5rem; }
+  .comandancia-name { font-size: 1rem; color: #334155; font-weight: 600; }
+
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  /* SIDEBAR                                                                                      */
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .sidebar-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .sidebar-card h3 {
+    font-size: 1rem;
+    color: #1e293b;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  /* Emergency Card */
+  .emergency-card {
+    background: linear-gradient(135deg, #164e63, #0e7490);
+    color: white;
+  }
+
+  .emergency-card h3 {
+    color: white;
+    border-bottom-color: rgba(255,255,255,0.2);
+  }
+
+  .emergency-main {
+    margin-bottom: 1rem;
+  }
+
+  .emergency-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 1rem;
+    background: #dc2626;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    color: white;
+    transition: background 0.2s;
+  }
+
+  .emergency-btn:hover { background: #b91c1c; }
+
+  .emergency-icon { font-size: 1.5rem; }
+  .emergency-number { font-size: 1.25rem; font-weight: 700; }
+
+  .emergency-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .emergency-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+  }
+
+  .emergency-list li:last-child { border-bottom: none; }
+  .emergency-list span { opacity: 0.8; }
+  .emergency-list a { color: #fcd34d; text-decoration: none; font-weight: 600; }
+
+  /* Consular Card */
+  .consular-card {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: white;
+  }
+
+  .consular-card h3 {
+    color: white;
+    border-bottom-color: rgba(255,255,255,0.2);
+  }
+
+  .consular-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .consular-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .consular-list li:last-child { border-bottom: none; }
+
+  .flag { font-size: 1.5rem; }
+
+  .consular-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .consular-country { font-size: 0.75rem; opacity: 0.9; }
+  .consular-info a { color: white; text-decoration: none; font-weight: 600; }
+
+  /* Hurricane Card */
+  .hurricane-card {
+    border-left: 4px solid #f59e0b;
+  }
+
+  .hurricane-card[data-active="true"] {
+    border-left-color: #dc2626;
+    background: linear-gradient(to bottom, white, #fef2f2);
+  }
+
+  .hurricane-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .status-badge {
+    padding: 0.3rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .status-badge.active { background: #dc2626; color: white; }
+  .status-badge.inactive { background: #e2e8f0; color: #64748b; }
+
+  .hurricane-dates {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  .hurricane-tips {
+    padding: 0.75rem;
+    background: #fef2f2;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    color: #991b1b;
+  }
+
+  .hurricane-tips p { margin-bottom: 0.5rem; }
+
+  .hurricane-emergency {
+    display: block;
+    padding: 0.5rem;
+    background: #dc2626;
+    color: white;
+    text-align: center;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+
+  /* Zone Card */
+  .zone-card {
+    border-left: 4px solid var(--zone-color);
+  }
+
+  .zone-desc {
+    font-size: 0.85rem;
+    color: #475569;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .zone-pop {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--zone-color);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .zone-risks {
+    padding-top: 0.75rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .risks-title {
+    display: block;
+    font-size: 0.75rem;
+    color: #dc2626;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+
+  .zone-risks ul {
+    margin: 0;
+    padding-left: 1rem;
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+
+  .zone-risks li { margin-bottom: 0.2rem; }
+
+  /* Related Card */
+  .related-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+  }
+
+  .related-list li {
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .related-list li:last-child { border-bottom: none; }
+
+  .related-list a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.6rem 0;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .related-list a:hover { background: #f1f5f9; margin: 0 -0.5rem; padding-left: 0.5rem; }
+
+  .related-name { font-size: 0.85rem; color: var(--nay-primary); font-weight: 500; }
+  .related-city { font-size: 0.75rem; color: #64748b; }
+
+  .view-all {
+    display: block;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--nay-primary);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .view-all:hover { text-decoration: underline; }
+
+  /* Patrimony Card */
+  .patrimony-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .patrimony-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    font-size: 0.85rem;
+    color: #475569;
+  }
+
+  .patrimony-icon { font-size: 1rem; }
+
+  /* Info Card Sidebar */
+  .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .info-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.8rem;
+  }
+
+  .info-list li:last-child { border-bottom: none; }
+  .info-list span { color: #64748b; }
+  .info-list strong { color: var(--nay-dark); }
+
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  /* CTA SECTION                                                                                  */
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  .cta-section {
+    background: linear-gradient(135deg, var(--nay-dark), var(--nay-ocean));
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: white;
+  }
+
+  .cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .cta-subtitle-en {
+    font-size: 1rem;
+    opacity: 0.85;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-section p {
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 0.875rem 2rem;
+    background: white;
+    color: var(--nay-dark);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  /* RESPONSIVE                                                                                   */
+  /* ════════════════════════════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .hero-meta { flex-direction: column; gap: 0.5rem; }
+    .emergency-buttons { flex-direction: column; }
+    .alert-content { flex-direction: column; text-align: center; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .special-features { grid-template-columns: 1fr; }
+    .resort-grid { grid-template-columns: repeat(2, 1fr); }
+    .arff-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
