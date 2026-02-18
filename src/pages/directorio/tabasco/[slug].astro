@@ -1,0 +1,1095 @@
+---
+/**
+ * ─── Página de Detalle de Estación de Bomberos Tabasco ───
+ * Petróleo PEMEX, Refinería Olmeca Dos Bocas, inundaciones y Pantanos de Centla
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import { estacionesTabasco, getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-tabasco";
+
+export function getStaticPaths() {
+  return estacionesTabasco.map((estacion) => ({
+    params: { slug: estacion.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const estacion = getEstacionBySlug(slug as string);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug as string, 3);
+
+const estadosVecinos = [
+  { nombre: "Campeche", slug: "campeche" },
+  { nombre: "Chiapas", slug: "chiapas" },
+  { nombre: "Veracruz", slug: "veracruz" },
+  { nombre: "Oaxaca", slug: "oaxaca" },
+];
+
+const productosRelacionados = [
+  { nombre: "Trajes Estructurales NFPA", href: "/productos/trajes-para-bomberos", desc: "Trajes NFPA 1971 certificados" },
+  { nombre: "Cascos de Bombero", href: "/productos/cascos-para-bomberos", desc: "Cascos certificados NFPA" },
+  { nombre: "Equipos SCBA", href: "/productos/scba", desc: "Equipos de respiración autónoma" },
+  { nombre: "Herramientas de Rescate", href: "/productos/herramientas-rescate", desc: "Equipo Holmatro y herramientas de excarcelación" },
+];
+
+const telefonoLink = estacion.telefono.replace(/\s/g, '');
+const ubicacion = estacion.municipio ?? estacion.ciudad;
+const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(estacion.nombre + ' ' + estacion.direccion + ' ' + estacion.colonia + ' ' + ubicacion + ' Tabasco')}`;
+const canonical = `https://bombero.mx/directorio/tabasco/${estacion.slug}`;
+
+const seoKeywords = [
+  `bomberos ${ubicacion.toLowerCase()}`,
+  `estacion bomberos ${ubicacion.toLowerCase()}`,
+  `telefono bomberos ${ubicacion.toLowerCase()} tabasco`,
+  "bomberos tabasco",
+  "emergencias tabasco 911",
+  "directorio bomberos mexico",
+];
+
+const stationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FireStation",
+  name: estacion.nombre,
+  description: estacion.descripcion,
+  url: canonical,
+  telephone: estacion.telefono,
+  openingHours: "Mo-Su 00:00-23:59",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: [estacion.direccion, estacion.colonia].filter(Boolean).join(", "),
+    addressLocality: estacion.ciudad,
+    addressRegion: "Tabasco",
+    postalCode: estacion.codigoPostal,
+    addressCountry: "MX",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: estacion.coordenadas.lat,
+    longitude: estacion.coordenadas.lng,
+  },
+  areaServed: {
+    "@type": "City",
+    name: ubicacion,
+  },
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+    { "@type": "ListItem", position: 3, name: "Tabasco", item: "https://bombero.mx/directorio/tabasco" },
+    { "@type": "ListItem", position: 4, name: estacion.nombre, item: canonical },
+  ],
+};
+---
+
+<PageLayout
+  title={`${estacion.nombreCorto} | Bomberos ${ubicacion}, Tabasco | BOMBERO.MX`}
+  description={`${estacion.descripcion} Teléfono: ${estacion.telefono}. Dirección: ${estacion.direccion}, ${estacion.colonia}, ${ubicacion}, Tabasco. Emergencias 911.`}
+  keywords={seoKeywords}
+  canonical={canonical}
+  jsonLd={[stationJsonLd, breadcrumbJsonLd]}
+>
+  <section class="est-hero">
+    <div class="est-hero__bg">
+      <div class="est-hero__gradient"></div>
+    </div>
+    <div class="container">
+      <nav class="est-hero__breadcrumb">
+        <a href="/">Inicio</a>
+        <span>/</span>
+        <a href="/directorio">Directorio</a>
+        <span>/</span>
+        <a href="/directorio/tabasco">Tabasco</a>
+        <span>/</span>
+        <span>{estacion.nombreCorto}</span>
+      </nav>
+
+      <div class="est-hero__grid">
+        <div class="est-hero__content">
+          <div class="est-hero__badges">
+            <span class="est-hero__badge est-hero__badge--municipio">{estacion.municipio}</span>
+            <span class="est-hero__badge est-hero__badge--horario">{estacion.horario}</span>
+          </div>
+          <h1 class="est-hero__title">{estacion.nombre}</h1>
+          <p class="est-hero__desc">{estacion.descripcion}</p>
+
+          <div class="est-hero__actions">
+            <a href={`tel:${telefonoLink}`} class="est-hero__btn est-hero__btn--primary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+              </svg>
+              <span>Llamar: {estacion.telefono}</span>
+            </a>
+            <a href={mapUrl} target="_blank" rel="noopener" class="est-hero__btn est-hero__btn--secondary">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Ver en Google Maps</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="est-hero__card">
+          <div class="est-hero__card-header">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 21h18"/>
+              <path d="M5 21V7l8-4 8 4v14"/>
+              <path d="M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4"/>
+            </svg>
+            <span>Información de Contacto</span>
+          </div>
+          <div class="est-hero__card-body">
+            <div class="est-hero__info-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <div>
+                <strong>Dirección</strong>
+                <span>{estacion.direccion}, {estacion.colonia}, CP {estacion.codigoPostal}</span>
+              </div>
+            </div>
+            <div class="est-hero__info-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+              </svg>
+              <div>
+                <strong>Teléfono Directo</strong>
+                <a href={`tel:${telefonoLink}`}>{estacion.telefono}</a>
+              </div>
+            </div>
+            <div class="est-hero__info-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+              <div>
+                <strong>Emergencias</strong>
+                <a href="tel:911" class="est-hero__emergency">911</a>
+              </div>
+            </div>
+            {estacion.tiempoRespuesta && (
+              <div class="est-hero__info-row">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <div>
+                  <strong>Tiempo de Respuesta</strong>
+                  <span>{estacion.tiempoRespuesta}</span>
+                </div>
+              </div>
+            )}
+            <div class="est-hero__info-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <div>
+                <strong>Personal Activo</strong>
+                <span>{estacion.personalActivo} bomberos</span>
+              </div>
+            </div>
+            <div class="est-hero__info-row">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              <div>
+                <strong>Municipio</strong>
+                <span>{estacion.municipio}, Tabasco</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="est-main">
+    <div class="container">
+      <div class="est-main__grid">
+        <div class="est-main__content">
+
+          <!-- Servicios -->
+          <article class="est-section">
+            <h2 class="est-section__title">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+              </svg>
+              Servicios de Emergencia
+            </h2>
+            <p class="est-section__intro">
+              La <strong>{estacion.nombreCorto}</strong> presta los siguientes servicios de emergencia
+              a los habitantes de <strong>{estacion.municipio}</strong> y zonas de cobertura en Tabasco:
+            </p>
+            <ul class="est-services">
+              {estacion.servicios.map((servicio) => (
+                <li class="est-services__item">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>{servicio}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          <!-- Especialidades -->
+          {estacion.especialidades && estacion.especialidades.length > 0 && (
+            <article class="est-section">
+              <h2 class="est-section__title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+                Especialidades y Capacidades Únicas
+              </h2>
+              <div class="est-specialties">
+                {estacion.especialidades.map((esp) => (
+                  <div class="est-specialties__item">
+                    <span class="est-specialties__icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                      </svg>
+                    </span>
+                    <span>{esp}</span>
+                  </div>
+                ))}
+              </div>
+            </article>
+          )}
+
+          <!-- Personal y Recursos -->
+          {(estacion.personalActivo || estacion.unidadesDisponibles) && (
+            <article class="est-section">
+              <h2 class="est-section__title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                Personal y Flota Operativa
+              </h2>
+              <div class="est-stats">
+                {estacion.personalActivo && (
+                  <div class="est-stats__item">
+                    <span class="est-stats__number">{estacion.personalActivo}</span>
+                    <span class="est-stats__label">Elementos Activos</span>
+                  </div>
+                )}
+                {estacion.unidades && (
+                  <div class="est-stats__item">
+                    <span class="est-stats__number">{estacion.unidades}</span>
+                    <span class="est-stats__label">Unidades Totales</span>
+                  </div>
+                )}
+                <div class="est-stats__item">
+                  <span class="est-stats__number">24/7</span>
+                  <span class="est-stats__label">Disponibilidad</span>
+                </div>
+              </div>
+              {estacion.unidadesDisponibles && (
+                <div class="est-units">
+                  <h4>Flota Operativa:</h4>
+                  <div class="est-units__grid">
+                    {estacion.unidadesDisponibles.map((unidad) => (
+                      <span class="est-units__item">{unidad}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </article>
+          )}
+
+          <!-- Cobertura -->
+          <article class="est-section">
+            <h2 class="est-section__title">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              Zonas de Cobertura
+            </h2>
+            <p class="est-section__intro">
+              Esta estación brinda cobertura a las siguientes colonias y zonas del municipio de <strong>{estacion.municipio}</strong> en Tabasco:
+            </p>
+            <div class="est-zones">
+              {estacion.zonasCobertura.map((zona) => (
+                <span class="est-zones__tag">{zona}</span>
+              ))}
+            </div>
+          </article>
+
+          <!-- SEO Content -->
+          <article class="est-section est-section--seo">
+            <h2>Bomberos en {estacion.municipio}, Tabasco</h2>
+            <p>
+              La <strong>{estacion.nombreCorto}</strong> forma parte del <strong>H. Cuerpo de Bomberos de Tabasco</strong>,
+              institución que protege a los <strong>2.4 millones de tabasqueños</strong> en uno de los estados más
+              estratégicos del sureste por su industria petrolera y su diversidad hídrica.
+              Ubicada en <strong>{estacion.direccion}, {estacion.colonia}, {estacion.municipio}</strong>,
+              opera las 24 horas del día, los 365 días del año sin excepción.
+            </p>
+            <p>
+              En caso de <strong>emergencia en {estacion.municipio}</strong>, llama al <strong>911</strong> o directamente
+              al <strong>{estacion.telefono}</strong>. El tiempo de respuesta para esta zona es de <strong>{estacion.tiempoRespuesta}</strong>.
+              Los bomberos de Tabasco están certificados para incendios, rescates, HAZMAT y todo tipo de emergencias.
+            </p>
+            <h3>Tabasco: Petróleo, Ríos e Inundaciones en el Sureste Mexicano</h3>
+            <p>
+              <strong>Tabasco</strong> produce el <strong>25-30% del petróleo y gas natural de México</strong> a través
+              de PEMEX Exploración y Producción. La <strong>Refinería Olmeca en Dos Bocas (Paraíso)</strong>, inaugurada en 2023
+              con una inversión de más de 17,000 millones de dólares, es el mayor proyecto energético de la historia
+              reciente del país. Los ríos <strong>Grijalva y Usumacinta</strong> —los más caudalosos de México—
+              cruzan el estado y representan el principal riesgo crónico de inundación: en 2007, el 80% del territorio
+              quedó bajo el agua. Los bomberos tabasqueños son expertos en rescate acuático y evacuaciones masivas.
+            </p>
+            <h3>¿Necesitas equipo certificado para bomberos en Tabasco?</h3>
+            <p>
+              En <strong><a href="/">BOMBERO.MX</a></strong> somos distribuidores autorizados de <strong>equipo para bomberos certificado NFPA</strong>
+              para todas las condiciones de Tabasco: HAZMAT petroquímico, rescate acuático y zonas tropicales húmedas.
+              Equipamos con <a href="/productos/trajes-para-bomberos">trajes estructurales NFPA 1971</a>,
+              <a href="/productos/cascos-para-bomberos">cascos certificados</a>, <a href="/productos/scba">equipos SCBA</a> y
+              <a href="/productos/herramientas-rescate">herramientas de rescate</a>.
+              <a href="/cotizar">Solicita cotización</a> sin compromiso.
+            </p>
+          </article>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="est-sidebar">
+          <div class="est-sidebar__card est-sidebar__card--emergency">
+            <h4>Emergencias</h4>
+            <a href="tel:911" class="est-sidebar__emergency">
+              <span class="est-sidebar__emergency-number">911</span>
+              <span class="est-sidebar__emergency-label">Llamar ahora</span>
+            </a>
+            <p>Número único de emergencias en Tabasco</p>
+          </div>
+
+          <div class="est-sidebar__card">
+            <h4>Otras Estaciones en TAB</h4>
+            <ul class="est-sidebar__stations">
+              {estacionesCercanas.map((est) => (
+                <li>
+                  <a href={`/directorio/tabasco/${est.slug}`}>
+                    <span class="est-sidebar__station-name">{est.nombreCorto}</span>
+                    <span class="est-sidebar__station-municipio">{est.municipio}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="/directorio/tabasco" class="est-sidebar__link">
+              Ver todas las estaciones
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="est-sidebar__card">
+            <h4>Equipo para Bomberos</h4>
+            <ul class="est-sidebar__products">
+              {productosRelacionados.map((prod) => (
+                <li>
+                  <a href={prod.href}>
+                    <span class="est-sidebar__product-name">{prod.nombre}</span>
+                    <span class="est-sidebar__product-desc">{prod.desc}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="/productos" class="est-sidebar__link">
+              Ver catálogo completo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="est-sidebar__card est-sidebar__card--cta">
+            <h4>¿Equipas Bomberos en TAB?</h4>
+            <p>Distribuimos equipo certificado NFPA para HAZMAT petroquímico, rescate acuático y zonas tropicales</p>
+            <a href="/cotizar" class="est-sidebar__cta-btn">Solicitar Cotización</a>
+          </div>
+
+          <div class="est-sidebar__card">
+            <h4>Directorio Nacional</h4>
+            <ul class="est-sidebar__states">
+              {estadosVecinos.map((estado) => (
+                <li>
+                  <a href={`/directorio/${estado.slug}`}>
+                    {estado.nombre}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="/directorio" class="est-sidebar__link">
+              Ver todos los estados
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <div class="est-sidebar__card">
+            <h4>Contacto BOMBERO.MX</h4>
+            <ul class="est-sidebar__contact">
+              <li>
+                <a href="tel:+525520780102">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07"/>
+                  </svg>
+                  55 2078 0102
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/525520780102">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                  </svg>
+                  WhatsApp
+                </a>
+              </li>
+              <li>
+                <a href="mailto:ventas@bombero.mx">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  ventas@bombero.mx
+                </a>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     PÁGINA DE DETALLE DE ESTACIÓN - TABASCO
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  .est-hero {
+    position: relative;
+    padding: var(--space-12) 0 var(--space-16);
+    background: var(--color-smoke-950);
+    overflow: hidden;
+  }
+
+  .est-hero__bg { position: absolute; inset: 0; pointer-events: none; }
+
+  .est-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(5, 150, 105, 0.15), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(16, 185, 129, 0.08), transparent);
+  }
+
+  .est-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-6);
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .est-hero__breadcrumb a { color: var(--color-smoke-400); text-decoration: none; }
+  .est-hero__breadcrumb a:hover { color: #10b981; }
+  .est-hero__breadcrumb span { color: var(--color-smoke-600); }
+
+  .est-hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: var(--space-10);
+    align-items: start;
+    position: relative;
+  }
+
+  .est-hero__badges {
+    display: flex;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    flex-wrap: wrap;
+  }
+
+  .est-hero__badge {
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .est-hero__badge--municipio { background: rgba(255,255,255,0.1); color: white; }
+
+  .est-hero__badge--horario {
+    background: linear-gradient(135deg, #059669, #047857);
+    color: white;
+  }
+
+  .est-hero__title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+    margin: 0 0 var(--space-5);
+  }
+
+  .est-hero__desc {
+    font-size: var(--text-base);
+    color: var(--color-smoke-300);
+    line-height: 1.8;
+    margin: 0 0 var(--space-6);
+  }
+
+  .est-hero__actions { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+
+  .est-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .est-hero__btn--primary {
+    background: linear-gradient(135deg, #059669, #047857);
+    color: white;
+  }
+
+  .est-hero__btn--primary:hover {
+    background: linear-gradient(135deg, #047857, #065f46);
+  }
+
+  .est-hero__btn--secondary {
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .est-hero__btn--secondary:hover { background: rgba(255,255,255,0.15); }
+
+  .est-hero__card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .est-hero__card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    font-weight: 700;
+    font-size: var(--text-sm);
+  }
+
+  .est-hero__card-header svg { color: #10b981; }
+
+  .est-hero__card-body {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .est-hero__info-row { display: flex; gap: var(--space-3); }
+
+  .est-hero__info-row svg {
+    color: #10b981;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .est-hero__info-row div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .est-hero__info-row strong {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .est-hero__info-row span,
+  .est-hero__info-row a {
+    font-size: var(--text-sm);
+    color: white;
+    text-decoration: none;
+  }
+
+  .est-hero__info-row a:hover { color: #10b981; }
+
+  .est-hero__emergency {
+    background: #059669;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+  }
+
+  .est-main {
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .est-main__grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  .est-section {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    margin-bottom: var(--space-6);
+  }
+
+  .est-section__title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid #059669;
+  }
+
+  .est-section__title svg { color: #059669; }
+
+  .est-section__intro {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.7;
+    margin: 0 0 var(--space-5);
+  }
+
+  .est-section__intro strong { color: var(--color-smoke-800); }
+
+  .est-services {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .est-services__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-700);
+  }
+
+  .est-services__item svg {
+    color: #059669;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .est-specialties {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .est-specialties__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.05), rgba(16, 185, 129, 0.08));
+    border: 1px solid rgba(5, 150, 105, 0.2);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-800);
+  }
+
+  .est-specialties__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(5, 150, 105, 0.1);
+    border-radius: var(--radius-md);
+    color: #059669;
+    flex-shrink: 0;
+  }
+
+  .est-stats {
+    display: flex;
+    gap: var(--space-6);
+    padding: var(--space-5);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-5);
+  }
+
+  .est-stats__item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .est-stats__number {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: #059669;
+  }
+
+  .est-stats__label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .est-units h4 {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-smoke-700);
+    margin: 0 0 var(--space-3);
+  }
+
+  .est-units__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .est-units__item {
+    padding: var(--space-2) var(--space-3);
+    background: rgba(5, 150, 105, 0.08);
+    border: 1px solid rgba(5, 150, 105, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: #065f46;
+  }
+
+  .est-zones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .est-zones__tag {
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-smoke-100);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-700);
+  }
+
+  .est-section--seo h2 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid #059669;
+  }
+
+  .est-section--seo h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin: var(--space-6) 0 var(--space-3);
+  }
+
+  .est-section--seo p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
+  }
+
+  .est-section--seo p:last-child { margin-bottom: 0; }
+  .est-section--seo strong { color: var(--color-smoke-800); }
+  .est-section--seo a { color: #059669; }
+  .est-section--seo a:hover { text-decoration: underline; }
+
+  /* ═══ Sidebar ═══ */
+  .est-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .est-sidebar__card {
+    padding: var(--space-5);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .est-sidebar__card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid #059669;
+  }
+
+  .est-sidebar__card > p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+    line-height: 1.6;
+    margin: var(--space-3) 0 0;
+  }
+
+  .est-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
+  }
+
+  .est-sidebar__card--emergency h4 {
+    color: white;
+    border-bottom-color: #059669;
+  }
+
+  .est-sidebar__card--emergency > p { color: rgba(255,255,255,0.7); }
+
+  .est-sidebar__emergency {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-4);
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .est-sidebar__emergency:hover { background: rgba(255,255,255,0.15); }
+
+  .est-sidebar__emergency-number {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    color: #10b981;
+  }
+
+  .est-sidebar__emergency-label {
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .est-sidebar__stations {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .est-sidebar__stations li a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .est-sidebar__stations li a:hover { background: var(--color-smoke-50); }
+
+  .est-sidebar__station-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-800);
+  }
+
+  .est-sidebar__station-municipio {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+  }
+
+  .est-sidebar__products {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .est-sidebar__products li a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .est-sidebar__products li a:hover { background: var(--color-smoke-50); }
+
+  .est-sidebar__product-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-800);
+  }
+
+  .est-sidebar__product-desc {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+  }
+
+  .est-sidebar__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: #059669;
+    text-decoration: none;
+  }
+
+  .est-sidebar__card--cta {
+    background: linear-gradient(135deg, #065f46, #047857);
+  }
+
+  .est-sidebar__card--cta h4 {
+    color: white;
+    border-bottom-color: rgba(255,255,255,0.3);
+  }
+
+  .est-sidebar__card--cta > p { color: rgba(255,255,255,0.85); }
+
+  .est-sidebar__cta-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: white;
+    color: #047857;
+    font-weight: 700;
+    font-size: var(--text-sm);
+    text-align: center;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-top: var(--space-3);
+  }
+
+  .est-sidebar__cta-btn:hover {
+    background: #d1fae5;
+    transform: translateY(-1px);
+  }
+
+  .est-sidebar__states {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .est-sidebar__states li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .est-sidebar__states li a:hover {
+    background: var(--color-smoke-50);
+    color: #059669;
+  }
+
+  .est-sidebar__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .est-sidebar__contact li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .est-sidebar__contact li a:hover { color: #059669; }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1024px) {
+    .est-main__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .est-sidebar {
+      position: static;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .est-hero__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .est-hero__card {
+      display: none;
+    }
+  }
+</style>
