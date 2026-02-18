@@ -13,7 +13,7 @@ import FAQ from "@components/FAQ.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import CTABar from "@components/CTABar.astro";
 import CategoryCard from "@components/CategoryCard.astro";
-import { cdnW } from "@utils/cdn";
+import ProductCard from "@components/ProductCard.astro";
 
 const productos = [
   {
@@ -41,6 +41,7 @@ const productos = [
     badge: "NFPA 1977",
     badgeColor: "fire",
     imagen: null,
+    placeholderPaths: ["M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z", "M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5", "M4 15v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3"],
     descripcion:
       "Diseñado para operaciones de incendio forestal e interface. Ligero, con ventilación activa y visor de malla integrado para protección contra chispas y ramas. Cumple NFPA 1977 y se usa junto al traje forestal.",
     caracteristicas: [
@@ -59,6 +60,7 @@ const productos = [
     badge: "NFPA 1951",
     badgeColor: "ember",
     imagen: null,
+    placeholderPaths: ["M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z", "M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5", "M4 15v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3"],
     descripcion:
       "Casco de perfil bajo y máxima visibilidad para operaciones de rescate técnico, espacios confinados y trabajo en altura. Compatible con sistema de iluminación LED integrado y pantalla facial completa. Cumple NFPA 1951.",
     caracteristicas: [
@@ -77,6 +79,7 @@ const productos = [
     badge: "Complementos",
     badgeColor: "smoke",
     imagen: null,
+    placeholderPaths: ["M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z", "M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5", "M4 15v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3"],
     descripcion:
       "Complementos y accesorios certificados para el sistema de protección cefálica del bombero: capuchas Nomex®, linternas LED, visores de recambio, protectores de nuca y sistemas de comunicación integrados.",
     caracteristicas: [
@@ -90,41 +93,6 @@ const productos = [
   },
 ];
 
-const especificaciones = [
-  {
-    icono: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M4 15v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3"/></svg>`,
-    titulo: "Materiales y Construcción",
-    items: [
-      "Termoplástico ABS de alto impacto",
-      "Compuesto de fibra de vidrio / Kevlar®",
-      "Polietileno de alta densidad (forestal)",
-      "Suspensión interior de absorción multi-punto",
-      "Bandas de sudor en cuero o material técnico",
-    ],
-  },
-  {
-    icono: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>`,
-    titulo: "Certificaciones Aplicables",
-    items: [
-      "NFPA 1971 — Cascos Estructurales",
-      "NFPA 1977 — Cascos Forestales",
-      "NFPA 1951 — Cascos de Rescate Técnico",
-      "EN 443 — Norma Europea estructural",
-      "EN 397 — Casco industrial / rescate",
-    ],
-  },
-  {
-    icono: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-    titulo: "Operaciones y Usuarios",
-    items: [
-      "Cuerpos de Bomberos Municipales",
-      "Brigadas Industriales y Petroquímicas",
-      "Equipos USAR de Búsqueda y Rescate",
-      "Bomberos Forestales y Protección Civil",
-      "Bomberos Aeroportuarios (ARFF)",
-    ],
-  },
-];
 ---
 
 <PageLayout
@@ -219,49 +187,7 @@ const especificaciones = [
 
       <div class="productos__grid">
         {productos.map((producto) => (
-          <article class="producto-card">
-            <div class="producto-card__image">
-              {producto.imagen ? (
-                <img
-                  src={cdnW(producto.imagen!, 600)}
-                  alt={`${producto.nombre} - Casco de bombero certificado`}
-                  loading="lazy"
-                  width="600"
-                  height="450"
-                />
-              ) : (
-                <div class="producto-card__placeholder">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-                    <path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/>
-                    <path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/>
-                    <path d="M4 15v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3"/>
-                  </svg>
-                </div>
-              )}
-              <span class={`producto-card__badge producto-card__badge--${producto.badgeColor}`}>
-                {producto.badge}
-              </span>
-            </div>
-            <div class="producto-card__content">
-              <h3 class="producto-card__title">{producto.nombre}</h3>
-              <p class="producto-card__desc">{producto.descripcion}</p>
-              <ul class="producto-card__features">
-                {producto.caracteristicas.map((c) => (
-                  <li>{c}</li>
-                ))}
-              </ul>
-              <p class="producto-card__app">
-                <span class="producto-card__app-label">Aplicación:</span>
-                {producto.aplicacion}
-              </p>
-              <a href={producto.slug} class="producto-card__btn">
-                <span>Ver Especificaciones</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </a>
-            </div>
-          </article>
+          <ProductCard {...producto} altSuffix="Casco de bombero certificado" />
         ))}
       </div>
     </div>
@@ -272,29 +198,34 @@ const especificaciones = [
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <section class="section section--dark specs">
     <div class="container">
-      <div class="specs__header">
-        <span class="specs__label">Tecnología y Materiales</span>
-        <h2 class="specs__title">Materiales, Certificaciones y Aplicaciones</h2>
-        <p class="specs__desc">
-          Los cascos de bombero de alto rendimiento combinan carcasas de materiales compuestos,
-          suspensiones de absorción de impacto y sistemas de ventilación optimizados para cada
-          tipo de operación.
+      <SectionHeader
+        label="Tecnología y Materiales"
+        title="Materiales, Certificaciones y Aplicaciones"
+        description="Los cascos de bombero de alto rendimiento combinan carcasas de materiales compuestos, suspensiones de absorción de impacto y sistemas de ventilación optimizados para cada tipo de operación."
+      >
+        <p>
+          Los <strong>cascos estructurales NFPA 1971</strong> se fabrican con termoplástico ABS o compuesto de fibra de vidrio y Kevlar®, equilibrando resistencia al impacto, protección térmica y compatibilidad con SCBA. Los <strong>cascos forestales NFPA 1977</strong> priorizan el peso ultraligero y la ventilación activa para operaciones prolongadas en campo abierto.
         </p>
-      </div>
+        <p>
+          Cada <strong>casco de bombero</strong> de nuestro catálogo incluye certificado de laboratorio y ficha técnica completa, lista para procesos de <strong>licitación pública</strong>. Proveemos documentación técnica a cuerpos de bomberos municipales, brigadas industriales y protección civil en los <strong>32 estados de México</strong>.
+        </p>
+      </SectionHeader>
       <div class="specs__grid">
-        {especificaciones.map((spec) => (
-          <div class="specs__card">
-            <div class="specs__icon">
-              <Fragment set:html={spec.icono} />
-            </div>
-            <h3 class="specs__card-title">{spec.titulo}</h3>
-            <ul class="specs__list">
-              {spec.items.map((item) => (
-                <li>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <CategoryCard
+          title="Materiales y Construcción"
+          icon="helmet"
+          description="Carcasas de termoplástico ABS de alto impacto o compuesto de fibra de vidrio/Kevlar® para estructural. Polietileno de alta densidad para forestal. Suspensión interior de absorción multi-punto y bandas de sudor en cuero o material técnico."
+        />
+        <CategoryCard
+          title="Certificaciones Aplicables"
+          icon="certificate"
+          description="NFPA 1971 para cascos estructurales, NFPA 1977 para forestales y NFPA 1951 para rescate técnico. Normas europeas EN 443 y EN 397. Cada casco incluye certificado de laboratorio y ficha técnica lista para licitación pública."
+        />
+        <CategoryCard
+          title="Operaciones y Usuarios"
+          icon="users"
+          description="Cuerpos de bomberos municipales y estatales, brigadas industriales y petroquímicas, equipos USAR de búsqueda y rescate, protección civil, bomberos forestales y aeroportuarios ARFF en los 32 estados de México."
+        />
       </div>
     </div>
   </section>
@@ -302,13 +233,20 @@ const especificaciones = [
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- TABLA COMPARATIVA -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <section class="section section--alt comparativa">
+  <section class="section comparativa">
     <div class="container">
       <SectionHeader
         label="Tabla Comparativa"
         title="¿Qué Casco de Bombero Necesitas?"
         description="Compara los 4 tipos de cascos según su norma, aplicación y características para elegir el equipo correcto."
-      />
+      >
+        <p>
+          La elección del <strong>casco de bombero</strong> correcto depende del tipo de operación: el <strong>casco estructural NFPA 1971</strong> es el estándar para incendios de edificios, mientras que el <strong>forestal NFPA 1977</strong> está optimizado para trabajo físico intenso en campo. El casco de <strong>rescate técnico NFPA 1951</strong> ofrece el mayor campo visual para espacios confinados y altura.
+        </p>
+        <p>
+          En <strong>BOMBERO.MX</strong> asesoramos a tu corporación sin costo para seleccionar el casco adecuado según el riesgo predominante. Elaboramos especificaciones técnicas y comparativos de productos para <strong>licitaciones gubernamentales</strong> en toda la República Mexicana.
+        </p>
+      </SectionHeader>
       <div class="comparativa__wrapper">
         <table class="comparativa__table">
           <thead>
@@ -368,13 +306,20 @@ const especificaciones = [
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- EQUIPO COMPLEMENTARIO -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <section class="section section--alt relacionados">
+  <section class="section relacionados">
     <div class="container">
       <SectionHeader
         label="Equipo Complementario"
         title="Completa tu EPP de Bombero"
         description="El casco es parte de un sistema integral. Equipa a tu personal con protección completa certificada NFPA."
-      />
+      >
+        <p>
+          Un <strong>equipo de protección personal</strong> efectivo requiere que todos sus componentes sean compatibles entre sí: el casco debe trabajar con la <strong>capucha Nomex®</strong>, el <strong>SCBA</strong> y el traje estructural como un sistema integrado. En BOMBERO.MX seleccionamos y probamos la compatibilidad de todo el EPP.
+        </p>
+        <p>
+          Ofrecemos <strong>trajes certificados NFPA</strong>, guantes estructurales y de rescate, botas de cuero y caucho, y equipos SCBA de 30, 45 y 60 minutos. Todo con ficha técnica, certificado de laboratorio y disponibilidad inmediata para los <strong>32 estados de México</strong>.
+        </p>
+      </SectionHeader>
       <div class="rel__grid">
         <CategoryCard
           title="Trajes de Bombero"
@@ -576,229 +521,30 @@ const especificaciones = [
   .hero__seo-text strong { color: #ffffff; font-weight: 600; }
 
   /* ════════════════════════════════════════════════════════════════════
-     SECTION HEADER — estilos locales (igual que /productos)
-     ════════════════════════════════════════════════════════════════════ */
-  :global(.section-header__right p) {
-    font-size: var(--text-base);
-    color: var(--color-smoke-700);
-    line-height: 1.8;
-    margin: 0;
-  }
-
-  :global(.section-header__right strong) {
-    color: var(--color-smoke-900);
-    font-weight: 700;
-  }
-
-  /* ════════════════════════════════════════════════════════════════════
      PRODUCTS GRID
      ════════════════════════════════════════════════════════════════════ */
   .productos { background: var(--color-smoke-50); }
 
   .productos__grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-6);
   }
 
-  .producto-card {
-    display: flex;
-    flex-direction: column;
-    background: white;
-    border-radius: var(--radius-2xl);
-    overflow: hidden;
-    border: 1px solid var(--color-smoke-100);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-  }
-
-  .producto-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
-    border-color: var(--color-fire-200);
-  }
-
-  .producto-card__image {
-    position: relative;
-    aspect-ratio: 16 / 9;
-    background: linear-gradient(135deg, var(--color-smoke-100) 0%, var(--color-smoke-200) 100%);
-    overflow: hidden;
-  }
-
-  .producto-card__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  .producto-card:hover .producto-card__image img { transform: scale(1.04); }
-
-  .producto-card__placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--color-smoke-900) 0%, var(--color-smoke-800) 100%);
-  }
-
-  .producto-card__placeholder svg {
-    width: 64px;
-    height: 64px;
-    stroke: var(--color-fire-500);
-    opacity: 0.6;
-  }
-
-  .producto-card__badge {
-    position: absolute;
-    top: var(--space-3);
-    left: var(--space-3);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px var(--space-3);
-    border-radius: var(--radius-full);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    line-height: 1.8;
-  }
-
-  .producto-card__badge--ember { background: var(--color-ember-600); color: white; }
-  .producto-card__badge--fire  { background: var(--color-fire-500); color: white; }
-  .producto-card__badge--smoke { background: var(--color-smoke-700); color: white; }
-
-  .producto-card__content {
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-6);
-    flex-grow: 1;
-    gap: var(--space-4);
-  }
-
-  .producto-card__title {
-    font-size: var(--text-lg);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0;
-    line-height: 1.3;
-  }
-
-  .producto-card__desc {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    line-height: var(--leading-relaxed);
-    margin: 0;
-  }
-
-  .producto-card__features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    flex-grow: 1;
-  }
-
-  .producto-card__features li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-2);
-    font-size: var(--text-xs);
-    color: var(--color-smoke-600);
-    line-height: 1.5;
-  }
-
-  .producto-card__features li::before {
-    content: '';
-    width: 5px;
-    height: 5px;
-    background: var(--color-fire-500);
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 5px;
-  }
-
-  .producto-card__app {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    margin: 0;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    line-height: 1.5;
-  }
-
-  .producto-card__app-label {
-    font-weight: 700;
-    color: var(--color-smoke-700);
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  .producto-card__btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-3) var(--space-5);
-    background: var(--color-fire-600);
-    color: white;
-    text-decoration: none;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    border-radius: var(--radius-lg);
-    margin-top: auto;
-    transition: background var(--transition-fast), transform var(--transition-fast);
-  }
-
-  .producto-card__btn:hover {
-    background: var(--color-fire-700);
-    transform: translateX(2px);
-  }
-
-  .producto-card__btn svg {
-    flex-shrink: 0;
-    transition: transform var(--transition-fast);
-  }
-
-  .producto-card__btn:hover svg { transform: translateX(3px); }
+  /* 4 cards in 3-col: 4th card below the 1st */
+  .productos__grid > :global(:nth-child(4)) { grid-column: 1; }
 
   /* ════════════════════════════════════════════════════════════════════
      SPECS — DARK
      ════════════════════════════════════════════════════════════════════ */
   .specs { background: var(--gradient-dark); }
 
-  .specs__header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto var(--space-12);
-  }
-
-  .specs__label {
-    display: inline-block;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--space-4);
-  }
-
-  .specs__title {
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-    font-weight: 800;
-    color: white;
-    line-height: var(--leading-tight);
-    margin: 0 0 var(--space-4);
-  }
-
-  .specs__desc {
-    font-size: var(--text-lg);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-    margin: 0;
-  }
+  /* SectionHeader on dark background */
+  .specs :global(.section-header__label) { color: var(--color-fire-400); }
+  .specs :global(.section-header__title) { color: white; }
+  .specs :global(.section-header__desc)  { color: var(--color-smoke-300); }
+  .specs :global(.section-header__right p) { color: var(--color-smoke-300); }
+  .specs :global(.section-header__right strong) { color: white; font-weight: 600; }
 
   .specs__grid {
     display: grid;
@@ -806,75 +552,13 @@ const especificaciones = [
     gap: var(--space-6);
   }
 
-  .specs__card {
-    padding: var(--space-8);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-2xl);
-    transition: border-color var(--transition-base), background var(--transition-base);
-  }
 
-  .specs__card:hover {
-    border-color: rgba(249, 115, 22, 0.3);
-    background: rgba(255, 255, 255, 0.06);
-  }
-
-  .specs__icon {
-    width: 52px;
-    height: 52px;
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.2);
-    border-radius: var(--radius-xl);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: var(--space-5);
-  }
-
-  .specs__icon :global(svg) {
-    width: 26px;
-    height: 26px;
-    stroke: var(--color-fire-400);
-  }
-
-  .specs__card-title {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: white;
-    margin: 0 0 var(--space-4);
-  }
-
-  .specs__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .specs__list li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.5;
-  }
-
-  .specs__list li::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background: var(--color-fire-500);
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 5px;
-  }
 
   /* ════════════════════════════════════════════════════════════════════
      TABLA COMPARATIVA
      ════════════════════════════════════════════════════════════════════ */
+  .comparativa { background: #ffffff; }
+
   .comparativa__wrapper {
     overflow-x: auto;
     border-radius: var(--radius-2xl);
@@ -938,6 +622,8 @@ const especificaciones = [
   /* ════════════════════════════════════════════════════════════════════
      RELATED CATEGORIES GRID
      ════════════════════════════════════════════════════════════════════ */
+  .relacionados { background: var(--color-smoke-50); }
+
   .rel__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -949,6 +635,11 @@ const especificaciones = [
   /* ════════════════════════════════════════════════════════════════════
      RESPONSIVE
      ════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1200px) {
+    .productos__grid { grid-template-columns: repeat(2, 1fr); }
+    .productos__grid > :global(:nth-child(4)) { grid-column: auto; }
+  }
+
   @media (max-width: 1024px) {
     .specs__grid { grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; }
     .relacionados__grid { grid-template-columns: repeat(2, 1fr); }
