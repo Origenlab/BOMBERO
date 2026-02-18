@@ -844,7 +844,7 @@ export const NUEVO_LEON_SEO = {
       { estado: "Chihuahua", slug: "chihuahua", razon: "Industria y frontera norte" }
     ],
     productosRelacionados: [
-      { producto: "Trajes de bombero", slug: "/productos/trajes", contexto: "Protección industrial" },
+      { producto: "Trajes de bombero", slug: "/productos/trajes-para-bomberos", contexto: "Protección industrial" },
       { producto: "Equipos HAZMAT", slug: "/productos/hazmat", contexto: "Materiales peligrosos" },
       { producto: "Equipos SCBA", slug: "/productos/scba", contexto: "Rescate en espacios confinados" },
       { producto: "Herramientas de rescate", slug: "/productos/rescate", contexto: "Rescate vehicular" }
@@ -1263,7 +1263,7 @@ export function generarInterlinking(estacion: Estacion): {
 
   // Productos relacionados
   const productosRelacionados = [
-    { nombre: "Trajes de bombero", slug: "/productos/trajes" }
+    { nombre: "Trajes de bombero", slug: "/productos/trajes-para-bomberos" }
   ];
 
   if (esHAZMAT) {

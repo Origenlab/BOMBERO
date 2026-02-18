@@ -300,7 +300,7 @@ export const SAN_LUIS_POTOSI_SEO = {
       },
       {
         producto: "Trajes Estructurales NFPA 1971",
-        slug: "/productos/trajes",
+        slug: "/productos/trajes-para-bomberos",
         contexto: "Incendios industriales y urbanos",
         prioridad: "alta",
         audiencia: ["bomberos", "brigadas industriales"],

@@ -79,7 +79,7 @@ export const OAXACA_SEO = {
     productosRelacionados: [
       { producto: "Equipo Rescate Altura", slug: "/productos/rescate-altura", contexto: "Zonas arqueológicas y montañosas" },
       { producto: "Equipos SCBA", slug: "/productos/scba", contexto: "Respiración autónoma incendios" },
-      { producto: "Trajes Estructurales", slug: "/productos/trajes", contexto: "Protección bomberos certificada NFPA" },
+      { producto: "Trajes Estructurales", slug: "/productos/trajes-para-bomberos", contexto: "Protección bomberos certificada NFPA" },
       { producto: "Equipos Forestales", slug: "/productos/forestales", contexto: "Incendios temporada seca" },
       { producto: "Rescate Acuático", slug: "/productos/rescate-acuatico", contexto: "Costa y sistemas lagunares" },
       { producto: "Cotización Personalizada", slug: "/cotizar", contexto: "Equipamiento para tu corporación" }

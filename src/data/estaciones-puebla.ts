@@ -90,7 +90,7 @@ export const PUEBLA_SEO = {
       }
     ],
     productosRelacionados: [
-      { producto: "Trajes Estructurales NFPA", slug: "/productos/trajes", contexto: "Protección en incendios industriales" },
+      { producto: "Trajes Estructurales NFPA", slug: "/productos/trajes-para-bomberos", contexto: "Protección en incendios industriales" },
       { producto: "Equipos HAZMAT", slug: "/productos/hazmat", contexto: "Materiales peligrosos industria química" },
       { producto: "Equipos SCBA", slug: "/productos/scba", contexto: "Respiración autónoma planta automotriz" },
       { producto: "Herramientas de Rescate", slug: "/productos/herramientas-rescate", contexto: "Rescate vehicular autopistas" },

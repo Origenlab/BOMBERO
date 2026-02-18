@@ -122,7 +122,7 @@ export const QUERETARO_SEO = {
       { producto: "Trajes Aluminizados", slug: "/productos/trajes-aluminizados", contexto: "Fundición y metalmecánica", prioridad: "alta" },
       { producto: "Equipos SCBA", slug: "/productos/scba", contexto: "Espacios confinados industriales", prioridad: "alta" },
       { producto: "Detectores Multigas", slug: "/productos/detectores", contexto: "Monitoreo atmosférico industrial", prioridad: "alta" },
-      { producto: "Trajes Estructurales NFPA", slug: "/productos/trajes", contexto: "Combate incendios", prioridad: "media" },
+      { producto: "Trajes Estructurales NFPA", slug: "/productos/trajes-para-bomberos", contexto: "Combate incendios", prioridad: "media" },
       { producto: "Herramientas Rescate Vehicular", slug: "/productos/herramientas-rescate", contexto: "Accidentes autopista", prioridad: "media" },
       { producto: "Cotización Corporativa", slug: "/cotizar", contexto: "Equipamiento completo", prioridad: "alta" }
     ],
