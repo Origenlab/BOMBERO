@@ -1,0 +1,1110 @@
+---
+/**
+ * ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+ * ║                                                                                                          ║
+ * ║   PAGINA DINAMICA - ESTACION DE BOMBEROS EN VERACRUZ                                                    ║
+ * ║   ══════════════════════════════════════════════════════════════════════════════════════════════════════║
+ * ║                                                                                                          ║
+ * ║   "El Puerto de Mexico" - Costa del Golfo, Petroleo y Patrimonio UNESCO                                 ║
+ * ║                                                                                                          ║
+ * ║   ENTERPRISE FEATURES:                                                                                  ║
+ * ║   • Protocolos HAZMAT petrolero/petroquimico documentados                                               ║
+ * ║   • Coordinacion SEMAR rescate maritimo                                                                 ║
+ * ║   • Sistema alerta huracanes Golfo de Mexico                                                            ║
+ * ║   • Cobertura PEMEX refineria y complejos petroquimicos                                                 ║
+ * ║   • Schema.org multi-tipo enterprise                                                                     ║
+ * ║   • Badges dinamicos por especializacion                                                                 ║
+ * ║                                                                                                          ║
+ * ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+ */
+
+import PageLayout from "@layouts/PageLayout.astro";
+import {
+  estacionesVeracruz,
+  VERACRUZ_SEO,
+  ZONAS_VERACRUZ,
+  PROTOCOLOS_VERACRUZ,
+  INDUSTRIA_PETROLERA_VERACRUZ,
+  PUERTOS_VERACRUZ,
+  FAQ_VERACRUZ,
+  SISTEMA_HURACANES_VERACRUZ,
+  getEstacionesPorZona,
+  getEstacionesHAZMAT,
+  getEstacionesMaritimas,
+  getInstalacionesPEMEX,
+  getPuertos,
+  getAlertaHuracanActual
+} from "@data/estaciones-veracruz";
+
+// ─── Generacion de Rutas Estaticas ───────────────────────────────────────────
+export function getStaticPaths() {
+  return estacionesVeracruz.map((estacion) => ({
+    params: { slug: estacion.slug },
+    props: { estacion }
+  }));
+}
+
+// ─── Props y Datos ───────────────────────────────────────────────────────────
+const { estacion } = Astro.props;
+
+// Metadata dinamica
+const nombreCorto = estacion.nombre.replace("Estacion de Bomberos ", "").replace("Estacion Central de Bomberos ", "").replace("Estacion HAZMAT ", "");
+const title = `${estacion.nombre} | Bomberos Veracruz | BOMBERO.MX`;
+const description = `${estacion.descripcion} Tel: ${estacion.telefono}. ${estacion.horario}.`;
+
+// Clasificadores
+const esHAZMAT = estacion.nombre.toLowerCase().includes("hazmat") ||
+  estacion.servicios?.some(s => s.toLowerCase().includes("hazmat"));
+const esMaritimo = estacion.servicios?.some(s =>
+  s.toLowerCase().includes("maritimo") ||
+  s.toLowerCase().includes("marítimo") ||
+  s.toLowerCase().includes("buque") ||
+  s.toLowerCase().includes("portuario")
+);
+const esPEMEX = estacion.caracteristicasEspeciales?.some(c =>
+  c.toLowerCase().includes("pemex") ||
+  c.toLowerCase().includes("refinería") ||
+  c.toLowerCase().includes("petroquímic")
+);
+const esCoordinacionSEMAR = estacion.servicios?.some(s =>
+  s.toLowerCase().includes("semar") ||
+  s.toLowerCase().includes("marina")
+) || estacion.caracteristicasEspeciales?.some(c =>
+  c.toLowerCase().includes("semar")
+);
+const esPuerto = estacion.caracteristicasEspeciales?.some(c =>
+  c.toLowerCase().includes("puerto")
+) || estacion.servicios?.some(s =>
+  s.toLowerCase().includes("portuario") ||
+  s.toLowerCase().includes("puerto")
+);
+const esHuracanes = estacion.zona.includes("Puerto") ||
+  estacion.zona.includes("Tuxpan") ||
+  estacion.zona.includes("Papaloapan") ||
+  estacion.servicios?.some(s => s.toLowerCase().includes("inundacion"));
+const esBilingue = estacion.idiomas?.includes("Ingles") || estacion.idiomas?.includes("Inglés");
+const esCentral = estacion.nombre.toLowerCase().includes("central");
+const esInundaciones = estacion.zona === "Zona Papaloapan" ||
+  estacion.servicios?.some(s => s.toLowerCase().includes("inundacion"));
+
+// Zona info
+const zonaKey = Object.keys(ZONAS_VERACRUZ).find(
+  k => ZONAS_VERACRUZ[k as keyof typeof ZONAS_VERACRUZ].nombre === estacion.zona
+);
+const zonaInfo = zonaKey ? ZONAS_VERACRUZ[zonaKey as keyof typeof ZONAS_VERACRUZ] : null;
+
+// Estaciones relacionadas
+const estacionesZona = getEstacionesPorZona(estacion.zona).filter(e => e.slug !== estacion.slug);
+
+// Alerta huracan actual (si estamos en temporada)
+const alertaHuracan = getAlertaHuracanActual();
+
+// Protocolos relevantes
+const protocolosRelevantes = PROTOCOLOS_VERACRUZ.filter(p => {
+  if (esHAZMAT && (p.codigo.includes("HAZMAT") || p.codigo.includes("FIRE-TANK") || p.codigo.includes("TOXIC"))) return true;
+  if (esMaritimo && (p.codigo.includes("SHIP") || p.codigo.includes("SAR-MAR") || p.codigo.includes("SPILL"))) return true;
+  if (esPEMEX && (p.codigo.includes("TANK") || p.codigo.includes("BLOWOUT"))) return true;
+  if (esHuracanes && p.codigo.includes("HURR")) return true;
+  if (estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes("tajín")) && p.codigo.includes("UNESCO")) return true;
+  return false;
+}).slice(0, 3);
+
+// Instalaciones PEMEX (si es estacion HAZMAT/petrolera)
+const instalacionesPEMEX = (esHAZMAT || esPEMEX) ? getInstalacionesPEMEX().filter(inst =>
+  inst.estacionAsignada.toLowerCase().includes(estacion.nombre.toLowerCase().split(" ").slice(-1)[0]) ||
+  estacion.municipiosCubiertos?.some(m => inst.ubicacion.toLowerCase().includes(m.toLowerCase()))
+) : [];
+
+// Puertos (si es estacion maritima)
+const puertos = esMaritimo || esPuerto ? getPuertos().filter(puerto =>
+  puerto.estacionAsignada.toLowerCase().includes(nombreCorto.toLowerCase()) ||
+  estacion.municipiosCubiertos?.some(m => puerto.ubicacion.toLowerCase().includes(m.toLowerCase()))
+) : [];
+
+// FAQ relevantes
+const faqRelevantes = FAQ_VERACRUZ.filter(faq => {
+  const categoriaLower = faq.categoria.toLowerCase();
+  if (esHAZMAT && categoriaLower === "industrial") return true;
+  if (esMaritimo && categoriaLower === "maritimo") return true;
+  if (esHuracanes && categoriaLower === "huracanes") return true;
+  if (categoriaLower === "contacto") return true;
+  return false;
+}).slice(0, 4);
+
+// Schema.org Enterprise
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FireStation",
+      "@id": `https://bombero.mx/directorio/veracruz/${estacion.slug}`,
+      "name": estacion.nombre,
+      "description": estacion.descripcion,
+      "url": `https://bombero.mx/directorio/veracruz/${estacion.slug}`,
+      "telephone": estacion.telefono,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": estacion.direccion,
+        "addressLocality": estacion.municipiosCubiertos?.[0] || "Veracruz",
+        "addressRegion": "Veracruz",
+        "addressCountry": "MX"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": estacion.coordenadas.lat,
+        "longitude": estacion.coordenadas.lng
+      },
+      "openingHours": "Mo-Su 00:00-24:00",
+      "areaServed": estacion.municipiosCubiertos?.map(m => ({
+        "@type": "AdministrativeArea",
+        "name": m
+      })),
+      "availableLanguage": estacion.idiomas || ["Spanish"],
+      "numberOfEmployees": estacion.personal,
+      "serviceType": estacion.servicios,
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de Emergencia",
+        "itemListElement": estacion.servicios?.map((servicio, index) => ({
+          "@type": "Offer",
+          "position": index + 1,
+          "itemOffered": {
+            "@type": "Service",
+            "name": servicio
+          }
+        }))
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bombero.mx" },
+        { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bombero.mx/directorio" },
+        { "@type": "ListItem", "position": 3, "name": "Veracruz", "item": "https://bombero.mx/directorio/veracruz" },
+        { "@type": "ListItem", "position": 4, "name": nombreCorto, "item": `https://bombero.mx/directorio/veracruz/${estacion.slug}` }
+      ]
+    },
+    {
+      "@type": "GovernmentService",
+      "name": `Emergency Services - ${nombreCorto}`,
+      "serviceType": estacion.servicios,
+      "provider": {
+        "@type": "GovernmentOrganization",
+        "name": "H. Cuerpo de Bomberos de Veracruz"
+      },
+      "areaServed": estacion.municipiosCubiertos?.join(", "),
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": estacion.telefono,
+        "availableLanguage": estacion.idiomas || ["Spanish"]
+      }
+    },
+    ...(faqRelevantes.length > 0 ? [{
+      "@type": "FAQPage",
+      "mainEntity": faqRelevantes.map(faq => ({
+        "@type": "Question",
+        "name": faq.pregunta,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.respuesta }
+      }))
+    }] : [])
+  ]
+};
+---
+
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+  <meta name="geo.region" content="MX-VER" slot="head" />
+  <meta name="geo.position" content={`${estacion.coordenadas.lat};${estacion.coordenadas.lng}`} slot="head" />
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       HERO SECTION ENTERPRISE
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-detail-hero" style={`--zone-color: ${zonaInfo?.color || '#0ea5e9'}`}>
+    <div class="ver-detail-hero__bg">
+      <div class="ver-detail-hero__gradient"></div>
+      <div class="ver-detail-hero__pattern"></div>
+    </div>
+
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="ver-detail-breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/directorio">Directorio</a></li>
+          <li><a href="/directorio/veracruz">Veracruz</a></li>
+          <li aria-current="page">{nombreCorto}</li>
+        </ol>
+      </nav>
+
+      <!-- Alertas Contextuales -->
+      {alertaHuracan && esHuracanes && (
+        <div class="ver-detail-alerts">
+          <div class={`ver-detail-alert ver-detail-alert--${alertaHuracan.colorSemaforo}`}>
+            <span class="ver-detail-alert__icon">🌀</span>
+            <span class="ver-detail-alert__text">Temporada de Huracanes Activa (Jun-Nov) - Semaforo: {alertaHuracan.colorSemaforo.toUpperCase()}</span>
+          </div>
+        </div>
+      )}
+
+      <div class="ver-detail-hero__grid">
+        <div class="ver-detail-hero__content">
+          <!-- Badges Dinamicos -->
+          <div class="ver-detail-badges">
+            <span class="ver-detail-badge ver-detail-badge--zone">{estacion.zona}</span>
+            {esCentral && <span class="ver-detail-badge ver-detail-badge--central">Central</span>}
+            {esHAZMAT && <span class="ver-detail-badge ver-detail-badge--hazmat">HAZMAT</span>}
+            {esMaritimo && <span class="ver-detail-badge ver-detail-badge--maritime">Rescate Maritimo</span>}
+            {esPEMEX && <span class="ver-detail-badge ver-detail-badge--pemex">PEMEX</span>}
+            {esCoordinacionSEMAR && <span class="ver-detail-badge ver-detail-badge--semar">Coordinacion SEMAR</span>}
+            {esPuerto && <span class="ver-detail-badge ver-detail-badge--port">Puerto</span>}
+            {esHuracanes && <span class="ver-detail-badge ver-detail-badge--hurricane">Huracanes</span>}
+            {esBilingue && <span class="ver-detail-badge ver-detail-badge--bilingual">Bilingue</span>}
+          </div>
+
+          <h1 class="ver-detail-hero__title">{estacion.nombre}</h1>
+
+          <p class="ver-detail-hero__desc">{estacion.descripcion}</p>
+
+          <div class="ver-detail-hero__address">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>{estacion.direccion}</span>
+          </div>
+
+          <div class="ver-detail-hero__meta">
+            <div class="ver-detail-hero__meta-item">
+              <span class="ver-detail-hero__meta-label">Horario</span>
+              <span class="ver-detail-hero__meta-value">{estacion.horario}</span>
+            </div>
+            {estacion.personal && (
+              <div class="ver-detail-hero__meta-item">
+                <span class="ver-detail-hero__meta-label">Personal</span>
+                <span class="ver-detail-hero__meta-value">{estacion.personal} bomberos</span>
+              </div>
+            )}
+            {estacion.tiempoRespuesta && (
+              <div class="ver-detail-hero__meta-item">
+                <span class="ver-detail-hero__meta-label">Tiempo Respuesta</span>
+                <span class="ver-detail-hero__meta-value">{estacion.tiempoRespuesta}</span>
+              </div>
+            )}
+            {estacion.idiomas && (
+              <div class="ver-detail-hero__meta-item">
+                <span class="ver-detail-hero__meta-label">Idiomas</span>
+                <span class="ver-detail-hero__meta-value">{estacion.idiomas.join(", ")}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <!-- Emergency Card Enterprise -->
+        <div class="ver-detail-emergency">
+          <div class="ver-detail-emergency__main">
+            <span class="ver-detail-emergency__label">Emergencias</span>
+            <a href="tel:911" class="ver-detail-emergency__911">911</a>
+            <span class="ver-detail-emergency__note">Linea Nacional</span>
+          </div>
+
+          <div class="ver-detail-emergency__local">
+            <span class="ver-detail-emergency__local-label">Linea Directa</span>
+            <a href={`tel:${estacion.telefono.replace(/[^\d+]/g, '')}`} class="ver-detail-emergency__phone">
+              {estacion.telefono}
+            </a>
+          </div>
+
+          {esHAZMAT && (
+            <div class="ver-detail-emergency__hazmat">
+              <span class="ver-detail-emergency__hazmat-badge">HAZMAT</span>
+              <span>Emergencias petroleras 24/7</span>
+            </div>
+          )}
+
+          {esMaritimo && (
+            <div class="ver-detail-emergency__maritime">
+              <span class="ver-detail-emergency__maritime-badge">VHF 16</span>
+              <span>Canal emergencias maritimas</span>
+            </div>
+          )}
+
+          {esBilingue && (
+            <div class="ver-detail-emergency__bilingual">
+              <span class="ver-detail-emergency__bilingual-flag">EN</span>
+              <span>English coordination available</span>
+            </div>
+          )}
+
+          <div class="ver-detail-emergency__actions">
+            <a
+              href={`https://www.google.com/maps/dir/?api=1&destination=${estacion.coordenadas.lat},${estacion.coordenadas.lng}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ver-detail-emergency__action ver-detail-emergency__action--directions"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+              </svg>
+              <span>Como llegar</span>
+            </a>
+            {estacion.sitioWeb && (
+              <a href={estacion.sitioWeb} target="_blank" rel="noopener noreferrer" class="ver-detail-emergency__action">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+                </svg>
+                <span>Sitio Web</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       SERVICES SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-detail-services">
+    <div class="container">
+      <div class="ver-detail-section-header">
+        <span class="ver-detail-section-label">Capacidades</span>
+        <h2>Servicios Especializados</h2>
+      </div>
+
+      <div class="ver-detail-services__grid">
+        {estacion.servicios?.map((servicio, index) => {
+          const esHazmatServ = servicio.toLowerCase().includes("hazmat");
+          const esMaritServ = servicio.toLowerCase().includes("marítimo") || servicio.toLowerCase().includes("maritimo") || servicio.toLowerCase().includes("buque");
+          const esPuertoServ = servicio.toLowerCase().includes("portuario") || servicio.toLowerCase().includes("puerto");
+          const esMedico = servicio.toLowerCase().includes("hospitalaria");
+          const esForestal = servicio.toLowerCase().includes("forestal");
+          const esInundacion = servicio.toLowerCase().includes("inundacion");
+
+          return (
+            <div class={`ver-detail-service ${esHazmatServ ? 'ver-detail-service--hazmat' : ''} ${esMaritServ ? 'ver-detail-service--maritime' : ''} ${esPuertoServ ? 'ver-detail-service--port' : ''} ${esMedico ? 'ver-detail-service--medical' : ''} ${esForestal ? 'ver-detail-service--forest' : ''} ${esInundacion ? 'ver-detail-service--flood' : ''}`}>
+              <div class="ver-detail-service__icon">
+                {esHazmatServ && "☢️"}
+                {esMaritServ && "⚓"}
+                {esPuertoServ && "🚢"}
+                {esMedico && "🏥"}
+                {esForestal && "🌲"}
+                {esInundacion && "🌊"}
+                {!esHazmatServ && !esMaritServ && !esPuertoServ && !esMedico && !esForestal && !esInundacion && "🔥"}
+              </div>
+              <span class="ver-detail-service__name">{servicio}</span>
+              <span class="ver-detail-service__number">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       EQUIPMENT SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  {estacion.equipamiento && estacion.equipamiento.length > 0 && (
+    <section class="ver-detail-equipment">
+      <div class="container">
+        <div class="ver-detail-section-header">
+          <span class="ver-detail-section-label">Flota y Equipo</span>
+          <h2>Equipamiento</h2>
+        </div>
+
+        <div class="ver-detail-equipment__grid">
+          {estacion.equipamiento.map(equipo => {
+            const esVehiculo = equipo.toLowerCase().includes("autobomba") || equipo.toLowerCase().includes("unidad") || equipo.toLowerCase().includes("ambulancia") || equipo.toLowerCase().includes("escalera");
+            const esHazmatEq = equipo.toLowerCase().includes("hazmat") || equipo.toLowerCase().includes("encapsulado") || equipo.toLowerCase().includes("espuma");
+            const esMaritEq = equipo.toLowerCase().includes("lancha") || equipo.toLowerCase().includes("buceo") || equipo.toLowerCase().includes("maritimo");
+            const esPuertoEq = equipo.toLowerCase().includes("remolcador") || equipo.toLowerCase().includes("marina");
+
+            return (
+              <div class={`ver-detail-equipment__item ${esVehiculo ? 'ver-detail-equipment__item--vehicle' : ''} ${esHazmatEq ? 'ver-detail-equipment__item--hazmat' : ''} ${esMaritEq ? 'ver-detail-equipment__item--maritime' : ''} ${esPuertoEq ? 'ver-detail-equipment__item--port' : ''}`}>
+                <span class="ver-detail-equipment__icon">
+                  {esVehiculo && !esHazmatEq && "🚒"}
+                  {esHazmatEq && "☢️"}
+                  {esMaritEq && "🚤"}
+                  {esPuertoEq && "🚢"}
+                  {!esVehiculo && !esHazmatEq && !esMaritEq && !esPuertoEq && "🔧"}
+                </span>
+                <span class="ver-detail-equipment__name">{equipo}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       PROTOCOLOS SECTION (si hay relevantes)
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  {protocolosRelevantes.length > 0 && (
+    <section class="ver-detail-protocols">
+      <div class="container">
+        <div class="ver-detail-section-header">
+          <span class="ver-detail-section-label">Documentacion</span>
+          <h2>Protocolos de Emergencia</h2>
+        </div>
+
+        <div class="ver-detail-protocols__grid">
+          {protocolosRelevantes.map(proto => (
+            <div class="ver-detail-protocol-card">
+              <div class="ver-detail-protocol-card__header">
+                <span class="ver-detail-protocol-card__code">{proto.codigo}</span>
+                <span class="ver-detail-protocol-card__time">⏱️ {proto.tiempoMaximoRespuesta}</span>
+              </div>
+              <h3>{proto.tipo}</h3>
+              <p>{proto.descripcion}</p>
+              <div class="ver-detail-protocol-card__resources">
+                <span>Recursos:</span>
+                <ul>
+                  {proto.recursosMinimos.slice(0, 3).map(r => <li>{r}</li>)}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       INSTALACIONES PEMEX (si es estacion HAZMAT/petrolera)
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  {(esHAZMAT || esPEMEX) && instalacionesPEMEX.length > 0 && (
+    <section class="ver-detail-pemex">
+      <div class="container">
+        <div class="ver-detail-section-header">
+          <span class="ver-detail-section-label">Cobertura Industrial</span>
+          <h2>Instalaciones PEMEX</h2>
+        </div>
+
+        <div class="ver-detail-pemex__grid">
+          {instalacionesPEMEX.map(inst => (
+            <div class="ver-detail-pemex-card">
+              <div class="ver-detail-pemex-card__header">
+                <span class={`ver-detail-pemex-card__risk ver-detail-pemex-card__risk--${inst.clasificacionRiesgo.toLowerCase()}`}>
+                  Riesgo {inst.clasificacionRiesgo}
+                </span>
+                <span class="ver-detail-pemex-card__type">{inst.tipo}</span>
+              </div>
+              <h3>{inst.nombre}</h3>
+              <p class="ver-detail-pemex-card__location">{inst.ubicacion}</p>
+              <div class="ver-detail-pemex-card__stats">
+                <span><strong>{inst.empleados.toLocaleString()}</strong> empleados</span>
+                <span><strong>{inst.capacidad}</strong></span>
+              </div>
+              <div class="ver-detail-pemex-card__hazmat">
+                <span>Riesgos HAZMAT:</span>
+                <div class="ver-detail-pemex-card__hazmat-tags">
+                  {inst.riesgosHAZMAT.slice(0, 4).map(r => <span>{r}</span>)}
+                </div>
+              </div>
+              <div class="ver-detail-pemex-card__response">
+                <span>⏱️ Respuesta: {inst.tiempoRespuestaBomberos}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       PUERTOS (si es estacion maritima/portuaria)
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  {(esMaritimo || esPuerto) && puertos.length > 0 && (
+    <section class="ver-detail-ports">
+      <div class="container">
+        <div class="ver-detail-section-header">
+          <span class="ver-detail-section-label">Cobertura Portuaria</span>
+          <h2>Puertos Atendidos</h2>
+        </div>
+
+        <div class="ver-detail-ports__grid">
+          {puertos.map(puerto => (
+            <div class="ver-detail-port-card">
+              <div class="ver-detail-port-card__header">
+                <span class="ver-detail-port-card__type">{puerto.tipo}</span>
+                {puerto.coordinacionSEMAR && <span class="ver-detail-port-card__semar">SEMAR</span>}
+              </div>
+              <h3>{puerto.nombre}</h3>
+              <p class="ver-detail-port-card__traffic">{puerto.traficoAnual}</p>
+              <div class="ver-detail-port-card__risks">
+                <span>Riesgos:</span>
+                <ul>
+                  {puerto.riesgosMaritimos.slice(0, 3).map(r => <li>{r}</li>)}
+                </ul>
+              </div>
+              <div class="ver-detail-port-card__services">
+                <span>Servicios disponibles:</span>
+                <div class="ver-detail-port-card__services-tags">
+                  {puerto.serviciosEmergencia.slice(0, 3).map(s => <span>{s}</span>)}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       HURRICANE PROTOCOLS (si es estacion costera)
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  {esHuracanes && (
+    <section class="ver-detail-hurricane">
+      <div class="container">
+        <div class="ver-detail-section-header">
+          <span class="ver-detail-section-label">Temporada Jun-Nov</span>
+          <h2>Protocolos Huracanes</h2>
+        </div>
+
+        <div class="ver-detail-hurricane__info">
+          <div class="ver-detail-hurricane__stat">
+            <span class="ver-detail-hurricane__stat-value">745 km</span>
+            <span class="ver-detail-hurricane__stat-label">Costa Expuesta</span>
+          </div>
+          <div class="ver-detail-hurricane__stat">
+            <span class="ver-detail-hurricane__stat-value">{SISTEMA_HURACANES_VERACRUZ.recursosTotales.embarcaciones}</span>
+            <span class="ver-detail-hurricane__stat-label">Embarcaciones Rescate</span>
+          </div>
+          <div class="ver-detail-hurricane__stat">
+            <span class="ver-detail-hurricane__stat-value">{SISTEMA_HURACANES_VERACRUZ.recursosTotales.refugios}</span>
+            <span class="ver-detail-hurricane__stat-label">Refugios Disponibles</span>
+          </div>
+          <div class="ver-detail-hurricane__stat">
+            <span class="ver-detail-hurricane__stat-value">{SISTEMA_HURACANES_VERACRUZ.recursosTotales.capacidadRefugios.toLocaleString()}</span>
+            <span class="ver-detail-hurricane__stat-label">Capacidad Refugios</span>
+          </div>
+        </div>
+
+        <div class="ver-detail-hurricane__levels">
+          <h3>Niveles de Alerta</h3>
+          <div class="ver-detail-hurricane__levels-grid">
+            <div class="ver-detail-hurricane__level ver-detail-hurricane__level--verde">
+              <span class="ver-detail-hurricane__level-color">VERDE</span>
+              <span class="ver-detail-hurricane__level-name">Vigilancia</span>
+            </div>
+            <div class="ver-detail-hurricane__level ver-detail-hurricane__level--amarillo">
+              <span class="ver-detail-hurricane__level-color">AMARILLO</span>
+              <span class="ver-detail-hurricane__level-name">Alerta 72h</span>
+            </div>
+            <div class="ver-detail-hurricane__level ver-detail-hurricane__level--naranja">
+              <span class="ver-detail-hurricane__level-color">NARANJA</span>
+              <span class="ver-detail-hurricane__level-name">Emergencia 48h</span>
+            </div>
+            <div class="ver-detail-hurricane__level ver-detail-hurricane__level--rojo">
+              <span class="ver-detail-hurricane__level-color">ROJO</span>
+              <span class="ver-detail-hurricane__level-name">Impacto</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       COVERAGE AREA
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-detail-coverage">
+    <div class="container">
+      <div class="ver-detail-coverage__grid">
+        <div class="ver-detail-coverage__info">
+          <div class="ver-detail-section-header ver-detail-section-header--left">
+            <span class="ver-detail-section-label">Cobertura</span>
+            <h2>Area de Servicio</h2>
+          </div>
+
+          <div class="ver-detail-coverage__zone" style={`border-color: ${zonaInfo?.color || '#0ea5e9'}`}>
+            <h3>{zonaInfo?.nombre || estacion.zona}</h3>
+            <p class="ver-detail-coverage__zone-short">{zonaInfo?.nombreCorto}</p>
+            <p>{zonaInfo?.descripcion}</p>
+            <div class="ver-detail-coverage__zone-meta">
+              <span>Poblacion: {zonaInfo?.poblacion?.toLocaleString()}</span>
+              <span class={`ver-detail-coverage__risk ver-detail-coverage__risk--${zonaInfo?.nivelRiesgo?.toLowerCase().replace(/\s+/g, '-')}`}>
+                Riesgo: {zonaInfo?.nivelRiesgo}
+              </span>
+            </div>
+          </div>
+
+          <div class="ver-detail-coverage__municipalities">
+            <h4>Zonas Cubiertas</h4>
+            <ul>
+              {estacion.municipiosCubiertos?.map(m => <li>{m}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <div class="ver-detail-coverage__map">
+          <iframe
+            src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d${estacion.coordenadas.lng}!3d${estacion.coordenadas.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1ses!2smx!4v1`}
+            width="100%"
+            height="350"
+            style="border:0; border-radius: 16px;"
+            allowfullscreen=""
+            loading="lazy"
+            title={`Mapa - ${estacion.nombre}`}
+          ></iframe>
+          <div class="ver-detail-map__coords">
+            <span>GPS:</span>
+            <code>{estacion.coordenadas.lat.toFixed(4)}, {estacion.coordenadas.lng.toFixed(4)}</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       CARACTERISTICAS ESPECIALES
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  {estacion.caracteristicasEspeciales && estacion.caracteristicasEspeciales.length > 0 && (
+    <section class="ver-detail-features">
+      <div class="container">
+        <div class="ver-detail-section-header">
+          <span class="ver-detail-section-label">Distintivos</span>
+          <h2>Caracteristicas Especiales</h2>
+        </div>
+
+        <div class="ver-detail-features__grid">
+          {estacion.caracteristicasEspeciales.map(c => (
+            <div class="ver-detail-feature">
+              <span class="ver-detail-feature__icon">
+                {c.toLowerCase().includes("hazmat") && "☢️"}
+                {c.toLowerCase().includes("pemex") && "🛢️"}
+                {c.toLowerCase().includes("refinería") && "🏭"}
+                {c.toLowerCase().includes("petroquímic") && "🏭"}
+                {c.toLowerCase().includes("puerto") && "🚢"}
+                {c.toLowerCase().includes("semar") && "⚓"}
+                {c.toLowerCase().includes("marítimo") && "🌊"}
+                {c.toLowerCase().includes("tajín") && "🏛️"}
+                {c.toLowerCase().includes("unesco") && "🏛️"}
+                {c.toLowerCase().includes("inundab") && "💧"}
+                {c.toLowerCase().includes("huracán") && "🌀"}
+                {c.toLowerCase().includes("central") && "🏛️"}
+                {c.toLowerCase().includes("bilingüe") && "🌐"}
+                {c.toLowerCase().includes("carnaval") && "🎭"}
+                {!c.toLowerCase().includes("hazmat") &&
+                 !c.toLowerCase().includes("pemex") &&
+                 !c.toLowerCase().includes("refinería") &&
+                 !c.toLowerCase().includes("petroquímic") &&
+                 !c.toLowerCase().includes("puerto") &&
+                 !c.toLowerCase().includes("semar") &&
+                 !c.toLowerCase().includes("marítimo") &&
+                 !c.toLowerCase().includes("tajín") &&
+                 !c.toLowerCase().includes("unesco") &&
+                 !c.toLowerCase().includes("inundab") &&
+                 !c.toLowerCase().includes("huracán") &&
+                 !c.toLowerCase().includes("central") &&
+                 !c.toLowerCase().includes("bilingüe") &&
+                 !c.toLowerCase().includes("carnaval") && "⭐"}
+              </span>
+              <span class="ver-detail-feature__text">{c}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       FAQ SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  {faqRelevantes.length > 0 && (
+    <section class="ver-detail-faq">
+      <div class="container">
+        <div class="ver-detail-section-header">
+          <span class="ver-detail-section-label">FAQ</span>
+          <h2>Preguntas Frecuentes</h2>
+        </div>
+
+        <div class="ver-detail-faq__grid">
+          {faqRelevantes.map((faq, index) => (
+            <details class="ver-detail-faq__item" open={index === 0}>
+              <summary>
+                <span class="ver-detail-faq__category">{faq.categoria}</span>
+                <span class="ver-detail-faq__question">{faq.pregunta}</span>
+              </summary>
+              <div class="ver-detail-faq__answer">
+                <p>{faq.respuesta}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       RELATED STATIONS
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-detail-related">
+    <div class="container">
+      <div class="ver-detail-section-header">
+        <span class="ver-detail-section-label">{estacion.zona}</span>
+        <h2>Otras Estaciones</h2>
+      </div>
+
+      {estacionesZona.length > 0 ? (
+        <div class="ver-detail-related__grid">
+          {estacionesZona.slice(0, 3).map(e => (
+            <a href={`/directorio/veracruz/${e.slug}`} class="ver-detail-related__card">
+              <div class="ver-detail-related__badges">
+                {e.nombre.toLowerCase().includes("hazmat") && <span class="ver-detail-related__badge ver-detail-related__badge--hazmat">HAZMAT</span>}
+                {e.servicios?.some(s => s.toLowerCase().includes("marítimo")) && <span class="ver-detail-related__badge ver-detail-related__badge--maritime">Maritimo</span>}
+                {e.idiomas?.includes("Inglés") && <span class="ver-detail-related__badge ver-detail-related__badge--en">EN</span>}
+              </div>
+              <h3>{e.nombre.replace("Estacion de Bomberos ", "").replace("Estacion Central de Bomberos ", "").replace("Estacion HAZMAT ", "")}</h3>
+              <p>{e.direccion}</p>
+              <div class="ver-detail-related__meta">
+                <span class="ver-detail-related__phone">{e.telefono}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="ver-detail-related__empty">Unica estacion en {estacion.zona}</p>
+      )}
+
+      <div class="ver-detail-related__all">
+        <a href="/directorio/veracruz" class="ver-detail-btn ver-detail-btn--outline">
+          Ver todas las estaciones de Veracruz
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       CTA SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-detail-cta">
+    <div class="container">
+      <div class="ver-detail-cta__content">
+        <h2>
+          {esHAZMAT ? "Necesitas Equipo HAZMAT Petrolero?" : esMaritimo ? "Equipo de Rescate Maritimo?" : esHuracanes ? "Preparacion para Temporada de Huracanes?" : "Necesitas Equipamiento Profesional?"}
+        </h2>
+        <p>
+          {esHAZMAT
+            ? "Trajes encapsulados Nivel A, detectores multigas, sistemas AFFF para refineria y petroquimica"
+            : esMaritimo
+            ? "Lanchas de rescate, equipo de buceo, trajes de inmersion para operaciones portuarias"
+            : esHuracanes
+            ? "Embarcaciones rescate aguas rapidas, equipos de evacuacion, generadores y bombas"
+            : "Equipo profesional para bomberos y brigadas de emergencia"}
+        </p>
+        <a href="/cotizar" class="ver-detail-cta__btn">
+          Solicitar Cotizacion
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+     ║ VERACRUZ - PAGINA DETALLE ENTERPRISE - OCEAN BLUE THEME                                                  ║
+     ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝ */
+
+  :root {
+    --ver-primary: #0ea5e9;
+    --ver-primary-dark: #0284c7;
+    --ver-primary-light: #7dd3fc;
+    --ver-hazmat: #f59e0b;
+    --ver-pemex: #dc2626;
+    --ver-maritime: #0369a1;
+    --ver-hurricane: #7c3aed;
+    --ver-port: #0891b2;
+  }
+
+  /* ═══ Hero ═══ */
+  .ver-detail-hero {
+    position: relative;
+    padding: var(--space-14) 0 var(--space-16);
+    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 40%, var(--zone-color, #0ea5e9) 100%);
+    overflow: hidden;
+  }
+
+  .ver-detail-hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .ver-detail-hero__gradient {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 20% 30%, rgba(14, 165, 233, 0.3), transparent);
+  }
+  .ver-detail-hero__pattern {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .ver-detail-breadcrumb { margin-bottom: var(--space-6); position: relative; }
+  .ver-detail-breadcrumb ol { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; padding: 0; margin: 0; }
+  .ver-detail-breadcrumb li { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
+  .ver-detail-breadcrumb li:not(:last-child)::after { content: "/"; color: rgba(255,255,255,0.3); }
+  .ver-detail-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .ver-detail-breadcrumb a:hover { color: white; }
+  .ver-detail-breadcrumb [aria-current] { color: var(--ver-primary-light); font-weight: 600; }
+
+  .ver-detail-alerts { margin-bottom: var(--space-6); position: relative; }
+  .ver-detail-alert { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); border-radius: var(--radius-lg); }
+  .ver-detail-alert--verde { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); }
+  .ver-detail-alert--amarillo { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); }
+  .ver-detail-alert--naranja { background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.3); }
+  .ver-detail-alert--rojo { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); }
+  .ver-detail-alert__icon { font-size: var(--text-xl); }
+  .ver-detail-alert__text { font-size: var(--text-sm); color: white; }
+
+  .ver-detail-hero__grid { position: relative; display: grid; grid-template-columns: 1fr 400px; gap: var(--space-10); align-items: start; }
+
+  .ver-detail-badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .ver-detail-badge { display: inline-flex; align-items: center; padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; }
+  .ver-detail-badge--zone { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.25); }
+  .ver-detail-badge--central { background: rgba(125,211,252,0.2); color: #bae6fd; border: 1px solid rgba(125,211,252,0.4); }
+  .ver-detail-badge--hazmat { background: rgba(245,158,11,0.2); color: #fcd34d; border: 1px solid rgba(245,158,11,0.4); }
+  .ver-detail-badge--maritime { background: rgba(3,105,161,0.3); color: #7dd3fc; border: 1px solid rgba(3,105,161,0.5); }
+  .ver-detail-badge--pemex { background: rgba(220,38,38,0.2); color: #fca5a5; border: 1px solid rgba(220,38,38,0.4); }
+  .ver-detail-badge--semar { background: rgba(30,64,175,0.3); color: #93c5fd; border: 1px solid rgba(30,64,175,0.5); }
+  .ver-detail-badge--port { background: rgba(8,145,178,0.2); color: #67e8f9; border: 1px solid rgba(8,145,178,0.4); }
+  .ver-detail-badge--hurricane { background: rgba(124,58,237,0.2); color: #c4b5fd; border: 1px solid rgba(124,58,237,0.4); }
+  .ver-detail-badge--bilingual { background: rgba(34,211,238,0.2); color: #a5f3fc; border: 1px solid rgba(34,211,238,0.4); }
+
+  .ver-detail-hero__title { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; color: white; line-height: 1.2; margin: 0 0 var(--space-4); }
+  .ver-detail-hero__desc { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-6); }
+
+  .ver-detail-hero__address { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-4); background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); margin-bottom: var(--space-6); }
+  .ver-detail-hero__address svg { flex-shrink: 0; color: var(--ver-primary-light); margin-top: 2px; }
+  .ver-detail-hero__address span { font-size: var(--text-sm); color: white; line-height: 1.5; }
+
+  .ver-detail-hero__meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); padding: var(--space-5); background: rgba(255,255,255,0.06); border-radius: var(--radius-xl); }
+  .ver-detail-hero__meta-item { display: flex; flex-direction: column; gap: var(--space-1); }
+  .ver-detail-hero__meta-label { font-size: var(--text-xs); color: rgba(255,255,255,0.5); }
+  .ver-detail-hero__meta-value { font-size: var(--text-sm); font-weight: 600; color: white; }
+
+  /* Emergency Card */
+  .ver-detail-emergency { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-2xl); padding: var(--space-6); }
+  .ver-detail-emergency__main { text-align: center; padding-bottom: var(--space-5); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-5); }
+  .ver-detail-emergency__label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-2); }
+  .ver-detail-emergency__911 { display: block; font-size: 4rem; font-weight: 900; color: var(--color-fire-400); text-decoration: none; line-height: 1; margin-bottom: var(--space-1); text-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
+  .ver-detail-emergency__note { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
+
+  .ver-detail-emergency__local { text-align: center; padding-bottom: var(--space-4); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-4); }
+  .ver-detail-emergency__local-label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.6); margin-bottom: var(--space-2); }
+  .ver-detail-emergency__phone { display: block; font-size: var(--text-2xl); font-weight: 700; color: var(--ver-primary-light); text-decoration: none; }
+
+  .ver-detail-emergency__hazmat { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3); background: rgba(245,158,11,0.15); border-radius: var(--radius-lg); margin-bottom: var(--space-3); }
+  .ver-detail-emergency__hazmat-badge { padding: var(--space-1) var(--space-2); background: var(--ver-hazmat); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 700; color: white; }
+  .ver-detail-emergency__hazmat span:last-child { font-size: var(--text-xs); color: rgba(255,255,255,0.8); }
+
+  .ver-detail-emergency__maritime { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3); background: rgba(3,105,161,0.2); border-radius: var(--radius-lg); margin-bottom: var(--space-3); }
+  .ver-detail-emergency__maritime-badge { padding: var(--space-1) var(--space-2); background: var(--ver-maritime); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 700; color: white; }
+  .ver-detail-emergency__maritime span:last-child { font-size: var(--text-xs); color: rgba(255,255,255,0.8); }
+
+  .ver-detail-emergency__bilingual { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3); background: rgba(34,211,238,0.15); border-radius: var(--radius-lg); margin-bottom: var(--space-4); }
+  .ver-detail-emergency__bilingual-flag { padding: var(--space-1) var(--space-2); background: var(--ver-primary); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 700; color: white; }
+  .ver-detail-emergency__bilingual span:last-child { font-size: var(--text-xs); color: rgba(255,255,255,0.8); }
+
+  .ver-detail-emergency__actions { display: flex; flex-direction: column; gap: var(--space-2); }
+  .ver-detail-emergency__action { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3); background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); text-decoration: none; color: white; font-size: var(--text-sm); transition: all 0.2s; }
+  .ver-detail-emergency__action:hover { background: rgba(255,255,255,0.15); }
+  .ver-detail-emergency__action--directions { background: var(--ver-primary); }
+  .ver-detail-emergency__action--directions:hover { background: var(--ver-primary-dark); }
+
+  /* ═══ Section Styles ═══ */
+  .ver-detail-section-header { margin-bottom: var(--space-8); }
+  .ver-detail-section-header--left { text-align: left; }
+  .ver-detail-section-label { display: inline-block; padding: var(--space-1) var(--space-3); background: rgba(14,165,233,0.1); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; color: var(--ver-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-3); }
+  .ver-detail-section-header h2 { font-size: var(--text-2xl); font-weight: 800; color: var(--color-smoke-900); margin: 0; }
+
+  /* ═══ Services ═══ */
+  .ver-detail-services { padding: var(--space-16) 0; background: white; }
+  .ver-detail-services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  .ver-detail-service { position: relative; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-5); background: var(--color-smoke-50); border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
+  .ver-detail-service:hover { background: white; border-color: var(--ver-primary-light); box-shadow: 0 4px 12px rgba(14,165,233,0.1); }
+  .ver-detail-service--hazmat { border-left: 3px solid var(--ver-hazmat); }
+  .ver-detail-service--maritime { border-left: 3px solid var(--ver-maritime); }
+  .ver-detail-service--port { border-left: 3px solid var(--ver-port); }
+  .ver-detail-service--medical { border-left: 3px solid #10b981; }
+  .ver-detail-service--forest { border-left: 3px solid #16a34a; }
+  .ver-detail-service--flood { border-left: 3px solid #3b82f6; }
+  .ver-detail-service__icon { font-size: var(--text-2xl); }
+  .ver-detail-service__name { font-size: var(--text-sm); font-weight: 600; color: var(--color-smoke-800); line-height: 1.4; flex: 1; }
+  .ver-detail-service__number { position: absolute; top: var(--space-2); right: var(--space-3); font-size: var(--text-xs); font-weight: 700; color: var(--color-smoke-300); }
+
+  /* ═══ Equipment ═══ */
+  .ver-detail-equipment { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+  .ver-detail-equipment__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  .ver-detail-equipment__item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); background: white; border-radius: var(--radius-lg); border: 1px solid var(--color-smoke-200); }
+  .ver-detail-equipment__item--vehicle { border-left: 3px solid var(--ver-primary); }
+  .ver-detail-equipment__item--hazmat { border-left: 3px solid var(--ver-hazmat); }
+  .ver-detail-equipment__item--maritime { border-left: 3px solid var(--ver-maritime); }
+  .ver-detail-equipment__item--port { border-left: 3px solid var(--ver-port); }
+  .ver-detail-equipment__icon { font-size: var(--text-xl); }
+  .ver-detail-equipment__name { font-size: var(--text-sm); font-weight: 500; color: var(--color-smoke-700); line-height: 1.4; }
+
+  /* ═══ Protocols ═══ */
+  .ver-detail-protocols { padding: var(--space-16) 0; background: var(--color-smoke-900); }
+  .ver-detail-protocols .ver-detail-section-label { background: rgba(14,165,233,0.2); color: var(--ver-primary-light); }
+  .ver-detail-protocols .ver-detail-section-header h2 { color: white; }
+
+  .ver-detail-protocols__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  .ver-detail-protocol-card { padding: var(--space-5); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl); }
+  .ver-detail-protocol-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
+  .ver-detail-protocol-card__code { font-family: monospace; font-size: var(--text-sm); font-weight: 700; padding: var(--space-1) var(--space-2); background: var(--ver-primary); color: white; border-radius: var(--radius-sm); }
+  .ver-detail-protocol-card__time { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
+  .ver-detail-protocol-card h3 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-2); }
+  .ver-detail-protocol-card p { font-size: var(--text-sm); color: rgba(255,255,255,0.7); margin: 0 0 var(--space-4); line-height: 1.5; }
+  .ver-detail-protocol-card__resources { font-size: var(--text-xs); color: rgba(255,255,255,0.5); }
+  .ver-detail-protocol-card__resources span { display: block; margin-bottom: var(--space-1); }
+  .ver-detail-protocol-card__resources ul { list-style: none; padding: 0; margin: 0; }
+  .ver-detail-protocol-card__resources li { color: rgba(255,255,255,0.7); padding-left: var(--space-3); position: relative; margin-bottom: var(--space-1); }
+  .ver-detail-protocol-card__resources li::before { content: "•"; position: absolute; left: 0; color: var(--ver-primary-light); }
+
+  /* ═══ PEMEX ═══ */
+  .ver-detail-pemex { padding: var(--space-16) 0; background: linear-gradient(180deg, #fef2f2, white); }
+  .ver-detail-pemex__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+  .ver-detail-pemex-card { padding: var(--space-6); background: white; border-radius: var(--radius-2xl); border: 1px solid var(--color-smoke-200); border-left: 4px solid var(--ver-pemex); }
+  .ver-detail-pemex-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
+  .ver-detail-pemex-card__risk { padding: 2px 8px; border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 700; }
+  .ver-detail-pemex-card__risk--a { background: rgba(220,38,38,0.1); color: #dc2626; }
+  .ver-detail-pemex-card__risk--b { background: rgba(245,158,11,0.1); color: #f59e0b; }
+  .ver-detail-pemex-card__risk--c { background: rgba(34,197,94,0.1); color: #22c55e; }
+  .ver-detail-pemex-card__type { font-size: var(--text-xs); color: var(--color-smoke-500); text-transform: uppercase; }
+  .ver-detail-pemex-card h3 { font-size: var(--text-lg); font-weight: 800; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
+  .ver-detail-pemex-card__location { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-4); }
+  .ver-detail-pemex-card__stats { display: flex; gap: var(--space-4); font-size: var(--text-sm); color: var(--color-smoke-600); margin-bottom: var(--space-4); }
+  .ver-detail-pemex-card__hazmat { margin-bottom: var(--space-3); }
+  .ver-detail-pemex-card__hazmat span:first-child { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--ver-hazmat); margin-bottom: var(--space-2); }
+  .ver-detail-pemex-card__hazmat-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+  .ver-detail-pemex-card__hazmat-tags span { font-size: var(--text-xs); padding: 2px 8px; background: rgba(245,158,11,0.1); border-radius: var(--radius-full); color: var(--color-smoke-600); }
+  .ver-detail-pemex-card__response { font-size: var(--text-sm); color: var(--ver-primary); font-weight: 600; }
+
+  /* ═══ Ports ═══ */
+  .ver-detail-ports { padding: var(--space-16) 0; background: linear-gradient(180deg, #f0f9ff, white); }
+  .ver-detail-ports__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
+  .ver-detail-port-card { padding: var(--space-6); background: white; border-radius: var(--radius-2xl); border: 1px solid var(--color-smoke-200); border-left: 4px solid var(--ver-maritime); }
+  .ver-detail-port-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
+  .ver-detail-port-card__type { font-size: var(--text-xs); color: var(--color-smoke-500); text-transform: uppercase; padding: 2px 8px; background: var(--color-smoke-100); border-radius: var(--radius-sm); }
+  .ver-detail-port-card__semar { font-size: var(--text-xs); font-weight: 700; color: white; padding: 2px 8px; background: #1e3a5f; border-radius: var(--radius-sm); }
+  .ver-detail-port-card h3 { font-size: var(--text-lg); font-weight: 800; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
+  .ver-detail-port-card__traffic { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-4); }
+  .ver-detail-port-card__risks { margin-bottom: var(--space-4); }
+  .ver-detail-port-card__risks span { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--ver-pemex); margin-bottom: var(--space-2); }
+  .ver-detail-port-card__risks ul { list-style: none; padding: 0; margin: 0; }
+  .ver-detail-port-card__risks li { font-size: var(--text-sm); color: var(--color-smoke-600); padding-left: var(--space-3); position: relative; margin-bottom: var(--space-1); }
+  .ver-detail-port-card__risks li::before { content: "•"; position: absolute; left: 0; color: var(--ver-pemex); }
+  .ver-detail-port-card__services span { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--ver-maritime); margin-bottom: var(--space-2); }
+  .ver-detail-port-card__services-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+  .ver-detail-port-card__services-tags span { font-size: var(--text-xs); padding: 2px 8px; background: rgba(3,105,161,0.1); border-radius: var(--radius-full); color: var(--color-smoke-600); }
+
+  /* ═══ Hurricane ═══ */
+  .ver-detail-hurricane { padding: var(--space-16) 0; background: linear-gradient(180deg, #faf5ff, white); }
+  .ver-detail-hurricane .ver-detail-section-label { background: rgba(124,58,237,0.1); color: var(--ver-hurricane); }
+  .ver-detail-hurricane__info { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-8); }
+  .ver-detail-hurricane__stat { text-align: center; padding: var(--space-6); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
+  .ver-detail-hurricane__stat-value { display: block; font-size: var(--text-2xl); font-weight: 800; color: var(--ver-hurricane); margin-bottom: var(--space-1); }
+  .ver-detail-hurricane__stat-label { font-size: var(--text-sm); color: var(--color-smoke-600); }
+  .ver-detail-hurricane__levels h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-800); margin: 0 0 var(--space-4); text-align: center; }
+  .ver-detail-hurricane__levels-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  .ver-detail-hurricane__level { text-align: center; padding: var(--space-4); border-radius: var(--radius-lg); }
+  .ver-detail-hurricane__level--verde { background: rgba(34,197,94,0.1); border: 2px solid #22c55e; }
+  .ver-detail-hurricane__level--amarillo { background: rgba(245,158,11,0.1); border: 2px solid #f59e0b; }
+  .ver-detail-hurricane__level--naranja { background: rgba(249,115,22,0.1); border: 2px solid #f97316; }
+  .ver-detail-hurricane__level--rojo { background: rgba(239,68,68,0.1); border: 2px solid #ef4444; }
+  .ver-detail-hurricane__level-color { display: block; font-size: var(--text-sm); font-weight: 800; margin-bottom: var(--space-1); }
+  .ver-detail-hurricane__level--verde .ver-detail-hurricane__level-color { color: #22c55e; }
+  .ver-detail-hurricane__level--amarillo .ver-detail-hurricane__level-color { color: #f59e0b; }
+  .ver-detail-hurricane__level--naranja .ver-detail-hurricane__level-color { color: #f97316; }
+  .ver-detail-hurricane__level--rojo .ver-detail-hurricane__level-color { color: #ef4444; }
+  .ver-detail-hurricane__level-name { font-size: var(--text-xs); color: var(--color-smoke-600); }
+
+  /* ═══ Coverage ═══ */
+  .ver-detail-coverage { padding: var(--space-16) 0; background: white; }
+  .ver-detail-coverage__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); }
+  .ver-detail-coverage__zone { padding: var(--space-5); background: var(--color-smoke-50); border-radius: var(--radius-xl); border-left: 4px solid; margin-bottom: var(--space-6); }
+  .ver-detail-coverage__zone h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-1); }
+  .ver-detail-coverage__zone-short { font-size: var(--text-xs); color: var(--color-smoke-500); margin: 0 0 var(--space-2); }
+  .ver-detail-coverage__zone p:last-of-type { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); line-height: 1.6; }
+  .ver-detail-coverage__zone-meta { display: flex; gap: var(--space-4); font-size: var(--text-xs); color: var(--color-smoke-500); }
+  .ver-detail-coverage__risk { padding: 2px 8px; border-radius: var(--radius-full); font-weight: 600; }
+  .ver-detail-coverage__risk--medio { background: rgba(245,158,11,0.1); color: #f59e0b; }
+  .ver-detail-coverage__risk--alto { background: rgba(239,68,68,0.1); color: #dc2626; }
+  .ver-detail-coverage__risk--muy-alto { background: rgba(220,38,38,0.2); color: #b91c1c; }
+  .ver-detail-coverage__risk--medio-alto { background: rgba(245,158,11,0.15); color: #d97706; }
+
+  .ver-detail-coverage__municipalities h4 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-800); margin: 0 0 var(--space-3); }
+  .ver-detail-coverage__municipalities ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+  .ver-detail-coverage__municipalities li { font-size: var(--text-sm); color: var(--color-smoke-600); padding-left: var(--space-4); position: relative; }
+  .ver-detail-coverage__municipalities li::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; background: var(--ver-primary); border-radius: 50%; }
+  .ver-detail-map__coords { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: var(--text-sm); color: var(--color-smoke-500); }
+  .ver-detail-map__coords code { padding: var(--space-1) var(--space-2); background: var(--color-smoke-100); border-radius: var(--radius-sm); font-family: monospace; font-size: var(--text-xs); }
+
+  /* ═══ Features ═══ */
+  .ver-detail-features { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+  .ver-detail-features__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-4); }
+  .ver-detail-feature { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); background: white; border-radius: var(--radius-full); border: 1px solid var(--color-smoke-200); }
+  .ver-detail-feature__icon { font-size: var(--text-xl); }
+  .ver-detail-feature__text { font-size: var(--text-sm); font-weight: 600; color: var(--color-smoke-700); }
+
+  /* ═══ FAQ ═══ */
+  .ver-detail-faq { padding: var(--space-16) 0; background: white; }
+  .ver-detail-faq__grid { display: grid; gap: var(--space-4); max-width: 800px; margin: 0 auto; }
+  .ver-detail-faq__item { padding: var(--space-5); background: var(--color-smoke-50); border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
+  .ver-detail-faq__item[open] { background: white; border-color: var(--ver-primary-light); }
+  .ver-detail-faq__item summary { cursor: pointer; list-style: none; }
+  .ver-detail-faq__item summary::-webkit-details-marker { display: none; }
+  .ver-detail-faq__category { display: inline-block; font-size: var(--text-xs); font-weight: 600; padding: 2px 8px; background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-500); text-transform: uppercase; margin-bottom: var(--space-2); }
+  .ver-detail-faq__question { display: block; font-size: var(--text-base); font-weight: 600; color: var(--color-smoke-900); }
+  .ver-detail-faq__answer { padding-top: var(--space-4); margin-top: var(--space-4); border-top: 1px solid var(--color-smoke-200); }
+  .ver-detail-faq__answer p { font-size: var(--text-sm); color: var(--color-smoke-700); line-height: 1.7; margin: 0; }
+
+  /* ═══ Related ═══ */
+  .ver-detail-related { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+  .ver-detail-related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-bottom: var(--space-8); }
+  .ver-detail-related__card { display: block; padding: var(--space-6); background: white; border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; position: relative; }
+  .ver-detail-related__card:hover { border-color: var(--ver-primary); box-shadow: 0 8px 24px rgba(14,165,233,0.1); transform: translateY(-2px); }
+  .ver-detail-related__badges { position: absolute; top: var(--space-3); right: var(--space-3); display: flex; gap: var(--space-1); }
+  .ver-detail-related__badge { display: inline-flex; align-items: center; justify-content: center; padding: 2px 8px; border-radius: var(--radius-sm); font-size: 10px; font-weight: 700; }
+  .ver-detail-related__badge--hazmat { background: var(--ver-hazmat); color: white; }
+  .ver-detail-related__badge--maritime { background: var(--ver-maritime); color: white; }
+  .ver-detail-related__badge--en { background: var(--ver-primary); color: white; }
+  .ver-detail-related__card h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); padding-right: var(--space-12); }
+  .ver-detail-related__card p { font-size: var(--text-sm); color: var(--color-smoke-500); margin: 0 0 var(--space-4); line-height: 1.5; }
+  .ver-detail-related__phone { font-size: var(--text-sm); font-weight: 600; color: var(--ver-primary); }
+  .ver-detail-related__empty { text-align: center; padding: var(--space-8); color: var(--color-smoke-500); }
+  .ver-detail-related__all { text-align: center; }
+
+  .ver-detail-btn { display: inline-flex; padding: var(--space-3) var(--space-6); border-radius: var(--radius-lg); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: all 0.2s; }
+  .ver-detail-btn--outline { background: white; border: 2px solid var(--ver-primary); color: var(--ver-primary); }
+  .ver-detail-btn--outline:hover { background: var(--ver-primary); color: white; }
+
+  /* ═══ CTA ═══ */
+  .ver-detail-cta { padding: var(--space-16) 0; background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, var(--ver-primary) 100%); }
+  .ver-detail-cta__content { text-align: center; max-width: 600px; margin: 0 auto; }
+  .ver-detail-cta__content h2 { font-size: var(--text-2xl); font-weight: 800; color: white; margin: 0 0 var(--space-4); }
+  .ver-detail-cta__content p { font-size: var(--text-base); color: rgba(255,255,255,0.8); margin: 0 0 var(--space-8); }
+  .ver-detail-cta__btn { display: inline-flex; padding: var(--space-4) var(--space-8); background: white; border-radius: var(--radius-lg); font-size: var(--text-base); font-weight: 700; color: var(--ver-primary-dark); text-decoration: none; transition: all 0.2s; }
+  .ver-detail-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1200px) {
+    .ver-detail-services__grid { grid-template-columns: repeat(2, 1fr); }
+    .ver-detail-equipment__grid { grid-template-columns: repeat(3, 1fr); }
+    .ver-detail-protocols__grid { grid-template-columns: repeat(2, 1fr); }
+    .ver-detail-hurricane__info { grid-template-columns: repeat(2, 1fr); }
+    .ver-detail-hurricane__levels-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 1024px) {
+    .ver-detail-hero__grid { grid-template-columns: 1fr; }
+    .ver-detail-emergency { max-width: 400px; }
+    .ver-detail-coverage__grid { grid-template-columns: 1fr; }
+    .ver-detail-related__grid { grid-template-columns: repeat(2, 1fr); }
+    .ver-detail-pemex__grid { grid-template-columns: 1fr; }
+    .ver-detail-ports__grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .ver-detail-hero { padding: var(--space-10) 0 var(--space-12); }
+    .ver-detail-services__grid, .ver-detail-equipment__grid, .ver-detail-protocols__grid, .ver-detail-related__grid { grid-template-columns: 1fr; }
+    .ver-detail-hero__meta { grid-template-columns: 1fr; }
+    .ver-detail-hurricane__info { grid-template-columns: 1fr; }
+    .ver-detail-hurricane__levels-grid { grid-template-columns: 1fr; }
+  }
+</style>

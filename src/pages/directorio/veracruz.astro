@@ -1,0 +1,1381 @@
+---
+/**
+ * ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+ * ║                                                                                                          ║
+ * ║   DIRECTORIO DE BOMBEROS - VERACRUZ                                                                      ║
+ * ║   ══════════════════════════════════════════════════════════════════════════════════════════════════════║
+ * ║                                                                                                          ║
+ * ║   "La Puerta de las Americas" - Puerto, Petroleo y Cultura                                               ║
+ * ║                                                                                                          ║
+ * ║   ENTERPRISE-LEVEL FEATURES:                                                                            ║
+ * ║   • Puerto de Veracruz - Principal puerto comercial del Golfo                                           ║
+ * ║   • PEMEX Refineria Lazaro Cardenas y complejos petroquimicos                                           ║
+ * ║   • Sistema de Alertas Huracanes (temporada junio-noviembre)                                            ║
+ * ║   • Coordinacion maritima con SEMAR                                                                      ║
+ * ║   • El Tajin UNESCO World Heritage Site                                                                  ║
+ * ║   • Carnaval de Veracruz (1M+ visitantes)                                                               ║
+ * ║   • Schema.org multi-tipo enterprise maritimo/industrial                                                 ║
+ * ║   • SEO competitivo con keyword segmentation                                                             ║
+ * ║                                                                                                          ║
+ * ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+ */
+
+import PageLayout from "@layouts/PageLayout.astro";
+import {
+  estacionesVeracruz,
+  VERACRUZ_SEO,
+  ZONAS_VERACRUZ,
+  FAQ_VERACRUZ,
+  INDUSTRIA_PETROLERA_VERACRUZ,
+  TURISMO_VERACRUZ,
+  PROTOCOLOS_VERACRUZ,
+  SISTEMA_HURACANES_VERACRUZ,
+  PUERTOS_VERACRUZ,
+  INFRAESTRUCTURA_VERACRUZ,
+  getEstacionesPorZona,
+  getEstacionesHAZMAT,
+  getEstacionesMaritimas,
+  getEstacionesPetroleras,
+  getEstacionesBilingues,
+  generarInterlinking,
+  getAlertaHuracanActual,
+  getComplejosPetroquimicos,
+  getEstadisticasPuertos,
+  getAtraccionesTuristicas,
+  getPueblosMagicos
+} from "@data/estaciones-veracruz";
+
+// ─── Configuracion de Pagina ───────────────────────────────────────────────────
+const title = `${VERACRUZ_SEO.titulo} | Puerto, PEMEX, Huracanes | BOMBERO.MX`;
+const description = VERACRUZ_SEO.descripcion;
+
+// ─── Estadisticas ──────────────────────────────────────────────────────────────
+const totalEstaciones = estacionesVeracruz.length;
+const estacionesHAZMAT = getEstacionesHAZMAT();
+const estacionesMaritimas = getEstacionesMaritimas();
+const estacionesPetroleras = getEstacionesPetroleras();
+const estacionesBilingues = getEstacionesBilingues();
+
+// ─── Datos Industria Petrolera ─────────────────────────────────────────────────
+const complejosPetroquimicos = getComplejosPetroquimicos();
+
+// ─── Datos Puertos ─────────────────────────────────────────────────────────────
+const statsPuertos = getEstadisticasPuertos();
+
+// ─── Datos Turismo ─────────────────────────────────────────────────────────────
+const atraccionesTuristicas = getAtraccionesTuristicas();
+const pueblosMagicos = getPueblosMagicos();
+
+// ─── Interlinking ──────────────────────────────────────────────────────────────
+const { estados: estadosVecinos, productos: productosRelacionados } = generarInterlinking();
+
+// ─── Alerta Huracan ────────────────────────────────────────────────────────────
+const alertaHuracan = getAlertaHuracanActual();
+
+// ─── Personal Total ────────────────────────────────────────────────────────────
+const personalTotal = estacionesVeracruz.reduce((sum, e) => sum + (e.personal || 0), 0);
+
+// ─── Schema.org Enterprise Multi-tipo ──────────────────────────────────────────
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "GovernmentOrganization",
+      "@id": "https://bombero.mx/directorio/veracruz#organization",
+      "name": "H. Cuerpo de Bomberos de Veracruz",
+      "alternateName": ["Bomberos Veracruz", "Bomberos Puerto Veracruz", "Fire Department Veracruz"],
+      "description": "Servicio de bomberos del estado de Veracruz, Mexico. Cobertura especializada HAZMAT para industria petrolera PEMEX, rescate maritimo coordinado con SEMAR, protocolos huracanes.",
+      "areaServed": {
+        "@type": "State",
+        "name": "Veracruz",
+        "containedInPlace": { "@type": "Country", "name": "Mexico" }
+      },
+      "numberOfEmployees": personalTotal,
+      "knowsAbout": ["HAZMAT Petrolero", "Maritime Rescue", "Hurricane Response", "Port Emergency Response", "Petrochemical Fire Fighting"],
+      "availableLanguage": ["Spanish", "English"]
+    },
+    {
+      "@type": "ItemList",
+      "name": "Estaciones de Bomberos en Veracruz",
+      "description": `Directorio de ${totalEstaciones} estaciones de bomberos en Veracruz, Mexico`,
+      "numberOfItems": totalEstaciones,
+      "itemListElement": estacionesVeracruz.map((estacion, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "FireStation",
+          "name": estacion.nombre,
+          "address": estacion.direccion,
+          "telephone": estacion.telefono
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bombero.mx" },
+        { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bombero.mx/directorio" },
+        { "@type": "ListItem", "position": 3, "name": "Veracruz", "item": "https://bombero.mx/directorio/veracruz" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": FAQ_VERACRUZ.slice(0, 8).map(faq => ({
+        "@type": "Question",
+        "name": faq.pregunta,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.respuesta }
+      }))
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://bombero.mx/directorio/veracruz#industrial",
+      "name": "Cobertura Industrial Petrolera Veracruz",
+      "description": "Servicios HAZMAT especializados para PEMEX Refineria Lazaro Cardenas, complejos petroquimicos Coatzacoalcos y Minatitlan",
+      "areaServed": ["Zona Industrial Coatzacoalcos", "Minatitlan", "Poza Rica", "Tuxpan"]
+    },
+    {
+      "@type": "Harbor",
+      "@id": "https://bombero.mx/directorio/veracruz#puerto",
+      "name": "Puerto de Veracruz",
+      "description": "Principal puerto comercial del Golfo de Mexico. Coordinacion con SEMAR para emergencias maritimas.",
+      "containedInPlace": { "@type": "State", "name": "Veracruz" }
+    },
+    {
+      "@type": "TouristDestination",
+      "name": "Veracruz Turistico",
+      "description": "Destino turistico con El Tajin UNESCO, Carnaval de Veracruz y pueblos magicos.",
+      "touristType": ["Cultural Tourism", "Beach Tourism", "Archaeological Tourism", "Carnival"],
+      "includesAttraction": [
+        { "@type": "TouristAttraction", "name": "El Tajin UNESCO" },
+        { "@type": "TouristAttraction", "name": "Carnaval de Veracruz" },
+        { "@type": "TouristAttraction", "name": "Centro Historico Veracruz" },
+        { "@type": "TouristAttraction", "name": "Xico Pueblo Magico" }
+      ]
+    }
+  ]
+};
+---
+
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+  <meta name="keywords" content={[...VERACRUZ_SEO.keywords.transaccionales, ...VERACRUZ_SEO.keywords.informacionales, ...VERACRUZ_SEO.keywords.locales].join(", ")} slot="head" />
+  <meta name="geo.region" content="MX-VER" slot="head" />
+  <meta name="geo.placename" content="Veracruz, Mexico" slot="head" />
+  <meta name="geo.position" content="19.1738;-96.1342" slot="head" />
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       HERO SECTION ENTERPRISE - MARITIMO + PETROLERO
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-hero">
+    <div class="ver-hero__bg">
+      <div class="ver-hero__gradient"></div>
+      <div class="ver-hero__pattern"></div>
+      <div class="ver-hero__waves"></div>
+    </div>
+
+    <div class="container">
+      <div class="ver-hero__container">
+        <!-- Breadcrumb -->
+        <nav class="ver-breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/directorio">Directorio</a></li>
+            <li aria-current="page">Veracruz</li>
+          </ol>
+        </nav>
+
+        <!-- Alerta Huracan -->
+        {alertaHuracan && (
+          <div class={`ver-hurricane-alert ver-hurricane-alert--${alertaHuracan.nivel}`}>
+            <div class="ver-hurricane-alert__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                <path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <div class="ver-hurricane-alert__content">
+              <span class="ver-hurricane-alert__label">Alerta Meteorologica</span>
+              <span class="ver-hurricane-alert__message">{alertaHuracan.mensaje}</span>
+            </div>
+            <span class={`ver-hurricane-alert__semaforo ver-hurricane-alert__semaforo--${alertaHuracan.nivel}`}>
+              {alertaHuracan.nivel.toUpperCase()}
+            </span>
+          </div>
+        )}
+
+        <div class="ver-hero__grid">
+          <div class="ver-hero__content">
+            <!-- Badges Enterprise -->
+            <div class="ver-hero__badges">
+              <span class="ver-hero__badge ver-hero__badge--maritime">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 20h20l-2-8H4l-2 8z"/><path d="M12 4v4"/><path d="M8 8h8"/>
+                </svg>
+                Puerto Principal Golfo
+              </span>
+              <span class="ver-hero__badge ver-hero__badge--petroleum">
+                PEMEX HAZMAT
+              </span>
+              <span class="ver-hero__badge ver-hero__badge--hurricane">
+                Protocolos Huracanes
+              </span>
+            </div>
+
+            <h1 class="ver-hero__title">
+              <span class="ver-hero__title-pre">Estaciones de Bomberos en</span>
+              <span class="ver-hero__highlight">Veracruz</span>
+            </h1>
+
+            <p class="ver-hero__subtitle">La Puerta de las Americas - Puerto, Petroleo y Cultura</p>
+
+            <p class="ver-hero__desc">
+              Directorio oficial del <strong>H. Cuerpo de Bomberos de Veracruz</strong>.
+              <strong>{totalEstaciones} estaciones</strong> con cobertura especializada para
+              <strong>Puerto de Veracruz</strong>, industria petrolera <strong>PEMEX</strong>,
+              rescate maritimo con <strong>SEMAR</strong> y protocolos para <strong>temporada de huracanes</strong>.
+            </p>
+
+            <!-- Stats Grid Enterprise -->
+            <div class="ver-hero__stats">
+              <div class="ver-hero__stat">
+                <span class="ver-hero__stat-number">{totalEstaciones}</span>
+                <span class="ver-hero__stat-label">Estaciones</span>
+              </div>
+              <div class="ver-hero__stat ver-hero__stat--maritime">
+                <span class="ver-hero__stat-number">{estacionesMaritimas.length}</span>
+                <span class="ver-hero__stat-label">Maritimas</span>
+              </div>
+              <div class="ver-hero__stat ver-hero__stat--petroleum">
+                <span class="ver-hero__stat-number">{estacionesPetroleras.length}</span>
+                <span class="ver-hero__stat-label">Petroleras</span>
+              </div>
+              <div class="ver-hero__stat ver-hero__stat--emergency">
+                <span class="ver-hero__stat-number">911</span>
+                <span class="ver-hero__stat-label">Emergencias</span>
+              </div>
+            </div>
+
+            <!-- Dual Focus Cards -->
+            <div class="ver-hero__focus">
+              <div class="ver-hero__focus-card ver-hero__focus-card--port">
+                <div class="ver-hero__focus-icon">🚢</div>
+                <div class="ver-hero__focus-content">
+                  <h3>Puerto de Veracruz</h3>
+                  <p>{statsPuertos?.contenedoresAnuales || "2.5M"} TEUs anuales</p>
+                  <span>Coordinacion SEMAR 24/7</span>
+                </div>
+              </div>
+              <div class="ver-hero__focus-card ver-hero__focus-card--petroleum">
+                <div class="ver-hero__focus-icon">🛢️</div>
+                <div class="ver-hero__focus-content">
+                  <h3>Industria Petrolera</h3>
+                  <p>{complejosPetroquimicos.length} complejos PEMEX</p>
+                  <span>HAZMAT Nivel A Certificado</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Emergency Card Enterprise -->
+          <div class="ver-hero__emergency">
+            <div class="ver-emergency-card">
+              <div class="ver-emergency-card__header">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
+                </svg>
+                <span>Emergencias</span>
+              </div>
+
+              <a href="tel:911" class="ver-emergency-card__911">911</a>
+              <p class="ver-emergency-card__note">Linea Nacional de Emergencias</p>
+
+              <div class="ver-emergency-card__lines">
+                <div class="ver-emergency-card__line">
+                  <span class="ver-emergency-card__line-label">Central Veracruz Puerto</span>
+                  <a href="tel:+522299318585">(229) 931-8585</a>
+                </div>
+                <div class="ver-emergency-card__line ver-emergency-card__line--maritime">
+                  <span class="ver-emergency-card__line-label">Emergencias Maritimas SEMAR</span>
+                  <a href="tel:+522299321500">(229) 932-1500</a>
+                </div>
+                <div class="ver-emergency-card__line ver-emergency-card__line--hazmat">
+                  <span class="ver-emergency-card__line-label">HAZMAT Petrolero</span>
+                  <a href="tel:+522921216060">(921) 216-0660</a>
+                </div>
+                <div class="ver-emergency-card__line">
+                  <span class="ver-emergency-card__line-label">Xalapa (Capital)</span>
+                  <a href="tel:+522288179500">(228) 817-9500</a>
+                </div>
+              </div>
+
+              <div class="ver-emergency-card__protocols">
+                <span class="ver-emergency-card__protocols-label">Protocolos Activos</span>
+                <div class="ver-emergency-card__protocols-grid">
+                  <span title="Emergencia Maritima">EME-MAR-01</span>
+                  <span title="HAZMAT Petrolero">HAZ-PET-01</span>
+                  <span title="Protocolo Huracan">HUR-VER-01</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       SISTEMA DE ALERTAS HURACANES
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-hurricanes">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">Temporada Junio - Noviembre</span>
+        <h2 class="ver-section-title">Sistema de Alertas Huracanes</h2>
+        <p class="ver-section-subtitle">Semaforo de alertas meteorologicas para el Golfo de Mexico</p>
+      </div>
+
+      <!-- Semaforo de Alertas -->
+      <div class="ver-hurricanes__semaforo">
+        {SISTEMA_HURACANES_VERACRUZ.niveles.map(nivel => (
+          <div class={`ver-semaforo-card ver-semaforo-card--${nivel.color}`}>
+            <div class="ver-semaforo-card__light"></div>
+            <div class="ver-semaforo-card__content">
+              <h3>{nivel.nombre}</h3>
+              <p class="ver-semaforo-card__desc">{nivel.descripcion}</p>
+              <div class="ver-semaforo-card__actions">
+                <span class="ver-semaforo-card__actions-label">Acciones:</span>
+                <ul>
+                  {nivel.acciones.slice(0, 3).map(accion => <li>{accion}</li>)}
+                </ul>
+              </div>
+              <div class="ver-semaforo-card__response">
+                <span>Personal: {nivel.personalRequerido}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Hurricane Stats -->
+      <div class="ver-hurricanes__stats">
+        <div class="ver-hurricanes__stat">
+          <span class="ver-hurricanes__stat-value">{SISTEMA_HURACANES_VERACRUZ.estadisticas.huracanesHistoricos}</span>
+          <span class="ver-hurricanes__stat-label">Huracanes Historicos</span>
+        </div>
+        <div class="ver-hurricanes__stat">
+          <span class="ver-hurricanes__stat-value">{SISTEMA_HURACANES_VERACRUZ.estadisticas.temporadaInicio}</span>
+          <span class="ver-hurricanes__stat-label">Inicio Temporada</span>
+        </div>
+        <div class="ver-hurricanes__stat">
+          <span class="ver-hurricanes__stat-value">{SISTEMA_HURACANES_VERACRUZ.estadisticas.temporadaFin}</span>
+          <span class="ver-hurricanes__stat-label">Fin Temporada</span>
+        </div>
+        <div class="ver-hurricanes__stat">
+          <span class="ver-hurricanes__stat-value">{SISTEMA_HURACANES_VERACRUZ.estadisticas.refugiosDisponibles}</span>
+          <span class="ver-hurricanes__stat-label">Refugios Disponibles</span>
+        </div>
+      </div>
+
+      <!-- Coordinacion -->
+      <div class="ver-hurricanes__coordination">
+        <h3>Coordinacion Interinstitucional</h3>
+        <div class="ver-hurricanes__coordination-grid">
+          {SISTEMA_HURACANES_VERACRUZ.coordinacion.map(org => (
+            <div class="ver-coordination-card">
+              <span class="ver-coordination-card__icon">{org.icono}</span>
+              <div>
+                <h4>{org.nombre}</h4>
+                <p>{org.rol}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       INDUSTRIA PETROLERA SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-petroleum">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">PEMEX y Petroquimica</span>
+        <h2 class="ver-section-title">Cobertura Industria Petrolera</h2>
+        <p class="ver-section-subtitle">Proteccion especializada HAZMAT para refinerias y petroquimicos</p>
+      </div>
+
+      <!-- Petroleum Stats -->
+      <div class="ver-petroleum__stats">
+        <div class="ver-petroleum__stat">
+          <span class="ver-petroleum__stat-value">{INDUSTRIA_PETROLERA_VERACRUZ.estadisticas.capacidadRefinacion}</span>
+          <span class="ver-petroleum__stat-label">Capacidad Refinacion</span>
+        </div>
+        <div class="ver-petroleum__stat">
+          <span class="ver-petroleum__stat-value">{INDUSTRIA_PETROLERA_VERACRUZ.estadisticas.empleosDirectos.toLocaleString()}</span>
+          <span class="ver-petroleum__stat-label">Empleos Directos</span>
+        </div>
+        <div class="ver-petroleum__stat">
+          <span class="ver-petroleum__stat-value">{INDUSTRIA_PETROLERA_VERACRUZ.estadisticas.complejosPetroquimicos}</span>
+          <span class="ver-petroleum__stat-label">Complejos Petroquimicos</span>
+        </div>
+        <div class="ver-petroleum__stat">
+          <span class="ver-petroleum__stat-value">{INDUSTRIA_PETROLERA_VERACRUZ.estadisticas.terminalesMaritimas}</span>
+          <span class="ver-petroleum__stat-label">Terminales Maritimas</span>
+        </div>
+      </div>
+
+      <!-- Petroleum Complexes -->
+      <div class="ver-petroleum__complexes">
+        {complejosPetroquimicos.map(complejo => (
+          <div class="ver-complex-card">
+            <div class="ver-complex-card__header">
+              <h3>{complejo.nombre}</h3>
+              <span class="ver-complex-card__badge">{complejo.tipo}</span>
+            </div>
+            <p class="ver-complex-card__location">{complejo.ubicacion}</p>
+            <div class="ver-complex-card__meta">
+              <span><strong>{complejo.empleados?.toLocaleString()}</strong> empleados</span>
+              <span><strong>{complejo.capacidad}</strong></span>
+            </div>
+            <div class="ver-complex-card__products">
+              <span class="ver-complex-card__products-label">Productos:</span>
+              <span>{complejo.productos?.join(", ")}</span>
+            </div>
+            <div class="ver-complex-card__hazmat">
+              <span class="ver-complex-card__hazmat-label">Riesgos HAZMAT:</span>
+              <div class="ver-complex-card__hazmat-tags">
+                {complejo.riesgosHAZMAT?.slice(0, 4).map(r => <span>{r}</span>)}
+              </div>
+            </div>
+            <div class="ver-complex-card__certs">
+              {complejo.certificaciones?.map(c => <span class="ver-complex-card__cert">{c}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- HAZMAT Stations -->
+      <div class="ver-petroleum__hazmat">
+        <h3>Estaciones HAZMAT Petroleras</h3>
+        <div class="ver-petroleum__hazmat-grid">
+          {estacionesPetroleras.slice(0, 6).map(e => (
+            <a href={`/directorio/veracruz/${e.slug}`} class="ver-hazmat-card">
+              <div class="ver-hazmat-card__badge">PEMEX</div>
+              <h4>{e.nombre.replace("Estacion de Bomberos ", "")}</h4>
+              <p>{e.telefono}</p>
+              <span class="ver-hazmat-card__response">⏱️ {e.tiempoRespuesta}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       PUERTOS Y MARITIMO SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-maritime">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">Coordinacion SEMAR</span>
+        <h2 class="ver-section-title">Puertos y Rescate Maritimo</h2>
+        <p class="ver-section-subtitle">Principal sistema portuario del Golfo de Mexico</p>
+      </div>
+
+      <!-- Ports Grid -->
+      <div class="ver-maritime__ports">
+        {PUERTOS_VERACRUZ.map(puerto => (
+          <div class="ver-port-card">
+            <div class="ver-port-card__header">
+              <h3>{puerto.nombre}</h3>
+              <span class={`ver-port-card__type ver-port-card__type--${puerto.tipo.toLowerCase()}`}>{puerto.tipo}</span>
+            </div>
+            <p class="ver-port-card__desc">{puerto.descripcion}</p>
+            <div class="ver-port-card__stats">
+              <span><strong>{puerto.capacidad}</strong></span>
+              <span>{puerto.traficoAnual}</span>
+            </div>
+            <div class="ver-port-card__services">
+              <span class="ver-port-card__services-label">Servicios:</span>
+              <div class="ver-port-card__services-tags">
+                {puerto.servicios?.slice(0, 3).map(s => <span>{s}</span>)}
+              </div>
+            </div>
+            <div class="ver-port-card__risks">
+              <span class="ver-port-card__risks-label">Riesgos:</span>
+              <div class="ver-port-card__risks-tags">
+                {puerto.riesgos?.slice(0, 3).map(r => <span>{r}</span>)}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Maritime Stations -->
+      <div class="ver-maritime__stations">
+        <h3>Estaciones con Capacidad Maritima</h3>
+        <div class="ver-maritime__stations-grid">
+          {estacionesMaritimas.slice(0, 4).map(e => (
+            <a href={`/directorio/veracruz/${e.slug}`} class="ver-maritime-card">
+              <span class="ver-maritime-card__icon">🚢</span>
+              <div>
+                <h4>{e.nombre.replace("Estacion de Bomberos ", "").replace("Estacion Central de Bomberos ", "")}</h4>
+                <p>{e.telefono}</p>
+                <span>Coord. SEMAR 24/7</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- SEMAR Coordination -->
+      <div class="ver-maritime__semar">
+        <div class="ver-semar-card">
+          <div class="ver-semar-card__header">
+            <span class="ver-semar-card__logo">⚓</span>
+            <div>
+              <h3>Coordinacion SEMAR</h3>
+              <p>Secretaria de Marina - Armada de Mexico</p>
+            </div>
+          </div>
+          <div class="ver-semar-card__content">
+            <p>Protocolo de coordinacion 24/7 para emergencias maritimas, rescate en alta mar y respuesta a derrames petroleros en zona costera.</p>
+            <div class="ver-semar-card__capabilities">
+              <span>Rescate en Alta Mar</span>
+              <span>Derrames Petroleros</span>
+              <span>Evacuacion Costera</span>
+              <span>Busqueda SAR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       TURISMO SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-tourism">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">El Tajin UNESCO + Carnaval</span>
+        <h2 class="ver-section-title">Cobertura Turistica</h2>
+        <p class="ver-section-subtitle">Proteccion para destinos culturales y eventos masivos</p>
+      </div>
+
+      <!-- Attractions Grid -->
+      <div class="ver-tourism__attractions">
+        {atraccionesTuristicas.map(attr => (
+          <div class="ver-attraction-card">
+            <div class="ver-attraction-card__header">
+              <h3>{attr.nombre}</h3>
+              <span class="ver-attraction-card__type">{attr.tipo}</span>
+            </div>
+            {attr.designacion && <p class="ver-attraction-card__unesco">{attr.designacion}</p>}
+            <p class="ver-attraction-card__desc">{attr.descripcion}</p>
+            <div class="ver-attraction-card__visitors">
+              <span>{attr.visitantes} visitantes/año</span>
+            </div>
+            <div class="ver-attraction-card__risks">
+              <span class="ver-attraction-card__risks-label">Riesgos:</span>
+              <div class="ver-attraction-card__risks-tags">
+                {attr.riesgos?.map(r => <span>{r}</span>)}
+              </div>
+            </div>
+            <div class="ver-attraction-card__rescue">
+              <span class="ver-attraction-card__rescue-label">Cobertura:</span>
+              <div class="ver-attraction-card__rescue-tags">
+                {attr.cobertura?.map(c => <span>{c}</span>)}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Pueblos Magicos -->
+      <div class="ver-tourism__pueblos">
+        <h3>Pueblos Magicos con Cobertura</h3>
+        <div class="ver-tourism__pueblos-grid">
+          {pueblosMagicos.map(pm => (
+            <div class="ver-pueblo-card">
+              <div class="ver-pueblo-card__header">
+                <h4>{pm.nombre}</h4>
+                <span class="ver-pueblo-card__year">Desde {pm.designacion}</span>
+              </div>
+              <p>{pm.descripcion}</p>
+              <div class="ver-pueblo-card__visitors">
+                <span>{pm.visitantes} visitantes/año</span>
+              </div>
+              <div class="ver-pueblo-card__rescue">
+                {pm.serviciosRequeridos?.slice(0, 2).map(s => <span>{s}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       PROTOCOLOS DE EMERGENCIA
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-protocols">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">Documentacion Enterprise</span>
+        <h2 class="ver-section-title">Protocolos de Emergencia</h2>
+        <p class="ver-section-subtitle">Procedimientos certificados: petrolero, maritimo, huracanes</p>
+      </div>
+
+      <div class="ver-protocols__grid">
+        {PROTOCOLOS_VERACRUZ.map(proto => (
+          <div class={`ver-protocol-card ver-protocol-card--${proto.categoria}`}>
+            <div class="ver-protocol-card__header">
+              <span class="ver-protocol-card__code">{proto.codigo}</span>
+              <span class="ver-protocol-card__time">⏱️ {proto.tiempoMaximoRespuesta}</span>
+            </div>
+            <h3>{proto.tipo}</h3>
+            <p>{proto.descripcion}</p>
+            <div class="ver-protocol-card__resources">
+              <span class="ver-protocol-card__resources-label">Recursos minimos:</span>
+              <ul>
+                {proto.recursosMinimos?.slice(0, 3).map(r => <li>{r}</li>)}
+              </ul>
+            </div>
+            <div class="ver-protocol-card__coord">
+              <span>Coordinacion: {proto.coordinacionRequerida?.slice(0, 2).join(", ")}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       ZONAS DE COBERTURA
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-zones">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">{Object.keys(ZONAS_VERACRUZ).length} Zonas Geograficas</span>
+        <h2 class="ver-section-title">Cobertura Territorial</h2>
+      </div>
+
+      <div class="ver-zones__grid">
+        {Object.entries(ZONAS_VERACRUZ).map(([key, zona]) => {
+          const estacionesZona = getEstacionesPorZona(zona.nombre);
+          return (
+            <div class="ver-zone-card" style={`--zone-color: ${zona.color}`}>
+              <div class="ver-zone-card__header">
+                <div>
+                  <h3>{zona.nombre}</h3>
+                  <p class="ver-zone-card__short">{zona.nombreCorto}</p>
+                </div>
+                <span class="ver-zone-card__count">{estacionesZona.length}</span>
+              </div>
+              <p class="ver-zone-card__desc">{zona.descripcion}</p>
+              <div class="ver-zone-card__meta">
+                <span>👥 {zona.poblacion?.toLocaleString()}</span>
+                <span class={`ver-zone-card__risk ver-zone-card__risk--${zona.nivelRiesgo?.toLowerCase().replace(/\s+/g, '-')}`}>
+                  Riesgo: {zona.nivelRiesgo}
+                </span>
+              </div>
+              <div class="ver-zone-card__risks">
+                {zona.riesgosPrincipales?.slice(0, 2).map(r => <span>{r}</span>)}
+              </div>
+              <div class="ver-zone-card__response">
+                <span>⏱️ Respuesta: {zona.tiempoRespuestaPromedio}</span>
+              </div>
+              <ul class="ver-zone-card__stations">
+                {estacionesZona.slice(0, 2).map(e => (
+                  <li>
+                    <a href={`/directorio/veracruz/${e.slug}`}>
+                      {e.nombre.replace("Estacion de Bomberos ", "").replace("Estacion Central de Bomberos ", "")}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       DIRECTORIO COMPLETO
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-stations">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">{totalEstaciones} Estaciones</span>
+        <h2 class="ver-section-title">Directorio Completo</h2>
+      </div>
+
+      <div class="ver-stations__grid">
+        {estacionesVeracruz.map((estacion) => {
+          const zonaInfo = ZONAS_VERACRUZ[Object.keys(ZONAS_VERACRUZ).find(k =>
+            ZONAS_VERACRUZ[k as keyof typeof ZONAS_VERACRUZ].nombre === estacion.zona
+          ) as keyof typeof ZONAS_VERACRUZ];
+
+          const esHAZMAT = estacion.servicios?.some(s => s.toLowerCase().includes("hazmat"));
+          const esMaritimo = estacion.servicios?.some(s => s.toLowerCase().includes("maritim") || s.toLowerCase().includes("puerto"));
+          const esPetrolero = estacion.servicios?.some(s => s.toLowerCase().includes("petrol") || s.toLowerCase().includes("pemex"));
+          const esBilingue = estacion.idiomas?.includes("Ingles");
+
+          return (
+            <a href={`/directorio/veracruz/${estacion.slug}`} class="ver-station-card">
+              <div class="ver-station-card__header">
+                <span class="ver-station-card__zone" style={`--zone-color: ${zonaInfo?.color || '#0ea5e9'}`}>
+                  {estacion.zona}
+                </span>
+                <div class="ver-station-card__badges">
+                  {esHAZMAT && <span class="ver-station-card__badge ver-station-card__badge--hazmat" title="HAZMAT">☢️</span>}
+                  {esMaritimo && <span class="ver-station-card__badge ver-station-card__badge--maritime" title="Maritimo">🚢</span>}
+                  {esPetrolero && <span class="ver-station-card__badge ver-station-card__badge--petroleum" title="Petrolero">🛢️</span>}
+                  {esBilingue && <span class="ver-station-card__badge ver-station-card__badge--bilingual" title="Bilingue">EN</span>}
+                </div>
+              </div>
+
+              <h3 class="ver-station-card__name">
+                {estacion.nombre.replace("Estacion de Bomberos ", "").replace("Estacion Central de Bomberos ", "")}
+              </h3>
+
+              <p class="ver-station-card__address">{estacion.direccion}</p>
+
+              <div class="ver-station-card__contact">
+                <span class="ver-station-card__phone">{estacion.telefono}</span>
+                {estacion.personal && <span class="ver-station-card__personnel">{estacion.personal} bomberos</span>}
+              </div>
+
+              {estacion.tiempoRespuesta && (
+                <p class="ver-station-card__response">⏱️ {estacion.tiempoRespuesta}</p>
+              )}
+
+              <span class="ver-station-card__cta">Ver detalles →</span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       FAQ SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-faq">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">Preguntas Frecuentes</span>
+        <h2 class="ver-section-title">Informacion Importante</h2>
+      </div>
+
+      <div class="ver-faq__grid">
+        {FAQ_VERACRUZ.slice(0, 8).map((faq, index) => (
+          <details class="ver-faq__item" open={index < 2}>
+            <summary>
+              <span class="ver-faq__category">{faq.categoria}</span>
+              <span class="ver-faq__question">{faq.pregunta}</span>
+            </summary>
+            <div class="ver-faq__answer">
+              <p>{faq.respuesta}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       INTERLINKING SECTION
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-interlinking">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">Corredor Golfo de Mexico</span>
+        <h2 class="ver-section-title">Estados Conectados</h2>
+      </div>
+
+      <div class="ver-interlinking__grid">
+        {estadosVecinos.slice(0, 6).map(estado => (
+          <a href={`/directorio/${estado.slug}`} class={`ver-neighbor-card ver-neighbor-card--${estado.prioridad}`}>
+            <div class="ver-neighbor-card__header">
+              <h3>{estado.estado}</h3>
+              <span class="ver-neighbor-card__priority">{estado.prioridad}</span>
+            </div>
+            <p class="ver-neighbor-card__relation">{estado.relacion}</p>
+            <p class="ver-neighbor-card__context">{estado.contexto}</p>
+            <div class="ver-neighbor-card__distance">
+              <span>📍 {estado.distanciaKm} km</span>
+              <span>🚗 {estado.tiempoViaje}</span>
+            </div>
+            <div class="ver-neighbor-card__seo">
+              <span>SEO Value: {estado.valorSEO}</span>
+            </div>
+            <span class="ver-neighbor-card__link">Ver estaciones →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       PRODUCTOS B2B
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-products">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">Equipamiento Maritimo & Petrolero</span>
+        <h2 class="ver-section-title">Productos para Industria Petrolera y Puertos</h2>
+        <p class="ver-section-subtitle">Soluciones B2B para PEMEX y terminales maritimas</p>
+      </div>
+
+      <div class="ver-products__grid">
+        {productosRelacionados.filter(p => p.prioridad === 'critica' || p.prioridad === 'alta').slice(0, 6).map(producto => (
+          <a href={producto.slug} class={`ver-product-card ver-product-card--${producto.prioridad}`}>
+            <span class="ver-product-card__priority">{producto.prioridad}</span>
+            <h3>{producto.producto}</h3>
+            <p>{producto.contexto}</p>
+            <div class="ver-product-card__audience">
+              {producto.audiencia?.slice(0, 2).map(a => <span>{a}</span>)}
+            </div>
+            <div class="ver-product-card__meta">
+              <span class="ver-product-card__roi">{producto.roi}</span>
+              {producto.precioRango && <span class="ver-product-card__price">{producto.precioRango}</span>}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="ver-products__cta">
+        <a href="/cotizar" class="ver-btn ver-btn--primary">
+          Cotizacion Corporativa Petrolera/Maritima
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       SEO CONTENT
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-seo">
+    <div class="container">
+      <div class="ver-seo__grid">
+        <div class="ver-seo__content">
+          <h2>Bomberos de Veracruz: Proteccion Maritima, Petrolera y para Huracanes</h2>
+          <p>
+            El <strong>H. Cuerpo de Bomberos de Veracruz</strong> protege el <strong>puerto comercial mas importante del Golfo de Mexico</strong>.
+            Con <strong>{totalEstaciones} estaciones especializadas</strong>, brindamos cobertura HAZMAT de nivel internacional para
+            <strong>PEMEX Refineria Lazaro Cardenas</strong> y complejos petroquimicos de Coatzacoalcos y Minatitlan,
+            ademas de <strong>protocolos avanzados para temporada de huracanes</strong>.
+          </p>
+
+          <h3>Capacidades HAZMAT Certificadas para Industria Petrolera</h3>
+          <p>
+            Nuestras <strong>{estacionesPetroleras.length} estaciones petroleras</strong> cuentan con personal certificado en materiales peligrosos
+            especificos de la industria: <strong>hidrocarburos, gases toxicos, derrames maritimos y emergencias petroquimicas</strong>.
+            Protocolo de coordinacion 24/7 con brigadas internas PEMEX. Tiempo de respuesta: 6 minutos en zona industrial.
+          </p>
+
+          <h3>Rescate Maritimo Coordinado con SEMAR</h3>
+          <p>
+            Las <strong>{estacionesMaritimas.length} estaciones maritimas</strong> mantienen coordinacion permanente con la
+            <strong>Secretaria de Marina (SEMAR)</strong> para emergencias en <strong>Puerto de Veracruz</strong>,
+            rescate en alta mar y respuesta a derrames petroleros en zona costera del Golfo de Mexico.
+          </p>
+
+          <h3>Sistema de Alertas para Temporada de Huracanes</h3>
+          <p>
+            <strong>Semaforo de alertas</strong> con 4 niveles (verde, amarillo, naranja, rojo) activo durante la
+            <strong>temporada de huracanes de junio a noviembre</strong>. Coordinacion con Proteccion Civil estatal,
+            CONAGUA y refugios temporales. {SISTEMA_HURACANES_VERACRUZ.estadisticas.refugiosDisponibles} refugios disponibles.
+          </p>
+
+          <h3>Cobertura Turistica: El Tajin y Carnaval</h3>
+          <p>
+            Proteccion especializada para <strong>El Tajin (UNESCO World Heritage)</strong> y el <strong>Carnaval de Veracruz</strong>
+            con mas de 1 millon de visitantes anuales. Pueblos magicos como Xico, Coatepec y Papantla con estaciones designadas.
+          </p>
+        </div>
+
+        <div class="ver-seo__sidebar">
+          <div class="ver-seo__card">
+            <h3>Infraestructura Critica</h3>
+            <ul>
+              <li><strong>{INFRAESTRUCTURA_VERACRUZ.hospitales?.length || 12}</strong> hospitales con trauma</li>
+              <li><strong>{INFRAESTRUCTURA_VERACRUZ.puertos?.length || 4}</strong> puertos principales</li>
+              <li><strong>{INFRAESTRUCTURA_VERACRUZ.aeropuertos?.length || 3}</strong> aeropuertos</li>
+              <li><strong>{INFRAESTRUCTURA_VERACRUZ.convenios?.length || 8}</strong> convenios activos</li>
+            </ul>
+          </div>
+
+          <div class="ver-seo__card ver-seo__card--cta">
+            <h3>¿Emergencia Maritima/Petrolera?</h3>
+            <p>Linea HAZMAT 24/7</p>
+            <a href="tel:+522921216060" class="ver-seo__phone">(921) 216-0660</a>
+            <span>Coordinacion SEMAR disponible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+     ║ VERACRUZ - DISENO ENTERPRISE MARITIMO/PETROLERO                                                          ║
+     ║ Theme: Ocean Blue (#0ea5e9) con acentos maritimos y petroleros                                           ║
+     ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝ */
+
+  :root {
+    --ver-primary: #0ea5e9;
+    --ver-primary-dark: #0284c7;
+    --ver-primary-light: #7dd3fc;
+    --ver-petroleum: #f59e0b;
+    --ver-hazmat: #dc2626;
+    --ver-maritime: #0369a1;
+    --ver-hurricane-green: #22c55e;
+    --ver-hurricane-yellow: #eab308;
+    --ver-hurricane-orange: #f97316;
+    --ver-hurricane-red: #dc2626;
+  }
+
+  /* ═══ Hero Enterprise ═══ */
+  .ver-hero {
+    position: relative;
+    padding: var(--space-16) 0;
+    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 30%, #0ea5e9 60%, #7dd3fc 100%);
+    overflow: hidden;
+  }
+
+  .ver-hero__bg { position: absolute; inset: 0; pointer-events: none; }
+
+  .ver-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 100% 80% at 20% 0%, rgba(14, 165, 233, 0.5), transparent),
+      radial-gradient(ellipse 60% 60% at 100% 100%, rgba(125, 211, 252, 0.3), transparent);
+  }
+
+  .ver-hero__pattern {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .ver-hero__waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100'%3E%3Cpath fill='%23ffffff08' d='M0,50 C360,100 720,0 1080,50 C1260,75 1350,75 1440,50 L1440,100 L0,100 Z'/%3E%3C/svg%3E") repeat-x;
+    background-size: 1440px 100px;
+    animation: waves 20s linear infinite;
+  }
+
+  @keyframes waves {
+    0% { background-position-x: 0; }
+    100% { background-position-x: 1440px; }
+  }
+
+  .ver-hero__container { position: relative; }
+
+  .ver-breadcrumb { margin-bottom: var(--space-6); }
+  .ver-breadcrumb ol { display: flex; gap: var(--space-2); list-style: none; padding: 0; margin: 0; }
+  .ver-breadcrumb li { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
+  .ver-breadcrumb li:not(:last-child)::after { content: "/"; color: rgba(255,255,255,0.3); }
+  .ver-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .ver-breadcrumb a:hover { color: white; }
+  .ver-breadcrumb [aria-current] { color: var(--ver-primary-light); font-weight: 600; }
+
+  /* Hurricane Alert Banner */
+  .ver-hurricane-alert {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--space-6);
+    animation: pulse-alert 2s ease-in-out infinite;
+  }
+  .ver-hurricane-alert--verde { background: rgba(34,197,94,0.2); border: 2px solid var(--ver-hurricane-green); }
+  .ver-hurricane-alert--amarillo { background: rgba(234,179,8,0.2); border: 2px solid var(--ver-hurricane-yellow); }
+  .ver-hurricane-alert--naranja { background: rgba(249,115,22,0.2); border: 2px solid var(--ver-hurricane-orange); }
+  .ver-hurricane-alert--rojo { background: rgba(220,38,38,0.2); border: 2px solid var(--ver-hurricane-red); }
+  .ver-hurricane-alert__icon { color: white; }
+  .ver-hurricane-alert__content { flex: 1; }
+  .ver-hurricane-alert__label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.7); text-transform: uppercase; }
+  .ver-hurricane-alert__message { display: block; font-size: var(--text-sm); color: white; font-weight: 600; }
+  .ver-hurricane-alert__semaforo { padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 800; }
+  .ver-hurricane-alert__semaforo--verde { background: var(--ver-hurricane-green); color: white; }
+  .ver-hurricane-alert__semaforo--amarillo { background: var(--ver-hurricane-yellow); color: #1e1b4b; }
+  .ver-hurricane-alert__semaforo--naranja { background: var(--ver-hurricane-orange); color: white; }
+  .ver-hurricane-alert__semaforo--rojo { background: var(--ver-hurricane-red); color: white; }
+
+  @keyframes pulse-alert {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+
+  .ver-hero__grid { display: grid; grid-template-columns: 1fr 420px; gap: var(--space-10); align-items: start; }
+
+  .ver-hero__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-6); }
+  .ver-hero__badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; }
+  .ver-hero__badge--maritime { background: rgba(3,105,161,0.35); border: 1px solid rgba(3,105,161,0.6); color: #bae6fd; }
+  .ver-hero__badge--petroleum { background: rgba(245,158,11,0.25); border: 1px solid rgba(245,158,11,0.5); color: #fcd34d; }
+  .ver-hero__badge--hurricane { background: rgba(220,38,38,0.25); border: 1px solid rgba(220,38,38,0.5); color: #fca5a5; }
+
+  .ver-hero__title { margin: 0 0 var(--space-2); }
+  .ver-hero__title-pre { display: block; font-size: var(--text-xl); font-weight: 500; color: rgba(255,255,255,0.8); }
+  .ver-hero__highlight { display: block; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; background: linear-gradient(135deg, white, var(--ver-primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
+  .ver-hero__subtitle { font-size: var(--text-lg); font-weight: 500; color: rgba(255,255,255,0.7); font-style: italic; margin: 0 0 var(--space-6); }
+
+  .ver-hero__desc { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-8); }
+  .ver-hero__desc strong { color: white; }
+
+  .ver-hero__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); padding: var(--space-6); background: rgba(255,255,255,0.08); border-radius: var(--radius-xl); border: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-6); }
+  .ver-hero__stat { text-align: center; }
+  .ver-hero__stat-number { display: block; font-size: var(--text-3xl); font-weight: 800; color: white; }
+  .ver-hero__stat--maritime .ver-hero__stat-number { color: var(--ver-primary-light); }
+  .ver-hero__stat--petroleum .ver-hero__stat-number { color: var(--ver-petroleum); }
+  .ver-hero__stat--emergency .ver-hero__stat-number { color: var(--color-fire-400); text-shadow: 0 0 20px rgba(239,68,68,0.5); }
+  .ver-hero__stat-label { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
+
+  .ver-hero__focus { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .ver-hero__focus-card { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-xl); }
+  .ver-hero__focus-card--port { background: rgba(3,105,161,0.2); border: 1px solid rgba(3,105,161,0.4); }
+  .ver-hero__focus-card--petroleum { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); }
+  .ver-hero__focus-icon { font-size: 2rem; }
+  .ver-hero__focus-content h3 { font-size: var(--text-sm); font-weight: 700; color: white; margin: 0; }
+  .ver-hero__focus-content p { font-size: var(--text-xs); color: rgba(255,255,255,0.7); margin: var(--space-1) 0; }
+  .ver-hero__focus-content span { font-size: var(--text-xs); color: rgba(255,255,255,0.5); }
+
+  /* Emergency Card */
+  .ver-emergency-card { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-2xl); padding: var(--space-6); }
+  .ver-emergency-card__header { display: flex; align-items: center; justify-content: center; gap: var(--space-2); color: white; font-weight: 600; margin-bottom: var(--space-4); }
+  .ver-emergency-card__911 { display: block; font-size: 4.5rem; font-weight: 900; color: var(--color-fire-400); text-decoration: none; line-height: 1; text-align: center; margin-bottom: var(--space-2); text-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
+  .ver-emergency-card__note { text-align: center; font-size: var(--text-sm); color: rgba(255,255,255,0.6); margin: 0 0 var(--space-5); }
+
+  .ver-emergency-card__lines { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4) 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-4); }
+  .ver-emergency-card__line { display: flex; justify-content: space-between; padding: var(--space-2) var(--space-3); background: rgba(255,255,255,0.05); border-radius: var(--radius-md); }
+  .ver-emergency-card__line--maritime { background: rgba(3,105,161,0.2); border: 1px solid rgba(3,105,161,0.4); }
+  .ver-emergency-card__line--hazmat { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); }
+  .ver-emergency-card__line-label { font-size: var(--text-xs); color: rgba(255,255,255,0.7); }
+  .ver-emergency-card__line a { font-size: var(--text-sm); font-weight: 700; color: var(--ver-primary-light); text-decoration: none; }
+
+  .ver-emergency-card__protocols { text-align: center; }
+  .ver-emergency-card__protocols-label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.5); margin-bottom: var(--space-2); }
+  .ver-emergency-card__protocols-grid { display: flex; justify-content: center; gap: var(--space-2); }
+  .ver-emergency-card__protocols-grid span { padding: var(--space-1) var(--space-2); background: rgba(255,255,255,0.1); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 600; color: rgba(255,255,255,0.8); font-family: monospace; }
+
+  /* ═══ Section Styles ═══ */
+  .ver-section-header { margin-bottom: var(--space-10); }
+  .ver-section-header--center { text-align: center; }
+  .ver-section-label { display: inline-block; padding: var(--space-1) var(--space-4); background: rgba(14,165,233,0.1); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; color: var(--ver-primary); margin-bottom: var(--space-3); }
+  .ver-section-title { font-size: var(--text-3xl); font-weight: 800; color: var(--color-smoke-900); margin: 0; }
+  .ver-section-subtitle { font-size: var(--text-lg); color: var(--color-smoke-500); margin: var(--space-2) 0 0; }
+
+  /* ═══ Hurricanes Section ═══ */
+  .ver-hurricanes { padding: var(--space-16) 0; background: linear-gradient(180deg, #fef2f2 0%, white 50%); }
+
+  .ver-hurricanes__semaforo { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-12); }
+  .ver-semaforo-card { padding: var(--space-6); background: white; border-radius: var(--radius-2xl); box-shadow: 0 4px 20px rgba(0,0,0,0.05); position: relative; overflow: hidden; }
+  .ver-semaforo-card__light { position: absolute; top: 0; left: 0; right: 0; height: 6px; }
+  .ver-semaforo-card--verde .ver-semaforo-card__light { background: var(--ver-hurricane-green); }
+  .ver-semaforo-card--amarillo .ver-semaforo-card__light { background: var(--ver-hurricane-yellow); }
+  .ver-semaforo-card--naranja .ver-semaforo-card__light { background: var(--ver-hurricane-orange); }
+  .ver-semaforo-card--rojo .ver-semaforo-card__light { background: var(--ver-hurricane-red); }
+  .ver-semaforo-card__content { padding-top: var(--space-2); }
+  .ver-semaforo-card__content h3 { font-size: var(--text-lg); font-weight: 800; margin: 0 0 var(--space-2); }
+  .ver-semaforo-card--verde h3 { color: var(--ver-hurricane-green); }
+  .ver-semaforo-card--amarillo h3 { color: var(--ver-hurricane-yellow); }
+  .ver-semaforo-card--naranja h3 { color: var(--ver-hurricane-orange); }
+  .ver-semaforo-card--rojo h3 { color: var(--ver-hurricane-red); }
+  .ver-semaforo-card__desc { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-4); line-height: 1.5; }
+  .ver-semaforo-card__actions { margin-bottom: var(--space-3); }
+  .ver-semaforo-card__actions-label { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--color-smoke-500); margin-bottom: var(--space-2); }
+  .ver-semaforo-card__actions ul { list-style: none; padding: 0; margin: 0; }
+  .ver-semaforo-card__actions li { font-size: var(--text-xs); color: var(--color-smoke-600); padding: var(--space-1) 0; padding-left: var(--space-3); position: relative; }
+  .ver-semaforo-card__actions li::before { content: "•"; position: absolute; left: 0; }
+  .ver-semaforo-card__response { font-size: var(--text-xs); color: var(--color-smoke-500); }
+
+  .ver-hurricanes__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); margin-bottom: var(--space-12); }
+  .ver-hurricanes__stat { text-align: center; padding: var(--space-5); background: white; border-radius: var(--radius-xl); box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+  .ver-hurricanes__stat-value { display: block; font-size: var(--text-2xl); font-weight: 800; color: var(--ver-primary); margin-bottom: var(--space-1); }
+  .ver-hurricanes__stat-label { font-size: var(--text-sm); color: var(--color-smoke-600); }
+
+  .ver-hurricanes__coordination h3 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-800); text-align: center; margin: 0 0 var(--space-6); }
+  .ver-hurricanes__coordination-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  .ver-coordination-card { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
+  .ver-coordination-card__icon { font-size: var(--text-2xl); }
+  .ver-coordination-card h4 { font-size: var(--text-sm); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
+  .ver-coordination-card p { font-size: var(--text-xs); color: var(--color-smoke-500); margin: var(--space-1) 0 0; }
+
+  /* ═══ Petroleum Section ═══ */
+  .ver-petroleum { padding: var(--space-16) 0; background: linear-gradient(180deg, #fffbeb 0%, white 50%); }
+
+  .ver-petroleum__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); margin-bottom: var(--space-12); }
+  .ver-petroleum__stat { text-align: center; padding: var(--space-6); background: white; border-radius: var(--radius-2xl); box-shadow: 0 4px 20px rgba(245,158,11,0.08); border-left: 4px solid var(--ver-petroleum); }
+  .ver-petroleum__stat-value { display: block; font-size: var(--text-2xl); font-weight: 800; color: var(--ver-petroleum); margin-bottom: var(--space-2); }
+  .ver-petroleum__stat-label { font-size: var(--text-sm); color: var(--color-smoke-600); }
+
+  .ver-petroleum__complexes { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); margin-bottom: var(--space-12); }
+  .ver-complex-card { padding: var(--space-6); background: white; border-radius: var(--radius-2xl); border: 1px solid var(--color-smoke-200); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+  .ver-complex-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); }
+  .ver-complex-card__header h3 { font-size: var(--text-xl); font-weight: 800; color: var(--color-smoke-900); margin: 0; }
+  .ver-complex-card__badge { font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); background: var(--ver-petroleum); color: white; border-radius: var(--radius-full); }
+  .ver-complex-card__location { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-4); }
+  .ver-complex-card__meta { display: flex; gap: var(--space-4); font-size: var(--text-sm); color: var(--color-smoke-600); margin-bottom: var(--space-4); }
+  .ver-complex-card__products { font-size: var(--text-sm); margin-bottom: var(--space-4); }
+  .ver-complex-card__products-label { font-weight: 600; color: var(--color-smoke-700); }
+  .ver-complex-card__hazmat { margin-bottom: var(--space-4); }
+  .ver-complex-card__hazmat-label { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--ver-hazmat); margin-bottom: var(--space-2); }
+  .ver-complex-card__hazmat-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
+  .ver-complex-card__hazmat-tags span { font-size: var(--text-xs); padding: 2px 8px; background: rgba(220,38,38,0.1); border-radius: var(--radius-full); color: var(--color-smoke-600); }
+  .ver-complex-card__certs { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .ver-complex-card__cert { font-size: var(--text-xs); padding: var(--space-1) var(--space-2); background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-600); font-weight: 500; }
+
+  .ver-petroleum__hazmat h3 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-800); text-align: center; margin: 0 0 var(--space-6); }
+  .ver-petroleum__hazmat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  .ver-hazmat-card { display: block; padding: var(--space-5); background: linear-gradient(135deg, #fef3c7, #fef9c3); border-radius: var(--radius-xl); text-decoration: none; border: 2px solid var(--ver-petroleum); position: relative; transition: all 0.2s; }
+  .ver-hazmat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(245,158,11,0.2); }
+  .ver-hazmat-card__badge { position: absolute; top: -10px; right: var(--space-4); padding: var(--space-1) var(--space-3); background: var(--ver-petroleum); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 700; color: white; }
+  .ver-hazmat-card h4 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
+  .ver-hazmat-card p { font-size: var(--text-sm); color: var(--ver-petroleum); font-weight: 600; margin: 0 0 var(--space-2); }
+  .ver-hazmat-card__response { font-size: var(--text-xs); color: var(--color-smoke-600); }
+
+  /* ═══ Maritime Section ═══ */
+  .ver-maritime { padding: var(--space-16) 0; background: linear-gradient(180deg, #f0f9ff 0%, white 50%); }
+
+  .ver-maritime__ports { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); margin-bottom: var(--space-12); }
+  .ver-port-card { padding: var(--space-6); background: white; border-radius: var(--radius-2xl); border: 1px solid var(--color-smoke-200); border-left: 4px solid var(--ver-maritime); }
+  .ver-port-card__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-3); }
+  .ver-port-card__header h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
+  .ver-port-card__type { font-size: var(--text-xs); padding: 2px 8px; border-radius: var(--radius-full); font-weight: 600; }
+  .ver-port-card__type--comercial { background: rgba(3,105,161,0.1); color: var(--ver-maritime); }
+  .ver-port-card__type--petrolero { background: rgba(245,158,11,0.1); color: var(--ver-petroleum); }
+  .ver-port-card__desc { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-4); line-height: 1.5; }
+  .ver-port-card__stats { display: flex; gap: var(--space-4); font-size: var(--text-sm); color: var(--color-smoke-600); margin-bottom: var(--space-4); }
+  .ver-port-card__services { margin-bottom: var(--space-3); }
+  .ver-port-card__services-label { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--color-smoke-500); margin-bottom: var(--space-2); }
+  .ver-port-card__services-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .ver-port-card__services-tags span { font-size: 10px; padding: 2px 6px; background: rgba(3,105,161,0.1); border-radius: var(--radius-sm); color: var(--ver-maritime); }
+  .ver-port-card__risks { margin-bottom: var(--space-2); }
+  .ver-port-card__risks-label { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--color-smoke-500); margin-bottom: var(--space-2); }
+  .ver-port-card__risks-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .ver-port-card__risks-tags span { font-size: 10px; padding: 2px 6px; background: rgba(220,38,38,0.1); border-radius: var(--radius-sm); color: #dc2626; }
+
+  .ver-maritime__stations h3 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-800); text-align: center; margin: 0 0 var(--space-6); }
+  .ver-maritime__stations-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-10); }
+  .ver-maritime-card { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); text-decoration: none; transition: all 0.2s; border-left: 4px solid var(--ver-maritime); }
+  .ver-maritime-card:hover { background: var(--color-smoke-50); border-color: var(--ver-primary); }
+  .ver-maritime-card__icon { font-size: var(--text-2xl); }
+  .ver-maritime-card h4 { font-size: var(--text-sm); font-weight: 600; color: var(--color-smoke-900); margin: 0; }
+  .ver-maritime-card p { font-size: var(--text-sm); color: var(--ver-primary); margin: var(--space-1) 0; }
+  .ver-maritime-card span { font-size: var(--text-xs); color: var(--color-smoke-500); }
+
+  .ver-semar-card { padding: var(--space-8); background: linear-gradient(135deg, #0c4a6e, #0369a1); border-radius: var(--radius-2xl); color: white; }
+  .ver-semar-card__header { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-4); }
+  .ver-semar-card__logo { font-size: 3rem; }
+  .ver-semar-card__header h3 { font-size: var(--text-xl); font-weight: 700; margin: 0; }
+  .ver-semar-card__header p { font-size: var(--text-sm); color: rgba(255,255,255,0.7); margin: var(--space-1) 0 0; }
+  .ver-semar-card__content p { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-4); }
+  .ver-semar-card__capabilities { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .ver-semar-card__capabilities span { padding: var(--space-2) var(--space-4); background: rgba(255,255,255,0.15); border-radius: var(--radius-full); font-size: var(--text-sm); }
+
+  /* ═══ Tourism Section ═══ */
+  .ver-tourism { padding: var(--space-16) 0; background: linear-gradient(180deg, #f0fdf4 0%, white 50%); }
+
+  .ver-tourism__attractions { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-bottom: var(--space-12); }
+  .ver-attraction-card { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); border-left: 4px solid #16a34a; }
+  .ver-attraction-card__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-2); }
+  .ver-attraction-card__header h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
+  .ver-attraction-card__type { font-size: var(--text-xs); padding: 2px 8px; background: var(--color-smoke-100); border-radius: var(--radius-full); color: var(--color-smoke-500); }
+  .ver-attraction-card__unesco { font-size: var(--text-xs); font-weight: 700; color: #ca8a04; margin: 0 0 var(--space-2); }
+  .ver-attraction-card__desc { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); line-height: 1.5; }
+  .ver-attraction-card__visitors { font-size: var(--text-xs); color: var(--color-smoke-500); margin-bottom: var(--space-3); }
+  .ver-attraction-card__risks, .ver-attraction-card__rescue { margin-bottom: var(--space-2); }
+  .ver-attraction-card__risks-label, .ver-attraction-card__rescue-label { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--color-smoke-500); margin-bottom: var(--space-1); }
+  .ver-attraction-card__risks-tags, .ver-attraction-card__rescue-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .ver-attraction-card__risks-tags span { font-size: 10px; padding: 2px 6px; background: rgba(239,68,68,0.1); border-radius: var(--radius-sm); color: #dc2626; }
+  .ver-attraction-card__rescue-tags span { font-size: 10px; padding: 2px 6px; background: rgba(22,163,74,0.1); border-radius: var(--radius-sm); color: #16a34a; }
+
+  .ver-tourism__pueblos h3 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-800); text-align: center; margin: 0 0 var(--space-6); }
+  .ver-tourism__pueblos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  .ver-pueblo-card { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
+  .ver-pueblo-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); }
+  .ver-pueblo-card__header h4 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
+  .ver-pueblo-card__year { font-size: var(--text-xs); color: var(--ver-primary); font-weight: 600; }
+  .ver-pueblo-card p { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); line-height: 1.5; }
+  .ver-pueblo-card__visitors { font-size: var(--text-xs); color: var(--color-smoke-500); margin-bottom: var(--space-3); }
+  .ver-pueblo-card__rescue { display: flex; flex-wrap: wrap; gap: 4px; }
+  .ver-pueblo-card__rescue span { font-size: 10px; padding: 2px 6px; background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-600); }
+
+  /* ═══ Protocols Section ═══ */
+  .ver-protocols { padding: var(--space-16) 0; background: var(--color-smoke-900); }
+  .ver-protocols .ver-section-label { background: rgba(14,165,233,0.2); color: var(--ver-primary-light); }
+  .ver-protocols .ver-section-title { color: white; }
+  .ver-protocols .ver-section-subtitle { color: rgba(255,255,255,0.6); }
+
+  .ver-protocols__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  .ver-protocol-card { padding: var(--space-5); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl); }
+  .ver-protocol-card--petrolero { border-left: 4px solid var(--ver-petroleum); }
+  .ver-protocol-card--maritimo { border-left: 4px solid var(--ver-maritime); }
+  .ver-protocol-card--huracan { border-left: 4px solid var(--ver-hurricane-orange); }
+  .ver-protocol-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
+  .ver-protocol-card__code { font-family: monospace; font-size: var(--text-sm); font-weight: 700; padding: var(--space-1) var(--space-2); background: var(--ver-primary); color: white; border-radius: var(--radius-sm); }
+  .ver-protocol-card__time { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
+  .ver-protocol-card h3 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-2); }
+  .ver-protocol-card p { font-size: var(--text-sm); color: rgba(255,255,255,0.7); margin: 0 0 var(--space-4); line-height: 1.5; }
+  .ver-protocol-card__resources { margin-bottom: var(--space-3); }
+  .ver-protocol-card__resources-label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.5); margin-bottom: var(--space-2); }
+  .ver-protocol-card__resources ul { list-style: none; padding: 0; margin: 0; }
+  .ver-protocol-card__resources li { font-size: var(--text-xs); color: rgba(255,255,255,0.7); padding-left: var(--space-3); position: relative; margin-bottom: var(--space-1); }
+  .ver-protocol-card__resources li::before { content: "•"; position: absolute; left: 0; color: var(--ver-primary-light); }
+  .ver-protocol-card__coord { font-size: var(--text-xs); color: rgba(255,255,255,0.5); }
+
+  /* ═══ Zones Section ═══ */
+  .ver-zones { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+  .ver-zones__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  .ver-zone-card { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border-left: 4px solid var(--zone-color); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .ver-zone-card__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-3); }
+  .ver-zone-card__header h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
+  .ver-zone-card__short { font-size: var(--text-xs); color: var(--color-smoke-500); margin: 0; }
+  .ver-zone-card__count { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: var(--zone-color); border-radius: 50%; font-size: var(--text-xs); font-weight: 700; color: white; }
+  .ver-zone-card__desc { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); line-height: 1.5; }
+  .ver-zone-card__meta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+  .ver-zone-card__meta span { font-size: var(--text-xs); color: var(--color-smoke-500); }
+  .ver-zone-card__risk { padding: 2px 8px; border-radius: var(--radius-full); font-weight: 600; }
+  .ver-zone-card__risk--medio { background: rgba(245,158,11,0.1); color: #f59e0b; }
+  .ver-zone-card__risk--alto { background: rgba(239,68,68,0.1); color: #dc2626; }
+  .ver-zone-card__risk--muy-alto { background: rgba(220,38,38,0.2); color: #b91c1c; }
+  .ver-zone-card__risk--medio-alto { background: rgba(245,158,11,0.15); color: #d97706; }
+  .ver-zone-card__risks { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: var(--space-3); }
+  .ver-zone-card__risks span { font-size: 10px; padding: 2px 6px; background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-600); }
+  .ver-zone-card__response { font-size: var(--text-xs); color: var(--zone-color); font-weight: 600; margin-bottom: var(--space-3); }
+  .ver-zone-card__stations { list-style: none; padding: 0; margin: 0; }
+  .ver-zone-card__stations li { margin-bottom: var(--space-1); }
+  .ver-zone-card__stations a { font-size: var(--text-sm); color: var(--ver-primary); text-decoration: none; }
+  .ver-zone-card__stations a:hover { text-decoration: underline; }
+
+  /* ═══ Stations Grid ═══ */
+  .ver-stations { padding: var(--space-16) 0; background: white; }
+  .ver-stations__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+  .ver-station-card { display: flex; flex-direction: column; padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
+  .ver-station-card:hover { background: white; box-shadow: 0 12px 40px rgba(14,165,233,0.12); transform: translateY(-4px); border-color: var(--ver-primary-light); }
+
+  .ver-station-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
+  .ver-station-card__zone { font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); background: rgba(14,165,233,0.1); color: var(--zone-color); border-radius: var(--radius-sm); }
+  .ver-station-card__badges { display: flex; gap: var(--space-1); }
+  .ver-station-card__badge { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 12px; }
+  .ver-station-card__badge--hazmat { background: rgba(220,38,38,0.15); }
+  .ver-station-card__badge--maritime { background: rgba(3,105,161,0.15); }
+  .ver-station-card__badge--petroleum { background: rgba(245,158,11,0.15); }
+  .ver-station-card__badge--bilingual { background: var(--ver-primary); color: white; font-size: 10px; font-weight: 700; }
+
+  .ver-station-card__name { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); line-height: 1.3; }
+  .ver-station-card__address { font-size: var(--text-sm); color: var(--color-smoke-500); margin: 0 0 var(--space-4); line-height: 1.5; flex: 1; }
+  .ver-station-card__contact { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-top: 1px solid var(--color-smoke-200); margin-bottom: var(--space-2); }
+  .ver-station-card__phone { font-size: var(--text-sm); font-weight: 700; color: var(--ver-primary); }
+  .ver-station-card__personnel { font-size: var(--text-xs); color: var(--color-smoke-500); }
+  .ver-station-card__response { font-size: var(--text-xs); color: var(--color-smoke-500); margin: 0 0 var(--space-3); }
+  .ver-station-card__cta { font-size: var(--text-sm); font-weight: 600; color: var(--ver-primary); }
+
+  /* ═══ FAQ ═══ */
+  .ver-faq { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+  .ver-faq__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); max-width: 1000px; margin: 0 auto; }
+  .ver-faq__item { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
+  .ver-faq__item[open] { border-color: var(--ver-primary-light); }
+  .ver-faq__item summary { cursor: pointer; list-style: none; }
+  .ver-faq__item summary::-webkit-details-marker { display: none; }
+  .ver-faq__category { display: inline-block; font-size: var(--text-xs); font-weight: 600; padding: 2px 8px; background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-500); text-transform: uppercase; margin-bottom: var(--space-2); }
+  .ver-faq__question { display: block; font-size: var(--text-base); font-weight: 600; color: var(--color-smoke-900); }
+  .ver-faq__answer { padding-top: var(--space-4); margin-top: var(--space-4); border-top: 1px solid var(--color-smoke-200); }
+  .ver-faq__answer p { font-size: var(--text-sm); color: var(--color-smoke-700); line-height: 1.7; margin: 0; }
+
+  /* ═══ Interlinking ═══ */
+  .ver-interlinking { padding: var(--space-16) 0; background: white; }
+  .ver-interlinking__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+  .ver-neighbor-card { padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
+  .ver-neighbor-card:hover { background: white; border-color: var(--ver-primary); box-shadow: 0 8px 24px rgba(14,165,233,0.1); }
+  .ver-neighbor-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); }
+  .ver-neighbor-card__header h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
+  .ver-neighbor-card__priority { font-size: 9px; padding: 2px 8px; background: var(--color-smoke-200); border-radius: var(--radius-full); color: var(--color-smoke-500); text-transform: uppercase; }
+  .ver-neighbor-card--critica .ver-neighbor-card__priority { background: rgba(239,68,68,0.1); color: #dc2626; }
+  .ver-neighbor-card--alta .ver-neighbor-card__priority { background: rgba(14,165,233,0.1); color: var(--ver-primary); }
+  .ver-neighbor-card__relation { font-size: var(--text-sm); color: var(--ver-primary); margin: 0 0 var(--space-1); }
+  .ver-neighbor-card__context { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); }
+  .ver-neighbor-card__distance { display: flex; gap: var(--space-4); font-size: var(--text-xs); color: var(--color-smoke-500); margin-bottom: var(--space-2); }
+  .ver-neighbor-card__seo { font-size: var(--text-xs); color: var(--color-smoke-400); margin-bottom: var(--space-3); }
+  .ver-neighbor-card__link { font-size: var(--text-sm); font-weight: 600; color: var(--ver-primary); }
+
+  /* ═══ Products ═══ */
+  .ver-products { padding: var(--space-16) 0; background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0ea5e9 100%); }
+  .ver-products .ver-section-label { background: rgba(255,255,255,0.15); color: white; }
+  .ver-products .ver-section-title { color: white; }
+  .ver-products .ver-section-subtitle { color: rgba(255,255,255,0.7); }
+
+  .ver-products__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-bottom: var(--space-10); }
+  .ver-product-card { padding: var(--space-5); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-xl); text-decoration: none; transition: all 0.2s; position: relative; }
+  .ver-product-card:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+  .ver-product-card__priority { position: absolute; top: var(--space-3); right: var(--space-3); font-size: 9px; padding: 2px 8px; background: rgba(255,255,255,0.2); border-radius: var(--radius-full); color: white; text-transform: uppercase; }
+  .ver-product-card--critica .ver-product-card__priority { background: rgba(239,68,68,0.3); }
+  .ver-product-card h3 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-2); padding-right: var(--space-10); }
+  .ver-product-card p { font-size: var(--text-sm); color: rgba(255,255,255,0.8); margin: 0 0 var(--space-3); }
+  .ver-product-card__audience { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-bottom: var(--space-3); }
+  .ver-product-card__audience span { font-size: var(--text-xs); padding: 2px 8px; background: rgba(255,255,255,0.15); border-radius: var(--radius-full); color: rgba(255,255,255,0.8); }
+  .ver-product-card__meta { display: flex; justify-content: space-between; align-items: center; }
+  .ver-product-card__roi { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
+  .ver-product-card__price { font-size: var(--text-xs); color: rgba(255,255,255,0.5); }
+
+  .ver-products__cta { text-align: center; }
+  .ver-btn { display: inline-flex; padding: var(--space-4) var(--space-8); border-radius: var(--radius-lg); font-size: var(--text-base); font-weight: 700; text-decoration: none; transition: all 0.2s; }
+  .ver-btn--primary { background: white; color: var(--ver-primary-dark); }
+  .ver-btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  /* ═══ SEO ═══ */
+  .ver-seo { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+  .ver-seo__grid { display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-10); }
+  .ver-seo__content h2 { font-size: var(--text-xl); font-weight: 800; color: var(--color-smoke-900); margin: 0 0 var(--space-4); }
+  .ver-seo__content h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-800); margin: var(--space-6) 0 var(--space-2); }
+  .ver-seo__content p { font-size: var(--text-sm); color: var(--color-smoke-600); line-height: 1.8; margin: 0 0 var(--space-4); }
+  .ver-seo__content strong { color: var(--color-smoke-800); }
+
+  .ver-seo__sidebar { display: flex; flex-direction: column; gap: var(--space-6); }
+  .ver-seo__card { padding: var(--space-6); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
+  .ver-seo__card h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-4); }
+  .ver-seo__card ul { list-style: none; padding: 0; margin: 0; }
+  .ver-seo__card li { font-size: var(--text-sm); color: var(--color-smoke-600); padding: var(--space-2) 0; border-bottom: 1px solid var(--color-smoke-100); }
+  .ver-seo__card li:last-child { border-bottom: none; }
+  .ver-seo__card--cta { background: var(--ver-primary); text-align: center; }
+  .ver-seo__card--cta h3 { color: white; }
+  .ver-seo__card--cta p { color: rgba(255,255,255,0.8); margin: 0 0 var(--space-3); }
+  .ver-seo__phone { display: block; font-size: var(--text-2xl); font-weight: 800; color: white; text-decoration: none; margin-bottom: var(--space-2); }
+  .ver-seo__card--cta span { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1200px) {
+    .ver-hurricanes__semaforo, .ver-petroleum__stats, .ver-hurricanes__stats, .ver-hurricanes__coordination-grid, .ver-tourism__pueblos-grid, .ver-products__grid { grid-template-columns: repeat(2, 1fr); }
+    .ver-zones__grid, .ver-protocols__grid, .ver-tourism__attractions { grid-template-columns: repeat(2, 1fr); }
+    .ver-maritime__stations-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 1024px) {
+    .ver-hero__grid { grid-template-columns: 1fr; }
+    .ver-hero__emergency { max-width: 450px; }
+    .ver-stations__grid { grid-template-columns: repeat(2, 1fr); }
+    .ver-petroleum__complexes, .ver-maritime__ports { grid-template-columns: 1fr; }
+    .ver-petroleum__hazmat-grid { grid-template-columns: repeat(2, 1fr); }
+    .ver-seo__grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .ver-hero { padding: var(--space-12) 0; }
+    .ver-hero__stats { grid-template-columns: repeat(2, 1fr); }
+    .ver-hero__focus { grid-template-columns: 1fr; }
+    .ver-hurricanes__semaforo, .ver-petroleum__stats, .ver-hurricanes__stats, .ver-hurricanes__coordination-grid, .ver-tourism__attractions, .ver-tourism__pueblos-grid, .ver-zones__grid, .ver-protocols__grid, .ver-stations__grid, .ver-faq__grid, .ver-interlinking__grid, .ver-products__grid, .ver-petroleum__hazmat-grid, .ver-maritime__stations-grid { grid-template-columns: 1fr; }
+  }
+</style>

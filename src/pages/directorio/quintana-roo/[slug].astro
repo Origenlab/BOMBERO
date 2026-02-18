@@ -1,0 +1,721 @@
+---
+/**
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+ * PÁGINA DINÁMICA - ESTACIÓN DE BOMBEROS EN QUINTANA ROO
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+ * "El Caribe Mexicano" - Contenido 100% bilingüe para turismo internacional
+ * SEO Enterprise-Level con Schema.org multi-tipo
+ * Marketing dirigido a industria hotelera internacional
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+ */
+
+import PageLayout from "@layouts/PageLayout.astro";
+import {
+  estacionesQuintanaRoo,
+  QUINTANA_ROO_SEO,
+  ZONAS_QUINTANA_ROO,
+  INDUSTRIA_TURISTICA_QR,
+  FAQ_QUINTANA_ROO,
+  ALERTAS_QUINTANA_ROO,
+  getEstacionesPorZona,
+  getEstacionesBilingues,
+  getAlertasActivas,
+  generarSchemaEstacion,
+  generarInterlinking
+} from "@data/estaciones-quintana-roo";
+
+// ─── Generación de Rutas Estáticas ───────────────────────────────────────────
+export function getStaticPaths() {
+  return estacionesQuintanaRoo.map((estacion) => ({
+    params: { slug: estacion.slug },
+    props: { estacion }
+  }));
+}
+
+// ─── Props y Datos ───────────────────────────────────────────────────────────
+const { estacion } = Astro.props;
+
+// Metadata dinámica bilingüe
+const nombreCorto = estacion.nombre.replace("Estación de Bomberos ", "").replace("Estación Central de Bomberos ", "");
+const title = `${estacion.nombre} | Bomberos Quintana Roo | BOMBERO.MX`;
+const description = `${estacion.descripcion} Tel: ${estacion.telefono}. ${estacion.horario}.`;
+
+// Clasificadores
+const esBilingue = estacion.idiomas?.includes("Inglés");
+const esRescateAcuatico = estacion.servicios?.some(s =>
+  s.toLowerCase().includes("acuático") ||
+  s.toLowerCase().includes("buceo") ||
+  s.toLowerCase().includes("marítimo")
+);
+const esAeropuerto = estacion.servicios?.some(s =>
+  s.toLowerCase().includes("ssei") ||
+  s.toLowerCase().includes("aeronáutico")
+);
+const esCrucero = estacion.servicios?.some(s => s.toLowerCase().includes("crucero"));
+const esHotelero = estacion.servicios?.some(s => s.toLowerCase().includes("hotel"));
+const esIsla = estacion.zona === "Cozumel" || estacion.zona === "Isla Mujeres";
+
+// Zona info
+const zonaKey = Object.keys(ZONAS_QUINTANA_ROO).find(
+  k => ZONAS_QUINTANA_ROO[k as keyof typeof ZONAS_QUINTANA_ROO].nombre === estacion.zona
+);
+const zonaInfo = zonaKey ? ZONAS_QUINTANA_ROO[zonaKey as keyof typeof ZONAS_QUINTANA_ROO] : null;
+
+// Estaciones relacionadas
+const estacionesZona = getEstacionesPorZona(estacion.zona).filter(e => e.slug !== estacion.slug);
+
+// Alertas activas
+const alertasZona = getAlertasActivas(estacion.zona, "es");
+const alertasZonaEn = getAlertasActivas(estacion.zona, "en");
+
+// Interlinking
+const { estados: estadosVecinos, productos: productosRelacionados } = generarInterlinking();
+
+// FAQ relevantes
+const faqRelevantes = FAQ_QUINTANA_ROO.filter(faq => {
+  const preguntaLower = faq.pregunta.toLowerCase();
+  if (esBilingue && preguntaLower.includes("inglés")) return true;
+  if (esRescateAcuatico && preguntaLower.includes("acuático")) return true;
+  if (esAeropuerto && preguntaLower.includes("aeropuerto")) return true;
+  if (esCrucero && preguntaLower.includes("crucero")) return true;
+  if (esHotelero && preguntaLower.includes("hotel")) return true;
+  if (preguntaLower.includes("teléfono")) return true;
+  return false;
+}).slice(0, 4);
+
+// Schema.org Enterprise
+const schemaEstacion = generarSchemaEstacion(estacion);
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@graph": [
+    schemaEstacion,
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bombero.mx" },
+        { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bombero.mx/directorio" },
+        { "@type": "ListItem", "position": 3, "name": "Quintana Roo", "item": "https://bombero.mx/directorio/quintana-roo" },
+        { "@type": "ListItem", "position": 4, "name": nombreCorto, "item": `https://bombero.mx/directorio/quintana-roo/${estacion.slug}` }
+      ]
+    },
+    {
+      "@type": "GovernmentService",
+      "name": `Emergency Services - ${nombreCorto}`,
+      "serviceType": estacion.servicios,
+      "provider": {
+        "@type": "GovernmentOrganization",
+        "name": "H. Cuerpo de Bomberos de Quintana Roo"
+      },
+      "areaServed": estacion.municipiosCubiertos?.join(", "),
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": estacion.telefono,
+        "availableLanguage": estacion.idiomas || ["Spanish"]
+      }
+    },
+    ...(faqRelevantes.length > 0 ? [{
+      "@type": "FAQPage",
+      "mainEntity": faqRelevantes.map(faq => ({
+        "@type": "Question",
+        "name": faq.pregunta,
+        "acceptedAnswer": { "@type": "Answer", "text": faq.respuesta }
+      }))
+    }] : [])
+  ]
+};
+---
+
+<PageLayout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+  <meta name="geo.region" content="MX-ROO" slot="head" />
+  <meta name="geo.position" content={`${estacion.coordenadas.lat};${estacion.coordenadas.lng}`} slot="head" />
+  {esBilingue && <link rel="alternate" hreflang="en" href={`https://bombero.mx/directorio/quintana-roo/${estacion.slug}?lang=en`} slot="head" />}
+
+  <!-- Hero Section Premium Bilingüe -->
+  <section class="qroo-detail-hero" style={`--zone-color: ${zonaInfo?.color || '#06b6d4'}`}>
+    <div class="qroo-detail-hero__bg">
+      <div class="qroo-detail-hero__gradient"></div>
+      <div class="qroo-detail-hero__waves"></div>
+    </div>
+
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="qroo-detail-breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/directorio">Directorio</a></li>
+          <li><a href="/directorio/quintana-roo">Quintana Roo</a></li>
+          <li aria-current="page">{nombreCorto}</li>
+        </ol>
+      </nav>
+
+      <!-- Alertas Contextuales Bilingües -->
+      {alertasZona.length > 0 && (
+        <div class="qroo-detail-alerts">
+          {alertasZona.slice(0, 1).map((alerta, i) => (
+            <div class={`qroo-detail-alert qroo-detail-alert--${alerta.tipo}`}>
+              <span class="qroo-detail-alert__icon">{alerta.icono}</span>
+              <div class="qroo-detail-alert__content">
+                <span class="qroo-detail-alert__text">{alerta.mensaje}</span>
+                {alertasZonaEn[i] && <span class="qroo-detail-alert__text-en">{alertasZonaEn[i].mensaje}</span>}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div class="qroo-detail-hero__grid">
+        <div class="qroo-detail-hero__content">
+          <!-- Badges -->
+          <div class="qroo-detail-badges">
+            <span class="qroo-detail-badge qroo-detail-badge--zone">{estacion.zona}</span>
+            {esBilingue && <span class="qroo-detail-badge qroo-detail-badge--bilingual">Bilingual / Bilingüe</span>}
+            {esRescateAcuatico && <span class="qroo-detail-badge qroo-detail-badge--water">🌊 Water Rescue</span>}
+            {esAeropuerto && <span class="qroo-detail-badge qroo-detail-badge--airport">✈️ Airport ARFF</span>}
+            {esCrucero && <span class="qroo-detail-badge qroo-detail-badge--cruise">🚢 Cruise Port</span>}
+            {esHotelero && <span class="qroo-detail-badge qroo-detail-badge--hotel">🏨 Hotel Coverage</span>}
+            {esIsla && <span class="qroo-detail-badge qroo-detail-badge--island">🏝️ Island</span>}
+          </div>
+
+          <h1 class="qroo-detail-hero__title">{estacion.nombre}</h1>
+
+          <p class="qroo-detail-hero__desc">{estacion.descripcion}</p>
+
+          {estacion.descripcionEn && (
+            <div class="qroo-detail-hero__desc-en">
+              <span class="qroo-detail-hero__desc-en-flag">EN</span>
+              <p>{estacion.descripcionEn}</p>
+            </div>
+          )}
+
+          <div class="qroo-detail-hero__address">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span>{estacion.direccion}</span>
+          </div>
+
+          <div class="qroo-detail-hero__meta">
+            <div class="qroo-detail-hero__meta-item">
+              <span class="qroo-detail-hero__meta-label">Horario / Hours</span>
+              <span class="qroo-detail-hero__meta-value">{estacion.horario}</span>
+            </div>
+            {estacion.personal && (
+              <div class="qroo-detail-hero__meta-item">
+                <span class="qroo-detail-hero__meta-label">Personal / Staff</span>
+                <span class="qroo-detail-hero__meta-value">{estacion.personal} bomberos</span>
+              </div>
+            )}
+            {estacion.tiempoRespuesta && (
+              <div class="qroo-detail-hero__meta-item">
+                <span class="qroo-detail-hero__meta-label">Tiempo Respuesta / Response</span>
+                <span class="qroo-detail-hero__meta-value">{estacion.tiempoRespuesta}</span>
+              </div>
+            )}
+            {estacion.idiomas && (
+              <div class="qroo-detail-hero__meta-item">
+                <span class="qroo-detail-hero__meta-label">Idiomas / Languages</span>
+                <span class="qroo-detail-hero__meta-value">{estacion.idiomas.join(", ")}</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <!-- Emergency Card Premium Bilingüe -->
+        <div class="qroo-detail-emergency">
+          <div class="qroo-detail-emergency__main">
+            <span class="qroo-detail-emergency__label">Emergency / Emergencias</span>
+            <a href="tel:911" class="qroo-detail-emergency__911">911</a>
+            <span class="qroo-detail-emergency__note">
+              {esBilingue ? "English operators available" : "National Emergency Line"}
+            </span>
+          </div>
+
+          <div class="qroo-detail-emergency__local">
+            <span class="qroo-detail-emergency__local-label">Direct Line / Línea Directa</span>
+            <a href={`tel:${estacion.telefono.replace(/[^\d+]/g, '')}`} class="qroo-detail-emergency__phone">
+              {estacion.telefono}
+            </a>
+          </div>
+
+          {esBilingue && (
+            <div class="qroo-detail-emergency__bilingual">
+              <span class="qroo-detail-emergency__bilingual-flag">EN</span>
+              <span>English-speaking staff available 24/7</span>
+            </div>
+          )}
+
+          <div class="qroo-detail-emergency__actions">
+            <a
+              href={`https://www.google.com/maps/dir/?api=1&destination=${estacion.coordenadas.lat},${estacion.coordenadas.lng}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="qroo-detail-emergency__action qroo-detail-emergency__action--directions"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+              </svg>
+              <span>Directions / Cómo llegar</span>
+            </a>
+            {estacion.sitioWeb && (
+              <a href={estacion.sitioWeb} target="_blank" rel="noopener noreferrer" class="qroo-detail-emergency__action">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+                </svg>
+                <span>Website</span>
+              </a>
+            )}
+            {estacion.facebook && (
+              <a href={estacion.facebook} target="_blank" rel="noopener noreferrer" class="qroo-detail-emergency__action">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                </svg>
+                <span>Facebook</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="qroo-detail-services">
+    <div class="container">
+      <div class="qroo-detail-section-header">
+        <span class="qroo-detail-section-label">Capacidades / Capabilities</span>
+        <h2>Servicios Especializados / Specialized Services</h2>
+      </div>
+
+      <div class="qroo-detail-services__grid">
+        {estacion.servicios?.map((servicio, index) => {
+          const esAcuatico = servicio.toLowerCase().includes("acuático") || servicio.toLowerCase().includes("buceo");
+          const esAeroServ = servicio.toLowerCase().includes("ssei") || servicio.toLowerCase().includes("aeronáutico");
+          const esMedico = servicio.toLowerCase().includes("hospitalaria");
+
+          return (
+            <div class={`qroo-detail-service ${esAcuatico ? 'qroo-detail-service--water' : ''} ${esAeroServ ? 'qroo-detail-service--airport' : ''} ${esMedico ? 'qroo-detail-service--medical' : ''}`}>
+              <div class="qroo-detail-service__icon">
+                {esAcuatico && "🌊"}
+                {esAeroServ && "✈️"}
+                {esMedico && "🏥"}
+                {!esAcuatico && !esAeroServ && !esMedico && "🔥"}
+              </div>
+              <span class="qroo-detail-service__name">{servicio}</span>
+              <span class="qroo-detail-service__number">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Equipment Section -->
+  {estacion.equipamiento && estacion.equipamiento.length > 0 && (
+    <section class="qroo-detail-equipment">
+      <div class="container">
+        <div class="qroo-detail-section-header">
+          <span class="qroo-detail-section-label">Flota / Fleet</span>
+          <h2>Equipamiento / Equipment</h2>
+        </div>
+
+        <div class="qroo-detail-equipment__grid">
+          {estacion.equipamiento.map(equipo => {
+            const esVehiculo = equipo.toLowerCase().includes("autobomba") || equipo.toLowerCase().includes("unidad") || equipo.toLowerCase().includes("vehículo") || equipo.toLowerCase().includes("ambulancia");
+            const esAcuaticoEq = equipo.toLowerCase().includes("lancha") || equipo.toLowerCase().includes("moto acuática") || equipo.toLowerCase().includes("buceo");
+            const esArff = equipo.toLowerCase().includes("arff") || equipo.toLowerCase().includes("espuma");
+
+            return (
+              <div class={`qroo-detail-equipment__item ${esVehiculo ? 'qroo-detail-equipment__item--vehicle' : ''} ${esAcuaticoEq ? 'qroo-detail-equipment__item--water' : ''} ${esArff ? 'qroo-detail-equipment__item--arff' : ''}`}>
+                <span class="qroo-detail-equipment__icon">
+                  {esVehiculo && !esAcuaticoEq && !esArff && "🚒"}
+                  {esAcuaticoEq && "🚤"}
+                  {esArff && "✈️"}
+                  {!esVehiculo && !esAcuaticoEq && !esArff && "🔧"}
+                </span>
+                <span class="qroo-detail-equipment__name">{equipo}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Coverage Area -->
+  <section class="qroo-detail-coverage">
+    <div class="container">
+      <div class="qroo-detail-coverage__grid">
+        <div class="qroo-detail-coverage__info">
+          <div class="qroo-detail-section-header qroo-detail-section-header--left">
+            <span class="qroo-detail-section-label">Cobertura / Coverage</span>
+            <h2>Área de Servicio / Service Area</h2>
+          </div>
+
+          <div class="qroo-detail-coverage__zone" style={`border-color: ${zonaInfo?.color}`}>
+            <h3>{zonaInfo?.nombre}</h3>
+            <p class="qroo-detail-coverage__zone-en">{zonaInfo?.nombreEn}</p>
+            <p>{zonaInfo?.descripcion}</p>
+          </div>
+
+          <div class="qroo-detail-coverage__municipalities">
+            <h4>Zonas Cubiertas / Areas Covered</h4>
+            <ul>
+              {estacion.municipiosCubiertos?.map(m => <li>{m}</li>)}
+            </ul>
+          </div>
+        </div>
+
+        <div class="qroo-detail-coverage__map">
+          <iframe
+            src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d${estacion.coordenadas.lng}!3d${estacion.coordenadas.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1ses!2smx!4v1`}
+            width="100%"
+            height="350"
+            style="border:0; border-radius: 16px;"
+            allowfullscreen=""
+            loading="lazy"
+            title={`Map - ${estacion.nombre}`}
+          ></iframe>
+          <div class="qroo-detail-map__coords">
+            <span>GPS:</span>
+            <code>{estacion.coordenadas.lat.toFixed(4)}, {estacion.coordenadas.lng.toFixed(4)}</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Características Especiales -->
+  {estacion.caracteristicasEspeciales && estacion.caracteristicasEspeciales.length > 0 && (
+    <section class="qroo-detail-features">
+      <div class="container">
+        <div class="qroo-detail-section-header">
+          <span class="qroo-detail-section-label">Distintivos / Highlights</span>
+          <h2>Características Especiales / Special Features</h2>
+        </div>
+
+        <div class="qroo-detail-features__grid">
+          {estacion.caracteristicasEspeciales.map(c => (
+            <div class="qroo-detail-feature">
+              <span class="qroo-detail-feature__icon">
+                {c.toLowerCase().includes("bilingüe") && "🌐"}
+                {c.toLowerCase().includes("rescate") && "🚨"}
+                {c.toLowerCase().includes("crucero") && "🚢"}
+                {c.toLowerCase().includes("aeropuerto") && "✈️"}
+                {c.toLowerCase().includes("hotel") && "🏨"}
+                {c.toLowerCase().includes("buceo") && "🤿"}
+                {c.toLowerCase().includes("huracán") && "🌀"}
+                {!c.toLowerCase().includes("bilingüe") &&
+                 !c.toLowerCase().includes("rescate") &&
+                 !c.toLowerCase().includes("crucero") &&
+                 !c.toLowerCase().includes("aeropuerto") &&
+                 !c.toLowerCase().includes("hotel") &&
+                 !c.toLowerCase().includes("buceo") &&
+                 !c.toLowerCase().includes("huracán") && "⭐"}
+              </span>
+              <span class="qroo-detail-feature__text">{c}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ Bilingüe -->
+  {faqRelevantes.length > 0 && (
+    <section class="qroo-detail-faq">
+      <div class="container">
+        <div class="qroo-detail-section-header">
+          <span class="qroo-detail-section-label">FAQ</span>
+          <h2>Preguntas Frecuentes / Frequently Asked Questions</h2>
+        </div>
+
+        <div class="qroo-detail-faq__grid">
+          {faqRelevantes.map((faq, index) => (
+            <details class="qroo-detail-faq__item" open={index === 0}>
+              <summary>
+                <span class="qroo-detail-faq__q-es">{faq.pregunta}</span>
+                <span class="qroo-detail-faq__q-en">{faq.preguntaEn}</span>
+              </summary>
+              <div class="qroo-detail-faq__answer">
+                <p class="qroo-detail-faq__a-es">{faq.respuesta}</p>
+                <p class="qroo-detail-faq__a-en">{faq.respuestaEn}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Related Stations -->
+  <section class="qroo-detail-related">
+    <div class="container">
+      <div class="qroo-detail-section-header">
+        <span class="qroo-detail-section-label">{estacion.zona}</span>
+        <h2>Otras Estaciones / Other Stations</h2>
+      </div>
+
+      {estacionesZona.length > 0 ? (
+        <div class="qroo-detail-related__grid">
+          {estacionesZona.slice(0, 3).map(e => (
+            <a href={`/directorio/quintana-roo/${e.slug}`} class="qroo-detail-related__card">
+              <div class="qroo-detail-related__badges">
+                {e.idiomas?.includes("Inglés") && <span class="qroo-detail-related__badge">EN</span>}
+              </div>
+              <h3>{e.nombre.replace("Estación de Bomberos ", "").replace("Estación Central de Bomberos ", "")}</h3>
+              <p>{e.direccion}</p>
+              <div class="qroo-detail-related__meta">
+                <span class="qroo-detail-related__phone">{e.telefono}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="qroo-detail-related__empty">Only station in {estacion.zona} / Única estación en {estacion.zona}</p>
+      )}
+
+      <div class="qroo-detail-related__all">
+        <a href="/directorio/quintana-roo" class="qroo-detail-btn qroo-detail-btn--outline">
+          Ver todas las estaciones de Quintana Roo
+          <span class="qroo-detail-btn__en">View all Quintana Roo stations</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="qroo-detail-cta">
+    <div class="container">
+      <div class="qroo-detail-cta__content">
+        <h2>
+          {esRescateAcuatico ? "¿Necesitas Equipo de Rescate Acuático?" : esHotelero ? "Equipamiento de Seguridad para Hoteles" : "¿Necesitas Equipamiento Profesional?"}
+        </h2>
+        <p class="qroo-detail-cta__desc-es">
+          {esRescateAcuatico
+            ? "Trajes de buceo, lanchas de rescate, equipo para cenotes y arrecifes"
+            : esHotelero
+            ? "Sistemas de detección, extintores, alarmas y equipos para resorts"
+            : "Equipo profesional para bomberos y brigadas de emergencia"}
+        </p>
+        <p class="qroo-detail-cta__desc-en">
+          {esRescateAcuatico
+            ? "Diving suits, rescue boats, cenote and reef equipment"
+            : esHotelero
+            ? "Detection systems, extinguishers, alarms, and resort equipment"
+            : "Professional equipment for firefighters and emergency brigades"}
+        </p>
+        <a href="/cotizar" class="qroo-detail-cta__btn">
+          <span>Solicitar Cotización</span>
+          <span class="qroo-detail-cta__btn-en">Request Quote</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════════
+     QUINTANA ROO - PÁGINA DETALLE BILINGÜE
+     ═══════════════════════════════════════════════════════════════════════════════ */
+
+  :root {
+    --qroo-primary: #06b6d4;
+    --qroo-primary-dark: #0891b2;
+    --qroo-primary-light: #22d3ee;
+  }
+
+  /* ═══ Hero ═══ */
+  .qroo-detail-hero {
+    position: relative;
+    padding: var(--space-14) 0 var(--space-16);
+    background: linear-gradient(135deg, #083344 0%, #0e7490 40%, var(--zone-color, #06b6d4) 100%);
+    overflow: hidden;
+  }
+
+  .qroo-detail-hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .qroo-detail-hero__gradient {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 20% 30%, rgba(6, 182, 212, 0.3), transparent);
+  }
+  .qroo-detail-hero__waves {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath fill='%23ffffff08' d='M0,32L60,37.3C120,43,240,53,360,48C480,43,600,21,720,16C840,11,960,21,1080,32C1200,43,1320,53,1380,58.7L1440,64L1440,80L1380,80C1320,80,1200,80,1080,80C960,80,840,80,720,80C600,80,480,80,360,80C240,80,120,80,60,80L0,80Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
+    background-size: cover;
+  }
+
+  .qroo-detail-breadcrumb { margin-bottom: var(--space-6); position: relative; }
+  .qroo-detail-breadcrumb ol { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; padding: 0; margin: 0; }
+  .qroo-detail-breadcrumb li { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
+  .qroo-detail-breadcrumb li:not(:last-child)::after { content: "/"; color: rgba(255,255,255,0.3); }
+  .qroo-detail-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .qroo-detail-breadcrumb a:hover { color: white; }
+  .qroo-detail-breadcrumb [aria-current] { color: var(--qroo-primary-light); font-weight: 600; }
+
+  .qroo-detail-alerts { margin-bottom: var(--space-6); position: relative; }
+  .qroo-detail-alert { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-4); border-radius: var(--radius-lg); }
+  .qroo-detail-alert--info { background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.3); }
+  .qroo-detail-alert--warning { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); }
+  .qroo-detail-alert--danger { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); }
+  .qroo-detail-alert__icon { font-size: var(--text-xl); }
+  .qroo-detail-alert__text { display: block; font-size: var(--text-sm); color: white; }
+  .qroo-detail-alert__text-en { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.7); font-style: italic; margin-top: var(--space-1); }
+
+  .qroo-detail-hero__grid { position: relative; display: grid; grid-template-columns: 1fr 400px; gap: var(--space-10); align-items: start; }
+
+  .qroo-detail-badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }
+  .qroo-detail-badge { display: inline-flex; align-items: center; padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; }
+  .qroo-detail-badge--zone { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.25); }
+  .qroo-detail-badge--bilingual { background: rgba(34,211,238,0.2); color: #a5f3fc; border: 1px solid rgba(34,211,238,0.4); }
+  .qroo-detail-badge--water { background: rgba(14,165,233,0.2); color: #7dd3fc; border: 1px solid rgba(14,165,233,0.4); }
+  .qroo-detail-badge--airport { background: rgba(99,102,241,0.2); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.4); }
+  .qroo-detail-badge--cruise { background: rgba(139,92,246,0.2); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.4); }
+  .qroo-detail-badge--hotel { background: rgba(245,158,11,0.2); color: #fcd34d; border: 1px solid rgba(245,158,11,0.4); }
+  .qroo-detail-badge--island { background: rgba(16,185,129,0.2); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.4); }
+
+  .qroo-detail-hero__title { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 800; color: white; line-height: 1.2; margin: 0 0 var(--space-4); }
+  .qroo-detail-hero__desc { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-4); }
+  .qroo-detail-hero__desc-en { display: flex; gap: var(--space-3); padding: var(--space-4); background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); margin-bottom: var(--space-6); }
+  .qroo-detail-hero__desc-en-flag { padding: var(--space-1) var(--space-2); background: var(--qroo-primary); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 700; color: white; height: fit-content; }
+  .qroo-detail-hero__desc-en p { margin: 0; font-size: var(--text-sm); color: rgba(255,255,255,0.8); line-height: 1.6; }
+
+  .qroo-detail-hero__address { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-4); background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); margin-bottom: var(--space-6); }
+  .qroo-detail-hero__address svg { flex-shrink: 0; color: var(--qroo-primary-light); margin-top: 2px; }
+  .qroo-detail-hero__address span { font-size: var(--text-sm); color: white; line-height: 1.5; }
+
+  .qroo-detail-hero__meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); padding: var(--space-5); background: rgba(255,255,255,0.06); border-radius: var(--radius-xl); }
+  .qroo-detail-hero__meta-item { display: flex; flex-direction: column; gap: var(--space-1); }
+  .qroo-detail-hero__meta-label { font-size: var(--text-xs); color: rgba(255,255,255,0.5); }
+  .qroo-detail-hero__meta-value { font-size: var(--text-sm); font-weight: 600; color: white; }
+
+  /* Emergency Card */
+  .qroo-detail-emergency { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-2xl); padding: var(--space-6); }
+  .qroo-detail-emergency__main { text-align: center; padding-bottom: var(--space-5); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-5); }
+  .qroo-detail-emergency__label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: var(--space-2); }
+  .qroo-detail-emergency__911 { display: block; font-size: 4rem; font-weight: 900; color: var(--color-fire-400); text-decoration: none; line-height: 1; margin-bottom: var(--space-1); text-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
+  .qroo-detail-emergency__note { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
+
+  .qroo-detail-emergency__local { text-align: center; padding-bottom: var(--space-4); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-4); }
+  .qroo-detail-emergency__local-label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.6); margin-bottom: var(--space-2); }
+  .qroo-detail-emergency__phone { display: block; font-size: var(--text-2xl); font-weight: 700; color: var(--qroo-primary-light); text-decoration: none; }
+
+  .qroo-detail-emergency__bilingual { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3); background: rgba(34,211,238,0.15); border-radius: var(--radius-lg); margin-bottom: var(--space-4); }
+  .qroo-detail-emergency__bilingual-flag { padding: var(--space-1) var(--space-2); background: var(--qroo-primary); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 700; color: white; }
+  .qroo-detail-emergency__bilingual span:last-child { font-size: var(--text-xs); color: rgba(255,255,255,0.8); }
+
+  .qroo-detail-emergency__actions { display: flex; flex-direction: column; gap: var(--space-2); }
+  .qroo-detail-emergency__action { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3); background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); text-decoration: none; color: white; font-size: var(--text-sm); transition: all 0.2s; }
+  .qroo-detail-emergency__action:hover { background: rgba(255,255,255,0.15); }
+  .qroo-detail-emergency__action--directions { background: var(--qroo-primary); }
+  .qroo-detail-emergency__action--directions:hover { background: var(--qroo-primary-dark); }
+
+  /* ═══ Section Styles ═══ */
+  .qroo-detail-section-header { margin-bottom: var(--space-8); }
+  .qroo-detail-section-header--left { text-align: left; }
+  .qroo-detail-section-label { display: inline-block; padding: var(--space-1) var(--space-3); background: rgba(6,182,212,0.1); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; color: var(--qroo-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-3); }
+  .qroo-detail-section-header h2 { font-size: var(--text-2xl); font-weight: 800; color: var(--color-smoke-900); margin: 0; }
+
+  /* ═══ Services ═══ */
+  .qroo-detail-services { padding: var(--space-16) 0; background: white; }
+  .qroo-detail-services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+  .qroo-detail-service { position: relative; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-5); background: var(--color-smoke-50); border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
+  .qroo-detail-service:hover { background: white; border-color: var(--qroo-primary-light); box-shadow: 0 4px 12px rgba(6,182,212,0.1); }
+  .qroo-detail-service--water { border-left: 3px solid #0ea5e9; }
+  .qroo-detail-service--airport { border-left: 3px solid #6366f1; }
+  .qroo-detail-service--medical { border-left: 3px solid #10b981; }
+  .qroo-detail-service__icon { font-size: var(--text-2xl); }
+  .qroo-detail-service__name { font-size: var(--text-sm); font-weight: 600; color: var(--color-smoke-800); line-height: 1.4; flex: 1; }
+  .qroo-detail-service__number { position: absolute; top: var(--space-2); right: var(--space-3); font-size: var(--text-xs); font-weight: 700; color: var(--color-smoke-300); }
+
+  /* ═══ Equipment ═══ */
+  .qroo-detail-equipment { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+  .qroo-detail-equipment__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  .qroo-detail-equipment__item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); background: white; border-radius: var(--radius-lg); border: 1px solid var(--color-smoke-200); }
+  .qroo-detail-equipment__item--vehicle { border-left: 3px solid var(--qroo-primary); }
+  .qroo-detail-equipment__item--water { border-left: 3px solid #0ea5e9; }
+  .qroo-detail-equipment__item--arff { border-left: 3px solid #6366f1; }
+  .qroo-detail-equipment__icon { font-size: var(--text-xl); }
+  .qroo-detail-equipment__name { font-size: var(--text-sm); font-weight: 500; color: var(--color-smoke-700); line-height: 1.4; }
+
+  /* ═══ Coverage ═══ */
+  .qroo-detail-coverage { padding: var(--space-16) 0; background: white; }
+  .qroo-detail-coverage__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); }
+  .qroo-detail-coverage__zone { padding: var(--space-5); background: var(--color-smoke-50); border-radius: var(--radius-xl); border-left: 4px solid; margin-bottom: var(--space-6); }
+  .qroo-detail-coverage__zone h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-1); }
+  .qroo-detail-coverage__zone-en { font-size: var(--text-sm); color: var(--color-smoke-500); font-style: italic; margin: 0 0 var(--space-2); }
+  .qroo-detail-coverage__zone p:last-child { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0; line-height: 1.6; }
+  .qroo-detail-coverage__municipalities h4 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-800); margin: 0 0 var(--space-3); }
+  .qroo-detail-coverage__municipalities ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+  .qroo-detail-coverage__municipalities li { font-size: var(--text-sm); color: var(--color-smoke-600); padding-left: var(--space-4); position: relative; }
+  .qroo-detail-coverage__municipalities li::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; background: var(--qroo-primary); border-radius: 50%; }
+  .qroo-detail-map__coords { display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); font-size: var(--text-sm); color: var(--color-smoke-500); }
+  .qroo-detail-map__coords code { padding: var(--space-1) var(--space-2); background: var(--color-smoke-100); border-radius: var(--radius-sm); font-family: monospace; font-size: var(--text-xs); }
+
+  /* ═══ Features ═══ */
+  .qroo-detail-features { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+  .qroo-detail-features__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-4); }
+  .qroo-detail-feature { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4) var(--space-6); background: white; border-radius: var(--radius-full); border: 1px solid var(--color-smoke-200); }
+  .qroo-detail-feature__icon { font-size: var(--text-xl); }
+  .qroo-detail-feature__text { font-size: var(--text-sm); font-weight: 600; color: var(--color-smoke-700); }
+
+  /* ═══ FAQ Bilingüe ═══ */
+  .qroo-detail-faq { padding: var(--space-16) 0; background: white; }
+  .qroo-detail-faq__grid { display: grid; gap: var(--space-4); max-width: 800px; margin: 0 auto; }
+  .qroo-detail-faq__item { padding: var(--space-5); background: var(--color-smoke-50); border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
+  .qroo-detail-faq__item[open] { background: white; border-color: var(--qroo-primary-light); }
+  .qroo-detail-faq__item summary { cursor: pointer; list-style: none; }
+  .qroo-detail-faq__item summary::-webkit-details-marker { display: none; }
+  .qroo-detail-faq__q-es { display: block; font-size: var(--text-base); font-weight: 600; color: var(--color-smoke-900); margin-bottom: var(--space-1); }
+  .qroo-detail-faq__q-en { display: block; font-size: var(--text-sm); color: var(--color-smoke-500); font-style: italic; }
+  .qroo-detail-faq__answer { padding-top: var(--space-4); margin-top: var(--space-4); border-top: 1px solid var(--color-smoke-200); }
+  .qroo-detail-faq__a-es { font-size: var(--text-sm); color: var(--color-smoke-700); line-height: 1.7; margin: 0 0 var(--space-3); }
+  .qroo-detail-faq__a-en { font-size: var(--text-sm); color: var(--color-smoke-500); line-height: 1.6; margin: 0; padding: var(--space-3); background: var(--color-smoke-50); border-radius: var(--radius-md); font-style: italic; }
+
+  /* ═══ Related ═══ */
+  .qroo-detail-related { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+  .qroo-detail-related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-bottom: var(--space-8); }
+  .qroo-detail-related__card { display: block; padding: var(--space-6); background: white; border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; position: relative; }
+  .qroo-detail-related__card:hover { border-color: var(--qroo-primary); box-shadow: 0 8px 24px rgba(6,182,212,0.1); transform: translateY(-2px); }
+  .qroo-detail-related__badges { position: absolute; top: var(--space-3); right: var(--space-3); }
+  .qroo-detail-related__badge { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: var(--qroo-primary); border-radius: 50%; font-size: 10px; font-weight: 700; color: white; }
+  .qroo-detail-related__card h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); padding-right: var(--space-8); }
+  .qroo-detail-related__card p { font-size: var(--text-sm); color: var(--color-smoke-500); margin: 0 0 var(--space-4); line-height: 1.5; }
+  .qroo-detail-related__phone { font-size: var(--text-sm); font-weight: 600; color: var(--qroo-primary); }
+  .qroo-detail-related__empty { text-align: center; padding: var(--space-8); color: var(--color-smoke-500); }
+  .qroo-detail-related__all { text-align: center; }
+
+  .qroo-detail-btn { display: inline-flex; flex-direction: column; align-items: center; padding: var(--space-3) var(--space-6); border-radius: var(--radius-lg); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: all 0.2s; }
+  .qroo-detail-btn--outline { background: white; border: 2px solid var(--qroo-primary); color: var(--qroo-primary); }
+  .qroo-detail-btn--outline:hover { background: var(--qroo-primary); color: white; }
+  .qroo-detail-btn__en { font-size: var(--text-xs); font-weight: 400; opacity: 0.7; margin-top: var(--space-1); }
+
+  /* ═══ CTA ═══ */
+  .qroo-detail-cta { padding: var(--space-16) 0; background: linear-gradient(135deg, #083344 0%, #0e7490 50%, var(--qroo-primary) 100%); }
+  .qroo-detail-cta__content { text-align: center; max-width: 600px; margin: 0 auto; }
+  .qroo-detail-cta__content h2 { font-size: var(--text-2xl); font-weight: 800; color: white; margin: 0 0 var(--space-4); }
+  .qroo-detail-cta__desc-es { font-size: var(--text-base); color: rgba(255,255,255,0.9); margin: 0 0 var(--space-2); }
+  .qroo-detail-cta__desc-en { font-size: var(--text-sm); color: rgba(255,255,255,0.7); font-style: italic; margin: 0 0 var(--space-8); }
+  .qroo-detail-cta__btn { display: inline-flex; flex-direction: column; align-items: center; padding: var(--space-4) var(--space-8); background: white; border-radius: var(--radius-lg); text-decoration: none; transition: all 0.2s; }
+  .qroo-detail-cta__btn span:first-child { font-size: var(--text-base); font-weight: 700; color: var(--qroo-primary-dark); }
+  .qroo-detail-cta__btn-en { font-size: var(--text-sm); color: var(--color-smoke-500); margin-top: var(--space-1); }
+  .qroo-detail-cta__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1200px) {
+    .qroo-detail-services__grid { grid-template-columns: repeat(2, 1fr); }
+    .qroo-detail-equipment__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 1024px) {
+    .qroo-detail-hero__grid { grid-template-columns: 1fr; }
+    .qroo-detail-emergency { max-width: 400px; }
+    .qroo-detail-coverage__grid { grid-template-columns: 1fr; }
+    .qroo-detail-related__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .qroo-detail-hero { padding: var(--space-10) 0 var(--space-12); }
+    .qroo-detail-services__grid, .qroo-detail-equipment__grid, .qroo-detail-related__grid { grid-template-columns: 1fr; }
+    .qroo-detail-hero__meta { grid-template-columns: 1fr; }
+  }
+</style>
