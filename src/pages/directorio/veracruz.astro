@@ -724,8 +724,29 @@ const schemaOrg = {
           const esPetrolero = estacion.servicios?.some(s => s.toLowerCase().includes("petrol") || s.toLowerCase().includes("pemex"));
           const esBilingue = estacion.idiomas?.includes("Ingles");
 
+          const thumbSrc = esPetrolero || esHAZMAT
+            ? "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif"
+            : esMaritimo
+              ? "/images/directorio/estacion-bomberos-maritimo-01.avif"
+              : "/images/directorio/estacion-bomberos-veracruz-01.avif";
+
+          const thumbAlt = esPetrolero || esHAZMAT
+            ? "Equipo HAZMAT materiales peligrosos bomberos Veracruz"
+            : esMaritimo
+              ? "Estación de bomberos marítima puerto Veracruz"
+              : "Estación de bomberos Veracruz";
+
           return (
             <a href={`/directorio/veracruz/${estacion.slug}`} class="ver-station-card">
+              <div class="ver-station-card__thumb">
+                <img
+                  src={thumbSrc}
+                  alt={thumbAlt}
+                  width="400" height="180"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
               <div class="ver-station-card__header">
                 <span class="ver-station-card__zone" style={`--zone-color: ${zonaInfo?.color || '#0ea5e9'}`}>
                   {estacion.zona}
@@ -757,6 +778,89 @@ const schemaOrg = {
             </a>
           );
         })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       GALERÍA VISUAL - SERVICIOS ESPECIALIZADOS VERACRUZ
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="ver-visual-gallery">
+    <div class="container">
+      <div class="ver-section-header ver-section-header--center">
+        <span class="ver-section-label">Servicios Especializados</span>
+        <h2 class="ver-section-title">Capacidades Operativas Veracruz</h2>
+      </div>
+      <div class="ver-visual-gallery__grid">
+        <div class="ver-visual-gallery__item ver-visual-gallery__item--tall">
+          <img
+            src="/images/directorio/estacion-bomberos-veracruz-01.avif"
+            alt="Estación de bomberos Veracruz - instalaciones y personal"
+            width="500" height="600"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="ver-visual-gallery__caption">
+            <h3>Estaciones Veracruz</h3>
+            <p>{totalEstaciones} estaciones activas en el estado</p>
+          </div>
+        </div>
+        <div class="ver-visual-gallery__col">
+          <div class="ver-visual-gallery__item">
+            <img
+              src="/images/directorio/estacion-bomberos-maritimo-01.avif"
+              alt="Estación de bomberos marítima Puerto Veracruz - rescate acuático"
+              width="500" height="280"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="ver-visual-gallery__caption">
+              <h3>Rescate Marítimo</h3>
+              <p>Coordinación SEMAR en el Puerto de Veracruz</p>
+            </div>
+          </div>
+          <div class="ver-visual-gallery__item">
+            <img
+              src="/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif"
+              alt="Equipo HAZMAT materiales peligrosos bomberos PEMEX Veracruz"
+              width="500" height="280"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="ver-visual-gallery__caption">
+              <h3>HAZMAT Petrolero</h3>
+              <p>Protocolos certificados para complejos PEMEX</p>
+            </div>
+          </div>
+        </div>
+        <div class="ver-visual-gallery__col">
+          <div class="ver-visual-gallery__item">
+            <img
+              src="/images/directorio/estacion-bomberos-refineria-01.avif"
+              alt="Estación de bomberos refinería - cobertura industrial PEMEX"
+              width="500" height="280"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="ver-visual-gallery__caption">
+              <h3>Cobertura Industrial</h3>
+              <p>Refinería Minatitlán y complejos petroquímicos</p>
+            </div>
+          </div>
+          <div class="ver-visual-gallery__item">
+            <img
+              src="/images/directorio/estacion-bomberos-huracanes-01.avif"
+              alt="Estación de bomberos protocolos huracanes Veracruz - alerta costera"
+              width="500" height="280"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="ver-visual-gallery__caption">
+              <h3>Alerta Huracanes</h3>
+              <p>Sistema activo junio - noviembre, Golfo de México</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1264,8 +1368,12 @@ const schemaOrg = {
   /* ═══ Stations Grid ═══ */
   .ver-stations { padding: var(--space-16) 0; background: white; }
   .ver-stations__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
-  .ver-station-card { display: flex; flex-direction: column; padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
+  .ver-station-card { display: flex; flex-direction: column; padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; overflow: hidden; }
   .ver-station-card:hover { background: white; box-shadow: 0 12px 40px rgba(14,165,233,0.12); transform: translateY(-4px); border-color: var(--ver-primary-light); }
+
+  .ver-station-card__thumb { margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-4) calc(-1 * var(--space-6)); height: 160px; overflow: hidden; flex-shrink: 0; background: var(--color-smoke-200); border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+  .ver-station-card__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+  .ver-station-card:hover .ver-station-card__thumb img { transform: scale(1.05); }
 
   .ver-station-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
   .ver-station-card__zone { font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); background: rgba(14,165,233,0.1); color: var(--zone-color); border-radius: var(--radius-sm); }
@@ -1377,5 +1485,73 @@ const schemaOrg = {
     .ver-hero__stats { grid-template-columns: repeat(2, 1fr); }
     .ver-hero__focus { grid-template-columns: 1fr; }
     .ver-hurricanes__semaforo, .ver-petroleum__stats, .ver-hurricanes__stats, .ver-hurricanes__coordination-grid, .ver-tourism__attractions, .ver-tourism__pueblos-grid, .ver-zones__grid, .ver-protocols__grid, .ver-stations__grid, .ver-faq__grid, .ver-interlinking__grid, .ver-products__grid, .ver-petroleum__hazmat-grid, .ver-maritime__stations-grid { grid-template-columns: 1fr; }
+    .ver-visual-gallery__grid { grid-template-columns: 1fr; }
+    .ver-visual-gallery__item--tall { grid-row: span 1; }
+    .ver-visual-gallery__col { display: contents; }
+  }
+
+  /* ═══ Visual Gallery ═══ */
+  .ver-visual-gallery { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+
+  .ver-visual-gallery__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .ver-visual-gallery__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .ver-visual-gallery__item {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--color-smoke-200);
+  }
+
+  .ver-visual-gallery__item--tall {
+    grid-row: span 2;
+  }
+
+  .ver-visual-gallery__item--tall img {
+    height: 100%;
+    min-height: 360px;
+  }
+
+  .ver-visual-gallery__item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .ver-visual-gallery__item:hover img {
+    transform: scale(1.04);
+  }
+
+  .ver-visual-gallery__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-4) var(--space-5);
+    background: linear-gradient(to top, rgba(14,165,233,0.85) 0%, transparent 100%);
+    color: white;
+  }
+
+  .ver-visual-gallery__caption h3 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    margin: 0 0 var(--space-1);
+  }
+
+  .ver-visual-gallery__caption p {
+    font-size: var(--text-xs);
+    margin: 0;
+    opacity: 0.85;
   }
 </style>

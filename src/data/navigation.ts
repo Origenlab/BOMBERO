@@ -16,7 +16,7 @@ export const mainNav: NavItem[] = [
     label: "Productos",
     href: "/productos",
     children: [
-      { label: "EPP Bomberos", href: "/productos/epp-bomberos" },
+      { label: "Trajes de Bombero", href: "/productos/trajes" },
       { label: "Cascos y Protección", href: "/productos/cascos" },
       { label: "Guantes y Botas", href: "/productos/guantes-botas" },
       { label: "SCBA Respiración", href: "/productos/scba" },
@@ -34,11 +34,11 @@ export const mainNav: NavItem[] = [
 
 export const productCategories = [
   {
-    id: "epp-bomberos",
+    id: "trajes",
     name: "Trajes de Bombero",
-    description: "Trajes estructurales NFPA 1971, forestales y de proximidad. Venta en México",
+    description: "Trajes estructurales NFPA 1971, forestales, ARFF, aproximación y HAZMAT. Venta en México",
     icon: "shield",
-    href: "/productos/epp-bomberos",
+    href: "/productos/trajes",
   },
   {
     id: "cascos",
@@ -93,7 +93,7 @@ export const productCategories = [
 
 export const footerNav: Record<string, NavItem[]> = {
   productos: [
-    { label: "EPP Bomberos", href: "/productos/epp-bomberos" },
+    { label: "Trajes de Bombero", href: "/productos/trajes" },
     { label: "Cascos y Protección", href: "/productos/cascos" },
     { label: "SCBA Respiración", href: "/productos/scba" },
     { label: "Herramientas de Rescate", href: "/productos/herramientas-rescate" },

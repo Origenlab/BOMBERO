@@ -588,8 +588,33 @@ const schemaOrg = {
           const esSwiftWater = estacion.servicios?.some(s => s.toLowerCase().includes("swift water") || s.toLowerCase().includes("acuático"));
           const esBilingue = estacion.idiomas?.includes("Inglés");
 
+          const thumbSrc = esHAZMAT
+            ? "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif"
+            : esEspeleologia
+              ? "/images/directorio/rescate-espeleologico-cuevas-01.avif"
+              : esSwiftWater
+                ? "/images/directorio/rescate-swift-water-rios-01.avif"
+                : "/images/directorio/estacion-bomberos-profesional-01.avif";
+
+          const thumbAlt = esHAZMAT
+            ? "Equipo HAZMAT bomberos San Luis Potosí - industria automotriz"
+            : esEspeleologia
+              ? "Rescate espeleológico bomberos - Sótano de las Golondrinas"
+              : esSwiftWater
+                ? "Rescate acuático swift water - Huasteca Potosina"
+                : "Estación de bomberos profesional San Luis Potosí";
+
           return (
             <a href={`/directorio/san-luis-potosi/${estacion.slug}`} class="slp-station-card">
+              <div class="slp-station-card__thumb">
+                <img
+                  src={thumbSrc}
+                  alt={thumbAlt}
+                  width="400" height="180"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
               <div class="slp-station-card__header">
                 <span class="slp-station-card__zone" style={`--zone-color: ${zonaInfo?.color || '#7c3aed'}`}>
                   {estacion.zona}
@@ -621,6 +646,89 @@ const schemaOrg = {
             </a>
           );
         })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       GALERÍA VISUAL - SERVICIOS ESPECIALIZADOS SLP
+       ═══════════════════════════════════════════════════════════════════════════ -->
+  <section class="slp-visual-gallery">
+    <div class="container">
+      <div class="slp-section-header slp-section-header--center">
+        <span class="slp-section-label">Servicios Especializados</span>
+        <h2 class="slp-section-title">Capacidades Operativas San Luis Potosí</h2>
+      </div>
+      <div class="slp-visual-gallery__grid">
+        <div class="slp-visual-gallery__item slp-visual-gallery__item--tall">
+          <img
+            src="/images/directorio/estacion-bomberos-profesional-01.avif"
+            alt="Estación de bomberos profesional San Luis Potosí - instalaciones modernas"
+            width="500" height="600"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="slp-visual-gallery__caption">
+            <h3>Estaciones SLP</h3>
+            <p>{totalEstaciones} estaciones activas en el estado</p>
+          </div>
+        </div>
+        <div class="slp-visual-gallery__col">
+          <div class="slp-visual-gallery__item">
+            <img
+              src="/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif"
+              alt="Equipo HAZMAT materiales peligrosos - industria automotriz BMW GM San Luis Potosí"
+              width="500" height="280"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="slp-visual-gallery__caption">
+              <h3>HAZMAT Industrial</h3>
+              <p>Cobertura BMW Group y General Motors</p>
+            </div>
+          </div>
+          <div class="slp-visual-gallery__item">
+            <img
+              src="/images/directorio/rescate-espeleologico-cuevas-01.avif"
+              alt="Rescate espeleológico cuevas - Sótano de las Golondrinas San Luis Potosí"
+              width="500" height="280"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="slp-visual-gallery__caption">
+              <h3>Rescate Espeleológico</h3>
+              <p>Sótano de las Golondrinas (512 m)</p>
+            </div>
+          </div>
+        </div>
+        <div class="slp-visual-gallery__col">
+          <div class="slp-visual-gallery__item">
+            <img
+              src="/images/directorio/rescate-swift-water-rios-01.avif"
+              alt="Rescate swift water ríos - Huasteca Potosina cascadas"
+              width="500" height="280"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="slp-visual-gallery__caption">
+              <h3>Rescate Acuático</h3>
+              <p>Operaciones en Huasteca Potosina</p>
+            </div>
+          </div>
+          <div class="slp-visual-gallery__item">
+            <img
+              src="/images/directorio/capacitacion-bomberos-profesional-01.avif"
+              alt="Capacitación bomberos profesional - formación especializada San Luis Potosí"
+              width="500" height="280"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="slp-visual-gallery__caption">
+              <h3>Capacitación</h3>
+              <p>Personal certificado NFPA y NOM-STPS</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1018,8 +1126,12 @@ const schemaOrg = {
   /* ═══ Stations Grid ═══ */
   .slp-stations { padding: var(--space-16) 0; background: white; }
   .slp-stations__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
-  .slp-station-card { display: flex; flex-direction: column; padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
+  .slp-station-card { display: flex; flex-direction: column; padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; overflow: hidden; }
   .slp-station-card:hover { background: white; box-shadow: 0 12px 40px rgba(124,58,237,0.12); transform: translateY(-4px); border-color: var(--slp-primary-light); }
+
+  .slp-station-card__thumb { margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-4) calc(-1 * var(--space-6)); height: 160px; overflow: hidden; flex-shrink: 0; background: var(--color-smoke-200); border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+  .slp-station-card__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+  .slp-station-card:hover .slp-station-card__thumb img { transform: scale(1.05); }
 
   .slp-station-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
   .slp-station-card__zone { font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); background: rgba(124,58,237,0.1); color: var(--zone-color); border-radius: var(--radius-sm); }
@@ -1131,5 +1243,73 @@ const schemaOrg = {
     .slp-hero__stats { grid-template-columns: repeat(2, 1fr); }
     .slp-hero__focus { grid-template-columns: 1fr; }
     .slp-industry__stats, .slp-tourism__attractions, .slp-tourism__pueblos-grid, .slp-zones__grid, .slp-protocols__grid, .slp-stations__grid, .slp-faq__grid, .slp-interlinking__grid, .slp-products__grid, .slp-industry__hazmat-grid { grid-template-columns: 1fr; }
+    .slp-visual-gallery__grid { grid-template-columns: 1fr; }
+    .slp-visual-gallery__item--tall { grid-row: span 1; }
+    .slp-visual-gallery__col { display: contents; }
+  }
+
+  /* ═══ SLP Visual Gallery ═══ */
+  .slp-visual-gallery { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+
+  .slp-visual-gallery__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .slp-visual-gallery__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .slp-visual-gallery__item {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    background: var(--color-smoke-200);
+  }
+
+  .slp-visual-gallery__item--tall {
+    grid-row: span 2;
+  }
+
+  .slp-visual-gallery__item--tall img {
+    height: 100%;
+    min-height: 360px;
+  }
+
+  .slp-visual-gallery__item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .slp-visual-gallery__item:hover img {
+    transform: scale(1.04);
+  }
+
+  .slp-visual-gallery__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-4) var(--space-5);
+    background: linear-gradient(to top, rgba(124,58,237,0.85) 0%, transparent 100%);
+    color: white;
+  }
+
+  .slp-visual-gallery__caption h3 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    margin: 0 0 var(--space-1);
+  }
+
+  .slp-visual-gallery__caption p {
+    font-size: var(--text-xs);
+    margin: 0;
+    opacity: 0.85;
   }
 </style>
