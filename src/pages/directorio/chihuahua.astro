@@ -30,6 +30,7 @@
 import PageLayout from "@layouts/PageLayout.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesChihuahua, CHIHUAHUA_SEO, ESTADISTICAS_CHIHUAHUA } from "@data/estaciones-chihuahua";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // SEO Metadata
 const title = 'Bomberos de Chihuahua | 28 Estaciones | Directorio Oficial CHIH';
@@ -53,6 +54,37 @@ const zonasEstaciones = {
 
 // Lista de ciudades únicas para navegación rápida
 const ciudadesUnicas = [...new Set(estacionesChihuahua.map(e => e.ciudad))].sort();
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Chihuahua", url: "/directorio/chihuahua" },
+]);
+
+const chihuahuaItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Chihuahua",
+  "description": description,
+  "numberOfItems": ESTADISTICAS_CHIHUAHUA.total_estaciones,
+  "itemListElement": estacionesChihuahua.map((estacion, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": estacion.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": estacion.direccion,
+        "addressLocality": estacion.ciudad,
+        "addressRegion": "Chihuahua",
+        "addressCountry": "MX",
+        "postalCode": estacion.codigoPostal
+      },
+      "telephone": estacion.telefono,
+      "url": `https://bombero.mx/directorio/chihuahua/${estacion.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
@@ -60,33 +92,8 @@ const ciudadesUnicas = [...new Set(estacionesChihuahua.map(e => e.ciudad))].sort
   description={description}
   keywords={keywords}
   canonical="https://bombero.mx/directorio/chihuahua"
+  jsonLd={[breadcrumbSchema, chihuahuaItemListSchema]}
 >
-  <!-- Schema.org markup para SEO -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Estaciones de Bomberos en Chihuahua",
-    "description": description,
-    "numberOfItems": ESTADISTICAS_CHIHUAHUA.total_estaciones,
-    "itemListElement": estacionesChihuahua.map((estacion, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@type": "FireStation",
-        "name": estacion.nombre,
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": estacion.direccion,
-          "addressLocality": estacion.ciudad,
-          "addressRegion": "Chihuahua",
-          "addressCountry": "MX",
-          "postalCode": estacion.codigoPostal
-        },
-        "telephone": estacion.telefono,
-        "url": `https://bombero.mx/directorio/chihuahua/${estacion.slug}`
-      }
-    }))
-  })} />
 
   <div class="chih-main">
     <!-- Hero Section Premium -->

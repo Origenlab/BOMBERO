@@ -24,6 +24,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesChiapas, getMunicipios, getEstadisticas, CHIAPAS_SEO } from "@data/estaciones-chiapas";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Obtener datos
 const municipios = getMunicipios();
@@ -47,11 +48,45 @@ const municipiosInfo = [
   { nombre: "Chiapa de Corzo", poblacion: "90K", desc: "Cañón del Sumidero" },
   { nombre: "Ocosingo", poblacion: "220K", desc: "Selva Lacandona" },
 ];
+
+const keywords = ["bomberos chiapas", "estaciones bomberos tuxtla gutiérrez", "emergencias chiapas 911", "bomberos san cristóbal", "bomberos tapachula", "rescate cañón sumidero", "bomberos selva lacandona"];
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Chiapas", url: "/directorio/chiapas" },
+]);
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Chiapas, México",
+  "description": "Directorio oficial de las 18 estaciones de bomberos en Chiapas. Teléfonos de emergencia en Tuxtla Gutiérrez, San Cristóbal, Tapachula, Palenque, Comitán y toda la Selva Lacandona. Rescate Cañón del Sumidero, emergencias forestales. 911 y contacto 24 horas.",
+  "numberOfItems": estacionesChiapas.length,
+  "itemListElement": estacionesChiapas.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio || e.ciudad,
+        "addressRegion": "Chiapas",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/chiapas/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
   title="Estaciones de Bomberos en Chiapas | Directorio Oficial | BOMBERO.MX"
   description="Directorio oficial de las 18 estaciones de bomberos en Chiapas. Teléfonos de emergencia en Tuxtla Gutiérrez, San Cristóbal, Tapachula, Palenque, Comitán y toda la Selva Lacandona. Rescate Cañón del Sumidero, emergencias forestales. 911 y contacto 24 horas."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/chiapas"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section con SEO optimizado -->
   <section class="chis-hero">

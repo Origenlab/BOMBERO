@@ -18,6 +18,7 @@
 
 import PageLayout from "@layouts/PageLayout.astro";
 import StationCard from "@components/StationCard.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesCoahuila,
   COAHUILA_SEO,
@@ -53,6 +54,37 @@ const zonas = {
 
 // Ciudades únicas para navegación
 const ciudadesUnicas = [...new Set(estacionesCoahuila.map(e => e.ciudad))].sort();
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Coahuila", url: "/directorio/coahuila" },
+]);
+
+const coahuilaItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Coahuila de Zaragoza",
+  "description": description,
+  "numberOfItems": ESTADISTICAS_COAHUILA.total_estaciones,
+  "itemListElement": estacionesCoahuila.map((estacion, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": estacion.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": estacion.direccion,
+        "addressLocality": estacion.ciudad,
+        "addressRegion": "Coahuila",
+        "addressCountry": "MX",
+        "postalCode": estacion.codigoPostal
+      },
+      "telephone": estacion.telefono,
+      "url": `https://bombero.mx/directorio/coahuila/${estacion.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
@@ -60,33 +92,8 @@ const ciudadesUnicas = [...new Set(estacionesCoahuila.map(e => e.ciudad))].sort(
   description={description}
   keywords={keywords}
   canonical="https://bombero.mx/directorio/coahuila"
+  jsonLd={[breadcrumbSchema, coahuilaItemListSchema]}
 >
-  <!-- Schema.org ItemList -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Estaciones de Bomberos en Coahuila de Zaragoza",
-    "description": description,
-    "numberOfItems": ESTADISTICAS_COAHUILA.total_estaciones,
-    "itemListElement": estacionesCoahuila.map((estacion, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@type": "FireStation",
-        "name": estacion.nombre,
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": estacion.direccion,
-          "addressLocality": estacion.ciudad,
-          "addressRegion": "Coahuila",
-          "addressCountry": "MX",
-          "postalCode": estacion.codigoPostal
-        },
-        "telephone": estacion.telefono,
-        "url": `https://bombero.mx/directorio/coahuila/${estacion.slug}`
-      }
-    }))
-  })} />
 
   <div class="coah-main">
     <!-- ═══════════════════════════════════════════════════════════════════

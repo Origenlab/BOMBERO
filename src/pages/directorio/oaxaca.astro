@@ -11,6 +11,7 @@
  */
 
 import PageLayout from "@layouts/PageLayout.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesOaxaca,
   OAXACA_SEO,
@@ -110,14 +111,30 @@ const schemaOrg = {
     }
   ]
 };
+
+const keywords = [
+  "bomberos oaxaca",
+  "estaciones bomberos oaxaca ciudad",
+  "emergencias oaxaca 911",
+  "bomberos costa oaxaca",
+  "bomberos sierra juárez",
+  "cuerpo bomberos oaxaca",
+  "rescate oaxaca",
+];
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Oaxaca", url: "/directorio/oaxaca" },
+]);
 ---
 
 <PageLayout
   title={title}
   description={description}
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/oaxaca"
+  jsonLd={[breadcrumbSchema, schemaOrg]}
 >
-  <!-- Schema.org -->
-  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
 
   <!-- Hero Section -->
   <section class="oax-hero">

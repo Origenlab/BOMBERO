@@ -7,11 +7,18 @@
  * Lago de Chapala - Mayor lago natural de México
  */
 import PageLayout from "@layouts/PageLayout.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import { estacionesJalisco, JALISCO_SEO, getEstacionesZMG, getEstacionesCosta, getEstacionesTequila, getEstacionesChapala, ESTADISTICAS_JALISCO } from '../../data/estaciones-jalisco';
 
-const title = `Bomberos en Jalisco - ${JALISCO_SEO.estado} | Directorio Oficial de Estaciones`;
+const title = `Bomberos en Jalisco | ${ESTADISTICAS_JALISCO.total_estaciones} Estaciones | Directorio Oficial BOMBERO.MX`;
 const description = JALISCO_SEO.metaDescripcion;
-const canonical = "https://bomberosmexico.com/directorio/jalisco";
+const canonical = "https://bombero.mx/directorio/jalisco";
+const keywords = [
+  "bomberos jalisco", "estaciones bomberos guadalajara", "bomberos puerto vallarta",
+  "emergencias jalisco 911", "bomberos tijuana guadalajara", "bomberos zapopan",
+  "bomberos tonalá", "incendios forestales jalisco", "rescate acuático lago chapala",
+  "bomberos ruta tequila", "cuerpo bomberos jalisco"
+];
 
 // Organización por zonas geográficas
 const zonas = [
@@ -103,7 +110,7 @@ const schemaData = {
         "addressCountry": "MX"
       },
       "telephone": estacion.telefono,
-      "url": `https://bomberosmexico.com/directorio/jalisco/${estacion.slug}`
+      "url": `https://bombero.mx/directorio/jalisco/${estacion.slug}`
     }
   }))
 };
@@ -123,12 +130,21 @@ const orgSchema = {
     "name": "Sistema Nacional de Protección Civil"
   }
 };
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Jalisco", url: "/directorio/jalisco" },
+]);
 ---
 
-<PageLayout title={title} description={description}>
-  <!-- Schema.org -->
-  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+<PageLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonical={canonical}
+  jsonLd={[breadcrumbSchema, schemaData, orgSchema]}
+>
 
   <div class="jalisco-page">
     <!-- Hero Section -->

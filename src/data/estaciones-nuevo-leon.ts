@@ -1167,7 +1167,7 @@ export function generarMetaSEOEstacion(estacion: Estacion): {
     title: `${estacion.nombre} | Bomberos ${estacion.ciudad}, Nuevo León - Tel: ${estacion.telefono}`,
     description: `${estacion.nombre} en ${estacion.direccion}, ${estacion.ciudad}. Tel: ${estacion.telefono}. Servicios 24/7: ${serviciosTop}. Cobertura: ${coberturaStr}. ${esHAZMAT ? 'Certificación HAZMAT para emergencias industriales. ' : ''}${esSierra ? 'Rescate de montaña y incendios forestales. ' : ''}${estacion.historia?.slice(0, 100) || 'Atención de emergencias en Nuevo León.'}`,
     keywords: `bomberos ${estacion.ciudad.toLowerCase()}, ${estacion.nombre.toLowerCase()}, emergencias ${estacion.ciudad.toLowerCase()}, nuevo leon, monterrey, ${estacion.zona?.toLowerCase() || ''}, ${estacion.especialidades?.join(', ').toLowerCase() || ''}, zona metropolitana monterrey`,
-    canonical: `https://bomberosmexico.com/directorio/nuevo-leon/${estacion.slug}`,
+    canonical: `https://bombero.mx/directorio/nuevo-leon/${estacion.slug}`,
     structuredData: generarSchemaEstacion(estacion)
   };
 }
@@ -1182,10 +1182,10 @@ export function generarSchemaEstacion(estacion: Estacion): object {
   return {
     "@context": "https://schema.org",
     "@type": "FireStation",
-    "@id": `https://bomberosmexico.com/directorio/nuevo-leon/${estacion.slug}`,
+    "@id": `https://bombero.mx/directorio/nuevo-leon/${estacion.slug}`,
     "name": estacion.nombre,
     "description": estacion.historia || `Estación de bomberos en ${estacion.ciudad}, Nuevo León. Servicios de emergencia 24/7.`,
-    "url": `https://bomberosmexico.com/directorio/nuevo-leon/${estacion.slug}`,
+    "url": `https://bombero.mx/directorio/nuevo-leon/${estacion.slug}`,
     "telephone": estacion.telefono,
     "address": {
       "@type": "PostalAddress",

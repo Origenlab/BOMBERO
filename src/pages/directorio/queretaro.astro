@@ -11,6 +11,7 @@
  */
 
 import PageLayout from "@layouts/PageLayout.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesQueretaro,
   QUERETARO_SEO,
@@ -123,10 +124,29 @@ const schemaOrg = {
     }
   ]
 };
+
+const keywords = [
+  "bomberos querétaro",
+  "estaciones bomberos querétaro ciudad",
+  "emergencias querétaro 911",
+  "cuerpo bomberos querétaro",
+  "rescate querétaro",
+  "bomberos san juan del río",
+];
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Querétaro", url: "/directorio/queretaro" },
+]);
 ---
 
-<PageLayout title={title} description={description}>
-  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+<PageLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/queretaro"
+  jsonLd={[breadcrumbSchema, schemaOrg]}
+>
 
   <!-- Hero Section Premium -->
   <section class="qro-hero">

@@ -454,7 +454,7 @@ export function generarMetaSEOEstacion(estacion: Estacion, estadoNombre: string)
     title: `${estacion.nombre} | Bomberos ${estacion.ciudad}, ${estadoNombre}`,
     description: `${estacion.nombre} en ${estacion.direccion}. Tel: ${estacion.telefono}. Servicios: ${serviciosResumen}. Cobertura: ${cobertura}. Atención 24/7.`,
     keywords: `bomberos ${estacion.ciudad.toLowerCase()}, ${estacion.nombre.toLowerCase()}, emergencias ${estacion.ciudad.toLowerCase()}, ${estadoNombre.toLowerCase()}`,
-    canonical: `https://bomberosmexico.com/directorio/${estadoNombre.toLowerCase().replace(/\s+/g, '-')}/${estacion.slug}`
+    canonical: `https://bombero.mx/directorio/${estadoNombre.toLowerCase().replace(/\s+/g, '-')}/${estacion.slug}`
   };
 }
 

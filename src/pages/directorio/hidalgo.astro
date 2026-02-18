@@ -21,6 +21,7 @@
 
 import PageLayout from "@layouts/PageLayout.astro";
 import StationCard from "@components/StationCard.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesHidalgo,
   HIDALGO_SEO,
@@ -59,6 +60,67 @@ const zonas = {
   huasteca: getEstacionesHuasteca(),
   sur: estacionesHidalgo.filter(e => e.ciudad === 'Tizayuca'),
 };
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Hidalgo", url: "/directorio/hidalgo" },
+]);
+
+const hidalgoItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Hidalgo, México",
+  "description": description,
+  "numberOfItems": ESTADISTICAS_HIDALGO.total_estaciones,
+  "itemListElement": estacionesHidalgo.map((estacion, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": estacion.nombre,
+      "description": estacion.descripcion?.slice(0, 200),
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": estacion.direccion,
+        "addressLocality": estacion.ciudad,
+        "addressRegion": "Hidalgo",
+        "addressCountry": "MX",
+        "postalCode": estacion.codigoPostal
+      },
+      "telephone": estacion.telefono,
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": estacion.coordenadas.lat,
+        "longitude": estacion.coordenadas.lng
+      },
+      "openingHours": "Mo-Su 00:00-23:59",
+      "url": `https://bombero.mx/directorio/hidalgo/${estacion.slug}`
+    }
+  }))
+};
+
+const hidalgoOrganizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentOrganization",
+  "name": "Heroico Cuerpo de Bomberos de Hidalgo",
+  "description": "Cuerpo de bomberos del estado de Hidalgo, México. Protección contra incendios, rescate y emergencias.",
+  "areaServed": {
+    "@type": "State",
+    "name": "Hidalgo",
+    "containedInPlace": {
+      "@type": "Country",
+      "name": "México"
+    }
+  },
+  "numberOfEmployees": ESTADISTICAS_HIDALGO.total_bomberos,
+  "telephone": HIDALGO_SEO.telefonos.bomberos_pachuca,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Pachuca de Soto",
+    "addressRegion": "Hidalgo",
+    "addressCountry": "MX"
+  }
+};
 ---
 
 <PageLayout
@@ -66,66 +128,8 @@ const zonas = {
   description={description}
   keywords={keywords}
   canonical="https://bombero.mx/directorio/hidalgo"
+  jsonLd={[breadcrumbSchema, hidalgoItemListSchema, hidalgoOrganizationSchema]}
 >
-  <!-- ═══════════════════════════════════════════════════════════════════════════════════
-       SCHEMA.ORG - STRUCTURED DATA PARA SEO
-       ═══════════════════════════════════════════════════════════════════════════════════ -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Estaciones de Bomberos en Hidalgo, México",
-    "description": description,
-    "numberOfItems": ESTADISTICAS_HIDALGO.total_estaciones,
-    "itemListElement": estacionesHidalgo.map((estacion, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@type": "FireStation",
-        "name": estacion.nombre,
-        "description": estacion.descripcion?.slice(0, 200),
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": estacion.direccion,
-          "addressLocality": estacion.ciudad,
-          "addressRegion": "Hidalgo",
-          "addressCountry": "MX",
-          "postalCode": estacion.codigoPostal
-        },
-        "telephone": estacion.telefono,
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": estacion.coordenadas.lat,
-          "longitude": estacion.coordenadas.lng
-        },
-        "openingHours": "Mo-Su 00:00-23:59",
-        "url": `https://bombero.mx/directorio/hidalgo/${estacion.slug}`
-      }
-    }))
-  })} />
-
-  <!-- Schema.org - Organization -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "GovernmentOrganization",
-    "name": "Heroico Cuerpo de Bomberos de Hidalgo",
-    "description": "Cuerpo de bomberos del estado de Hidalgo, México. Protección contra incendios, rescate y emergencias.",
-    "areaServed": {
-      "@type": "State",
-      "name": "Hidalgo",
-      "containedInPlace": {
-        "@type": "Country",
-        "name": "México"
-      }
-    },
-    "numberOfEmployees": ESTADISTICAS_HIDALGO.total_bomberos,
-    "telephone": HIDALGO_SEO.telefonos.bomberos_pachuca,
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Pachuca de Soto",
-      "addressRegion": "Hidalgo",
-      "addressCountry": "MX"
-    }
-  })} />
 
   <div class="hgo-main">
     <!-- ═══════════════════════════════════════════════════════════════════════════════

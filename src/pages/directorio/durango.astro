@@ -18,6 +18,7 @@
 
 import PageLayout from "@layouts/PageLayout.astro";
 import StationCard from "@components/StationCard.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesDurango,
   DURANGO_SEO,
@@ -44,6 +45,37 @@ const zonas = {
   sierra: estacionesDurango.filter(e => ['Santiago Papasquiaro', 'Pueblo Nuevo', 'Pueblo Nuevo (El Salto)'].includes(e.ciudad)),
   centroSur: estacionesDurango.filter(e => ['Canatlán', 'Nombre de Dios', 'Vicente Guerrero'].includes(e.ciudad)),
 };
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Durango", url: "/directorio/durango" },
+]);
+
+const durangoItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Durango",
+  "description": description,
+  "numberOfItems": ESTADISTICAS_DURANGO.total_estaciones,
+  "itemListElement": estacionesDurango.map((estacion, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": estacion.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": estacion.direccion,
+        "addressLocality": estacion.ciudad,
+        "addressRegion": "Durango",
+        "addressCountry": "MX",
+        "postalCode": estacion.codigoPostal
+      },
+      "telephone": estacion.telefono,
+      "url": `https://bombero.mx/directorio/durango/${estacion.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
@@ -51,33 +83,8 @@ const zonas = {
   description={description}
   keywords={keywords}
   canonical="https://bombero.mx/directorio/durango"
+  jsonLd={[breadcrumbSchema, durangoItemListSchema]}
 >
-  <!-- Schema.org ItemList -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Estaciones de Bomberos en Durango",
-    "description": description,
-    "numberOfItems": ESTADISTICAS_DURANGO.total_estaciones,
-    "itemListElement": estacionesDurango.map((estacion, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@type": "FireStation",
-        "name": estacion.nombre,
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": estacion.direccion,
-          "addressLocality": estacion.ciudad,
-          "addressRegion": "Durango",
-          "addressCountry": "MX",
-          "postalCode": estacion.codigoPostal
-        },
-        "telephone": estacion.telefono,
-        "url": `https://bombero.mx/directorio/durango/${estacion.slug}`
-      }
-    }))
-  })} />
 
   <div class="dgo-main">
     <!-- ═══════════════════════════════════════════════════════════════════

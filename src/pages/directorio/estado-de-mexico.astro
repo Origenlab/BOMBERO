@@ -9,6 +9,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesEdoMex, getMunicipios } from "@data/estaciones-edomex";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Obtener municipios
 const municipios = getMunicipios();
@@ -24,11 +25,55 @@ const estadosVecinos = [
   { nombre: "Michoacán", slug: "michoacan" },
   { nombre: "Querétaro", slug: "queretaro" },
 ];
+
+const keywords = [
+  "bomberos estado de méxico",
+  "estaciones bomberos toluca",
+  "emergencias edomex 911",
+  "bomberos ecatepec",
+  "bomberos naucalpan",
+  "bomberos tlalnepantla",
+  "cuerpo bomberos edomex",
+];
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Estado de México", url: "/directorio/estado-de-mexico" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Estado de México, México",
+  "description": "Directorio oficial de las estaciones de bomberos en el Estado de México. Teléfonos de emergencia en Toluca, Ecatepec, Naucalpan, Tlalnepantla y los 125 municipios. Emergencias 911. Servicio 24 horas.",
+  "numberOfItems": estacionesEdoMex.length,
+  "itemListElement": estacionesEdoMex.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio,
+        "addressRegion": "Estado de México",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/estado-de-mexico/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
-  title="Estaciones de Bomberos en Estado de México | Directorio BOMBERO.MX"
-  description="Directorio completo de las estaciones de bomberos en el Estado de México. Teléfonos de emergencia, direcciones y servicios. Más de 20 estaciones cubriendo los 125 municipios. Emergencias 911."
+  title="Bomberos Estado de México | Directorio Oficial de Estaciones | BOMBERO.MX"
+  description="Directorio oficial de las estaciones de bomberos en el Estado de México. Teléfonos de emergencia en Toluca, Ecatepec, Naucalpan, Tlalnepantla y los 125 municipios. Emergencias 911. Servicio 24 horas."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/estado-de-mexico"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section -->
   <section class="edomex-hero">

@@ -26,6 +26,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesCampeche, getMunicipios, getEstadisticas } from "@data/estaciones-campeche";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Obtener datos
 const municipios = getMunicipios();
@@ -49,11 +50,45 @@ const municipiosInfo = [
   { nombre: "Candelaria", poblacion: "47K", desc: "Frontera Guatemala, selva" },
   { nombre: "Calakmul", poblacion: "31K", desc: "Reserva UNESCO, arqueología maya" },
 ];
+
+const keywords = ["bomberos campeche", "estaciones bomberos ciudad del carmen", "emergencias campeche 911", "bomberos calakmul", "bomberos hazmat pemex", "incendios forestales selva maya", "cuerpo bomberos campeche"];
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Campeche", url: "/directorio/campeche" },
+]);
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Campeche, México",
+  "description": "Directorio oficial de las 7 estaciones de bomberos en Campeche. Teléfonos de emergencia en Ciudad del Carmen, Calakmul, Escárcega y Champotón. Emergencias HAZMAT petroleras, incendios forestales selva maya. 911 y contacto 24 horas.",
+  "numberOfItems": estacionesCampeche.length,
+  "itemListElement": estacionesCampeche.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio || e.ciudad,
+        "addressRegion": "Campeche",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/campeche/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
   title="Estaciones de Bomberos en Campeche | Directorio Oficial | BOMBERO.MX"
   description="Directorio oficial de las 7 estaciones de bomberos en Campeche. Teléfonos de emergencia en Ciudad del Carmen, Calakmul, Escárcega y Champotón. Emergencias HAZMAT petroleras, incendios forestales selva maya. 911 y contacto 24 horas."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/campeche"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section con SEO optimizado -->
   <section class="cam-hero">

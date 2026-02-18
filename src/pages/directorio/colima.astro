@@ -18,6 +18,7 @@
 
 import PageLayout from "@layouts/PageLayout.astro";
 import StationCard from "@components/StationCard.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesColima,
   COLIMA_SEO,
@@ -44,6 +45,37 @@ const zonas = {
   agricola: estacionesColima.filter(e => e.ciudad === 'Tecomán'),
   volcanica: estacionesColima.filter(e => e.ciudad === 'Comala'),
 };
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Colima", url: "/directorio/colima" },
+]);
+
+const colimaItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Colima",
+  "description": description,
+  "numberOfItems": ESTADISTICAS_COLIMA.total_estaciones,
+  "itemListElement": estacionesColima.map((estacion, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": estacion.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": estacion.direccion,
+        "addressLocality": estacion.ciudad,
+        "addressRegion": "Colima",
+        "addressCountry": "MX",
+        "postalCode": estacion.codigoPostal
+      },
+      "telephone": estacion.telefono,
+      "url": `https://bombero.mx/directorio/colima/${estacion.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
@@ -51,33 +83,8 @@ const zonas = {
   description={description}
   keywords={keywords}
   canonical="https://bombero.mx/directorio/colima"
+  jsonLd={[breadcrumbSchema, colimaItemListSchema]}
 >
-  <!-- Schema.org ItemList -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Estaciones de Bomberos en Colima",
-    "description": description,
-    "numberOfItems": ESTADISTICAS_COLIMA.total_estaciones,
-    "itemListElement": estacionesColima.map((estacion, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@type": "FireStation",
-        "name": estacion.nombre,
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": estacion.direccion,
-          "addressLocality": estacion.ciudad,
-          "addressRegion": "Colima",
-          "addressCountry": "MX",
-          "postalCode": estacion.codigoPostal
-        },
-        "telephone": estacion.telefono,
-        "url": `https://bombero.mx/directorio/colima/${estacion.slug}`
-      }
-    }))
-  })} />
 
   <div class="col-main">
     <!-- ═══════════════════════════════════════════════════════════════════

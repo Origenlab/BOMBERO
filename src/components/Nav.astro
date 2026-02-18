@@ -1,8 +1,7 @@
 ---
 /**
  * ─── Nav Component ───
- * Accessible navigation with mobile hamburger menu.
- * Zero client-side JS — uses CSS :target for mobile toggle.
+ * Accessible navigation with dropdown support for items with children.
  */
 import { mainNav } from "@data/navigation";
 
@@ -12,14 +11,47 @@ const currentPath = Astro.url.pathname;
 <nav class="nav" aria-label="Navegación principal">
   <ul class="nav__list" role="list">
     {mainNav.map((item) => (
-      <li class="nav__item">
+      <li class:list={["nav__item", { "nav__item--has-dropdown": item.children?.length }]}>
         <a
           href={item.href}
-          class:list={["nav__link", { "nav__link--active": currentPath === item.href }]}
+          class:list={[
+            "nav__link",
+            {
+              "nav__link--active": item.href === "/"
+                ? currentPath === "/"
+                : currentPath === item.href || currentPath.startsWith(item.href + "/"),
+            },
+          ]}
           aria-current={currentPath === item.href ? "page" : undefined}
         >
           {item.label}
+          {item.children?.length && (
+            <svg class="nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          )}
         </a>
+        {item.children?.length && (
+          <ul class="nav__dropdown" role="list">
+            {item.children.map((child) => (
+              <li>
+                <a
+                  href={child.href}
+                  class:list={[
+                    "nav__dropdown-link",
+                    {
+                      "nav__dropdown-link--active":
+                        currentPath === child.href ||
+                        currentPath.startsWith(child.href + "/"),
+                    },
+                  ]}
+                >
+                  {child.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </li>
     ))}
   </ul>
@@ -30,15 +62,25 @@ const currentPath = Astro.url.pathname;
     display: flex;
     gap: var(--space-lg);
     list-style: none;
+    align-items: center;
+  }
+
+  /* ─── Top-level item ─── */
+  .nav__item {
+    position: relative;
   }
 
   .nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     font-size: var(--text-sm);
     font-weight: 600;
     color: var(--color-smoke-800);
     text-decoration: none;
     padding-block: var(--space-xs);
     border-block-end: 2px solid transparent;
+    white-space: nowrap;
   }
 
   .nav__link--active {
@@ -46,10 +88,116 @@ const currentPath = Astro.url.pathname;
     border-color: var(--color-accent);
   }
 
+  .nav__chevron {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  /* ─── Dropdown ─── */
+  .nav__dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 220px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    list-style: none;
+    padding: 8px;
+    z-index: 100;
+  }
+
+  /* Arrow indicator */
+  .nav__dropdown::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-left: 1px solid #e5e7eb;
+    border-top: 1px solid #e5e7eb;
+    rotate: 45deg;
+  }
+
+  .nav__dropdown-link {
+    display: block;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+
+  .nav__dropdown-link:hover {
+    background: #fef2f2;
+    color: var(--color-accent);
+  }
+
+  .nav__dropdown-link--active {
+    background: #fef2f2;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  /* Show dropdown on hover */
+  .nav__item--has-dropdown:hover .nav__dropdown,
+  .nav__item--has-dropdown:focus-within .nav__dropdown {
+    display: block;
+  }
+
+  .nav__item--has-dropdown:hover .nav__chevron,
+  .nav__item--has-dropdown:focus-within .nav__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* ─── Mobile ─── */
   @media (max-width: 768px) {
     .nav__list {
       flex-direction: column;
+      align-items: flex-start;
       gap: var(--space-sm);
+    }
+
+    .nav__dropdown {
+      position: static;
+      transform: none;
+      box-shadow: none;
+      border: none;
+      border-left: 3px solid #e5e7eb;
+      border-radius: 0;
+      background: transparent;
+      padding: 4px 0 4px 12px;
+      margin-top: 4px;
+      display: block; /* Always visible in mobile */
+    }
+
+    .nav__dropdown::before {
+      display: none;
+    }
+
+    .nav__dropdown-link {
+      font-size: 13px;
+      color: #6b7280;
+      padding: 6px 8px;
+    }
+
+    .nav__dropdown-link:hover,
+    .nav__dropdown-link--active {
+      background: transparent;
+      color: var(--color-accent);
+    }
+
+    .nav__chevron {
+      display: none;
     }
   }
 </style>

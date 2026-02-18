@@ -7,6 +7,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesNayarit } from "@data/estaciones-nayarit";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 const municipios = [...new Set(estacionesNayarit.map(e => e.ciudad))].filter(Boolean).sort();
 
@@ -16,11 +17,54 @@ const estadosVecinos = [
   { nombre: "Sinaloa", slug: "sinaloa" },
   { nombre: "Zacatecas", slug: "zacatecas" },
 ];
+
+const keywords = [
+  "bomberos nayarit",
+  "estaciones bomberos tepic",
+  "emergencias nayarit 911",
+  "bomberos bahía de banderas",
+  "bomberos riviera nayarit",
+  "cuerpo bomberos nayarit",
+];
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Nayarit", url: "/directorio/nayarit" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Nayarit, México",
+  "description": "Directorio oficial de las estaciones de bomberos en Nayarit. Teléfonos de emergencia en Tepic, Bahía de Banderas, Xalisco y todo el estado. Emergencias 911. Cobertura costera 24 horas.",
+  "numberOfItems": estacionesNayarit.length,
+  "itemListElement": estacionesNayarit.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Nayarit",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/nayarit/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
-  title="Estaciones de Bomberos en Nayarit | Directorio BOMBERO.MX"
-  description="Directorio completo de las estaciones de bomberos en Nayarit. Telefonos de emergencia, direcciones y servicios. Estaciones cubriendo los municipios del estado. Emergencias 911."
+  title="Bomberos en Nayarit | Directorio Oficial de Estaciones | BOMBERO.MX"
+  description="Directorio oficial de las estaciones de bomberos en Nayarit. Teléfonos de emergencia en Tepic, Bahía de Banderas, Xalisco y todo el estado. Emergencias 911. Cobertura costera 24 horas."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/nayarit"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section -->
   <section class="nay-hero">

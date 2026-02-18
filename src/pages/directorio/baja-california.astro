@@ -22,6 +22,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesBajaCalifornia, getMunicipios, getEstadisticas } from "@data/estaciones-baja-california";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Obtener datos
 const municipios = getMunicipios();
@@ -41,11 +42,45 @@ const municipiosInfo = [
   { nombre: "Tecate", poblacion: "115K", desc: "Capital cervecera de México" },
   { nombre: "Playas de Rosarito", poblacion: "110K", desc: "Destino turístico de playa" },
 ];
+
+const keywords = ["bomberos baja california", "estaciones bomberos tijuana", "bomberos mexicali", "emergencias bc 911", "bomberos ensenada", "bomberos tecate", "cuerpo bomberos baja california", "bomberos frontera"];
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Baja California", url: "/directorio/baja-california" },
+]);
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Baja California, México",
+  "description": "Directorio oficial de las 22 estaciones de bomberos en Baja California. Teléfonos de emergencia en Tijuana, Mexicali, Ensenada, Tecate y Rosarito. Números 911 y contacto directo. Cobertura las 24 horas.",
+  "numberOfItems": estacionesBajaCalifornia.length,
+  "itemListElement": estacionesBajaCalifornia.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio || e.ciudad,
+        "addressRegion": "Baja California",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/baja-california/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
   title="Estaciones de Bomberos en Baja California | Directorio Oficial | BOMBERO.MX"
   description="Directorio oficial de las 22 estaciones de bomberos en Baja California. Teléfonos de emergencia en Tijuana, Mexicali, Ensenada, Tecate y Rosarito. Números 911 y contacto directo. Cobertura las 24 horas."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/baja-california"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section con SEO optimizado -->
   <section class="bc-hero">

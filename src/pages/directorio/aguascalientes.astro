@@ -9,6 +9,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesAguascalientes, getMunicipios } from "@data/estaciones-aguascalientes";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Obtener municipios
 const municipios = getMunicipios();
@@ -19,11 +20,54 @@ const estadosVecinos = [
   { nombre: "San Luis Potosí", slug: "san-luis-potosi" },
   { nombre: "Jalisco", slug: "jalisco" },
 ];
+
+const keywords = [
+  "bomberos aguascalientes",
+  "estaciones bomberos aguascalientes",
+  "emergencias aguascalientes 911",
+  "cuerpo bomberos aguascalientes",
+  "bomberos industria automotriz",
+  "rescate aguascalientes",
+];
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Aguascalientes", url: "/directorio/aguascalientes" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Aguascalientes, México",
+  "description": "Directorio completo de las estaciones de bomberos en Aguascalientes. Teléfonos de emergencia, direcciones y servicios. 13 estaciones cubriendo los 11 municipios. Emergencias 911.",
+  "numberOfItems": estacionesAguascalientes.length,
+  "itemListElement": estacionesAguascalientes.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio,
+        "addressRegion": "Aguascalientes",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/aguascalientes/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
-  title="Estaciones de Bomberos en Aguascalientes | Directorio BOMBERO.MX"
+  title="Bomberos en Aguascalientes | 13 Estaciones | Directorio Oficial BOMBERO.MX"
   description="Directorio completo de las estaciones de bomberos en Aguascalientes. Teléfonos de emergencia, direcciones y servicios. 13 estaciones cubriendo los 11 municipios. Emergencias 911."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/aguascalientes"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section -->
   <section class="ags-hero">

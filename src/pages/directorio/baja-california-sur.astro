@@ -22,6 +22,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesBajaCaliforniaSur, getMunicipios, getEstadisticas } from "@data/estaciones-baja-california-sur";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Obtener datos
 const municipios = getMunicipios();
@@ -42,11 +43,45 @@ const municipiosInfo = [
   { nombre: "Loreto", poblacion: "21K", desc: "Pueblo Mágico, primera capital de las Californias" },
   { nombre: "Mulegé", poblacion: "61K", desc: "Patrimonio histórico francés, ballena gris" },
 ];
+
+const keywords = ["bomberos baja california sur", "estaciones bomberos la paz", "bomberos los cabos", "emergencias bcs 911", "bomberos cabo san lucas", "bomberos loreto", "cuerpo bomberos bcs"];
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Baja California Sur", url: "/directorio/baja-california-sur" },
+]);
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Baja California Sur, México",
+  "description": "Directorio oficial de las 6 estaciones de bomberos en Baja California Sur. Teléfonos de emergencia en La Paz, Los Cabos, Cabo San Lucas, Loreto y Santa Rosalía. Números 911 y contacto directo 24 horas.",
+  "numberOfItems": estacionesBajaCaliforniaSur.length,
+  "itemListElement": estacionesBajaCaliforniaSur.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio || e.ciudad,
+        "addressRegion": "Baja California Sur",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/baja-california-sur/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
   title="Estaciones de Bomberos en Baja California Sur | Directorio Oficial | BOMBERO.MX"
   description="Directorio oficial de las 6 estaciones de bomberos en Baja California Sur. Teléfonos de emergencia en La Paz, Los Cabos, Cabo San Lucas, Loreto y Santa Rosalía. Números 911 y contacto directo 24 horas."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/baja-california-sur"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section con SEO optimizado -->
   <section class="bcs-hero">

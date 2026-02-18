@@ -11,6 +11,7 @@
  */
 
 import PageLayout from "@layouts/PageLayout.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesPuebla,
   PUEBLA_SEO,
@@ -92,10 +93,30 @@ const schemaOrg = {
     }
   ]
 };
+
+const keywords = [
+  "bomberos puebla",
+  "estaciones bomberos puebla ciudad",
+  "emergencias puebla 911",
+  "bomberos tehuacán",
+  "cuerpo bomberos puebla",
+  "rescate puebla",
+  "bomberos volcán popocatépetl",
+];
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Puebla", url: "/directorio/puebla" },
+]);
 ---
 
-<PageLayout title={title} description={description}>
-  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+<PageLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/puebla"
+  jsonLd={[breadcrumbSchema, schemaOrg]}
+>
 
   <!-- Hero Section -->
   <section class="pue-hero">

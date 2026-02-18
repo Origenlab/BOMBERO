@@ -1051,7 +1051,7 @@ export function generarMetaSEOEstacion(estacion: Estacion): {
     title: `${estacion.nombre} | Bomberos ${estacion.ciudad}, Nayarit - Tel: ${estacion.telefono}`,
     description: `${estacion.nombre} en ${estacion.direccion}, ${estacion.ciudad}. Tel: ${estacion.telefono}. Servicios 24/7: ${serviciosTop}. Cobertura: ${coberturaStr}. ${estacion.historia?.slice(0, 100) || 'Atención de emergencias en Nayarit.'}`,
     keywords: `bomberos ${estacion.ciudad.toLowerCase()}, ${estacion.nombre.toLowerCase()}, emergencias ${estacion.ciudad.toLowerCase()}, nayarit, ${estacion.zona?.toLowerCase() || ''}, ${estacion.especialidades?.join(', ').toLowerCase() || ''}`,
-    canonical: `https://bomberosmexico.com/directorio/nayarit/${estacion.slug}`
+    canonical: `https://bombero.mx/directorio/nayarit/${estacion.slug}`
   };
 
   // Agregar metadatos en inglés para zonas turísticas
@@ -1127,11 +1127,11 @@ export function generarSchemaEstacion(estacion: Estacion): object {
   return {
     "@context": "https://schema.org",
     "@type": "FireStation",
-    "@id": `https://bomberosmexico.com/directorio/nayarit/${estacion.slug}`,
+    "@id": `https://bombero.mx/directorio/nayarit/${estacion.slug}`,
     "name": estacion.nombre,
     "alternateName": esZonaTuristica ? `Fire Department ${estacion.ciudad}` : undefined,
     "description": estacion.historia || `Estación de bomberos en ${estacion.ciudad}, Nayarit. Servicios de emergencia 24/7.`,
-    "url": `https://bomberosmexico.com/directorio/nayarit/${estacion.slug}`,
+    "url": `https://bombero.mx/directorio/nayarit/${estacion.slug}`,
     "telephone": estacion.telefono,
     "address": {
       "@type": "PostalAddress",

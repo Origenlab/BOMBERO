@@ -15,6 +15,7 @@
  */
 
 import PageLayout from "@layouts/PageLayout.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesQuintanaRoo,
   QUINTANA_ROO_SEO,
@@ -139,15 +140,30 @@ const schemaOrg = {
     }
   ]
 };
+
+const keywords = [
+  "bomberos quintana roo",
+  "estaciones bomberos cancún",
+  "emergencias quintana roo 911",
+  "bomberos playa del carmen",
+  "bomberos tulum",
+  "bomberos cozumel",
+  "cuerpo bomberos caribe",
+];
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Quintana Roo", url: "/directorio/quintana-roo" },
+]);
 ---
 
-<PageLayout title={title} description={description}>
-  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
-  <meta name="keywords" content={QUINTANA_ROO_SEO.keywords.principales.concat(QUINTANA_ROO_SEO.keywords.turisticos).join(", ")} slot="head" />
-  <link rel="alternate" hreflang="es" href="https://bombero.mx/directorio/quintana-roo" slot="head" />
-  <link rel="alternate" hreflang="en" href="https://bombero.mx/directorio/quintana-roo?lang=en" slot="head" />
-  <meta name="geo.region" content="MX-ROO" slot="head" />
-  <meta name="geo.placename" content="Quintana Roo, Mexico" slot="head" />
+<PageLayout
+  title={title}
+  description={description}
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/quintana-roo"
+  jsonLd={[breadcrumbSchema, schemaOrg]}
+>
 
   <!-- Hero Section Ultra-Premium Bilingüe -->
   <section class="qroo-hero">

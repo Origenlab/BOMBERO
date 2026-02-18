@@ -7,6 +7,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesMorelos } from "@data/estaciones-morelos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 const municipios = [...new Set(estacionesMorelos.map(e => e.ciudad))].filter(Boolean).sort();
 
@@ -16,11 +17,55 @@ const estadosVecinos = [
   { nombre: "Puebla", slug: "puebla" },
   { nombre: "Guerrero", slug: "guerrero" },
 ];
+
+const keywords = [
+  "bomberos morelos",
+  "estaciones bomberos cuernavaca",
+  "emergencias morelos 911",
+  "bomberos cuautla",
+  "bomberos jiutepec",
+  "cuerpo bomberos morelos",
+  "rescate morelos",
+];
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Morelos", url: "/directorio/morelos" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Morelos, México",
+  "description": "Directorio oficial de las estaciones de bomberos en Morelos. Teléfonos de emergencia en Cuernavaca, Cuautla, Jiutepec, Temixco y todo el estado. Emergencias 911. Servicio 24 horas.",
+  "numberOfItems": estacionesMorelos.length,
+  "itemListElement": estacionesMorelos.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Morelos",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/morelos/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
-  title="Estaciones de Bomberos en Morelos | Directorio BOMBERO.MX"
-  description="Directorio completo de las estaciones de bomberos en Morelos. Telefonos de emergencia, direcciones y servicios. Estaciones cubriendo los municipios del estado. Emergencias 911."
+  title="Bomberos en Morelos | Directorio Oficial de Estaciones | BOMBERO.MX"
+  description="Directorio oficial de las estaciones de bomberos en Morelos. Teléfonos de emergencia en Cuernavaca, Cuautla, Jiutepec, Temixco y todo el estado. Emergencias 911. Servicio 24 horas."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/morelos"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section -->
   <section class="mor-hero">

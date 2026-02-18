@@ -8,6 +8,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesCDMX, getAlcaldias } from "@data/estaciones-cdmx";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Obtener alcaldías
 const alcaldias = getAlcaldias();
@@ -20,11 +21,55 @@ const estadosVecinos = [
   { nombre: "Tlaxcala", slug: "tlaxcala" },
   { nombre: "Puebla", slug: "puebla" },
 ];
+
+const keywords = [
+  "bomberos cdmx",
+  "cuerpo bomberos ciudad de méxico",
+  "estaciones bomberos df",
+  "emergencias cdmx 068",
+  "bomberos 911 cdmx",
+  "bomberos alcaldías cdmx",
+  "rescate cdmx",
+];
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Ciudad de México", url: "/directorio/ciudad-de-mexico" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Ciudad de México, México",
+  "description": "Directorio oficial de las estaciones de bomberos en la Ciudad de México. Teléfonos del Heroico Cuerpo de Bomberos CDMX, direcciones por alcaldía, servicios de rescate y emergencias. Llama al 068 o 911.",
+  "numberOfItems": estacionesCDMX.length,
+  "itemListElement": estacionesCDMX.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.alcaldia,
+        "addressRegion": "Ciudad de México",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/ciudad-de-mexico/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
-  title="Estaciones de Bomberos en CDMX | Directorio Ciudad de México"
-  description="Directorio completo de las estaciones de bomberos en la Ciudad de México. Teléfonos de emergencia, direcciones y servicios del Heroico Cuerpo de Bomberos de CDMX. Encuentra la estación más cercana."
+  title="Bomberos CDMX | Directorio Oficial Ciudad de México | BOMBERO.MX"
+  description="Directorio oficial de las estaciones de bomberos en la Ciudad de México. Teléfonos del Heroico Cuerpo de Bomberos CDMX, direcciones por alcaldía, servicios de rescate y emergencias. Llama al 068 o 911."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/ciudad-de-mexico"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section -->
   <section class="cdmx-hero">

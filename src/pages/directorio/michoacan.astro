@@ -7,6 +7,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import StationCard from "@components/StationCard.astro";
 import { estacionesMichoacan } from "@data/estaciones-michoacan";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 const municipios = [...new Set(estacionesMichoacan.map(e => e.ciudad))].filter(Boolean).sort();
 
@@ -16,11 +17,55 @@ const estadosVecinos = [
   { nombre: "Estado de Mexico", slug: "estado-de-mexico" },
   { nombre: "Guerrero", slug: "guerrero" },
 ];
+
+const keywords = [
+  "bomberos michoacán",
+  "estaciones bomberos morelia",
+  "emergencias michoacán 911",
+  "bomberos lázaro cárdenas",
+  "bomberos zamora",
+  "bomberos uruapan",
+  "cuerpo bomberos michoacán",
+];
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Michoacán", url: "/directorio/michoacan" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Michoacán, México",
+  "description": "Directorio oficial de las estaciones de bomberos en Michoacán. Teléfonos de emergencia en Morelia, Lázaro Cárdenas, Zamora, Uruapan y todo el estado. Emergencias 911. Servicio 24 horas.",
+  "numberOfItems": estacionesMichoacan.length,
+  "itemListElement": estacionesMichoacan.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Michoacán",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/michoacan/${e.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
-  title="Estaciones de Bomberos en Michoacan | Directorio BOMBERO.MX"
-  description="Directorio completo de las estaciones de bomberos en Michoacan. Telefonos de emergencia, direcciones y servicios. Estaciones cubriendo los municipios del estado. Emergencias 911."
+  title="Bomberos en Michoacán | Directorio Oficial de Estaciones | BOMBERO.MX"
+  description="Directorio oficial de las estaciones de bomberos en Michoacán. Teléfonos de emergencia en Morelia, Lázaro Cárdenas, Zamora, Uruapan y todo el estado. Emergencias 911. Servicio 24 horas."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/michoacan"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
 >
   <!-- Hero Section -->
   <section class="mich-hero">

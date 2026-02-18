@@ -982,7 +982,7 @@ export function generarMetaSEOEstacion(estacion: Estacion): {
     title: `${estacion.nombre} | Bomberos ${estacion.ciudad}, Morelos - Tel: ${estacion.telefono}`,
     description: `${estacion.nombre} en ${estacion.direccion}, ${estacion.ciudad}. Tel: ${estacion.telefono}. Servicios 24/7: ${serviciosTop}. Cobertura: ${coberturaStr}. ${estacion.historia?.slice(0, 100) || ''}`,
     keywords: `bomberos ${estacion.ciudad.toLowerCase()}, ${estacion.nombre.toLowerCase()}, emergencias ${estacion.ciudad.toLowerCase()}, morelos, ${estacion.zona?.toLowerCase() || ''}, ${estacion.especialidades?.join(', ').toLowerCase() || ''}`,
-    canonical: `https://bomberosmexico.com/directorio/morelos/${estacion.slug}`
+    canonical: `https://bombero.mx/directorio/morelos/${estacion.slug}`
   };
 }
 
@@ -1053,11 +1053,11 @@ export function generarSchemaEstacion(estacion: Estacion): object {
   return {
     "@context": "https://schema.org",
     "@type": "FireStation",
-    "@id": `https://bomberosmexico.com/directorio/morelos/${estacion.slug}`,
+    "@id": `https://bombero.mx/directorio/morelos/${estacion.slug}`,
     "name": estacion.nombre,
     "description": estacion.historia || `Estación de bomberos en ${estacion.ciudad}, Morelos. Servicios de emergencia 24/7.`,
-    "image": estacion.imagen || "https://bomberosmexico.com/images/estacion-bomberos-morelos.jpg",
-    "url": `https://bomberosmexico.com/directorio/morelos/${estacion.slug}`,
+    "image": estacion.imagen || "https://bombero.mx/images/estacion-bomberos-morelos.jpg",
+    "url": `https://bombero.mx/directorio/morelos/${estacion.slug}`,
     "telephone": estacion.telefono,
     "address": {
       "@type": "PostalAddress",

@@ -19,6 +19,7 @@
 
 import PageLayout from "@layouts/PageLayout.astro";
 import StationCard from "@components/StationCard.astro";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesGuanajuato,
   GUANAJUATO_SEO,
@@ -48,6 +49,37 @@ const zonas = {
   bajioNorte: estacionesGuanajuato.filter(e => ['Irapuato', 'San Francisco del Rincón', 'Pénjamo'].includes(e.ciudad)),
   pueblosMagicos: estacionesGuanajuato.filter(e => ['San Miguel de Allende', 'Dolores Hidalgo'].includes(e.ciudad)),
 };
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Guanajuato", url: "/directorio/guanajuato" },
+]);
+
+const guanajuatoItemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Guanajuato",
+  "description": description,
+  "numberOfItems": ESTADISTICAS_GUANAJUATO.total_estaciones,
+  "itemListElement": estacionesGuanajuato.map((estacion, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": estacion.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": estacion.direccion,
+        "addressLocality": estacion.ciudad,
+        "addressRegion": "Guanajuato",
+        "addressCountry": "MX",
+        "postalCode": estacion.codigoPostal
+      },
+      "telephone": estacion.telefono,
+      "url": `https://bombero.mx/directorio/guanajuato/${estacion.slug}`
+    }
+  }))
+};
 ---
 
 <PageLayout
@@ -55,33 +87,8 @@ const zonas = {
   description={description}
   keywords={keywords}
   canonical="https://bombero.mx/directorio/guanajuato"
+  jsonLd={[breadcrumbSchema, guanajuatoItemListSchema]}
 >
-  <!-- Schema.org ItemList -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Estaciones de Bomberos en Guanajuato",
-    "description": description,
-    "numberOfItems": ESTADISTICAS_GUANAJUATO.total_estaciones,
-    "itemListElement": estacionesGuanajuato.map((estacion, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@type": "FireStation",
-        "name": estacion.nombre,
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": estacion.direccion,
-          "addressLocality": estacion.ciudad,
-          "addressRegion": "Guanajuato",
-          "addressCountry": "MX",
-          "postalCode": estacion.codigoPostal
-        },
-        "telephone": estacion.telefono,
-        "url": `https://bombero.mx/directorio/guanajuato/${estacion.slug}`
-      }
-    }))
-  })} />
 
   <div class="gto-main">
     <!-- ═══════════════════════════════════════════════════════════════════
