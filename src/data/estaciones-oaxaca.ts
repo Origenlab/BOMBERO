@@ -923,5 +923,41 @@ export function getAlertasActivas(zona?: string): Array<{
   return alertasActivas;
 }
 
+// ─── Funciones Auxiliares Estándar para Directorio ───────────────────────────
+
+/**
+ * Obtiene lista única de municipios/ciudades ordenados alfabéticamente
+ */
+export function getMunicipios(): string[] {
+  const ciudades = estacionesOaxaca.map(e => {
+    // Extraer ciudad del campo municipiosCubiertos o de la dirección
+    if (e.municipiosCubiertos && e.municipiosCubiertos.length > 0) {
+      return e.municipiosCubiertos[0];
+    }
+    return e.zona || '';
+  });
+  return [...new Set(ciudades)].filter(Boolean).sort();
+}
+
+/**
+ * Obtiene una estación por su slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesOaxaca.find(e => e.slug === slug);
+}
+
+/**
+ * Obtiene estaciones cercanas (misma zona primero, luego otras)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+
+  const mismaZona = estacionesOaxaca.filter(e => e.slug !== slug && e.zona === estacion.zona);
+  const otras = estacionesOaxaca.filter(e => e.slug !== slug && e.zona !== estacion.zona);
+
+  return [...mismaZona, ...otras].slice(0, limit);
+}
+
 // ─── Export Default ──────────────────────────────────────────────────────────
 export default estacionesOaxaca;

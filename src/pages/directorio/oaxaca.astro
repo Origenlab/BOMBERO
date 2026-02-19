@@ -1,1388 +1,326 @@
 ---
 /**
- * ═══════════════════════════════════════════════════════════════════════════════
- * DIRECTORIO DE BOMBEROS - OAXACA
- * ═══════════════════════════════════════════════════════════════════════════════
- * Estado pluricultural con 16 grupos étnicos
- * 2 sitios Patrimonio UNESCO: Centro Histórico + Monte Albán
- * Costa turística: Huatulco, Puerto Escondido
- * Istmo de Tehuantepec: Refinería y puerto industrial
- * ═══════════════════════════════════════════════════════════════════════════════
+ * Directorio de Estaciones de Bomberos - Oaxaca
+ * Estado pluricultural con 2 sitios UNESCO y 16 grupos étnicos
+ * 16 estaciones | Costa turística | Istmo industrial | Sierra Norte
  */
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesOaxaca, getMunicipios } from "@data/estaciones-oaxaca";
 
-import PageLayout from "@layouts/PageLayout.astro";
-import { breadcrumbJsonLd } from "@utils/seo";
-import {
-  estacionesOaxaca,
-  OAXACA_SEO,
-  ZONAS_OAXACA,
-  ALERTAS_OAXACA,
-  FAQ_OAXACA,
-  CONTEXTO_OAXACA,
-  INFRAESTRUCTURA_OAXACA,
-  getEstacionesPorZona,
-  getEstacionesCosteras,
-  getEstacionesHAZMAT,
-  getEstacionesUNESCO,
-  generarInterlinking,
-  getAlertasActivas
-} from "@data/estaciones-oaxaca";
+// Configuración del estado
+const estado = "Oaxaca";
+const sigla = "OAX";
+const slug = "oaxaca";
 
-// Configuración de página
-const title = `${OAXACA_SEO.titulo} | Directorio BOMBERO.MX`;
-const description = OAXACA_SEO.descripcion;
+// Miniaturas hero - UNESCO, Costa y Sierra
+const heroThumbs = [
+  {
+    src: "/images/directorio/oax-monte-alban.avif",
+    alt: "Zona arqueológica de Monte Albán Patrimonio UNESCO Oaxaca",
+    label: "Monte Albán UNESCO"
+  },
+  {
+    src: "/images/directorio/oax-centro-historico.avif",
+    alt: "Centro Histórico de Oaxaca de Juárez Patrimonio UNESCO",
+    label: "Centro Histórico"
+  },
+  {
+    src: "/images/directorio/oax-huatulco-bahias.avif",
+    alt: "Bahías de Huatulco Costa Oaxaqueña turismo",
+    label: "9 Bahías Huatulco"
+  }
+];
 
-// Estadísticas
-const totalEstaciones = estacionesOaxaca.length;
-const estacionesCosteras = getEstacionesCosteras();
-const estacionesHAZMAT = getEstacionesHAZMAT();
-const estacionesUNESCO = getEstacionesUNESCO();
+// Galería de imágenes
+const galleryImages = [
+  {
+    src: "/images/directorio/oax-guelaguetza.avif",
+    alt: "Guelaguetza fiesta tradicional en Oaxaca julio",
+    label: "La Guelaguetza"
+  },
+  {
+    src: "/images/directorio/oax-puerto-escondido.avif",
+    alt: "Playa Zicatela Puerto Escondido surf Pipeline mexicano",
+    label: "Zicatela Surf"
+  },
+  {
+    src: "/images/directorio/oax-salina-cruz-refineria.avif",
+    alt: "Refinería Antonio Dovalí Jaime Salina Cruz PEMEX",
+    label: "Refinería HAZMAT"
+  },
+  {
+    src: "/images/directorio/oax-dia-muertos.avif",
+    alt: "Día de Muertos tradición oaxaqueña panteones",
+    label: "Día de Muertos"
+  },
+  {
+    src: "/images/directorio/oax-sierra-norte.avif",
+    alt: "Sierra Norte de Oaxaca ecoturismo Pueblos Mágicos",
+    label: "Sierra Norte"
+  },
+  {
+    src: "/images/directorio/oax-mezcal-artesanal.avif",
+    alt: "Producción artesanal de mezcal denominación de origen Oaxaca",
+    label: "Mezcal D.O."
+  }
+];
 
-// Interlinking
-const { estados: estadosVecinos, productos: productosRelacionados } = generarInterlinking();
+// Números de emergencia Oaxaca
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias" },
+  { number: "(951) 516-2424", label: "Bomberos Oaxaca Centro" },
+  { number: "(958) 587-0106", label: "Bomberos Huatulco" },
+  { number: "(971) 714-0099", label: "HAZMAT Salina Cruz" }
+];
 
-// Alertas activas
-const alertasActivas = getAlertasActivas();
+// Regiones de Oaxaca
+const regiones = [
+  {
+    nombre: "Valles Centrales",
+    desc: "Oaxaca de Juárez, Monte Albán UNESCO, Mitla, Tlacolula"
+  },
+  {
+    nombre: "Costa Oaxaqueña",
+    desc: "Huatulco 9 bahías, Puerto Escondido (Zicatela), Pochutla, Zipolite"
+  },
+  {
+    nombre: "Istmo de Tehuantepec",
+    desc: "Juchitán, Salina Cruz (Refinería HAZMAT), Tehuantepec, Corredor Interoceánico"
+  },
+  {
+    nombre: "Sierra Norte y Mixteca",
+    desc: "Ixtlán, Capulálpam (Pueblo Mágico), Huajuapan, Tlaxiaco"
+  }
+];
 
-// Schema.org múltiple para máximo SEO
-const schemaOrg = {
+// Tarjetas de equipamiento EPP
+const eppCards = [
+  {
+    image: "/images/productos/equipo-rescate-acuatico.avif",
+    imageAlt: "Equipo de rescate acuático para playas de Oaxaca",
+    badge: "Costa",
+    title: "Rescate Acuático Costa",
+    text: "Equipamiento especializado para rescate en las 9 bahías de Huatulco y oleaje extremo de Zicatela.",
+    href: "/productos/rescate-acuatico",
+    linkLabel: "Ver equipo acuático"
+  },
+  {
+    image: "/images/productos/traje-hazmat-nivel-a.avif",
+    imageAlt: "Traje HAZMAT Nivel A para refinería Salina Cruz",
+    badge: "HAZMAT",
+    title: "Equipos HAZMAT Refinería",
+    text: "Trajes encapsulados y detectores para emergencias en Refinería Salina Cruz y puerto industrial.",
+    href: "/productos/hazmat",
+    linkLabel: "Ver equipos HAZMAT"
+  },
+  {
+    image: "/images/productos/equipo-rescate-altura.avif",
+    imageAlt: "Equipo de rescate en altura para zonas arqueológicas",
+    badge: "UNESCO",
+    title: "Rescate Patrimonio",
+    text: "Equipamiento técnico para protección de estructuras históricas en Monte Albán y Centro Histórico.",
+    href: "/productos/rescate-altura",
+    linkLabel: "Ver equipo altura"
+  }
+];
+
+// Schema.org estructurado
+const itemListSchema = {
   "@context": "https://schema.org",
-  "@graph": [
-    // GovernmentOrganization
-    {
-      "@type": "GovernmentOrganization",
-      "name": "H. Cuerpo de Bomberos de Oaxaca",
-      "description": "Servicio de bomberos del estado de Oaxaca, México",
-      "areaServed": {
-        "@type": "State",
-        "name": "Oaxaca",
-        "containedInPlace": { "@type": "Country", "name": "México" }
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de ${estacionesOaxaca.length} estaciones de bomberos en Oaxaca. Protección de 2 sitios UNESCO (Monte Albán, Centro Histórico). Cobertura Costa turística, Istmo industrial y Sierra Norte.`,
+  numberOfItems: estacionesOaxaca.length,
+  itemListElement: estacionesOaxaca.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.municipiosCubiertos?.[0] || estado,
+        addressRegion: estado,
+        addressCountry: "MX"
       },
-      "numberOfEmployees": estacionesOaxaca.reduce((sum, e) => sum + (e.personal || 0), 0),
-      "knowsAbout": ["Combate de incendios", "Rescate acuático", "HAZMAT", "Rescate patrimonio UNESCO"]
-    },
-    // ItemList de estaciones
-    {
-      "@type": "ItemList",
-      "name": "Estaciones de Bomberos en Oaxaca",
-      "description": `Directorio de ${totalEstaciones} estaciones de bomberos en el estado de Oaxaca`,
-      "numberOfItems": totalEstaciones,
-      "itemListElement": estacionesOaxaca.map((estacion, index) => ({
-        "@type": "ListItem",
-        "position": index + 1,
-        "item": {
-          "@type": "FireStation",
-          "name": estacion.nombre,
-          "address": estacion.direccion,
-          "telephone": estacion.telefono
-        }
-      }))
-    },
-    // BreadcrumbList
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bombero.mx" },
-        { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bombero.mx/directorio" },
-        { "@type": "ListItem", "position": 3, "name": "Oaxaca", "item": "https://bombero.mx/directorio/oaxaca" }
-      ]
-    },
-    // FAQPage
-    {
-      "@type": "FAQPage",
-      "mainEntity": FAQ_OAXACA.map(faq => ({
-        "@type": "Question",
-        "name": faq.pregunta,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": faq.respuesta
-        }
-      }))
-    },
-    // TouristDestination (Oaxaca UNESCO)
-    {
-      "@type": "TouristDestination",
-      "name": "Oaxaca de Juárez",
-      "description": "Ciudad Patrimonio de la Humanidad UNESCO con zonas arqueológicas",
-      "includesAttraction": [
-        { "@type": "LandmarksOrHistoricalBuildings", "name": "Centro Histórico de Oaxaca" },
-        { "@type": "LandmarksOrHistoricalBuildings", "name": "Monte Albán" }
-      ]
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
     }
-  ]
+  }))
 };
 
-const keywords = [
-  "bomberos oaxaca",
-  "estaciones bomberos oaxaca ciudad",
-  "emergencias oaxaca 911",
-  "bomberos costa oaxaca",
-  "bomberos sierra juárez",
-  "cuerpo bomberos oaxaca",
-  "rescate oaxaca",
-];
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Oaxaca", url: "/directorio/oaxaca" },
-]);
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` }
+  ]
+};
 ---
 
-<PageLayout
-  title={title}
-  description={description}
-  keywords={keywords}
-  canonical="https://bombero.mx/directorio/oaxaca"
-  jsonLd={[breadcrumbSchema, schemaOrg]}
+<DirectorioEstadoLayout
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  estaciones={estacionesOaxaca}
+  municipios={getMunicipios()}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en ${estado} | Directorio Oficial ${estacionesOaxaca.length} Estaciones | BOMBERO.MX`}
+  description={`Directorio completo de ${estacionesOaxaca.length} estaciones de bomberos en Oaxaca 2024. Protección 2 sitios UNESCO: Monte Albán y Centro Histórico. Costa Oaxaqueña: Huatulco, Puerto Escondido. Istmo: Refinería HAZMAT Salina Cruz. Guelaguetza y Día de Muertos. Tel: (951) 516-2424. Emergencias 911.`}
 >
+  <Fragment slot="seo">
+    <section class="seo-content">
+      <h2>Bomberos de Oaxaca: Protegiendo el Patrimonio Cultural de México</h2>
+      <p>
+        El <strong>H. Cuerpo de Bomberos de Oaxaca</strong> protege uno de los estados más diversos culturalmente de México,
+        hogar de <strong>16 grupos étnicos reconocidos</strong> y <strong>2 sitios Patrimonio de la Humanidad UNESCO</strong>.
+        Con <strong>16 estaciones</strong> distribuidas en 6 regiones, los bomberos oaxaqueños cubren desde el
+        <strong>Centro Histórico colonial</strong> hasta las playas de <strong>Huatulco y Puerto Escondido</strong>,
+        pasando por la zona industrial del <strong>Istmo de Tehuantepec</strong> y los bosques de la <strong>Sierra Norte</strong>.
+      </p>
 
-  <!-- Hero Section -->
-  <section class="oax-hero">
-    <div class="oax-hero__bg">
-      <div class="oax-hero__gradient"></div>
-      <div class="oax-hero__pattern"></div>
-    </div>
-    <div class="container">
-      <div class="oax-hero__container">
-        <!-- Breadcrumb -->
-        <nav class="oax-breadcrumb" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/directorio">Directorio</a></li>
-            <li aria-current="page">Oaxaca</li>
-          </ol>
-        </nav>
+      <h3>Monte Albán y Centro Histórico: Patrimonio UNESCO desde 1987</h3>
+      <p>
+        Oaxaca alberga dos tesoros declarados <strong>Patrimonio de la Humanidad por UNESCO en 1987</strong>: el
+        <strong>Centro Histórico de Oaxaca de Juárez</strong> con su arquitectura colonial y el Ex Convento de Santo Domingo,
+        y la <strong>zona arqueológica de Monte Albán</strong>, antigua capital zapoteca que recibe más de
+        <strong>500,000 visitantes anuales</strong>. La Estación Central de Oaxaca y la estación de <strong>Santa Cruz
+        Xoxocotlán</strong> cuentan con equipo especializado para <strong>protección de estructuras patrimoniales</strong>,
+        con protocolos específicos para emergencias en edificios históricos y zonas arqueológicas de más de 2,500 años.
+      </p>
 
-        <!-- Alertas Activas -->
-        {alertasActivas.length > 0 && (
-          <div class="oax-alerts">
-            {alertasActivas.map(alerta => (
-              <div class={`oax-alert oax-alert--${alerta.tipo}`}>
-                <span class="oax-alert__icon">{alerta.icono}</span>
-                <span class="oax-alert__text">{alerta.mensaje}</span>
-              </div>
-            ))}
-          </div>
-        )}
+      <h3>Costa Oaxaqueña: Rescate Acuático y Turismo Internacional</h3>
+      <p>
+        Las <strong>Bahías de Huatulco</strong> (9 bahías protegidas) y <strong>Puerto Escondido</strong> son destinos
+        turísticos de clase mundial. La estación de Huatulco ofrece <strong>rescate acuático especializado</strong> y
+        <strong>atención bilingüe</strong> para turistas internacionales. En Puerto Escondido, los bomberos están
+        capacitados para <strong>rescate en Playa Zicatela</strong>, conocida como el "Pipeline mexicano" por sus olas
+        de hasta <strong>6 metros de altura</strong> que atraen surfistas profesionales de todo el mundo. La estación de
+        <strong>Pochutla</strong> cubre las playas alternativas de <strong>Zipolite, Mazunte y San Agustinillo</strong>,
+        incluyendo el Centro Mexicano de la Tortuga.
+      </p>
 
-        <div class="oax-hero__content">
-          <div class="oax-hero__badges">
-            <span class="oax-hero__badge oax-hero__badge--unesco">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                <path d="M2 17l10 5 10-5"/>
-                <path d="M2 12l10 5 10-5"/>
-              </svg>
-              2 Sitios UNESCO
-            </span>
-            <span class="oax-hero__badge oax-hero__badge--cultural">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-              16 Grupos Étnicos
-            </span>
-          </div>
+      <h3>Istmo de Tehuantepec: Capacidad Industrial HAZMAT</h3>
+      <p>
+        La <strong>Estación HAZMAT de Salina Cruz</strong> protege la <strong>Refinería Antonio Dovalí Jaime</strong>
+        con capacidad de <strong>330,000 barriles diarios</strong>, el <strong>Puerto de Salina Cruz</strong> y el
+        estratégico <strong>Corredor Interoceánico del Istmo de Tehuantepec</strong> (303 km conectando Pacífico con Golfo).
+        Con capacidad de respuesta <strong>HAZMAT Nivel III</strong>, trajes encapsulados y detectores multigas,
+        esta estación atiende emergencias con materiales peligrosos, derrames de combustible y emergencias portuarias
+        en una de las zonas industriales más importantes del sureste mexicano.
+      </p>
 
-          <h1 class="oax-hero__title">
-            Estaciones de Bomberos en
-            <span class="oax-hero__highlight">Oaxaca</span>
-          </h1>
+      <h3>Zona Sísmica: Lecciones del Terremoto de 2017</h3>
+      <p>
+        Oaxaca es una de las <strong>zonas de más alta sismicidad de México</strong>. El <strong>terremoto del 7 de
+        septiembre de 2017</strong> (magnitud 8.2) devastó <strong>Juchitán de Zaragoza</strong> causando decenas de
+        muertes y miles de estructuras colapsadas. La estación de Juchitán cuenta ahora con <strong>equipo especializado
+        de rescate estructural</strong>, personal capacitado en búsqueda y rescate post-sismo, y protocolos de
+        evacuación actualizados. Los bomberos del Istmo mantienen <strong>vigilancia sísmica permanente</strong>.
+      </p>
 
-          <p class="oax-hero__desc">
-            Directorio completo del <strong>H. Cuerpo de Bomberos de Oaxaca</strong>.
-            {totalEstaciones} estaciones protegiendo el <strong>Centro Histórico UNESCO</strong>,
-            <strong>Monte Albán</strong>, la <strong>Costa Oaxaqueña</strong> y el
-            <strong>Istmo de Tehuantepec</strong>.
-          </p>
+      <h3>Guelaguetza y Día de Muertos: Eventos Masivos</h3>
+      <p>
+        Los bomberos de Oaxaca despliegan operativos especiales durante los eventos más importantes del estado:
+        <strong>La Guelaguetza</strong> (dos lunes de julio) reúne más de <strong>100,000 asistentes</strong> en el
+        Cerro del Fortín con riesgo de pirotecnia y aglomeraciones. El <strong>Día de Muertos</strong> (octubre-noviembre)
+        atrae <strong>500,000+ turistas</strong> con riesgos de incendios por veladoras en ofrendas y panteones.
+        La <strong>Noche de Rábanos</strong> (23 de diciembre) concentra 50,000 personas en el Zócalo.
+      </p>
 
-          <!-- Stats -->
-          <div class="oax-hero__stats">
-            <div class="oax-hero__stat">
-              <span class="oax-hero__stat-number">{totalEstaciones}</span>
-              <span class="oax-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="oax-hero__stat">
-              <span class="oax-hero__stat-number">{estacionesCosteras.length}</span>
-              <span class="oax-hero__stat-label">Rescate Acuático</span>
-            </div>
-            <div class="oax-hero__stat">
-              <span class="oax-hero__stat-number">{estacionesUNESCO.length}</span>
-              <span class="oax-hero__stat-label">Cobertura UNESCO</span>
-            </div>
-            <div class="oax-hero__stat">
-              <span class="oax-hero__stat-number">911</span>
-              <span class="oax-hero__stat-label">Emergencias</span>
-            </div>
-          </div>
+      <h3>Sierra Norte: Incendios Forestales y Comunidades Indígenas</h3>
+      <p>
+        La estación de <strong>Ixtlán de Juárez</strong> es la más especializada en <strong>combate de incendios
+        forestales</strong> de Oaxaca, protegiendo los bosques templados de la Sierra Norte durante la temporada seca
+        (febrero-mayo). Cubre los <strong>Pueblos Mágicos de Capulálpam de Méndez</strong> y comunidades zapotecas
+        como <strong>Guelatao de Juárez</strong> (cuna de Benito Juárez). El terreno montañoso requiere vehículos
+        4x4 y tiempos de respuesta de <strong>10-20 minutos</strong> en zonas de difícil acceso.
+      </p>
 
-          <!-- Bilingual Section -->
-          <div class="oax-hero__bilingual">
-            <span class="oax-hero__bilingual-flag">EN</span>
-            <p>{OAXACA_SEO.bilingue.descripcion}</p>
-          </div>
-        </div>
+      <h3>Vientos Tehuanos: Condición Climática Extrema</h3>
+      <p>
+        El <strong>Istmo de Tehuantepec</strong> experimenta los famosos <strong>vientos Tehuanos</strong> de octubre
+        a marzo, con ráfagas que superan los <strong>100 km/h</strong> y dificultan operaciones de emergencia.
+        Estos vientos extremos han convertido a la región en un <strong>corredor de energía eólica</strong> con
+        cientos de aerogeneradores, pero también representan riesgos de propagación rápida de incendios y
+        volteo de vehículos en carreteras.
+      </p>
 
-        <!-- Emergency Card -->
-        <div class="oax-hero__emergency">
-          <div class="oax-emergency-card">
-            <div class="oax-emergency-card__header">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-              <span>Emergencias Oaxaca</span>
-            </div>
-            <a href="tel:911" class="oax-emergency-card__number">911</a>
-            <p class="oax-emergency-card__note">Número único de emergencias en todo México</p>
-            <div class="oax-emergency-card__locals">
-              <div class="oax-emergency-card__local">
-                <span class="oax-emergency-card__local-city">Oaxaca Centro</span>
-                <a href="tel:+529515162424">(951) 516-2424</a>
-              </div>
-              <div class="oax-emergency-card__local">
-                <span class="oax-emergency-card__local-city">Huatulco</span>
-                <a href="tel:+529585870106">(958) 587-0106</a>
-              </div>
-              <div class="oax-emergency-card__local">
-                <span class="oax-emergency-card__local-city">Puerto Escondido</span>
-                <a href="tel:+529545820222">(954) 582-0222</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <h3>Mezcal y Riesgo de Incendios en Destilerías</h3>
+      <p>
+        Oaxaca produce el <strong>90% del mezcal de México</strong> con <strong>Denominación de Origen desde 1994</strong>
+        en 570 municipios. Las destilerías artesanales (palenques) utilizan <strong>hornos de leña tradicionales</strong>
+        que representan riesgo de incendio. Los bomberos de Valles Centrales y La Mixteca atienden emergencias en
+        estas instalaciones que forman parte del <strong>patrimonio gastronómico</strong> del estado.
+      </p>
 
-  <!-- Patrimonio UNESCO Section -->
-  <section class="oax-unesco">
-    <div class="container">
-      <div class="oax-unesco__header">
-        <span class="oax-unesco__badge">Patrimonio de la Humanidad</span>
-        <h2>Protección de Sitios UNESCO en Oaxaca</h2>
-        <p>Nuestros bomberos protegen dos de los tesoros culturales más importantes de México</p>
-      </div>
-
-      <div class="oax-unesco__grid">
-        {CONTEXTO_OAXACA.patrimonioUnesco.map(sitio => (
-          <div class="oax-unesco__card">
-            <div class="oax-unesco__card-year">{sitio.declaracion}</div>
-            <h3>{sitio.sitio}</h3>
-            <p>{sitio.descripcion}</p>
-            <div class="oax-unesco__card-stats">
-              <span>{sitio.visitantesAnuales} visitantes/año</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Zonas Grid -->
-  <section class="oax-zones">
-    <div class="container">
-      <div class="oax-section-header">
-        <span class="oax-section-header__label">6 Regiones</span>
-        <h2 class="oax-section-header__title">Cobertura por Zona Geográfica</h2>
-        <p class="oax-section-header__desc">
-          Oaxaca cuenta con {totalEstaciones} estaciones distribuidas estratégicamente en sus 6 regiones principales
-        </p>
-      </div>
-
-      <div class="oax-zones__grid">
-        {Object.entries(ZONAS_OAXACA).map(([key, zona]) => {
-          const estacionesZona = getEstacionesPorZona(zona.nombre);
-          return (
-            <div class="oax-zone-card" style={`--zone-color: ${zona.color}`}>
-              <div class="oax-zone-card__header">
-                <h3>{zona.nombre}</h3>
-                <span class="oax-zone-card__count">{estacionesZona.length} estaciones</span>
-              </div>
-              <p class="oax-zone-card__desc">{zona.descripcion}</p>
-              <div class="oax-zone-card__features">
-                {zona.caracteristicas.slice(0, 3).map(car => (
-                  <span class="oax-zone-card__feature">{car}</span>
-                ))}
-              </div>
-              <ul class="oax-zone-card__stations">
-                {estacionesZona.slice(0, 3).map(e => (
-                  <li>
-                    <a href={`/directorio/oaxaca/${e.slug}`}>{e.nombre.replace("Estación de Bomberos ", "").replace("Estación Central ", "")}</a>
-                  </li>
-                ))}
-                {estacionesZona.length > 3 && (
-                  <li class="oax-zone-card__more">+{estacionesZona.length - 3} más</li>
-                )}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-  <!-- Estaciones List -->
-  <section class="oax-stations">
-    <div class="container">
-      <div class="oax-section-header">
-        <span class="oax-section-header__label">{totalEstaciones} Estaciones</span>
-        <h2 class="oax-section-header__title">Directorio Completo de Estaciones</h2>
-        <p class="oax-section-header__desc">
-          Información de contacto, servicios y cobertura de todas las estaciones de bomberos en Oaxaca
-        </p>
-      </div>
-
-      <div class="oax-stations__grid">
-        {estacionesOaxaca.map((estacion) => (
-          <a href={`/directorio/oaxaca/${estacion.slug}`} class="oax-station-card">
-            <div class="oax-station-card__header">
-              <span class="oax-station-card__zone" style={`--zone-color: ${ZONAS_OAXACA[Object.keys(ZONAS_OAXACA).find(k => ZONAS_OAXACA[k as keyof typeof ZONAS_OAXACA].nombre === estacion.zona) || 'vallesCentrales']?.color || '#7c3aed'}`}>
-                {estacion.zona}
-              </span>
-              {estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('unesco')) && (
-                <span class="oax-station-card__badge oax-station-card__badge--unesco">UNESCO</span>
-              )}
-              {estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('hazmat')) && (
-                <span class="oax-station-card__badge oax-station-card__badge--hazmat">HAZMAT</span>
-              )}
-              {estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('acuático') || c.toLowerCase().includes('surf')) && (
-                <span class="oax-station-card__badge oax-station-card__badge--aquatic">Rescate Acuático</span>
-              )}
-            </div>
-
-            <h3 class="oax-station-card__name">
-              {estacion.nombre.replace("Estación de Bomberos ", "").replace("Estación Central ", "")}
-            </h3>
-
-            <p class="oax-station-card__address">{estacion.direccion}</p>
-
-            <div class="oax-station-card__contact">
-              <span class="oax-station-card__phone">{estacion.telefono}</span>
-              {estacion.personal && (
-                <span class="oax-station-card__personnel">{estacion.personal} bomberos</span>
-              )}
-            </div>
-
-            <div class="oax-station-card__services">
-              {estacion.servicios.slice(0, 3).map(servicio => (
-                <span class="oax-station-card__service">{servicio}</span>
-              ))}
-            </div>
-
-            <span class="oax-station-card__cta">Ver detalles completos</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="oax-faq">
-    <div class="container">
-      <div class="oax-section-header">
-        <span class="oax-section-header__label">Preguntas Frecuentes</span>
-        <h2 class="oax-section-header__title">Información sobre Bomberos en Oaxaca</h2>
-      </div>
-
-      <div class="oax-faq__grid">
-        {FAQ_OAXACA.map((faq, index) => (
-          <details class="oax-faq__item" open={index === 0}>
-            <summary class="oax-faq__question">{faq.pregunta}</summary>
-            <p class="oax-faq__answer">{faq.respuesta}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Interlinking Estados Vecinos -->
-  <section class="oax-interlinking">
-    <div class="container">
-      <div class="oax-section-header">
-        <span class="oax-section-header__label">Estados Vecinos</span>
-        <h2 class="oax-section-header__title">Bomberos en Estados Cercanos a Oaxaca</h2>
-        <p class="oax-section-header__desc">
-          Coordinación regional con cuerpos de bomberos de estados limítrofes
-        </p>
-      </div>
-
-      <div class="oax-interlinking__grid">
-        {estadosVecinos.map(estado => (
-          <a href={`/directorio/${estado.slug}`} class="oax-neighbor-card">
-            <h3>{estado.estado}</h3>
-            <p class="oax-neighbor-card__relation">{estado.relacion}</p>
-            <p class="oax-neighbor-card__context">{estado.contexto}</p>
-            <span class="oax-neighbor-card__link">Ver estaciones en {estado.estado}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Interlinking Productos -->
-  <section class="oax-products">
-    <div class="container">
-      <div class="oax-section-header">
-        <span class="oax-section-header__label">Equipamiento</span>
-        <h2 class="oax-section-header__title">Equipo para Bomberos de Oaxaca</h2>
-        <p class="oax-section-header__desc">
-          Equipamiento certificado NFPA para las necesidades específicas de Oaxaca
-        </p>
-      </div>
-
-      <div class="oax-products__grid">
-        {productosRelacionados.map(producto => (
-          <a href={producto.slug} class="oax-product-card">
-            <h3>{producto.producto}</h3>
-            <p>{producto.contexto}</p>
-            <span class="oax-product-card__cta">Ver productos</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- SEO Content -->
-  <section class="oax-seo">
-    <div class="container">
-      <div class="oax-seo__content">
-        <h2>Bomberos de Oaxaca: Protegiendo el Patrimonio Cultural de México</h2>
-        <p>
-          El <strong>H. Cuerpo de Bomberos de Oaxaca</strong> tiene la importante misión de proteger uno de los
-          estados más diversos culturalmente de México. Con <strong>{totalEstaciones} estaciones</strong> distribuidas
-          en 6 regiones, los bomberos oaxaqueños cubren desde el <strong>Centro Histórico Patrimonio UNESCO</strong>
-          hasta las playas de <strong>Huatulco y Puerto Escondido</strong>, pasando por la zona industrial del
-          <strong>Istmo de Tehuantepec</strong>.
-        </p>
-
-        <h3>Protección del Patrimonio UNESCO</h3>
-        <p>
-          Oaxaca alberga dos sitios declarados <strong>Patrimonio de la Humanidad por la UNESCO</strong>: el
-          Centro Histórico de la ciudad y la zona arqueológica de <strong>Monte Albán</strong>. Los bomberos
-          cuentan con equipo especializado para la protección de estructuras patrimoniales, con protocolos
-          específicos para emergencias en edificios históricos y zonas arqueológicas.
-        </p>
-
-        <h3>Cobertura Turística Costa Oaxaqueña</h3>
-        <p>
-          Las estaciones de <strong>Huatulco</strong>, <strong>Puerto Escondido</strong> y <strong>Pochutla</strong>
-          brindan cobertura a los principales destinos turísticos de playa del estado. Personal capacitado en
-          <strong>rescate acuático</strong>, atención bilingüe para turistas internacionales, y equipamiento
-          especializado para emergencias en las 9 Bahías de Huatulco y las famosas olas de Zicatela.
-        </p>
-
-        <h3>Capacidad Industrial y HAZMAT</h3>
-        <p>
-          La estación <strong>HAZMAT de Salina Cruz</strong> protege la <strong>Refinería Antonio Dovalí Jaime</strong>
-          (330,000 barriles/día) y el Puerto de Salina Cruz, parte del estratégico <strong>Corredor Interoceánico
-          del Istmo de Tehuantepec</strong>. Capacidad de respuesta nivel III para materiales peligrosos,
-          derrames de combustible y emergencias industriales.
-        </p>
-
-        <h3>Eventos Masivos: Guelaguetza y Día de Muertos</h3>
-        <p>
-          Los bomberos de Oaxaca despliegan operativos especiales durante los eventos más importantes del estado:
-          la <strong>Guelaguetza</strong> (julio, 100,000+ asistentes) y el <strong>Día de Muertos</strong>
-          (octubre-noviembre, 500,000+ turistas). Coordinación con protección civil para manejo de multitudes,
-          prevención de incendios por veladoras y pirotecnia.
-        </p>
-      </div>
-    </div>
-  </section>
-</PageLayout>
+      <h3>Servicios Especializados de los Bomberos Oaxaqueños</h3>
+      <p>
+        Los bomberos de Oaxaca ofrecen: <strong>protección de patrimonio UNESCO</strong>; <strong>rescate acuático
+        en 9 bahías y playas de alto oleaje</strong>; <strong>respuesta HAZMAT Nivel III en refinería y puerto</strong>;
+        <strong>combate de incendios forestales en Sierra Norte</strong>; <strong>rescate estructural post-sismo</strong>;
+        <strong>atención de eventos masivos culturales</strong>; <strong>rescate en zonas arqueológicas</strong>;
+        <strong>servicio aeronáutico SSEI en aeropuertos</strong>; y <strong>atención bilingüe para turistas internacionales</strong>.
+        Personal capacitado en las tradiciones y protocolos de las <strong>16 etnias del estado</strong>.
+      </p>
+    </section>
+  </Fragment>
+</DirectorioEstadoLayout>
 
 <style>
-  /* ═══════════════════════════════════════════════════════════════════════════
-     OAXACA - PÁGINA DE DIRECTORIO
-     Theme: Púrpura cultural (#7c3aed) - Patrimonio UNESCO
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-  :root {
-    --oax-primary: #7c3aed;
-    --oax-primary-dark: #6d28d9;
-    --oax-primary-light: #a78bfa;
-    --oax-accent: #f59e0b;
-    --oax-unesco: #0ea5e9;
-  }
-
-  /* ═══ Hero Section ═══ */
-  .oax-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
-    overflow: hidden;
-  }
-
-  .oax-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .oax-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(124, 58, 237, 0.3), transparent),
-      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(245, 158, 11, 0.2), transparent);
-  }
-
-  .oax-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='none' stroke='%23ffffff08' stroke-width='1'/%3E%3C/svg%3E");
-    background-size: 60px 60px;
-  }
-
-  .oax-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  /* Breadcrumb */
-  .oax-breadcrumb ol {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-6);
-  }
-
-  .oax-breadcrumb li {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  .oax-breadcrumb li:not(:last-child)::after {
-    content: "/";
-    color: rgba(255, 255, 255, 0.3);
-  }
-
-  .oax-breadcrumb a {
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .oax-breadcrumb a:hover {
-    color: white;
-  }
-
-  .oax-breadcrumb [aria-current="page"] {
-    color: var(--oax-primary-light);
-    font-weight: 600;
-  }
-
-  /* Alerts */
-  .oax-alerts {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    margin-bottom: var(--space-6);
-  }
-
-  .oax-alert {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-  }
-
-  .oax-alert--warning {
-    background: rgba(245, 158, 11, 0.15);
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    color: #fbbf24;
-  }
-
-  .oax-alert--danger {
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #f87171;
-  }
-
-  .oax-alert--info {
-    background: rgba(59, 130, 246, 0.15);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    color: #60a5fa;
-  }
-
-  .oax-alert__icon {
-    font-size: var(--text-lg);
-  }
-
-  /* Hero Badges */
-  .oax-hero__badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    margin-bottom: var(--space-6);
-  }
-
-  .oax-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 600;
-  }
-
-  .oax-hero__badge--unesco {
-    background: rgba(14, 165, 233, 0.2);
-    border: 1px solid rgba(14, 165, 233, 0.4);
-    color: #7dd3fc;
-  }
-
-  .oax-hero__badge--cultural {
-    background: rgba(124, 58, 237, 0.2);
-    border: 1px solid rgba(124, 58, 237, 0.4);
-    color: var(--oax-primary-light);
-  }
-
-  /* Hero Content */
-  .oax-hero__title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-6);
-  }
-
-  .oax-hero__highlight {
-    background: linear-gradient(135deg, var(--oax-primary-light), var(--oax-accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .oax-hero__desc {
-    font-size: var(--text-lg);
-    color: rgba(255, 255, 255, 0.8);
-    line-height: 1.7;
-    margin: 0 0 var(--space-8);
-  }
-
-  .oax-hero__desc strong {
-    color: white;
-  }
-
-  /* Stats */
-  .oax-hero__stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-6);
-    padding: var(--space-6) 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: var(--space-6);
-  }
-
-  .oax-hero__stat {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .oax-hero__stat-number {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: var(--oax-primary-light);
-  }
-
-  .oax-hero__stat-label {
-    font-size: var(--text-xs);
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  /* Bilingual */
-  .oax-hero__bilingual {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    padding: var(--space-4);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .oax-hero__bilingual-flag {
-    padding: var(--space-1) var(--space-2);
-    background: var(--oax-primary);
-    border-radius: var(--radius-sm);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: white;
-  }
-
-  .oax-hero__bilingual p {
-    margin: 0;
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.6;
-  }
-
-  /* Emergency Card */
-  .oax-emergency-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--radius-2xl);
-    padding: var(--space-6);
-    text-align: center;
-  }
-
-  .oax-emergency-card__header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    color: white;
-    font-weight: 600;
-    margin-bottom: var(--space-4);
-  }
-
-  .oax-emergency-card__number {
-    display: block;
-    font-size: 4rem;
-    font-weight: 900;
-    color: var(--color-fire-400);
-    text-decoration: none;
-    line-height: 1;
-    margin-bottom: var(--space-2);
-    transition: transform 0.2s;
-  }
-
-  .oax-emergency-card__number:hover {
-    transform: scale(1.05);
-  }
-
-  .oax-emergency-card__note {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.6);
-    margin: 0 0 var(--space-4);
-  }
-
-  .oax-emergency-card__locals {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    padding-top: var(--space-4);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .oax-emergency-card__local {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .oax-emergency-card__local-city {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .oax-emergency-card__local a {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--oax-primary-light);
-    text-decoration: none;
-  }
-
-  /* ═══ UNESCO Section ═══ */
-  .oax-unesco {
-    padding: var(--space-16) 0;
-    background: linear-gradient(180deg, #f8fafc 0%, white 100%);
-  }
-
-  .oax-unesco__header {
-    text-align: center;
-    margin-bottom: var(--space-10);
-  }
-
-  .oax-unesco__badge {
-    display: inline-block;
-    padding: var(--space-2) var(--space-4);
-    background: linear-gradient(135deg, var(--oax-unesco), #0284c7);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: white;
-    margin-bottom: var(--space-4);
-  }
-
-  .oax-unesco__header h2 {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-3);
-  }
-
-  .oax-unesco__header p {
-    font-size: var(--text-lg);
-    color: var(--color-smoke-600);
-    margin: 0;
-  }
-
-  .oax-unesco__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-  }
-
-  .oax-unesco__card {
-    position: relative;
+  .seo-content {
     padding: var(--space-8);
     background: white;
-    border-radius: var(--radius-2xl);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--color-smoke-200);
-    overflow: hidden;
-  }
-
-  .oax-unesco__card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--oax-unesco), var(--oax-primary));
-  }
-
-  .oax-unesco__card-year {
-    display: inline-block;
-    padding: var(--space-1) var(--space-3);
-    background: rgba(14, 165, 233, 0.1);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--oax-unesco);
-    margin-bottom: var(--space-3);
-  }
-
-  .oax-unesco__card h3 {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-2);
-  }
-
-  .oax-unesco__card p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-600);
-    margin: 0 0 var(--space-4);
-  }
-
-  .oax-unesco__card-stats {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--oax-primary);
-  }
-
-  /* ═══ Section Header ═══ */
-  .oax-section-header {
-    text-align: center;
-    margin-bottom: var(--space-10);
-  }
-
-  .oax-section-header__label {
-    display: inline-block;
-    padding: var(--space-1) var(--space-3);
-    background: rgba(124, 58, 237, 0.1);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--oax-primary);
-    margin-bottom: var(--space-3);
-  }
-
-  .oax-section-header__title {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-3);
-  }
-
-  .oax-section-header__desc {
-    font-size: var(--text-lg);
-    color: var(--color-smoke-600);
-    margin: 0;
-    max-width: 700px;
-    margin-inline: auto;
-  }
-
-  /* ═══ Zones Section ═══ */
-  .oax-zones {
-    padding: var(--space-16) 0;
-    background: white;
-  }
-
-  .oax-zones__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-  .oax-zone-card {
-    padding: var(--space-6);
-    background: var(--color-smoke-50);
     border-radius: var(--radius-xl);
-    border-left: 4px solid var(--zone-color);
-    transition: all 0.2s;
+    margin-top: var(--space-8);
   }
 
-  .oax-zone-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-  }
-
-  .oax-zone-card__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: var(--space-3);
-  }
-
-  .oax-zone-card__header h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0;
-  }
-
-  .oax-zone-card__count {
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--zone-color);
-    padding: var(--space-1) var(--space-2);
-    background: white;
-    border-radius: var(--radius-full);
-  }
-
-  .oax-zone-card__desc {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    margin: 0 0 var(--space-4);
-    line-height: 1.6;
-  }
-
-  .oax-zone-card__features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-  }
-
-  .oax-zone-card__feature {
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-2);
-    background: white;
-    border-radius: var(--radius-sm);
-    color: var(--color-smoke-600);
-  }
-
-  .oax-zone-card__stations {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .oax-zone-card__stations li a {
-    font-size: var(--text-sm);
-    color: var(--oax-primary);
-    text-decoration: none;
-  }
-
-  .oax-zone-card__stations li a:hover {
-    text-decoration: underline;
-  }
-
-  .oax-zone-card__more {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-  }
-
-  /* ═══ Stations Section ═══ */
-  .oax-stations {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50);
-  }
-
-  .oax-stations__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-  .oax-station-card {
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-6);
-    background: white;
-    border-radius: var(--radius-xl);
-    text-decoration: none;
-    transition: all 0.2s;
-    border: 1px solid var(--color-smoke-200);
-  }
-
-  .oax-station-card:hover {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-    transform: translateY(-4px);
-    border-color: var(--oax-primary-light);
-  }
-
-  .oax-station-card__header {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-bottom: var(--space-3);
-  }
-
-  .oax-station-card__zone {
-    font-size: var(--text-xs);
-    font-weight: 600;
-    padding: var(--space-1) var(--space-2);
-    background: rgba(124, 58, 237, 0.1);
-    color: var(--zone-color);
-    border-radius: var(--radius-sm);
-  }
-
-  .oax-station-card__badge {
-    font-size: var(--text-xs);
-    font-weight: 600;
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-sm);
-  }
-
-  .oax-station-card__badge--unesco {
-    background: rgba(14, 165, 233, 0.1);
-    color: var(--oax-unesco);
-  }
-
-  .oax-station-card__badge--hazmat {
-    background: rgba(239, 68, 68, 0.1);
-    color: #dc2626;
-  }
-
-  .oax-station-card__badge--aquatic {
-    background: rgba(6, 182, 212, 0.1);
-    color: #0891b2;
-  }
-
-  .oax-station-card__name {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-2);
-    line-height: 1.3;
-  }
-
-  .oax-station-card__address {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500);
-    margin: 0 0 var(--space-4);
-    line-height: 1.5;
-  }
-
-  .oax-station-card__contact {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-3) 0;
-    border-top: 1px solid var(--color-smoke-100);
-    border-bottom: 1px solid var(--color-smoke-100);
-    margin-bottom: var(--space-4);
-  }
-
-  .oax-station-card__phone {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--oax-primary);
-  }
-
-  .oax-station-card__personnel {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-  }
-
-  .oax-station-card__services {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-    flex: 1;
-  }
-
-  .oax-station-card__service {
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-2);
-    background: var(--color-smoke-100);
-    border-radius: var(--radius-sm);
-    color: var(--color-smoke-600);
-  }
-
-  .oax-station-card__cta {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--oax-primary);
-    margin-top: auto;
-  }
-
-  /* ═══ FAQ Section ═══ */
-  .oax-faq {
-    padding: var(--space-16) 0;
-    background: white;
-  }
-
-  .oax-faq__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-4);
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-
-  .oax-faq__item {
-    padding: var(--space-5);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--color-smoke-200);
-  }
-
-  .oax-faq__item[open] {
-    background: white;
-    border-color: var(--oax-primary-light);
-  }
-
-  .oax-faq__question {
-    font-size: var(--text-base);
-    font-weight: 600;
-    color: var(--color-smoke-900);
-    cursor: pointer;
-    list-style: none;
-  }
-
-  .oax-faq__question::-webkit-details-marker {
-    display: none;
-  }
-
-  .oax-faq__answer {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    line-height: 1.7;
-    margin: var(--space-4) 0 0;
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-smoke-200);
-  }
-
-  /* ═══ Interlinking Section ═══ */
-  .oax-interlinking {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50);
-  }
-
-  .oax-interlinking__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  .oax-neighbor-card {
-    padding: var(--space-6);
-    background: white;
-    border-radius: var(--radius-xl);
-    text-decoration: none;
-    border: 1px solid var(--color-smoke-200);
-    transition: all 0.2s;
-  }
-
-  .oax-neighbor-card:hover {
-    border-color: var(--oax-primary);
-    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.1);
-  }
-
-  .oax-neighbor-card h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-2);
-  }
-
-  .oax-neighbor-card__relation {
-    font-size: var(--text-sm);
-    color: var(--oax-primary);
-    margin: 0 0 var(--space-2);
-  }
-
-  .oax-neighbor-card__context {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500);
-    margin: 0 0 var(--space-4);
-    line-height: 1.5;
-  }
-
-  .oax-neighbor-card__link {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--oax-primary);
-  }
-
-  /* ═══ Products Section ═══ */
-  .oax-products {
-    padding: var(--space-16) 0;
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-  }
-
-  .oax-products .oax-section-header__label {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-  }
-
-  .oax-products .oax-section-header__title {
-    color: white;
-  }
-
-  .oax-products .oax-section-header__desc {
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .oax-products__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-  .oax-product-card {
-    padding: var(--space-6);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--radius-xl);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .oax-product-card:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-4px);
-  }
-
-  .oax-product-card h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: white;
-    margin: 0 0 var(--space-2);
-  }
-
-  .oax-product-card p {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 0 var(--space-4);
-  }
-
-  .oax-product-card__cta {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--oax-accent);
-  }
-
-  /* ═══ SEO Section ═══ */
-  .oax-seo {
-    padding: var(--space-16) 0;
-    background: white;
-  }
-
-  .oax-seo__content {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .oax-seo__content h2 {
+  .seo-content h2 {
     font-size: var(--text-2xl);
     font-weight: 800;
     color: var(--color-smoke-900);
     margin: 0 0 var(--space-4);
+    line-height: 1.3;
   }
 
-  .oax-seo__content h3 {
-    font-size: var(--text-xl);
+  .seo-content h3 {
+    font-size: var(--text-lg);
     font-weight: 700;
-    color: var(--color-smoke-800);
+    color: var(--color-fire-700);
     margin: var(--space-8) 0 var(--space-3);
   }
 
-  .oax-seo__content p {
+  .seo-content p {
     font-size: var(--text-base);
-    color: var(--color-smoke-600);
+    color: var(--color-smoke-700);
     line-height: 1.8;
     margin: 0 0 var(--space-4);
   }
 
-  .oax-seo__content strong {
-    color: var(--color-smoke-800);
-  }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1200px) {
-    .oax-zones__grid,
-    .oax-stations__grid,
-    .oax-products__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .oax-interlinking__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .oax-hero__container {
-      grid-template-columns: 1fr;
-    }
-
-    .oax-hero__emergency {
-      max-width: 400px;
-    }
-
-    .oax-unesco__grid {
-      grid-template-columns: 1fr;
-    }
+  .seo-content strong {
+    color: var(--color-smoke-900);
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
-    .oax-hero {
-      padding: var(--space-12) 0;
+    .seo-content {
+      padding: var(--space-5);
     }
 
-    .oax-zones__grid,
-    .oax-stations__grid,
-    .oax-products__grid,
-    .oax-faq__grid,
-    .oax-interlinking__grid {
-      grid-template-columns: 1fr;
+    .seo-content h2 {
+      font-size: var(--text-xl);
     }
 
-    .oax-hero__stats {
-      gap: var(--space-4);
-    }
-
-    .oax-hero__stat-number {
-      font-size: var(--text-2xl);
+    .seo-content h3 {
+      font-size: var(--text-base);
     }
   }
 </style>

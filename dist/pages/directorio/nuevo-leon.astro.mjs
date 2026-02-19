@@ -1,0 +1,217 @@
+import { c as createComponent, r as renderComponent, a as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../chunks/astro/server_DiGDuMOy.mjs';
+import 'piccolore';
+import { $ as $$DirectorioEstadoLayout } from '../../chunks/DirectorioEstadoLayout_DnjqJlMh.mjs';
+import { e as estacionesNuevoLeon, b as getMunicipios } from '../../chunks/estaciones-nuevo-leon_DOHoyh7G.mjs';
+/* empty css                                         */
+export { renderers } from '../../renderers.mjs';
+
+const $$NuevoLeon = createComponent(($$result, $$props, $$slots) => {
+  const estado = "Nuevo Le\xF3n";
+  const sigla = "NL";
+  const slug = "nuevo-leon";
+  const heroThumbs = [
+    {
+      src: "/images/directorio/nl-monterrey-skyline.avif",
+      alt: "Skyline de Monterrey con Cerro de la Silla - Nuevo Le\xF3n",
+      label: "Monterrey ZMM"
+    },
+    {
+      src: "/images/directorio/nl-industria-ternium.avif",
+      alt: "Planta industrial TERNIUM en Nuevo Le\xF3n",
+      label: "Capital Industrial"
+    },
+    {
+      src: "/images/directorio/nl-sierra-madre.avif",
+      alt: "Sierra Madre Oriental y Parque Chipinque",
+      label: "Sierra Madre"
+    }
+  ];
+  const galleryImages = [
+    {
+      src: "/images/directorio/nl-bomberos-hazmat.avif",
+      alt: "Equipo HAZMAT de Bomberos de Monterrey en emergencia industrial",
+      label: "HAZMAT Nivel III"
+    },
+    {
+      src: "/images/directorio/nl-torre-koi.avif",
+      alt: "Torre KOI edificio m\xE1s alto de M\xE9xico en San Pedro Garza Garc\xEDa",
+      label: "Torre KOI 280m"
+    },
+    {
+      src: "/images/directorio/nl-cola-caballo.avif",
+      alt: "Cascada Cola de Caballo en Santiago Pueblo M\xE1gico",
+      label: "Santiago PM"
+    },
+    {
+      src: "/images/directorio/nl-cemex-vitro.avif",
+      alt: "Corporativos CEMEX y Vitro en zona industrial sur",
+      label: "Corporativos Globales"
+    },
+    {
+      src: "/images/directorio/nl-autopista-laredo.avif",
+      alt: "Corredor comercial autopista Monterrey-Laredo",
+      label: "Corredor Laredo"
+    },
+    {
+      src: "/images/directorio/nl-parque-fundidora.avif",
+      alt: "Parque Fundidora y Museo del Acero Horno 3",
+      label: "Parque Fundidora"
+    }
+  ];
+  const emergencyNumbers = [
+    { number: "911", label: "Emergencias" },
+    { number: "(81) 8345-2424", label: "Bomberos Monterrey" },
+    { number: "(81) 8378-8080", label: "Bomberos San Pedro" },
+    { number: "(81) 8350-6060", label: "HAZMAT Industrial" }
+  ];
+  const regiones = [
+    {
+      nombre: "Zona Metropolitana Monterrey",
+      desc: "Monterrey, San Pedro, Guadalupe, Apodaca, Santa Catarina, Escobedo, Garc\xEDa, Ju\xE1rez"
+    },
+    {
+      nombre: "Corredores Industriales",
+      desc: "TERNIUM, CEMEX, Vitro, KIA Motors, Navistar - 4 estaciones HAZMAT certificadas"
+    },
+    {
+      nombre: "Sierra Madre Oriental",
+      desc: "Santiago (Pueblo M\xE1gico), Chipinque, La Huasteca, Cola de Caballo"
+    },
+    {
+      nombre: "Zona Citr\xEDcola Sur",
+      desc: "Montemorelos (capital citr\xEDcola), Linares, agroindustria"
+    }
+  ];
+  const eppCards = [
+    {
+      image: "/images/productos/traje-bombero-estructural.avif",
+      imageAlt: "Traje estructural NFPA para bomberos industriales",
+      badge: "HAZMAT",
+      title: "Trajes Industriales NL",
+      text: "Protecci\xF3n certificada NFPA para emergencias industriales en corredores manufactureros de Nuevo Le\xF3n.",
+      href: "/productos/trajes-para-bomberos",
+      linkLabel: "Ver trajes estructurales"
+    },
+    {
+      image: "/images/productos/equipo-scba-bombero.avif",
+      imageAlt: "Equipo SCBA para espacios confinados industriales",
+      badge: "Industrial",
+      title: "SCBA Espacios Confinados",
+      text: "Equipos de respiraci\xF3n aut\xF3noma para rescate en plantas sider\xFArgicas y petroqu\xEDmicas.",
+      href: "/productos/scba",
+      linkLabel: "Ver equipos SCBA"
+    },
+    {
+      image: "/images/productos/herramientas-rescate-vehicular.avif",
+      imageAlt: "Herramientas de rescate para accidentes carreteros",
+      badge: "Carretero",
+      title: "Rescate Vehicular Pesado",
+      text: "Herramientas hidr\xE1ulicas para rescate en autopista Monterrey-Laredo con tractocamiones.",
+      href: "/productos/herramientas-rescate",
+      linkLabel: "Ver herramientas rescate"
+    }
+  ];
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Estaciones de Bomberos en ${estado}, M\xE9xico`,
+    description: `Directorio oficial de ${estacionesNuevoLeon.length} estaciones de bomberos en Nuevo Le\xF3n. La Capital Industrial de M\xE9xico con 4 estaciones HAZMAT certificadas. Cobertura ZMM, corredores industriales y Sierra Madre Oriental.`,
+    numberOfItems: estacionesNuevoLeon.length,
+    itemListElement: estacionesNuevoLeon.map((e, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "FireStation",
+        name: e.nombre,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: e.direccion,
+          addressLocality: e.ciudad,
+          addressRegion: estado,
+          addressCountry: "MX"
+        },
+        telephone: e.telefono,
+        url: `https://bombero.mx/directorio/${slug}/${e.slug}`
+      }
+    }))
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
+      { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+      { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` }
+    ]
+  };
+  return renderTemplate`${renderComponent($$result, "DirectorioEstadoLayout", $$DirectorioEstadoLayout, { "estado": estado, "sigla": sigla, "slug": slug, "estaciones": estacionesNuevoLeon, "municipios": getMunicipios(), "heroThumbs": heroThumbs, "galleryImages": galleryImages, "emergencyNumbers": emergencyNumbers, "regiones": regiones, "eppCards": eppCards, "jsonLd": [itemListSchema, breadcrumbSchema], "title": `Bomberos en ${estado} | Directorio Oficial ${estacionesNuevoLeon.length} Estaciones | BOMBERO.MX`, "description": `Directorio completo de ${estacionesNuevoLeon.length} estaciones de bomberos en Nuevo Le\xF3n 2024. Capital Industrial de M\xE9xico con 4 estaciones HAZMAT certificadas. Cobertura ZMM Monterrey, San Pedro, Guadalupe, corredores industriales TERNIUM, CEMEX. Rescate Sierra Madre Oriental. Tel: (81) 8345-2424. Emergencias 911.`, "data-astro-cid-gh53nqk5": true }, { "seo": ($$result2) => renderTemplate`${renderComponent($$result2, "Fragment", Fragment, { "slot": "seo" }, { "default": ($$result3) => renderTemplate` ${maybeRenderHead()}<section class="seo-content" data-astro-cid-gh53nqk5> <h2 data-astro-cid-gh53nqk5>Bomberos de Nuevo León: La Capital Industrial de México</h2> <p data-astro-cid-gh53nqk5>
+El <strong data-astro-cid-gh53nqk5>Heroico Cuerpo de Bomberos de Nuevo León</strong> protege a más de <strong data-astro-cid-gh53nqk5>5.8 millones de habitantes</strong>
+en la <strong data-astro-cid-gh53nqk5>Zona Metropolitana de Monterrey</strong>, la segunda más grande del país. Con <strong data-astro-cid-gh53nqk5>18 estaciones
+        estratégicamente distribuidas</strong> y <strong data-astro-cid-gh53nqk5>4 unidades HAZMAT certificadas</strong> (la mayor concentración de México),
+        los bomberos neoleoneses están especializados en <strong data-astro-cid-gh53nqk5>emergencias industriales de alta complejidad</strong> que
+        atienden a más de <strong data-astro-cid-gh53nqk5>15,000 empresas manufactureras</strong> incluyendo corporativos globales como
+<strong data-astro-cid-gh53nqk5>CEMEX, FEMSA, TERNIUM, Vitro y Banorte</strong>.
+</p> <h3 data-astro-cid-gh53nqk5>Zona Metropolitana de Monterrey: Cobertura Industrial Especializada</h3> <p data-astro-cid-gh53nqk5>
+La <strong data-astro-cid-gh53nqk5>ZMM</strong> concentra la actividad económica más intensa del norte de México, con un PIB que representa
+        el <strong data-astro-cid-gh53nqk5>7.3% del total nacional</strong>. Las estaciones de bomberos cubren el <strong data-astro-cid-gh53nqk5>Corredor Industrial Norte</strong>
+(TERNIUM, KIA Motors, Navistar, Aeropuerto Internacional) y el <strong data-astro-cid-gh53nqk5>Corredor Industrial Sur</strong>
+(CEMEX cementera #1 mundial, Vitro, PPG Industries). La <strong data-astro-cid-gh53nqk5>Estación HAZMAT Norte</strong> es la más especializada
+        en emergencias con <strong data-astro-cid-gh53nqk5>metales fundidos y materiales peligrosos</strong> de todo el país, atendiendo plantas
+        siderúrgicas que procesan <strong data-astro-cid-gh53nqk5>6 millones de toneladas de acero anuales</strong>.
+</p> <h3 data-astro-cid-gh53nqk5>San Pedro Garza García: Protección de Alto Valor</h3> <p data-astro-cid-gh53nqk5> <strong data-astro-cid-gh53nqk5>San Pedro Garza García</strong> es el municipio con <strong data-astro-cid-gh53nqk5>mayor ingreso per cápita de América Latina</strong>,
+        sede de la <strong data-astro-cid-gh53nqk5>Torre KOI</strong> (280 metros, el edificio más alto de México), corporativos de clase mundial y
+        el <strong data-astro-cid-gh53nqk5>Parque Ecológico Chipinque</strong>. La estación de bomberos de San Pedro cuenta con protocolos especializados
+        para <strong data-astro-cid-gh53nqk5>edificios de gran altura, emergencias VIP</strong> y <strong data-astro-cid-gh53nqk5>rescate técnico en estructuras premium</strong>.
+        Durante la temporada de incendios forestales (marzo-junio), coordina la protección de <strong data-astro-cid-gh53nqk5>Chipinque y La Huasteca</strong>.
+</p> <h3 data-astro-cid-gh53nqk5>Sierra Madre Oriental: Rescate de Montaña y Turismo</h3> <p data-astro-cid-gh53nqk5> <strong data-astro-cid-gh53nqk5>Santiago</strong>, designado <strong data-astro-cid-gh53nqk5>Pueblo Mágico desde 2006</strong>, es la puerta de entrada a la
+<strong data-astro-cid-gh53nqk5>Sierra Madre Oriental</strong> y recibe más de <strong data-astro-cid-gh53nqk5>1.5 millones de visitantes anuales</strong>.
+        La estación de bomberos de Santiago es la más especializada en <strong data-astro-cid-gh53nqk5>rescate de montaña del noreste de México</strong>,
+        atendiendo emergencias en las cascadas <strong data-astro-cid-gh53nqk5>Cola de Caballo y El Chipitín</strong>, búsqueda de excursionistas
+        y coordinación con <strong data-astro-cid-gh53nqk5>CONAFOR</strong> para incendios forestales que amenazan <strong data-astro-cid-gh53nqk5>100,000+ hectáreas de bosque</strong>.
+</p> <h3 data-astro-cid-gh53nqk5>Corredor Comercial Monterrey-Laredo: Rescate Carretero Internacional</h3> <p data-astro-cid-gh53nqk5>
+La autopista <strong data-astro-cid-gh53nqk5>Monterrey-Colombia-Laredo</strong> es el <strong data-astro-cid-gh53nqk5>corredor comercial terrestre más importante
+        de México hacia Estados Unidos</strong>, con más de <strong data-astro-cid-gh53nqk5>15,000 tractocamiones diarios</strong> transportando
+        mercancías valoradas en <strong data-astro-cid-gh53nqk5>$45,000 millones de dólares anuales</strong>. Las estaciones del corredor norte
+        están especializadas en <strong data-astro-cid-gh53nqk5>rescate de vehículos pesados, emergencias HAZMAT en tránsito</strong> y coordinación
+        con aduanas mexicanas y el <strong data-astro-cid-gh53nqk5>CBP estadounidense</strong> para incidentes transfronterizos.
+</p> <h3 data-astro-cid-gh53nqk5>Huracán Alex 2010: Lecciones de Resiliencia</h3> <p data-astro-cid-gh53nqk5>
+El <strong data-astro-cid-gh53nqk5>Huracán Alex</strong> en julio de 2010 dejó daños por <strong data-astro-cid-gh53nqk5>$7,500 millones de dólares</strong> y
+        más de <strong data-astro-cid-gh53nqk5>12 víctimas mortales</strong> cuando el <strong data-astro-cid-gh53nqk5>Río Santa Catarina</strong> se desbordó devastando
+        puentes e infraestructura. Esta experiencia fortaleció los protocolos de emergencia del estado, resultando en
+<strong data-astro-cid-gh53nqk5>sistemas de alerta temprana</strong>, mejor coordinación interinstitucional y preparación especializada
+        para la temporada de huracanes (junio-noviembre) que incluye el <strong data-astro-cid-gh53nqk5>Golfo de México</strong>.
+</p> <h3 data-astro-cid-gh53nqk5>Clima Extremo: Del Calor Intenso a las Heladas</h3> <p data-astro-cid-gh53nqk5>
+Nuevo León experimenta <strong data-astro-cid-gh53nqk5>condiciones climáticas extremas</strong>: temperaturas que superan los <strong data-astro-cid-gh53nqk5>45°C
+        en verano</strong> causando emergencias por golpes de calor e incendios, y <strong data-astro-cid-gh53nqk5>heladas de hasta -10°C en la
+        Sierra Madre</strong> durante invierno que requieren rescates de excursionistas con hipotermia. Los bomberos
+        están capacitados para ambos escenarios, incluyendo la <strong data-astro-cid-gh53nqk5>sequía recurrente</strong> que ha llevado a la
+<strong data-astro-cid-gh53nqk5>Presa de la Boca</strong> a niveles críticos y aumenta el riesgo de incendios forestales.
+</p> <h3 data-astro-cid-gh53nqk5>Metro de Monterrey: Emergencias en Transporte Masivo</h3> <p data-astro-cid-gh53nqk5>
+El <strong data-astro-cid-gh53nqk5>Sistema de Transporte Colectivo Metrorrey</strong> opera <strong data-astro-cid-gh53nqk5>3 líneas con 32 estaciones</strong>
+transportando más de <strong data-astro-cid-gh53nqk5>500,000 pasajeros diarios</strong>. La <strong data-astro-cid-gh53nqk5>Estación Central de Bomberos Monterrey</strong>
+mantiene protocolos especializados para emergencias en el metro, incluyendo <strong data-astro-cid-gh53nqk5>evacuaciones masivas,
+        incendios en túneles y rescate técnico</strong> en las instalaciones subterráneas que cruzan el centro de la ciudad.
+</p> <h3 data-astro-cid-gh53nqk5>Servicios Especializados de los Bomberos Neoleoneses</h3> <p data-astro-cid-gh53nqk5>
+Los bomberos de Nuevo León ofrecen: <strong data-astro-cid-gh53nqk5>combate de incendios estructurales, industriales y forestales</strong>;
+<strong data-astro-cid-gh53nqk5>materiales peligrosos HAZMAT Nivel III</strong>; <strong data-astro-cid-gh53nqk5>rescate urbano especializado USAR</strong>;
+<strong data-astro-cid-gh53nqk5>emergencias en edificios de gran altura</strong>; <strong data-astro-cid-gh53nqk5>rescate vehicular pesado en autopistas</strong>;
+<strong data-astro-cid-gh53nqk5>rescate de montaña y en cascadas</strong>; <strong data-astro-cid-gh53nqk5>emergencias en el Metro</strong>;
+<strong data-astro-cid-gh53nqk5>atención de explosiones industriales</strong>; <strong data-astro-cid-gh53nqk5>descontaminación masiva</strong>; y
+<strong data-astro-cid-gh53nqk5>coordinación metropolitana con 12 municipios</strong>. El tiempo de respuesta promedio en la ZMM
+        es de <strong data-astro-cid-gh53nqk5>6-8 minutos</strong>.
+</p> </section> ` })}` })} `;
+}, "/Users/carsolio/Desktop/PAGINAS-HTML/BOMBERO/src/pages/directorio/nuevo-leon.astro", void 0);
+
+const $$file = "/Users/carsolio/Desktop/PAGINAS-HTML/BOMBERO/src/pages/directorio/nuevo-leon.astro";
+const $$url = "/directorio/nuevo-leon";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: $$NuevoLeon,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };

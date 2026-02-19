@@ -1,0 +1,346 @@
+---
+/**
+ * ─── BOMBERO.MX ───
+ * Producto: Casco ARFF Aeroportuario — Sistema Completo NFPA 1971
+ * URL: /productos/cascos-para-bomberos/casco-arff-aeroportuario/sistema-completo
+ *
+ * Especificaciones basadas en cascos ARFF reales:
+ * - MSA Gallet F1 XF ARFF
+ * - Bullard USTM ARFF
+ * - Pacific F15 Aircraft Firefighter
+ * - Rosenbauer HEROS Titan ARFF
+ * - Compatibilidad: ICAO Annex 14, NFPA 1971, EN 443
+ */
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/directorio/camion-bomberos-aeropuerto-01.avif";
+
+/* ── Datos del producto ─────────────────────────────────────── */
+const capas = [
+  {
+    num: "01",
+    titulo: "Shell de Material Compuesto con Alta Reflectividad Térmica",
+    descripcion:
+      "Shell de fibra de vidrio con resina fenólica termoestable y acabado de alta reflectividad térmica. La superficie puede incluir tratamiento aluminizado para reflejar hasta 85% de la radiación infrarroja de incendios de combustible de aviación. El material compuesto resiste hasta 1000°C de exposición térmica momentánea sin degradación estructural.",
+    specs: [
+      { label: "Material", valor: "Fibra vidrio + resina fenólica" },
+      { label: "Acabado", valor: "Alta reflectividad térmica" },
+      { label: "Peso shell", valor: "450–550 g" },
+      { label: "Temp. pico", valor: "1000°C momentáneo (30s)" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Visor Retráctil con Recubrimiento Dorado IR",
+    descripcion:
+      "Visor de policarbonato óptico con recubrimiento de oro vaporizado que filtra el 95% de la radiación infrarroja. Sistema retráctil de operación con una mano, compatible con SCBA. Tratamiento antiempañante permanente y resistencia a salpicaduras de combustible de aviación (Jet A-1, AVGAS).",
+    specs: [
+      { label: "Material visor", valor: "Policarbonato + oro vaporizado" },
+      { label: "Filtro IR", valor: "95% radiación infrarroja" },
+      { label: "Sistema", valor: "Retráctil una mano" },
+      { label: "Tratamiento", valor: "Anti-fog permanente" },
+    ],
+    color: "fire" as const,
+  },
+  {
+    num: "03",
+    titulo: "Orejeras Térmicas y Protector de Nuca ARFF",
+    descripcion:
+      "Orejeras de Nomex®/Kevlar® con múltiples capas de protección térmica, desmontables para limpieza y reemplazo. Protector de nuca extendido con respaldo aluminizado que cubre toda la zona cervical. Protección auditiva integrada NRR 24 dB para ruido de turbinas en operación.",
+    specs: [
+      { label: "Material orejeras", valor: "Nomex®/Kevlar® multicapa" },
+      { label: "Protección auditiva", valor: "NRR 24 dB integrada" },
+      { label: "Protector nuca", valor: "Aluminizado extendido" },
+      { label: "Sistema", valor: "Desmontable y lavable" },
+    ],
+    color: "smoke" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Shell",           label: "Material",                    valor: "Fibra de vidrio + resina fenólica termoestable" },
+  { categoria: "Shell",           label: "Acabado",                     valor: "Alta reflectividad térmica (std.) o aluminizado (opc.)" },
+  { categoria: "Shell",           label: "Peso shell solo",             valor: "450–550 g" },
+  { categoria: "Shell",           label: "Peso sistema completo",       valor: "1100–1300 g" },
+  { categoria: "Shell",           label: "Temp. trabajo continuo",      valor: "260°C (500°F)" },
+  { categoria: "Shell",           label: "Temp. pico momentáneo",       valor: "1000°C por 30 seg" },
+  { categoria: "Visor",           label: "Material",                    valor: "Policarbonato + recubrimiento oro vaporizado" },
+  { categoria: "Visor",           label: "Filtro radiación IR",         valor: "95%" },
+  { categoria: "Visor",           label: "Transmitancia visible",       valor: ">75%" },
+  { categoria: "Visor",           label: "Sistema",                     valor: "Retráctil operación una mano" },
+  { categoria: "Visor",           label: "Tratamiento",                 valor: "Anti-rayaduras + antiempañante permanente" },
+  { categoria: "Protección",      label: "Orejeras",                    valor: "Nomex®/Kevlar® multicapa desmontables" },
+  { categoria: "Protección",      label: "Protección auditiva",         valor: "NRR 24 dB integrada" },
+  { categoria: "Protección",      label: "Protector nuca",              valor: "Aluminizado extendido cervical" },
+  { categoria: "Suspensión",      label: "Tipo",                        valor: "6 puntos con ajuste rápido" },
+  { categoria: "Suspensión",      label: "Rango tallas",                valor: "52–64 cm" },
+  { categoria: "Suspensión",      label: "Compatibilidad",              valor: "SCBA, radio, iluminación" },
+  { categoria: "Certificación",   label: "Norma primaria",              valor: "NFPA 1971 edición vigente" },
+  { categoria: "Certificación",   label: "Norma europea",               valor: "EN 443 (cascos bomberos)" },
+  { categoria: "Certificación",   label: "Aviación civil",              valor: "Compatible ICAO Annex 14" },
+  { categoria: "Certificación",   label: "México",                      valor: "Válido licitaciones DGAC/SCT" },
+];
+
+const catClass: Record<string, string> = {
+  "Shell":         "construccion",
+  "Visor":         "proteccion",
+  "Protección":    "proteccion",
+  "Suspensión":    "ergonomia",
+  "Certificación": "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Servicios ARFF en Aeropuertos Certificados DGAC",
+    desc: "El casco es el equipo estándar para servicios de rescate y extinción de incendios de aeronaves (ARFF - Aircraft Rescue and Fire Fighting) en aeropuertos con categoría de salvamento asignada según ICAO Annex 14 y regulaciones DGAC México.",
+  },
+  {
+    titulo: "Emergencias en Aeronaves Comerciales",
+    desc: "Rescate de pasajeros y tripulación en emergencias de aviación comercial. El visor dorado y las orejeras térmicas protegen de la radiación extrema de incendios de jet fuel (Jet A-1) que puede alcanzar 1000°C.",
+  },
+  {
+    titulo: "Incendios de Combustible de Aviación",
+    desc: "Control y extinción de incendios de combustible de aviación en pistas, hangares y zonas de abastecimiento. La protección térmica del casco permite aproximación a la zona caliente para aplicación de agente extintor.",
+  },
+  {
+    titulo: "Operaciones Nocturnas en Aeropuertos",
+    desc: "Compatible con sistemas de iluminación LED integrados para operaciones de rescate nocturnas. Los aeropuertos mexicanos con operaciones 24 horas requieren capacidad de respuesta en cualquier condición de luz.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Qué diferencia hay entre un casco ARFF y un casco estructural NFPA 1971 convencional?",
+    a: "El casco ARFF tiene características específicas para <strong>entorno aeroportuario</strong>: (1) Acabado de <strong>alta reflectividad térmica</strong> para radiación extrema de jet fuel. (2) <strong>Visor dorado</strong> con filtro IR del 95% para protección visual. (3) <strong>Orejeras térmicas extendidas</strong> con protección auditiva para ruido de turbinas. (4) Compatibilidad con <strong>ICAO Annex 14</strong> para servicios ARFF certificados. El casco estructural estándar no tiene estos elementos específicos.",
+  },
+  {
+    q: "¿El visor dorado permite ver claramente durante la operación?",
+    a: "Sí. El <strong>recubrimiento de oro vaporizado</strong> filtra el 95% de la radiación infrarroja pero mantiene una <strong>transmitancia de luz visible superior al 75%</strong>. Es similar al visor dorado de los astronautas. La visión es clara y sin distorsión, con el beneficio de proteger los ojos del deslumbramiento por llamas y radiación térmica intensa.",
+  },
+  {
+    q: "¿Qué significa compatibilidad con ICAO Annex 14?",
+    a: "<strong>ICAO Annex 14</strong> es el estándar de la <strong>Organización de Aviación Civil Internacional</strong> que establece requisitos para aeropuertos, incluyendo servicios ARFF. La compatibilidad significa que el casco cumple los estándares de protección y desempeño que los aeropuertos internacionales requieren para sus servicios de rescate. En México, la <strong>DGAC</strong> (Dirección General de Aeronáutica Civil) aplica estos estándares.",
+  },
+  {
+    q: "¿Por qué las orejeras incluyen protección auditiva NRR 24 dB?",
+    a: "Los <strong>motores de turbina de aeronaves</strong> producen ruido de 130–140 dB durante operación, muy por encima del umbral de daño auditivo (85 dB). Durante operaciones de rescate con turbinas funcionando o apagándose, la exposición puede causar <strong>daño auditivo permanente</strong>. El <strong>NRR 24 dB</strong> reduce el nivel a rangos seguros mientras permite comunicación por radio.",
+  },
+  {
+    q: "¿Este casco sirve para bomberos estructurales de ciudad?",
+    a: "Técnicamente sí, porque cumple <strong>NFPA 1971</strong>. Sin embargo, el casco ARFF tiene características específicas (y costo adicional) diseñadas para <strong>entorno aeroportuario</strong> que no aportan beneficio en incendios estructurales urbanos. Para bomberos de ciudad, un casco estructural NFPA 1971 estándar es más apropiado y económico. El ARFF es para <strong>servicios aeroportuarios especializados</strong>.",
+  },
+  {
+    q: "¿Qué documentación incluye para licitaciones de aeropuertos?",
+    a: "Cada casco incluye: <strong>(1)</strong> Certificado de laboratorio acreditado ISO/IEC 17025 con número de serie. <strong>(2)</strong> Declaración de conformidad NFPA 1971 y EN 443. <strong>(3)</strong> Ficha técnica completa en español. <strong>(4)</strong> Carta de garantía del fabricante. <strong>(5)</strong> Manual de operación y mantenimiento. Esta documentación es válida para licitaciones de <strong>DGAC, SCT, ASA</strong> y operadores aeroportuarios.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Casco ARFF Shell Aluminizado",
+    badge: "ARFF",
+    description: "Acabado aluminizado para máxima reflectividad térmica (85%+) en aproximación a fuegos intensos de jet fuel.",
+    href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/shell-aluminizado",
+    buttonText: "Ver Aluminizado",
+    image: IMAGE,
+  },
+  {
+    title: "Traje ARFF Aluminizado",
+    badge: "ARFF",
+    description: "Traje de proximidad aluminizado para aproximación máxima a incendios de combustible de aviación.",
+    href: "/productos/trajes-para-bomberos/traje-arff-aeropuerto",
+    buttonText: "Ver Traje ARFF",
+    image: IMAGE,
+  },
+  {
+    title: "Guantes ARFF Aluminizados",
+    badge: "ARFF",
+    description: "Guantes de alta reflectividad térmica compatibles con el sistema de protección ARFF.",
+    href: "/productos/guantes",
+    buttonText: "Ver Guantes ARFF",
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+  },
+  {
+    title: "Equipo SCBA Compatible ARFF",
+    badge: "ARFF",
+    description: "Equipo de respiración autónoma compatible con el sistema de casco ARFF para operaciones en humo de combustible.",
+    href: "/productos/scba",
+    buttonText: "Ver Equipo SCBA",
+    image: "/images/directorio/equipo-bomberos-completo-01.avif",
+  },
+];
+
+/* ── Datos del sidebar ──────────────────────────────────────── */
+const otrosModelos = [
+  { label: "Shell Aluminizado 85%+",          href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/shell-aluminizado" },
+  { label: "Visor Dorado Filtro IR",          href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/visor-dorado" },
+  { label: "Orejeras Térmicas Desmontables",  href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/orejeras-termicas" },
+  { label: "Linterna LED Integrada",          href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/linterna-integrada" },
+  { label: "Certificaciones Aeroportuarias",  href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/certificaciones" },
+  { label: "Ver Todos los Cascos",            href: "/productos/cascos-para-bomberos" },
+];
+
+const epp = [
+  { label: "Traje ARFF Aluminizado",       href: "/productos/trajes-para-bomberos/traje-arff-aeropuerto", tag: "Cuerpo" },
+  { label: "Guantes ARFF",                  href: "/productos/guantes",                                   tag: "Manos" },
+  { label: "Botas ARFF",                    href: "/productos/botas/estructural",                         tag: "Pies" },
+  { label: "SCBA Compatible ARFF",          href: "/productos/scba",                                      tag: "Respiración" },
+  { label: "Radio de Comunicación",         href: "/productos",                                           tag: "Comunicación" },
+];
+
+const articulos = [
+  { label: "Catálogo Cascos ARFF",             href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario", tag: "Catálogo" },
+  { label: "Norma ICAO Annex 14 Explicada",    href: "/productos",                                               tag: "Normativa" },
+  { label: "Servicios ARFF en México",         href: "/productos",                                               tag: "Artículo" },
+  { label: "Requisitos DGAC Aeropuertos",      href: "/productos",                                               tag: "Normativa" },
+  { label: "Protección contra Jet Fuel",       href: "/productos",                                               tag: "Guía" },
+  { label: "Cascos Estructurales Comparativa", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971", tag: "Comparar" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Aeropuerto AICM",         href: "/directorio/ciudad-de-mexico/estacion-aeropuerto-aicm" },
+  { label: "Bomberos Aeropuerto Cancún",       href: "/directorio/quintana-roo/estacion-bomberos-aeropuerto-cancun" },
+  { label: "Bomberos Aeropuerto Guadalajara",  href: "/directorio/jalisco/estacion-bomberos-aeropuerto-guadalajara" },
+  { label: "Bomberos Aeropuerto Monterrey",    href: "/directorio/nuevo-leon" },
+  { label: "Bomberos Aeropuerto Tijuana",      href: "/directorio/baja-california" },
+  { label: "Directorio Nacional",              href: "/directorio" },
+];
+
+const specsRapidas = [
+  { label: "Certificación",   valor: "NFPA 1971 + EN 443" },
+  { label: "Compatibilidad",  valor: "ICAO Annex 14" },
+  { label: "Shell",           valor: "Fibra vidrio + fenólica" },
+  { label: "Visor",           valor: "Dorado filtro IR 95%" },
+  { label: "Orejeras",        valor: "Nomex®/Kevlar® NRR 24" },
+  { label: "Peso sistema",    valor: "1100–1300 g" },
+  { label: "Temp. pico",      valor: "1000°C × 30s" },
+  { label: "Licitaciones",    valor: "DGAC/SCT válido" },
+];
+
+const certItems = [
+  { code: "NFPA 1971",     desc: "Cascos bomberos — protección estructural" },
+  { code: "EN 443",        desc: "Cascos bomberos — estándar europeo" },
+  { code: "ICAO Annex 14", desc: "Organización de Aviación Civil Internacional" },
+  { code: "DGAC/SCT",      desc: "Válido para licitaciones aeroportuarias México" },
+  { code: "ISO/IEC 17025", desc: "Certificado laboratorio acreditado incluido" },
+];
+---
+
+<ProductoLayout
+  title="Casco ARFF Aeroportuario — Sistema Completo NFPA 1971 | BOMBERO.MX"
+  description="Casco ARFF aeroportuario sistema completo. Shell material compuesto, visor dorado IR 95%, orejeras Nomex®/Kevlar®. Certificado NFPA 1971, EN 443, compatible ICAO Annex 14. Para servicios ARFF en aeropuertos México."
+  keywords={[
+    "casco ARFF aeroportuario",
+    "casco bombero aeropuerto México",
+    "casco Aircraft Rescue Firefighting",
+    "casco NFPA 1971 aeropuerto",
+    "casco visor dorado ARFF",
+    "casco ICAO Annex 14",
+    "casco bombero DGAC",
+    "comprar casco ARFF Mexico",
+  ]}
+  canonical="/productos/cascos-para-bomberos/casco-arff-aeroportuario/sistema-completo"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos" },
+    { label: "Cascos de Bombero",           href: "/productos/cascos-para-bomberos" },
+    { label: "Casco ARFF Aeroportuario",    href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario" },
+    { label: "Sistema Completo" },
+  ]}
+
+  heroBadge="Casco ARFF · NFPA 1971 · EN 443 · ICAO Annex 14"
+  heroTitle="Casco ARFF Aeroportuario"
+  heroTitleHighlight="Sistema Completo"
+  heroSubtitle="El casco de protección estándar para servicios ARFF (Aircraft Rescue and Fire Fighting) en aeropuertos certificados. Shell de material compuesto con alta reflectividad térmica, visor dorado con filtro IR 95%, orejeras térmicas Nomex®/Kevlar® con protección auditiva NRR 24 dB."
+  heroSeoBlocks={[
+    {
+      title: "Protección ARFF para Incendios de Combustible de Aviación",
+      text: "El <strong>casco ARFF Sistema Completo</strong> proporciona la protección necesaria para aproximación a incendios de <strong>combustible de aviación (Jet A-1, AVGAS)</strong> que alcanzan temperaturas de 1000°C. El visor dorado filtra el <strong>95% de la radiación infrarroja</strong> protegiendo los ojos de deslumbramiento y daño térmico.",
+    },
+    {
+      title: "Certificación para Aeropuertos DGAC/SCT México",
+      text: "Cumple <strong>NFPA 1971, EN 443</strong> y es compatible con <strong>ICAO Annex 14</strong> — el estándar internacional para servicios ARFF en aeropuertos. Documentación completa incluida para licitaciones de <strong>DGAC (Dirección General de Aeronáutica Civil)</strong>, SCT y operadores aeroportuarios en México.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Casco ARFF Sistema Completo"
+
+  productoCategoria="Casco ARFF Aeroportuario"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1971" },
+    { modifier: "tpp",   text: "EN 443" },
+    { modifier: "solas", text: "ICAO" },
+  ]}
+  productoMasVendido={true}
+  productoTitle="Casco ARFF Aeroportuario"
+  productoTitleSub="Sistema Completo"
+  productoDesc="Shell de fibra de vidrio con acabado de alta reflectividad térmica. Visor retráctil de policarbonato con recubrimiento dorado (filtro IR 95%). Orejeras térmicas Nomex®/Kevlar® con protección auditiva NRR 24 dB. Protector de nuca aluminizado. Certificado NFPA 1971 + EN 443."
+  productoFeatures={[
+    "Shell material compuesto alta reflectividad",
+    "Visor dorado filtro IR 95% retráctil",
+    "Orejeras Nomex®/Kevlar® NRR 24 dB",
+    "Protector nuca aluminizado extendido",
+    "Certificado NFPA 1971 + EN 443",
+    "Compatible ICAO Annex 14 — válido DGAC",
+  ]}
+  productoAppTags={[
+    "Aeropuertos",
+    "Servicios ARFF",
+    "Jet fuel",
+    "Rescate aeronaves",
+    "DGAC/SCT",
+  ]}
+
+  gallery={[
+    { src: "/images/directorio/camion-bomberos-aeropuerto-01.avif",              alt: "Casco ARFF aeroportuario sistema completo" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Bombero ARFF con casco completo" },
+    { src: "/images/directorio/equipo-bomberos-completo-01.avif",                alt: "Sistema EPP ARFF aeroportuario" },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",            alt: "Entrenamiento ARFF con casco" },
+    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif",alt: "Casco ARFF en operación" },
+    { src: "/images/directorio/camion-bomberos-emergencia-01.avif",              alt: "Vehículo ARFF con equipo completo" },
+  ]}
+
+  capasEyebrow="Componentes del Sistema"
+  capasTitle="Anatomía del Casco ARFF"
+  capasDesc="Cada componente está diseñado para protección específica en entorno aeroportuario: radiación térmica extrema, ruido de turbinas y condiciones de combustible de aviación."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones ARFF Sistema Completo"
+  specsDesc="Parámetros certificados según NFPA 1971 y EN 443, con características adicionales para compatibilidad ICAO Annex 14 y licitaciones aeroportuarias."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Escenarios ARFF"
+  aplicacionesTitle="¿Dónde se Usa el Casco ARFF?"
+  aplicacionesContent="<p>El casco ARFF Sistema Completo es el equipo de protección de cabeza estándar para <strong>servicios de rescate y extinción de incendios de aeronaves</strong> en aeropuertos con categoría de salvamento según ICAO Annex 14.</p><p>Los aeropuertos mexicanos con operaciones comerciales requieren servicios ARFF equipados según estándares internacionales certificados por <strong>DGAC</strong>.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Certificaciones Aeroportuarias"
+  certsTitle="Triple Certificación: NFPA 1971 + EN 443 + ICAO"
+  certsDesc="El casco cumple los estándares más exigentes para servicios ARFF: norma estadounidense <strong>NFPA 1971</strong>, norma europea <strong>EN 443</strong> y es compatible con los requisitos de <strong>ICAO Annex 14</strong> para servicios de rescate aeroportuario."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/cascos-para-bomberos/casco-arff-aeroportuario"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Preguntas sobre Cascos ARFF"
+  faqDescription="Dudas frecuentes sobre especificaciones, certificaciones aeroportuarias, compatibilidad con sistemas de respiración y aplicaciones ARFF."
+  faqDocTitle="Documentación para Licitaciones"
+  faqDocDesc="Solicita certificados, fichas técnicas y documentación completa para licitaciones DGAC/SCT."
+  faqDocCtaHref="/cotizar"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="Sistema ARFF Completo"
+  relacionadosTitle="EPP para Servicios Aeroportuarios"
+  relacionadosDesc="El casco es parte del sistema de protección ARFF. Complete el equipo con traje, guantes, botas y SCBA específicos para operaciones aeroportuarias."
+  relacionados={relacionados}
+/>

@@ -1332,6 +1332,37 @@ export const FAQ_NUEVO_LEON = [
 ];
 
 // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+// FUNCIONES AUXILIARES ESTÁNDAR PARA DIRECTORIO
+// ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Obtiene lista única de municipios/ciudades ordenados alfabéticamente
+ */
+export function getMunicipios(): string[] {
+  return [...new Set(estacionesNuevoLeon.map(e => e.ciudad))].filter(Boolean).sort() as string[];
+}
+
+/**
+ * Obtiene una estación por su slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesNuevoLeon.find(e => e.slug === slug);
+}
+
+/**
+ * Obtiene estaciones cercanas (misma zona primero, luego otras)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+
+  const mismaZona = estacionesNuevoLeon.filter(e => e.slug !== slug && e.zona === estacion.zona);
+  const otras = estacionesNuevoLeon.filter(e => e.slug !== slug && e.zona !== estacion.zona);
+
+  return [...mismaZona, ...otras].slice(0, limit);
+}
+
+// ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 // EXPORT DEFAULT
 // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 

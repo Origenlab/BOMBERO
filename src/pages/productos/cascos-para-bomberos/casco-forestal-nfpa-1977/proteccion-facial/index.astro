@@ -1,0 +1,344 @@
+---
+/**
+ * ─── BOMBERO.MX ───
+ * Producto: Casco Forestal NFPA 1977 — Con Protección Facial
+ * URL: /productos/cascos-para-bomberos/casco-forestal-nfpa-1977/proteccion-facial
+ *
+ * Especificaciones basadas en cascos reales con pantalla:
+ * - Pantallas de malla metálica (mesh) para vegetación densa
+ * - Visores de policarbonato para ceniza y partículas finas
+ * - Pacific R6 con faceshield, Bullard FXA con malla
+ * - Estilo europeo (Pfanner, Protos) con protección integral
+ */
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/directorio/camion-bomberos-emergencia-01.avif";
+
+/* ── Datos del producto ─────────────────────────────────────── */
+const capas = [
+  {
+    num: "01",
+    titulo: "Shell HDPE con Rieles de Montaje Integrados",
+    descripcion:
+      "Shell de polietileno de alta densidad con rieles laterales integrados para montaje de sistemas de protección facial. Los rieles permiten instalar pantalla de malla metálica, visor de policarbonato, o sistema combinado de orejeras más visor (estilo arbóreo europeo). El diseño modular permite configurar el casco según la operación.",
+    specs: [
+      { label: "Material", valor: "HDPE inyectado — Clase E" },
+      { label: "Rieles", valor: "Aluminio anodizado o plástico reforzado" },
+      { label: "Compatibilidad", valor: "Malla, visor, orejeras" },
+      { label: "Peso shell", valor: "300–350 g" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Pantalla de Malla Metálica — Vegetación Densa",
+    descripcion:
+      "Malla de acero inoxidable o acero galvanizado con apertura de 3–4 mm que bloquea ramas, astillas y partículas grandes mientras permite excelente ventilación y visibilidad. Ideal para operaciones en vegetación densa donde el contacto con ramas es constante. No empaca como el policarbonato.",
+    specs: [
+      { label: "Material", valor: "Acero inoxidable o galvanizado" },
+      { label: "Apertura malla", valor: "3–4 mm" },
+      { label: "Dimensiones", valor: "Cubre mentón hasta frente" },
+      { label: "Articulación", valor: "Abatible arriba/abajo" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Visor Policarbonato — Ceniza y Partículas Finas",
+    descripcion:
+      "Alternativa a la malla para operaciones donde hay ceniza voladora intensa o partículas finas que penetrarían la malla. El policarbonato transparente o con tinte proporciona protección completa pero requiere tratamiento antivaho. Compatible con gafas de prescripción debajo.",
+    specs: [
+      { label: "Material", valor: "Policarbonato ANSI Z87.1" },
+      { label: "Espesor", valor: "2.0 mm típico" },
+      { label: "Tratamiento", valor: "Anti-rayaduras + antivaho" },
+      { label: "Articulación", valor: "Abatible con detentes" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Shell",           label: "Material",                    valor: "HDPE inyectado (polietileno alta densidad)" },
+  { categoria: "Shell",           label: "Rieles montaje",              valor: "Aluminio anodizado o plástico reforzado" },
+  { categoria: "Shell",           label: "Peso shell solo",             valor: "300–350 g" },
+  { categoria: "Shell",           label: "Clase dieléctrica",           valor: "Clase E — 20,000V ANSI" },
+  { categoria: "Pantalla Malla",  label: "Material malla",              valor: "Acero inoxidable 304 o galvanizado" },
+  { categoria: "Pantalla Malla",  label: "Apertura",                    valor: "3–4 mm (bloquea partículas >3 mm)" },
+  { categoria: "Pantalla Malla",  label: "Peso malla",                  valor: "~80–120 g" },
+  { categoria: "Pantalla Malla",  label: "Visibilidad",                 valor: "Excelente — sin distorsión" },
+  { categoria: "Visor",           label: "Material visor",              valor: "Policarbonato óptico ANSI Z87.1" },
+  { categoria: "Visor",           label: "Espesor",                     valor: "2.0 mm" },
+  { categoria: "Visor",           label: "Tratamientos",                valor: "Anti-rayaduras + antivaho" },
+  { categoria: "Visor",           label: "Peso visor",                  valor: "~60–80 g" },
+  { categoria: "Sistema",         label: "Peso total con malla",        valor: "520–600 g" },
+  { categoria: "Sistema",         label: "Peso total con visor",        valor: "480–550 g" },
+  { categoria: "Protección",      label: "Impacto superior",            valor: "NFPA 1977 § 6.1 — 60 J mín." },
+  { categoria: "Protección",      label: "Protección facial",           valor: "ANSI Z87.1 (visor) o EN 1731 (malla)" },
+  { categoria: "Protección",      label: "Protector nuca",              valor: "Nomex® IIIA — incluido" },
+  { categoria: "Certificación",   label: "Norma casco",                 valor: "NFPA 1977 edición vigente" },
+  { categoria: "Certificación",   label: "Norma pantalla",              valor: "ANSI Z87.1 o EN 1731" },
+];
+
+const catClass: Record<string, string> = {
+  "Shell":          "construccion",
+  "Pantalla Malla": "proteccion",
+  "Visor":          "proteccion",
+  "Sistema":        "ergonomia",
+  "Protección":     "proteccion",
+  "Certificación":  "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Vegetación Densa — Selva y Bosque Tropical",
+    desc: "En operaciones donde el bombero atraviesa vegetación densa (selvas de Chiapas, Oaxaca, Veracruz), la pantalla de malla protege el rostro de ramas, espinas y astillas sin comprometer ventilación. La malla permite ver claramente a través de hojas y ramas.",
+  },
+  {
+    titulo: "Uso de Motosierra y Herramientas de Corte",
+    desc: "Cuando se operan motosierras para crear brechas cortafuegos, la pantalla facial es obligatoria por normativa de seguridad laboral. La malla metálica bloquea astillas proyectadas mientras mantiene ventilación durante trabajo físico intenso.",
+  },
+  {
+    titulo: "Ceniza Voladora Intensa",
+    desc: "En frentes de fuego donde la ceniza voladora es densa y fina, el visor de policarbonato proporciona sellado completo que la malla no puede. Ideal para la fase activa del incendio cuando las partículas son más intensas.",
+  },
+  {
+    titulo: "Operaciones de Liquidación (Mop-Up)",
+    desc: "Durante liquidación de áreas quemadas, el volteo de troncos y material caliente puede proyectar ceniza y brasas hacia el rostro. La pantalla facial protege durante esta fase de trabajo cercano a material humeante.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Cuándo debo usar malla metálica vs visor de policarbonato?",
+    a: "<strong>Malla metálica</strong>: Operaciones en vegetación densa con ramas, uso de motosierra, cuando la ventilación es crítica, cuando no hay ceniza fina intensa. <strong>Visor policarbonato</strong>: Ceniza voladora densa, partículas finas que penetrarían la malla, cuando se necesita protección hermética del rostro. Algunos cascos permiten <strong>intercambiar</strong> entre ambos según la fase de la operación.",
+  },
+  {
+    q: "¿La pantalla de malla cumple alguna norma de protección?",
+    a: "Sí. Las pantallas de malla metálica para uso forestal deben cumplir <strong>EN 1731</strong> (norma europea para protección facial en trabajo forestal) o equivalente. Esta norma especifica resistencia a impacto de partículas proyectadas, tamaño máximo de apertura y materiales apropiados. Verificar que la malla tenga marcado de conformidad.",
+  },
+  {
+    q: "¿El visor de policarbonato se empaña durante el trabajo?",
+    a: "Puede empañarse si no tiene <strong>tratamiento antivaho</strong> (anti-fog). Los visores de calidad incluyen recubrimiento antivaho de fábrica, pero este tratamiento se degrada con el uso y lavado. Existen <strong>sprays antivaho</strong> que pueden reaplicarse. Algunos visores tienen diseño de ventilación indirecta que reduce empañamiento sin comprometer protección.",
+  },
+  {
+    q: "¿Puedo agregar protección facial a un casco forestal existente?",
+    a: "Depende del casco. Los cascos con <strong>rieles de montaje integrados</strong> aceptan accesorios del mismo fabricante. Cascos sin rieles generalmente no se pueden modificar de forma segura. Intentar adaptar accesorios de otros fabricantes puede comprometer la <strong>certificación NFPA 1977</strong> y la seguridad. Es preferible adquirir un sistema casco + pantalla del mismo fabricante.",
+  },
+  {
+    q: "¿El peso adicional de la pantalla causa fatiga cervical?",
+    a: "El peso adicional de la pantalla (<strong>60–120 g</strong>) es relativamente menor comparado con el casco solo (300–350 g). Sin embargo, el <strong>momento de inercia</strong> cambia porque el peso está adelante del rostro. En jornadas muy largas (+10 horas) puede notarse más fatiga cervical. El balance adecuado del casco y pausas de descanso mitigan este efecto.",
+  },
+  {
+    q: "¿Cómo limpio y mantengo la pantalla de malla metálica?",
+    a: "La malla de acero inoxidable se puede <strong>lavar con agua y jabón neutro</strong>, secar completamente para evitar corrosión (más importante en malla galvanizada). Inspeccionar periódicamente por <strong>deformaciones o perforaciones</strong> — la malla dañada debe reemplazarse. El marco de montaje también debe revisarse por grietas o holgura.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Casco Forestal Termoplástico Estándar",
+    badge: "NFPA 1977",
+    description: "Shell HDPE estándar sin pantalla facial integrada. Para operaciones donde la protección facial no es requerida.",
+    href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/termoplastico-ligero",
+    buttonText: "Ver Estándar",
+    image: "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  },
+  {
+    title: "Goggles Forestales ANSI Z87.1",
+    badge: "ANSI Z87.1",
+    description: "Alternativa a la pantalla cuando se requiere solo protección ocular. Ventilación indirecta anti-empañamiento.",
+    href: "/productos/gafas",
+    buttonText: "Ver Goggles",
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+  },
+  {
+    title: "Sistema Campo Completo",
+    badge: "NFPA 1977",
+    description: "Kit completo: casco + pantalla + goggles + protector nuca + barbiquejo profesional.",
+    href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/sistema-campo",
+    buttonText: "Ver Sistema Campo",
+    image: "/images/directorio/equipo-bomberos-completo-01.avif",
+  },
+  {
+    title: "Guantes Forestales Anticorte",
+    badge: "NFPA 1977",
+    description: "Guantes con protección anticorte para uso de motosierra. Complemento obligatorio con pantalla facial.",
+    href: "/productos/guantes/forestales",
+    buttonText: "Ver Guantes",
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+  },
+];
+
+/* ── Datos del sidebar ──────────────────────────────────────── */
+const otrosModelos = [
+  { label: "Termoplástico Ligero HDPE",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/termoplastico-ligero" },
+  { label: "Material Compuesto (Fibra Vidrio)",href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/material-compuesto" },
+  { label: "Ventilación Máxima",              href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/ventilacion-maxima" },
+  { label: "Alta Visibilidad (Hi-Vis)",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/alta-visibilidad" },
+  { label: "Sistema Completo de Campo",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/sistema-campo" },
+  { label: "Ver Todos los Cascos",            href: "/productos/cascos-para-bomberos" },
+];
+
+const epp = [
+  { label: "Traje Forestal NFPA 1977",     href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977", tag: "Cuerpo" },
+  { label: "Guantes Anticorte Motosierra", href: "/productos/guantes/forestales",                           tag: "Manos" },
+  { label: "Botas Forestales Logger",       href: "/productos/botas/forestal",                               tag: "Pies" },
+  { label: "Polainas Anticorte",            href: "/productos",                                              tag: "Piernas" },
+  { label: "Protección Auditiva",           href: "/productos",                                              tag: "Oídos" },
+];
+
+const articulos = [
+  { label: "Catálogo Cascos Forestales",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977", tag: "Catálogo" },
+  { label: "Protección Facial en Forestales",  href: "/productos",                                               tag: "Guía" },
+  { label: "Uso Seguro de Motosierra",         href: "/productos",                                               tag: "Seguridad" },
+  { label: "Malla vs Visor Policarbonato",     href: "/productos",                                               tag: "Comparar" },
+  { label: "EPP para Brechas Cortafuegos",     href: "/productos",                                               tag: "Artículo" },
+  { label: "Norma EN 1731 Explicada",          href: "/productos",                                               tag: "Normativa" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Forestales Chiapas",      href: "/directorio/chiapas" },
+  { label: "Bomberos Forestales Oaxaca",       href: "/directorio/oaxaca" },
+  { label: "Bomberos Forestales Veracruz",     href: "/directorio/veracruz" },
+  { label: "Bomberos Forestales Michoacán",    href: "/directorio/michoacan" },
+  { label: "Bomberos Forestales Jalisco",      href: "/directorio/jalisco" },
+  { label: "Directorio Nacional",              href: "/directorio" },
+];
+
+const specsRapidas = [
+  { label: "Norma casco",     valor: "NFPA 1977" },
+  { label: "Norma pantalla",  valor: "ANSI Z87.1 / EN 1731" },
+  { label: "Shell",           valor: "HDPE + rieles" },
+  { label: "Pantalla malla",  valor: "Acero inox. 3–4 mm" },
+  { label: "Visor",           valor: "Policarbonato 2 mm" },
+  { label: "Peso con malla",  valor: "520–600 g" },
+  { label: "Peso con visor",  valor: "480–550 g" },
+  { label: "Dieléctrico",     valor: "Clase E 20kV" },
+];
+
+const certItems = [
+  { code: "NFPA 1977",     desc: "Wildland Fire Fighting — casco certificado" },
+  { code: "ANSI Z87.1",    desc: "Protección ocular — visor policarbonato" },
+  { code: "EN 1731",       desc: "Protección facial — malla metálica forestal" },
+  { code: "Clase E",       desc: "Aislamiento dieléctrico 20,000V" },
+  { code: "ISO/IEC 17025", desc: "Laboratorio acreditado — certificado incluido" },
+];
+---
+
+<ProductoLayout
+  title="Casco Forestal NFPA 1977 — Con Protección Facial | BOMBERO.MX"
+  description="Casco forestal NFPA 1977 con pantalla facial de malla metálica o visor policarbonato. Protección contra ramas, ceniza y partículas. Para vegetación densa y uso de motosierra. Envío a los 32 estados de México."
+  keywords={[
+    "casco forestal con pantalla",
+    "casco NFPA 1977 malla facial",
+    "casco bombero forestal visor",
+    "casco wildland proteccion facial",
+    "casco forestal motosierra",
+    "casco CONAFOR con malla",
+    "casco forestal vegetacion densa",
+    "comprar casco forestal pantalla Mexico",
+  ]}
+  canonical="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/proteccion-facial"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos" },
+    { label: "Cascos de Bombero",           href: "/productos/cascos-para-bomberos" },
+    { label: "Casco Forestal NFPA 1977",    href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977" },
+    { label: "Protección Facial" },
+  ]}
+
+  heroBadge="Casco Forestal · NFPA 1977 · Protección Facial"
+  heroTitle="Casco Forestal NFPA 1977"
+  heroTitleHighlight="Con Protección Facial"
+  heroSubtitle="Sistema modular con pantalla de malla metálica o visor de policarbonato intercambiables. Malla para vegetación densa y uso de motosierra; visor para ceniza voladora intensa. Rieles de montaje integrados para configuración según operación."
+  heroSeoBlocks={[
+    {
+      title: "Pantalla de Malla — Vegetación Densa y Motosierra",
+      text: "La <strong>malla de acero inoxidable</strong> con apertura de 3–4 mm bloquea ramas, astillas y partículas proyectadas mientras mantiene <strong>excelente ventilación</strong> y visibilidad. Cumple <strong>EN 1731</strong> para trabajo forestal con herramientas de corte.",
+    },
+    {
+      title: "Visor Policarbonato — Ceniza y Partículas Finas",
+      text: "El <strong>visor de policarbonato ANSI Z87.1</strong> proporciona sellado completo contra ceniza voladora fina que penetraría la malla. Tratamiento anti-rayaduras y antivaho incluido. <strong>Abatible</strong> para alternar entre protección total y ventilación según condiciones.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Casco Forestal con Protección Facial"
+
+  productoCategoria="Casco Forestal con Pantalla"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1977" },
+    { modifier: "tpp",   text: "Malla + Visor" },
+    { modifier: "solas", text: "Modular" },
+  ]}
+  productoMasVendido={false}
+  productoTitle="Casco Forestal NFPA 1977"
+  productoTitleSub="Con Protección Facial Modular"
+  productoDesc="Shell HDPE con rieles de montaje para pantalla de malla metálica (acero inox.) o visor de policarbonato intercambiables. Sistema abatible arriba/abajo. Protector de nuca Nomex® IIIA incluido. Certificado NFPA 1977 + norma de pantalla."
+  productoFeatures={[
+    "Shell HDPE con rieles de montaje",
+    "Malla acero inox. 3–4 mm (EN 1731)",
+    "Visor policarbonato ANSI Z87.1 opc.",
+    "Sistema abatible arriba/abajo",
+    "Peso con malla: 520–600 g",
+    "Certificación NFPA 1977 + pantalla",
+  ]}
+  productoAppTags={[
+    "Vegetación densa",
+    "Motosierra",
+    "Ceniza voladora",
+    "Brechas cortafuegos",
+    "Liquidación",
+  ]}
+
+  gallery={[
+    { src: "/images/directorio/camion-bomberos-emergencia-01.avif",              alt: "Casco forestal NFPA 1977 con pantalla facial" },
+    { src: "/images/directorio/pick-up-bomberos-forestal-01.avif",               alt: "Casco forestal con malla metálica" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Brigada forestal con protección facial" },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",            alt: "Entrenamiento con casco y pantalla" },
+    { src: "/images/directorio/equipo-bomberos-completo-01.avif",                alt: "Sistema EPP forestal con pantalla" },
+    { src: "/images/directorio/bomberos-accion-incendio-01.avif",                alt: "Casco con visor en operación" },
+  ]}
+
+  capasEyebrow="Sistema de Protección Facial"
+  capasTitle="Componentes del Sistema Modular"
+  capasDesc="Shell con rieles de montaje que acepta malla metálica o visor de policarbonato. Intercambiables según la fase de la operación."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones Casco + Pantalla"
+  specsDesc="El sistema modular permite configurar el casco para diferentes escenarios: malla para vegetación densa, visor para ceniza intensa."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Escenarios de Uso"
+  aplicacionesTitle="¿Cuándo se Necesita Protección Facial?"
+  aplicacionesContent="<p>La <strong>protección facial</strong> es crítica en operaciones donde hay riesgo de impacto de ramas, astillas proyectadas por motosierra, o ceniza voladora intensa.</p><p>El sistema modular permite <strong>adaptar la protección</strong> a la fase de la operación: malla durante apertura de brechas, visor durante la fase activa del fuego, ninguna durante traslado a la zona.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="NFPA 1977 + Protección Facial Certificada"
+  certsDesc="El casco cumple <strong>NFPA 1977</strong> para protección contra fuego forestal. La malla metálica cumple <strong>EN 1731</strong> y el visor <strong>ANSI Z87.1</strong> para protección facial certificada."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Preguntas sobre Protección Facial"
+  faqDescription="Dudas frecuentes sobre malla vs visor, mantenimiento, compatibilidad y aplicaciones específicas de la protección facial forestal."
+  faqDocTitle="Documentación Técnica"
+  faqDocDesc="Solicita ficha técnica completa, certificado de laboratorio y guía de tallas."
+  faqDocCtaHref="/cotizar"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="EPP Forestal Complementario"
+  relacionadosTitle="Protección Completa para Operaciones Forestales"
+  relacionadosDesc="La pantalla facial es parte de un sistema de protección completo. Combine con guantes anticorte, polainas y protección auditiva para uso de motosierra."
+  relacionados={relacionados}
+/>
