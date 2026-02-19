@@ -1,0 +1,343 @@
+---
+/**
+ * ─── BOMBERO.MX ───
+ * Producto: Casco Forestal NFPA 1977 — Material Compuesto (Fibra de Vidrio)
+ * URL: /productos/cascos-para-bomberos/casco-forestal-nfpa-1977/material-compuesto
+ *
+ * Especificaciones basadas en cascos reales:
+ * - Bullard FXA Fiberglass Series
+ * - Pacific Helmets F10/F15 Fiberglass
+ * - Cromwell ER1 Composite
+ * - Vida útil extendida: 10 años vs 5 años del termoplástico
+ */
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/directorio/camion-bomberos-emergencia-01.avif";
+
+/* ── Datos del producto ─────────────────────────────────────── */
+const capas = [
+  {
+    num: "01",
+    titulo: "Shell Compuesto — Fibra de Vidrio + Resina Fenólica",
+    descripcion:
+      "Shell de fibra de vidrio tejida impregnada en resina fenólica termoestable, moldeada bajo presión. A diferencia del HDPE termoplástico, el compuesto de fibra de vidrio no se reblandece con el calor — mantiene su integridad estructural incluso a temperaturas que deformarían un casco plástico. Mayor rigidez y durabilidad para brigadas de alta actividad.",
+    specs: [
+      { label: "Material", valor: "Fibra de vidrio + resina fenólica" },
+      { label: "Peso shell", valor: "350–400 g (sin accesorios)" },
+      { label: "Temp. trabajo", valor: "-40°C a +150°C pico" },
+      { label: "Vida útil", valor: "10 años desde manufactura" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Suspensión Premium — 6 Puntos con Corona Acolchada",
+    descripcion:
+      "Los cascos de material compuesto premium frecuentemente incluyen suspensión de 6 puntos en lugar de 4, distribuyendo mejor el impacto en colisiones laterales. Corona acolchada de espuma de celda cerrada para mayor comodidad. Ajuste por perilla giratoria con rango extendido.",
+    specs: [
+      { label: "Tipo", valor: "6 puntos — cinta nylon reforzada" },
+      { label: "Corona", valor: "Espuma EVA celda cerrada" },
+      { label: "Ajuste", valor: "Perilla giratoria Ratchet®" },
+      { label: "Rango", valor: "52–65 cm" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Protector de Nuca — Aluminizado o FR Standard",
+    descripcion:
+      "Los cascos de fibra de vidrio premium ofrecen opción de protector de nuca con respaldo aluminizado para ambientes de alta radiación térmica, o el estándar de tela FR (Nomex® IIIA). El respaldo aluminizado refleja hasta 95% de la radiación infrarroja en operaciones de interfaz urbano-forestal intensas.",
+    specs: [
+      { label: "Material ext.", valor: "Nomex® IIIA 7.5 oz/yd²" },
+      { label: "Respaldo opc.", valor: "Film aluminizado FR" },
+      { label: "Reflectancia IR", valor: "≥95% con aluminizado" },
+      { label: "Fijación", valor: "Sistema de clips metálicos" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Shell",           label: "Material",                    valor: "Fibra de vidrio + resina fenólica termoestable" },
+  { categoria: "Shell",           label: "Proceso",                     valor: "Moldeo por compresión bajo presión" },
+  { categoria: "Shell",           label: "Peso shell solo",             valor: "350–400 g" },
+  { categoria: "Shell",           label: "Peso con accesorios",         valor: "480–550 g" },
+  { categoria: "Shell",           label: "Temp. trabajo continuo",      valor: "-40°C a +80°C" },
+  { categoria: "Shell",           label: "Temp. pico momentáneo",       valor: "+150°C (no más de 30 seg)" },
+  { categoria: "Shell",           label: "Clase dieléctrica",           valor: "No dieléctrico — fibra de vidrio conductiva" },
+  { categoria: "Shell",           label: "Acabado",                     valor: "Gelcoat UV-resistente o pintura epoxi" },
+  { categoria: "Suspensión",      label: "Tipo",                        valor: "6 puntos cinta nylon" },
+  { categoria: "Suspensión",      label: "Ajuste",                      valor: "Perilla giratoria Ratchet®" },
+  { categoria: "Suspensión",      label: "Rango tallas",                valor: "52–65 cm" },
+  { categoria: "Suspensión",      label: "Corona",                      valor: "Espuma EVA celda cerrada" },
+  { categoria: "Suspensión",      label: "Barbiquejo",                  valor: "2 puntos con mentonera — incluido" },
+  { categoria: "Protección",      label: "Impacto superior",            valor: "NFPA 1977 § 6.1 — 60 J mín." },
+  { categoria: "Protección",      label: "Penetración",                 valor: "NFPA 1977 § 6.2 — sin penetración" },
+  { categoria: "Protección",      label: "Retención",                   valor: "NFPA 1977 § 6.3 — > 22 kg fuerza" },
+  { categoria: "Protección",      label: "Llama/calor",                 valor: "NFPA 1977 § 6.4 — sin ignición 10s" },
+  { categoria: "Protección",      label: "Protector nuca",              valor: "Nomex® IIIA std. o aluminizado opc." },
+  { categoria: "Certificación",   label: "Norma principal",             valor: "NFPA 1977 edición vigente" },
+  { categoria: "Certificación",   label: "Vida útil fabricante",        valor: "10 años desde fecha de manufactura" },
+];
+
+const catClass: Record<string, string> = {
+  "Shell":         "construccion",
+  "Suspensión":    "ergonomia",
+  "Protección":    "proteccion",
+  "Certificación": "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Brigadas de Alta Actividad",
+    desc: "Para brigadas con >100 jornadas de combate por temporada, el shell de fibra de vidrio ofrece durabilidad superior. La vida útil de 10 años (vs 5 años del HDPE) amortiza el costo inicial más alto.",
+  },
+  {
+    titulo: "Interfaz Urbano-Forestal Intensa (WUI)",
+    desc: "En incendios de interfaz donde la radiación térmica es alta por estructuras involucradas, el shell de material compuesto mantiene su forma a temperaturas que deformarían el termoplástico.",
+  },
+  {
+    titulo: "Operaciones en Clima Extremo",
+    desc: "Rango de operación de -40°C a +80°C continuo. El HDPE puede volverse frágil bajo -20°C o reblandecerse sobre +50°C. El compuesto mantiene propiedades mecánicas estables.",
+  },
+  {
+    titulo: "Brigadas Permanentes CONAFOR",
+    desc: "Personal de carrera que requiere equipo para toda su trayectoria profesional. El shell de fibra de vidrio es una inversión a largo plazo para brigadas establecidas.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Por qué el casco de fibra de vidrio cuesta más que el termoplástico?",
+    a: "El proceso de manufactura es más complejo: <strong>moldeo por compresión</strong> de capas de fibra de vidrio con resina fenólica, curado bajo calor y presión, acabado con gelcoat o pintura epoxi. Requiere más tiempo y mano de obra que la inyección de HDPE. Sin embargo, la <strong>vida útil de 10 años</strong> (el doble del termoplástico) puede hacer que el costo total de propiedad sea menor.",
+  },
+  {
+    q: "¿El casco de fibra de vidrio es dieléctrico como el de HDPE?",
+    a: "<strong>No</strong>. La fibra de vidrio puede contener impurezas conductivas y la resina fenólica no garantiza aislamiento eléctrico. Los cascos de material compuesto <strong>no tienen clasificación Clase E dieléctrica</strong>. Si existe riesgo de contacto con líneas eléctricas (común en incendios de interfaz), el casco de HDPE Clase E es más apropiado.",
+  },
+  {
+    q: "¿Se puede reparar un casco de fibra de vidrio dañado?",
+    a: "<strong>No se recomienda</strong>. A diferencia de fibra de vidrio en otras aplicaciones (embarcaciones), el shell del casco está sometido a cargas de impacto críticas. Cualquier daño visible (grietas, delaminación, desconchado del gelcoat) requiere reemplazo completo. La integridad estructural del casco es irrecuperable después de daño.",
+  },
+  {
+    q: "¿El protector de nuca aluminizado es necesario para operaciones normales?",
+    a: "Para <strong>combate forestal estándar</strong>, el protector FR de Nomex® IIIA es suficiente. El <strong>respaldo aluminizado</strong> es útil en operaciones de <strong>interfaz urbano-forestal</strong> donde hay estructuras involucradas y la radiación térmica es significativamente mayor. También es apropiado para personal que trabaja cerca de frentes de fuego intensos por períodos prolongados.",
+  },
+  {
+    q: "¿Cuál es la diferencia de peso entre el termoplástico y el material compuesto?",
+    a: "El shell de fibra de vidrio pesa <strong>350–400 g</strong> vs <strong>280–320 g</strong> del HDPE — aproximadamente 70–80 g más. El peso total con accesorios es <strong>480–550 g</strong> vs <strong>380–450 g</strong>. Esta diferencia de ~100 g es notable en jornadas largas pero aceptable para brigadas que priorizan durabilidad sobre peso mínimo.",
+  },
+  {
+    q: "¿Cómo sé cuándo debo retirar el casco de servicio?",
+    a: "Retirar el casco si: (1) Cumplió <strong>10 años desde la fecha de manufactura</strong> (ver etiqueta interior). (2) Presenta <strong>grietas, delaminación o desconchado</strong> visible. (3) Sufrió <strong>impacto significativo</strong> (caída, golpe de rama). (4) Exposición a <strong>temperatura excesiva</strong> que causó decoloración o distorsión. (5) El <strong>arnés de suspensión</strong> muestra desgaste severo (reemplazable por separado).",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Casco Forestal Termoplástico HDPE",
+    badge: "NFPA 1977",
+    description: "Alternativa económica con shell de HDPE. Peso < 450 g, vida útil 5 años. Clase E dieléctrico.",
+    href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/termoplastico-ligero",
+    buttonText: "Ver Termoplástico",
+    image: "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  },
+  {
+    title: "Casco con Protección Facial",
+    badge: "NFPA 1977",
+    description: "Shell de fibra de vidrio con pantalla facial de malla metálica o policarbonato integrada.",
+    href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/proteccion-facial",
+    buttonText: "Ver con Pantalla",
+    image: "/images/directorio/camion-bomberos-emergencia-01.avif",
+  },
+  {
+    title: "Traje Forestal NFPA 1977",
+    badge: "NFPA 1977",
+    description: "Chaqueta y pantalón Nomex® IIIA < 6 oz/yd². Sistema completo de protección corporal forestal.",
+    href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977",
+    buttonText: "Ver Traje Forestal",
+    image: "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  },
+  {
+    title: "Guantes Forestales NFPA 1977",
+    badge: "NFPA 1977",
+    description: "Guantes de cuero con dorso FR para herramientas manuales. Pulaski, McLeod, rastrillo forestal.",
+    href: "/productos/guantes/forestales",
+    buttonText: "Ver Guantes Forestales",
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+  },
+];
+
+/* ── Datos del sidebar ──────────────────────────────────────── */
+const otrosModelos = [
+  { label: "Termoplástico Ligero HDPE",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/termoplastico-ligero" },
+  { label: "Ventilación Máxima",              href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/ventilacion-maxima" },
+  { label: "Alta Visibilidad (Hi-Vis)",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/alta-visibilidad" },
+  { label: "Con Protección Facial",           href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/proteccion-facial" },
+  { label: "Sistema Completo de Campo",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/sistema-campo" },
+  { label: "Ver Todos los Cascos",            href: "/productos/cascos-para-bomberos" },
+];
+
+const epp = [
+  { label: "Traje Forestal NFPA 1977",     href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977", tag: "Cuerpo" },
+  { label: "Guantes Forestales",            href: "/productos/guantes/forestales",                           tag: "Manos" },
+  { label: "Botas Forestales Logger",       href: "/productos/botas/forestal",                               tag: "Pies" },
+  { label: "Gafas/Goggles Forestales",      href: "/productos/gafas",                                        tag: "Ojos" },
+  { label: "Mochila de Hidratación",        href: "/productos",                                              tag: "Soporte" },
+];
+
+const articulos = [
+  { label: "Catálogo Cascos Forestales",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977", tag: "Catálogo" },
+  { label: "EPP Forestal Completo NFPA 1977",  href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977", tag: "Guía" },
+  { label: "Cascos Estructurales NFPA 1971",   href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971", tag: "Comparar" },
+  { label: "Termoplástico vs Material Compuesto", href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977", tag: "Artículo" },
+  { label: "Vida Útil del EPP Forestal",       href: "/productos",                                               tag: "Guía" },
+  { label: "Brigadas CONAFOR Equipamiento",    href: "/productos",                                               tag: "Normativa" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Forestales Jalisco",      href: "/directorio/jalisco" },
+  { label: "Bomberos Forestales Chiapas",      href: "/directorio/chiapas" },
+  { label: "Bomberos Forestales Oaxaca",       href: "/directorio/oaxaca" },
+  { label: "Bomberos Forestales Michoacán",    href: "/directorio/michoacan" },
+  { label: "Bomberos Forestales Chihuahua",    href: "/directorio/chihuahua" },
+  { label: "Directorio Nacional",              href: "/directorio" },
+];
+
+const specsRapidas = [
+  { label: "Norma",           valor: "NFPA 1977" },
+  { label: "Material",        valor: "Fibra vidrio + fenólica" },
+  { label: "Peso total",      valor: "480–550 g" },
+  { label: "Suspensión",      valor: "6 puntos premium" },
+  { label: "Ajuste",          valor: "52–65 cm" },
+  { label: "Protector nuca",  valor: "FR std o aluminizado" },
+  { label: "Vida útil",       valor: "10 años fab." },
+  { label: "Dieléctrico",     valor: "No clasificado" },
+];
+
+const certItems = [
+  { code: "NFPA 1977",     desc: "Wildland Fire Fighting — edición vigente" },
+  { code: "§ 6.1–6.4",     desc: "Impacto, penetración, retención, llama aprobados" },
+  { code: "10 años",       desc: "Vida útil extendida — el doble del termoplástico" },
+  { code: "Termoestable",  desc: "No se reblandece bajo calor — mantiene forma" },
+  { code: "ISO/IEC 17025", desc: "Laboratorio acreditado — certificado incluido" },
+];
+---
+
+<ProductoLayout
+  title="Casco Forestal NFPA 1977 — Material Compuesto Fibra de Vidrio | BOMBERO.MX"
+  description="Casco forestal NFPA 1977 material compuesto. Shell de fibra de vidrio + resina fenólica, suspensión 6 puntos, vida útil 10 años. Para brigadas de alta actividad CONAFOR. Envío a los 32 estados de México."
+  keywords={[
+    "casco forestal fibra de vidrio",
+    "casco forestal material compuesto",
+    "casco NFPA 1977 premium",
+    "casco wildland fiberglass",
+    "casco bombero forestal profesional",
+    "casco CONAFOR fibra vidrio",
+    "casco forestal 10 años vida util",
+    "comprar casco forestal premium Mexico",
+  ]}
+  canonical="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/material-compuesto"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos" },
+    { label: "Cascos de Bombero",           href: "/productos/cascos-para-bomberos" },
+    { label: "Casco Forestal NFPA 1977",    href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977" },
+    { label: "Material Compuesto" },
+  ]}
+
+  heroBadge="Casco Forestal · NFPA 1977 · Fibra de Vidrio"
+  heroTitle="Casco Forestal NFPA 1977"
+  heroTitleHighlight="Material Compuesto Premium"
+  heroSubtitle="Shell de fibra de vidrio con resina fenólica termoestable. No se reblandece bajo calor, mantiene integridad estructural en temperaturas extremas. Vida útil de 10 años — el doble del termoplástico. Para brigadas profesionales de alta actividad."
+  heroSeoBlocks={[
+    {
+      title: "Fibra de Vidrio — Durabilidad Superior para Brigadas Profesionales",
+      text: "El <strong>casco forestal de material compuesto</strong> utiliza fibra de vidrio tejida impregnada en <strong>resina fenólica termoestable</strong>, moldeada bajo presión. A diferencia del HDPE que puede deformarse a temperaturas elevadas, el compuesto de fibra de vidrio mantiene su forma e integridad hasta <strong>150°C en picos momentáneos</strong>.",
+    },
+    {
+      title: "10 Años de Vida Útil — Inversión a Largo Plazo",
+      text: "La <strong>vida útil de 10 años</strong> (vs 5 años del termoplástico) amortiza el costo inicial más alto. Para brigadas permanentes <strong>CONAFOR</strong> con >100 jornadas de combate por temporada, el casco de fibra de vidrio es la elección profesional que acompaña toda la carrera del bombero forestal.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Casco Forestal Material Compuesto"
+
+  productoCategoria="Casco Forestal Premium"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1977" },
+    { modifier: "tpp",   text: "Fibra Vidrio" },
+    { modifier: "solas", text: "10 años" },
+  ]}
+  productoMasVendido={false}
+  productoTitle="Casco Forestal NFPA 1977"
+  productoTitleSub="Material Compuesto — Fibra de Vidrio"
+  productoDesc="Shell de fibra de vidrio con resina fenólica termoestable. Suspensión de 6 puntos con corona acolchada. Protector de nuca Nomex® IIIA estándar o aluminizado opcional. Vida útil 10 años desde manufactura. Certificado NFPA 1977 incluido."
+  productoFeatures={[
+    "Shell fibra de vidrio + resina fenólica",
+    "Peso total con accesorios: 480–550 g",
+    "Suspensión 6 puntos con corona acolchada",
+    "Protector nuca FR o aluminizado opcional",
+    "Vida útil: 10 años desde manufactura",
+    "Certificado NFPA 1977 incluido",
+  ]}
+  productoAppTags={[
+    "Alta actividad",
+    "Interfaz WUI",
+    "Clima extremo",
+    "CONAFOR",
+    "Brigadas permanentes",
+  ]}
+
+  gallery={[
+    { src: "/images/directorio/camion-bomberos-emergencia-01.avif",              alt: "Casco forestal NFPA 1977 fibra de vidrio" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Brigada forestal con casco material compuesto" },
+    { src: "/images/directorio/pick-up-bomberos-forestal-01.avif",               alt: "Casco forestal en operación de campo" },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",            alt: "Entrenamiento forestal con EPP completo" },
+    { src: "/images/directorio/equipo-bomberos-completo-01.avif",                alt: "Sistema EPP forestal NFPA 1977" },
+    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif",alt: "Casco forestal en operación de interfaz" },
+  ]}
+
+  capasEyebrow="Anatomía del Casco"
+  capasTitle="Componentes del Casco Material Compuesto"
+  capasDesc="Shell termoestable que no se reblandece bajo calor, suspensión premium de 6 puntos y protector de nuca con opción aluminizada para máxima protección radiante."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones NFPA 1977 — Material Compuesto"
+  specsDesc="Parámetros verificados en laboratorio acreditado. El shell de fibra de vidrio ofrece propiedades mecánicas superiores y vida útil extendida."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Escenarios de Uso"
+  aplicacionesTitle="¿Dónde se Usa el Casco de Material Compuesto?"
+  aplicacionesContent="<p>El casco de material compuesto es la elección de <strong>brigadas profesionales de alta actividad</strong> que requieren durabilidad superior y vida útil extendida.</p><p>El shell de fibra de vidrio con resina fenólica es <strong>termoestable</strong>: no se reblandece ni deforma bajo calor como el termoplástico, manteniendo su integridad protectora en condiciones extremas.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="NFPA 1977 — Durabilidad Profesional"
+  certsDesc="El casco de material compuesto cumple los mismos requisitos <strong>NFPA 1977</strong> que el termoplástico, pero con la ventaja de una <strong>vida útil de 10 años</strong> y mejor comportamiento térmico. Incluye certificado de laboratorio ISO/IEC 17025."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Preguntas Técnicas sobre Material Compuesto"
+  faqDescription="Dudas frecuentes sobre el casco de fibra de vidrio: diferencias con termoplástico, durabilidad, mantenimiento y aplicaciones específicas."
+  faqDocTitle="Documentación Técnica"
+  faqDocDesc="Solicita ficha técnica completa, certificado de laboratorio y guía de tallas."
+  faqDocCtaHref="/cotizar"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="EPP Forestal Complementario"
+  relacionadosTitle="Sistema Completo NFPA 1977"
+  relacionadosDesc="El casco de material compuesto es la pieza premium del sistema de protección forestal. Complemente con el resto del EPP NFPA 1977."
+  relacionados={relacionados}
+/>

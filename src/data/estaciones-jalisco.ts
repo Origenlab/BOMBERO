@@ -871,6 +871,29 @@ export function getContextoZona(zona: string): { descripcion: string; riesgos: s
   };
 }
 
+/**
+ * Obtiene todos los municipios/ciudades únicos
+ */
+export function getMunicipios(): string[] {
+  return [...new Set(estacionesJalisco.map(e => e.ciudad))].sort();
+}
+
+/**
+ * Obtiene estación por slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesJalisco.find(e => e.slug === slug);
+}
+
+/**
+ * Obtiene estaciones cercanas (excluyendo la actual)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+  return estacionesJalisco.filter(e => e.slug !== slug).slice(0, limit);
+}
+
 // Estadísticas agregadas
 export const ESTADISTICAS_JALISCO = {
   totalEstaciones: estacionesJalisco.length,
@@ -879,5 +902,6 @@ export const ESTADISTICAS_JALISCO = {
   estacionesRescateAcuatico: getEstacionesRescateAcuatico().length,
   estacionesHAZMAT: getEstacionesHAZMAT().length,
   poblacionCubierta: "8,348,151",
-  zonaMetropolitana: "5,268,642"
+  zonaMetropolitana: "5,268,642",
+  totalMunicipios: 125
 };

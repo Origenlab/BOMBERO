@@ -1,65 +1,26 @@
 ---
 /**
- * ─────────────────────────────────────────────────────────────────────────────
- * DIRECTORIO DE ESTACIONES DE BOMBEROS - CHIAPAS
- * ─────────────────────────────────────────────────────────────────────────────
- * Página optimizada para SEO y marketing digital con información completa del
- * H. Cuerpo de Bomberos del Estado de Chiapas.
- *
- * PERFIL DE CHIAPAS:
- * - Población: 5.5 millones de habitantes
- * - Turistas anuales: 4.5 millones
- * - 5 Pueblos Mágicos: San Cristóbal, Chiapa de Corzo, Comitán, Palenque, Chamula
- * - Patrimonio UNESCO: Palenque, Selva Lacandona (Montes Azules)
- * - Frontera: 658 km con Guatemala
- *
- * KEYWORDS PRINCIPALES:
- * - Bomberos Tuxtla Gutiérrez, Bomberos San Cristóbal de las Casas
- * - Bomberos Tapachula, Bomberos Palenque, Emergencias Chiapas
- * - Rescate Cañón del Sumidero, Emergencias Selva Lacandona
- * - Bomberos incendios forestales Chiapas, 911 Chiapas
- * ─────────────────────────────────────────────────────────────────────────────
+ * ─── Directorio Bomberos Chiapas ───
+ * Solo datos — el diseño vive en DirectorioEstadoLayout.astro
  */
-import PageLayout from "@layouts/PageLayout.astro";
-import SectionHeader from "@components/SectionHeader.astro";
-import StationCard from "@components/StationCard.astro";
-import { estacionesChiapas, getMunicipios, getEstadisticas, CHIAPAS_SEO } from "@data/estaciones-chiapas";
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesChiapas, getMunicipios, getEstadisticas } from "@data/estaciones-chiapas";
 import { breadcrumbJsonLd } from "@utils/seo";
 
-// Obtener datos
-const municipios = getMunicipios();
+const municipios   = getMunicipios();
 const estadisticas = getEstadisticas();
 
-// Estados vecinos para interlinking SEO
-const estadosVecinos = [
-  { nombre: "Tabasco", slug: "tabasco" },
-  { nombre: "Oaxaca", slug: "oaxaca" },
-  { nombre: "Veracruz", slug: "veracruz" },
-  { nombre: "Campeche", slug: "campeche" },
-];
-
-// Datos de municipios principales con información SEO
-const municipiosInfo = [
-  { nombre: "Tuxtla Gutiérrez", poblacion: "604K", desc: "Capital del estado" },
-  { nombre: "San Cristóbal", poblacion: "215K", desc: "Pueblo Mágico, capital cultural" },
-  { nombre: "Tapachula", poblacion: "350K", desc: "Frontera Guatemala, café Soconusco" },
-  { nombre: "Palenque", poblacion: "125K", desc: "Zona arqueológica UNESCO" },
-  { nombre: "Comitán", poblacion: "150K", desc: "Lagos de Montebello" },
-  { nombre: "Chiapa de Corzo", poblacion: "90K", desc: "Cañón del Sumidero" },
-  { nombre: "Ocosingo", poblacion: "220K", desc: "Selva Lacandona" },
-];
-
-const keywords = ["bomberos chiapas", "estaciones bomberos tuxtla gutiérrez", "emergencias chiapas 911", "bomberos san cristóbal", "bomberos tapachula", "rescate cañón sumidero", "bomberos selva lacandona"];
 const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
+  { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Chiapas", url: "/directorio/chiapas" },
+  { name: "Chiapas",                url: "/directorio/chiapas" },
 ]);
+
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Chiapas, México",
-  "description": "Directorio oficial de las 18 estaciones de bomberos en Chiapas. Teléfonos de emergencia en Tuxtla Gutiérrez, San Cristóbal, Tapachula, Palenque, Comitán y toda la Selva Lacandona. Rescate Cañón del Sumidero, emergencias forestales. 911 y contacto 24 horas.",
+  "description": "Directorio oficial de las 18 estaciones de bomberos en Chiapas. Teléfonos directos en Tuxtla Gutiérrez, San Cristóbal de las Casas, Tapachula, Palenque y Comitán. Cobertura 24/7 para más de 5.5 millones de chiapanecos y 4.5 millones de turistas. Emergencias: llama al 911.",
   "numberOfItems": estacionesChiapas.length,
   "itemListElement": estacionesChiapas.map((e, i) => ({
     "@type": "ListItem",
@@ -72,1345 +33,297 @@ const itemListSchema = {
         "streetAddress": e.direccion,
         "addressLocality": e.municipio || e.ciudad,
         "addressRegion": "Chiapas",
-        "addressCountry": "MX"
+        "addressCountry": "MX",
       },
       "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/chiapas/${e.slug}`
+      "url": `https://bombero.mx/directorio/chiapas/${e.slug}`,
     }
   }))
 };
+
+/*
+ * Rotación de imágenes para las tarjetas de estación.
+ * Priorizando imágenes que reflejan los riesgos característicos de Chiapas:
+ * selva Lacandona, rescate acuático Cañón del Sumidero y cascadas turísticas,
+ * protección zona arqueológica Palenque UNESCO, HAZMAT PEMEX norte,
+ * frontera Guatemala Soconusco, montaña Los Altos y costa Pacífico.
+ */
+const stationImages = [
+  "/images/directorio/estacion-bomberos-selva-01.avif",
+  "/images/directorio/rescate-montana-bomberos-01.avif",
+  "/images/directorio/camion-forestal-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/rescate-acuatico-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-turistica-01.avif",
+  "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  "/images/directorio/lancha-rescate-bomberos-01.avif",
+  "/images/directorio/unidad-hazmat-emergencias-01.avif",
+  "/images/directorio/estacion-bomberos-petrolera-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/estacion-bomberos-maritimo-01.avif",
+  "/images/directorio/motobomba-incendios-forestal-01.avif",
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/descontaminacion-hazmat-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/estacion-bomberos-equipada-01.avif",
+  "/images/directorio/capacitacion-bomberos-profesional-01.avif",
+  "/images/directorio/rescate-urbano-bomberos-01.avif",
+  "/images/directorio/ambulancia-bomberos-emergencias-01.avif",
+  "/images/directorio/bomberos-accion-incendio-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+];
 ---
 
-<PageLayout
-  title="Estaciones de Bomberos en Chiapas | Directorio Oficial | BOMBERO.MX"
-  description="Directorio oficial de las 18 estaciones de bomberos en Chiapas. Teléfonos de emergencia en Tuxtla Gutiérrez, San Cristóbal, Tapachula, Palenque, Comitán y toda la Selva Lacandona. Rescate Cañón del Sumidero, emergencias forestales. 911 y contacto 24 horas."
-  keywords={keywords}
+<DirectorioEstadoLayout
+  estado="Chiapas"
+  sigla="CHIS"
+  slug="chiapas"
+  description={`Directorio oficial de las ${estadisticas.totalEstaciones} estaciones de bomberos en Chiapas. Teléfonos de emergencia en Tuxtla Gutiérrez, San Cristóbal, Tapachula, Palenque y Comitán. 5 Pueblos Mágicos, selva Lacandona y zonas arqueológicas UNESCO bajo protección. Emergencias: 911.`}
+  keywords={[
+    "bomberos chiapas",
+    "bomberos tuxtla gutierrez",
+    "emergencias chiapas 911",
+    "bomberos san cristobal de las casas",
+    "bomberos tapachula",
+    "bomberos palenque selva lacandona",
+    "bomberos comitan de dominguez",
+    "rescate cañon del sumidero",
+    "bomberos cascadas agua azul chiapas",
+    "cuerpo bomberos chiapas",
+    "bomberos incendios forestales chiapas",
+    "hazmat reforma chiapas pemex",
+    "rescate acuatico rio grijalva",
+    "emergencias frontera guatemala chiapas",
+    "bomberos pueblos magicos chiapas",
+  ]}
   canonical="https://bombero.mx/directorio/chiapas"
   jsonLd={[breadcrumbSchema, itemListSchema]}
+
+  totalEstaciones={estadisticas.totalEstaciones}
+  totalMunicipios={estadisticas.totalMunicipios}
+  habitantes="5.5M+"
+
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Chiapas</strong> despliega <strong>${estadisticas.totalEstaciones} estaciones activas</strong> en <strong>${estadisticas.totalMunicipios} municipios</strong> con más de <strong>788 bomberos profesionales</strong> — guardando la selva Lacandona, los <strong>5 Pueblos Mágicos</strong>, la zona arqueológica de Palenque (Patrimonio UNESCO), el Cañón del Sumidero, las cascadas de Agua Azul y los <strong>658 km de frontera con Guatemala</strong>.`}
+  heroImage="/images/directorio/estacion-bomberos-selva-01.avif"
+  heroImageAlt="Estación de Bomberos Chiapas — selva Lacandona Palenque UNESCO Cañón del Sumidero"
+  heroCaption="H. Cuerpo de Bomberos · Chiapas"
+  heroThumbs={[
+    { src: "/images/directorio/rescate-acuatico-bomberos-01.avif", alt: "Rescate acuático Cañón del Sumidero río Grijalva cascadas Agua Azul Chiapa de Corzo bomberos", label: "Rescate Cañón del Sumidero" },
+    { src: "/images/directorio/camion-forestal-bomberos-01.avif",  alt: "Bomberos forestales selva Lacandona Palenque UNESCO Reserva Montes Azules Chiapas",           label: "Forestal Selva Lacandona" },
+    { src: "/images/directorio/unidad-hazmat-emergencias-01.avif", alt: "HAZMAT bomberos Reforma Chiapas Complejo Cactus PEMEX pozos petroleros gas natural norte",     label: "HAZMAT PEMEX Norte"       },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/estacion-bomberos-turistica-01.avif", alt: "Bomberos Palenque zona arqueológica UNESCO rescate turístico 1 millón visitantes anuales",  label: "Palenque UNESCO"           },
+    { src: "/images/directorio/rescate-montana-bomberos-01.avif",    alt: "Rescate montaña San Cristóbal de las Casas 2,200 msnm hipotermia Los Altos Chiapas",       label: "Rescate Los Altos"         },
+    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",     alt: "Rescate lacustre Lagos de Montebello 59 lagunas Comitán Chiapas Parque Nacional",          label: "Lagos de Montebello"       },
+    { src: "/images/directorio/descontaminacion-hazmat-01.avif",     alt: "HAZMAT Reforma Chiapas Complejo Procesador Gas Cactus PEMEX industria petrolera norte",    label: "Zona Petrolera Norte"      },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",          label: "Emergencias"                  },
+    { number: "961 612 4692", label: "Bomberos Tuxtla Gutiérrez"   },
+    { number: "967 678 0770", label: "Bomberos San Cristóbal"      },
+    { number: "962 626 1515", label: "Bomberos Tapachula"          },
+    { number: "916 345 0808", label: "Bomberos Palenque"           },
+    { number: "963 632 1616", label: "Bomberos Comitán"            },
+  ]}
+
+  municipios={municipios}
+
+  regiones={[
+    { nombre: "Zona Metropolitana",   desc: "Tuxtla Gutiérrez (3 est.) · Chiapa de Corzo · Cañón del Sumidero · Cintalapa"   },
+    { nombre: "Los Altos",            desc: "San Cristóbal de las Casas · Comitán de Domínguez · Lagos de Montebello"         },
+    { nombre: "Selva Norte y Mayas",  desc: "Palenque UNESCO · Ocosingo · Cascadas Agua Azul · Selva Lacandona"               },
+    { nombre: "Soconusco y Costa",    desc: "Tapachula · Puerto Chiapas · Huixtla · Tonalá · Arriaga · Frontera Guatemala"    },
+    { nombre: "Zona Petrolera Norte", desc: "Reforma · Complejo Cactus PEMEX · Pichucalco · Villaflores · Frontera Tabasco"   },
+  ]}
+
+  estadosVecinos={[
+    { nombre: "Oaxaca",   slug: "oaxaca"   },
+    { nombre: "Veracruz", slug: "veracruz" },
+    { nombre: "Tabasco",  slug: "tabasco"  },
+    { nombre: "Campeche", slug: "campeche" },
+  ]}
+
+  estaciones={estacionesChiapas}
+  stationImages={stationImages}
+
+  eppCards={[
+    {
+      image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+      imageAlt:  "Traje Forestal NFPA 1977 bomberos selva Lacandona Palenque UNESCO incendios forestales Chiapas",
+      badge:     "NFPA 1977",
+      title:     "Traje Forestal NFPA 1977 — Selva Tropical",
+      text:      "Certificado para los ecosistemas más complejos de México: la <strong>Selva Lacandona</strong>, segunda selva tropical del continente americano con 1.5 millones de hectáreas; la <strong>Reserva de la Biósfera Montes Azules</strong>, hogar del jaguar, tapir y guacamaya roja; y los bosques de Los Altos de Chiapas a <strong>2,200 msnm</strong>. Las brigadas de Ocosingo operan con comunicación satelital Iridium y mulas de carga en operaciones de hasta <strong>5 días en comunidades sin acceso vehicular</strong>. Tejido ultraligero certificado para la humedad tropical del 80-90% de la selva chiapaneca.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+      imageAlt:  "Casco Estructural NFPA 1971 bomberos San Cristóbal de las Casas Palenque UNESCO centros históricos Chiapas",
+      badge:     "NFPA 1971",
+      title:     "Casco Estructural NFPA 1971",
+      text:      "Imprescindible para proteger el patrimonio más valioso del sureste: la <strong>Zona Arqueológica de Palenque</strong> (Patrimonio UNESCO, 1987) con el Templo de las Inscripciones y el sarcófago de Pakal el Grande; el <strong>centro histórico colonial de San Cristóbal de las Casas</strong>, Pueblo Mágico a 2,200 msnm con calles empedradas del siglo XVI; el <strong>Pueblo Mágico de Chiapa de Corzo</strong> con su famosa fuente mudéjar; y las zonas arqueológicas de <strong>Bonampak</strong> (murales mayas únicos en el mundo) y <strong>Yaxchilán</strong> (accesible solo por río Usumacinta). Compatible con comunicación satelital para zonas sin cobertura celular.",
+      href:      "/productos/cascos-para-bomberos",
+      linkLabel: "Ver Cascos para Bombero",
+    },
+    {
+      image:     "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+      imageAlt:  "SCBA NFPA 1981 bomberos Reforma Chiapas PEMEX Complejo Cactus pozos petroleros gas natural",
+      badge:     "NFPA 1981",
+      title:     "Aparato Respiratorio Autónomo SCBA",
+      text:      "Certificado NFPA 1981 para el <strong>Complejo Procesador de Gas Cactus</strong> en Reforma, el mayor complejo de procesamiento de gas del sureste de México. Las brigadas de <strong>Reforma y Pichucalco</strong> están certificadas internacionalmente en control de pozos por <strong>Wild Well Control</strong> y HAZMAT nivel técnico para blowouts (reventones de pozo). También para rescate en <strong>espacios confinados del Cañón del Sumidero</strong> (paredes de 1,000 metros de altura), las <strong>grutas y cenotes de la Selva Lacandona</strong> y emergencias en los <strong>parques eólicos del Istmo de Tehuantepec</strong> en Arriaga (hasta 150 km/h de viento).",
+      href:      "/productos/equipo-scba",
+      linkLabel: "Ver Equipos SCBA",
+    },
+    {
+      image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+      imageAlt:  "Botas Estructurales NFPA 1971 bomberos Chiapas terreno mixto selva montaña playa fronteras zonas arqueológicas",
+      badge:     "NFPA 1971",
+      title:     "Botas Estructurales de Cuero",
+      text:      "Certificadas NFPA 1971 para el estado con mayor diversidad de terrenos de México: suelo selvático húmedo de la <strong>Selva Lacandona</strong> con 10 cm de hojarasca; piedra caliza de las <strong>zonas arqueológicas mayas</strong> (Palenque, Bonampak, Yaxchilán, Toniná); adoquín de altura de los <strong>Pueblos Mágicos coloniales</strong> a 2,200 msnm; arena volcánica del <strong>litoral del Pacífico</strong> (Puerto Chiapas, Puerto Arista, Boca del Cielo); suelo arcilloso de <strong>valles cafetaleros</strong> del Soconusco; y asfalto de la <strong>carretera Panamericana</strong>, la más transitada del sur con 15,000 vehículos diarios.",
+      href:      "/productos/botas-para-bomberos",
+      linkLabel: "Ver Botas para Bombero",
+    },
+  ]}
+
+  ctaTitle="Equipamos a los Bomberos de Chiapas"
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${estadisticas.totalEstaciones} estaciones desde Tuxtla Gutiérrez hasta la frontera con Guatemala. Envío a los ${estadisticas.totalMunicipios} municipios con cobertura activa. Atención a licitaciones públicas municipales y estatales.`}
+  ctaBtnText="Solicitar Cotización — Chiapas"
 >
-  <!-- Hero Section con SEO optimizado -->
-  <section class="chis-hero">
-    <div class="chis-hero__bg">
-      <div class="chis-hero__gradient"></div>
-      <div class="chis-hero__pattern"></div>
-    </div>
-    <div class="container">
-      <div class="chis-hero__container">
-        <!-- Left Column - Content Principal -->
-        <div class="chis-hero__content">
-          <nav class="chis-hero__breadcrumb" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <a href="/" itemprop="item"><span itemprop="name">Inicio</span></a>
-              <meta itemprop="position" content="1" />
-            </span>
-            <span aria-hidden="true">/</span>
-            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <a href="/directorio" itemprop="item"><span itemprop="name">Directorio Nacional</span></a>
-              <meta itemprop="position" content="2" />
-            </span>
-            <span aria-hidden="true">/</span>
-            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name" aria-current="page">Chiapas</span>
-              <meta itemprop="position" content="3" />
-            </span>
-          </nav>
-
-          <span class="chis-hero__badge">
-            <span class="chis-hero__badge-dot"></span>
-            CHIS
-          </span>
-
-          <h1 class="chis-hero__title">
-            Estaciones de Bomberos en
-            <span class="chis-hero__highlight">Chiapas</span>
-          </h1>
-
-          <p class="chis-hero__desc">
-            Directorio oficial del <strong>Heroico Cuerpo de Bomberos del Estado de Chiapas</strong>.
-            Acceso inmediato a teléfonos de emergencia, direcciones y servicios de las <strong>{estadisticas.totalEstaciones} estaciones</strong>
-            que protegen a los <strong>5.5 millones de habitantes</strong>, <strong>5 Pueblos Mágicos</strong>,
-            la <strong>Selva Lacandona</strong> y <strong>4.5 millones de turistas anuales</strong>.
-          </p>
-
-          <div class="chis-hero__stats">
-            <div class="chis-hero__stat">
-              <span class="chis-hero__stat-number">{estadisticas.totalEstaciones}</span>
-              <span class="chis-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="chis-hero__stat">
-              <span class="chis-hero__stat-number">{estadisticas.totalMunicipios}</span>
-              <span class="chis-hero__stat-label">Municipios</span>
-            </div>
-            <div class="chis-hero__stat">
-              <span class="chis-hero__stat-number">24/7</span>
-              <span class="chis-hero__stat-label">Servicio</span>
-            </div>
-            <div class="chis-hero__stat">
-              <span class="chis-hero__stat-number">4.5M</span>
-              <span class="chis-hero__stat-label">Turistas/año</span>
-            </div>
-          </div>
-
-          <!-- Call to Action de Emergencia -->
-          <div class="chis-hero__cta">
-            <a href="tel:911" class="chis-hero__cta-btn chis-hero__cta-btn--primary">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
-              </svg>
-              Emergencias: 911
-            </a>
-            <a href="#estaciones" class="chis-hero__cta-btn chis-hero__cta-btn--secondary">
-              Ver todas las estaciones
-            </a>
-          </div>
-        </div>
-
-        <!-- Right Column - SEO Content Premium -->
-        <div class="chis-hero__seo">
-          <h2 class="chis-hero__seo-title">Patrimonio UNESCO y 5 Pueblos Mágicos</h2>
-          <p class="chis-hero__seo-text">
-            <strong>Chiapas</strong> alberga <strong>Palenque</strong>, ciudad maya Patrimonio de la Humanidad,
-            y <strong>5 Pueblos Mágicos</strong>: San Cristóbal de las Casas, Chiapa de Corzo, Comitán,
-            Palenque y Chamula. Los bomberos protegen a <strong>4.5 millones de turistas anuales</strong>
-            con rescate en <strong>Cascadas de Agua Azul</strong>, <strong>Cañón del Sumidero</strong>
-            y <strong>Lagos de Montebello</strong>.
-          </p>
-
-          <h2 class="chis-hero__seo-title">Segunda Selva más Grande de América</h2>
-          <p class="chis-hero__seo-text">
-            La <strong>Selva Lacandona</strong> es la segunda reserva tropical más grande del continente.
-            Con <strong>1.8 millones de hectáreas</strong>, los bomberos enfrentan <strong>incendios
-            forestales masivos</strong> cada temporada seca (febrero-mayo), protegiendo el hábitat del
-            <strong>jaguar, tapir, guacamaya roja</strong> y las comunidades indígenas Lacandón.
-          </p>
-
-          <h2 class="chis-hero__seo-title">Frontera Guatemala y Zona Petrolera</h2>
-          <p class="chis-hero__seo-text">
-            <strong>658 km de frontera con Guatemala</strong> convierten a Chiapas en estado estratégico.
-            <strong>Tapachula</strong> es puerta de entrada a México. La zona norte incluye el
-            <strong>Complejo Petrolero Cactus</strong> de PEMEX, con bomberos certificados <strong>HAZMAT</strong>
-            para emergencias de hidrocarburos.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Emergency Banner con Schema Markup -->
-  <section class="chis-emergency" itemscope itemtype="https://schema.org/EmergencyService">
-    <div class="container">
-      <div class="chis-emergency__content">
-        <div class="chis-emergency__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-        </div>
-        <div class="chis-emergency__text">
-          <span class="chis-emergency__label">Emergencias en Chiapas</span>
-          <span class="chis-emergency__number" itemprop="telephone">911</span>
-        </div>
-        <div class="chis-emergency__info">
-          <p class="chis-emergency__desc">
-            <strong>Número único de emergencias</strong> que conecta con bomberos, policía, paramédicos,
-            <strong>rescate en selva</strong> y <strong>brigadas forestales</strong>.
-            Disponible <strong>24 horas, 365 días</strong> en todo el estado.
-          </p>
-          <meta itemprop="areaServed" content="Chiapas, México" />
-          <meta itemprop="availableLanguage" content="Spanish, Tzotzil, Tzeltal" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Municipios Quick Access -->
-  <section class="chis-municipios">
-    <div class="container">
-      <div class="chis-municipios__grid">
-        {municipiosInfo.map((mun) => (
-          <a href={`#${mun.nombre.toLowerCase().replace(/\s+/g, '-')}`} class="chis-municipios__card">
-            <span class="chis-municipios__name">{mun.nombre}</span>
-            <span class="chis-municipios__pop">{mun.poblacion} habitantes</span>
-            <span class="chis-municipios__desc">{mun.desc}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Content -->
-  <section class="chis-main" id="estaciones">
-    <div class="container">
-      <div class="chis-main__grid">
-        <!-- Stations Grid -->
-        <div class="chis-main__content">
-          <SectionHeader
-            label="Directorio de Bomberos"
-            title="Estaciones de Bomberos en Chiapas"
-            description="Información verificada y actualizada de las 18 estaciones del Heroico Cuerpo de Bomberos en Chiapas. Selecciona una estación para acceder a datos de contacto, servicios especializados en rescate turístico, incendios forestales y emergencias de selva, zonas de cobertura y equipamiento disponible."
-          />
-
-          <!-- Stations Grid -->
-          <div class="chis-stations-grid">
-            {estacionesChiapas.map((estacion) => (
-              <StationCard
-                nombre={estacion.nombreCorto}
-                slug={estacion.slug}
-                direccion={`${estacion.direccion}, ${estacion.colonia}`}
-                alcaldia={estacion.municipio}
-                telefono={estacion.telefono}
-                servicios={estacion.servicios}
-                horario={estacion.horario}
-                baseUrl="/directorio/chiapas"
-              />
-            ))}
-          </div>
-
-          <!-- SEO Content Premium -->
-          <article class="chis-seo">
-            <h2>El Heroico Cuerpo de Bomberos de Chiapas</h2>
-            <p>
-              El <strong>H. Cuerpo de Bomberos de Chiapas</strong> constituye una fuerza especializada
-              en las emergencias únicas del estado más biodiverso de México. Con <strong>{estadisticas.totalEstaciones} estaciones
-              estratégicamente ubicadas</strong> y más de <strong>{estadisticas.totalPersonal} elementos activos</strong>,
-              este cuerpo profesional protege a los <strong>5.5 millones de habitantes</strong>,
-              <strong>5 Pueblos Mágicos</strong>, el patrimonio arqueológico maya y la
-              <strong>segunda selva tropical más grande de América</strong>.
-            </p>
-
-            <h3>¿Cómo Contactar a los Bomberos en Chiapas?</h3>
-            <p>
-              Ante cualquier <strong>emergencia en Chiapas</strong>, el número <strong>911</strong> conecta
-              inmediatamente con el <strong>Centro de Comando, Control, Comunicaciones y Cómputo (C4)</strong>
-              del estado. Este sistema coordina la respuesta de bomberos, policía, paramédicos, Protección Civil,
-              <strong>brigadas forestales</strong> y <strong>rescate en selva</strong>. Para emergencias
-              específicas en la <strong>capital</strong>, puedes marcar <strong>961 612 4692</strong>;
-              en <strong>San Cristóbal de las Casas</strong> el <strong>967 678 0770</strong>;
-              en <strong>Tapachula</strong> el <strong>962 626 1515</strong>;
-              y en <strong>Palenque</strong> el <strong>916 345 0808</strong>.
-            </p>
-
-            <h3>Emergencias más Frecuentes en Chiapas</h3>
-            <p>
-              Los bomberos chiapanecos atienden emergencias únicas del estado turístico, fronterizo y selvático:
-            </p>
-            <ul class="chis-seo__list">
-              <li><strong>Incendios forestales masivos</strong> en Selva Lacandona y Reserva Montes Azules</li>
-              <li><strong>Rescate turístico</strong> en Cañón del Sumidero, Cascadas de Agua Azul y Lagos de Montebello</li>
-              <li><strong>Emergencias en zonas arqueológicas</strong> UNESCO (Palenque, Bonampak, Yaxchilán)</li>
-              <li><strong>Huracanes del Pacífico</strong> en costa del Soconusco y Tapachula</li>
-              <li><strong>Accidentes carretera Panamericana</strong> y carreteras de montaña</li>
-              <li><strong>Emergencias petroleras HAZMAT</strong> en zona norte (Complejo Cactus)</li>
-              <li><strong>Rescate en comunidades indígenas</strong> aisladas (Tzotzil, Tzeltal, Lacandón)</li>
-              <li><strong>Emergencias migratorias</strong> en frontera con Guatemala</li>
-            </ul>
-
-            <h3>Pueblos Mágicos y Destinos Turísticos</h3>
-            <p>
-              Chiapas cuenta con <strong>5 Pueblos Mágicos</strong> que requieren protección especializada:
-              <strong>San Cristóbal de las Casas</strong> (capital cultural, 2 millones de visitantes),
-              <strong>Chiapa de Corzo</strong> (Cañón del Sumidero, Fiesta Grande),
-              <strong>Comitán de Domínguez</strong> (Lagos de Montebello),
-              <strong>Palenque</strong> (zona arqueológica UNESCO) y
-              <strong>San Juan Chamula</strong> (tradiciones Tzotziles).
-            </p>
-
-            <h3>Combate de Incendios Forestales</h3>
-            <p>
-              La <strong>Selva Lacandona</strong> y la <strong>Reserva de la Biosfera Montes Azules</strong>
-              enfrentan cada temporada seca (febrero-mayo) <strong>incendios forestales de gran magnitud</strong>.
-              El cuerpo de bomberos cuenta con <strong>brigadas especializadas certificadas CONAFOR</strong>,
-              <strong>equipos de comunicación satelital</strong> y coordinación con el <strong>Ejército Mexicano</strong>.
-              En 2019, se combatieron más de <strong>500 incendios</strong> que amenazaron la biodiversidad única.
-            </p>
-
-            <h3>Protección del Patrimonio UNESCO</h3>
-            <p>
-              Los bomberos chiapanecos protegen sitios de valor incalculable:
-            </p>
-            <ul class="chis-seo__list">
-              <li><strong>Zona Arqueológica de Palenque</strong> — Patrimonio de la Humanidad desde 1987</li>
-              <li><strong>Selva Lacandona</strong> — Reserva de la Biosfera Montes Azules, hábitat del jaguar</li>
-              <li><strong>Bonampak</strong> — Murales mayas del siglo VIII, únicos en el mundo</li>
-              <li><strong>Yaxchilán</strong> — Ciudad maya en la ribera del río Usumacinta</li>
-            </ul>
-
-            <h3>Equipamiento Especializado</h3>
-            <p>
-              Las estaciones de bomberos de Chiapas cuentan con <strong>equipamiento especializado</strong>
-              para las condiciones únicas del estado selvático y turístico:
-            </p>
-            <ul class="chis-seo__list">
-              <li><strong>Autobombas todo terreno</strong> para acceso a selva y comunidades aisladas</li>
-              <li><strong>Lanchas de rescate</strong> para ríos, lagos y Cañón del Sumidero</li>
-              <li><strong>Equipos forestales completos</strong> certificados CONAFOR</li>
-              <li><strong>Unidades HAZMAT</strong> para zona petrolera norte</li>
-              <li><strong>Comunicación satelital</strong> para operaciones en selva</li>
-              <li><strong>Drones con cámara térmica</strong> para búsqueda de personas</li>
-              <li><strong>Equipo de montaña y rappel</strong> para rescate en cascadas</li>
-            </ul>
-          </article>
-        </div>
-
-        <!-- Sidebar Optimizado -->
-        <aside class="chis-sidebar">
-          <!-- Filtro por Municipio -->
-          <div class="chis-sidebar__card">
-            <h4>Buscar por Municipio</h4>
-            <ul class="chis-sidebar__municipios">
-              {municipios.slice(0, 10).map((municipio) => (
-                <li>
-                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <span class="chis-sidebar__bullet"></span>
-                    <span>{municipio}</span>
-                    <span class="chis-sidebar__count">
-                      {estadisticas.estacionesPorMunicipio.find(m => m.municipio === municipio)?.cantidad}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Teléfonos de Emergencia -->
-          <div class="chis-sidebar__card chis-sidebar__card--emergency">
-            <h4>Teléfonos de Emergencia</h4>
-            <div class="chis-sidebar__emergency-list">
-              <div class="chis-sidebar__emergency-item">
-                <span class="chis-sidebar__emergency-number">911</span>
-                <span class="chis-sidebar__emergency-label">Emergencias Generales</span>
-              </div>
-              <div class="chis-sidebar__emergency-item">
-                <span class="chis-sidebar__emergency-number">961 612 4692</span>
-                <span class="chis-sidebar__emergency-label">Bomberos Tuxtla Gutiérrez</span>
-              </div>
-              <div class="chis-sidebar__emergency-item">
-                <span class="chis-sidebar__emergency-number">967 678 0770</span>
-                <span class="chis-sidebar__emergency-label">Bomberos San Cristóbal</span>
-              </div>
-              <div class="chis-sidebar__emergency-item">
-                <span class="chis-sidebar__emergency-number">962 626 1515</span>
-                <span class="chis-sidebar__emergency-label">Bomberos Tapachula</span>
-              </div>
-              <div class="chis-sidebar__emergency-item">
-                <span class="chis-sidebar__emergency-number">916 345 0808</span>
-                <span class="chis-sidebar__emergency-label">Bomberos Palenque</span>
-              </div>
-              <div class="chis-sidebar__emergency-item">
-                <span class="chis-sidebar__emergency-number">963 632 1616</span>
-                <span class="chis-sidebar__emergency-label">Bomberos Comitán</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Estadísticas del Estado -->
-          <div class="chis-sidebar__card">
-            <h4>Chiapas en Números</h4>
-            <ul class="chis-sidebar__stats">
-              <li>
-                <span class="chis-sidebar__stat-value">5.5M</span>
-                <span class="chis-sidebar__stat-label">Habitantes</span>
-              </li>
-              <li>
-                <span class="chis-sidebar__stat-value">4.5M</span>
-                <span class="chis-sidebar__stat-label">Turistas/año</span>
-              </li>
-              <li>
-                <span class="chis-sidebar__stat-value">{estadisticas.totalEstaciones}</span>
-                <span class="chis-sidebar__stat-label">Estaciones</span>
-              </li>
-              <li>
-                <span class="chis-sidebar__stat-value">{estadisticas.totalPersonal}+</span>
-                <span class="chis-sidebar__stat-label">Bomberos activos</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Pueblos Mágicos -->
-          <div class="chis-sidebar__card">
-            <h4>Pueblos Mágicos Protegidos</h4>
-            <ul class="chis-sidebar__pueblos">
-              {CHIAPAS_SEO.pueblosMagicos.map((pueblo) => (
-                <li>
-                  <span class="chis-sidebar__pueblo-name">{pueblo}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Destinos Turísticos -->
-          <div class="chis-sidebar__card">
-            <h4>Destinos con Cobertura</h4>
-            <ul class="chis-sidebar__destinos">
-              <li>
-                <span class="chis-sidebar__destino-name">Cañón del Sumidero</span>
-                <span class="chis-sidebar__destino-desc">Rescate acuático y miradores</span>
-              </li>
-              <li>
-                <span class="chis-sidebar__destino-name">Cascadas Agua Azul</span>
-                <span class="chis-sidebar__destino-desc">Rescate en cascadas</span>
-              </li>
-              <li>
-                <span class="chis-sidebar__destino-name">Lagos de Montebello</span>
-                <span class="chis-sidebar__destino-desc">Rescate lacustre</span>
-              </li>
-              <li>
-                <span class="chis-sidebar__destino-name">Selva Lacandona</span>
-                <span class="chis-sidebar__destino-desc">Brigadas forestales</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Estados Vecinos -->
-          <div class="chis-sidebar__card">
-            <h4>Estados Vecinos</h4>
-            <ul class="chis-sidebar__states">
-              {estadosVecinos.map((estado) => (
-                <li>
-                  <a href={`/directorio/${estado.slug}`}>
-                    <span>{estado.nombre}</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- CTA Equipamiento -->
-          <div class="chis-sidebar__card chis-sidebar__card--cta">
-            <h4>¿Equipas Bomberos en Chiapas?</h4>
-            <p>Distribuimos equipo forestal, rescate acuático y trajes estructurales certificados NFPA a estaciones de bomberos en todo Chiapas</p>
-            <a href="/cotizar" class="chis-sidebar__cta-btn">Solicitar Cotización</a>
-          </div>
-
-          <!-- Productos -->
-          <div class="chis-sidebar__card">
-            <h4>Equipo para Bomberos Chiapas</h4>
-            <ul class="chis-sidebar__products">
-              <li><a href="/productos/forestales">Equipos Forestales CONAFOR</a></li>
-              <li><a href="/productos/rescate-acuatico">Equipo de Rescate Acuático</a></li>
-              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA 1971</a></li>
-              <li><a href="/productos/scba">Equipos SCBA Scott / MSA</a></li>
-              <li><a href="/productos/hazmat">Equipos HAZMAT</a></li>
-            </ul>
-            <a href="/productos" class="chis-sidebar__link">
-              Ver catálogo completo
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Volver al Directorio -->
-          <div class="chis-sidebar__card">
-            <a href="/directorio" class="chis-sidebar__back">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              <span>Ver todos los estados</span>
-            </a>
-          </div>
-
-          <!-- Contacto -->
-          <div class="chis-sidebar__card">
-            <h4>Contacto BOMBERO.MX</h4>
-            <ul class="chis-sidebar__contact">
-              <li><a href="tel:+525520780102">55 2078 0102</a></li>
-              <li><a href="https://wa.me/525520780102">WhatsApp Directo</a></li>
-              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-</PageLayout>
-
-<style>
-  /* ═══════════════════════════════════════════════════════════════════════════
-     DIRECTORIO CHIAPAS - ESTACIONES DE BOMBEROS
-     Estilos optimizados con BEM y design tokens
-     Color principal: Verde Selva (rgb(22, 163, 74)) - Selva Lacandona
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-  /* ═══ Hero Section ═══ */
-  .chis-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-  }
-
-  .chis-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .chis-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(22, 163, 74, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(220, 38, 38, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(22, 163, 74, 0.08), transparent);
-  }
-
-  .chis-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .chis-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--space-12);
-    align-items: start;
-  }
-
-  .chis-hero__breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-4);
-  }
-
-  .chis-hero__breadcrumb a {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .chis-hero__breadcrumb a:hover {
-    color: var(--color-fire-400);
-  }
-
-  .chis-hero__breadcrumb span {
-    color: var(--color-smoke-600);
-  }
-
-  .chis-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(22, 163, 74, 0.15);
-    border: 1px solid rgba(22, 163, 74, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: rgb(74, 222, 128);
-    margin-bottom: var(--space-4);
-  }
-
-  .chis-hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: rgb(22, 163, 74);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  .chis-hero__title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-5);
-  }
-
-  .chis-hero__highlight {
-    background: linear-gradient(135deg, rgb(22, 163, 74), rgb(74, 222, 128));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .chis-hero__desc {
-    font-size: var(--text-lg);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-6);
-  }
-
-  .chis-hero__desc strong {
-    color: white;
-  }
-
-  .chis-hero__stats {
-    display: flex;
-    gap: var(--space-8);
-    padding: var(--space-5) 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: var(--space-6);
-  }
-
-  .chis-hero__stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .chis-hero__stat-number {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: rgb(74, 222, 128);
-  }
-
-  .chis-hero__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .chis-hero__cta {
-    display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-
-  .chis-hero__cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-4) var(--space-6);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-base);
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .chis-hero__cta-btn--primary {
-    background: linear-gradient(135deg, var(--color-fire-500), var(--color-fire-600));
-    color: white;
-    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
-  }
-
-  .chis-hero__cta-btn--primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(220, 38, 38, 0.5);
-  }
-
-  .chis-hero__cta-btn--secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .chis-hero__cta-btn--secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-  }
-
-  /* SEO Content */
-  .chis-hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    padding: var(--space-6);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-xl);
-  }
-
-  .chis-hero__seo-title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: rgb(74, 222, 128);
-    margin: 0;
-  }
-
-  .chis-hero__seo-text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.8;
-    margin: 0;
-  }
-
-  .chis-hero__seo-text strong {
-    color: white;
-  }
-
-  /* ═══ Emergency Banner ═══ */
-  .chis-emergency {
-    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
-    padding: var(--space-6) 0;
-  }
-
-  .chis-emergency__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-8);
-    flex-wrap: wrap;
-  }
-
-  .chis-emergency__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    color: white;
-    animation: pulse 1.5s infinite;
-  }
-
-  .chis-emergency__text {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .chis-emergency__label {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .chis-emergency__number {
-    font-size: var(--text-4xl);
-    font-weight: 800;
-    color: white;
-    letter-spacing: 0.05em;
-  }
-
-  .chis-emergency__info {
-    max-width: 400px;
-  }
-
-  .chis-emergency__desc {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  /* ═══ Municipios Quick Access ═══ */
-  .chis-municipios {
-    background: var(--color-smoke-100);
-    padding: var(--space-8) 0;
-  }
-
-  .chis-municipios__grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: var(--space-4);
-  }
-
-  .chis-municipios__card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-4);
-    background: white;
-    border-radius: var(--radius-lg);
-    text-decoration: none;
-    transition: all 0.2s;
-    border: 1px solid var(--color-smoke-200);
-  }
-
-  .chis-municipios__card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: rgb(74, 222, 128);
-  }
-
-  .chis-municipios__name {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-  }
-
-  .chis-municipios__pop {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: rgb(22, 163, 74);
-  }
-
-  .chis-municipios__desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    line-height: 1.4;
-  }
-
-  /* ═══ Main Section ═══ */
-  .chis-main {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50);
-  }
-
-  .chis-main__grid {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  /* ═══ Stations Grid ═══ */
-  .chis-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-    margin-top: var(--space-8);
-  }
-
-  /* ═══ SEO Content Premium ═══ */
-  .chis-seo {
-    margin-top: var(--space-12);
-    padding: var(--space-10);
-    background: white;
-    border-radius: var(--radius-xl);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  }
-
-  .chis-seo h2 {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-5);
-    padding-bottom: var(--space-4);
-    border-bottom: 3px solid rgb(22, 163, 74);
-  }
-
-  .chis-seo h3 {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin: var(--space-8) 0 var(--space-4);
-  }
-
-  .chis-seo p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-600);
-    line-height: 1.9;
-    margin: 0 0 var(--space-5);
-  }
-
-  .chis-seo p:last-child {
-    margin-bottom: 0;
-  }
-
-  .chis-seo strong {
-    color: var(--color-smoke-800);
-  }
-
-  .chis-seo__list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-5);
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .chis-seo__list li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-700);
-    line-height: 1.6;
-  }
-
-  .chis-seo__list li::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background: rgb(22, 163, 74);
-    border-radius: 50%;
-    margin-top: 6px;
-    flex-shrink: 0;
-  }
-
-  .chis-seo__list li strong {
-    color: var(--color-smoke-900);
-  }
-
-  /* ═══ Sidebar ═══ */
-  .chis-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    position: sticky;
-    top: var(--space-6);
-  }
-
-  .chis-sidebar__card {
-    padding: var(--space-5);
-    background: white;
-    border-radius: var(--radius-xl);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  }
-
-  .chis-sidebar__card h4 {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 2px solid rgb(22, 163, 74);
-  }
-
-  .chis-sidebar__card > p {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500);
-    line-height: 1.6;
-    margin: 0 0 var(--space-4);
-  }
-
-  /* Municipios List */
-  .chis-sidebar__municipios {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .chis-sidebar__municipios li a {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .chis-sidebar__municipios li a:hover {
-    background: var(--color-smoke-50);
-    color: rgb(22, 163, 74);
-  }
-
-  .chis-sidebar__bullet {
-    width: 6px;
-    height: 6px;
-    background: rgb(22, 163, 74);
-    border-radius: 50%;
-  }
-
-  .chis-sidebar__count {
-    margin-left: auto;
-    padding: 2px 8px;
-    background: var(--color-smoke-100);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--color-smoke-500);
-  }
-
-  /* Stats */
-  .chis-sidebar__stats {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3);
-  }
-
-  .chis-sidebar__stats li {
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    text-align: center;
-  }
-
-  .chis-sidebar__stat-value {
-    font-size: var(--text-xl);
-    font-weight: 800;
-    color: rgb(22, 163, 74);
-  }
-
-  .chis-sidebar__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    margin-top: 2px;
-  }
-
-  /* Emergency Card */
-  .chis-sidebar__card--emergency {
-    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
-  }
-
-  .chis-sidebar__card--emergency h4 {
-    color: white;
-    border-bottom-color: rgb(22, 163, 74);
-  }
-
-  .chis-sidebar__emergency-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .chis-sidebar__emergency-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-3);
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-lg);
-  }
-
-  .chis-sidebar__emergency-number {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: rgb(74, 222, 128);
-  }
-
-  .chis-sidebar__emergency-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-  }
-
-  /* Pueblos Mágicos List */
-  .chis-sidebar__pueblos {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .chis-sidebar__pueblos li {
-    padding: var(--space-3);
-    background: linear-gradient(135deg, rgba(22, 163, 74, 0.1), rgba(74, 222, 128, 0.05));
-    border-radius: var(--radius-lg);
-    border-left: 3px solid rgb(22, 163, 74);
-  }
-
-  .chis-sidebar__pueblo-name {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-900);
-  }
-
-  /* Destinos List */
-  .chis-sidebar__destinos {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .chis-sidebar__destinos li {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-  }
-
-  .chis-sidebar__destino-name {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-900);
-  }
-
-  .chis-sidebar__destino-desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-  }
-
-  /* States List */
-  .chis-sidebar__states {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .chis-sidebar__states li a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .chis-sidebar__states li a:hover {
-    background: var(--color-smoke-100);
-    color: rgb(22, 163, 74);
-  }
-
-  .chis-sidebar__states li a svg {
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all 0.2s;
-  }
-
-  .chis-sidebar__states li a:hover svg {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  /* Products */
-  .chis-sidebar__products {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .chis-sidebar__products li a {
-    display: block;
-    padding: var(--space-2);
-    font-size: var(--text-sm);
-    color: rgb(22, 163, 74);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  .chis-sidebar__products li a:hover {
-    color: rgb(21, 128, 61);
-  }
-
-  .chis-sidebar__link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: rgb(22, 163, 74);
-    text-decoration: none;
-  }
-
-  .chis-sidebar__link:hover {
-    color: rgb(21, 128, 61);
-  }
-
-  .chis-sidebar__link svg {
-    transition: transform 0.2s;
-  }
-
-  .chis-sidebar__link:hover svg {
-    transform: translateX(4px);
-  }
-
-  /* CTA Card */
-  .chis-sidebar__card--cta {
-    background: linear-gradient(135deg, rgb(22, 163, 74), rgb(21, 128, 61));
-  }
-
-  .chis-sidebar__card--cta h4 {
-    color: white;
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .chis-sidebar__card--cta > p {
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  .chis-sidebar__cta-btn {
-    display: block;
-    width: 100%;
-    padding: var(--space-3);
-    background: white;
-    color: rgb(22, 163, 74);
-    text-align: center;
-    text-decoration: none;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    border-radius: var(--radius-lg);
-    transition: all 0.2s;
-  }
-
-  .chis-sidebar__cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  /* Back Link */
-  .chis-sidebar__back {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .chis-sidebar__back:hover {
-    background: var(--color-smoke-100);
-    color: rgb(22, 163, 74);
-  }
-
-  /* Contact */
-  .chis-sidebar__contact {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .chis-sidebar__contact a {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: rgb(22, 163, 74);
-    text-decoration: none;
-  }
-
-  .chis-sidebar__contact a:hover {
-    color: rgb(21, 128, 61);
-  }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1280px) {
-    .chis-main__grid {
-      grid-template-columns: 1fr 340px;
-    }
-
-    .chis-municipios__grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  @media (max-width: 1200px) {
-    .chis-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .chis-municipios__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .chis-hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-
-    .chis-main__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .chis-stations-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .chis-sidebar {
-      position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-
-    .chis-sidebar__card--emergency {
-      grid-column: span 2;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .chis-hero {
-      padding: var(--space-10) 0;
-    }
-
-    .chis-hero__stats {
-      flex-wrap: wrap;
-      gap: var(--space-4);
-    }
-
-    .chis-hero__stat {
-      flex: 1 1 45%;
-    }
-
-    .chis-hero__cta {
-      flex-direction: column;
-    }
-
-    .chis-hero__cta-btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .chis-emergency__content {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .chis-municipios__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .chis-main {
-      padding: var(--space-10) 0;
-    }
-
-    .chis-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .chis-sidebar {
-      grid-template-columns: 1fr;
-    }
-
-    .chis-sidebar__card--emergency {
-      grid-column: span 1;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .chis-hero__title {
-      font-size: 1.75rem;
-    }
-
-    .chis-municipios__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .chis-seo {
-      padding: var(--space-6);
-    }
-  }
-</style>
+  <!-- ══════════════════════════════════════════════════
+       BLOQUE SEO — Chiapas
+       Texto rico en keywords para posicionamiento orgánico.
+       Aparece en el sidebar de la sección Main Grid.
+  ══════════════════════════════════════════════════ -->
+  <Fragment slot="seo">
+
+    <h2>El Heroico Cuerpo de Bomberos de Chiapas</h2>
+    <p>
+      El <strong>Heroico Cuerpo de Bomberos de Chiapas</strong> protege a los
+      <strong>5,543,828 chiapanecos</strong> y a más de <strong>4.5 millones de
+      turistas anuales</strong> en el estado más biodiverso de México. Con
+      <strong>{estadisticas.totalEstaciones} estaciones operativas</strong> en
+      <strong>{estadisticas.totalMunicipios} municipios</strong> y más de
+      <strong>788 bomberos profesionales activos</strong>, opera las <strong>24 horas
+      del día, los 365 días del año</strong> — desde la selva tropical húmeda de la
+      Lacandona hasta los altiplanos fríos de Los Altos, los valles cafetaleros del
+      Soconusco, las plataformas petroleras del norte y 658 km de frontera con Guatemala.
+    </p>
+
+    <h3>¿Cómo llamar a los Bomberos en Chiapas?</h3>
+    <p>
+      En cualquier <strong>emergencia en Chiapas</strong>, marca el <strong>911</strong>
+      desde cualquier teléfono — fijo o celular, con o sin saldo. Para contacto directo:
+      <strong>Tuxtla Gutiérrez: 961 612 4692</strong> ·
+      <strong>San Cristóbal de las Casas: 967 678 0770</strong> ·
+      <strong>Tapachula: 962 626 1515</strong> ·
+      <strong>Comitán: 963 632 1616</strong> ·
+      <strong>Palenque: 916 345 0808</strong> ·
+      <strong>Ocosingo: 919 673 0303</strong> ·
+      <strong>Chiapa de Corzo: 961 616 0404</strong> ·
+      <strong>Tonalá: 966 663 0505</strong> ·
+      <strong>Reforma (PEMEX): 932 326 1010</strong> ·
+      <strong>Las Margaritas: 963 636 1111</strong>.
+      Para emergencias en la Selva Lacandona o zonas sin cobertura celular, la estación
+      de Ocosingo opera con comunicación satelital Iridium 24/7.
+    </p>
+
+    <h3>Patrimonio UNESCO y 5 Pueblos Mágicos</h3>
+    <p>
+      Chiapas concentra el mayor patrimonio cultural e histórico del sureste. Los bomberos
+      protegen la <strong>Zona Arqueológica de Palenque</strong> (Patrimonio Mundial UNESCO,
+      1987) — con el Templo de las Inscripciones, el Palacio y el sarcófago de
+      <strong>Pakal el Grande</strong> — en coordinación permanente con el INAH. También
+      cubren <strong>Bonampak</strong> (murales mayas polícromos únicos en el mundo),
+      <strong>Yaxchilán</strong> (accesible solo por el río Usumacinta) y
+      <strong>Toniná</strong> (la pirámide más alta de Mesoamérica, 75 metros). Los
+      <strong>5 Pueblos Mágicos</strong> — San Cristóbal de las Casas, Chiapa de Corzo,
+      Comitán de Domínguez, Palenque y San Juan Chamula — reciben colectivamente más de
+      3 millones de visitantes al año, cada uno con estación de bomberos en respuesta activa.
+    </p>
+
+    <h3>El Cañón del Sumidero y Rescate Acuático</h3>
+    <p>
+      El <strong>Cañón del Sumidero</strong>, con paredes de hasta <strong>1,000 metros</strong>
+      sobre el río Grijalva, recibe más de <strong>500,000 turistas anuales</strong> que
+      navegan sus 35 km en lancha. La <strong>Estación de Chiapa de Corzo</strong> — con 3
+      lanchas de rescate, motos acuáticas y equipo de buceo — ha realizado más de
+      <strong>500 rescates acuáticos</strong> en el río. Las <strong>Cascadas de Agua Azul</strong>,
+      <strong>Misol-Ha</strong> y los <strong>59 Lagos de Montebello</strong> — el Parque Nacional
+      más visitado del sureste — representan emergencias turísticas que atienden las estaciones
+      de Palenque, Ocosingo y Comitán con lanchas de rescate lacustre especializadas.
+    </p>
+
+    <h3>Selva Lacandona — El Mayor Desafío Forestal</h3>
+    <p>
+      La <strong>Selva Lacandona</strong>, con 1.5 millones de hectáreas, es la segunda
+      selva tropical más grande de América del Norte. La <strong>Reserva de la Biósfera
+      Montes Azules</strong> alberga el jaguar, el tapir de Baird, el cocodrilo de pantano
+      y más de 340 especies de aves. La estación de <strong>Ocosingo</strong> — que cubre
+      8,887 km², el municipio más extenso de Chiapas — opera con tiempos de respuesta de
+      hasta <strong>45 minutos en comunidades aisladas</strong>, mulas de carga, GPS satelital
+      y brigadas forestales en coordinación con <strong>CONANP y CONAFOR</strong>. La
+      temporada crítica de incendios es de febrero a mayo; en 2019, la estación combatió
+      más de <strong>200 incendios</strong> que amenazaron la Reserva de la Biósfera.
+    </p>
+
+    <h3>Bomberos en la Frontera — Soconusco y Guatemala</h3>
+    <p>
+      Chiapas comparte <strong>658 km de frontera con Guatemala</strong>, la más larga de
+      cualquier estado mexicano con Centroamérica. La <strong>Estación Central de
+      Tapachula</strong> — segunda más grande del estado con 78 bomberos — es referente
+      nacional en atención de <strong>crisis migratorias</strong>, con rescates en el
+      <strong>río Suchiate</strong> donde miles de migrantes cruzan diariamente.
+      Coordinan operaciones binacionales con bomberos de <strong>Tecún Umán, Guatemala</strong>.
+      La <strong>Estación de Puerto Chiapas</strong>, inaugurada en 2015, protege la terminal
+      de cruceros del Pacífico sur — con capacidad para cruceros de <strong>4,000 pasajeros</strong>.
+      En Arriaga, la estación es especialista en <strong>rescate ferroviario de La Bestia</strong>
+      y en los vientos del Istmo de Tehuantepec que superan los <strong>150 km/h</strong>.
+    </p>
+
+    <h3>Zona Petrolera Norte — Complejo Cactus PEMEX</h3>
+    <p>
+      La <strong>Estación de Reforma</strong> — la más especializada en hidrocarburos del
+      estado con 48 bomberos y certificación internacional — custodia el <strong>Complejo
+      Procesador de Gas Cactus</strong>, uno de los más grandes de México, junto con cientos
+      de pozos, ductos y terminales de almacenamiento. Personal certificado en control de
+      pozos por <strong>Wild Well Control</strong> y HAZMAT nivel técnico para blowouts
+      (reventones), derrames de crudo e incendios de gas natural. La Estación de
+      <strong>Pichucalco</strong> coordina operaciones con Villahermosa, Tabasco, para
+      emergencias en ductos transestatales.
+    </p>
+
+    <h3>Especialidades del Cuerpo de Bomberos de Chiapas</h3>
+    <p>
+      Los bomberos chiapanecos poseen competencias únicas en México:
+      <strong>USAR certificado INSARAG</strong> en la Estación Central de Tuxtla para
+      rescate en estructuras colapsadas;
+      <strong>Academia de Bomberos del Sureste</strong> en Tuxtla Gutiérrez, que capacita
+      brigadas de Chiapas, Oaxaca, Tabasco y Campeche;
+      <strong>atención multilingüe</strong> en San Cristóbal (español, inglés, francés,
+      tzotzil, tzeltal) para turistas internacionales y comunidades indígenas;
+      <strong>brigadas forestales de selva tropical</strong> con equipos de supervivencia
+      para operaciones de varios días sin reabastecimiento;
+      y <strong>rescate ferroviario</strong> en Arriaga para el tren de carga La Bestia.
+    </p>
+
+    <h3>Municipios y Cobertura por Zona</h3>
+    <p>
+      <strong>Tuxtla Gutiérrez</strong> — 3 estaciones: Central (C4 estatal, USAR INSARAG),
+      Norte (industrial, Panamericana) y Oriente (Cañón del Sumidero, carretera San Cristóbal).
+      <strong>San Cristóbal</strong> — Pueblo Mágico a 2,200 msnm, brigada forestal Los Altos,
+      comunidades tzotziles y tzeltales.
+      <strong>Tapachula</strong> — 2 estaciones: Central (Soconusco, cafetalera, frontera
+      Guatemala) y Puerto Chiapas (cruceros del Pacífico).
+      <strong>Palenque</strong> — UNESCO, cascadas, Selva Lacandona, Bonampak, Yaxchilán.
+      <strong>Comitán</strong> — Lagos de Montebello, zona arqueológica Tenam Puente,
+      frontera Guatemala.
+      <strong>Chiapa de Corzo</strong> — Cañón del Sumidero, río Grijalva, Fiesta Grande.
+      <strong>Ocosingo</strong> — Selva Lacandona, Montes Azules, comunidades Lacandón.
+      <strong>Reforma</strong> — Complejo Cactus PEMEX y zona petrolera norte.
+    </p>
+
+  </Fragment>
+</DirectorioEstadoLayout>

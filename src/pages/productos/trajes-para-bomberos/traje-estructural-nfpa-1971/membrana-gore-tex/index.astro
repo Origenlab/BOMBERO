@@ -3,29 +3,52 @@
  * ─── BOMBERO.MX ───
  * Producto: Traje Estructural NFPA 1971 — Membrana Barrera de Humedad Gore-Tex®
  * URL: /productos/trajes-para-bomberos/traje-estructural-nfpa-1971/membrana-gore-tex
- * SEO Target: "membrana gore-tex bombero NFPA 1971", "barrera humedad traje bombero México",
- *             "gore-tex PTFE bombero estructural", "impermeabilidad traje bombero NFPA"
+ * Solo datos — el diseño vive en ProductoLayout.astro
  */
-import PageLayout from "@layouts/PageLayout.astro";
-import Breadcrumb from "@components/Breadcrumb.astro";
-import CTABar from "@components/CTABar.astro";
-import SectionHeader from "@components/SectionHeader.astro";
-import WhyChooseUs from "@components/WhyChooseUs.astro";
-import CTABanner from "@components/CTABanner.astro";
+import ProductoLayout from "@layouts/ProductoLayout.astro";
 
-const IMAGE = "/images/directorio/traje-bombero-estructural-nfpa-01.avif";
-const SLUG  = "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/membrana-gore-tex";
+/* ── SEO ─────────────────────────────────────────────────────────────── */
+const heroSeoBlocks = [
+  {
+    title: "Membrana Gore-Tex® NFPA 1971 — Distribuidor Autorizado México",
+    text: "La <strong>barrera de humedad Gore-Tex® ePTFE</strong> es la segunda capa del traje estructural NFPA 1971. Más de 9 mil millones de microporos por cm² bloquean cualquier líquido mientras permiten la evacuación del vapor corporal. En <strong>BOMBERO.MX</strong> distribuimos la membrana certificada para cuerpos de bomberos municipales, brigadas industriales y protección civil en los 32 estados de México.",
+  },
+  {
+    title: "Gore-Tex® ePTFE — Impermeabilidad Clase F3 y MVTR Certificado NFPA 1971",
+    text: "Certificada en <strong>NFPA 1971 Method 6</strong> (resistencia a líquidos peligrosos Clase F3) y con <strong>MVTR &gt; 1,500 g/m²/24 h</strong> según ASTM E96. Costuras soldadas ultrasónicamente: cero puntos de fuga bajo presión hidrostática &gt; 25,000 mm H₂O. Cada traje incluye ficha técnica y certificado de laboratorio acreditado <strong>ISO/IEC 17025</strong> — documentación indispensable para licitaciones gubernamentales.",
+  },
+] as const;
 
-const catClass: Record<string, string> = {
-  "Material":        "construccion",
-  "Impermeabilidad": "proteccion",
-  "Transpirabilidad":"ergonomia",
-  "Construcción":    "construccion",
-  "Certificación":   "certificacion",
-};
+/* ── Intro del producto ──────────────────────────────────────────────── */
+const productoBadges = [
+  { modifier: "nfpa",  text: "NFPA 1971" },
+  { modifier: "solas", text: "Method 6"  },
+  { modifier: "astm",  text: "Clase F3"  },
+];
 
-/* ── Datos del producto ─────────────────────────────────────── */
-const variantes = [
+const productoFeatures = [
+  "Gore-Tex® ePTFE certificado NFPA 1971 Method 6",
+  "Impermeabilidad &gt; 25,000 mm H₂O presión hidrostática",
+  "Transpirabilidad MVTR &gt; 1,500 g/m²/24 h",
+  "Resistencia líquidos peligrosos — Clase F3",
+  "Costuras soldadas ultrasónicamente en zonas críticas",
+  "Certificado de laboratorio ISO/IEC 17025 incluido",
+];
+
+const productoAppTags = ["Vapores tóxicos", "Agua presurizada", "HAZMAT Clase F3", "Rescate en agua", "Residuos de incendio"];
+
+/* ── Galería ──────────────────────────────────────────────────────────── */
+const gallery = [
+  { src: "/images/directorio/traje-bombero-estructural-nfpa-01.avif",          alt: "Membrana Gore-Tex barrera de humedad traje estructural NFPA 1971 bombero" },
+  { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Bombero con traje impermeable Gore-Tex en incendio estructural con agua" },
+  { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",     alt: "Equipo HAZMAT con barrera de humedad Gore-Tex NFPA 1971 clase F3" },
+  { src: "/images/directorio/rescate-acuatico-bomberos-01.avif",               alt: "Rescate acuático con traje estructural membrana Gore-Tex impermeable" },
+  { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Bomberos profesionales con sistema 3 capas NFPA 1971 membrana Gore-Tex" },
+  { src: "/images/directorio/equipo-proteccion-bomberos-01.avif",              alt: "Equipo de protección estructural NFPA 1971 con barrera Gore-Tex ePTFE" },
+];
+
+/* ── Capas / Características ─────────────────────────────────────────── */
+const capas = [
   {
     num: "01",
     titulo: "Membrana ePTFE Gore-Tex® — La Barrera de Referencia Mundial",
@@ -33,24 +56,24 @@ const variantes = [
       "El politetrafluoretileno expandido (ePTFE) de Gore-Tex® cuenta con más de 9 mil millones de microporos por centímetro cuadrado. Cada poro es 20,000 veces más pequeño que una gota de agua y 700 veces más grande que una molécula de vapor. Resultado: líquidos fuera, vapor corporal afuera. Impermeabilidad total sin sacrificar transpirabilidad.",
     specs: [
       { label: "Material",         valor: "ePTFE — Politetrafluoretileno expandido" },
-      { label: "Microporos/cm²",   valor: "> 9,000,000,000" },
+      { label: "Microporos/cm²",   valor: "9,000,000,000+" },
       { label: "Impermeabilidad",  valor: "NFPA 1971 Method 6 — Aprobado" },
       { label: "Estructura",       valor: "Membrana laminada tricapa" },
     ],
-    color: "ember",
+    color: "ember" as const,
   },
   {
     num: "02",
-    titulo: "MVTR > 1,500 g/m²/24 h — Transpirabilidad Certificada",
+    titulo: "MVTR certificado — Transpirabilidad Garantizada",
     descripcion:
       "El Moisture Vapor Transmission Rate (MVTR) mide cuánto vapor de agua puede evacuar la membrana en 24 horas. La membrana Gore-Tex® supera los 1,500 g/m²/24 h, un valor crítico en entornos de trabajo intenso donde la acumulación de vapor corporal bajo el traje genera riesgo de quemaduras por calor húmedo (steam burn). Mayor MVTR = menor fatiga térmica.",
     specs: [
-      { label: "MVTR",             valor: "> 1,500 g/m²/24 h" },
+      { label: "MVTR",             valor: "1,500+ g/m²/24 h" },
       { label: "Norma MVTR",       valor: "ASTM E96 / ISO 11092" },
       { label: "Efecto",           valor: "Evacúa vapor corporal" },
       { label: "Riesgo reducido",  valor: "Steam burn por vapor atrapado" },
     ],
-    color: "smoke",
+    color: "smoke" as const,
   },
   {
     num: "03",
@@ -63,20 +86,21 @@ const variantes = [
       { label: "Prueba de presión",  valor: "Hidrostática — sin filtración" },
       { label: "Norma costuras",     valor: "NFPA 1971 — Seam Strength" },
     ],
-    color: "fire",
+    color: "fire" as const,
   },
 ];
 
+/* ── Especificaciones ────────────────────────────────────────────────── */
 const especificaciones = [
   { categoria: "Material",        label: "Membrana principal",           valor: "Gore-Tex® ePTFE expandido" },
   { categoria: "Material",        label: "Estructura",                   valor: "Laminado tricapa (ePTFE + soporte textil)" },
-  { categoria: "Material",        label: "Microporos por cm²",           valor: "> 9,000,000,000" },
+  { categoria: "Material",        label: "Microporos por cm²",           valor: "9,000,000,000+" },
   { categoria: "Material",        label: "Tamaño de microporo",          valor: "0.2 µm — bloquea agua, libera vapor" },
   { categoria: "Impermeabilidad", label: "Norma de impermeabilidad",     valor: "NFPA 1971 Method 6 — Aprobado" },
-  { categoria: "Impermeabilidad", label: "Presión hidrostática",         valor: "> 25,000 mm H₂O (columna de agua)" },
+  { categoria: "Impermeabilidad", label: "Presión hidrostática",         valor: "25,000+ mm H₂O (columna de agua)" },
   { categoria: "Impermeabilidad", label: "Resistencia a líquidos pelig.",valor: "Clase F3 — NFPA 1971 §8.24" },
   { categoria: "Impermeabilidad", label: "Fluidos bloqueados",           valor: "Agua · Sangre · Residuos de incendio · Vapores" },
-  { categoria: "Transpirabilidad",label: "MVTR (24 h)",                  valor: "> 1,500 g/m²/24 h" },
+  { categoria: "Transpirabilidad",label: "MVTR (24 h)",                  valor: "1,500+ g/m²/24 h" },
   { categoria: "Transpirabilidad",label: "Norma de transpirabilidad",    valor: "ASTM E96 / ISO 11092" },
   { categoria: "Transpirabilidad",label: "Beneficio operativo",          valor: "Reduce fatiga térmica — steam burn" },
   { categoria: "Construcción",    label: "Sellado de costuras",          valor: "Cinta termofusible + soldadura ultrasónica" },
@@ -87,29 +111,46 @@ const especificaciones = [
   { categoria: "Certificación",   label: "Documentación incluida",       valor: "Ficha técnica + Certificado de laboratorio" },
 ];
 
+const catClass: Record<string, string> = {
+  "Material":        "construccion",
+  "Impermeabilidad": "proteccion",
+  "Transpirabilidad":"ergonomia",
+  "Construcción":    "construccion",
+  "Certificación":   "certificacion",
+};
+
+/* ── Aplicaciones ────────────────────────────────────────────────────── */
+const aplicacionesContent = "<p>La barrera de humedad Gore-Tex® es clave en cualquier escenario donde el bombero enfrente líquidos, vapores tóxicos o agua a presión. Sin esta segunda capa, el sistema NFPA 1971 pierde su impermeabilidad.</p><p>La membrana ePTFE elimina el riesgo de quemaduras por vapor al impedir que el agua caliente y los vapores penetren hacia la piel — un riesgo frecuente en incendios estructurales con alta humedad relativa.</p>";
+
 const aplicaciones = [
   {
-    icono: "",
     titulo: "Entornos con Humo y Vapores Tóxicos",
     desc: "La membrana Gore-Tex® impide el ingreso de vapores tóxicos al espacio de aire entre capas. En incendios de materiales sintéticos, pinturas y disolventes, los vapores nocivos representan un riesgo inmediato. La barrera de humedad los bloquea mientras el bombero trabaja en el interior del edificio.",
   },
   {
-    icono: "",
     titulo: "Incendios con Agua Presurizada",
     desc: "Las mangueras proyectan agua a alta presión que penetra cualquier tejido no sellado. La membrana Gore-Tex® NFPA 1971 Method 6 resiste más de 25,000 mm H₂O de presión hidrostática — bien por encima de la presión operativa de los chorros de agua usados en extinción estructural.",
   },
   {
-    icono: "",
     titulo: "Protección Clase F3 — Líquidos Peligrosos",
     desc: "Incendios industriales con derrames de combustibles, aceites, ácidos diluidos o soluciones químicas. La clasificación Clase F3 de NFPA 1971 §8.24 certifica que la membrana resiste la penetración de fluidos peligrosos que van más allá del agua simple, protegiendo la piel del bombero en escenarios HAZMAT leve.",
   },
   {
-    icono: "",
     titulo: "Rescate en Agua y Operaciones de Inundación",
     desc: "En rescate acuático, el traje estructural completo con barrera Gore-Tex® reduce la absorción de agua que añade peso y reduce movilidad. La membrana mantiene seco el espacio interior durante las primeras etapas de inmersión, ganando tiempo crítico para la evacuación.",
   },
 ];
 
+/* ── Certificaciones ─────────────────────────────────────────────────── */
+const certItems = [
+  { code: "NFPA 1971",    desc: "Protección estructural — Method 6 impermeabilidad aprobado" },
+  { code: "Clase F3",     desc: "Resistencia a líquidos peligrosos — NFPA 1971 §8.24" },
+  { code: "MVTR 1,500+",  desc: "g/m²/24 h — Transpirabilidad certificada ASTM E96 / ISO 11092" },
+  { code: "25,000+ mm",   desc: "H₂O — Presión hidrostática soportada sin filtración" },
+  { code: "ISO/IEC 17025",desc: "Laboratorio acreditado — Certificado incluido en cada traje" },
+];
+
+/* ── FAQs ────────────────────────────────────────────────────────────── */
 const faqs = [
   {
     q: "¿Qué es el ePTFE y por qué Gore-Tex® es el estándar en barreras de humedad para bomberos?",
@@ -121,7 +162,7 @@ const faqs = [
   },
   {
     q: "¿Qué es el MVTR y por qué afecta la seguridad del bombero?",
-    a: "MVTR (Moisture Vapor Transmission Rate) mide gramos de vapor de agua que cruzan 1 m² de membrana en 24 horas (g/m²/24 h). Si el MVTR es muy bajo, el vapor corporal se acumula en el interior del traje, crea un ambiente húmedo caliente y puede generar 'steam burns' — quemaduras por vapor a pesar de no haber contacto con llama. Un MVTR > 1,500 g/m²/24 h equilibra impermeabilidad y evacuación de vapor corporal en operaciones de alta intensidad.",
+    a: "MVTR (Moisture Vapor Transmission Rate) mide gramos de vapor de agua que cruzan 1 m² de membrana en 24 horas (g/m²/24 h). Si el MVTR es muy bajo, el vapor corporal se acumula en el interior del traje, crea un ambiente húmedo caliente y puede generar 'steam burns' — quemaduras por vapor a pesar de no haber contacto con llama. Un MVTR de 1,500+ g/m²/24 h equilibra impermeabilidad y evacuación de vapor corporal en operaciones de alta intensidad.",
   },
   {
     q: "¿Por qué las costuras deben sellarse y no solo coserse?",
@@ -133,15 +174,16 @@ const faqs = [
   },
   {
     q: "¿La barrera de humedad Gore-Tex® protege contra el calor radiante?",
-    a: "No. La barrera de humedad es la segunda de las 3 capas del traje estructural NFPA 1971. Su función específica es impermeabilidad y transpirabilidad. La protección contra calor radiante (TPP ≥ 35 cal/cm²) la proporciona el sistema completo: capa exterior Nomex® (absorbe calor radiante + resiste llama) + barrera Gore-Tex® (impermeabilidad) + liner térmico Caldura® (aislamiento térmico). Ninguna capa, sola, cumple el TPP mínimo NFPA 1971.",
+    a: "No. La barrera de humedad es la segunda de las 3 capas del traje estructural NFPA 1971. Su función específica es impermeabilidad y transpirabilidad. La protección contra calor radiante (TPP de 35+ cal/cm²) la proporciona el sistema completo: capa exterior Nomex® (absorbe calor radiante + resiste llama) + barrera Gore-Tex® (impermeabilidad) + liner térmico Caldura® (aislamiento térmico). Ninguna capa, sola, cumple el TPP mínimo NFPA 1971.",
   },
 ];
 
+/* ── Relacionados ────────────────────────────────────────────────────── */
 const relacionados = [
   {
     title: "Sistema 3 Capas NFPA 1971",
     badge: "NFPA 1971",
-    description: "El traje estructural completo: capa exterior Nomex®, barrera Gore-Tex® y liner térmico TPP ≥ 35 cal/cm². Certificado con ficha técnica incluida.",
+    description: "El traje estructural completo: capa exterior Nomex®, barrera Gore-Tex® y liner térmico TPP de 35+ cal/cm². Certificado con ficha técnica incluida.",
     href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas",
     buttonText: "Trajes para Bombero",
     image: "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
@@ -172,9 +214,9 @@ const relacionados = [
   },
 ];
 
-/* ── Datos del sidebar ──────────────────────────────────────── */
+/* ── Sidebar ─────────────────────────────────────────────────────────── */
 const otrosModelos = [
-  { label: "Sistema 3 Capas Completo",        href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas"   },
+  { label: "Sistema 3 Capas Completo",        href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas"    },
   { label: "Capa Exterior Nomex® IIIA",       href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/capa-exterior-nomex" },
   { label: "Acolchado Térmico Caldura®",      href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/acolchado-termico"  },
   { label: "Alta Visibilidad SOLAS Cl.2",     href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/alta-visibilidad"   },
@@ -191,8 +233,8 @@ const epp = [
 ];
 
 const articulos = [
-  { label: "Catálogo Trajes de Bombero NFPA",    href: "/productos/trajes-para-bomberos",                                              tag: "Catálogo" },
-  { label: "Traje Estructural Sistema 3 Capas",  href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas",  tag: "Producto" },
+  { label: "Catálogo Trajes de Bombero NFPA",    href: "/productos/trajes-para-bomberos",                                                tag: "Catálogo" },
+  { label: "Traje Estructural Sistema 3 Capas",  href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas",   tag: "Producto" },
   { label: "Capa Exterior Nomex® NFPA 1971",     href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/capa-exterior-nomex", tag: "Producto" },
   { label: "EPP Completo para Bomberos",          href: "/productos",                                                                   tag: "Guía"     },
   { label: "Cascos NFPA 1971 y 1977",             href: "/productos/cascos-para-bomberos",                                             tag: "Catálogo" },
@@ -212,17 +254,17 @@ const specsRapidas = [
   { label: "Norma",           valor: "NFPA 1971" },
   { label: "Membrana",        valor: "Gore-Tex® ePTFE" },
   { label: "Impermeab.",      valor: "NFPA 1971 Method 6" },
-  { label: "MVTR",            valor: "> 1,500 g/m²/24 h" },
+  { label: "MVTR",            valor: "1,500+ g/m²/24 h" },
   { label: "Liq. peligrosos", valor: "Clase F3" },
-  { label: "Presión hidrost.",valor: "> 25,000 mm H₂O" },
+  { label: "Presión hidrost.",valor: "25,000+ mm H₂O" },
   { label: "Costuras",        valor: "Soldadas ultrasónicamente" },
   { label: "Capa en sistema", valor: "2ª — Barrera de humedad" },
 ];
 ---
 
-<PageLayout
+<ProductoLayout
   title="Traje Estructural NFPA 1971 — Membrana Barrera de Humedad Gore-Tex® | BOMBERO.MX"
-  description="Barrera de humedad Gore-Tex® ePTFE para traje estructural NFPA 1971. Impermeabilidad Method 6, MVTR > 1,500 g/m²/24 h, Clase F3. Costuras soldadas. Ficha técnica incluida. Envío a 32 estados de México."
+  description="Barrera de humedad Gore-Tex® ePTFE para traje estructural NFPA 1971. Impermeabilidad Method 6, MVTR 1,500+ g/m²/24 h, Clase F3. Costuras soldadas. Ficha técnica incluida. Envío a 32 estados de México."
   keywords={[
     "membrana gore-tex bombero NFPA 1971",
     "barrera humedad traje bombero México",
@@ -233,1822 +275,65 @@ const specsRapidas = [
     "gore-tex NFPA 1971 México distribuidor",
     "comprar membrana gore-tex traje bombero México",
   ]}
-  canonical={SLUG}
-  image={IMAGE}
->
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- BREADCRUMB                                                       -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <Breadcrumb
-    items={[
-      { label: "Inicio",                      href: "/"                                                               },
-      { label: "Productos",                   href: "/productos"                                                      },
-      { label: "Trajes de Bombero",           href: "/productos/trajes-para-bomberos"                                 },
-      { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971"    },
-      { label: "Membrana Gore-Tex®" },
-    ]}
-  />
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- HERO                                                             -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__gradient"></div>
-      <div class="hero__grid"></div>
-      <div class="hero__glow hero__glow--1"></div>
-      <div class="hero__glow hero__glow--2"></div>
-    </div>
-
-    <div class="container hero__container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          Traje Estructural · NFPA 1971 · Barrera de Humedad
-        </div>
-        <h1 class="hero__title">
-          Membrana Gore-Tex®
-          <span class="hero__title-highlight">Barrera de Humedad NFPA 1971</span>
-        </h1>
-        <p class="hero__subtitle">
-          Segunda capa del sistema estructural NFPA 1971. Membrana ePTFE Gore-Tex® que bloquea el ingreso
-          de líquidos peligrosos, vapores tóxicos y agua presurizada mientras evacúa el vapor corporal.
-          Impermeabilidad Method 6 y transpirabilidad MVTR&nbsp;>&nbsp;1,500&nbsp;g/m²/24&nbsp;h.
-        </p>
-      </div>
-
-      <div class="hero__seo">
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Membrana Gore-Tex® NFPA 1971 — Distribuidor Autorizado México</h2>
-          <p class="hero__seo-text">
-            La <strong>barrera de humedad Gore-Tex® ePTFE</strong> es la segunda capa del traje estructural
-            NFPA 1971. Más de 9 mil millones de microporos por cm² bloquean cualquier líquido mientras
-            permiten la evacuación del vapor corporal. En <strong>BOMBERO.MX</strong> distribuimos la membrana
-            certificada para cuerpos de bomberos municipales, brigadas industriales y protección civil
-            en los 32 estados de México.
-          </p>
-        </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Gore-Tex® ePTFE — Impermeabilidad Clase F3 y MVTR Certificado NFPA 1971</h2>
-          <p class="hero__seo-text">
-            Certificada en <strong>NFPA 1971 Method 6</strong> (resistencia a líquidos peligrosos Clase F3)
-            y con <strong>MVTR > 1,500 g/m²/24 h</strong> según ASTM E96. Costuras soldadas
-            ultrasónicamente: cero puntos de fuga bajo presión hidrostática > 25,000 mm H₂O.
-            Cada traje incluye ficha técnica y certificado de laboratorio acreditado
-            <strong>ISO/IEC 17025</strong> — documentación indispensable para licitaciones gubernamentales.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA BAR -->
-  <CTABar quote="Cotizar Membrana Gore-Tex® NFPA 1971" />
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYOUT PRINCIPAL — CONTENIDO + SIDEBAR                          -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="prod-layout">
-    <div class="container prod-layout__inner">
-
-      <!-- ─── COLUMNA PRINCIPAL ─── -->
-      <main class="prod-main">
-
-        <!-- TARJETA DE PRODUCTO -->
-        <section class="prod-intro" id="producto">
-
-          <div class="prod-intro__topbar">
-            <span class="prod-intro__category">Barrera de Humedad — 2ª Capa Estructural</span>
-            <div class="prod-intro__topbar-badges">
-              <span class="pcert pcert--nfpa">NFPA 1971</span>
-              <span class="pcert pcert--solas">Method 6</span>
-              <span class="pcert pcert--astm">Clase F3</span>
-              <span class="prod-intro__sold">GORE-TEX®</span>
-            </div>
-          </div>
-
-          <div class="prod-intro__body">
-
-            <div class="prod-intro__left">
-              <h2 class="prod-intro__title">
-                Membrana Gore-Tex® ePTFE
-                <span class="prod-intro__title-sub">Barrera de Humedad — Traje Estructural NFPA 1971</span>
-              </h2>
-              <p class="prod-intro__desc">
-                Segunda capa del sistema 3 capas NFPA 1971. La membrana ePTFE Gore-Tex® impide el
-                ingreso de líquidos peligrosos, vapores tóxicos y agua presurizada al interior del traje,
-                mientras evacúa el vapor corporal para prevenir fatiga térmica y quemaduras por vapor.
-              </p>
-              <ul class="prod-intro__features">
-                <li><span class="prod-intro__check" aria-hidden="true"></span>Gore-Tex® ePTFE certificado NFPA 1971 Method 6</li>
-                <li><span class="prod-intro__check" aria-hidden="true"></span>Impermeabilidad > 25,000 mm H₂O presión hidrostática</li>
-                <li><span class="prod-intro__check" aria-hidden="true"></span>Transpirabilidad MVTR > 1,500 g/m²/24 h</li>
-                <li><span class="prod-intro__check" aria-hidden="true"></span>Resistencia líquidos peligrosos — Clase F3</li>
-                <li><span class="prod-intro__check" aria-hidden="true"></span>Costuras soldadas ultrasónicamente en zonas críticas</li>
-                <li><span class="prod-intro__check" aria-hidden="true"></span>Certificado de laboratorio ISO/IEC 17025 incluido</li>
-              </ul>
-            </div>
-
-            <div class="prod-intro__right">
-              <div class="prod-intro__app">
-                <p class="prod-intro__app-label">Aplicaciones principales</p>
-                <div class="prod-intro__app-tags">
-                  <span>Vapores tóxicos</span>
-                  <span>Agua presurizada</span>
-                  <span>HAZMAT Clase F3</span>
-                  <span>Rescate en agua</span>
-                  <span>Residuos de incendio</span>
-                </div>
-              </div>
-              <div class="prod-intro__actions">
-                <a href="/cotizar" class="btn btn--primary">Solicitar Cotización</a>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <!-- GALERÍA DE IMÁGENES -->
-        <div class="prod-gallery" aria-label="Galería de membrana Gore-Tex barrera de humedad NFPA 1971">
-          <div class="prod-gallery__track">
-            <figure class="prod-gallery__item">
-              <img src="/images/directorio/traje-bombero-estructural-nfpa-01.avif"
-                alt="Membrana Gore-Tex barrera de humedad traje estructural NFPA 1971 bombero" loading="lazy" width="420" height="300" />
-            </figure>
-            <figure class="prod-gallery__item">
-              <img src="/images/directorio/bomberos-emergencia-incendio-estructural-01.avif"
-                alt="Bombero con traje impermeable Gore-Tex en incendio estructural con agua" loading="lazy" width="420" height="300" />
-            </figure>
-            <figure class="prod-gallery__item">
-              <img src="/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif"
-                alt="Equipo HAZMAT con barrera de humedad Gore-Tex NFPA 1971 clase F3" loading="lazy" width="420" height="300" />
-            </figure>
-            <figure class="prod-gallery__item">
-              <img src="/images/directorio/rescate-acuatico-bomberos-01.avif"
-                alt="Rescate acuático con traje estructural membrana Gore-Tex impermeable" loading="lazy" width="420" height="300" />
-            </figure>
-            <figure class="prod-gallery__item">
-              <img src="/images/directorio/bomberos-profesionales-accion-01.avif"
-                alt="Bomberos profesionales con sistema 3 capas NFPA 1971 membrana Gore-Tex" loading="lazy" width="420" height="300" />
-            </figure>
-            <figure class="prod-gallery__item">
-              <img src="/images/directorio/equipo-proteccion-bomberos-01.avif"
-                alt="Equipo de protección estructural NFPA 1971 con barrera Gore-Tex ePTFE" loading="lazy" width="420" height="300" />
-            </figure>
-          </div>
-        </div>
-
-        <!-- CARACTERÍSTICAS DE LA MEMBRANA GORE-TEX® -->
-        <section class="prod-section" id="membrana-gore-tex">
-          <div class="prod-section__head">
-            <span class="prod-section__eyebrow">Tecnología de Membrana</span>
-            <h2 class="prod-section__title">Gore-Tex® ePTFE — La Barrera de Humedad NFPA 1971</h2>
-            <p class="prod-section__desc">
-              Tres componentes definen la barrera de humedad del traje estructural: la membrana ePTFE que
-              bloquea líquidos y vapores, el MVTR que garantiza evacuación de vapor corporal, y el sellado
-              de costuras que elimina los únicos puntos de vulnerabilidad posibles.
-            </p>
-          </div>
-
-          <div class="capas__grid">
-            {variantes.map((v) => (
-              <div class={`capa-card capa-card--${v.color}`}>
-
-                <div class="capa-card__head">
-                  <span class="capa-card__num">{v.num}</span>
-                  <h3 class="capa-card__title">{v.titulo}</h3>
-                </div>
-
-                <div class="capa-card__body">
-                  <p class="capa-card__desc">{v.descripcion}</p>
-                  <ul class="capa-card__specs">
-                    {v.specs.map((s) => (
-                      <li class="capa-card__spec">
-                        <span class="capa-card__spec-label">{s.label}</span>
-                        <span class="capa-card__spec-val">{s.valor}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <!-- ESPECIFICACIONES TÉCNICAS -->
-        <section class="prod-section" id="especificaciones">
-          <div class="prod-section__head">
-            <span class="prod-section__eyebrow">Ficha Técnica</span>
-            <h2 class="prod-section__title">Especificaciones Completas — Membrana Gore-Tex®</h2>
-            <p class="prod-section__desc">Parámetros verificados en laboratorio certificado ISO/IEC 17025.</p>
-          </div>
-
-          <div class="specs__table-wrap">
-            <table class="specs__table">
-              <thead>
-                <tr>
-                  <th scope="col">Categoría</th>
-                  <th scope="col">Parámetro</th>
-                  <th scope="col">Valor certificado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(() => {
-                  let lastCat = "";
-                  return especificaciones.map((row) => {
-                    const isNew = row.categoria !== lastCat;
-                    lastCat = row.categoria;
-                    return (
-                      <tr>
-                        <td class="specs__cat">
-                          {isNew
-                            ? <span class={`specs__cat-badge specs__cat-badge--${catClass[row.categoria] ?? row.categoria.toLowerCase()}`}>{row.categoria}</span>
-                            : null}
-                        </td>
-                        <td class="specs__label">{row.label}</td>
-                        <td class="specs__val">{row.valor}</td>
-                      </tr>
-                    );
-                  });
-                })()}
-              </tbody>
-            </table>
-          </div>
-          <p class="specs__note">* Valores según pruebas de laboratorio acreditado ISO/IEC 17025.</p>
-        </section>
-
-        <!-- APLICACIONES -->
-        <section class="prod-section prod-section--light" id="aplicaciones">
-          <div class="prod-section__head">
-            <span class="prod-section__eyebrow">Escenarios de Uso</span>
-            <h2 class="prod-section__title">¿Dónde Protege la Membrana Gore-Tex® NFPA 1971?</h2>
-            <p class="prod-section__desc">
-              La barrera de humedad Gore-Tex® es clave en cualquier escenario donde el bombero enfrente
-              líquidos, vapores tóxicos o agua a presión. Sin esta segunda capa, la capa exterior Nomex®
-              sola no ofrece impermeabilidad — son inseparables en el sistema NFPA 1971.
-            </p>
-          </div>
-          <div class="aplic__grid">
-            {aplicaciones.map((a, i) => (
-              <div class="aplic-card">
-                <div class="aplic-card__head">
-                  <span class="aplic-card__num">0{i + 1}</span>
-                  <h3 class="aplic-card__title">{a.titulo}</h3>
-                </div>
-                <p class="aplic-card__desc">{a.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <!-- CERTIFICACIONES — SECCIÓN OSCURA -->
-        <section class="certs-dark" id="certificaciones">
-          <div class="certs-dark__head">
-            <p class="certs-dark__eyebrow">Normas y Certificaciones</p>
-            <h2 class="certs-dark__title">Certificada NFPA 1971 — Impermeabilidad y Resistencia a Líquidos</h2>
-            <p class="certs-dark__desc">
-              La membrana Gore-Tex® ePTFE cumple los requisitos más exigentes de NFPA 1971 para barreras
-              de humedad: impermeabilidad Method 6, Clase F3 de resistencia a líquidos peligrosos y
-              transpirabilidad mínima MVTR certificada en laboratorio ISO/IEC 17025.
-            </p>
-          </div>
-
-          <div class="certs-dark__grid">
-            <div class="cert-item">
-              <p class="cert-item__code">NFPA 1971</p>
-              <p class="cert-item__desc">Protección estructural — Method 6 impermeabilidad aprobado</p>
-            </div>
-            <div class="cert-item">
-              <p class="cert-item__code">Clase F3</p>
-              <p class="cert-item__desc">Resistencia a líquidos peligrosos — NFPA 1971 §8.24</p>
-            </div>
-            <div class="cert-item">
-              <p class="cert-item__code">MVTR > 1,500</p>
-              <p class="cert-item__desc">g/m²/24 h — Transpirabilidad certificada ASTM E96 / ISO 11092</p>
-            </div>
-            <div class="cert-item">
-              <p class="cert-item__code">> 25,000</p>
-              <p class="cert-item__desc">mm H₂O — Presión hidrostática soportada sin filtración</p>
-            </div>
-            <div class="cert-item">
-              <p class="cert-item__code">ISO/IEC 17025</p>
-              <p class="cert-item__desc">Laboratorio acreditado — Certificado incluido en cada traje</p>
-            </div>
-            <div class="cert-item cert-item--cta">
-              <p class="cert-item__cta-label">¿Necesitas la documentación?</p>
-              <a href="/cotizar" class="cert-item__cta-btn">Solicitar Ficha Técnica</a>
-            </div>
-          </div>
-        </section>
-
-      </main>
-
-      <!-- ─── SIDEBAR ─── -->
-      <aside class="prod-sidebar">
-
-        <!-- 1. CTA -->
-        <div class="sb-card sb-card--cta">
-          <h3 class="sb-card__title">Solicita Cotización</h3>
-          <p class="sb-card__text">Precios especiales para cuerpos de bomberos y licitaciones.</p>
-          <a href="/cotizar" class="sb-cta-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-              <line x1="16" y1="13" x2="8" y2="13"/>
-              <line x1="16" y1="17" x2="8" y2="17"/>
-              <polyline points="10 9 9 9 8 9"/>
-            </svg>
-            Cotizar Ahora
-          </a>
-          <div class="sb-card__contacts">
-            <a href="https://wa.me/525520780102" target="_blank" rel="noopener noreferrer" class="sb-contact sb-contact--wa">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              WhatsApp
-            </a>
-            <a href="tel:+525520780102" class="sb-contact">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-              55 2078 0102
-            </a>
-          </div>
-        </div>
-
-        <!-- 2. Specs rápidas -->
-        <div class="sb-card">
-          <h3 class="sb-card__title sb-card__title--dark">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <polyline points="9 11 12 14 22 4"/>
-              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-            </svg>
-            Especificaciones Clave
-          </h3>
-          <ul class="sb-specs">
-            {specsRapidas.map((s) => (
-              <li class="sb-specs__row">
-                <span class="sb-specs__label">{s.label}</span>
-                <span class="sb-specs__val">{s.valor}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <!-- 3. Otros modelos -->
-        <div class="sb-card">
-          <h3 class="sb-card__title sb-card__title--dark">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-              <line x1="8" y1="21" x2="16" y2="21"/>
-              <line x1="12" y1="17" x2="12" y2="21"/>
-            </svg>
-            Traje Estructural NFPA 1971
-          </h3>
-          <p class="sb-card__subtext">Variantes y componentes del sistema</p>
-          <ul class="sb-links">
-            {otrosModelos.map((m) => (
-              <li>
-                <a href={m.href} class="sb-link">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                    <polyline points="9 18 15 12 9 6"/>
-                  </svg>
-                  {m.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <a href="/productos/trajes-para-bomberos" class="sb-see-all">Ver todos los trajes →</a>
-        </div>
-
-        <!-- 4. EPP complementario -->
-        <div class="sb-card">
-          <h3 class="sb-card__title sb-card__title--dark">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            EPP Complementario
-          </h3>
-          <ul class="sb-epp">
-            {epp.map((e) => (
-              <li class="sb-epp__item">
-                <a href={e.href} class="sb-epp__link">
-                  <span class="sb-epp__tag">{e.tag}</span>
-                  <span class="sb-epp__label">{e.label}</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                    <polyline points="9 18 15 12 9 6"/>
-                  </svg>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <!-- 5. Artículos y catálogos -->
-        <div class="sb-card">
-          <h3 class="sb-card__title sb-card__title--dark">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-            </svg>
-            Catálogos y Recursos
-          </h3>
-          <ul class="sb-articles">
-            {articulos.map((a) => (
-              <li class="sb-article">
-                <a href={a.href} class="sb-article__link">
-                  <span class="sb-article__tag">{a.tag}</span>
-                  <span class="sb-article__label">{a.label}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <!-- 6. Directorio -->
-        <div class="sb-card">
-          <h3 class="sb-card__title sb-card__title--dark">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-            Directorio de Bomberos
-          </h3>
-          <p class="sb-card__subtext">Cuerpos de bomberos en México</p>
-          <ul class="sb-links">
-            {directorioLinks.map((d) => (
-              <li>
-                <a href={d.href} class="sb-link">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                    <polyline points="9 18 15 12 9 6"/>
-                  </svg>
-                  {d.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <a href="/directorio" class="sb-see-all">Ver directorio nacional →</a>
-        </div>
-
-      </aside>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- WHY CHOOSE US                                                   -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <WhyChooseUs />
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- FAQ                                                             -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <section class="faq-prod" id="preguntas-frecuentes">
-    <div class="container">
-      <SectionHeader
-        label="Preguntas Frecuentes"
-        title="Todo sobre la Membrana Gore-Tex® NFPA 1971"
-        description="Preguntas técnicas frecuentes sobre la barrera de humedad Gore-Tex® ePTFE: funcionamiento, certificaciones, MVTR, sellado de costuras y mantenimiento."
-      />
-
-      <div class="faq-prod__grid">
-        <div class="faq-prod__list">
-          {faqs.map((faq) => (
-            <details class="faq-item" name="faq-producto">
-              <summary class="faq-item__q">
-                <span>{faq.q}</span>
-                <span class="faq-item__toggle" aria-hidden="true"></span>
-              </summary>
-              <div class="faq-item__a">
-                <p>{faq.a}</p>
-              </div>
-            </details>
-          ))}
-        </div>
-
-        <aside class="faq-prod__aside">
-          <div class="faq-aside-card">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-              <line x1="16" y1="13" x2="8" y2="13"/>
-              <line x1="16" y1="17" x2="8" y2="17"/>
-            </svg>
-            <h4>Descarga la Ficha Técnica</h4>
-            <p>Solicita la ficha técnica completa y el certificado de laboratorio de la membrana Gore-Tex®.</p>
-            <a href="/cotizar" class="faq-aside-card__btn">Solicitar Documentación</a>
-          </div>
-          <div class="faq-aside-card faq-aside-card--fire">
-            <h4>¿Necesitas asesoría técnica?</h4>
-            <p>Nuestros especialistas te explican la diferencia entre membranas y te ayudan a elegir el sistema correcto para tu cuerpo de bomberos.</p>
-            <a href="https://wa.me/525520780102" target="_blank" rel="noopener noreferrer"
-              class="faq-aside-card__btn faq-aside-card__btn--wa">
-              Consultar por WhatsApp
-            </a>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- RELACIONADOS                                                    -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <section class="relacionados">
-    <div class="container">
-      <SectionHeader
-        label="EPP Complementario"
-        title="Completa el Sistema de Protección Estructural"
-        description="La barrera de humedad Gore-Tex® forma parte del sistema integrado NFPA 1971. Combínala con el resto del EPP certificado para alcanzar la protección completa."
-      />
-      <div class="rel__grid">
-        {relacionados.map((r) => (
-          <article class="rel-card">
-            <div class="rel-card__img-wrap">
-              <img
-                src={r.image}
-                alt={r.title + " — EPP certificado NFPA para bomberos México"}
-                loading="lazy"
-                width="400"
-                height="400"
-                class="rel-card__img"
-              />
-              <span class="rel-card__badge">{r.badge}</span>
-            </div>
-            <div class="rel-card__body">
-              <h3 class="rel-card__title">{r.title}</h3>
-              <p class="rel-card__desc">{r.description}</p>
-              <a href={r.href} class="rel-card__btn">
-                {r.buttonText}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"/>
-                  <polyline points="12 5 19 12 12 19"/>
-                </svg>
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- CTA BANNER                                                       -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <CTABanner />
-
-</PageLayout>
-
-<style>
-  /* ═══════════════════════════════════════════════════════════════════════
-     HERO
-     ═══════════════════════════════════════════════════════════════════════ */
-  .hero {
-    position: relative;
-    overflow: hidden;
-    background: var(--color-smoke-950, #0a0a0f);
-    padding: var(--space-20) 0 var(--space-16);
-  }
-
-  .hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .hero__gradient {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(220, 38, 38, 0.18) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 80% at 80% 20%, rgba(239, 68, 68, 0.08) 0%, transparent 60%);
-  }
-
-  .hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-
-  .hero__glow {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.6;
-  }
-
-  .hero__glow--1 {
-    width: 500px;
-    height: 500px;
-    background: rgba(220, 38, 38, 0.15);
-    top: -100px;
-    left: -100px;
-  }
-
-  .hero__glow--2 {
-    width: 400px;
-    height: 400px;
-    background: rgba(239, 68, 68, 0.08);
-    bottom: -80px;
-    right: 10%;
-  }
-
-  .hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: #fca5a5;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: var(--space-5);
-  }
-
-  .hero__badge-dot {
-    width: 6px;
-    height: 6px;
-    background: #ef4444;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0.4; }
-  }
-
-  .hero__title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 900;
-    color: #ffffff;
-    line-height: 1.1;
-    margin-bottom: var(--space-5);
-    letter-spacing: -0.02em;
-  }
-
-  .hero__title-highlight {
-    display: block;
-    background: linear-gradient(135deg, #ef4444, #f97316);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero__subtitle {
-    font-size: var(--text-lg);
-    color: #9ca3af;
-    line-height: 1.7;
-    max-width: 520px;
-  }
-
-  .hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-
-  .hero__seo-block {
-    padding: var(--space-5);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius-lg);
-  }
-
-  .hero__seo-title {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: #d1d5db;
-    margin-bottom: var(--space-2);
-    line-height: 1.4;
-  }
-
-  .hero__seo-text {
-    font-size: var(--text-sm);
-    color: #6b7280;
-    line-height: 1.7;
-  }
-
-  .hero__seo-text strong { color: #9ca3af; font-weight: 600; }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     LAYOUT PRINCIPAL
-     ═══════════════════════════════════════════════════════════════════════ */
-  .prod-layout {
-    background: var(--color-smoke-50, #f9fafb);
-    padding: var(--space-12) 0 var(--space-16);
-  }
-
-  .prod-layout__inner {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: var(--space-8);
-    align-items: start;
-  }
-
-  .prod-main {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     PROD-INTRO
-     ═══════════════════════════════════════════════════════════════════════ */
-  .prod-intro {
-    background: #ffffff;
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: var(--radius-2xl, 16px);
-    overflow: hidden;
-  }
-
-  .prod-intro__topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    padding: var(--space-4) var(--space-6);
-    background: var(--color-smoke-50, #f9fafb);
-    border-bottom: 1px solid var(--color-smoke-200, #e5e7eb);
-  }
-
-  .prod-intro__category {
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: var(--color-fire-700, #b91c1c);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .prod-intro__topbar-badges {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  .pcert {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 10px;
-    border-radius: 100px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-  }
-
-  .pcert--nfpa  { background: rgba(220,38,38,0.10);  color: #991b1b; border: 1px solid rgba(220,38,38,0.2);  }
-  .pcert--tpp   { background: rgba(234,88,12,0.10);  color: #9a3412; border: 1px solid rgba(234,88,12,0.2);  }
-  .pcert--solas { background: rgba(37,99,235,0.10);  color: #1e3a8a; border: 1px solid rgba(37,99,235,0.2);  }
-  .pcert--astm  { background: rgba(16,185,129,0.10); color: #065f46; border: 1px solid rgba(16,185,129,0.2); }
-
-  .prod-intro__sold {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 10px;
-    border-radius: 100px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    background: var(--color-fire-600, #dc2626);
-    color: #ffffff;
-  }
-
-  .prod-intro__body {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: var(--space-8);
-    padding: var(--space-7);
-  }
-
-  .prod-intro__title {
-    font-size: clamp(1.25rem, 2.5vw, 1.6rem);
-    font-weight: 900;
-    color: var(--color-smoke-900, #111827);
-    line-height: 1.2;
-    margin-bottom: var(--space-4);
-    letter-spacing: -0.01em;
-  }
-
-  .prod-intro__title-sub {
-    display: block;
-    font-size: var(--text-base);
-    font-weight: 600;
-    color: var(--color-fire-600, #dc2626);
-    margin-top: var(--space-2);
-  }
-
-  .prod-intro__desc {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600, #4b5563);
-    line-height: 1.7;
-    margin-bottom: var(--space-5);
-  }
-
-  .prod-intro__features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .prod-intro__features li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-700, #374151);
-    line-height: 1.5;
-  }
-
-  .prod-intro__check {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    min-width: 18px;
-    background: var(--color-success-100, #dcfce7);
-    border-radius: 50%;
-    position: relative;
-    margin-top: 1px;
-  }
-
-  .prod-intro__check::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%) rotate(45deg);
-    width: 4px;
-    height: 7px;
-    border-right: 2px solid #16a34a;
-    border-bottom: 2px solid #16a34a;
-  }
-
-  .prod-intro__right {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-  }
-
-  .prod-intro__app {
-    background: var(--color-smoke-50, #f9fafb);
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: var(--radius-xl, 12px);
-    padding: var(--space-4);
-  }
-
-  .prod-intro__app-label {
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: var(--color-smoke-500, #6b7280);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: var(--space-3);
-  }
-
-  .prod-intro__app-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-  }
-
-  .prod-intro__app-tags span {
-    padding: var(--space-1) var(--space-3);
-    background: #ffffff;
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--color-smoke-700, #374151);
-  }
-
-  .prod-intro__actions { margin-top: auto; }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     GALERÍA
-     ═══════════════════════════════════════════════════════════════════════ */
-  .prod-gallery {
-    border-radius: var(--radius-2xl, 16px);
-    overflow: hidden;
-  }
-
-  .prod-gallery__track {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-3);
-  }
-
-  .prod-gallery__item {
-    margin: 0;
-    aspect-ratio: 3/4;
-    overflow: hidden;
-    border-radius: var(--radius-xl, 12px);
-    background: var(--color-smoke-100, #f3f4f6);
-  }
-
-  .prod-gallery__item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     SECCIONES DE CONTENIDO
-     ═══════════════════════════════════════════════════════════════════════ */
-  .prod-section {
-    background: #ffffff;
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: var(--radius-2xl, 16px);
-    padding: var(--space-8);
-  }
-
-  .prod-section--light {
-    background: var(--color-smoke-50, #f9fafb);
-  }
-
-  .prod-section__head {
-    margin-bottom: var(--space-7);
-    padding-bottom: var(--space-6);
-    border-bottom: 1px solid var(--color-smoke-100, #f3f4f6);
-  }
-
-  .prod-section__eyebrow {
-    display: inline-block;
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: var(--color-fire-600, #dc2626);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--space-2);
-  }
-
-  .prod-section__title {
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 900;
-    color: var(--color-smoke-900, #111827);
-    letter-spacing: -0.01em;
-    margin-bottom: var(--space-3);
-  }
-
-  .prod-section__desc {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500, #6b7280);
-    line-height: 1.7;
-    max-width: 680px;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     CAPA CARDS
-     ═══════════════════════════════════════════════════════════════════════ */
-  .capas__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--space-4);
-  }
-
-  .capa-card {
-    background: #ffffff;
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: var(--radius-xl, 12px);
-    overflow: hidden;
-  }
-
-  .capa-card__head {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-    padding: var(--space-4) var(--space-5);
-    background: var(--color-smoke-50, #f9fafb);
-    border-bottom: 1px solid var(--color-smoke-200, #e5e7eb);
-  }
-
-  .capa-card__num {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    font-size: var(--text-lg);
-    font-weight: 900;
-    color: #ffffff;
-    letter-spacing: -0.02em;
-    flex-shrink: 0;
-  }
-
-  .capa-card--ember .capa-card__num { background: var(--color-fire-700, #b91c1c); }
-  .capa-card--smoke .capa-card__num { background: var(--color-smoke-600, #4b5563); }
-  .capa-card--fire  .capa-card__num { background: var(--color-ember-700, #c2410c); }
-
-  .capa-card__title {
-    font-size: var(--text-sm);
-    font-weight: 800;
-    color: var(--color-smoke-900, #111827);
-    line-height: 1.3;
-  }
-
-  .capa-card__body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-
-  .capa-card__desc {
-    padding: var(--space-4) var(--space-5);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600, #4b5563);
-    line-height: 1.7;
-    border-right: 1px solid var(--color-smoke-100, #f3f4f6);
-  }
-
-  .capa-card__specs {
-    list-style: none;
-    padding: var(--space-3);
-    margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-
-  .capa-card__spec {
-    padding: var(--space-2) var(--space-3);
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    border-right: 1px solid var(--color-smoke-100, #f3f4f6);
-    border-bottom: 1px solid var(--color-smoke-100, #f3f4f6);
-  }
-
-  .capa-card__spec:nth-child(even)  { border-right: none; }
-  .capa-card__spec:nth-last-child(-n+2) { border-bottom: none; }
-
-  .capa-card__spec-label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-smoke-400, #9ca3af);
-  }
-
-  .capa-card__spec-val {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--color-smoke-900, #111827);
-    line-height: 1.3;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     TABLA DE ESPECIFICACIONES
-     ═══════════════════════════════════════════════════════════════════════ */
-  .specs__table-wrap {
-    overflow-x: auto;
-    border-radius: var(--radius-xl, 12px);
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-  }
-
-  .specs__table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-  }
-
-  .specs__table thead tr {
-    background: var(--color-smoke-50, #f9fafb);
-    border-bottom: 2px solid var(--color-smoke-200, #e5e7eb);
-  }
-
-  .specs__table th {
-    padding: var(--space-3) var(--space-5);
-    text-align: left;
-    font-size: var(--text-xs);
-    font-weight: 800;
-    color: var(--color-smoke-500, #6b7280);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-  }
-
-  .specs__table tbody tr {
-    border-bottom: 1px solid var(--color-smoke-100, #f3f4f6);
-    transition: background 0.1s;
-  }
-
-  .specs__table tbody tr:last-child { border-bottom: none; }
-  .specs__table tbody tr:hover { background: var(--color-smoke-50, #f9fafb); }
-
-  .specs__cat {
-    padding: var(--space-3) var(--space-5);
-    width: 140px;
-    vertical-align: top;
-  }
-
-  .specs__cat-badge {
-    display: inline-flex;
-    padding: 2px 10px;
-    border-radius: 100px;
-    font-size: 11px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .specs__cat-badge--construccion  { background: rgba(51,65,85,0.08);   color: #1e293b; }
-  .specs__cat-badge--proteccion    { background: rgba(220,38,38,0.08);  color: #991b1b; }
-  .specs__cat-badge--visibilidad   { background: rgba(234,88,12,0.08);  color: #9a3412; }
-  .specs__cat-badge--ergonomia     { background: rgba(22,163,74,0.08);  color: #14532d; }
-  .specs__cat-badge--certificacion { background: rgba(124,58,237,0.08); color: #4c1d95; }
-
-  .specs__label {
-    padding: var(--space-3) var(--space-5);
-    color: var(--color-smoke-700, #374151);
-    font-weight: 500;
-  }
-
-  .specs__val {
-    padding: var(--space-3) var(--space-5);
-    color: var(--color-smoke-900, #111827);
-    font-weight: 700;
-  }
-
-  .specs__note {
-    margin-top: var(--space-3);
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400, #9ca3af);
-    font-style: italic;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     APLICACIONES
-     ═══════════════════════════════════════════════════════════════════════ */
-  .aplic__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-4);
-  }
-
-  .aplic-card {
-    background: #ffffff;
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: var(--radius-xl, 12px);
-    padding: var(--space-7);
-  }
-
-  .aplic-card__head {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
-  }
-
-  .aplic-card__num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 36px;
-    height: 36px;
-    background: rgba(220, 38, 38, 0.1);
-    border-radius: var(--radius-lg, 8px);
-    font-size: var(--text-sm);
-    font-weight: 900;
-    color: var(--color-fire-700, #b91c1c);
-    flex-shrink: 0;
-  }
-
-  .aplic-card__title {
-    font-size: var(--text-base);
-    font-weight: 800;
-    color: var(--color-smoke-900, #111827);
-    line-height: 1.3;
-  }
-
-  .aplic-card__desc {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600, #4b5563);
-    line-height: 1.7;
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-smoke-100, #f3f4f6);
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     CERTIFICACIONES — SECCIÓN OSCURA
-     ═══════════════════════════════════════════════════════════════════════ */
-  .certs-dark {
-    background: var(--color-smoke-950, #030712);
-    border-radius: var(--radius-2xl, 16px);
-    padding: var(--space-10);
-    border: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .certs-dark__head {
-    text-align: center;
-    margin-bottom: var(--space-8);
-  }
-
-  .certs-dark__eyebrow {
-    display: inline-block;
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: #ef4444;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--space-3);
-  }
-
-  .certs-dark__title {
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 900;
-    color: #ffffff;
-    letter-spacing: -0.01em;
-    margin-bottom: var(--space-3);
-  }
-
-  .certs-dark__desc {
-    font-size: var(--text-sm);
-    color: #6b7280;
-    line-height: 1.7;
-    max-width: 560px;
-    margin: 0 auto;
-  }
-
-  .certs-dark__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-3);
-  }
-
-  .cert-item {
-    padding: var(--space-5);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius-xl, 12px);
-    transition: background 0.2s, border-color 0.2s;
-  }
-
-  .cert-item:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(220,38,38,0.3);
-  }
-
-  .cert-item__code {
-    font-size: var(--text-xl);
-    font-weight: 900;
-    color: #ef4444;
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-2);
-  }
-
-  .cert-item__desc {
-    font-size: var(--text-sm);
-    color: #6b7280;
-    line-height: 1.5;
-  }
-
-  .cert-item--cta {
-    background: rgba(220,38,38,0.1);
-    border-color: rgba(220,38,38,0.25);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-3);
-  }
-
-  .cert-item__cta-label {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: #fca5a5;
-  }
-
-  .cert-item__cta-btn {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--space-2) var(--space-5);
-    background: #dc2626;
-    color: #ffffff;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: var(--radius-lg, 8px);
-    transition: background 0.2s;
-  }
-
-  .cert-item__cta-btn:hover { background: #b91c1c; }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     SIDEBAR
-     ═══════════════════════════════════════════════════════════════════════ */
-  .prod-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    position: sticky;
-    top: calc(var(--header-height, 80px) + var(--space-4));
-  }
-
-  .sb-card {
-    background: #ffffff;
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: var(--radius-xl, 12px);
-    padding: var(--space-5);
-  }
-
-  .sb-card--cta {
-    background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #b91c1c 100%);
-    border-color: transparent;
-    color: #ffffff;
-  }
-
-  .sb-card__title {
-    font-size: var(--text-base);
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: var(--space-2);
-  }
-
-  .sb-card__title--dark {
-    color: var(--color-smoke-900, #111827);
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--color-smoke-100, #f3f4f6);
-    margin-bottom: var(--space-3);
-  }
-
-  .sb-card__title--dark svg { color: var(--color-fire-600, #dc2626); flex-shrink: 0; }
-
-  .sb-card__text {
-    font-size: var(--text-xs);
-    color: rgba(255,255,255,0.75);
-    line-height: 1.6;
-    margin-bottom: var(--space-4);
-  }
-
-  .sb-card__subtext {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500, #6b7280);
-    margin-top: calc(var(--space-3) * -1);
-    margin-bottom: var(--space-3);
-  }
-
-  .sb-cta-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-3) var(--space-4);
-    background: #ffffff;
-    color: #991b1b;
-    font-size: var(--text-sm);
-    font-weight: 800;
-    text-decoration: none;
-    border-radius: var(--radius-lg, 8px);
-    margin-bottom: var(--space-3);
-    transition: background 0.15s;
-  }
-
-  .sb-cta-btn:hover { background: #fef2f2; }
-
-  .sb-card__contacts {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-2);
-  }
-
-  .sb-contact {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-1);
-    padding: var(--space-2);
-    background: rgba(255,255,255,0.15);
-    border-radius: var(--radius-lg, 8px);
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: #ffffff;
-    text-decoration: none;
-    transition: background 0.15s;
-  }
-
-  .sb-contact:hover { background: rgba(255,255,255,0.25); }
-  .sb-contact--wa   { background: rgba(37,211,102,0.3); }
-  .sb-contact--wa:hover { background: rgba(37,211,102,0.45); }
-
-  .sb-specs { list-style: none; padding: 0; margin: 0; }
-
-  .sb-specs__row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-2) 0;
-    border-bottom: 1px solid var(--color-smoke-100, #f3f4f6);
-    gap: var(--space-2);
-  }
-
-  .sb-specs__row:last-child { border-bottom: none; }
-
-  .sb-specs__label {
-    font-size: 12px;
-    color: var(--color-smoke-500, #6b7280);
-    white-space: nowrap;
-  }
-
-  .sb-specs__val {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--color-smoke-800, #1f2937);
-    text-align: right;
-  }
-
-  .sb-links { list-style: none; padding: 0; margin: 0 0 var(--space-3); display: flex; flex-direction: column; gap: var(--space-1); }
-
-  .sb-link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-700, #374151);
-    text-decoration: none;
-    border-radius: var(--radius-lg, 8px);
-    transition: background 0.12s, color 0.12s;
-  }
-
-  .sb-link:hover { background: #fef2f2; color: var(--color-fire-700, #b91c1c); }
-  .sb-link svg   { color: var(--color-smoke-400, #9ca3af); flex-shrink: 0; }
-
-  .sb-see-all {
-    display: inline-block;
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: var(--color-fire-600, #dc2626);
-    text-decoration: none;
-  }
-
-  .sb-see-all:hover { text-decoration: underline; }
-
-  .sb-epp { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-1); }
-
-  .sb-epp__link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2);
-    text-decoration: none;
-    border-radius: var(--radius-lg, 8px);
-    transition: background 0.12s;
-  }
-
-  .sb-epp__link:hover { background: #fef2f2; }
-
-  .sb-epp__tag {
-    display: inline-flex;
-    padding: 2px 8px;
-    background: var(--color-smoke-100, #f3f4f6);
-    border-radius: 100px;
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--color-smoke-600, #4b5563);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .sb-epp__label {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-700, #374151);
-    flex: 1;
-    line-height: 1.3;
-  }
-
-  .sb-epp__link svg { color: var(--color-smoke-300, #d1d5db); flex-shrink: 0; margin-left: auto; }
-
-  .sb-articles { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 2px; }
-
-  .sb-article__link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-2);
-    text-decoration: none;
-    border-radius: var(--radius-lg, 8px);
-    transition: background 0.12s;
-  }
-
-  .sb-article__link:hover { background: #fef2f2; }
-
-  .sb-article__tag {
-    display: inline-flex;
-    padding: 2px 8px;
-    background: rgba(220,38,38,0.08);
-    border-radius: 100px;
-    font-size: 10px;
-    font-weight: 700;
-    color: #991b1b;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .sb-article__label {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-700, #374151);
-    flex: 1;
-    line-height: 1.3;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     FAQ
-     ═══════════════════════════════════════════════════════════════════════ */
-  .faq-prod {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50, #f9fafb);
-  }
-
-  .faq-prod__grid {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: var(--space-8);
-    align-items: start;
-    margin-top: var(--space-10);
-  }
-
-  .faq-prod__list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .faq-item {
-    background: #ffffff;
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: var(--radius-xl, 12px);
-    overflow: hidden;
-  }
-
-  .faq-item__q {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    padding: var(--space-5) var(--space-6);
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900, #111827);
-    cursor: pointer;
-    list-style: none;
-    line-height: 1.4;
-  }
-
-  .faq-item__q::-webkit-details-marker { display: none; }
-
-  .faq-item__toggle {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    border-radius: 50%;
-    background: var(--color-smoke-100, #f3f4f6);
-    position: relative;
-    transition: background 0.2s, transform 0.2s;
-  }
-
-  .faq-item__toggle::before,
-  .faq-item__toggle::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--color-smoke-600, #4b5563);
-    border-radius: 2px;
-  }
-
-  .faq-item__toggle::before { width: 10px; height: 2px; }
-  .faq-item__toggle::after  { width: 2px; height: 10px; transition: transform 0.2s; }
-
-  .faq-item[open] .faq-item__toggle { background: #fef2f2; }
-  .faq-item[open] .faq-item__toggle::after { transform: translate(-50%, -50%) rotate(90deg); }
-
-  .faq-item__a {
-    padding: 0 var(--space-6) var(--space-5);
-    border-top: 1px solid var(--color-smoke-100, #f3f4f6);
-  }
-
-  .faq-item__a p {
-    padding-top: var(--space-4);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600, #4b5563);
-    line-height: 1.75;
-  }
-
-  .faq-prod__aside {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    position: sticky;
-    top: calc(var(--header-height, 80px) + var(--space-4));
-  }
-
-  .faq-aside-card {
-    padding: var(--space-6);
-    background: #ffffff;
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: var(--radius-xl, 12px);
-  }
-
-  .faq-aside-card svg {
-    color: var(--color-fire-600, #dc2626);
-    margin-bottom: var(--space-3);
-  }
-
-  .faq-aside-card h4 {
-    font-size: var(--text-base);
-    font-weight: 800;
-    color: var(--color-smoke-900, #111827);
-    margin-bottom: var(--space-2);
-    line-height: 1.3;
-  }
-
-  .faq-aside-card p {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500, #6b7280);
-    line-height: 1.6;
-    margin-bottom: var(--space-4);
-  }
-
-  .faq-aside-card__btn {
-    display: block;
-    padding: var(--space-3) var(--space-4);
-    background: var(--color-smoke-900, #111827);
-    color: #ffffff;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: var(--radius-lg, 8px);
-    text-align: center;
-    transition: background 0.2s;
-  }
-
-  .faq-aside-card__btn:hover { background: #000000; }
-
-  .faq-aside-card--fire {
-    background: linear-gradient(135deg, #7f1d1d, #991b1b);
-    border-color: transparent;
-  }
-
-  .faq-aside-card--fire h4 { color: #ffffff; }
-  .faq-aside-card--fire p  { color: rgba(255,255,255,0.7); }
-
-  .faq-aside-card__btn--wa {
-    background: #25D366;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .faq-aside-card__btn--wa:hover { background: #128C7E; }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     RELACIONADOS
-     ═══════════════════════════════════════════════════════════════════════ */
-  .relacionados {
-    padding: var(--space-16) 0;
-    background: #ffffff;
-  }
-
-  .rel__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-5);
-    margin-top: var(--space-10);
-  }
-
-  .rel-card {
-    background: #ffffff;
-    border: 1px solid var(--color-smoke-200, #e5e7eb);
-    border-radius: var(--radius-xl, 12px);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: box-shadow 0.2s, transform 0.2s;
-  }
-
-  .rel-card:hover {
-    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-    transform: translateY(-2px);
-  }
-
-  .rel-card__img-wrap {
-    aspect-ratio: 1/1;
-    overflow: hidden;
-    position: relative;
-    background: var(--color-smoke-100, #f3f4f6);
-  }
-
-  .rel-card__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s;
-  }
-
-  .rel-card:hover .rel-card__img { transform: scale(1.03); }
-
-  .rel-card__badge {
-    position: absolute;
-    top: var(--space-3);
-    right: var(--space-3);
-    padding: 3px 10px;
-    background: var(--color-fire-600, #dc2626);
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: 800;
-    border-radius: 100px;
-  }
-
-  .rel-card__body {
-    padding: var(--space-5);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-    flex: 1;
-  }
-
-  .rel-card__title {
-    font-size: var(--text-base);
-    font-weight: 800;
-    color: var(--color-smoke-900, #111827);
-    line-height: 1.3;
-  }
-
-  .rel-card__desc {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500, #6b7280);
-    line-height: 1.6;
-    flex: 1;
-  }
-
-  .rel-card__btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-3) var(--space-4);
-    background: var(--color-smoke-950, #030712);
-    color: #ffffff;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    text-decoration: none;
-    border-radius: var(--radius-lg, 8px);
-    transition: background 0.2s;
-    gap: var(--space-2);
-  }
-
-  .rel-card__btn:hover { background: var(--color-fire-700, #b91c1c); }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     RESPONSIVE
-     ═══════════════════════════════════════════════════════════════════════ */
-  @media (max-width: 1024px) {
-    .prod-layout__inner { grid-template-columns: 1fr; }
-    .prod-sidebar { position: static; }
-    .rel__grid { grid-template-columns: repeat(2, 1fr); }
-    .certs-dark__grid { grid-template-columns: repeat(2, 1fr); }
-    .hero__container { grid-template-columns: 1fr; gap: var(--space-8); }
-  }
-
-  @media (max-width: 768px) {
-    .prod-intro__body { grid-template-columns: 1fr; }
-    .capa-card__body  { grid-template-columns: 1fr; }
-    .capa-card__desc  { border-right: none; border-bottom: 1px solid var(--color-smoke-100, #f3f4f6); }
-    .aplic__grid      { grid-template-columns: 1fr; }
-    .faq-prod__grid   { grid-template-columns: 1fr; }
-    .faq-prod__aside  { position: static; }
-    .hero { padding: var(--space-12) 0 var(--space-10); }
-    .sb-card__contacts { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 640px) {
-    .prod-gallery__track { grid-template-columns: repeat(2, 1fr); }
-    .rel__grid { grid-template-columns: 1fr; }
-    .certs-dark__grid { grid-template-columns: 1fr; }
-    .certs-dark { padding: var(--space-7); }
-  }
-</style>
+  canonical="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/membrana-gore-tex"
+  image="/images/directorio/traje-bombero-estructural-nfpa-01.avif"
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/"                                                               },
+    { label: "Productos",                   href: "/productos"                                                      },
+    { label: "Trajes de Bombero",           href: "/productos/trajes-para-bomberos"                                 },
+    { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971"    },
+    { label: "Membrana Gore-Tex®" },
+  ]}
+
+  heroBadge="Traje Estructural · NFPA 1971 · Barrera de Humedad"
+  heroTitle="Membrana Gore-Tex®"
+  heroTitleHighlight="Barrera de Humedad NFPA 1971"
+  heroSubtitle="Segunda capa del sistema estructural NFPA 1971. Membrana ePTFE Gore-Tex® que bloquea el ingreso de líquidos peligrosos, vapores tóxicos y agua presurizada mientras evacúa el vapor corporal. Impermeabilidad Method 6 y transpirabilidad MVTR 1,500+ g/m²/24 h."
+  heroSeoBlocks={heroSeoBlocks}
+
+  ctaBarQuote="Cotizar Membrana Gore-Tex® NFPA 1971"
+
+  productoCategoria="Barrera de Humedad — 2ª Capa Estructural"
+  productoBadges={productoBadges}
+  productoSoldLabel="GORE-TEX®"
+  productoTitle="Membrana Gore-Tex® ePTFE"
+  productoTitleSub="Barrera de Humedad — Traje Estructural NFPA 1971"
+  productoDesc="Segunda capa del sistema 3 capas NFPA 1971. La membrana ePTFE Gore-Tex® impide el ingreso de líquidos peligrosos, vapores tóxicos y agua presurizada al interior del traje, mientras evacúa el vapor corporal para prevenir fatiga térmica y quemaduras por vapor."
+  productoFeatures={productoFeatures}
+  productoAppTags={productoAppTags}
+
+  gallery={gallery}
+
+  capasEyebrow="Tecnología de Membrana"
+  capasTitle="Gore-Tex® ePTFE — La Barrera de Humedad NFPA 1971"
+  capasDesc="Tres componentes definen la barrera de humedad del traje estructural: la membrana ePTFE que bloquea líquidos y vapores, el MVTR que garantiza evacuación de vapor corporal, y el sellado de costuras que elimina los únicos puntos de vulnerabilidad posibles."
+  capas={capas}
+
+  specsTitle="Especificaciones Completas — Membrana Gore-Tex® NFPA 1971"
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesTitle="¿Dónde Protege la Membrana Gore-Tex® NFPA 1971?"
+  aplicacionesContent={aplicacionesContent}
+  aplicaciones={aplicaciones}
+
+  certsTitle="Certificada NFPA 1971 — Impermeabilidad y Resistencia a Líquidos"
+  certsDesc="La membrana Gore-Tex® ePTFE cumple los requisitos más exigentes de NFPA 1971 para barreras de humedad: impermeabilidad Method 6, Clase F3 de resistencia a líquidos peligrosos y transpirabilidad mínima MVTR certificada en laboratorio ISO/IEC 17025."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/trajes-para-bomberos"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Todo sobre la Membrana Gore-Tex® NFPA 1971"
+  faqDescription="Preguntas técnicas frecuentes sobre la barrera de humedad Gore-Tex® ePTFE: funcionamiento, certificaciones, MVTR, sellado de costuras y mantenimiento."
+  faqDocDesc="Solicita la ficha técnica completa y el certificado de laboratorio de la membrana Gore-Tex® ePTFE NFPA 1971."
+  faqs={faqs}
+
+  relacionadosDesc="La membrana Gore-Tex® es la segunda capa del sistema integrado NFPA 1971. Combínala con el resto del EPP certificado para la protección completa."
+  relacionados={relacionados}
+/>

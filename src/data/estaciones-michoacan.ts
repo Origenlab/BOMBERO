@@ -890,9 +890,36 @@ export function getContextoZona(zona: string): { descripcion: string; riesgos: s
   };
 }
 
+/**
+ * Obtiene todos los municipios/ciudades únicos
+ */
+export function getMunicipios(): string[] {
+  return [...new Set(estacionesMichoacan.map(e => e.ciudad))].filter(Boolean).sort() as string[];
+}
+
+/**
+ * Obtiene estación por slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesMichoacan.find(e => e.slug === slug);
+}
+
+/**
+ * Obtiene estaciones cercanas (excluyendo la actual)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+  // Priorizar misma zona
+  const mismaZona = estacionesMichoacan.filter(e => e.slug !== slug && e.zona === estacion.zona);
+  const otras = estacionesMichoacan.filter(e => e.slug !== slug && e.zona !== estacion.zona);
+  return [...mismaZona, ...otras].slice(0, limit);
+}
+
 // Estadísticas agregadas
 export const ESTADISTICAS_MICHOACAN = {
   totalEstaciones: estacionesMichoacan.length,
+  totalMunicipios: 113,
   estacionesMorelia: getEstacionesMorelia().length,
   estacionesCosta: getEstacionesCosta().length,
   estacionesHAZMAT: getEstacionesHAZMAT().length,

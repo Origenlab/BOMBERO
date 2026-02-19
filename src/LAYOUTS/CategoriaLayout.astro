@@ -1,0 +1,779 @@
+---
+/**
+ * ─── CategoriaLayout ───
+ * Layout reutilizable para TODAS las páginas de categoría y subcategoría.
+ * Contiene toda la estructura HTML y CSS.
+ * Los archivos de categoría solo necesitan pasar datos como props — cero CSS.
+ *
+ * Aplica a dos niveles de jerarquía:
+ *  A) Categoría principal  → /productos/trajes-para-bomberos
+ *  B) Subcategoría         → /productos/trajes-para-bomberos/traje-estructural-nfpa-1971
+ *
+ * Secciones incluidas:
+ *  1. Breadcrumb
+ *  2. Hero (badge animado + título + highlight + subtítulo + 2 bloques SEO)
+ *  3. CTABar
+ *  4. Grid de tarjetas de productos/variantes (ProductCard)
+ *  5. Tecnología y certificaciones — sección dark (3 CategoryCard)
+ *  6. Tabla comparativa (headers + rows configurables)
+ *  7. WhyChooseUs (global)
+ *  8. FAQ (global, personalizable)
+ *  9. Categorías relacionadas / EPP complementario (CategoryCard grid)
+ * 10. CTABanner (global)
+ *
+ * Schema.org:
+ *  - BreadcrumbList
+ *  - ItemList (productos)
+ *  - FAQPage (si se proveen faqs)
+ */
+
+import PageLayout from "@layouts/PageLayout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import CTABar from "@components/CTABar.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import CategoryCard from "@components/CategoryCard.astro";
+import ProductCard from "@components/ProductCard.astro";
+import WhyChooseUs from "@components/WhyChooseUs.astro";
+import CTABanner from "@components/CTABanner.astro";
+
+/* ── Tipos ─────────────────────────────────────────────────────────────── */
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface HeroSeoBlock {
+  title: string;
+  text: string;   // HTML permitido (<strong>, etc.)
+}
+
+interface ProductCardItem {
+  nombre: string;
+  slug: string;
+  badge: string;
+  badgeColor: "ember" | "fire" | "smoke";
+  imagen: string | null;
+  descripcion: string;
+  caracteristicas: string[];
+  aplicacion: string;
+}
+
+interface SpecCard {
+  title: string;
+  icon: string;
+  description: string;
+}
+
+interface TablaCell {
+  text: string;
+  chip?: "ember" | "fire" | "smoke";  // si se provee, se renderiza como cert-chip
+  strong?: boolean;                    // negrita sin chip
+}
+
+interface TablaRow {
+  cells: TablaCell[];
+}
+
+interface RelacionadoCard {
+  title: string;
+  icon?: string;
+  image?: string;
+  href: string;
+  buttonText: string;
+  description?: string;
+  items?: { label: string; href: string }[];
+}
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  /* ── SEO / Meta ──────────────────────────────────────────────── */
+  title: string;
+  description: string;
+  keywords: string[];
+  canonical: string;
+  type?: "website" | "product";
+  image?: string;
+
+  /* ── Breadcrumb ──────────────────────────────────────────────── */
+  breadcrumb: BreadcrumbItem[];
+
+  /* ── Hero ────────────────────────────────────────────────────── */
+  heroBadge: string;
+  heroTitle: string;
+  heroTitleHighlight: string;
+  heroSubtitle: string;
+  heroSeoBlocks: HeroSeoBlock[];    // 2 bloques SEO (H2 + párrafo)
+
+  /* ── CTABar ──────────────────────────────────────────────────── */
+  ctaBarQuote: string;
+
+  /* ── Sección productos / variantes ──────────────────────────── */
+  productosLabel: string;
+  productosTitle: string;
+  productosDesc: string;
+  productosContent: string;         // HTML — párrafos descriptivos (set:html)
+  productoCards: ProductCardItem[];
+  productosAltSuffix?: string;      // sufijo del alt de las imágenes
+
+  /* ── Sección specs / tecnología (dark) ──────────────────────── */
+  specsLabel?: string;
+  specsTitle: string;
+  specsDesc: string;
+  specsContent: string;             // HTML — párrafos descriptivos (set:html)
+  specsCards: SpecCard[];           // exactamente 3 tarjetas
+
+  /* ── Tabla comparativa ───────────────────────────────────────── */
+  comparativaLabel?: string;
+  comparativaTitle: string;
+  comparativaDesc: string;
+  comparativaContent: string;       // HTML — párrafos descriptivos (set:html)
+  tablaHeaders: string[];           // cabeceras de la tabla
+  tablaRows: TablaRow[];            // filas de datos
+
+  /* ── Sección relacionados / EPP complementario ─────────────── */
+  relacionadosLabel?: string;
+  relacionadosTitle: string;
+  relacionadosDesc: string;
+  relacionadosContent: string;      // HTML — párrafos descriptivos (set:html)
+  relacionadoCards: RelacionadoCard[];
+
+  /* ── FAQ (opcional, schema FAQPage) ─────────────────────────── */
+  faqs?: FaqItem[];
+}
+
+const {
+  title, description, keywords, canonical, type = "website", image,
+  breadcrumb,
+  heroBadge, heroTitle, heroTitleHighlight, heroSubtitle, heroSeoBlocks,
+  ctaBarQuote,
+  productosLabel, productosTitle, productosDesc, productosContent,
+  productoCards, productosAltSuffix = "equipo de bombero certificado",
+  specsLabel = "Tecnología y Certificaciones", specsTitle, specsDesc, specsContent, specsCards,
+  comparativaLabel = "Tabla Comparativa", comparativaTitle, comparativaDesc, comparativaContent,
+  tablaHeaders, tablaRows,
+  relacionadosLabel = "Catálogo Relacionado", relacionadosTitle, relacionadosDesc, relacionadosContent,
+  relacionadoCards,
+  faqs = [],
+} = Astro.props;
+
+/* ── Schema.org ──────────────────────────────────────────────────────────── */
+const schemaGraph: object[] = [
+  {
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumb.map((item, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "name": item.label,
+      ...(item.href ? { "item": `https://bombero.mx${item.href}` } : {}),
+    })),
+  },
+  {
+    "@type": "ItemList",
+    "name": productosTitle,
+    "description": productosDesc,
+    "numberOfItems": productoCards.length,
+    "itemListElement": productoCards.map((p, i) => ({
+      "@type": "ListItem",
+      "position": i + 1,
+      "url": `https://bombero.mx${p.slug}`,
+      "name": p.nombre,
+    })),
+  },
+  ...(faqs.length > 0
+    ? [{
+        "@type": "FAQPage",
+        "mainEntity": faqs.map((f) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.a,
+          },
+        })),
+      }]
+    : []),
+];
+
+const schemaJson = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": schemaGraph,
+});
+---
+
+<PageLayout
+  {title}
+  {description}
+  {keywords}
+  {type}
+  {canonical}
+  image={image ?? "/images/directorio/estacion-bomberos-mexico-01.avif"}
+>
+  <!-- Schema.org -->
+  <script type="application/ld+json" set:html={schemaJson} slot="head" />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb items={breadcrumb} />
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__gradient"></div>
+      <div class="hero__grid"></div>
+      <div class="hero__glow hero__glow--1"></div>
+      <div class="hero__glow hero__glow--2"></div>
+    </div>
+
+    <div class="container hero__container">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          {heroBadge}
+        </div>
+        <h1 class="hero__title">
+          {heroTitle}
+          <span class="hero__title-highlight">{heroTitleHighlight}</span>
+        </h1>
+        <p class="hero__subtitle">{heroSubtitle}</p>
+      </div>
+
+      <div class="hero__seo">
+        {heroSeoBlocks.map((block) => (
+          <div class="hero__seo-block">
+            <h2 class="hero__seo-title">{block.title}</h2>
+            <p class="hero__seo-text" set:html={block.text} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAR -->
+  <CTABar quote={ctaBarQuote} />
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       GRID DE PRODUCTOS / VARIANTES
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section productos" id="catalogo">
+    <div class="container">
+      <SectionHeader
+        label={productosLabel}
+        title={productosTitle}
+        description={productosDesc}
+      >
+        <Fragment set:html={productosContent} />
+      </SectionHeader>
+
+      <div class="productos__grid" data-count={productoCards.length}>
+        {productoCards.map((card) => (
+          <ProductCard
+            nombre={card.nombre}
+            slug={card.slug}
+            badge={card.badge}
+            badgeColor={card.badgeColor}
+            imagen={card.imagen}
+            descripcion={card.descripcion}
+            caracteristicas={card.caracteristicas}
+            aplicacion={card.aplicacion}
+            altSuffix={productosAltSuffix}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       TECNOLOGÍA Y CERTIFICACIONES — DARK
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section section--dark specs">
+    <div class="container">
+      <SectionHeader
+        label={specsLabel}
+        title={specsTitle}
+        description={specsDesc}
+      >
+        <Fragment set:html={specsContent} />
+      </SectionHeader>
+      <div class="specs__grid">
+        {specsCards.map((card) => (
+          <CategoryCard
+            title={card.title}
+            icon={card.icon}
+            description={card.description}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       TABLA COMPARATIVA
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section comparativa">
+    <div class="container">
+      <SectionHeader
+        label={comparativaLabel}
+        title={comparativaTitle}
+        description={comparativaDesc}
+      >
+        <Fragment set:html={comparativaContent} />
+      </SectionHeader>
+      <div class="comparativa__wrapper">
+        <table class="comparativa__table">
+          <thead>
+            <tr>
+              {tablaHeaders.map((h) => <th>{h}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {tablaRows.map((row) => (
+              <tr>
+                {row.cells.map((cell, ci) => (
+                  <td>
+                    {cell.chip
+                      ? <span class={`cert-chip cert-chip--${cell.chip}`}>{cell.text}</span>
+                      : cell.strong || ci === 0
+                        ? <strong>{cell.text}</strong>
+                        : cell.text
+                    }
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <WhyChooseUs />
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       FAQ
+       ═══════════════════════════════════════════════════════════════════ -->
+  {faqs.length > 0 && (
+    <section class="section faq" id="faq">
+      <div class="container faq__container">
+        <SectionHeader
+          label="Preguntas Frecuentes"
+          title="Todo lo que Necesitas Saber"
+          description="Respuestas a las preguntas más frecuentes de cuerpos de bomberos y brigadas industriales sobre este producto."
+        />
+        <div class="faq__list">
+          {faqs.map((item) => (
+            <details class="faq__item">
+              <summary class="faq__question">
+                <span>{item.q}</span>
+                <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </summary>
+              <div class="faq__answer">
+                <p set:html={item.a} />
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       RELACIONADOS / EPP COMPLEMENTARIO
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section relacionados">
+    <div class="container">
+      <SectionHeader
+        label={relacionadosLabel}
+        title={relacionadosTitle}
+        description={relacionadosDesc}
+      >
+        <Fragment set:html={relacionadosContent} />
+      </SectionHeader>
+      <div class="rel__grid" data-count={relacionadoCards.length}>
+        {relacionadoCards.map((card) => (
+          <CategoryCard
+            title={card.title}
+            icon={card.icon}
+            image={card.image}
+            href={card.href}
+            buttonText={card.buttonText}
+            description={card.description}
+            items={card.items}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER FINAL -->
+  <CTABanner />
+</PageLayout>
+
+<style>
+  /* ══════════════════════════════════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: var(--color-smoke-950);
+    overflow: hidden;
+    padding: var(--space-16) 0;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
+      radial-gradient(ellipse 60% 50% at 0%   50%, rgba(249, 115, 22, 0.10), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
+  }
+
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .hero__glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.4;
+  }
+
+  .hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
+  .hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
+
+  .hero__container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+    padding-block: var(--space-8);
+  }
+
+  .hero__content { color: var(--color-text-on-dark); }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-fire-400);
+    margin-bottom: var(--space-6);
+  }
+
+  .hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-ember-500);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .hero__title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-6);
+    letter-spacing: var(--tracking-tight);
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero__title-highlight {
+    background: var(--gradient-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+  }
+
+  .hero__subtitle {
+    font-size: var(--text-xl);
+    color: var(--color-smoke-300);
+    line-height: var(--leading-relaxed);
+    max-width: 540px;
+    margin-bottom: var(--space-8);
+  }
+
+  .hero__seo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .hero__seo-block { padding: var(--space-4) 0; }
+
+  .hero__seo-title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-fire-400);
+    margin-bottom: var(--space-4);
+    line-height: var(--leading-tight);
+  }
+
+  .hero__seo-text {
+    font-size: var(--text-base);
+    color: var(--color-smoke-300);
+    line-height: var(--leading-relaxed);
+  }
+
+  .hero__seo-text :global(strong) { color: #ffffff; font-weight: 600; }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     PRODUCTOS GRID
+     ══════════════════════════════════════════════════════════════════════ */
+  .productos { background: var(--color-smoke-50); }
+
+  .productos__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  /* Grid de 5 items: últimos 2 centrados */
+  .productos__grid[data-count="5"] > :global(:nth-child(4)) { grid-column: 1; }
+  .productos__grid[data-count="5"] > :global(:nth-child(5)) { grid-column: 2; }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     SPECS — DARK
+     ══════════════════════════════════════════════════════════════════════ */
+  .specs { background: var(--gradient-dark); }
+
+  .specs :global(.section-header__label) { color: var(--color-fire-400); }
+  .specs :global(.section-header__title) { color: white; }
+  .specs :global(.section-header__desc)  { color: var(--color-smoke-300); }
+  .specs :global(.section-header__right p)      { color: var(--color-smoke-300); }
+  .specs :global(.section-header__right strong) { color: white; font-weight: 600; }
+
+  .specs__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     TABLA COMPARATIVA
+     ══════════════════════════════════════════════════════════════════════ */
+  .comparativa { background: #ffffff; }
+
+  .comparativa__wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--color-smoke-200);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+
+  .comparativa__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .comparativa__table thead { background: var(--color-smoke-900); }
+
+  .comparativa__table th {
+    padding: var(--space-4) var(--space-5);
+    text-align: left;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-smoke-300);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .comparativa__table tbody tr {
+    border-bottom: 1px solid var(--color-smoke-100);
+    background: white;
+    transition: background var(--transition-fast);
+  }
+
+  .comparativa__table tbody tr:last-child { border-bottom: none; }
+  .comparativa__table tbody tr:hover      { background: var(--color-smoke-50); }
+
+  .comparativa__table td {
+    padding: var(--space-4) var(--space-5);
+    color: var(--color-smoke-700);
+    line-height: 1.5;
+    vertical-align: middle;
+  }
+
+  .comparativa__table td:first-child {
+    color: var(--color-smoke-900);
+    white-space: nowrap;
+  }
+
+  .cert-chip {
+    display: inline-block;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-md);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .cert-chip--ember { background: rgba(220, 38, 38, 0.1); color: var(--color-ember-700); }
+  .cert-chip--fire  { background: rgba(249, 115, 22, 0.1); color: var(--color-fire-700); }
+  .cert-chip--smoke { background: var(--color-smoke-100);  color: var(--color-smoke-700); }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     FAQ
+     ══════════════════════════════════════════════════════════════════════ */
+  .faq { background: var(--color-smoke-50); }
+
+  .faq__container { max-width: 900px; }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-10);
+  }
+
+  .faq__item {
+    background: white;
+    border: 1px solid var(--color-smoke-200);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .faq__item[open] {
+    border-color: var(--color-ember-200);
+    box-shadow: 0 4px 16px rgba(220, 38, 38, 0.08);
+  }
+
+  .faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    font-size: var(--text-base);
+    color: var(--color-smoke-900);
+    user-select: none;
+  }
+
+  .faq__question::-webkit-details-marker { display: none; }
+
+  .faq__icon {
+    flex-shrink: 0;
+    color: var(--color-ember-600);
+    transition: transform var(--transition-fast);
+  }
+
+  details[open] .faq__icon { transform: rotate(180deg); }
+
+  .faq__answer {
+    padding: 0 var(--space-6) var(--space-5);
+  }
+
+  .faq__answer p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: var(--leading-relaxed);
+    margin: 0;
+  }
+
+  .faq__answer :global(strong) {
+    color: var(--color-smoke-800);
+    font-weight: 600;
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     RELACIONADOS
+     ══════════════════════════════════════════════════════════════════════ */
+  .relacionados { background: var(--color-smoke-50); }
+
+  .rel__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+
+  .rel__grid[data-count="3"] { grid-template-columns: repeat(3, 1fr); }
+  .rel__grid[data-count="2"] { grid-template-columns: repeat(2, 1fr); }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ══════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1200px) {
+    .rel__grid          { grid-template-columns: repeat(2, 1fr) !important; }
+    .productos__grid    { grid-template-columns: repeat(2, 1fr); }
+    .productos__grid[data-count="5"] > :global(:nth-child(4)),
+    .productos__grid[data-count="5"] > :global(:nth-child(5)) { grid-column: auto; }
+  }
+
+  @media (max-width: 1024px) {
+    .specs__grid {
+      grid-template-columns: 1fr;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 968px) {
+    .hero { padding: var(--space-10) 0; }
+    .hero__container {
+      grid-template-columns: 1fr;
+      padding-block: var(--space-4);
+    }
+    .hero__subtitle { max-width: 100%; }
+    .hero__seo      { display: none; }
+    .specs__grid    { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .productos__grid { grid-template-columns: 1fr; }
+    .comparativa__table th,
+    .comparativa__table td {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-xs);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero__title    { font-size: 2rem; }
+    .hero__subtitle { font-size: var(--text-base); }
+    .rel__grid      { grid-template-columns: 1fr !important; }
+  }
+</style>

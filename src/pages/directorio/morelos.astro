@@ -1,44 +1,31 @@
 ---
 /**
- * Directorio de Estaciones de Bomberos Morelos
- * Estado con el clima mas agradable de Mexico: la Ciudad de la Eterna Primavera
+ * ─── Directorio Bomberos Morelos ───
+ * Solo datos — el diseño vive en DirectorioEstadoLayout.astro
+ *
+ * "La Ciudad de la Eterna Primavera" - Cuna del Zapatismo
+ * A solo 85 km de CDMX - Destino #1 de fin de semana para capitalinos
+ * Patrimonio UNESCO: Xochicalco (1999)
+ * Pueblos Mágicos: Tepoztlán y Tlayacapan
+ * Zona Industrial CIVAC - Manufactura y automotriz
  */
-import PageLayout from "@layouts/PageLayout.astro";
-import SectionHeader from "@components/SectionHeader.astro";
-import StationCard from "@components/StationCard.astro";
-import { estacionesMorelos } from "@data/estaciones-morelos";
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesMorelos, getMunicipios, ESTADISTICAS_MORELOS, MORELOS_SEO } from "@data/estaciones-morelos";
 import { breadcrumbJsonLd } from "@utils/seo";
 
-const municipios = [...new Set(estacionesMorelos.map(e => e.ciudad))].filter(Boolean).sort();
-
-const estadosVecinos = [
-  { nombre: "Ciudad de Mexico", slug: "ciudad-de-mexico" },
-  { nombre: "Estado de Mexico", slug: "estado-de-mexico" },
-  { nombre: "Puebla", slug: "puebla" },
-  { nombre: "Guerrero", slug: "guerrero" },
-];
-
-const keywords = [
-  "bomberos morelos",
-  "estaciones bomberos cuernavaca",
-  "emergencias morelos 911",
-  "bomberos cuautla",
-  "bomberos jiutepec",
-  "cuerpo bomberos morelos",
-  "rescate morelos",
-];
+const municipios = getMunicipios();
 
 const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
+  { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Morelos", url: "/directorio/morelos" },
+  { name: "Morelos",                url: "/directorio/morelos" },
 ]);
 
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Morelos, México",
-  "description": "Directorio oficial de las estaciones de bomberos en Morelos. Teléfonos de emergencia en Cuernavaca, Cuautla, Jiutepec, Temixco y todo el estado. Emergencias 911. Servicio 24 horas.",
+  "description": "Directorio completo de las 16 estaciones de bomberos en Morelos. Protección para Cuernavaca, Cuautla, Tepoztlán, zona industrial CIVAC, Xochicalco UNESCO y 2 millones de habitantes a 85 km de CDMX. Emergencias 911.",
   "numberOfItems": estacionesMorelos.length,
   "itemListElement": estacionesMorelos.map((e, i) => ({
     "@type": "ListItem",
@@ -51,944 +38,227 @@ const itemListSchema = {
         "streetAddress": e.direccion,
         "addressLocality": e.ciudad,
         "addressRegion": "Morelos",
-        "addressCountry": "MX"
+        "addressCountry": "MX",
       },
       "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/morelos/${e.slug}`
+      "url": `https://bombero.mx/directorio/morelos/${e.slug}`,
     }
   }))
 };
+
+const stationImages = [
+  "/images/directorio/estacion-bomberos-cuernavaca-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/bomberos-profesionales-accion-01.avif",
+  "/images/directorio/estacion-bomberos-equipada-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/bomberos-accion-incendio-01.avif",
+  "/images/directorio/rescate-urbano-bomberos-01.avif",
+  "/images/directorio/rescate-vehicular-bomberos-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
+  "/images/directorio/capacitacion-bomberos-profesional-01.avif",
+  "/images/directorio/bomberos-trabajo-equipo-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/camion-cisterna-bomberos-01.avif",
+  "/images/directorio/ambulancia-bomberos-emergencias-01.avif",
+];
 ---
 
-<PageLayout
-  title="Bomberos en Morelos | Directorio Oficial de Estaciones | BOMBERO.MX"
-  description="Directorio oficial de las estaciones de bomberos en Morelos. Teléfonos de emergencia en Cuernavaca, Cuautla, Jiutepec, Temixco y todo el estado. Emergencias 911. Servicio 24 horas."
-  keywords={keywords}
+<DirectorioEstadoLayout
+  estado="Morelos"
+  sigla="MOR"
+  slug="morelos"
+  description="Directorio completo de las 16 estaciones de bomberos en Morelos. Protección para Cuernavaca, Cuautla, Tepoztlán, CIVAC, Xochicalco UNESCO y 2M+ habitantes a 85 km de CDMX. Emergencias 911."
+  keywords={["bomberos morelos","estaciones bomberos cuernavaca","bomberos cuautla","emergencias morelos 911","bomberos tepoztlán","bomberos jiutepec CIVAC","cuerpo bomberos morelos","rescate autopista del sol","bomberos xochicalco","bomberos zona industrial"]}
   canonical="https://bombero.mx/directorio/morelos"
   jsonLd={[breadcrumbSchema, itemListSchema]}
+
+  totalEstaciones={estacionesMorelos.length}
+  totalMunicipios={municipios.length}
+  habitantes="2M+"
+
+  heroDesc="Directorio completo del <strong>Heroico Cuerpo de Bomberos de Morelos</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de las 16 estaciones que protegen la Ciudad de la Eterna Primavera, la zona industrial CIVAC, 2 Pueblos Mágicos y Xochicalco UNESCO — a solo 85 km de la capital del país."
+  heroImage="/images/directorio/estacion-bomberos-cuernavaca-01.avif"
+  heroImageAlt="Estación Central de Bomberos Cuernavaca, Morelos - Ciudad de la Eterna Primavera"
+  heroCaption="H. Cuerpo de Bomberos · Morelos"
+  heroThumbs={[
+    { src: "/images/directorio/camion-bomberos-moderno-01.avif",           alt: "Camión de bomberos Cuernavaca MOR",           label: "Flota Cuernavaca"    },
+    { src: "/images/directorio/rescate-vehicular-bomberos-01.avif",        alt: "Rescate vehicular Autopista del Sol",         label: "Rescate Carretero"   },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",     alt: "Bomberos Morelos protegiendo patrimonio",     label: "Respuesta 24/7"      },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",        alt: "Entrenamiento bomberos Morelos",            label: "Academia Bomberil"    },
+    { src: "/images/directorio/camion-escalera-bomberos-01.avif",            alt: "Camión escalera bomberos Cuernavaca",       label: "Rescate en Altura"    },
+    { src: "/images/directorio/rescate-urbano-bomberos-01.avif",             alt: "Rescate urbano bomberos MOR",               label: "Rescate Barrancas"    },
+    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "Equipo HAZMAT zona industrial CIVAC",       label: "HAZMAT Industrial"    },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",               label: "Emergencias"           },
+    { number: "(777) 312-3636",    label: "Bomberos Cuernavaca"   },
+    { number: "(735) 352-5050",    label: "Bomberos Cuautla"      },
+    { number: "(777) 320-1010",    label: "Bomberos CIVAC"        },
+  ]}
+
+  municipios={municipios}
+
+  regiones={[
+    { nombre: "Zona Metropolitana Cuernavaca",  desc: "Capital, Temixco, clima primaveral, turismo, Palacio de Cortés"  },
+    { nombre: "Zona Industrial CIVAC",          desc: "Jiutepec, manufactura automotriz, HAZMAT especializado"          },
+    { nombre: "Altos de Morelos",               desc: "Tepoztlán, Tlayacapan - Pueblos Mágicos, ecoturismo, misticismo" },
+    { nombre: "Valle de Cuautla",               desc: "Cuautla, balnearios, historia zapatista, agricultura"            },
+    { nombre: "Haciendas del Sur",              desc: "Jojutla, Zacatepec, cañaverales, patrimonio hacendario"          },
+    { nombre: "Corredor Norte CDMX",            desc: "Huitzilac, Autopista del Sol, rescate carretero intensivo"       },
+  ]}
+
+  estadosVecinos={[
+    { nombre: "Ciudad de México",  slug: "ciudad-de-mexico"  },
+    { nombre: "Estado de México",  slug: "estado-de-mexico"  },
+    { nombre: "Puebla",            slug: "puebla"            },
+    { nombre: "Guerrero",          slug: "guerrero"          },
+  ]}
+
+  estaciones={estacionesMorelos}
+  stationImages={stationImages}
+
+  eppCards={[
+    {
+      image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+      imageAlt:  "Traje Estructural NFPA 1971 para bomberos Cuernavaca - Centro Histórico",
+      badge:     "NFPA 1971",
+      title:     "Traje Estructural NFPA 1971",
+      text:      "Equipo certificado para los bomberos de <strong>Cuernavaca</strong>, la Ciudad de la Eterna Primavera. Diseñado para incendios en el Centro Histórico, Palacio de Cortés (1535), Jardín Borda y rescate en las múltiples barrancas urbanas que atraviesan la capital morelense.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+      imageAlt:  "Casco NFPA 1971 para bomberos CIVAC - Zona Industrial",
+      badge:     "NFPA 1971",
+      title:     "Casco Estructural NFPA 1971",
+      text:      "Protección certificada para emergencias en la <strong>Zona Industrial CIVAC</strong>, el parque industrial más importante de Morelos. Compatible con equipos de comunicación para coordinación en plantas automotrices, manufactura y emergencias HAZMAT industriales.",
+      href:      "/productos/cascos-para-bomberos",
+      linkLabel: "Ver Cascos para Bombero",
+    },
+    {
+      image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
+      imageAlt:  "Guantes NFPA 1971 para bomberos Tepoztlán - Pueblo Mágico",
+      badge:     "NFPA 1971",
+      title:     "Guantes Estructurales NFPA 1971",
+      text:      "Resistencia térmica certificada para emergencias en <strong>Tepoztlán y los Altos de Morelos</strong>. Prensión segura para rescate en montaña, incendios forestales en el Tepozteco y atención en zonas de difícil acceso de los Pueblos Mágicos morelenses.",
+      href:      "/productos/guantes-para-bomberos",
+      linkLabel: "Ver Guantes para Bombero",
+    },
+    {
+      image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+      imageAlt:  "Botas NFPA 1971 para bomberos Cuautla - Rescate Balnearios",
+      badge:     "NFPA 1971",
+      title:     "Botas Estructurales de Cuero",
+      text:      "Calzado certificado NFPA 1971 para los bomberos de <strong>Cuautla y el Valle de Morelos</strong>. Resistentes para emergencias en balnearios de aguas termales, ex-haciendas cañeras y rescate en zonas agrícolas con más de 4 millones de visitantes anuales.",
+      href:      "/productos/botas-para-bomberos",
+      linkLabel: "Ver Botas para Bombero",
+    },
+  ]}
+
+  ctaTitle="Equipamos a los Bomberos de Morelos"
+  ctaDesc="Cotiza equipo certificado NFPA para tu estación. Stock inmediato para licitaciones en Cuernavaca, Cuautla, Jiutepec y los 36 municipios del estado. Entrega rápida a solo 85 km de CDMX."
+  ctaBtnText="Solicitar Cotización — Morelos"
 >
-  <!-- Hero Section -->
-  <section class="mor-hero">
-    <div class="mor-hero__bg">
-      <div class="mor-hero__gradient"></div>
-      <div class="mor-hero__pattern"></div>
-    </div>
-    <div class="container">
-      <div class="mor-hero__container">
-        <!-- Left Column -->
-        <div class="mor-hero__content">
-          <nav class="mor-hero__breadcrumb">
-            <a href="/">Inicio</a>
-            <span>/</span>
-            <a href="/directorio">Directorio</a>
-            <span>/</span>
-            <span>Morelos</span>
-          </nav>
-          <span class="mor-hero__badge">
-            <span class="mor-hero__badge-dot"></span>
-            MOR
-          </span>
-          <h1 class="mor-hero__title">
-            Estaciones de Bomberos en
-            <span class="mor-hero__highlight">Morelos</span>
-          </h1>
-          <p class="mor-hero__desc">
-            Directorio completo del <strong>H. Cuerpo de Bomberos de Morelos</strong>.
-            Encuentra telefonos de emergencia, direcciones y servicios de todas las estaciones en el estado de la Ciudad de la Eterna Primavera.
-          </p>
-          <div class="mor-hero__stats">
-            <div class="mor-hero__stat">
-              <span class="mor-hero__stat-number">{estacionesMorelos.length}</span>
-              <span class="mor-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="mor-hero__stat">
-              <span class="mor-hero__stat-number">{municipios.length}</span>
-              <span class="mor-hero__stat-label">Municipios</span>
-            </div>
-            <div class="mor-hero__stat">
-              <span class="mor-hero__stat-number">24/7</span>
-              <span class="mor-hero__stat-label">Servicio</span>
-            </div>
-            <div class="mor-hero__stat">
-              <span class="mor-hero__stat-number">2M+</span>
-              <span class="mor-hero__stat-label">Habitantes</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column - SEO Content -->
-        <div class="mor-hero__seo">
-          <h2 class="mor-hero__seo-title">H. Cuerpo de Bomberos de Morelos</h2>
-          <p class="mor-hero__seo-text">
-            <strong>Morelos</strong> es uno de los estados mas pequenos pero mas densamente poblados de Mexico, con mas de
-            <strong>2 millones de habitantes</strong> distribuidos en 36 municipios. Los bomberos
-            morelenses atienden emergencias en zonas residenciales, turisticas e industriales del estado.
-          </p>
-          <h2 class="mor-hero__seo-title">Turismo y Riesgos Especiales</h2>
-          <p class="mor-hero__seo-text">
-            Morelos recibe millones de visitantes cada ano en destinos como <strong>Cuernavaca, Tepoztlan y Cuautla</strong>.
-            Los bomberos estan especialmente capacitados para atender
-            <strong>emergencias en eventos masivos, zonas turisticas y accidentes en barrancas</strong>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Emergency Banner -->
-  <section class="mor-emergency">
-    <div class="container">
-      <div class="mor-emergency__content">
-        <div class="mor-emergency__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-        </div>
-        <div class="mor-emergency__text">
-          <span class="mor-emergency__label">Emergencias en Morelos</span>
-          <span class="mor-emergency__number">911</span>
-        </div>
-        <p class="mor-emergency__desc">
-          Numero unico de emergencias en todo Morelos. Disponible las 24 horas, los 365 dias del ano.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Content -->
-  <section class="mor-main">
-    <div class="container">
-      <div class="mor-main__grid">
-        <!-- Stations Grid -->
-        <div class="mor-main__content">
-          <SectionHeader
-            label="Directorio Completo"
-            title="Estaciones de Bomberos en Morelos"
-            description="Informacion de contacto actualizada de todas las estaciones del H. Cuerpo de Bomberos en Morelos. Selecciona una estacion para ver sus datos de contacto, servicios y zonas de cobertura."
-          />
-
-          <!-- Stations Grid -->
-          <div class="mor-stations-grid">
-            {estacionesMorelos.map((estacion) => (
-              <StationCard
-                nombre={estacion.nombre}
-                slug={estacion.slug}
-                direccion={estacion.direccion}
-                alcaldia={estacion.ciudad}
-                telefono={estacion.telefono}
-                servicios={estacion.servicios}
-                horario={estacion.horario}
-                baseUrl="/directorio/morelos"
-              />
-            ))}
-          </div>
-
-          <!-- SEO Content -->
-          <div class="mor-seo">
-            <h2>El H. Cuerpo de Bomberos de Morelos</h2>
-            <p>
-              El <strong>H. Cuerpo de Bomberos de Morelos</strong> es la institucion encargada de
-              proteger la vida, el medio ambiente y el patrimonio de los mas de <strong>2 millones de morelenses</strong>.
-              Con presencia en los principales municipios del estado, los bomberos atienden emergencias
-              las <strong>24 horas del dia, los 365 dias del ano</strong>.
-            </p>
-
-            <h3>Como contactar a los bomberos en Morelos?</h3>
-            <p>
-              En caso de <strong>emergencia en Morelos</strong>, marca el <strong>911</strong> desde
-              cualquier telefono. Este numero conecta con el <strong>C4 de Morelos</strong> que coordina
-              la respuesta de bomberos, policia y servicios medicos. Tambien puedes comunicarte directamente a la
-              estacion mas cercana usando los telefonos de este directorio.
-            </p>
-
-            <h3>Zonas de Mayor Riesgo en Morelos</h3>
-            <p>
-              Morelos presenta diversos riesgos que los bomberos atienden constantemente:
-              <strong>incendios en zonas residenciales</strong> de alta densidad en Cuernavaca y Cuautla,
-              <strong>accidentes en barrancas</strong> que atraviesan la capital del estado,
-              <strong>incendios forestales</strong> en la sierra del Ajusco-Chichinautzin, y
-              <strong>accidentes vehiculares</strong> en la autopista del Sol y las principales carreteras.
-            </p>
-
-            <h3>Servicios de los Bomberos Morelenses</h3>
-            <p>
-              Los bomberos de Morelos estan capacitados para atender:
-              <strong>incendios estructurales, industriales y forestales</strong>;
-              <strong>rescate vehicular en accidentes de transito</strong>;
-              <strong>materiales peligrosos (HAZMAT)</strong>;
-              <strong>rescate de personas atrapadas en barrancas</strong>;
-              <strong>control de fugas de gas</strong>;
-              <strong>rescate acuatico en rios y balnearios</strong>;
-              <strong>emergencias en zonas turisticas</strong>; y muchos otros servicios
-              vitales para la seguridad de la poblacion.
-            </p>
-          </div>
-        </div>
-
-        <!-- Sidebar -->
-        <aside class="mor-sidebar">
-          <!-- Quick Access -->
-          <div class="mor-sidebar__card">
-            <h4>Filtrar por Municipio</h4>
-            <ul class="mor-sidebar__municipios">
-              {municipios.map((municipio) => (
-                <li>
-                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}`}>
-                    <span class="mor-sidebar__bullet"></span>
-                    <span>{municipio}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Emergency Numbers -->
-          <div class="mor-sidebar__card mor-sidebar__card--emergency">
-            <h4>Telefonos de Emergencia</h4>
-            <div class="mor-sidebar__emergency-list">
-              <div class="mor-sidebar__emergency-item">
-                <span class="mor-sidebar__emergency-number">911</span>
-                <span class="mor-sidebar__emergency-label">Emergencias</span>
-              </div>
-              <div class="mor-sidebar__emergency-item">
-                <span class="mor-sidebar__emergency-number">777 312 5678</span>
-                <span class="mor-sidebar__emergency-label">Bomberos Cuernavaca</span>
-              </div>
-              <div class="mor-sidebar__emergency-item">
-                <span class="mor-sidebar__emergency-number">735 352 0000</span>
-                <span class="mor-sidebar__emergency-label">Proteccion Civil</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Regiones -->
-          <div class="mor-sidebar__card">
-            <h4>Regiones del Estado</h4>
-            <ul class="mor-sidebar__regiones">
-              <li>
-                <span class="mor-sidebar__region-name">Zona Metropolitana Cuernavaca</span>
-                <span class="mor-sidebar__region-desc">Cuernavaca, Temixco, Jiutepec, Emiliano Zapata</span>
-              </li>
-              <li>
-                <span class="mor-sidebar__region-name">Zona Oriente</span>
-                <span class="mor-sidebar__region-desc">Cuautla, Yautepec, Ayala, Tlayacapan</span>
-              </li>
-              <li>
-                <span class="mor-sidebar__region-name">Zona Norte</span>
-                <span class="mor-sidebar__region-desc">Tepoztlan, Tlalnepantla, Huitzilac</span>
-              </li>
-              <li>
-                <span class="mor-sidebar__region-name">Zona Sur</span>
-                <span class="mor-sidebar__region-desc">Jojutla, Tlaltizapan, Puente de Ixtla, Tepalcingo</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Nearby States -->
-          <div class="mor-sidebar__card">
-            <h4>Estados Vecinos</h4>
-            <ul class="mor-sidebar__states">
-              {estadosVecinos.map((estado) => (
-                <li>
-                  <a href={`/directorio/${estado.slug}`}>
-                    <span>{estado.nombre}</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- CTA -->
-          <div class="mor-sidebar__card mor-sidebar__card--cta">
-            <h4>Equipas una Estacion en MOR?</h4>
-            <p>Somos distribuidores de equipo certificado NFPA para cuerpos de bomberos en todo Morelos</p>
-            <a href="/cotizar" class="mor-sidebar__cta-btn">Solicitar Cotizacion</a>
-          </div>
-
-          <!-- Products -->
-          <div class="mor-sidebar__card">
-            <h4>Equipo para Bomberos</h4>
-            <ul class="mor-sidebar__products">
-              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA</a></li>
-              <li><a href="/productos/cascos-para-bomberos">Cascos de Bombero</a></li>
-              <li><a href="/productos/scba">Equipos SCBA</a></li>
-              <li><a href="/productos/herramientas-rescate">Herramientas de Rescate</a></li>
-            </ul>
-            <a href="/productos" class="mor-sidebar__link">
-              Ver catalogo completo
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Back to Directory -->
-          <div class="mor-sidebar__card">
-            <a href="/directorio" class="mor-sidebar__back">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              <span>Ver todos los estados</span>
-            </a>
-          </div>
-
-          <!-- Contact -->
-          <div class="mor-sidebar__card">
-            <h4>Contacto BOMBERO.MX</h4>
-            <ul class="mor-sidebar__contact">
-              <li><a href="tel:+525520780102">55 2078 0102</a></li>
-              <li><a href="https://wa.me/525520780102">WhatsApp</a></li>
-              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-</PageLayout>
-
-<style>
-  /* ═══════════════════════════════════════════════════════════════════════
-     DIRECTORIO MORELOS - ESTACIONES DE BOMBEROS
-     ═══════════════════════════════════════════════════════════════════════ */
-
-  /* === Hero Section === */
-  .mor-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-  }
-
-  .mor-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .mor-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .mor-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .mor-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .mor-hero__breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-4);
-  }
-
-  .mor-hero__breadcrumb a {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .mor-hero__breadcrumb a:hover {
-    color: var(--color-fire-400);
-  }
-
-  .mor-hero__breadcrumb span {
-    color: var(--color-smoke-600);
-  }
-
-  .mor-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-  }
-
-  .mor-hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-
-  .mor-hero__title {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-5);
-  }
-
-  .mor-hero__highlight {
-    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .mor-hero__desc {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-6);
-  }
-
-  .mor-hero__desc strong {
-    color: white;
-  }
-
-  .mor-hero__stats {
-    display: flex;
-    gap: var(--space-6);
-    padding-top: var(--space-5);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .mor-hero__stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .mor-hero__stat-number {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-fire-400);
-  }
-
-  .mor-hero__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .mor-hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .mor-hero__seo-title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin: 0;
-  }
-
-  .mor-hero__seo-text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .mor-hero__seo-text strong {
-    color: white;
-  }
-
-  /* === Emergency Banner === */
-  .mor-emergency {
-    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
-    padding: var(--space-5) 0;
-  }
-
-  .mor-emergency__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-6);
-  }
-
-  .mor-emergency__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    color: white;
-  }
-
-  .mor-emergency__text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .mor-emergency__label {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .mor-emergency__number {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: white;
-  }
-
-  .mor-emergency__desc {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    max-width: 400px;
-  }
-
-  /* === Main Section === */
-  .mor-main {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50);
-  }
-
-  .mor-main__grid {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  /* === Stations Grid === */
-  .mor-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-    margin-top: var(--space-8);
-  }
-
-  /* === SEO Content === */
-  .mor-seo {
-    margin-top: var(--space-12);
-    padding: var(--space-8);
-    background: white;
-    border-radius: var(--radius-xl);
-  }
-
-  .mor-seo h2 {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-  }
-
-  .mor-seo h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin: var(--space-6) 0 var(--space-3);
-  }
-
-  .mor-seo p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-600);
-    line-height: 1.8;
-    margin: 0 0 var(--space-4);
-  }
-
-  .mor-seo p:last-child {
-    margin-bottom: 0;
-  }
-
-  .mor-seo strong {
-    color: var(--color-smoke-800);
-  }
-
-  /* === Sidebar === */
-  .mor-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    position: sticky;
-    top: var(--space-6);
-  }
-
-  .mor-sidebar__card {
-    padding: var(--space-5);
-    background: white;
-    border-radius: var(--radius-xl);
-  }
-
-  .mor-sidebar__card h4 {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 2px solid var(--color-fire-500);
-  }
-
-  .mor-sidebar__card > p {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500);
-    line-height: 1.6;
-    margin: 0 0 var(--space-4);
-  }
-
-  /* Municipios List */
-  .mor-sidebar__municipios {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    max-height: 320px;
-    overflow-y: auto;
-  }
-
-  .mor-sidebar__municipios li a {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .mor-sidebar__municipios li a:hover {
-    background: var(--color-smoke-50);
-    color: var(--color-fire-600);
-  }
-
-  .mor-sidebar__bullet {
-    width: 6px;
-    height: 6px;
-    background: var(--color-fire-500);
-    border-radius: 50%;
-  }
-
-  /* Regiones */
-  .mor-sidebar__regiones {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .mor-sidebar__regiones li {
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-  }
-
-  .mor-sidebar__region-name {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin-bottom: 2px;
-  }
-
-  .mor-sidebar__region-desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    line-height: 1.4;
-  }
-
-  /* Emergency Card */
-  .mor-sidebar__card--emergency {
-    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
-  }
-
-  .mor-sidebar__card--emergency h4 {
-    color: white;
-    border-bottom-color: var(--color-fire-500);
-  }
-
-  .mor-sidebar__emergency-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .mor-sidebar__emergency-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-3);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-  }
-
-  .mor-sidebar__emergency-number {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-fire-400);
-  }
-
-  .mor-sidebar__emergency-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-  }
-
-  /* States List */
-  .mor-sidebar__states {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .mor-sidebar__states li a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .mor-sidebar__states li a:hover {
-    background: var(--color-smoke-100);
-    color: var(--color-fire-600);
-  }
-
-  .mor-sidebar__states li a svg {
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all 0.2s;
-  }
-
-  .mor-sidebar__states li a:hover svg {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  /* Products */
-  .mor-sidebar__products {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .mor-sidebar__products li a {
-    display: block;
-    padding: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--color-fire-600);
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .mor-sidebar__products li a:hover {
-    color: var(--color-fire-700);
-  }
-
-  .mor-sidebar__link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-fire-600);
-    text-decoration: none;
-  }
-
-  .mor-sidebar__link:hover {
-    color: var(--color-fire-700);
-  }
-
-  .mor-sidebar__link svg {
-    transition: transform 0.2s;
-  }
-
-  .mor-sidebar__link:hover svg {
-    transform: translateX(4px);
-  }
-
-  /* CTA Card */
-  .mor-sidebar__card--cta {
-    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
-  }
-
-  .mor-sidebar__card--cta h4 {
-    color: white;
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .mor-sidebar__card--cta > p {
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  .mor-sidebar__cta-btn {
-    display: block;
-    width: 100%;
-    padding: var(--space-3);
-    background: white;
-    color: var(--color-fire-600);
-    text-align: center;
-    text-decoration: none;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    border-radius: var(--radius-lg);
-    transition: all 0.2s;
-  }
-
-  .mor-sidebar__cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  /* Back Link */
-  .mor-sidebar__back {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .mor-sidebar__back:hover {
-    background: var(--color-smoke-100);
-    color: var(--color-fire-600);
-  }
-
-  /* Contact */
-  .mor-sidebar__contact {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .mor-sidebar__contact a {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-fire-600);
-    text-decoration: none;
-  }
-
-  .mor-sidebar__contact a:hover {
-    color: var(--color-fire-700);
-  }
-
-  /* === Responsive === */
-  @media (max-width: 1200px) {
-    .mor-stations-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .mor-hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-
-    .mor-hero__seo {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-
-    .mor-main__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .mor-stations-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .mor-sidebar {
-      position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-
-    .mor-sidebar__card--emergency,
-    .mor-sidebar__card--cta {
-      grid-column: span 1;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .mor-hero {
-      padding: var(--space-10) 0;
-    }
-
-    .mor-hero__seo {
-      grid-template-columns: 1fr;
-    }
-
-    .mor-emergency__content {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .mor-main {
-      padding: var(--space-10) 0;
-    }
-
-    .mor-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .mor-sidebar {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .mor-hero__title {
-      font-size: 1.5rem;
-    }
-
-    .mor-hero__stats {
-      flex-wrap: wrap;
-    }
-  }
-</style>
+  <!-- Bloque SEO Profesional -->
+  <Fragment slot="seo">
+    <h2>El Heroico Cuerpo de Bomberos de Morelos</h2>
+    <p>
+      El <strong>Heroico Cuerpo de Bomberos de Morelos</strong> es la institución encargada de
+      proteger la vida, el medio ambiente y el patrimonio de los más de <strong>2 millones de morelenses</strong>
+      y los <strong>4.2 millones de visitantes anuales</strong> que recibe el estado.
+      Ubicado a solo <strong>85 kilómetros de la Ciudad de México</strong>, Morelos es el destino de fin de semana
+      favorito de los capitalinos, lo que genera un flujo constante de emergencias viales en la Autopista del Sol.
+      Los bomberos atienden emergencias las <strong>24 horas del día, los 365 días del año</strong>.
+    </p>
+
+    <h3>¿Cómo contactar a los bomberos en Morelos?</h3>
+    <p>
+      En caso de <strong>emergencia en Morelos</strong>, marca el <strong>911</strong> desde
+      cualquier teléfono. Este número conecta con el <strong>C5 de Morelos</strong> que coordina
+      la respuesta de bomberos, policía y servicios médicos. En Cuernavaca puedes llamar directamente
+      al <strong>(777) 312-3636</strong>, en Cuautla al <strong>(735) 352-5050</strong> y en la
+      zona industrial CIVAC al <strong>(777) 320-1010</strong>.
+    </p>
+
+    <h3>Cuernavaca - La Ciudad de la Eterna Primavera</h3>
+    <p>
+      <strong>Cuernavaca</strong>, capital de Morelos, es conocida como la "Ciudad de la Eterna Primavera"
+      por su clima privilegiado de 18-27°C durante todo el año. La Estación Central de Bomberos,
+      fundada en <strong>1943</strong>, protege el Centro Histórico incluyendo el
+      <strong>Palacio de Cortés</strong> (1535), el edificio civil más antiguo de América continental,
+      el <strong>Jardín Borda</strong> y la Catedral de la Asunción. Los bomberos están especializados
+      en <strong>rescate en barrancas urbanas</strong>, ya que la ciudad está atravesada por más de 50 barrancas
+      que presentan riesgos únicos de rescate y deslizamientos.
+    </p>
+
+    <h3>Zona Industrial CIVAC - Motor Económico del Estado</h3>
+    <p>
+      La <strong>Ciudad Industrial del Valle de Cuernavaca (CIVAC)</strong> en Jiutepec es el parque
+      industrial más importante de Morelos, albergando plantas de <strong>manufactura automotriz,
+      farmacéutica, alimentaria y química</strong>. Los bomberos de CIVAC están especializados en
+      <strong>emergencias HAZMAT de nivel industrial</strong>, incendios en plantas de producción
+      y rescate en instalaciones de alta complejidad. Empresas como Nissan, Firestone y farmacéuticas
+      internacionales operan en esta zona.
+    </p>
+
+    <h3>Tepoztlán y Tlayacapan - Pueblos Mágicos</h3>
+    <p>
+      Morelos cuenta con <strong>2 Pueblos Mágicos</strong>: <strong>Tepoztlán</strong>, famoso por
+      el cerro del Tepozteco con su pirámide prehispánica y ambiente místico, y <strong>Tlayacapan</strong>,
+      conocido por su ex-convento agustino del siglo XVI. Los bomberos de los Altos de Morelos atienden
+      <strong>incendios forestales</strong> en las zonas boscosas, <strong>rescate en montaña</strong>
+      para excursionistas del Tepozteco, y emergencias durante las numerosas fiestas tradicionales
+      que atraen miles de visitantes cada fin de semana.
+    </p>
+
+    <h3>Xochicalco - Patrimonio de la Humanidad UNESCO</h3>
+    <p>
+      La <strong>Zona Arqueológica de Xochicalco</strong> fue declarada Patrimonio de la Humanidad
+      por la UNESCO en <strong>1999</strong>. Este centro ceremonial prehispánico, contemporáneo
+      de Teotihuacán, requiere <strong>protección especializada contra incendios forestales</strong>
+      que amenazan sus estructuras y el observatorio astronómico subterráneo. Los bomberos coordinan
+      con el INAH para la protección de este patrimonio invaluable.
+    </p>
+
+    <h3>Autopista del Sol - Corredor de Alta Siniestralidad</h3>
+    <p>
+      La <strong>Autopista del Sol</strong> (México-Cuernavaca-Acapulco) es una de las vías más
+      transitadas de México, especialmente los fines de semana y puentes vacacionales. Los bomberos
+      de Morelos, particularmente la estación de <strong>Huitzilac</strong> en el kilómetro más alto
+      de la autopista (3,000 msnm), atienden <strong>accidentes vehiculares múltiples</strong>,
+      volcaduras por neblina y rescate en las curvas más peligrosas del descenso hacia Cuernavaca.
+    </p>
+
+    <h3>Cuautla y los Balnearios de Morelos</h3>
+    <p>
+      El <strong>Valle de Cuautla</strong> es famoso por sus balnearios de aguas termales y su
+      historia zapatista. Los bomberos de Cuautla atienden <strong>emergencias en parques acuáticos</strong>
+      durante la temporada alta (Semana Santa y verano), cuando millones de visitantes llegan
+      a disfrutar de las aguas sulfurosas. También protegen las <strong>ex-haciendas azucareras</strong>
+      del sur del estado, patrimonio arquitectónico de la era porfiriana.
+    </p>
+
+    <h3>Servicios de los Bomberos Morelenses</h3>
+    <p>
+      Los bomberos de Morelos están capacitados para atender:
+      <strong>incendios estructurales en centros históricos</strong>;
+      <strong>emergencias industriales HAZMAT en CIVAC</strong>;
+      <strong>rescate vehicular en la Autopista del Sol</strong>;
+      <strong>rescate en barrancas urbanas de Cuernavaca</strong>;
+      <strong>incendios forestales en los Altos de Morelos</strong>;
+      <strong>emergencias en balnearios y parques acuáticos</strong>;
+      <strong>rescate en montaña (Tepozteco, Ajusco morelense)</strong>;
+      <strong>protección de patrimonio UNESCO y Pueblos Mágicos</strong>; y atención
+      durante eventos masivos como el Carnaval de Cuernavaca, la Feria de la Primavera
+      y las celebraciones del equinoccio en Tepoztlán que congregan a miles de visitantes.
+    </p>
+  </Fragment>
+</DirectorioEstadoLayout>

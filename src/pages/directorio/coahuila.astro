@@ -1,976 +1,390 @@
 ---
 /**
- * ╔═══════════════════════════════════════════════════════════════════════════╗
- * ║  DIRECTORIO DE BOMBEROS DE COAHUILA DE ZARAGOZA (COAH)                   ║
- * ║  Página Principal del Estado - SEO Ultra Premium                         ║
- * ╠═══════════════════════════════════════════════════════════════════════════╣
- * ║  24 Estaciones | 1,180 Bomberos | 6 Zonas Geográficas                    ║
- * ║                                                                           ║
- * ║  ZONAS:                                                                   ║
- * ║  • Saltillo (Capital-Automotriz): 5 estaciones                           ║
- * ║  • La Laguna (Torreón): 5 estaciones                                     ║
- * ║  • Monclova (Siderúrgica): 4 estaciones                                  ║
- * ║  • Carbonífera (Minería): 4 estaciones                                   ║
- * ║  • Frontera (Texas): 4 estaciones                                        ║
- * ║  • Vitivinícola (Parras): 2 estaciones                                   ║
- * ╚═══════════════════════════════════════════════════════════════════════════╝
+ * ─── Directorio Bomberos Coahuila de Zaragoza ───
+ * Solo datos — el diseño vive en DirectorioEstadoLayout.astro
+ *
+ * NOTA: El data file usa `ciudad` (no `municipio`) y exporta ESTADISTICAS_COAHUILA.
+ * 24 estaciones · 1,180 bomberos · 6 zonas · 512 km frontera Texas
+ * Riesgos únicos: rescate minero carbón, acería AHMSA, automotriz GM/Chrysler,
+ * coordinación binacional EE.UU., Cuatro Ciénegas APFF, Casa Madero 1597.
  */
-
-import PageLayout from "@layouts/PageLayout.astro";
-import StationCard from "@components/StationCard.astro";
-import { breadcrumbJsonLd } from "@utils/seo";
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import {
   estacionesCoahuila,
-  COAHUILA_SEO,
   ESTADISTICAS_COAHUILA,
-  getEstacionesSaltillo,
-  getEstacionesLaLaguna,
-  getEstacionesMonclova,
-  getEstacionesCarboniferas,
-  getEstacionesFrontera,
-  getEstacionesVitivinicola,
 } from "@data/estaciones-coahuila";
+import { breadcrumbJsonLd } from "@utils/seo";
 
-// SEO Metadata
-const title = `Bomberos de Coahuila | ${ESTADISTICAS_COAHUILA.total_estaciones} Estaciones | Directorio Oficial COAH`;
-const description = `Directorio completo de las ${ESTADISTICAS_COAHUILA.total_estaciones} estaciones de bomberos en Coahuila. ${ESTADISTICAS_COAHUILA.total_bomberos.toLocaleString('es-MX')} bomberos protegiendo Saltillo, Torreón, Monclova, zona carbonífera y frontera con Texas. Teléfonos, direcciones y servicios 24/7.`;
-const keywords = [
-  ...COAHUILA_SEO.keywords.principales,
-  ...COAHUILA_SEO.keywords.saltillo.slice(0, 3),
-  ...COAHUILA_SEO.keywords.torreon.slice(0, 3),
-  ...COAHUILA_SEO.keywords.monclova.slice(0, 3),
-  ...COAHUILA_SEO.keywords.frontera.slice(0, 3),
-].join(', ');
+// ── Derivar municipios desde el array de estaciones ────────────────────────
+const municipios      = [...new Set(estacionesCoahuila.map((e) => e.ciudad))].sort();
+const totalEstaciones = ESTADISTICAS_COAHUILA.total_estaciones;
+const totalMunicipios = ESTADISTICAS_COAHUILA.municipios_cubiertos;
+const totalBomberos   = ESTADISTICAS_COAHUILA.total_bomberos;
 
-// Agrupar estaciones por zona
-const zonas = {
-  saltillo: getEstacionesSaltillo(),
-  laguna: getEstacionesLaLaguna(),
-  monclova: getEstacionesMonclova(),
-  carbonifera: getEstacionesCarboniferas(),
-  frontera: getEstacionesFrontera(),
-  vitivinicola: getEstacionesVitivinicola(),
-};
-
-// Ciudades únicas para navegación
-const ciudadesUnicas = [...new Set(estacionesCoahuila.map(e => e.ciudad))].sort();
 const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
+  { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Coahuila", url: "/directorio/coahuila" },
+  { name: "Coahuila",               url: "/directorio/coahuila" },
 ]);
 
-const coahuilaItemListSchema = {
+const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Coahuila de Zaragoza",
-  "description": description,
-  "numberOfItems": ESTADISTICAS_COAHUILA.total_estaciones,
-  "itemListElement": estacionesCoahuila.map((estacion, index) => ({
+  "description": `Directorio oficial de las ${totalEstaciones} estaciones de bomberos en Coahuila. Capital: Saltillo. AHMSA acería, rescate minero carbón 95% nacional, clúster automotriz GM/Chrysler, frontera 512 km Texas, Cuatro Ciénegas APFF, 6 Pueblos Mágicos. Emergencias: 911.`,
+  "numberOfItems": estacionesCoahuila.length,
+  "itemListElement": estacionesCoahuila.map((e, i) => ({
     "@type": "ListItem",
-    "position": index + 1,
+    "position": i + 1,
     "item": {
       "@type": "FireStation",
-      "name": estacion.nombre,
+      "name": e.nombre,
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": estacion.direccion,
-        "addressLocality": estacion.ciudad,
-        "addressRegion": "Coahuila",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Coahuila de Zaragoza",
         "addressCountry": "MX",
-        "postalCode": estacion.codigoPostal
       },
-      "telephone": estacion.telefono,
-      "url": `https://bombero.mx/directorio/coahuila/${estacion.slug}`
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/coahuila/${e.slug}`,
     }
   }))
 };
+
+/*
+ * Rotación de imágenes para las tarjetas de estación.
+ * Coahuila: estado industrial por excelencia — acería AHMSA en Monclova,
+ * minas de carbón en Sabinas/Múzquiz, clúster automotriz Saltillo-Ramos Arizpe,
+ * frontera Texas (Piedras Negras/Eagle Pass), Comarca Lagunera lechera, y
+ * ecosistemas únicos en Cuatro Ciénegas.
+ */
+const stationImages = [
+  "/images/directorio/estacion-bomberos-industrial-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/camion-bomberos-equipado-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/rescate-swift-water-rios-01.avif",
+  "/images/directorio/equipo-rescate-completo-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/unidad-hazmat-emergencias-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
+  "/images/directorio/equipo-rescate-tecnico-01.avif",
+  "/images/directorio/detector-multigas-hazmat-01.avif",
+  "/images/directorio/camion-forestal-bomberos-01.avif",
+  "/images/directorio/descontaminacion-hazmat-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/brigada-bomberos-capacitacion-01.avif",
+  "/images/directorio/ambulancia-bomberos-emergencias-01.avif",
+  "/images/directorio/capacitacion-bomberos-profesional-01.avif",
+  "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif",
+  "/images/directorio/coordinacion-emergencias-bomberos-01.avif",
+  "/images/directorio/puesto-comando-incidente-01.avif",
+];
 ---
 
-<PageLayout
-  title={title}
-  description={description}
-  keywords={keywords}
+<DirectorioEstadoLayout
+  estado="Coahuila de Zaragoza"
+  sigla="COAH"
+  slug="coahuila"
+  description={`Directorio oficial de las ${totalEstaciones} estaciones de bomberos en Coahuila de Zaragoza. Saltillo capital, AHMSA acería (Monclova), rescate minero carbón (95% nacional), clúster automotriz GM-Chrysler-Daimler, 512 km frontera Texas, Cuatro Ciénegas APFF y 6 Pueblos Mágicos. Emergencias: 911.`}
+  keywords={[
+    "bomberos coahuila",
+    "bomberos saltillo coahuila",
+    "estaciones bomberos coahuila",
+    "rescate minero coahuila carbon",
+    "bomberos ahmsa monclova aceria",
+    "bomberos zona automotriz ramos arizpe",
+    "bomberos piedras negras frontera texas",
+    "emergencias hazmat coahuila industrial",
+    "bomberos torreon comarca lagunera",
+    "bomberos cuatro cienegas area protegida",
+    "bomberos parras de la fuente pueblo magico",
+    "bomberos region carbonifera sabinas muzquiz",
+    "emergencias 911 coahuila",
+    "heroico cuerpo bomberos saltillo torreon",
+    "directorio bomberos coahuila zaragoza",
+  ]}
   canonical="https://bombero.mx/directorio/coahuila"
-  jsonLd={[breadcrumbSchema, coahuilaItemListSchema]}
+  jsonLd={[breadcrumbSchema, itemListSchema]}
+
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
+  habitantes="3.2M"
+
+  heroDesc={`<strong>Coahuila de Zaragoza</strong> — el <strong>3er estado más grande de México</strong> con 151,563 km² — alberga los riesgos industriales más exigentes del país: la <strong>mayor acería integrada de México</strong> (AHMSA, Monclova), el <strong>95% de la producción nacional de carbón</strong> (Sabinas, Múzquiz, Nueva Rosita) y el <strong>2do clúster automotriz de México</strong> (GM, Chrysler, Daimler en Saltillo-Ramos Arizpe). Con <strong>${totalEstaciones} estaciones</strong> en <strong>${totalMunicipios} ciudades</strong> y <strong>${totalBomberos.toLocaleString()} bomberos profesionales</strong> — incluyendo las unidades de rescate minero más especializadas del país, brigadas HAZMAT metalúrgico y coordinación binacional con los cuerpos de bomberos de <strong>Texas (EE.UU.)</strong> a lo largo de <strong>512 km de frontera</strong>.`}
+  heroImage="/images/directorio/estacion-bomberos-industrial-01.avif"
+  heroImageAlt="Bomberos Coahuila de Zaragoza — AHMSA acería Monclova rescate minero carbón Saltillo zona automotriz"
+  heroCaption="Bomberos Coahuila · COAH · 24 Estaciones · AHMSA · Rescate Minero · Frontera Texas"
+  heroThumbs={[
+    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "HAZMAT industrial Coahuila acería AHMSA Monclova metal fundido altos hornos materiales peligrosos", label: "HAZMAT Acería AHMSA" },
+    { src: "/images/directorio/equipo-rescate-tecnico-01.avif",              alt: "Rescate minero carbón Coahuila Sabinas Múzquiz minas activas grisú explosiones subterráneas",         label: "Rescate Minero Carbón"    },
+    { src: "/images/directorio/camion-bomberos-equipado-01.avif",            alt: "Clúster automotriz Saltillo Ramos Arizpe GM Chrysler Daimler BMW incendios industriales HAZMAT",       label: "Automotriz Saltillo"      },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/detector-multigas-hazmat-01.avif",            alt: "Detector multigás bomberos carbón Coahuila metano CO CO2 minas Sabinas grisú región carbonífera",    label: "Gases Minas de Carbón"   },
+    { src: "/images/directorio/descontaminacion-hazmat-01.avif",             alt: "Descontaminación HAZMAT Coahuila acería AHMSA químicos automotrices pinturas solventes nivel A",      label: "Descontaminación HAZMAT" },
+    { src: "/images/directorio/rescate-swift-water-rios-01.avif",            alt: "Rescate acuático Presa La Amistad Ciudad Acuña Del Rio Texas Río Bravo frontera binacional",          label: "Rescate Presa Amistad"   },
+    { src: "/images/directorio/camion-forestal-bomberos-01.avif",            alt: "Incendios forestales Sierra Arteaga Coahuila bosques coníferas Pueblo Mágico La Suiza México",        label: "Forestal Sierra Arteaga" },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",            label: "Emergencias Coahuila"              },
+    { number: "(844) 410-7900", label: "Bomberos Saltillo (Central)"       },
+    { number: "(871) 712-0000", label: "Bomberos Torreón"                  },
+    { number: "(866) 633-1111", label: "Bomberos Monclova (AHMSA)"         },
+    { number: "(878) 782-0000", label: "Bomberos Piedras Negras (Frontera)"},
+    { number: "(844) 411-5000", label: "Protección Civil Estatal"          },
+  ]}
+
+  municipios={municipios}
+
+  regiones={[
+    { nombre: "Zona Metropolitana Saltillo (Capital)",  desc: "Saltillo (Central 1945) · Ramos Arizpe (GM/Chrysler/Daimler) · Saltillo Norte · Saltillo Sur · Arteaga (Pueblo Mágico, La Suiza de México)" },
+    { nombre: "Comarca Lagunera (Torreón)",             desc: "Torreón Central (1936) · Torreón Norte · Zona Industrial · Matamoros (algodón) · San Pedro (Grupo Lala, amoniaco refrigeración)" },
+    { nombre: "Zona Acerera (Monclova-AHMSA)",          desc: "Monclova Central (1952, altos hornos) · Frontera (apoyo siderúrgico) · Castaños · Cuatro Ciénegas (Pueblo Mágico APFF estromatolitos)" },
+    { nombre: "Región Carbonífera (Minería Carbón)",    desc: "Sabinas (rescate minero principal) · Nueva Rosita · Múzquiz (comunidades Kikapú) · San Juan de Sabinas — 95% carbón nacional" },
+    { nombre: "Zona Fronteriza (Texas) y Vitivinícola", desc: "Piedras Negras/Eagle Pass (binacional) · Ciudad Acuña/Del Rio · Allende · Nava | Parras de la Fuente (Casa Madero 1597) · General Cepeda" },
+  ]}
+
+  estadosVecinos={[
+    { nombre: "Nuevo León",      slug: "nuevo-leon"      },
+    { nombre: "Chihuahua",       slug: "chihuahua"       },
+    { nombre: "Durango",         slug: "durango"         },
+    { nombre: "Zacatecas",       slug: "zacatecas"       },
+    { nombre: "Ciudad de México",slug: "ciudad-de-mexico"},
+  ]}
+
+  estaciones={estacionesCoahuila}
+  stationImages={stationImages}
+
+  eppCards={[
+    {
+      image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+      imageAlt:  "Traje HAZMAT Nivel A NFPA 1991 bomberos Coahuila acería AHMSA Monclova metal fundido altos hornos gas industrial",
+      badge:     "NFPA 1991",
+      title:     "Traje HAZMAT Nivel A — Acería AHMSA y Zona Automotriz",
+      text:      "<strong>AHMSA (Altos Hornos de México)</strong>, con sede en Monclova, es el complejo siderúrgico integrado más grande de México: cuatro altos hornos activos que procesan más de <strong>4 millones de toneladas de acero al año</strong> a temperaturas de <strong>1,600°C</strong>. Los bomberos de la Estación Central de Monclova (fundada 1952) están especializados en los incendios de mayor complejidad térmica del país: <strong>metal fundido derramado, explosiones de alto horno, gas de coque y gases de batería</strong>. El traje NFPA 1991 de Nivel A proporciona protección química total frente a los vapores corrosivos de la planta. En Saltillo-Ramos Arizpe, el <strong>2do clúster automotriz de México</strong> — GM, Chrysler/Stellantis, Daimler — genera emergencias HAZMAT con <strong>pinturas automotrices, solventes aromáticos (tolueno, xileno), colas de poliuretano y químicos de línea de ensamble</strong> que requieren el más alto nivel de protección química.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+      imageAlt:  "SCBA NFPA 1981 rescate minero carbón Coahuila Sabinas Múzquiz minas subterráneas grisú metano CO intoxicación",
+      badge:     "NFPA 1981",
+      title:     "Aparato Respiratorio Autónomo SCBA — Rescate Minero",
+      text:      "La <strong>Región Carbonífera de Coahuila</strong> — Sabinas, Múzquiz, Nueva Rosita y San Juan de Sabinas — produce el <strong>95% del carbón nacional</strong>, con decenas de minas activas subterráneas. Los bomberos de la Estación de Sabinas (fundada 1960) mantienen la brigada de rescate minero más especializada de México: preparada para <strong>explosiones de grisú (metano CH₄)</strong>, <strong>incendios subterráneos de carbón</strong>, <strong>colapsos de pilares y techos de mina</strong>, e intoxicación por <strong>monóxido de carbono (CO)</strong> y <strong>CO₂</strong>. El SCBA certificado NFPA 1981 con equipos de <strong>larga autonomía (60+ min)</strong>, detectores multigas integrados y sistemas de comunicación subterránea es el equipo crítico en los rescates de mayor riesgo de Latinoamérica. La tragedia de la <strong>Mina Pasta de Conchos (2006)</strong>, en San Juan de Sabinas, impulsó los protocolos de rescate minero más estrictos del país.",
+      href:      "/productos/equipo-scba",
+      linkLabel: "Ver Equipos SCBA",
+    },
+    {
+      image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+      imageAlt:  "Traje Estructural NFPA 1971 bomberos Saltillo Coahuila incendios industriales rescate automotriz calor extremo 45C",
+      badge:     "NFPA 1971",
+      title:     "Traje Estructural NFPA 1971 — Calor Industrial Extremo",
+      text:      "Coahuila registra temperaturas de hasta <strong>+45°C en verano</strong> en el Desierto Chihuahuense — el más extenso de América del Norte — con humedad relativa inferior al 15%. Esta combinación convierte cada incendio estructural en un reto de termorregulación extrema para los bomberos: el <strong>estrés por calor</strong> (golpe de calor) es la primera causa de bajas en servicio activo en el noreste de México. El traje NFPA 1971 con tecnología <strong>THL (Total Heat Loss)</strong> permite disipar el calor generado por el metabolismo durante operaciones de 30-45 minutos en ambientes industriales a +200°C con humedad radiante de hornos siderúrgicos, líneas de fundición automotriz y hornos de tratamiento térmico de Ramos Arizpe. También para los incendios forestales en la <strong>Sierra de Arteaga</strong> (\"La Suiza de México\", Pueblo Mágico) donde los bosques de pino-oyamel arden con intensidad en temporada de sequía.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+      imageAlt:  "Botas Estructurales NFPA 1971 bomberos Coahuila terreno desierto minas carbón acería escoria metal planta automotriz",
+      badge:     "NFPA 1971",
+      title:     "Botas Estructurales — Terreno Industrial y Desierto",
+      text:      "Los bomberos de Coahuila enfrentan los terrenos de mayor exigencia del norte de México: <strong>escoria y metal fundido</strong> derramado en la acería AHMSA de Monclova — con temperatura superficial de hasta 800°C; <strong>pisos de galería subterránea</strong> en las minas de carbón de Sabinas, con riesgo de derrumbe y suelo inestable; <strong>asfalto industrial</strong> de parques automotrices de Saltillo-Ramos Arizpe con derrames de aceites, solventes y refrigerantes; <strong>arena del Desierto Chihuahuense</strong> en las zonas fronterizas y carboníferas, con abrasión extrema; <strong>roca caliza de montaña</strong> en la Sierra de Arteaga durante rescates de alta montaña; y <strong>terreno húmedo</strong> en la Presa de la Amistad (Ciudad Acuña) durante rescates acuáticos binacionales. La puntera de acero y la suela anticlavos son indispensables en minas activas.",
+      href:      "/productos/botas-para-bomberos",
+      linkLabel: "Ver Botas para Bombero",
+    },
+  ]}
+
+  ctaTitle="Equipamos a los Bomberos de Coahuila — Industrial, Minero y Frontera"
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones de Coahuila: desde trajes HAZMAT Nivel A para AHMSA Monclova y la zona automotriz, hasta SCBA de larga autonomía para rescate minero en la Región Carbonífera. Atención en Saltillo, Torreón y Monclova.`}
+  ctaBtnText="Solicitar Cotización — Coahuila"
 >
-
-  <div class="coah-main">
-    <!-- ═══════════════════════════════════════════════════════════════════
-         HERO SECTION - Tema Acero Industrial
-         ═══════════════════════════════════════════════════════════════════ -->
-    <section class="coah-hero">
-      <div class="coah-hero__container">
-        <div class="coah-hero__badge">
-          <span class="coah-hero__badge-code">COAH</span>
-          <span class="coah-hero__badge-text">Estado Industrial del Norte</span>
-        </div>
-
-        <h1 class="coah-hero__title">
-          Bomberos de <span class="coah-hero__title-accent">Coahuila</span>
-        </h1>
-
-        <p class="coah-hero__subtitle">
-          Directorio oficial de las {ESTADISTICAS_COAHUILA.total_estaciones} estaciones de bomberos
-          que protegen {COAHUILA_SEO.superficie_km2.toLocaleString('es-MX')} km² del estado industrial del noreste
-        </p>
-
-        <!-- Estadísticas Hero -->
-        <div class="coah-hero__stats">
-          <div class="coah-hero__stat">
-            <span class="coah-hero__stat-number">{ESTADISTICAS_COAHUILA.total_estaciones}</span>
-            <span class="coah-hero__stat-label">Estaciones</span>
-          </div>
-          <div class="coah-hero__stat">
-            <span class="coah-hero__stat-number">{ESTADISTICAS_COAHUILA.total_bomberos.toLocaleString('es-MX')}</span>
-            <span class="coah-hero__stat-label">Bomberos</span>
-          </div>
-          <div class="coah-hero__stat">
-            <span class="coah-hero__stat-number">{ESTADISTICAS_COAHUILA.total_unidades}</span>
-            <span class="coah-hero__stat-label">Unidades</span>
-          </div>
-          <div class="coah-hero__stat">
-            <span class="coah-hero__stat-number">{ESTADISTICAS_COAHUILA.municipios_cubiertos}</span>
-            <span class="coah-hero__stat-label">Municipios</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════
-         BANNER DE EMERGENCIA
-         ═══════════════════════════════════════════════════════════════════ -->
-    <section class="coah-emergency">
-      <div class="coah-emergency__container">
-        <div class="coah-emergency__content">
-          <div class="coah-emergency__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32" height="32">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-          </div>
-          <div class="coah-emergency__text">
-            <h2 class="coah-emergency__title">Emergencias en Coahuila</h2>
-            <p class="coah-emergency__numbers">
-              <strong>911</strong> Nacional |
-              <strong>{COAHUILA_SEO.telefonos.bomberos_saltillo}</strong> Saltillo |
-              <strong>{COAHUILA_SEO.telefonos.bomberos_torreon}</strong> Torreón
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════════════
-         CONTENIDO PRINCIPAL
-         ═══════════════════════════════════════════════════════════════════ -->
-    <div class="coah-content">
-      <div class="coah-content__container">
-
-        <!-- Columna Principal -->
-        <div class="coah-content__main">
-
-          <!-- Introducción SEO Premium -->
-          <section class="coah-intro">
-            <h2 class="coah-intro__title">Heroico Cuerpo de Bomberos de Coahuila de Zaragoza</h2>
-            <div class="coah-intro__text">
-              <p>
-                <strong>Coahuila de Zaragoza</strong>, el tercer estado más extenso de México con
-                <strong>{COAHUILA_SEO.superficie_km2.toLocaleString('es-MX')} km²</strong>, es uno de los
-                motores industriales más potentes del país. Con una red de <strong>{ESTADISTICAS_COAHUILA.total_estaciones} estaciones
-                de bomberos</strong> y <strong>{ESTADISTICAS_COAHUILA.total_bomberos.toLocaleString('es-MX')} bomberos profesionales</strong>,
-                el estado protege a sus <strong>{(COAHUILA_SEO.poblacion / 1_000_000).toFixed(1)} millones de habitantes</strong>
-                y su invaluable infraestructura industrial.
-              </p>
-              <p>
-                Desde el <strong>clúster automotriz de Saltillo-Ramos Arizpe</strong> (General Motors, Chrysler, Daimler)
-                hasta las <strong>acerías de Monclova</strong> (AHMSA), las <strong>minas de carbón de la Región Carbonífera</strong>
-                y las <strong>ciudades fronterizas con Texas</strong>, los bomberos coahuilenses enfrentan desafíos
-                únicos que requieren <strong>especialización en HAZMAT industrial</strong>, <strong>rescate minero</strong>
-                y <strong>coordinación binacional</strong>.
-              </p>
-              <p>
-                Este directorio incluye también la protección a los <strong>6 Pueblos Mágicos</strong> del estado:
-                Parras de la Fuente (cuna de la vitivinicultura americana), Cuatro Ciénegas (ecosistemas únicos),
-                Arteaga (La Suiza de México), Viesca, Candela y Guerrero.
-              </p>
-            </div>
-          </section>
-
-          <!-- ═══ ZONA SALTILLO (CAPITAL-AUTOMOTRIZ) ═══ -->
-          <section class="coah-zone coah-zone--saltillo" id="saltillo">
-            <div class="coah-zone__header">
-              <h2 class="coah-zone__title">
-                <span class="coah-zone__icon">🚗</span>
-                Zona Metropolitana Saltillo (Capital - Automotriz)
-              </h2>
-              <span class="coah-zone__count">{zonas.saltillo.length} estaciones</span>
-            </div>
-            <p class="coah-zone__description">
-              <strong>Capital del estado</strong> y sede del segundo clúster automotriz más grande de México.
-              Incluye Ramos Arizpe (GM, Chrysler, Daimler) y Arteaga (Pueblo Mágico "La Suiza de México").
-              Especialización: <strong>HAZMAT automotriz, incendios industriales</strong>.
-            </p>
-            <div class="coah-stations-grid">
-              {zonas.saltillo.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/coahuila/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- ═══ ZONA LA LAGUNA (TORREÓN) ═══ -->
-          <section class="coah-zone coah-zone--laguna" id="torreon">
-            <div class="coah-zone__header">
-              <h2 class="coah-zone__title">
-                <span class="coah-zone__icon">🥛</span>
-                Comarca Lagunera (Torreón - Agroindustria)
-              </h2>
-              <span class="coah-zone__count">{zonas.laguna.length} estaciones</span>
-            </div>
-            <p class="coah-zone__description">
-              <strong>Principal cuenca lechera de México</strong> (Grupo Lala). Zona metropolitana con
-              Gómez Palacio y Lerdo (Durango). Más de 1.3 millones de habitantes.
-              Especialización: <strong>emergencias con amoniaco, agroindustria</strong>.
-            </p>
-            <div class="coah-stations-grid">
-              {zonas.laguna.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/coahuila/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- ═══ ZONA MONCLOVA (SIDERÚRGICA) ═══ -->
-          <section class="coah-zone coah-zone--monclova" id="monclova">
-            <div class="coah-zone__header">
-              <h2 class="coah-zone__title">
-                <span class="coah-zone__icon">🔩</span>
-                Zona Centro (Monclova - Siderúrgica)
-              </h2>
-              <span class="coah-zone__count">{zonas.monclova.length} estaciones</span>
-            </div>
-            <p class="coah-zone__description">
-              <strong>Sede de AHMSA</strong>, el complejo siderúrgico integrado más grande de México.
-              Incluye el Pueblo Mágico de Cuatro Ciénegas con ecosistemas únicos.
-              Especialización: <strong>incendios de metal fundido, rescate en altos hornos</strong>.
-            </p>
-            <div class="coah-stations-grid">
-              {zonas.monclova.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/coahuila/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- ═══ ZONA CARBONÍFERA (MINERÍA) ═══ -->
-          <section class="coah-zone coah-zone--carbonifera" id="carbonifera">
-            <div class="coah-zone__header">
-              <h2 class="coah-zone__title">
-                <span class="coah-zone__icon">⛏️</span>
-                Región Carbonífera (Minería de Carbón)
-              </h2>
-              <span class="coah-zone__count">{zonas.carbonifera.length} estaciones</span>
-            </div>
-            <p class="coah-zone__description">
-              <strong>95% de la producción nacional de carbón</strong>. Sabinas, Nueva Rosita, Múzquiz.
-              Minas activas con riesgo de explosiones de grisú y colapsos.
-              Especialización: <strong>rescate minero, emergencias subterráneas</strong>.
-            </p>
-            <div class="coah-stations-grid">
-              {zonas.carbonifera.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/coahuila/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- ═══ ZONA FRONTERIZA (TEXAS) ═══ -->
-          <section class="coah-zone coah-zone--frontera" id="frontera">
-            <div class="coah-zone__header">
-              <h2 class="coah-zone__title">
-                <span class="coah-zone__icon">🌉</span>
-                Zona Fronteriza (Texas, EE.UU.)
-              </h2>
-              <span class="coah-zone__count">{zonas.frontera.length} estaciones</span>
-            </div>
-            <p class="coah-zone__description">
-              <strong>512 km de frontera con Texas</strong>. Piedras Negras (Eagle Pass) y Acuña (Del Rio).
-              Puentes internacionales, maquiladoras, comercio exterior.
-              Especialización: <strong>coordinación binacional, HAZMAT comercio exterior</strong>.
-            </p>
-            <div class="coah-stations-grid">
-              {zonas.frontera.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/coahuila/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- ═══ ZONA VITIVINÍCOLA ═══ -->
-          <section class="coah-zone coah-zone--vitivinicola" id="parras">
-            <div class="coah-zone__header">
-              <h2 class="coah-zone__title">
-                <span class="coah-zone__icon">🍷</span>
-                Zona Vitivinícola (Parras - Ruta del Vino)
-              </h2>
-              <span class="coah-zone__count">{zonas.vitivinicola.length} estaciones</span>
-            </div>
-            <p class="coah-zone__description">
-              <strong>Cuna de la vitivinicultura en América</strong>. Casa Madero (1597), el viñedo más
-              antiguo del continente. Parras de la Fuente es Pueblo Mágico.
-              Especialización: <strong>protección de patrimonio histórico</strong>.
-            </p>
-            <div class="coah-stations-grid">
-              {zonas.vitivinicola.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/coahuila/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-        </div>
-
-        <!-- ═══════════════════════════════════════════════════════════════════
-             SIDEBAR
-             ═══════════════════════════════════════════════════════════════════ -->
-        <aside class="coah-sidebar">
-
-          <!-- Teléfonos de Emergencia -->
-          <div class="coah-sidebar__card coah-sidebar__card--emergency">
-            <h3 class="coah-sidebar__title">Teléfonos de Emergencia</h3>
-            <ul class="coah-sidebar__list">
-              <li class="coah-sidebar__item">
-                <span class="coah-sidebar__label">Emergencias Nacional</span>
-                <a href="tel:911" class="coah-sidebar__phone">911</a>
-              </li>
-              <li class="coah-sidebar__item">
-                <span class="coah-sidebar__label">Bomberos Saltillo</span>
-                <a href="tel:+528444107900" class="coah-sidebar__phone">{COAHUILA_SEO.telefonos.bomberos_saltillo}</a>
-              </li>
-              <li class="coah-sidebar__item">
-                <span class="coah-sidebar__label">Bomberos Torreón</span>
-                <a href="tel:+528717120000" class="coah-sidebar__phone">{COAHUILA_SEO.telefonos.bomberos_torreon}</a>
-              </li>
-              <li class="coah-sidebar__item">
-                <span class="coah-sidebar__label">Bomberos Monclova</span>
-                <a href="tel:+528666331111" class="coah-sidebar__phone">{COAHUILA_SEO.telefonos.bomberos_monclova}</a>
-              </li>
-              <li class="coah-sidebar__item">
-                <span class="coah-sidebar__label">Bomberos Piedras Negras</span>
-                <a href="tel:+528787820000" class="coah-sidebar__phone">{COAHUILA_SEO.telefonos.bomberos_piedras_negras}</a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Navegación por Zona -->
-          <div class="coah-sidebar__card">
-            <h3 class="coah-sidebar__title">Navegación por Zona</h3>
-            <div class="coah-sidebar__zones">
-              <a href="#saltillo" class="coah-sidebar__zone-link coah-sidebar__zone-link--saltillo">Saltillo (5)</a>
-              <a href="#torreon" class="coah-sidebar__zone-link coah-sidebar__zone-link--laguna">La Laguna (5)</a>
-              <a href="#monclova" class="coah-sidebar__zone-link coah-sidebar__zone-link--monclova">Monclova (4)</a>
-              <a href="#carbonifera" class="coah-sidebar__zone-link coah-sidebar__zone-link--carbonifera">Carbonífera (4)</a>
-              <a href="#frontera" class="coah-sidebar__zone-link coah-sidebar__zone-link--frontera">Frontera (4)</a>
-              <a href="#parras" class="coah-sidebar__zone-link coah-sidebar__zone-link--vitivinicola">Vitivinícola (2)</a>
-            </div>
-          </div>
-
-          <!-- Datos del Estado -->
-          <div class="coah-sidebar__card">
-            <h3 class="coah-sidebar__title">Coahuila en Números</h3>
-            <ul class="coah-sidebar__facts">
-              <li><strong>Superficie:</strong> {COAHUILA_SEO.superficie_km2.toLocaleString('es-MX')} km² (3° nacional)</li>
-              <li><strong>Población:</strong> {(COAHUILA_SEO.poblacion / 1_000_000).toFixed(1)} millones</li>
-              <li><strong>Capital:</strong> Saltillo</li>
-              <li><strong>Frontera EE.UU.:</strong> {COAHUILA_SEO.frontera_km} km</li>
-              <li><strong>Municipios:</strong> {COAHUILA_SEO.municipios}</li>
-              <li><strong>PIB:</strong> {COAHUILA_SEO.pib_porcentaje_nacional}% nacional (6° economía)</li>
-              <li><strong>Pueblos Mágicos:</strong> 6</li>
-            </ul>
-          </div>
-
-          <!-- Industrias Principales -->
-          <div class="coah-sidebar__card">
-            <h3 class="coah-sidebar__title">Sectores Industriales</h3>
-            <ul class="coah-sidebar__facts">
-              <li><strong>Automotriz:</strong> GM, Chrysler, Daimler</li>
-              <li><strong>Siderúrgica:</strong> AHMSA, Ternium</li>
-              <li><strong>Minería:</strong> 95% carbón nacional</li>
-              <li><strong>Láctea:</strong> Lala, Alpura</li>
-              <li><strong>Maquiladora:</strong> Frontera Texas</li>
-              <li><strong>Vitivinícola:</strong> Casa Madero</li>
-            </ul>
-          </div>
-
-          <!-- Pueblos Mágicos -->
-          <div class="coah-sidebar__card">
-            <h3 class="coah-sidebar__title">Pueblos Mágicos</h3>
-            <ul class="coah-sidebar__facts">
-              {COAHUILA_SEO.pueblosMagicos.map(pm => (
-                <li><strong>{pm.nombre}:</strong> {pm.especialidad}</li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Especialidades Bomberiles -->
-          <div class="coah-sidebar__card">
-            <h3 class="coah-sidebar__title">Especialidades</h3>
-            <ul class="coah-sidebar__facts">
-              <li><strong>HAZMAT:</strong> {ESTADISTICAS_COAHUILA.estaciones_hazmat} estaciones</li>
-              <li><strong>Rescate Minero:</strong> {ESTADISTICAS_COAHUILA.estaciones_rescate_minero} estaciones</li>
-              <li><strong>Coord. Binacional:</strong> Piedras Negras, Acuña</li>
-              <li><strong>Incendios Forestales:</strong> Arteaga</li>
-              <li><strong>Metal Fundido:</strong> Monclova</li>
-            </ul>
-          </div>
-
-        </aside>
-      </div>
-    </div>
-
-    <!-- Breadcrumb SEO -->
-    <nav class="coah-breadcrumb" aria-label="Breadcrumb">
-      <ol class="coah-breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
-        <li class="coah-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/" itemprop="item"><span itemprop="name">Inicio</span></a>
-          <meta itemprop="position" content="1" />
-        </li>
-        <li class="coah-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/directorio" itemprop="item"><span itemprop="name">Directorio</span></a>
-          <meta itemprop="position" content="2" />
-        </li>
-        <li class="coah-breadcrumb__item coah-breadcrumb__item--active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <span itemprop="name">Coahuila</span>
-          <meta itemprop="position" content="3" />
-        </li>
-      </ol>
-    </nav>
-  </div>
-</PageLayout>
-
-<style>
-  /* ═══════════════════════════════════════════════════════════════════════
-     VARIABLES CSS - TEMA ACERO INDUSTRIAL
-     ═══════════════════════════════════════════════════════════════════════ */
-  :root {
-    --coah-steel: rgb(71, 85, 105);
-    --coah-steel-light: rgb(100, 116, 139);
-    --coah-steel-dark: rgb(30, 41, 59);
-    --coah-slate-50: rgb(248, 250, 252);
-    --coah-slate-100: rgb(241, 245, 249);
-    --coah-slate-200: rgb(226, 232, 240);
-    --coah-slate-600: rgb(71, 85, 105);
-    --coah-slate-800: rgb(30, 41, 59);
-    --coah-sky: rgb(14, 165, 233);
-    --coah-white: #ffffff;
-    --coah-red: #dc2626;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     MAIN CONTAINER
-     ═══════════════════════════════════════════════════════════════════════ */
-  .coah-main {
-    min-height: 100vh;
-    background-color: var(--coah-slate-50);
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     HERO SECTION
-     ═══════════════════════════════════════════════════════════════════════ */
-  .coah-hero {
-    background: linear-gradient(135deg, var(--coah-steel-dark) 0%, var(--coah-steel) 50%, var(--coah-steel-light) 100%);
-    padding: 3rem 1rem;
-    color: var(--coah-white);
-  }
-
-  .coah-hero__container {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .coah-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    margin-bottom: 1.5rem;
-    backdrop-filter: blur(4px);
-  }
-
-  .coah-hero__badge-code {
-    background: var(--coah-white);
-    color: var(--coah-steel);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-weight: 700;
-    font-size: 0.875rem;
-  }
-
-  .coah-hero__badge-text {
-    font-size: 0.875rem;
-    opacity: 0.95;
-  }
-
-  .coah-hero__title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    line-height: 1.1;
-  }
-
-  .coah-hero__title-accent {
-    display: block;
-    font-size: 3rem;
-    color: var(--coah-sky);
-  }
-
-  .coah-hero__subtitle {
-    font-size: 1.125rem;
-    opacity: 0.95;
-    max-width: 700px;
-    margin: 0 auto 2rem;
-    line-height: 1.6;
-  }
-
-  .coah-hero__stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .coah-hero__stat {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1rem;
-    border-radius: 12px;
-    backdrop-filter: blur(4px);
-  }
-
-  .coah-hero__stat-number {
-    display: block;
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--coah-sky);
-  }
-
-  .coah-hero__stat-label {
-    font-size: 0.75rem;
-    opacity: 0.9;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     EMERGENCY BANNER
-     ═══════════════════════════════════════════════════════════════════════ */
-  .coah-emergency {
-    background: var(--coah-red);
-    color: var(--coah-white);
-    padding: 1rem;
-  }
-
-  .coah-emergency__container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .coah-emergency__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .coah-emergency__icon {
-    flex-shrink: 0;
-  }
-
-  .coah-emergency__text {
-    text-align: center;
-  }
-
-  .coah-emergency__title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-  }
-
-  .coah-emergency__numbers {
-    font-size: 0.9375rem;
-  }
-
-  .coah-emergency__numbers strong {
-    font-weight: 700;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     CONTENT LAYOUT
-     ═══════════════════════════════════════════════════════════════════════ */
-  .coah-content {
-    padding: 2rem 1rem;
-  }
-
-  .coah-content__container {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 2rem;
-  }
-
-  .coah-content__main {
-    min-width: 0;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     INTRO SECTION
-     ═══════════════════════════════════════════════════════════════════════ */
-  .coah-intro {
-    background: var(--coah-white);
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .coah-intro__title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--coah-slate-800);
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 3px solid var(--coah-steel);
-  }
-
-  .coah-intro__text p {
-    color: var(--coah-slate-600);
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-
-  .coah-intro__text p:last-child {
-    margin-bottom: 0;
-  }
-
-  .coah-intro__text strong {
-    color: var(--coah-slate-800);
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     ZONE SECTIONS
-     ═══════════════════════════════════════════════════════════════════════ */
-  .coah-zone {
-    margin-bottom: 2.5rem;
-  }
-
-  .coah-zone__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .coah-zone__title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.375rem;
-    font-weight: 700;
-    color: var(--coah-slate-800);
-  }
-
-  .coah-zone__icon {
-    font-size: 1.5rem;
-  }
-
-  .coah-zone__count {
-    background: var(--coah-steel);
-    color: var(--coah-white);
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 600;
-  }
-
-  /* Zone-specific colors */
-  .coah-zone--saltillo .coah-zone__count { background: #2563eb; }
-  .coah-zone--laguna .coah-zone__count { background: #d97706; }
-  .coah-zone--monclova .coah-zone__count { background: #475569; }
-  .coah-zone--carbonifera .coah-zone__count { background: #78716c; }
-  .coah-zone--frontera .coah-zone__count { background: #4f46e5; }
-  .coah-zone--vitivinicola .coah-zone__count { background: #7c3aed; }
-
-  .coah-zone__description {
-    color: var(--coah-slate-600);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    padding-left: 2rem;
-  }
-
-  .coah-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     SIDEBAR
-     ═══════════════════════════════════════════════════════════════════════ */
-  .coah-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .coah-sidebar__card {
-    background: var(--coah-white);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .coah-sidebar__card--emergency {
-    background: linear-gradient(135deg, var(--coah-steel-dark), var(--coah-steel));
-    color: var(--coah-white);
-  }
-
-  .coah-sidebar__card--emergency .coah-sidebar__title {
-    color: var(--coah-white);
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .coah-sidebar__title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--coah-slate-800);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--coah-slate-200);
-  }
-
-  .coah-sidebar__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .coah-sidebar__item {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .coah-sidebar__item:last-child {
-    border-bottom: none;
-  }
-
-  .coah-sidebar__label {
-    font-size: 0.8125rem;
-    opacity: 0.9;
-  }
-
-  .coah-sidebar__phone {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--coah-white);
-    text-decoration: none;
-  }
-
-  .coah-sidebar__phone:hover {
-    text-decoration: underline;
-  }
-
-  .coah-sidebar__zones {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .coah-sidebar__zone-link {
-    padding: 0.375rem 0.75rem;
-    border-radius: 6px;
-    font-size: 0.8125rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.2s;
-  }
-
-  .coah-sidebar__zone-link--saltillo { background: #dbeafe; color: #1e40af; }
-  .coah-sidebar__zone-link--saltillo:hover { background: #2563eb; color: white; }
-  .coah-sidebar__zone-link--laguna { background: #fef3c7; color: #92400e; }
-  .coah-sidebar__zone-link--laguna:hover { background: #d97706; color: white; }
-  .coah-sidebar__zone-link--monclova { background: #e2e8f0; color: #334155; }
-  .coah-sidebar__zone-link--monclova:hover { background: #475569; color: white; }
-  .coah-sidebar__zone-link--carbonifera { background: #f5f5f4; color: #44403c; }
-  .coah-sidebar__zone-link--carbonifera:hover { background: #78716c; color: white; }
-  .coah-sidebar__zone-link--frontera { background: #e0e7ff; color: #3730a3; }
-  .coah-sidebar__zone-link--frontera:hover { background: #4f46e5; color: white; }
-  .coah-sidebar__zone-link--vitivinicola { background: #ede9fe; color: #5b21b6; }
-  .coah-sidebar__zone-link--vitivinicola:hover { background: #7c3aed; color: white; }
-
-  .coah-sidebar__facts {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .coah-sidebar__facts li {
-    padding: 0.5rem 0;
-    font-size: 0.875rem;
-    color: var(--coah-slate-600);
-    border-bottom: 1px solid var(--coah-slate-100);
-  }
-
-  .coah-sidebar__facts li:last-child {
-    border-bottom: none;
-  }
-
-  .coah-sidebar__facts strong {
-    color: var(--coah-slate-800);
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     BREADCRUMB
-     ═══════════════════════════════════════════════════════════════════════ */
-  .coah-breadcrumb {
-    background: var(--coah-white);
-    padding: 1rem;
-    border-top: 1px solid var(--coah-slate-200);
-  }
-
-  .coah-breadcrumb__list {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
-    font-size: 0.875rem;
-  }
-
-  .coah-breadcrumb__item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .coah-breadcrumb__item::after {
-    content: '/';
-    color: var(--coah-slate-400);
-  }
-
-  .coah-breadcrumb__item:last-child::after {
-    display: none;
-  }
-
-  .coah-breadcrumb__item a {
-    color: var(--coah-steel);
-    text-decoration: none;
-  }
-
-  .coah-breadcrumb__item a:hover {
-    text-decoration: underline;
-  }
-
-  .coah-breadcrumb__item--active {
-    color: var(--coah-slate-600);
-  }
-
-  /* ═══════════════════════════════════════════════════════════════════════
-     RESPONSIVE
-     ═══════════════════════════════════════════════════════════════════════ */
-  @media (max-width: 1024px) {
-    .coah-content__container {
-      grid-template-columns: 1fr;
-    }
-
-    .coah-sidebar {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-  }
-
-  @media (max-width: 640px) {
-    .coah-hero__title {
-      font-size: 1.875rem;
-    }
-
-    .coah-hero__title-accent {
-      font-size: 2.25rem;
-    }
-
-    .coah-hero__stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .coah-zone__header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .coah-zone__description {
-      padding-left: 0;
-    }
-
-    .coah-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .coah-sidebar {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+  <!-- ══════════════════════════════════════════════════
+       BLOQUE SEO — Coahuila de Zaragoza (COAH)
+       Texto rico en keywords para posicionamiento orgánico.
+       Aparece en el sidebar de la sección Main Grid.
+  ══════════════════════════════════════════════════ -->
+  <Fragment slot="seo">
+
+    <h2>Bomberos de Coahuila de Zaragoza — Capital Industrial del Norte</h2>
+    <p>
+      Los cuerpos de bomberos de <strong>Coahuila de Zaragoza</strong> operan en el estado
+      con los riesgos industriales más exigentes de México: la <strong>mayor acería integrada
+      del país</strong> (AHMSA, Monclova), el <strong>95% de la producción nacional de carbón</strong>
+      (Región Carbonífera), el <strong>2do clúster automotriz de México</strong>
+      (Saltillo-Ramos Arizpe) y <strong>512 km de frontera con Texas</strong> con coordinación
+      binacional activa. Las <strong>{totalEstaciones} estaciones</strong> en <strong>{totalMunicipios}
+      ciudades</strong>, con <strong>{totalBomberos.toLocaleString()} bomberos profesionales</strong>,
+      protegen los 3.2 millones de coahuilenses en el tercer estado más extenso de México
+      (151,563 km²) — la 6ª economía del país con 4.1% del PIB nacional.
+    </p>
+
+    <h3>¿Cómo llamar a los Bomberos en Coahuila?</h3>
+    <p>
+      En cualquier <strong>emergencia en Coahuila</strong>, marca el <strong>911</strong>
+      — activo 24/7, conecta con el Centro Estatal de Emergencias. Para contacto directo:
+      <strong>Bomberos Saltillo: (844) 410-7900</strong> ·
+      <strong>Bomberos Torreón: (871) 712-0000</strong> ·
+      <strong>Bomberos Monclova (AHMSA): (866) 633-1111</strong> ·
+      <strong>Bomberos Piedras Negras: (878) 782-0000</strong> ·
+      <strong>Bomberos Sabinas (rescate minero): (861) 613-0088</strong> ·
+      <strong>Protección Civil Estatal: (844) 411-5000</strong> ·
+      <strong>Cruz Roja Saltillo: (844) 414-3535</strong> ·
+      <strong>Cruz Roja Torreón: (871) 712-1212</strong>.
+      Para emergencias en la frontera con Texas, los protocolos binacionales activan
+      automáticamente a los <em>Fire Departments</em> de Eagle Pass y Del Rio.
+    </p>
+
+    <h3>Historia — Tradición Bomberil en el Corazón Industrial de México</h3>
+    <p>
+      Las corporaciones bomberiles de Coahuila se forjaron al calor literal de la industria
+      pesada. El <strong>Heroico Cuerpo de Bomberos de Saltillo</strong>, fundado en
+      <strong>1945</strong>, nació en paralelo al crecimiento de la capital como nodo
+      ferroviario y manufacturero. Los <strong>Bomberos de Torreón</strong>, fundados en
+      <strong>1936</strong>, crecieron con la <strong>Comarca Lagunera</strong> hasta
+      convertirse en la corporación más grande del norte de México en número de habitantes
+      cubiertos (1.3 millones en la zona metropolitana). Los <strong>Bomberos de Monclova</strong>
+      (1952) se especializaron desde su origen en las emergencias de la <strong>siderúrgica
+      AHMSA</strong>. Y los <strong>Bomberos de Sabinas</strong> (1960) construyeron el
+      único cuerpo especializado en <strong>rescate minero subterráneo</strong> de América
+      Latina. Hoy, la Coahuila bomberil es referencia nacional en cuatro especialidades únicas:
+      HAZMAT metalúrgico, rescate minero, respuesta industrial automotriz y coordinación
+      binacional.
+    </p>
+
+    <h3>AHMSA Monclova — El Riesgo Siderúrgico más Complejo de México</h3>
+    <p>
+      <strong>Altos Hornos de México (AHMSA)</strong>, con sede en Monclova, es el mayor
+      complejo siderúrgico integrado de América Latina: cuatro altos hornos en operación
+      continua, una coquería, una planta de sinterizado y más de <strong>25,000 empleados</strong>
+      directos. Los bomberos de la <strong>Estación Central de Monclova</strong> son los únicos
+      en México con entrenamiento certificado en <strong>incendios de metal fundido</strong>
+      (arrabio líquido a 1,500°C), <strong>rescate en altos hornos</strong>, <strong>explosiones
+      de gas de alto horno</strong> (BFG, mezcla de CO, H₂ y N₂) y emergencias con
+      <strong>gas de coque</strong> (benzol, naftalina, tolueno). El traje aluminizado de
+      aproximación y la unidad HAZMAT para gases industriales son equipos críticos de esta
+      estación. Los bomberos de <strong>Frontera</strong> y <strong>Castaños</strong> actúan
+      como primer y segundo escalón de refuerzo en emergencias de gran magnitud en el
+      corredor siderúrgico Monclova-Frontera.
+    </p>
+
+    <h3>Región Carbonífera — 95% del Carbón Nacional y Rescate Minero</h3>
+    <p>
+      La <strong>Región Carbonífera de Coahuila</strong> — Sabinas, Nueva Rosita, Múzquiz y
+      San Juan de Sabinas — produce el <strong>95% del carbón mineral de México</strong>,
+      con decenas de minas de carbón subterráneas activas operadas por MICARE, MIMOSA y
+      Minerales de Monclova. Los bomberos de la <strong>Estación de Sabinas</strong>
+      mantienen la única brigada de rescate minero certificada de México, equipada para:
+      <strong>explosiones de grisú</strong> (gas metano CH₄ que se acumula en las vetas de
+      carbón); <strong>incendios subterráneos</strong> de carbón, que pueden arder semanas
+      o meses; <strong>colapsos de sostenimiento</strong> (derrumbe de pilares y techos de
+      galería); e <strong>intoxicación masiva por CO</strong>. La tragedia de la
+      <strong>Mina Pasta de Conchos</strong> (San Juan de Sabinas, 19 de febrero de 2006,
+      65 mineros fallecidos) reconfiguró los protocolos nacionales de rescate minero y elevó
+      la formación de los bomberos de la Región Carbonífera al estándar más exigente del país.
+    </p>
+
+    <h3>Clúster Automotriz Saltillo-Ramos Arizpe — HAZMAT de Alta Tecnología</h3>
+    <p>
+      El corredor Saltillo-Ramos Arizpe es el <strong>2do polo automotriz de México</strong>
+      — después de Guanajuato — con plantas de ensamblaje de <strong>General Motors
+      (Silverado, Suburban)</strong>, <strong>Chrysler/Stellantis (Ram 1500)</strong>,
+      <strong>Daimler (Cascadia)</strong> y más de <strong>200 proveedores Tier 1 y Tier 2</strong>,
+      generando 85,000 empleos directos. La <strong>Estación de Ramos Arizpe</strong>
+      (fundada 1982) está especializada en emergencias únicas del sector automotriz:
+      derrames de <strong>pinturas isocianato</strong> (VOC tóxicos), incendios en
+      <strong>cabinas de pintura</strong> (riesgo de explosión por solventes aromáticos),
+      fugas de <strong>gases de soldadura robótica</strong> (CO₂, argón, mezclas), y
+      emergencias en <strong>líneas de estampado</strong> (prensas hidráulicas de 2,500 ton).
+      Personal certificado en HAZMAT Nivel Técnico con monitores de VOC y gases industriales.
+    </p>
+
+    <h3>Coordinación Binacional México-Texas — Frontera de 512 km</h3>
+    <p>
+      Coahuila comparte <strong>512 km de frontera con Texas (EE.UU.)</strong> — el tramo
+      más extenso de la frontera internacional de México con un solo estado americano.
+      Los <strong>Bomberos de Piedras Negras</strong> mantienen protocolos formales de
+      cooperación con el <strong>Eagle Pass Fire Department</strong> (Texas), activables
+      para emergencias que afecten ambos lados del Río Bravo: incendios en puentes
+      internacionales, accidentes en cruces con materiales peligrosos del comercio
+      transfronterizo (TLCAN/T-MEC), y rescates en el <strong>Río Bravo</strong>. Los
+      <strong>Bomberos de Ciudad Acuña</strong> coordinan con el <strong>Del Rio Fire
+      Department</strong> para emergencias en la <strong>Presa de la Amistad</strong>
+      — uno de los cuerpos de agua binacionales más grandes del mundo, con 89,000 km² de
+      cuenca compartida. También existe cooperación entre las brigadas <strong>HAZMAT</strong>
+      de la frontera para incidentes con carga peligrosa en los puentes internacionales
+      Puente I y Puente II de Piedras Negras.
+    </p>
+
+    <h3>Cuatro Ciénegas — El Ecosistema más Singular del Planeta</h3>
+    <p>
+      Los bomberos de la <strong>Estación de Cuatro Ciénegas</strong> protegen el
+      <strong>Área de Protección de Flora y Fauna Cuatro Ciénegas</strong> (84,347 ha),
+      considerada por los biólogos como el <strong>ecosistema más antiguo e irreemplazable
+      del planeta</strong>: sus pozas termales albergan <strong>estromatolitos vivos</strong>
+      — las formas de vida más antiguas de la Tierra (3,500 millones de años) —
+      y más de <strong>70 especies endémicas únicas en el mundo</strong>, incluyendo
+      el cocodrilo de Cuatro Ciénegas y el pez Lucania. La coordinación permanente con
+      la <strong>CONANP</strong> (Comisión Nacional de Áreas Naturales Protegidas) garantiza
+      protocolos especiales para emergencias en las pozas, las dunas de yeso blanco y el
+      desierto de Chihuahua que rodea el oasis. Este Pueblo Mágico recibe más de
+      50,000 visitantes al año que pueden sufrir emergencias de deshidratación y calor
+      extremo en el desierto.
+    </p>
+
+    <h3>Parras de la Fuente y los Pueblos Mágicos — Patrimonio Vitivinícola</h3>
+    <p>
+      Los bomberos del <strong>Pueblo Mágico de Parras de la Fuente</strong> protegen
+      <strong>Casa Madero</strong>, el viñedo más antiguo del continente americano, fundado
+      en <strong>1597</strong> — más de 400 años de tradición vitivinícola. Un incendio en
+      sus bodegas coloniales de mampostería, con barricas de roble centenarias, representaría
+      una pérdida patrimonial irremplazable. La brigada está capacitada en
+      <strong>protección de bienes históricos y culturales</strong>, con técnicas de combate
+      de incendios que minimizan el daño al patrimonio construido. Coahuila cuenta con
+      <strong>6 Pueblos Mágicos</strong> — Parras, Cuatro Ciénegas, Arteaga, Viesca, Candela
+      y Guerrero — cada uno con su estación de bomberos o cobertura asignada para emergencias
+      turísticas. La <strong>Sierra de Arteaga</strong> (\"La Suiza de México\", Pueblo Mágico
+      2012) demanda brigadas de rescate en montaña e incendios forestales, con nieve en
+      invierno y temperaturas de -10°C.
+    </p>
+
+    <h3>Comarca Lagunera — Amoniaco Industrial y la Cuenca Lechera de México</h3>
+    <p>
+      La <strong>Comarca Lagunera</strong> — Torreón y San Pedro de las Colonias — es la
+      <strong>principal cuenca lechera de México</strong>, con más de 400,000 vacas lecheras
+      y plantas procesadoras de <strong>Grupo Lala</strong>, <strong>Alpura</strong> y
+      <strong>Chilchota</strong>. Los bomberos de <strong>San Pedro</strong> están
+      especializados en la emergencia más frecuente de la industria láctea: fugas de
+      <strong>amoniaco anhidro (NH₃)</strong> en los sistemas de refrigeración industrial —
+      gas tóxico, corrosivo e inflamable que en concentraciones de 15-28% en aire genera
+      mezclas explosivas. Los <strong>Bomberos de Torreón Zona Industrial</strong> cubren
+      el corredor manufacturero oriente con empresas metalmecánicas, plásticos y
+      procesadoras de alimentos. La <strong>Estación Central de Torreón</strong> (fundada 1936)
+      coordina la respuesta metropolitana de la Comarca Lagunera con más de 1.3 millones
+      de habitantes en la zona conurbada Torreón-Gómez Palacio-Lerdo.
+    </p>
+
+    <h3>Especialidades y Cobertura por Zonas</h3>
+    <p>
+      <strong>Saltillo (Capital)</strong> — Estación Central (1945): zona automotriz,
+      academia estatal, Blvd. Carranza industrial.
+      <strong>Ramos Arizpe</strong> — HAZMAT automotriz: GM, Chrysler, Daimler, 200+ proveedores.
+      <strong>Arteaga</strong> — incendios forestales, rescate montaña, nieve, Sierra Arteaga.
+      <strong>Torreón</strong> — Comandancia Laguna (1936): Torreón Norte, Zona Industrial oriente.
+      <strong>San Pedro</strong> — amoniaco NH₃, industria láctea, Grupo Lala.
+      <strong>Monclova</strong> — AHMSA (1952): altos hornos, metal fundido, gas de coque.
+      <strong>Cuatro Ciénegas</strong> — APFF, estromatolitos, CONANP, Pueblo Mágico.
+      <strong>Sabinas</strong> — rescate minero (1960): grisú, CO, incendios subterráneos.
+      <strong>Múzquiz</strong> — minas carbón, comunidades Kikapú, forestal.
+      <strong>Piedras Negras</strong> — binacional Eagle Pass TX, HAZMAT comercio exterior.
+      <strong>Ciudad Acuña</strong> — binacional Del Rio TX, Presa de la Amistad binacional.
+      <strong>Parras de la Fuente</strong> — Casa Madero 1597, Pueblo Mágico, Ruta del Vino.
+    </p>
+
+  </Fragment>
+</DirectorioEstadoLayout>

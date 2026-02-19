@@ -1,67 +1,26 @@
 ---
 /**
- * ─────────────────────────────────────────────────────────────────────────────
- * DIRECTORIO DE ESTACIONES DE BOMBEROS - CAMPECHE
- * ─────────────────────────────────────────────────────────────────────────────
- * Página optimizada para SEO con información completa del H. Cuerpo de Bomberos
- * del Estado de Campeche. Estado con triple Patrimonio UNESCO:
- * - Ciudad Amurallada de Campeche (1999)
- * - Antigua Ciudad Maya de Calakmul (2002)
- * - Reserva de la Biosfera de Calakmul (2014)
- *
- * Características del estado:
- * - Capital petrolera: Sonda de Campeche produce 70%+ del petróleo de México
- * - Carmen: Isla petrolera con plataformas offshore
- * - Selva maya: Segunda reserva más grande de América después del Amazonas
- * - Golfo de México: Huracanes y tormentas tropicales
- *
- * Keywords principales:
- * - Bomberos Campeche, Bomberos Ciudad del Carmen, Bomberos Calakmul
- * - Emergencias petroleras PEMEX, Rescate offshore, HAZMAT Campeche
- * - Bomberos incendios forestales selva maya, 911 Campeche
- * - Emergencias huracanes Golfo de México, Protección Civil Campeche
- * ─────────────────────────────────────────────────────────────────────────────
+ * ─── Directorio Bomberos Campeche ───
+ * Solo datos — el diseño vive en DirectorioEstadoLayout.astro
  */
-import PageLayout from "@layouts/PageLayout.astro";
-import SectionHeader from "@components/SectionHeader.astro";
-import StationCard from "@components/StationCard.astro";
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesCampeche, getMunicipios, getEstadisticas } from "@data/estaciones-campeche";
 import { breadcrumbJsonLd } from "@utils/seo";
 
-// Obtener datos
-const municipios = getMunicipios();
+const municipios   = getMunicipios();
 const estadisticas = getEstadisticas();
 
-// Estados vecinos para interlinking SEO
-const estadosVecinos = [
-  { nombre: "Yucatán", slug: "yucatan" },
-  { nombre: "Quintana Roo", slug: "quintana-roo" },
-  { nombre: "Tabasco", slug: "tabasco" },
-  { nombre: "Guatemala", slug: null }, // Frontera internacional
-];
-
-// Datos de municipios con información SEO
-const municipiosInfo = [
-  { nombre: "Campeche", poblacion: "295K", desc: "Capital UNESCO, ciudad amurallada" },
-  { nombre: "Carmen", poblacion: "250K", desc: "Capital petrolera, Isla del Carmen" },
-  { nombre: "Escárcega", poblacion: "58K", desc: "Crucero carretero, Tren Maya" },
-  { nombre: "Champotón", poblacion: "92K", desc: "Puerto pesquero del Golfo" },
-  { nombre: "Calkiní", poblacion: "59K", desc: "Camino Real, artesanías" },
-  { nombre: "Candelaria", poblacion: "47K", desc: "Frontera Guatemala, selva" },
-  { nombre: "Calakmul", poblacion: "31K", desc: "Reserva UNESCO, arqueología maya" },
-];
-
-const keywords = ["bomberos campeche", "estaciones bomberos ciudad del carmen", "emergencias campeche 911", "bomberos calakmul", "bomberos hazmat pemex", "incendios forestales selva maya", "cuerpo bomberos campeche"];
 const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
+  { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Campeche", url: "/directorio/campeche" },
+  { name: "Campeche",               url: "/directorio/campeche" },
 ]);
+
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Campeche, México",
-  "description": "Directorio oficial de las 7 estaciones de bomberos en Campeche. Teléfonos de emergencia en Ciudad del Carmen, Calakmul, Escárcega y Champotón. Emergencias HAZMAT petroleras, incendios forestales selva maya. 911 y contacto 24 horas.",
+  "description": "Directorio oficial de las 7 estaciones de bomberos en Campeche. Teléfonos directos en San Francisco de Campeche, Ciudad del Carmen, Escárcega, Champotón, Calkiní, Candelaria y Calakmul. Cobertura 24/7. Emergencias: llama al 911.",
   "numberOfItems": estacionesCampeche.length,
   "itemListElement": estacionesCampeche.map((e, i) => ({
     "@type": "ListItem",
@@ -74,1367 +33,271 @@ const itemListSchema = {
         "streetAddress": e.direccion,
         "addressLocality": e.municipio || e.ciudad,
         "addressRegion": "Campeche",
-        "addressCountry": "MX"
+        "addressCountry": "MX",
       },
       "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/campeche/${e.slug}`
+      "url": `https://bombero.mx/directorio/campeche/${e.slug}`,
     }
   }))
 };
+
+/*
+ * Rotación de imágenes para las tarjetas de estación.
+ * Priorizando imágenes relacionadas con los riesgos característicos de Campeche:
+ * emergencias petroleras Sonda de Campeche, patrimonio UNESCO ciudad amurallada,
+ * incendios forestales selva maya Calakmul, huracanes Golfo de México.
+ */
+const stationImages = [
+  "/images/directorio/estacion-bomberos-petrolera-01.avif",
+  "/images/directorio/unidad-hazmat-emergencias-01.avif",
+  "/images/directorio/estacion-bomberos-selva-01.avif",
+  "/images/directorio/camion-forestal-bomberos-01.avif",
+  "/images/directorio/descontaminacion-hazmat-01.avif",
+  "/images/directorio/estacion-bomberos-maritimo-01.avif",
+  "/images/directorio/rescate-acuatico-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/estacion-bomberos-industrial-01.avif",
+  "/images/directorio/lancha-rescate-bomberos-01.avif",
+  "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  "/images/directorio/estacion-bomberos-puerto-01.avif",
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/capacitacion-bomberos-profesional-01.avif",
+  "/images/directorio/motobomba-incendios-forestal-01.avif",
+  "/images/directorio/camion-cisterna-bomberos-01.avif",
+  "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif",
+  "/images/directorio/estacion-bomberos-equipada-01.avif",
+  "/images/directorio/bomberos-accion-incendio-01.avif",
+];
 ---
 
-<PageLayout
-  title="Estaciones de Bomberos en Campeche | Directorio Oficial | BOMBERO.MX"
-  description="Directorio oficial de las 7 estaciones de bomberos en Campeche. Teléfonos de emergencia en Ciudad del Carmen, Calakmul, Escárcega y Champotón. Emergencias HAZMAT petroleras, incendios forestales selva maya. 911 y contacto 24 horas."
-  keywords={keywords}
+<DirectorioEstadoLayout
+  estado="Campeche"
+  sigla="CAMP"
+  slug="campeche"
+  description={`Directorio oficial de las ${estadisticas.totalEstaciones} estaciones de bomberos en Campeche. Teléfonos de emergencia en San Francisco de Campeche, Ciudad del Carmen, Escárcega, Champotón y Calakmul. HAZMAT petrolero, forestal selva maya y protección UNESCO. Emergencias: 911.`}
+  keywords={[
+    "bomberos campeche",
+    "estaciones bomberos ciudad del carmen",
+    "bomberos hazmat pemex campeche",
+    "emergencias campeche 911",
+    "bomberos sonda de campeche",
+    "bomberos calakmul selva maya",
+    "cuerpo bomberos campeche",
+    "bomberos ciudad amurallada unesco",
+    "incendios forestales selva campeche",
+    "bomberos escarcega",
+    "bomberos champoton",
+    "emergencias offshore plataformas campeche",
+    "bomberos patrimonio unesco campeche",
+    "directorio bomberos campeche",
+    "emergencias 911 san francisco campeche",
+  ]}
   canonical="https://bombero.mx/directorio/campeche"
   jsonLd={[breadcrumbSchema, itemListSchema]}
+
+  totalEstaciones={estadisticas.totalEstaciones}
+  totalMunicipios={estadisticas.totalMunicipios}
+  habitantes="928K+"
+
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Campeche</strong> protege los <strong>${estadisticas.totalMunicipios} municipios</strong> del único estado de México con triple Patrimonio UNESCO con <strong>${estadisticas.totalEstaciones} estaciones activas</strong> y más de <strong>322 bomberos profesionales</strong> — desde la ciudad amurallada del siglo XVII hasta las plataformas petroleras de la Sonda de Campeche, la selva de Calakmul y la frontera con Guatemala.`}
+  heroImage="/images/directorio/estacion-bomberos-petrolera-01.avif"
+  heroImageAlt="Estación de Bomberos Campeche — HAZMAT Sonda de Campeche ciudad amurallada UNESCO"
+  heroCaption="H. Cuerpo de Bomberos · Campeche"
+  heroThumbs={[
+    { src: "/images/directorio/unidad-hazmat-emergencias-01.avif",  alt: "HAZMAT bomberos Ciudad del Carmen plataformas petroleras PEMEX Sonda de Campeche", label: "HAZMAT Petrolero"     },
+    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Incendio edificios coloniales Centro Histórico Campeche ciudad amurallada UNESCO", label: "Patrimonio UNESCO"   },
+    { src: "/images/directorio/camion-forestal-bomberos-01.avif",   alt: "Bomberos forestales selva Reserva Biósfera Calakmul 723 mil hectáreas UNESCO",    label: "Forestal Selva Maya"  },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/descontaminacion-hazmat-01.avif",              alt: "Descontaminación HAZMAT plataformas petroleras Sonda de Campeche offshore PEMEX",    label: "HAZMAT Offshore"          },
+    { src: "/images/directorio/estacion-bomberos-central-edificio-01.avif",   alt: "Protección Centro Histórico Campeche ciudad amurallada baluartes coloniales UNESCO", label: "Ciudad Amurallada UNESCO"  },
+    { src: "/images/directorio/pick-up-bomberos-forestal-01.avif",            alt: "Incendio forestal Reserva Biósfera Calakmul selva tropical México jaguar puma",     label: "Reserva Calakmul UNESCO"  },
+    { src: "/images/directorio/rescate-acuatico-bomberos-01.avif",            alt: "Rescate acuático Golfo de México Laguna Términos Champotón flota pesquera",         label: "Rescate Golfo de México"  },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",          label: "Emergencias"               },
+    { number: "981 811 3636", label: "Bomberos Campeche"         },
+    { number: "938 382 5050", label: "Bomberos Cd. del Carmen"   },
+    { number: "982 824 0066", label: "Bomberos Escárcega"        },
+    { number: "982 828 0038", label: "Bomberos Champotón"        },
+  ]}
+
+  municipios={municipios}
+
+  regiones={[
+    { nombre: "Zona Capital UNESCO",    desc: "San Francisco de Campeche · Ciudad amurallada · Malecón" },
+    { nombre: "Zona Petrolera",         desc: "Ciudad del Carmen · Sonda de Campeche · Laguna de Términos" },
+    { nombre: "Zona Maya-Biósfera",     desc: "Calakmul · Xpujil · Reserva UNESCO 723K ha"    },
+    { nombre: "Zona Sur Selvática",     desc: "Candelaria · Escárcega · Tren Maya · Frontera Guatemala" },
+    { nombre: "Zona Norte Camino Real", desc: "Calkiní · Champotón · Hecelchakán · Costa del Golfo"  },
+  ]}
+
+  estadosVecinos={[
+    { nombre: "Yucatán",      slug: "yucatan"      },
+    { nombre: "Quintana Roo", slug: "quintana-roo" },
+    { nombre: "Tabasco",      slug: "tabasco"      },
+  ]}
+
+  estaciones={estacionesCampeche}
+  stationImages={stationImages}
+
+  eppCards={[
+    {
+      image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+      imageAlt:  "Traje HAZMAT Nivel A bomberos Ciudad del Carmen plataformas petroleras PEMEX Sonda Campeche",
+      badge:     "NFPA 1991",
+      title:     "Traje HAZMAT Nivel A — Emergencias Petroleras",
+      text:      "Certificado NFPA 1991 para la <strong>Sonda de Campeche</strong>, la mayor zona de producción petrolera de México: <strong>60% del petróleo nacional</strong> y <strong>30% del gas natural</strong> provienen de sus más de 200 plataformas marinas. Protección total encapsulada contra hidrocarburos, gases tóxicos y derrames en mar abierto. Compatible con los protocolos de emergencia de <strong>PEMEX, Halliburton, Schlumberger y Baker Hughes</strong> para incidentes offshore en la Sonda de Campeche.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+      imageAlt:  "Traje estructural NFPA 1971 bomberos Campeche ciudad amurallada UNESCO edificios coloniales siglo XVII",
+      badge:     "NFPA 1971",
+      title:     "Traje Estructural NFPA 1971",
+      text:      "Imprescindible para proteger la <strong>Ciudad Histórica Fortificada de Campeche</strong> (Patrimonio UNESCO, 1999) — la <strong>única ciudad amurallada de México</strong> con 8 baluartes y 2.5 km de murallas del siglo XVII. Los edificios de cantera del centro histórico requieren técnicas especializadas de extinción para no dañar el patrimonio. También para incendios en la <strong>Antigua Ciudad Maya de Calakmul</strong> (UNESCO, 2002), el mayor sitio arqueológico maya de México con 6,750 estructuras.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+      imageAlt:  "Traje Forestal NFPA 1977 bomberos selva Reserva Biósfera Calakmul incendios forestales jaguar puma",
+      badge:     "NFPA 1977",
+      title:     "Traje Forestal NFPA 1977",
+      text:      "Certificado para combate de incendios en la <strong>Reserva de la Biósfera de Calakmul</strong> (Patrimonio UNESCO, 2014), con <strong>723,185 hectáreas</strong> de selva tropical — la mayor reserva de bosque tropical de México y segunda del continente americano después del Amazonas. Hogar del jaguar, puma, tapir, guacamaya roja y más de 300 especies de aves. Las brigadas de Calakmul trabajan en coordinación con <strong>CONANP y CONAFOR</strong> con drones térmicos y tanques nodriza.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+      imageAlt:  "Botas estructurales NFPA 1971 bomberos Campeche terreno mixto plataformas selva ciudad colonial costal",
+      badge:     "NFPA 1971",
+      title:     "Botas Estructurales de Cuero",
+      text:      "Certificadas NFPA 1971 para el terreno más diverso del sureste: cubiertas de metal en <strong>plataformas petroleras offshore</strong> de la Sonda de Campeche, adoquín histórico de la <strong>ciudad amurallada de Campeche</strong>, suelo selvático húmedo de la <strong>Reserva de Calakmul</strong>, muelles pesqueros de <strong>Champotón y la Laguna de Términos</strong>, y suelo fronterizo de <strong>Candelaria</strong> junto al río homónimo. Resistencia garantizada en los ambientes más extremos de México.",
+      href:      "/productos/botas-para-bomberos",
+      linkLabel: "Ver Botas para Bombero",
+    },
+  ]}
+
+  ctaTitle="Equipamos a los Bomberos de Campeche"
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${estadisticas.totalEstaciones} estaciones en San Francisco de Campeche, Ciudad del Carmen, Escárcega, Champotón, Calkiní, Candelaria y Calakmul. Envío a los 13 municipios del estado. Atención a licitaciones públicas PEMEX y compra directa.`}
+  ctaBtnText="Solicitar Cotización — Campeche"
 >
-  <!-- Hero Section con SEO optimizado -->
-  <section class="cam-hero">
-    <div class="cam-hero__bg">
-      <div class="cam-hero__gradient"></div>
-      <div class="cam-hero__pattern"></div>
-    </div>
-    <div class="container">
-      <div class="cam-hero__container">
-        <!-- Left Column - Content Principal -->
-        <div class="cam-hero__content">
-          <nav class="cam-hero__breadcrumb" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <a href="/" itemprop="item"><span itemprop="name">Inicio</span></a>
-              <meta itemprop="position" content="1" />
-            </span>
-            <span aria-hidden="true">/</span>
-            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <a href="/directorio" itemprop="item"><span itemprop="name">Directorio Nacional</span></a>
-              <meta itemprop="position" content="2" />
-            </span>
-            <span aria-hidden="true">/</span>
-            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name" aria-current="page">Campeche</span>
-              <meta itemprop="position" content="3" />
-            </span>
-          </nav>
-
-          <span class="cam-hero__badge">
-            <span class="cam-hero__badge-dot"></span>
-            CAM
-          </span>
-
-          <h1 class="cam-hero__title">
-            Estaciones de Bomberos en
-            <span class="cam-hero__highlight">Campeche</span>
-          </h1>
-
-          <p class="cam-hero__desc">
-            Directorio oficial del <strong>Heroico Cuerpo de Bomberos del Estado de Campeche</strong>.
-            Acceso inmediato a teléfonos de emergencia, direcciones y servicios de las <strong>{estadisticas.totalEstaciones} estaciones</strong>
-            que protegen a los <strong>928,000 habitantes</strong> del estado con <strong>triple Patrimonio UNESCO</strong>,
-            la <strong>industria petrolera más importante de México</strong> y la <strong>segunda selva más grande de América</strong>.
-          </p>
-
-          <div class="cam-hero__stats">
-            <div class="cam-hero__stat">
-              <span class="cam-hero__stat-number">{estadisticas.totalEstaciones}</span>
-              <span class="cam-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="cam-hero__stat">
-              <span class="cam-hero__stat-number">{estadisticas.totalMunicipios}</span>
-              <span class="cam-hero__stat-label">Municipios</span>
-            </div>
-            <div class="cam-hero__stat">
-              <span class="cam-hero__stat-number">24/7</span>
-              <span class="cam-hero__stat-label">Servicio</span>
-            </div>
-            <div class="cam-hero__stat">
-              <span class="cam-hero__stat-number">70%</span>
-              <span class="cam-hero__stat-label">Petróleo MX</span>
-            </div>
-          </div>
-
-          <!-- Call to Action de Emergencia -->
-          <div class="cam-hero__cta">
-            <a href="tel:911" class="cam-hero__cta-btn cam-hero__cta-btn--primary">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
-              </svg>
-              Emergencias: 911
-            </a>
-            <a href="#estaciones" class="cam-hero__cta-btn cam-hero__cta-btn--secondary">
-              Ver todas las estaciones
-            </a>
-          </div>
-        </div>
-
-        <!-- Right Column - SEO Content Premium -->
-        <div class="cam-hero__seo">
-          <h2 class="cam-hero__seo-title">Triple Patrimonio Mundial UNESCO</h2>
-          <p class="cam-hero__seo-text">
-            <strong>Campeche</strong> es el único estado mexicano con <strong>tres sitios UNESCO</strong>:
-            la <strong>Ciudad Amurallada de San Francisco de Campeche</strong> (patrimonio cultural 1999),
-            la <strong>Antigua Ciudad Maya de Calakmul</strong> (patrimonio mixto 2002) y la
-            <strong>Reserva de la Biosfera de Calakmul</strong> (patrimonio natural 2014). Los bomberos
-            protegen este <strong>patrimonio invaluable de la humanidad</strong> con protocolos especializados.
-          </p>
-
-          <h2 class="cam-hero__seo-title">Capital Petrolera de México</h2>
-          <p class="cam-hero__seo-text">
-            La <strong>Sonda de Campeche</strong> produce más del <strong>70% del petróleo mexicano</strong>.
-            <strong>Ciudad del Carmen</strong> es el centro de operaciones de <strong>PEMEX Exploración y Producción</strong>,
-            con más de <strong>200 plataformas petroleras offshore</strong>. Los bomberos carmelitas están
-            certificados en <strong>HAZMAT, rescate acuático y emergencias petroquímicas</strong>.
-          </p>
-
-          <h2 class="cam-hero__seo-title">Segunda Selva más Grande de América</h2>
-          <p class="cam-hero__seo-text">
-            La <strong>Selva Maya de Calakmul</strong> es la segunda reserva forestal más grande del continente,
-            solo después del Amazonas. Con <strong>723,185 hectáreas de selva tropical</strong>, los bomberos
-            enfrentan <strong>incendios forestales masivos</strong> cada temporada seca (febrero-mayo),
-            protegiendo el <strong>hábitat del jaguar, tapir y guacamaya roja</strong>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Emergency Banner con Schema Markup -->
-  <section class="cam-emergency" itemscope itemtype="https://schema.org/EmergencyService">
-    <div class="container">
-      <div class="cam-emergency__content">
-        <div class="cam-emergency__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-        </div>
-        <div class="cam-emergency__text">
-          <span class="cam-emergency__label">Emergencias en Campeche</span>
-          <span class="cam-emergency__number" itemprop="telephone">911</span>
-        </div>
-        <div class="cam-emergency__info">
-          <p class="cam-emergency__desc">
-            <strong>Número único de emergencias</strong> que conecta con bomberos, policía, paramédicos,
-            <strong>PEMEX emergencias</strong>, Protección Civil y <strong>respuesta HAZMAT</strong>.
-            Disponible <strong>24 horas, 365 días</strong> en todo el estado.
-          </p>
-          <meta itemprop="areaServed" content="Campeche, México" />
-          <meta itemprop="availableLanguage" content="Spanish" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Municipios Quick Access -->
-  <section class="cam-municipios">
-    <div class="container">
-      <div class="cam-municipios__grid">
-        {municipiosInfo.map((mun) => (
-          <a href={`#${mun.nombre.toLowerCase().replace(/\s+/g, '-')}`} class="cam-municipios__card">
-            <span class="cam-municipios__name">{mun.nombre}</span>
-            <span class="cam-municipios__pop">{mun.poblacion} habitantes</span>
-            <span class="cam-municipios__desc">{mun.desc}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Content -->
-  <section class="cam-main" id="estaciones">
-    <div class="container">
-      <div class="cam-main__grid">
-        <!-- Stations Grid -->
-        <div class="cam-main__content">
-          <SectionHeader
-            label="Directorio de Bomberos"
-            title="Estaciones de Bomberos en Campeche"
-            description="Información verificada y actualizada de las 7 estaciones del Heroico Cuerpo de Bomberos en Campeche. Selecciona una estación para acceder a datos de contacto, servicios especializados en emergencias petroleras, incendios forestales y rescate acuático, zonas de cobertura y equipamiento HAZMAT disponible."
-          />
-
-          <!-- Stations Grid -->
-          <div class="cam-stations-grid">
-            {estacionesCampeche.map((estacion) => (
-              <StationCard
-                nombre={estacion.nombreCorto}
-                slug={estacion.slug}
-                direccion={`${estacion.direccion}, ${estacion.colonia}`}
-                alcaldia={estacion.municipio}
-                telefono={estacion.telefono}
-                servicios={estacion.servicios}
-                horario={estacion.horario}
-                baseUrl="/directorio/campeche"
-              />
-            ))}
-          </div>
-
-          <!-- SEO Content Premium -->
-          <article class="cam-seo">
-            <h2>El Heroico Cuerpo de Bomberos de Campeche</h2>
-            <p>
-              El <strong>H. Cuerpo de Bomberos de Campeche</strong> constituye una fuerza de élite especializada
-              en emergencias únicas a nivel nacional. Con <strong>{estadisticas.totalEstaciones} estaciones
-              estratégicamente ubicadas</strong> y más de <strong>{estadisticas.totalPersonal} elementos activos</strong>,
-              este cuerpo profesional protege el <strong>triple Patrimonio UNESCO</strong> del estado,
-              las <strong>instalaciones petroleras más importantes de México</strong> y la
-              <strong>segunda selva más grande del continente americano</strong>.
-            </p>
-
-            <h3>¿Cómo Contactar a los Bomberos en Campeche?</h3>
-            <p>
-              Ante cualquier <strong>emergencia en Campeche</strong>, el número <strong>911</strong> conecta
-              inmediatamente con el <strong>Centro de Comando, Control, Comunicaciones y Cómputo (C4)</strong>
-              del estado. Este sistema coordina la respuesta de bomberos, policía, paramédicos, Protección Civil,
-              <strong>PEMEX emergencias</strong> y equipos <strong>HAZMAT especializados</strong>. Para emergencias
-              específicas en la <strong>capital</strong>, puedes marcar <strong>981 816 3293</strong>;
-              en <strong>Ciudad del Carmen</strong> el <strong>938 382 2990</strong>;
-              y en <strong>Calakmul</strong> el <strong>983 871 6001</strong>.
-            </p>
-
-            <h3>Emergencias más Frecuentes en Campeche</h3>
-            <p>
-              Los bomberos campechanos atienden emergencias únicas del estado petrolero y selvático:
-            </p>
-            <ul class="cam-seo__list">
-              <li><strong>Emergencias petroleras HAZMAT</strong> en plataformas offshore y terminales marítimas</li>
-              <li><strong>Incendios en instalaciones PEMEX</strong>, refinerías y ductos de hidrocarburos</li>
-              <li><strong>Incendios forestales masivos</strong> en la Reserva de Calakmul (temporada feb-may)</li>
-              <li><strong>Rescate acuático</strong> en Laguna de Términos, Golfo de México y cenotes</li>
-              <li><strong>Huracanes categoría 1-5</strong> del Golfo de México (temporada jun-nov)</li>
-              <li><strong>Accidentes en carreteras</strong> 186, 261 y 180, incluyendo vehículos de carga HAZMAT</li>
-              <li><strong>Emergencias arqueológicas</strong> en zonas UNESCO (Calakmul, Edzná, Becán)</li>
-              <li><strong>Rescate de fauna silvestre</strong> (jaguares, cocodrilos, monos aulladores)</li>
-            </ul>
-
-            <h3>Respuesta a Emergencias Petroleras</h3>
-            <p>
-              <strong>Ciudad del Carmen</strong> es el centro neurálgico de la <strong>industria petrolera mexicana</strong>.
-              Los bomberos carmelitas mantienen certificaciones internacionales en <strong>HAZMAT nivel técnico</strong>,
-              <strong>rescate en espacios confinados</strong>, <strong>rescate acuático en aguas abiertas</strong> y
-              <strong>combate de incendios industriales</strong>. Operan en coordinación permanente con
-              <strong>PEMEX Seguridad Industrial</strong> y la <strong>Secretaría de Marina</strong> para
-              emergencias en las más de <strong>200 plataformas petroleras</strong> de la Sonda de Campeche.
-            </p>
-
-            <h3>Combate de Incendios Forestales</h3>
-            <p>
-              La <strong>Reserva de la Biosfera de Calakmul</strong> enfrenta cada temporada seca
-              (febrero-mayo) <strong>incendios forestales de gran magnitud</strong>. El cuerpo de bomberos
-              cuenta con <strong>brigadas especializadas forestales</strong>, <strong>equipos de comunicación
-              satelital</strong> y coordinación con <strong>CONAFOR</strong> (Comisión Nacional Forestal).
-              En 2019, se combatieron más de <strong>150 incendios</strong> que afectaron <strong>25,000 hectáreas</strong>
-              de selva tropical, requiriendo <strong>apoyo aéreo y brigadas de 10 estados</strong>.
-            </p>
-
-            <h3>Protección del Patrimonio UNESCO</h3>
-            <p>
-              Los bomberos campechanos tienen la responsabilidad única de proteger <strong>tres sitios
-              Patrimonio de la Humanidad</strong>:
-            </p>
-            <ul class="cam-seo__list">
-              <li><strong>Ciudad Amurallada de San Francisco de Campeche</strong> — murallas del siglo XVII, baluartes y arquitectura colonial</li>
-              <li><strong>Antigua Ciudad Maya de Calakmul</strong> — 6,000+ estructuras arqueológicas, pirámides y estelas</li>
-              <li><strong>Reserva de la Biosfera de Calakmul</strong> — 723,185 ha de selva tropical, hábitat del jaguar</li>
-            </ul>
-
-            <h3>Equipamiento Especializado</h3>
-            <p>
-              Las estaciones de bomberos de Campeche cuentan con <strong>equipamiento especializado</strong>
-              para las condiciones únicas del estado petrolero y selvático:
-            </p>
-            <ul class="cam-seo__list">
-              <li><strong>Unidades HAZMAT</strong> con espuma AFFF para incendios de hidrocarburos</li>
-              <li><strong>Lanchas de rescate</strong> para Laguna de Términos y operaciones costeras</li>
-              <li><strong>Equipos forestales</strong> con herramientas manuales y sistemas de bombeo portátil</li>
-              <li><strong>Tanques nodriza</strong> de alta capacidad para zonas sin hidrantes</li>
-              <li><strong>Trajes de protección química</strong> niveles A, B y C</li>
-              <li><strong>Sistemas de comunicación satelital</strong> para operaciones en selva</li>
-              <li><strong>Vehículos todoterreno</strong> para acceso a comunidades remotas</li>
-            </ul>
-
-            <h3>Huracanes del Golfo de México</h3>
-            <p>
-              Campeche enfrenta la <strong>temporada de huracanes del Atlántico</strong> (junio-noviembre).
-              El <strong>Huracán Isidore (2002)</strong> categoría 3 devastó la costa campechana con vientos
-              de <strong>205 km/h</strong> y lluvias de <strong>500 mm</strong>. El <strong>Huracán Delta (2020)</strong>
-              impactó Carmen con categoría 2. Los bomberos mantienen <strong>protocolos de evacuación costera</strong>,
-              <strong>refugios temporales</strong> y coordinación con el <strong>Ejército Mexicano</strong>
-              y la <strong>Guardia Nacional</strong> para respuesta a desastres.
-            </p>
-          </article>
-        </div>
-
-        <!-- Sidebar Optimizado -->
-        <aside class="cam-sidebar">
-          <!-- Filtro por Municipio -->
-          <div class="cam-sidebar__card">
-            <h4>Buscar por Municipio</h4>
-            <ul class="cam-sidebar__municipios">
-              {municipios.map((municipio) => (
-                <li>
-                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <span class="cam-sidebar__bullet"></span>
-                    <span>{municipio}</span>
-                    <span class="cam-sidebar__count">
-                      {estadisticas.estacionesPorMunicipio.find(m => m.municipio === municipio)?.cantidad}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Teléfonos de Emergencia -->
-          <div class="cam-sidebar__card cam-sidebar__card--emergency">
-            <h4>Teléfonos de Emergencia</h4>
-            <div class="cam-sidebar__emergency-list">
-              <div class="cam-sidebar__emergency-item">
-                <span class="cam-sidebar__emergency-number">911</span>
-                <span class="cam-sidebar__emergency-label">Emergencias Generales</span>
-              </div>
-              <div class="cam-sidebar__emergency-item">
-                <span class="cam-sidebar__emergency-number">981 816 3293</span>
-                <span class="cam-sidebar__emergency-label">Bomberos Campeche Capital</span>
-              </div>
-              <div class="cam-sidebar__emergency-item">
-                <span class="cam-sidebar__emergency-number">938 382 2990</span>
-                <span class="cam-sidebar__emergency-label">Bomberos Ciudad del Carmen</span>
-              </div>
-              <div class="cam-sidebar__emergency-item">
-                <span class="cam-sidebar__emergency-number">982 824 0088</span>
-                <span class="cam-sidebar__emergency-label">Bomberos Escárcega</span>
-              </div>
-              <div class="cam-sidebar__emergency-item">
-                <span class="cam-sidebar__emergency-number">982 828 0055</span>
-                <span class="cam-sidebar__emergency-label">Bomberos Champotón</span>
-              </div>
-              <div class="cam-sidebar__emergency-item">
-                <span class="cam-sidebar__emergency-number">983 871 6001</span>
-                <span class="cam-sidebar__emergency-label">Bomberos Calakmul</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Estadísticas del Estado -->
-          <div class="cam-sidebar__card">
-            <h4>Campeche en Números</h4>
-            <ul class="cam-sidebar__stats">
-              <li>
-                <span class="cam-sidebar__stat-value">928K</span>
-                <span class="cam-sidebar__stat-label">Habitantes</span>
-              </li>
-              <li>
-                <span class="cam-sidebar__stat-value">70%+</span>
-                <span class="cam-sidebar__stat-label">Petróleo de México</span>
-              </li>
-              <li>
-                <span class="cam-sidebar__stat-value">{estadisticas.totalEstaciones}</span>
-                <span class="cam-sidebar__stat-label">Estaciones de bomberos</span>
-              </li>
-              <li>
-                <span class="cam-sidebar__stat-value">{estadisticas.totalPersonal}+</span>
-                <span class="cam-sidebar__stat-label">Bomberos activos</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Patrimonio UNESCO -->
-          <div class="cam-sidebar__card">
-            <h4>Sitios UNESCO Protegidos</h4>
-            <ul class="cam-sidebar__unesco">
-              <li>
-                <span class="cam-sidebar__unesco-name">Ciudad Amurallada</span>
-                <span class="cam-sidebar__unesco-desc">Patrimonio Cultural, 1999</span>
-              </li>
-              <li>
-                <span class="cam-sidebar__unesco-name">Calakmul Maya</span>
-                <span class="cam-sidebar__unesco-desc">Patrimonio Mixto, 2002</span>
-              </li>
-              <li>
-                <span class="cam-sidebar__unesco-name">Reserva Calakmul</span>
-                <span class="cam-sidebar__unesco-desc">Patrimonio Natural, 2014</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Industria Petrolera -->
-          <div class="cam-sidebar__card">
-            <h4>Industria Petrolera</h4>
-            <ul class="cam-sidebar__petroleum">
-              <li>
-                <span class="cam-sidebar__petroleum-name">Sonda de Campeche</span>
-                <span class="cam-sidebar__petroleum-desc">200+ plataformas offshore</span>
-              </li>
-              <li>
-                <span class="cam-sidebar__petroleum-name">Terminal Dos Bocas</span>
-                <span class="cam-sidebar__petroleum-desc">Exportación de crudo</span>
-              </li>
-              <li>
-                <span class="cam-sidebar__petroleum-name">PEMEX Carmen</span>
-                <span class="cam-sidebar__petroleum-desc">Centro de operaciones</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Estados Vecinos -->
-          <div class="cam-sidebar__card">
-            <h4>Estados Vecinos</h4>
-            <ul class="cam-sidebar__states">
-              {estadosVecinos.filter(e => e.slug).map((estado) => (
-                <li>
-                  <a href={`/directorio/${estado.slug}`}>
-                    <span>{estado.nombre}</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- CTA Equipamiento -->
-          <div class="cam-sidebar__card cam-sidebar__card--cta">
-            <h4>¿Equipas Bomberos en Campeche?</h4>
-            <p>Distribuimos equipo HAZMAT certificado, trajes de protección química y equipo forestal a estaciones de bomberos en todo Campeche</p>
-            <a href="/cotizar" class="cam-sidebar__cta-btn">Solicitar Cotización</a>
-          </div>
-
-          <!-- Productos -->
-          <div class="cam-sidebar__card">
-            <h4>Equipo para Bomberos Campeche</h4>
-            <ul class="cam-sidebar__products">
-              <li><a href="/productos/hazmat">Equipos HAZMAT y Protección Química</a></li>
-              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA 1971</a></li>
-              <li><a href="/productos/scba">Equipos SCBA Scott / MSA</a></li>
-              <li><a href="/productos/forestales">Equipos Forestales CONAFOR</a></li>
-              <li><a href="/productos/rescate-acuatico">Equipos de Rescate Acuático</a></li>
-            </ul>
-            <a href="/productos" class="cam-sidebar__link">
-              Ver catálogo completo
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Volver al Directorio -->
-          <div class="cam-sidebar__card">
-            <a href="/directorio" class="cam-sidebar__back">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              <span>Ver todos los estados</span>
-            </a>
-          </div>
-
-          <!-- Contacto -->
-          <div class="cam-sidebar__card">
-            <h4>Contacto BOMBERO.MX</h4>
-            <ul class="cam-sidebar__contact">
-              <li><a href="tel:+525520780102">55 2078 0102</a></li>
-              <li><a href="https://wa.me/525520780102">WhatsApp Directo</a></li>
-              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-</PageLayout>
-
-<style>
-  /* ═══════════════════════════════════════════════════════════════════════════
-     DIRECTORIO CAMPECHE - ESTACIONES DE BOMBEROS
-     Estilos optimizados con BEM y design tokens
-     Color principal: Dorado/Ámbar (rgb(217, 119, 6)) - Herencia Maya y UNESCO
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-  /* ═══ Hero Section ═══ */
-  .cam-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-  }
-
-  .cam-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .cam-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(217, 119, 6, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(220, 38, 38, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(217, 119, 6, 0.08), transparent);
-  }
-
-  .cam-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .cam-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--space-12);
-    align-items: start;
-  }
-
-  .cam-hero__breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-4);
-  }
-
-  .cam-hero__breadcrumb a {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .cam-hero__breadcrumb a:hover {
-    color: var(--color-fire-400);
-  }
-
-  .cam-hero__breadcrumb span {
-    color: var(--color-smoke-600);
-  }
-
-  .cam-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(217, 119, 6, 0.15);
-    border: 1px solid rgba(217, 119, 6, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: rgb(251, 191, 36);
-    margin-bottom: var(--space-4);
-  }
-
-  .cam-hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: rgb(217, 119, 6);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  .cam-hero__title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-5);
-  }
-
-  .cam-hero__highlight {
-    background: linear-gradient(135deg, rgb(217, 119, 6), rgb(251, 191, 36));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .cam-hero__desc {
-    font-size: var(--text-lg);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-6);
-  }
-
-  .cam-hero__desc strong {
-    color: white;
-  }
-
-  .cam-hero__stats {
-    display: flex;
-    gap: var(--space-8);
-    padding: var(--space-5) 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: var(--space-6);
-  }
-
-  .cam-hero__stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .cam-hero__stat-number {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: rgb(251, 191, 36);
-  }
-
-  .cam-hero__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .cam-hero__cta {
-    display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-
-  .cam-hero__cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-4) var(--space-6);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-base);
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .cam-hero__cta-btn--primary {
-    background: linear-gradient(135deg, var(--color-fire-500), var(--color-fire-600));
-    color: white;
-    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
-  }
-
-  .cam-hero__cta-btn--primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(220, 38, 38, 0.5);
-  }
-
-  .cam-hero__cta-btn--secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .cam-hero__cta-btn--secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-  }
-
-  /* SEO Content */
-  .cam-hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    padding: var(--space-6);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-xl);
-  }
-
-  .cam-hero__seo-title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: rgb(251, 191, 36);
-    margin: 0;
-  }
-
-  .cam-hero__seo-text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.8;
-    margin: 0;
-  }
-
-  .cam-hero__seo-text strong {
-    color: white;
-  }
-
-  /* ═══ Emergency Banner ═══ */
-  .cam-emergency {
-    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
-    padding: var(--space-6) 0;
-  }
-
-  .cam-emergency__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-8);
-    flex-wrap: wrap;
-  }
-
-  .cam-emergency__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    color: white;
-    animation: pulse 1.5s infinite;
-  }
-
-  .cam-emergency__text {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .cam-emergency__label {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .cam-emergency__number {
-    font-size: var(--text-4xl);
-    font-weight: 800;
-    color: white;
-    letter-spacing: 0.05em;
-  }
-
-  .cam-emergency__info {
-    max-width: 400px;
-  }
-
-  .cam-emergency__desc {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  /* ═══ Municipios Quick Access ═══ */
-  .cam-municipios {
-    background: var(--color-smoke-100);
-    padding: var(--space-8) 0;
-  }
-
-  .cam-municipios__grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: var(--space-4);
-  }
-
-  .cam-municipios__card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-4);
-    background: white;
-    border-radius: var(--radius-lg);
-    text-decoration: none;
-    transition: all 0.2s;
-    border: 1px solid var(--color-smoke-200);
-  }
-
-  .cam-municipios__card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: rgb(251, 191, 36);
-  }
-
-  .cam-municipios__name {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-  }
-
-  .cam-municipios__pop {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: rgb(217, 119, 6);
-  }
-
-  .cam-municipios__desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    line-height: 1.4;
-  }
-
-  /* ═══ Main Section ═══ */
-  .cam-main {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50);
-  }
-
-  .cam-main__grid {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  /* ═══ Stations Grid ═══ */
-  .cam-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-    margin-top: var(--space-8);
-  }
-
-  /* ═══ SEO Content Premium ═══ */
-  .cam-seo {
-    margin-top: var(--space-12);
-    padding: var(--space-10);
-    background: white;
-    border-radius: var(--radius-xl);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  }
-
-  .cam-seo h2 {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-5);
-    padding-bottom: var(--space-4);
-    border-bottom: 3px solid rgb(217, 119, 6);
-  }
-
-  .cam-seo h3 {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin: var(--space-8) 0 var(--space-4);
-  }
-
-  .cam-seo p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-600);
-    line-height: 1.9;
-    margin: 0 0 var(--space-5);
-  }
-
-  .cam-seo p:last-child {
-    margin-bottom: 0;
-  }
-
-  .cam-seo strong {
-    color: var(--color-smoke-800);
-  }
-
-  .cam-seo__list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-5);
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .cam-seo__list li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-700);
-    line-height: 1.6;
-  }
-
-  .cam-seo__list li::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background: rgb(217, 119, 6);
-    border-radius: 50%;
-    margin-top: 6px;
-    flex-shrink: 0;
-  }
-
-  .cam-seo__list li strong {
-    color: var(--color-smoke-900);
-  }
-
-  /* ═══ Sidebar ═══ */
-  .cam-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    position: sticky;
-    top: var(--space-6);
-  }
-
-  .cam-sidebar__card {
-    padding: var(--space-5);
-    background: white;
-    border-radius: var(--radius-xl);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  }
-
-  .cam-sidebar__card h4 {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 2px solid rgb(217, 119, 6);
-  }
-
-  .cam-sidebar__card > p {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500);
-    line-height: 1.6;
-    margin: 0 0 var(--space-4);
-  }
-
-  /* Municipios List */
-  .cam-sidebar__municipios {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .cam-sidebar__municipios li a {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .cam-sidebar__municipios li a:hover {
-    background: var(--color-smoke-50);
-    color: rgb(217, 119, 6);
-  }
-
-  .cam-sidebar__bullet {
-    width: 6px;
-    height: 6px;
-    background: rgb(217, 119, 6);
-    border-radius: 50%;
-  }
-
-  .cam-sidebar__count {
-    margin-left: auto;
-    padding: 2px 8px;
-    background: var(--color-smoke-100);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--color-smoke-500);
-  }
-
-  /* Stats */
-  .cam-sidebar__stats {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3);
-  }
-
-  .cam-sidebar__stats li {
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    text-align: center;
-  }
-
-  .cam-sidebar__stat-value {
-    font-size: var(--text-xl);
-    font-weight: 800;
-    color: rgb(217, 119, 6);
-  }
-
-  .cam-sidebar__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    margin-top: 2px;
-  }
-
-  /* Emergency Card */
-  .cam-sidebar__card--emergency {
-    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
-  }
-
-  .cam-sidebar__card--emergency h4 {
-    color: white;
-    border-bottom-color: rgb(217, 119, 6);
-  }
-
-  .cam-sidebar__emergency-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .cam-sidebar__emergency-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-3);
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-lg);
-  }
-
-  .cam-sidebar__emergency-number {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: rgb(251, 191, 36);
-  }
-
-  .cam-sidebar__emergency-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-  }
-
-  /* UNESCO List */
-  .cam-sidebar__unesco {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .cam-sidebar__unesco li {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: var(--space-3);
-    background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(251, 191, 36, 0.05));
-    border-radius: var(--radius-lg);
-    border-left: 3px solid rgb(217, 119, 6);
-  }
-
-  .cam-sidebar__unesco-name {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-900);
-  }
-
-  .cam-sidebar__unesco-desc {
-    font-size: var(--text-xs);
-    color: rgb(217, 119, 6);
-    font-weight: 500;
-  }
-
-  /* Petroleum List */
-  .cam-sidebar__petroleum {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .cam-sidebar__petroleum li {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-  }
-
-  .cam-sidebar__petroleum-name {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-900);
-  }
-
-  .cam-sidebar__petroleum-desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-  }
-
-  /* States List */
-  .cam-sidebar__states {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .cam-sidebar__states li a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .cam-sidebar__states li a:hover {
-    background: var(--color-smoke-100);
-    color: rgb(217, 119, 6);
-  }
-
-  .cam-sidebar__states li a svg {
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all 0.2s;
-  }
-
-  .cam-sidebar__states li a:hover svg {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  /* Products */
-  .cam-sidebar__products {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .cam-sidebar__products li a {
-    display: block;
-    padding: var(--space-2);
-    font-size: var(--text-sm);
-    color: rgb(217, 119, 6);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  .cam-sidebar__products li a:hover {
-    color: rgb(180, 83, 9);
-  }
-
-  .cam-sidebar__link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: rgb(217, 119, 6);
-    text-decoration: none;
-  }
-
-  .cam-sidebar__link:hover {
-    color: rgb(180, 83, 9);
-  }
-
-  .cam-sidebar__link svg {
-    transition: transform 0.2s;
-  }
-
-  .cam-sidebar__link:hover svg {
-    transform: translateX(4px);
-  }
-
-  /* CTA Card */
-  .cam-sidebar__card--cta {
-    background: linear-gradient(135deg, rgb(217, 119, 6), rgb(180, 83, 9));
-  }
-
-  .cam-sidebar__card--cta h4 {
-    color: white;
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .cam-sidebar__card--cta > p {
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  .cam-sidebar__cta-btn {
-    display: block;
-    width: 100%;
-    padding: var(--space-3);
-    background: white;
-    color: rgb(217, 119, 6);
-    text-align: center;
-    text-decoration: none;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    border-radius: var(--radius-lg);
-    transition: all 0.2s;
-  }
-
-  .cam-sidebar__cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  /* Back Link */
-  .cam-sidebar__back {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .cam-sidebar__back:hover {
-    background: var(--color-smoke-100);
-    color: rgb(217, 119, 6);
-  }
-
-  /* Contact */
-  .cam-sidebar__contact {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .cam-sidebar__contact a {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: rgb(217, 119, 6);
-    text-decoration: none;
-  }
-
-  .cam-sidebar__contact a:hover {
-    color: rgb(180, 83, 9);
-  }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1280px) {
-    .cam-main__grid {
-      grid-template-columns: 1fr 340px;
-    }
-
-    .cam-municipios__grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-
-  @media (max-width: 1200px) {
-    .cam-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .cam-municipios__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .cam-hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-
-    .cam-main__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .cam-stations-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .cam-sidebar {
-      position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-
-    .cam-sidebar__card--emergency {
-      grid-column: span 2;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .cam-hero {
-      padding: var(--space-10) 0;
-    }
-
-    .cam-hero__stats {
-      flex-wrap: wrap;
-      gap: var(--space-4);
-    }
-
-    .cam-hero__stat {
-      flex: 1 1 45%;
-    }
-
-    .cam-hero__cta {
-      flex-direction: column;
-    }
-
-    .cam-hero__cta-btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .cam-emergency__content {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .cam-municipios__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .cam-main {
-      padding: var(--space-10) 0;
-    }
-
-    .cam-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .cam-sidebar {
-      grid-template-columns: 1fr;
-    }
-
-    .cam-sidebar__card--emergency {
-      grid-column: span 1;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .cam-hero__title {
-      font-size: 1.75rem;
-    }
-
-    .cam-municipios__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .cam-seo {
-      padding: var(--space-6);
-    }
-  }
-</style>
+  <!-- ══════════════════════════════════════════════════
+       BLOQUE SEO — Campeche
+       Texto rico en keywords para posicionamiento orgánico.
+       Aparece en el sidebar de la sección Main Grid.
+  ══════════════════════════════════════════════════ -->
+  <Fragment slot="seo">
+
+    <h2>El Heroico Cuerpo de Bomberos de Campeche</h2>
+    <p>
+      El <strong>Heroico Cuerpo de Bomberos de Campeche</strong> salvaguarda a los
+      <strong>928,363 campechanos</strong> en los <strong>13 municipios</strong> del único
+      estado de México con <strong>triple Patrimonio de la Humanidad UNESCO</strong>. Con
+      <strong>7 estaciones operativas</strong> y más de <strong>322 bomberos profesionales
+      activos</strong>, opera las <strong>24 horas del día, los 365 días del año</strong>,
+      enfrentando desafíos que van desde emergencias en plataformas petroleras offshore hasta
+      incendios en la selva tropical de Calakmul y protección de la única ciudad amurallada
+      de México.
+    </p>
+
+    <h3>¿Cómo llamar a los Bomberos en Campeche?</h3>
+    <p>
+      En cualquier <strong>emergencia en Campeche</strong>, marca el <strong>911</strong>
+      desde cualquier teléfono — fijo o celular, con o sin saldo. Para contacto directo:
+      <strong>Campeche (capital): 981 811 3636</strong> ·
+      <strong>Ciudad del Carmen: 938 382 5050</strong> ·
+      <strong>Escárcega: 982 824 0066</strong> ·
+      <strong>Champotón: 982 828 0038</strong> ·
+      <strong>Calkiní: 996 963 0033</strong> ·
+      <strong>Candelaria: 982 826 0025</strong> ·
+      <strong>Calakmul (Xpujil): 983 871 6036</strong>.
+      Para emergencias offshore en la Sonda de Campeche, el 911 coordina con la
+      <strong>Armada de México</strong> y brigadas industriales de <strong>PEMEX</strong>.
+    </p>
+
+    <h3>Triple Patrimonio UNESCO — El Reto Único de Campeche</h3>
+    <p>
+      Campeche es el único estado de México con tres sitios Patrimonio de la Humanidad UNESCO,
+      y los bomberos deben protegerlos con técnicas altamente especializadas:
+      la <strong>Ciudad Histórica Fortificada de Campeche (1999)</strong> — con
+      8 baluartes, 2 fuertes y murallas de 2.5 km construidos en el siglo XVII para
+      repeler ataques piratas — requiere extinción de incendios sin dañar la cantera original;
+      la <strong>Antigua Ciudad Maya de Calakmul (2002)</strong> — con 6,750 estructuras
+      arqueológicas y rival histórica de Tikal — exige coordinación con el INAH en cada
+      emergencia dentro de la zona de monumentos;
+      la <strong>Reserva de la Biósfera de Calakmul (2014)</strong> — con 723,185 hectáreas
+      de selva tropical — demanda brigadas forestales especializadas y drones térmicos para
+      detectar focos de incendio antes de que se propaguen.
+    </p>
+
+    <h3>Bomberos y la Industria Petrolera — Sonda de Campeche</h3>
+    <p>
+      La <strong>Estación de Ciudad del Carmen</strong> es una de las más especializadas de
+      México, respondiendo a emergencias en la <strong>Sonda de Campeche</strong>:
+      la mayor zona de producción petrolera del país, con <strong>200+ plataformas marinas</strong>
+      que producen el <strong>60% del petróleo</strong> y <strong>30% del gas natural</strong>
+      de México. El personal mantiene certificaciones internacionales en HAZMAT nivel técnico
+      para hidrocarburos, rescate marítimo offshore y coordinación con brigadas industriales de
+      <strong>PEMEX, Halliburton, Schlumberger y Baker Hughes</strong>. Ciudad del Carmen,
+      isla conectada por los puentes Zacatal (3.2 km) y La Unidad (3.8 km), requiere
+      protocolos especiales de respuesta en isla ante huracanes del Golfo de México.
+    </p>
+
+    <h3>Incendios Forestales en la Selva Maya</h3>
+    <p>
+      La <strong>Estación de Calakmul</strong> opera en una de las zonas más críticas
+      ambientalmente de América: la selva tropical que conecta con la <strong>selva de
+      Petén (Guatemala)</strong>, formando el segundo bloque de bosque tropical del continente
+      después del Amazonas. Los incendios forestales en esta zona pueden consumir miles de
+      hectáreas en horas, amenazando fauna protegida (jaguar, tapir, guacamaya roja) y
+      estructuras arqueológicas milenarias. La estación emplea <strong>drones con cámaras
+      térmicas</strong>, radios satelitales y equipos forestales de la <strong>brigada Calakmul</strong>
+      en coordinación permanente con <strong>CONANP y CONAFOR</strong> durante la temporada
+      seca (febrero-mayo).
+    </p>
+
+    <h3>Especialidades del Cuerpo de Bomberos de Campeche</h3>
+    <p>
+      Los bomberos campechanos poseen capacidades únicas en México:
+      <strong>HAZMAT nivel técnico</strong> para hidrocarburos, gases y derrames offshore
+      en la Sonda de Campeche;
+      <strong>protección de patrimonio histórico</strong> con técnicas de mínimo impacto en
+      edificios coloniales del siglo XVII y estructuras mayas;
+      <strong>combate forestal en selva tropical</strong> con brigadas certificadas y
+      drones de detección;
+      <strong>rescate vehicular pesado</strong> en el cruce carretero estratégico de Escárcega
+      (tres carreteras federales y el Tren Maya);
+      <strong>rescate acuático en Golfo de México</strong>, Laguna de Términos y
+      ríos Candelaria y San Pedro;
+      y <strong>coordinación transfronteriza</strong> con Guatemala para incendios forestales
+      que cruzan la frontera en Candelaria.
+    </p>
+
+    <h3>Municipios y Cobertura por Zona</h3>
+    <p>
+      <strong>Campeche (capital)</strong> — 1 estación central para los 295K habitantes: Centro
+      Histórico UNESCO, 8 baluartes, malecón y zona hotelera.
+      <strong>Carmen</strong> — 1 estación especializada en industria petrolera: plataformas
+      offshore, Laguna de Términos y puertos petroleros de la isla.
+      <strong>Calakmul</strong> — 1 estación en Xpujil: reserva biósfera UNESCO (723K ha),
+      zona arqueológica y comunidades rurales remotas.
+      <strong>Escárcega</strong> — 1 estación en el cruce carretero estratégico hacia
+      Quintana Roo, Tabasco y Yucatán; incluye estación del Tren Maya.
+      <strong>Champotón</strong> — 1 estación costera: puerto pesquero, río Champotón y
+      carretera 180.
+      <strong>Calkiní</strong> — 1 estación norte: Camino Real histórico Campeche-Mérida,
+      haciendas henequeneras y comunidades mayas.
+      <strong>Candelaria</strong> — 1 estación fronteriza: selva tropical, río Candelaria
+      y frontera con Guatemala (Petén).
+    </p>
+
+  </Fragment>
+</DirectorioEstadoLayout>

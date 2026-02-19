@@ -1102,10 +1102,40 @@ export function generarSchemaEstacion(estacion: Estacion): object {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════════
+// FUNCIONES AUXILIARES ADICIONALES
+// ═══════════════════════════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Obtiene todos los municipios/ciudades únicos
+ */
+export function getMunicipios(): string[] {
+  return [...new Set(estacionesMorelos.map(e => e.ciudad))].filter(Boolean).sort() as string[];
+}
+
+/**
+ * Obtiene estación por slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesMorelos.find(e => e.slug === slug);
+}
+
+/**
+ * Obtiene estaciones cercanas (excluyendo la actual)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+  const mismaZona = estacionesMorelos.filter(e => e.slug !== slug && e.zona === estacion.zona);
+  const otras = estacionesMorelos.filter(e => e.slug !== slug && e.zona !== estacion.zona);
+  return [...mismaZona, ...otras].slice(0, limit);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════════════════════════
 // ESTADÍSTICAS AGREGADAS
 // ═══════════════════════════════════════════════════════════════════════════════════════════════════
 
 export const ESTADISTICAS_MORELOS = {
+  totalMunicipios: 36,
   totalEstaciones: estacionesMorelos.length,
   estacionesCuernavaca: getEstacionesCuernavaca().length,
   estacionesHAZMAT: getEstacionesHAZMAT().length,

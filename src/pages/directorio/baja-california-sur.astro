@@ -1,60 +1,26 @@
 ---
 /**
- * ─────────────────────────────────────────────────────────────────────────────
- * DIRECTORIO DE ESTACIONES DE BOMBEROS - BAJA CALIFORNIA SUR
- * ─────────────────────────────────────────────────────────────────────────────
- * Página optimizada para SEO con información completa del H. Cuerpo de Bomberos
- * del Estado de Baja California Sur. Incluye los principales municipios:
- * - La Paz (Capital del estado)
- * - Los Cabos (Destino turístico de clase mundial)
- * - Loreto (Pueblo Mágico)
- * - Comondú (Zona agrícola)
- * - Mulegé (Patrimonio histórico)
- *
- * Keywords principales:
- * - Bomberos La Paz, Bomberos Los Cabos, Bomberos Cabo San Lucas
- * - Emergencias Baja California Sur, 911 BCS
- * - Rescate turístico Los Cabos, Emergencias Mar de Cortés
- * - Bomberos huracanes Baja California Sur
- * ─────────────────────────────────────────────────────────────────────────────
+ * ─── Directorio Bomberos Baja California Sur ───
+ * Solo datos — el diseño vive en DirectorioEstadoLayout.astro
  */
-import PageLayout from "@layouts/PageLayout.astro";
-import SectionHeader from "@components/SectionHeader.astro";
-import StationCard from "@components/StationCard.astro";
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesBajaCaliforniaSur, getMunicipios, getEstadisticas } from "@data/estaciones-baja-california-sur";
 import { breadcrumbJsonLd } from "@utils/seo";
 
-// Obtener datos
-const municipios = getMunicipios();
+const municipios   = getMunicipios();
 const estadisticas = getEstadisticas();
 
-// Estados vecinos para interlinking SEO
-const estadosVecinos = [
-  { nombre: "Baja California", slug: "baja-california" },
-  { nombre: "Sonora", slug: "sonora" },
-  { nombre: "Sinaloa", slug: "sinaloa" },
-];
-
-// Datos de municipios con información SEO
-const municipiosInfo = [
-  { nombre: "Los Cabos", poblacion: "351K", desc: "Destino turístico de clase mundial" },
-  { nombre: "La Paz", poblacion: "290K", desc: "Capital del estado, bahía segura" },
-  { nombre: "Comondú", poblacion: "75K", desc: "Valle agrícola de Santo Domingo" },
-  { nombre: "Loreto", poblacion: "21K", desc: "Pueblo Mágico, primera capital de las Californias" },
-  { nombre: "Mulegé", poblacion: "61K", desc: "Patrimonio histórico francés, ballena gris" },
-];
-
-const keywords = ["bomberos baja california sur", "estaciones bomberos la paz", "bomberos los cabos", "emergencias bcs 911", "bomberos cabo san lucas", "bomberos loreto", "cuerpo bomberos bcs"];
 const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
+  { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Baja California Sur", url: "/directorio/baja-california-sur" },
+  { name: "Baja California Sur",    url: "/directorio/baja-california-sur" },
 ]);
+
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Baja California Sur, México",
-  "description": "Directorio oficial de las 6 estaciones de bomberos en Baja California Sur. Teléfonos de emergencia en La Paz, Los Cabos, Cabo San Lucas, Loreto y Santa Rosalía. Números 911 y contacto directo 24 horas.",
+  "description": "Directorio oficial de las 6 estaciones de bomberos en Baja California Sur. Teléfonos directos en La Paz, Los Cabos, Cabo San Lucas, Loreto y Santa Rosalía. Cobertura 24/7. Emergencias: llama al 911.",
   "numberOfItems": estacionesBajaCaliforniaSur.length,
   "itemListElement": estacionesBajaCaliforniaSur.map((e, i) => ({
     "@type": "ListItem",
@@ -67,1301 +33,258 @@ const itemListSchema = {
         "streetAddress": e.direccion,
         "addressLocality": e.municipio || e.ciudad,
         "addressRegion": "Baja California Sur",
-        "addressCountry": "MX"
+        "addressCountry": "MX",
       },
       "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/baja-california-sur/${e.slug}`
+      "url": `https://bombero.mx/directorio/baja-california-sur/${e.slug}`,
     }
   }))
 };
+
+/*
+ * Rotación de imágenes para las tarjetas de estación.
+ * Priorizando imágenes relacionadas con los riesgos característicos de BCS:
+ * rescate acuático Mar de Cortés, turismo internacional Los Cabos,
+ * huracanes del Pacífico, patrimonio UNESCO, aislamiento peninsular.
+ */
+const stationImages = [
+  "/images/directorio/estacion-bomberos-maritimo-01.avif",
+  "/images/directorio/rescate-acuatico-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-playa-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/estacion-bomberos-turistica-01.avif",
+  "/images/directorio/lancha-rescate-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-huracanes-01.avif",
+  "/images/directorio/equipo-buceo-rescate-01.avif",
+  "/images/directorio/estacion-bomberos-puerto-01.avif",
+  "/images/directorio/camion-cisterna-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/capacitacion-bomberos-profesional-01.avif",
+  "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  "/images/directorio/camion-forestal-bomberos-01.avif",
+  "/images/directorio/ambulancia-bomberos-emergencias-01.avif",
+  "/images/directorio/rescate-montana-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-equipada-01.avif",
+  "/images/directorio/bomberos-accion-incendio-01.avif",
+  "/images/directorio/motobomba-incendios-forestal-01.avif",
+];
 ---
 
-<PageLayout
-  title="Estaciones de Bomberos en Baja California Sur | Directorio Oficial | BOMBERO.MX"
-  description="Directorio oficial de las 6 estaciones de bomberos en Baja California Sur. Teléfonos de emergencia en La Paz, Los Cabos, Cabo San Lucas, Loreto y Santa Rosalía. Números 911 y contacto directo 24 horas."
-  keywords={keywords}
+<DirectorioEstadoLayout
+  estado="Baja California Sur"
+  sigla="BCS"
+  slug="baja-california-sur"
+  description={`Directorio oficial de las ${estadisticas.totalEstaciones} estaciones de bomberos en Baja California Sur. Teléfonos de emergencia en La Paz, Los Cabos, Cabo San Lucas, Loreto y Santa Rosalía. Rescate acuático, huracanes y turismo internacional. Emergencias: 911.`}
+  keywords={[
+    "bomberos baja california sur",
+    "estaciones bomberos la paz",
+    "bomberos los cabos teléfono",
+    "emergencias bcs 911",
+    "bomberos cabo san lucas",
+    "bomberos loreto bcs",
+    "bomberos santa rosalia",
+    "cuerpo bomberos bcs",
+    "rescate acuatico mar de cortes",
+    "bomberos huracanes baja california sur",
+    "emergencias turísticas los cabos",
+    "bomberos ciudad constitucion",
+    "bomberos san jose del cabo",
+    "directorio bomberos bcs",
+    "emergencias 911 la paz bcs",
+  ]}
   canonical="https://bombero.mx/directorio/baja-california-sur"
   jsonLd={[breadcrumbSchema, itemListSchema]}
+
+  totalEstaciones={estadisticas.totalEstaciones}
+  totalMunicipios={estadisticas.totalMunicipios}
+  habitantes="798K+"
+
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Baja California Sur</strong> protege los <strong>${estadisticas.totalMunicipios} municipios</strong> de la península más larga del mundo con <strong>${estadisticas.totalEstaciones} estaciones activas</strong> y más de <strong>296 bomberos profesionales</strong> — desde la capital La Paz hasta los resorts de clase mundial de Los Cabos, el patrimonio UNESCO del Mar de Cortés y los edificios históricos de madera de Santa Rosalía.`}
+  heroImage="/images/directorio/estacion-bomberos-maritimo-01.avif"
+  heroImageAlt="Estación de Bomberos Baja California Sur — rescate acuático Mar de Cortés Los Cabos"
+  heroCaption="H. Cuerpo de Bomberos · Baja California Sur"
+  heroThumbs={[
+    { src: "/images/directorio/rescate-acuatico-bomberos-01.avif",  alt: "Rescate acuático bomberos Mar de Cortés La Paz Los Cabos",          label: "Rescate Mar de Cortés" },
+    { src: "/images/directorio/estacion-bomberos-huracanes-01.avif", alt: "Bomberos BCS evacuación turistas huracán Los Cabos Cabo San Lucas", label: "Huracanes Pacífico"      },
+    { src: "/images/directorio/camion-forestal-bomberos-01.avif",    alt: "Bomberos forestal Sierra de la Giganta Loreto BCS",                 label: "Forestal Sierra Giganta" },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",              alt: "Rescate acuático bahía La Paz Mar de Cortés bomberos BCS",             label: "Rescate Bahía La Paz"     },
+    { src: "/images/directorio/estacion-bomberos-turistica-01.avif",          alt: "Bomberos Los Cabos emergencias turísticas resorts hoteles 5 estrellas", label: "Emergencias Los Cabos"    },
+    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Incendio edificios históricos madera Santa Rosalía BCS Eiffel",     label: "Patrimonio Santa Rosalía" },
+    { src: "/images/directorio/rescate-montana-bomberos-01.avif",             alt: "Rescate Sierra de la Giganta Loreto Parque Nacional BCS",              label: "Rescate Sierra Giganta"   },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",          label: "Emergencias"               },
+    { number: "612 122 0054", label: "Bomberos La Paz"           },
+    { number: "624 143 3577", label: "Bomberos Cabo San Lucas"   },
+    { number: "624 142 2466", label: "Bomberos San José del Cabo"},
+    { number: "613 135 0059", label: "Bomberos Loreto"           },
+  ]}
+
+  municipios={municipios}
+
+  regiones={[
+    { nombre: "Los Cabos",         desc: "Cabo San Lucas · San José del Cabo · Corredor Turístico" },
+    { nombre: "La Paz",            desc: "Capital del estado · Bahía de La Paz · El Mogote"        },
+    { nombre: "Loreto",            desc: "Pueblo Mágico · Bahía de Loreto · Islas del Mar de Cortés" },
+    { nombre: "Comondú",           desc: "Ciudad Constitución · Valle de Santo Domingo · Puerto San Carlos" },
+    { nombre: "Mulegé",            desc: "Santa Rosalía · Guerrero Negro · San Ignacio"             },
+  ]}
+
+  estadosVecinos={[
+    { nombre: "Baja California", slug: "baja-california" },
+    { nombre: "Sonora",          slug: "sonora"          },
+    { nombre: "Sinaloa",         slug: "sinaloa"         },
+  ]}
+
+  estaciones={estacionesBajaCaliforniaSur}
+  stationImages={stationImages}
+
+  eppCards={[
+    {
+      image:     "/images/directorio/traje-inmersion-rescate-01.avif",
+      imageAlt:  "Traje de inmersión rescate acuático bomberos Mar de Cortés Baja California Sur",
+      badge:     "NFPA 1952",
+      title:     "Traje de Inmersión para Rescate Acuático",
+      text:      "Certificado NFPA 1952 para el <strong>Mar de Cortés</strong>, reconocido por Jacques Cousteau como \"el acuario del mundo\". Indispensable en la <strong>Bahía de La Paz</strong>, las playas de alto riesgo de <strong>Cabo San Lucas</strong> (Divorce Beach, Playa del Amor) y los rescates en islas del <strong>Parque Nacional Bahía de Loreto</strong> (Patrimonio UNESCO). Protección térmica certificada para operaciones de buceo en fauna marina (ballenas, lobos marinos, mantas).",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+      imageAlt:  "Traje estructural NFPA 1971 bomberos Los Cabos resorts evacuación huracán BCS",
+      badge:     "NFPA 1971",
+      title:     "Traje Estructural NFPA 1971",
+      text:      "Exigido en la protección de <strong>infraestructura hotelera de Los Cabos</strong> valuada en miles de millones de dólares: Four Seasons, One&Only, St. Regis y Ritz-Carlton. Durante huracanes de categoría 4-5 como <strong>Odile (2014)</strong>, los bomberos coordinaron la evacuación de más de <strong>30,000 turistas</strong> en 72 horas. Máxima resistencia térmica para incendios estructurales en la <strong>Marina de Cabo San Lucas</strong>, la más grande del Pacífico mexicano.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+      imageAlt:  "Equipo SCBA aparato respiratorio bomberos Santa Rosalía edificios madera histórica BCS",
+      badge:     "NFPA 1981",
+      title:     "Aparato Respiratorio Autónomo SCBA",
+      text:      "Certificado NFPA 1981 para incendios en los <strong>edificios históricos de madera de Santa Rosalía</strong>, arquitectura única en México traída desde Francia por la Compagnie du Boleo en 1885. Incluye protección para la <strong>Iglesia de Santa Bárbara</strong>, diseñada por <strong>Gustave Eiffel</strong>. También para incendios en embarcaciones del <strong>ferry Santa Rosalía-Guaymas</strong> y en el Puerto de Los Cabos, principal terminal de cruceros del Pacífico mexicano.",
+      href:      "/productos/equipo-scba",
+      linkLabel: "Ver Equipos SCBA",
+    },
+    {
+      image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+      imageAlt:  "Botas estructurales NFPA 1971 bomberos BCS terreno mixto desierto playa sierra",
+      badge:     "NFPA 1971",
+      title:     "Botas Estructurales de Cuero",
+      text:      "Certificadas NFPA 1971 para el terreno más extremo de la península: arenas volcánicas de la <strong>Bahía de La Paz</strong> y <strong>El Arco de Cabo San Lucas</strong>, roca ígnea de la <strong>Sierra de la Giganta</strong> en operaciones de rescate con Loreto, suelo arcilloso del <strong>Valle de Santo Domingo</strong> (principal zona agrícola de BCS) y muelles de madera del <strong>Puerto de Ferry de Santa Rosalía</strong>. Resistencia total en las condiciones más diversas de México.",
+      href:      "/productos/botas-para-bomberos",
+      linkLabel: "Ver Botas para Bombero",
+    },
+  ]}
+
+  ctaTitle="Equipamos a los Bomberos de Baja California Sur"
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${estadisticas.totalEstaciones} estaciones en La Paz, Los Cabos, Loreto, Ciudad Constitución y Santa Rosalía. Envío a los 5 municipios del estado. Atención a licitaciones públicas y compra directa.`}
+  ctaBtnText="Solicitar Cotización — Baja California Sur"
 >
-  <!-- Hero Section con SEO optimizado -->
-  <section class="bcs-hero">
-    <div class="bcs-hero__bg">
-      <div class="bcs-hero__gradient"></div>
-      <div class="bcs-hero__pattern"></div>
-    </div>
-    <div class="container">
-      <div class="bcs-hero__container">
-        <!-- Left Column - Content Principal -->
-        <div class="bcs-hero__content">
-          <nav class="bcs-hero__breadcrumb" aria-label="Breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <a href="/" itemprop="item"><span itemprop="name">Inicio</span></a>
-              <meta itemprop="position" content="1" />
-            </span>
-            <span aria-hidden="true">/</span>
-            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <a href="/directorio" itemprop="item"><span itemprop="name">Directorio Nacional</span></a>
-              <meta itemprop="position" content="2" />
-            </span>
-            <span aria-hidden="true">/</span>
-            <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name" aria-current="page">Baja California Sur</span>
-              <meta itemprop="position" content="3" />
-            </span>
-          </nav>
-
-          <span class="bcs-hero__badge">
-            <span class="bcs-hero__badge-dot"></span>
-            BCS
-          </span>
-
-          <h1 class="bcs-hero__title">
-            Estaciones de Bomberos en
-            <span class="bcs-hero__highlight">Baja California Sur</span>
-          </h1>
-
-          <p class="bcs-hero__desc">
-            Directorio oficial del <strong>Heroico Cuerpo de Bomberos del Estado de Baja California Sur</strong>.
-            Acceso inmediato a teléfonos de emergencia, direcciones y servicios de las <strong>{estadisticas.totalEstaciones} estaciones</strong>
-            que protegen a los <strong>798,000 habitantes</strong> del estado peninsular con el <strong>Mar de Cortés</strong> y
-            destinos turísticos de fama mundial como <strong>Los Cabos</strong>.
-          </p>
-
-          <div class="bcs-hero__stats">
-            <div class="bcs-hero__stat">
-              <span class="bcs-hero__stat-number">{estadisticas.totalEstaciones}</span>
-              <span class="bcs-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="bcs-hero__stat">
-              <span class="bcs-hero__stat-number">{estadisticas.totalMunicipios}</span>
-              <span class="bcs-hero__stat-label">Municipios</span>
-            </div>
-            <div class="bcs-hero__stat">
-              <span class="bcs-hero__stat-number">24/7</span>
-              <span class="bcs-hero__stat-label">Servicio</span>
-            </div>
-            <div class="bcs-hero__stat">
-              <span class="bcs-hero__stat-number">3M+</span>
-              <span class="bcs-hero__stat-label">Turistas/año</span>
-            </div>
-          </div>
-
-          <!-- Call to Action de Emergencia -->
-          <div class="bcs-hero__cta">
-            <a href="tel:911" class="bcs-hero__cta-btn bcs-hero__cta-btn--primary">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
-              </svg>
-              Emergencias: 911
-            </a>
-            <a href="#estaciones" class="bcs-hero__cta-btn bcs-hero__cta-btn--secondary">
-              Ver todas las estaciones
-            </a>
-          </div>
-        </div>
-
-        <!-- Right Column - SEO Content Premium -->
-        <div class="bcs-hero__seo">
-          <h2 class="bcs-hero__seo-title">El Acuario del Mundo y Paraíso Turístico</h2>
-          <p class="bcs-hero__seo-text">
-            <strong>Baja California Sur</strong> alberga el <strong>Mar de Cortés</strong>, declarado
-            <strong>Patrimonio Natural de la Humanidad por UNESCO</strong> y llamado "el acuario del mundo"
-            por Jacques Cousteau. Los bomberos protegen a <strong>3+ millones de turistas anuales</strong> que
-            visitan <strong>Los Cabos</strong>, el destino turístico más exclusivo de México, con
-            emergencias que van desde <strong>rescate acuático</strong> hasta atención en
-            <strong>resorts de ultra lujo</strong>.
-          </p>
-
-          <h2 class="bcs-hero__seo-title">Huracanes del Pacífico y Aislamiento Peninsular</h2>
-          <p class="bcs-hero__seo-text">
-            El estado enfrenta <strong>huracanes categoría 1-5</strong> cada temporada (junio-noviembre).
-            El devastador <strong>Huracán Odile (2014)</strong> categoría 4 demostró la importancia de
-            cuerpos de emergencia preparados. La <strong>geografía peninsular</strong> y el aislamiento
-            de comunidades como <strong>Guerrero Negro, San Ignacio y Mulegé</strong> requieren
-            <strong>tiempos de respuesta extendidos</strong> y equipamiento especializado.
-          </p>
-
-          <h2 class="bcs-hero__seo-title">Patrimonio Histórico y Ecológico Único</h2>
-          <p class="bcs-hero__seo-text">
-            Los bomberos protegen tesoros únicos: la <strong>Misión de Loreto</strong> (primera de California, 1697),
-            las <strong>pinturas rupestres de la Sierra de San Francisco</strong> (Patrimonio UNESCO),
-            la arquitectura francesa de <strong>Santa Rosalía</strong> con su iglesia diseñada por
-            <strong>Gustave Eiffel</strong>, y santuarios de <strong>ballena gris</strong> en Guerrero Negro.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Emergency Banner con Schema Markup -->
-  <section class="bcs-emergency" itemscope itemtype="https://schema.org/EmergencyService">
-    <div class="container">
-      <div class="bcs-emergency__content">
-        <div class="bcs-emergency__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-        </div>
-        <div class="bcs-emergency__text">
-          <span class="bcs-emergency__label">Emergencias en Baja California Sur</span>
-          <span class="bcs-emergency__number" itemprop="telephone">911</span>
-        </div>
-        <div class="bcs-emergency__info">
-          <p class="bcs-emergency__desc">
-            <strong>Número único de emergencias</strong> que conecta con bomberos, policía, servicios médicos y
-            <strong>rescate acuático</strong>. Disponible las <strong>24 horas, 365 días</strong> en todo el
-            estado, incluyendo zonas turísticas y comunidades remotas.
-          </p>
-          <meta itemprop="areaServed" content="Baja California Sur, México" />
-          <meta itemprop="availableLanguage" content="Spanish, English" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Municipios Quick Access -->
-  <section class="bcs-municipios">
-    <div class="container">
-      <div class="bcs-municipios__grid">
-        {municipiosInfo.map((mun) => (
-          <a href={`#${mun.nombre.toLowerCase().replace(/\s+/g, '-')}`} class="bcs-municipios__card">
-            <span class="bcs-municipios__name">{mun.nombre}</span>
-            <span class="bcs-municipios__pop">{mun.poblacion} habitantes</span>
-            <span class="bcs-municipios__desc">{mun.desc}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Content -->
-  <section class="bcs-main" id="estaciones">
-    <div class="container">
-      <div class="bcs-main__grid">
-        <!-- Stations Grid -->
-        <div class="bcs-main__content">
-          <SectionHeader
-            label="Directorio de Bomberos"
-            title="Estaciones de Bomberos en Baja California Sur"
-            description="Información verificada y actualizada de las 6 estaciones del Heroico Cuerpo de Bomberos en Baja California Sur. Selecciona una estación para acceder a datos de contacto, servicios especializados, zonas de cobertura y equipamiento disponible."
-          />
-
-          <!-- Stations Grid -->
-          <div class="bcs-stations-grid">
-            {estacionesBajaCaliforniaSur.map((estacion) => (
-              <StationCard
-                nombre={estacion.nombreCorto}
-                slug={estacion.slug}
-                direccion={`${estacion.direccion}, ${estacion.colonia}`}
-                alcaldia={estacion.municipio}
-                telefono={estacion.telefono}
-                servicios={estacion.servicios}
-                horario={estacion.horario}
-                baseUrl="/directorio/baja-california-sur"
-              />
-            ))}
-          </div>
-
-          <!-- SEO Content Premium -->
-          <article class="bcs-seo">
-            <h2>El Heroico Cuerpo de Bomberos de Baja California Sur</h2>
-            <p>
-              El <strong>H. Cuerpo de Bomberos de Baja California Sur</strong> representa la primera línea de defensa
-              contra emergencias en el estado peninsular más exclusivo de México. Con <strong>{estadisticas.totalEstaciones} estaciones
-              estratégicamente ubicadas</strong> y más de <strong>{estadisticas.totalPersonal} elementos activos</strong>,
-              este cuerpo profesional protege a los <strong>798,000 habitantes permanentes</strong> y a los
-              <strong>más de 3 millones de turistas</strong> que visitan anualmente destinos como Los Cabos,
-              La Paz, Loreto y las lagunas de avistamiento de ballena gris.
-            </p>
-
-            <h3>¿Cómo Contactar a los Bomberos en Baja California Sur?</h3>
-            <p>
-              Ante cualquier <strong>emergencia en Baja California Sur</strong>, el número <strong>911</strong> conecta
-              inmediatamente con el <strong>Centro de Emergencias y Respuesta Inmediata (CERI)</strong> de cada municipio.
-              Este sistema coordina la respuesta de bomberos, policía, paramédicos, Protección Civil y Capitanía de Puerto
-              para emergencias marítimas. Para emergencias específicas en <strong>La Paz</strong>, puedes marcar
-              <strong>612 122 0054</strong>; en <strong>Los Cabos</strong> el <strong>624 143 3577</strong>;
-              y en <strong>Loreto</strong> el <strong>613 135 0059</strong>.
-            </p>
-
-            <h3>Emergencias más Frecuentes en Baja California Sur</h3>
-            <p>
-              Los bomberos sudcalifornianos atienden emergencias únicas del estado peninsular y turístico:
-            </p>
-            <ul class="bcs-seo__list">
-              <li><strong>Rescate acuático</strong> en playas de alto riesgo de Los Cabos (corrientes del Pacífico)</li>
-              <li><strong>Emergencias en embarcaciones</strong> turísticas, yates y cruceros en el Mar de Cortés</li>
-              <li><strong>Huracanes y tormentas tropicales</strong> del Pacífico (temporada junio-noviembre)</li>
-              <li><strong>Incendios en hoteles y resorts</strong> de ultra lujo con miles de huéspedes</li>
-              <li><strong>Incendios forestales</strong> en Sierra de la Giganta y zonas serranas</li>
-              <li><strong>Emergencias en comunidades aisladas</strong> con tiempos de respuesta de 30-60 minutos</li>
-              <li><strong>Rescate de fauna marina</strong> (ballenas varadas, lobos marinos, tortugas)</li>
-              <li><strong>Accidentes en carretera transpeninsular</strong> de 1,700+ km de longitud</li>
-            </ul>
-
-            <h3>Respuesta a Huracanes y Desastres Naturales</h3>
-            <p>
-              Baja California Sur enfrenta <strong>huracanes del Pacífico</strong> cada temporada. El
-              <strong>Huracán Odile (2014)</strong> categoría 4 devastó Los Cabos, dejando a más de
-              <strong>30,000 turistas</strong> varados y causando daños por miles de millones de dólares.
-              El cuerpo de bomberos realizó más de <strong>500 rescates en 72 horas</strong>. Desde entonces,
-              se han fortalecido los protocolos de <strong>evacuación de zonas turísticas</strong>,
-              <strong>refugios temporales</strong> y <strong>coordinación con hoteles</strong>.
-            </p>
-
-            <h3>Turismo y Emergencias Internacionales</h3>
-            <p>
-              Con <strong>más de 3 millones de visitantes anuales</strong>, la mayoría de Estados Unidos y Canadá,
-              los bomberos de BCS están capacitados para <strong>atención en inglés</strong> y coordinación con
-              <strong>seguros médicos internacionales</strong>. Los Cabos recibe <strong>cruceros con 5,000+
-              pasajeros</strong> que pueden requerir evacuación médica o atención de emergencias masivas en puerto.
-            </p>
-
-            <h3>Equipamiento Especializado</h3>
-            <p>
-              Las estaciones de bomberos de Baja California Sur cuentan con <strong>equipamiento especializado</strong>
-              para las condiciones únicas del estado:
-            </p>
-            <ul class="bcs-seo__list">
-              <li><strong>Lanchas de rescate</strong> y motos acuáticas para emergencias en el Mar de Cortés</li>
-              <li><strong>Equipos de buceo</strong> profesional certificado para rescate submarino</li>
-              <li><strong>Unidades todoterreno</strong> para zonas remotas y acceso limitado</li>
-              <li><strong>Tanques nodriza</strong> de alta capacidad para zonas sin hidrantes</li>
-              <li><strong>Sistemas de comunicación satelital</strong> para coordinación en zonas aisladas</li>
-              <li><strong>Equipos forestales</strong> para combate en Sierra de la Giganta</li>
-            </ul>
-
-            <h3>Protección del Patrimonio UNESCO</h3>
-            <p>
-              Los bomberos protegen sitios de valor incalculable: el <strong>Mar de Cortés y sus islas</strong>
-              (Patrimonio Natural de la Humanidad), las <strong>pinturas rupestres de la Sierra de San Francisco</strong>
-              (Patrimonio Cultural), la <strong>Misión de Loreto</strong> (primera de las Californias, 1697) y la
-              arquitectura francesa de <strong>Santa Rosalía</strong>, incluyendo la iglesia diseñada por
-              <strong>Gustave Eiffel</strong>.
-            </p>
-          </article>
-        </div>
-
-        <!-- Sidebar Optimizado -->
-        <aside class="bcs-sidebar">
-          <!-- Filtro por Municipio -->
-          <div class="bcs-sidebar__card">
-            <h4>Buscar por Municipio</h4>
-            <ul class="bcs-sidebar__municipios">
-              {municipios.map((municipio) => (
-                <li>
-                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-')}`}>
-                    <span class="bcs-sidebar__bullet"></span>
-                    <span>{municipio}</span>
-                    <span class="bcs-sidebar__count">
-                      {estadisticas.estacionesPorMunicipio.find(m => m.municipio === municipio)?.cantidad}
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Teléfonos de Emergencia -->
-          <div class="bcs-sidebar__card bcs-sidebar__card--emergency">
-            <h4>Teléfonos de Emergencia</h4>
-            <div class="bcs-sidebar__emergency-list">
-              <div class="bcs-sidebar__emergency-item">
-                <span class="bcs-sidebar__emergency-number">911</span>
-                <span class="bcs-sidebar__emergency-label">Emergencias Generales</span>
-              </div>
-              <div class="bcs-sidebar__emergency-item">
-                <span class="bcs-sidebar__emergency-number">612 122 0054</span>
-                <span class="bcs-sidebar__emergency-label">Bomberos La Paz</span>
-              </div>
-              <div class="bcs-sidebar__emergency-item">
-                <span class="bcs-sidebar__emergency-number">624 143 3577</span>
-                <span class="bcs-sidebar__emergency-label">Bomberos Cabo San Lucas</span>
-              </div>
-              <div class="bcs-sidebar__emergency-item">
-                <span class="bcs-sidebar__emergency-number">624 142 2466</span>
-                <span class="bcs-sidebar__emergency-label">Bomberos San José del Cabo</span>
-              </div>
-              <div class="bcs-sidebar__emergency-item">
-                <span class="bcs-sidebar__emergency-number">613 135 0059</span>
-                <span class="bcs-sidebar__emergency-label">Bomberos Loreto</span>
-              </div>
-              <div class="bcs-sidebar__emergency-item">
-                <span class="bcs-sidebar__emergency-number">615 152 0050</span>
-                <span class="bcs-sidebar__emergency-label">Bomberos Santa Rosalía</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Estadísticas del Estado -->
-          <div class="bcs-sidebar__card">
-            <h4>Baja California Sur en Números</h4>
-            <ul class="bcs-sidebar__stats">
-              <li>
-                <span class="bcs-sidebar__stat-value">798K</span>
-                <span class="bcs-sidebar__stat-label">Habitantes permanentes</span>
-              </li>
-              <li>
-                <span class="bcs-sidebar__stat-value">3M+</span>
-                <span class="bcs-sidebar__stat-label">Turistas anuales</span>
-              </li>
-              <li>
-                <span class="bcs-sidebar__stat-value">{estadisticas.totalEstaciones}</span>
-                <span class="bcs-sidebar__stat-label">Estaciones de bomberos</span>
-              </li>
-              <li>
-                <span class="bcs-sidebar__stat-value">{estadisticas.totalPersonal}+</span>
-                <span class="bcs-sidebar__stat-label">Bomberos activos</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Destinos Turísticos -->
-          <div class="bcs-sidebar__card">
-            <h4>Zonas Turísticas Protegidas</h4>
-            <ul class="bcs-sidebar__tourism">
-              <li>
-                <span class="bcs-sidebar__tourism-name">Los Cabos</span>
-                <span class="bcs-sidebar__tourism-desc">Destino #1 de lujo en México</span>
-              </li>
-              <li>
-                <span class="bcs-sidebar__tourism-name">Mar de Cortés</span>
-                <span class="bcs-sidebar__tourism-desc">Patrimonio UNESCO, buceo mundial</span>
-              </li>
-              <li>
-                <span class="bcs-sidebar__tourism-name">Ballena Gris</span>
-                <span class="bcs-sidebar__tourism-desc">Guerrero Negro, San Ignacio</span>
-              </li>
-              <li>
-                <span class="bcs-sidebar__tourism-name">Loreto</span>
-                <span class="bcs-sidebar__tourism-desc">Pueblo Mágico, Parque Nacional</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Estados Vecinos -->
-          <div class="bcs-sidebar__card">
-            <h4>Estados Vecinos</h4>
-            <ul class="bcs-sidebar__states">
-              {estadosVecinos.map((estado) => (
-                <li>
-                  <a href={`/directorio/${estado.slug}`}>
-                    <span>{estado.nombre}</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- CTA Equipamiento -->
-          <div class="bcs-sidebar__card bcs-sidebar__card--cta">
-            <h4>¿Equipas Bomberos en BCS?</h4>
-            <p>Distribuimos equipo certificado NFPA y rescate acuático a estaciones de bomberos en La Paz, Los Cabos, Loreto y todo Baja California Sur</p>
-            <a href="/cotizar" class="bcs-sidebar__cta-btn">Solicitar Cotización</a>
-          </div>
-
-          <!-- Productos -->
-          <div class="bcs-sidebar__card">
-            <h4>Equipo para Bomberos BCS</h4>
-            <ul class="bcs-sidebar__products">
-              <li><a href="/productos/rescate-acuatico">Equipo de Rescate Acuático</a></li>
-              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA 1971</a></li>
-              <li><a href="/productos/scba">Equipos SCBA Scott / MSA</a></li>
-              <li><a href="/productos/buceo">Equipos de Buceo Profesional</a></li>
-              <li><a href="/productos/forestales">Equipos Forestales</a></li>
-            </ul>
-            <a href="/productos" class="bcs-sidebar__link">
-              Ver catálogo completo
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Volver al Directorio -->
-          <div class="bcs-sidebar__card">
-            <a href="/directorio" class="bcs-sidebar__back">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              <span>Ver todos los estados</span>
-            </a>
-          </div>
-
-          <!-- Contacto -->
-          <div class="bcs-sidebar__card">
-            <h4>Contacto BOMBERO.MX</h4>
-            <ul class="bcs-sidebar__contact">
-              <li><a href="tel:+525520780102">55 2078 0102</a></li>
-              <li><a href="https://wa.me/525520780102">WhatsApp Directo</a></li>
-              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-</PageLayout>
-
-<style>
-  /* ═══════════════════════════════════════════════════════════════════════════
-     DIRECTORIO BAJA CALIFORNIA SUR - ESTACIONES DE BOMBEROS
-     Estilos optimizados con BEM y design tokens
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-  /* ═══ Hero Section ═══ */
-  .bcs-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-  }
-
-  .bcs-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .bcs-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(14, 165, 233, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(220, 38, 38, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(14, 165, 233, 0.08), transparent);
-  }
-
-  .bcs-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .bcs-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: var(--space-12);
-    align-items: start;
-  }
-
-  .bcs-hero__breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-4);
-  }
-
-  .bcs-hero__breadcrumb a {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .bcs-hero__breadcrumb a:hover {
-    color: var(--color-fire-400);
-  }
-
-  .bcs-hero__breadcrumb span {
-    color: var(--color-smoke-600);
-  }
-
-  .bcs-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(14, 165, 233, 0.15);
-    border: 1px solid rgba(14, 165, 233, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: rgb(56, 189, 248);
-    margin-bottom: var(--space-4);
-  }
-
-  .bcs-hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: rgb(14, 165, 233);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  .bcs-hero__title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-5);
-  }
-
-  .bcs-hero__highlight {
-    background: linear-gradient(135deg, rgb(14, 165, 233), rgb(56, 189, 248));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .bcs-hero__desc {
-    font-size: var(--text-lg);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-6);
-  }
-
-  .bcs-hero__desc strong {
-    color: white;
-  }
-
-  .bcs-hero__stats {
-    display: flex;
-    gap: var(--space-8);
-    padding: var(--space-5) 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: var(--space-6);
-  }
-
-  .bcs-hero__stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .bcs-hero__stat-number {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: rgb(56, 189, 248);
-  }
-
-  .bcs-hero__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .bcs-hero__cta {
-    display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-
-  .bcs-hero__cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-4) var(--space-6);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-base);
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .bcs-hero__cta-btn--primary {
-    background: linear-gradient(135deg, var(--color-fire-500), var(--color-fire-600));
-    color: white;
-    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
-  }
-
-  .bcs-hero__cta-btn--primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(220, 38, 38, 0.5);
-  }
-
-  .bcs-hero__cta-btn--secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .bcs-hero__cta-btn--secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-  }
-
-  /* SEO Content */
-  .bcs-hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    padding: var(--space-6);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-xl);
-  }
-
-  .bcs-hero__seo-title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: rgb(56, 189, 248);
-    margin: 0;
-  }
-
-  .bcs-hero__seo-text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.8;
-    margin: 0;
-  }
-
-  .bcs-hero__seo-text strong {
-    color: white;
-  }
-
-  /* ═══ Emergency Banner ═══ */
-  .bcs-emergency {
-    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
-    padding: var(--space-6) 0;
-  }
-
-  .bcs-emergency__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-8);
-    flex-wrap: wrap;
-  }
-
-  .bcs-emergency__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    color: white;
-    animation: pulse 1.5s infinite;
-  }
-
-  .bcs-emergency__text {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .bcs-emergency__label {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .bcs-emergency__number {
-    font-size: var(--text-4xl);
-    font-weight: 800;
-    color: white;
-    letter-spacing: 0.05em;
-  }
-
-  .bcs-emergency__info {
-    max-width: 400px;
-  }
-
-  .bcs-emergency__desc {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  /* ═══ Municipios Quick Access ═══ */
-  .bcs-municipios {
-    background: var(--color-smoke-100);
-    padding: var(--space-8) 0;
-  }
-
-  .bcs-municipios__grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: var(--space-4);
-  }
-
-  .bcs-municipios__card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-4);
-    background: white;
-    border-radius: var(--radius-lg);
-    text-decoration: none;
-    transition: all 0.2s;
-    border: 1px solid var(--color-smoke-200);
-  }
-
-  .bcs-municipios__card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: rgb(56, 189, 248);
-  }
-
-  .bcs-municipios__name {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-  }
-
-  .bcs-municipios__pop {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: rgb(14, 165, 233);
-  }
-
-  .bcs-municipios__desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    line-height: 1.4;
-  }
-
-  /* ═══ Main Section ═══ */
-  .bcs-main {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50);
-  }
-
-  .bcs-main__grid {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  /* ═══ Stations Grid ═══ */
-  .bcs-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-    margin-top: var(--space-8);
-  }
-
-  /* ═══ SEO Content Premium ═══ */
-  .bcs-seo {
-    margin-top: var(--space-12);
-    padding: var(--space-10);
-    background: white;
-    border-radius: var(--radius-xl);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  }
-
-  .bcs-seo h2 {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-5);
-    padding-bottom: var(--space-4);
-    border-bottom: 3px solid rgb(14, 165, 233);
-  }
-
-  .bcs-seo h3 {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin: var(--space-8) 0 var(--space-4);
-  }
-
-  .bcs-seo p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-600);
-    line-height: 1.9;
-    margin: 0 0 var(--space-5);
-  }
-
-  .bcs-seo p:last-child {
-    margin-bottom: 0;
-  }
-
-  .bcs-seo strong {
-    color: var(--color-smoke-800);
-  }
-
-  .bcs-seo__list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-5);
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .bcs-seo__list li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    padding: var(--space-3) var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-700);
-    line-height: 1.6;
-  }
-
-  .bcs-seo__list li::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background: rgb(14, 165, 233);
-    border-radius: 50%;
-    margin-top: 6px;
-    flex-shrink: 0;
-  }
-
-  .bcs-seo__list li strong {
-    color: var(--color-smoke-900);
-  }
-
-  /* ═══ Sidebar ═══ */
-  .bcs-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    position: sticky;
-    top: var(--space-6);
-  }
-
-  .bcs-sidebar__card {
-    padding: var(--space-5);
-    background: white;
-    border-radius: var(--radius-xl);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  }
-
-  .bcs-sidebar__card h4 {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 2px solid rgb(14, 165, 233);
-  }
-
-  .bcs-sidebar__card > p {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500);
-    line-height: 1.6;
-    margin: 0 0 var(--space-4);
-  }
-
-  /* Municipios List */
-  .bcs-sidebar__municipios {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-  }
-
-  .bcs-sidebar__municipios li a {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .bcs-sidebar__municipios li a:hover {
-    background: var(--color-smoke-50);
-    color: rgb(14, 165, 233);
-  }
-
-  .bcs-sidebar__bullet {
-    width: 6px;
-    height: 6px;
-    background: rgb(14, 165, 233);
-    border-radius: 50%;
-  }
-
-  .bcs-sidebar__count {
-    margin-left: auto;
-    padding: 2px 8px;
-    background: var(--color-smoke-100);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--color-smoke-500);
-  }
-
-  /* Stats */
-  .bcs-sidebar__stats {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-3);
-  }
-
-  .bcs-sidebar__stats li {
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    text-align: center;
-  }
-
-  .bcs-sidebar__stat-value {
-    font-size: var(--text-xl);
-    font-weight: 800;
-    color: rgb(14, 165, 233);
-  }
-
-  .bcs-sidebar__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    margin-top: 2px;
-  }
-
-  /* Emergency Card */
-  .bcs-sidebar__card--emergency {
-    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
-  }
-
-  .bcs-sidebar__card--emergency h4 {
-    color: white;
-    border-bottom-color: rgb(14, 165, 233);
-  }
-
-  .bcs-sidebar__emergency-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .bcs-sidebar__emergency-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-3);
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: var(--radius-lg);
-  }
-
-  .bcs-sidebar__emergency-number {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: rgb(56, 189, 248);
-  }
-
-  .bcs-sidebar__emergency-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-  }
-
-  /* Tourism List */
-  .bcs-sidebar__tourism {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .bcs-sidebar__tourism li {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-  }
-
-  .bcs-sidebar__tourism-name {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-900);
-  }
-
-  .bcs-sidebar__tourism-desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-  }
-
-  /* States List */
-  .bcs-sidebar__states {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .bcs-sidebar__states li a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .bcs-sidebar__states li a:hover {
-    background: var(--color-smoke-100);
-    color: rgb(14, 165, 233);
-  }
-
-  .bcs-sidebar__states li a svg {
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all 0.2s;
-  }
-
-  .bcs-sidebar__states li a:hover svg {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  /* Products */
-  .bcs-sidebar__products {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .bcs-sidebar__products li a {
-    display: block;
-    padding: var(--space-2);
-    font-size: var(--text-sm);
-    color: rgb(14, 165, 233);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  .bcs-sidebar__products li a:hover {
-    color: rgb(2, 132, 199);
-  }
-
-  .bcs-sidebar__link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: rgb(14, 165, 233);
-    text-decoration: none;
-  }
-
-  .bcs-sidebar__link:hover {
-    color: rgb(2, 132, 199);
-  }
-
-  .bcs-sidebar__link svg {
-    transition: transform 0.2s;
-  }
-
-  .bcs-sidebar__link:hover svg {
-    transform: translateX(4px);
-  }
-
-  /* CTA Card */
-  .bcs-sidebar__card--cta {
-    background: linear-gradient(135deg, rgb(14, 165, 233), rgb(2, 132, 199));
-  }
-
-  .bcs-sidebar__card--cta h4 {
-    color: white;
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .bcs-sidebar__card--cta > p {
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  .bcs-sidebar__cta-btn {
-    display: block;
-    width: 100%;
-    padding: var(--space-3);
-    background: white;
-    color: rgb(14, 165, 233);
-    text-align: center;
-    text-decoration: none;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    border-radius: var(--radius-lg);
-    transition: all 0.2s;
-  }
-
-  .bcs-sidebar__cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  /* Back Link */
-  .bcs-sidebar__back {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .bcs-sidebar__back:hover {
-    background: var(--color-smoke-100);
-    color: rgb(14, 165, 233);
-  }
-
-  /* Contact */
-  .bcs-sidebar__contact {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .bcs-sidebar__contact a {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: rgb(14, 165, 233);
-    text-decoration: none;
-  }
-
-  .bcs-sidebar__contact a:hover {
-    color: rgb(2, 132, 199);
-  }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1280px) {
-    .bcs-main__grid {
-      grid-template-columns: 1fr 340px;
-    }
-  }
-
-  @media (max-width: 1200px) {
-    .bcs-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .bcs-municipios__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .bcs-hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-
-    .bcs-main__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .bcs-stations-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .bcs-sidebar {
-      position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-
-    .bcs-sidebar__card--emergency {
-      grid-column: span 2;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .bcs-hero {
-      padding: var(--space-10) 0;
-    }
-
-    .bcs-hero__stats {
-      flex-wrap: wrap;
-      gap: var(--space-4);
-    }
-
-    .bcs-hero__stat {
-      flex: 1 1 45%;
-    }
-
-    .bcs-hero__cta {
-      flex-direction: column;
-    }
-
-    .bcs-hero__cta-btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .bcs-emergency__content {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .bcs-municipios__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .bcs-main {
-      padding: var(--space-10) 0;
-    }
-
-    .bcs-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .bcs-sidebar {
-      grid-template-columns: 1fr;
-    }
-
-    .bcs-sidebar__card--emergency {
-      grid-column: span 1;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .bcs-hero__title {
-      font-size: 1.75rem;
-    }
-
-    .bcs-municipios__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .bcs-seo {
-      padding: var(--space-6);
-    }
-  }
-</style>
+  <!-- ══════════════════════════════════════════════════
+       BLOQUE SEO — Baja California Sur
+       Texto rico en keywords para posicionamiento orgánico.
+       Aparece en el sidebar de la sección Main Grid.
+  ══════════════════════════════════════════════════ -->
+  <Fragment slot="seo">
+
+    <h2>El Heroico Cuerpo de Bomberos de Baja California Sur</h2>
+    <p>
+      El <strong>Heroico Cuerpo de Bomberos de Baja California Sur</strong> protege a los
+      <strong>798,447 bajasurenses</strong> en los <strong>5 municipios</strong> del noveno
+      estado más grande de México — extendido a lo largo de <strong>1,200 km de península</strong>
+      entre el Mar de Cortés y el Océano Pacífico. Con <strong>6 estaciones operativas</strong>
+      y más de <strong>296 bomberos profesionales activos</strong>, opera las <strong>24 horas
+      del día, los 365 días del año</strong>, atendiendo desde rescates acuáticos en el
+      "acuario del mundo" hasta evacuaciones masivas de turistas durante huracanes del Pacífico.
+    </p>
+
+    <h3>¿Cómo llamar a los Bomberos en Baja California Sur?</h3>
+    <p>
+      En cualquier <strong>emergencia en Baja California Sur</strong>, marca el <strong>911</strong>
+      desde cualquier teléfono — fijo o celular, con o sin saldo. Para contacto directo con
+      estaciones: <strong>La Paz: 612 122 0054</strong> · <strong>Cabo San Lucas: 624 143 3577</strong>
+      · <strong>San José del Cabo: 624 142 2466</strong> · <strong>Loreto: 613 135 0059</strong> ·
+      <strong>Ciudad Constitución: 613 132 0303</strong> · <strong>Santa Rosalía: 615 152 0050</strong>.
+      El 911 también conecta con la <strong>Armada de México</strong> para emergencias en mar abierto.
+    </p>
+
+    <h3>Riesgos Únicos de Baja California Sur</h3>
+    <p>
+      BCS presenta riesgos sin paralelo en México:
+      <strong>huracanes de categoría 4-5</strong> — Odile (2014) y Lidia (2017) devastaron Los Cabos,
+      obligando a evacuar más de 30,000 turistas internacionales;
+      <strong>rescate acuático en playas peligrosas</strong> de Cabo San Lucas (Divorce Beach, Playa
+      del Amor), donde las corrientes del Pacífico cobran vidas cada temporada;
+      <strong>emergencias turísticas masivas</strong> en una zona que recibe más de
+      <strong>3 millones de visitantes al año</strong>, incluyendo cruceros con 5,000+ pasajeros;
+      <strong>aislamiento geográfico extremo</strong> — la Carretera Transpeninsular (Mex-1)
+      es la única vía terrestre de 1,700 km; e <strong>incendios en patrimonio histórico</strong>:
+      los únicos edificios de madera prefabricada traídos desde Francia en el siglo XIX de Santa Rosalía.
+    </p>
+
+    <h3>Bomberos y Turismo Internacional en Los Cabos</h3>
+    <p>
+      El municipio de <strong>Los Cabos</strong> recibe el mayor número de turistas extranjeros
+      de cualquier destino de playa en México. La <strong>Estación de Cabo San Lucas</strong>
+      y la <strong>Estación de San José del Cabo</strong> protegen hoteles de cadenas como
+      Four Seasons, One&Only, St. Regis y Ritz-Carlton; la <strong>Marina de Cabo San Lucas</strong>,
+      la más grande del Pacífico mexicano con más de 1,000 esloras; más de
+      <strong>15 campos de golf de clase mundial</strong>; y el área hotelera Fonatur con
+      capacidad para más de 20,000 turistas simultáneos. Todo el personal está capacitado en
+      comunicaciones multilingüe (español, inglés) para la atención de emergencias internacionales.
+    </p>
+
+    <h3>Patrimonio UNESCO bajo Protección</h3>
+    <p>
+      Baja California Sur alberga más sitios Patrimonio de la Humanidad UNESCO que cualquier
+      otro estado de México. Los bomberos del estado protegen:
+      <strong>el Mar de Cortés</strong> (Patrimonio Natural de la Humanidad, 2005), que incluye
+      el Parque Nacional Bahía de Loreto y el Golfo de California;
+      las <strong>Pinturas Rupestres de la Sierra de San Francisco</strong> (Patrimonio Cultural, 1993),
+      con más de 400 sitios de arte rupestre de hasta 7,500 años de antigüedad;
+      la <strong>Reserva de la Biósfera El Vizcaíno</strong> (Patrimonio Natural, 1993),
+      hogar de la ballena gris;
+      y el <strong>Área Natural Protegida de Loreto</strong>, primera capital de las Californias
+      fundada en 1697. La <strong>Iglesia de Santa Bárbara en Santa Rosalía</strong>,
+      diseñada por <strong>Gustave Eiffel</strong>, es el único edificio del creador de la
+      Torre Eiffel en México.
+    </p>
+
+    <h3>Especialidades del Cuerpo de Bomberos de BCS</h3>
+    <p>
+      Los bomberos bajasurenses poseen capacidades únicas en México:
+      <strong>rescate acuático en mar abierto</strong> con equipos de buceo certificados PADI
+      y lanchas de 25-30 pies para operaciones en el Mar de Cortés;
+      <strong>respuesta a huracanes</strong> con protocolos de evacuación masiva y centros de
+      mando coordinados con Protección Civil estatal y federal;
+      <strong>emergencias turísticas internacionales</strong> con personal bilingüe y
+      coordinación con consulados y aseguradoras;
+      <strong>rescate en islas remotas</strong> del Parque Nacional Bahía de Loreto
+      (Isla Coronado, Isla Carmen, Isla Danzante), accesibles solo por mar;
+      e <strong>incendios en estructuras históricas de madera</strong> con técnicas especializadas
+      para patrimonio arquitectónico irreemplazable.
+    </p>
+
+    <h3>Municipios y Cobertura por Zona</h3>
+    <p>
+      <strong>Los Cabos</strong> — 2 estaciones en el destino turístico de clase mundial:
+      Cabo San Lucas (marina, playas, vida nocturna) y San José del Cabo (centro histórico,
+      zona hotelera Fonatur, Estero). <strong>La Paz</strong> — 1 estación central en la
+      capital: bahía, malecón, zona portuaria y comunidades costeras. <strong>Loreto</strong>
+      — 1 estación en el Pueblo Mágico: centro histórico, Bahía de Loreto y rescate en islas.
+      <strong>Comondú</strong> — 1 estación en Ciudad Constitución: Valle de Santo Domingo
+      y Puerto San Carlos. <strong>Mulegé</strong> — 1 estación en Santa Rosalía: patrimonio
+      francés, ferry y zona minera.
+    </p>
+
+  </Fragment>
+</DirectorioEstadoLayout>

@@ -1,961 +1,346 @@
 ---
 /**
- * ============================================================================
- * DIRECTORIO DE BOMBEROS DE CHIHUAHUA (CHIH)
- * ============================================================================
+ * ─── Directorio Bomberos Chihuahua ───
+ * Solo datos — el diseño vive en DirectorioEstadoLayout.astro
  *
- * Página principal del directorio de estaciones de bomberos del estado
- * de Chihuahua, el estado más grande de México por superficie.
- *
- * SEO PREMIUM:
- * - 28 estaciones de bomberos
- * - 1,420 bomberos profesionales
- * - Cobertura: 247,455 km²
- * - Población: 3.8 millones de habitantes
- * - Frontera con EE.UU.: 560 km
- * - UNESCO: Paquimé (Casas Grandes)
- * - Pueblo Mágico: Creel
- * - Barrancas del Cobre
- *
- * Keywords principales:
- * - bomberos chihuahua
- * - bomberos ciudad juarez
- * - estaciones de bomberos chihuahua
- * - emergencias chihuahua mexico
- * - bomberos frontera mexico usa
- * - bomberos sierra tarahumara
- * - bomberos barrancas del cobre
+ * NOTA: El data file usa ESTADISTICAS_CHIHUAHUA (constante) y ciudad en vez de municipio.
+ * Los helpers getMunicipios/getEstadisticas se derivan directamente aquí.
  */
-
-import PageLayout from "@layouts/PageLayout.astro";
-import StationCard from "@components/StationCard.astro";
-import { estacionesChihuahua, CHIHUAHUA_SEO, ESTADISTICAS_CHIHUAHUA } from "@data/estaciones-chihuahua";
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import {
+  estacionesChihuahua,
+  ESTADISTICAS_CHIHUAHUA,
+} from "@data/estaciones-chihuahua";
 import { breadcrumbJsonLd } from "@utils/seo";
 
-// SEO Metadata
-const title = 'Bomberos de Chihuahua | 28 Estaciones | Directorio Oficial CHIH';
-const description = `Directorio completo de las ${ESTADISTICAS_CHIHUAHUA.total_estaciones} estaciones de bomberos en Chihuahua. ${ESTADISTICAS_CHIHUAHUA.total_bomberos} bomberos protegiendo el estado más grande de México: Ciudad Juárez, capital, Sierra Tarahumara, Barrancas del Cobre. Teléfonos, direcciones y servicios de emergencia.`;
-const keywords = [
-  ...CHIHUAHUA_SEO.keywords_principales,
-  ...CHIHUAHUA_SEO.keywords_ciudad_juarez.slice(0, 5),
-  ...CHIHUAHUA_SEO.keywords_turisticos.slice(0, 4),
-  ...CHIHUAHUA_SEO.keywords_industriales.slice(0, 4)
-].join(', ');
+// ── Derivar municipios y estadísticas desde el array de estaciones ──────────
+const municipios        = [...new Set(estacionesChihuahua.map((e) => e.ciudad))].sort();
+const totalEstaciones   = ESTADISTICAS_CHIHUAHUA.total_estaciones;
+const totalMunicipios   = ESTADISTICAS_CHIHUAHUA.municipios_cubiertos;
+const totalBomberos     = ESTADISTICAS_CHIHUAHUA.total_bomberos;
 
-// Agrupar estaciones por zona
-const zonasEstaciones = {
-  capital: estacionesChihuahua.filter(e => e.ciudad === 'Chihuahua'),
-  juarez: estacionesChihuahua.filter(e => e.ciudad === 'Ciudad Juárez'),
-  agricola: estacionesChihuahua.filter(e => ['Delicias', 'Cuauhtémoc', 'Camargo', 'Jiménez', 'Meoqui', 'Saucillo'].includes(e.ciudad)),
-  sierra: estacionesChihuahua.filter(e => ['Creel', 'Guachochi', 'Bocoyna', 'Madera'].includes(e.ciudad)),
-  paquime: estacionesChihuahua.filter(e => ['Nuevo Casas Grandes', 'Casas Grandes', 'Janos'].includes(e.ciudad)),
-  minera: estacionesChihuahua.filter(e => ['Hidalgo del Parral', 'Santa Bárbara', 'Valle de Allende'].includes(e.ciudad))
-};
-
-// Lista de ciudades únicas para navegación rápida
-const ciudadesUnicas = [...new Set(estacionesChihuahua.map(e => e.ciudad))].sort();
 const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
+  { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Chihuahua", url: "/directorio/chihuahua" },
+  { name: "Chihuahua",              url: "/directorio/chihuahua" },
 ]);
 
-const chihuahuaItemListSchema = {
+const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Estaciones de Bomberos en Chihuahua",
-  "description": description,
-  "numberOfItems": ESTADISTICAS_CHIHUAHUA.total_estaciones,
-  "itemListElement": estacionesChihuahua.map((estacion, index) => ({
+  "name": "Estaciones de Bomberos en Chihuahua, México",
+  "description": `Directorio oficial de las ${totalEstaciones} estaciones de bomberos en Chihuahua. Teléfonos directos en Chihuahua capital, Ciudad Juárez, Creel, Hidalgo del Parral y más. Estado más grande de México, frontera 560 km con EE.UU. Emergencias: llama al 911.`,
+  "numberOfItems": estacionesChihuahua.length,
+  "itemListElement": estacionesChihuahua.map((e, i) => ({
     "@type": "ListItem",
-    "position": index + 1,
+    "position": i + 1,
     "item": {
       "@type": "FireStation",
-      "name": estacion.nombre,
+      "name": e.nombre,
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": estacion.direccion,
-        "addressLocality": estacion.ciudad,
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
         "addressRegion": "Chihuahua",
         "addressCountry": "MX",
-        "postalCode": estacion.codigoPostal
       },
-      "telephone": estacion.telefono,
-      "url": `https://bombero.mx/directorio/chihuahua/${estacion.slug}`
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/chihuahua/${e.slug}`,
     }
   }))
 };
+
+/*
+ * Rotación de imágenes para las tarjetas de estación.
+ * Chihuahua: el estado de los extremos — la mayor metrópoli fronteriza (Juárez),
+ * la Sierra Tarahumara y las Barrancas del Cobre, el desierto más grande de
+ * Norteamérica y la historia minera de cuatro siglos en Parral.
+ */
+const stationImages = [
+  "/images/directorio/estacion-bomberos-industrial-01.avif",
+  "/images/directorio/camion-forestal-bomberos-01.avif",
+  "/images/directorio/rescate-montana-bomberos-01.avif",
+  "/images/directorio/unidad-hazmat-emergencias-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  "/images/directorio/descontaminacion-hazmat-01.avif",
+  "/images/directorio/camion-bomberos-aeropuerto-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-petrolera-01.avif",
+  "/images/directorio/motobomba-incendios-forestal-01.avif",
+  "/images/directorio/estacion-bomberos-norte-mexico-01.avif",
+  "/images/directorio/ambulancia-bomberos-emergencias-01.avif",
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/capacitacion-bomberos-profesional-01.avif",
+  "/images/directorio/estacion-bomberos-equipada-01.avif",
+  "/images/directorio/equipo-rescate-tecnico-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/bomberos-accion-incendio-01.avif",
+  "/images/directorio/coordinacion-emergencias-bomberos-01.avif",
+];
 ---
 
-<PageLayout
-  title={title}
-  description={description}
-  keywords={keywords}
+<DirectorioEstadoLayout
+  estado="Chihuahua"
+  sigla="CHIH"
+  slug="chihuahua"
+  description={`Directorio oficial de las ${totalEstaciones} estaciones de bomberos en Chihuahua. Teléfonos en Chihuahua capital, Ciudad Juárez (frontera EE.UU.), Creel, Barrancas del Cobre y Hidalgo del Parral. Estado más grande de México: 247,455 km². Emergencias: 911.`}
+  keywords={[
+    "bomberos chihuahua",
+    "bomberos ciudad juarez",
+    "estaciones bomberos chihuahua",
+    "emergencias chihuahua 911",
+    "bomberos sierra tarahumara",
+    "bomberos barrancas del cobre creel",
+    "hazmat maquiladoras ciudad juarez",
+    "bomberos frontera mexico estados unidos",
+    "rescate montaña chihuahua",
+    "bomberos hidalgo del parral",
+    "rescate minero chihuahua parral",
+    "bomberos paquime casas grandes unesco",
+    "incendios forestales sierra madre chihuahua",
+    "arff aeropuerto juarez abraham gonzalez",
+    "cuerpo bomberos chihuahua estado",
+  ]}
   canonical="https://bombero.mx/directorio/chihuahua"
-  jsonLd={[breadcrumbSchema, chihuahuaItemListSchema]}
+  jsonLd={[breadcrumbSchema, itemListSchema]}
+
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
+  habitantes="3.8M+"
+
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Chihuahua</strong> despliega <strong>${totalEstaciones} estaciones</strong> en <strong>${totalMunicipios} ciudades</strong> del estado más grande de México con más de <strong>${totalBomberos.toLocaleString()} bomberos profesionales</strong> — cubriendo los <strong>247,455 km²</strong> del Desierto Chihuahuense, la Sierra Tarahumara, las Barrancas del Cobre (4 veces el Grand Canyon), la mayor metrópoli fronteriza y <strong>560 km de frontera con Estados Unidos</strong>.`}
+  heroImage="/images/directorio/estacion-bomberos-norte-mexico-01.avif"
+  heroImageAlt="Estación de Bomberos Chihuahua — Sierra Tarahumara Barrancas del Cobre Ciudad Juárez frontera EE.UU."
+  heroCaption="H. Cuerpo de Bomberos · Chihuahua"
+  heroThumbs={[
+    { src: "/images/directorio/rescate-montana-bomberos-01.avif",    alt: "Rescate montaña Barrancas del Cobre Sierra Tarahumara Creel Guachochi Chihuahua",           label: "Rescate Barrancas del Cobre" },
+    { src: "/images/directorio/unidad-hazmat-emergencias-01.avif",   alt: "HAZMAT maquiladoras Ciudad Juárez zona industrial frontera México Estados Unidos Chihuahua",  label: "HAZMAT Maquiladoras Juárez" },
+    { src: "/images/directorio/camion-forestal-bomberos-01.avif",    alt: "Incendios forestales Sierra Madre Occidental Madera Guachochi bosques pino chihuahua",        label: "Forestal Sierra Madre"      },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/equipo-rescate-tecnico-01.avif",          alt: "Rescate técnico Barrancas del Cobre Sierra Tarahumara rappel turistas Creel Bocoyna",    label: "Barrancas del Cobre"        },
+    { src: "/images/directorio/descontaminacion-hazmat-01.avif",         alt: "HAZMAT descontaminación zona industrial maquiladoras Ciudad Juárez 400 plantas",         label: "HAZMAT Zona Maquiladora"    },
+    { src: "/images/directorio/camion-bomberos-aeropuerto-01.avif",      alt: "ARFF aeropuerto internacional Abraham González Ciudad Juárez rescate aeronáutico DGAC",  label: "ARFF Aeropuerto Juárez"     },
+    { src: "/images/directorio/estacion-bomberos-industrial-01.avif",    alt: "Rescate minero Hidalgo del Parral Santa Bárbara minas históricas sur Chihuahua",         label: "Rescate Minero Parral"      },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",            label: "Emergencias"                   },
+    { number: "614 429-3300",   label: "Bomberos Chihuahua (capital)"  },
+    { number: "656 616-1000",   label: "Bomberos Ciudad Juárez"        },
+    { number: "635 456-0066",   label: "Bomberos Creel"                },
+    { number: "627 522-0077",   label: "Bomberos Hidalgo del Parral"   },
+    { number: "625 581-0088",   label: "Bomberos Cuauhtémoc"           },
+  ]}
+
+  municipios={municipios}
+
+  regiones={[
+    { nombre: "Zona Metropolitana Chihuahua", desc: "Chihuahua (5 est.) · Capital del estado · Parques Industriales · Grutas de Nombre de Dios" },
+    { nombre: "Zona Fronteriza Ciudad Juárez", desc: "Juárez (7 est.) · Frontera El Paso Texas · 400+ maquiladoras · ARFF Aeropuerto Abraham González" },
+    { nombre: "Sierra Tarahumara",             desc: "Creel · Guachochi · Bocoyna · Madera · Barrancas del Cobre · Cultura Rarámuri" },
+    { nombre: "Zona Agrícola Centro-Sur",      desc: "Delicias · Cuauhtémoc · Camargo · Jiménez · Meoqui · Saucillo · Comunidades Menonitas" },
+    { nombre: "Noroeste y Sur Histórico",      desc: "Paquimé UNESCO · Casas Grandes · Janos · Hidalgo del Parral · Santa Bárbara (1567)" },
+  ]}
+
+  estadosVecinos={[
+    { nombre: "Sonora",   slug: "sonora"   },
+    { nombre: "Coahuila", slug: "coahuila" },
+    { nombre: "Durango",  slug: "durango"  },
+    { nombre: "Sinaloa",  slug: "sinaloa"  },
+  ]}
+
+  estaciones={estacionesChihuahua}
+  stationImages={stationImages}
+
+  eppCards={[
+    {
+      image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+      imageAlt:  "Traje Forestal NFPA 1977 bomberos Sierra Tarahumara Barrancas del Cobre Madera incendios forestales Chihuahua",
+      badge:     "NFPA 1977",
+      title:     "Traje Forestal NFPA 1977 — Temperaturas Extremas",
+      text:      "Certificado para las condiciones más extremas de México: los bosques de pino y encino de la <strong>Sierra Madre Occidental</strong>, donde los incendios forestales en Madera, Guachochi y Bocoyna consumen miles de hectáreas cada temporada de secas. Resistencia térmica validada para temperaturas de <strong>–20°C en invierno</strong> (hipotermia operacional en la Sierra Tarahumara) y <strong>+45°C en verano</strong> (colpe de calor en el Desierto Chihuahuense). Las brigadas de Creel operan con <strong>vehículos 4×4, cuerdas de rappel y GPS satelital</strong> para atender los 300,000 turistas anuales que visitan las Barrancas del Cobre.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+      imageAlt:  "Traje HAZMAT Nivel A NFPA 1991 bomberos Ciudad Juárez maquiladoras zona industrial frontera México EE.UU.",
+      badge:     "NFPA 1991",
+      title:     "Traje HAZMAT Nivel A — Zona Maquiladora",
+      text:      "Certificado NFPA 1991 para las emergencias más complejas del norte de México: la <strong>zona maquiladora de Ciudad Juárez</strong>, con más de <strong>400 plantas de manufactura</strong> de industrias automotriz, aeroespacial, electrónica y química (Foxconn, Lexmark, Delphi, Bosch). Las estaciones de Juárez Zona Industrial y Zona Industrial Chihuahua — la más avanzada del norte de México — poseen <strong>laboratorios móviles de identificación química</strong> y sistemas de descontaminación masiva. Protocolos de respuesta certificados por la <strong>EPA y la Agencia Federal para Manejo de Emergencias de EE.UU. (FEMA)</strong> para incidentes transfronterizos.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+      imageAlt:  "Casco NFPA 1971 bomberos Chihuahua Paquimé UNESCO Hidalgo del Parral minas históricas rescate minero",
+      badge:     "NFPA 1971",
+      title:     "Casco Estructural NFPA 1971 con Iluminación LED",
+      text:      "Indispensable en el patrimonio minero e histórico único de Chihuahua: los <strong>túneles de las minas de Hidalgo del Parral</strong>, ciudad con <strong>400 años de historia minera</strong> (donde fue asesinado Pancho Villa en 1923) — bomberos certificados en rescate de espacios confinados con detectores de gases y SCBA; la <strong>Zona Arqueológica de Paquimé</strong> (Patrimonio UNESCO, 1998), con 2,000 cuartos de adobe construidos por la cultura Paquimé entre los siglos X y XIV; y los <strong>edificios coloniales del siglo XIX de Ciudad Chihuahua</strong>, incluyendo el Palacio de Gobierno donde Hidalgo estuvo encarcelado antes de su fusilamiento en 1811.",
+      href:      "/productos/cascos-para-bomberos",
+      linkLabel: "Ver Cascos para Bombero",
+    },
+    {
+      image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+      imageAlt:  "Botas Estructurales NFPA 1971 bomberos Chihuahua terreno desierto sierra minas arena frontera",
+      badge:     "NFPA 1971",
+      title:     "Botas Estructurales de Cuero",
+      text:      "Certificadas NFPA 1971 para el estado con mayor diversidad de terrenos áridos de México: arena fina de las <strong>Dunas de Samalayuca</strong> — el mayor campo de dunas activas del norte de México, a solo 50 km de Ciudad Juárez; roca volcánica y barranca de las <strong>Barrancas del Cobre</strong> (1,800 metros de profundidad, 4 veces el Grand Canyon); grava y roca ígnea del <strong>Desierto Chihuahuense</strong>, el más grande de Norteamérica (362,000 km²); rieles de ferrocarril y suelo ferroso en la <strong>estación de El Chepe</strong> (Chihuahua al Pacífico); y piso de mina húmedo en los <strong>yacimientos históricos de plata de Santa Bárbara</strong>, fundada en 1567 como la primera ciudad minera de Chihuahua.",
+      href:      "/productos/botas-para-bomberos",
+      linkLabel: "Ver Botas para Bombero",
+    },
+  ]}
+
+  ctaTitle="Equipamos a los Bomberos de Chihuahua"
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones desde Ciudad Juárez hasta la Sierra Tarahumara. Envío a los ${totalMunicipios} municipios con cobertura activa. Atención a licitaciones públicas municipales y estatales — experiencia con corporaciones del norte de México.`}
+  ctaBtnText="Solicitar Cotización — Chihuahua"
 >
-
-  <div class="chih-main">
-    <!-- Hero Section Premium -->
-    <section class="chih-hero">
-      <div class="chih-hero__container">
-        <div class="chih-hero__badge">
-          <span class="chih-hero__badge-code">CHIH</span>
-          <span class="chih-hero__badge-text">Estado más grande de México</span>
-        </div>
-
-        <h1 class="chih-hero__title">
-          Bomberos de <span class="chih-hero__title-accent">Chihuahua</span>
-        </h1>
-
-        <p class="chih-hero__subtitle">
-          Directorio oficial de las {ESTADISTICAS_CHIHUAHUA.total_estaciones} estaciones de bomberos
-          que protegen {CHIHUAHUA_SEO.superficie_km2.toLocaleString('es-MX')} km² del territorio más extenso del país
-        </p>
-
-        <!-- Estadísticas Hero -->
-        <div class="chih-hero__stats">
-          <div class="chih-hero__stat">
-            <span class="chih-hero__stat-number">{ESTADISTICAS_CHIHUAHUA.total_estaciones}</span>
-            <span class="chih-hero__stat-label">Estaciones</span>
-          </div>
-          <div class="chih-hero__stat">
-            <span class="chih-hero__stat-number">{ESTADISTICAS_CHIHUAHUA.total_bomberos.toLocaleString('es-MX')}</span>
-            <span class="chih-hero__stat-label">Bomberos</span>
-          </div>
-          <div class="chih-hero__stat">
-            <span class="chih-hero__stat-number">{ESTADISTICAS_CHIHUAHUA.total_unidades}</span>
-            <span class="chih-hero__stat-label">Unidades</span>
-          </div>
-          <div class="chih-hero__stat">
-            <span class="chih-hero__stat-number">{ESTADISTICAS_CHIHUAHUA.municipios_cubiertos}</span>
-            <span class="chih-hero__stat-label">Municipios</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Banner de Emergencia -->
-    <section class="chih-emergency">
-      <div class="chih-emergency__container">
-        <div class="chih-emergency__content">
-          <div class="chih-emergency__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="32" height="32">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-          </div>
-          <div class="chih-emergency__text">
-            <h2 class="chih-emergency__title">Emergencias en Chihuahua</h2>
-            <p class="chih-emergency__numbers">
-              <strong>911</strong> Nacional |
-              <strong>(614) 429-3300</strong> Bomberos Chihuahua |
-              <strong>(656) 616-1000</strong> Bomberos Juárez
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contenido Principal -->
-    <div class="chih-content">
-      <div class="chih-content__container">
-
-        <!-- Columna Principal -->
-        <div class="chih-content__main">
-
-          <!-- Introducción SEO Premium -->
-          <section class="chih-intro">
-            <h2 class="chih-intro__title">Heroico Cuerpo de Bomberos de Chihuahua</h2>
-            <div class="chih-intro__text">
-              <p>
-                El <strong>estado de Chihuahua</strong>, el más extenso de la República Mexicana con
-                <strong>247,455 km²</strong> de territorio, cuenta con una red de <strong>{ESTADISTICAS_CHIHUAHUA.total_estaciones} estaciones
-                de bomberos</strong> estratégicamente distribuidas para proteger a sus <strong>3.8 millones de habitantes</strong>
-                y los millones de turistas que visitan anualmente destinos como las <strong>Barrancas del Cobre</strong>,
-                <strong>Creel</strong> y la zona arqueológica de <strong>Paquimé</strong>.
-              </p>
-              <p>
-                Desde la frontera con <strong>Estados Unidos</strong> en <strong>Ciudad Juárez</strong> —el cruce
-                fronterizo más transitado de América Latina— hasta los bosques de la <strong>Sierra Tarahumara</strong>
-                y las zonas mineras del sur, los bomberos chihuahuenses enfrentan desafíos únicos:
-                <strong>incendios industriales en maquiladoras</strong>, <strong>rescate en montañas y barrancas</strong>,
-                <strong>emergencias forestales</strong> y <strong>temperaturas extremas</strong> que van de -20°C en
-                invierno a más de 45°C en verano.
-              </p>
-              <p>
-                Con <strong>{ESTADISTICAS_CHIHUAHUA.total_bomberos.toLocaleString('es-MX')} bomberos profesionales</strong> y
-                <strong>{ESTADISTICAS_CHIHUAHUA.total_unidades} unidades de emergencia</strong>, este directorio es
-                tu guía completa para encontrar la estación de bomberos más cercana en cualquier punto del
-                estado más grande de México.
-              </p>
-            </div>
-          </section>
-
-          <!-- Zona Metropolitana Chihuahua (Capital) -->
-          <section class="chih-zone">
-            <div class="chih-zone__header">
-              <h2 class="chih-zone__title">
-                <span class="chih-zone__icon">🏛️</span>
-                Zona Metropolitana Chihuahua (Capital)
-              </h2>
-              <span class="chih-zone__count">{zonasEstaciones.capital.length} estaciones</span>
-            </div>
-            <p class="chih-zone__description">
-              Capital del estado con más de 900,000 habitantes. Centro administrativo, comercial e industrial.
-              Incluye zonas industriales con manufactura aeroespacial y automotriz.
-            </p>
-            <div class="chih-stations-grid">
-              {zonasEstaciones.capital.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/chihuahua/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- Zona Metropolitana Ciudad Juárez -->
-          <section class="chih-zone chih-zone--juarez">
-            <div class="chih-zone__header">
-              <h2 class="chih-zone__title">
-                <span class="chih-zone__icon">🌉</span>
-                Ciudad Juárez (Frontera México-EE.UU.)
-              </h2>
-              <span class="chih-zone__count">{zonasEstaciones.juarez.length} estaciones</span>
-            </div>
-            <p class="chih-zone__description">
-              Principal ciudad fronteriza de México con 1.5 millones de habitantes. Centro maquilador con más
-              de 400 plantas de manufactura. Coordinación binacional con El Paso Fire Department.
-            </p>
-            <div class="chih-stations-grid">
-              {zonasEstaciones.juarez.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/chihuahua/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- Zona Agrícola Centro-Sur -->
-          <section class="chih-zone chih-zone--agricola">
-            <div class="chih-zone__header">
-              <h2 class="chih-zone__title">
-                <span class="chih-zone__icon">🌾</span>
-                Zona Agrícola Centro-Sur
-              </h2>
-              <span class="chih-zone__count">{zonasEstaciones.agricola.length} estaciones</span>
-            </div>
-            <p class="chih-zone__description">
-              Corazón agroindustrial del estado. Delicias: capital lechera. Cuauhtémoc: comunidades
-              menonitas y producción de manzana. Camargo, Jiménez, Meoqui y Saucillo: agricultura de riego.
-            </p>
-            <div class="chih-stations-grid">
-              {zonasEstaciones.agricola.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/chihuahua/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- Zona Sierra Tarahumara -->
-          <section class="chih-zone chih-zone--sierra">
-            <div class="chih-zone__header">
-              <h2 class="chih-zone__title">
-                <span class="chih-zone__icon">🏔️</span>
-                Sierra Tarahumara y Barrancas del Cobre
-              </h2>
-              <span class="chih-zone__count">{zonasEstaciones.sierra.length} estaciones</span>
-            </div>
-            <p class="chih-zone__description">
-              Creel (Pueblo Mágico), Guachochi, Bocoyna y Madera. Barrancas del Cobre: 4 veces más grandes
-              que el Gran Cañón. Cultura Rarámuri. Incendios forestales y rescate de montaña.
-            </p>
-            <div class="chih-stations-grid">
-              {zonasEstaciones.sierra.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/chihuahua/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- Zona Paquimé (UNESCO) -->
-          <section class="chih-zone chih-zone--unesco">
-            <div class="chih-zone__header">
-              <h2 class="chih-zone__title">
-                <span class="chih-zone__icon">🏛️</span>
-                Zona Paquimé (Patrimonio UNESCO)
-              </h2>
-              <span class="chih-zone__count">{zonasEstaciones.paquime.length} estaciones</span>
-            </div>
-            <p class="chih-zone__description">
-              Casas Grandes y Paquimé: Patrimonio de la Humanidad UNESCO desde 1998. Nuevo Casas Grandes:
-              comunidades menonitas. Janos: Reserva de la Biósfera con ecosistemas únicos.
-            </p>
-            <div class="chih-stations-grid">
-              {zonasEstaciones.paquime.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/chihuahua/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-          <!-- Zona Minera Histórica -->
-          <section class="chih-zone chih-zone--minera">
-            <div class="chih-zone__header">
-              <h2 class="chih-zone__title">
-                <span class="chih-zone__icon">⛏️</span>
-                Zona Minera Histórica (Sur)
-              </h2>
-              <span class="chih-zone__count">{zonasEstaciones.minera.length} estaciones</span>
-            </div>
-            <p class="chih-zone__description">
-              Hidalgo del Parral: donde fue asesinado Pancho Villa, 400 años de historia minera.
-              Santa Bárbara: primera ciudad minera de Chihuahua (1567). Rescate minero especializado.
-            </p>
-            <div class="chih-stations-grid">
-              {zonasEstaciones.minera.map(estacion => (
-                <StationCard
-                  nombre={estacion.nombre}
-                  slug={`/directorio/chihuahua/${estacion.slug}`}
-                  direccion={estacion.direccion}
-                  alcaldia={estacion.ciudad}
-                  telefono={estacion.telefono}
-                  servicios={estacion.servicios}
-                  horario={estacion.horario}
-                />
-              ))}
-            </div>
-          </section>
-
-        </div>
-
-        <!-- Sidebar -->
-        <aside class="chih-sidebar">
-
-          <!-- Teléfonos de Emergencia -->
-          <div class="chih-sidebar__card chih-sidebar__card--emergency">
-            <h3 class="chih-sidebar__title">Teléfonos de Emergencia</h3>
-            <ul class="chih-sidebar__list">
-              <li class="chih-sidebar__item">
-                <span class="chih-sidebar__label">Emergencias Nacional</span>
-                <a href="tel:911" class="chih-sidebar__phone">911</a>
-              </li>
-              <li class="chih-sidebar__item">
-                <span class="chih-sidebar__label">Bomberos Chihuahua</span>
-                <a href="tel:+526144293300" class="chih-sidebar__phone">(614) 429-3300</a>
-              </li>
-              <li class="chih-sidebar__item">
-                <span class="chih-sidebar__label">Bomberos Cd. Juárez</span>
-                <a href="tel:+526566161000" class="chih-sidebar__phone">(656) 616-1000</a>
-              </li>
-              <li class="chih-sidebar__item">
-                <span class="chih-sidebar__label">Protección Civil Estatal</span>
-                <a href="tel:+526144293310" class="chih-sidebar__phone">(614) 429-3310</a>
-              </li>
-              <li class="chih-sidebar__item">
-                <span class="chih-sidebar__label">Cruz Roja Chihuahua</span>
-                <a href="tel:+526144114411" class="chih-sidebar__phone">(614) 411-4411</a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Navegación por Ciudad -->
-          <div class="chih-sidebar__card">
-            <h3 class="chih-sidebar__title">Buscar por Municipio</h3>
-            <div class="chih-sidebar__cities">
-              {ciudadesUnicas.map(ciudad => (
-                <a href={`#${ciudad.toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[\u0300-\u036f]/g, '')}`}
-                   class="chih-sidebar__city-link">
-                  {ciudad}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <!-- Datos del Estado -->
-          <div class="chih-sidebar__card">
-            <h3 class="chih-sidebar__title">Chihuahua en Números</h3>
-            <ul class="chih-sidebar__facts">
-              <li><strong>Superficie:</strong> 247,455 km² (1° lugar nacional)</li>
-              <li><strong>Población:</strong> 3.8 millones</li>
-              <li><strong>Capital:</strong> Chihuahua</li>
-              <li><strong>Frontera EE.UU.:</strong> 560 km</li>
-              <li><strong>Municipios:</strong> 67</li>
-              <li><strong>Punto más alto:</strong> Cerro Mohinora (3,300 m)</li>
-              <li><strong>Clima:</strong> Desértico a templado de montaña</li>
-              <li><strong>Visitantes/año:</strong> 2.5 millones</li>
-            </ul>
-          </div>
-
-          <!-- Patrimonio y Turismo -->
-          <div class="chih-sidebar__card">
-            <h3 class="chih-sidebar__title">Destinos Turísticos</h3>
-            <ul class="chih-sidebar__facts">
-              <li><strong>UNESCO:</strong> Paquimé (Casas Grandes)</li>
-              <li><strong>Pueblo Mágico:</strong> Creel</li>
-              <li><strong>Barrancas del Cobre:</strong> 4x Gran Cañón</li>
-              <li><strong>Cascada Basaseachi:</strong> 246 metros</li>
-              <li><strong>Tren El Chepe:</strong> Ruta panorámica</li>
-              <li><strong>Dunas de Samalayuca:</strong> Desierto</li>
-              <li><strong>Grutas Nombre de Dios:</strong> Espeleología</li>
-              <li><strong>Comunidades Menonitas:</strong> Cultura viva</li>
-            </ul>
-          </div>
-
-          <!-- Productos Regionales -->
-          <div class="chih-sidebar__card">
-            <h3 class="chih-sidebar__title">Productos de Chihuahua</h3>
-            <ul class="chih-sidebar__facts">
-              <li>Manzana de Chihuahua</li>
-              <li>Nuez de Chihuahua</li>
-              <li>Queso menonita</li>
-              <li>Carne seca (machaca)</li>
-              <li>Chile colorado</li>
-              <li>Sotol (bebida tradicional)</li>
-              <li>Asado de boda</li>
-              <li>Burrito norteño</li>
-            </ul>
-          </div>
-
-          <!-- Especialidades de Bomberos -->
-          <div class="chih-sidebar__card">
-            <h3 class="chih-sidebar__title">Especialidades Bomberiles</h3>
-            <ul class="chih-sidebar__facts">
-              <li><strong>HAZMAT:</strong> {ESTADISTICAS_CHIHUAHUA.estaciones_hazmat} estaciones</li>
-              <li><strong>Forestales:</strong> {ESTADISTICAS_CHIHUAHUA.estaciones_forestales} estaciones</li>
-              <li><strong>Juárez (frontera):</strong> {ESTADISTICAS_CHIHUAHUA.estaciones_juarez} estaciones</li>
-              <li><strong>Sierra Tarahumara:</strong> {ESTADISTICAS_CHIHUAHUA.estaciones_sierra} estaciones</li>
-              <li><strong>Rescate minero:</strong> Parral, Santa Bárbara</li>
-              <li><strong>ARFF Aeronáutico:</strong> Aeropuerto Juárez</li>
-              <li><strong>Coord. binacional:</strong> El Paso FD</li>
-            </ul>
-          </div>
-
-        </aside>
-      </div>
-    </div>
-
-    <!-- Breadcrumb SEO -->
-    <nav class="chih-breadcrumb" aria-label="Breadcrumb">
-      <ol class="chih-breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
-        <li class="chih-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/" itemprop="item"><span itemprop="name">Inicio</span></a>
-          <meta itemprop="position" content="1" />
-        </li>
-        <li class="chih-breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <a href="/directorio" itemprop="item"><span itemprop="name">Directorio</span></a>
-          <meta itemprop="position" content="2" />
-        </li>
-        <li class="chih-breadcrumb__item chih-breadcrumb__item--active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <span itemprop="name">Chihuahua</span>
-          <meta itemprop="position" content="3" />
-        </li>
-      </ol>
-    </nav>
-  </div>
-</PageLayout>
-
-<style>
-  /* ============================================
-     VARIABLES CSS - TEMA COBRE DEL DESIERTO
-     ============================================ */
-  :root {
-    --chih-copper: rgb(180, 83, 9);
-    --chih-copper-light: rgb(217, 119, 6);
-    --chih-copper-dark: rgb(146, 64, 14);
-    --chih-cream: rgb(254, 243, 199);
-    --chih-sand: rgb(253, 230, 138);
-    --chih-earth: rgb(120, 53, 15);
-    --chih-white: #ffffff;
-    --chih-gray-50: #fafaf9;
-    --chih-gray-100: #f5f5f4;
-    --chih-gray-200: #e7e5e4;
-    --chih-gray-600: #57534e;
-    --chih-gray-800: #292524;
-    --chih-red: #dc2626;
-  }
-
-  /* ============================================
-     MAIN CONTAINER
-     ============================================ */
-  .chih-main {
-    min-height: 100vh;
-    background-color: var(--chih-gray-50);
-  }
-
-  /* ============================================
-     HERO SECTION
-     ============================================ */
-  .chih-hero {
-    background: linear-gradient(135deg, var(--chih-copper-dark) 0%, var(--chih-copper) 50%, var(--chih-copper-light) 100%);
-    padding: 3rem 1rem;
-    color: var(--chih-white);
-  }
-
-  .chih-hero__container {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .chih-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    margin-bottom: 1.5rem;
-    backdrop-filter: blur(4px);
-  }
-
-  .chih-hero__badge-code {
-    background: var(--chih-white);
-    color: var(--chih-copper);
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    font-weight: 700;
-    font-size: 0.875rem;
-  }
-
-  .chih-hero__badge-text {
-    font-size: 0.875rem;
-    opacity: 0.95;
-  }
-
-  .chih-hero__title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    line-height: 1.1;
-  }
-
-  .chih-hero__title-accent {
-    display: block;
-    font-size: 3rem;
-  }
-
-  .chih-hero__subtitle {
-    font-size: 1.125rem;
-    opacity: 0.95;
-    max-width: 700px;
-    margin: 0 auto 2rem;
-    line-height: 1.6;
-  }
-
-  .chih-hero__stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .chih-hero__stat {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 1rem;
-    border-radius: 12px;
-    backdrop-filter: blur(4px);
-  }
-
-  .chih-hero__stat-number {
-    display: block;
-    font-size: 1.75rem;
-    font-weight: 700;
-  }
-
-  .chih-hero__stat-label {
-    font-size: 0.75rem;
-    opacity: 0.9;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  /* ============================================
-     EMERGENCY BANNER
-     ============================================ */
-  .chih-emergency {
-    background: var(--chih-red);
-    color: var(--chih-white);
-    padding: 1rem;
-  }
-
-  .chih-emergency__container {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .chih-emergency__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .chih-emergency__icon {
-    flex-shrink: 0;
-  }
-
-  .chih-emergency__text {
-    text-align: center;
-  }
-
-  .chih-emergency__title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-  }
-
-  .chih-emergency__numbers {
-    font-size: 0.9375rem;
-  }
-
-  .chih-emergency__numbers strong {
-    font-weight: 700;
-  }
-
-  /* ============================================
-     CONTENT LAYOUT
-     ============================================ */
-  .chih-content {
-    padding: 2rem 1rem;
-  }
-
-  .chih-content__container {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 2rem;
-  }
-
-  .chih-content__main {
-    min-width: 0;
-  }
-
-  /* ============================================
-     INTRO SECTION
-     ============================================ */
-  .chih-intro {
-    background: var(--chih-white);
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .chih-intro__title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--chih-gray-800);
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 3px solid var(--chih-copper);
-  }
-
-  .chih-intro__text p {
-    color: var(--chih-gray-600);
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-
-  .chih-intro__text p:last-child {
-    margin-bottom: 0;
-  }
-
-  .chih-intro__text strong {
-    color: var(--chih-gray-800);
-  }
-
-  /* ============================================
-     ZONE SECTIONS
-     ============================================ */
-  .chih-zone {
-    margin-bottom: 2.5rem;
-  }
-
-  .chih-zone__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .chih-zone__title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.375rem;
-    font-weight: 700;
-    color: var(--chih-gray-800);
-  }
-
-  .chih-zone__icon {
-    font-size: 1.5rem;
-  }
-
-  .chih-zone__count {
-    background: var(--chih-copper);
-    color: var(--chih-white);
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 600;
-  }
-
-  .chih-zone__description {
-    color: var(--chih-gray-600);
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    padding-left: 2rem;
-  }
-
-  .chih-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-  }
-
-  /* ============================================
-     SIDEBAR
-     ============================================ */
-  .chih-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .chih-sidebar__card {
-    background: var(--chih-white);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .chih-sidebar__card--emergency {
-    background: linear-gradient(135deg, var(--chih-copper-dark), var(--chih-copper));
-    color: var(--chih-white);
-  }
-
-  .chih-sidebar__card--emergency .chih-sidebar__title {
-    color: var(--chih-white);
-  }
-
-  .chih-sidebar__title {
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--chih-gray-800);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--chih-cream);
-  }
-
-  .chih-sidebar__card--emergency .chih-sidebar__title {
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .chih-sidebar__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .chih-sidebar__item {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .chih-sidebar__item:last-child {
-    border-bottom: none;
-  }
-
-  .chih-sidebar__label {
-    font-size: 0.8125rem;
-    opacity: 0.9;
-  }
-
-  .chih-sidebar__phone {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--chih-white);
-    text-decoration: none;
-  }
-
-  .chih-sidebar__phone:hover {
-    text-decoration: underline;
-  }
-
-  .chih-sidebar__cities {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .chih-sidebar__city-link {
-    background: var(--chih-cream);
-    color: var(--chih-copper-dark);
-    padding: 0.375rem 0.75rem;
-    border-radius: 6px;
-    font-size: 0.8125rem;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .chih-sidebar__city-link:hover {
-    background: var(--chih-copper);
-    color: var(--chih-white);
-  }
-
-  .chih-sidebar__facts {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .chih-sidebar__facts li {
-    padding: 0.5rem 0;
-    font-size: 0.875rem;
-    color: var(--chih-gray-600);
-    border-bottom: 1px solid var(--chih-gray-100);
-  }
-
-  .chih-sidebar__facts li:last-child {
-    border-bottom: none;
-  }
-
-  .chih-sidebar__facts strong {
-    color: var(--chih-gray-800);
-  }
-
-  /* ============================================
-     BREADCRUMB
-     ============================================ */
-  .chih-breadcrumb {
-    background: var(--chih-white);
-    padding: 1rem;
-    border-top: 1px solid var(--chih-gray-200);
-  }
-
-  .chih-breadcrumb__list {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0;
-    list-style: none;
-    font-size: 0.875rem;
-  }
-
-  .chih-breadcrumb__item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .chih-breadcrumb__item::after {
-    content: '/';
-    color: var(--chih-gray-400);
-  }
-
-  .chih-breadcrumb__item:last-child::after {
-    display: none;
-  }
-
-  .chih-breadcrumb__item a {
-    color: var(--chih-copper);
-    text-decoration: none;
-  }
-
-  .chih-breadcrumb__item a:hover {
-    text-decoration: underline;
-  }
-
-  .chih-breadcrumb__item--active {
-    color: var(--chih-gray-600);
-  }
-
-  /* ============================================
-     RESPONSIVE
-     ============================================ */
-  @media (max-width: 1024px) {
-    .chih-content__container {
-      grid-template-columns: 1fr;
-    }
-
-    .chih-sidebar {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-  }
-
-  @media (max-width: 640px) {
-    .chih-hero__title {
-      font-size: 1.875rem;
-    }
-
-    .chih-hero__title-accent {
-      font-size: 2.25rem;
-    }
-
-    .chih-hero__stats {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .chih-zone__header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .chih-zone__description {
-      padding-left: 0;
-    }
-
-    .chih-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .chih-sidebar {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+  <!-- ══════════════════════════════════════════════════
+       BLOQUE SEO — Chihuahua
+       Texto rico en keywords para posicionamiento orgánico.
+       Aparece en el sidebar de la sección Main Grid.
+  ══════════════════════════════════════════════════ -->
+  <Fragment slot="seo">
+
+    <h2>El Heroico Cuerpo de Bomberos de Chihuahua</h2>
+    <p>
+      El <strong>Heroico Cuerpo de Bomberos de Chihuahua</strong> protege a los
+      <strong>3.8 millones de chihuahuenses</strong> en el <strong>estado más grande de
+      México</strong> — 247,455 km², más extenso que el Reino Unido y Alemania juntos.
+      Con <strong>{totalEstaciones} estaciones activas</strong> en <strong>{totalMunicipios}
+      ciudades</strong> y más de <strong>{totalBomberos} bomberos profesionales</strong>,
+      opera las <strong>24 horas del día, 365 días del año</strong> en los cinco ecosistemas
+      más extremos del país: la mayor metrópoli fronteriza, el desierto más grande de
+      Norteamérica, la Sierra Tarahumara, los bosques madereros de la Sierra Madre Occidental
+      y la región minera con cuatro siglos de historia.
+    </p>
+
+    <h3>¿Cómo llamar a los Bomberos en Chihuahua?</h3>
+    <p>
+      En cualquier <strong>emergencia en Chihuahua</strong>, marca el <strong>911</strong>
+      desde cualquier teléfono — fijo o celular, con o sin saldo, en español o inglés.
+      Para contacto directo:
+      <strong>Chihuahua (capital): 614 429-3300</strong> ·
+      <strong>Ciudad Juárez (central): 656 616-1000</strong> ·
+      <strong>Creel (Sierra Tarahumara): 635 456-0066</strong> ·
+      <strong>Hidalgo del Parral: 627 522-0077</strong> ·
+      <strong>Cuauhtémoc: 625 581-0088</strong> ·
+      <strong>Delicias: 639 472-0066</strong> ·
+      <strong>Nuevo Casas Grandes (Paquimé): 636 694-0088</strong>.
+      Las estaciones de <strong>Ciudad Juárez</strong> cuentan con personal bilingüe
+      (español-inglés) y protocolos coordinados con el
+      <strong>El Paso Fire Department, Texas</strong>.
+    </p>
+
+    <h3>Ciudad Juárez — La Mayor Metrópoli Fronteriza de México</h3>
+    <p>
+      Con <strong>1.5 millones de habitantes</strong> y más de <strong>400 plantas
+      maquiladoras</strong> de las industrias automotriz, aeroespacial, electrónica y
+      médica, Ciudad Juárez alberga el <strong>mayor centro de manufactura de exportación
+      de México</strong>. Las <strong>7 estaciones de bomberos de Juárez</strong> — incluyendo
+      la especializada en ARFF del <strong>Aeropuerto Internacional Abraham González</strong>
+      (certificada por la DGAC) — son referente nacional en respuesta industrial. La estación
+      de Zona Industrial posee el sistema de descontaminación masiva más avanzado del norte
+      del país. Los acuerdos de cooperación binacional con el <strong>El Paso Fire
+      Department</strong> permiten despliegue cruzado de unidades en la frontera.
+      La <strong>estación PRONAF</strong> atiende la zona consular con personal bilingüe
+      para emergencias de turistas y visitantes estadounidenses.
+    </p>
+
+    <h3>Barrancas del Cobre y Sierra Tarahumara</h3>
+    <p>
+      Las <strong>Barrancas del Cobre</strong> — con 6 cañones principales y profundidades
+      de hasta <strong>1,800 metros</strong>, <strong>4 veces más grande que el Grand
+      Canyon</strong> de Arizona — reciben más de <strong>300,000 turistas al año</strong>.
+      La <strong>Estación de Creel</strong> (Pueblo Mágico, 2,338 msnm) es la más
+      especializada en rescate de montaña del norte de México: personal certificado en
+      rappel, tirolesa, búsqueda en barranca y atención de hipotermia (inviernos de –20°C).
+      La <strong>Estación de Bocoyna</strong> cubre Divisadero y las estaciones del tren
+      <strong>El Chepe</strong> (Chihuahua al Pacífico, 650 km de vías panorámicas).
+      Las brigadas forestales de <strong>Guachochi y Madera</strong> combaten incendios en
+      la <strong>Sierra Madre Occidental</strong>, cuyos bosques de pino-encino cubren
+      más de 3 millones de hectáreas del estado.
+    </p>
+
+    <h3>Paquimé — Patrimonio UNESCO del Desierto</h3>
+    <p>
+      La <strong>Zona Arqueológica de Paquimé</strong> (Patrimonio Mundial UNESCO, 1998)
+      — en el municipio de Casas Grandes — es el sitio arqueológico más importante del
+      norte de México y toda la región árida de Norteamérica: <strong>2,000 cuartos
+      residenciales</strong> construidos con adobe entre los siglos X y XIV, canales
+      de distribución de agua, hornos para criar guacamayas rojas y una red comercial
+      que abarcaba hasta Mesoamérica. Las estaciones de <strong>Nuevo Casas Grandes y
+      Casas Grandes</strong> mantienen protocolos especializados de protección patrimonial
+      coordinados con el <strong>INAH</strong>. La vecina <strong>Reserva de la Biósfera
+      de Janos</strong> — la mayor colonia de perrito de la pradera cola negra de México —
+      es protegida por la estación de Janos contra incendios de pastizales.
+    </p>
+
+    <h3>Rescate Minero — Cuatro Siglos de Historia</h3>
+    <p>
+      El sur de Chihuahua alberga el patrimonio minero más rico de México.
+      <strong>Santa Bárbara</strong>, fundada en <strong>1567</strong>, fue la primera
+      ciudad minera del estado y sigue siendo sede de minas activas de plata y zinc.
+      <strong>Hidalgo del Parral</strong> — donde fue asesinado <strong>Francisco Villa</strong>
+      el 20 de julio de 1923 — concentra más de 400 años de extracción continua. Las
+      estaciones de <strong>Parral y Santa Bárbara</strong> son las únicas del estado
+      certificadas en <strong>rescate minero</strong> en espacios confinados, con equipos
+      SCBA de larga duración, detectores de gases (monóxido de carbono, metano, CO₂) y
+      coordinación con la <strong>Secretaría del Trabajo</strong> para inspecciones de minas.
+    </p>
+
+    <h3>Desierto Chihuahuense — El Mayor Desierto de Norteamérica</h3>
+    <p>
+      El <strong>Desierto Chihuahuense</strong> — con 362,000 km² — es el desierto
+      más grande de Norteamérica, más extenso que los desiertos de Sonora, Mojave y
+      Great Basin combinados. Las estaciones del centro del estado operan en condiciones
+      de <strong>+45°C en verano</strong>, ventiscas invernales con visibilidad cero y
+      una densidad poblacional de solo <strong>15 hab/km²</strong>, con carreteras
+      federales (México 45, México 2) que registran los accidentes más graves del norte
+      por las condiciones del terreno. Las <strong>Dunas de Samalayuca</strong>, a 50 km
+      de Ciudad Juárez, generan rescates especializados de vehículos y excursionistas
+      en arena suelta, atendidos por las unidades todo terreno de la estación de
+      Juárez Poniente.
+    </p>
+
+    <h3>Especialidades del Cuerpo de Bomberos de Chihuahua</h3>
+    <p>
+      Los bomberos chihuahuenses poseen competencias únicas en México:
+      <strong>ARFF certificado DGAC</strong> en el Aeropuerto Abraham González (Juárez)
+      para emergencias aeronáuticas con aviones de hasta 80 toneladas;
+      <strong>HAZMAT nivel 3</strong> en zonas industriales y maquiladoras con laboratorio
+      móvil de identificación química;
+      <strong>cooperación binacional formal</strong> con el El Paso Fire Department,
+      Texas, para incidentes en la frontera o que superen la capacidad local;
+      <strong>rescate minero</strong> en espacios confinados con gases tóxicos;
+      <strong>rescate en montaña y barranca</strong> con técnicas de rappel y rapel
+      en pendientes de más de 1,500 metros de desnivel;
+      e <strong>hipotermia operacional</strong> para atención en temperaturas de –20°C
+      en la Sierra Tarahumara.
+    </p>
+
+    <h3>Municipios y Cobertura por Zona</h3>
+    <p>
+      <strong>Chihuahua (capital)</strong> — 5 estaciones: Central (comandancia, drones
+      térmicos, escaleras 32 m), Norte (Autopista Juárez), Sur (hospitales, centros
+      comerciales), Oriente y Zona Industrial (HAZMAT nivel 3).
+      <strong>Ciudad Juárez</strong> — 7 estaciones: Central (USAR, cooperación FEMA),
+      Zona Industrial, PRONAF (bilingüe), Centro Histórico, Oriente, Poniente y Aeropuerto
+      (ARFF-DGAC).
+      <strong>Sierra Tarahumara</strong> — Creel (Pueblo Mágico, rescate montaña),
+      Guachochi (Rarámuri), Bocoyna (Divisadero, El Chepe) y Madera (forestal industrial).
+      <strong>Agrícola</strong> — Delicias (lechero), Cuauhtémoc (manzana, menonitas),
+      Camargo (Presa La Boquilla), Jiménez, Meoqui, Saucillo.
+      <strong>Noroeste</strong> — Nuevo Casas Grandes y Casas Grandes (Paquimé UNESCO),
+      Janos (Biósfera).
+      <strong>Sur minero</strong> — Hidalgo del Parral, Santa Bárbara (1567),
+      Valle de Allende.
+    </p>
+
+  </Fragment>
+</DirectorioEstadoLayout>

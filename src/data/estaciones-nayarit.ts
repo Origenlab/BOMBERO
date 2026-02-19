@@ -1185,10 +1185,40 @@ export function generarSchemaEstacion(estacion: Estacion): object {
 }
 
 // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+// FUNCIONES AUXILIARES ADICIONALES
+// ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+/**
+ * Obtiene todos los municipios/ciudades únicos
+ */
+export function getMunicipios(): string[] {
+  return [...new Set(estacionesNayarit.map(e => e.ciudad))].filter(Boolean).sort() as string[];
+}
+
+/**
+ * Obtiene estación por slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesNayarit.find(e => e.slug === slug);
+}
+
+/**
+ * Obtiene estaciones cercanas (excluyendo la actual)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+  const mismaZona = estacionesNayarit.filter(e => e.slug !== slug && e.zona === estacion.zona);
+  const otras = estacionesNayarit.filter(e => e.slug !== slug && e.zona !== estacion.zona);
+  return [...mismaZona, ...otras].slice(0, limit);
+}
+
+// ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 // ESTADÍSTICAS AGREGADAS
 // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
 export const ESTADISTICAS_NAYARIT = {
+  totalMunicipios: 20,
   totalEstaciones: estacionesNayarit.length,
   estacionesRiviera: getEstacionesRivieraNayarit().length,
   estacionesRescateAcuatico: getEstacionesRescateAcuatico().length,
