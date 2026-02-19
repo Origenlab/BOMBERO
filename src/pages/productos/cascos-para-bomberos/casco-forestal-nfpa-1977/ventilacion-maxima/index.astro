@@ -1,0 +1,343 @@
+---
+/**
+ * ─── BOMBERO.MX ───
+ * Producto: Casco Forestal NFPA 1977 — Ventilación Máxima
+ * URL: /productos/cascos-para-bomberos/casco-forestal-nfpa-1977/ventilacion-maxima
+ *
+ * Especificaciones basadas en cascos reales con ventilación extendida:
+ * - Pacific R6 Dominator con slots de ventilación
+ * - Bullard UST con vents laterales
+ * - Phenix TL2 Wildland Vented
+ * - Crítico para climas tropicales y húmedos (Chiapas, Oaxaca, Veracruz)
+ */
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/directorio/pick-up-bomberos-forestal-01.avif";
+
+/* ── Datos del producto ─────────────────────────────────────── */
+const capas = [
+  {
+    num: "01",
+    titulo: "Shell HDPE con Sistema de Ventilación Integrado",
+    descripcion:
+      "Shell de polietileno de alta densidad (HDPE) con ranuras de ventilación estratégicamente ubicadas en la corona y laterales. Las ranuras permiten flujo de aire convectivo que extrae el aire caliente y húmedo acumulado bajo el casco, reduciendo significativamente el riesgo de golpe de calor en climas tropicales.",
+    specs: [
+      { label: "Material", valor: "HDPE inyectado — Clase E" },
+      { label: "Ventilación", valor: "6–10 ranuras (modelo dependiente)" },
+      { label: "Área ventilada", valor: "~15 cm² total" },
+      { label: "Tipo ranuras", valor: "Persianas anti-brasa" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Suspensión con Canales de Flujo de Aire",
+    descripcion:
+      "El arnés de suspensión está diseñado con espaciadores que mantienen la corona del shell separada de la cabeza, creando una cámara de aire que permite circulación. La banda antisudor utiliza material de secado rápido (mesh técnico) en lugar del algodón tradicional para mayor eficiencia de evaporación.",
+    specs: [
+      { label: "Tipo", valor: "4 puntos con espaciadores" },
+      { label: "Separación", valor: "25–30 mm de la cabeza" },
+      { label: "Banda", valor: "Mesh técnico dry-fit" },
+      { label: "Evaporación", valor: "3× más rápido que algodón" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Protector de Nuca Transpirable",
+    descripcion:
+      "Protector de nuca FR con construcción de malla abierta que permite flujo de aire mientras mantiene protección contra brasas. El material es Nomex® mesh o equivalente con estructura de panal que maximiza la transpirabilidad sin comprometer la seguridad.",
+    specs: [
+      { label: "Material", valor: "Nomex® mesh o TenCate mesh" },
+      { label: "Construcción", valor: "Panal / honeycomb" },
+      { label: "Transpirabilidad", valor: "Alta — flujo de aire" },
+      { label: "Protección", valor: "Brasas y ceniza caliente" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Shell",           label: "Material",                    valor: "HDPE inyectado (polietileno alta densidad)" },
+  { categoria: "Shell",           label: "Sistema ventilación",         valor: "6–10 ranuras persianas anti-brasa" },
+  { categoria: "Shell",           label: "Área ventilación total",      valor: "~15 cm² (dependiendo del modelo)" },
+  { categoria: "Shell",           label: "Peso shell solo",             valor: "290–340 g" },
+  { categoria: "Shell",           label: "Peso con accesorios",         valor: "390–470 g" },
+  { categoria: "Shell",           label: "Clase dieléctrica",           valor: "Clase E — 20,000V ANSI (no comprometida)" },
+  { categoria: "Ventilación",     label: "Tipo ranuras",                valor: "Persianas inclinadas anti-brasa" },
+  { categoria: "Ventilación",     label: "Cámara de aire",              valor: "25–30 mm entre shell y cabeza" },
+  { categoria: "Ventilación",     label: "Banda antisudor",             valor: "Mesh técnico dry-fit" },
+  { categoria: "Ventilación",     label: "Protector nuca",              valor: "FR mesh transpirable" },
+  { categoria: "Suspensión",      label: "Tipo",                        valor: "4 puntos con espaciadores" },
+  { categoria: "Suspensión",      label: "Ajuste",                      valor: "Perilla giratoria" },
+  { categoria: "Suspensión",      label: "Rango tallas",                valor: "53–64 cm" },
+  { categoria: "Protección",      label: "Impacto superior",            valor: "NFPA 1977 § 6.1 — 60 J mín." },
+  { categoria: "Protección",      label: "Penetración",                 valor: "NFPA 1977 § 6.2 — sin penetración" },
+  { categoria: "Protección",      label: "Retención",                   valor: "NFPA 1977 § 6.3 — > 22 kg fuerza" },
+  { categoria: "Protección",      label: "Llama/calor",                 valor: "NFPA 1977 § 6.4 — sin ignición 10s" },
+  { categoria: "Certificación",   label: "Norma principal",             valor: "NFPA 1977 edición vigente" },
+  { categoria: "Certificación",   label: "Vida útil fabricante",        valor: "5 años desde fecha de manufactura" },
+];
+
+const catClass: Record<string, string> = {
+  "Shell":         "construccion",
+  "Ventilación":   "ergonomia",
+  "Suspensión":    "ergonomia",
+  "Protección":    "proteccion",
+  "Certificación": "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Clima Tropical Húmedo",
+    desc: "Diseñado para operaciones en Chiapas, Oaxaca, Veracruz, Tabasco y la Península de Yucatán donde la humedad relativa supera 80% y las temperaturas ambiente exceden 35°C. La ventilación previene acumulación de calor metabólico.",
+  },
+  {
+    titulo: "Jornadas Prolongadas (>8 horas)",
+    desc: "En operaciones de supresión que se extienden más de 8 horas, el sistema de ventilación reduce la fatiga térmica significativamente. El material dry-fit de la banda antisudor mantiene mejor tracción incluso empapado de sudor.",
+  },
+  {
+    titulo: "Brigadas de Primera Respuesta",
+    desc: "Personal que llega primero al incendio y trabaja en la fase más intensa. La ventilación activa durante el esfuerzo máximo previene el deterioro del rendimiento por sobrecalentamiento.",
+  },
+  {
+    titulo: "Zonas Bajas y Valle",
+    desc: "Incendios en zonas bajas donde el calor ambiental se acumula en el valle. El casco ventilado es esencial cuando no hay brisa natural que ayude a disipar el calor corporal.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Las ranuras de ventilación no permiten que entren brasas?",
+    a: "No. Las ranuras utilizan diseño de <strong>persiana inclinada</strong> que permite salida de aire caliente pero impide entrada de partículas desde arriba. El ángulo de las persianas (típicamente 45°) bloquea brasas que caen verticalmente. Los cascos con ventilación <strong>cumplen NFPA 1977 § 6.4</strong> de resistencia a llama y calor — la certificación no se otorgaría si las ranuras comprometieran la protección.",
+  },
+  {
+    q: "¿La ventilación compromete la protección dieléctrica Clase E?",
+    a: "<strong>No</strong>. Las ranuras de ventilación están ubicadas en la corona superior del casco, lejos de las zonas de contacto con cables. El shell mantiene su integridad estructural y propiedades dieléctricas en las áreas laterales y frontales donde podría ocurrir contacto accidental con líneas eléctricas. El casco sigue clasificando <strong>Clase E 20,000V ANSI</strong>.",
+  },
+  {
+    q: "¿Cuánta diferencia de temperatura hace la ventilación?",
+    a: "Estudios de fabricantes reportan diferencias de <strong>3–5°C</strong> en la temperatura del microclima bajo el casco comparado con modelos sin ventilación, en condiciones de esfuerzo moderado. En términos de confort percibido, la diferencia es significativamente mayor porque el flujo de aire ayuda a la evaporación del sudor, que es el mecanismo principal de enfriamiento del cuerpo.",
+  },
+  {
+    q: "¿La banda de mesh dry-fit realmente funciona mejor que algodón?",
+    a: "Sí, significativamente. El algodón absorbe sudor y se satura rápidamente, volviéndose pesado e incómodo. El <strong>mesh técnico dry-fit</strong> transporta la humedad hacia el exterior por capilaridad (<em>wicking</em>) donde se evapora. Mantiene mejor adherencia a la frente incluso mojado y <strong>seca 3× más rápido</strong> durante pausas en la operación.",
+  },
+  {
+    q: "¿Este casco es apropiado para clima frío de montaña?",
+    a: "La ventilación que es beneficiosa en clima cálido puede ser excesiva en <strong>clima frío de montaña</strong> (operaciones forestales de alta elevación en invierno). Para estas condiciones, considere el casco estándar sin ventilación adicional o con <strong>tapones removibles</strong> para las ranuras si el modelo los incluye. Algunos fabricantes ofrecen kits de tapones opcionales.",
+  },
+  {
+    q: "¿Qué mantenimiento adicional requiere el sistema de ventilación?",
+    a: "Las ranuras de ventilación deben <strong>inspeccionarse después de cada uso</strong> para asegurar que no estén obstruidas con ceniza, tierra o resina de árboles. Limpiar con cepillo suave y agua. Si las ranuras quedan obstruidas, la ventilación se pierde. La banda de mesh dry-fit se puede <strong>retirar y lavar</strong> en lavadora (ciclo suave, sin blanqueador) — secar al aire.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Casco Forestal Termoplástico Estándar",
+    badge: "NFPA 1977",
+    description: "Shell HDPE estándar sin ventilación adicional. Para climas templados o preferencia de máxima protección.",
+    href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/termoplastico-ligero",
+    buttonText: "Ver Estándar",
+    image: "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  },
+  {
+    title: "Casco con Protección Facial",
+    badge: "NFPA 1977",
+    description: "Casco ventilado con pantalla facial de malla o policarbonato. Protección completa para clima cálido.",
+    href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/proteccion-facial",
+    buttonText: "Ver con Pantalla",
+    image: "/images/directorio/camion-bomberos-emergencia-01.avif",
+  },
+  {
+    title: "Traje Forestal Ligero",
+    badge: "NFPA 1977",
+    description: "Chaqueta y pantalón < 6 oz/yd² para máxima transpirabilidad. El complemento ideal del casco ventilado.",
+    href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977",
+    buttonText: "Ver Traje Forestal",
+    image: "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  },
+  {
+    title: "Gafas Forestales Ventiladas",
+    badge: "ANSI Z87.1",
+    description: "Goggles con ventilación indirecta que no empañan. Compatibles con casco ventilado para máximo flujo de aire.",
+    href: "/productos/gafas",
+    buttonText: "Ver Gafas Forestales",
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+  },
+];
+
+/* ── Datos del sidebar ──────────────────────────────────────── */
+const otrosModelos = [
+  { label: "Termoplástico Ligero HDPE",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/termoplastico-ligero" },
+  { label: "Material Compuesto (Fibra Vidrio)",href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/material-compuesto" },
+  { label: "Alta Visibilidad (Hi-Vis)",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/alta-visibilidad" },
+  { label: "Con Protección Facial",           href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/proteccion-facial" },
+  { label: "Sistema Completo de Campo",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/sistema-campo" },
+  { label: "Ver Todos los Cascos",            href: "/productos/cascos-para-bomberos" },
+];
+
+const epp = [
+  { label: "Traje Forestal Ligero",        href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977", tag: "Cuerpo" },
+  { label: "Guantes Forestales",            href: "/productos/guantes/forestales",                           tag: "Manos" },
+  { label: "Botas Forestales Logger",       href: "/productos/botas/forestal",                               tag: "Pies" },
+  { label: "Goggles Ventilados",            href: "/productos/gafas",                                        tag: "Ojos" },
+  { label: "Mochila de Hidratación",        href: "/productos",                                              tag: "Soporte" },
+];
+
+const articulos = [
+  { label: "Catálogo Cascos Forestales",       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977", tag: "Catálogo" },
+  { label: "Golpe de Calor en Bomberos",       href: "/productos",                                               tag: "Guía" },
+  { label: "EPP para Clima Tropical",          href: "/productos",                                               tag: "Artículo" },
+  { label: "Hidratación en Operaciones",       href: "/productos",                                               tag: "Guía" },
+  { label: "Cascos Estructurales NFPA 1971",   href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971", tag: "Comparar" },
+  { label: "Brigadas CONAFOR Sur-Sureste",     href: "/productos",                                               tag: "Normativa" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Forestales Chiapas",      href: "/directorio/chiapas" },
+  { label: "Bomberos Forestales Oaxaca",       href: "/directorio/oaxaca" },
+  { label: "Bomberos Forestales Veracruz",     href: "/directorio/veracruz" },
+  { label: "Bomberos Forestales Tabasco",      href: "/directorio/tabasco" },
+  { label: "Bomberos Forestales Yucatán",      href: "/directorio/yucatan" },
+  { label: "Directorio Nacional",              href: "/directorio" },
+];
+
+const specsRapidas = [
+  { label: "Norma",           valor: "NFPA 1977" },
+  { label: "Material",        valor: "HDPE ventilado" },
+  { label: "Ventilación",     valor: "6–10 ranuras" },
+  { label: "Peso total",      valor: "390–470 g" },
+  { label: "Suspensión",      valor: "4 puntos + espaciadores" },
+  { label: "Banda",           valor: "Mesh dry-fit" },
+  { label: "Dieléctrico",     valor: "Clase E 20kV" },
+  { label: "Vida útil",       valor: "5 años fab." },
+];
+
+const certItems = [
+  { code: "NFPA 1977",     desc: "Wildland Fire Fighting — incluye ventilación" },
+  { code: "§ 6.4",         desc: "Resistencia llama — ranuras no comprometen" },
+  { code: "Clase E",       desc: "Aislamiento dieléctrico mantenido" },
+  { code: "Dry-Fit",       desc: "Banda antisudor de secado rápido" },
+  { code: "ISO/IEC 17025", desc: "Laboratorio acreditado — certificado incluido" },
+];
+---
+
+<ProductoLayout
+  title="Casco Forestal NFPA 1977 — Ventilación Máxima | BOMBERO.MX"
+  description="Casco forestal NFPA 1977 con sistema de ventilación integrado. Ranuras anti-brasa, banda dry-fit, protector nuca transpirable. Ideal para clima tropical. Envío a los 32 estados de México."
+  keywords={[
+    "casco forestal ventilado",
+    "casco NFPA 1977 ventilacion",
+    "casco bombero forestal tropical",
+    "casco wildland clima calido",
+    "casco forestal anti golpe calor",
+    "casco CONAFOR tropico",
+    "casco forestal transpirable",
+    "comprar casco forestal ventilado Mexico",
+  ]}
+  canonical="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/ventilacion-maxima"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos" },
+    { label: "Cascos de Bombero",           href: "/productos/cascos-para-bomberos" },
+    { label: "Casco Forestal NFPA 1977",    href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977" },
+    { label: "Ventilación Máxima" },
+  ]}
+
+  heroBadge="Casco Forestal · NFPA 1977 · Máxima Ventilación"
+  heroTitle="Casco Forestal NFPA 1977"
+  heroTitleHighlight="Ventilación Máxima"
+  heroSubtitle="Sistema de ventilación integrado con ranuras anti-brasa, banda antisudor de mesh dry-fit y protector de nuca transpirable. Diseñado para prevenir golpe de calor en climas tropicales húmedos con temperaturas >35°C y humedad >80%."
+  heroSeoBlocks={[
+    {
+      title: "Ventilación Activa para Clima Tropical Mexicano",
+      text: "El <strong>sistema de ventilación integrado</strong> utiliza ranuras tipo persiana en la corona que permiten salida de aire caliente sin comprometer protección contra brasas. La <strong>cámara de aire de 25–30 mm</strong> entre shell y cabeza permite flujo convectivo que extrae el calor metabólico acumulado.",
+    },
+    {
+      title: "Banda Dry-Fit y Protector Transpirable",
+      text: "La <strong>banda antisudor de mesh técnico</strong> seca 3× más rápido que el algodón tradicional, manteniendo mejor tracción incluso empapada. El <strong>protector de nuca FR mesh</strong> con construcción de panal maximiza transpirabilidad sin comprometer certificación NFPA 1977.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Casco Forestal Ventilación Máxima"
+
+  productoCategoria="Casco Forestal Ventilado"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1977" },
+    { modifier: "tpp",   text: "Ventilado" },
+    { modifier: "solas", text: "Dry-Fit" },
+  ]}
+  productoMasVendido={true}
+  productoTitle="Casco Forestal NFPA 1977"
+  productoTitleSub="Ventilación Máxima — Clima Tropical"
+  productoDesc="Shell HDPE con 6–10 ranuras de ventilación tipo persiana anti-brasa. Suspensión con espaciadores para cámara de aire. Banda antisudor de mesh dry-fit de secado rápido. Protector de nuca FR transpirable. Certificado NFPA 1977."
+  productoFeatures={[
+    "Shell HDPE con ranuras anti-brasa",
+    "6–10 ranuras tipo persiana inclinada",
+    "Banda antisudor mesh dry-fit",
+    "Protector nuca FR mesh transpirable",
+    "Cámara de aire 25–30 mm",
+    "Clase E dieléctrico mantenido",
+  ]}
+  productoAppTags={[
+    "Clima tropical",
+    "Humedad >80%",
+    "Jornadas largas",
+    "Sur-Sureste México",
+    "Prevención golpe calor",
+  ]}
+
+  gallery={[
+    { src: "/images/directorio/pick-up-bomberos-forestal-01.avif",               alt: "Casco forestal NFPA 1977 ventilación máxima" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Brigada forestal con casco ventilado" },
+    { src: "/images/directorio/bomberos-accion-incendio-01.avif",                alt: "Casco ventilado en operación tropical" },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",            alt: "Entrenamiento forestal en clima cálido" },
+    { src: "/images/directorio/equipo-bomberos-completo-01.avif",                alt: "Sistema EPP forestal transpirable" },
+    { src: "/images/directorio/camion-bomberos-emergencia-01.avif",              alt: "Casco forestal ventilado en acción" },
+  ]}
+
+  capasEyebrow="Sistema de Ventilación"
+  capasTitle="Componentes del Casco Ventilado"
+  capasDesc="Cada componente está diseñado para maximizar el flujo de aire y evaporación del sudor mientras mantiene protección completa NFPA 1977."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones NFPA 1977 — Ventilación"
+  specsDesc="Sistema de ventilación certificado que cumple todos los requisitos NFPA 1977 incluyendo resistencia a llama y calor en ranuras."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Escenarios de Uso"
+  aplicacionesTitle="¿Dónde se Usa el Casco con Ventilación Máxima?"
+  aplicacionesContent="<p>El casco con ventilación máxima es esencial para operaciones en <strong>climas tropicales húmedos</strong> del sur y sureste de México, donde la combinación de temperatura ambiente alta y humedad relativa elevada dificulta la termorregulación del cuerpo.</p><p>El <strong>golpe de calor</strong> es una emergencia médica que puede ser fatal. La ventilación activa del casco es una medida preventiva crítica junto con hidratación adecuada y rotación de personal.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="NFPA 1977 — Ventilación Certificada"
+  certsDesc="El sistema de ventilación con ranuras tipo persiana <strong>cumple NFPA 1977 § 6.4</strong> de resistencia a llama y calor. Las pruebas de laboratorio verifican que las ranuras no permiten entrada de brasas ni comprometen la protección térmica del shell."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Preguntas sobre Ventilación del Casco"
+  faqDescription="Dudas frecuentes sobre el sistema de ventilación: protección contra brasas, eficiencia térmica, mantenimiento y aplicaciones específicas."
+  faqDocTitle="Documentación Técnica"
+  faqDocDesc="Solicita ficha técnica completa, certificado de laboratorio y guía de tallas."
+  faqDocCtaHref="/cotizar"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="EPP Forestal Transpirable"
+  relacionadosTitle="Sistema Completo para Clima Cálido"
+  relacionadosDesc="Combine el casco ventilado con el resto del EPP diseñado para maximizar transpirabilidad en climas tropicales."
+  relacionados={relacionados}
+/>
