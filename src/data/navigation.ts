@@ -21,6 +21,9 @@ export const mainNav: NavItem[] = [
         href: "/productos/trajes-para-bomberos",
         children: [
           { label: "Traje Estructural NFPA 1971",  href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971" },
+          { label: "Acolchado Térmico Caldura®",  href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/acolchado-termico" },
+          { label: "Alta Visibilidad SOLAS Cl.2", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/alta-visibilidad" },
+          { label: "Diseño Ergonómico 3D",        href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/diseno-ergonomico" },
           { label: "Traje Forestal NFPA 1977",    href: "/productos/trajes-para-bomberos" },
           { label: "Traje ARFF (Aeroportuario)",  href: "/productos/trajes-para-bomberos" },
           { label: "Traje de Aproximación",       href: "/productos/trajes-para-bomberos" },
