@@ -1,0 +1,1100 @@
+---
+/**
+ * ─── Directorio de Estaciones de Bomberos Tlaxcala ───
+ * Estado del centro: ÚNICA planta Audi en las Américas (San José Chiapa),
+ * capital textilera de México, Volcán La Malinche (4,461 msnm),
+ * Grupo Modelo (Calpulalpan), menor estado de México / mayor densidad industrial
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import StationCard from "@components/StationCard.astro";
+import { estacionesTlaxcala, getMunicipios, ESTADISTICAS_TLAXCALA } from "@data/estaciones-tlaxcala";
+import { breadcrumbJsonLd } from "@utils/seo";
+
+const municipios = getMunicipios();
+
+const estadosVecinos = [
+  { nombre: "Puebla", slug: "puebla" },
+  { nombre: "Hidalgo", slug: "hidalgo" },
+  { nombre: "Estado de México", slug: "estado-de-mexico" },
+  { nombre: "Veracruz", slug: "veracruz" },
+];
+
+const keywords = [
+  "bomberos tlaxcala",
+  "estaciones bomberos tlaxcala",
+  "bomberos apizaco tlaxcala",
+  "emergencias tlaxcala 911",
+  "bomberos planta audi san jose chiapa",
+  "bomberos chiautempan textil",
+  "bomberos volcan la malinche rescate",
+  "cuerpo bomberos tlaxcala",
+  "bomberos huamantla tlaxcala",
+  "proteccion civil tlaxcala",
+];
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Tlaxcala", url: "/directorio/tlaxcala" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Tlaxcala, México",
+  "description": "Directorio oficial de las 15 estaciones de bomberos en Tlaxcala. Tlaxcala capital, Apizaco, San José Chiapa (Planta Audi), Chiautempan textil, Huamantla, Calpulalpan (Grupo Modelo) y todo el estado. Emergencias 911.",
+  "numberOfItems": estacionesTlaxcala.length,
+  "itemListElement": estacionesTlaxcala.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio,
+        "addressRegion": "Tlaxcala",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/tlaxcala/${e.slug}`
+    }
+  }))
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuál es el teléfono de los bomberos en Tlaxcala?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En Tlaxcala, el número de emergencias es el 911 (disponible en todo el estado las 24 horas). Para contacto directo: Bomberos Tlaxcala capital 246 462 0100, Bomberos Apizaco 241 418 0300, Bomberos Huamantla 247 472 0500, Bomberos Calpulalpan 591 922 0300."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si hay un incendio en la Planta Audi de San José Chiapa, Tlaxcala?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La Planta Audi México en San José Chiapa cuenta con una estación de bomberos dedicada y brigadas contraincendios propias certificadas VW Group. Ante cualquier emergencia se activa el 911 y la estación de San José Chiapa responde en 3-5 minutos, con apoyo de la estación central de Tlaxcala. El personal está especializado en HAZMAT automotriz, incendios de baterías de alta tensión e instalaciones de pintura."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo pedir rescate en el Volcán La Malinche en Tlaxcala?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En caso de emergencia en el Volcán La Malinche (Parque Nacional Matlalcuéitl, 4,461 msnm), llama al 911 o directamente a Bomberos Huamantla (ladera este: 247 472 0500) o Bomberos San Pablo del Monte (ladera sur). El rescate en alta montaña puede tomar entre 30 minutos y 2 horas dependiendo de la altitud. Se recomienda no ascender sin comunicación y registrar el ascenso en la caseta del Parque Nacional."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuántas estaciones de bomberos hay en Tlaxcala?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El estado de Tlaxcala cuenta con 15 estaciones de bomberos distribuidas en los municipios clave de sus 60 municipios totales. La red cubre los principales centros industriales, la capital, la zona textilera, el corredor automotriz Audi, el Volcán La Malinche y los accesos a Puebla, Hidalgo y el Estado de México."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Los bomberos de Tlaxcala tienen capacitación especial para industria textil?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Los bomberos de Santa Ana Chiautempan están especializados en HAZMAT textil: incendios de fibras sintéticas (poliéster, nylon, acrílico), colorantes azo y productos de tintura industrial como ácido sulfúrico y sosa cáustica. Es la única estación en México con protocolo específico para la industria saraperil e industrial textilera de esta escala."
+      }
+    }
+  ]
+};
+---
+
+<PageLayout
+  title={`Bomberos en Tlaxcala | ${ESTADISTICAS_TLAXCALA.total_estaciones} Estaciones | Directorio Oficial BOMBERO.MX`}
+  description="Directorio oficial de las 15 estaciones de bomberos en Tlaxcala. Planta Audi (única en las Américas), capital textilera, Volcán La Malinche, Grupo Modelo Calpulalpan. El estado más pequeño de México con la mayor densidad industrial. Emergencias 911."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/tlaxcala"
+  jsonLd={[breadcrumbSchema, itemListSchema, faqSchema]}
+>
+  <!-- Hero Section -->
+  <section class="tla-hero">
+    <div class="tla-hero__bg">
+      <div class="tla-hero__gradient"></div>
+      <div class="tla-hero__pattern"></div>
+    </div>
+    <div class="container">
+      <div class="tla-hero__container">
+        <!-- Left Column -->
+        <div class="tla-hero__content">
+          <nav class="tla-hero__breadcrumb">
+            <a href="/">Inicio</a>
+            <span>/</span>
+            <a href="/directorio">Directorio</a>
+            <span>/</span>
+            <span>Tlaxcala</span>
+          </nav>
+          <span class="tla-hero__badge">
+            <span class="tla-hero__badge-dot"></span>
+            TLA
+          </span>
+          <h1 class="tla-hero__title">
+            Estaciones de Bomberos en
+            <span class="tla-hero__highlight">Tlaxcala</span>
+          </h1>
+          <p class="tla-hero__desc">
+            Directorio completo del <strong>H. Cuerpo de Bomberos de Tlaxcala</strong>.
+            El estado más pequeño de México y paradójicamente uno de los más densos industrialmente: sede de la <strong>única planta Audi en las Américas</strong>, capital textilera nacional, el Volcán La Malinche y la cervecería más grande del centro del país.
+          </p>
+          <div class="tla-hero__stats">
+            <div class="tla-hero__stat">
+              <span class="tla-hero__stat-number">{estacionesTlaxcala.length}</span>
+              <span class="tla-hero__stat-label">Estaciones</span>
+            </div>
+            <div class="tla-hero__stat">
+              <span class="tla-hero__stat-number">60</span>
+              <span class="tla-hero__stat-label">Municipios</span>
+            </div>
+            <div class="tla-hero__stat">
+              <span class="tla-hero__stat-number">24/7</span>
+              <span class="tla-hero__stat-label">Servicio</span>
+            </div>
+            <div class="tla-hero__stat">
+              <span class="tla-hero__stat-number">1.3M</span>
+              <span class="tla-hero__stat-label">Habitantes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - SEO Content -->
+        <div class="tla-hero__seo">
+          <h2 class="tla-hero__seo-title">Audi, Textiles y Volcán: Tlaxcala Industrial Premium</h2>
+          <p class="tla-hero__seo-text">
+            <strong>Tlaxcala</strong> alberga la <strong>única planta de fabricación de automóviles Audi en todo el continente americano</strong>
+            (San José Chiapa, 2016), produciendo los modelos Q5 y A3 para el mundo con 12,000 empleados.
+            <strong>Santa Ana Chiautempan</strong> concentra el mayor número de telares industriales de México.
+            Los bomberos tlaxcaltecas dominan HAZMAT automotriz premium, incendios de fibras sintéticas
+            y rescate en el Volcán La Malinche a 4,461 msnm.
+          </p>
+          <h2 class="tla-hero__seo-title">El Paradox de Tlaxcala: Más Pequeño, Más Denso</h2>
+          <p class="tla-hero__seo-text">
+            Con apenas <strong>3,991 km²</strong> —el estado más pequeño de México—, Tlaxcala tiene la
+            <strong>mayor concentración de parques industriales por km² del país</strong>.
+            Su posición en el corazón de la megalópolis del centro, entre Puebla, CDMX e Hidalgo,
+            lo convierte en corredor de paso de la <strong>Autopista 150D México-Veracruz</strong>
+            (mayor tráfico de carga del centro) y nodo ferroviario nacional de Apizaco (Ferromex).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Banner -->
+  <section class="tla-emergency">
+    <div class="container">
+      <div class="tla-emergency__content">
+        <div class="tla-emergency__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="tla-emergency__text">
+          <span class="tla-emergency__label">Emergencias en Tlaxcala</span>
+          <span class="tla-emergency__number">911</span>
+        </div>
+        <p class="tla-emergency__desc">
+          Número único en todo Tlaxcala — 24/7, 365 días. Capital: 246 462 0100 · Apizaco: 241 418 0300 · Huamantla: 247 472 0500
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destacado Audi -->
+  <section class="tla-audi-banner">
+    <div class="container">
+      <div class="tla-audi-banner__content">
+        <div class="tla-audi-banner__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+          </svg>
+        </div>
+        <div class="tla-audi-banner__text">
+          <strong>Planta Audi México — San José Chiapa</strong>
+          <span>Única en las Américas · 12,000 empleados · 150,000 Audi Q5 y A3 por año · Estación HAZMAT Premium dedicada</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="tla-main">
+    <div class="container">
+      <div class="tla-main__grid">
+        <!-- Stations Grid -->
+        <div class="tla-main__content">
+          <SectionHeader
+            label="Directorio Completo"
+            title="Estaciones de Bomberos en Tlaxcala"
+            description="Información de contacto actualizada de las 15 estaciones del H. Cuerpo de Bomberos de Tlaxcala. Desde la planta Audi hasta el Volcán La Malinche, pasando por la capital textilera de México. Selecciona una estación para ver datos completos de contacto, servicios especializados y zonas de cobertura."
+          />
+
+          <div class="tla-stations-grid">
+            {estacionesTlaxcala.map((estacion) => (
+              <StationCard
+                nombre={estacion.nombreCorto}
+                slug={estacion.slug}
+                direccion={`${estacion.direccion}, ${estacion.colonia}`}
+                alcaldia={estacion.municipio}
+                telefono={estacion.telefono}
+                servicios={estacion.servicios}
+                horario={estacion.horario}
+                baseUrl="/directorio/tlaxcala"
+              />
+            ))}
+          </div>
+
+          <!-- SEO Content -->
+          <div class="tla-seo">
+            <h2>El H. Cuerpo de Bomberos de Tlaxcala</h2>
+            <p>
+              El <strong>H. Cuerpo de Bomberos de Tlaxcala</strong> protege a más de <strong>1.3 millones de tlaxcaltecas</strong>
+              en el estado más pequeño de México —y paradójicamente uno de los más importantes industrialmente—.
+              Tlaxcala es el único estado de la República Mexicana que nunca fue conquistado ni sometido a la Corona española
+              y que, aliado con Hernán Cortés, fue decisivo en la historia de México. Ese espíritu de excelencia y determinación
+              se refleja hoy en un cuerpo de bomberos altamente especializado que enfrenta riesgos industriales de primer nivel mundial.
+            </p>
+
+            <h3>¿Cómo contactar a los bomberos en Tlaxcala?</h3>
+            <p>
+              En cualquier <strong>emergencia en Tlaxcala</strong>, marca el <strong>911</strong>. Para contacto
+              directo: <strong>Tlaxcala capital 246 462 0100</strong>,
+              <strong>Apizaco 241 418 0300</strong>,
+              <strong>Huamantla 247 472 0500</strong>,
+              <strong>Calpulalpan 591 922 0300</strong>,
+              <strong>Chiautempan 241 416 0200</strong>.
+            </p>
+
+            <h3>Planta Audi México — El Orgullo Industrial de Tlaxcala</h3>
+            <p>
+              La <strong>Planta Audi México en San José Chiapa</strong>, inaugurada en 2016 con una inversión de
+              <strong>1,300 millones de dólares</strong>, es la única fábrica de automóviles <strong>Audi en todo el
+              continente americano</strong>. Produce los modelos <strong>Audi Q5</strong> y <strong>Audi A3 Sedan</strong>
+              para distribución global —más de 150,000 unidades anuales— y emplea directa e indirectamente a más de
+              12,000 personas. El taller de pintura (shop de pintura), con sus cabinas de disolventes orgánicos volátiles,
+              las líneas de producción de baterías de alta tensión para los modelos plug-in hybrid, y las celdas de
+              soldadura robotizada representan riesgos HAZMAT que demandan protocolos del Grupo Volkswagen y certificaciones
+              internacionales del cuerpo de bomberos dedicado.
+            </p>
+
+            <h3>La Capital Textilera de México: Santa Ana Chiautempan</h3>
+            <p>
+              <strong>Santa Ana Chiautempan</strong> concentra la mayor densidad de telares industriales del país,
+              con más de 500 empresas textileras que producen <strong>sarapes, cobertores, ropa deportiva y telas técnicas</strong>
+              para mercados de América del Norte, Europa y Asia. El riesgo de incendio en esta zona es de alta complejidad:
+              las fibras sintéticas (poliéster, nylon, acrílico) tienen una velocidad de propagación del fuego entre
+              5 y 10 veces superior a la madera. Los colorantes azo empleados en los baños de tintura contienen precursores
+              tóxicos que, al combustionar, generan gases como el cloruro de hidrógeno y el cianuro de hidrógeno.
+              Los bomberos de Chiautempan poseen el <strong>único protocolo de México específico para incendios en la
+              industria textilera-saraperil</strong>.
+            </p>
+
+            <h3>Volcán La Malinche: Rescate en Alta Montaña</h3>
+            <p>
+              El <strong>Volcán La Malinche</strong> —también llamado <strong>Matlalcuéitl</strong>, «la señora de las
+              faldas azules» en náhuatl— alcanza los <strong>4,461 msnm</strong>, siendo la segunda montaña más alta
+              del centro de México. El Parque Nacional que lo rodea recibe más de <strong>200,000 visitantes anuales</strong>
+              entre excursionistas, montañistas y turistas. Los rescates en el volcán son frecuentes: hipotermia,
+              torceduras en terreno volcánico irregular, lesiones por caídas en zonas de roca suelta y emergencias
+              cardiorrespiratorias por el esfuerzo en altitud. Los bomberos de Huamantla y San Pablo del Monte mantienen
+              equipos de <strong>rescate en alta montaña</strong> con indumentaria específica para nieve, hielo y hipotermia.
+            </p>
+
+            <h3>Grupo Modelo Calpulalpan y el Corredor Autopista 150D</h3>
+            <p>
+              La <strong>Planta Cervecera Grupo Modelo de Calpulalpan</strong> es una de las tres cervecerías más grandes
+              de México y la mayor del centro del país, produciendo más de <strong>10 millones de hectolitros</strong>
+              anuales de marcas como Corona, Modelo Especial y Pacífico. Sus riesgos industriales son específicos:
+              el <strong>amoniaco</strong> empleado en refrigeración industrial puede ser letal en concentraciones de
+              50 ppm; el <strong>CO₂</strong> producido en la fermentación alcohólica desplaza el oxígeno en espacios
+              confinados causando muerte súbita. La autopista <strong>México 150D</strong> —la de mayor tráfico de carga
+              del centro del país— pasa por el municipio, generando un riesgo permanente de accidentes con materiales peligrosos en tránsito.
+            </p>
+
+            <h3>Apizaco: El Nodo Ferroviario del Centro de México</h3>
+            <p>
+              <strong>Apizaco</strong> es el principal nodo ferroviario del centro de México, donde confluyen las rutas
+              de <strong>Ferromex</strong> que conectan la Ciudad de México con Veracruz (carga del Puerto de Veracruz),
+              el Bajío con el Golfo, y el corredor norte-sur del sistema ferroviario nacional. Diariamente pasan por
+              Apizaco <strong>decenas de trenes de carga</strong>, incluyendo convoyes con carga peligrosa clasificada
+              (UN): clorosulfúrico, ácidos industriales, gases comprimidos, combustibles y productos petroquímicos.
+              Los bomberos de Apizaco son los únicos en Tlaxcala con <strong>certificación de respuesta a accidentes
+              ferroviarios</strong> y protocolos específicos con Ferromex para emergencias en vías.
+            </p>
+
+            <h3>Servicios de los Bomberos Tlaxcaltecas</h3>
+            <p>
+              Los bomberos de Tlaxcala están certificados para atender:
+              <strong>incendios HAZMAT automotriz</strong> (Audi: VOCs, baterías HV, isocianatos);
+              <strong>incendios de fibras textiles</strong> y colorantes industriales;
+              <strong>HAZMAT ferroviario</strong> (carga peligrosa UN en tránsito Ferromex);
+              <strong>HAZMAT cervecería</strong> (amoniaco, CO₂, alcohol);
+              <strong>rescate en alta montaña</strong> (Volcán La Malinche, 4,461 msnm, nieve y hielo);
+              <strong>incendios forestales de altitud</strong> (bosque templado 2,800-4,200 msnm);
+              <strong>protección de patrimonio cultural</strong> (Centro Histórico colonial, zonas arqueológicas);
+              <strong>rescate vehicular</strong> en la Autopista 150D (mayor tráfico de carga del centro); y
+              <strong>HAZMAT químico-farmacéutico</strong> en el corredor norte de Tlaxcala.
+            </p>
+          </div>
+
+          <!-- FAQ Section -->
+          <div class="tla-faq">
+            <h2>Preguntas Frecuentes — Bomberos en Tlaxcala</h2>
+
+            <div class="tla-faq__item">
+              <h3>¿Cuál es el teléfono de los bomberos en Tlaxcala?</h3>
+              <p>El número de emergencias en Tlaxcala es el <strong>911</strong> (disponible en todo el estado, 24 horas). Para contacto directo: Tlaxcala capital <strong>246 462 0100</strong>, Apizaco <strong>241 418 0300</strong>, Huamantla <strong>247 472 0500</strong>, Calpulalpan <strong>591 922 0300</strong>.</p>
+            </div>
+
+            <div class="tla-faq__item">
+              <h3>¿Qué hacer en una emergencia en la Planta Audi de San José Chiapa?</h3>
+              <p>Marcar inmediatamente el <strong>911</strong>. La estación dedicada de San José Chiapa responde en <strong>3-5 minutos</strong> con personal certificado en HAZMAT automotriz y baterías HV. La planta Audi tiene brigadas propias que coordinan con los bomberos municipales bajo protocolos del Grupo Volkswagen.</p>
+            </div>
+
+            <div class="tla-faq__item">
+              <h3>¿Cómo pedir rescate en el Volcán La Malinche?</h3>
+              <p>Llama al <strong>911</strong> o a Bomberos Huamantla (<strong>247 472 0500</strong>). Indica tu posición GPS (altitud aproximada), número de personas y tipo de emergencia. El rescate en alta montaña puede tomar <strong>30 minutos a 2 horas</strong> dependiendo de la altitud y el terreno. Registra tu ascenso en la caseta del Parque Nacional.</p>
+            </div>
+
+            <div class="tla-faq__item">
+              <h3>¿Los bomberos de Tlaxcala tienen equipo especial para incendios textiles?</h3>
+              <p>Sí. Los bomberos de <strong>Santa Ana Chiautempan</strong> cuentan con equipos de espuma y protocolos HAZMAT específicos para incendios de fibras sintéticas, colorantes azo y productos de tintura. Es la única estación en México con protocolo especializado para la industria textilera-saraperil a esta escala.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="tla-sidebar">
+          <!-- Quick Access -->
+          <div class="tla-sidebar__card">
+            <h4>Filtrar por Municipio</h4>
+            <ul class="tla-sidebar__municipios">
+              {municipios.map((municipio) => (
+                <li>
+                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u').replace(/ñ/g, 'n')}`}>
+                    <span class="tla-sidebar__bullet"></span>
+                    <span>{municipio}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Emergency Numbers -->
+          <div class="tla-sidebar__card tla-sidebar__card--emergency">
+            <h4>Teléfonos de Emergencia</h4>
+            <div class="tla-sidebar__emergency-list">
+              <div class="tla-sidebar__emergency-item">
+                <span class="tla-sidebar__emergency-number">911</span>
+                <span class="tla-sidebar__emergency-label">Emergencias Nacionales</span>
+              </div>
+              <div class="tla-sidebar__emergency-item">
+                <span class="tla-sidebar__emergency-number">246 462 0100</span>
+                <span class="tla-sidebar__emergency-label">Bomberos Tlaxcala</span>
+              </div>
+              <div class="tla-sidebar__emergency-item">
+                <span class="tla-sidebar__emergency-number">241 418 0300</span>
+                <span class="tla-sidebar__emergency-label">Bomberos Apizaco</span>
+              </div>
+              <div class="tla-sidebar__emergency-item">
+                <span class="tla-sidebar__emergency-number">247 472 0500</span>
+                <span class="tla-sidebar__emergency-label">Bomberos Huamantla</span>
+              </div>
+              <div class="tla-sidebar__emergency-item">
+                <span class="tla-sidebar__emergency-number">591 922 0300</span>
+                <span class="tla-sidebar__emergency-label">Bomberos Calpulalpan</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Regiones -->
+          <div class="tla-sidebar__card">
+            <h4>Regiones del Estado</h4>
+            <ul class="tla-sidebar__regiones">
+              <li>
+                <span class="tla-sidebar__region-name">Región Capital</span>
+                <span class="tla-sidebar__region-desc">Tlaxcala (capital), Papalotla, Ixtacuixtla, Zacatelco</span>
+              </li>
+              <li>
+                <span class="tla-sidebar__region-name">Corredor Industrial Norte</span>
+                <span class="tla-sidebar__region-desc">Apizaco (ferroviario), Chiautempan (textil), Tlaltelulco, Tetla, Tlaxco</span>
+              </li>
+              <li>
+                <span class="tla-sidebar__region-name">Corredor Audi</span>
+                <span class="tla-sidebar__region-desc">San José Chiapa (planta Audi), Tetlatlahuca, proveedores Tier-1</span>
+              </li>
+              <li>
+                <span class="tla-sidebar__region-name">Oriente / La Malinche</span>
+                <span class="tla-sidebar__region-desc">Huamantla, San Pablo del Monte, volcán 4,461 msnm</span>
+              </li>
+              <li>
+                <span class="tla-sidebar__region-name">Noroeste / Autopista 150D</span>
+                <span class="tla-sidebar__region-desc">Calpulalpan (Grupo Modelo), corredor CDMX-Veracruz</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Nearby States -->
+          <div class="tla-sidebar__card">
+            <h4>Estados Vecinos</h4>
+            <ul class="tla-sidebar__states">
+              {estadosVecinos.map((estado) => (
+                <li>
+                  <a href={`/directorio/${estado.slug}`}>
+                    <span>{estado.nombre}</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <div class="tla-sidebar__card tla-sidebar__card--cta">
+            <h4>¿Equipas una Estación en TLA?</h4>
+            <p>Distribuimos equipo NFPA certificado para Tlaxcala: HAZMAT automotriz Audi, textil, ferroviario y alta montaña</p>
+            <a href="/cotizar" class="tla-sidebar__cta-btn">Solicitar Cotización</a>
+          </div>
+
+          <!-- Products -->
+          <div class="tla-sidebar__card">
+            <h4>Equipo para Bomberos</h4>
+            <ul class="tla-sidebar__products">
+              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA</a></li>
+              <li><a href="/productos/cascos-para-bomberos">Cascos de Bombero</a></li>
+              <li><a href="/productos/scba">Equipos SCBA</a></li>
+              <li><a href="/productos/herramientas-rescate">Herramientas de Rescate</a></li>
+            </ul>
+            <a href="/productos" class="tla-sidebar__link">
+              Ver catálogo completo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Back -->
+          <div class="tla-sidebar__card">
+            <a href="/directorio" class="tla-sidebar__back">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              <span>Ver todos los estados</span>
+            </a>
+          </div>
+
+          <!-- Contact -->
+          <div class="tla-sidebar__card">
+            <h4>Contacto BOMBERO.MX</h4>
+            <ul class="tla-sidebar__contact">
+              <li><a href="tel:+525520780102">55 2078 0102</a></li>
+              <li><a href="https://wa.me/525520780102">WhatsApp</a></li>
+              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     DIRECTORIO TLAXCALA - ESTACIONES DE BOMBEROS
+     Color: Amber/Cobre #b45309 — Planta Audi + tradición textilera
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  .tla-hero {
+    position: relative;
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-950);
+    overflow: hidden;
+  }
+
+  .tla-hero__bg { position: absolute; inset: 0; pointer-events: none; }
+
+  .tla-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(180, 83, 9, 0.2), transparent),
+      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(217, 119, 6, 0.12), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
+  }
+
+  .tla-hero__pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .tla-hero__container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .tla-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+
+  .tla-hero__breadcrumb a { color: var(--color-smoke-400); text-decoration: none; transition: color 0.2s; }
+  .tla-hero__breadcrumb a:hover { color: #d97706; }
+  .tla-hero__breadcrumb span { color: var(--color-smoke-600); }
+
+  .tla-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(180, 83, 9, 0.15);
+    border: 1px solid rgba(180, 83, 9, 0.35);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: #fbbf24;
+    margin-bottom: var(--space-4);
+  }
+
+  .tla-hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background: #b45309;
+    border-radius: 50%;
+  }
+
+  .tla-hero__title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin: 0 0 var(--space-5);
+  }
+
+  .tla-hero__highlight {
+    background: linear-gradient(135deg, #fbbf24, #b45309);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .tla-hero__desc {
+    font-size: var(--text-base);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0 0 var(--space-6);
+  }
+
+  .tla-hero__desc strong { color: white; }
+
+  .tla-hero__stats {
+    display: flex;
+    gap: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .tla-hero__stat { display: flex; flex-direction: column; gap: 2px; }
+
+  .tla-hero__stat-number {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: #fbbf24;
+  }
+
+  .tla-hero__stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .tla-hero__seo { display: flex; flex-direction: column; gap: var(--space-4); }
+
+  .tla-hero__seo-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: #fbbf24;
+    margin: 0;
+  }
+
+  .tla-hero__seo-text {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .tla-hero__seo-text strong { color: white; }
+
+  /* ═══ Emergency Banner ═══ */
+  .tla-emergency {
+    background: linear-gradient(135deg, #92400e, #b45309);
+    padding: var(--space-5) 0;
+  }
+
+  .tla-emergency__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .tla-emergency__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .tla-emergency__text { display: flex; flex-direction: column; }
+
+  .tla-emergency__label {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .tla-emergency__number {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: white;
+  }
+
+  .tla-emergency__desc {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    max-width: 480px;
+  }
+
+  /* ═══ Audi Banner ═══ */
+  .tla-audi-banner {
+    background: linear-gradient(135deg, var(--color-smoke-900), #1c1917);
+    border-bottom: 3px solid #b45309;
+    padding: var(--space-4) 0;
+  }
+
+  .tla-audi-banner__content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    justify-content: center;
+  }
+
+  .tla-audi-banner__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(180, 83, 9, 0.2);
+    border: 1px solid rgba(180, 83, 9, 0.4);
+    border-radius: 50%;
+    color: #fbbf24;
+    flex-shrink: 0;
+  }
+
+  .tla-audi-banner__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .tla-audi-banner__text strong {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: #fbbf24;
+  }
+
+  .tla-audi-banner__text span {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-400);
+  }
+
+  /* ═══ Main Section ═══ */
+  .tla-main {
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .tla-main__grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  .tla-stations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  /* ═══ SEO Content ═══ */
+  .tla-seo {
+    margin-top: var(--space-12);
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .tla-seo h2 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+  }
+
+  .tla-seo h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin: var(--space-6) 0 var(--space-3);
+  }
+
+  .tla-seo p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
+  }
+
+  .tla-seo p:last-child { margin-bottom: 0; }
+  .tla-seo strong { color: var(--color-smoke-800); }
+
+  /* ═══ FAQ Section ═══ */
+  .tla-faq {
+    margin-top: var(--space-8);
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .tla-faq h2 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid #b45309;
+  }
+
+  .tla-faq__item {
+    padding: var(--space-5);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-4);
+    border-left: 3px solid #b45309;
+  }
+
+  .tla-faq__item:last-child { margin-bottom: 0; }
+
+  .tla-faq__item h3 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin: 0 0 var(--space-2);
+  }
+
+  .tla-faq__item p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .tla-faq__item strong { color: var(--color-smoke-900); }
+
+  /* ═══ Sidebar ═══ */
+  .tla-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .tla-sidebar__card {
+    padding: var(--space-5);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .tla-sidebar__card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid #b45309;
+  }
+
+  .tla-sidebar__card > p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+  }
+
+  .tla-sidebar__municipios {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .tla-sidebar__municipios li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .tla-sidebar__municipios li a:hover {
+    background: var(--color-smoke-50);
+    color: #b45309;
+  }
+
+  .tla-sidebar__bullet {
+    width: 6px;
+    height: 6px;
+    background: #b45309;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tla-sidebar__regiones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .tla-sidebar__regiones li {
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .tla-sidebar__region-name {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin-bottom: 2px;
+  }
+
+  .tla-sidebar__region-desc {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    line-height: 1.4;
+  }
+
+  .tla-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
+  }
+
+  .tla-sidebar__card--emergency h4 {
+    color: white;
+    border-bottom-color: #b45309;
+  }
+
+  .tla-sidebar__emergency-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .tla-sidebar__emergency-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) var(--space-3);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+  }
+
+  .tla-sidebar__emergency-number {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: #fbbf24;
+  }
+
+  .tla-sidebar__emergency-label {
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .tla-sidebar__card--cta {
+    background: linear-gradient(135deg, #78350f, #92400e);
+  }
+
+  .tla-sidebar__card--cta h4 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .tla-sidebar__card--cta > p { color: rgba(255, 255, 255, 0.85); }
+
+  .tla-sidebar__cta-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: white;
+    color: #92400e;
+    font-weight: 700;
+    font-size: var(--text-sm);
+    text-align: center;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .tla-sidebar__cta-btn:hover {
+    background: #fef3c7;
+    transform: translateY(-1px);
+  }
+
+  .tla-sidebar__states {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .tla-sidebar__states li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .tla-sidebar__states li a:hover { background: var(--color-smoke-50); color: #b45309; }
+
+  .tla-sidebar__products {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .tla-sidebar__products li a {
+    display: block;
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .tla-sidebar__products li a:hover { background: var(--color-smoke-50); color: #b45309; }
+
+  .tla-sidebar__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: #b45309;
+    text-decoration: none;
+  }
+
+  .tla-sidebar__back {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .tla-sidebar__back:hover { color: #b45309; }
+
+  .tla-sidebar__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .tla-sidebar__contact li a {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .tla-sidebar__contact li a:hover { color: #b45309; }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1024px) {
+    .tla-main__grid { grid-template-columns: 1fr; }
+    .tla-sidebar { position: static; }
+  }
+
+  @media (max-width: 768px) {
+    .tla-hero__container { grid-template-columns: 1fr; }
+    .tla-hero__seo { display: none; }
+    .tla-hero__stats { flex-wrap: wrap; gap: var(--space-4); }
+    .tla-stations-grid { grid-template-columns: 1fr; }
+    .tla-emergency__content { flex-direction: column; text-align: center; }
+    .tla-emergency__desc { display: none; }
+    .tla-audi-banner__content { flex-direction: column; text-align: center; }
+  }
+</style>

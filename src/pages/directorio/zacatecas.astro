@@ -1,0 +1,1154 @@
+---
+/**
+ * ─── Directorio de Estaciones de Bomberos Zacatecas ───
+ * Centro Histórico Patrimonio de la Humanidad UNESCO 1993,
+ * Minera Peñasquito (mayor mina de plata del mundo), corredor minero
+ * HAZMAT explosivos/cianuro, Pueblos Mágicos Jerez y Sombrerete,
+ * Sierra de Órganos Parque Nacional y 600+ años minería continua.
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import StationCard from "@components/StationCard.astro";
+import { estacionesZacatecas, getMunicipios } from "@data/estaciones-zacatecas";
+import { breadcrumbJsonLd } from "@utils/seo";
+
+const municipios = getMunicipios();
+
+const estadosVecinos = [
+  { nombre: "Aguascalientes", slug: "aguascalientes" },
+  { nombre: "San Luis Potosí", slug: "san-luis-potosi" },
+  { nombre: "Jalisco", slug: "jalisco" },
+  { nombre: "Durango", slug: "durango" },
+];
+
+const keywords = [
+  "bomberos zacatecas",
+  "estaciones bomberos zacatecas",
+  "emergencias zacatecas 911",
+  "cuerpo bomberos zacatecas",
+  "bomberos fresnillo minera penasquito",
+  "bomberos hazmat mineria zacatecas",
+  "bomberos centro historico zacatecas unesco",
+  "rescate minero zacatecas",
+  "directorio bomberos norte mexico",
+];
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Zacatecas", url: "/directorio/zacatecas" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Zacatecas, México",
+  "description": "Directorio completo de las estaciones de bomberos en Zacatecas. Teléfonos de emergencia, direcciones y servicios. 15 estaciones con capacidades HAZMAT para el corredor minero de plata más importante del mundo. Emergencias 911.",
+  "numberOfItems": estacionesZacatecas.length,
+  "itemListElement": estacionesZacatecas.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio,
+        "addressRegion": "Zacatecas",
+        "addressCountry": "MX"
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/zacatecas/${e.slug}`
+    }
+  }))
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuál es el teléfono de los bomberos en Zacatecas capital?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El número de emergencias en Zacatecas y todo el estado es el 911. El Cuartel Central de Bomberos de Zacatecas tiene línea directa al 492 922 0020. Para Fresnillo (hub minero): 493 932 0101. Para Protección Civil Zacatecas: 492 922 8823."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Los bomberos de Zacatecas atienden emergencias en minas activas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. La estación de Fresnillo cuenta con equipo HAZMAT nivel 3 especializado en explosivos industriales, cianuro y xantatos usados en la Minera Peñasquito (Newmont), la mayor mina de plata del mundo. Los bomberos tienen protocolos ICS coordinados con las brigadas internas de Newmont y Fresnillo plc."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Hay protección especial para el Centro Histórico UNESCO de Zacatecas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. El Cuartel Central de Bomberos de Zacatecas tiene protocolos especiales coordinados con el INAH para la Zona de Monumentos Históricos declarada Patrimonio de la Humanidad por la UNESCO en 1993. Los bomberos están capacitados para proteger la Catedral Barroca, el Mercado González Ortega, la mina El Edén y el teleférico histórico."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es el HAZMAT minero que manejan los bomberos de Zacatecas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El HAZMAT minero en Zacatecas incluye: explosivos industriales (ANFO, detonadores), cianuro de sodio (cianuración de plata), xantatos (flotación de minerales), ácido sulfúrico y otros reactivos de procesamiento. Los bomberos de Fresnillo y Concepción del Oro están certificados con HAZMAT nivel 2 y 3 para estos materiales específicos de la industria minera."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuántas estaciones de bomberos hay en Zacatecas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zacatecas cuenta con 15 estaciones de bomberos activas con 480 elementos. Las estaciones cubren: Zacatecas capital, Guadalupe, Fresnillo, Jerez, Sombrerete, Río Grande, Loreto, Tlaltenango, Juchipila, Valparaíso, Nochistlán, Concepción del Oro, Juan Aldama, Pinos y Villanueva, abarcando los principales corredores mineros, turísticos y carreteros del estado."
+      }
+    }
+  ]
+};
+---
+
+<PageLayout
+  title="Bomberos en Zacatecas | 15 Estaciones | HAZMAT Minero | Directorio BOMBERO.MX"
+  description="Directorio completo del H. Cuerpo de Bomberos de Zacatecas. 15 estaciones con HAZMAT especializado para la mayor mina de plata del mundo. Centro Histórico UNESCO, Fresnillo, Jerez, Sombrerete. Emergencias 911."
+  keywords={keywords}
+  canonical="https://bombero.mx/directorio/zacatecas"
+  jsonLd={[breadcrumbSchema, itemListSchema, faqSchema]}
+>
+  <!-- Hero Section -->
+  <section class="zac-hero">
+    <div class="zac-hero__bg">
+      <div class="zac-hero__gradient"></div>
+      <div class="zac-hero__pattern"></div>
+    </div>
+    <div class="container">
+      <div class="zac-hero__container">
+        <!-- Left Column -->
+        <div class="zac-hero__content">
+          <nav class="zac-hero__breadcrumb">
+            <a href="/">Inicio</a>
+            <span>/</span>
+            <a href="/directorio">Directorio</a>
+            <span>/</span>
+            <span>Zacatecas</span>
+          </nav>
+          <span class="zac-hero__badge">
+            <span class="zac-hero__badge-dot"></span>
+            ZAC
+          </span>
+          <h1 class="zac-hero__title">
+            Estaciones de Bomberos en
+            <span class="zac-hero__highlight">Zacatecas</span>
+          </h1>
+          <p class="zac-hero__desc">
+            Directorio oficial del <strong>H. Cuerpo de Bomberos de Zacatecas</strong>.
+            Centro Histórico Patrimonio UNESCO, la mayor mina de plata del mundo,
+            Pueblos Mágicos Jerez y Sombrerete, Sierra de Órganos y 600 años
+            de minería continua en el corazón de México.
+          </p>
+          <div class="zac-hero__stats">
+            <div class="zac-hero__stat">
+              <span class="zac-hero__stat-number">{estacionesZacatecas.length}</span>
+              <span class="zac-hero__stat-label">Estaciones</span>
+            </div>
+            <div class="zac-hero__stat">
+              <span class="zac-hero__stat-number">480</span>
+              <span class="zac-hero__stat-label">Bomberos</span>
+            </div>
+            <div class="zac-hero__stat">
+              <span class="zac-hero__stat-number">24/7</span>
+              <span class="zac-hero__stat-label">Servicio</span>
+            </div>
+            <div class="zac-hero__stat">
+              <span class="zac-hero__stat-number">1.6M</span>
+              <span class="zac-hero__stat-label">Habitantes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - SEO Content -->
+        <div class="zac-hero__seo">
+          <h2 class="zac-hero__seo-title">Centro Histórico UNESCO y La Mina Más Profunda</h2>
+          <p class="zac-hero__seo-text">
+            Zacatecas alberga el <strong>Centro Histórico Patrimonio de la Humanidad UNESCO 1993</strong>,
+            con la Catedral Barroca más elaborada de México, la Mina El Edén y el teleférico
+            histórico sobre la ciudad. Los bomberos protegen este patrimonio irrepetible
+            con <strong>protocolos especiales coordinados con el INAH</strong>.
+          </p>
+          <h2 class="zac-hero__seo-title">Minera Peñasquito — Mayor Mina de Plata del Mundo</h2>
+          <p class="zac-hero__seo-text">
+            El <strong>corredor minero de Zacatecas</strong> produce el 25% de la plata mundial.
+            Minera Peñasquito (Newmont/Goldcorp) en Fresnillo es la
+            <strong>mayor mina de plata del mundo</strong>, con 6,000+ trabajadores.
+            Los bomberos tienen <strong>HAZMAT nivel 3 para explosivos, cianuro y xantatos</strong>
+            industriales mineros.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mining Banner — Sección especial única de Zacatecas -->
+  <section class="zac-mining-banner">
+    <div class="container">
+      <div class="zac-mining-banner__grid">
+        <div class="zac-mining-banner__item">
+          <div class="zac-mining-banner__icon">🏛️</div>
+          <div>
+            <strong>Centro Histórico UNESCO</strong>
+            <span>Patrimonio Humanidad 1993 · Catedral Barroca · Mina El Edén</span>
+          </div>
+        </div>
+        <div class="zac-mining-banner__item">
+          <div class="zac-mining-banner__icon">⛏️</div>
+          <div>
+            <strong>Mayor Mina de Plata del Mundo</strong>
+            <span>Peñasquito/Newmont · HAZMAT explosivos y cianuro minero</span>
+          </div>
+        </div>
+        <div class="zac-mining-banner__item">
+          <div class="zac-mining-banner__icon">🏘️</div>
+          <div>
+            <strong>2 Pueblos Mágicos</strong>
+            <span>Jerez "La Ciudad Perfecta" · Sombrerete 450 años minería</span>
+          </div>
+        </div>
+        <div class="zac-mining-banner__item">
+          <div class="zac-mining-banner__icon">⛰️</div>
+          <div>
+            <strong>Sierra de Órganos</strong>
+            <span>Parque Nacional · Formaciones volcánicas únicas · Rescate montaña</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Banner -->
+  <section class="zac-emergency">
+    <div class="container">
+      <div class="zac-emergency__content">
+        <div class="zac-emergency__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="zac-emergency__text">
+          <span class="zac-emergency__label">Emergencias en Zacatecas</span>
+          <span class="zac-emergency__number">911</span>
+        </div>
+        <p class="zac-emergency__desc">
+          Número único de emergencias en todo Zacatecas. Centro de Coordinación C4 Zacatecas, disponible 24/7 los 365 días del año.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="zac-main">
+    <div class="container">
+      <div class="zac-main__grid">
+        <!-- Stations Grid -->
+        <div class="zac-main__content">
+          <SectionHeader
+            label="Directorio Completo"
+            title="Estaciones de Bomberos en Zacatecas"
+            description="Información de contacto actualizada de todas las estaciones del H. Cuerpo de Bomberos en Zacatecas. Desde el Centro Histórico UNESCO hasta el corredor minero de Fresnillo y la Sierra de Órganos. Selecciona una estación para ver sus servicios, cobertura y datos de contacto."
+          />
+
+          <div class="zac-stations-grid">
+            {estacionesZacatecas.map((estacion) => (
+              <StationCard
+                nombre={estacion.nombreCorto}
+                slug={estacion.slug}
+                direccion={`${estacion.direccion}, ${estacion.colonia}`}
+                alcaldia={estacion.municipio}
+                telefono={estacion.telefono}
+                servicios={estacion.servicios}
+                horario={estacion.horario}
+                baseUrl="/directorio/zacatecas"
+              />
+            ))}
+          </div>
+
+          <!-- FAQ Section -->
+          <div class="zac-faq">
+            <h2 class="zac-faq__title">Preguntas Frecuentes — Bomberos Zacatecas</h2>
+            <div class="zac-faq__list">
+              <div class="zac-faq__item">
+                <h3>¿Cuál es el teléfono de los bomberos en Zacatecas capital?</h3>
+                <p>Marca el <strong>911</strong> desde cualquier teléfono. Cuartel Central: <a href="tel:4929220020">492 922 0020</a>. Fresnillo (hub minero): <a href="tel:4939320101">493 932 0101</a>. Protección Civil ZAC: <a href="tel:4929228823">492 922 8823</a>.</p>
+              </div>
+              <div class="zac-faq__item">
+                <h3>¿Los bomberos de Zacatecas atienden emergencias en minas activas?</h3>
+                <p>Sí. La estación de <strong>Fresnillo</strong> tiene HAZMAT nivel 3 para <strong>explosivos, cianuro y xantatos</strong> de la Minera Peñasquito (Newmont), la mayor mina de plata del mundo. Coordinación directa ICS con brigadas internas de Newmont y Fresnillo plc.</p>
+              </div>
+              <div class="zac-faq__item">
+                <h3>¿Hay protección especial para el Centro Histórico UNESCO?</h3>
+                <p>Sí. El Cuartel Central tiene <strong>protocolos especiales con INAH</strong> para la Zona de Monumentos Históricos UNESCO 1993: Catedral Barroca, Mercado González Ortega, Mina El Edén y teleférico histórico. Tiempo de respuesta: 4-6 minutos.</p>
+              </div>
+              <div class="zac-faq__item">
+                <h3>¿Qué hace especiales a los bomberos de Zacatecas frente a la minería?</h3>
+                <p>Zacatecas produce el <strong>25% de la plata mundial</strong>. Los bomberos están capacitados con HAZMAT nivel 1-3 para: <strong>explosivos industriales (ANFO)</strong>, <strong>cianuro de sodio</strong> (cianuración), <strong>xantatos</strong> (flotación) y ácidos de procesamiento. Certificaciones específicas para la industria minera de talla mundial.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEO Content -->
+          <div class="zac-seo">
+            <h2>El H. Cuerpo de Bomberos de Zacatecas</h2>
+            <p>
+              El <strong>H. Cuerpo de Bomberos de Zacatecas</strong> protege a más de <strong>1.6 millones de zacatecanos</strong>
+              en 58 municipios del estado con mayor producción de plata del mundo y uno de los patrimonios
+              históricos más importantes de México. Con 15 estaciones estratégicamente ubicadas en los
+              corredores mineros, turísticos y carreteros del estado, los bomberos zacatecanos son los únicos
+              del país certificados para HAZMAT especializado en la industria minera de plata a escala mundial.
+            </p>
+
+            <h3>¿Cómo contactar a los bomberos en Zacatecas?</h3>
+            <p>
+              En caso de <strong>emergencia en Zacatecas</strong>, marca el <strong>911</strong> desde cualquier teléfono.
+              El <strong>C4 de Zacatecas</strong> coordina la respuesta de bomberos, policía y servicios médicos.
+              Para emergencias específicas en el corredor minero de Fresnillo contacta al 493 932 0101,
+              en Zacatecas capital al 492 922 0020, o directamente a la estación más cercana usando este directorio.
+            </p>
+
+            <h3>El Corredor Minero — 600 Años de Plata</h3>
+            <p>
+              Zacatecas fue el mayor productor de plata del mundo durante el Virreinato y sigue siéndolo hoy.
+              La <strong>Minera Peñasquito en Fresnillo</strong>, operada por Newmont (la mayor minera de oro del mundo),
+              es la <strong>mina de plata más grande del planeta</strong> con producción de 15+ millones de onzas anuales.
+              Junto con <strong>Fresnillo plc, Endeavour Silver y Pan American Silver</strong>, el corredor minero
+              de Zacatecas genera el <strong>25% de la producción mundial de plata</strong>.
+              Los bomberos de Fresnillo tienen protocolos ICS coordinados con las brigadas internas para
+              <strong>HAZMAT nivel 3: explosivos industriales, cianuro de sodio y xantatos</strong>.
+            </p>
+
+            <h3>Patrimonio de la Humanidad — Centro Histórico UNESCO 1993</h3>
+            <p>
+              Declarado <strong>Patrimonio de la Humanidad por la UNESCO en 1993</strong>, el Centro Histórico de
+              Zacatecas es uno de los conjuntos barrocos mejor conservados de América. La
+              <strong>Catedral de Zacatecas</strong> (barroco churrigueresco más ornamentado de México),
+              el <strong>Palacio de Gobierno</strong>, el <strong>Mercado González Ortega</strong>,
+              el <strong>Teatro Calderón</strong> y la mítica <strong>Mina El Edén</strong> exigen protocolos
+              especiales coordinados con el INAH. El teleférico histórico que cruza el cerro del Grillo
+              añade una complejidad única a las emergencias urbanas de la ciudad más alta de México a 2,500 msnm.
+            </p>
+
+            <h3>Zonas de Mayor Riesgo en Zacatecas</h3>
+            <p>
+              Zacatecas presenta riesgos únicos en México: <strong>HAZMAT minero</strong> (explosivos, cianuro, xantatos
+              en el corredor Fresnillo-Zacatecas); <strong>incendios en patrimonio colonial UNESCO</strong>;
+              <strong>incendios forestales</strong> en Sierra Madre Occidental (Tlaltenango, Valparaíso, Sombrerete);
+              <strong>rescate en zonas montañosas y barrancos</strong> (Cañón de Juchipila, Sierra del Tigre);
+              <strong>accidentes en carreteras federales 45 y 54</strong> (alto tránsito de carga minera);
+              y <strong>emergencias en eventos masivos</strong> (Festival Cultural Zacatecas, Feria Nacional).
+            </p>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="zac-sidebar">
+          <!-- Municipios -->
+          <div class="zac-sidebar__card">
+            <h4>Filtrar por Municipio</h4>
+            <ul class="zac-sidebar__municipios">
+              {municipios.map((municipio) => (
+                <li>
+                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u').replace(/ñ/g, 'n')}`}>
+                    <span class="zac-sidebar__bullet"></span>
+                    <span>{municipio}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Emergency Numbers -->
+          <div class="zac-sidebar__card zac-sidebar__card--emergency">
+            <h4>Teléfonos de Emergencia</h4>
+            <div class="zac-sidebar__emergency-list">
+              <div class="zac-sidebar__emergency-item">
+                <span class="zac-sidebar__emergency-number">911</span>
+                <span class="zac-sidebar__emergency-label">Emergencias</span>
+              </div>
+              <div class="zac-sidebar__emergency-item">
+                <span class="zac-sidebar__emergency-number">492 922 0020</span>
+                <span class="zac-sidebar__emergency-label">Cuartel Central ZAC</span>
+              </div>
+              <div class="zac-sidebar__emergency-item">
+                <span class="zac-sidebar__emergency-number">493 932 0101</span>
+                <span class="zac-sidebar__emergency-label">Bomberos Fresnillo</span>
+              </div>
+              <div class="zac-sidebar__emergency-item">
+                <span class="zac-sidebar__emergency-number">494 945 0123</span>
+                <span class="zac-sidebar__emergency-label">Bomberos Jerez</span>
+              </div>
+              <div class="zac-sidebar__emergency-item">
+                <span class="zac-sidebar__emergency-number">492 922 8823</span>
+                <span class="zac-sidebar__emergency-label">Protección Civil ZAC</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Regiones -->
+          <div class="zac-sidebar__card">
+            <h4>Regiones del Estado</h4>
+            <ul class="zac-sidebar__regiones">
+              <li>
+                <span class="zac-sidebar__region-name">Zona Metropolitana</span>
+                <span class="zac-sidebar__region-desc">Zacatecas capital, Guadalupe, Villanueva</span>
+              </li>
+              <li>
+                <span class="zac-sidebar__region-name">Corredor Minero Centro</span>
+                <span class="zac-sidebar__region-desc">Fresnillo, Loreto — HAZMAT minero</span>
+              </li>
+              <li>
+                <span class="zac-sidebar__region-name">Zona de Pueblos Mágicos</span>
+                <span class="zac-sidebar__region-desc">Jerez, Sombrerete — patrimonio colonial</span>
+              </li>
+              <li>
+                <span class="zac-sidebar__region-name">Corredor Norte</span>
+                <span class="zac-sidebar__region-desc">Río Grande, Juan Aldama, Sombrerete</span>
+              </li>
+              <li>
+                <span class="zac-sidebar__region-name">Sierra y Barrancas Sur</span>
+                <span class="zac-sidebar__region-desc">Tlaltenango, Juchipila, Nochistlán, Valparaíso</span>
+              </li>
+              <li>
+                <span class="zac-sidebar__region-name">Corredor Noreste Minero</span>
+                <span class="zac-sidebar__region-desc">Concepción del Oro, Juan Aldama, Pinos</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Nearby States -->
+          <div class="zac-sidebar__card">
+            <h4>Estados Vecinos</h4>
+            <ul class="zac-sidebar__states">
+              {estadosVecinos.map((estado) => (
+                <li>
+                  <a href={`/directorio/${estado.slug}`}>
+                    <span>{estado.nombre}</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <div class="zac-sidebar__card zac-sidebar__card--cta">
+            <h4>¿Equipas una Estación en ZAC?</h4>
+            <p>Distribuidores especializados en equipo NFPA para HAZMAT minero, corredor de plata y patrimonio histórico UNESCO en Zacatecas</p>
+            <a href="/cotizar" class="zac-sidebar__cta-btn">Solicitar Cotización</a>
+          </div>
+
+          <!-- Products -->
+          <div class="zac-sidebar__card">
+            <h4>Equipo para Bomberos</h4>
+            <ul class="zac-sidebar__products">
+              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA</a></li>
+              <li><a href="/productos/cascos-para-bomberos">Cascos de Bombero</a></li>
+              <li><a href="/productos/scba">Equipos SCBA</a></li>
+              <li><a href="/productos/herramientas-rescate">Herramientas de Rescate</a></li>
+            </ul>
+            <a href="/productos" class="zac-sidebar__link">
+              Ver catálogo completo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Back to Directory -->
+          <div class="zac-sidebar__card">
+            <a href="/directorio" class="zac-sidebar__back">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              <span>Ver todos los estados</span>
+            </a>
+          </div>
+
+          <!-- Contact -->
+          <div class="zac-sidebar__card">
+            <h4>Contacto BOMBERO.MX</h4>
+            <ul class="zac-sidebar__contact">
+              <li><a href="tel:+525520780102">55 2078 0102</a></li>
+              <li><a href="https://wa.me/525520780102">WhatsApp</a></li>
+              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════
+     DIRECTORIO ZACATECAS - ESTACIONES DE BOMBEROS
+     Color: Violeta Minero #7c3aed — Amatistas, Plata, Minería
+     Prefijo CSS: zac-
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ═══ Hero Section ═══ */
+  .zac-hero {
+    position: relative;
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-950);
+    overflow: hidden;
+  }
+
+  .zac-hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .zac-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124, 58, 237, 0.18), transparent),
+      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(139, 92, 246, 0.10), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(109, 40, 217, 0.08), transparent);
+  }
+
+  .zac-hero__pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .zac-hero__container {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  .zac-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+
+  .zac-hero__breadcrumb a {
+    color: var(--color-smoke-400);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .zac-hero__breadcrumb a:hover { color: #a78bfa; }
+  .zac-hero__breadcrumb span { color: var(--color-smoke-600); }
+
+  .zac-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(124, 58, 237, 0.35);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: #a78bfa;
+    margin-bottom: var(--space-4);
+  }
+
+  .zac-hero__badge-dot {
+    width: 8px;
+    height: 8px;
+    background: #8b5cf6;
+    border-radius: 50%;
+    animation: zac-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes zac-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.35); box-shadow: 0 0 8px rgba(139, 92, 246, 0.8); }
+  }
+
+  .zac-hero__title {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin: 0 0 var(--space-5);
+  }
+
+  .zac-hero__highlight {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .zac-hero__desc {
+    font-size: var(--text-base);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0 0 var(--space-6);
+  }
+
+  .zac-hero__desc strong { color: white; }
+
+  .zac-hero__stats {
+    display: flex;
+    gap: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .zac-hero__stat { display: flex; flex-direction: column; gap: 2px; }
+
+  .zac-hero__stat-number {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: #a78bfa;
+  }
+
+  .zac-hero__stat-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .zac-hero__seo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .zac-hero__seo-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: #a78bfa;
+    margin: 0;
+  }
+
+  .zac-hero__seo-text {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .zac-hero__seo-text strong { color: white; }
+
+  /* ═══ Mining Banner ═══ */
+  .zac-mining-banner {
+    background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #6d28d9 100%);
+    padding: var(--space-5) 0;
+  }
+
+  .zac-mining-banner__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-4);
+  }
+
+  .zac-mining-banner__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: white;
+  }
+
+  .zac-mining-banner__icon {
+    font-size: 1.75rem;
+    flex-shrink: 0;
+  }
+
+  .zac-mining-banner__item div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .zac-mining-banner__item strong {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    display: block;
+  }
+
+  .zac-mining-banner__item span {
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.8);
+    line-height: 1.3;
+  }
+
+  /* ═══ Emergency Banner ═══ */
+  .zac-emergency {
+    background: linear-gradient(135deg, #4c1d95, #5b21b6);
+    padding: var(--space-5) 0;
+  }
+
+  .zac-emergency__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .zac-emergency__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    color: white;
+  }
+
+  .zac-emergency__text { display: flex; flex-direction: column; }
+
+  .zac-emergency__label {
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .zac-emergency__number {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: white;
+  }
+
+  .zac-emergency__desc {
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.9);
+    margin: 0;
+    max-width: 400px;
+  }
+
+  /* ═══ Main Section ═══ */
+  .zac-main {
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .zac-main__grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  /* ═══ Stations Grid ═══ */
+  .zac-stations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+  }
+
+  /* ═══ FAQ Section ═══ */
+  .zac-faq {
+    margin-top: var(--space-10);
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+    border-left: 4px solid #7c3aed;
+  }
+
+  .zac-faq__title {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid #7c3aed;
+  }
+
+  .zac-faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .zac-faq__item {
+    padding: var(--space-5);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    border-left: 3px solid rgba(124, 58, 237, 0.4);
+  }
+
+  .zac-faq__item h3 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-2);
+  }
+
+  .zac-faq__item p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .zac-faq__item a { color: #7c3aed; text-decoration: none; font-weight: 600; }
+  .zac-faq__item a:hover { text-decoration: underline; }
+
+  /* ═══ SEO Content ═══ */
+  .zac-seo {
+    margin-top: var(--space-8);
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .zac-seo h2 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 2px solid #7c3aed;
+  }
+
+  .zac-seo h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin: var(--space-6) 0 var(--space-3);
+  }
+
+  .zac-seo p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
+  }
+
+  .zac-seo p:last-child { margin-bottom: 0; }
+  .zac-seo strong { color: var(--color-smoke-800); }
+
+  /* ═══ Sidebar ═══ */
+  .zac-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .zac-sidebar__card {
+    padding: var(--space-5);
+    background: white;
+    border-radius: var(--radius-xl);
+  }
+
+  .zac-sidebar__card h4 {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid #7c3aed;
+  }
+
+  .zac-sidebar__card > p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+  }
+
+  /* Municipios */
+  .zac-sidebar__municipios {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  .zac-sidebar__municipios li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .zac-sidebar__municipios li a:hover {
+    background: var(--color-smoke-50);
+    color: #7c3aed;
+  }
+
+  .zac-sidebar__bullet {
+    width: 6px;
+    height: 6px;
+    background: #7c3aed;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Regiones */
+  .zac-sidebar__regiones {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .zac-sidebar__regiones li {
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .zac-sidebar__region-name {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-smoke-800);
+    margin-bottom: 2px;
+  }
+
+  .zac-sidebar__region-desc {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    line-height: 1.4;
+  }
+
+  /* Emergency Card */
+  .zac-sidebar__card--emergency {
+    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
+  }
+
+  .zac-sidebar__card--emergency h4 {
+    color: white;
+    border-bottom-color: #7c3aed;
+  }
+
+  .zac-sidebar__emergency-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .zac-sidebar__emergency-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3);
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+  }
+
+  .zac-sidebar__emergency-number {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: #a78bfa;
+  }
+
+  .zac-sidebar__emergency-label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-400);
+    text-align: right;
+  }
+
+  /* States List */
+  .zac-sidebar__states {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .zac-sidebar__states li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .zac-sidebar__states li a:hover {
+    background: var(--color-smoke-100);
+    color: #7c3aed;
+  }
+
+  .zac-sidebar__states li a svg { opacity: 0; transform: translateX(-4px); transition: all 0.2s; }
+  .zac-sidebar__states li a:hover svg { opacity: 1; transform: translateX(0); }
+
+  /* Products */
+  .zac-sidebar__products {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .zac-sidebar__products li a {
+    display: block;
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+    color: #7c3aed;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .zac-sidebar__products li a:hover { color: #6d28d9; }
+
+  .zac-sidebar__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: #7c3aed;
+    text-decoration: none;
+  }
+
+  .zac-sidebar__link:hover { color: #6d28d9; }
+  .zac-sidebar__link svg { transition: transform 0.2s; }
+  .zac-sidebar__link:hover svg { transform: translateX(4px); }
+
+  /* CTA Card */
+  .zac-sidebar__card--cta {
+    background: linear-gradient(135deg, #4c1d95, #6d28d9);
+  }
+
+  .zac-sidebar__card--cta h4 {
+    color: white;
+    border-bottom-color: rgba(255,255,255,0.3);
+  }
+
+  .zac-sidebar__card--cta > p { color: rgba(255,255,255,0.85); }
+
+  .zac-sidebar__cta-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-3);
+    background: white;
+    color: #6d28d9;
+    text-align: center;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    border-radius: var(--radius-lg);
+    transition: all 0.2s;
+  }
+
+  .zac-sidebar__cta-btn:hover {
+    background: #ede9fe;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* Back Link */
+  .zac-sidebar__back {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-smoke-50);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .zac-sidebar__back:hover {
+    background: var(--color-smoke-100);
+    color: #7c3aed;
+  }
+
+  /* Contact */
+  .zac-sidebar__contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .zac-sidebar__contact a {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: #7c3aed;
+    text-decoration: none;
+  }
+
+  .zac-sidebar__contact a:hover { color: #6d28d9; }
+
+  /* ═══ Responsive ═══ */
+  @media (max-width: 1200px) {
+    .zac-stations-grid { grid-template-columns: 1fr; }
+    .zac-mining-banner__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 1024px) {
+    .zac-hero__container { grid-template-columns: 1fr; gap: var(--space-8); }
+    .zac-hero__seo { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+    .zac-main__grid { grid-template-columns: 1fr; }
+    .zac-stations-grid { grid-template-columns: repeat(2, 1fr); }
+    .zac-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-4);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .zac-hero { padding: var(--space-10) 0; }
+    .zac-hero__seo { grid-template-columns: 1fr; }
+    .zac-emergency__content { flex-direction: column; text-align: center; }
+    .zac-mining-banner__grid { grid-template-columns: repeat(2, 1fr); }
+    .zac-main { padding: var(--space-10) 0; }
+    .zac-stations-grid { grid-template-columns: 1fr; }
+    .zac-sidebar { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .zac-hero__title { font-size: 1.5rem; }
+    .zac-hero__stats { flex-wrap: wrap; }
+    .zac-mining-banner__grid { grid-template-columns: 1fr; }
+  }
+</style>

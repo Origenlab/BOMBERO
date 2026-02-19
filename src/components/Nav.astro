@@ -1,7 +1,9 @@
 ---
 /**
  * ─── Nav Component ───
- * Accessible navigation with dropdown support for items with children.
+ * Accessible navigation with simple dropdown and mega-menu support.
+ * - Flat children  → standard dropdown
+ * - Children with their own children → mega menu (grid de categorías)
  */
 import { mainNav } from "@data/navigation";
 
@@ -10,54 +12,118 @@ const currentPath = Astro.url.pathname;
 
 <nav class="nav" aria-label="Navegación principal">
   <ul class="nav__list" role="list">
-    {mainNav.map((item) => (
-      <li class:list={["nav__item", { "nav__item--has-dropdown": item.children?.length }]}>
-        <a
-          href={item.href}
-          class:list={[
-            "nav__link",
-            {
-              "nav__link--active": item.href === "/"
-                ? currentPath === "/"
-                : currentPath === item.href || currentPath.startsWith(item.href + "/"),
-            },
-          ]}
-          aria-current={currentPath === item.href ? "page" : undefined}
-        >
-          {item.label}
-          {item.children?.length && (
-            <svg class="nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-              <path d="M6 9l6 6 6-6"/>
-            </svg>
+    {mainNav.map((item) => {
+      const isMega = item.children?.some(c => c.children?.length);
+      return (
+        <li class:list={[
+          "nav__item",
+          { "nav__item--has-dropdown": item.children?.length && !isMega },
+          { "nav__item--has-mega":     isMega },
+        ]}>
+          <a
+            href={item.href}
+            class:list={[
+              "nav__link",
+              {
+                "nav__link--active": item.href === "/"
+                  ? currentPath === "/"
+                  : currentPath === item.href || currentPath.startsWith(item.href + "/"),
+              },
+            ]}
+            aria-current={currentPath === item.href ? "page" : undefined}
+          >
+            {item.label}
+            {item.children?.length && (
+              <svg class="nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            )}
+          </a>
+
+          {/* ── Dropdown simple ── */}
+          {!isMega && item.children?.length && (
+            <ul class="nav__dropdown" role="list">
+              {item.children.map((child) => (
+                <li>
+                  <a
+                    href={child.href}
+                    class:list={[
+                      "nav__dropdown-link",
+                      {
+                        "nav__dropdown-link--active":
+                          currentPath === child.href ||
+                          currentPath.startsWith(child.href + "/"),
+                      },
+                    ]}
+                  >
+                    {child.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           )}
-        </a>
-        {item.children?.length && (
-          <ul class="nav__dropdown" role="list">
-            {item.children.map((child) => (
-              <li>
-                <a
-                  href={child.href}
-                  class:list={[
-                    "nav__dropdown-link",
-                    {
-                      "nav__dropdown-link--active":
-                        currentPath === child.href ||
-                        currentPath.startsWith(child.href + "/"),
-                    },
-                  ]}
-                >
-                  {child.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
-      </li>
-    ))}
+
+          {/* ── Mega menu ── */}
+          {isMega && (
+            <div class="nav__mega" role="region" aria-label={`Submenú de ${item.label}`}>
+              <div class="nav__mega-inner">
+                {item.children!.map((group) => (
+                  <div class="nav__mega-col">
+                    <a
+                      href={group.href}
+                      class:list={[
+                        "nav__mega-heading",
+                        {
+                          "nav__mega-heading--active":
+                            currentPath === group.href ||
+                            currentPath.startsWith(group.href + "/"),
+                        },
+                      ]}
+                    >
+                      {group.label}
+                    </a>
+                    {group.children?.length && (
+                      <ul class="nav__mega-list" role="list">
+                        {group.children.map((sub) => (
+                          <li>
+                            <a
+                              href={sub.href}
+                              class:list={[
+                                "nav__mega-link",
+                                {
+                                  "nav__mega-link--active":
+                                    currentPath === sub.href ||
+                                    currentPath.startsWith(sub.href + "/"),
+                                },
+                              ]}
+                            >
+                              {sub.label}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <a href={group.href} class="nav__mega-see-all">
+                      Ver todos →
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+        </li>
+      );
+    })}
   </ul>
 </nav>
 
 <style>
+  /* nav is the positioning context for mega menus */
+  .nav {
+    position: relative;
+  }
+
   .nav__list {
     display: flex;
     gap: var(--space-lg);
@@ -68,6 +134,12 @@ const currentPath = Astro.url.pathname;
   /* ─── Top-level item ─── */
   .nav__item {
     position: relative;
+  }
+
+  /* Mega items delegate positioning to the sticky header,
+     so left:50% centers the panel within the full viewport */
+  .nav__item--has-mega {
+    position: static;
   }
 
   .nav__link {
@@ -93,7 +165,7 @@ const currentPath = Astro.url.pathname;
     flex-shrink: 0;
   }
 
-  /* ─── Dropdown ─── */
+  /* ─── Dropdown simple ─── */
   .nav__dropdown {
     display: none;
     position: absolute;
@@ -159,6 +231,133 @@ const currentPath = Astro.url.pathname;
     transform: rotate(180deg);
   }
 
+  /* ─── Mega menu ─── */
+  .nav__mega {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: max(860px, 60vw);
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14);
+    z-index: 100;
+  }
+
+  /* Arrow */
+  .nav__mega::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-left: 1px solid #e5e7eb;
+    border-top: 1px solid #e5e7eb;
+    rotate: 45deg;
+  }
+
+  .nav__mega-inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    padding: var(--space-6);
+    gap: var(--space-2);
+  }
+
+  .nav__mega-col {
+    padding: var(--space-4) var(--space-4);
+    border-radius: 10px;
+    transition: background 0.15s;
+  }
+
+  .nav__mega-col:hover {
+    background: #fafafa;
+  }
+
+  .nav__mega-heading {
+    display: block;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--color-smoke-100);
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .nav__mega-heading:hover,
+  .nav__mega-heading--active {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .nav__mega-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nav__mega-link {
+    display: block;
+    padding: 5px 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4b5563;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.12s, color 0.12s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav__mega-link:hover {
+    background: #fef2f2;
+    color: var(--color-accent);
+  }
+
+  .nav__mega-link--active {
+    background: #fef2f2;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .nav__mega-see-all {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 0.15s;
+    opacity: 0.75;
+  }
+
+  .nav__mega-see-all:hover { opacity: 1; }
+
+  /* Show mega menu on hover */
+  .nav__item--has-mega:hover .nav__mega,
+  .nav__item--has-mega:focus-within .nav__mega {
+    display: block;
+  }
+
+  .nav__item--has-mega:hover .nav__chevron,
+  .nav__item--has-mega:focus-within .nav__chevron {
+    transform: rotate(180deg);
+  }
+
   /* ─── Mobile ─── */
   @media (max-width: 768px) {
     .nav__list {
@@ -177,12 +376,10 @@ const currentPath = Astro.url.pathname;
       background: transparent;
       padding: 4px 0 4px 12px;
       margin-top: 4px;
-      display: block; /* Always visible in mobile */
+      display: block;
     }
 
-    .nav__dropdown::before {
-      display: none;
-    }
+    .nav__dropdown::before { display: none; }
 
     .nav__dropdown-link {
       font-size: 13px;
@@ -196,8 +393,59 @@ const currentPath = Astro.url.pathname;
       color: var(--color-accent);
     }
 
-    .nav__chevron {
-      display: none;
+    /* Mega menu mobile — stack columns */
+    .nav__mega {
+      position: static;
+      transform: none;
+      box-shadow: none;
+      border: none;
+      border-left: 3px solid #e5e7eb;
+      border-radius: 0;
+      background: transparent;
+      display: block;
+      width: auto;
+      overflow: visible;
     }
+
+    .nav__mega::before { display: none; }
+
+    .nav__mega-inner {
+      grid-template-columns: 1fr;
+      padding: 4px 0 4px 12px;
+      gap: 0;
+    }
+
+    .nav__mega-col {
+      padding: var(--space-2) 0;
+      border-radius: 0;
+    }
+
+    .nav__mega-col:hover { background: transparent; }
+
+    .nav__mega-heading {
+      font-size: 12px;
+      color: #374151;
+      border-bottom: none;
+      margin-bottom: var(--space-1);
+      padding-bottom: 0;
+    }
+
+    .nav__mega-list { margin-bottom: var(--space-1); }
+
+    .nav__mega-link {
+      font-size: 12px;
+      color: #6b7280;
+      padding: 4px 6px;
+    }
+
+    .nav__mega-link:hover,
+    .nav__mega-link--active {
+      background: transparent;
+      color: var(--color-accent);
+    }
+
+    .nav__mega-see-all { font-size: 11px; margin-bottom: var(--space-3); }
+
+    .nav__chevron { display: none; }
   }
 </style>
