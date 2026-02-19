@@ -20,7 +20,10 @@ export const mainNav: NavItem[] = [
         label: "Trajes de Bombero",
         href: "/productos/trajes-para-bomberos",
         children: [
-          { label: "Traje Estructural NFPA 1971",  href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971" },
+          { label: "Traje Estructural NFPA 1971",   href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971" },
+          { label: "Sistema 3 Capas NFPA 1971",   href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas" },
+          { label: "Capa Exterior Nomex® IIIA",   href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/capa-exterior-nomex" },
+          { label: "Membrana Gore-Tex® PTFE",     href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/membrana-gore-tex" },
           { label: "Acolchado Térmico Caldura®",  href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/acolchado-termico" },
           { label: "Alta Visibilidad SOLAS Cl.2", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/alta-visibilidad" },
           { label: "Diseño Ergonómico 3D",        href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/diseno-ergonomico" },
