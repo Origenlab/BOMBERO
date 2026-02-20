@@ -1486,6 +1486,31 @@ export function getContextoZona(ciudad: string): {
 }
 
 /**
+ * Obtener estación por slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesChihuahua.find((e) => e.slug === slug);
+}
+
+/**
+ * Obtener estaciones cercanas (excluyendo la actual)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+
+  const mismoMunicipio = estacionesChihuahua.filter(
+    (e) => e.municipio === estacion.municipio && e.slug !== slug
+  );
+
+  const otrosMunicipios = estacionesChihuahua.filter(
+    (e) => e.municipio !== estacion.municipio
+  );
+
+  return [...mismoMunicipio, ...otrosMunicipios].slice(0, limit);
+}
+
+/**
  * Estadísticas totales del estado
  */
 export const ESTADISTICAS_CHIHUAHUA = {

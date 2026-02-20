@@ -14,7 +14,10 @@ import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import {
   estacionesEdoMex,
 } from "@data/estaciones-edomex";
+import { getEstadosVecinos } from "@data/estados-vecinos";
 import { breadcrumbJsonLd } from "@utils/seo";
+
+const estadosVecinos = getEstadosVecinos("estado-de-mexico");
 
 // ── Derivar estadísticas desde el array de estaciones ─────────────────────
 const municipios      = [...new Set(estacionesEdoMex.map((e) => e.ciudad))].sort();
@@ -122,16 +125,7 @@ const jsonLd = [breadcrumbSchema, itemListSchema];
     { nombre: "ZMVM Poniente (Zona Residencial)",         desc: "Huixquilucan (Interlomas, Bosque Real) · Atizapán (incendios forestales Sierra Cruces) · Nicolás Romero (rescate barrancas) — 1.2M habitantes"                                     },
   ]}
 
-  estadosVecinos={[
-    { nombre: "Ciudad de México", slug: "ciudad-de-mexico" },
-    { nombre: "Hidalgo",          slug: "hidalgo"          },
-    { nombre: "Tlaxcala",         slug: "tlaxcala"         },
-    { nombre: "Puebla",           slug: "puebla"           },
-    { nombre: "Morelos",          slug: "morelos"          },
-    { nombre: "Guerrero",         slug: "guerrero"         },
-    { nombre: "Michoacán",        slug: "michoacan"        },
-    { nombre: "Querétaro",        slug: "queretaro"        },
-  ]}
+  estadosVecinos={estadosVecinos}
 
   estaciones={estacionesEdoMex.map((e) => ({
     nombreCorto: e.nombreCorto,

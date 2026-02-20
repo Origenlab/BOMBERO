@@ -1848,7 +1848,8 @@ export function getEstadisticasIndustria() {
 // ─── FUNCIONES AUXILIARES ESTÁNDAR (DirectorioEstadoLayout) ─────────────────
 
 export function getMunicipios(): string[] {
-  return [...new Set(estacionesVeracruz.map(e => e.municipio))];
+  // Usar zona como agrupación ya que las estaciones de Veracruz usan zonas en lugar de municipios individuales
+  return [...new Set(estacionesVeracruz.map(e => e.zona).filter((z): z is string => !!z))];
 }
 
 export function getEstacionBySlug(slug: string): Estacion | undefined {

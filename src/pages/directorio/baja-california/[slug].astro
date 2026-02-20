@@ -1,19 +1,12 @@
 ---
 /**
- * ─── Página de detalle de estación — Baja California ───
- * Solo datos y rutas estáticas.
- * El diseño, HTML y CSS completos viven en DirectorioEstacionLayout.astro.
+ * ─── Página de Detalle de Estación de Bomberos Baja California ───
+ * Usa EstacionLayout para mantener consistencia con el resto del sitio
  */
-import DirectorioEstacionLayout from "@layouts/DirectorioEstacionLayout.astro";
-import {
-  estacionesBajaCalifornia,
-  getEstacionBySlug,
-  getEstacionesCercanas,
-  getMunicipios,
-  getEstacionesByMunicipio,
-  getEstadisticas,
-} from "@data/estaciones-baja-california";
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { estacionesBajaCalifornia, getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
 
+// Generar rutas estáticas
 export function getStaticPaths() {
   return estacionesBajaCalifornia.map((estacion) => ({
     params: { slug: estacion.slug },
@@ -21,28 +14,112 @@ export function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const estacion  = getEstacionBySlug(slug as string);
+const estacion = getEstacionBySlug(slug as string);
 
-if (!estacion) return Astro.redirect("/404");
+if (!estacion) {
+  return Astro.redirect("/404");
+}
 
-const estadisticas              = getEstadisticas();
-const estacionesCercanas        = getEstacionesCercanas(slug as string, 4);
-const estacionesMismoMunicipio  = getEstacionesByMunicipio(estacion.municipio)
-                                    .filter((e) => e.slug !== slug);
+// Obtener estaciones cercanas para el sidebar
+const estacionesCercanas = getEstacionesCercanas(slug as string, 3);
+
+// Datos del estado
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+// Estados vecinos para interlinking
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+  { nombre: "Chihuahua", slug: "chihuahua" },
+  { nombre: "Ciudad de México", slug: "ciudad-de-mexico" },
+  { nombre: "Jalisco", slug: "jalisco" },
+];
+
+// Variables para contenido personalizado
+const ubicacion = estacion.municipio ?? estacion.ciudad;
+
+// Tarjetas EPP para la sección de equipo certificado
+const eppCards = [
+  {
+    image: "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+    imageAlt: `Traje Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Diseñado para los bomberos de <strong>${ubicacion}</strong> que enfrentan incendios industriales en maquiladoras, emergencias en puertos y condiciones climáticas extremas. Protección térmica certificada para la industria fronteriza más grande de México.`,
+    href: "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: `Casco Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 requerida en los parques industriales de Tijuana, Mexicali y Ensenada. Compatible con el sistema 3 capas exigido en las plantas aeroespaciales, electrónicas y de dispositivos médicos de <strong>Baja California</strong>.`,
+    href: "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: `Guantes Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia térmica certificada para emergencias industriales y HAZMAT en <strong>${ubicacion}</strong>. Prensión segura en rescate vehicular sobre las autopistas Tijuana-Mexicali y Tijuana-Ensenada.`,
+    href: "/productos/guantes-para-bomberos",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: `Botas Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Calzado certificado NFPA 1971 para el exigente entorno industrial de <strong>Baja California</strong>. Puntera de acero y suela antiderrapante para pisos de maquiladoras, terminales portuarias y operaciones en el desierto.`,
+    href: "/productos/botas-para-bomberos",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
 ---
 
-<DirectorioEstacionLayout
-  estadoNombre="Baja California"
-  estadoSlug="baja-california"
+<EstacionLayout
   estacion={estacion}
-  estacionesMismoMunicipio={estacionesMismoMunicipio}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
   estacionesCercanas={estacionesCercanas}
-  totalEstacionesEstado={estadisticas.totalEstaciones}
-  estadosVecinos={[
-    { nombre: "Baja California Sur", slug: "baja-california-sur" },
-    { nombre: "Sonora",              slug: "sonora"              },
-    { nombre: "Aguascalientes",      slug: "aguascalientes"      },
-    { nombre: "Ciudad de México",    slug: "ciudad-de-mexico"    },
-    { nombre: "Jalisco",             slug: "jalisco"             },
-  ]}
-/>
+  eppCards={eppCards}
+>
+  <!-- Contenido SEO personalizado para Baja California -->
+  <Fragment slot="seo-content">
+    <h2>Bomberos en {estacion.municipio}, Baja California</h2>
+    <p>
+      La <strong>{estacion.nombreCorto}</strong> es parte del <strong>H. Cuerpo de Bomberos de {estacion.municipio}</strong>,
+      institución que protege a los más de <strong>3.8 millones de bajacalifornianos</strong>. Esta estación, ubicada en
+      <strong>{estacion.direccion}, {estacion.colonia}, {estacion.municipio}</strong>, brinda atención las 24 horas del día,
+      los 365 días del año.
+    </p>
+    <p>
+      En caso de <strong>emergencia en {estacion.municipio}</strong>, marca el <strong>911</strong> o comunícate directamente
+      a esta estación al <strong>{estacion.telefono}</strong>. Los bomberos de Baja California están capacitados para atender
+      incendios estructurales e industriales, rescates vehiculares, emergencias HAZMAT, incendios forestales y todo tipo de emergencias.
+    </p>
+    <h3>Baja California: Industria, Frontera y Turismo</h3>
+    <p>
+      <strong>Baja California</strong> es el estado fronterizo más dinámico de México, hogar de la industria maquiladora más grande
+      del país con más de <strong>1,000 plantas en Tijuana, Mexicali y Tecate</strong>. También destaca por el <strong>Puerto de Ensenada</strong>,
+      el <strong>Valle de Guadalupe</strong> (región vitivinícola) y destinos turísticos como <strong>Playas de Rosarito</strong>.
+      Los bomberos atienden emergencias industriales de alta complejidad, incendios forestales y rescates en zonas fronterizas.
+    </p>
+    <h3>¿Necesitas equipo certificado para bomberos?</h3>
+    <p>
+      En <strong><a href="/">BOMBERO.MX</a></strong> somos distribuidores autorizados de <strong>equipo para bomberos certificado NFPA</strong>.
+      Equipamos estaciones en todo Baja California con <a href="/productos/trajes-para-bomberos">trajes estructurales</a>,
+      <a href="/productos/cascos-para-bomberos">cascos</a>, <a href="/productos/scba">equipos SCBA</a>,
+      <a href="/productos/herramientas-rescate">herramientas de rescate</a> y más.
+      <a href="/cotizar">Solicita una cotización</a> sin compromiso.
+    </p>
+  </Fragment>
+</EstacionLayout>
