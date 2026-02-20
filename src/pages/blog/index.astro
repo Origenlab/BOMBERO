@@ -8,11 +8,18 @@ import PageLayout from "@layouts/PageLayout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
+import Pagination from "@components/Pagination.astro";
 import { cdnW } from "@utils/cdn";
 import { getAllArticulos } from "@data/blog-articulos";
 
-/* ── Obtener artículos desde el archivo de datos ── */
-const articulos = getAllArticulos();
+/* ── Configuración de paginación ── */
+const ARTICLES_PER_PAGE = 6;
+const currentPage = 1;
+
+/* ── Obtener artículos paginados ── */
+const allArticulos = getAllArticulos();
+const totalPages = Math.ceil(allArticulos.length / ARTICLES_PER_PAGE);
+const articulos = allArticulos.slice(0, ARTICLES_PER_PAGE);
 
 const categorias = [
   { label: "Normativas", count: 1, slug: "normativas" },
@@ -20,7 +27,7 @@ const categorias = [
   { label: "Técnicas", count: 1, slug: "tecnicas" },
   { label: "Industrial", count: 1, slug: "industrial" },
   { label: "Forestales", count: 1, slug: "forestales" },
-  { label: "Equipo", count: 1, slug: "equipo" },
+  { label: "Equipo", count: 11, slug: "equipo" },
 ];
 
 const breadcrumb = [
@@ -114,7 +121,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           <p>Cada artículo está diseñado para aportar valor real a <strong>estaciones de bomberos</strong>, <strong>brigadas industriales</strong> y equipos de protección civil que buscan mejorar sus protocolos y selección de equipo.</p>
         </SectionHeader>
 
-        <div class="blog-grid">
+        <div class="blog-grid" id="articulos">
           {articulosCdn.map((articulo) => (
             <article class="blog-card">
               <a href={`/blog/${articulo.slug}`} class="blog-card__link">
@@ -148,6 +155,15 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
             </article>
           ))}
         </div>
+
+        <!-- Paginación -->
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl="/blog"
+          />
+        )}
 
       </main>
 
@@ -203,9 +219,9 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
               Cascos NFPA
             </a></li>
-            <li><a href="/productos/scba" class="sb-link">
+            <li><a href="/productos/capuchas-para-bomberos" class="sb-link">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-              Equipos SCBA
+              Capuchas NFPA
             </a></li>
             <li><a href="/productos/guantes-para-bomberos" class="sb-link">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
@@ -290,10 +306,10 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           <div class="epp-card__body">
             <h3 class="epp-card__title">Guantes para Bombero</h3>
             <ul class="epp-card__list">
-              <li><a href="/productos/guantes-para-bomberos/guantes-estructurales">Guantes Estructurales</a></li>
-              <li><a href="/productos/guantes-para-bomberos/guantes-rescate-extricacion">Guantes de Rescate / Extricación</a></li>
-              <li><a href="/productos/guantes-para-bomberos/guantes-hazmat">Guantes HAZMAT</a></li>
-              <li><a href="/productos/guantes-para-bomberos/guantes-forestales">Guantes Forestales</a></li>
+              <li><a href="/productos/guantes-para-bomberos/estructurales">Guantes Estructurales</a></li>
+              <li><a href="/productos/guantes-para-bomberos/rescate">Guantes de Rescate / Extricación</a></li>
+              <li><a href="/productos/guantes-para-bomberos/hazmat">Guantes HAZMAT</a></li>
+              <li><a href="/productos/guantes-para-bomberos/forestales">Guantes Forestales</a></li>
             </ul>
             <a href="/productos/guantes-para-bomberos" class="epp-card__link">Guantes para Bombero</a>
           </div>
@@ -307,28 +323,28 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           <div class="epp-card__body">
             <h3 class="epp-card__title">Botas para Bombero</h3>
             <ul class="epp-card__list">
-              <li><a href="/productos/botas-para-bomberos/bota-estructural-cuero">Bota Estructural (Cuero)</a></li>
-              <li><a href="/productos/botas-para-bomberos/bota-caucho-hazmat">Bota de Caucho (HAZMAT)</a></li>
-              <li><a href="/productos/botas-para-bomberos/bota-forestal">Bota Forestal</a></li>
+              <li><a href="/productos/botas-para-bomberos/estructural">Bota Estructural (Cuero)</a></li>
+              <li><a href="/productos/botas-para-bomberos/caucho">Bota de Caucho (HAZMAT)</a></li>
+              <li><a href="/productos/botas-para-bomberos/forestal">Bota Forestal</a></li>
             </ul>
             <a href="/productos/botas-para-bomberos" class="epp-card__link">Botas para Bombero</a>
           </div>
         </article>
 
-        <!-- SCBA -->
+        <!-- Capuchas -->
         <article class="epp-card">
           <div class="epp-card__img-wrap">
-            <img src={cdnW("/images/directorio/cilindro-scba-bomberos-01.avif", 400)} alt="Equipos SCBA" width="400" height="225" loading="lazy" class="epp-card__img" />
+            <img src={cdnW("/images/directorio/capucha-bombero-nomex-01.avif", 400)} alt="Capuchas para Bombero" width="400" height="225" loading="lazy" class="epp-card__img" />
           </div>
           <div class="epp-card__body">
-            <h3 class="epp-card__title">Equipos SCBA</h3>
+            <h3 class="epp-card__title">Capuchas para Bombero</h3>
             <ul class="epp-card__list">
-              <li><a href="/productos/scba/scba-30-45-60-min">SCBA 30 / 45 / 60 min</a></li>
-              <li><a href="/productos/scba/cilindros-botellas">Cilindros y Botellas</a></li>
-              <li><a href="/productos/scba/mascaras-faciales">Máscaras Faciales Completas</a></li>
-              <li><a href="/productos/scba/accesorios">Accesorios SCBA</a></li>
+              <li><a href="/productos/capuchas-para-bomberos/nomex">Capucha Nomex® Estructural</a></li>
+              <li><a href="/productos/capuchas-para-bomberos/pbi">Capucha PBI Gold® Premium</a></li>
+              <li><a href="/productos/capuchas-para-bomberos/particulada">Capucha Particulada PM2.5</a></li>
+              <li><a href="/productos/gafas-para-bomberos">Gafas y Protección Visual</a></li>
             </ul>
-            <a href="/productos/scba" class="epp-card__link">Equipos SCBA</a>
+            <a href="/productos/capuchas-para-bomberos" class="epp-card__link">Capuchas para Bombero</a>
           </div>
         </article>
       </div>

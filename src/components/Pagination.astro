@@ -1,0 +1,232 @@
+---
+/**
+ * ─── Pagination Component ───
+ * Componente de paginación profesional para el blog.
+ */
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string;
+}
+
+const { currentPage, totalPages, baseUrl } = Astro.props;
+
+// Generar array de páginas a mostrar
+function getPageNumbers(current: number, total: number): (number | "...")[] {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  const pages: (number | "...")[] = [];
+
+  if (current <= 3) {
+    // Inicio: 1 2 3 4 5 ... última
+    pages.push(1, 2, 3, 4, 5, "...", total);
+  } else if (current >= total - 2) {
+    // Final: 1 ... últimas 5
+    pages.push(1, "...", total - 4, total - 3, total - 2, total - 1, total);
+  } else {
+    // Medio: 1 ... current-1 current current+1 ... última
+    pages.push(1, "...", current - 1, current, current + 1, "...", total);
+  }
+
+  return pages;
+}
+
+const pageNumbers = getPageNumbers(currentPage, totalPages);
+
+function getPageUrl(page: number): string {
+  if (page === 1) {
+    return baseUrl;
+  }
+  return `${baseUrl}/pagina/${page}`;
+}
+---
+
+<nav class="pagination" aria-label="Paginación del blog">
+  <div class="pagination__inner">
+
+    <!-- Botón Anterior -->
+    {currentPage > 1 ? (
+      <a
+        href={getPageUrl(currentPage - 1)}
+        class="pagination__btn pagination__btn--prev"
+        aria-label="Página anterior"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+        <span class="pagination__btn-text">Anterior</span>
+      </a>
+    ) : (
+      <span class="pagination__btn pagination__btn--prev pagination__btn--disabled" aria-disabled="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+        <span class="pagination__btn-text">Anterior</span>
+      </span>
+    )}
+
+    <!-- Números de página -->
+    <div class="pagination__numbers">
+      {pageNumbers.map((page) => (
+        page === "..." ? (
+          <span class="pagination__ellipsis">...</span>
+        ) : page === currentPage ? (
+          <span class="pagination__num pagination__num--active" aria-current="page">{page}</span>
+        ) : (
+          <a href={getPageUrl(page)} class="pagination__num">{page}</a>
+        )
+      ))}
+    </div>
+
+    <!-- Botón Siguiente -->
+    {currentPage < totalPages ? (
+      <a
+        href={getPageUrl(currentPage + 1)}
+        class="pagination__btn pagination__btn--next"
+        aria-label="Página siguiente"
+      >
+        <span class="pagination__btn-text">Siguiente</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </a>
+    ) : (
+      <span class="pagination__btn pagination__btn--next pagination__btn--disabled" aria-disabled="true">
+        <span class="pagination__btn-text">Siguiente</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </span>
+    )}
+
+  </div>
+
+  <!-- Info de paginación -->
+  <p class="pagination__info">
+    Página <strong>{currentPage}</strong> de <strong>{totalPages}</strong>
+  </p>
+</nav>
+
+<style>
+  .pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-8) 0;
+    margin-top: var(--space-6);
+    border-top: 1px solid var(--color-smoke-200);
+  }
+
+  .pagination__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .pagination__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: white;
+    border: 1px solid var(--color-smoke-200);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .pagination__btn:hover:not(.pagination__btn--disabled) {
+    background: var(--color-fire-50);
+    border-color: var(--color-fire-200);
+    color: var(--color-fire-700);
+  }
+
+  .pagination__btn--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .pagination__btn-text {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .pagination__btn-text {
+      display: inline;
+    }
+  }
+
+  .pagination__numbers {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .pagination__num,
+  .pagination__ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .pagination__num {
+    color: var(--color-smoke-600);
+    background: white;
+    border: 1px solid var(--color-smoke-200);
+  }
+
+  .pagination__num:hover:not(.pagination__num--active) {
+    background: var(--color-fire-50);
+    border-color: var(--color-fire-200);
+    color: var(--color-fire-700);
+  }
+
+  .pagination__num--active {
+    background: var(--color-fire-600);
+    border-color: var(--color-fire-600);
+    color: white;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+  }
+
+  .pagination__ellipsis {
+    color: var(--color-smoke-400);
+    border: none;
+    background: transparent;
+    min-width: 32px;
+  }
+
+  .pagination__info {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    margin: 0;
+  }
+
+  .pagination__info strong {
+    color: var(--color-smoke-700);
+    font-weight: 700;
+  }
+
+  @media (max-width: 480px) {
+    .pagination__num:not(.pagination__num--active):not(:first-child):not(:last-child) {
+      display: none;
+    }
+
+    .pagination__ellipsis {
+      display: none;
+    }
+  }
+</style>

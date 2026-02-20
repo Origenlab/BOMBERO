@@ -6,6 +6,7 @@
  */
 import BlogLayout from "@layouts/BlogLayout.astro";
 import { articulosData, getArticuloSlugs, getArticulo, getAllArticulos } from "@data/blog-articulos";
+import { marked } from "marked";
 
 /* ── Generar rutas estáticas ── */
 export function getStaticPaths() {
@@ -21,6 +22,9 @@ if (!articulo) {
   return Astro.redirect("/404");
 }
 
+/* ── Parsear markdown a HTML ── */
+const contenidoHTML = marked(articulo.contenido);
+
 const breadcrumb = [
   { label: "Blog", href: "/blog" },
   { label: articulo.titulo },
@@ -32,7 +36,7 @@ const categorias = [
   { label: "Técnicas", href: "/blog/categoria/tecnicas", count: 1 },
   { label: "Industrial", href: "/blog/categoria/industrial", count: 1 },
   { label: "Forestales", href: "/blog/categoria/forestales", count: 1 },
-  { label: "Equipo", href: "/blog/categoria/equipo", count: 1 },
+  { label: "Equipo", href: "/blog/categoria/equipo", count: 11 },
 ];
 
 const articulosPopulares = [
@@ -88,5 +92,5 @@ const otrosArticulos = getAllArticulos()
   directorioLinks={directorioLinks}
   relacionados={otrosArticulos}
 >
-  <Fragment set:html={articulo.contenido} />
+  <Fragment set:html={contenidoHTML} />
 </BlogLayout>
