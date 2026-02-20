@@ -1,633 +1,118 @@
 ---
 /**
- * ═══════════════════════════════════════════════════════════════════════════════
- * PÁGINA DINÁMICA - ESTACIÓN DE BOMBEROS PUEBLA
- * ═══════════════════════════════════════════════════════════════════════════════
+ * ─── Página de Detalle de Estación de Bomberos Puebla ───
+ * Usa EstacionLayout para mantener consistencia con el resto del sitio
  */
-
-import PageLayout from "@layouts/PageLayout.astro";
-import {
-  estacionesPuebla,
-  PUEBLA_SEO,
-  ZONAS_PUEBLA,
-  INDUSTRIA_PUEBLA,
-  INFRAESTRUCTURA_PUEBLA,
-  TURISMO_PUEBLA,
-  generarSchemaEstacion,
-  generarInterlinking,
-  getAlertasActivas
-} from "@data/estaciones-puebla";
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { estacionesPuebla, getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-puebla";
 
 export function getStaticPaths() {
   return estacionesPuebla.map((estacion) => ({
     params: { slug: estacion.slug },
-    props: { estacion },
   }));
 }
 
-const { estacion } = Astro.props;
+const { slug } = Astro.params;
+const estacion = getEstacionBySlug(slug as string);
 
-const title = `${estacion.nombre} | Bomberos Puebla | BOMBERO.MX`;
-const description = `${estacion.nombre}: ${estacion.direccion}. Tel: ${estacion.telefono}. ${estacion.descripcion || `Servicios de emergencia en ${estacion.municipiosCubiertos?.join(", ")}.`}`;
+if (!estacion) {
+  return Astro.redirect("/404");
+}
 
-const schemaEstacion = generarSchemaEstacion(estacion);
-const schemaBreadcrumb = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bombero.mx" },
-    { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bombero.mx/directorio" },
-    { "@type": "ListItem", "position": 3, "name": "Puebla", "item": "https://bombero.mx/directorio/puebla" },
-    { "@type": "ListItem", "position": 4, "name": estacion.nombre, "item": `https://bombero.mx/directorio/puebla/${estacion.slug}` }
-  ]
+const estacionesCercanas = getEstacionesCercanas(slug as string, 3);
+
+const estado = {
+  nombre: "Puebla",
+  slug: "puebla",
+  siglas: "PUE",
+  poblacion: "6.6 millones",
+  municipios: 217,
 };
 
-const { estados: estadosVecinos, productos: productosRelacionados } = generarInterlinking();
-const alertasZona = getAlertasActivas(estacion.zona);
+const estadosVecinos = [
+  { nombre: "Veracruz", slug: "veracruz" },
+  { nombre: "Tlaxcala", slug: "tlaxcala" },
+  { nombre: "Estado de México", slug: "estado-de-mexico" },
+  { nombre: "Morelos", slug: "morelos" },
+  { nombre: "Oaxaca", slug: "oaxaca" },
+];
 
-const estacionesMismaZona = estacionesPuebla
-  .filter(e => e.zona === estacion.zona && e.slug !== estacion.slug)
-  .slice(0, 3);
+const ubicacion = estacion.municipio ?? estacion.ciudad;
 
-// Características especiales
-const esHAZMAT = estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('hazmat'));
-const esVolcanica = estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('popocatépetl') || c.toLowerCase().includes('volcán'));
-const esPuebloMagico = estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('pueblo mágico'));
-const esIndustrial = estacion.zona === "Zona Industrial Automotriz";
-const esAeropuerto = estacion.slug.includes("aeropuerto");
-const esCarretero = estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('autopista') || c.toLowerCase().includes('carretero'));
-
-const zonaKey = Object.keys(ZONAS_PUEBLA).find(k => ZONAS_PUEBLA[k as keyof typeof ZONAS_PUEBLA].nombre === estacion.zona);
-const zonaColor = zonaKey ? ZONAS_PUEBLA[zonaKey as keyof typeof ZONAS_PUEBLA].color : "#1e40af";
+const eppCards = [
+  {
+    image: "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+    imageAlt: `Traje Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Diseñado para los bomberos de <strong>${ubicacion}</strong> que protegen el corredor industrial automotriz más importante de México. Certificación HAZMAT para emergencias en Volkswagen, Audi y zona volcánica.`,
+    href: "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: `Casco Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para operaciones en zona del <strong>Volcán Popocatépetl</strong>, Centro Histórico UNESCO de Puebla y los 8 Pueblos Mágicos del estado.`,
+    href: "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: `Guantes Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia térmica y química certificada para emergencias en <strong>Puebla</strong>. Prensión segura para rescate carretero en autopista México-Puebla, operaciones volcánicas y emergencias industriales.`,
+    href: "/productos/guantes-para-bomberos",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: `Botas Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Calzado certificado NFPA 1971 para el entorno industrial de <strong>Puebla</strong>. Suela resistente a ceniza volcánica, químicos industriales y antiderrapante para rescate carretero.`,
+    href: "/productos/botas-para-bomberos",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
 ---
 
-<PageLayout title={title} description={description}>
-  <script type="application/ld+json" set:html={JSON.stringify(schemaEstacion)} />
-  <script type="application/ld+json" set:html={JSON.stringify(schemaBreadcrumb)} />
-
-  <!-- Hero -->
-  <section class="est-hero" style={`--zone-color: ${zonaColor}`}>
-    <div class="est-hero__bg"><div class="est-hero__gradient"></div></div>
-    <div class="container">
-      <nav class="est-breadcrumb" aria-label="Breadcrumb">
-        <ol>
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/directorio">Directorio</a></li>
-          <li><a href="/directorio/puebla">Puebla</a></li>
-          <li aria-current="page">{estacion.nombre.replace("Estación de Bomberos ", "").replace("Estación Central ", "")}</li>
-        </ol>
-      </nav>
-
-      {alertasZona.length > 0 && (
-        <div class="est-alerts">
-          {alertasZona.map(alerta => (
-            <div class={`est-alert est-alert--${alerta.tipo}`}>
-              <span>{alerta.icono}</span>
-              <span>{alerta.mensaje}</span>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div class="est-hero__grid">
-        <div class="est-hero__content">
-          <div class="est-hero__badges">
-            <span class="est-hero__badge est-hero__badge--zone">{estacion.zona}</span>
-            {esHAZMAT && <span class="est-hero__badge est-hero__badge--hazmat">HAZMAT</span>}
-            {esVolcanica && <span class="est-hero__badge est-hero__badge--volcano">Emergencias Volcánicas</span>}
-            {esPuebloMagico && <span class="est-hero__badge est-hero__badge--magic">Pueblo Mágico</span>}
-            {esIndustrial && <span class="est-hero__badge est-hero__badge--industrial">Industrial</span>}
-            {esAeropuerto && <span class="est-hero__badge est-hero__badge--airport">SSEI Aeronáutico</span>}
-            {esCarretero && <span class="est-hero__badge est-hero__badge--highway">Rescate Carretero</span>}
-          </div>
-
-          <h1 class="est-hero__title">{estacion.nombre}</h1>
-
-          <address class="est-hero__address">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-            {estacion.direccion}
-          </address>
-
-          {estacion.descripcion && <p class="est-hero__desc">{estacion.descripcion}</p>}
-
-          <div class="est-hero__stats">
-            {estacion.personal && (
-              <div class="est-hero__stat">
-                <span class="est-hero__stat-value">{estacion.personal}</span>
-                <span class="est-hero__stat-label">Bomberos</span>
-              </div>
-            )}
-            {estacion.tiempoRespuesta && (
-              <div class="est-hero__stat">
-                <span class="est-hero__stat-value">{estacion.tiempoRespuesta.split(' ')[0]}</span>
-                <span class="est-hero__stat-label">Respuesta</span>
-              </div>
-            )}
-            <div class="est-hero__stat">
-              <span class="est-hero__stat-value">{estacion.servicios.length}</span>
-              <span class="est-hero__stat-label">Servicios</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="est-hero__emergency">
-          <div class="est-emergency-card">
-            <div class="est-emergency-card__header">Emergencias</div>
-            <a href="tel:911" class="est-emergency-card__main">911</a>
-            <div class="est-emergency-card__local">
-              <span>Línea directa:</span>
-              <a href={`tel:${estacion.telefono.replace(/[^0-9+]/g, '')}`}>{estacion.telefono}</a>
-            </div>
-            <div class="est-emergency-card__hours">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-              </svg>
-              {estacion.horario}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Industrial HAZMAT Info -->
-  {esHAZMAT && esIndustrial && (
-    <section class="est-hazmat">
-      <div class="container">
-        <div class="est-hazmat__card">
-          <div class="est-hazmat__header">
-            <span class="est-hazmat__icon">⚠️</span>
-            <h2>Capacidad HAZMAT Industrial</h2>
-          </div>
-          <div class="est-hazmat__content">
-            <p>
-              Estación con <strong>capacidad HAZMAT Nivel III</strong> para emergencias en el corredor
-              industrial automotriz más importante de América Latina.
-            </p>
-            {estacion.slug.includes("cuautlancingo") && (
-              <div class="est-hazmat__facility">
-                <h3>Volkswagen de México</h3>
-                <ul>
-                  <li>Empleados: {INDUSTRIA_PUEBLA.automotriz.plantas[0].empleados.toLocaleString()}</li>
-                  <li>Producción: {INDUSTRIA_PUEBLA.automotriz.plantas[0].produccion}</li>
-                  <li>Modelos: {INDUSTRIA_PUEBLA.automotriz.plantas[0].modelos.join(", ")}</li>
-                </ul>
-              </div>
-            )}
-            {estacion.slug.includes("san-jose-chiapa") && (
-              <div class="est-hazmat__facility">
-                <h3>Audi México</h3>
-                <ul>
-                  <li>Empleados: {INDUSTRIA_PUEBLA.automotriz.plantas[1].empleados.toLocaleString()}</li>
-                  <li>Producción: {INDUSTRIA_PUEBLA.automotriz.plantas[1].produccion}</li>
-                  <li>Modelo: {INDUSTRIA_PUEBLA.automotriz.plantas[1].modelos.join(", ")}</li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- Volcanic Emergency Info -->
-  {esVolcanica && (
-    <section class="est-volcano">
-      <div class="container">
-        <div class="est-volcano__card">
-          <div class="est-volcano__icon">🌋</div>
-          <div class="est-volcano__content">
-            <h2>Estación de Emergencias Volcánicas</h2>
-            <p>
-              Esta estación se encuentra en la zona de influencia del <strong>Volcán Popocatépetl</strong>
-              y está capacitada para atención de emergencias volcánicas.
-            </p>
-            <div class="est-volcano__info">
-              <div class="est-volcano__info-item">
-                <span class="est-volcano__info-label">Estado actual</span>
-                <span class="est-volcano__info-value">{INFRAESTRUCTURA_PUEBLA.volcanPopocatepetl.estado}</span>
-              </div>
-              <div class="est-volcano__info-item">
-                <span class="est-volcano__info-label">Radio evacuación</span>
-                <span class="est-volcano__info-value">{INFRAESTRUCTURA_PUEBLA.volcanPopocatepetl.radioEvacuacion}</span>
-              </div>
-            </div>
-            <ul class="est-volcano__capabilities">
-              <li>Evacuación de comunidades</li>
-              <li>Atención de afectados por ceniza</li>
-              <li>Rescate en zona volcánica</li>
-              <li>Coordinación con Protección Civil</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- Highway Rescue Info -->
-  {esCarretero && (
-    <section class="est-highway">
-      <div class="container">
-        <div class="est-highway__card">
-          <div class="est-highway__icon">🚗</div>
-          <div class="est-highway__content">
-            <h2>Rescate Carretero Especializado</h2>
-            <p>
-              Estación especializada en atención de accidentes en la <strong>autopista México-Puebla</strong>,
-              una de las más transitadas del país con <strong>80,000+ vehículos diarios</strong>.
-            </p>
-            <ul class="est-highway__services">
-              <li>Rescate vehicular pesado</li>
-              <li>Volcaduras de tráileres</li>
-              <li>Emergencias HAZMAT en tránsito</li>
-              <li>Choques múltiples</li>
-              <li>Atención pre-hospitalaria carretera</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- Pueblo Mágico Info -->
-  {esPuebloMagico && (
-    <section class="est-magic">
-      <div class="container">
-        <div class="est-magic__card">
-          <span class="est-magic__badge">Pueblo Mágico</span>
-          <h2>Protección de Patrimonio Turístico</h2>
-          <p>
-            Esta estación brinda cobertura a uno de los <strong>8 Pueblos Mágicos de Puebla</strong>,
-            protegiendo su patrimonio histórico, visitantes y comunidad local.
-          </p>
-          <div class="est-magic__grid">
-            {TURISMO_PUEBLA.pueblosMagicos.filter(p =>
-              estacion.caracteristicasEspeciales?.some(c =>
-                c.toLowerCase().includes(p.nombre.toLowerCase())
-              )
-            ).map(pueblo => (
-              <div class="est-magic__item">
-                <h3>{pueblo.nombre}</h3>
-                <span class="est-magic__year">Desde {pueblo.designacion}</span>
-                <p>{pueblo.atractivo}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- Services & Equipment -->
-  <section class="est-services">
-    <div class="container">
-      <div class="est-services__grid">
-        <div class="est-services__block">
-          <h2>Servicios de Emergencia</h2>
-          <ul class="est-services__list">
-            {estacion.servicios.map(servicio => (
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/>
-                </svg>
-                {servicio}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {estacion.equipamiento && estacion.equipamiento.length > 0 && (
-          <div class="est-services__block">
-            <h2>Equipamiento</h2>
-            <ul class="est-services__list est-services__list--equipment">
-              {estacion.equipamiento.map(equipo => (
-                <li>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
-                    <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-                  </svg>
-                  {equipo}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    </div>
-  </section>
-
-  <!-- Coverage -->
-  {estacion.municipiosCubiertos && estacion.municipiosCubiertos.length > 0 && (
-    <section class="est-coverage">
-      <div class="container">
-        <h2>Área de Cobertura</h2>
-        <div class="est-coverage__grid">
-          {estacion.municipiosCubiertos.map(municipio => (
-            <div class="est-coverage__item">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-              </svg>
-              {municipio}
-            </div>
-          ))}
-        </div>
-        {estacion.caracteristicasEspeciales && (
-          <div class="est-coverage__features">
-            <h3>Características Especiales</h3>
-            <div class="est-coverage__features-grid">
-              {estacion.caracteristicasEspeciales.map(feature => (
-                <span class="est-coverage__feature">{feature}</span>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </section>
-  )}
-
-  <!-- Map -->
-  <section class="est-map">
-    <div class="container">
-      <h2>Ubicación</h2>
-      <div class="est-map__container">
-        <iframe
-          src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d${estacion.coordenadas.lng}!3d${estacion.coordenadas.lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${estacion.coordenadas.lat}!5e0!3m2!1ses!2smx!4v1`}
-          width="100%"
-          height="400"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          title={`Mapa de ${estacion.nombre}`}
-        ></iframe>
-      </div>
-      <div class="est-map__actions">
-        <a href={`https://www.google.com/maps/dir/?api=1&destination=${estacion.coordenadas.lat},${estacion.coordenadas.lng}`} target="_blank" rel="noopener noreferrer" class="est-map__btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-          Cómo llegar
-        </a>
-        <a href={`https://www.google.com/maps/search/?api=1&query=${estacion.coordenadas.lat},${estacion.coordenadas.lng}`} target="_blank" rel="noopener noreferrer" class="est-map__btn est-map__btn--secondary">
-          Ver en Google Maps
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Related Stations -->
-  {estacionesMismaZona.length > 0 && (
-    <section class="est-related">
-      <div class="container">
-        <h2>Otras Estaciones en {estacion.zona}</h2>
-        <div class="est-related__grid">
-          {estacionesMismaZona.map(e => (
-            <a href={`/directorio/puebla/${e.slug}`} class="est-related__card">
-              <h3>{e.nombre.replace("Estación de Bomberos ", "").replace("Estación Central ", "")}</h3>
-              <p>{e.direccion}</p>
-              <span>{e.telefono}</span>
-            </a>
-          ))}
-        </div>
-        <a href="/directorio/puebla" class="est-related__all">Ver todas las estaciones en Puebla</a>
-      </div>
-    </section>
-  )}
-
-  <!-- Interlinking -->
-  <section class="est-interlinking">
-    <div class="container">
-      <h2>Bomberos en Estados Vecinos</h2>
-      <div class="est-interlinking__grid">
-        {estadosVecinos.slice(0, 4).map(estado => (
-          <a href={`/directorio/${estado.slug}`} class="est-interlinking__card">
-            <h3>{estado.estado}</h3>
-            <p>{estado.relacion}</p>
-            <span>Ver estaciones</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Products -->
-  <section class="est-products">
-    <div class="container">
-      <h2>Equipamiento para Bomberos</h2>
-      <div class="est-products__grid">
-        {productosRelacionados.slice(0, 4).map(producto => (
-          <a href={producto.slug} class="est-products__card">
-            <h3>{producto.producto}</h3>
-            <p>{producto.contexto}</p>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Back -->
-  <section class="est-back">
-    <div class="container">
-      <a href="/directorio/puebla" class="est-back__link">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Volver al directorio de Puebla
-      </a>
-    </div>
-  </section>
-</PageLayout>
-
-<style>
-  :root {
-    --pue-primary: #1e40af;
-    --pue-primary-light: #3b82f6;
-    --pue-accent: #dc2626;
-  }
-
-  .est-hero {
-    position: relative;
-    padding: var(--space-12) 0 var(--space-16);
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e40af 100%);
-    overflow: hidden;
-  }
-
-  .est-hero__bg { position: absolute; inset: 0; pointer-events: none; }
-  .est-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 40% at 20% 20%, var(--zone-color, rgba(30, 64, 175, 0.4)), transparent),
-      radial-gradient(ellipse 50% 30% at 80% 80%, rgba(220, 38, 38, 0.2), transparent);
-  }
-
-  .est-breadcrumb ol { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; padding: 0; margin: 0 0 var(--space-6); }
-  .est-breadcrumb li { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
-  .est-breadcrumb li:not(:last-child)::after { content: "/"; color: rgba(255,255,255,0.3); }
-  .est-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
-  .est-breadcrumb a:hover { color: white; }
-  .est-breadcrumb [aria-current] { color: var(--pue-primary-light); font-weight: 600; }
-
-  .est-alerts { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-6); }
-  .est-alert { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); font-size: var(--text-sm); }
-  .est-alert--warning { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
-  .est-alert--danger { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
-  .est-alert--info { background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); color: #60a5fa; }
-
-  .est-hero__grid { display: grid; grid-template-columns: 1fr 380px; gap: var(--space-10); align-items: start; }
-
-  .est-hero__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }
-  .est-hero__badge { padding: var(--space-1) var(--space-3); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 600; }
-  .est-hero__badge--zone { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; }
-  .est-hero__badge--hazmat { background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.4); color: #fca5a5; }
-  .est-hero__badge--volcano { background: rgba(249,115,22,0.2); border: 1px solid rgba(249,115,22,0.4); color: #fdba74; }
-  .est-hero__badge--magic { background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.4); color: #c4b5fd; }
-  .est-hero__badge--industrial { background: rgba(30,64,175,0.3); border: 1px solid rgba(59,130,246,0.4); color: #93c5fd; }
-  .est-hero__badge--airport { background: rgba(168,85,247,0.2); border: 1px solid rgba(168,85,247,0.4); color: #d8b4fe; }
-  .est-hero__badge--highway { background: rgba(34,197,94,0.2); border: 1px solid rgba(34,197,94,0.4); color: #86efac; }
-
-  .est-hero__title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; color: white; line-height: 1.2; margin: 0 0 var(--space-4); }
-  .est-hero__address { display: flex; align-items: flex-start; gap: var(--space-2); font-style: normal; font-size: var(--text-base); color: rgba(255,255,255,0.8); margin-bottom: var(--space-4); }
-  .est-hero__address svg { flex-shrink: 0; margin-top: 2px; }
-  .est-hero__desc { font-size: var(--text-base); color: rgba(255,255,255,0.7); line-height: 1.7; margin: 0 0 var(--space-6); }
-
-  .est-hero__stats { display: flex; gap: var(--space-6); padding-top: var(--space-6); border-top: 1px solid rgba(255,255,255,0.1); }
-  .est-hero__stat { display: flex; flex-direction: column; gap: var(--space-1); }
-  .est-hero__stat-value { font-size: var(--text-2xl); font-weight: 800; color: var(--pue-primary-light); }
-  .est-hero__stat-label { font-size: var(--text-xs); color: rgba(255,255,255,0.6); text-transform: uppercase; }
-
-  .est-emergency-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-2xl); padding: var(--space-6); text-align: center; }
-  .est-emergency-card__header { font-size: var(--text-sm); font-weight: 600; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-bottom: var(--space-2); }
-  .est-emergency-card__main { display: block; font-size: 4rem; font-weight: 900; color: var(--color-fire-400); text-decoration: none; line-height: 1; margin-bottom: var(--space-4); }
-  .est-emergency-card__local { display: flex; justify-content: space-between; padding: var(--space-3); background: rgba(255,255,255,0.05); border-radius: var(--radius-lg); margin-bottom: var(--space-2); }
-  .est-emergency-card__local span { font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
-  .est-emergency-card__local a { font-size: var(--text-sm); font-weight: 700; color: var(--pue-primary-light); text-decoration: none; }
-  .est-emergency-card__hours { display: flex; align-items: center; justify-content: center; gap: var(--space-2); margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid rgba(255,255,255,0.1); font-size: var(--text-sm); color: rgba(255,255,255,0.7); }
-
-  /* HAZMAT Section */
-  .est-hazmat { padding: var(--space-10) 0; background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%); }
-  .est-hazmat__card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-xl); padding: var(--space-6); }
-  .est-hazmat__header { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
-  .est-hazmat__icon { font-size: 2rem; }
-  .est-hazmat__header h2 { font-size: var(--text-xl); font-weight: 700; color: white; margin: 0; }
-  .est-hazmat__content p { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-6); }
-  .est-hazmat__facility { background: rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-4); }
-  .est-hazmat__facility h3 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-2); }
-  .est-hazmat__facility ul { list-style: none; padding: 0; margin: 0; }
-  .est-hazmat__facility li { font-size: var(--text-sm); color: rgba(255,255,255,0.8); padding: var(--space-1) 0; }
-
-  /* Volcano Section */
-  .est-volcano { padding: var(--space-10) 0; background: linear-gradient(135deg, #78350f 0%, #b45309 100%); }
-  .est-volcano__card { display: flex; gap: var(--space-6); padding: var(--space-8); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-2xl); }
-  .est-volcano__icon { font-size: 4rem; }
-  .est-volcano__content h2 { font-size: var(--text-2xl); font-weight: 700; color: white; margin: 0 0 var(--space-3); }
-  .est-volcano__content > p { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-6); }
-  .est-volcano__info { display: flex; gap: var(--space-8); margin-bottom: var(--space-6); }
-  .est-volcano__info-item { display: flex; flex-direction: column; }
-  .est-volcano__info-label { font-size: var(--text-xs); color: rgba(255,255,255,0.6); text-transform: uppercase; }
-  .est-volcano__info-value { font-size: var(--text-lg); font-weight: 700; color: #fbbf24; }
-  .est-volcano__capabilities { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-2); }
-  .est-volcano__capabilities li { font-size: var(--text-sm); color: rgba(255,255,255,0.8); padding-left: var(--space-4); position: relative; }
-  .est-volcano__capabilities li::before { content: "✓"; position: absolute; left: 0; color: #fbbf24; }
-
-  /* Highway Section */
-  .est-highway { padding: var(--space-10) 0; background: linear-gradient(135deg, #14532d 0%, #166534 100%); }
-  .est-highway__card { display: flex; gap: var(--space-6); padding: var(--space-8); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-2xl); }
-  .est-highway__icon { font-size: 4rem; }
-  .est-highway__content h2 { font-size: var(--text-2xl); font-weight: 700; color: white; margin: 0 0 var(--space-3); }
-  .est-highway__content > p { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-6); }
-  .est-highway__services { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-2); }
-  .est-highway__services li { font-size: var(--text-sm); color: rgba(255,255,255,0.8); padding-left: var(--space-4); position: relative; }
-  .est-highway__services li::before { content: "•"; position: absolute; left: 0; color: #86efac; }
-
-  /* Pueblo Mágico Section */
-  .est-magic { padding: var(--space-10) 0; background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%); }
-  .est-magic__card { padding: var(--space-8); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-2xl); }
-  .est-magic__badge { display: inline-block; padding: var(--space-2) var(--space-4); background: rgba(255,255,255,0.2); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; color: white; margin-bottom: var(--space-4); }
-  .est-magic__card h2 { font-size: var(--text-2xl); font-weight: 700; color: white; margin: 0 0 var(--space-3); }
-  .est-magic__card > p { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-6); }
-  .est-magic__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); }
-  .est-magic__item { background: rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: var(--space-4); }
-  .est-magic__item h3 { font-size: var(--text-lg); font-weight: 700; color: white; margin: 0 0 var(--space-1); }
-  .est-magic__year { font-size: var(--text-xs); color: #c4b5fd; }
-  .est-magic__item p { font-size: var(--text-sm); color: rgba(255,255,255,0.8); margin: var(--space-2) 0 0; }
-
-  /* Services */
-  .est-services { padding: var(--space-12) 0; background: var(--color-smoke-50); }
-  .est-services__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-8); }
-  .est-services__block h2 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-6); padding-bottom: var(--space-3); border-bottom: 2px solid var(--pue-primary); }
-  .est-services__list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-3); }
-  .est-services__list li { display: flex; align-items: flex-start; gap: var(--space-3); font-size: var(--text-base); color: var(--color-smoke-700); }
-  .est-services__list li svg { flex-shrink: 0; color: var(--pue-primary); margin-top: 2px; }
-  .est-services__list--equipment li svg { color: var(--color-smoke-500); }
-
-  /* Coverage */
-  .est-coverage { padding: var(--space-12) 0; background: white; }
-  .est-coverage h2 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-6); text-align: center; }
-  .est-coverage__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-bottom: var(--space-8); }
-  .est-coverage__item { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); background: var(--color-smoke-100); border-radius: var(--radius-lg); font-size: var(--text-sm); font-weight: 500; color: var(--color-smoke-700); }
-  .est-coverage__item svg { color: var(--pue-primary); }
-  .est-coverage__features { text-align: center; }
-  .est-coverage__features h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-800); margin: 0 0 var(--space-4); }
-  .est-coverage__features-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
-  .est-coverage__feature { padding: var(--space-2) var(--space-4); background: rgba(30,64,175,0.1); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; color: var(--pue-primary); }
-
-  /* Map */
-  .est-map { padding: var(--space-12) 0; background: var(--color-smoke-50); }
-  .est-map h2 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-6); text-align: center; }
-  .est-map__container { border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-6); }
-  .est-map__actions { display: flex; justify-content: center; gap: var(--space-4); }
-  .est-map__btn { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-6); background: var(--pue-primary); color: white; font-size: var(--text-sm); font-weight: 600; text-decoration: none; border-radius: var(--radius-lg); transition: all 0.2s; }
-  .est-map__btn:hover { background: var(--pue-primary-light); }
-  .est-map__btn--secondary { background: white; color: var(--pue-primary); border: 1px solid var(--color-smoke-200); }
-  .est-map__btn--secondary:hover { background: var(--color-smoke-50); }
-
-  /* Related */
-  .est-related { padding: var(--space-12) 0; background: white; }
-  .est-related h2 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-6); text-align: center; }
-  .est-related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); margin-bottom: var(--space-6); }
-  .est-related__card { padding: var(--space-5); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; transition: all 0.2s; border: 1px solid transparent; }
-  .est-related__card:hover { border-color: var(--pue-primary); box-shadow: 0 8px 24px rgba(30,64,175,0.1); }
-  .est-related__card h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
-  .est-related__card p { font-size: var(--text-sm); color: var(--color-smoke-500); margin: 0 0 var(--space-3); }
-  .est-related__card span { font-size: var(--text-sm); font-weight: 600; color: var(--pue-primary); }
-  .est-related__all { display: block; text-align: center; font-size: var(--text-sm); font-weight: 600; color: var(--pue-primary); text-decoration: none; }
-
-  /* Interlinking */
-  .est-interlinking { padding: var(--space-12) 0; background: var(--color-smoke-50); }
-  .est-interlinking h2 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-6); text-align: center; }
-  .est-interlinking__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-  .est-interlinking__card { padding: var(--space-5); background: white; border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
-  .est-interlinking__card:hover { border-color: var(--pue-primary); box-shadow: 0 4px 12px rgba(30,64,175,0.1); }
-  .est-interlinking__card h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
-  .est-interlinking__card p { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); }
-  .est-interlinking__card span { font-size: var(--text-sm); font-weight: 600; color: var(--pue-primary); }
-
-  /* Products */
-  .est-products { padding: var(--space-12) 0; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); }
-  .est-products h2 { font-size: var(--text-xl); font-weight: 700; color: white; margin: 0 0 var(--space-6); text-align: center; }
-  .est-products__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-  .est-products__card { padding: var(--space-5); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-xl); text-decoration: none; transition: all 0.2s; }
-  .est-products__card:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
-  .est-products__card h3 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-2); }
-  .est-products__card p { font-size: var(--text-sm); color: rgba(255,255,255,0.7); margin: 0; }
-
-  /* Back */
-  .est-back { padding: var(--space-8) 0; background: white; }
-  .est-back__link { display: inline-flex; align-items: center; gap: var(--space-2); font-size: var(--text-base); font-weight: 600; color: var(--pue-primary); text-decoration: none; transition: gap 0.2s; }
-  .est-back__link:hover { gap: var(--space-3); }
-
-  @media (max-width: 1024px) {
-    .est-hero__grid { grid-template-columns: 1fr; }
-    .est-hero__emergency { max-width: 400px; }
-    .est-services__grid { grid-template-columns: 1fr; }
-    .est-interlinking__grid, .est-products__grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 768px) {
-    .est-related__grid, .est-interlinking__grid, .est-products__grid { grid-template-columns: 1fr; }
-    .est-volcano__card, .est-highway__card { flex-direction: column; text-align: center; }
-    .est-volcano__capabilities, .est-highway__services { grid-template-columns: 1fr; }
-    .est-hero__stats { flex-wrap: wrap; gap: var(--space-4); }
-    .est-map__actions { flex-direction: column; }
-    .est-map__btn { justify-content: center; }
-  }
-</style>
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Bomberos en {ubicacion}, Puebla</h2>
+    <p>
+      La <strong>{estacion.nombreCorto ?? estacion.nombre}</strong> es parte del <strong>H. Cuerpo de Bomberos de {ubicacion}</strong>,
+      institución que protege uno de los estados más industrializados y turísticos del centro de México.
+      Esta estación, ubicada en <strong>{estacion.direccion}, {ubicacion}</strong>, brinda atención
+      las 24 horas del día, los 365 días del año.
+    </p>
+    <p>
+      En caso de <strong>emergencia en {ubicacion}</strong>, marca el <strong>911</strong> o comunícate directamente
+      a esta estación al <strong>{estacion.telefono}</strong>. Los bomberos de Puebla están capacitados para atender
+      emergencias volcánicas, rescate carretero, emergencias HAZMAT industriales y protección de Pueblos Mágicos.
+    </p>
+    <h3>Puebla: Volcán Popocatépetl, Volkswagen y Patrimonio UNESCO</h3>
+    <p>
+      <strong>Puebla</strong> combina industria automotriz de clase mundial con patrimonio histórico.
+      <strong>Volkswagen de México</strong> y <strong>Audi</strong> operan las plantas automotrices más grandes de Latinoamérica.
+      El <strong>Volcán Popocatépetl</strong> mantiene actividad constante. El Centro Histórico es Patrimonio UNESCO.
+      La <strong>autopista México-Puebla</strong> transporta más de 80,000 vehículos diarios. Los 8 Pueblos Mágicos atraen millones de turistas.
+    </p>
+    <h3>¿Necesitas equipo certificado para bomberos?</h3>
+    <p>
+      En <strong><a href="/">BOMBERO.MX</a></strong> somos distribuidores autorizados de <strong>equipo para bomberos certificado NFPA</strong>.
+      Equipamos estaciones en todo Puebla con <a href="/productos/trajes-para-bomberos">trajes estructurales</a>,
+      <a href="/productos/cascos-para-bomberos">cascos</a>, <a href="/productos/scba">equipos SCBA</a>,
+      <a href="/productos/hazmat">equipos HAZMAT</a> y más.
+      <a href="/cotizar">Solicita una cotización</a> sin compromiso.
+    </p>
+  </Fragment>
+</EstacionLayout>

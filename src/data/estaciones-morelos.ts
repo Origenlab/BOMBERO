@@ -42,9 +42,11 @@ export const estacionesMorelos: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Cuernavaca",
+    nombreCorto: 'Est. Central Cuernavaca',
     slug: "estacion-central-cuernavaca",
     direccion: "Av. Emiliano Zapata 600, Col. Centro",
     ciudad: "Cuernavaca",
+    municipio: 'Cuernavaca',
     estado: "Morelos",
     cp: "62000",
     telefono: "(777) 312-3636",
@@ -74,9 +76,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Cuernavaca Norte - Tlaltenango",
+    nombreCorto: 'Est. Cuernavaca Norte - Tla...',
     slug: "estacion-bomberos-cuernavaca-norte",
     direccion: "Blvd. Benito Juárez 1500, Col. Tlaltenango",
     ciudad: "Cuernavaca",
+    municipio: 'Cuernavaca',
     estado: "Morelos",
     cp: "62170",
     telefono: "(777) 316-5050",
@@ -97,9 +101,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Cuernavaca Sur - Teopanzolco",
+    nombreCorto: 'Est. Cuernavaca Sur - Teopa...',
     slug: "estacion-bomberos-cuernavaca-sur",
     direccion: "Av. Teopanzolco 800, Col. Reforma",
     ciudad: "Cuernavaca",
+    municipio: 'Cuernavaca',
     estado: "Morelos",
     cp: "62260",
     telefono: "(777) 318-2727",
@@ -120,9 +126,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Temixco",
+    nombreCorto: 'Est. Temixco',
     slug: "estacion-bomberos-temixco",
     direccion: "Av. Revolución del Sur 250, Centro Temixco",
     ciudad: "Temixco",
+    municipio: 'Temixco',
     estado: "Morelos",
     cp: "62580",
     telefono: "(777) 325-1818",
@@ -148,9 +156,11 @@ export const estacionesMorelos: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Zona Industrial CIVAC",
+    nombreCorto: 'Est. Zona Industrial CIVAC',
     slug: "estacion-bomberos-civac",
     direccion: "Av. de la Industria 1000, Parque Industrial CIVAC",
     ciudad: "Jiutepec",
+    municipio: 'Jiutepec',
     estado: "Morelos",
     cp: "62578",
     telefono: "(777) 320-4545",
@@ -176,9 +186,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Jiutepec Centro",
+    nombreCorto: 'Est. Jiutepec Centro',
     slug: "estacion-bomberos-jiutepec",
     direccion: "Calle Morelos 100, Centro Jiutepec",
     ciudad: "Jiutepec",
+    municipio: 'Jiutepec',
     estado: "Morelos",
     cp: "62550",
     telefono: "(777) 321-3030",
@@ -203,9 +215,11 @@ export const estacionesMorelos: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Tepoztlán",
+    nombreCorto: 'Est. Tepoztlán',
     slug: "estacion-bomberos-tepoztlan",
     direccion: "Av. del Tepozteco 50, Centro Tepoztlán",
     ciudad: "Tepoztlán",
+    municipio: 'Tepoztlán',
     estado: "Morelos",
     cp: "62520",
     telefono: "(739) 395-0505",
@@ -237,9 +251,11 @@ export const estacionesMorelos: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Cuautla",
+    nombreCorto: 'Est. Central Cuautla',
     slug: "estacion-central-cuautla",
     direccion: "Av. Insurgentes 1200, Col. Centro",
     ciudad: "Cuautla",
+    municipio: 'Cuautla',
     estado: "Morelos",
     cp: "62740",
     telefono: "(735) 352-2424",
@@ -267,9 +283,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Cuautla Oriente - Oaxtepec",
+    nombreCorto: 'Est. Cuautla Oriente - Oaxt...',
     slug: "estacion-bomberos-oaxtepec",
     direccion: "Av. del Trabajo s/n, Oaxtepec Centro",
     ciudad: "Oaxtepec",
+    municipio: 'Oaxtepec',
     estado: "Morelos",
     cp: "62738",
     telefono: "(735) 356-1515",
@@ -291,9 +309,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Yautepec",
+    nombreCorto: 'Est. Yautepec',
     slug: "estacion-bomberos-yautepec",
     direccion: "Av. Oaxtepec 300, Centro Yautepec",
     ciudad: "Yautepec",
+    municipio: 'Yautepec',
     estado: "Morelos",
     cp: "62730",
     telefono: "(735) 394-2020",
@@ -313,9 +333,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Axochiapan",
+    nombreCorto: 'Est. Axochiapan',
     slug: "estacion-bomberos-axochiapan",
     direccion: "Calle Guerrero 50, Centro Axochiapan",
     ciudad: "Axochiapan",
+    municipio: 'Axochiapan',
     estado: "Morelos",
     cp: "62950",
     telefono: "(769) 351-0808",
@@ -340,9 +362,11 @@ export const estacionesMorelos: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Jojutla",
+    nombreCorto: 'Est. Jojutla',
     slug: "estacion-bomberos-jojutla",
     direccion: "Calle Juárez 200, Centro Jojutla",
     ciudad: "Jojutla",
+    municipio: 'Jojutla',
     estado: "Morelos",
     cp: "62900",
     telefono: "(734) 343-1212",
@@ -367,9 +391,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Zacatepec",
+    nombreCorto: 'Est. Zacatepec',
     slug: "estacion-bomberos-zacatepec",
     direccion: "Av. Emiliano Zapata 400, Centro Zacatepec",
     ciudad: "Zacatepec de Hidalgo",
+    municipio: 'Zacatepec de Hidalgo',
     estado: "Morelos",
     cp: "62780",
     telefono: "(734) 345-2525",
@@ -390,9 +416,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Puente de Ixtla",
+    nombreCorto: 'Est. Puente de Ixtla',
     slug: "estacion-bomberos-puente-ixtla",
     direccion: "Calle Hidalgo 150, Centro Puente de Ixtla",
     ciudad: "Puente de Ixtla",
+    municipio: 'Puente de Ixtla',
     estado: "Morelos",
     cp: "62660",
     telefono: "(734) 341-0909",
@@ -417,9 +445,11 @@ export const estacionesMorelos: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Xochitepec - Acceso Sur CDMX",
+    nombreCorto: 'Est. Xochitepec - Acceso Su...',
     slug: "estacion-bomberos-xochitepec",
     direccion: "Autopista México-Acapulco Km 85, Xochitepec",
     ciudad: "Xochitepec",
+    municipio: 'Xochitepec',
     estado: "Morelos",
     cp: "62790",
     telefono: "(777) 361-4141",
@@ -442,9 +472,11 @@ export const estacionesMorelos: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Huitzilac",
+    nombreCorto: 'Est. Huitzilac',
     slug: "estacion-bomberos-huitzilac",
     direccion: "Carretera Federal México-Cuernavaca Km 55, Huitzilac",
     ciudad: "Huitzilac",
+    municipio: 'Huitzilac',
     estado: "Morelos",
     cp: "62510",
     telefono: "(777) 319-0606",

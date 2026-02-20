@@ -757,6 +757,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   // ═══ CANCÚN ZONA HOTELERA ═══
   {
     nombre: "Estación de Bomberos Zona Hotelera Cancún",
+    nombreCorto: 'Est. Zona Hotelera Cancún',
     slug: "estacion-bomberos-zona-hotelera-cancun",
     direccion: "Blvd. Kukulcán km 12.5, Zona Hotelera, Cancún, Q. Roo",
     coordenadas: { lat: 21.1285, lng: -86.7618 },
@@ -788,6 +789,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 85,
     copiasActa: false,
     zona: "Cancún Zona Hotelera",
+    ciudad: 'Zona Hotelera km 1-25',
+
+    municipio: 'Zona Hotelera km 1-25',
+
     municipiosCubiertos: ["Zona Hotelera km 1-25", "Punta Cancún", "Punta Nizuc", "Laguna Nichupté", "150+ resorts"],
     descripcion: "Estación estratégica para la franja hotelera de 25 km con 30,000+ habitaciones. Personal bilingüe certificado en rescate acuático oceánico, emergencias hoteleras y evacuación masiva. Tiempo de respuesta garantizado de 3-5 minutos a cualquier resort. Coordinación permanente con seguridad de las cadenas hoteleras Marriott, Hilton, Hyatt, RIU, Iberostar y Palace Resorts.",
     descripcionEn: "Strategic station for the 25 km hotel strip with 30,000+ rooms. Bilingual personnel certified in ocean water rescue, hotel emergencies, and mass evacuation. Guaranteed 3-5 minute response time to any resort. Permanent coordination with Marriott, Hilton, Hyatt, RIU, Iberostar, and Palace Resorts security teams.",
@@ -796,6 +801,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación Central de Bomberos Cancún",
+    nombreCorto: 'Est. Central Cancún',
     slug: "estacion-central-bomberos-cancun",
     direccion: "Av. Xcaret esq. Av. Labná, SM 21, Cancún, Q. Roo",
     coordenadas: { lat: 21.1619, lng: -86.8515 },
@@ -822,6 +828,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 95,
     copiasActa: true,
     zona: "Cancún Centro",
+    ciudad: 'Cancún Centro',
+
+    municipio: 'Cancún Centro',
+
     municipiosCubiertos: ["Cancún Centro", "SM 1-100", "Zona comercial", "Hospitales"],
     descripcion: "Estación central y coordinadora del H. Cuerpo de Bomberos de Benito Juárez (Cancún). Centro de despacho para todas las estaciones del municipio y coordinación con Protección Civil estatal. Cobertura de la ciudad de Cancún con 900,000+ habitantes.",
     tiempoRespuesta: "5-8 minutos zona urbana",
@@ -831,6 +841,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Cancún Norte",
+    nombreCorto: 'Est. Cancún Norte',
     slug: "estacion-bomberos-cancun-norte",
     direccion: "Av. Huayacán esq. López Portillo, SM 69, Cancún, Q. Roo",
     coordenadas: { lat: 21.1856, lng: -86.8734 },
@@ -853,6 +864,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Cancún Centro",
+    ciudad: 'Cancún Norte',
+
+    municipio: 'Cancún Norte',
+
     municipiosCubiertos: ["Cancún Norte", "Puerto Juárez", "Bonfil", "Zona industrial norte"],
     descripcion: "Cobertura de la zona norte de Cancún, incluyendo Puerto Juárez (terminal ferries a Isla Mujeres), fraccionamientos populares y zona industrial. Apoyo a emergencias marítimas en coordinación con estación Zona Hotelera.",
     tiempoRespuesta: "5-10 minutos",
@@ -860,6 +875,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Aeropuerto Cancún",
+    nombreCorto: 'Est. Aeropuerto Cancún',
     slug: "estacion-bomberos-aeropuerto-cancun",
     direccion: "Aeropuerto Internacional de Cancún, Terminal 3, Cancún, Q. Roo",
     coordenadas: { lat: 21.0365, lng: -86.8771 },
@@ -889,6 +905,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 75,
     copiasActa: false,
     zona: "Cancún Centro",
+    ciudad: 'Aeropuerto CUN terminales 1-4',
+
+    municipio: 'Aeropuerto CUN terminales 1-4',
+
     municipiosCubiertos: ["Aeropuerto CUN terminales 1-4", "Zona de hangares", "FBO aviación privada"],
     descripcion: "Servicio de Salvamento y Extinción de Incendios (SSEI) del Aeropuerto Internacional de Cancún, el 2do más grande de Latinoamérica con 25+ millones de pasajeros anuales. Categoría 9 OACI (máxima) con capacidad para aeronaves de fuselaje ancho. 90 aerolíneas, 180 destinos. Tiempo de respuesta: 3 minutos a cualquier punto de pista según estándar OACI.",
     descripcionEn: "Aircraft Rescue and Firefighting Service (ARFF) at Cancun International Airport, 2nd largest in Latin America with 25+ million passengers annually. ICAO Category 9 (maximum) with wide-body aircraft capability. 90 airlines, 180 destinations. Response time: 3 minutes to any runway point per ICAO standard.",
@@ -899,6 +919,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   // ═══ PLAYA DEL CARMEN ═══
   {
     nombre: "Estación Central de Bomberos Playa del Carmen",
+    nombreCorto: 'Est. Central Playa del Carmen',
     slug: "estacion-central-bomberos-playa-carmen",
     direccion: "Av. Juárez esq. Calle 15, Centro, Playa del Carmen, Q. Roo",
     coordenadas: { lat: 20.6296, lng: -87.0739 },
@@ -926,6 +947,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 55,
     copiasActa: true,
     zona: "Riviera Maya Norte",
+    ciudad: 'Playa del Carmen Centro',
+
+    municipio: 'Playa del Carmen Centro',
+
     municipiosCubiertos: ["Playa del Carmen Centro", "5ta Avenida", "Playacar", "Terminal Cozumel", "Carretera 307 norte"],
     descripcion: "Estación central de Solidaridad (Playa del Carmen), la ciudad de mayor crecimiento en México. Cobertura de la zona turística incluyendo la icónica 5ta Avenida, terminal de ferries a Cozumel, y decenas de resorts. Personal bilingüe especializado en rescate acuático (playas y cenotes) y emergencias turísticas.",
     descripcionEn: "Central station of Solidaridad (Playa del Carmen), Mexico's fastest-growing city. Coverage of tourist zone including the iconic 5th Avenue, Cozumel ferry terminal, and dozens of resorts. Bilingual personnel specialized in water rescue (beaches and cenotes) and tourist emergencies.",
@@ -935,6 +960,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Playa del Carmen Sur",
+    nombreCorto: 'Est. Playa del Carmen Sur',
     slug: "estacion-bomberos-playa-carmen-sur",
     direccion: "Av. Constituyentes km 3, Playa del Carmen, Q. Roo",
     coordenadas: { lat: 20.6012, lng: -87.1156 },
@@ -958,6 +984,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 30,
     copiasActa: true,
     zona: "Riviera Maya Norte",
+    ciudad: 'Playa del Carmen Sur',
+
+    municipio: 'Playa del Carmen Sur',
+
     municipiosCubiertos: ["Playa del Carmen Sur", "Ejido", "Carretera 307 sur", "Resorts sur"],
     descripcion: "Cobertura de la zona sur de Playa del Carmen, incluyendo fraccionamientos residenciales, acceso a la carretera 307 sur y resorts del corredor sur hacia Tulum. Apoyo para emergencias de la zona de cenotes cercanos.",
     tiempoRespuesta: "6-12 minutos",
@@ -965,6 +995,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Puerto Morelos",
+    nombreCorto: 'Est. Puerto Morelos',
     slug: "estacion-bomberos-puerto-morelos",
     direccion: "Av. Javier Rojo Gómez, Centro, Puerto Morelos, Q. Roo",
     coordenadas: { lat: 20.8485, lng: -86.8754 },
@@ -989,6 +1020,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 25,
     copiasActa: true,
     zona: "Riviera Maya Norte",
+    ciudad: 'Puerto Morelos',
+
+    municipio: 'Puerto Morelos',
+
     municipiosCubiertos: ["Puerto Morelos", "Parque Nacional Arrecife", "Ruta de los Cenotes", "Resorts corredor norte"],
     descripcion: "Cobertura de Puerto Morelos, pueblo con encanto y acceso al Parque Nacional Arrecife de Puerto Morelos. Rescate acuático especializado en arrecife y cenotes de la famosa Ruta de los Cenotes. Atención de resorts del corredor norte hacia Cancún.",
     tiempoRespuesta: "5-10 minutos",
@@ -998,6 +1033,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   // ═══ RIVIERA MAYA SUR ═══
   {
     nombre: "Estación de Bomberos Tulum",
+    nombreCorto: 'Est. Tulum',
     slug: "estacion-bomberos-tulum",
     direccion: "Av. Tulum esq. Orión Sur, Tulum Centro, Q. Roo",
     coordenadas: { lat: 20.2114, lng: -87.4654 },
@@ -1025,6 +1061,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Riviera Maya Sur",
+    ciudad: 'Tulum Centro',
+
+    municipio: 'Tulum Centro',
+
     municipiosCubiertos: ["Tulum Centro", "Zona Arqueológica", "Zona Hotelera Tulum", "Gran Cenote", "Cenotes Sac Actun"],
     descripcion: "Cobertura del municipio de Tulum, incluyendo la Zona Arqueológica (2+ millones de visitantes/año) y los cenotes más famosos del mundo (Gran Cenote, Sistema Sac Actun). Personal especializado en rescate en cenotes (aguas confinadas) y emergencias de turismo ecológico y aventura.",
     descripcionEn: "Coverage of Tulum municipality, including the Archaeological Zone (2+ million visitors/year) and world's most famous cenotes (Gran Cenote, Sac Actun System). Personnel specialized in cenote rescue (confined waters) and eco-tourism/adventure emergencies.",
@@ -1033,6 +1073,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Akumal",
+    nombreCorto: 'Est. Akumal',
     slug: "estacion-bomberos-akumal",
     direccion: "Carretera 307 km 255, Akumal, Q. Roo",
     coordenadas: { lat: 20.3956, lng: -87.3134 },
@@ -1057,6 +1098,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Riviera Maya Sur",
+    ciudad: 'Akumal',
+
+    municipio: 'Akumal',
+
     municipiosCubiertos: ["Akumal", "Bahía de Akumal", "Xcacel", "Chemuyil"],
     descripcion: "Cobertura de Akumal, famoso santuario de tortugas marinas y destino de esnórquel. Rescate acuático especializado en bahía de aguas someras. Coordinación con programas de conservación de tortugas.",
     tiempoRespuesta: "5-10 minutos",
@@ -1066,6 +1111,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   // ═══ COZUMEL ═══
   {
     nombre: "Estación Central de Bomberos Cozumel",
+    nombreCorto: 'Est. Central Cozumel',
     slug: "estacion-central-bomberos-cozumel",
     direccion: "Av. Rafael E. Melgar esq. Calle 11, Centro, Cozumel, Q. Roo",
     coordenadas: { lat: 20.5104, lng: -86.9479 },
@@ -1095,6 +1141,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 55,
     copiasActa: true,
     zona: "Cozumel",
+    ciudad: 'Cozumel Centro',
+
+    municipio: 'Cozumel Centro',
+
     municipiosCubiertos: ["Cozumel Centro", "Terminal Cruceros", "Muelle Puerta Maya", "Muelle Punta Langosta", "Parque Chankanaab"],
     descripcion: "Estación central de la isla de Cozumel, puerto de cruceros #3 del mundo con 4.5 millones de cruceristas anuales. Personal bilingüe especializado en emergencias de cruceros, rescate de buceo profesional (arrecifes mundialmente famosos) y coordinación de evacuación insular ante huracanes. Enlace permanente con autoridades portuarias y Capitanía de Puerto.",
     descripcionEn: "Central station for Cozumel island, world's #3 cruise port with 4.5 million cruisers annually. Bilingual personnel specialized in cruise ship emergencies, professional dive rescue (world-famous reefs), and island evacuation coordination for hurricanes. Permanent liaison with port authorities and Harbor Master.",
@@ -1105,6 +1155,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Cozumel Sur",
+    nombreCorto: 'Est. Cozumel Sur',
     slug: "estacion-bomberos-cozumel-sur",
     direccion: "Carretera Costera Sur km 5, Cozumel, Q. Roo",
     coordenadas: { lat: 20.4856, lng: -86.9623 },
@@ -1128,6 +1179,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 25,
     copiasActa: false,
     zona: "Cozumel",
+    ciudad: 'Zona Sur',
+
+    municipio: 'Zona Sur',
+
     municipiosCubiertos: ["Zona Sur", "Parque Nacional Arrecifes", "Resorts sur", "Sitios buceo Palancar y Colombia"],
     descripcion: "Cobertura de la zona sur de Cozumel y el Parque Nacional Arrecifes de Cozumel. Rescate especializado en los arrecifes de buceo más famosos del mundo: Palancar, Colombia, Santa Rosa Wall. Coordinación con operadores de buceo para emergencias de descompresión.",
     tiempoRespuesta: "8-15 minutos",
@@ -1135,6 +1190,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Aeropuerto Cozumel",
+    nombreCorto: 'Est. Aeropuerto Cozumel',
     slug: "estacion-bomberos-aeropuerto-cozumel",
     direccion: "Aeropuerto Internacional de Cozumel, Cozumel, Q. Roo",
     coordenadas: { lat: 20.5224, lng: -86.9256 },
@@ -1156,6 +1212,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 20,
     copiasActa: false,
     zona: "Cozumel",
+    ciudad: 'Aeropuerto CZM',
+
+    municipio: 'Aeropuerto CZM',
+
     municipiosCubiertos: ["Aeropuerto CZM", "Pista y terminales"],
     descripcion: "Servicio SSEI del Aeropuerto Internacional de Cozumel. Categoría 7 OACI para aeronaves regionales. Único acceso aéreo a la isla.",
     tiempoRespuesta: "3 minutos pista",
@@ -1165,6 +1225,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   // ═══ ISLA MUJERES ═══
   {
     nombre: "Estación de Bomberos Isla Mujeres",
+    nombreCorto: 'Est. Isla Mujeres',
     slug: "estacion-bomberos-isla-mujeres",
     direccion: "Av. Rueda Medina 130, Centro, Isla Mujeres, Q. Roo",
     coordenadas: { lat: 21.2312, lng: -86.7312 },
@@ -1188,6 +1249,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Isla Mujeres",
+    ciudad: 'Isla Mujeres Centro',
+
+    municipio: 'Isla Mujeres Centro',
+
     municipiosCubiertos: ["Isla Mujeres Centro", "Zona hotelera isla", "Punta Sur"],
     descripcion: "Única estación de bomberos en Isla Mujeres. Capacidad básica con apoyo de Protección Civil. Para emergencias mayores, coordinación con Cancún vía marítima o aérea. Personal bilingüe para atención de turistas. 1 millón+ de visitantes anuales.",
     tiempoRespuesta: "5-10 minutos cualquier punto isla",
@@ -1197,6 +1262,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   // ═══ CHETUMAL Y ZONA SUR ═══
   {
     nombre: "Estación Central de Bomberos Chetumal",
+    nombreCorto: 'Est. Central Chetumal',
     slug: "estacion-central-bomberos-chetumal",
     direccion: "Av. Insurgentes esq. Av. Héroes, Centro, Chetumal, Q. Roo",
     coordenadas: { lat: 18.5001, lng: -88.2961 },
@@ -1222,6 +1288,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 55,
     copiasActa: true,
     zona: "Chetumal y Zona Fronteriza",
+    ciudad: 'Chetumal Centro',
+
+    municipio: 'Chetumal Centro',
+
     municipiosCubiertos: ["Chetumal Centro", "Zona Libre", "Bahía de Chetumal", "Frontera Belice"],
     descripcion: "Estación central de la capital del estado. Cobertura del centro histórico, zona comercial (Zona Libre), frontera con Belice y costa de la Bahía de Chetumal. Coordinación de emergencias para la zona sur del estado.",
     tiempoRespuesta: "5-10 minutos zona urbana",
@@ -1230,6 +1300,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Bacalar",
+    nombreCorto: 'Est. Bacalar',
     slug: "estacion-bomberos-bacalar",
     direccion: "Av. 5 esq. Calle 24, Centro, Bacalar, Q. Roo",
     coordenadas: { lat: 18.6789, lng: -88.3923 },
@@ -1252,6 +1323,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Chetumal y Zona Fronteriza",
+    ciudad: 'Bacalar',
+
+    municipio: 'Bacalar',
+
     municipiosCubiertos: ["Bacalar", "Laguna de los 7 Colores", "Cenote Azul", "Fuerte San Felipe"],
     descripcion: "Cobertura de Bacalar, Pueblo Mágico famoso por la Laguna de los 7 Colores. Rescate acuático especializado en laguna y cenotes. Atención de turistas nacionales e internacionales. Creciente destino ecoturístico.",
     tiempoRespuesta: "5-10 minutos",
@@ -1259,6 +1334,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Felipe Carrillo Puerto",
+    nombreCorto: 'Est. Felipe Carrillo Puerto',
     slug: "estacion-bomberos-felipe-carrillo-puerto",
     direccion: "Av. Benito Juárez esq. Calle 65, Centro, Felipe Carrillo Puerto, Q. Roo",
     coordenadas: { lat: 19.5778, lng: -88.0456 },
@@ -1281,6 +1357,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 25,
     copiasActa: true,
     zona: "Zona Selvática Interior",
+    ciudad: 'Felipe Carrillo Puerto',
+
+    municipio: 'Felipe Carrillo Puerto',
+
     municipiosCubiertos: ["Felipe Carrillo Puerto", "Zona Maya", "Reserva Sian Ka'an acceso", "Carretera 307 tramo central"],
     descripcion: "Cobertura de la Zona Maya central de Quintana Roo. Acceso a la Reserva de la Biósfera Sian Ka'an (UNESCO). Atención de emergencias en comunidades mayas y tramo central de la carretera 307. Especialización en incendios forestales.",
     tiempoRespuesta: "10-30 minutos según zona",
@@ -1288,6 +1368,7 @@ export const estacionesQuintanaRoo: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Puerto Aventuras",
+    nombreCorto: 'Est. Puerto Aventuras',
     slug: "estacion-bomberos-puerto-aventuras",
     direccion: "Av. Xaman-Ha, Puerto Aventuras, Q. Roo",
     coordenadas: { lat: 20.4945, lng: -87.2312 },
@@ -1310,6 +1391,10 @@ export const estacionesQuintanaRoo: Estacion[] = [
     personal: 15,
     copiasActa: false,
     zona: "Riviera Maya Norte",
+    ciudad: 'Puerto Aventuras',
+
+    municipio: 'Puerto Aventuras',
+
     municipiosCubiertos: ["Puerto Aventuras", "Marina", "Residencial", "Delfinario"],
     descripcion: "Cobertura del desarrollo turístico Puerto Aventuras, incluyendo marina privada, campo de golf, residencial de lujo y programas con delfines. Comunidad cerrada con alta presencia de residentes extranjeros.",
     tiempoRespuesta: "3-5 minutos",

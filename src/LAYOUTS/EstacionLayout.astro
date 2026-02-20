@@ -21,6 +21,7 @@
  */
 import PageLayout from "@layouts/PageLayout.astro";
 import CTABanner from "@components/CTABanner.astro";
+import { cdnW } from "@utils/cdn";
 
 // Interfaz de la estación (campos opcionales tienen fallbacks en el layout)
 interface Estacion {
@@ -90,6 +91,9 @@ interface Props {
 }
 
 const { estacion, estado, estadosVecinos, estacionesCercanas, eppCards } = Astro.props;
+
+// CDN: transformar URLs de imágenes
+const eppCardsCdn = eppCards.map(c => ({ ...c, image: cdnW(c.image, 400) }));
 
 // Variables derivadas
 const ubicacion = estacion.municipio ?? estacion.ciudad;
@@ -599,7 +603,7 @@ const breadcrumbJsonLd = {
       </div>
 
       <div class="est-epp__grid">
-        {eppCards.map((card) => (
+        {eppCardsCdn.map((card) => (
           <article class="est-epp__card">
             <a href={card.href} class="est-epp__card-image">
               <img

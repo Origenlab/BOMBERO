@@ -349,6 +349,7 @@ export const estacionesOaxaca: Estacion[] = [
   // ═══ VALLES CENTRALES ═══
   {
     nombre: "Estación Central Oaxaca de Juárez",
+    nombreCorto: 'Est. Central Oaxaca de Juárez',
     slug: "estacion-central-oaxaca",
     direccion: "Calle Macedonio Alcalá 500, Centro Histórico, Oaxaca de Juárez, Oax.",
     coordenadas: { lat: 17.0618, lng: -96.7265 },
@@ -376,6 +377,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 65,
     copiasActa: true,
     zona: "Valles Centrales",
+    ciudad: 'Oaxaca de Juárez',
+
+    municipio: 'Oaxaca de Juárez',
+
     municipiosCubiertos: ["Oaxaca de Juárez", "Santa Lucía del Camino", "San Andrés Huayápam"],
     descripcion: "Estación central del H. Cuerpo de Bomberos de Oaxaca, responsable de la protección del Centro Histórico (Patrimonio UNESCO), la Catedral, el Ex Convento de Santo Domingo y las zonas aledañas. Equipo especializado para estructuras patrimoniales.",
     tiempoRespuesta: "5-8 minutos zona centro",
@@ -384,6 +389,7 @@ export const estacionesOaxaca: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Santa Cruz Xoxocotlán",
+    nombreCorto: 'Est. Santa Cruz Xoxocotlán',
     slug: "estacion-bomberos-xoxocotlan",
     direccion: "Av. Principal s/n, Centro, Santa Cruz Xoxocotlán, Oax.",
     coordenadas: { lat: 17.0283, lng: -96.7333 },
@@ -407,6 +413,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 25,
     copiasActa: true,
     zona: "Valles Centrales",
+    ciudad: 'Santa Cruz Xoxocotlán',
+
+    municipio: 'Santa Cruz Xoxocotlán',
+
     municipiosCubiertos: ["Santa Cruz Xoxocotlán", "Monte Albán", "Atzompa"],
     descripcion: "Estación estratégica para la protección de la Zona Arqueológica de Monte Albán, Patrimonio de la Humanidad. Primera respuesta ante emergencias en el sitio UNESCO más visitado de Oaxaca.",
     tiempoRespuesta: "5-10 minutos",
@@ -414,6 +424,7 @@ export const estacionesOaxaca: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Tlacolula de Matamoros",
+    nombreCorto: 'Est. Tlacolula de Matamoros',
     slug: "estacion-bomberos-tlacolula",
     direccion: "Calle Hidalgo 45, Centro, Tlacolula de Matamoros, Oax.",
     coordenadas: { lat: 16.9536, lng: -96.4775 },
@@ -435,6 +446,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Valles Centrales",
+    ciudad: 'Tlacolula',
+
+    municipio: 'Tlacolula',
+
     municipiosCubiertos: ["Tlacolula", "Mitla", "Santa Ana del Valle", "Teotitlán del Valle"],
     descripcion: "Cobertura del Valle de Tlacolula, incluyendo la zona arqueológica de Mitla y las comunidades artesanales zapotecas. Apoyo a eventos del tianguis dominical más grande de Oaxaca.",
     tiempoRespuesta: "8-15 minutos",
@@ -444,6 +459,7 @@ export const estacionesOaxaca: Estacion[] = [
   // ═══ COSTA OAXAQUEÑA ═══
   {
     nombre: "Estación de Bomberos Bahías de Huatulco",
+    nombreCorto: 'Est. Bahías de Huatulco',
     slug: "estacion-bomberos-huatulco",
     direccion: "Boulevard Benito Juárez s/n, La Crucecita, Huatulco, Oax.",
     coordenadas: { lat: 15.7731, lng: -96.1344 },
@@ -469,6 +485,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 30,
     copiasActa: true,
     zona: "Costa Oaxaqueña",
+    ciudad: 'Santa María Huatulco',
+
+    municipio: 'Santa María Huatulco',
+
     municipiosCubiertos: ["Santa María Huatulco", "Bahías de Huatulco", "San Agustín"],
     descripcion: "Protección del complejo turístico de las 9 Bahías de Huatulco. Personal con capacitación en rescate acuático y atención bilingüe para turistas internacionales. Coordinación con hoteles y marinas.",
     tiempoRespuesta: "5-12 minutos zona hotelera",
@@ -477,6 +497,7 @@ export const estacionesOaxaca: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Puerto Escondido",
+    nombreCorto: 'Est. Puerto Escondido',
     slug: "estacion-bomberos-puerto-escondido",
     direccion: "Calle 1a Norte s/n, Centro, Puerto Escondido, Oax.",
     coordenadas: { lat: 15.8615, lng: -97.0731 },
@@ -501,6 +522,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 22,
     copiasActa: true,
     zona: "Costa Oaxaqueña",
+    ciudad: 'San Pedro Mixtepec',
+
+    municipio: 'San Pedro Mixtepec',
+
     municipiosCubiertos: ["San Pedro Mixtepec", "Puerto Escondido", "Puerto Angelito", "Carrizalillo"],
     descripcion: "Especializada en rescate acuático para las playas de alto oleaje de Puerto Escondido, incluyendo Playa Zicatela (Pipeline mexicano). Atención a la comunidad surfer internacional y accidentes en carretera costera.",
     tiempoRespuesta: "5-10 minutos",
@@ -508,6 +533,7 @@ export const estacionesOaxaca: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Pochutla",
+    nombreCorto: 'Est. Pochutla',
     slug: "estacion-bomberos-pochutla",
     direccion: "Calle Lázaro Cárdenas 23, Centro, San Pedro Pochutla, Oax.",
     coordenadas: { lat: 15.7439, lng: -96.4650 },
@@ -529,6 +555,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Costa Oaxaqueña",
+    ciudad: 'San Pedro Pochutla',
+
+    municipio: 'San Pedro Pochutla',
+
     municipiosCubiertos: ["San Pedro Pochutla", "Zipolite", "Mazunte", "San Agustinillo"],
     descripcion: "Cobertura de la zona de playas alternativas de la Costa Oaxaqueña: Zipolite, Mazunte y San Agustinillo. Apoyo al Centro Mexicano de la Tortuga y comunidades costeras.",
     tiempoRespuesta: "8-15 minutos",
@@ -538,6 +568,7 @@ export const estacionesOaxaca: Estacion[] = [
   // ═══ ISTMO DE TEHUANTEPEC ═══
   {
     nombre: "Estación Central Juchitán de Zaragoza",
+    nombreCorto: 'Est. Central Juchitán de Za...',
     slug: "estacion-central-juchitan",
     direccion: "Calle 16 de Septiembre 50, Centro, Juchitán de Zaragoza, Oax.",
     coordenadas: { lat: 16.4361, lng: -95.0197 },
@@ -561,6 +592,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 25,
     copiasActa: true,
     zona: "Istmo de Tehuantepec",
+    ciudad: 'Juchitán de Zaragoza',
+
+    municipio: 'Juchitán de Zaragoza',
+
     municipiosCubiertos: ["Juchitán de Zaragoza", "El Espinal", "Asunción Ixtaltepec"],
     descripcion: "Estación principal del Istmo, ciudad que sufrió graves daños en los sismos de 2017. Personal especializado en rescate estructural y evacuaciones. Zona de alta sismicidad.",
     tiempoRespuesta: "5-10 minutos",
@@ -568,6 +603,7 @@ export const estacionesOaxaca: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos HAZMAT Salina Cruz",
+    nombreCorto: 'Est. HAZMAT Salina Cruz',
     slug: "estacion-bomberos-hazmat-salina-cruz",
     direccion: "Av. Puerto Industrial s/n, Zona Industrial, Salina Cruz, Oax.",
     coordenadas: { lat: 16.1642, lng: -95.1956 },
@@ -594,6 +630,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 40,
     copiasActa: true,
     zona: "Istmo de Tehuantepec",
+    ciudad: 'Salina Cruz',
+
+    municipio: 'Salina Cruz',
+
     municipiosCubiertos: ["Salina Cruz", "Zona Industrial", "Puerto de Salina Cruz"],
     descripcion: "Estación especializada HAZMAT para la Refinería Antonio Dovalí Jaime (330,000 barriles/día) y el Puerto de Salina Cruz. Capacidad de respuesta a emergencias con materiales peligrosos, derrames y explosiones industriales.",
     tiempoRespuesta: "3-5 minutos zona industrial",
@@ -601,6 +641,7 @@ export const estacionesOaxaca: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Tehuantepec",
+    nombreCorto: 'Est. Tehuantepec',
     slug: "estacion-bomberos-tehuantepec",
     direccion: "Calle Hidalgo 78, Centro, Santo Domingo Tehuantepec, Oax.",
     coordenadas: { lat: 16.3261, lng: -95.2403 },
@@ -622,6 +663,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Istmo de Tehuantepec",
+    ciudad: 'Santo Domingo Tehuantepec',
+
+    municipio: 'Santo Domingo Tehuantepec',
+
     municipiosCubiertos: ["Santo Domingo Tehuantepec", "San Blas Atempa", "Santa María Mixtequilla"],
     descripcion: "Cobertura de la histórica ciudad de Tehuantepec, paso obligado del corredor transístmico. Apoyo en accidentes de la carretera 190 y emergencias en comunidades zapotecas del Istmo.",
     tiempoRespuesta: "6-12 minutos",
@@ -631,6 +676,7 @@ export const estacionesOaxaca: Estacion[] = [
   // ═══ REGIÓN DEL PAPALOAPAN ═══
   {
     nombre: "Estación Central San Juan Bautista Tuxtepec",
+    nombreCorto: 'Est. Central San Juan Bauti...',
     slug: "estacion-central-tuxtepec",
     direccion: "Av. Independencia 200, Centro, San Juan Bautista Tuxtepec, Oax.",
     coordenadas: { lat: 18.0883, lng: -96.1225 },
@@ -655,6 +701,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 28,
     copiasActa: true,
     zona: "Papaloapan",
+    ciudad: 'San Juan Bautista Tuxtepec',
+
+    municipio: 'San Juan Bautista Tuxtepec',
+
     municipiosCubiertos: ["San Juan Bautista Tuxtepec", "San José Chiltepec", "Valle Nacional"],
     descripcion: "Estación principal de la Cuenca del Papaloapan, segunda ciudad más poblada de Oaxaca. Especializada en rescate acuático y atención de inundaciones. Cobertura de ingenios azucareros y agroindustria.",
     tiempoRespuesta: "5-10 minutos",
@@ -662,6 +712,7 @@ export const estacionesOaxaca: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Loma Bonita",
+    nombreCorto: 'Est. Loma Bonita',
     slug: "estacion-bomberos-loma-bonita",
     direccion: "Calle Juárez 45, Centro, Loma Bonita, Oax.",
     coordenadas: { lat: 18.1086, lng: -95.8753 },
@@ -683,6 +734,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Papaloapan",
+    ciudad: 'Loma Bonita',
+
+    municipio: 'Loma Bonita',
+
     municipiosCubiertos: ["Loma Bonita", "Cosolapa", "Acatlán de Pérez Figueroa"],
     descripcion: "Cobertura de la zona agroindustrial fronteriza con Veracruz. Atención de emergencias en ingenios azucareros y cultivos de piña. Zona susceptible a inundaciones del Papaloapan.",
     tiempoRespuesta: "8-15 minutos",
@@ -692,6 +747,7 @@ export const estacionesOaxaca: Estacion[] = [
   // ═══ SIERRA NORTE ═══
   {
     nombre: "Estación de Bomberos Ixtlán de Juárez",
+    nombreCorto: 'Est. Ixtlán de Juárez',
     slug: "estacion-bomberos-ixtlan",
     direccion: "Calle Principal s/n, Centro, Ixtlán de Juárez, Oax.",
     coordenadas: { lat: 17.3294, lng: -96.4869 },
@@ -714,6 +770,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Sierra Norte",
+    ciudad: 'Ixtlán de Juárez',
+
+    municipio: 'Ixtlán de Juárez',
+
     municipiosCubiertos: ["Ixtlán de Juárez", "Capulálpam de Méndez", "Guelatao de Juárez", "Santa Catarina Lachatao"],
     descripcion: "Estación especializada en incendios forestales y rescate de montaña en la Sierra Norte de Oaxaca. Protección de bosques templados de las comunidades zapotecas de la Sierra. Cobertura de Pueblos Mágicos como Capulálpam.",
     tiempoRespuesta: "10-20 minutos (terreno montañoso)",
@@ -723,6 +783,7 @@ export const estacionesOaxaca: Estacion[] = [
   // ═══ LA MIXTECA ═══
   {
     nombre: "Estación Central Huajuapan de León",
+    nombreCorto: 'Est. Central Huajuapan de León',
     slug: "estacion-central-huajuapan",
     direccion: "Calle Nuyoo 34, Centro, Huajuapan de León, Oax.",
     coordenadas: { lat: 17.8067, lng: -97.7767 },
@@ -746,6 +807,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 22,
     copiasActa: true,
     zona: "Mixteca",
+    ciudad: 'Huajuapan de León',
+
+    municipio: 'Huajuapan de León',
+
     municipiosCubiertos: ["Huajuapan de León", "Asunción Cuyotepeji", "San Andrés Dinicuiti"],
     descripcion: "Estación principal de la región Mixteca, zona de alta sismicidad. Cobertura de comunidades mixtecas y atención de accidentes en la autopista Oaxaca-México (carretera 190).",
     tiempoRespuesta: "5-10 minutos ciudad",
@@ -753,6 +818,7 @@ export const estacionesOaxaca: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Tlaxiaco",
+    nombreCorto: 'Est. Tlaxiaco',
     slug: "estacion-bomberos-tlaxiaco",
     direccion: "Calle Porfirio Díaz 12, Centro, Heroica Ciudad de Tlaxiaco, Oax.",
     coordenadas: { lat: 17.2725, lng: -97.6794 },
@@ -774,6 +840,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 12,
     copiasActa: true,
     zona: "Mixteca",
+    ciudad: 'Heroica Ciudad de Tlaxiaco',
+
+    municipio: 'Heroica Ciudad de Tlaxiaco',
+
     municipiosCubiertos: ["Heroica Ciudad de Tlaxiaco", "Chalcatongo de Hidalgo", "Santa María Yucuhiti"],
     descripcion: "Cobertura de la Mixteca Alta, región de comunidades triquis y mixtecas. Apoyo en incendios forestales de temporada seca y emergencias en comunidades de difícil acceso.",
     tiempoRespuesta: "10-20 minutos (terreno montañoso)",
@@ -783,6 +853,7 @@ export const estacionesOaxaca: Estacion[] = [
   // ═══ AEROPUERTOS ═══
   {
     nombre: "Estación de Bomberos Aeropuerto Oaxaca",
+    nombreCorto: 'Est. Aeropuerto Oaxaca',
     slug: "estacion-bomberos-aeropuerto-oaxaca",
     direccion: "Aeropuerto Internacional de Oaxaca, Xoxocotlán, Oax.",
     coordenadas: { lat: 17.0008, lng: -96.7261 },
@@ -805,6 +876,10 @@ export const estacionesOaxaca: Estacion[] = [
     personal: 24,
     copiasActa: false,
     zona: "Valles Centrales",
+    ciudad: 'Aeropuerto OAX',
+
+    municipio: 'Aeropuerto OAX',
+
     municipiosCubiertos: ["Aeropuerto OAX"],
     descripcion: "Servicio de Salvamento y Extinción de Incendios (SSEI) del Aeropuerto Internacional de Oaxaca Xoxocotlán. Categoría 7 OACI con capacidad de respuesta para aeronaves de fuselaje ancho.",
     tiempoRespuesta: "3 minutos cualquier punto de pista",

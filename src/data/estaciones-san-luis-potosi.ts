@@ -904,6 +904,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 120,
     copiasActa: true,
     zona: "Zona Metropolitana SLP",
+    ciudad: 'San Luis Potosí Centro',
+
+    municipio: 'San Luis Potosí Centro',
+
     municipiosCubiertos: ["San Luis Potosí Centro", "Centro Histórico", "Zona comercial", "Universidades"],
     descripcion: "Estación central y coordinadora del H. Cuerpo de Bomberos de San Luis Potosí. Centro de mando estatal para coordinación de emergencias mayores. Cobertura del Centro Histórico (candidato UNESCO), zona comercial principal y área universitaria. Personal altamente capacitado con certificaciones nacionales e internacionales. Centro de capacitación para todo el estado.",
     tiempoRespuesta: "5-7 minutos zona centro",
@@ -936,6 +940,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Zona Metropolitana SLP",
+    ciudad: 'SLP Norte',
+
+    municipio: 'SLP Norte',
+
     municipiosCubiertos: ["SLP Norte", "Fraccionamientos norte", "Plaza Tangamanga", "Zona comercial norte"],
     descripcion: "Cobertura de la zona norte de la capital, incluyendo desarrollos residenciales de alta densidad, plazas comerciales y acceso a la carretera 57 norte hacia Matehuala.",
     tiempoRespuesta: "6-10 minutos",
@@ -967,6 +975,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 55,
     copiasActa: true,
     zona: "Zona Metropolitana SLP",
+    ciudad: 'Soledad Centro',
+
+    municipio: 'Soledad Centro',
+
     municipiosCubiertos: ["Soledad Centro", "Zona industrial este", "Parque Industrial PISA", "Fraccionamientos populares"],
     descripcion: "Segunda estación más grande del área metropolitana. Cobertura del municipio conurbado de Soledad y acceso a zona industrial este. Capacidad HAZMAT básica para apoyo a emergencias industriales. Coordinación con estación HAZMAT para eventos mayores.",
     tiempoRespuesta: "6-10 minutos",
@@ -996,6 +1008,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 28,
     copiasActa: true,
     zona: "Zona Metropolitana SLP",
+    ciudad: 'Parque Tangamanga',
+
+    municipio: 'Parque Tangamanga',
+
     municipiosCubiertos: ["Parque Tangamanga", "Las Águilas", "Zona poniente", "Pedregal"],
     descripcion: "Cobertura de la zona poniente incluyendo el Parque Tangamanga (450 hectáreas), uno de los parques urbanos más grandes de Latinoamérica. Atención de emergencias durante eventos masivos y conciertos en el parque.",
     tiempoRespuesta: "5-8 minutos",
@@ -1039,6 +1055,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 75,
     copiasActa: false,
     zona: "Zona Industrial Automotriz",
+    ciudad: 'Parque Industrial Logistik',
+
+    municipio: 'Parque Industrial Logistik',
+
     municipiosCubiertos: ["Parque Industrial Logistik", "Parque Industrial El Potosí", "BMW Plant", "Proveedores zona sur"],
     descripcion: "Estación especializada HAZMAT Nivel A para el clúster automotriz de San Luis Potosí. Cobertura primaria de BMW Group Plant (2,500 empleados) y proveedores tier 1. Personal certificado en materiales peligrosos específicos de industria automotriz: pinturas base solvente, baterías de litio, aceites especiales y gases industriales. Protocolo de coordinación 24/7 con brigadas internas de plantas. Capacidad bilingüe para coordinación con ejecutivos internacionales.",
     tiempoRespuesta: "5-8 minutos parques industriales",
@@ -1069,6 +1089,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Zona Industrial Automotriz",
+    ciudad: 'Villa de Reyes',
+
+    municipio: 'Villa de Reyes',
+
     municipiosCubiertos: ["Villa de Reyes", "Carretera 57D tramo sur", "Parque Industrial Millennium", "Zona agrícola"],
     descripcion: "Apoyo a la zona industrial sur y cobertura de Villa de Reyes. Respaldo para emergencias HAZMAT y cobertura de la carretera 57D hacia Querétaro. Atención de zona agrícola del municipio.",
     tiempoRespuesta: "8-12 minutos",
@@ -1101,6 +1125,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 45,
     copiasActa: false,
     zona: "Zona Industrial Automotriz",
+    ciudad: 'Parque Industrial Tres Naciones',
+
+    municipio: 'Parque Industrial Tres Naciones',
+
     municipiosCubiertos: ["Parque Industrial Tres Naciones", "GM Complejo", "Zona fundición", "Proveedores GM"],
     descripcion: "Cobertura del Parque Industrial Tres Naciones y coordinación directa con General Motors Complejo San Luis Potosí (6,000 empleados). Especialización en emergencias de fundición de aluminio y procesos metalúrgicos. Capacidad HAZMAT Nivel B para aceites, refrigerantes y gases industriales.",
     tiempoRespuesta: "5-8 minutos parque industrial",
@@ -1139,6 +1167,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 50,
     copiasActa: true,
     zona: "Huasteca Norte",
+    ciudad: 'Ciudad Valles',
+
+    municipio: 'Ciudad Valles',
+
     municipiosCubiertos: ["Ciudad Valles", "Río Tampaón", "Tamuín", "El Naranjo", "Zona rafting"],
     descripcion: "Estación central de la región Huasteca Norte. Centro de coordinación para emergencias de turismo de aventura en ríos (rafting, kayak). Especialización en swift water rescue para el río Tampaón y afluentes. Cobertura de 2+ millones de turistas anuales que visitan la Huasteca.",
     tiempoRespuesta: "10-15 minutos zona urbana, 20-40 minutos zona rural",
@@ -1169,6 +1201,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Huasteca Norte",
+    ciudad: 'Tamuín',
+
+    municipio: 'Tamuín',
+
     municipiosCubiertos: ["Tamuín", "Zona arqueológica Tamtok", "Río Tampaón bajo"],
     descripcion: "Cobertura de Tamuín y la zona arqueológica de Tamtok (cultura huasteca). Apoyo a Ciudad Valles para emergencias en el tramo bajo del río Tampaón y zona agrícola de la Huasteca.",
     tiempoRespuesta: "10-20 minutos",
@@ -1208,6 +1244,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Huasteca Sur",
+    ciudad: 'Aquismón',
+
+    municipio: 'Aquismón',
+
     municipiosCubiertos: ["Aquismón", "Sótano de las Golondrinas", "Cascada de Tamul", "Comunidades Tének"],
     descripcion: "Estación especializada en rescate espeleológico para el Sótano de las Golondrinas (512m profundidad) y rescate vertical extremo en Cascada de Tamul (105m). Personal certificado en espeleología por grupos nacionales. Coordinación con grupos voluntarios especializados para rescates complejos. Pueblo Mágico de Aquismón.",
     tiempoRespuesta: "15-45 minutos según ubicación (terreno extremo)",
@@ -1238,6 +1278,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Huasteca Sur",
+    ciudad: 'Xilitla',
+
+    municipio: 'Xilitla',
+
     municipiosCubiertos: ["Xilitla", "Jardín Edward James", "Las Pozas", "Comunidades serranas"],
     descripcion: "Cobertura del Pueblo Mágico de Xilitla y el Jardín Escultórico de Edward James (Las Pozas). Atención de emergencias turísticas en zona de selva húmeda. Apoyo para incendios forestales en la sierra.",
     tiempoRespuesta: "10-20 minutos zona urbana, 30-60 minutos zona rural",
@@ -1267,6 +1311,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Huasteca Sur",
+    ciudad: 'Tamasopo',
+
+    municipio: 'Tamasopo',
+
     municipiosCubiertos: ["Tamasopo", "Puente de Dios", "Cascadas de Tamasopo", "El Trampolín"],
     descripcion: "Cobertura de Tamasopo y el popular sitio turístico Puente de Dios. Rescate acuático especializado en pozas y cascadas. Atención de 400,000+ visitantes anuales al Puente de Dios.",
     tiempoRespuesta: "10-20 minutos",
@@ -1304,6 +1352,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Zona Altiplano",
+    ciudad: 'Matehuala',
+
+    municipio: 'Matehuala',
+
     municipiosCubiertos: ["Matehuala", "Cedral", "Carretera 57", "Real de Catorce acceso"],
     descripcion: "Estación central de la región Altiplano. Coordinación de emergencias para Real de Catorce, zona minera histórica y desierto de Wirikuta. Capacidad de búsqueda y rescate en terreno desértico. Atención de emergencias por clima extremo (calor intenso y frío nocturno).",
     tiempoRespuesta: "8-15 minutos zona urbana, 30-60 minutos zona rural",
@@ -1335,6 +1387,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 12,
     copiasActa: true,
     zona: "Zona Altiplano",
+    ciudad: 'Real de Catorce',
+
+    municipio: 'Real de Catorce',
+
     municipiosCubiertos: ["Real de Catorce", "Túnel Ogarrio", "Zona sagrada Wirikuta", "Cerro del Quemado"],
     descripcion: "Estación en el Pueblo Mágico de Real de Catorce (2,750 msnm). Capacidad limitada con apoyo de Matehuala para emergencias mayores. Rescate en minas abandonadas del pueblo fantasma. Coordinación con comunidad Wixárika para emergencias en zona sagrada de Wirikuta. Atención de 350,000+ turistas anuales.",
     tiempoRespuesta: "5-15 minutos pueblo, 30-90 minutos zona desierto",
@@ -1368,6 +1424,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 30,
     copiasActa: true,
     zona: "Zona Media",
+    ciudad: 'Rioverde',
+
+    municipio: 'Rioverde',
+
     municipiosCubiertos: ["Rioverde", "Media Luna", "Ciudad Fernández", "Zona agrícola"],
     descripcion: "Estación central de la Zona Media. Rescate acuático especializado en la Media Luna (laguna de manantial popular para buceo y natación). Atención de emergencias agrícolas y temporada de quema de cañaverales.",
     tiempoRespuesta: "8-15 minutos",
@@ -1395,6 +1455,10 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 12,
     copiasActa: true,
     zona: "Zona Media",
+    ciudad: 'San Ciro de Acosta',
+
+    municipio: 'San Ciro de Acosta',
+
     municipiosCubiertos: ["San Ciro de Acosta", "Comunidades rurales", "Zona agrícola sur"],
     descripcion: "Estación de apoyo para la zona sur de la región Media. Cobertura de comunidades rurales y zona agrícola. Apoyo de Rioverde para emergencias mayores.",
     tiempoRespuesta: "10-25 minutos",

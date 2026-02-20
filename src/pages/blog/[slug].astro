@@ -1,0 +1,90 @@
+---
+/**
+ * ─── Blog Article Template ───
+ * Plantilla para artículos individuales del blog.
+ * URL: /blog/[slug]
+ */
+import BlogLayout from "@layouts/BlogLayout.astro";
+import { articulosData, getArticuloSlugs, getArticulo, getAllArticulos } from "@data/blog-articulos";
+
+/* ── Generar rutas estáticas ── */
+export function getStaticPaths() {
+  return getArticuloSlugs().map((slug) => ({
+    params: { slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const articulo = getArticulo(slug as string);
+
+if (!articulo) {
+  return Astro.redirect("/404");
+}
+
+const breadcrumb = [
+  { label: "Blog", href: "/blog" },
+  { label: articulo.titulo },
+];
+
+const categorias = [
+  { label: "Normativas", href: "/blog/categoria/normativas", count: 8 },
+  { label: "Mantenimiento", href: "/blog/categoria/mantenimiento", count: 5 },
+  { label: "Técnicas", href: "/blog/categoria/tecnicas", count: 12 },
+  { label: "Industrial", href: "/blog/categoria/industrial", count: 6 },
+];
+
+const articulosPopulares = [
+  { label: "NFPA 1971: Guía Completa", href: "/blog/nfpa-1971-guia-completa" },
+  { label: "Mantenimiento SCBA", href: "/blog/mantenimiento-scba" },
+  { label: "Rescate Vehicular", href: "/blog/rescate-vehicular-tecnicas" },
+  { label: "EPP para Brigadas", href: "/blog/brigadas-industriales-epp" },
+];
+
+const productosRelacionados = [
+  { label: "Trajes Estructurales", href: "/productos/trajes-para-bomberos" },
+  { label: "Cascos NFPA", href: "/productos/cascos-para-bomberos" },
+  { label: "Equipos SCBA", href: "/productos/scba" },
+  { label: "Guantes Estructurales", href: "/productos/guantes-para-bomberos" },
+];
+
+const directorioLinks = [
+  { label: "Ciudad de México", href: "/directorio/ciudad-de-mexico" },
+  { label: "Jalisco", href: "/directorio/jalisco" },
+  { label: "Nuevo León", href: "/directorio/nuevo-leon" },
+];
+
+/* ── Artículos relacionados (excluyendo el actual) ── */
+const otrosArticulos = getAllArticulos()
+  .filter((a) => a.slug !== slug)
+  .slice(0, 3)
+  .map((a) => ({
+    title: a.titulo,
+    excerpt: a.excerpt,
+    href: `/blog/${a.slug}`,
+    image: a.imagen,
+    categoria: a.categoria,
+  }));
+---
+
+<BlogLayout
+  title={`${articulo.titulo} | Blog BOMBERO.MX`}
+  description={articulo.excerpt}
+  keywords={articulo.tags}
+  canonical={`/blog/${slug}`}
+  image={articulo.imagen}
+  breadcrumb={breadcrumb}
+  heroBadge={`Blog · ${articulo.categoria}`}
+  heroTitle={articulo.titulo}
+  heroExcerpt={articulo.excerpt}
+  heroImage={articulo.imagen}
+  autor={articulo.autor}
+  autorRol={articulo.autorRol}
+  tags={articulo.tags}
+  categorias={categorias}
+  articulosPopulares={articulosPopulares}
+  productosRelacionados={productosRelacionados}
+  directorioLinks={directorioLinks}
+  relacionados={otrosArticulos}
+>
+  <Fragment set:html={articulo.contenido} />
+</BlogLayout>

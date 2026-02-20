@@ -35,9 +35,11 @@ export const estacionesMichoacan: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Morelia",
+    nombreCorto: 'Est. Central Morelia',
     slug: "estacion-central-morelia",
     direccion: "Av. Acueducto 1860, Col. Chapultepec Norte",
     ciudad: "Morelia",
+    municipio: 'Morelia',
     estado: "Michoacán",
     cp: "58260",
     telefono: "(443) 312-3232",
@@ -63,9 +65,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Morelia Norte",
+    nombreCorto: 'Est. Morelia Norte',
     slug: "estacion-bomberos-morelia-norte",
     direccion: "Av. Periodismo 2500, Col. Primo Tapia",
     ciudad: "Morelia",
+    municipio: 'Morelia',
     estado: "Michoacán",
     cp: "58197",
     telefono: "(443) 324-5656",
@@ -83,9 +87,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Morelia Sur - Tres Marías",
+    nombreCorto: 'Est. Morelia Sur - Tres Marías',
     slug: "estacion-bomberos-morelia-sur",
     direccion: "Libramiento Sur Km 8, Col. Tres Marías",
     ciudad: "Morelia",
+    municipio: 'Morelia',
     estado: "Michoacán",
     cp: "58254",
     telefono: "(443) 327-8080",
@@ -103,9 +109,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Tarímbaro",
+    nombreCorto: 'Est. Tarímbaro',
     slug: "estacion-bomberos-tarimbaro",
     direccion: "Av. Principal 150, Centro Tarímbaro",
     ciudad: "Tarímbaro",
+    municipio: 'Tarímbaro',
     estado: "Michoacán",
     cp: "58880",
     telefono: "(443) 275-0505",
@@ -128,9 +136,11 @@ export const estacionesMichoacan: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Pátzcuaro",
+    nombreCorto: 'Est. Pátzcuaro',
     slug: "estacion-bomberos-patzcuaro",
     direccion: "Calle Libertad 45, Centro Pátzcuaro",
     ciudad: "Pátzcuaro",
+    municipio: 'Pátzcuaro',
     estado: "Michoacán",
     cp: "61600",
     telefono: "(434) 342-1111",
@@ -152,9 +162,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Quiroga",
+    nombreCorto: 'Est. Quiroga',
     slug: "estacion-bomberos-quiroga",
     direccion: "Calle Vasco de Quiroga 88, Centro",
     ciudad: "Quiroga",
+    municipio: 'Quiroga',
     estado: "Michoacán",
     cp: "61440",
     telefono: "(434) 154-2020",
@@ -177,9 +189,11 @@ export const estacionesMichoacan: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Uruapan",
+    nombreCorto: 'Est. Central Uruapan',
     slug: "estacion-central-uruapan",
     direccion: "Av. Latinoamericana 500, Col. Ramón Farías",
     ciudad: "Uruapan",
+    municipio: 'Uruapan',
     estado: "Michoacán",
     cp: "60050",
     telefono: "(452) 524-5252",
@@ -202,9 +216,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Paracho",
+    nombreCorto: 'Est. Paracho',
     slug: "estacion-bomberos-paracho",
     direccion: "Calle Morelos 55, Centro Paracho",
     ciudad: "Paracho de Verduzco",
+    municipio: 'Paracho de Verduzco',
     estado: "Michoacán",
     cp: "60250",
     telefono: "(423) 525-1515",
@@ -223,9 +239,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Tancítaro",
+    nombreCorto: 'Est. Tancítaro',
     slug: "estacion-bomberos-tancitaro",
     direccion: "Av. Constitución 100, Centro Tancítaro",
     ciudad: "Tancítaro",
+    municipio: 'Tancítaro',
     estado: "Michoacán",
     cp: "60470",
     telefono: "(452) 597-0505",
@@ -248,9 +266,11 @@ export const estacionesMichoacan: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Lázaro Cárdenas",
+    nombreCorto: 'Est. Central Lázaro Cárdenas',
     slug: "estacion-central-lazaro-cardenas",
     direccion: "Av. Lázaro Cárdenas 1500, Col. Centro",
     ciudad: "Lázaro Cárdenas",
+    municipio: 'Lázaro Cárdenas',
     estado: "Michoacán",
     cp: "60950",
     telefono: "(753) 532-1234",
@@ -275,9 +295,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Zona Industrial Las Truchas",
+    nombreCorto: 'Est. Zona Industrial Las Tr...',
     slug: "estacion-bomberos-las-truchas",
     direccion: "Corredor Industrial Las Truchas Km 5",
     ciudad: "Lázaro Cárdenas",
+    municipio: 'Lázaro Cárdenas',
     estado: "Michoacán",
     cp: "60980",
     telefono: "(753) 533-4545",
@@ -295,9 +317,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Playa Azul",
+    nombreCorto: 'Est. Playa Azul',
     slug: "estacion-bomberos-playa-azul",
     direccion: "Av. Costera s/n, Playa Azul",
     ciudad: "Playa Azul",
+    municipio: 'Playa Azul',
     estado: "Michoacán",
     cp: "60982",
     telefono: "(753) 536-2020",
@@ -315,9 +339,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Caleta de Campos",
+    nombreCorto: 'Est. Caleta de Campos',
     slug: "estacion-bomberos-caleta-campos",
     direccion: "Calle Principal s/n, Caleta de Campos",
     ciudad: "Caleta de Campos",
+    municipio: 'Caleta de Campos',
     estado: "Michoacán",
     cp: "60930",
     telefono: "(753) 531-0808",
@@ -340,9 +366,11 @@ export const estacionesMichoacan: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Apatzingán",
+    nombreCorto: 'Est. Central Apatzingán',
     slug: "estacion-central-apatzingan",
     direccion: "Av. Constitución 800, Col. Centro",
     ciudad: "Apatzingán",
+    municipio: 'Apatzingán',
     estado: "Michoacán",
     cp: "60600",
     telefono: "(453) 534-2424",
@@ -364,9 +392,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Huetamo",
+    nombreCorto: 'Est. Huetamo',
     slug: "estacion-bomberos-huetamo",
     direccion: "Calle Madero 200, Centro Huetamo",
     ciudad: "Huetamo",
+    municipio: 'Huetamo',
     estado: "Michoacán",
     cp: "61940",
     telefono: "(435) 552-0505",
@@ -389,9 +419,11 @@ export const estacionesMichoacan: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Zamora",
+    nombreCorto: 'Est. Central Zamora',
     slug: "estacion-central-zamora",
     direccion: "Av. Juárez Sur 500, Col. Centro",
     ciudad: "Zamora de Hidalgo",
+    municipio: 'Zamora de Hidalgo',
     estado: "Michoacán",
     cp: "59600",
     telefono: "(351) 512-1212",
@@ -413,9 +445,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Jiquilpan",
+    nombreCorto: 'Est. Jiquilpan',
     slug: "estacion-bomberos-jiquilpan",
     direccion: "Calle Lázaro Cárdenas 80, Centro",
     ciudad: "Jiquilpan de Juárez",
+    municipio: 'Jiquilpan de Juárez',
     estado: "Michoacán",
     cp: "59510",
     telefono: "(353) 533-0606",
@@ -434,9 +468,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Sahuayo",
+    nombreCorto: 'Est. Sahuayo',
     slug: "estacion-bomberos-sahuayo",
     direccion: "Av. Constitución 350, Centro",
     ciudad: "Sahuayo de Morelos",
+    municipio: 'Sahuayo de Morelos',
     estado: "Michoacán",
     cp: "59050",
     telefono: "(353) 532-1515",
@@ -460,9 +496,11 @@ export const estacionesMichoacan: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Zitácuaro",
+    nombreCorto: 'Est. Central Zitácuaro',
     slug: "estacion-central-zitacuaro",
     direccion: "Av. Revolución Sur 400, Col. Centro",
     ciudad: "Zitácuaro",
+    municipio: 'Zitácuaro',
     estado: "Michoacán",
     cp: "61500",
     telefono: "(715) 153-2525",
@@ -486,9 +524,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Angangueo",
+    nombreCorto: 'Est. Angangueo',
     slug: "estacion-bomberos-angangueo",
     direccion: "Calle Nacional 50, Centro Angangueo",
     ciudad: "Angangueo",
+    municipio: 'Angangueo',
     estado: "Michoacán",
     cp: "61410",
     telefono: "(715) 156-0404",
@@ -511,9 +551,11 @@ export const estacionesMichoacan: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos La Piedad",
+    nombreCorto: 'Est. La Piedad',
     slug: "estacion-bomberos-la-piedad",
     direccion: "Av. Lázaro Cárdenas 600, Col. Centro",
     ciudad: "La Piedad de Cabadas",
+    municipio: 'La Piedad de Cabadas',
     estado: "Michoacán",
     cp: "59300",
     telefono: "(352) 522-1818",
@@ -532,9 +574,11 @@ export const estacionesMichoacan: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Hidalgo",
+    nombreCorto: 'Est. Hidalgo',
     slug: "estacion-bomberos-hidalgo-michoacan",
     direccion: "Calle Juárez 120, Centro Ciudad Hidalgo",
     ciudad: "Ciudad Hidalgo",
+    municipio: 'Ciudad Hidalgo',
     estado: "Michoacán",
     cp: "61100",
     telefono: "(786) 154-2727",

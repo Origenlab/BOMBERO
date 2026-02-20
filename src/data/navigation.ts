@@ -82,6 +82,7 @@ export const mainNav: NavItem[] = [
     ],
   },
   { label: "Directorio", href: "/directorio" },
+  { label: "Blog",       href: "/blog" },
   { label: "Servicios",  href: "/servicios" },
   { label: "Nosotros",   href: "/nosotros" },
   { label: "Contacto",   href: "/contacto" },
@@ -191,6 +192,14 @@ export const footerNav: Record<string, NavItem[]> = {
     { label: "Jalisco",               href: "/directorio/jalisco" },
     { label: "Nuevo León",            href: "/directorio/nuevo-leon" },
     { label: "Estado de México",      href: "/directorio/estado-de-mexico" },
+  ],
+  blog: [
+    { label: "Todos los Artículos",    href: "/blog" },
+    { label: "Guía NFPA 1971",         href: "/blog/nfpa-1971-guia-completa" },
+    { label: "Mantenimiento SCBA",     href: "/blog/mantenimiento-scba" },
+    { label: "Rescate Vehicular",      href: "/blog/rescate-vehicular-tecnicas" },
+    { label: "Brigadas Industriales",  href: "/blog/brigadas-industriales-epp" },
+    { label: "Incendios Forestales",   href: "/blog/incendios-forestales-mexico" },
   ],
   empresa: [
     { label: "Nosotros",    href: "/nosotros" },

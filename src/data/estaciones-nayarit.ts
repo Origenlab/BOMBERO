@@ -53,9 +53,11 @@ export const estacionesNayarit: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Tepic",
+    nombreCorto: 'Est. Central Tepic',
     slug: "estacion-central-tepic",
     direccion: "Av. México Norte 500, Col. Centro",
     ciudad: "Tepic",
+    municipio: 'Tepic',
     estado: "Nayarit",
     cp: "63000",
     telefono: "(311) 213-2232",
@@ -87,9 +89,11 @@ export const estacionesNayarit: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Tepic Norte - Versalles",
+    nombreCorto: 'Est. Tepic Norte - Versalles',
     slug: "estacion-bomberos-tepic-norte",
     direccion: "Blvd. Luis Donaldo Colosio 2500, Fracc. Versalles",
     ciudad: "Tepic",
+    municipio: 'Tepic',
     estado: "Nayarit",
     cp: "63130",
     telefono: "(311) 129-5050",
@@ -109,9 +113,11 @@ export const estacionesNayarit: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Tepic Sur - IMSS",
+    nombreCorto: 'Est. Tepic Sur - IMSS',
     slug: "estacion-bomberos-tepic-sur",
     direccion: "Av. Insurgentes 1200, Col. Mololoa",
     ciudad: "Tepic",
+    municipio: 'Tepic',
     estado: "Nayarit",
     cp: "63050",
     telefono: "(311) 217-3030",
@@ -131,9 +137,11 @@ export const estacionesNayarit: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Xalisco",
+    nombreCorto: 'Est. Xalisco',
     slug: "estacion-bomberos-xalisco",
     direccion: "Calle Hidalgo 100, Centro Xalisco",
     ciudad: "Xalisco",
+    municipio: 'Xalisco',
     estado: "Nayarit",
     cp: "63780",
     telefono: "(311) 212-4545",
@@ -160,9 +168,11 @@ export const estacionesNayarit: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Bahía de Banderas",
+    nombreCorto: 'Est. Central Bahía de Banderas',
     slug: "estacion-central-bahia-banderas",
     direccion: "Av. Emiliano Zapata 150, Centro Mezcales",
     ciudad: "Bahía de Banderas",
+    municipio: 'Bahía de Banderas',
     estado: "Nayarit",
     cp: "63735",
     telefono: "(329) 291-6060",
@@ -194,9 +204,11 @@ export const estacionesNayarit: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Punta de Mita",
+    nombreCorto: 'Est. Punta de Mita',
     slug: "estacion-bomberos-punta-mita",
     direccion: "Carretera Punta de Mita Km 12, Corral del Risco",
     ciudad: "Bahía de Banderas",
+    municipio: 'Bahía de Banderas',
     estado: "Nayarit",
     cp: "63734",
     telefono: "(329) 291-5500",
@@ -222,9 +234,11 @@ export const estacionesNayarit: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Aeropuerto Internacional Vallarta",
+    nombreCorto: 'Est. Aeropuerto Internacion...',
     slug: "estacion-bomberos-aeropuerto-vallarta",
     direccion: "Aeropuerto Internacional Licenciado Gustavo Díaz Ordaz",
     ciudad: "Bahía de Banderas",
+    municipio: 'Bahía de Banderas',
     estado: "Nayarit",
     cp: "63732",
     telefono: "(322) 221-1298",
@@ -256,9 +270,11 @@ export const estacionesNayarit: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Sayulita",
+    nombreCorto: 'Est. Sayulita',
     slug: "estacion-bomberos-sayulita",
     direccion: "Calle Revolución 50, Centro Sayulita",
     ciudad: "Bahía de Banderas",
+    municipio: 'Bahía de Banderas',
     estado: "Nayarit",
     cp: "63728",
     telefono: "(329) 291-3636",
@@ -284,9 +300,11 @@ export const estacionesNayarit: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Rincón de Guayabitos",
+    nombreCorto: 'Est. Rincón de Guayabitos',
     slug: "estacion-bomberos-guayabitos",
     direccion: "Av. Sol Nuevo 200, Rincón de Guayabitos",
     ciudad: "Compostela",
+    municipio: 'Compostela',
     estado: "Nayarit",
     cp: "63727",
     telefono: "(327) 274-0404",
@@ -314,9 +332,11 @@ export const estacionesNayarit: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos San Blas",
+    nombreCorto: 'Est. San Blas',
     slug: "estacion-bomberos-san-blas",
     direccion: "Calle Juárez 80, Centro San Blas",
     ciudad: "San Blas",
+    municipio: 'San Blas',
     estado: "Nayarit",
     cp: "63740",
     telefono: "(323) 285-0505",
@@ -351,9 +371,11 @@ export const estacionesNayarit: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Santiago Ixcuintla",
+    nombreCorto: 'Est. Santiago Ixcuintla',
     slug: "estacion-bomberos-santiago-ixcuintla",
     direccion: "Calle Constitución 150, Centro Santiago Ixcuintla",
     ciudad: "Santiago Ixcuintla",
+    municipio: 'Santiago Ixcuintla',
     estado: "Nayarit",
     cp: "63500",
     telefono: "(323) 235-1818",
@@ -377,9 +399,11 @@ export const estacionesNayarit: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Tuxpan",
+    nombreCorto: 'Est. Tuxpan',
     slug: "estacion-bomberos-tuxpan",
     direccion: "Calle Morelos 50, Centro Tuxpan",
     ciudad: "Tuxpan",
+    municipio: 'Tuxpan',
     estado: "Nayarit",
     cp: "63600",
     telefono: "(319) 232-2727",
@@ -405,9 +429,11 @@ export const estacionesNayarit: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Compostela",
+    nombreCorto: 'Est. Compostela',
     slug: "estacion-bomberos-compostela",
     direccion: "Calle Hidalgo 200, Centro Compostela",
     ciudad: "Compostela",
+    municipio: 'Compostela',
     estado: "Nayarit",
     cp: "63700",
     telefono: "(311) 215-4141",
@@ -430,9 +456,11 @@ export const estacionesNayarit: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Ixtlán del Río",
+    nombreCorto: 'Est. Ixtlán del Río',
     slug: "estacion-bomberos-ixtlan-rio",
     direccion: "Calle Juárez 75, Centro Ixtlán del Río",
     ciudad: "Ixtlán del Río",
+    municipio: 'Ixtlán del Río',
     estado: "Nayarit",
     cp: "63940",
     telefono: "(324) 243-0808",
@@ -457,9 +485,11 @@ export const estacionesNayarit: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Las Varas",
+    nombreCorto: 'Est. Las Varas',
     slug: "estacion-bomberos-las-varas",
     direccion: "Carretera 200 Km 45, Las Varas",
     ciudad: "Compostela",
+    municipio: 'Compostela',
     estado: "Nayarit",
     cp: "63715",
     telefono: "(327) 270-2020",

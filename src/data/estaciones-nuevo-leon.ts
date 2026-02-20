@@ -61,9 +61,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Monterrey",
+    nombreCorto: 'Est. Central Monterrey',
     slug: "estacion-central-monterrey",
     direccion: "Av. Ignacio Zaragoza 1000 Sur, Centro",
     ciudad: "Monterrey",
+    municipio: 'Monterrey',
     estado: "Nuevo León",
     cp: "64000",
     telefono: "(81) 8345-2424",
@@ -97,9 +99,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Monterrey Norte - Mitras",
+    nombreCorto: 'Est. Monterrey Norte - Mitras',
     slug: "estacion-bomberos-monterrey-norte",
     direccion: "Av. Ruiz Cortines 2500, Mitras Norte",
     ciudad: "Monterrey",
+    municipio: 'Monterrey',
     estado: "Nuevo León",
     cp: "64320",
     telefono: "(81) 8348-5050",
@@ -119,9 +123,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Monterrey Sur - Contry",
+    nombreCorto: 'Est. Monterrey Sur - Contry',
     slug: "estacion-bomberos-monterrey-sur",
     direccion: "Av. Lázaro Cárdenas 3000, Contry",
     ciudad: "Monterrey",
+    municipio: 'Monterrey',
     estado: "Nuevo León",
     cp: "64860",
     telefono: "(81) 8357-3030",
@@ -147,9 +153,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos HAZMAT Industrial Norte",
+    nombreCorto: 'Est. HAZMAT Industrial Norte',
     slug: "estacion-bomberos-hazmat-norte",
     direccion: "Blvd. Fundidora 1500, Parque Industrial Norte",
     ciudad: "Monterrey",
+    municipio: 'Monterrey',
     estado: "Nuevo León",
     cp: "64010",
     telefono: "(81) 8350-6060",
@@ -180,9 +188,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Apodaca Industrial",
+    nombreCorto: 'Est. Apodaca Industrial',
     slug: "estacion-bomberos-apodaca-industrial",
     direccion: "Blvd. Industrial 800, Parque Industrial Apodaca",
     ciudad: "Apodaca",
+    municipio: 'Apodaca',
     estado: "Nuevo León",
     cp: "66600",
     telefono: "(81) 8386-4040",
@@ -214,9 +224,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos HAZMAT Industrial Sur",
+    nombreCorto: 'Est. HAZMAT Industrial Sur',
     slug: "estacion-bomberos-hazmat-sur",
     direccion: "Carretera Nacional Km 265, Santa Catarina Industrial",
     ciudad: "Santa Catarina",
+    municipio: 'Santa Catarina',
     estado: "Nuevo León",
     cp: "66350",
     telefono: "(81) 8336-7070",
@@ -247,9 +259,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos García Industrial",
+    nombreCorto: 'Est. García Industrial',
     slug: "estacion-bomberos-garcia-industrial",
     direccion: "Blvd. Interindustrial 500, Parque Industrial García",
     ciudad: "García",
+    municipio: 'García',
     estado: "Nuevo León",
     cp: "66000",
     telefono: "(81) 8287-5050",
@@ -276,9 +290,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos San Pedro Garza García",
+    nombreCorto: 'Est. San Pedro Garza García',
     slug: "estacion-bomberos-san-pedro",
     direccion: "Av. Vasconcelos 1000, Valle Oriente",
     ciudad: "San Pedro Garza García",
+    municipio: 'San Pedro Garza García',
     estado: "Nuevo León",
     cp: "66260",
     telefono: "(81) 8378-8080",
@@ -308,9 +324,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Santa Catarina",
+    nombreCorto: 'Est. Santa Catarina',
     slug: "estacion-bomberos-santa-catarina",
     direccion: "Blvd. Gustavo Díaz Ordaz 100, Centro Santa Catarina",
     ciudad: "Santa Catarina",
+    municipio: 'Santa Catarina',
     estado: "Nuevo León",
     cp: "66100",
     telefono: "(81) 8336-2020",
@@ -336,9 +354,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación Central de Bomberos Guadalupe",
+    nombreCorto: 'Est. Central Guadalupe',
     slug: "estacion-central-guadalupe",
     direccion: "Av. Pablo Livas 500, Centro Guadalupe",
     ciudad: "Guadalupe",
+    municipio: 'Guadalupe',
     estado: "Nuevo León",
     cp: "67100",
     telefono: "(81) 8367-9090",
@@ -367,9 +387,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Juárez",
+    nombreCorto: 'Est. Juárez',
     slug: "estacion-bomberos-juarez",
     direccion: "Av. Juárez 800, Centro Juárez",
     ciudad: "Juárez",
+    municipio: 'Juárez',
     estado: "Nuevo León",
     cp: "67250",
     telefono: "(81) 8379-4040",
@@ -389,9 +411,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Escobedo",
+    nombreCorto: 'Est. Escobedo',
     slug: "estacion-bomberos-escobedo",
     direccion: "Av. Raúl Salinas 300, Centro Escobedo",
     ciudad: "General Escobedo",
+    municipio: 'General Escobedo',
     estado: "Nuevo León",
     cp: "66050",
     telefono: "(81) 8384-6060",
@@ -417,9 +441,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Carretera Colombia",
+    nombreCorto: 'Est. Carretera Colombia',
     slug: "estacion-bomberos-carretera-colombia",
     direccion: "Carretera a Colombia Km 25, General Zuazua",
     ciudad: "General Zuazua",
+    municipio: 'General Zuazua',
     estado: "Nuevo León",
     cp: "65760",
     telefono: "(81) 8229-3030",
@@ -442,9 +468,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Salinas Victoria",
+    nombreCorto: 'Est. Salinas Victoria',
     slug: "estacion-bomberos-salinas-victoria",
     direccion: "Carretera a Laredo Km 40, Salinas Victoria",
     ciudad: "Salinas Victoria",
+    municipio: 'Salinas Victoria',
     estado: "Nuevo León",
     cp: "65500",
     telefono: "(81) 8396-2020",
@@ -469,9 +497,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Santiago - Sierra Madre",
+    nombreCorto: 'Est. Santiago - Sierra Madre',
     slug: "estacion-bomberos-santiago-sierra",
     direccion: "Hidalgo 200, Centro Santiago",
     ciudad: "Santiago",
+    municipio: 'Santiago',
     estado: "Nuevo León",
     cp: "67300",
     telefono: "(81) 8285-1414",
@@ -501,9 +531,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Allende",
+    nombreCorto: 'Est. Allende',
     slug: "estacion-bomberos-allende",
     direccion: "Juárez 150, Centro Allende",
     ciudad: "Allende",
+    municipio: 'Allende',
     estado: "Nuevo León",
     cp: "67350",
     telefono: "(81) 8286-0505",
@@ -528,9 +560,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
   {
     nombre: "Estación de Bomberos Montemorelos",
+    nombreCorto: 'Est. Montemorelos',
     slug: "estacion-bomberos-montemorelos",
     direccion: "Av. Universidad 300, Centro Montemorelos",
     ciudad: "Montemorelos",
+    municipio: 'Montemorelos',
     estado: "Nuevo León",
     cp: "67500",
     telefono: "(826) 263-2020",
@@ -553,9 +587,11 @@ export const estacionesNuevoLeon: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Linares",
+    nombreCorto: 'Est. Linares',
     slug: "estacion-bomberos-linares",
     direccion: "Morelos 400, Centro Linares",
     ciudad: "Linares",
+    municipio: 'Linares',
     estado: "Nuevo León",
     cp: "67700",
     telefono: "(821) 212-3030",

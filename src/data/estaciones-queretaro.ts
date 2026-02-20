@@ -467,6 +467,7 @@ export const estacionesQueretaro: Estacion[] = [
   // ═══ CENTRO HISTÓRICO Y ZONA METROPOLITANA ═══
   {
     nombre: "Estación Central Querétaro",
+    nombreCorto: 'Est. Central Querétaro',
     slug: "estacion-central-queretaro",
     direccion: "Av. Constituyentes Ote. 75, Centro Histórico, Santiago de Querétaro, Qro.",
     coordenadas: { lat: 20.5881, lng: -100.3899 },
@@ -496,6 +497,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 95,
     copiasActa: true,
     zona: "Centro Histórico",
+    ciudad: 'Santiago de Querétaro Centro',
+
+    municipio: 'Santiago de Querétaro Centro',
+
     municipiosCubiertos: ["Santiago de Querétaro Centro", "Barrios históricos", "Zona de monumentos"],
     descripcion: "Estación central y coordinadora del H. Cuerpo de Bomberos de Querétaro. Cobertura del Centro Histórico declarado Patrimonio de la Humanidad UNESCO en 1996, incluyendo el icónico Acueducto de 74 arcos, templos barrocos y edificios coloniales. Centro de despacho y coordinación estatal.",
     tiempoRespuesta: "4-6 minutos zona centro",
@@ -505,6 +510,7 @@ export const estacionesQueretaro: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Querétaro Norte",
+    nombreCorto: 'Est. Querétaro Norte',
     slug: "estacion-bomberos-queretaro-norte",
     direccion: "Blvd. Bernardo Quintana 500, Col. Desarrollo San Pablo, Querétaro, Qro.",
     coordenadas: { lat: 20.6234, lng: -100.4012 },
@@ -526,6 +532,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 28,
     copiasActa: true,
     zona: "Centro Histórico",
+    ciudad: 'Querétaro Norte',
+
+    municipio: 'Querétaro Norte',
+
     municipiosCubiertos: ["Querétaro Norte", "San Pablo", "Cimatario", "Zona comercial norte"],
     descripcion: "Cobertura de la zona norte de la ciudad, incluyendo desarrollos residenciales de alta densidad, plazas comerciales (Antea, Paseo Querétaro) y acceso a la autopista México-Querétaro.",
     tiempoRespuesta: "5-8 minutos",
@@ -533,6 +543,7 @@ export const estacionesQueretaro: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Querétaro Sur",
+    nombreCorto: 'Est. Querétaro Sur',
     slug: "estacion-bomberos-queretaro-sur",
     direccion: "Av. 5 de Febrero 1200, Col. Las Américas, Querétaro, Qro.",
     coordenadas: { lat: 20.5567, lng: -100.4234 },
@@ -554,6 +565,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 22,
     copiasActa: true,
     zona: "Centro Histórico",
+    ciudad: 'Querétaro Sur',
+
+    municipio: 'Querétaro Sur',
+
     municipiosCubiertos: ["Querétaro Sur", "Las Américas", "Plaza del Sol"],
     descripcion: "Cobertura de la zona sur de la capital, incluyendo zona comercial de 5 de Febrero, acceso a carretera a San Juan del Río y apoyo a zona industrial básica.",
     tiempoRespuesta: "5-10 minutos",
@@ -563,6 +578,7 @@ export const estacionesQueretaro: Estacion[] = [
   // ═══ ZONA INDUSTRIAL NORTE - AEROESPACIAL ═══
   {
     nombre: "Estación de Bomberos HAZMAT El Marqués",
+    nombreCorto: 'Est. HAZMAT El Marqués',
     slug: "estacion-bomberos-hazmat-marques",
     direccion: "Av. Epigmenio González km 8.5, Parque Industrial El Marqués, El Marqués, Qro.",
     coordenadas: { lat: 20.6456, lng: -100.3234 },
@@ -593,6 +609,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 55,
     copiasActa: false,
     zona: "Zona Industrial Norte",
+    ciudad: 'El Marqués',
+
+    municipio: 'El Marqués',
+
     municipiosCubiertos: ["El Marqués", "Parque Industrial El Marqués", "Parque Aeroespacial", "FINSA"],
     descripcion: "Estación especializada HAZMAT para el clúster aeroespacial más importante de México. Cobertura de Bombardier, Safran, ITP Aero y 200+ empresas aeroespaciales. Capacidad Nivel A para materiales compuestos, resinas epóxicas, combustibles de aviación y químicos especializados de la industria aeronáutica.",
     tiempoRespuesta: "3-5 minutos zona industrial",
@@ -600,6 +620,7 @@ export const estacionesQueretaro: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Parque Aeroespacial",
+    nombreCorto: 'Est. Parque Aeroespacial',
     slug: "estacion-bomberos-parque-aeroespacial",
     direccion: "Carretera Estatal 200 km 2, Parque Aeroespacial Querétaro, Colón, Qro.",
     coordenadas: { lat: 20.6789, lng: -100.2987 },
@@ -625,6 +646,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 35,
     copiasActa: false,
     zona: "Zona Industrial Norte",
+    ciudad: 'Parque Aeroespacial Querétaro',
+
+    municipio: 'Parque Aeroespacial Querétaro',
+
     municipiosCubiertos: ["Parque Aeroespacial Querétaro", "Zona MRO", "Colón Industrial"],
     descripcion: "Estación dedicada al Parque Aeroespacial Querétaro, concentración de empresas de manufactura y MRO (Mantenimiento, Reparación y Overhaul) aeronáutico. Especializada en emergencias con materiales compuestos (fibra de carbono, Kevlar), resinas y combustibles de aviación.",
     tiempoRespuesta: "2-4 minutos parque aeroespacial",
@@ -634,6 +659,7 @@ export const estacionesQueretaro: Estacion[] = [
   // ═══ CORREGIDORA Y JURIQUILLA ═══
   {
     nombre: "Estación de Bomberos Corregidora",
+    nombreCorto: 'Est. Corregidora',
     slug: "estacion-bomberos-corregidora",
     direccion: "Av. Constitución 500, El Pueblito, Corregidora, Qro.",
     coordenadas: { lat: 20.5234, lng: -100.4567 },
@@ -656,6 +682,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 25,
     copiasActa: true,
     zona: "Corregidora y Juriquilla",
+    ciudad: 'Corregidora',
+
+    municipio: 'Corregidora',
+
     municipiosCubiertos: ["Corregidora", "El Pueblito", "Candiles", "Real de Juriquilla Sur"],
     descripcion: "Cobertura del municipio de Corregidora, zona residencial de alto crecimiento. Atención de fraccionamientos residenciales, plazas comerciales y zona histórica de El Pueblito.",
     tiempoRespuesta: "5-10 minutos",
@@ -663,6 +693,7 @@ export const estacionesQueretaro: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Juriquilla",
+    nombreCorto: 'Est. Juriquilla',
     slug: "estacion-bomberos-juriquilla",
     direccion: "Blvd. Juriquilla 1000, Juriquilla, Querétaro, Qro.",
     coordenadas: { lat: 20.7012, lng: -100.4478 },
@@ -685,6 +716,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 22,
     copiasActa: true,
     zona: "Corregidora y Juriquilla",
+    ciudad: 'Juriquilla',
+
+    municipio: 'Juriquilla',
+
     municipiosCubiertos: ["Juriquilla", "Campus UNAM", "Parque Tecnológico", "Santa Fe Juriquilla"],
     descripcion: "Cobertura de Juriquilla, zona tecnológica y universitaria de Querétaro. Atención de emergencias en Campus UNAM, CIATEQ, CIDESI, empresas de tecnología y fraccionamientos residenciales AAA.",
     tiempoRespuesta: "5-8 minutos",
@@ -694,6 +729,7 @@ export const estacionesQueretaro: Estacion[] = [
   // ═══ ZONA INDUSTRIAL SUR - SAN JUAN DEL RÍO ═══
   {
     nombre: "Estación Central San Juan del Río",
+    nombreCorto: 'Est. Central San Juan del Río',
     slug: "estacion-central-san-juan-rio",
     direccion: "Av. Juárez Poniente 100, Centro, San Juan del Río, Qro.",
     coordenadas: { lat: 20.3867, lng: -99.9956 },
@@ -717,6 +753,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Zona Industrial Sur",
+    ciudad: 'San Juan del Río Centro',
+
+    municipio: 'San Juan del Río Centro',
+
     municipiosCubiertos: ["San Juan del Río Centro", "Zona Industrial SJR", "Autopista 57D tramo sur"],
     descripcion: "Estación principal de San Juan del Río, segunda ciudad del estado. Cobertura de la zona industrial (Mabe, Kellogg's, Tremec), centro histórico y tramo sur de la autopista México-Querétaro. Segunda estación con mayor capacidad del estado.",
     tiempoRespuesta: "5-8 minutos",
@@ -724,6 +764,7 @@ export const estacionesQueretaro: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Pedro Escobedo",
+    nombreCorto: 'Est. Pedro Escobedo',
     slug: "estacion-bomberos-pedro-escobedo",
     direccion: "Calle Hidalgo 50, Centro, Pedro Escobedo, Qro.",
     coordenadas: { lat: 20.4956, lng: -100.1434 },
@@ -745,6 +786,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Zona Industrial Sur",
+    ciudad: 'Pedro Escobedo',
+
+    municipio: 'Pedro Escobedo',
+
     municipiosCubiertos: ["Pedro Escobedo", "La D", "Zona agrícola"],
     descripcion: "Cobertura de Pedro Escobedo, zona agrícola e industrial. Apoyo a la zona industrial sur y atención de emergencias en la carretera 45D Querétaro-Celaya.",
     tiempoRespuesta: "8-12 minutos",
@@ -754,6 +799,7 @@ export const estacionesQueretaro: Estacion[] = [
   // ═══ RUTA DEL VINO Y QUESO ═══
   {
     nombre: "Estación de Bomberos Tequisquiapan",
+    nombreCorto: 'Est. Tequisquiapan',
     slug: "estacion-bomberos-tequisquiapan",
     direccion: "Calle Morelos 25, Centro, Tequisquiapan, Qro.",
     coordenadas: { lat: 20.5189, lng: -99.8911 },
@@ -777,6 +823,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 20,
     copiasActa: true,
     zona: "Ruta del Vino y Queso",
+    ciudad: 'Tequisquiapan',
+
+    municipio: 'Tequisquiapan',
+
     municipiosCubiertos: ["Tequisquiapan", "Viñedos zona", "Ruta del Vino"],
     descripcion: "Cobertura del Pueblo Mágico de Tequisquiapan, corazón de la Ruta del Vino y Queso de Querétaro. Atención de emergencias en los 35 viñedos, queserías, eventos masivos (Feria del Queso y Vino, Festival del Globo) y turismo.",
     tiempoRespuesta: "5-10 minutos",
@@ -785,6 +835,7 @@ export const estacionesQueretaro: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Bernal",
+    nombreCorto: 'Est. Bernal',
     slug: "estacion-bomberos-bernal",
     direccion: "Calle Principal s/n, Bernal, Ezequiel Montes, Qro.",
     coordenadas: { lat: 20.7456, lng: -99.9412 },
@@ -809,6 +860,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Ruta del Vino y Queso",
+    ciudad: 'Bernal',
+
+    municipio: 'Bernal',
+
     municipiosCubiertos: ["Bernal", "Ezequiel Montes", "Base Peña de Bernal"],
     descripcion: "Estación especializada en rescate vertical para la Peña de Bernal, el tercer monolito más grande del mundo (350m de altura). Atención de emergencias de escaladores, turistas y eventos del equinoccio de primavera (500,000+ visitantes). Cobertura del Pueblo Mágico más visitado de Querétaro.",
     tiempoRespuesta: "5-15 minutos (incluye acceso a Peña)",
@@ -818,6 +873,7 @@ export const estacionesQueretaro: Estacion[] = [
   // ═══ SIERRA GORDA ═══
   {
     nombre: "Estación de Bomberos Jalpan de Serra",
+    nombreCorto: 'Est. Jalpan de Serra',
     slug: "estacion-bomberos-jalpan-serra",
     direccion: "Calle Fray Junípero Serra 10, Centro, Jalpan de Serra, Qro.",
     coordenadas: { lat: 21.2178, lng: -99.4722 },
@@ -842,6 +898,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 20,
     copiasActa: true,
     zona: "Sierra Gorda",
+    ciudad: 'Jalpan de Serra',
+
+    municipio: 'Jalpan de Serra',
+
     municipiosCubiertos: ["Jalpan de Serra", "Misiones Franciscanas", "Reserva Biósfera Sierra Gorda"],
     descripcion: "Estación especializada en incendios forestales y rescate de montaña para la Reserva de la Biósfera Sierra Gorda (383,567 hectáreas protegidas). Cobertura de las 5 Misiones Franciscanas declaradas Patrimonio UNESCO en 2003 y el Pueblo Mágico de Jalpan.",
     tiempoRespuesta: "10-30 minutos (terreno montañoso)",
@@ -851,6 +911,7 @@ export const estacionesQueretaro: Estacion[] = [
   // ═══ AEROPUERTO ═══
   {
     nombre: "Estación de Bomberos Aeropuerto Querétaro",
+    nombreCorto: 'Est. Aeropuerto Querétaro',
     slug: "estacion-bomberos-aeropuerto-queretaro",
     direccion: "Aeropuerto Internacional de Querétaro, Carretera Estatal 200, Colón, Qro.",
     coordenadas: { lat: 20.6173, lng: -100.1856 },
@@ -876,6 +937,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 32,
     copiasActa: false,
     zona: "Zona Industrial Norte",
+    ciudad: 'Aeropuerto QRO',
+
+    municipio: 'Aeropuerto QRO',
+
     municipiosCubiertos: ["Aeropuerto QRO", "Hangares MRO", "Zona de carga"],
     descripcion: "Servicio de Salvamento y Extinción de Incendios (SSEI) del Aeropuerto Internacional de Querétaro. Categoría 8 OACI con capacidad para aeronaves de fuselaje ancho. Cobertura adicional de hangares MRO de Airbus Helicopters y empresas de mantenimiento aeronáutico.",
     tiempoRespuesta: "3 minutos cualquier punto de pista (estándar OACI)",
@@ -885,6 +950,7 @@ export const estacionesQueretaro: Estacion[] = [
   // ═══ CARRETERO ═══
   {
     nombre: "Estación de Bomberos Carretero 57D",
+    nombreCorto: 'Est. Carretero 57D',
     slug: "estacion-bomberos-carretero-57d",
     direccion: "Autopista 57D km 175, Caseta Palmillas, El Marqués, Qro.",
     coordenadas: { lat: 20.5912, lng: -100.2234 },
@@ -910,6 +976,10 @@ export const estacionesQueretaro: Estacion[] = [
     personal: 25,
     copiasActa: false,
     zona: "Zona Industrial Norte",
+    ciudad: 'Autopista 57D km 150-200',
+
+    municipio: 'Autopista 57D km 150-200',
+
     municipiosCubiertos: ["Autopista 57D km 150-200", "Caseta Palmillas", "Enlace autopistas"],
     descripcion: "Estación dedicada a rescate carretero en la autopista México-Querétaro (57D), la más transitada del país con 100,000+ vehículos diarios. Especializada en accidentes múltiples, volcaduras de tráileres y emergencias con materiales peligrosos en tránsito.",
     tiempoRespuesta: "5-10 minutos tramo asignado",

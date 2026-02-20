@@ -987,6 +987,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 130,
     copiasActa: true,
     zona: "Zona Metropolitana Puerto Veracruz",
+    ciudad: 'Veracruz Centro',
+
+    municipio: 'Veracruz Centro',
+
     municipiosCubiertos: ["Veracruz Centro", "Zona portuaria", "Centro histórico", "San Juan de Ulúa"],
     descripcion: "Estación central y coordinadora del H. Cuerpo de Bomberos de Veracruz. Cobertura del puerto comercial más importante de México (24 millones de toneladas anuales). Coordinación permanente con SEMAR para emergencias marítimas. Centro de mando estatal. Atención de emergencias en buques, muelles y fortaleza de San Juan de Ulúa.",
     tiempoRespuesta: "5-7 minutos zona centro y puerto",
@@ -1019,6 +1023,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 55,
     copiasActa: true,
     zona: "Zona Metropolitana Puerto Veracruz",
+    ciudad: 'Boca del Río',
+
+    municipio: 'Boca del Río',
+
     municipiosCubiertos: ["Boca del Río", "Costa de Oro", "Zona hotelera", "Playas"],
     descripcion: "Cobertura de la zona turística y hotelera de Boca del Río. Rescate acuático especializado en playas de alta afluencia turística. Cobertura de eventos masivos en World Trade Center y zona de espectáculos.",
     tiempoRespuesta: "6-10 minutos",
@@ -1048,6 +1056,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Zona Metropolitana Puerto Veracruz",
+    ciudad: 'Zona Malecón',
+
+    municipio: 'Zona Malecón',
+
     municipiosCubiertos: ["Zona Malecón", "Ruta Carnaval", "Centro histórico"],
     descripcion: "Estación estratégica para cobertura del Carnaval de Veracruz (1.5 millones de asistentes). Especialización en emergencias de eventos masivos, carros alegóricos y pirotecnia. Reforzada al 150% durante temporada de carnaval.",
     tiempoRespuesta: "5-8 minutos",
@@ -1075,6 +1087,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 30,
     copiasActa: true,
     zona: "Zona Metropolitana Puerto Veracruz",
+    ciudad: 'Veracruz Norte',
+
+    municipio: 'Veracruz Norte',
+
     municipiosCubiertos: ["Veracruz Norte", "Floresta", "Las Bajadas", "Zona industrial ligera"],
     descripcion: "Cobertura de la zona norte de Veracruz, incluyendo fraccionamientos populares y zona industrial ligera. Apoyo a estación central para emergencias mayores.",
     tiempoRespuesta: "8-12 minutos",
@@ -1102,6 +1118,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 20,
     copiasActa: true,
     zona: "Zona Metropolitana Puerto Veracruz",
+    ciudad: 'Medellín',
+
+    municipio: 'Medellín',
+
     municipiosCubiertos: ["Medellín", "Alvarado acceso", "Zona rural costera"],
     descripcion: "Cobertura de la zona sur del área metropolitana. Rescate acuático en desembocadura del río Jamapa. Apoyo para zona agrícola y pesquera.",
     tiempoRespuesta: "10-15 minutos",
@@ -1136,6 +1156,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 85,
     copiasActa: true,
     zona: "Zona Metropolitana Xalapa",
+    ciudad: 'Xalapa Centro',
+
+    municipio: 'Xalapa Centro',
+
     municipiosCubiertos: ["Xalapa Centro", "Zona universitaria", "Centros comerciales", "Gobierno estatal"],
     descripcion: "Estación central de la capital del estado. Cobertura del centro histórico, zona universitaria (UV, ITESM), centros comerciales y edificios de gobierno estatal. Coordinación regional para la zona montañosa del centro de Veracruz.",
     tiempoRespuesta: "6-8 minutos zona urbana",
@@ -1164,6 +1188,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 30,
     copiasActa: true,
     zona: "Zona Metropolitana Xalapa",
+    ciudad: 'Xalapa Sur',
+
+    municipio: 'Xalapa Sur',
+
     municipiosCubiertos: ["Xalapa Sur", "Ánimas", "Sumidero", "Zona residencial sur"],
     descripcion: "Cobertura de la zona sur de Xalapa, incluyendo fraccionamientos residenciales y acceso a la autopista Xalapa-Veracruz.",
     tiempoRespuesta: "7-12 minutos",
@@ -1191,6 +1219,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Zona Metropolitana Xalapa",
+    ciudad: 'Coatepec',
+
+    municipio: 'Coatepec',
+
     municipiosCubiertos: ["Coatepec", "Zona cafetalera", "Xico acceso"],
     descripcion: "Cobertura del Pueblo Mágico de Coatepec. Atención de emergencias en zona cafetalera y acceso a Xico. Apoyo de Xalapa para emergencias mayores.",
     tiempoRespuesta: "10-15 minutos",
@@ -1217,6 +1249,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Zona Metropolitana Xalapa",
+    ciudad: 'Banderilla',
+
+    municipio: 'Banderilla',
+
     municipiosCubiertos: ["Banderilla", "Carretera Xalapa-Perote", "Zona norte metro"],
     descripcion: "Cobertura de Banderilla y la carretera hacia Perote. Primera respuesta para accidentes en zona de neblina frecuente.",
     tiempoRespuesta: "10-18 minutos",
@@ -1257,6 +1293,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 120,
     copiasActa: false,
     zona: "Zona Petroquímica Coatzacoalcos",
+    ciudad: 'Complejo Pajaritos',
+
+    municipio: 'Complejo Pajaritos',
+
     municipiosCubiertos: ["Complejo Pajaritos", "Complejo Cangrejera", "Complejo Morelos", "Terminal Marítima", "Puerto Coatzacoalcos"],
     descripcion: "Estación especializada HAZMAT más importante del sureste mexicano. Cobertura de los 3 complejos petroquímicos más grandes de Latinoamérica y puerto petrolero de Coatzacoalcos. Personal certificado API 2021 e ISO 45001. Capacidad de respuesta a nubes tóxicas (cloro, amoniaco, H2S), incendios de hidrocarburos clase B y explosiones petroquímicas. Descontaminación masiva para hasta 100 personas/hora. Coordinación 24/7 con brigadas PEMEX y SEMAR para derrames marítimos.",
     tiempoRespuesta: "5 minutos zona industrial",
@@ -1292,6 +1332,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 85,
     copiasActa: false,
     zona: "Zona Petroquímica Coatzacoalcos",
+    ciudad: 'Refinería Minatitlán',
+
+    municipio: 'Refinería Minatitlán',
+
     municipiosCubiertos: ["Refinería Minatitlán", "Parques tanques", "Zona industrial Minatitlán"],
     descripcion: "Estación especializada para la Refinería Ing. Antonio Dovalí Jaime (150,000 barriles/día). Capacidad de respuesta a incendios de tanques de almacenamiento, fugas de H2S y emergencias de proceso. Coordinación permanente con brigada interna PEMEX. Monitores de espuma para tanques hasta 80,000 barriles.",
     tiempoRespuesta: "5 minutos refinería",
@@ -1320,6 +1364,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 45,
     copiasActa: true,
     zona: "Zona Petroquímica Coatzacoalcos",
+    ciudad: 'Coatzacoalcos Centro',
+
+    municipio: 'Coatzacoalcos Centro',
+
     municipiosCubiertos: ["Coatzacoalcos Centro", "Zona comercial", "Colonias residenciales"],
     descripcion: "Cobertura de la zona urbana de Coatzacoalcos. Atención de emergencias estructurales y residenciales. Apoyo a estación HAZMAT para evacuaciones civiles en caso de emergencia industrial.",
     tiempoRespuesta: "6-10 minutos",
@@ -1347,6 +1395,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 22,
     copiasActa: true,
     zona: "Zona Petroquímica Coatzacoalcos",
+    ciudad: 'Nanchital',
+
+    municipio: 'Nanchital',
+
     municipiosCubiertos: ["Nanchital", "Comunidades petroleras", "Zona sur Coatzacoalcos"],
     descripcion: "Cobertura de Nanchital y comunidades de trabajadores PEMEX. Apoyo a las estaciones HAZMAT principales para emergencias industriales extendidas.",
     tiempoRespuesta: "8-15 minutos",
@@ -1381,6 +1433,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 55,
     copiasActa: true,
     zona: "Zona Petrolera Poza Rica-Papantla",
+    ciudad: 'Poza Rica',
+
+    municipio: 'Poza Rica',
+
     municipiosCubiertos: ["Poza Rica", "Campos petroleros activos", "Tihuatlán", "Coatzintla"],
     descripcion: "Estación HAZMAT para la zona de extracción petrolera Poza Rica-Altamira. Capacidad de respuesta a emergencias de pozos petroleros, incluyendo descontrol (blowout) y fugas de H2S. Coordinación con equipos especializados de control de pozos para emergencias mayores.",
     tiempoRespuesta: "8 minutos zona industrial, 15-30 minutos campos",
@@ -1412,6 +1468,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Zona Petrolera Poza Rica-Papantla",
+    ciudad: 'Papantla Centro',
+
+    municipio: 'Papantla Centro',
+
     municipiosCubiertos: ["Papantla Centro", "El Tajín UNESCO", "Zona vainilla", "Voladores"],
     descripcion: "Cobertura del Pueblo Mágico de Papantla y la zona arqueológica de El Tajín (Patrimonio UNESCO, 800,000 visitantes/año). Protocolo especial de protección de patrimonio con INAH. Cobertura de festivales de Voladores de Papantla.",
     tiempoRespuesta: "8 minutos centro, 15 minutos El Tajín",
@@ -1439,6 +1499,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Zona Petrolera Poza Rica-Papantla",
+    ciudad: 'Poza Rica Centro',
+
+    municipio: 'Poza Rica Centro',
+
     municipiosCubiertos: ["Poza Rica Centro", "Zona comercial", "Colonias residenciales"],
     descripcion: "Cobertura de la zona urbana de Poza Rica. Atención de emergencias estructurales y residenciales. Apoyo a estación HAZMAT para evacuaciones.",
     tiempoRespuesta: "6-10 minutos",
@@ -1471,6 +1535,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 55,
     copiasActa: true,
     zona: "Zona Córdoba-Orizaba",
+    ciudad: 'Córdoba Centro',
+
+    municipio: 'Córdoba Centro',
+
     municipiosCubiertos: ["Córdoba Centro", "Fortín", "Zona cafetalera", "Industrial ligera"],
     descripcion: "Estación central de la zona Córdoba-Orizaba. Cobertura de zona industrial, comercial y cafetalera. Coordinación regional para emergencias en zona montañosa.",
     tiempoRespuesta: "6-10 minutos",
@@ -1500,6 +1568,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 40,
     copiasActa: true,
     zona: "Zona Córdoba-Orizaba",
+    ciudad: 'Orizaba',
+
+    municipio: 'Orizaba',
+
     municipiosCubiertos: ["Orizaba", "Teleférico", "Acceso Pico de Orizaba", "Pueblo Mágico"],
     descripcion: "Cobertura del Pueblo Mágico de Orizaba y acceso al Pico de Orizaba (5,636 msnm, volcán más alto de México). Rescate de montañistas y emergencias del teleférico más largo de México. Equipo para rescate en clima frío y altura.",
     tiempoRespuesta: "8 minutos ciudad, variable montaña",
@@ -1527,6 +1599,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 22,
     copiasActa: true,
     zona: "Zona Córdoba-Orizaba",
+    ciudad: 'Río Blanco',
+
+    municipio: 'Río Blanco',
+
     municipiosCubiertos: ["Río Blanco", "Zona textil", "Nogales acceso"],
     descripcion: "Cobertura de Río Blanco y zona industrial textil histórica. Apoyo a Orizaba para emergencias en zona urbana del valle.",
     tiempoRespuesta: "8-15 minutos",
@@ -1558,6 +1634,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Zona Norte Tuxpan-Pánuco",
+    ciudad: 'Tuxpan Centro',
+
+    municipio: 'Tuxpan Centro',
+
     municipiosCubiertos: ["Tuxpan Centro", "Puerto de Tuxpan", "Río Tuxpan", "Playas norte"],
     descripcion: "Cobertura del puerto de Tuxpan (8 millones toneladas/año) y zona turística del norte. Rescate en río y zona costera. Coordinación con SEMAR para emergencias marítimas.",
     tiempoRespuesta: "8-12 minutos",
@@ -1585,6 +1665,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Zona Norte Tuxpan-Pánuco",
+    ciudad: 'Álamo Temapache',
+
+    municipio: 'Álamo Temapache',
+
     municipiosCubiertos: ["Álamo Temapache", "Zona citrícola", "Comunidades rurales"],
     descripcion: "Cobertura de la zona citrícola del norte de Veracruz. Emergencias agrícolas y comunidades rurales. Apoyo a Tuxpan y Poza Rica.",
     tiempoRespuesta: "10-20 minutos",
@@ -1616,6 +1700,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 30,
     copiasActa: true,
     zona: "Zona Los Tuxtlas",
+    ciudad: 'San Andrés Tuxtla',
+
+    municipio: 'San Andrés Tuxtla',
+
     municipiosCubiertos: ["San Andrés Tuxtla", "Reserva Biosfera", "Zona tabacalera", "Volcán San Martín"],
     descripcion: "Cobertura de la Reserva de la Biosfera Los Tuxtlas (selva tropical húmeda) y zona tabacalera. Incendios forestales en selva y rescate de ecoturistas. Coordinación con CONAFOR.",
     tiempoRespuesta: "10-20 minutos",
@@ -1643,6 +1731,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Zona Los Tuxtlas",
+    ciudad: 'Catemaco',
+
+    municipio: 'Catemaco',
+
     municipiosCubiertos: ["Catemaco", "Lago de Catemaco", "Zona turística mística"],
     descripcion: "Cobertura del Lago de Catemaco y zona turística. Rescate acuático en el lago. Atención de emergencias durante festivales y temporada alta de turismo místico.",
     tiempoRespuesta: "8-15 minutos",
@@ -1675,6 +1767,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 35,
     copiasActa: true,
     zona: "Zona Papaloapan",
+    ciudad: 'Tierra Blanca',
+
+    municipio: 'Tierra Blanca',
+
     municipiosCubiertos: ["Tierra Blanca", "Cuenca baja Papaloapan", "Zona azucarera"],
     descripcion: "Estación clave para zona inundable de la cuenca baja del Papaloapan. Especialización en rescate durante inundaciones masivas (frecuentes en temporada de lluvias y huracanes). Evacuaciones y apoyo a refugios.",
     tiempoRespuesta: "10-15 minutos",
@@ -1702,6 +1798,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 25,
     copiasActa: true,
     zona: "Zona Papaloapan",
+    ciudad: 'Cosamaloapan',
+
+    municipio: 'Cosamaloapan',
+
     municipiosCubiertos: ["Cosamaloapan", "Río Papaloapan", "Zona ganadera"],
     descripcion: "Cobertura de Cosamaloapan y río Papaloapan. Rescate durante crecidas del río y temporada de huracanes. Zona crítica de inundaciones.",
     tiempoRespuesta: "10-20 minutos",
@@ -1729,6 +1829,10 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Zona Papaloapan",
+    ciudad: 'Tlacotalpan',
+
+    municipio: 'Tlacotalpan',
+
     municipiosCubiertos: ["Tlacotalpan", "Patrimonio Colonial", "Río Papaloapan"],
     descripcion: "Cobertura del pueblo colonial de Tlacotalpan (arquitectura virreinal). Protección de patrimonio y atención durante fiestas de la Candelaria (alta afluencia). Rescate en río Papaloapan.",
     tiempoRespuesta: "8-15 minutos",

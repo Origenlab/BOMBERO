@@ -17,6 +17,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
 import StationCard from "@components/StationCard.astro";
+import { cdnW } from "@utils/cdn";
 
 /* ── Tipos ─────────────────────────────────────────────────────────────── */
 interface EstacionData {
@@ -127,6 +128,13 @@ const {
   ctaTitle, ctaDesc, ctaBtnText, ctaBtnHref = "/cotizar",
 } = Astro.props;
 
+/* CDN: transformar URLs de imágenes a través de ExactDN */
+const heroImageCdn = cdnW(heroImage, 800);
+const heroThumbsCdn = heroThumbs.map(t => ({ ...t, src: cdnW(t.src, 400) }));
+const galleryImagesCdn = galleryImages.map(g => ({ ...g, src: cdnW(g.src, 500) }));
+const stationImagesCdn = stationImages.map(s => cdnW(s, 400));
+const eppCardsCdn = eppCards.map(c => ({ ...c, image: cdnW(c.image, 400) }));
+
 /* Helper: genera slug-anchor de un municipio */
 const toAnchor = (s: string) =>
   s.toLowerCase()
@@ -199,7 +207,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | Directori
         <div class="de-hero__visual">
           <div class="de-hero__visual-main">
             <img
-              src={heroImage}
+              src={heroImageCdn}
               alt={heroImageAlt}
               width="600" height="340"
               loading="eager" decoding="async"
@@ -207,7 +215,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | Directori
             <span class="de-hero__visual-caption">{heroCaption}</span>
           </div>
           <div class="de-hero__visual-row">
-            {heroThumbs.map((thumb) => (
+            {heroThumbsCdn.map((thumb) => (
               <div class="de-hero__visual-thumb">
                 <img
                   src={thumb.src}
@@ -253,7 +261,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | Directori
   <section class="de-gallery">
     <div class="container">
       <div class="de-gallery__grid">
-        {galleryImages.map((img) => (
+        {galleryImagesCdn.map((img) => (
           <div class="de-gallery__item">
             <img
               src={img.src}
@@ -295,7 +303,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | Directori
                 telefono={estacion.telefono}
                 servicios={estacion.servicios}
                 horario={estacion.horario}
-                image={stationImages[i % stationImages.length]}
+                image={stationImagesCdn[i % stationImagesCdn.length]}
                 baseUrl={`/directorio/${slug}`}
               />
             ))}
@@ -431,7 +439,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | Directori
       </SectionHeader>
 
       <div class="de-epp__grid">
-        {eppCards.map((card) => (
+        {eppCardsCdn.map((card) => (
           <article class="de-epp__card">
             <a href={card.href} class="de-epp__card-image">
               <img

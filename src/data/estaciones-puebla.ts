@@ -316,6 +316,7 @@ export const estacionesPuebla: Estacion[] = [
   // ═══ ZONA METROPOLITANA ═══
   {
     nombre: "Estación Central Puebla",
+    nombreCorto: 'Est. Central Puebla',
     slug: "estacion-central-puebla",
     direccion: "Av. 25 Poniente 1502, Col. Volcanes, Puebla, Pue.",
     coordenadas: { lat: 19.0348, lng: -98.2135 },
@@ -343,6 +344,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 85,
     copiasActa: true,
     zona: "Zona Metropolitana",
+    ciudad: 'Puebla Centro',
+
+    municipio: 'Puebla Centro',
+
     municipiosCubiertos: ["Puebla Centro", "Col. Volcanes", "La Paz", "Analco"],
     descripcion: "Estación central y coordinadora del H. Cuerpo de Bomberos de Puebla. Cubre el Centro Histórico UNESCO, zonas comerciales y residenciales de alta densidad. Centro de despacho y coordinación estatal.",
     tiempoRespuesta: "5-8 minutos zona centro",
@@ -352,6 +357,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Puebla Norte",
+    nombreCorto: 'Est. Puebla Norte',
     slug: "estacion-bomberos-puebla-norte",
     direccion: "Blvd. Norte 2802, Col. Bosques de San Sebastián, Puebla, Pue.",
     coordenadas: { lat: 19.0765, lng: -98.1987 },
@@ -373,6 +379,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 25,
     copiasActa: true,
     zona: "Zona Metropolitana",
+    ciudad: 'Puebla Norte',
+
+    municipio: 'Puebla Norte',
+
     municipiosCubiertos: ["Puebla Norte", "Bosques de San Sebastián", "Castillotla"],
     descripcion: "Cobertura de la zona norte de la ciudad de Puebla, incluyendo zonas residenciales de alta densidad, plazas comerciales y accesos a la autopista México-Puebla.",
     tiempoRespuesta: "6-10 minutos",
@@ -380,6 +390,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Puebla Sur",
+    nombreCorto: 'Est. Puebla Sur',
     slug: "estacion-bomberos-puebla-sur",
     direccion: "Av. 11 Sur 4500, Col. Anzures, Puebla, Pue.",
     coordenadas: { lat: 18.9987, lng: -98.2054 },
@@ -401,6 +412,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 22,
     copiasActa: true,
     zona: "Zona Metropolitana",
+    ciudad: 'Puebla Sur',
+
+    municipio: 'Puebla Sur',
+
     municipiosCubiertos: ["Puebla Sur", "Anzures", "El Mirador", "Agua Santa"],
     descripcion: "Cobertura de la zona sur de Puebla, zonas residenciales, universidades (BUAP, UDLAP cercana) y acceso a la autopista Puebla-Atlixco.",
     tiempoRespuesta: "6-10 minutos",
@@ -408,6 +423,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Cholula",
+    nombreCorto: 'Est. Cholula',
     slug: "estacion-bomberos-cholula",
     direccion: "Av. Morelos 100, Centro, San Pedro Cholula, Pue.",
     coordenadas: { lat: 19.0634, lng: -98.3063 },
@@ -431,6 +447,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 28,
     copiasActa: true,
     zona: "Zona Metropolitana",
+    ciudad: 'San Pedro Cholula',
+
+    municipio: 'San Pedro Cholula',
+
     municipiosCubiertos: ["San Pedro Cholula", "San Andrés Cholula", "UDLAP"],
     descripcion: "Cobertura de Cholula (Pueblo Mágico), incluyendo la Gran Pirámide de Cholula, el Santuario de los Remedios, la zona universitaria (UDLAP) y el corredor gastronómico. Personal capacitado para emergencias en estructuras patrimoniales.",
     tiempoRespuesta: "5-10 minutos",
@@ -438,6 +458,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Amozoc",
+    nombreCorto: 'Est. Amozoc',
     slug: "estacion-bomberos-amozoc",
     direccion: "Calle 5 de Mayo 10, Centro, Amozoc de Mota, Pue.",
     coordenadas: { lat: 19.0378, lng: -98.0464 },
@@ -458,6 +479,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Zona Metropolitana",
+    ciudad: 'Amozoc de Mota',
+
+    municipio: 'Amozoc de Mota',
+
     municipiosCubiertos: ["Amozoc de Mota", "Acajete"],
     descripcion: "Cobertura del municipio de Amozoc, famoso por su artesanía en plata y talabartería. Apoyo en accidentes de la autopista Puebla-Tehuacán y emergencias en talleres artesanales.",
     tiempoRespuesta: "8-12 minutos",
@@ -467,6 +492,7 @@ export const estacionesPuebla: Estacion[] = [
   // ═══ ZONA INDUSTRIAL AUTOMOTRIZ ═══
   {
     nombre: "Estación de Bomberos HAZMAT Cuautlancingo",
+    nombreCorto: 'Est. HAZMAT Cuautlancingo',
     slug: "estacion-bomberos-hazmat-cuautlancingo",
     direccion: "Av. Volkswagen s/n, Zona Industrial, Cuautlancingo, Pue.",
     coordenadas: { lat: 19.1067, lng: -98.2589 },
@@ -493,6 +519,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 45,
     copiasActa: false,
     zona: "Zona Industrial Automotriz",
+    ciudad: 'Cuautlancingo',
+
+    municipio: 'Cuautlancingo',
+
     municipiosCubiertos: ["Cuautlancingo", "Planta Volkswagen", "Parques industriales"],
     descripcion: "Estación especializada HAZMAT para el corredor industrial automotriz. Cobertura principal de la planta Volkswagen de México (15,000 empleados, 400,000+ vehículos/año) y parques industriales circundantes. Capacidad Nivel III para materiales peligrosos.",
     tiempoRespuesta: "3-5 minutos zona industrial",
@@ -500,6 +530,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos San José Chiapa (Audi)",
+    nombreCorto: 'Est. San José Chiapa (Audi)',
     slug: "estacion-bomberos-san-jose-chiapa",
     direccion: "Carretera Federal 129 km 4, San José Chiapa, Pue.",
     coordenadas: { lat: 19.2378, lng: -97.7789 },
@@ -525,6 +556,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 35,
     copiasActa: false,
     zona: "Zona Industrial Automotriz",
+    ciudad: 'San José Chiapa',
+
+    municipio: 'San José Chiapa',
+
     municipiosCubiertos: ["San José Chiapa", "Planta Audi México", "Parque Industrial Audi"],
     descripcion: "Estación dedicada al complejo industrial Audi México (5,200 empleados, 150,000+ Q5/año). Especializada en emergencias de línea de producción automotriz: prensas, pintura, ensamble. Capacidad HAZMAT para químicos industriales.",
     tiempoRespuesta: "2-4 minutos planta Audi",
@@ -532,6 +567,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Huejotzingo",
+    nombreCorto: 'Est. Huejotzingo',
     slug: "estacion-bomberos-huejotzingo",
     direccion: "Calle 5 de Mayo 20, Centro, Huejotzingo, Pue.",
     coordenadas: { lat: 19.1594, lng: -98.4069 },
@@ -553,6 +589,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Zona Industrial Automotriz",
+    ciudad: 'Huejotzingo',
+
+    municipio: 'Huejotzingo',
+
     municipiosCubiertos: ["Huejotzingo", "San Salvador el Verde", "Autopista México-Puebla"],
     descripcion: "Cobertura de Huejotzingo y la autopista México-Puebla. Apoyo a empresas de sidra y destilados. Acceso rápido al corredor industrial automotriz y zona agrícola.",
     tiempoRespuesta: "5-10 minutos",
@@ -562,6 +602,7 @@ export const estacionesPuebla: Estacion[] = [
   // ═══ SIERRA NORTE ═══
   {
     nombre: "Estación de Bomberos Zacatlán",
+    nombreCorto: 'Est. Zacatlán',
     slug: "estacion-bomberos-zacatlan",
     direccion: "Av. Benito Juárez 15, Centro, Zacatlán, Pue.",
     coordenadas: { lat: 19.9317, lng: -97.9589 },
@@ -584,6 +625,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 18,
     copiasActa: true,
     zona: "Sierra Norte",
+    ciudad: 'Zacatlán',
+
+    municipio: 'Zacatlán',
+
     municipiosCubiertos: ["Zacatlán", "Ahuacatlán", "Tepetzintla"],
     descripcion: "Estación especializada en emergencias de montaña y combate de incendios forestales en la Sierra Norte. Cobertura del Pueblo Mágico de Zacatlán, famoso por sus relojes monumentales, manzanas y neblina.",
     tiempoRespuesta: "10-20 minutos (terreno montañoso)",
@@ -591,6 +636,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Chignahuapan",
+    nombreCorto: 'Est. Chignahuapan',
     slug: "estacion-bomberos-chignahuapan",
     direccion: "Calle Porfirio Díaz 8, Centro, Chignahuapan, Pue.",
     coordenadas: { lat: 19.8378, lng: -98.0294 },
@@ -612,6 +658,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Sierra Norte",
+    ciudad: 'Chignahuapan',
+
+    municipio: 'Chignahuapan',
+
     municipiosCubiertos: ["Chignahuapan", "Ixtacamaxtitlán"],
     descripcion: "Cobertura del Pueblo Mágico de Chignahuapan, capital mexicana de las esferas navideñas. Atención de emergencias en talleres de esferas (riesgo de incendio por pinturas) y zona boscosa.",
     tiempoRespuesta: "8-15 minutos",
@@ -619,6 +669,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Cuetzalan",
+    nombreCorto: 'Est. Cuetzalan',
     slug: "estacion-bomberos-cuetzalan",
     direccion: "Calle Miguel Hidalgo s/n, Centro, Cuetzalan del Progreso, Pue.",
     coordenadas: { lat: 20.0283, lng: -97.5217 },
@@ -642,6 +693,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Sierra Norte",
+    ciudad: 'Cuetzalan del Progreso',
+
+    municipio: 'Cuetzalan del Progreso',
+
     municipiosCubiertos: ["Cuetzalan del Progreso", "Jonotla", "Zoquiapan"],
     descripcion: "Estación en uno de los Pueblos Mágicos más emblemáticos de México. Cobertura de zona de cascadas (Las Brisas, Las Golondrinas), tirolesas y turismo de aventura. Rescate en terreno montañoso y comunidades nahuas.",
     tiempoRespuesta: "10-25 minutos (terreno difícil)",
@@ -649,6 +704,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Xicotepec",
+    nombreCorto: 'Est. Xicotepec',
     slug: "estacion-bomberos-xicotepec",
     direccion: "Av. Juárez 50, Centro, Xicotepec de Juárez, Pue.",
     coordenadas: { lat: 20.2756, lng: -97.9589 },
@@ -670,6 +726,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Sierra Norte",
+    ciudad: 'Xicotepec de Juárez',
+
+    municipio: 'Xicotepec de Juárez',
+
     municipiosCubiertos: ["Xicotepec de Juárez", "Zihuateutla", "Jalpan"],
     descripcion: "Cobertura del Pueblo Mágico de Xicotepec, zona cafetalera con la Virgen de Guadalupe gigante más alta del mundo (32m). Emergencias en fincas de café y rescate en zona montañosa.",
     tiempoRespuesta: "10-20 minutos",
@@ -679,6 +739,7 @@ export const estacionesPuebla: Estacion[] = [
   // ═══ VALLE DE TEHUACÁN ═══
   {
     nombre: "Estación Central Tehuacán",
+    nombreCorto: 'Est. Central Tehuacán',
     slug: "estacion-central-tehuacan",
     direccion: "Calle 1 Norte 200, Centro, Tehuacán, Pue.",
     coordenadas: { lat: 18.4617, lng: -97.3928 },
@@ -702,6 +763,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 30,
     copiasActa: true,
     zona: "Valle de Tehuacán",
+    ciudad: 'Tehuacán',
+
+    municipio: 'Tehuacán',
+
     municipiosCubiertos: ["Tehuacán", "Ajalpan", "San Gabriel Chilac"],
     descripcion: "Estación principal del Valle de Tehuacán, segunda ciudad más importante de Puebla. Cobertura de la industria del agua mineral, granjas avícolas y acceso a la Reserva de la Biósfera Tehuacán-Cuicatlán.",
     tiempoRespuesta: "5-10 minutos",
@@ -711,6 +776,7 @@ export const estacionesPuebla: Estacion[] = [
   // ═══ CORREDOR ATLIXCO-MATAMOROS ═══
   {
     nombre: "Estación de Bomberos Atlixco",
+    nombreCorto: 'Est. Atlixco',
     slug: "estacion-bomberos-atlixco",
     direccion: "Av. Independencia 300, Centro, Atlixco, Pue.",
     coordenadas: { lat: 18.9067, lng: -98.4378 },
@@ -734,6 +800,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 22,
     copiasActa: true,
     zona: "Corredor Atlixco-Matamoros",
+    ciudad: 'Atlixco',
+
+    municipio: 'Atlixco',
+
     municipiosCubiertos: ["Atlixco", "Metepec", "Tochimilco"],
     descripcion: "Cobertura del Pueblo Mágico de Atlixco (Valle de las Flores) y zona de influencia del Volcán Popocatépetl. Capacitada para emergencias volcánicas, evacuaciones y rescate en zona de exclusión.",
     tiempoRespuesta: "6-12 minutos",
@@ -742,6 +812,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos San Nicolás de los Ranchos",
+    nombreCorto: 'Est. San Nicolás de los Ran...',
     slug: "estacion-bomberos-san-nicolas-ranchos",
     direccion: "Calle Principal s/n, Centro, San Nicolás de los Ranchos, Pue.",
     coordenadas: { lat: 19.0583, lng: -98.4756 },
@@ -766,6 +837,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Corredor Atlixco-Matamoros",
+    ciudad: 'San Nicolás de los Ranchos',
+
+    municipio: 'San Nicolás de los Ranchos',
+
     municipiosCubiertos: ["San Nicolás de los Ranchos", "Paso de Cortés"],
     descripcion: "Estación de primera respuesta ante emergencias del Volcán Popocatépetl. Ubicada en la zona de exclusión (12km del cráter). Personal especializado en evacuaciones, rescate en zona volcánica y atención de afectados por ceniza.",
     tiempoRespuesta: "5-15 minutos (zona montañosa)",
@@ -773,6 +848,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Izúcar de Matamoros",
+    nombreCorto: 'Est. Izúcar de Matamoros',
     slug: "estacion-bomberos-izucar-matamoros",
     direccion: "Calle Porfirio Díaz 50, Centro, Izúcar de Matamoros, Pue.",
     coordenadas: { lat: 18.5989, lng: -98.4633 },
@@ -794,6 +870,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 15,
     copiasActa: true,
     zona: "Mixteca Poblana",
+    ciudad: 'Izúcar de Matamoros',
+
+    municipio: 'Izúcar de Matamoros',
+
     municipiosCubiertos: ["Izúcar de Matamoros", "Epatlán", "Ahuatlán"],
     descripcion: "Cobertura de la cabecera de la Mixteca Poblana, zona de balnearios de aguas termales y sulfurosas. Atención de emergencias en manantiales y temporada alta de visitantes.",
     tiempoRespuesta: "6-12 minutos",
@@ -803,6 +883,7 @@ export const estacionesPuebla: Estacion[] = [
   // ═══ CORREDOR AUTOPISTA ═══
   {
     nombre: "Estación de Bomberos San Martín Texmelucan",
+    nombreCorto: 'Est. San Martín Texmelucan',
     slug: "estacion-bomberos-san-martin-texmelucan",
     direccion: "Av. Reforma 500, Centro, San Martín Texmelucan, Pue.",
     coordenadas: { lat: 19.2842, lng: -98.4386 },
@@ -827,6 +908,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 28,
     copiasActa: true,
     zona: "Zona Industrial Automotriz",
+    ciudad: 'San Martín Texmelucan',
+
+    municipio: 'San Martín Texmelucan',
+
     municipiosCubiertos: ["San Martín Texmelucan", "San Salvador el Seco", "Autopista México-Puebla"],
     descripcion: "Estación especializada en rescate carretero de la autopista México-Puebla (80,000+ vehículos/día). Atención de accidentes múltiples, volcaduras de tráileres y emergencias con materiales peligrosos en tránsito. También cubre el ducto Tuxpan-Azcapotzalco de PEMEX.",
     tiempoRespuesta: "5-10 minutos autopista",
@@ -834,6 +919,7 @@ export const estacionesPuebla: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Aeropuerto Puebla",
+    nombreCorto: 'Est. Aeropuerto Puebla',
     slug: "estacion-bomberos-aeropuerto-puebla",
     direccion: "Aeropuerto Internacional de Puebla, Huejotzingo, Pue.",
     coordenadas: { lat: 19.1567, lng: -98.3714 },
@@ -856,6 +942,10 @@ export const estacionesPuebla: Estacion[] = [
     personal: 24,
     copiasActa: false,
     zona: "Zona Industrial Automotriz",
+    ciudad: 'Aeropuerto PBC',
+
+    municipio: 'Aeropuerto PBC',
+
     municipiosCubiertos: ["Aeropuerto PBC"],
     descripcion: "Servicio de Salvamento y Extinción de Incendios (SSEI) del Aeropuerto Internacional de Puebla. Categoría 7 OACI con capacidad de respuesta para aeronaves comerciales.",
     tiempoRespuesta: "3 minutos cualquier punto de pista",
