@@ -1,0 +1,344 @@
+---
+/**
+ * ─── BOMBERO.MX ───
+ * Producto: Casco ARFF — Orejeras Térmicas Desmontables
+ * URL: /productos/cascos-para-bomberos/casco-arff-aeroportuario/orejeras-termicas
+ *
+ * Especificaciones de orejeras para entorno ARFF:
+ * - Nomex®/Kevlar® multicapa
+ * - Protección auditiva NRR 24 dB
+ * - Compatible con radio comunicación
+ * - Desmontables para limpieza y reemplazo
+ */
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/directorio/camion-bomberos-aeropuerto-01.avif";
+
+/* ── Datos del producto ─────────────────────────────────────── */
+const capas = [
+  {
+    num: "01",
+    titulo: "Construcción Multicapa Nomex®/Kevlar®",
+    descripcion:
+      "Las orejeras ARFF utilizan construcción de múltiples capas: exterior de Nomex® IIIA para resistencia a llama, intermedia de Kevlar® para protección balística/abrasión, y forro interior de algodón FR para comodidad. Esta combinación proporciona protección térmica superior específica para radiación de combustible de aviación.",
+    specs: [
+      { label: "Capa exterior", valor: "Nomex® IIIA 7.5 oz/yd²" },
+      { label: "Capa intermedia", valor: "Kevlar® 4 oz/yd²" },
+      { label: "Forro interior", valor: "Algodón FR" },
+      { label: "Capas totales", valor: "3–4 dependiendo modelo" },
+    ],
+    color: "fire" as const,
+  },
+  {
+    num: "02",
+    titulo: "Protección Auditiva Integrada NRR 24 dB",
+    descripcion:
+      "Las orejeras incorporan protección auditiva certificada NRR 24 dB (Noise Reduction Rating) para atenuar el ruido extremo de turbinas de aeronaves (130-140 dB) a niveles seguros. Los insertos de espuma de celda cerrada son reemplazables y no interfieren con comunicación por radio.",
+    specs: [
+      { label: "Atenuación", valor: "NRR 24 dB certificada" },
+      { label: "Material", valor: "Espuma celda cerrada" },
+      { label: "Insertos", valor: "Reemplazables" },
+      { label: "Radio", valor: "Compatible — no bloquea" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Sistema Desmontable para Mantenimiento",
+    descripcion:
+      "Las orejeras se fijan al casco mediante sistema de clips o velcro que permite desmontarlas fácilmente para limpieza, inspección y reemplazo. Después de cada uso en incendio, las orejeras pueden lavarse según protocolo de descontaminación sin afectar el casco base.",
+    specs: [
+      { label: "Fijación", valor: "Clips + velcro dual" },
+      { label: "Desmontaje", valor: "Sin herramientas" },
+      { label: "Lavable", valor: "Sí — ciclo suave 40°C" },
+      { label: "Refacción", valor: "Disponible original" },
+    ],
+    color: "ember" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Construcción",    label: "Capa exterior",               valor: "Nomex® IIIA 7.5 oz/yd²" },
+  { categoria: "Construcción",    label: "Capa intermedia",             valor: "Kevlar® 4 oz/yd²" },
+  { categoria: "Construcción",    label: "Forro interior",              valor: "Algodón FR o Nomex® comfort" },
+  { categoria: "Construcción",    label: "Capas totales",               valor: "3–4 capas termosoldadas" },
+  { categoria: "Protección",      label: "Cobertura",                   valor: "Orejas + laterales cara + cuello" },
+  { categoria: "Protección",      label: "Resistencia térmica",         valor: "Igual a traje NFPA 1971" },
+  { categoria: "Protección",      label: "Protección impacto",          valor: "Kevlar® anticorte/abrasión" },
+  { categoria: "Auditiva",        label: "NRR",                         valor: "24 dB certificada" },
+  { categoria: "Auditiva",        label: "Material inserto",            valor: "Espuma celda cerrada" },
+  { categoria: "Auditiva",        label: "Insertos",                    valor: "Reemplazables" },
+  { categoria: "Auditiva",        label: "Frecuencias atenuadas",       valor: "Turbinas, impactos, sirenas" },
+  { categoria: "Sistema",         label: "Fijación al casco",           valor: "Clips metálicos + velcro" },
+  { categoria: "Sistema",         label: "Desmontaje",                  valor: "Sin herramientas — 30 seg" },
+  { categoria: "Sistema",         label: "Compatibilidad radio",        valor: "Sí — no bloquea comunicación" },
+  { categoria: "Mantenimiento",   label: "Lavable",                     valor: "Sí — máquina 40°C ciclo suave" },
+  { categoria: "Mantenimiento",   label: "Secado",                      valor: "Aire — no secadora" },
+  { categoria: "Mantenimiento",   label: "Refacción disponible",        valor: "Sí — kit original fabricante" },
+  { categoria: "Certificación",   label: "Norma auditiva",              valor: "ANSI S3.19 / EN 352-6" },
+  { categoria: "Certificación",   label: "Sistema casco",               valor: "NFPA 1971 conjunto" },
+];
+
+const catClass: Record<string, string> = {
+  "Construcción":   "construccion",
+  "Protección":     "proteccion",
+  "Auditiva":       "proteccion",
+  "Sistema":        "ergonomia",
+  "Mantenimiento":  "ergonomia",
+  "Certificación":  "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Protección en Operaciones con Turbinas Activas",
+    desc: "Los motores de turbina de aeronaves producen ruido de 130-140 dB durante operación. Durante rescate con turbinas funcionando o apagándose, la exposición puede causar daño auditivo permanente. Las orejeras NRR 24 dB reducen la exposición a niveles seguros.",
+  },
+  {
+    titulo: "Protección Térmica Facial Extendida",
+    desc: "Las orejeras extienden la protección térmica del casco a zonas vulnerables: orejas, laterales del rostro y cuello superior. En incendios de jet fuel, estas zonas están expuestas a radiación intensa si solo se usa el casco básico.",
+  },
+  {
+    titulo: "Comunicación por Radio en Pista",
+    desc: "Las orejeras están diseñadas para no bloquear la comunicación por radio. El bombero puede usar radio portátil o sistema integrado en el casco mientras mantiene protección auditiva. Crítico para coordinación en operaciones ARFF.",
+  },
+  {
+    titulo: "Descontaminación Post-Incendio",
+    desc: "Después de operaciones ARFF, las orejeras pueden acumular contaminantes del humo de combustible. El sistema desmontable permite lavarlas según protocolo de descontaminación sin afectar el casco base ni otros componentes.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Por qué las orejeras ARFF son más gruesas que las de cascos estructurales estándar?",
+    a: "Las orejeras ARFF tienen <strong>construcción multicapa</strong> adicional porque enfrentan amenazas específicas del entorno aeroportuario: (1) <strong>Radiación térmica extrema</strong> de incendios de jet fuel que requiere más aislamiento. (2) <strong>Ruido de turbinas</strong> (130-140 dB) que requiere protección auditiva integrada. (3) <strong>Exposición a combustible</strong> que requiere materiales resistentes a hidrocarburos. Las orejeras estructurales estándar no abordan todas estas amenazas.",
+  },
+  {
+    q: "¿La protección auditiva NRR 24 dB es suficiente para turbinas?",
+    a: "Reduce la exposición a niveles seguros para <strong>exposición temporal</strong>. Las turbinas producen 130-140 dB; con NRR 24 dB, la exposición efectiva es 106-116 dB — todavía alto pero seguro para las <strong>duraciones cortas</strong> de operaciones ARFF. Para exposición prolongada (personal de rampa, mecánicos), se requiere protección auditiva adicional. Las orejeras ARFF son para <strong>emergencias</strong>, no exposición continua.",
+  },
+  {
+    q: "¿Las orejeras bloquean la comunicación por radio?",
+    a: "<strong>No</strong>. Las orejeras ARFF están diseñadas para atenuar frecuencias de ruido industrial (turbinas, impactos) mientras permiten pasar frecuencias de <strong>voz humana y radio</strong>. El bombero puede comunicarse y recibir instrucciones mientras lleva las orejeras. Algunos modelos incluyen <strong>bolsillos para auriculares</strong> de radio integrado.",
+  },
+  {
+    q: "¿Cada cuánto debo lavar las orejeras ARFF?",
+    a: "Las orejeras deben <strong>lavarse después de cada incendio</strong> que involucre combustible de aviación o humo denso. El humo de jet fuel contiene contaminantes que pueden degradar los materiales y son tóxicos para la piel. Lavar en <strong>ciclo suave 40°C</strong> con detergente neutro. Secar al aire — <strong>no usar secadora</strong>.",
+  },
+  {
+    q: "¿Puedo usar las orejeras ARFF en un casco estructural normal?",
+    a: "Generalmente <strong>no son compatibles</strong>. Las orejeras ARFF están diseñadas para el sistema de montaje específico de cascos ARFF (diferentes clips y geometría). Intentar adaptarlas a otro casco puede comprometer el ajuste, la seguridad y la certificación. Usar orejeras <strong>diseñadas para cada tipo de casco</strong>.",
+  },
+  {
+    q: "¿Cuándo debo reemplazar las orejeras completas vs solo los insertos?",
+    a: "Reemplazar <strong>insertos de espuma</strong> cuando: están comprimidos permanentemente, saturados de sudor o contaminantes, o dañados. Reemplazar <strong>orejeras completas</strong> cuando: el Nomex®/Kevlar® muestra desgaste, quemaduras o degradación; las costuras están deshilachadas; los clips de fijación están dañados; o después del <strong>tiempo de vida del casco</strong> (10 años típico).",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Casco ARFF Sistema Completo",
+    badge: "ARFF",
+    description: "Sistema completo con orejeras térmicas incluidas, visor dorado y protector de nuca.",
+    href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/sistema-completo",
+    buttonText: "Ver Sistema Completo",
+    image: IMAGE,
+  },
+  {
+    title: "Protector de Nuca ARFF",
+    badge: "ARFF",
+    description: "Protector de nuca aluminizado extendido para protección cervical completa.",
+    href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/sistema-completo",
+    buttonText: "Ver Sistema Nuca",
+    image: IMAGE,
+  },
+  {
+    title: "Capucha ARFF Aluminizada",
+    badge: "ARFF",
+    description: "Capucha completa aluminizada para máxima protección facial y cervical.",
+    href: "/productos/capuchas",
+    buttonText: "Ver Capucha ARFF",
+    image: "/images/directorio/equipo-bomberos-completo-01.avif",
+  },
+  {
+    title: "Protección Auditiva Industrial",
+    badge: "NRR 30+",
+    description: "Para personal de rampa con exposición prolongada a turbinas. NRR 30+ dB.",
+    href: "/productos",
+    buttonText: "Ver Protección Auditiva",
+    image: "/images/directorio/equipo-bomberos-completo-01.avif",
+  },
+];
+
+/* ── Datos del sidebar ──────────────────────────────────────── */
+const otrosModelos = [
+  { label: "Sistema Completo ARFF",           href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/sistema-completo" },
+  { label: "Shell Aluminizado 85%+",          href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/shell-aluminizado" },
+  { label: "Visor Dorado Filtro IR",          href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/visor-dorado" },
+  { label: "Linterna LED Integrada",          href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/linterna-integrada" },
+  { label: "Certificaciones Aeroportuarias",  href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/certificaciones" },
+  { label: "Ver Todos los Cascos",            href: "/productos/cascos-para-bomberos" },
+];
+
+const epp = [
+  { label: "Traje ARFF Aluminizado",       href: "/productos/trajes-para-bomberos/traje-arff-aeropuerto", tag: "Cuerpo" },
+  { label: "Capucha ARFF Aluminizada",     href: "/productos/capuchas",                                   tag: "Cabeza" },
+  { label: "Guantes ARFF",                  href: "/productos/guantes",                                   tag: "Manos" },
+  { label: "Radio Comunicación Pista",      href: "/productos",                                           tag: "Comunicación" },
+  { label: "Protección Auditiva Extra",     href: "/productos",                                           tag: "Oídos" },
+];
+
+const articulos = [
+  { label: "Catálogo Cascos ARFF",             href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario", tag: "Catálogo" },
+  { label: "Protección Auditiva en ARFF",      href: "/productos",                                               tag: "Guía" },
+  { label: "Descontaminación EPP ARFF",        href: "/productos",                                               tag: "Artículo" },
+  { label: "Ruido de Turbinas y Salud",        href: "/productos",                                               tag: "Artículo" },
+  { label: "Refacciones Cascos ARFF",          href: "/productos",                                               tag: "Catálogo" },
+  { label: "Mantenimiento Orejeras",           href: "/productos",                                               tag: "Guía" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Aeropuerto AICM",         href: "/directorio/ciudad-de-mexico/estacion-aeropuerto-aicm" },
+  { label: "Bomberos Aeropuerto Cancún",       href: "/directorio/quintana-roo/estacion-bomberos-aeropuerto-cancun" },
+  { label: "Bomberos Aeropuerto Guadalajara",  href: "/directorio/jalisco/estacion-bomberos-aeropuerto-guadalajara" },
+  { label: "Bomberos Aeropuerto Monterrey",    href: "/directorio/nuevo-leon" },
+  { label: "Bomberos Aeropuerto Tijuana",      href: "/directorio/baja-california" },
+  { label: "Directorio Nacional",              href: "/directorio" },
+];
+
+const specsRapidas = [
+  { label: "Material ext.",   valor: "Nomex® IIIA 7.5 oz" },
+  { label: "Material int.",   valor: "Kevlar® + FR cotton" },
+  { label: "NRR",             valor: "24 dB certificada" },
+  { label: "Cobertura",       valor: "Orejas + cara + cuello" },
+  { label: "Sistema",         valor: "Desmontable clips" },
+  { label: "Lavable",         valor: "Sí — 40°C suave" },
+  { label: "Radio",           valor: "Compatible" },
+  { label: "Refacción",       valor: "Disponible" },
+];
+
+const certItems = [
+  { code: "NRR 24 dB",     desc: "Protección auditiva certificada ANSI S3.19" },
+  { code: "Nomex® IIIA",   desc: "Resistencia a llama exterior" },
+  { code: "Kevlar®",       desc: "Protección intermedia anticorte" },
+  { code: "EN 352-6",      desc: "Protectores auditivos dependientes nivel" },
+  { code: "NFPA 1971",     desc: "Certificación como parte del sistema" },
+];
+---
+
+<ProductoLayout
+  title="Casco ARFF — Orejeras Térmicas Desmontables | BOMBERO.MX"
+  description="Orejeras térmicas Nomex®/Kevlar® para casco ARFF. Protección auditiva NRR 24 dB, desmontables para limpieza. Compatible con radio comunicación. Para servicios ARFF en aeropuertos."
+  keywords={[
+    "orejeras ARFF térmicas",
+    "orejeras casco bombero aeropuerto",
+    "proteccion auditiva ARFF",
+    "orejeras Nomex Kevlar",
+    "orejeras desmontables casco",
+    "proteccion orejas bombero",
+    "orejeras NRR 24",
+    "comprar orejeras casco ARFF",
+  ]}
+  canonical="/productos/cascos-para-bomberos/casco-arff-aeroportuario/orejeras-termicas"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos" },
+    { label: "Cascos de Bombero",           href: "/productos/cascos-para-bomberos" },
+    { label: "Casco ARFF Aeroportuario",    href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario" },
+    { label: "Orejeras Térmicas" },
+  ]}
+
+  heroBadge="Orejeras ARFF · Nomex®/Kevlar® · NRR 24 dB"
+  heroTitle="Casco ARFF con"
+  heroTitleHighlight="Orejeras Térmicas Desmontables"
+  heroSubtitle="Orejeras de construcción multicapa Nomex®/Kevlar® con protección auditiva integrada NRR 24 dB. Protegen orejas, laterales del rostro y cuello de radiación térmica y ruido de turbinas. Sistema desmontable para limpieza y descontaminación post-incendio."
+  heroSeoBlocks={[
+    {
+      title: "Protección Térmica y Auditiva en Un Solo Componente",
+      text: "Las orejeras ARFF combinan <strong>protección térmica multicapa</strong> (Nomex® + Kevlar® + FR cotton) con <strong>protección auditiva NRR 24 dB</strong> certificada. Protegen de la radiación extrema de jet fuel mientras atenúan el ruido de turbinas (130-140 dB) a niveles seguros.",
+    },
+    {
+      title: "Desmontables para Descontaminación",
+      text: "El <strong>sistema de clips</strong> permite desmontar las orejeras en segundos para lavado según protocolo de <strong>descontaminación post-incendio</strong>. El humo de combustible de aviación contiene carcinógenos que deben removerse del EPP después de cada uso.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Casco ARFF con Orejeras"
+
+  productoCategoria="Orejeras ARFF"
+  productoBadges={[
+    { modifier: "nfpa",  text: "Nomex®" },
+    { modifier: "tpp",   text: "NRR 24 dB" },
+    { modifier: "solas", text: "Desmontable" },
+  ]}
+  productoMasVendido={false}
+  productoTitle="Orejeras Térmicas ARFF"
+  productoTitleSub="Nomex®/Kevlar® con Protección Auditiva"
+  productoDesc="Orejeras de construcción multicapa: exterior Nomex® IIIA 7.5 oz, intermedia Kevlar® 4 oz, forro algodón FR. Protección auditiva NRR 24 dB con insertos reemplazables. Sistema desmontable de clips para lavado. Compatible con radio comunicación."
+  productoFeatures={[
+    "Construcción Nomex® + Kevlar® multicapa",
+    "Protección auditiva NRR 24 dB",
+    "Cobertura orejas + cara + cuello",
+    "Desmontables para descontaminación",
+    "Compatible con radio comunicación",
+    "Insertos auditivos reemplazables",
+  ]}
+  productoAppTags={[
+    "Turbinas aeronaves",
+    "Radiación térmica",
+    "Descontaminación",
+    "Radio comunicación",
+    "ARFF aeropuertos",
+  ]}
+
+  gallery={[
+    { src: "/images/directorio/camion-bomberos-aeropuerto-01.avif",              alt: "Casco ARFF con orejeras térmicas" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Bombero ARFF usando orejeras" },
+    { src: "/images/directorio/equipo-bomberos-completo-01.avif",                alt: "Sistema EPP ARFF completo" },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",            alt: "Entrenamiento con orejeras ARFF" },
+    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif",alt: "Orejeras en operación" },
+    { src: "/images/directorio/camion-bomberos-emergencia-01.avif",              alt: "Equipo ARFF con orejeras" },
+  ]}
+
+  capasEyebrow="Construcción Multicapa"
+  capasTitle="Componentes de las Orejeras"
+  capasDesc="Tres capas de protección térmica más sistema de protección auditiva integrado, todo desmontable para mantenimiento."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones Orejeras ARFF"
+  specsDesc="Orejeras con protección térmica y auditiva certificadas como parte del sistema de casco NFPA 1971."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Escenarios de Uso"
+  aplicacionesTitle="¿Por Qué Orejeras ARFF Especializadas?"
+  aplicacionesContent="<p>El entorno aeroportuario presenta amenazas únicas: <strong>radiación térmica extrema</strong> de jet fuel y <strong>ruido de turbinas</strong> de 130-140 dB. Las orejeras ARFF abordan ambas amenazas.</p><p>El sistema <strong>desmontable</strong> permite descontaminación adecuada del EPP después de operaciones con combustible de aviación.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Certificaciones"
+  certsTitle="Protección Auditiva Certificada NRR 24 dB"
+  certsDesc="La protección auditiva cumple <strong>ANSI S3.19</strong> con NRR (Noise Reduction Rating) de 24 dB verificado. Las orejeras son parte del sistema <strong>NFPA 1971</strong> certificado."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/cascos-para-bomberos/casco-arff-aeroportuario"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Preguntas sobre Orejeras ARFF"
+  faqDescription="Dudas frecuentes sobre protección auditiva, materiales, compatibilidad con radio, limpieza y reemplazo."
+  faqDocTitle="Refacciones Disponibles"
+  faqDocDesc="Solicita orejeras de repuesto e insertos auditivos de refacción."
+  faqDocCtaHref="/cotizar"
+  faqDocCtaText="Solicitar Refacción"
+  faqs={faqs}
+
+  relacionadosLabel="Sistema ARFF"
+  relacionadosTitle="Protección Completa de Cabeza ARFF"
+  relacionadosDesc="Las orejeras son parte del sistema de protección de cabeza ARFF. Complete con visor dorado y protector de nuca."
+  relacionados={relacionados}
+/>

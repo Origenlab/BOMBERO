@@ -1,0 +1,343 @@
+---
+/**
+ * ─── BOMBERO.MX ───
+ * Producto: Casco ARFF — Certificaciones Aeroportuarias
+ * URL: /productos/cascos-para-bomberos/casco-arff-aeroportuario/certificaciones
+ *
+ * Enfoque en certificaciones y documentación para licitaciones:
+ * - NFPA 1971 (EE.UU.)
+ * - EN 443 (Europa)
+ * - ICAO Annex 14 (OACI)
+ * - DGAC/SCT México
+ */
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/directorio/camion-bomberos-aeropuerto-01.avif";
+
+/* ── Datos del producto ─────────────────────────────────────── */
+const capas = [
+  {
+    num: "01",
+    titulo: "NFPA 1971 — Estándar Estadounidense para Cascos de Bombero",
+    descripcion:
+      "NFPA 1971 (Standard on Protective Ensembles for Structural Fire Fighting) es el estándar más reconocido mundialmente para equipo de protección de bomberos. El capítulo de cascos establece requisitos de resistencia a impacto, penetración, retención, protección térmica y eléctrica. Certificación por laboratorio acreditado OSHA/NVLAP.",
+    specs: [
+      { label: "Norma", valor: "NFPA 1971:2018 o edición vigente" },
+      { label: "Tipo de prueba", valor: "Tercera parte independiente" },
+      { label: "Laboratorio", valor: "Acreditado OSHA/NVLAP" },
+      { label: "Validez", valor: "5 años desde certificación" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "EN 443 — Estándar Europeo para Cascos de Bombero",
+    descripcion:
+      "EN 443 (Helmets for Fire Fighting in Buildings and Other Structures) es el estándar de la Unión Europea equivalente a NFPA 1971. Algunos aeropuertos internacionales y fabricantes europeos (Rosenbauer, Magirus) especifican EN 443. Complementario a NFPA 1971 para aceptación global.",
+    specs: [
+      { label: "Norma", valor: "EN 443:2008 o edición vigente" },
+      { label: "Marca CE", valor: "Sí — requerida para UE" },
+      { label: "Notificado", valor: "Organismo notificado UE" },
+      { label: "Complementaria", valor: "Con NFPA 1971 para global" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "ICAO Annex 14 — Requisitos de Aviación Civil Internacional",
+    descripcion:
+      "ICAO Annex 14 (Aerodromes) establece requisitos para servicios ARFF en aeropuertos. Aunque no certifica cascos directamente, especifica que el equipo de protección personal debe ser apropiado para operaciones de rescate de aeronaves. Los cascos NFPA 1971/EN 443 cumplen implícitamente si tienen características ARFF.",
+    specs: [
+      { label: "Documento", valor: "ICAO Annex 14 Vol I Capítulo 9" },
+      { label: "Aplicación", valor: "Aeropuertos internacionales" },
+      { label: "México", valor: "DGAC adopta ICAO" },
+      { label: "Requisito", valor: "EPP apropiado para ARFF" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "NFPA 1971",       label: "Edición",                     valor: "2018 o edición vigente" },
+  { categoria: "NFPA 1971",       label: "Capítulo cascos",             valor: "Capítulo 6" },
+  { categoria: "NFPA 1971",       label: "Impacto",                     valor: "6.2 — fuerza transmitida <3.78 kN" },
+  { categoria: "NFPA 1971",       label: "Penetración",                 valor: "6.3 — sin penetración corona" },
+  { categoria: "NFPA 1971",       label: "Retención",                   valor: "6.4 — sistema > 68 N fuerza" },
+  { categoria: "NFPA 1971",       label: "Protección térmica",          valor: "6.5 — TPP mínimo especificado" },
+  { categoria: "NFPA 1971",       label: "Protección eléctrica",        valor: "6.6 — corriente fuga < 3 mA" },
+  { categoria: "EN 443",          label: "Edición",                     valor: "2008 o edición vigente" },
+  { categoria: "EN 443",          label: "Marca CE",                    valor: "Requerida para comercialización UE" },
+  { categoria: "EN 443",          label: "Tipo de examen",              valor: "Examen de tipo CE" },
+  { categoria: "EN 443",          label: "Organismos",                  valor: "BSI, TÜV, DEKRA, etc." },
+  { categoria: "ICAO",            label: "Documento",                   valor: "Annex 14 Vol I — Aerodromes" },
+  { categoria: "ICAO",            label: "Capítulo ARFF",               valor: "Capítulo 9 — Rescue and FF" },
+  { categoria: "ICAO",            label: "Categoría salvamento",        valor: "1-10 según tamaño aeronave" },
+  { categoria: "ICAO",            label: "EPP requerido",               valor: "Apropiado para operaciones ARFF" },
+  { categoria: "México",          label: "Autoridad",                   valor: "DGAC (Dir. Gral. Aeronáutica Civil)" },
+  { categoria: "México",          label: "Adopción ICAO",               valor: "Sí — compromisos internacionales" },
+  { categoria: "México",          label: "Licitaciones",                valor: "ASA, GACM, operadores privados" },
+  { categoria: "Laboratorio",     label: "Acreditación",                valor: "ISO/IEC 17025" },
+];
+
+const catClass: Record<string, string> = {
+  "NFPA 1971":    "certificacion",
+  "EN 443":       "certificacion",
+  "ICAO":         "certificacion",
+  "México":       "certificacion",
+  "Laboratorio":  "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Licitaciones de Aeropuertos DGAC/SCT",
+    desc: "Las bases de licitación para equipamiento ARFF en aeropuertos certificados DGAC típicamente especifican NFPA 1971 o EN 443. La documentación incluida (certificado ISO/IEC 17025, ficha técnica, garantía) cumple requisitos de bases de licitación.",
+  },
+  {
+    titulo: "Aeropuertos Internacionales con Requisitos ICAO",
+    desc: "Los aeropuertos internacionales deben cumplir ICAO Annex 14 para su categoría de salvamento. El equipo ARFF con certificación NFPA 1971 + EN 443 satisface implícitamente los requisitos de EPP apropiado de ICAO.",
+  },
+  {
+    titulo: "Auditorías de Certificación Aeroportuaria",
+    desc: "Durante auditorías de certificación aeroportuaria, los inspectores DGAC verifican que el equipo ARFF cumpla estándares apropiados. La documentación de certificación del casco proporciona evidencia de cumplimiento.",
+  },
+  {
+    titulo: "Homologación con Operadores Internacionales",
+    desc: "Aeropuertos con operaciones de aerolíneas internacionales pueden requerir equipamiento que cumpla múltiples estándares. La doble certificación NFPA 1971 + EN 443 proporciona aceptación global.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Cuál es la diferencia entre NFPA 1971 y EN 443?",
+    a: "<strong>NFPA 1971</strong> es el estándar estadounidense y <strong>EN 443</strong> es el europeo. Ambos establecen requisitos similares para cascos de bombero (impacto, penetración, retención, protección térmica) pero con metodologías de prueba ligeramente diferentes. La doble certificación significa que el casco cumple <strong>ambos estándares</strong>, proporcionando aceptación tanto en mercados que especifican NFPA como en los que especifican EN.",
+  },
+  {
+    q: "¿ICAO certifica cascos de bombero directamente?",
+    a: "<strong>No</strong>. ICAO (Organización de Aviación Civil Internacional) no certifica equipo — establece <strong>estándares para aeropuertos</strong>. El Annex 14 especifica que los servicios ARFF deben tener \"equipo de protección personal apropiado\" sin nombrar normas específicas. Los cascos <strong>NFPA 1971 y EN 443</strong> son reconocidos como apropiados para cumplir este requisito.",
+  },
+  {
+    q: "¿Qué documentación incluye el casco para licitaciones?",
+    a: "Cada casco incluye: <strong>(1)</strong> Certificado de laboratorio acreditado ISO/IEC 17025 con número de serie/lote. <strong>(2)</strong> Declaración de conformidad del fabricante a NFPA 1971 y EN 443. <strong>(3)</strong> Ficha técnica completa en español. <strong>(4)</strong> Carta de garantía con términos y condiciones. <strong>(5)</strong> Manual de operación y mantenimiento. Documentación adicional disponible bajo solicitud.",
+  },
+  {
+    q: "¿Cómo verifico que un certificado es auténtico?",
+    a: "Los certificados de laboratorios acreditados incluyen: <strong>número de certificado único</strong>, nombre del laboratorio con número de acreditación, fecha de emisión y vigencia, y firma autorizada. Puedes verificar la acreditación del laboratorio en el <strong>sitio web de la entidad de acreditación</strong> (ej: EMA México, NVLAP EE.UU., UKAS Reino Unido). Los certificados falsos generalmente no incluyen estos elementos verificables.",
+  },
+  {
+    q: "¿Cuánto tiempo es válido el certificado NFPA 1971?",
+    a: "El certificado de <strong>tipo</strong> (modelo de casco) es válido mientras el fabricante no modifique el diseño y la edición de la norma siga vigente. Cuando NFPA publica una <strong>nueva edición</strong> (cada 5 años aproximadamente), los fabricantes re-certifican sus productos. El casco individual es válido durante su <strong>vida útil de servicio</strong> (10 años típico para material compuesto).",
+  },
+  {
+    q: "¿Qué pasa si la licitación especifica una norma que no tenemos?",
+    a: "Contactar al comprador para aclarar si normas equivalentes son aceptables. NFPA 1971 y EN 443 son <strong>equivalentes funcionales</strong> reconocidos internacionalmente. La mayoría de bases de licitación bien redactadas dicen \"NFPA 1971 <strong>o equivalente</strong>\". Si especifican una sola norma sin alternativas, puede ser requisito de proveedor específico — solicitar aclaración.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Casco ARFF Sistema Completo",
+    badge: "NFPA 1971",
+    description: "Sistema completo certificado NFPA 1971 + EN 443 con toda la documentación para licitaciones.",
+    href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/sistema-completo",
+    buttonText: "Ver Sistema Completo",
+    image: IMAGE,
+  },
+  {
+    title: "Traje ARFF Certificado",
+    badge: "NFPA 1971",
+    description: "Traje de aproximación con certificación NFPA 1971 y documentación para licitaciones.",
+    href: "/productos/trajes-para-bomberos/traje-arff-aeropuerto",
+    buttonText: "Ver Traje Certificado",
+    image: IMAGE,
+  },
+  {
+    title: "Guantes ARFF Certificados",
+    badge: "NFPA 1971",
+    description: "Guantes con certificación NFPA 1971 y EN 659 para sistema EPP completo certificado.",
+    href: "/productos/guantes",
+    buttonText: "Ver Guantes",
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+  },
+  {
+    title: "SCBA Certificado NIOSH/NFPA",
+    badge: "NIOSH",
+    description: "Equipo de respiración autónoma con certificación NIOSH y NFPA 1981.",
+    href: "/productos",
+    buttonText: "Ver SCBA",
+    image: "/images/directorio/equipo-bomberos-completo-01.avif",
+  },
+];
+
+/* ── Datos del sidebar ──────────────────────────────────────── */
+const otrosModelos = [
+  { label: "Sistema Completo ARFF",           href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/sistema-completo" },
+  { label: "Shell Aluminizado 85%+",          href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/shell-aluminizado" },
+  { label: "Visor Dorado Filtro IR",          href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/visor-dorado" },
+  { label: "Orejeras Térmicas Desmontables",  href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/orejeras-termicas" },
+  { label: "Linterna LED Integrada",          href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/linterna-integrada" },
+  { label: "Ver Todos los Cascos",            href: "/productos/cascos-para-bomberos" },
+];
+
+const epp = [
+  { label: "Traje ARFF Certificado",       href: "/productos/trajes-para-bomberos/traje-arff-aeropuerto", tag: "Cuerpo" },
+  { label: "Guantes ARFF Certificados",    href: "/productos/guantes",                                   tag: "Manos" },
+  { label: "Botas Certificadas NFPA",      href: "/productos/botas/estructural",                         tag: "Pies" },
+  { label: "SCBA NIOSH/NFPA",              href: "/productos",                                      tag: "Respiración" },
+  { label: "Capucha Certificada",          href: "/productos/capuchas",                                  tag: "Cabeza" },
+];
+
+const articulos = [
+  { label: "Catálogo Cascos ARFF",             href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario", tag: "Catálogo" },
+  { label: "NFPA 1971 Explicada",              href: "/productos",                                               tag: "Normativa" },
+  { label: "EN 443 Explicada",                 href: "/productos",                                               tag: "Normativa" },
+  { label: "ICAO Annex 14 para ARFF",          href: "/productos",                                               tag: "Normativa" },
+  { label: "Licitaciones DGAC México",         href: "/productos",                                               tag: "Guía" },
+  { label: "Verificar Certificados",           href: "/productos",                                               tag: "Artículo" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Aeropuerto AICM",         href: "/directorio/ciudad-de-mexico/estacion-aeropuerto-aicm" },
+  { label: "Bomberos Aeropuerto Cancún",       href: "/directorio/quintana-roo/estacion-bomberos-aeropuerto-cancun" },
+  { label: "Bomberos Aeropuerto Guadalajara",  href: "/directorio/jalisco/estacion-bomberos-aeropuerto-guadalajara" },
+  { label: "Bomberos Aeropuerto Monterrey",    href: "/directorio/nuevo-leon" },
+  { label: "Bomberos Aeropuerto Tijuana",      href: "/directorio/baja-california" },
+  { label: "Directorio Nacional",              href: "/directorio" },
+];
+
+const specsRapidas = [
+  { label: "NFPA",            valor: "1971:2018 o vigente" },
+  { label: "EN",              valor: "443:2008 o vigente" },
+  { label: "ICAO",            valor: "Annex 14 compatible" },
+  { label: "México",          valor: "DGAC/SCT válido" },
+  { label: "Laboratorio",     valor: "ISO/IEC 17025" },
+  { label: "Certificado",     valor: "Original incluido" },
+  { label: "Ficha técnica",   valor: "Español incluida" },
+  { label: "Garantía",        valor: "Carta incluida" },
+];
+
+const certItems = [
+  { code: "NFPA 1971",     desc: "Cascos bomberos — estándar EE.UU." },
+  { code: "EN 443",        desc: "Cascos bomberos — estándar Europa CE" },
+  { code: "ICAO Annex 14", desc: "Requisitos servicios ARFF aeropuertos" },
+  { code: "DGAC/SCT",      desc: "Autoridad aeronáutica México" },
+  { code: "ISO/IEC 17025", desc: "Laboratorio de pruebas acreditado" },
+];
+---
+
+<ProductoLayout
+  title="Casco ARFF — Certificaciones Aeroportuarias NFPA 1971 EN 443 | BOMBERO.MX"
+  description="Casco ARFF con certificación NFPA 1971 y EN 443 para licitaciones aeroportuarias. Compatible ICAO Annex 14. Documentación completa para DGAC/SCT México. Certificado ISO/IEC 17025 incluido."
+  keywords={[
+    "casco ARFF certificado NFPA 1971",
+    "casco bombero EN 443",
+    "certificacion cascos aeropuerto",
+    "casco ICAO Annex 14",
+    "licitacion cascos DGAC",
+    "casco bombero certificado Mexico",
+    "documentacion cascos ARFF",
+    "comprar casco certificado aeropuerto",
+  ]}
+  canonical="/productos/cascos-para-bomberos/casco-arff-aeroportuario/certificaciones"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos" },
+    { label: "Cascos de Bombero",           href: "/productos/cascos-para-bomberos" },
+    { label: "Casco ARFF Aeroportuario",    href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario" },
+    { label: "Certificaciones" },
+  ]}
+
+  heroBadge="Certificaciones · NFPA 1971 · EN 443 · ICAO"
+  heroTitle="Casco ARFF con"
+  heroTitleHighlight="Certificaciones Aeroportuarias"
+  heroSubtitle="Doble certificación NFPA 1971 (EE.UU.) y EN 443 (Europa) para aceptación global. Compatible con requisitos ICAO Annex 14 para servicios ARFF. Documentación completa incluida para licitaciones DGAC/SCT en México: certificado ISO/IEC 17025, ficha técnica, garantía."
+  heroSeoBlocks={[
+    {
+      title: "NFPA 1971 + EN 443 — Doble Certificación Global",
+      text: "El casco cumple simultáneamente <strong>NFPA 1971</strong> (estándar estadounidense más reconocido mundialmente) y <strong>EN 443</strong> (estándar europeo con marca CE). Esta doble certificación proporciona <strong>aceptación en cualquier mercado</strong> que especifique cualquiera de las dos normas.",
+    },
+    {
+      title: "Documentación Completa para Licitaciones DGAC",
+      text: "Cada casco incluye <strong>certificado de laboratorio ISO/IEC 17025</strong> original, declaración de conformidad del fabricante, ficha técnica en español y carta de garantía. Documentación lista para cumplir requisitos de bases de licitación de <strong>DGAC, ASA, GACM</strong> y operadores aeroportuarios privados.",
+    },
+  ]}
+
+  ctaBarQuote="Solicitar Documentación de Certificación"
+
+  productoCategoria="Certificaciones ARFF"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1971" },
+    { modifier: "tpp",   text: "EN 443" },
+    { modifier: "solas", text: "ICAO" },
+  ]}
+  productoMasVendido={false}
+  productoTitle="Casco ARFF Certificado"
+  productoTitleSub="NFPA 1971 + EN 443 + ICAO"
+  productoDesc="Casco ARFF con doble certificación NFPA 1971 y EN 443 verificada por laboratorio acreditado ISO/IEC 17025. Compatible con requisitos ICAO Annex 14 para servicios ARFF. Documentación completa en español para licitaciones DGAC/SCT México."
+  productoFeatures={[
+    "Certificado NFPA 1971 edición vigente",
+    "Certificado EN 443 con marca CE",
+    "Compatible ICAO Annex 14 ARFF",
+    "Laboratorio ISO/IEC 17025 acreditado",
+    "Documentación español incluida",
+    "Válido licitaciones DGAC/SCT/ASA",
+  ]}
+  productoAppTags={[
+    "Licitaciones DGAC",
+    "Aeropuertos ICAO",
+    "Auditorías",
+    "Certificación",
+    "Documentación",
+  ]}
+
+  gallery={[
+    { src: "/images/directorio/camion-bomberos-aeropuerto-01.avif",              alt: "Casco ARFF certificado NFPA 1971" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Casco con certificación EN 443" },
+    { src: "/images/directorio/equipo-bomberos-completo-01.avif",                alt: "Sistema EPP ARFF certificado" },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",            alt: "Equipamiento certificado en uso" },
+    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif",alt: "Casco certificado en operación" },
+    { src: "/images/directorio/camion-bomberos-emergencia-01.avif",              alt: "Equipo ARFF con documentación" },
+  ]}
+
+  capasEyebrow="Normas y Certificaciones"
+  capasTitle="Triple Marco Normativo"
+  capasDesc="NFPA 1971 para EE.UU. y mercados que lo especifican, EN 443 para Europa y marca CE, ICAO Annex 14 para requisitos de aviación civil."
+  capas={capas}
+
+  specsEyebrow="Requisitos de Normas"
+  specsTitle="Especificaciones de Certificación"
+  specsDesc="Detalle de requisitos que cumple el casco según cada norma aplicable y documentación incluida."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Aplicación de Certificaciones"
+  aplicacionesTitle="¿Dónde se Requieren Estas Certificaciones?"
+  aplicacionesContent="<p>Las certificaciones <strong>NFPA 1971 y EN 443</strong> son requeridas en bases de licitación para equipamiento ARFF en aeropuertos certificados. La compatibilidad <strong>ICAO Annex 14</strong> satisface requisitos de aviación civil internacional.</p><p>La documentación incluida está diseñada específicamente para cumplir requisitos de licitaciones <strong>DGAC, SCT, ASA</strong> y operadores aeroportuarios en México.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Marco Normativo"
+  certsTitle="Cumplimiento Global de Certificaciones"
+  certsDesc="El casco cumple los estándares más exigentes para servicios ARFF: <strong>NFPA 1971</strong> estadounidense, <strong>EN 443</strong> europeo con marca CE, y es compatible con <strong>ICAO Annex 14</strong> para aviación civil internacional."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/cascos-para-bomberos/casco-arff-aeroportuario"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Preguntas sobre Certificaciones"
+  faqDescription="Dudas frecuentes sobre normas NFPA 1971, EN 443, requisitos ICAO, documentación para licitaciones y verificación de certificados."
+  faqDocTitle="Solicitar Documentación Completa"
+  faqDocDesc="Obtenga certificados, fichas técnicas y toda la documentación necesaria para su licitación."
+  faqDocCtaHref="/cotizar"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="EPP Certificado Completo"
+  relacionadosTitle="Sistema ARFF con Documentación"
+  relacionadosDesc="Complete el sistema de protección ARFF con equipo certificado y documentación para licitaciones."
+  relacionados={relacionados}
+/>

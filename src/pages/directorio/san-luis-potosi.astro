@@ -1,1324 +1,361 @@
 ---
 /**
- * ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
- * ║                                                                                                          ║
- * ║   DIRECTORIO DE BOMBEROS - SAN LUIS POTOSÍ                                                              ║
- * ║   ══════════════════════════════════════════════════════════════════════════════════════════════════════║
- * ║                                                                                                          ║
- * ║   "El Corazón de México" - Encrucijada Industrial y Cultural                                            ║
- * ║                                                                                                          ║
- * ║   ENTERPRISE-LEVEL FEATURES:                                                                            ║
- * ║   • Cobertura BMW Group Plant y General Motors Complejo                                                 ║
- * ║   • Rescate espeleológico Sótano de las Golondrinas (512m)                                              ║
- * ║   • Protocolos HAZMAT documentados para industria automotriz                                            ║
- * ║   • Turismo aventura Huasteca Potosina (2M+ visitantes)                                                ║
- * ║   • 4 Pueblos Mágicos con cobertura especializada                                                       ║
- * ║   • Schema.org multi-tipo enterprise                                                                     ║
- * ║   • SEO competitivo con keyword segmentation                                                             ║
- * ║                                                                                                          ║
- * ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+ * Directorio de Estaciones de Bomberos - San Luis Potosí
+ * El Corazón de México - Encrucijada Industrial y Cultural
+ * 16 estaciones | HAZMAT Automotriz | Rescate Espeleológico Huasteca
  */
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesSanLuisPotosi, getMunicipios } from "@data/estaciones-san-luis-potosi";
 
-import PageLayout from "@layouts/PageLayout.astro";
-import { cdn, cdnW } from "@utils/cdn";
-import {
-  estacionesSanLuisPotosi,
-  SAN_LUIS_POTOSI_SEO,
-  ZONAS_SLP,
-  ALERTAS_SLP,
-  FAQ_SLP,
-  INDUSTRIA_AUTOMOTRIZ_SLP,
-  TURISMO_SLP,
-  PROTOCOLOS_SLP,
-  INFRAESTRUCTURA_SLP,
-  getEstacionesPorZona,
-  getEstacionesHAZMAT,
-  getEstacionesEspeleologia,
-  getEstacionesSwiftWater,
-  getEstacionesBilingues,
-  generarInterlinking,
-  getAlertasActivas,
-  getPlantasAutomotrices,
-  getEstadisticasIndustria,
-  getAtraccionesHuasteca,
-  getPueblosMagicos
-} from "@data/estaciones-san-luis-potosi";
+// Configuración del estado
+const estado = "San Luis Potosí";
+const sigla = "SLP";
+const slug = "san-luis-potosi";
 
-// ─── Configuración de Página ───────────────────────────────────────────────────
-const title = `${SAN_LUIS_POTOSI_SEO.titulo} | BMW, GM, Huasteca | BOMBERO.MX`;
-const description = SAN_LUIS_POTOSI_SEO.descripcion;
+// Miniaturas hero - Industria y Huasteca
+const heroThumbs = [
+  {
+    src: "/images/directorio/slp-centro-historico.avif",
+    alt: "Centro Histórico de San Luis Potosí - Candidato UNESCO",
+    label: "Centro Histórico"
+  },
+  {
+    src: "/images/directorio/slp-bmw-plant.avif",
+    alt: "Planta BMW Group San Luis Potosí",
+    label: "BMW Plant"
+  },
+  {
+    src: "/images/directorio/slp-huasteca-tamul.avif",
+    alt: "Cascada de Tamul Huasteca Potosina",
+    label: "Huasteca Potosina"
+  }
+];
 
-// ─── SEO Keywords ─────────────────────────────────────────────────────────────
-const keywords = ["bomberos san luis potosí", "estaciones bomberos slp", "emergencias san luis potosí 911", "bomberos bmw gm hazmat", "rescate espeleológico huasteca", "bomberos potosino", "cuerpo bomberos san luis potosí"];
+// Galería de imágenes
+const galleryImages = [
+  {
+    src: "/images/directorio/slp-bomberos-hazmat.avif",
+    alt: "Equipo HAZMAT de Bomberos de SLP en zona industrial automotriz",
+    label: "HAZMAT Industrial"
+  },
+  {
+    src: "/images/directorio/slp-sotano-golondrinas.avif",
+    alt: "Sótano de las Golondrinas 512m de profundidad Aquismón",
+    label: "Sótano Golondrinas"
+  },
+  {
+    src: "/images/directorio/slp-real-catorce.avif",
+    alt: "Real de Catorce Pueblo Mágico desierto",
+    label: "Real de Catorce"
+  },
+  {
+    src: "/images/directorio/slp-gm-complejo.avif",
+    alt: "General Motors Complejo San Luis Potosí",
+    label: "GM Complejo"
+  },
+  {
+    src: "/images/directorio/slp-xilitla-pozas.avif",
+    alt: "Jardín Surrealista Edward James Las Pozas Xilitla",
+    label: "Xilitla PM"
+  },
+  {
+    src: "/images/directorio/slp-parque-tangamanga.avif",
+    alt: "Parque Tangamanga uno de los más grandes de Latinoamérica",
+    label: "Parque Tangamanga"
+  }
+];
 
-// ─── Estadísticas ──────────────────────────────────────────────────────────────
-const totalEstaciones = estacionesSanLuisPotosi.length;
-const estacionesHAZMAT = getEstacionesHAZMAT();
-const estacionesEspeleologia = getEstacionesEspeleologia();
-const estacionesSwiftWater = getEstacionesSwiftWater();
-const estacionesBilingues = getEstacionesBilingues();
+// Números de emergencia SLP
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias" },
+  { number: "(444) 812-2583", label: "Bomberos Central SLP" },
+  { number: "(444) 815-7575", label: "HAZMAT Industrial" },
+  { number: "(481) 382-1035", label: "Bomberos Ciudad Valles" }
+];
 
-// ─── Datos Industria ───────────────────────────────────────────────────────────
-const statsIndustria = getEstadisticasIndustria();
-const plantasAutomotrices = getPlantasAutomotrices();
+// Regiones de San Luis Potosí
+const regiones = [
+  {
+    nombre: "Zona Metropolitana SLP",
+    desc: "Capital del estado, Centro Histórico (candidato UNESCO), Parque Tangamanga, zona comercial"
+  },
+  {
+    nombre: "Zona Industrial Automotriz",
+    desc: "BMW Group Plant, GM Complejo, 12 parques industriales, 300+ proveedores tier 1-3"
+  },
+  {
+    nombre: "Huasteca Potosina",
+    desc: "Tamul, Sótano de las Golondrinas, Xilitla, Aquismón - 2M+ turistas aventura anuales"
+  },
+  {
+    nombre: "Zona Altiplano",
+    desc: "Matehuala, Real de Catorce (Pueblo Mágico), desierto Wirikuta, zona minera histórica"
+  }
+];
 
-// ─── Datos Turismo ─────────────────────────────────────────────────────────────
-const atraccionesHuasteca = getAtraccionesHuasteca();
-const pueblosMagicos = getPueblosMagicos();
+// Tarjetas de equipamiento EPP
+const eppCards = [
+  {
+    image: "/images/productos/equipo-hazmat-industrial.avif",
+    imageAlt: "Equipo HAZMAT para industria automotriz BMW GM",
+    badge: "HAZMAT",
+    title: "HAZMAT Automotriz",
+    text: "Equipamiento Nivel A para emergencias con pinturas, solventes y baterías de litio en plantas BMW y GM.",
+    href: "/productos/hazmat",
+    linkLabel: "Ver equipos HAZMAT"
+  },
+  {
+    image: "/images/productos/equipo-espeleologia.avif",
+    imageAlt: "Equipo de rescate espeleológico para Sótano de las Golondrinas",
+    badge: "Espeleología",
+    title: "Rescate en Sótanos",
+    text: "Cuerdas 600m, sistemas de anclaje y camillas técnicas para el Sótano de las Golondrinas (512m).",
+    href: "/productos/rescate-montana",
+    linkLabel: "Ver equipo espeleología"
+  },
+  {
+    image: "/images/productos/equipo-swift-water.avif",
+    imageAlt: "Equipo swift water rescue para ríos de la Huasteca",
+    badge: "Swift Water",
+    title: "Rescate Acuático Ríos",
+    text: "PFDs clase V, lanchas y throw bags para rescate en ríos Tampaón y Santa María.",
+    href: "/productos/rescate-acuatico",
+    linkLabel: "Ver equipo acuático"
+  }
+];
 
-// ─── Interlinking ──────────────────────────────────────────────────────────────
-const { estados: estadosVecinos, productos: productosRelacionados } = generarInterlinking();
-
-// ─── Alertas Activas ───────────────────────────────────────────────────────────
-const alertasActivas = getAlertasActivas();
-
-// ─── Personal Total ────────────────────────────────────────────────────────────
-const personalTotal = estacionesSanLuisPotosi.reduce((sum, e) => sum + (e.personal || 0), 0);
-
-// ─── Schema.org Enterprise Multi-tipo ──────────────────────────────────────────
-const schemaOrg = {
+// Schema.org estructurado
+const itemListSchema = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "GovernmentOrganization",
-      "@id": "https://bombero.mx/directorio/san-luis-potosi#organization",
-      "name": "H. Cuerpo de Bomberos de San Luis Potosí",
-      "alternateName": ["Bomberos San Luis Potosí", "Bomberos SLP", "Fire Department San Luis Potosi"],
-      "description": "Servicio de bomberos del estado de San Luis Potosí, México. Cobertura especializada HAZMAT para clúster automotriz BMW y GM, rescate espeleológico en Huasteca Potosina.",
-      "areaServed": {
-        "@type": "State",
-        "name": "San Luis Potosí",
-        "containedInPlace": { "@type": "Country", "name": "México" }
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de ${estacionesSanLuisPotosi.length} estaciones de bomberos en San Luis Potosí. HAZMAT especializado para BMW y GM. Rescate espeleológico Huasteca Potosina. Cobertura 4 Pueblos Mágicos.`,
+  numberOfItems: estacionesSanLuisPotosi.length,
+  itemListElement: estacionesSanLuisPotosi.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.zona,
+        addressRegion: estado,
+        addressCountry: "MX"
       },
-      "numberOfEmployees": personalTotal,
-      "knowsAbout": ["HAZMAT Industrial", "Cave Rescue", "Swift Water Rescue", "Automotive Industry Emergency Response", "Mountain Rescue"],
-      "availableLanguage": ["Spanish", "English"]
-    },
-    {
-      "@type": "ItemList",
-      "name": "Estaciones de Bomberos en San Luis Potosí",
-      "description": `Directorio de ${totalEstaciones} estaciones de bomberos en San Luis Potosí, México`,
-      "numberOfItems": totalEstaciones,
-      "itemListElement": estacionesSanLuisPotosi.map((estacion, index) => ({
-        "@type": "ListItem",
-        "position": index + 1,
-        "item": {
-          "@type": "FireStation",
-          "name": estacion.nombre,
-          "address": estacion.direccion,
-          "telephone": estacion.telefono
-        }
-      }))
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bombero.mx" },
-        { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bombero.mx/directorio" },
-        { "@type": "ListItem", "position": 3, "name": "San Luis Potosí", "item": "https://bombero.mx/directorio/san-luis-potosi" }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": FAQ_SLP.slice(0, 8).map(faq => ({
-        "@type": "Question",
-        "name": faq.pregunta,
-        "acceptedAnswer": { "@type": "Answer", "text": faq.respuesta }
-      }))
-    },
-    {
-      "@type": "LocalBusiness",
-      "@id": "https://bombero.mx/directorio/san-luis-potosi#industrial",
-      "name": "Cobertura Industrial Automotriz San Luis Potosí",
-      "description": "Servicios HAZMAT especializados para BMW Group Plant, General Motors Complejo y 300+ proveedores tier 1-3",
-      "areaServed": ["Zona Industrial SLP", "Villa de Reyes", "Parque Industrial Logistik", "Parque Industrial Tres Naciones"]
-    },
-    {
-      "@type": "TouristDestination",
-      "name": "Huasteca Potosina",
-      "description": "Región de turismo de aventura con cascadas, sótanos y selva. 2+ millones de visitantes anuales.",
-      "touristType": ["Adventure Tourism", "Eco-tourism", "Speleology", "Rafting"],
-      "includesAttraction": [
-        { "@type": "TouristAttraction", "name": "Cascada de Tamul" },
-        { "@type": "TouristAttraction", "name": "Sótano de las Golondrinas" },
-        { "@type": "TouristAttraction", "name": "Jardín Edward James Xilitla" },
-        { "@type": "TouristAttraction", "name": "Real de Catorce" }
-      ]
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
     }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` }
   ]
 };
+
+// Imágenes para tarjetas de estaciones
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/rescate-swift-water-rios-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
+];
+
+// Estados vecinos
+const estadosVecinos = [
+  { nombre: "Zacatecas", slug: "zacatecas" },
+  { nombre: "Nuevo León", slug: "nuevo-leon" },
+  { nombre: "Tamaulipas", slug: "tamaulipas" },
+  { nombre: "Veracruz", slug: "veracruz" },
+  { nombre: "Guanajuato", slug: "guanajuato" },
+  { nombre: "Querétaro", slug: "queretaro" },
+];
 ---
 
-<PageLayout
-  title={title}
-  description={description}
-  keywords={keywords}
-  canonical="https://bombero.mx/directorio/san-luis-potosi"
-  jsonLd={[schemaOrg]}
+<DirectorioEstadoLayout
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  estaciones={estacionesSanLuisPotosi}
+  stationImages={stationImages}
+  municipios={getMunicipios()}
+  estadosVecinos={estadosVecinos}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en ${estado} | Directorio Oficial ${estacionesSanLuisPotosi.length} Estaciones | BOMBERO.MX`}
+  description={`Directorio completo de ${estacionesSanLuisPotosi.length} estaciones de bomberos en San Luis Potosí 2024. HAZMAT especializado para BMW Group Plant y GM Complejo. Rescate espeleológico Sótano de las Golondrinas (512m). Cobertura Huasteca Potosina y 4 Pueblos Mágicos. Tel: (444) 812-2583. Emergencias 911.`}
 >
-  <meta name="keywords" content={[...SAN_LUIS_POTOSI_SEO.keywords.transaccionales, ...SAN_LUIS_POTOSI_SEO.keywords.informacionales, ...SAN_LUIS_POTOSI_SEO.keywords.locales].join(", ")} slot="head" />
-  <meta name="geo.region" content="MX-SLP" slot="head" />
-  <meta name="geo.placename" content="San Luis Potosí, Mexico" slot="head" />
-  <meta name="geo.position" content="22.1565;-100.9855" slot="head" />
+  <Fragment slot="seo">
+    <section class="seo-content">
+      <h2>Bomberos de San Luis Potosí: El Corazón de México</h2>
+      <p>
+        El <strong>Heroico Cuerpo de Bomberos de San Luis Potosí</strong> protege a más de <strong>2.8 millones
+        de habitantes</strong> en uno de los estados más diversos de México. Con <strong>16 estaciones
+        estratégicamente distribuidas</strong>, los bomberos potosinos atienden desde <strong>emergencias HAZMAT
+        en el clúster automotriz más importante del Bajío</strong> (BMW, GM, 300+ proveedores) hasta
+        <strong>rescates espeleológicos en el Sótano de las Golondrinas</strong>, el sótano natural más profundo
+        de México con <strong>512 metros de caída libre</strong>.
+      </p>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       HERO SECTION ENTERPRISE - INDUSTRIAL + TURISMO
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-hero">
-    <div class="slp-hero__bg">
-      <div class="slp-hero__gradient"></div>
-      <div class="slp-hero__pattern"></div>
-      <div class="slp-hero__gears"></div>
-    </div>
+      <h3>Clúster Automotriz: BMW y General Motors</h3>
+      <p>
+        San Luis Potosí es el <strong>cuarto estado automotriz de México</strong>, con <strong>45,000 empleos
+        directos</strong> y <strong>$8,000 millones de dólares en exportaciones anuales</strong>. La
+        <strong>BMW Group Plant San Luis Potosí</strong> (Villa de Reyes) produce la <strong>Serie 3 y
+        Serie 2 Coupé</strong> con inversión de <strong>$1,000 millones USD</strong>, mientras que el
+        <strong>Complejo General Motors</strong> opera la planta de motores y transmisiones más grande de
+        Latinoamérica. Las <strong>3 estaciones HAZMAT</strong> del corredor industrial están certificadas
+        para emergencias con <strong>pinturas automotrices, solventes, baterías de litio, aceites especiales
+        y gases industriales</strong>, con personal bilingüe 24/7 para coordinación con ejecutivos internacionales.
+      </p>
 
-    <div class="container">
-      <div class="slp-hero__container">
-        <!-- Breadcrumb -->
-        <nav class="slp-breadcrumb" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/directorio">Directorio</a></li>
-            <li aria-current="page">San Luis Potosí</li>
-          </ol>
-        </nav>
+      <h3>Huasteca Potosina: Paraíso del Turismo de Aventura</h3>
+      <p>
+        La <strong>Huasteca Potosina</strong> recibe más de <strong>2 millones de visitantes anuales</strong>
+        para actividades de aventura extrema. La <strong>Cascada de Tamul</strong> (105 metros de altura) es
+        la más alta del estado, accesible únicamente por el <strong>río Tampaón</strong> en kayak o lancha.
+        Los bomberos de <strong>Ciudad Valles</strong> y <strong>Aquismón</strong> mantienen equipos de
+        <strong>swift water rescue</strong> certificados para rescate en ríos con corrientes clase II-IV,
+        incluyendo temporada de lluvias (junio-octubre) cuando el riesgo de inundaciones es crítico.
+      </p>
 
-        <!-- Alertas Activas -->
-        {alertasActivas.length > 0 && (
-          <div class="slp-alerts">
-            {alertasActivas.slice(0, 2).map(alerta => (
-              <div class={`slp-alert slp-alert--${alerta.tipo}`}>
-                <span class="slp-alert__icon">{alerta.icono}</span>
-                <span class="slp-alert__text">{alerta.mensaje}</span>
-                <span class="slp-alert__priority">{alerta.prioridad}</span>
-              </div>
-            ))}
-          </div>
-        )}
+      <h3>Sótano de las Golondrinas: Rescate Espeleológico Extremo</h3>
+      <p>
+        El <strong>Sótano de las Golondrinas</strong> en Aquismón es una de las <strong>cavidades verticales
+        más profundas del mundo</strong> con <strong>512 metros de caída libre</strong>. Atrae a más de
+        <strong>50,000 visitantes anuales</strong> para observación de vencejos y base jumping extremo.
+        La estación de bomberos de Aquismón mantiene <strong>equipo certificado de espeleología</strong>
+        incluyendo <strong>cuerdas estáticas de 600m</strong>, sistemas de anclaje para sótanos, camillas
+        técnicas verticales (Sked/Paraguard) y coordinación con grupos voluntarios de espeleología para
+        rescates que pueden durar <strong>12-24 horas</strong>.
+      </p>
 
-        <div class="slp-hero__grid">
-          <div class="slp-hero__content">
-            <!-- Badges Enterprise -->
-            <div class="slp-hero__badges">
-              <span class="slp-hero__badge slp-hero__badge--industrial">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M2 20v-8l8-6 8 6v8"/><path d="M9 20v-4h6v4"/>
-                </svg>
-                Clúster Automotriz #4 México
-              </span>
-              <span class="slp-hero__badge slp-hero__badge--hazmat">
-                HAZMAT Nivel A
-              </span>
-              <span class="slp-hero__badge slp-hero__badge--adventure">
-                Rescate Espeleológico
-              </span>
-            </div>
+      <h3>Cuatro Pueblos Mágicos con Cobertura Especializada</h3>
+      <p>
+        San Luis Potosí cuenta con <strong>4 Pueblos Mágicos</strong> con necesidades de emergencia únicas:
+        <strong>Real de Catorce</strong> (pueblo fantasma minero a 2,750 msnm con minas abandonadas y clima
+        extremo del desierto), <strong>Xilitla</strong> (Jardín Surrealista Edward James en selva húmeda),
+        <strong>Aquismón</strong> (puerta de entrada a sótanos y cascadas extremas), y
+        <strong>Santa María del Río</strong> (capital del rebozo con arquitectura histórica). Cada estación
+        tiene protocolos adaptados a sus riesgos específicos.
+      </p>
 
-            <h1 class="slp-hero__title">
-              <span class="slp-hero__title-pre">Estaciones de Bomberos en</span>
-              <span class="slp-hero__highlight">San Luis Potosí</span>
-            </h1>
+      <h3>Real de Catorce: Rescate en el Desierto</h3>
+      <p>
+        <strong>Real de Catorce</strong> es uno de los destinos de turismo místico más importantes de México,
+        accesible únicamente a través del <strong>Túnel Ogarrio</strong> (2.3 km). Recibe <strong>350,000+
+        visitantes anuales</strong> incluyendo peregrinos al desierto sagrado de <strong>Wirikuta</strong>
+        (territorio Wixárika/Huichol). Los bomberos de Matehuala mantienen capacidad de
+        <strong>búsqueda y rescate en desierto (SAR)</strong>, atención de emergencias por altitud,
+        rescate en minas abandonadas del pueblo fantasma y coordinación con la comunidad Wixárika para
+        emergencias en zona sagrada.
+      </p>
 
-            <p class="slp-hero__subtitle">El Corazón de México - Encrucijada Industrial y Cultural</p>
+      <h3>Zona Metropolitana: Centro Histórico Candidato UNESCO</h3>
+      <p>
+        El <strong>Centro Histórico de San Luis Potosí</strong> está en la <strong>Lista Tentativa de
+        UNESCO</strong> con su arquitectura barroca y neoclásica del siglo XVII-XIX. La
+        <strong>Estación Central</strong> cuenta con <strong>escalera telescópica de 42 metros</strong>
+        para emergencias en edificios históricos, protocolos de protección patrimonial y cobertura del
+        <strong>Parque Tangamanga</strong> (450 hectáreas, uno de los más grandes de Latinoamérica) para
+        eventos masivos. También cubre la zona universitaria con <strong>UASLP, IPICYT y Tec de Monterrey</strong>.
+      </p>
 
-            <p class="slp-hero__desc">
-              Directorio oficial del <strong>H. Cuerpo de Bomberos de San Luis Potosí</strong>.
-              <strong>{totalEstaciones} estaciones</strong> con cobertura especializada HAZMAT para
-              <strong>BMW, General Motors</strong> y 300+ proveedores automotrices. Rescate espeleológico certificado
-              para <strong>Sótano de las Golondrinas</strong> y swift water rescue en <strong>Huasteca Potosina</strong>.
-            </p>
+      <h3>Carretera 57D: Corredor Comercial Nacional</h3>
+      <p>
+        La <strong>Autopista 57D México-Piedras Negras</strong> atraviesa San Luis Potosí transportando
+        <strong>25,000+ vehículos diarios</strong> incluyendo tractocamiones con materiales peligrosos.
+        Las estaciones del corredor mantienen <strong>equipos de rescate vehicular pesado</strong>,
+        capacidad <strong>HAZMAT para derrames en tránsito</strong> y coordinación con
+        <strong>Capufe y la Guardia Nacional</strong> para accidentes carreteros de alto impacto.
+      </p>
 
-            <!-- Stats Grid Enterprise -->
-            <div class="slp-hero__stats">
-              <div class="slp-hero__stat">
-                <span class="slp-hero__stat-number">{totalEstaciones}</span>
-                <span class="slp-hero__stat-label">Estaciones</span>
-              </div>
-              <div class="slp-hero__stat slp-hero__stat--hazmat">
-                <span class="slp-hero__stat-number">{estacionesHAZMAT.length}</span>
-                <span class="slp-hero__stat-label">HAZMAT</span>
-              </div>
-              <div class="slp-hero__stat">
-                <span class="slp-hero__stat-number">{personalTotal}+</span>
-                <span class="slp-hero__stat-label">Bomberos</span>
-              </div>
-              <div class="slp-hero__stat slp-hero__stat--emergency">
-                <span class="slp-hero__stat-number">911</span>
-                <span class="slp-hero__stat-label">Emergencias</span>
-              </div>
-            </div>
+      <h3>Clima Extremo: Del Desierto a la Selva</h3>
+      <p>
+        San Luis Potosí presenta <strong>cuatro climas distintos</strong>: desierto extremo en el Altiplano
+        (Real de Catorce con temperaturas de <strong>-5°C a 40°C</strong>), selva húmeda en la Huasteca
+        (precipitaciones de <strong>2,000+ mm anuales</strong>), clima templado en la capital, y
+        semiárido en la Zona Media. Los bomberos están capacitados para emergencias en todos estos
+        escenarios, incluyendo <strong>incendios de matorrales, inundaciones súbitas y rescates en
+        condiciones de hipotermia o golpe de calor</strong>.
+      </p>
 
-            <!-- Dual Focus Cards -->
-            <div class="slp-hero__focus">
-              <div class="slp-hero__focus-card slp-hero__focus-card--industrial">
-                <div class="slp-hero__focus-icon">🏭</div>
-                <div class="slp-hero__focus-content">
-                  <h3>Zona Industrial</h3>
-                  <p>{statsIndustria.empleosDirectos.toLocaleString()} empleos directos</p>
-                  <span>BMW • GM • 300+ Proveedores</span>
-                </div>
-              </div>
-              <div class="slp-hero__focus-card slp-hero__focus-card--tourism">
-                <div class="slp-hero__focus-icon">🏔️</div>
-                <div class="slp-hero__focus-content">
-                  <h3>Huasteca Potosina</h3>
-                  <p>2M+ visitantes anuales</p>
-                  <span>Tamul • Golondrinas • Xilitla</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Emergency Card Enterprise -->
-          <div class="slp-hero__emergency">
-            <div class="slp-emergency-card">
-              <div class="slp-emergency-card__header">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
-                </svg>
-                <span>Emergencias</span>
-              </div>
-
-              <a href="tel:911" class="slp-emergency-card__911">911</a>
-              <p class="slp-emergency-card__note">Línea Nacional de Emergencias</p>
-
-              <div class="slp-emergency-card__lines">
-                <div class="slp-emergency-card__line">
-                  <span class="slp-emergency-card__line-label">Central SLP</span>
-                  <a href="tel:+524448122583">(444) 812-2583</a>
-                </div>
-                <div class="slp-emergency-card__line slp-emergency-card__line--hazmat">
-                  <span class="slp-emergency-card__line-label">HAZMAT Industrial</span>
-                  <a href="tel:+524448157575">(444) 815-7575</a>
-                </div>
-                <div class="slp-emergency-card__line">
-                  <span class="slp-emergency-card__line-label">Ciudad Valles (Huasteca)</span>
-                  <a href="tel:+524813821035">(481) 382-1035</a>
-                </div>
-                <div class="slp-emergency-card__line">
-                  <span class="slp-emergency-card__line-label">Matehuala (Altiplano)</span>
-                  <a href="tel:+524888820033">(488) 882-0033</a>
-                </div>
-              </div>
-
-              <div class="slp-emergency-card__protocols">
-                <span class="slp-emergency-card__protocols-label">Protocolos Activos</span>
-                <div class="slp-emergency-card__protocols-grid">
-                  <span title="Incendio Industrial Automotriz">IND-AUTO-01</span>
-                  <span title="HAZMAT Nivel A">HAZ-A-01</span>
-                  <span title="Rescate Espeleológico">RES-ESP-01</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       INDUSTRIA AUTOMOTRIZ SECTION
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-industry">
-    <div class="container">
-      <div class="slp-section-header slp-section-header--center">
-        <span class="slp-section-label">Clúster Automotriz #4 de México</span>
-        <h2 class="slp-section-title">Cobertura Industrial Enterprise</h2>
-        <p class="slp-section-subtitle">Protección especializada HAZMAT para la industria automotriz</p>
-      </div>
-
-      <!-- Industry Stats -->
-      <div class="slp-industry__stats">
-        <div class="slp-industry__stat">
-          <span class="slp-industry__stat-value">{statsIndustria.exportacionesAnuales}</span>
-          <span class="slp-industry__stat-label">Exportaciones Anuales</span>
-        </div>
-        <div class="slp-industry__stat">
-          <span class="slp-industry__stat-value">{statsIndustria.empleosDirectos.toLocaleString()}</span>
-          <span class="slp-industry__stat-label">Empleos Directos</span>
-        </div>
-        <div class="slp-industry__stat">
-          <span class="slp-industry__stat-value">{statsIndustria.proveedoresTier1 + statsIndustria.proveedoresTier2 + statsIndustria.proveedoresTier3}+</span>
-          <span class="slp-industry__stat-label">Proveedores Tier 1-3</span>
-        </div>
-        <div class="slp-industry__stat">
-          <span class="slp-industry__stat-value">{statsIndustria.parquesIndustriales}</span>
-          <span class="slp-industry__stat-label">Parques Industriales</span>
-        </div>
-      </div>
-
-      <!-- Major Plants -->
-      <div class="slp-industry__plants">
-        {plantasAutomotrices.map(planta => (
-          <div class="slp-plant-card">
-            <div class="slp-plant-card__header">
-              <h3>{planta.empresa}</h3>
-              <span class="slp-plant-card__badge">{planta.capacidadAnual}</span>
-            </div>
-            <p class="slp-plant-card__name">{planta.nombrePlanta}</p>
-            <div class="slp-plant-card__meta">
-              <span><strong>{planta.empleados.toLocaleString()}</strong> empleados</span>
-              <span><strong>{planta.superficie}</strong></span>
-            </div>
-            <div class="slp-plant-card__products">
-              <span class="slp-plant-card__products-label">Producción:</span>
-              <span>{planta.produccion}</span>
-            </div>
-            <div class="slp-plant-card__hazmat">
-              <span class="slp-plant-card__hazmat-label">Riesgos HAZMAT:</span>
-              <div class="slp-plant-card__hazmat-tags">
-                {planta.riesgosHAZMAT.slice(0, 4).map(r => <span>{r}</span>)}
-              </div>
-            </div>
-            <div class="slp-plant-card__certs">
-              {planta.certificaciones.map(c => <span class="slp-plant-card__cert">{c}</span>)}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- HAZMAT Stations -->
-      <div class="slp-industry__hazmat">
-        <h3>Estaciones HAZMAT Especializadas</h3>
-        <div class="slp-industry__hazmat-grid">
-          {estacionesHAZMAT.map(e => (
-            <a href={`/directorio/san-luis-potosi/${e.slug}`} class="slp-hazmat-card">
-              <div class="slp-hazmat-card__badge">HAZMAT</div>
-              <h4>{e.nombre.replace("Estación de Bomberos ", "")}</h4>
-              <p>{e.telefono}</p>
-              <span class="slp-hazmat-card__response">⏱️ {e.tiempoRespuesta}</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       TURISMO HUASTECA SECTION
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-tourism">
-    <div class="container">
-      <div class="slp-section-header slp-section-header--center">
-        <span class="slp-section-label">Huasteca Potosina + 4 Pueblos Mágicos</span>
-        <h2 class="slp-section-title">Rescate de Aventura Especializado</h2>
-        <p class="slp-section-subtitle">Cobertura para 2M+ visitantes anuales</p>
-      </div>
-
-      <!-- Attractions Grid -->
-      <div class="slp-tourism__attractions">
-        {atraccionesHuasteca.map(attr => (
-          <div class="slp-attraction-card">
-            <div class="slp-attraction-card__header">
-              <h3>{attr.nombre}</h3>
-              <span class="slp-attraction-card__type">{attr.tipo}</span>
-            </div>
-            {attr.altura && <p class="slp-attraction-card__spec">Altura: {attr.altura}</p>}
-            {attr.profundidad && <p class="slp-attraction-card__spec">Profundidad: {attr.profundidad}</p>}
-            <p class="slp-attraction-card__desc">{attr.descripcion}</p>
-            <div class="slp-attraction-card__visitors">
-              <span>{attr.visitantes} visitantes</span>
-            </div>
-            <div class="slp-attraction-card__risks">
-              <span class="slp-attraction-card__risks-label">Riesgos:</span>
-              <div class="slp-attraction-card__risks-tags">
-                {attr.riesgos.map(r => <span>{r}</span>)}
-              </div>
-            </div>
-            <div class="slp-attraction-card__rescue">
-              <span class="slp-attraction-card__rescue-label">Rescate requerido:</span>
-              <div class="slp-attraction-card__rescue-tags">
-                {attr.rescateRequerido.map(r => <span>{r}</span>)}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- Pueblos Mágicos -->
-      <div class="slp-tourism__pueblos">
-        <h3>4 Pueblos Mágicos con Cobertura</h3>
-        <div class="slp-tourism__pueblos-grid">
-          {pueblosMagicos.map(pm => (
-            <div class="slp-pueblo-card">
-              <div class="slp-pueblo-card__header">
-                <h4>{pm.nombre}</h4>
-                <span class="slp-pueblo-card__year">Desde {pm.designacion}</span>
-              </div>
-              <p>{pm.descripcion}</p>
-              <div class="slp-pueblo-card__visitors">
-                <span>{pm.visitantes} visitantes/año</span>
-              </div>
-              <div class="slp-pueblo-card__rescue">
-                {pm.rescateRequerido.slice(0, 2).map(r => <span>{r}</span>)}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <!-- Specialized Rescue Stations -->
-      <div class="slp-tourism__rescue">
-        <div class="slp-tourism__rescue-col">
-          <h3>Estaciones con Espeleología</h3>
-          <div class="slp-tourism__rescue-list">
-            {estacionesEspeleologia.map(e => (
-              <a href={`/directorio/san-luis-potosi/${e.slug}`} class="slp-rescue-card slp-rescue-card--cave">
-                <span class="slp-rescue-card__icon">🕳️</span>
-                <div>
-                  <h4>{e.nombre.replace("Estación de Bomberos ", "")}</h4>
-                  <p>{e.telefono}</p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-        <div class="slp-tourism__rescue-col">
-          <h3>Estaciones Swift Water</h3>
-          <div class="slp-tourism__rescue-list">
-            {estacionesSwiftWater.slice(0, 3).map(e => (
-              <a href={`/directorio/san-luis-potosi/${e.slug}`} class="slp-rescue-card slp-rescue-card--water">
-                <span class="slp-rescue-card__icon">🌊</span>
-                <div>
-                  <h4>{e.nombre.replace("Estación de Bomberos ", "").replace("Estación Central de Bomberos ", "")}</h4>
-                  <p>{e.telefono}</p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       PROTOCOLOS DE EMERGENCIA
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-protocols">
-    <div class="container">
-      <div class="slp-section-header slp-section-header--center">
-        <span class="slp-section-label">Documentación Enterprise</span>
-        <h2 class="slp-section-title">Protocolos de Emergencia</h2>
-        <p class="slp-section-subtitle">Procedimientos certificados y tiempos de respuesta</p>
-      </div>
-
-      <div class="slp-protocols__grid">
-        {PROTOCOLOS_SLP.map(proto => (
-          <div class="slp-protocol-card">
-            <div class="slp-protocol-card__header">
-              <span class="slp-protocol-card__code">{proto.codigo}</span>
-              <span class="slp-protocol-card__time">⏱️ {proto.tiempoMaximoRespuesta}</span>
-            </div>
-            <h3>{proto.tipo}</h3>
-            <p>{proto.descripcion}</p>
-            <div class="slp-protocol-card__resources">
-              <span class="slp-protocol-card__resources-label">Recursos mínimos:</span>
-              <ul>
-                {proto.recursosMinimos.slice(0, 3).map(r => <li>{r}</li>)}
-              </ul>
-            </div>
-            <div class="slp-protocol-card__coord">
-              <span>Coordinación: {proto.coordinacionRequerida.slice(0, 2).join(", ")}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       ZONAS DE COBERTURA
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-zones">
-    <div class="container">
-      <div class="slp-section-header slp-section-header--center">
-        <span class="slp-section-label">6 Zonas Geográficas</span>
-        <h2 class="slp-section-title">Cobertura Territorial</h2>
-      </div>
-
-      <div class="slp-zones__grid">
-        {Object.entries(ZONAS_SLP).map(([key, zona]) => {
-          const estacionesZona = getEstacionesPorZona(zona.nombre);
-          return (
-            <div class="slp-zone-card" style={`--zone-color: ${zona.color}`}>
-              <div class="slp-zone-card__header">
-                <div>
-                  <h3>{zona.nombre}</h3>
-                  <p class="slp-zone-card__short">{zona.nombreCorto}</p>
-                </div>
-                <span class="slp-zone-card__count">{estacionesZona.length}</span>
-              </div>
-              <p class="slp-zone-card__desc">{zona.descripcion}</p>
-              <div class="slp-zone-card__meta">
-                <span>👥 {zona.poblacion?.toLocaleString()}</span>
-                <span class={`slp-zone-card__risk slp-zone-card__risk--${zona.nivelRiesgo?.toLowerCase().replace(/\s+/g, '-')}`}>
-                  Riesgo: {zona.nivelRiesgo}
-                </span>
-              </div>
-              <div class="slp-zone-card__risks">
-                {zona.riesgosPrincipales?.slice(0, 2).map(r => <span>{r}</span>)}
-              </div>
-              <div class="slp-zone-card__response">
-                <span>⏱️ Respuesta: {zona.tiempoRespuestaPromedio}</span>
-              </div>
-              <ul class="slp-zone-card__stations">
-                {estacionesZona.slice(0, 2).map(e => (
-                  <li>
-                    <a href={`/directorio/san-luis-potosi/${e.slug}`}>
-                      {e.nombre.replace("Estación de Bomberos ", "").replace("Estación Central de Bomberos ", "")}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       DIRECTORIO COMPLETO
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-stations">
-    <div class="container">
-      <div class="slp-section-header slp-section-header--center">
-        <span class="slp-section-label">{totalEstaciones} Estaciones</span>
-        <h2 class="slp-section-title">Directorio Completo</h2>
-      </div>
-
-      <div class="slp-stations__grid">
-        {estacionesSanLuisPotosi.map((estacion) => {
-          const zonaInfo = ZONAS_SLP[Object.keys(ZONAS_SLP).find(k =>
-            ZONAS_SLP[k as keyof typeof ZONAS_SLP].nombre === estacion.zona
-          ) as keyof typeof ZONAS_SLP];
-
-          const esHAZMAT = estacion.servicios?.some(s => s.toLowerCase().includes("hazmat"));
-          const esEspeleologia = estacion.servicios?.some(s => s.toLowerCase().includes("espeleolog"));
-          const esSwiftWater = estacion.servicios?.some(s => s.toLowerCase().includes("swift water") || s.toLowerCase().includes("acuático"));
-          const esBilingue = estacion.idiomas?.includes("Inglés");
-
-          const thumbSrc = esHAZMAT
-            ? "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif"
-            : esEspeleologia
-              ? "/images/directorio/rescate-espeleologico-cuevas-01.avif"
-              : esSwiftWater
-                ? "/images/directorio/rescate-swift-water-rios-01.avif"
-                : "/images/directorio/estacion-bomberos-profesional-01.avif";
-
-          const thumbAlt = esHAZMAT
-            ? "Equipo HAZMAT bomberos San Luis Potosí - industria automotriz"
-            : esEspeleologia
-              ? "Rescate espeleológico bomberos - Sótano de las Golondrinas"
-              : esSwiftWater
-                ? "Rescate acuático swift water - Huasteca Potosina"
-                : "Estación de bomberos profesional San Luis Potosí";
-
-          return (
-            <a href={`/directorio/san-luis-potosi/${estacion.slug}`} class="slp-station-card">
-              <div class="slp-station-card__thumb">
-                <img
-                  src={cdnW(thumbSrc, 400)}
-                  alt={thumbAlt}
-                  width="400" height="160"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div class="slp-station-card__header">
-                <span class="slp-station-card__zone" style={`--zone-color: ${zonaInfo?.color || '#7c3aed'}`}>
-                  {estacion.zona}
-                </span>
-                <div class="slp-station-card__badges">
-                  {esHAZMAT && <span class="slp-station-card__badge slp-station-card__badge--hazmat" title="HAZMAT">☢️</span>}
-                  {esEspeleologia && <span class="slp-station-card__badge slp-station-card__badge--cave" title="Espeleología">🕳️</span>}
-                  {esSwiftWater && <span class="slp-station-card__badge slp-station-card__badge--water" title="Swift Water">🌊</span>}
-                  {esBilingue && <span class="slp-station-card__badge slp-station-card__badge--bilingual" title="Bilingüe">EN</span>}
-                </div>
-              </div>
-
-              <h3 class="slp-station-card__name">
-                {estacion.nombre.replace("Estación de Bomberos ", "").replace("Estación Central de Bomberos ", "")}
-              </h3>
-
-              <p class="slp-station-card__address">{estacion.direccion}</p>
-
-              <div class="slp-station-card__contact">
-                <span class="slp-station-card__phone">{estacion.telefono}</span>
-                {estacion.personal && <span class="slp-station-card__personnel">{estacion.personal} bomberos</span>}
-              </div>
-
-              {estacion.tiempoRespuesta && (
-                <p class="slp-station-card__response">⏱️ {estacion.tiempoRespuesta}</p>
-              )}
-
-              <span class="slp-station-card__cta">Ver detalles →</span>
-            </a>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       GALERÍA VISUAL - SERVICIOS ESPECIALIZADOS SLP
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-visual-gallery">
-    <div class="container">
-      <div class="slp-section-header slp-section-header--center">
-        <span class="slp-section-label">Servicios Especializados</span>
-        <h2 class="slp-section-title">Capacidades Operativas San Luis Potosí</h2>
-      </div>
-      <div class="slp-visual-gallery__grid">
-        <div class="slp-visual-gallery__item slp-visual-gallery__item--tall">
-          <img
-            src={cdnW("/images/directorio/estacion-bomberos-profesional-01.avif", 500)}
-            alt="Estación de bomberos profesional San Luis Potosí - instalaciones modernas"
-            width="500" height="600"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="slp-visual-gallery__caption">
-            <h3>Estaciones SLP</h3>
-            <p>{totalEstaciones} estaciones activas en el estado</p>
-          </div>
-        </div>
-        <div class="slp-visual-gallery__col">
-          <div class="slp-visual-gallery__item">
-            <img
-              src={cdnW("/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", 500)}
-              alt="Equipo HAZMAT materiales peligrosos - industria automotriz BMW GM San Luis Potosí"
-              width="500" height="200"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="slp-visual-gallery__caption">
-              <h3>HAZMAT Industrial</h3>
-              <p>Cobertura BMW Group y General Motors</p>
-            </div>
-          </div>
-          <div class="slp-visual-gallery__item">
-            <img
-              src={cdnW("/images/directorio/rescate-espeleologico-cuevas-01.avif", 500)}
-              alt="Rescate espeleológico cuevas - Sótano de las Golondrinas San Luis Potosí"
-              width="500" height="200"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="slp-visual-gallery__caption">
-              <h3>Rescate Espeleológico</h3>
-              <p>Sótano de las Golondrinas (512 m)</p>
-            </div>
-          </div>
-        </div>
-        <div class="slp-visual-gallery__col">
-          <div class="slp-visual-gallery__item">
-            <img
-              src={cdnW("/images/directorio/rescate-swift-water-rios-01.avif", 500)}
-              alt="Rescate swift water ríos - Huasteca Potosina cascadas"
-              width="500" height="200"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="slp-visual-gallery__caption">
-              <h3>Rescate Acuático</h3>
-              <p>Operaciones en Huasteca Potosina</p>
-            </div>
-          </div>
-          <div class="slp-visual-gallery__item">
-            <img
-              src={cdnW("/images/directorio/capacitacion-bomberos-profesional-01.avif", 500)}
-              alt="Capacitación bomberos profesional - formación especializada San Luis Potosí"
-              width="500" height="200"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="slp-visual-gallery__caption">
-              <h3>Capacitación</h3>
-              <p>Personal certificado NFPA y NOM-STPS</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       FAQ SECTION
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-faq">
-    <div class="container">
-      <div class="slp-section-header slp-section-header--center">
-        <span class="slp-section-label">Preguntas Frecuentes</span>
-        <h2 class="slp-section-title">Información Importante</h2>
-      </div>
-
-      <div class="slp-faq__grid">
-        {FAQ_SLP.slice(0, 8).map((faq, index) => (
-          <details class="slp-faq__item" open={index < 2}>
-            <summary>
-              <span class="slp-faq__category">{faq.categoria}</span>
-              <span class="slp-faq__question">{faq.pregunta}</span>
-            </summary>
-            <div class="slp-faq__answer">
-              <p>{faq.respuesta}</p>
-            </div>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       INTERLINKING SECTION
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-interlinking">
-    <div class="container">
-      <div class="slp-section-header slp-section-header--center">
-        <span class="slp-section-label">Corredor Industrial</span>
-        <h2 class="slp-section-title">Estados Conectados</h2>
-      </div>
-
-      <div class="slp-interlinking__grid">
-        {estadosVecinos.slice(0, 6).map(estado => (
-          <a href={`/directorio/${estado.slug}`} class={`slp-neighbor-card slp-neighbor-card--${estado.prioridad}`}>
-            <div class="slp-neighbor-card__header">
-              <h3>{estado.estado}</h3>
-              <span class="slp-neighbor-card__priority">{estado.prioridad}</span>
-            </div>
-            <p class="slp-neighbor-card__relation">{estado.relacion}</p>
-            <p class="slp-neighbor-card__context">{estado.contexto}</p>
-            <div class="slp-neighbor-card__distance">
-              <span>📍 {estado.distanciaKm} km</span>
-              <span>🚗 {estado.tiempoViaje}</span>
-            </div>
-            <div class="slp-neighbor-card__seo">
-              <span>SEO Value: {estado.valorSEO}</span>
-            </div>
-            <span class="slp-neighbor-card__link">Ver estaciones →</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       PRODUCTOS B2B
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-products">
-    <div class="container">
-      <div class="slp-section-header slp-section-header--center">
-        <span class="slp-section-label">Equipamiento Industrial & Rescate</span>
-        <h2 class="slp-section-title">Productos para Industria Automotriz</h2>
-        <p class="slp-section-subtitle">Soluciones B2B para plantas y servicios de emergencia</p>
-      </div>
-
-      <div class="slp-products__grid">
-        {productosRelacionados.filter(p => p.prioridad === 'critica' || p.prioridad === 'alta').slice(0, 6).map(producto => (
-          <a href={producto.slug} class={`slp-product-card slp-product-card--${producto.prioridad}`}>
-            <span class="slp-product-card__priority">{producto.prioridad}</span>
-            <h3>{producto.producto}</h3>
-            <p>{producto.contexto}</p>
-            <div class="slp-product-card__audience">
-              {producto.audiencia?.slice(0, 2).map(a => <span>{a}</span>)}
-            </div>
-            <div class="slp-product-card__meta">
-              <span class="slp-product-card__roi">{producto.roi}</span>
-              {producto.precioRango && <span class="slp-product-card__price">{producto.precioRango}</span>}
-            </div>
-          </a>
-        ))}
-      </div>
-
-      <div class="slp-products__cta">
-        <a href="/cotizar" class="slp-btn slp-btn--primary">
-          Cotización Corporativa Industrial
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       SEO CONTENT
-       ═══════════════════════════════════════════════════════════════════════════ -->
-  <section class="slp-seo">
-    <div class="container">
-      <div class="slp-seo__grid">
-        <div class="slp-seo__content">
-          <h2>Bomberos de San Luis Potosí: Protección Industrial y Turística de Clase Mundial</h2>
-          <p>
-            El <strong>H. Cuerpo de Bomberos de San Luis Potosí</strong> protege el <strong>4to clúster automotriz más importante de México</strong>.
-            Con <strong>{totalEstaciones} estaciones especializadas</strong>, brindamos cobertura HAZMAT de nivel internacional para
-            <strong>BMW Group Plant</strong> (2,500 empleados) y <strong>General Motors Complejo</strong> (6,000 empleados), además de
-            300+ proveedores tier 1, 2 y 3.
-          </p>
-
-          <h3>Capacidades HAZMAT Certificadas para Industria Automotriz</h3>
-          <p>
-            Nuestras <strong>{estacionesHAZMAT.length} estaciones HAZMAT</strong> cuentan con personal certificado en materiales peligrosos
-            específicos de la industria automotriz: <strong>pinturas base solvente, baterías de litio, aceites especiales y gases industriales</strong>.
-            Protocolo de coordinación 24/7 con brigadas internas de plantas. Tiempo de respuesta: 8 minutos en zona industrial.
-          </p>
-
-          <h3>Rescate Espeleológico en Huasteca Potosina</h3>
-          <p>
-            La estación de Aquismón cuenta con equipo certificado en espeleología para el <strong>Sótano de las Golondrinas</strong>
-            (512 metros de profundidad) y rescate vertical extremo en <strong>Cascada de Tamul</strong> (105 metros).
-            Swift water rescue para los ríos Tampaón y Santa María. Cobertura de <strong>2+ millones de turistas anuales</strong>.
-          </p>
-
-          <h3>4 Pueblos Mágicos con Cobertura Especializada</h3>
-          <p>
-            <strong>Real de Catorce, Xilitla, Aquismón y Santa María del Río</strong> cuentan con estaciones designadas para
-            atención de emergencias turísticas. Capacidad de búsqueda y rescate en desierto, montaña y selva húmeda.
-          </p>
-        </div>
-
-        <div class="slp-seo__sidebar">
-          <div class="slp-seo__card">
-            <h3>Infraestructura Crítica</h3>
-            <ul>
-              <li><strong>{INFRAESTRUCTURA_SLP.hospitales.length}</strong> hospitales con trauma</li>
-              <li><strong>{INFRAESTRUCTURA_SLP.carreteras.length}</strong> autopistas principales</li>
-              <li><strong>1.2M+</strong> pasajeros aeropuerto/año</li>
-              <li><strong>{INFRAESTRUCTURA_SLP.convenios.length}</strong> convenios activos</li>
-            </ul>
-          </div>
-
-          <div class="slp-seo__card slp-seo__card--cta">
-            <h3>¿Emergencia Industrial?</h3>
-            <p>Línea HAZMAT 24/7</p>
-            <a href="tel:+524448157575" class="slp-seo__phone">(444) 815-7575</a>
-            <span>English coordination available</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</PageLayout>
+      <h3>Servicios Especializados de los Bomberos Potosinos</h3>
+      <p>
+        Los bomberos de San Luis Potosí ofrecen: <strong>combate de incendios estructurales, industriales
+        y forestales</strong>; <strong>respuesta HAZMAT Nivel A para industria automotriz</strong>;
+        <strong>rescate espeleológico certificado</strong>; <strong>swift water rescue en ríos de la
+        Huasteca</strong>; <strong>búsqueda y rescate en desierto (SAR)</strong>; <strong>rescate en
+        minas abandonadas</strong>; <strong>emergencias en edificios históricos</strong>;
+        <strong>atención de eventos masivos</strong>; y <strong>coordinación bilingüe 24/7</strong>
+        para industria internacional. El tiempo de respuesta varía de <strong>6 minutos</strong> en zona
+        metropolitana a <strong>60+ minutos</strong> en zonas remotas de la Huasteca y el Altiplano.
+      </p>
+    </section>
+  </Fragment>
+</DirectorioEstadoLayout>
 
 <style>
-  /* ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-     ║ SAN LUIS POTOSÍ - DISEÑO ENTERPRISE INDUSTRIAL/TURISMO                                                   ║
-     ║ Theme: Púrpura Industrial (#7c3aed) con acentos de manufactura                                           ║
-     ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝ */
-
-  :root {
-    --slp-primary: #7c3aed;
-    --slp-primary-dark: #6d28d9;
-    --slp-primary-light: #a78bfa;
-    --slp-industrial: #dc2626;
-    --slp-hazmat: #f59e0b;
-    --slp-nature: #16a34a;
-    --slp-water: #0ea5e9;
-    --slp-desert: #f59e0b;
+  .seo-content {
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+    margin-top: var(--space-8);
   }
 
-  /* ═══ Hero Enterprise ═══ */
-  .slp-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 30%, #7c3aed 60%, #a78bfa 100%);
-    overflow: hidden;
+  .seo-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    line-height: 1.3;
   }
 
-  .slp-hero__bg { position: absolute; inset: 0; pointer-events: none; }
-
-  .slp-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 100% 80% at 20% 0%, rgba(124, 58, 237, 0.5), transparent),
-      radial-gradient(ellipse 60% 60% at 100% 100%, rgba(167, 139, 250, 0.3), transparent);
+  .seo-content h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-fire-700);
+    margin: var(--space-8) 0 var(--space-3);
   }
 
-  .slp-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  .seo-content p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-700);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
   }
 
-  .slp-hero__gears {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0l5 10 10-5-5 10 10 5-10 5 5 10-10-5-5 10-5-10-10 5 5-10-10-5 10-5-5-10 10 5z' fill='%23ffffff05'/%3E%3C/svg%3E");
-  }
-
-  .slp-hero__container { position: relative; }
-
-  .slp-breadcrumb { margin-bottom: var(--space-6); }
-  .slp-breadcrumb ol { display: flex; gap: var(--space-2); list-style: none; padding: 0; margin: 0; }
-  .slp-breadcrumb li { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
-  .slp-breadcrumb li:not(:last-child)::after { content: "/"; color: rgba(255,255,255,0.3); }
-  .slp-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
-  .slp-breadcrumb a:hover { color: white; }
-  .slp-breadcrumb [aria-current] { color: var(--slp-primary-light); font-weight: 600; }
-
-  .slp-alerts { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-6); }
-  .slp-alert { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); font-size: var(--text-sm); }
-  .slp-alert--info { background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); color: #c4b5fd; }
-  .slp-alert--warning { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
-  .slp-alert--danger { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
-  .slp-alert__priority { margin-left: auto; font-size: var(--text-xs); text-transform: uppercase; opacity: 0.7; }
-
-  .slp-hero__grid { display: grid; grid-template-columns: 1fr 420px; gap: var(--space-10); align-items: start; }
-
-  .slp-hero__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-6); }
-  .slp-hero__badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; }
-  .slp-hero__badge--industrial { background: rgba(220,38,38,0.25); border: 1px solid rgba(220,38,38,0.5); color: #fca5a5; }
-  .slp-hero__badge--hazmat { background: rgba(245,158,11,0.25); border: 1px solid rgba(245,158,11,0.5); color: #fcd34d; }
-  .slp-hero__badge--adventure { background: rgba(22,163,74,0.25); border: 1px solid rgba(22,163,74,0.5); color: #86efac; }
-
-  .slp-hero__title { margin: 0 0 var(--space-2); }
-  .slp-hero__title-pre { display: block; font-size: var(--text-xl); font-weight: 500; color: rgba(255,255,255,0.8); }
-  .slp-hero__highlight { display: block; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; background: linear-gradient(135deg, white, var(--slp-primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
-  .slp-hero__subtitle { font-size: var(--text-lg); font-weight: 500; color: rgba(255,255,255,0.7); font-style: italic; margin: 0 0 var(--space-6); }
-
-  .slp-hero__desc { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-8); }
-  .slp-hero__desc strong { color: white; }
-
-  .slp-hero__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); padding: var(--space-6); background: rgba(255,255,255,0.08); border-radius: var(--radius-xl); border: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-6); }
-  .slp-hero__stat { text-align: center; }
-  .slp-hero__stat-number { display: block; font-size: var(--text-3xl); font-weight: 800; color: white; }
-  .slp-hero__stat--hazmat .slp-hero__stat-number { color: var(--slp-hazmat); }
-  .slp-hero__stat--emergency .slp-hero__stat-number { color: var(--color-fire-400); text-shadow: 0 0 20px rgba(239,68,68,0.5); }
-  .slp-hero__stat-label { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
-
-  .slp-hero__focus { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
-  .slp-hero__focus-card { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); border-radius: var(--radius-xl); }
-  .slp-hero__focus-card--industrial { background: rgba(220,38,38,0.15); border: 1px solid rgba(220,38,38,0.3); }
-  .slp-hero__focus-card--tourism { background: rgba(22,163,74,0.15); border: 1px solid rgba(22,163,74,0.3); }
-  .slp-hero__focus-icon { font-size: 2rem; }
-  .slp-hero__focus-content h3 { font-size: var(--text-sm); font-weight: 700; color: white; margin: 0; }
-  .slp-hero__focus-content p { font-size: var(--text-xs); color: rgba(255,255,255,0.7); margin: var(--space-1) 0; }
-  .slp-hero__focus-content span { font-size: var(--text-xs); color: rgba(255,255,255,0.5); }
-
-  /* Emergency Card */
-  .slp-emergency-card { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-2xl); padding: var(--space-6); }
-  .slp-emergency-card__header { display: flex; align-items: center; justify-content: center; gap: var(--space-2); color: white; font-weight: 600; margin-bottom: var(--space-4); }
-  .slp-emergency-card__911 { display: block; font-size: 4.5rem; font-weight: 900; color: var(--color-fire-400); text-decoration: none; line-height: 1; text-align: center; margin-bottom: var(--space-2); text-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
-  .slp-emergency-card__note { text-align: center; font-size: var(--text-sm); color: rgba(255,255,255,0.6); margin: 0 0 var(--space-5); }
-
-  .slp-emergency-card__lines { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4) 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-4); }
-  .slp-emergency-card__line { display: flex; justify-content: space-between; padding: var(--space-2) var(--space-3); background: rgba(255,255,255,0.05); border-radius: var(--radius-md); }
-  .slp-emergency-card__line--hazmat { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); }
-  .slp-emergency-card__line-label { font-size: var(--text-xs); color: rgba(255,255,255,0.7); }
-  .slp-emergency-card__line a { font-size: var(--text-sm); font-weight: 700; color: var(--slp-primary-light); text-decoration: none; }
-
-  .slp-emergency-card__protocols { text-align: center; }
-  .slp-emergency-card__protocols-label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.5); margin-bottom: var(--space-2); }
-  .slp-emergency-card__protocols-grid { display: flex; justify-content: center; gap: var(--space-2); }
-  .slp-emergency-card__protocols-grid span { padding: var(--space-1) var(--space-2); background: rgba(255,255,255,0.1); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 600; color: rgba(255,255,255,0.8); font-family: monospace; }
-
-  /* ═══ Section Styles ═══ */
-  .slp-section-header { margin-bottom: var(--space-10); }
-  .slp-section-header--center { text-align: center; }
-  .slp-section-label { display: inline-block; padding: var(--space-1) var(--space-4); background: rgba(124,58,237,0.1); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; color: var(--slp-primary); margin-bottom: var(--space-3); }
-  .slp-section-title { font-size: var(--text-3xl); font-weight: 800; color: var(--color-smoke-900); margin: 0; }
-  .slp-section-subtitle { font-size: var(--text-lg); color: var(--color-smoke-500); margin: var(--space-2) 0 0; }
-
-  /* ═══ Industry Section ═══ */
-  .slp-industry { padding: var(--space-16) 0; background: linear-gradient(180deg, #fef2f2 0%, white 50%); }
-
-  .slp-industry__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); margin-bottom: var(--space-12); }
-  .slp-industry__stat { text-align: center; padding: var(--space-6); background: white; border-radius: var(--radius-2xl); box-shadow: 0 4px 20px rgba(220,38,38,0.08); border-left: 4px solid var(--slp-industrial); }
-  .slp-industry__stat-value { display: block; font-size: var(--text-2xl); font-weight: 800; color: var(--slp-industrial); margin-bottom: var(--space-2); }
-  .slp-industry__stat-label { font-size: var(--text-sm); color: var(--color-smoke-600); }
-
-  .slp-industry__plants { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); margin-bottom: var(--space-12); }
-  .slp-plant-card { padding: var(--space-6); background: white; border-radius: var(--radius-2xl); border: 1px solid var(--color-smoke-200); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-  .slp-plant-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); }
-  .slp-plant-card__header h3 { font-size: var(--text-xl); font-weight: 800; color: var(--color-smoke-900); margin: 0; }
-  .slp-plant-card__badge { font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); background: var(--slp-industrial); color: white; border-radius: var(--radius-full); }
-  .slp-plant-card__name { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-4); }
-  .slp-plant-card__meta { display: flex; gap: var(--space-4); font-size: var(--text-sm); color: var(--color-smoke-600); margin-bottom: var(--space-4); }
-  .slp-plant-card__products { font-size: var(--text-sm); margin-bottom: var(--space-4); }
-  .slp-plant-card__products-label { font-weight: 600; color: var(--color-smoke-700); }
-  .slp-plant-card__hazmat { margin-bottom: var(--space-4); }
-  .slp-plant-card__hazmat-label { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--slp-hazmat); margin-bottom: var(--space-2); }
-  .slp-plant-card__hazmat-tags { display: flex; flex-wrap: wrap; gap: var(--space-1); }
-  .slp-plant-card__hazmat-tags span { font-size: var(--text-xs); padding: 2px 8px; background: rgba(245,158,11,0.1); border-radius: var(--radius-full); color: var(--color-smoke-600); }
-  .slp-plant-card__certs { display: flex; flex-wrap: wrap; gap: var(--space-2); }
-  .slp-plant-card__cert { font-size: var(--text-xs); padding: var(--space-1) var(--space-2); background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-600); font-weight: 500; }
-
-  .slp-industry__hazmat h3 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-800); text-align: center; margin: 0 0 var(--space-6); }
-  .slp-industry__hazmat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
-  .slp-hazmat-card { display: block; padding: var(--space-5); background: linear-gradient(135deg, #fef3c7, #fef9c3); border-radius: var(--radius-xl); text-decoration: none; border: 2px solid var(--slp-hazmat); position: relative; transition: all 0.2s; }
-  .slp-hazmat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(245,158,11,0.2); }
-  .slp-hazmat-card__badge { position: absolute; top: -10px; right: var(--space-4); padding: var(--space-1) var(--space-3); background: var(--slp-hazmat); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 700; color: white; }
-  .slp-hazmat-card h4 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
-  .slp-hazmat-card p { font-size: var(--text-sm); color: var(--slp-hazmat); font-weight: 600; margin: 0 0 var(--space-2); }
-  .slp-hazmat-card__response { font-size: var(--text-xs); color: var(--color-smoke-600); }
-
-  /* ═══ Tourism Section ═══ */
-  .slp-tourism { padding: var(--space-16) 0; background: linear-gradient(180deg, #f0fdf4 0%, white 50%); }
-
-  .slp-tourism__attractions { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-12); }
-  .slp-attraction-card { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); border-left: 4px solid var(--slp-nature); }
-  .slp-attraction-card__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-2); }
-  .slp-attraction-card__header h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
-  .slp-attraction-card__type { font-size: var(--text-xs); padding: 2px 8px; background: var(--color-smoke-100); border-radius: var(--radius-full); color: var(--color-smoke-500); }
-  .slp-attraction-card__spec { font-size: var(--text-sm); font-weight: 600; color: var(--slp-nature); margin: 0 0 var(--space-2); }
-  .slp-attraction-card__desc { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); line-height: 1.5; }
-  .slp-attraction-card__visitors { font-size: var(--text-xs); color: var(--color-smoke-500); margin-bottom: var(--space-3); }
-  .slp-attraction-card__risks, .slp-attraction-card__rescue { margin-bottom: var(--space-2); }
-  .slp-attraction-card__risks-label, .slp-attraction-card__rescue-label { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--color-smoke-500); margin-bottom: var(--space-1); }
-  .slp-attraction-card__risks-tags, .slp-attraction-card__rescue-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-  .slp-attraction-card__risks-tags span { font-size: 10px; padding: 2px 6px; background: rgba(239,68,68,0.1); border-radius: var(--radius-sm); color: #dc2626; }
-  .slp-attraction-card__rescue-tags span { font-size: 10px; padding: 2px 6px; background: rgba(22,163,74,0.1); border-radius: var(--radius-sm); color: #16a34a; }
-
-  .slp-tourism__pueblos h3 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-800); text-align: center; margin: 0 0 var(--space-6); }
-  .slp-tourism__pueblos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-12); }
-  .slp-pueblo-card { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
-  .slp-pueblo-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); }
-  .slp-pueblo-card__header h4 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
-  .slp-pueblo-card__year { font-size: var(--text-xs); color: var(--slp-primary); font-weight: 600; }
-  .slp-pueblo-card p { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); line-height: 1.5; }
-  .slp-pueblo-card__visitors { font-size: var(--text-xs); color: var(--color-smoke-500); margin-bottom: var(--space-3); }
-  .slp-pueblo-card__rescue { display: flex; flex-wrap: wrap; gap: 4px; }
-  .slp-pueblo-card__rescue span { font-size: 10px; padding: 2px 6px; background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-600); }
-
-  .slp-tourism__rescue { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
-  .slp-tourism__rescue-col h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-800); margin: 0 0 var(--space-4); }
-  .slp-tourism__rescue-list { display: flex; flex-direction: column; gap: var(--space-3); }
-  .slp-rescue-card { display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); text-decoration: none; transition: all 0.2s; }
-  .slp-rescue-card:hover { background: var(--color-smoke-50); border-color: var(--slp-primary); }
-  .slp-rescue-card--cave { border-left: 4px solid #6b7280; }
-  .slp-rescue-card--water { border-left: 4px solid var(--slp-water); }
-  .slp-rescue-card__icon { font-size: var(--text-2xl); }
-  .slp-rescue-card h4 { font-size: var(--text-sm); font-weight: 600; color: var(--color-smoke-900); margin: 0; }
-  .slp-rescue-card p { font-size: var(--text-sm); color: var(--slp-primary); margin: var(--space-1) 0 0; }
-
-  /* ═══ Protocols Section ═══ */
-  .slp-protocols { padding: var(--space-16) 0; background: var(--color-smoke-900); }
-  .slp-protocols .slp-section-label { background: rgba(124,58,237,0.2); color: var(--slp-primary-light); }
-  .slp-protocols .slp-section-title { color: white; }
-  .slp-protocols .slp-section-subtitle { color: rgba(255,255,255,0.6); }
-
-  .slp-protocols__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
-  .slp-protocol-card { padding: var(--space-5); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl); }
-  .slp-protocol-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
-  .slp-protocol-card__code { font-family: monospace; font-size: var(--text-sm); font-weight: 700; padding: var(--space-1) var(--space-2); background: var(--slp-primary); color: white; border-radius: var(--radius-sm); }
-  .slp-protocol-card__time { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
-  .slp-protocol-card h3 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-2); }
-  .slp-protocol-card p { font-size: var(--text-sm); color: rgba(255,255,255,0.7); margin: 0 0 var(--space-4); line-height: 1.5; }
-  .slp-protocol-card__resources { margin-bottom: var(--space-3); }
-  .slp-protocol-card__resources-label { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.5); margin-bottom: var(--space-2); }
-  .slp-protocol-card__resources ul { list-style: none; padding: 0; margin: 0; }
-  .slp-protocol-card__resources li { font-size: var(--text-xs); color: rgba(255,255,255,0.7); padding-left: var(--space-3); position: relative; margin-bottom: var(--space-1); }
-  .slp-protocol-card__resources li::before { content: "•"; position: absolute; left: 0; color: var(--slp-primary-light); }
-  .slp-protocol-card__coord { font-size: var(--text-xs); color: rgba(255,255,255,0.5); }
-
-  /* ═══ Zones Section ═══ */
-  .slp-zones { padding: var(--space-16) 0; background: var(--color-smoke-50); }
-  .slp-zones__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
-  .slp-zone-card { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border-left: 4px solid var(--zone-color); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-  .slp-zone-card__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-3); }
-  .slp-zone-card__header h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
-  .slp-zone-card__short { font-size: var(--text-xs); color: var(--color-smoke-500); margin: 0; }
-  .slp-zone-card__count { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: var(--zone-color); border-radius: 50%; font-size: var(--text-xs); font-weight: 700; color: white; }
-  .slp-zone-card__desc { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); line-height: 1.5; }
-  .slp-zone-card__meta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
-  .slp-zone-card__meta span { font-size: var(--text-xs); color: var(--color-smoke-500); }
-  .slp-zone-card__risk { padding: 2px 8px; border-radius: var(--radius-full); font-weight: 600; }
-  .slp-zone-card__risk--medio { background: rgba(245,158,11,0.1); color: #f59e0b; }
-  .slp-zone-card__risk--alto { background: rgba(239,68,68,0.1); color: #dc2626; }
-  .slp-zone-card__risk--muy-alto { background: rgba(220,38,38,0.2); color: #b91c1c; }
-  .slp-zone-card__risk--medio-alto { background: rgba(245,158,11,0.15); color: #d97706; }
-  .slp-zone-card__risks { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: var(--space-3); }
-  .slp-zone-card__risks span { font-size: 10px; padding: 2px 6px; background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-600); }
-  .slp-zone-card__response { font-size: var(--text-xs); color: var(--zone-color); font-weight: 600; margin-bottom: var(--space-3); }
-  .slp-zone-card__stations { list-style: none; padding: 0; margin: 0; }
-  .slp-zone-card__stations li { margin-bottom: var(--space-1); }
-  .slp-zone-card__stations a { font-size: var(--text-sm); color: var(--slp-primary); text-decoration: none; }
-  .slp-zone-card__stations a:hover { text-decoration: underline; }
-
-  /* ═══ Stations Grid ═══ */
-  .slp-stations { padding: var(--space-16) 0; background: white; }
-  .slp-stations__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
-  .slp-station-card { display: flex; flex-direction: column; padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; overflow: hidden; }
-  .slp-station-card:hover { background: white; box-shadow: 0 12px 40px rgba(124,58,237,0.12); transform: translateY(-4px); border-color: var(--slp-primary-light); }
-
-  .slp-station-card__thumb { margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) var(--space-4) calc(-1 * var(--space-6)); height: 160px; overflow: hidden; flex-shrink: 0; background: var(--color-smoke-200); border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
-  .slp-station-card__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
-  .slp-station-card:hover .slp-station-card__thumb img { transform: scale(1.05); }
-
-  .slp-station-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
-  .slp-station-card__zone { font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); background: rgba(124,58,237,0.1); color: var(--zone-color); border-radius: var(--radius-sm); }
-  .slp-station-card__badges { display: flex; gap: var(--space-1); }
-  .slp-station-card__badge { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 12px; }
-  .slp-station-card__badge--hazmat { background: rgba(245,158,11,0.15); }
-  .slp-station-card__badge--cave { background: rgba(107,114,128,0.15); }
-  .slp-station-card__badge--water { background: rgba(14,165,233,0.15); }
-  .slp-station-card__badge--bilingual { background: var(--slp-primary); color: white; font-size: 10px; font-weight: 700; }
-
-  .slp-station-card__name { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); line-height: 1.3; }
-  .slp-station-card__address { font-size: var(--text-sm); color: var(--color-smoke-500); margin: 0 0 var(--space-4); line-height: 1.5; flex: 1; }
-  .slp-station-card__contact { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-top: 1px solid var(--color-smoke-200); margin-bottom: var(--space-2); }
-  .slp-station-card__phone { font-size: var(--text-sm); font-weight: 700; color: var(--slp-primary); }
-  .slp-station-card__personnel { font-size: var(--text-xs); color: var(--color-smoke-500); }
-  .slp-station-card__response { font-size: var(--text-xs); color: var(--color-smoke-500); margin: 0 0 var(--space-3); }
-  .slp-station-card__cta { font-size: var(--text-sm); font-weight: 600; color: var(--slp-primary); }
-
-  /* ═══ FAQ ═══ */
-  .slp-faq { padding: var(--space-16) 0; background: var(--color-smoke-50); }
-  .slp-faq__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); max-width: 1000px; margin: 0 auto; }
-  .slp-faq__item { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
-  .slp-faq__item[open] { border-color: var(--slp-primary-light); }
-  .slp-faq__item summary { cursor: pointer; list-style: none; }
-  .slp-faq__item summary::-webkit-details-marker { display: none; }
-  .slp-faq__category { display: inline-block; font-size: var(--text-xs); font-weight: 600; padding: 2px 8px; background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-500); text-transform: uppercase; margin-bottom: var(--space-2); }
-  .slp-faq__question { display: block; font-size: var(--text-base); font-weight: 600; color: var(--color-smoke-900); }
-  .slp-faq__answer { padding-top: var(--space-4); margin-top: var(--space-4); border-top: 1px solid var(--color-smoke-200); }
-  .slp-faq__answer p { font-size: var(--text-sm); color: var(--color-smoke-700); line-height: 1.7; margin: 0; }
-
-  /* ═══ Interlinking ═══ */
-  .slp-interlinking { padding: var(--space-16) 0; background: white; }
-  .slp-interlinking__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
-  .slp-neighbor-card { padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
-  .slp-neighbor-card:hover { background: white; border-color: var(--slp-primary); box-shadow: 0 8px 24px rgba(124,58,237,0.1); }
-  .slp-neighbor-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); }
-  .slp-neighbor-card__header h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
-  .slp-neighbor-card__priority { font-size: 9px; padding: 2px 8px; background: var(--color-smoke-200); border-radius: var(--radius-full); color: var(--color-smoke-500); text-transform: uppercase; }
-  .slp-neighbor-card--critica .slp-neighbor-card__priority { background: rgba(239,68,68,0.1); color: #dc2626; }
-  .slp-neighbor-card--alta .slp-neighbor-card__priority { background: rgba(124,58,237,0.1); color: var(--slp-primary); }
-  .slp-neighbor-card__relation { font-size: var(--text-sm); color: var(--slp-primary); margin: 0 0 var(--space-1); }
-  .slp-neighbor-card__context { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); }
-  .slp-neighbor-card__distance { display: flex; gap: var(--space-4); font-size: var(--text-xs); color: var(--color-smoke-500); margin-bottom: var(--space-2); }
-  .slp-neighbor-card__seo { font-size: var(--text-xs); color: var(--color-smoke-400); margin-bottom: var(--space-3); }
-  .slp-neighbor-card__link { font-size: var(--text-sm); font-weight: 600; color: var(--slp-primary); }
-
-  /* ═══ Products ═══ */
-  .slp-products { padding: var(--space-16) 0; background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 50%, #7c3aed 100%); }
-  .slp-products .slp-section-label { background: rgba(255,255,255,0.15); color: white; }
-  .slp-products .slp-section-title { color: white; }
-  .slp-products .slp-section-subtitle { color: rgba(255,255,255,0.7); }
-
-  .slp-products__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-bottom: var(--space-10); }
-  .slp-product-card { padding: var(--space-5); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-xl); text-decoration: none; transition: all 0.2s; position: relative; }
-  .slp-product-card:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
-  .slp-product-card__priority { position: absolute; top: var(--space-3); right: var(--space-3); font-size: 9px; padding: 2px 8px; background: rgba(255,255,255,0.2); border-radius: var(--radius-full); color: white; text-transform: uppercase; }
-  .slp-product-card--critica .slp-product-card__priority { background: rgba(239,68,68,0.3); }
-  .slp-product-card h3 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-2); padding-right: var(--space-10); }
-  .slp-product-card p { font-size: var(--text-sm); color: rgba(255,255,255,0.8); margin: 0 0 var(--space-3); }
-  .slp-product-card__audience { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-bottom: var(--space-3); }
-  .slp-product-card__audience span { font-size: var(--text-xs); padding: 2px 8px; background: rgba(255,255,255,0.15); border-radius: var(--radius-full); color: rgba(255,255,255,0.8); }
-  .slp-product-card__meta { display: flex; justify-content: space-between; align-items: center; }
-  .slp-product-card__roi { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
-  .slp-product-card__price { font-size: var(--text-xs); color: rgba(255,255,255,0.5); }
-
-  .slp-products__cta { text-align: center; }
-  .slp-btn { display: inline-flex; padding: var(--space-4) var(--space-8); border-radius: var(--radius-lg); font-size: var(--text-base); font-weight: 700; text-decoration: none; transition: all 0.2s; }
-  .slp-btn--primary { background: white; color: var(--slp-primary-dark); }
-  .slp-btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-
-  /* ═══ SEO ═══ */
-  .slp-seo { padding: var(--space-16) 0; background: var(--color-smoke-50); }
-  .slp-seo__grid { display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-10); }
-  .slp-seo__content h2 { font-size: var(--text-xl); font-weight: 800; color: var(--color-smoke-900); margin: 0 0 var(--space-4); }
-  .slp-seo__content h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-800); margin: var(--space-6) 0 var(--space-2); }
-  .slp-seo__content p { font-size: var(--text-sm); color: var(--color-smoke-600); line-height: 1.8; margin: 0 0 var(--space-4); }
-  .slp-seo__content strong { color: var(--color-smoke-800); }
-
-  .slp-seo__sidebar { display: flex; flex-direction: column; gap: var(--space-6); }
-  .slp-seo__card { padding: var(--space-6); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
-  .slp-seo__card h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-4); }
-  .slp-seo__card ul { list-style: none; padding: 0; margin: 0; }
-  .slp-seo__card li { font-size: var(--text-sm); color: var(--color-smoke-600); padding: var(--space-2) 0; border-bottom: 1px solid var(--color-smoke-100); }
-  .slp-seo__card li:last-child { border-bottom: none; }
-  .slp-seo__card--cta { background: var(--slp-primary); text-align: center; }
-  .slp-seo__card--cta h3 { color: white; }
-  .slp-seo__card--cta p { color: rgba(255,255,255,0.8); margin: 0 0 var(--space-3); }
-  .slp-seo__phone { display: block; font-size: var(--text-2xl); font-weight: 800; color: white; text-decoration: none; margin-bottom: var(--space-2); }
-  .slp-seo__card--cta span { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1200px) {
-    .slp-industry__stats, .slp-tourism__attractions, .slp-tourism__pueblos-grid, .slp-products__grid { grid-template-columns: repeat(2, 1fr); }
-    .slp-zones__grid, .slp-protocols__grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 1024px) {
-    .slp-hero__grid { grid-template-columns: 1fr; }
-    .slp-hero__emergency { max-width: 450px; }
-    .slp-stations__grid { grid-template-columns: repeat(2, 1fr); }
-    .slp-industry__plants { grid-template-columns: 1fr; }
-    .slp-industry__hazmat-grid { grid-template-columns: repeat(2, 1fr); }
-    .slp-tourism__rescue { grid-template-columns: 1fr; }
-    .slp-seo__grid { grid-template-columns: 1fr; }
+  .seo-content strong {
+    color: var(--color-smoke-900);
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
-    .slp-hero { padding: var(--space-12) 0; }
-    .slp-hero__stats { grid-template-columns: repeat(2, 1fr); }
-    .slp-hero__focus { grid-template-columns: 1fr; }
-    .slp-industry__stats, .slp-tourism__attractions, .slp-tourism__pueblos-grid, .slp-zones__grid, .slp-protocols__grid, .slp-stations__grid, .slp-faq__grid, .slp-interlinking__grid, .slp-products__grid, .slp-industry__hazmat-grid { grid-template-columns: 1fr; }
-    .slp-visual-gallery__grid { grid-template-columns: 1fr; }
-    .slp-visual-gallery__item--tall { grid-row: span 1; }
-    .slp-visual-gallery__col { display: contents; }
-  }
+    .seo-content {
+      padding: var(--space-5);
+    }
 
-  /* ═══ SLP Visual Gallery ═══ */
-  .slp-visual-gallery { padding: var(--space-16) 0; background: var(--color-smoke-50); }
+    .seo-content h2 {
+      font-size: var(--text-xl);
+    }
 
-  .slp-visual-gallery__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-4);
-  }
-
-  .slp-visual-gallery__col {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .slp-visual-gallery__item {
-    position: relative;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    background: var(--color-smoke-200);
-  }
-
-  .slp-visual-gallery__item--tall {
-    grid-row: span 2;
-  }
-
-  .slp-visual-gallery__item--tall img {
-    height: 100%;
-    min-height: 360px;
-  }
-
-  .slp-visual-gallery__item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease;
-  }
-
-  .slp-visual-gallery__item:hover img {
-    transform: scale(1.04);
-  }
-
-  .slp-visual-gallery__caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: var(--space-4) var(--space-5);
-    background: linear-gradient(to top, rgba(124,58,237,0.85) 0%, transparent 100%);
-    color: white;
-  }
-
-  .slp-visual-gallery__caption h3 {
-    font-size: var(--text-base);
-    font-weight: 700;
-    margin: 0 0 var(--space-1);
-  }
-
-  .slp-visual-gallery__caption p {
-    font-size: var(--text-xs);
-    margin: 0;
-    opacity: 0.85;
+    .seo-content h3 {
+      font-size: var(--text-base);
+    }
   }
 </style>

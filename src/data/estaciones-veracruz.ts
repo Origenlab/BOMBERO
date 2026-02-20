@@ -1845,4 +1845,30 @@ export function getEstadisticasIndustria() {
   return INDUSTRIA_PETROLERA_VERACRUZ.resumen;
 }
 
+// ─── FUNCIONES AUXILIARES ESTÁNDAR (DirectorioEstadoLayout) ─────────────────
+
+export function getMunicipios(): string[] {
+  return [...new Set(estacionesVeracruz.map(e => e.municipio))];
+}
+
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesVeracruz.find(e => e.slug === slug);
+}
+
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return estacionesVeracruz.slice(0, limit);
+
+  return estacionesVeracruz
+    .filter(e => e.slug !== slug)
+    .sort((a, b) => {
+      const distA = Math.abs(a.coordenadas.lat - estacion.coordenadas.lat) +
+                    Math.abs(a.coordenadas.lng - estacion.coordenadas.lng);
+      const distB = Math.abs(b.coordenadas.lat - estacion.coordenadas.lat) +
+                    Math.abs(b.coordenadas.lng - estacion.coordenadas.lng);
+      return distA - distB;
+    })
+    .slice(0, limit);
+}
+
 export default estacionesVeracruz;

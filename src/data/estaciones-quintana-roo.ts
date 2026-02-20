@@ -1492,5 +1492,40 @@ export function getZonasHoteleras() {
   return INDUSTRIA_TURISTICA_QR.zonasHoteleras;
 }
 
+// ─── Funciones Auxiliares Estándar para Directorio ───────────────────────────
+
+/**
+ * Obtiene lista única de municipios/ciudades ordenados alfabéticamente
+ */
+export function getMunicipios(): string[] {
+  const ciudades = estacionesQuintanaRoo.map(e => {
+    if (e.municipiosCubiertos && e.municipiosCubiertos.length > 0) {
+      return e.municipiosCubiertos[0];
+    }
+    return e.zona || '';
+  });
+  return [...new Set(ciudades)].filter(Boolean).sort();
+}
+
+/**
+ * Obtiene una estación por su slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesQuintanaRoo.find(e => e.slug === slug);
+}
+
+/**
+ * Obtiene estaciones cercanas (misma zona primero, luego otras)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+
+  const mismaZona = estacionesQuintanaRoo.filter(e => e.slug !== slug && e.zona === estacion.zona);
+  const otras = estacionesQuintanaRoo.filter(e => e.slug !== slug && e.zona !== estacion.zona);
+
+  return [...mismaZona, ...otras].slice(0, limit);
+}
+
 // ─── Export Default ──────────────────────────────────────────────────────────
 export default estacionesQuintanaRoo;

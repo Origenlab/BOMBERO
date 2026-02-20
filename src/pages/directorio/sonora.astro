@@ -1,24 +1,67 @@
 ---
 /**
- * ─── Directorio de Estaciones de Bomberos Sonora ───
- * Estado del noroeste: minería de cobre #1, automotriz Ford/Kia,
- * 588km frontera con EE.UU., Puerto de Guaymas y acuacultura
- * Organizado por municipio con información de contacto completa
+ * ═══════════════════════════════════════════════════════════════════════════
+ * DIRECTORIO DE BOMBEROS - SONORA (SON)
+ * ═══════════════════════════════════════════════════════════════════════════
+ * Capital: Hermosillo | 20 Estaciones | 588km frontera con Arizona
+ *
+ * Industrias clave: Minería de cobre #1 (Cananea, Nacozari - Grupo México),
+ * Automotriz (Ford Hermosillo, Kia Pesqueira), Acuacultura (camarón #1),
+ * Agricultura (trigo Valle del Yaqui), Puerto de Guaymas, Maquiladoras Nogales
+ *
+ * Turismo: Puerto Peñasco (Rocky Point), San Carlos Nuevo Guaymas,
+ * Álamos (Pueblo Mágico), El Pinacate (Patrimonio UNESCO)
+ * ═══════════════════════════════════════════════════════════════════════════
  */
-import PageLayout from "@layouts/PageLayout.astro";
-import SectionHeader from "@components/SectionHeader.astro";
-import StationCard from "@components/StationCard.astro";
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesSonora, getMunicipios, ESTADISTICAS_SONORA } from "@data/estaciones-sonora";
-import { breadcrumbJsonLd } from "@utils/seo";
 
-const municipios = getMunicipios();
+const estado = "Sonora";
+const sigla = "SON";
+const slug = "sonora";
 
-const estadosVecinos = [
-  { nombre: "Sinaloa", slug: "sinaloa" },
-  { nombre: "Chihuahua", slug: "chihuahua" },
-  { nombre: "Baja California", slug: "baja-california" },
-  { nombre: "Nayarit", slug: "nayarit" },
+// ─── Imágenes Hero ────────────────────────────────────────────────────────────
+const heroThumbs = [
+  { src: "/images/directorio/estacion-bomberos-sonora-01.avif", alt: "Bomberos de Sonora en acción contra incendio industrial" },
+  { src: "/images/directorio/estacion-bomberos-sonora-02.avif", alt: "Unidad HAZMAT en zona minera de Cananea" },
+  { src: "/images/directorio/estacion-bomberos-sonora-03.avif", alt: "Rescate acuático en el Golfo de California" },
 ];
+
+// ─── Galería de Imágenes ──────────────────────────────────────────────────────
+const galleryImages = [
+  { src: "/images/directorio/bomberos-sonora-ford.avif", alt: "Unidad industrial en planta Ford Hermosillo" },
+  { src: "/images/directorio/bomberos-sonora-mineria.avif", alt: "Emergencia HAZMAT en mina de cobre" },
+  { src: "/images/directorio/bomberos-sonora-frontera.avif", alt: "Coordinación binacional con Arizona" },
+  { src: "/images/directorio/bomberos-sonora-guaymas.avif", alt: "Rescate marítimo en Puerto de Guaymas" },
+];
+
+// ─── Números de Emergencia ────────────────────────────────────────────────────
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias" },
+  { number: "662 210 3600", label: "Bomberos Hermosillo" },
+  { number: "631 312 1690", label: "Bomberos Nogales" },
+  { number: "644 415 7070", label: "Bomberos Cd. Obregón" },
+];
+
+// ─── Regiones del Estado ──────────────────────────────────────────────────────
+const regiones = [
+  { nombre: "Zona Centro", desc: "Hermosillo (capital), planta Ford, Kia Pesqueira, aeropuerto internacional" },
+  { nombre: "Zona Fronteriza Norte", desc: "Nogales, Agua Prieta, San Luis R.C. — 588km de frontera con Arizona, coordinación binacional" },
+  { nombre: "Zona Minera", desc: "Cananea (Buenavista del Cobre), Nacozari (La Caridad) — 65% del cobre nacional" },
+  { nombre: "Valle del Yaqui-Mayo", desc: "Ciudad Obregón, Navojoa, Huatabampo — granero de México, trigo #1 nacional" },
+  { nombre: "Golfo de California", desc: "Guaymas, San Carlos, Puerto Peñasco — acuacultura, turismo náutico, rescate marino" },
+];
+
+// ─── Cards de EPP ─────────────────────────────────────────────────────────────
+const eppCards = [
+  { title: "HAZMAT Minero", desc: "Nivel A para ácido sulfúrico, cianuro y reactivos en Cananea y Nacozari", icon: "hazmat" },
+  { title: "Rescate Marino", desc: "Lanchas y equipo para Golfo de California y Puerto de Guaymas", icon: "water" },
+  { title: "Industrial Automotriz", desc: "Protección para emergencias en Ford, Kia y corredor maquilador", icon: "industry" },
+  { title: "Rescate Desértico", desc: "Vehículos 4x4 y equipo para temperaturas extremas del Desierto de Sonora", icon: "desert" },
+];
+
+// ─── SEO y Meta ───────────────────────────────────────────────────────────────
+const municipios = getMunicipios();
 
 const keywords = [
   "bomberos sonora",
@@ -31,930 +74,254 @@ const keywords = [
   "bomberos cananea mineria",
   "proteccion civil sonora",
   "bomberos frontera sonora arizona",
+  "rescate marino golfo california",
+  "hazmat mineria cobre",
 ];
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Sonora", url: "/directorio/sonora" },
-]);
+const estadosVecinos = [
+  { nombre: "Sinaloa", slug: "sinaloa" },
+  { nombre: "Chihuahua", slug: "chihuahua" },
+  { nombre: "Baja California", slug: "baja-california" },
+];
 
+// Imágenes para tarjetas de estaciones
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
+  "/images/directorio/rescate-swift-water-rios-01.avif",
+];
+
+// ─── Schema.org JSON-LD ───────────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Estaciones de Bomberos en Sonora, México",
-  "description": "Directorio oficial de las 20 estaciones de bomberos en Sonora. Hermosillo, Nogales, Ciudad Obregón, Guaymas, Cananea y todo el estado. Minería, automotriz, frontera EE.UU. y Golfo de California. Emergencias 911.",
-  "numberOfItems": estacionesSonora.length,
-  "itemListElement": estacionesSonora.map((e, i) => ({
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de las ${estacionesSonora.length} estaciones de bomberos en Sonora. Hermosillo, Nogales, Ciudad Obregón, Guaymas, Cananea. Minería de cobre #1, automotriz Ford/Kia, 588km frontera con Arizona y Golfo de California. Emergencias 911.`,
+  numberOfItems: estacionesSonora.length,
+  itemListElement: estacionesSonora.map((e, i) => ({
     "@type": "ListItem",
-    "position": i + 1,
-    "item": {
+    position: i + 1,
+    item: {
       "@type": "FireStation",
-      "name": e.nombre,
-      "address": {
+      name: e.nombre,
+      address: {
         "@type": "PostalAddress",
-        "streetAddress": e.direccion,
-        "addressLocality": e.municipio,
-        "addressRegion": "Sonora",
-        "addressCountry": "MX"
+        streetAddress: e.direccion,
+        addressLocality: e.municipio,
+        addressRegion: estado,
+        addressCountry: "MX",
       },
-      "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/sonora/${e.slug}`
-    }
-  }))
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx/" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` },
+  ],
 };
 ---
 
-<PageLayout
-  title={`Bomberos en Sonora | ${ESTADISTICAS_SONORA.total_estaciones} Estaciones | Directorio Oficial BOMBERO.MX`}
-  description="Directorio oficial de las 20 estaciones de bomberos en Sonora. Hermosillo, Nogales, Ciudad Obregón, Guaymas, Cananea. Minería de cobre, automotriz, frontera con Arizona y Golfo de California. Emergencias 911."
+<DirectorioEstadoLayout
+  title={`Bomberos en ${estado} | ${estacionesSonora.length} Estaciones | Directorio Oficial BOMBERO.MX`}
+  description={`Directorio oficial de las ${estacionesSonora.length} estaciones de bomberos en Sonora. Hermosillo, Nogales, Ciudad Obregón, Guaymas, Cananea. Minería de cobre #1, corredor automotriz Ford/Kia, 588km frontera con Arizona, Golfo de California. Emergencias 911.`}
   keywords={keywords}
-  canonical="https://bombero.mx/directorio/sonora"
-  jsonLd={[breadcrumbSchema, itemListSchema]}
+  canonical={`https://bombero.mx/directorio/${slug}`}
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  totalEstaciones={estacionesSonora.length}
+  municipiosCount={ESTADISTICAS_SONORA.municipios_cubiertos}
+  poblacion="3M+"
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  estaciones={estacionesSonora}
+  stationImages={stationImages}
+  municipios={municipios}
+  estadosVecinos={estadosVecinos}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
 >
-  <!-- Hero Section -->
-  <section class="son-hero">
-    <div class="son-hero__bg">
-      <div class="son-hero__gradient"></div>
-      <div class="son-hero__pattern"></div>
-    </div>
-    <div class="container">
-      <div class="son-hero__container">
-        <!-- Left Column -->
-        <div class="son-hero__content">
-          <nav class="son-hero__breadcrumb">
-            <a href="/">Inicio</a>
-            <span>/</span>
-            <a href="/directorio">Directorio</a>
-            <span>/</span>
-            <span>Sonora</span>
-          </nav>
-          <span class="son-hero__badge">
-            <span class="son-hero__badge-dot"></span>
-            SON
-          </span>
-          <h1 class="son-hero__title">
-            Estaciones de Bomberos en
-            <span class="son-hero__highlight">Sonora</span>
-          </h1>
-          <p class="son-hero__desc">
-            Directorio completo del <strong>H. Cuerpo de Bomberos de Sonora</strong>.
-            Encuentra teléfonos de emergencia, direcciones y servicios en el estado más grande del noroeste: capital del cobre mexicano, corredor automotriz Ford-Kia, 588 km de frontera con Arizona y el Mar de Cortés.
-          </p>
-          <div class="son-hero__stats">
-            <div class="son-hero__stat">
-              <span class="son-hero__stat-number">{estacionesSonora.length}</span>
-              <span class="son-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="son-hero__stat">
-              <span class="son-hero__stat-number">72</span>
-              <span class="son-hero__stat-label">Municipios</span>
-            </div>
-            <div class="son-hero__stat">
-              <span class="son-hero__stat-number">24/7</span>
-              <span class="son-hero__stat-label">Servicio</span>
-            </div>
-            <div class="son-hero__stat">
-              <span class="son-hero__stat-number">3M+</span>
-              <span class="son-hero__stat-label">Habitantes</span>
-            </div>
-          </div>
-        </div>
+  <Fragment slot="intro">
+    Directorio completo del <strong>H. Cuerpo de Bomberos de Sonora</strong>.
+    Encuentra teléfonos de emergencia, direcciones y servicios en el estado más grande del noroeste:
+    <strong>capital del cobre mexicano</strong>, corredor automotriz Ford-Kia,
+    <strong>588 km de frontera con Arizona</strong>, el Mar de Cortés y el Valle del Yaqui.
+  </Fragment>
 
-        <!-- Right Column - SEO Content -->
-        <div class="son-hero__seo">
-          <h2 class="son-hero__seo-title">Industria y Minería: Riesgos Únicos en Sonora</h2>
-          <p class="son-hero__seo-text">
-            <strong>Sonora</strong> produce el <strong>65% del cobre de México</strong> en las minas de
-            Cananea y Nacozari (Grupo México), opera las plantas <strong>Ford Hermosillo y Kia Pesqueira</strong>,
-            y concentra el mayor corredor maquilador del noroeste en Nogales y Agua Prieta. Los bomberos
-            sonorenses dominan respuesta ante HAZMAT minero, automotriz e industrial.
-          </p>
-          <h2 class="son-hero__seo-title">Frontera, Desierto y Mar de Cortés</h2>
-          <p class="son-hero__seo-text">
-            Con <strong>588 km de frontera con Arizona</strong>, Sonora requiere coordinación binacional
-            permanente con cuerpos de bomberos de EE.UU. El <strong>Desierto de Sonora</strong> impone
-            temperaturas extremas y riesgo de rescate desértico, mientras el <strong>Golfo de California</strong>
-            (Mar de Cortés) exige capacidades marítimas en Guaymas y Puerto Peñasco.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Fragment slot="hero-seo">
+    <h2 class="hero-seo__title">Minería de Cobre #1 de México</h2>
+    <p class="hero-seo__text">
+      Sonora produce el <strong>65% del cobre nacional</strong> en las minas de
+      <strong>Cananea</strong> (Buenavista del Cobre) y <strong>Nacozari</strong> (La Caridad),
+      ambas operadas por Grupo México. Los bomberos de estas zonas dominan
+      <strong>rescate minero</strong> y HAZMAT con ácido sulfúrico, cianuro y reactivos metalúrgicos.
+    </p>
+    <h2 class="hero-seo__title">Corredor Automotriz Ford - Kia</h2>
+    <p class="hero-seo__text">
+      La <strong>Planta Ford Hermosillo</strong> (Bronco Sport, Maverick) y el corredor
+      <strong>Kia Pesqueira</strong> generan riesgos con pinturas, solventes y materiales automotrices.
+      Las estaciones industriales cuentan con <strong>certificación HAZMAT nivel A</strong>
+      para atender emergencias en manufactura automotriz de clase mundial.
+    </p>
+    <h2 class="hero-seo__title">588 km de Frontera con Arizona</h2>
+    <p class="hero-seo__text">
+      Los cuerpos de bomberos de <strong>Nogales, Agua Prieta y San Luis Río Colorado</strong>
+      operan bajo <strong>acuerdos de cooperación binacional</strong> con bomberos de Arizona,
+      compartiendo recursos, protocolos y capacitación. Esta coordinación permite respuestas
+      más rápidas en la franja fronteriza de alta densidad industrial y comercial.
+    </p>
+  </Fragment>
 
-  <!-- Emergency Banner -->
-  <section class="son-emergency">
-    <div class="container">
-      <div class="son-emergency__content">
-        <div class="son-emergency__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-        </div>
-        <div class="son-emergency__text">
-          <span class="son-emergency__label">Emergencias en Sonora</span>
-          <span class="son-emergency__number">911</span>
-        </div>
-        <p class="son-emergency__desc">
-          Número único en todo Sonora — 24/7, 365 días. Hermosillo: 662 210 3600 · Nogales: 631 312 1690 · Obregón: 644 415 7070
-        </p>
-      </div>
-    </div>
-  </section>
+  <Fragment slot="seo">
+    <section class="seo-content">
+      <h2>El H. Cuerpo de Bomberos de Sonora</h2>
+      <p>
+        El <strong>H. Cuerpo de Bomberos de Sonora</strong> protege a más de <strong>3 millones de sonorenses</strong>
+        en el segundo estado más grande de México por superficie. Con 179,503 km² de territorio que abarca desde
+        el Desierto de Sonora hasta la Sierra Madre Occidental, y desde la frontera con Arizona hasta las costas
+        del Golfo de California, los bomberos sonorenses operan en condiciones de excepcional diversidad
+        geográfica, climática e industrial.
+      </p>
 
-  <!-- Main Content -->
-  <section class="son-main">
-    <div class="container">
-      <div class="son-main__grid">
-        <!-- Stations Grid -->
-        <div class="son-main__content">
-          <SectionHeader
-            label="Directorio Completo"
-            title="Estaciones de Bomberos en Sonora"
-            description="Información de contacto actualizada de las 20 estaciones del H. Cuerpo de Bomberos de Sonora, desde la frontera con Arizona hasta el Valle del Mayo. Selecciona una estación para ver datos de contacto, servicios especializados y zonas de cobertura."
-          />
+      <h3>Riesgos Mineros: Cananea y Nacozari</h3>
+      <p>
+        Las minas de <strong>Buenavista del Cobre en Cananea</strong> y <strong>La Caridad en Nacozari</strong>,
+        operadas por Grupo México, producen juntas más del <strong>50% del cobre nacional</strong>.
+        Los bomberos especializados en estas zonas manejan emergencias con <strong>ácido sulfúrico</strong>,
+        <strong>cianuro</strong>, relaves mineros y rescate en tajo abierto — riesgos únicos que requieren
+        entrenamiento y equipo especializado de nivel internacional.
+      </p>
 
-          <div class="son-stations-grid">
-            {estacionesSonora.map((estacion) => (
-              <StationCard
-                nombre={estacion.nombreCorto}
-                slug={estacion.slug}
-                direccion={`${estacion.direccion}, ${estacion.colonia}`}
-                alcaldia={estacion.municipio}
-                telefono={estacion.telefono}
-                servicios={estacion.servicios}
-                horario={estacion.horario}
-                baseUrl="/directorio/sonora"
-              />
-            ))}
-          </div>
+      <h3>Valle del Yaqui: El Granero de México</h3>
+      <p>
+        El <strong>Valle del Yaqui</strong> produce más de <strong>2 millones de toneladas de trigo al año</strong>,
+        siendo la región agrícola más productiva del país. Los bomberos de Ciudad Obregón y comunidades aledañas
+        atienden emergencias en <strong>silos, bodegas y plantas procesadoras</strong>, además de incendios
+        en campos de cultivo durante las temporadas de cosecha y quema controlada.
+      </p>
 
-          <!-- SEO Content -->
-          <div class="son-seo">
-            <h2>El H. Cuerpo de Bomberos de Sonora</h2>
-            <p>
-              El <strong>H. Cuerpo de Bomberos de Sonora</strong> protege a más de <strong>3 millones de sonorenses</strong>
-              en el segundo estado más grande de México por superficie. Con 179,503 km² de territorio que abarca desde
-              el Desierto de Sonora hasta la Sierra Madre Occidental, y desde la frontera con Arizona hasta las costas
-              del Golfo de California, los bomberos sonorenses operan en condiciones de excepcional diversidad
-              geográfica, climática e industrial.
-            </p>
+      <h3>Mar de Cortés: El Acuario del Mundo</h3>
+      <p>
+        El <strong>Golfo de California</strong>, llamado por Jacques Cousteau el "Acuario del Mundo",
+        requiere capacidades de <strong>rescate acuático y marítimo</strong> en Guaymas, San Carlos y
+        Puerto Peñasco. Las estaciones costeras coordinan con la <strong>Capitanía de Puerto</strong>
+        y la Secretaría de Marina para proteger la industria camaronera (Sonora es el #1 productor nacional)
+        y el turismo náutico internacional.
+      </p>
 
-            <h3>¿Cómo contactar a los bomberos en Sonora?</h3>
-            <p>
-              En cualquier <strong>emergencia en Sonora</strong>, marca el <strong>911</strong>. El Centro de Control,
-              Comando, Comunicaciones y Cómputo (<strong>C4 Sonora</strong>) despacha la unidad más cercana.
-              Para contacto directo: <strong>Hermosillo 662 210 3600</strong>,
-              <strong>Nogales 631 312 1690</strong>, <strong>Ciudad Obregón 644 415 7070</strong>,
-              <strong>Guaymas 622 226 0095</strong>.
-            </p>
+      <h3>Coordinación Binacional con Arizona</h3>
+      <p>
+        Con <strong>588 km de frontera compartida</strong>, Sonora mantiene acuerdos activos de cooperación
+        con cuerpos de bomberos de <strong>Nogales AZ, Douglas AZ y San Luis AZ</strong>. Esta coordinación
+        binacional permite compartir recursos, protocolos y capacitación, garantizando respuestas más rápidas
+        en los cruces internacionales más activos del noroeste de México.
+      </p>
 
-            <h3>Riesgos Industriales y Mineros en Sonora</h3>
-            <p>
-              Sonora concentra la mayor actividad minera de México: la <strong>Mina Buenavista del Cobre en Cananea</strong>
-              y la <strong>Mina La Caridad en Nacozari</strong> producen juntas más del 50% del cobre nacional.
-              El <strong>corredor automotriz Hermosillo-Pesqueira</strong> (Ford Bronco Sport, Kia Sportage) genera
-              riesgos específicos con pinturas, solventes y materiales peligrosos automotrices. Los bomberos de estas
-              zonas cuentan con <strong>certificación HAZMAT nivel A</strong> y protocolos especializados.
-            </p>
+      <h3>Puerto Peñasco: Rocky Point</h3>
+      <p>
+        <strong>Puerto Peñasco</strong>, conocido como "Rocky Point" para millones de turistas estadounidenses,
+        es el destino de playa más cercano a Arizona. Los bomberos de esta zona están capacitados para
+        atender emergencias <strong>en inglés</strong> y coordinan protección civil para huracanes,
+        rescate acuático y emergencias en la zona hotelera de Sandy Beach.
+      </p>
 
-            <h3>Coordinación Binacional con Bomberos de Arizona</h3>
-            <p>
-              Los cuerpos de bomberos de <strong>Nogales, Agua Prieta y San Luis Río Colorado</strong> operan bajo
-              acuerdos de <strong>cooperación binacional con bomberos de Arizona</strong> (Nogales AZ, Douglas AZ,
-              San Luis AZ), compartiendo recursos, protocolos y capacitación. Esta coordinación es única en México
-              y permite respuestas más rápidas en la franja fronteriza de alta densidad industrial y comercial.
-            </p>
+      <h3>Servicios de los Bomberos Sonorenses</h3>
+      <p>
+        Los bomberos de Sonora están certificados para atender:
+        <strong>incendios industriales, estructurales y forestales</strong>;
+        <strong>HAZMAT minero</strong> (ácido sulfúrico, cianuro, reactivos);
+        <strong>HAZMAT automotriz</strong> (pinturas, solventes, baterías);
+        <strong>rescate acuático marino</strong> en el Golfo de California;
+        <strong>rescate aeroportuario ARFF</strong> en Hermosillo;
+        <strong>rescate desértico</strong> en el Desierto de Sonora;
+        <strong>coordinación binacional</strong> con cuerpos de Arizona; y
+        <strong>rescate minero</strong> en tajo abierto y socavón.
+      </p>
 
-            <h3>Servicios de los Bomberos Sonorenses</h3>
-            <p>
-              Los bomberos de Sonora están certificados para atender:
-              <strong>incendios industriales, estructurales y forestales</strong>;
-              <strong>HAZMAT minero</strong> (ácido sulfúrico, cianuro, reactivos metalúrgicos);
-              <strong>HAZMAT automotriz</strong> (pinturas, solventes, baterías de vehículos eléctricos);
-              <strong>rescate acuático marino</strong> en el Golfo de California;
-              <strong>rescate aeroportuario ARFF</strong> en Hermosillo y Nogales;
-              <strong>rescate desértico</strong> en el Desierto de Sonora y Altar;
-              <strong>coordinación binacional</strong> con cuerpos de bomberos de Arizona; y
-              <strong>rescate minero</strong> en tajo abierto y socavón.
-            </p>
-          </div>
-        </div>
-
-        <!-- Sidebar -->
-        <aside class="son-sidebar">
-          <!-- Quick Access -->
-          <div class="son-sidebar__card">
-            <h4>Filtrar por Municipio</h4>
-            <ul class="son-sidebar__municipios">
-              {municipios.map((municipio) => (
-                <li>
-                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}`}>
-                    <span class="son-sidebar__bullet"></span>
-                    <span>{municipio}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Emergency Numbers -->
-          <div class="son-sidebar__card son-sidebar__card--emergency">
-            <h4>Teléfonos de Emergencia</h4>
-            <div class="son-sidebar__emergency-list">
-              <div class="son-sidebar__emergency-item">
-                <span class="son-sidebar__emergency-number">911</span>
-                <span class="son-sidebar__emergency-label">Emergencias Nacionales</span>
-              </div>
-              <div class="son-sidebar__emergency-item">
-                <span class="son-sidebar__emergency-number">662 210 3600</span>
-                <span class="son-sidebar__emergency-label">Bomberos Hermosillo</span>
-              </div>
-              <div class="son-sidebar__emergency-item">
-                <span class="son-sidebar__emergency-number">631 312 1690</span>
-                <span class="son-sidebar__emergency-label">Bomberos Nogales</span>
-              </div>
-              <div class="son-sidebar__emergency-item">
-                <span class="son-sidebar__emergency-number">644 415 7070</span>
-                <span class="son-sidebar__emergency-label">Bomberos Cd. Obregón</span>
-              </div>
-              <div class="son-sidebar__emergency-item">
-                <span class="son-sidebar__emergency-number">622 226 0095</span>
-                <span class="son-sidebar__emergency-label">Bomberos Guaymas</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Regiones -->
-          <div class="son-sidebar__card">
-            <h4>Regiones del Estado</h4>
-            <ul class="son-sidebar__regiones">
-              <li>
-                <span class="son-sidebar__region-name">Región Centro</span>
-                <span class="son-sidebar__region-desc">Hermosillo (capital), Magdalena, Ures</span>
-              </li>
-              <li>
-                <span class="son-sidebar__region-name">Región Norte/Fronteriza</span>
-                <span class="son-sidebar__region-desc">Nogales, Agua Prieta, Cananea, Nacozari, San Luis R.C., Caborca</span>
-              </li>
-              <li>
-                <span class="son-sidebar__region-name">Región Sur/Yaqui-Mayo</span>
-                <span class="son-sidebar__region-desc">Ciudad Obregón, Navojoa, Álamos, Huatabampo</span>
-              </li>
-              <li>
-                <span class="son-sidebar__region-name">Región Costera/Golfo</span>
-                <span class="son-sidebar__region-desc">Guaymas, San Carlos, Puerto Peñasco</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Nearby States -->
-          <div class="son-sidebar__card">
-            <h4>Estados Vecinos</h4>
-            <ul class="son-sidebar__states">
-              {estadosVecinos.map((estado) => (
-                <li>
-                  <a href={`/directorio/${estado.slug}`}>
-                    <span>{estado.nombre}</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- CTA -->
-          <div class="son-sidebar__card son-sidebar__card--cta">
-            <h4>¿Equipas una Estación en SON?</h4>
-            <p>Distribuimos equipo NFPA certificado para bomberos en Sonora: minería, industrial, automotriz y costero</p>
-            <a href="/cotizar" class="son-sidebar__cta-btn">Solicitar Cotización</a>
-          </div>
-
-          <!-- Products -->
-          <div class="son-sidebar__card">
-            <h4>Equipo para Bomberos</h4>
-            <ul class="son-sidebar__products">
-              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA</a></li>
-              <li><a href="/productos/cascos-para-bomberos">Cascos de Bombero</a></li>
-              <li><a href="/productos/scba">Equipos SCBA</a></li>
-              <li><a href="/productos/herramientas-rescate">Herramientas de Rescate</a></li>
-            </ul>
-            <a href="/productos" class="son-sidebar__link">
-              Ver catálogo completo
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Back to Directory -->
-          <div class="son-sidebar__card">
-            <a href="/directorio" class="son-sidebar__back">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              <span>Ver todos los estados</span>
-            </a>
-          </div>
-
-          <!-- Contact -->
-          <div class="son-sidebar__card">
-            <h4>Contacto BOMBERO.MX</h4>
-            <ul class="son-sidebar__contact">
-              <li><a href="tel:+525520780102">55 2078 0102</a></li>
-              <li><a href="https://wa.me/525520780102">WhatsApp</a></li>
-              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-</PageLayout>
+      <h3>¿Cómo contactar a los Bomberos en Sonora?</h3>
+      <p>
+        En cualquier <strong>emergencia en Sonora</strong>, marca el <strong>911</strong>.
+        El Centro de Control, Comando, Comunicaciones y Cómputo (<strong>C4 Sonora</strong>) despacha
+        la unidad más cercana. Para contacto directo:
+        <strong>Hermosillo 662 210 3600</strong>,
+        <strong>Nogales 631 312 1690</strong>,
+        <strong>Ciudad Obregón 644 415 7070</strong>,
+        <strong>Guaymas 622 226 0095</strong>.
+      </p>
+    </section>
+  </Fragment>
+</DirectorioEstadoLayout>
 
 <style>
-  /* ═══════════════════════════════════════════════════════════════════════
-     DIRECTORIO SONORA - ESTACIONES DE BOMBEROS
-     ═══════════════════════════════════════════════════════════════════════ */
-
-  .son-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-  }
-
-  .son-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .son-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .son-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .son-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .son-hero__breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-4);
-  }
-
-  .son-hero__breadcrumb a {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .son-hero__breadcrumb a:hover { color: var(--color-fire-400); }
-
-  .son-hero__breadcrumb span { color: var(--color-smoke-600); }
-
-  .son-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-  }
-
-  .son-hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-
-  .son-hero__title {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-5);
-  }
-
-  .son-hero__highlight {
-    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .son-hero__desc {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-6);
-  }
-
-  .son-hero__desc strong { color: white; }
-
-  .son-hero__stats {
-    display: flex;
-    gap: var(--space-6);
-    padding-top: var(--space-5);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .son-hero__stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .son-hero__stat-number {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-fire-400);
-  }
-
-  .son-hero__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .son-hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .son-hero__seo-title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin: 0;
-  }
-
-  .son-hero__seo-text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .son-hero__seo-text strong { color: white; }
-
-  /* ═══ Emergency Banner ═══ */
-  .son-emergency {
-    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
-    padding: var(--space-5) 0;
-  }
-
-  .son-emergency__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-6);
-  }
-
-  .son-emergency__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    color: white;
-    flex-shrink: 0;
-  }
-
-  .son-emergency__text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .son-emergency__label {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .son-emergency__number {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: white;
-  }
-
-  .son-emergency__desc {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    max-width: 480px;
-  }
-
-  /* ═══ Main Section ═══ */
-  .son-main {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50);
-  }
-
-  .son-main__grid {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  .son-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-    margin-top: var(--space-8);
-  }
-
-  /* ═══ SEO Content ═══ */
-  .son-seo {
-    margin-top: var(--space-12);
+  .seo-content {
     padding: var(--space-8);
     background: white;
     border-radius: var(--radius-xl);
+    margin-top: var(--space-10);
   }
 
-  .son-seo h2 {
+  .seo-content h2 {
     font-size: var(--text-xl);
-    font-weight: 700;
+    font-weight: 800;
     color: var(--color-smoke-900);
     margin: 0 0 var(--space-4);
   }
 
-  .son-seo h3 {
+  .seo-content h3 {
     font-size: var(--text-lg);
     font-weight: 700;
     color: var(--color-smoke-800);
     margin: var(--space-6) 0 var(--space-3);
   }
 
-  .son-seo p {
+  .seo-content p {
     font-size: var(--text-base);
     color: var(--color-smoke-600);
     line-height: 1.8;
     margin: 0 0 var(--space-4);
   }
 
-  .son-seo p:last-child { margin-bottom: 0; }
-  .son-seo strong { color: var(--color-smoke-800); }
-
-  /* ═══ Sidebar ═══ */
-  .son-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    position: sticky;
-    top: var(--space-6);
+  .seo-content p:last-child {
+    margin-bottom: 0;
   }
 
-  .son-sidebar__card {
-    padding: var(--space-5);
-    background: white;
-    border-radius: var(--radius-xl);
+  .seo-content strong {
+    color: var(--color-smoke-800);
   }
 
-  .son-sidebar__card h4 {
+  .hero-seo__title {
     font-size: var(--text-base);
     font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 2px solid var(--color-fire-500);
-  }
-
-  .son-sidebar__card > p {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500);
-    line-height: 1.6;
-    margin: 0 0 var(--space-4);
-  }
-
-  .son-sidebar__municipios {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    max-height: 320px;
-    overflow-y: auto;
-  }
-
-  .son-sidebar__municipios li a {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .son-sidebar__municipios li a:hover {
-    background: var(--color-smoke-50);
-    color: var(--color-fire-600);
-  }
-
-  .son-sidebar__bullet {
-    width: 6px;
-    height: 6px;
-    background: var(--color-fire-500);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .son-sidebar__regiones {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .son-sidebar__regiones li {
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-  }
-
-  .son-sidebar__region-name {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin-bottom: 2px;
-  }
-
-  .son-sidebar__region-desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    line-height: 1.4;
-  }
-
-  .son-sidebar__card--emergency {
-    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
-  }
-
-  .son-sidebar__card--emergency h4 {
-    color: white;
-    border-bottom-color: var(--color-fire-500);
-  }
-
-  .son-sidebar__emergency-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .son-sidebar__emergency-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-2) var(--space-3);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-  }
-
-  .son-sidebar__emergency-number {
-    font-size: var(--text-sm);
-    font-weight: 700;
     color: var(--color-fire-400);
+    margin: 0 0 var(--space-2);
   }
 
-  .son-sidebar__emergency-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-    text-align: right;
-  }
-
-  .son-sidebar__states {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .son-sidebar__states li a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
+  .hero-seo__text {
     font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .son-sidebar__states li a:hover {
-    background: var(--color-smoke-100);
-    color: var(--color-fire-600);
-  }
-
-  .son-sidebar__states li a svg {
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all 0.2s;
-  }
-
-  .son-sidebar__states li a:hover svg {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .son-sidebar__products {
-    list-style: none;
-    padding: 0;
+    color: var(--color-smoke-300);
+    line-height: 1.7;
     margin: 0 0 var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
   }
 
-  .son-sidebar__products li a {
-    display: block;
-    padding: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--color-fire-600);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
+  .hero-seo__text:last-child {
+    margin-bottom: 0;
   }
 
-  .son-sidebar__products li a:hover { color: var(--color-fire-700); }
-
-  .son-sidebar__link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-fire-600);
-    text-decoration: none;
-  }
-
-  .son-sidebar__link:hover { color: var(--color-fire-700); }
-
-  .son-sidebar__link svg { transition: transform 0.2s; }
-  .son-sidebar__link:hover svg { transform: translateX(4px); }
-
-  .son-sidebar__card--cta {
-    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
-  }
-
-  .son-sidebar__card--cta h4 {
+  .hero-seo__text strong {
     color: white;
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .son-sidebar__card--cta > p { color: rgba(255, 255, 255, 0.85); }
-
-  .son-sidebar__cta-btn {
-    display: block;
-    width: 100%;
-    padding: var(--space-3);
-    background: white;
-    color: var(--color-fire-600);
-    text-align: center;
-    text-decoration: none;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    border-radius: var(--radius-lg);
-    transition: all 0.2s;
-  }
-
-  .son-sidebar__cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .son-sidebar__back {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .son-sidebar__back:hover {
-    background: var(--color-smoke-100);
-    color: var(--color-fire-600);
-  }
-
-  .son-sidebar__contact {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .son-sidebar__contact a {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-fire-600);
-    text-decoration: none;
-  }
-
-  .son-sidebar__contact a:hover { color: var(--color-fire-700); }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1200px) {
-    .son-stations-grid { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 1024px) {
-    .son-hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-
-    .son-hero__seo {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-
-    .son-main__grid { grid-template-columns: 1fr; }
-
-    .son-stations-grid { grid-template-columns: repeat(2, 1fr); }
-
-    .son-sidebar {
-      position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .son-hero { padding: var(--space-10) 0; }
-
-    .son-hero__seo { grid-template-columns: 1fr; }
-
-    .son-emergency__content {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .son-main { padding: var(--space-10) 0; }
-
-    .son-stations-grid { grid-template-columns: 1fr; }
-
-    .son-sidebar { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 480px) {
-    .son-hero__title { font-size: 1.5rem; }
-    .son-hero__stats { flex-wrap: wrap; }
   }
 </style>

@@ -1,1004 +1,368 @@
 ---
 /**
- * ─── Directorio de Estaciones de Bomberos Sinaloa ───
- * Página con todas las estaciones de bomberos en Sinaloa
- * Estado del noroeste de Mexico, lider en agroexportacion y Puerto de Mazatlan
- * Organizado por municipio con información de contacto completa
+ * Directorio de Estaciones de Bomberos - Sinaloa
+ * El Granero de México - Líder en Agroexportación
+ * 20 estaciones | Puerto de Mazatlán | Zona de Huracanes Pacífico
  */
-import PageLayout from "@layouts/PageLayout.astro";
-import SectionHeader from "@components/SectionHeader.astro";
-import StationCard from "@components/StationCard.astro";
-import { estacionesSinaloa, getMunicipios, ESTADISTICAS_SINALOA } from "@data/estaciones-sinaloa";
-import { breadcrumbJsonLd } from "@utils/seo";
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesSinaloa, getMunicipios } from "@data/estaciones-sinaloa";
 
-// Obtener municipios
-const municipios = getMunicipios();
+// Configuración del estado
+const estado = "Sinaloa";
+const sigla = "SIN";
+const slug = "sinaloa";
 
-// Estados vecinos para interlinking
+// Miniaturas hero - Agroexportación y Costa
+const heroThumbs = [
+  {
+    src: "/images/directorio/sin-mazatlan-malecon.avif",
+    alt: "Malecón de Mazatlán y Zona Dorada - Sinaloa",
+    label: "Mazatlán"
+  },
+  {
+    src: "/images/directorio/sin-culiacan-capital.avif",
+    alt: "Ciudad de Culiacán capital de Sinaloa",
+    label: "Culiacán"
+  },
+  {
+    src: "/images/directorio/sin-campos-agricolas.avif",
+    alt: "Campos agrícolas de tomate y hortalizas Sinaloa",
+    label: "Agroexportación"
+  }
+];
+
+// Galería de imágenes
+const galleryImages = [
+  {
+    src: "/images/directorio/sin-bomberos-puerto.avif",
+    alt: "Bomberos de Sinaloa en operaciones portuarias Mazatlán",
+    label: "Puerto Mazatlán"
+  },
+  {
+    src: "/images/directorio/sin-tren-chepe.avif",
+    alt: "Tren Chepe Express ruta El Fuerte a Barrancas del Cobre",
+    label: "Tren Chepe"
+  },
+  {
+    src: "/images/directorio/sin-zona-dorada.avif",
+    alt: "Zona Dorada hotelera de Mazatlán playas",
+    label: "Zona Dorada"
+  },
+  {
+    src: "/images/directorio/sin-los-mochis.avif",
+    alt: "Ciudad de Los Mochis zona agroindustrial norte",
+    label: "Los Mochis"
+  },
+  {
+    src: "/images/directorio/sin-cosala-pueblo-magico.avif",
+    alt: "Cosalá Pueblo Mágico zona minera colonial",
+    label: "Cosalá PM"
+  },
+  {
+    src: "/images/directorio/sin-sierra-madre.avif",
+    alt: "Sierra Madre Occidental Sinaloa zona forestal",
+    label: "Sierra Madre"
+  }
+];
+
+// Números de emergencia SIN
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias" },
+  { number: "(667) 715-8311", label: "Bomberos Culiacán" },
+  { number: "(669) 982-0800", label: "Bomberos Mazatlán" },
+  { number: "(668) 815-7050", label: "Bomberos Los Mochis" }
+];
+
+// Regiones de Sinaloa
+const regiones = [
+  {
+    nombre: "Zona Centro",
+    desc: "Culiacán capital, Navolato (Ingenio El Dorado), zona cañera, aeropuerto internacional"
+  },
+  {
+    nombre: "Zona Sur - Mazatlán",
+    desc: "Puerto de Mazatlán, Zona Dorada, cruceros, Rosario y Concordia (Pueblos Mágicos)"
+  },
+  {
+    nombre: "Zona Norte",
+    desc: "Los Mochis, Guasave, El Fuerte (Pueblo Mágico), inicio Tren Chepe a Barrancas del Cobre"
+  },
+  {
+    nombre: "Sierra Madre Occidental",
+    desc: "Badiraguato, Choix, Cosalá (Pueblo Mágico) - incendios forestales y rescate en montaña"
+  }
+];
+
+// Tarjetas de equipamiento EPP
+const eppCards = [
+  {
+    image: "/images/productos/equipo-rescate-acuatico.avif",
+    imageAlt: "Equipo de rescate acuático para playas y puerto de Mazatlán",
+    badge: "Costero",
+    title: "Rescate Acuático Pacífico",
+    text: "Lanchas y equipamiento para rescate en el Puerto de Mazatlán y 640 km de litoral sinaloense.",
+    href: "/productos/rescate-acuatico",
+    linkLabel: "Ver equipo acuático"
+  },
+  {
+    image: "/images/productos/equipo-hazmat-industrial.avif",
+    imageAlt: "Equipo HAZMAT para agroindustria y puerto",
+    badge: "HAZMAT",
+    title: "HAZMAT Agroindustrial",
+    text: "Equipamiento para emergencias con agroquímicos, fertilizantes y combustibles portuarios.",
+    href: "/productos/hazmat",
+    linkLabel: "Ver equipos HAZMAT"
+  },
+  {
+    image: "/images/productos/equipo-forestal.avif",
+    imageAlt: "Equipo forestal para incendios en Sierra Madre Occidental",
+    badge: "Forestal",
+    title: "Incendios Sierra Madre",
+    text: "Unidades 4x4 y herramienta manual para combate de incendios en la Sierra Madre Occidental.",
+    href: "/productos/forestal",
+    linkLabel: "Ver equipo forestal"
+  }
+];
+
+// Schema.org estructurado
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de ${estacionesSinaloa.length} estaciones de bomberos en Sinaloa. Líder nacional en agroexportación. Puerto de Mazatlán, Zona Dorada turística. Cobertura zona de huracanes del Pacífico.`,
+  numberOfItems: estacionesSinaloa.length,
+  itemListElement: estacionesSinaloa.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.municipio,
+        addressRegion: estado,
+        addressCountry: "MX"
+      },
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
+    }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` }
+  ]
+};
+
+// Imágenes para tarjetas de estaciones
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/rescate-swift-water-rios-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/camion-forestal-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+];
+
+// Estados vecinos
 const estadosVecinos = [
   { nombre: "Sonora", slug: "sonora" },
   { nombre: "Chihuahua", slug: "chihuahua" },
   { nombre: "Durango", slug: "durango" },
   { nombre: "Nayarit", slug: "nayarit" },
 ];
-
-const keywords = [
-  "bomberos sinaloa",
-  "estaciones bomberos culiacan",
-  "bomberos mazatlan",
-  "emergencias sinaloa 911",
-  "bomberos los mochis",
-  "cuerpo bomberos sinaloa",
-  "bomberos puerto mazatlan",
-  "rescate acuatico sinaloa",
-  "bomberos agroexportacion",
-];
-
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Sinaloa", url: "/directorio/sinaloa" },
-]);
-
-const itemListSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Estaciones de Bomberos en Sinaloa, Mexico",
-  "description": "Directorio oficial de las 20 estaciones de bomberos en Sinaloa. Telefonos de emergencia en Culiacan, Mazatlan, Los Mochis, Guasave y todo el estado. Puerto de Mazatlan, agroexportacion y zona de huracanes. Emergencias 911.",
-  "numberOfItems": estacionesSinaloa.length,
-  "itemListElement": estacionesSinaloa.map((e, i) => ({
-    "@type": "ListItem",
-    "position": i + 1,
-    "item": {
-      "@type": "FireStation",
-      "name": e.nombre,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": e.direccion,
-        "addressLocality": e.municipio,
-        "addressRegion": "Sinaloa",
-        "addressCountry": "MX"
-      },
-      "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/sinaloa/${e.slug}`
-    }
-  }))
-};
 ---
 
-<PageLayout
-  title="Bomberos en Sinaloa | 20 Estaciones | Directorio Oficial BOMBERO.MX"
-  description="Directorio oficial de las 20 estaciones de bomberos en Sinaloa. Telefonos de emergencia en Culiacan, Mazatlan, Los Mochis, Guasave y todo el estado. Puerto de Mazatlan, agroexportacion y zona de huracanes. Emergencias 911."
-  keywords={keywords}
-  canonical="https://bombero.mx/directorio/sinaloa"
-  jsonLd={[breadcrumbSchema, itemListSchema]}
+<DirectorioEstadoLayout
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  estaciones={estacionesSinaloa}
+  stationImages={stationImages}
+  municipios={getMunicipios()}
+  estadosVecinos={estadosVecinos}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en ${estado} | Directorio Oficial ${estacionesSinaloa.length} Estaciones | BOMBERO.MX`}
+  description={`Directorio completo de ${estacionesSinaloa.length} estaciones de bomberos en Sinaloa 2024. Líder en agroexportación de México. Puerto de Mazatlán, Zona Dorada, Los Mochis, Tren Chepe. Protección civil ante huracanes del Pacífico. HAZMAT agroindustrial. Tel: (667) 715-8311. Emergencias 911.`}
 >
-  <!-- Hero Section -->
-  <section class="sin-hero">
-    <div class="sin-hero__bg">
-      <div class="sin-hero__gradient"></div>
-      <div class="sin-hero__pattern"></div>
-    </div>
-    <div class="container">
-      <div class="sin-hero__container">
-        <!-- Left Column -->
-        <div class="sin-hero__content">
-          <nav class="sin-hero__breadcrumb">
-            <a href="/">Inicio</a>
-            <span>/</span>
-            <a href="/directorio">Directorio</a>
-            <span>/</span>
-            <span>Sinaloa</span>
-          </nav>
-          <span class="sin-hero__badge">
-            <span class="sin-hero__badge-dot"></span>
-            SIN
-          </span>
-          <h1 class="sin-hero__title">
-            Estaciones de Bomberos en
-            <span class="sin-hero__highlight">Sinaloa</span>
-          </h1>
-          <p class="sin-hero__desc">
-            Directorio completo del <strong>H. Cuerpo de Bomberos de Sinaloa</strong>.
-            Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones en el estado lider en agroexportacion y sede del Puerto de Mazatlan.
-          </p>
-          <div class="sin-hero__stats">
-            <div class="sin-hero__stat">
-              <span class="sin-hero__stat-number">{estacionesSinaloa.length}</span>
-              <span class="sin-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="sin-hero__stat">
-              <span class="sin-hero__stat-number">{municipios.length}</span>
-              <span class="sin-hero__stat-label">Municipios</span>
-            </div>
-            <div class="sin-hero__stat">
-              <span class="sin-hero__stat-number">24/7</span>
-              <span class="sin-hero__stat-label">Servicio</span>
-            </div>
-            <div class="sin-hero__stat">
-              <span class="sin-hero__stat-number">3M+</span>
-              <span class="sin-hero__stat-label">Habitantes</span>
-            </div>
-          </div>
-        </div>
+  <Fragment slot="seo">
+    <section class="seo-content">
+      <h2>Bomberos de Sinaloa: El Granero de México</h2>
+      <p>
+        El <strong>Heroico Cuerpo de Bomberos de Sinaloa</strong> protege a más de <strong>3 millones de
+        habitantes</strong> en el estado <strong>líder nacional en agroexportación</strong>. Con
+        <strong>20 estaciones distribuidas en 18 municipios</strong>, los bomberos sinaloenses atienden
+        desde <strong>emergencias agroindustriales en campos de tomate y hortalizas</strong> hasta
+        <strong>operaciones de rescate marítimo en el Puerto de Mazatlán</strong>, el principal puerto
+        comercial y turístico del Pacífico mexicano.
+      </p>
 
-        <!-- Right Column - SEO Content -->
-        <div class="sin-hero__seo">
-          <h2 class="sin-hero__seo-title">H. Cuerpo de Bomberos de Sinaloa</h2>
-          <p class="sin-hero__seo-text">
-            <strong>Sinaloa</strong> es el estado <strong>numero uno en agroexportacion de Mexico</strong>, con mas de
-            <strong>3 millones de habitantes</strong> distribuidos en 18 municipios. Culiacan, la capital, coordina
-            operaciones de emergencia para un estado que exporta <strong>tomate, pepino, chile y hortalizas</strong>
-            a mercados de Norteamerica y Europa, con riesgos especificos en bodegas y campos agricolas.
-          </p>
-          <h2 class="sin-hero__seo-title">Puerto de Mazatlan y Costa del Pacifico</h2>
-          <p class="sin-hero__seo-text">
-            <strong>Mazatlan</strong> es el principal puerto del Pacifico mexicano y uno de los destinos turisticos
-            mas importantes del pais, con su famosa <strong>Zona Dorada</strong>. La temporada de huracanes
-            (junio a noviembre) representa un riesgo elevado para la franja costera, por lo que los bomberos
-            cuentan con <strong>capacitacion especializada en rescate naval y proteccion civil ante ciclones</strong>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <h3>Puerto de Mazatlán: Rescate Marítimo y Turismo</h3>
+      <p>
+        <strong>Mazatlán</strong> es el <strong>principal puerto del Pacífico mexicano</strong> con
+        operaciones de carga comercial, flota camaronera y <strong>terminal de cruceros</strong> que
+        recibe más de <strong>300,000 cruceristas anuales</strong>. La <strong>Estación Central de
+        Mazatlán</strong> cuenta con <strong>lanchas de rescate, capacidad HAZMAT portuaria</strong> y
+        personal certificado en <strong>rescate acuático</strong>. La <strong>Zona Dorada</strong>,
+        corredor hotelero con más de <strong>10,000 habitaciones</strong>, requiere atención especializada
+        para emergencias en hoteles, restaurantes y el famoso <strong>Malecón</strong> (21 km, uno de
+        los más largos del mundo).
+      </p>
 
-  <!-- Emergency Banner -->
-  <section class="sin-emergency">
-    <div class="container">
-      <div class="sin-emergency__content">
-        <div class="sin-emergency__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-        </div>
-        <div class="sin-emergency__text">
-          <span class="sin-emergency__label">Emergencias en Sinaloa</span>
-          <span class="sin-emergency__number">911</span>
-        </div>
-        <p class="sin-emergency__desc">
-          Número único de emergencias en todo Sinaloa. Para Culiacan tambien: 667 715 8311. Para Mazatlan: 669 982 0800.
-        </p>
-      </div>
-    </div>
-  </section>
+      <h3>Temporada de Huracanes: Protección Civil Costera</h3>
+      <p>
+        Sinaloa tiene <strong>640 km de litoral</strong> expuesto a la <strong>temporada de huracanes
+        del Pacífico</strong> (junio-noviembre). Históricamente ha sido impactado por ciclones como
+        <strong>Manuel (2013)</strong> que causó inundaciones devastadoras en Culiacán. Las estaciones
+        costeras (Mazatlán, Escuinapa, Rosario) mantienen <strong>protocolos de evacuación masiva</strong>,
+        coordinación con la <strong>Armada de México</strong> y capacidad de respuesta post-huracán
+        incluyendo <strong>rescate en inundaciones, remoción de escombros y atención de damnificados</strong>.
+      </p>
 
-  <!-- Main Content -->
-  <section class="sin-main">
-    <div class="container">
-      <div class="sin-main__grid">
-        <!-- Stations Grid -->
-        <div class="sin-main__content">
-          <SectionHeader
-            label="Directorio Completo"
-            title="Estaciones de Bomberos en Sinaloa"
-            description="Información de contacto actualizada de todas las estaciones del H. Cuerpo de Bomberos en Sinaloa. Selecciona una estación para ver sus datos de contacto, servicios y zonas de cobertura."
-          />
+      <h3>Agroexportación: HAZMAT para el Campo Sinaloense</h3>
+      <p>
+        Sinaloa es el <strong>estado #1 en producción de tomate, pepino, chile y berenjena</strong>,
+        exportando más de <strong>$3,000 millones de dólares anuales</strong> a Estados Unidos y Canadá.
+        Las estaciones de <strong>Culiacán, Guasave, Navolato y Los Mochis</strong> mantienen capacidad
+        <strong>HAZMAT agroindustrial</strong> para emergencias con <strong>agroquímicos, fertilizantes,
+        fumigantes y combustibles agrícolas</strong>. Durante la <strong>temporada de cosecha</strong>
+        (octubre-mayo), el riesgo de incendios en <strong>bodegas de empaque y campos de rastrojo</strong>
+        aumenta significativamente.
+      </p>
 
-          <!-- Stations Grid -->
-          <div class="sin-stations-grid">
-            {estacionesSinaloa.map((estacion) => (
-              <StationCard
-                nombre={estacion.nombreCorto}
-                slug={estacion.slug}
-                direccion={`${estacion.direccion}, ${estacion.colonia}`}
-                alcaldia={estacion.municipio}
-                telefono={estacion.telefono}
-                servicios={estacion.servicios}
-                horario={estacion.horario}
-                baseUrl="/directorio/sinaloa"
-              />
-            ))}
-          </div>
+      <h3>Ingenio El Dorado: Zona Cañera de Navolato</h3>
+      <p>
+        El <strong>Ingenio Azucarero El Dorado</strong> en Navolato es uno de los más importantes del
+        Pacífico mexicano, procesando <strong>caña de azúcar de miles de hectáreas</strong>. La estación
+        de bomberos de Navolato está especializada en <strong>incendios en cañaverales</strong> (quemas
+        controladas y accidentales), emergencias industriales del ingenio y rescate en la
+        <strong>zona costera de Altata</strong> con sus comunidades pesqueras.
+      </p>
 
-          <!-- SEO Content -->
-          <div class="sin-seo">
-            <h2>El H. Cuerpo de Bomberos de Sinaloa</h2>
-            <p>
-              El <strong>H. Cuerpo de Bomberos de Sinaloa</strong> es la institución encargada de
-              el medio ambiente y el patrimonio de los mas de <strong>3 millones de sinaloenses</strong>.
-              Con presencia en los 18 municipios del estado, los bomberos atienden emergencias las
-              <strong>24 horas del dia, los 365 dias del ano</strong>, en una entidad que combina una
-              potente industria agroexportadora con un extenso litoral pacifico.
-            </p>
+      <h3>Tren Chepe y El Fuerte: Turismo de Aventura</h3>
+      <p>
+        <strong>El Fuerte</strong>, designado <strong>Pueblo Mágico</strong>, es el punto de partida
+        del legendario <strong>Tren Chepe Express</strong> hacia las <strong>Barrancas del Cobre</strong>
+        en Chihuahua. La estación de bomberos de El Fuerte atiende <strong>emergencias turísticas</strong>,
+        coordinación con operadores ferroviarios para incidentes en la ruta, y <strong>rescate en la
+        sierra norte</strong> donde habitan comunidades indígenas mayo y tarahumara. También cubre
+        <strong>Mochicahui</strong> y las comunidades ribereñas del <strong>Río El Fuerte</strong>.
+      </p>
 
-            <h3>¿Como contactar a los bomberos en Sinaloa?</h3>
-            <p>
-              En caso de <strong>emergencia en Sinaloa</strong>, marca el <strong>911</strong> desde cualquier
-              telefono. Este numero conecta con el <strong>C5 de Sinaloa</strong> que coordina la respuesta de
-              bomberos, policia y servicios medicos. Tambien puedes comunicarte directamente a la estacion mas
-              cercana usando los telefonos de este directorio. Bomberos Culiacan: <strong>667 715 8311</strong>,
-              Bomberos Mazatlan: <strong>669 982 0800</strong>, Bomberos Los Mochis: <strong>668 815 7050</strong>.
-            </p>
+      <h3>Pueblos Mágicos: Cosalá, Mocorito, Concordia y Rosario</h3>
+      <p>
+        Sinaloa cuenta con <strong>5 Pueblos Mágicos</strong> con necesidades únicas: <strong>Cosalá</strong>
+        (zona minera colonial con minas abandonadas que requieren rescate especializado),
+        <strong>Mocorito</strong> (primer Pueblo Mágico del estado con patrimonio histórico),
+        <strong>Concordia</strong> (sierra sur con cascadas turísticas), <strong>Rosario</strong>
+        (costa sur con playas) y <strong>El Fuerte</strong> (turismo ferroviario). Cada estación mantiene
+        protocolos para <strong>protección patrimonial y atención turística</strong>.
+      </p>
 
-            <h3>Riesgos Especificos en Sinaloa</h3>
-            <p>
-              Sinaloa presenta riesgos multiples y diferenciados: <strong>incendios agricolas</strong> en campos
-              de tomate, chile y hortalizas durante la cosecha; <strong>huracanes del Pacifico</strong> (temporada
-              junio-noviembre) que amenazan la costa y el Puerto de Mazatlan; <strong>emergencias industriales
-              y portuarias</strong> en los corredores de agroexportacion y terminales maritimas; <strong>incendios
-              forestales</strong> en la Sierra Madre Occidental (Badiraguato, Choix, Cosala); y <strong>rescates
-              en carretera</strong> en la Carretera Internacional Mexico 15.
-            </p>
+      <h3>Sierra Madre Occidental: Combate de Incendios Forestales</h3>
+      <p>
+        Los municipios serranos de <strong>Badiraguato, Choix y Cosalá</strong> se encuentran en la
+        <strong>Sierra Madre Occidental</strong>, con extensos bosques de pino y encino vulnerables a
+        <strong>incendios forestales</strong> durante la temporada seca (marzo-junio). Las estaciones
+        serranas cuentan con <strong>unidades 4x4 todoterreno, brigadas forestales</strong> y coordinación
+        con <strong>CONAFOR</strong>. También atienden <strong>rescates de personas perdidas en la sierra</strong>
+        y emergencias en comunidades de muy difícil acceso.
+      </p>
 
-            <h3>Servicios de los Bomberos Aguascalentenses</h3>
-            <p>
-              Los bomberos de Sinaloa estan capacitados para atender:
-              <strong>incendios estructurales e industriales</strong>;
-              <strong>HAZMAT agroindustrial</strong> en bodegas y empacadoras;
-              <strong>rescate acuatico</strong> en playas, puertos y lagunas costeras;
-              <strong>proteccion civil ante huracanes</strong> en toda la franja costera;
-              <strong>rescate en sierra</strong> y zonas de dificil acceso;
-              <strong>emergencias portuarias</strong> en Mazatlan y puertos pesqueros;
-              <strong>rescate turistico</strong> en Pueblos Magicos y el Tren Chepe; y muchos otros servicios.
-            </p>
-          </div>
-        </div>
+      <h3>Culiacán: Capital Administrativa y Económica</h3>
+      <p>
+        <strong>Culiacán</strong> concentra <strong>1 millón de habitantes</strong> en su zona metropolitana,
+        siendo el centro administrativo, comercial y universitario del estado. La <strong>Estación Central</strong>
+        coordina operaciones estatales con <strong>escalera aérea, unidad HAZMAT y capacidad de rescate
+        urbano avanzado</strong>. El <strong>Aeropuerto Internacional de Bachigualato</strong> opera
+        estación <strong>ARFF certificada</strong> para emergencias aeronáuticas. La zona sur de la
+        ciudad concentra la <strong>industria agroindustrial</strong> con bodegas y empacadoras.
+      </p>
 
-        <!-- Sidebar -->
-        <aside class="sin-sidebar">
-          <!-- Quick Access -->
-          <div class="sin-sidebar__card">
-            <h4>Filtrar por Municipio</h4>
-            <ul class="sin-sidebar__municipios">
-              {municipios.map((municipio) => (
-                <li>
-                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u')}`}>
-                    <span class="sin-sidebar__bullet"></span>
-                    <span>{municipio}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <h3>Los Mochis: Hub Agroindustrial del Norte</h3>
+      <p>
+        <strong>Los Mochis</strong> (municipio de Ahome) es el segundo centro urbano más importante
+        con <strong>500,000 habitantes</strong> en su zona metropolitana. La estación central atiende
+        la <strong>zona agroindustrial más tecnificada del estado</strong> con invernaderos de alta
+        tecnología, el puerto pesquero de <strong>Topolobampo</strong> y el inicio de la ruta del
+        <strong>Tren Chepe</strong>. Guasave, conocido como el <strong>"Corazón Agrícola de México"</strong>,
+        depende de esta coordinación regional.
+      </p>
 
-          <!-- Emergency Numbers -->
-          <div class="sin-sidebar__card ags-sidebar__card--emergency">
-            <h4>Teléfonos de Emergencia</h4>
-            <div class="sin-sidebar__emergency-list">
-              <div class="sin-sidebar__emergency-item">
-                <span class="sin-sidebar__emergency-number">911</span>
-                <span class="sin-sidebar__emergency-label">Emergencias</span>
-              </div>
-              <div class="sin-sidebar__emergency-item">
-                <span class="sin-sidebar__emergency-number">449 910 2030</span>
-                <span class="sin-sidebar__emergency-label">Bomberos Central</span>
-              </div>
-              <div class="sin-sidebar__emergency-item">
-                <span class="sin-sidebar__emergency-number">449 910 3300</span>
-                <span class="sin-sidebar__emergency-label">Protección Civil SIN</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Regiones -->
-          <div class="sin-sidebar__card">
-            <h4>Regiones del Estado</h4>
-            <ul class="sin-sidebar__regiones">
-              <li>
-                <span class="sin-sidebar__region-name">Zona Centro</span>
-                <span class="sin-sidebar__region-desc">Culiacan, Navolato, Sinaloa de Leyva, Angostura</span>
-              </li>
-              <li>
-                <span class="sin-sidebar__region-name">Zona Norte</span>
-                <span class="sin-sidebar__region-desc">Los Mochis, Guasave, El Fuerte, Choix</span>
-              </li>
-              <li>
-                <span class="sin-sidebar__region-name">Zona Sur</span>
-                <span class="sin-sidebar__region-desc">Mazatlan, Escuinapa, Rosario, Concordia</span>
-              </li>
-              <li>
-                <span class="sin-sidebar__region-name">Zona Oriente</span>
-                <span class="sin-sidebar__region-desc">El Llano, Pabellón de Arteaga</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Nearby States -->
-          <div class="sin-sidebar__card">
-            <h4>Estados Vecinos</h4>
-            <ul class="sin-sidebar__states">
-              {estadosVecinos.map((estado) => (
-                <li>
-                  <a href={`/directorio/${estado.slug}`}>
-                    <span>{estado.nombre}</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- CTA -->
-          <div class="sin-sidebar__card ags-sidebar__card--cta">
-            <h4>¿Equipas una Estacion en SIN?</h4>
-            <p>Somos distribuidores de equipo certificado NFPA para cuerpos de bomberos en todo Sinaloa</p>
-            <a href="/cotizar" class="sin-sidebar__cta-btn">Solicitar Cotización</a>
-          </div>
-
-          <!-- Products -->
-          <div class="sin-sidebar__card">
-            <h4>Equipo para Bomberos</h4>
-            <ul class="sin-sidebar__products">
-              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA</a></li>
-              <li><a href="/productos/cascos-para-bomberos">Cascos de Bombero</a></li>
-              <li><a href="/productos/scba">Equipos SCBA</a></li>
-              <li><a href="/productos/herramientas-rescate">Herramientas de Rescate</a></li>
-            </ul>
-            <a href="/productos" class="sin-sidebar__link">
-              Ver catálogo completo
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Back to Directory -->
-          <div class="sin-sidebar__card">
-            <a href="/directorio" class="sin-sidebar__back">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              <span>Ver todos los estados</span>
-            </a>
-          </div>
-
-          <!-- Contact -->
-          <div class="sin-sidebar__card">
-            <h4>Contacto BOMBERO.MX</h4>
-            <ul class="sin-sidebar__contact">
-              <li><a href="tel:+525520780102">55 2078 0102</a></li>
-              <li><a href="https://wa.me/525520780102">WhatsApp</a></li>
-              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-</PageLayout>
+      <h3>Servicios Especializados de los Bomberos Sinaloenses</h3>
+      <p>
+        Los bomberos de Sinaloa ofrecen: <strong>combate de incendios estructurales, industriales y
+        forestales</strong>; <strong>HAZMAT agroindustrial y portuario</strong>; <strong>rescate acuático
+        marítimo y lacustre</strong>; <strong>protección civil ante huracanes</strong>; <strong>ARFF
+        aeroportuario</strong>; <strong>rescate en sierra y zonas de difícil acceso</strong>;
+        <strong>emergencias en campos agrícolas e ingenios</strong>; <strong>rescate turístico en
+        Pueblos Mágicos</strong>; y <strong>coordinación con Marina para operaciones costeras</strong>.
+        El tiempo de respuesta es de <strong>4-7 minutos</strong> en zonas urbanas y hasta
+        <strong>40 minutos</strong> en comunidades serranas remotas.
+      </p>
+    </section>
+  </Fragment>
+</DirectorioEstadoLayout>
 
 <style>
-  /* ═══════════════════════════════════════════════════════════════════════
-     DIRECTORIO AGUASCALIENTES - ESTACIONES DE BOMBEROS
-     ═══════════════════════════════════════════════════════════════════════ */
-
-  /* ═══ Hero Section ═══ */
-  .sin-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-  }
-
-  .sin-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .sin-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .sin-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .sin-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .sin-hero__breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-4);
-  }
-
-  .sin-hero__breadcrumb a {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .sin-hero__breadcrumb a:hover {
-    color: var(--color-fire-400);
-  }
-
-  .sin-hero__breadcrumb span {
-    color: var(--color-smoke-600);
-  }
-
-  .sin-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-  }
-
-  .sin-hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-
-  .sin-hero__title {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-5);
-  }
-
-  .sin-hero__highlight {
-    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .sin-hero__desc {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-6);
-  }
-
-  .sin-hero__desc strong {
-    color: white;
-  }
-
-  .sin-hero__stats {
-    display: flex;
-    gap: var(--space-6);
-    padding-top: var(--space-5);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .sin-hero__stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .sin-hero__stat-number {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-fire-400);
-  }
-
-  .sin-hero__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .sin-hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .sin-hero__seo-title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin: 0;
-  }
-
-  .sin-hero__seo-text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .sin-hero__seo-text strong {
-    color: white;
-  }
-
-  /* ═══ Emergency Banner ═══ */
-  .sin-emergency {
-    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
-    padding: var(--space-5) 0;
-  }
-
-  .sin-emergency__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-6);
-  }
-
-  .sin-emergency__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    color: white;
-  }
-
-  .sin-emergency__text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .sin-emergency__label {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .sin-emergency__number {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: white;
-  }
-
-  .sin-emergency__desc {
-    font-size: var(--text-sm);
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0;
-    max-width: 400px;
-  }
-
-  /* ═══ Main Section ═══ */
-  .sin-main {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50);
-  }
-
-  .sin-main__grid {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  /* ═══ Stations Grid ═══ */
-  .sin-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-    margin-top: var(--space-8);
-  }
-
-  /* ═══ SEO Content ═══ */
-  .sin-seo {
-    margin-top: var(--space-12);
+  .seo-content {
     padding: var(--space-8);
     background: white;
     border-radius: var(--radius-xl);
+    margin-top: var(--space-8);
   }
 
-  .sin-seo h2 {
-    font-size: var(--text-xl);
-    font-weight: 700;
+  .seo-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
     color: var(--color-smoke-900);
     margin: 0 0 var(--space-4);
+    line-height: 1.3;
   }
 
-  .sin-seo h3 {
+  .seo-content h3 {
     font-size: var(--text-lg);
     font-weight: 700;
-    color: var(--color-smoke-800);
-    margin: var(--space-6) 0 var(--space-3);
+    color: var(--color-fire-700);
+    margin: var(--space-8) 0 var(--space-3);
   }
 
-  .sin-seo p {
+  .seo-content p {
     font-size: var(--text-base);
-    color: var(--color-smoke-600);
+    color: var(--color-smoke-700);
     line-height: 1.8;
     margin: 0 0 var(--space-4);
   }
 
-  .sin-seo p:last-child {
-    margin-bottom: 0;
-  }
-
-  .sin-seo strong {
-    color: var(--color-smoke-800);
-  }
-
-  /* ═══ Sidebar ═══ */
-  .sin-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    position: sticky;
-    top: var(--space-6);
-  }
-
-  .sin-sidebar__card {
-    padding: var(--space-5);
-    background: white;
-    border-radius: var(--radius-xl);
-  }
-
-  .sin-sidebar__card h4 {
-    font-size: var(--text-base);
-    font-weight: 700;
+  .seo-content strong {
     color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 2px solid var(--color-fire-500);
-  }
-
-  .sin-sidebar__card > p {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500);
-    line-height: 1.6;
-    margin: 0 0 var(--space-4);
-  }
-
-  /* Municipios List */
-  .sin-sidebar__municipios {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    max-height: 320px;
-    overflow-y: auto;
-  }
-
-  .sin-sidebar__municipios li a {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .sin-sidebar__municipios li a:hover {
-    background: var(--color-smoke-50);
-    color: var(--color-fire-600);
-  }
-
-  .sin-sidebar__bullet {
-    width: 6px;
-    height: 6px;
-    background: var(--color-fire-500);
-    border-radius: 50%;
-  }
-
-  /* Regiones */
-  .sin-sidebar__regiones {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .sin-sidebar__regiones li {
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-  }
-
-  .sin-sidebar__region-name {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin-bottom: 2px;
-  }
-
-  .sin-sidebar__region-desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    line-height: 1.4;
-  }
-
-  /* Emergency Card */
-  .sin-sidebar__card--emergency {
-    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
-  }
-
-  .sin-sidebar__card--emergency h4 {
-    color: white;
-    border-bottom-color: var(--color-fire-500);
-  }
-
-  .sin-sidebar__emergency-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .sin-sidebar__emergency-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-3);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-  }
-
-  .sin-sidebar__emergency-number {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-fire-400);
-  }
-
-  .sin-sidebar__emergency-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-  }
-
-  /* States List */
-  .sin-sidebar__states {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .sin-sidebar__states li a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .sin-sidebar__states li a:hover {
-    background: var(--color-smoke-100);
-    color: var(--color-fire-600);
-  }
-
-  .sin-sidebar__states li a svg {
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: all 0.2s;
-  }
-
-  .sin-sidebar__states li a:hover svg {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  /* Products */
-  .sin-sidebar__products {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .sin-sidebar__products li a {
-    display: block;
-    padding: var(--space-2);
-    font-size: var(--text-sm);
-    color: var(--color-fire-600);
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .sin-sidebar__products li a:hover {
-    color: var(--color-fire-700);
-  }
-
-  .sin-sidebar__link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
     font-weight: 600;
-    color: var(--color-fire-600);
-    text-decoration: none;
-  }
-
-  .sin-sidebar__link:hover {
-    color: var(--color-fire-700);
-  }
-
-  .sin-sidebar__link svg {
-    transition: transform 0.2s;
-  }
-
-  .sin-sidebar__link:hover svg {
-    transform: translateX(4px);
-  }
-
-  /* CTA Card */
-  .sin-sidebar__card--cta {
-    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
-  }
-
-  .sin-sidebar__card--cta h4 {
-    color: white;
-    border-bottom-color: rgba(255, 255, 255, 0.3);
-  }
-
-  .sin-sidebar__card--cta > p {
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  .sin-sidebar__cta-btn {
-    display: block;
-    width: 100%;
-    padding: var(--space-3);
-    background: white;
-    color: var(--color-fire-600);
-    text-align: center;
-    text-decoration: none;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    border-radius: var(--radius-lg);
-    transition: all 0.2s;
-  }
-
-  .sin-sidebar__cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  /* Back Link */
-  .sin-sidebar__back {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .sin-sidebar__back:hover {
-    background: var(--color-smoke-100);
-    color: var(--color-fire-600);
-  }
-
-  /* Contact */
-  .sin-sidebar__contact {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .sin-sidebar__contact a {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-fire-600);
-    text-decoration: none;
-  }
-
-  .sin-sidebar__contact a:hover {
-    color: var(--color-fire-700);
-  }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1200px) {
-    .sin-stations-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .sin-hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-
-    .sin-hero__seo {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-
-    .sin-main__grid {
-      grid-template-columns: 1fr;
-    }
-
-    .sin-stations-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .sin-sidebar {
-      position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-
-    .sin-sidebar__card--emergency,
-    .sin-sidebar__card--cta {
-      grid-column: span 1;
-    }
   }
 
   @media (max-width: 768px) {
-    .sin-hero {
-      padding: var(--space-10) 0;
+    .seo-content {
+      padding: var(--space-5);
     }
 
-    .sin-hero__seo {
-      grid-template-columns: 1fr;
+    .seo-content h2 {
+      font-size: var(--text-xl);
     }
 
-    .sin-emergency__content {
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .sin-main {
-      padding: var(--space-10) 0;
-    }
-
-    .sin-stations-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .sin-sidebar {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .sin-hero__title {
-      font-size: 1.5rem;
-    }
-
-    .sin-hero__stats {
-      flex-wrap: wrap;
+    .seo-content h3 {
+      font-size: var(--text-base);
     }
   }
 </style>

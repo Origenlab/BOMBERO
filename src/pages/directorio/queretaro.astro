@@ -1,871 +1,354 @@
 ---
 /**
- * ═══════════════════════════════════════════════════════════════════════════════
- * DIRECTORIO DE BOMBEROS - QUERÉTARO
- * ═══════════════════════════════════════════════════════════════════════════════
- * "El Silicon Valley de México" - Hub aeroespacial y automotriz
- * Centro Histórico UNESCO (1996) + Misiones Sierra Gorda (2003)
- * 4 Pueblos Mágicos | Ruta del Vino y Queso
- * Clúster aeroespacial #1 de México
- * ═══════════════════════════════════════════════════════════════════════════════
+ * Directorio de Estaciones de Bomberos - Querétaro
+ * El Silicon Valley de México - Hub Aeroespacial #1
+ * 15 estaciones | 2 sitios UNESCO | 4 Pueblos Mágicos | Ruta del Vino
  */
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesQueretaro, getMunicipios } from "@data/estaciones-queretaro";
 
-import PageLayout from "@layouts/PageLayout.astro";
-import { breadcrumbJsonLd } from "@utils/seo";
-import {
-  estacionesQueretaro,
-  QUERETARO_SEO,
-  ZONAS_QUERETARO,
-  ALERTAS_QUERETARO,
-  FAQ_QUERETARO,
-  INDUSTRIA_QUERETARO,
-  TURISMO_QUERETARO,
-  INFRAESTRUCTURA_QUERETARO,
-  getEstacionesPorZona,
-  getEstacionesHAZMAT,
-  getEstacionesAeroespaciales,
-  getEstacionesPueblosMagicos,
-  getEstacionesUNESCO,
-  getEstacionesCarreteras,
-  getEstacionesRescateVertical,
-  generarInterlinking,
-  getAlertasActivas,
-  getEmpresasAeroespaciales,
-  getEstadisticasAeroespaciales
-} from "@data/estaciones-queretaro";
+// Configuración del estado
+const estado = "Querétaro";
+const sigla = "QRO";
+const slug = "queretaro";
 
-// Configuración de página
-const title = `${QUERETARO_SEO.titulo} | Directorio BOMBERO.MX`;
-const description = QUERETARO_SEO.descripcion;
+// Miniaturas hero - Aeroespacial, UNESCO y Peña de Bernal
+const heroThumbs = [
+  {
+    src: "/images/directorio/qro-aeroespacial-bombardier.avif",
+    alt: "Industria aeroespacial Bombardier Safran Querétaro",
+    label: "Hub Aeroespacial #1"
+  },
+  {
+    src: "/images/directorio/qro-centro-historico-acueducto.avif",
+    alt: "Centro Histórico de Querétaro Acueducto UNESCO 1996",
+    label: "UNESCO 1996"
+  },
+  {
+    src: "/images/directorio/qro-pena-bernal.avif",
+    alt: "Peña de Bernal tercer monolito más grande del mundo",
+    label: "Peña de Bernal"
+  }
+];
 
-// Estadísticas
-const totalEstaciones = estacionesQueretaro.length;
-const estacionesHAZMAT = getEstacionesHAZMAT();
-const estacionesAeroespaciales = getEstacionesAeroespaciales();
-const estacionesPueblosMagicos = getEstacionesPueblosMagicos();
-const estacionesUNESCO = getEstacionesUNESCO();
-const estacionesCarreteras = getEstacionesCarreteras();
-const empresasAero = getEmpresasAeroespaciales();
-const statsAero = getEstadisticasAeroespaciales();
+// Galería de imágenes
+const galleryImages = [
+  {
+    src: "/images/directorio/qro-ruta-vino.avif",
+    alt: "Ruta del Vino y Queso viñedos Tequisquiapan Querétaro",
+    label: "Ruta del Vino"
+  },
+  {
+    src: "/images/directorio/qro-sierra-gorda-misiones.avif",
+    alt: "Misiones Franciscanas Sierra Gorda UNESCO 2003",
+    label: "Misiones UNESCO"
+  },
+  {
+    src: "/images/directorio/qro-juriquilla-unam.avif",
+    alt: "Campus UNAM Juriquilla parques tecnológicos",
+    label: "Silicon Valley MX"
+  },
+  {
+    src: "/images/directorio/qro-festival-globo.avif",
+    alt: "Festival Internacional del Globo Tequisquiapan",
+    label: "Festival del Globo"
+  },
+  {
+    src: "/images/directorio/qro-autopista-57d.avif",
+    alt: "Autopista México-Querétaro 57D rescate carretero",
+    label: "Autopista 57D"
+  },
+  {
+    src: "/images/directorio/qro-parque-aeroespacial.avif",
+    alt: "Parque Aeroespacial Querétaro ITP Aero Airbus",
+    label: "Parque Aeroespacial"
+  }
+];
 
-// Interlinking
-const { estados: estadosVecinos, productos: productosRelacionados } = generarInterlinking();
+// Números de emergencia Querétaro
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias" },
+  { number: "(442) 212-3939", label: "Central Querétaro" },
+  { number: "(442) 221-7800", label: "HAZMAT Industrial" },
+  { number: "(427) 272-0066", label: "San Juan del Río" }
+];
 
-// Alertas activas
-const alertasActivas = getAlertasActivas();
+// Regiones de Querétaro
+const regiones = [
+  {
+    nombre: "Centro Histórico UNESCO",
+    desc: "Santiago de Querétaro, Acueducto 74 arcos, templos barrocos (UNESCO 1996)"
+  },
+  {
+    nombre: "Zona Aeroespacial Norte",
+    desc: "Bombardier, Safran, ITP Aero, Airbus - 200+ empresas, 40,000 empleos HAZMAT"
+  },
+  {
+    nombre: "Ruta del Vino y Queso",
+    desc: "Tequisquiapan, Bernal (Peña 350m), Ezequiel Montes - 35 viñedos"
+  },
+  {
+    nombre: "Sierra Gorda",
+    desc: "Jalpan Pueblo Mágico, Misiones UNESCO 2003, Reserva Biósfera 383,567 ha"
+  }
+];
 
-// Personal total
-const personalTotal = estacionesQueretaro.reduce((sum, e) => sum + (e.personal || 0), 0);
+// Tarjetas de equipamiento EPP
+const eppCards = [
+  {
+    image: "/images/productos/traje-hazmat-aeroespacial.avif",
+    imageAlt: "Traje HAZMAT Nivel A para industria aeroespacial",
+    badge: "Aeroespacial",
+    title: "HAZMAT Nivel A Aeroespacial",
+    text: "Trajes encapsulados y detectores para Bombardier, Safran. Materiales compuestos y combustibles aviación.",
+    href: "/productos/hazmat",
+    linkLabel: "Ver equipos HAZMAT"
+  },
+  {
+    image: "/images/productos/equipo-rescate-vertical.avif",
+    imageAlt: "Equipo de rescate vertical para Peña de Bernal",
+    badge: "Rescate Vertical",
+    title: "Rescate Peña de Bernal",
+    text: "Cuerdas, arneses y equipo certificado para rescate en el tercer monolito más grande del mundo (350m).",
+    href: "/productos/rescate-altura",
+    linkLabel: "Ver equipo altura"
+  },
+  {
+    image: "/images/productos/equipo-rescate-carretero.avif",
+    imageAlt: "Herramientas rescate carretero autopista México-Querétaro",
+    badge: "Carretero",
+    title: "Rescate Autopista 57D",
+    text: "Herramientas hidráulicas para la autopista más transitada de México (100,000+ vehículos/día).",
+    href: "/productos/herramientas-rescate",
+    linkLabel: "Ver herramientas rescate"
+  }
+];
 
-// Schema.org Ultra-Profesional
-const schemaOrg = {
+// Schema.org estructurado
+const itemListSchema = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "GovernmentOrganization",
-      "name": "H. Cuerpo de Bomberos de Querétaro",
-      "alternateName": "Bomberos Querétaro",
-      "description": "Servicio de bomberos del estado de Querétaro, México. Cobertura especializada para industria aeroespacial, Centro Histórico UNESCO y Pueblos Mágicos.",
-      "areaServed": {
-        "@type": "State",
-        "name": "Querétaro",
-        "containedInPlace": { "@type": "Country", "name": "México" }
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de ${estacionesQueretaro.length} estaciones de bomberos en Querétaro. Hub aeroespacial #1 de México con HAZMAT especializado. 2 sitios UNESCO (Centro Histórico 1996, Misiones 2003). 4 Pueblos Mágicos.`,
+  numberOfItems: estacionesQueretaro.length,
+  itemListElement: estacionesQueretaro.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.municipiosCubiertos?.[0] || estado,
+        addressRegion: estado,
+        addressCountry: "MX"
       },
-      "numberOfEmployees": personalTotal,
-      "knowsAbout": [
-        "Combate de incendios",
-        "HAZMAT aeroespacial",
-        "Rescate vertical",
-        "Protección patrimonio UNESCO",
-        "Rescate carretero"
-      ]
-    },
-    {
-      "@type": "ItemList",
-      "name": "Estaciones de Bomberos en Querétaro",
-      "description": `Directorio de ${totalEstaciones} estaciones de bomberos en Querétaro`,
-      "numberOfItems": totalEstaciones,
-      "itemListElement": estacionesQueretaro.map((estacion, index) => ({
-        "@type": "ListItem",
-        "position": index + 1,
-        "item": {
-          "@type": "FireStation",
-          "name": estacion.nombre,
-          "address": estacion.direccion,
-          "telephone": estacion.telefono
-        }
-      }))
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bombero.mx" },
-        { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bombero.mx/directorio" },
-        { "@type": "ListItem", "position": 3, "name": "Querétaro", "item": "https://bombero.mx/directorio/queretaro" }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": FAQ_QUERETARO.map(faq => ({
-        "@type": "Question",
-        "name": faq.pregunta,
-        "acceptedAnswer": { "@type": "Answer", "text": faq.respuesta }
-      }))
-    },
-    {
-      "@type": "TouristDestination",
-      "name": "Querétaro",
-      "description": "Estado con 2 sitios UNESCO y 4 Pueblos Mágicos",
-      "includesAttraction": [
-        { "@type": "LandmarksOrHistoricalBuildings", "name": "Centro Histórico UNESCO" },
-        { "@type": "LandmarksOrHistoricalBuildings", "name": "Misiones Franciscanas UNESCO" },
-        { "@type": "TouristAttraction", "name": "Peña de Bernal" }
-      ]
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
     }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` }
   ]
 };
 
-const keywords = [
-  "bomberos querétaro",
-  "estaciones bomberos querétaro ciudad",
-  "emergencias querétaro 911",
-  "cuerpo bomberos querétaro",
-  "rescate querétaro",
-  "bomberos san juan del río",
+// Imágenes para tarjetas de estaciones
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
+  "/images/directorio/equipo-rescate-completo-01.avif",
 ];
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Querétaro", url: "/directorio/queretaro" },
-]);
+
+// Estados vecinos
+const estadosVecinos = [
+  { nombre: "Guanajuato", slug: "guanajuato" },
+  { nombre: "San Luis Potosí", slug: "san-luis-potosi" },
+  { nombre: "Hidalgo", slug: "hidalgo" },
+  { nombre: "Estado de México", slug: "estado-de-mexico" },
+];
 ---
 
-<PageLayout
-  title={title}
-  description={description}
-  keywords={keywords}
-  canonical="https://bombero.mx/directorio/queretaro"
-  jsonLd={[breadcrumbSchema, schemaOrg]}
+<DirectorioEstadoLayout
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  estaciones={estacionesQueretaro}
+  stationImages={stationImages}
+  municipios={getMunicipios()}
+  estadosVecinos={estadosVecinos}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en ${estado} | Directorio Oficial ${estacionesQueretaro.length} Estaciones | BOMBERO.MX`}
+  description={`Directorio completo de ${estacionesQueretaro.length} estaciones de bomberos en Querétaro 2024. Hub aeroespacial #1 México: Bombardier, Safran HAZMAT. 2 sitios UNESCO. 4 Pueblos Mágicos: Bernal, Tequisquiapan. Ruta del Vino. Tel: (442) 212-3939. Emergencias 911.`}
 >
+  <Fragment slot="seo">
+    <section class="seo-content">
+      <h2>Bomberos de Querétaro: Protección del Hub Aeroespacial de México</h2>
+      <p>
+        El <strong>H. Cuerpo de Bomberos de Querétaro</strong> protege uno de los estados con mayor dinamismo
+        industrial de México, conocido como el <strong>"Silicon Valley de México"</strong>. Con <strong>15 estaciones
+        especializadas</strong> y <strong>450+ bomberos</strong>, Querétaro cuenta con la <strong>mayor capacidad
+        HAZMAT aeroespacial del país</strong> para atender emergencias en las <strong>200+ empresas del clúster
+        aeroespacial</strong> incluyendo Bombardier, Safran, ITP Aero y Airbus Helicopters, además de proteger
+        <strong>2 sitios Patrimonio UNESCO</strong> y <strong>4 Pueblos Mágicos</strong>.
+      </p>
 
-  <!-- Hero Section Premium -->
-  <section class="qro-hero">
-    <div class="qro-hero__bg">
-      <div class="qro-hero__gradient"></div>
-      <div class="qro-hero__pattern"></div>
-      <div class="qro-hero__overlay"></div>
-    </div>
-    <div class="container">
-      <div class="qro-hero__container">
-        <nav class="qro-breadcrumb" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/directorio">Directorio</a></li>
-            <li aria-current="page">Querétaro</li>
-          </ol>
-        </nav>
+      <h3>Clúster Aeroespacial #1 de México: HAZMAT de Clase Mundial</h3>
+      <p>
+        La <strong>Estación HAZMAT de El Marqués</strong> y la <strong>Estación del Parque Aeroespacial</strong>
+        protegen el <strong>hub aeroespacial más importante de México</strong> con más de <strong>200 empresas</strong>,
+        <strong>40,000 empleos directos</strong> y <strong>$3,000 millones USD en exportaciones anuales</strong>.
+        Ambas estaciones cuentan con capacidad <strong>HAZMAT Nivel A</strong> para emergencias con
+        <strong>materiales compuestos</strong> (fibra de carbono, Kevlar), <strong>resinas epóxicas</strong>,
+        <strong>combustibles de aviación</strong> y químicos especializados. Cobertura de <strong>Bombardier</strong>
+        (2,000 empleados), <strong>Safran Aircraft Engines</strong> (1,800 empleados), <strong>ITP Aero</strong>
+        (1,200 empleados) y <strong>Airbus Helicopters</strong>.
+      </p>
 
-        {alertasActivas.length > 0 && (
-          <div class="qro-alerts">
-            {alertasActivas.slice(0, 2).map(alerta => (
-              <div class={`qro-alert qro-alert--${alerta.tipo}`}>
-                <span class="qro-alert__icon">{alerta.icono}</span>
-                <span class="qro-alert__text">{alerta.mensaje}</span>
-                <span class="qro-alert__priority">{alerta.prioridad}</span>
-              </div>
-            ))}
-          </div>
-        )}
+      <h3>Centro Histórico UNESCO 1996: Protección de Patrimonio Colonial</h3>
+      <p>
+        La <strong>Estación Central de Querétaro</strong> protege el <strong>Centro Histórico declarado Patrimonio
+        de la Humanidad UNESCO en 1996</strong>, incluyendo el icónico <strong>Acueducto de 74 arcos</strong>
+        (símbolo de la ciudad), la <strong>Casa de la Corregidora</strong>, templos barrocos y más de
+        <strong>1,400 monumentos históricos</strong>. Personal capacitado en <strong>protección de estructuras
+        patrimoniales</strong> con protocolos especiales para minimizar daños en edificios coloniales de los
+        siglos XVII y XVIII que atraen más de <strong>3 millones de visitantes anuales</strong>.
+      </p>
 
-        <div class="qro-hero__content">
-          <div class="qro-hero__badges">
-            <span class="qro-hero__badge qro-hero__badge--aero">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
-              </svg>
-              Hub Aeroespacial #1 México
-            </span>
-            <span class="qro-hero__badge qro-hero__badge--unesco">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-              </svg>
-              2 Sitios UNESCO
-            </span>
-            <span class="qro-hero__badge qro-hero__badge--magic">
-              4 Pueblos Mágicos
-            </span>
-          </div>
+      <h3>Misiones de la Sierra Gorda: UNESCO 2003</h3>
+      <p>
+        La estación de <strong>Jalpan de Serra</strong> (Pueblo Mágico desde 2010) protege las <strong>5 Misiones
+        Franciscanas de la Sierra Gorda</strong> declaradas <strong>Patrimonio UNESCO en 2003</strong>, construidas
+        en el siglo XVIII bajo la dirección de Fray Junípero Serra. También cubre la <strong>Reserva de la Biósfera
+        Sierra Gorda</strong> con <strong>383,567 hectáreas protegidas</strong>, siendo la estación más especializada
+        en <strong>incendios forestales y rescate de montaña</strong> del estado.
+      </p>
 
-          <h1 class="qro-hero__title">
-            Estaciones de Bomberos en
-            <span class="qro-hero__highlight">Querétaro</span>
-          </h1>
+      <h3>Peña de Bernal: Rescate Vertical Especializado</h3>
+      <p>
+        La estación de <strong>Bernal</strong> cuenta con el equipo más especializado en <strong>rescate vertical</strong>
+        de Querétaro para atender emergencias en la <strong>Peña de Bernal</strong>, el <strong>tercer monolito más
+        grande del mundo</strong> con <strong>350 metros de altura</strong>. Pueblo Mágico desde 2005, Bernal recibe
+        <strong>800,000+ visitantes anuales</strong>, especialmente durante el <strong>equinoccio de primavera</strong>
+        (marzo) cuando más de 500,000 personas acuden en un solo fin de semana. Rescate de escaladores, excursionistas
+        y atención de emergencias turísticas.
+      </p>
 
-          <p class="qro-hero__desc">
-            Directorio completo del <strong>H. Cuerpo de Bomberos de Querétaro</strong>.
-            <strong>{totalEstaciones} estaciones</strong> con cobertura especializada para el
-            <strong>clúster aeroespacial #1 de México</strong>, el <strong>Centro Histórico UNESCO</strong>,
-            y la <strong>Ruta del Vino y Queso</strong>.
-          </p>
+      <h3>Ruta del Vino y Queso: Cobertura Turística Premium</h3>
+      <p>
+        La estación de <strong>Tequisquiapan</strong> (Pueblo Mágico desde 2012) cubre la famosa <strong>Ruta del
+        Vino y Queso de Querétaro</strong> con <strong>35 viñedos</strong> y <strong>20 queserías artesanales</strong>
+        que atraen más de <strong>500,000 visitantes anuales</strong>. Atención especializada durante eventos masivos:
+        <strong>Festival Internacional del Globo</strong> (noviembre, 200,000+ asistentes), <strong>Feria del Queso
+        y Vino</strong> (mayo-junio) y <strong>temporada de vendimia</strong> (agosto-septiembre). Capacidad para
+        emergencias con globos aerostáticos, eventos enológicos y turismo rural.
+      </p>
 
-          <div class="qro-hero__stats">
-            <div class="qro-hero__stat">
-              <span class="qro-hero__stat-number">{totalEstaciones}</span>
-              <span class="qro-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="qro-hero__stat">
-              <span class="qro-hero__stat-number">{estacionesHAZMAT.length}</span>
-              <span class="qro-hero__stat-label">HAZMAT</span>
-            </div>
-            <div class="qro-hero__stat">
-              <span class="qro-hero__stat-number">{personalTotal}+</span>
-              <span class="qro-hero__stat-label">Bomberos</span>
-            </div>
-            <div class="qro-hero__stat">
-              <span class="qro-hero__stat-number">911</span>
-              <span class="qro-hero__stat-label">Emergencias</span>
-            </div>
-          </div>
+      <h3>Autopista México-Querétaro: La Más Transitada de México</h3>
+      <p>
+        La <strong>Estación Carretera 57D</strong> atiende la <strong>autopista más transitada del país</strong>
+        con más de <strong>100,000 vehículos diarios</strong> entre la Ciudad de México y el Bajío. Equipada con
+        <strong>rescate carretero pesado</strong> para accidentes múltiples, volcaduras de tractocamiones y
+        <strong>emergencias HAZMAT en tránsito</strong>. También cubre los enlaces con la <strong>autopista 45D
+        Querétaro-Irapuato</strong> y la <strong>carretera a San Luis Potosí</strong>, nodos estratégicos del
+        comercio nacional.
+      </p>
 
-          <div class="qro-hero__bilingual">
-            <div class="qro-hero__bilingual-header">
-              <span class="qro-hero__bilingual-flag">EN</span>
-              <span>For International Business</span>
-            </div>
-            <p>{QUERETARO_SEO.bilingue.descripcion}</p>
-          </div>
-        </div>
+      <h3>Juriquilla: El Silicon Valley de México</h3>
+      <p>
+        La estación de <strong>Juriquilla</strong> protege la zona tecnológica más importante del estado, sede del
+        <strong>Campus UNAM Juriquilla</strong>, centros de investigación <strong>CIATEQ, CIDESI</strong> y parques
+        tecnológicos donde operan <strong>Samsung, Continental, HP y Siemens</strong>. Atención especializada de
+        emergencias en <strong>laboratorios de investigación</strong>, <strong>data centers</strong> y empresas
+        de alta tecnología, además de fraccionamientos residenciales AAA.
+      </p>
 
-        <div class="qro-hero__emergency">
-          <div class="qro-emergency-card">
-            <div class="qro-emergency-card__header">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
-              </svg>
-              <span>Emergency Numbers</span>
-            </div>
-            <a href="tel:911" class="qro-emergency-card__number">911</a>
-            <p class="qro-emergency-card__note">National Emergency Line / Línea Nacional</p>
-            <div class="qro-emergency-card__locals">
-              <div class="qro-emergency-card__local">
-                <span>Central Querétaro</span>
-                <a href="tel:+524422123939">(442) 212-3939</a>
-              </div>
-              <div class="qro-emergency-card__local">
-                <span>HAZMAT Industrial</span>
-                <a href="tel:+524422217800">(442) 221-7800</a>
-              </div>
-              <div class="qro-emergency-card__local">
-                <span>San Juan del Río</span>
-                <a href="tel:+524272720066">(427) 272-0066</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <h3>Aeropuerto Internacional de Querétaro: SSEI Categoría 8</h3>
+      <p>
+        La <strong>Estación de Bomberos del Aeropuerto de Querétaro</strong> opera el <strong>Servicio de Salvamento
+        y Extinción de Incendios (SSEI)</strong> con <strong>categoría 8 OACI</strong> para aeronaves de fuselaje
+        ancho. Cobertura adicional de <strong>hangares MRO</strong> (Mantenimiento, Reparación y Overhaul) de
+        <strong>Airbus Helicopters</strong> y empresas de mantenimiento aeronáutico. Tiempo de respuesta de
+        <strong>3 minutos a cualquier punto de pista</strong> según estándares internacionales.
+      </p>
 
-  <!-- Aerospace Industry Section -->
-  <section class="qro-aerospace">
-    <div class="container">
-      <div class="qro-aerospace__header">
-        <span class="qro-aerospace__badge">Clúster Aeroespacial #1 México</span>
-        <h2>Protección Industrial Aeroespacial</h2>
-        <p>
-          Querétaro es el hub aeroespacial más importante de México con {statsAero.empresas} empresas
-          y {statsAero.empleos} empleos directos
-        </p>
-      </div>
-
-      <div class="qro-aerospace__stats">
-        <div class="qro-aerospace__stat">
-          <span class="qro-aerospace__stat-value">{statsAero.empresas}</span>
-          <span class="qro-aerospace__stat-label">Empresas Aeroespaciales</span>
-        </div>
-        <div class="qro-aerospace__stat">
-          <span class="qro-aerospace__stat-value">{statsAero.empleos}</span>
-          <span class="qro-aerospace__stat-label">Empleos Directos</span>
-        </div>
-        <div class="qro-aerospace__stat">
-          <span class="qro-aerospace__stat-value">{statsAero.exportaciones}</span>
-          <span class="qro-aerospace__stat-label">Exportaciones Anuales</span>
-        </div>
-        <div class="qro-aerospace__stat">
-          <span class="qro-aerospace__stat-value">{statsAero.crecimiento}</span>
-          <span class="qro-aerospace__stat-label">Crecimiento Anual</span>
-        </div>
-      </div>
-
-      <div class="qro-aerospace__companies">
-        {empresasAero.map(empresa => (
-          <div class="qro-aerospace__company">
-            <h3>{empresa.nombre}</h3>
-            <p class="qro-aerospace__company-location">{empresa.ubicacion}</p>
-            <div class="qro-aerospace__company-info">
-              <span><strong>{empresa.empleados.toLocaleString()}</strong> empleados</span>
-              <span>{empresa.actividad}</span>
-            </div>
-            <div class="qro-aerospace__company-risk">
-              <span class="qro-aerospace__company-risk-icon">⚠️</span>
-              <span>Riesgo HAZMAT: {empresa.riesgo}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div class="qro-aerospace__coverage">
-        <h3>Estaciones con Cobertura Aeroespacial HAZMAT</h3>
-        <div class="qro-aerospace__stations">
-          {estacionesAeroespaciales.slice(0, 4).map(e => (
-            <a href={`/directorio/queretaro/${e.slug}`} class="qro-aerospace__station">
-              <span class="qro-aerospace__station-name">{e.nombre.replace("Estación de Bomberos ", "").replace("Estación Central ", "")}</span>
-              <span class="qro-aerospace__station-phone">{e.telefono}</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- UNESCO Heritage Section -->
-  <section class="qro-unesco">
-    <div class="container">
-      <div class="qro-section-header">
-        <span class="qro-section-header__label">Patrimonio UNESCO</span>
-        <h2 class="qro-section-header__title">2 Sitios Patrimonio de la Humanidad</h2>
-      </div>
-
-      <div class="qro-unesco__grid">
-        {TURISMO_QUERETARO.patrimonioUnesco.map(sitio => (
-          <div class="qro-unesco__card">
-            <span class="qro-unesco__card-year">UNESCO {sitio.declaracion}</span>
-            <h3>{sitio.sitio}</h3>
-            <p>{sitio.descripcion}</p>
-            <div class="qro-unesco__card-visitors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-              </svg>
-              <span>{sitio.visitantes}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Zones Grid -->
-  <section class="qro-zones">
-    <div class="container">
-      <div class="qro-section-header">
-        <span class="qro-section-header__label">6 Zonas</span>
-        <h2 class="qro-section-header__title">Cobertura Geográfica Especializada</h2>
-      </div>
-
-      <div class="qro-zones__grid">
-        {Object.entries(ZONAS_QUERETARO).map(([key, zona]) => {
-          const estacionesZona = getEstacionesPorZona(zona.nombre);
-          return (
-            <div class="qro-zone-card" style={`--zone-color: ${zona.color}`}>
-              <div class="qro-zone-card__header">
-                <h3>{zona.nombre}</h3>
-                <span class="qro-zone-card__count">{estacionesZona.length}</span>
-              </div>
-              <p class="qro-zone-card__desc">{zona.descripcion}</p>
-              <div class="qro-zone-card__meta">
-                {zona.poblacion && <span>Población: {zona.poblacion}</span>}
-                {zona.empleos && <span>Empleos: {zona.empleos}</span>}
-                {zona.extension && <span>{zona.extension}</span>}
-                {zona.visitantes && <span>{zona.visitantes}</span>}
-              </div>
-              <div class="qro-zone-card__risks">
-                <span class="qro-zone-card__risks-title">Riesgos:</span>
-                {zona.riesgosPrincipales.slice(0, 2).map(r => (
-                  <span class="qro-zone-card__risk">{r}</span>
-                ))}
-              </div>
-              <ul class="qro-zone-card__stations">
-                {estacionesZona.slice(0, 2).map(e => (
-                  <li><a href={`/directorio/queretaro/${e.slug}`}>{e.nombre.replace("Estación de Bomberos ", "").replace("Estación Central ", "")}</a></li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-  <!-- Pueblos Mágicos Section -->
-  <section class="qro-magicos">
-    <div class="container">
-      <div class="qro-section-header">
-        <span class="qro-section-header__label">Turismo</span>
-        <h2 class="qro-section-header__title">4 Pueblos Mágicos de Querétaro</h2>
-      </div>
-
-      <div class="qro-magicos__grid">
-        {TURISMO_QUERETARO.pueblosMagicos.map(pueblo => (
-          <div class="qro-magico-card">
-            <div class="qro-magico-card__header">
-              <span class="qro-magico-card__year">Desde {pueblo.designacion}</span>
-              <span class="qro-magico-card__visitors">{pueblo.visitantes}</span>
-            </div>
-            <h3>{pueblo.nombre}</h3>
-            <p>{pueblo.atractivo}</p>
-            <div class="qro-magico-card__risk">
-              <span>Riesgo principal:</span> {pueblo.riesgo}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Wine Route Section -->
-  <section class="qro-wine">
-    <div class="container">
-      <div class="qro-wine__content">
-        <div class="qro-wine__info">
-          <span class="qro-wine__badge">Ruta del Vino y Queso</span>
-          <h2>Cobertura Zona Vitivinícola</h2>
-          <p>
-            La Ruta del Vino y Queso de Querétaro cuenta con <strong>{TURISMO_QUERETARO.rutaVino.viñedos} viñedos</strong> y
-            <strong>{TURISMO_QUERETARO.rutaVino.queserias} queserías</strong>, atrayendo a
-            <strong>{TURISMO_QUERETARO.rutaVino.visitantesAnuales}</strong> visitantes cada año.
-          </p>
-          <div class="qro-wine__events">
-            <h4>Eventos Principales:</h4>
-            <ul>
-              {TURISMO_QUERETARO.rutaVino.eventos.map(evento => (
-                <li>{evento}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div class="qro-wine__stations">
-          <h4>Estaciones de Cobertura:</h4>
-          {getEstacionesPorZona("Ruta del Vino y Queso").map(e => (
-            <a href={`/directorio/queretaro/${e.slug}`} class="qro-wine__station">
-              <span>{e.nombre.replace("Estación de Bomberos ", "")}</span>
-              <span>{e.telefono}</span>
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stations List -->
-  <section class="qro-stations">
-    <div class="container">
-      <div class="qro-section-header">
-        <span class="qro-section-header__label">{totalEstaciones} Estaciones</span>
-        <h2 class="qro-section-header__title">Directorio Completo</h2>
-      </div>
-
-      <div class="qro-stations__grid">
-        {estacionesQueretaro.map((estacion) => (
-          <a href={`/directorio/queretaro/${estacion.slug}`} class="qro-station-card">
-            <div class="qro-station-card__header">
-              <span class="qro-station-card__zone" style={`--zone-color: ${ZONAS_QUERETARO[Object.keys(ZONAS_QUERETARO).find(k => ZONAS_QUERETARO[k as keyof typeof ZONAS_QUERETARO].nombre === estacion.zona) || 'centroHistorico']?.color || '#7c3aed'}`}>
-                {estacion.zona}
-              </span>
-              {estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('hazmat')) && (
-                <span class="qro-station-card__badge qro-station-card__badge--hazmat">HAZMAT</span>
-              )}
-              {estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('unesco')) && (
-                <span class="qro-station-card__badge qro-station-card__badge--unesco">UNESCO</span>
-              )}
-              {estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('pueblo mágico')) && (
-                <span class="qro-station-card__badge qro-station-card__badge--magic">P. Mágico</span>
-              )}
-              {estacion.caracteristicasEspeciales?.some(c => c.toLowerCase().includes('aeroespacial') || c.toLowerCase().includes('bombardier')) && (
-                <span class="qro-station-card__badge qro-station-card__badge--aero">Aeroespacial</span>
-              )}
-            </div>
-            <h3 class="qro-station-card__name">{estacion.nombre.replace("Estación de Bomberos ", "").replace("Estación Central ", "")}</h3>
-            <p class="qro-station-card__address">{estacion.direccion}</p>
-            <div class="qro-station-card__contact">
-              <span class="qro-station-card__phone">{estacion.telefono}</span>
-              {estacion.personal && <span class="qro-station-card__personnel">{estacion.personal} bomberos</span>}
-            </div>
-            <span class="qro-station-card__cta">Ver detalles</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="qro-faq">
-    <div class="container">
-      <div class="qro-section-header">
-        <span class="qro-section-header__label">FAQ</span>
-        <h2 class="qro-section-header__title">Preguntas Frecuentes</h2>
-      </div>
-
-      <div class="qro-faq__grid">
-        {FAQ_QUERETARO.slice(0, 6).map((faq, index) => (
-          <details class="qro-faq__item" open={index === 0}>
-            <summary>{faq.pregunta}</summary>
-            <p>{faq.respuesta}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Interlinking States -->
-  <section class="qro-interlinking">
-    <div class="container">
-      <div class="qro-section-header">
-        <span class="qro-section-header__label">Corredor Industrial Bajío</span>
-        <h2 class="qro-section-header__title">Bomberos en Estados Vecinos</h2>
-      </div>
-
-      <div class="qro-interlinking__grid">
-        {estadosVecinos.map(estado => (
-          <a href={`/directorio/${estado.slug}`} class={`qro-neighbor-card qro-neighbor-card--${estado.prioridad}`}>
-            <div class="qro-neighbor-card__priority">{estado.prioridad}</div>
-            <h3>{estado.estado}</h3>
-            <p class="qro-neighbor-card__relation">{estado.relacion}</p>
-            <p class="qro-neighbor-card__context">{estado.contexto}</p>
-            <span class="qro-neighbor-card__link">Ver estaciones</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Products -->
-  <section class="qro-products">
-    <div class="container">
-      <div class="qro-section-header">
-        <span class="qro-section-header__label">Equipamiento Especializado</span>
-        <h2 class="qro-section-header__title">Equipo para Industria Aeroespacial</h2>
-      </div>
-
-      <div class="qro-products__grid">
-        {productosRelacionados.filter(p => p.prioridad === 'critica' || p.prioridad === 'alta').map(producto => (
-          <a href={producto.slug} class={`qro-product-card qro-product-card--${producto.prioridad}`}>
-            <span class="qro-product-card__priority">{producto.prioridad}</span>
-            <h3>{producto.producto}</h3>
-            <p>{producto.contexto}</p>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- SEO Content -->
-  <section class="qro-seo">
-    <div class="container">
-      <div class="qro-seo__content">
-        <h2>Bomberos de Querétaro: Protección del Hub Aeroespacial de México</h2>
-        <p>
-          El <strong>H. Cuerpo de Bomberos de Querétaro</strong> protege uno de los estados más dinámicos de México,
-          con <strong>{totalEstaciones} estaciones especializadas</strong> que cubren desde el clúster aeroespacial
-          más importante del país hasta sitios Patrimonio de la Humanidad UNESCO.
-        </p>
-
-        <h3>Capacidad HAZMAT Aeroespacial de Clase Mundial</h3>
-        <p>
-          Las estaciones <strong>HAZMAT de El Marqués</strong> y <strong>Parque Aeroespacial</strong> cuentan con
-          capacidad <strong>Nivel A</strong> para emergencias en las {statsAero.empresas} empresas aeroespaciales,
-          incluyendo <strong>Bombardier, Safran, ITP Aero y Airbus Helicopters</strong>. Personal certificado en
-          materiales compuestos (fibra de carbono, Kevlar), resinas epóxicas y combustibles de aviación.
-        </p>
-
-        <h3>Protección del Patrimonio UNESCO</h3>
-        <p>
-          La <strong>Estación Central de Querétaro</strong> protege el Centro Histórico declarado Patrimonio UNESCO
-          en 1996, incluyendo el icónico Acueducto de 74 arcos. La estación de <strong>Jalpan de Serra</strong>
-          cubre las 5 Misiones Franciscanas de la Sierra Gorda (UNESCO 2003) y la Reserva de la Biósfera.
-        </p>
-
-        <h3>Rescate Especializado en Peña de Bernal</h3>
-        <p>
-          La estación de <strong>Bernal</strong> cuenta con equipo especializado en rescate vertical para la
-          <strong>Peña de Bernal</strong>, el tercer monolito más grande del mundo (350m). Atención de 800,000+
-          visitantes anuales y eventos del equinoccio de primavera.
-        </p>
-
-        <h3>Cobertura de la Autopista Más Transitada de México</h3>
-        <p>
-          La <strong>Estación Carretera 57D</strong> cubre la autopista México-Querétaro con 100,000+ vehículos
-          diarios. Equipo de rescate carretero pesado, HAZMAT en tránsito y atención de accidentes múltiples.
-        </p>
-      </div>
-    </div>
-  </section>
-</PageLayout>
+      <h3>Servicios Especializados de los Bomberos Queretanos</h3>
+      <p>
+        Los bomberos de Querétaro ofrecen: <strong>respuesta HAZMAT Nivel A para industria aeroespacial</strong>;
+        <strong>rescate vertical en Peña de Bernal</strong>; <strong>protección de 2 sitios UNESCO</strong>;
+        <strong>combate de incendios forestales en Sierra Gorda</strong>; <strong>rescate carretero en autopista
+        más transitada de México</strong>; <strong>atención de eventos masivos (Festival del Globo, Vendimia)</strong>;
+        <strong>SSEI aeroportuario categoría 8</strong>; <strong>emergencias en parques tecnológicos</strong>;
+        y <strong>cobertura de 4 Pueblos Mágicos</strong>. El tiempo de respuesta promedio en zona metropolitana
+        es de <strong>4-6 minutos</strong>.
+      </p>
+    </section>
+  </Fragment>
+</DirectorioEstadoLayout>
 
 <style>
-  /* ═══════════════════════════════════════════════════════════════════════════
-     QUERÉTARO - PÁGINA DE DIRECTORIO ULTRA-PROFESIONAL
-     Theme: Azul aeroespacial (#0ea5e9) con acentos industriales
-     ═══════════════════════════════════════════════════════════════════════════ */
-
-  :root {
-    --qro-primary: #0ea5e9;
-    --qro-primary-dark: #0284c7;
-    --qro-primary-light: #38bdf8;
-    --qro-accent: #f59e0b;
-    --qro-industrial: #dc2626;
-    --qro-unesco: #7c3aed;
+  .seo-content {
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+    margin-top: var(--space-8);
   }
 
-  /* ═══ Hero Premium ═══ */
-  .qro-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: linear-gradient(135deg, #0c4a6e 0%, #075985 30%, #0369a1 60%, #0284c7 100%);
-    overflow: hidden;
+  .seo-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    line-height: 1.3;
   }
 
-  .qro-hero__bg { position: absolute; inset: 0; pointer-events: none; }
-
-  .qro-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 10% 20%, rgba(14, 165, 233, 0.4), transparent),
-      radial-gradient(ellipse 60% 40% at 90% 80%, rgba(245, 158, 11, 0.2), transparent);
+  .seo-content h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-fire-700);
+    margin: var(--space-8) 0 var(--space-3);
   }
 
-  .qro-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0L100 50L50 100L0 50z' fill='none' stroke='%23ffffff06' stroke-width='1'/%3E%3Ccircle cx='50' cy='50' r='20' fill='none' stroke='%23ffffff04' stroke-width='1'/%3E%3C/svg%3E");
+  .seo-content p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-700);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
   }
 
-  .qro-hero__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, transparent 60%, rgba(12, 74, 110, 0.5) 100%);
-  }
-
-  .qro-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  .qro-breadcrumb ol { display: flex; gap: var(--space-2); list-style: none; padding: 0; margin: 0 0 var(--space-6); }
-  .qro-breadcrumb li { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
-  .qro-breadcrumb li:not(:last-child)::after { content: "/"; color: rgba(255,255,255,0.3); }
-  .qro-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
-  .qro-breadcrumb a:hover { color: white; }
-  .qro-breadcrumb [aria-current] { color: var(--qro-primary-light); font-weight: 600; }
-
-  .qro-alerts { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-6); }
-  .qro-alert { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); font-size: var(--text-sm); }
-  .qro-alert--info { background: rgba(14,165,233,0.15); border: 1px solid rgba(14,165,233,0.3); color: #7dd3fc; }
-  .qro-alert--warning { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
-  .qro-alert--danger { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
-  .qro-alert__priority { margin-left: auto; font-size: var(--text-xs); text-transform: uppercase; opacity: 0.7; }
-
-  .qro-hero__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-6); }
-  .qro-hero__badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; }
-  .qro-hero__badge--aero { background: rgba(14,165,233,0.25); border: 1px solid rgba(14,165,233,0.5); color: #7dd3fc; }
-  .qro-hero__badge--unesco { background: rgba(124,58,237,0.2); border: 1px solid rgba(124,58,237,0.4); color: #c4b5fd; }
-  .qro-hero__badge--magic { background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.4); color: #fcd34d; }
-
-  .qro-hero__title { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; color: white; line-height: 1.1; margin: 0 0 var(--space-6); }
-  .qro-hero__highlight { background: linear-gradient(135deg, var(--qro-primary-light), var(--qro-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .qro-hero__desc { font-size: var(--text-lg); color: rgba(255,255,255,0.85); line-height: 1.7; margin: 0 0 var(--space-8); }
-  .qro-hero__desc strong { color: white; }
-
-  .qro-hero__stats { display: flex; gap: var(--space-8); padding: var(--space-6) 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-6); }
-  .qro-hero__stat { display: flex; flex-direction: column; gap: var(--space-1); }
-  .qro-hero__stat-number { font-size: var(--text-3xl); font-weight: 800; color: var(--qro-primary-light); }
-  .qro-hero__stat-label { font-size: var(--text-xs); color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; }
-
-  .qro-hero__bilingual { padding: var(--space-4); background: rgba(255,255,255,0.08); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.12); }
-  .qro-hero__bilingual-header { display: flex; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
-  .qro-hero__bilingual-flag { padding: var(--space-1) var(--space-2); background: var(--qro-primary); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 700; color: white; }
-  .qro-hero__bilingual-header span { font-size: var(--text-sm); color: rgba(255,255,255,0.7); }
-  .qro-hero__bilingual p { margin: 0; font-size: var(--text-sm); color: rgba(255,255,255,0.8); line-height: 1.6; }
-
-  .qro-emergency-card { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.18); border-radius: var(--radius-2xl); padding: var(--space-6); text-align: center; }
-  .qro-emergency-card__header { display: flex; align-items: center; justify-content: center; gap: var(--space-2); color: white; font-weight: 600; margin-bottom: var(--space-4); }
-  .qro-emergency-card__number { display: block; font-size: 4.5rem; font-weight: 900; color: var(--color-fire-400); text-decoration: none; line-height: 1; margin-bottom: var(--space-2); text-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
-  .qro-emergency-card__note { font-size: var(--text-sm); color: rgba(255,255,255,0.6); margin: 0 0 var(--space-4); }
-  .qro-emergency-card__locals { display: flex; flex-direction: column; gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid rgba(255,255,255,0.1); }
-  .qro-emergency-card__local { display: flex; justify-content: space-between; padding: var(--space-2); background: rgba(255,255,255,0.05); border-radius: var(--radius-md); }
-  .qro-emergency-card__local span { font-size: var(--text-sm); color: rgba(255,255,255,0.7); }
-  .qro-emergency-card__local a { font-size: var(--text-sm); font-weight: 700; color: var(--qro-primary-light); text-decoration: none; }
-
-  /* ═══ Section Header ═══ */
-  .qro-section-header { text-align: center; margin-bottom: var(--space-10); }
-  .qro-section-header__label { display: inline-block; padding: var(--space-1) var(--space-4); background: rgba(14,165,233,0.1); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; color: var(--qro-primary); margin-bottom: var(--space-3); }
-  .qro-section-header__title { font-size: var(--text-3xl); font-weight: 800; color: var(--color-smoke-900); margin: 0; }
-
-  /* ═══ Aerospace Section ═══ */
-  .qro-aerospace { padding: var(--space-16) 0; background: linear-gradient(180deg, #f0f9ff 0%, white 100%); }
-  .qro-aerospace__header { text-align: center; margin-bottom: var(--space-10); }
-  .qro-aerospace__badge { display: inline-block; padding: var(--space-2) var(--space-4); background: linear-gradient(135deg, var(--qro-primary), var(--qro-primary-dark)); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 700; color: white; margin-bottom: var(--space-4); }
-  .qro-aerospace__header h2 { font-size: var(--text-3xl); font-weight: 800; color: var(--color-smoke-900); margin: 0 0 var(--space-3); }
-  .qro-aerospace__header p { font-size: var(--text-lg); color: var(--color-smoke-600); margin: 0; }
-
-  .qro-aerospace__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); margin-bottom: var(--space-10); }
-  .qro-aerospace__stat { text-align: center; padding: var(--space-6); background: white; border-radius: var(--radius-xl); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-  .qro-aerospace__stat-value { display: block; font-size: var(--text-2xl); font-weight: 800; color: var(--qro-primary); margin-bottom: var(--space-1); }
-  .qro-aerospace__stat-label { font-size: var(--text-sm); color: var(--color-smoke-600); }
-
-  .qro-aerospace__companies { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-10); }
-  .qro-aerospace__company { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
-  .qro-aerospace__company h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-1); }
-  .qro-aerospace__company-location { font-size: var(--text-sm); color: var(--qro-primary); margin: 0 0 var(--space-3); }
-  .qro-aerospace__company-info { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--text-sm); color: var(--color-smoke-600); margin-bottom: var(--space-3); }
-  .qro-aerospace__company-risk { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); padding: var(--space-2); background: rgba(220,38,38,0.08); border-radius: var(--radius-md); color: #dc2626; }
-
-  .qro-aerospace__coverage { padding: var(--space-6); background: linear-gradient(135deg, var(--qro-primary), var(--qro-primary-dark)); border-radius: var(--radius-2xl); }
-  .qro-aerospace__coverage h3 { font-size: var(--text-lg); font-weight: 700; color: white; margin: 0 0 var(--space-4); text-align: center; }
-  .qro-aerospace__stations { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
-  .qro-aerospace__station { display: flex; flex-direction: column; padding: var(--space-4); background: rgba(255,255,255,0.15); border-radius: var(--radius-lg); text-decoration: none; transition: all 0.2s; }
-  .qro-aerospace__station:hover { background: rgba(255,255,255,0.25); }
-  .qro-aerospace__station-name { font-size: var(--text-sm); font-weight: 600; color: white; margin-bottom: var(--space-1); }
-  .qro-aerospace__station-phone { font-size: var(--text-xs); color: rgba(255,255,255,0.8); }
-
-  /* ═══ UNESCO Section ═══ */
-  .qro-unesco { padding: var(--space-16) 0; background: white; }
-  .qro-unesco__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6); }
-  .qro-unesco__card { padding: var(--space-8); background: linear-gradient(135deg, rgba(124,58,237,0.05), rgba(124,58,237,0.02)); border-radius: var(--radius-2xl); border: 1px solid rgba(124,58,237,0.15); position: relative; overflow: hidden; }
-  .qro-unesco__card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--qro-unesco), var(--qro-primary)); }
-  .qro-unesco__card-year { display: inline-block; padding: var(--space-1) var(--space-3); background: var(--qro-unesco); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 700; color: white; margin-bottom: var(--space-3); }
-  .qro-unesco__card h3 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
-  .qro-unesco__card p { font-size: var(--text-base); color: var(--color-smoke-600); margin: 0 0 var(--space-4); }
-  .qro-unesco__card-visitors { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: var(--qro-unesco); font-weight: 600; }
-
-  /* ═══ Zones ═══ */
-  .qro-zones { padding: var(--space-16) 0; background: var(--color-smoke-50); }
-  .qro-zones__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
-  .qro-zone-card { padding: var(--space-6); background: white; border-radius: var(--radius-xl); border-left: 4px solid var(--zone-color); box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-  .qro-zone-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
-  .qro-zone-card__header h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
-  .qro-zone-card__count { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--zone-color); border-radius: 50%; font-size: var(--text-sm); font-weight: 700; color: white; }
-  .qro-zone-card__desc { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); line-height: 1.5; }
-  .qro-zone-card__meta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
-  .qro-zone-card__meta span { font-size: var(--text-xs); padding: var(--space-1) var(--space-2); background: var(--color-smoke-100); border-radius: var(--radius-sm); color: var(--color-smoke-600); }
-  .qro-zone-card__risks { margin-bottom: var(--space-4); }
-  .qro-zone-card__risks-title { display: block; font-size: var(--text-xs); font-weight: 600; color: var(--color-smoke-500); margin-bottom: var(--space-2); }
-  .qro-zone-card__risk { display: inline-block; font-size: var(--text-xs); padding: var(--space-1) var(--space-2); background: rgba(220,38,38,0.08); border-radius: var(--radius-sm); color: #dc2626; margin-right: var(--space-2); }
-  .qro-zone-card__stations { list-style: none; padding: 0; margin: 0; }
-  .qro-zone-card__stations li a { font-size: var(--text-sm); color: var(--qro-primary); text-decoration: none; }
-  .qro-zone-card__stations li a:hover { text-decoration: underline; }
-
-  /* ═══ Pueblos Mágicos ═══ */
-  .qro-magicos { padding: var(--space-16) 0; background: white; }
-  .qro-magicos__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); }
-  .qro-magico-card { padding: var(--space-6); background: linear-gradient(135deg, rgba(245,158,11,0.05), rgba(245,158,11,0.02)); border-radius: var(--radius-xl); border: 1px solid rgba(245,158,11,0.15); }
-  .qro-magico-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
-  .qro-magico-card__year { font-size: var(--text-xs); font-weight: 600; color: var(--qro-accent); }
-  .qro-magico-card__visitors { font-size: var(--text-xs); color: var(--color-smoke-500); }
-  .qro-magico-card h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
-  .qro-magico-card p { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-4); line-height: 1.5; }
-  .qro-magico-card__risk { font-size: var(--text-xs); color: var(--color-smoke-500); }
-  .qro-magico-card__risk span { font-weight: 600; }
-
-  /* ═══ Wine Route ═══ */
-  .qro-wine { padding: var(--space-16) 0; background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 50%, #7c3aed 100%); }
-  .qro-wine__content { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: center; }
-  .qro-wine__badge { display: inline-block; padding: var(--space-2) var(--space-4); background: rgba(255,255,255,0.2); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; color: white; margin-bottom: var(--space-4); }
-  .qro-wine__info h2 { font-size: var(--text-2xl); font-weight: 800; color: white; margin: 0 0 var(--space-4); }
-  .qro-wine__info p { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-6); }
-  .qro-wine__info strong { color: white; }
-  .qro-wine__events h4 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-3); }
-  .qro-wine__events ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
-  .qro-wine__events li { padding: var(--space-2) var(--space-4); background: rgba(255,255,255,0.15); border-radius: var(--radius-full); font-size: var(--text-sm); color: white; }
-  .qro-wine__stations h4 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-4); }
-  .qro-wine__station { display: flex; justify-content: space-between; padding: var(--space-4); background: rgba(255,255,255,0.1); border-radius: var(--radius-lg); text-decoration: none; margin-bottom: var(--space-3); transition: all 0.2s; }
-  .qro-wine__station:hover { background: rgba(255,255,255,0.2); }
-  .qro-wine__station span { font-size: var(--text-sm); color: white; }
-
-  /* ═══ Stations ═══ */
-  .qro-stations { padding: var(--space-16) 0; background: var(--color-smoke-50); }
-  .qro-stations__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
-  .qro-station-card { display: flex; flex-direction: column; padding: var(--space-6); background: white; border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
-  .qro-station-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.1); transform: translateY(-4px); border-color: var(--qro-primary-light); }
-  .qro-station-card__header { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
-  .qro-station-card__zone { font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); background: rgba(14,165,233,0.1); color: var(--zone-color); border-radius: var(--radius-sm); }
-  .qro-station-card__badge { font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); }
-  .qro-station-card__badge--hazmat { background: rgba(220,38,38,0.1); color: #dc2626; }
-  .qro-station-card__badge--unesco { background: rgba(124,58,237,0.1); color: #7c3aed; }
-  .qro-station-card__badge--magic { background: rgba(245,158,11,0.1); color: #f59e0b; }
-  .qro-station-card__badge--aero { background: rgba(14,165,233,0.1); color: #0ea5e9; }
-  .qro-station-card__name { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
-  .qro-station-card__address { font-size: var(--text-sm); color: var(--color-smoke-500); margin: 0 0 var(--space-4); line-height: 1.5; }
-  .qro-station-card__contact { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-top: 1px solid var(--color-smoke-100); margin-bottom: var(--space-4); }
-  .qro-station-card__phone { font-size: var(--text-sm); font-weight: 600; color: var(--qro-primary); }
-  .qro-station-card__personnel { font-size: var(--text-xs); color: var(--color-smoke-500); }
-  .qro-station-card__cta { font-size: var(--text-sm); font-weight: 600; color: var(--qro-primary); margin-top: auto; }
-
-  /* ═══ FAQ ═══ */
-  .qro-faq { padding: var(--space-16) 0; background: white; }
-  .qro-faq__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); max-width: 1000px; margin: 0 auto; }
-  .qro-faq__item { padding: var(--space-5); background: var(--color-smoke-50); border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
-  .qro-faq__item[open] { background: white; border-color: var(--qro-primary-light); }
-  .qro-faq__item summary { font-size: var(--text-base); font-weight: 600; color: var(--color-smoke-900); cursor: pointer; list-style: none; }
-  .qro-faq__item summary::-webkit-details-marker { display: none; }
-  .qro-faq__item p { font-size: var(--text-sm); color: var(--color-smoke-600); line-height: 1.7; margin: var(--space-4) 0 0; padding-top: var(--space-4); border-top: 1px solid var(--color-smoke-200); }
-
-  /* ═══ Interlinking ═══ */
-  .qro-interlinking { padding: var(--space-16) 0; background: var(--color-smoke-50); }
-  .qro-interlinking__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-4); }
-  .qro-neighbor-card { padding: var(--space-5); background: white; border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; position: relative; overflow: hidden; }
-  .qro-neighbor-card:hover { border-color: var(--qro-primary); box-shadow: 0 4px 12px rgba(14,165,233,0.1); }
-  .qro-neighbor-card__priority { position: absolute; top: var(--space-2); right: var(--space-2); font-size: 8px; padding: 2px 6px; background: var(--color-smoke-100); border-radius: var(--radius-full); color: var(--color-smoke-500); text-transform: uppercase; }
-  .qro-neighbor-card--alta .qro-neighbor-card__priority { background: rgba(14,165,233,0.1); color: var(--qro-primary); }
-  .qro-neighbor-card h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
-  .qro-neighbor-card__relation { font-size: var(--text-sm); color: var(--qro-primary); margin: 0 0 var(--space-1); }
-  .qro-neighbor-card__context { font-size: var(--text-xs); color: var(--color-smoke-500); margin: 0 0 var(--space-3); }
-  .qro-neighbor-card__link { font-size: var(--text-xs); font-weight: 600; color: var(--qro-primary); }
-
-  /* ═══ Products ═══ */
-  .qro-products { padding: var(--space-16) 0; background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%); }
-  .qro-products .qro-section-header__label { background: rgba(255,255,255,0.1); color: white; }
-  .qro-products .qro-section-header__title { color: white; }
-  .qro-products__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-  .qro-product-card { padding: var(--space-5); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-xl); text-decoration: none; transition: all 0.2s; position: relative; }
-  .qro-product-card:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
-  .qro-product-card__priority { position: absolute; top: var(--space-3); right: var(--space-3); font-size: 8px; padding: 2px 6px; background: rgba(255,255,255,0.2); border-radius: var(--radius-full); color: white; text-transform: uppercase; }
-  .qro-product-card--critica .qro-product-card__priority { background: rgba(239,68,68,0.3); color: #fca5a5; }
-  .qro-product-card h3 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-2); }
-  .qro-product-card p { font-size: var(--text-sm); color: rgba(255,255,255,0.7); margin: 0; }
-
-  /* ═══ SEO ═══ */
-  .qro-seo { padding: var(--space-16) 0; background: white; }
-  .qro-seo__content { max-width: 800px; margin: 0 auto; }
-  .qro-seo__content h2 { font-size: var(--text-2xl); font-weight: 800; color: var(--color-smoke-900); margin: 0 0 var(--space-4); }
-  .qro-seo__content h3 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-800); margin: var(--space-8) 0 var(--space-3); }
-  .qro-seo__content p { font-size: var(--text-base); color: var(--color-smoke-600); line-height: 1.8; margin: 0 0 var(--space-4); }
-  .qro-seo__content strong { color: var(--color-smoke-800); }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1200px) {
-    .qro-aerospace__stats, .qro-aerospace__companies, .qro-aerospace__stations { grid-template-columns: repeat(2, 1fr); }
-    .qro-zones__grid, .qro-stations__grid { grid-template-columns: repeat(2, 1fr); }
-    .qro-magicos__grid, .qro-products__grid { grid-template-columns: repeat(2, 1fr); }
-    .qro-interlinking__grid { grid-template-columns: repeat(3, 1fr); }
-  }
-
-  @media (max-width: 1024px) {
-    .qro-hero__container { grid-template-columns: 1fr; }
-    .qro-hero__emergency { max-width: 420px; }
-    .qro-unesco__grid { grid-template-columns: 1fr; }
-    .qro-wine__content { grid-template-columns: 1fr; }
+  .seo-content strong {
+    color: var(--color-smoke-900);
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
-    .qro-hero { padding: var(--space-12) 0; }
-    .qro-aerospace__stats, .qro-aerospace__companies, .qro-zones__grid, .qro-stations__grid, .qro-magicos__grid, .qro-faq__grid, .qro-products__grid { grid-template-columns: 1fr; }
-    .qro-interlinking__grid { grid-template-columns: repeat(2, 1fr); }
-    .qro-hero__stats { flex-wrap: wrap; gap: var(--space-4); }
-    .qro-aerospace__stations { grid-template-columns: 1fr; }
+    .seo-content {
+      padding: var(--space-5);
+    }
+
+    .seo-content h2 {
+      font-size: var(--text-xl);
+    }
+
+    .seo-content h3 {
+      font-size: var(--text-base);
+    }
   }
 </style>

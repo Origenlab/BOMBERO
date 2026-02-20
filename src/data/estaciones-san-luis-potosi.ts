@@ -1571,5 +1571,38 @@ export function getPueblosMagicos() {
   return TURISMO_SLP.pueblosMagicos;
 }
 
+// ─── Funciones Estándar para Layout ──────────────────────────────────────────
+
+/**
+ * Obtiene lista única de municipios/ciudades
+ */
+export function getMunicipios(): string[] {
+  const ciudades = estacionesSanLuisPotosi.map(e => {
+    if (e.municipiosCubiertos && e.municipiosCubiertos.length > 0) {
+      return e.municipiosCubiertos[0];
+    }
+    return e.zona || '';
+  });
+  return [...new Set(ciudades)].filter(Boolean).sort();
+}
+
+/**
+ * Obtiene una estación por su slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesSanLuisPotosi.find(e => e.slug === slug);
+}
+
+/**
+ * Obtiene estaciones cercanas basadas en la misma zona
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+  const mismaZona = estacionesSanLuisPotosi.filter(e => e.slug !== slug && e.zona === estacion.zona);
+  const otras = estacionesSanLuisPotosi.filter(e => e.slug !== slug && e.zona !== estacion.zona);
+  return [...mismaZona, ...otras].slice(0, limit);
+}
+
 // ─── Export Default ──────────────────────────────────────────────────────────
 export default estacionesSanLuisPotosi;

@@ -1,1133 +1,385 @@
 ---
 /**
- * ─── Directorio de Estaciones de Bomberos Yucatán ───
- * La Ciudad Blanca, Chichén Itzá (Maravilla del Mundo), 6,000+ cenotes,
- * Puerto Progreso cruceros, Reservas Biósfera UNESCO Celestún y Ría Lagartos.
- * El mayor destino turístico del sureste y polo industrial del Golfo.
+ * ══════════════════════════════════════════════════════════════════════════════
+ * DIRECTORIO DE BOMBEROS — YUCATÁN (YUC)
+ * ══════════════════════════════════════════════════════════════════════════════
+ *
+ * "La Ciudad Blanca" — Chichén Itzá, Cenotes y Patrimonio Maya
+ *
+ * DATOS CLAVE:
+ * • Capital: Mérida | Población: 2,320,898 | Superficie: 39,612 km²
+ * • 18 estaciones de bomberos | Ciudad más segura de México (Mérida)
+ *
+ * PATRIMONIO MUNDIAL UNESCO:
+ * • Chichén Itzá (1988) — Una de las 7 Maravillas del Mundo Moderno
+ * • Uxmal y la Ruta Puuc (1996) — Ciudades mayas del Clásico Terminal
+ * • Reserva de la Biósfera Celestún (RAMSAR) — Mayor colonia de flamencos
+ * • Reserva de la Biósfera Ría Lagartos (RAMSAR) — Las Coloradas
+ *
+ * CENOTES (6,000+):
+ * • Anillo de cenotes del cráter de Chicxulub (el que extinguió a los dinosaurios)
+ * • Rescate acuático especializado en cavernas inundadas
+ * • Buceo técnico en cuevas submarinas
+ *
+ * TURISMO E INDUSTRIA:
+ * • Puerto Progreso — Cruceros internacionales (500,000+ pasajeros/año)
+ * • Polo industrial del sureste — maquiladoras, automotriz, agroindustria
+ * • 3.5 millones de turistas anuales
+ *
+ * ══════════════════════════════════════════════════════════════════════════════
  */
-import PageLayout from "@layouts/PageLayout.astro";
-import SectionHeader from "@components/SectionHeader.astro";
-import StationCard from "@components/StationCard.astro";
-import { estacionesYucatan, getMunicipios } from "@data/estaciones-yucatan";
-import { breadcrumbJsonLd } from "@utils/seo";
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import {
+  estacionesYucatan,
+  getMunicipios,
+  getEstacionBySlug,
+  getEstacionesCercanas,
+} from "@data/estaciones-yucatan";
 
-const municipios = getMunicipios();
+const estado = "Yucatán";
+const sigla = "YUC";
+const slug = "yucatan";
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   THUMBNAILS HERO — Imágenes destacadas del estado
+   ═══════════════════════════════════════════════════════════════════════════ */
+const heroThumbs = [
+  { src: "/images/directorio/estacion-bomberos-yucatan-01.avif", alt: "Cuartel Central de Bomberos de Mérida Yucatán" },
+  { src: "/images/directorio/estacion-bomberos-yucatan-02.avif", alt: "Rescate en cenotes Yucatán bomberos" },
+  { src: "/images/directorio/estacion-bomberos-yucatan-03.avif", alt: "Bomberos Chichén Itzá protección patrimonio" },
+];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GALERÍA DE IMÁGENES — Operaciones destacadas
+   ═══════════════════════════════════════════════════════════════════════════ */
+const galleryImages = [
+  { src: "/images/directorio/bomberos-yucatan-cenotes.avif", alt: "Rescate acuático en cenotes Yucatán" },
+  { src: "/images/directorio/bomberos-yucatan-chichen.avif", alt: "Protección Chichén Itzá Maravilla del Mundo" },
+  { src: "/images/directorio/bomberos-yucatan-merida.avif", alt: "Emergencias Centro Histórico Mérida" },
+  { src: "/images/directorio/bomberos-yucatan-progreso.avif", alt: "Emergencias Puerto Progreso cruceros" },
+];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TELÉFONOS DE EMERGENCIA — Líneas críticas del estado
+   ═══════════════════════════════════════════════════════════════════════════ */
+const emergencyNumbers = [
+  { name: "Emergencias", number: "911" },
+  { name: "Cuartel Central Mérida", number: "999 924 9242" },
+  { name: "Bomberos Norte Mérida", number: "999 944 1155" },
+  { name: "Bomberos Progreso", number: "969 935 0909" },
+  { name: "Bomberos Valladolid", number: "985 856 2121" },
+  { name: "Protección Civil Yucatán", number: "999 930 3200" },
+];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REGIONES DEL ESTADO — Zonas operativas diferenciadas
+   ═══════════════════════════════════════════════════════════════════════════ */
+const regiones = [
+  { nombre: "Zona Metropolitana de Mérida", desc: "Mérida capital (1.2M hab.), Umán, Kanasín, Progreso — ciudad más segura de México, Centro Histórico colonial" },
+  { nombre: "Corredor Chichén Itzá", desc: "Chichén Itzá (Maravilla del Mundo), Valladolid (Pueblo Mágico), Pisté — 2.5 millones de visitantes/año" },
+  { nombre: "Costa Norte / Puerto Progreso", desc: "Progreso (cruceros 500,000 pax/año), Chicxulub, Telchac — rescate marítimo, huracanes" },
+  { nombre: "Ruta Puuc UNESCO", desc: "Uxmal, Kabah, Labná, Sayil — ciudades mayas del Clásico Terminal, selva baja" },
+  { nombre: "Reservas Biósfera", desc: "Celestún (flamencos UNESCO/RAMSAR), Ría Lagartos, Las Coloradas — incendios forestales, manglares" },
+  { nombre: "Oriente / Zona Maya", desc: "Tizimín, Izamal (Pueblo Mágico), Motul — agroindustria, cenotes ceremoniales" },
+];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TARJETAS EPP DESTACADAS — Especialidades del estado
+   ═══════════════════════════════════════════════════════════════════════════ */
+const eppCards = [
+  { icon: "water", title: "Rescate en Cenotes", desc: "6,000+ cenotes, buceo en cavernas, rescate técnico acuático especializado" },
+  { icon: "monument", title: "Patrimonio UNESCO", desc: "Chichén Itzá (Maravilla del Mundo), Uxmal, protocolos INAH" },
+  { icon: "ship", title: "Puerto Cruceros", desc: "Progreso: 500,000 cruceristas/año, coordinación API, rescate marítimo" },
+  { icon: "flamingo", title: "Reservas Biósfera", desc: "Celestún y Ría Lagartos — flamencos rosados, manglares RAMSAR" },
+];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   IMÁGENES TARJETAS ESTACIONES — Rotación visual para cards
+   ═══════════════════════════════════════════════════════════════════════════ */
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-bomberos-escalera-telescopica-01.avif",
+  "/images/directorio/estacion-bomberos-mexico-01.avif",
+  "/images/directorio/unidad-rescate-bomberos-01.avif",
+  "/images/directorio/bomberos-entrenamiento-01.avif",
+];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ESTADOS VECINOS — Interlinking geográfico
+   ═══════════════════════════════════════════════════════════════════════════ */
 const estadosVecinos = [
   { nombre: "Campeche", slug: "campeche" },
   { nombre: "Quintana Roo", slug: "quintana-roo" },
 ];
 
-const keywords = [
-  "bomberos yucatan",
-  "bomberos merida",
-  "estaciones bomberos yucatan",
-  "emergencias yucatan 911",
-  "cuerpo bomberos merida",
-  "rescate cenotes yucatan",
-  "bomberos chichen itza",
-  "bomberos progreso yucatan",
-  "directorio bomberos sureste mexico",
-];
-
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Yucatán", url: "/directorio/yucatan" },
-]);
-
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCHEMA.ORG SEO — Datos estructurados para Google
+   ═══════════════════════════════════════════════════════════════════════════ */
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Estaciones de Bomberos en Yucatán, México",
-  "description": "Directorio completo de las estaciones de bomberos en Yucatán. Teléfonos de emergencia, direcciones y servicios. 18 estaciones cubriendo la Zona Metropolitana de Mérida, Puerto Progreso, Chichén Itzá, cenotes y reservas biósfera UNESCO. Emergencias 911.",
-  "numberOfItems": estacionesYucatan.length,
-  "itemListElement": estacionesYucatan.map((e, i) => ({
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de las ${estacionesYucatan.length} estaciones de bomberos en Yucatán. Mérida (ciudad más segura de México), Chichén Itzá (Maravilla del Mundo), Uxmal UNESCO, 6,000+ cenotes, Puerto Progreso (cruceros), Reservas Biósfera Celestún y Ría Lagartos. Rescate acuático especializado en cenotes y cavernas. Emergencias 911.`,
+  numberOfItems: estacionesYucatan.length,
+  itemListElement: estacionesYucatan.map((e, i) => ({
     "@type": "ListItem",
-    "position": i + 1,
-    "item": {
+    position: i + 1,
+    item: {
       "@type": "FireStation",
-      "name": e.nombre,
-      "address": {
+      name: e.nombre,
+      address: {
         "@type": "PostalAddress",
-        "streetAddress": e.direccion,
-        "addressLocality": e.municipio,
-        "addressRegion": "Yucatán",
-        "addressCountry": "MX"
+        streetAddress: e.direccion,
+        addressLocality: e.municipio,
+        addressRegion: estado,
+        addressCountry: "MX",
       },
-      "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/yucatan/${e.slug}`
-    }
-  }))
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+    },
+  })),
 };
 
-const faqSchema = {
+const breadcrumbSchema = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "¿Cuál es el teléfono de los bomberos en Mérida, Yucatán?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "El número de emergencias en Mérida y toda Yucatán es el 911. El Cuartel Central de Bomberos de Mérida tiene línea directa al 999 924 9242. Para Puerto Progreso: 969 935 0071. Para Valladolid: 985 856 2023."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Qué pasa si hay una emergencia en Chichén Itzá?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "La Unidad de Bomberos de Tinum/Chichén Itzá está estacionada dentro de la zona arqueológica. Tienen protocolo especial ICOMOS para evacuación masiva de hasta 40,000 visitantes en equinoxios. Contacta al 911 o al 985 851 0129. El tiempo de respuesta es de 3-5 minutos."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Cómo pedir rescate en un cenote en Yucatán?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Llama inmediatamente al 911. Los bomberos de Yucatán tienen equipos especializados en rescate espeleoacuático para los más de 6,000 cenotes del estado. Las estaciones de Valladolid y Mérida cuentan con equipos de buceo y rescate en espacios confinados subacuáticos."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Los bomberos de Yucatán tienen equipo para emergencias en cruceros en Puerto Progreso?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sí. La Estación de Progreso está especializada en emergencias portuarias y marítimas. Tienen protocolo para el muelle más largo del mundo (6.5 km) y coordinación con Capitanía de Puerto SEMAR. Para emergencias en cruceros: 969 935 0071 o 911."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Cuántas estaciones de bomberos hay en Yucatán?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yucatán cuenta con 18 estaciones de bomberos activas con 620 elementos. La Zona Metropolitana de Mérida tiene 5 estaciones, más estaciones en Progreso, Valladolid, Chichén Itzá, Tizimín, Izamal, Motul, Umán, Kanasín, Ticul, Oxkutzcab, Tekax, Celestún y Río Lagartos."
-      }
-    }
-  ]
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx/" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` },
+  ],
 };
 ---
 
-<PageLayout
-  title="Bomberos en Yucatán | 18 Estaciones | Directorio Oficial BOMBERO.MX"
-  description="Directorio completo del H. Cuerpo de Bomberos de Yucatán. 18 estaciones en Mérida, Progreso, Chichén Itzá, cenotes y reservas UNESCO. Teléfonos de emergencia y servicios. Emergencias 911."
-  keywords={keywords}
-  canonical="https://bombero.mx/directorio/yucatan"
-  jsonLd={[breadcrumbSchema, itemListSchema, faqSchema]}
+<DirectorioEstadoLayout
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  estaciones={estacionesYucatan}
+  municipios={getMunicipios()}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  stationImages={stationImages}
+  estadosVecinos={estadosVecinos}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en Yucatán | ${estacionesYucatan.length} Estaciones | Chichén Itzá | Cenotes | Mérida | BOMBERO.MX`}
+  description="Directorio oficial de las 18 estaciones de bomberos en Yucatán. Mérida (ciudad más segura de México), Chichén Itzá (Maravilla del Mundo), Uxmal UNESCO, rescate en 6,000+ cenotes, Puerto Progreso (cruceros internacionales), Reservas de la Biósfera Celestún y Ría Lagartos. Emergencias 911."
 >
-  <!-- Hero Section -->
-  <section class="yuc-hero">
-    <div class="yuc-hero__bg">
-      <div class="yuc-hero__gradient"></div>
-      <div class="yuc-hero__pattern"></div>
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       INTRO SLOT — Presentación del estado
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <Fragment slot="intro">
+    Directorio completo del <strong>H. Cuerpo de Bomberos de Yucatán</strong>.
+    El estado alberga <strong>Chichén Itzá</strong>, una de las <strong>7 Maravillas del Mundo Moderno</strong>,
+    <strong>Uxmal</strong> (UNESCO), y más de <strong>6,000 cenotes</strong> —incluyendo el anillo
+    del cráter de <strong>Chicxulub</strong>, el asteroide que extinguió a los dinosaurios—.
+    <strong>Mérida</strong>, la capital, es consistentemente la <strong>ciudad más segura de México</strong>.
+    Con <strong>3.5 millones de turistas anuales</strong>, <strong>Puerto Progreso</strong> recibiendo
+    cruceros internacionales, y las <strong>Reservas de la Biósfera Celestún y Ría Lagartos</strong>
+    (hogar de la mayor colonia de flamencos rosados de México), los bomberos yucatecos dominan
+    rescate acuático en cenotes, protección de patrimonio y emergencias turísticas de clase mundial.
+  </Fragment>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       HERO SEO SLOT — Contenido SEO en el hero
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <Fragment slot="hero-seo">
+    <div class="hero-seo__block">
+      <h2 class="hero-seo__title">Chichén Itzá: Una de las 7 Maravillas del Mundo</h2>
+      <p class="hero-seo__text">
+        <strong>Chichén Itzá</strong>, declarada <strong>Patrimonio de la Humanidad por la UNESCO en 1988</strong>
+        y elegida como una de las <strong>7 Maravillas del Mundo Moderno en 2007</strong>, recibe más de
+        <strong>2.5 millones de visitantes anuales</strong>. La <strong>Estación de Bomberos Chichén Itzá</strong>
+        opera con protocolos especiales del <strong>INAH</strong> para protección del patrimonio arqueológico,
+        limitando el uso de agua y químicos cerca de las estructuras mayas. El <strong>Equinoccio de Kukulcán</strong>
+        (marzo y septiembre) concentra más de <strong>50,000 visitantes en un solo día</strong>, activando
+        operativos de seguridad masivos.
+      </p>
     </div>
-    <div class="container">
-      <div class="yuc-hero__container">
-        <!-- Left Column -->
-        <div class="yuc-hero__content">
-          <nav class="yuc-hero__breadcrumb">
-            <a href="/">Inicio</a>
-            <span>/</span>
-            <a href="/directorio">Directorio</a>
-            <span>/</span>
-            <span>Yucatán</span>
-          </nav>
-          <span class="yuc-hero__badge">
-            <span class="yuc-hero__badge-dot"></span>
-            YUC
-          </span>
-          <h1 class="yuc-hero__title">
-            Estaciones de Bomberos en
-            <span class="yuc-hero__highlight">Yucatán</span>
-          </h1>
-          <p class="yuc-hero__desc">
-            Directorio oficial del <strong>H. Cuerpo de Bomberos de Yucatán</strong>.
-            Chichén Itzá, 6,000+ cenotes, Puerto Progreso y las Reservas Biósfera
-            UNESCO de Celestún y Ría Lagartos. El sureste más visitado de México.
-          </p>
-          <div class="yuc-hero__stats">
-            <div class="yuc-hero__stat">
-              <span class="yuc-hero__stat-number">{estacionesYucatan.length}</span>
-              <span class="yuc-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="yuc-hero__stat">
-              <span class="yuc-hero__stat-number">620</span>
-              <span class="yuc-hero__stat-label">Bomberos</span>
-            </div>
-            <div class="yuc-hero__stat">
-              <span class="yuc-hero__stat-number">24/7</span>
-              <span class="yuc-hero__stat-label">Servicio</span>
-            </div>
-            <div class="yuc-hero__stat">
-              <span class="yuc-hero__stat-number">2.3M</span>
-              <span class="yuc-hero__stat-label">Habitantes</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column - SEO Content -->
-        <div class="yuc-hero__seo">
-          <h2 class="yuc-hero__seo-title">Chichén Itzá y 6,000 Cenotes</h2>
-          <p class="yuc-hero__seo-text">
-            Yucatán alberga la <strong>Maravilla del Mundo Moderno Chichén Itzá</strong>
-            con 5 millones de turistas/año, y más de <strong>6,000 cenotes únicos en el mundo</strong>.
-            Los bomberos yucatecos son los únicos en México especializados en
-            <strong>rescate espeleoacuático en cenotes y sistemas kársticos subterráneos</strong>.
-          </p>
-          <h2 class="yuc-hero__seo-title">Puerto Progreso y Corredor Industrial</h2>
-          <p class="yuc-hero__seo-text">
-            El <strong>Puerto de Progreso</strong> opera el muelle más largo del mundo (6.5 km)
-            con 150+ cruceros internacionales al año. El <strong>Corredor Industrial Mérida</strong>
-            concentra a LaFarge-Holcim, Grupo Bimbo, FEMSA y más de 200 empresas
-            en el <strong>Parque Industrial más activo del sureste</strong>.
-          </p>
-        </div>
-      </div>
+    <div class="hero-seo__block">
+      <h2 class="hero-seo__title">6,000+ Cenotes: Rescate Acuático de Clase Mundial</h2>
+      <p class="hero-seo__text">
+        Yucatán tiene más de <strong>6,000 cenotes</strong> —pozos naturales formados en el anillo del
+        <strong>cráter de Chicxulub</strong> (el impacto que extinguió a los dinosaurios hace 66 millones
+        de años)—. Los bomberos yucatecos son especialistas en <strong>rescate acuático en cavernas inundadas</strong>,
+        <strong>buceo técnico en cuevas submarinas</strong> y <strong>recuperación de víctimas en cenotes</strong>.
+        Los cenotes más visitados (Ik Kil, Suytun, X'Kekén) reciben miles de turistas diarios, generando
+        emergencias que requieren equipos de buceo avanzado y conocimiento de sistemas de cuevas subterráneas.
+      </p>
     </div>
-  </section>
+  </Fragment>
 
-  <!-- Cenotes Banner — Sección especial única de Yucatán -->
-  <section class="yuc-cenotes-banner">
-    <div class="container">
-      <div class="yuc-cenotes-banner__grid">
-        <div class="yuc-cenotes-banner__item">
-          <div class="yuc-cenotes-banner__icon">🏺</div>
-          <div>
-            <strong>Chichén Itzá</strong>
-            <span>Maravilla del Mundo · 5M turistas/año · Protocolo ICOMOS</span>
-          </div>
-        </div>
-        <div class="yuc-cenotes-banner__item">
-          <div class="yuc-cenotes-banner__icon">💧</div>
-          <div>
-            <strong>6,000+ Cenotes</strong>
-            <span>Rescate espeleoacuático · Únicos en el mundo</span>
-          </div>
-        </div>
-        <div class="yuc-cenotes-banner__item">
-          <div class="yuc-cenotes-banner__icon">⚓</div>
-          <div>
-            <strong>Puerto Progreso</strong>
-            <span>Muelle 6.5 km · 150+ cruceros/año · HAZMAT marítimo</span>
-          </div>
-        </div>
-        <div class="yuc-cenotes-banner__item">
-          <div class="yuc-cenotes-banner__icon">🦩</div>
-          <div>
-            <strong>2 Reservas UNESCO</strong>
-            <span>Celestún y Ría Lagartos · Flamingos · Rescate acuático</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       SEO CONTENT SLOT — Contenido SEO extenso
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <Fragment slot="seo">
+    <section class="seo-content">
+      <h2>El H. Cuerpo de Bomberos de Yucatán</h2>
+      <p>
+        El <strong>H. Cuerpo de Bomberos de Yucatán</strong> protege a más de <strong>2.3 millones de
+        yucatecos</strong> y a los <strong>3.5 millones de turistas</strong> que visitan el estado cada año.
+        Yucatán es único en México por concentrar <strong>dos sitios UNESCO</strong> (Chichén Itzá y Uxmal),
+        <strong>dos Reservas de la Biósfera RAMSAR</strong> (Celestún y Ría Lagartos), más de <strong>6,000
+        cenotes</strong>, y una de las ciudades coloniales más importantes de América. <strong>Mérida</strong>,
+        la capital, es consistentemente clasificada como la <strong>ciudad más segura de México</strong>,
+        lo que refleja la eficiencia de sus servicios de emergencia.
+      </p>
 
-  <!-- Emergency Banner -->
-  <section class="yuc-emergency">
-    <div class="container">
-      <div class="yuc-emergency__content">
-        <div class="yuc-emergency__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-        </div>
-        <div class="yuc-emergency__text">
-          <span class="yuc-emergency__label">Emergencias en Yucatán</span>
-          <span class="yuc-emergency__number">911</span>
-        </div>
-        <p class="yuc-emergency__desc">
-          Número único de emergencias en todo Yucatán. Centro de Coordinación CECOM Yucatán, disponible 24/7 los 365 días del año.
-        </p>
-      </div>
-    </div>
-  </section>
+      <h3>¿Cómo contactar a los bomberos en Yucatán?</h3>
+      <p>
+        En cualquier <strong>emergencia en Yucatán</strong>, marca el <strong>911</strong>. Para contacto
+        directo: <strong>Cuartel Central de Mérida 999 924 9242</strong>, <strong>Bomberos Norte Mérida
+        999 944 1155</strong>, <strong>Bomberos Progreso 969 935 0909</strong>, <strong>Bomberos Valladolid
+        985 856 2121</strong>. Para emergencias en zonas arqueológicas, contactar también a <strong>INAH
+        Yucatán</strong>.
+      </p>
 
-  <!-- Main Content -->
-  <section class="yuc-main">
-    <div class="container">
-      <div class="yuc-main__grid">
-        <!-- Stations Grid -->
-        <div class="yuc-main__content">
-          <SectionHeader
-            label="Directorio Completo"
-            title="Estaciones de Bomberos en Yucatán"
-            description="Información de contacto actualizada de todas las estaciones del H. Cuerpo de Bomberos en Yucatán. Desde la Zona Metropolitana de Mérida hasta las reservas biósfera UNESCO. Selecciona una estación para ver sus servicios, cobertura y datos de contacto."
-          />
+      <h3>Chichén Itzá y el Patrimonio Maya</h3>
+      <p>
+        <strong>Chichén Itzá</strong> es el sitio arqueológico más visitado de México y una de las
+        <strong>7 Maravillas del Mundo Moderno</strong>, atrayendo más de <strong>2.5 millones de visitantes
+        anuales</strong>. La <strong>Pirámide de Kukulcán</strong> (El Castillo), el <strong>Cenote Sagrado</strong>,
+        el <strong>Templo de los Guerreros</strong> y el <strong>Juego de Pelota</strong> más grande de
+        Mesoamérica requieren protocolos de emergencia especializados. Durante los equinoccios de primavera
+        y otoño, cuando la sombra de la serpiente desciende por la pirámide, se concentran hasta <strong>50,000
+        personas en un solo día</strong>. Los bomberos de Pisté y Valladolid mantienen operativos permanentes
+        con el <strong>INAH</strong> y coordinación de Protección Civil estatal.
+      </p>
 
-          <div class="yuc-stations-grid">
-            {estacionesYucatan.map((estacion) => (
-              <StationCard
-                nombre={estacion.nombreCorto}
-                slug={estacion.slug}
-                direccion={`${estacion.direccion}, ${estacion.colonia}`}
-                alcaldia={estacion.municipio}
-                telefono={estacion.telefono}
-                servicios={estacion.servicios}
-                horario={estacion.horario}
-                baseUrl="/directorio/yucatan"
-              />
-            ))}
-          </div>
+      <h3>Rescate en Cenotes: Especialización Única</h3>
+      <p>
+        Yucatán tiene más de <strong>6,000 cenotes</strong> catalogados, desde pequeños pozos hasta vastos
+        sistemas de cuevas submarinas. El <strong>Anillo de Cenotes</strong> marca el borde del cráter de
+        <strong>Chicxulub</strong>, el impacto de asteroide que causó la extinción de los dinosaurios hace
+        66 millones de años. Los bomberos yucatecos son especialistas en <strong>rescate acuático en cavernas</strong>,
+        <strong>buceo técnico en cuevas</strong> y <strong>recuperación de víctimas en cenotes</strong>. Los
+        cenotes turísticos más visitados —<strong>Ik Kil</strong>, <strong>Suytun</strong>, <strong>X'Kekén</strong>,
+        <strong>Dzitnup</strong>— generan emergencias que requieren equipos de buceo avanzado, conocimiento
+        de sistemas de cuevas subterráneas y coordinación con operadores turísticos.
+      </p>
 
-          <!-- FAQ Section -->
-          <div class="yuc-faq">
-            <h2 class="yuc-faq__title">Preguntas Frecuentes — Bomberos Yucatán</h2>
-            <div class="yuc-faq__list">
-              <div class="yuc-faq__item">
-                <h3>¿Cuál es el teléfono de los bomberos en Mérida?</h3>
-                <p>Marca el <strong>911</strong> desde cualquier teléfono. Cuartel Central Mérida: <a href="tel:9999249242">999 924 9242</a>. Puerto Progreso: <a href="tel:9699350071">969 935 0071</a>. Valladolid (acceso a cenotes y Chichén Itzá): <a href="tel:9858562023">985 856 2023</a>.</p>
-              </div>
-              <div class="yuc-faq__item">
-                <h3>¿Hay bomberos especializados en rescate en cenotes?</h3>
-                <p>Sí. Las estaciones de Valladolid y Mérida cuentan con unidades de <strong>rescate espeleoacuático</strong> entrenadas para los más de 6,000 cenotes de Yucatán. Son los únicos bomberos de México con esta especialidad certificada para sistemas kársticos subterráneos.</p>
-              </div>
-              <div class="yuc-faq__item">
-                <h3>¿Qué pasa si hay emergencia en Chichén Itzá?</h3>
-                <p>La <strong>Unidad de Tinum/Chichén Itzá</strong> responde en 3-5 minutos con protocolo ICOMOS especial. Para equinoxios (40,000+ visitantes en un día), activa el plan de evacuación masiva coordinado con INAH y Policía Federal.</p>
-              </div>
-              <div class="yuc-faq__item">
-                <h3>¿Los bomberos de Yucatán atienden huracanes?</h3>
-                <p>Sí. Las estaciones costeras de <strong>Progreso, Celestún y Río Lagartos</strong> tienen protocolos específicos de evacuación por huracanes, coordinados con el Sistema Nacional de Protección Civil (CENAPRED) y Protección Civil Yucatán.</p>
-              </div>
-            </div>
-          </div>
+      <h3>Puerto Progreso: Cruceros Internacionales</h3>
+      <p>
+        <strong>Puerto Progreso</strong> es el principal puerto de cruceros de Yucatán, recibiendo más de
+        <strong>500,000 cruceristas anuales</strong> de líneas como Carnival, Royal Caribbean, Norwegian y
+        MSC. El muelle de Progreso es el segundo más largo del mundo (<strong>6.5 km</strong>), lo que implica
+        tiempos de respuesta especiales para emergencias en el extremo del muelle. Los bomberos de Progreso
+        coordinan con la <strong>API Puerto Progreso</strong> y <strong>SEMAR</strong> para emergencias
+        marítimas, y mantienen protocolos para evacuación de cruceros con hasta <strong>5,000 pasajeros</strong>.
+      </p>
 
-          <!-- SEO Content -->
-          <div class="yuc-seo">
-            <h2>El H. Cuerpo de Bomberos de Yucatán</h2>
-            <p>
-              El <strong>H. Cuerpo de Bomberos de Yucatán</strong> protege a más de <strong>2.3 millones de yucatecos</strong>
-              en 106 municipios del estado más turístico del sureste de México. Con 18 estaciones estratégicamente
-              ubicadas, los bomberos yucatecos son los únicos del país certificados para rescate espeleoacuático
-              en cenotes, emergencias en zonas arqueológicas UNESCO y operaciones en reservas de biósfera.
-            </p>
+      <h3>Reservas de la Biósfera: Celestún y Ría Lagartos</h3>
+      <p>
+        Las Reservas de la Biósfera <strong>Celestún</strong> y <strong>Ría Lagartos</strong> son sitios
+        <strong>RAMSAR</strong> de importancia internacional que albergan la <strong>mayor colonia de flamenco
+        rosado de México</strong> (más de 40,000 ejemplares). <strong>Las Coloradas</strong>, con sus lagos
+        rosados de sal, se han convertido en uno de los destinos fotográficos más populares del país. Los
+        bomberos de estas zonas operan con protocolos especiales de <strong>CONANP</strong> para protección
+        de fauna, prevención de incendios en manglares y rescate en humedales. El riesgo de huracanes en
+        la costa norte de Yucatán (junio-noviembre) activa operativos de evacuación coordinados con
+        Protección Civil.
+      </p>
 
-            <h3>¿Cómo contactar a los bomberos en Yucatán?</h3>
-            <p>
-              En caso de <strong>emergencia en Yucatán</strong>, marca el <strong>911</strong> desde cualquier teléfono.
-              El <strong>CECOM Yucatán</strong> coordina la respuesta de bomberos, policía y servicios médicos.
-              Para emergencias específicas en Puerto Progreso contacta al 969 935 0071, en Valladolid al
-              985 856 2023, o directamente a la estación más cercana usando este directorio.
-            </p>
+      <h3>Mérida: La Ciudad Más Segura de México</h3>
+      <p>
+        <strong>Mérida</strong>, conocida como "La Ciudad Blanca" por sus edificios coloniales de piedra
+        caliza, es consistentemente clasificada como la <strong>ciudad más segura de México</strong> en
+        encuestas nacionales. Con más de <strong>1.2 millones de habitantes</strong> en su zona metropolitana,
+        es el centro económico, cultural y turístico del sureste mexicano. El <strong>Centro Histórico</strong>,
+        el <strong>Paseo de Montejo</strong>, y la zona hotelera de <strong>Altabrisa</strong> requieren
+        protocolos diferenciados. El Cuartel Central de Bomberos de Mérida es el <strong>hub de coordinación
+        regional del sureste de México</strong> y centro de capacitación para bomberos de Campeche y
+        Quintana Roo.
+      </p>
 
-            <h3>Especialidades Únicas de los Bomberos de Yucatán</h3>
-            <p>
-              Los bomberos yucatecos desarrollaron capacidades únicas en México:
-              <strong>rescate espeleoacuático</strong> en los 6,000+ cenotes y sistemas kársticos subterráneos;
-              <strong>emergencias en zonas arqueológicas</strong> (Chichén Itzá con 5M turistas/año, Uxmal UNESCO,
-              Ek Balam); <strong>operaciones portuarias</strong> en el Puerto de Progreso (muelle más largo
-              del mundo); <strong>rescate en humedales</strong> de Celestún y Ría Lagartos (Reservas Biósfera UNESCO);
-              y <strong>protección de patrimonio histórico colonial</strong> en el Centro de Mérida
-              (Patrimonio Mundial UNESCO).
-            </p>
-
-            <h3>Zonas de Mayor Riesgo en Yucatán</h3>
-            <p>
-              Yucatán presenta riesgos únicos: <strong>aglomeraciones turísticas masivas</strong> en Chichén Itzá,
-              Uxmal y cenotes; <strong>emergencias industriales</strong> en el Corredor Industrial Mérida-Umán
-              (LaFarge-Holcim, Grupo Bimbo, FEMSA); <strong>HAZMAT marítimo</strong> en Puerto Progreso
-              (granelera, cruceros); <strong>incendios forestales</strong> en selva maya durante estiaje
-              (enero-mayo); <strong>huracanes</strong> en zona costera norte; y <strong>rescates subacuáticos</strong>
-              en cenotes y sistemas espeleológicos.
-            </p>
-          </div>
-        </div>
-
-        <!-- Sidebar -->
-        <aside class="yuc-sidebar">
-          <!-- Municipios -->
-          <div class="yuc-sidebar__card">
-            <h4>Filtrar por Municipio</h4>
-            <ul class="yuc-sidebar__municipios">
-              {municipios.map((municipio) => (
-                <li>
-                  <a href={`#${municipio.toLowerCase().replace(/\s+/g, '-').replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i').replace(/ó/g, 'o').replace(/ú/g, 'u').replace(/ü/g, 'u')}`}>
-                    <span class="yuc-sidebar__bullet"></span>
-                    <span>{municipio}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Emergency Numbers -->
-          <div class="yuc-sidebar__card yuc-sidebar__card--emergency">
-            <h4>Teléfonos de Emergencia</h4>
-            <div class="yuc-sidebar__emergency-list">
-              <div class="yuc-sidebar__emergency-item">
-                <span class="yuc-sidebar__emergency-number">911</span>
-                <span class="yuc-sidebar__emergency-label">Emergencias</span>
-              </div>
-              <div class="yuc-sidebar__emergency-item">
-                <span class="yuc-sidebar__emergency-number">999 924 9242</span>
-                <span class="yuc-sidebar__emergency-label">Cuartel Central Mérida</span>
-              </div>
-              <div class="yuc-sidebar__emergency-item">
-                <span class="yuc-sidebar__emergency-number">969 935 0071</span>
-                <span class="yuc-sidebar__emergency-label">Bomberos Progreso</span>
-              </div>
-              <div class="yuc-sidebar__emergency-item">
-                <span class="yuc-sidebar__emergency-number">985 856 2023</span>
-                <span class="yuc-sidebar__emergency-label">Bomberos Valladolid</span>
-              </div>
-              <div class="yuc-sidebar__emergency-item">
-                <span class="yuc-sidebar__emergency-number">999 930 3760</span>
-                <span class="yuc-sidebar__emergency-label">Protección Civil YUC</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Regiones -->
-          <div class="yuc-sidebar__card">
-            <h4>Regiones del Estado</h4>
-            <ul class="yuc-sidebar__regiones">
-              <li>
-                <span class="yuc-sidebar__region-name">Zona Metropolitana Mérida</span>
-                <span class="yuc-sidebar__region-desc">Central, Norte, Aeropuerto, Industrial, Kanasín, Umán</span>
-              </li>
-              <li>
-                <span class="yuc-sidebar__region-name">Zona Costera y Puerto</span>
-                <span class="yuc-sidebar__region-desc">Progreso, Celestún, Río Lagartos</span>
-              </li>
-              <li>
-                <span class="yuc-sidebar__region-name">Zona Turística Maya</span>
-                <span class="yuc-sidebar__region-desc">Valladolid, Chichén Itzá/Tinum, Izamal</span>
-              </li>
-              <li>
-                <span class="yuc-sidebar__region-name">Zona Norte</span>
-                <span class="yuc-sidebar__region-desc">Tizimín, Motul</span>
-              </li>
-              <li>
-                <span class="yuc-sidebar__region-name">Zona Sur — Ruta Puuc</span>
-                <span class="yuc-sidebar__region-desc">Ticul, Oxkutzcab, Tekax</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Nearby States -->
-          <div class="yuc-sidebar__card">
-            <h4>Estados Vecinos</h4>
-            <ul class="yuc-sidebar__states">
-              {estadosVecinos.map((estado) => (
-                <li>
-                  <a href={`/directorio/${estado.slug}`}>
-                    <span>{estado.nombre}</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- CTA -->
-          <div class="yuc-sidebar__card yuc-sidebar__card--cta">
-            <h4>¿Equipas una Estación en YUC?</h4>
-            <p>Distribuimos equipo NFPA certificado para cenotes, HAZMAT marítimo portuario, zonas arqueológicas y emergencias costeras</p>
-            <a href="/cotizar" class="yuc-sidebar__cta-btn">Solicitar Cotización</a>
-          </div>
-
-          <!-- Products -->
-          <div class="yuc-sidebar__card">
-            <h4>Equipo para Bomberos</h4>
-            <ul class="yuc-sidebar__products">
-              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA</a></li>
-              <li><a href="/productos/cascos-para-bomberos">Cascos de Bombero</a></li>
-              <li><a href="/productos/scba">Equipos SCBA</a></li>
-              <li><a href="/productos/herramientas-rescate">Herramientas de Rescate</a></li>
-            </ul>
-            <a href="/productos" class="yuc-sidebar__link">
-              Ver catálogo completo
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Back to Directory -->
-          <div class="yuc-sidebar__card">
-            <a href="/directorio" class="yuc-sidebar__back">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              <span>Ver todos los estados</span>
-            </a>
-          </div>
-
-          <!-- Contact -->
-          <div class="yuc-sidebar__card">
-            <h4>Contacto BOMBERO.MX</h4>
-            <ul class="yuc-sidebar__contact">
-              <li><a href="tel:+525520780102">55 2078 0102</a></li>
-              <li><a href="https://wa.me/525520780102">WhatsApp</a></li>
-              <li><a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a></li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-</PageLayout>
+      <h3>Servicios de los Bomberos Yucatecos</h3>
+      <p>
+        Los bomberos de Yucatán están certificados para atender:
+        <strong>rescate acuático en cenotes y cavernas</strong> (buceo técnico, sistemas de cuevas);
+        <strong>protección de patrimonio UNESCO</strong> (Chichén Itzá, Uxmal, coordinación INAH);
+        <strong>emergencias en cruceros</strong> (Puerto Progreso, hasta 5,000 pasajeros);
+        <strong>incendios forestales en reservas</strong> (Celestún, Ría Lagartos, manglares);
+        <strong>eventos masivos</strong> (Equinoccio Kukulcán 50,000+ personas);
+        <strong>emergencias turísticas</strong> (3.5 millones de visitantes/año);
+        <strong>operativos de huracanes</strong> (costa norte, temporada junio-noviembre);
+        <strong>rescate en la Ruta Puuc</strong> (Uxmal, Kabah, Labná); y
+        <strong>emergencias industriales</strong> (polo maquilador del sureste).
+      </p>
+    </section>
+  </Fragment>
+</DirectorioEstadoLayout>
 
 <style>
-  /* ═══════════════════════════════════════════════════════════════════════
-     DIRECTORIO YUCATÁN - ESTACIONES DE BOMBEROS
-     Color: Jade Teal #0d9488 — Cenotes, Maya, Caribe
-     Prefijo CSS: yuc-
-     ═══════════════════════════════════════════════════════════════════════ */
+  /* ══════════════════════════════════════════════════════════════════════════════
+     YUCATÁN — ESTILOS SEO
+     Color: Amarillo Maya/Dorado #ca8a04 — Sol, Pirámides, Arena
+     ══════════════════════════════════════════════════════════════════════════════ */
 
-  /* ═══ Hero Section ═══ */
-  .yuc-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-  }
-
-  .yuc-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .yuc-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(13, 148, 136, 0.18), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(20, 184, 166, 0.10), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(13, 148, 136, 0.08), transparent);
-  }
-
-  .yuc-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .yuc-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .yuc-hero__breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
+  .hero-seo__block {
     margin-bottom: var(--space-4);
   }
 
-  .yuc-hero__breadcrumb a {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-    transition: color 0.2s;
+  .hero-seo__block:last-child {
+    margin-bottom: 0;
   }
 
-  .yuc-hero__breadcrumb a:hover { color: #2dd4bf; }
-  .yuc-hero__breadcrumb span { color: var(--color-smoke-600); }
-
-  .yuc-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(13, 148, 136, 0.15);
-    border: 1px solid rgba(13, 148, 136, 0.35);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: #2dd4bf;
-    margin-bottom: var(--space-4);
-  }
-
-  .yuc-hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: #14b8a6;
-    border-radius: 50%;
-    animation: yuc-pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes yuc-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.3); }
-  }
-
-  .yuc-hero__title {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-5);
-  }
-
-  .yuc-hero__highlight {
-    background: linear-gradient(135deg, #14b8a6, #2dd4bf);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .yuc-hero__desc {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-6);
-  }
-
-  .yuc-hero__desc strong { color: white; }
-
-  .yuc-hero__stats {
-    display: flex;
-    gap: var(--space-6);
-    padding-top: var(--space-5);
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .yuc-hero__stat { display: flex; flex-direction: column; gap: 2px; }
-
-  .yuc-hero__stat-number {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: #14b8a6;
-  }
-
-  .yuc-hero__stat-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .yuc-hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .yuc-hero__seo-title {
+  .hero-seo__title {
     font-size: var(--text-base);
     font-weight: 700;
-    color: #14b8a6;
-    margin: 0;
-  }
-
-  .yuc-hero__seo-text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .yuc-hero__seo-text strong { color: white; }
-
-  /* ═══ Cenotes Banner ═══ */
-  .yuc-cenotes-banner {
-    background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #0f766e 100%);
-    padding: var(--space-5) 0;
-  }
-
-  .yuc-cenotes-banner__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-4);
-  }
-
-  .yuc-cenotes-banner__item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    color: white;
-  }
-
-  .yuc-cenotes-banner__icon {
-    font-size: 1.75rem;
-    flex-shrink: 0;
-  }
-
-  .yuc-cenotes-banner__item div {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .yuc-cenotes-banner__item strong {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    display: block;
-  }
-
-  .yuc-cenotes-banner__item span {
-    font-size: var(--text-xs);
-    color: rgba(255,255,255,0.8);
-    line-height: 1.3;
-  }
-
-  /* ═══ Emergency Banner ═══ */
-  .yuc-emergency {
-    background: linear-gradient(135deg, #134e4a, #0f766e);
-    padding: var(--space-5) 0;
-  }
-
-  .yuc-emergency__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-6);
-  }
-
-  .yuc-emergency__icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 50%;
-    color: white;
-  }
-
-  .yuc-emergency__text { display: flex; flex-direction: column; }
-
-  .yuc-emergency__label {
-    font-size: var(--text-sm);
-    color: rgba(255,255,255,0.8);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .yuc-emergency__number {
-    font-size: var(--text-3xl);
-    font-weight: 800;
-    color: white;
-  }
-
-  .yuc-emergency__desc {
-    font-size: var(--text-sm);
-    color: rgba(255,255,255,0.9);
-    margin: 0;
-    max-width: 400px;
-  }
-
-  /* ═══ Main Section ═══ */
-  .yuc-main {
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-50);
-  }
-
-  .yuc-main__grid {
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: var(--space-10);
-    align-items: start;
-  }
-
-  /* ═══ Stations Grid ═══ */
-  .yuc-stations-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-6);
-    margin-top: var(--space-8);
-  }
-
-  /* ═══ FAQ Section ═══ */
-  .yuc-faq {
-    margin-top: var(--space-10);
-    padding: var(--space-8);
-    background: white;
-    border-radius: var(--radius-xl);
-    border-left: 4px solid #0d9488;
-  }
-
-  .yuc-faq__title {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-6);
-    padding-bottom: var(--space-4);
-    border-bottom: 2px solid #0d9488;
-  }
-
-  .yuc-faq__list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-  }
-
-  .yuc-faq__item {
-    padding: var(--space-5);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    border-left: 3px solid rgba(13, 148, 136, 0.4);
-  }
-
-  .yuc-faq__item h3 {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900);
+    color: #fbbf24;
     margin: 0 0 var(--space-2);
   }
 
-  .yuc-faq__item p {
+  .hero-seo__text {
     font-size: var(--text-sm);
-    color: var(--color-smoke-600);
+    color: var(--color-smoke-300);
     line-height: 1.7;
     margin: 0;
   }
 
-  .yuc-faq__item a { color: #0d9488; text-decoration: none; font-weight: 600; }
-  .yuc-faq__item a:hover { text-decoration: underline; }
+  .hero-seo__text strong {
+    color: white;
+  }
 
-  /* ═══ SEO Content ═══ */
-  .yuc-seo {
-    margin-top: var(--space-8);
+  /* ─── SEO Content ─── */
+  .seo-content {
     padding: var(--space-8);
     background: white;
     border-radius: var(--radius-xl);
   }
 
-  .yuc-seo h2 {
+  .seo-content h2 {
     font-size: var(--text-xl);
     font-weight: 700;
     color: var(--color-smoke-900);
     margin: 0 0 var(--space-4);
-    padding-bottom: var(--space-4);
-    border-bottom: 2px solid #0d9488;
   }
 
-  .yuc-seo h3 {
+  .seo-content h3 {
     font-size: var(--text-lg);
     font-weight: 700;
     color: var(--color-smoke-800);
     margin: var(--space-6) 0 var(--space-3);
   }
 
-  .yuc-seo p {
+  .seo-content p {
     font-size: var(--text-base);
     color: var(--color-smoke-600);
     line-height: 1.8;
     margin: 0 0 var(--space-4);
   }
 
-  .yuc-seo p:last-child { margin-bottom: 0; }
-  .yuc-seo strong { color: var(--color-smoke-800); }
-
-  /* ═══ Sidebar ═══ */
-  .yuc-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-    position: sticky;
-    top: var(--space-6);
+  .seo-content p:last-child {
+    margin-bottom: 0;
   }
 
-  .yuc-sidebar__card {
-    padding: var(--space-5);
-    background: white;
-    border-radius: var(--radius-xl);
-  }
-
-  .yuc-sidebar__card h4 {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 2px solid #0d9488;
-  }
-
-  .yuc-sidebar__card > p {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-500);
-    line-height: 1.6;
-    margin: 0 0 var(--space-4);
-  }
-
-  /* Municipios */
-  .yuc-sidebar__municipios {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    max-height: 320px;
-    overflow-y: auto;
-  }
-
-  .yuc-sidebar__municipios li a {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .yuc-sidebar__municipios li a:hover {
-    background: var(--color-smoke-50);
-    color: #0d9488;
-  }
-
-  .yuc-sidebar__bullet {
-    width: 6px;
-    height: 6px;
-    background: #0d9488;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* Regiones */
-  .yuc-sidebar__regiones {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .yuc-sidebar__regiones li {
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-  }
-
-  .yuc-sidebar__region-name {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 700;
+  .seo-content strong {
     color: var(--color-smoke-800);
-    margin-bottom: 2px;
-  }
-
-  .yuc-sidebar__region-desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-500);
-    line-height: 1.4;
-  }
-
-  /* Emergency Card */
-  .yuc-sidebar__card--emergency {
-    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
-  }
-
-  .yuc-sidebar__card--emergency h4 {
-    color: white;
-    border-bottom-color: #0d9488;
-  }
-
-  .yuc-sidebar__emergency-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .yuc-sidebar__emergency-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--space-3);
-    background: rgba(255,255,255,0.1);
-    border-radius: var(--radius-lg);
-  }
-
-  .yuc-sidebar__emergency-number {
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: #2dd4bf;
-  }
-
-  .yuc-sidebar__emergency-label {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-400);
-    text-align: right;
-  }
-
-  /* States List */
-  .yuc-sidebar__states {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .yuc-sidebar__states li a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .yuc-sidebar__states li a:hover {
-    background: var(--color-smoke-100);
-    color: #0d9488;
-  }
-
-  .yuc-sidebar__states li a svg { opacity: 0; transform: translateX(-4px); transition: all 0.2s; }
-  .yuc-sidebar__states li a:hover svg { opacity: 1; transform: translateX(0); }
-
-  /* Products */
-  .yuc-sidebar__products {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-4);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .yuc-sidebar__products li a {
-    display: block;
-    padding: var(--space-2);
-    font-size: var(--text-sm);
-    color: #0d9488;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .yuc-sidebar__products li a:hover { color: #0f766e; }
-
-  .yuc-sidebar__link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: #0d9488;
-    text-decoration: none;
-  }
-
-  .yuc-sidebar__link:hover { color: #0f766e; }
-  .yuc-sidebar__link svg { transition: transform 0.2s; }
-  .yuc-sidebar__link:hover svg { transform: translateX(4px); }
-
-  /* CTA Card */
-  .yuc-sidebar__card--cta {
-    background: linear-gradient(135deg, #134e4a, #0f766e);
-  }
-
-  .yuc-sidebar__card--cta h4 {
-    color: white;
-    border-bottom-color: rgba(255,255,255,0.3);
-  }
-
-  .yuc-sidebar__card--cta > p { color: rgba(255,255,255,0.85); }
-
-  .yuc-sidebar__cta-btn {
-    display: block;
-    width: 100%;
-    padding: var(--space-3);
-    background: white;
-    color: #0f766e;
-    text-align: center;
-    text-decoration: none;
-    font-size: var(--text-sm);
-    font-weight: 700;
-    border-radius: var(--radius-lg);
-    transition: all 0.2s;
-  }
-
-  .yuc-sidebar__cta-btn:hover {
-    background: #ccfbf1;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  }
-
-  /* Back Link */
-  .yuc-sidebar__back {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-lg);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-smoke-700);
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .yuc-sidebar__back:hover {
-    background: var(--color-smoke-100);
-    color: #0d9488;
-  }
-
-  /* Contact */
-  .yuc-sidebar__contact {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-
-  .yuc-sidebar__contact a {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: #0d9488;
-    text-decoration: none;
-  }
-
-  .yuc-sidebar__contact a:hover { color: #0f766e; }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1200px) {
-    .yuc-stations-grid { grid-template-columns: 1fr; }
-    .yuc-cenotes-banner__grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 1024px) {
-    .yuc-hero__container { grid-template-columns: 1fr; gap: var(--space-8); }
-    .yuc-hero__seo { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
-    .yuc-main__grid { grid-template-columns: 1fr; }
-    .yuc-stations-grid { grid-template-columns: repeat(2, 1fr); }
-    .yuc-sidebar {
-      position: static;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .yuc-hero { padding: var(--space-10) 0; }
-    .yuc-hero__seo { grid-template-columns: 1fr; }
-    .yuc-emergency__content { flex-direction: column; text-align: center; }
-    .yuc-cenotes-banner__grid { grid-template-columns: repeat(2, 1fr); }
-    .yuc-main { padding: var(--space-10) 0; }
-    .yuc-stations-grid { grid-template-columns: 1fr; }
-    .yuc-sidebar { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 480px) {
-    .yuc-hero__title { font-size: 1.5rem; }
-    .yuc-hero__stats { flex-wrap: wrap; }
-    .yuc-cenotes-banner__grid { grid-template-columns: 1fr; }
   }
 </style>

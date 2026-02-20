@@ -1,926 +1,354 @@
 ---
 /**
- * ═══════════════════════════════════════════════════════════════════════════════════════════════════════
- * DIRECTORIO DE BOMBEROS - QUINTANA ROO
- * ═══════════════════════════════════════════════════════════════════════════════════════════════════════
- * "El Caribe Mexicano" - Destino Turístico #1 de Latinoamérica
- *
- * SEO ENTERPRISE-LEVEL:
- * • Contenido 100% bilingüe (ES/EN)
- * • Schema.org multi-tipo optimizado para Google
- * • Marketing dirigido a industria hotelera internacional
- * • Rich snippets con FAQ bilingües
- * • Interlinking estratégico con métricas de ROI
- * ═══════════════════════════════════════════════════════════════════════════════════════════════════════
+ * Directorio de Estaciones de Bomberos - Quintana Roo
+ * El Caribe Mexicano - Destino Turístico #1 de Latinoamérica
+ * 17 estaciones | Rescate Acuático | Servicio Bilingüe 24/7
  */
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesQuintanaRoo, getMunicipios } from "@data/estaciones-quintana-roo";
 
-import PageLayout from "@layouts/PageLayout.astro";
-import { breadcrumbJsonLd } from "@utils/seo";
-import {
-  estacionesQuintanaRoo,
-  QUINTANA_ROO_SEO,
-  ZONAS_QUINTANA_ROO,
-  ALERTAS_QUINTANA_ROO,
-  FAQ_QUINTANA_ROO,
-  INDUSTRIA_TURISTICA_QR,
-  INFRAESTRUCTURA_QUINTANA_ROO,
-  getEstacionesPorZona,
-  getEstacionesBilingues,
-  getEstacionesRescateAcuatico,
-  getEstacionesHoteleras,
-  getEstacionesAeropuertos,
-  getEstacionesCruceros,
-  getEstacionesIslas,
-  generarInterlinking,
-  getAlertasActivas,
-  getEstadisticasTurismo,
-  getZonasHoteleras
-} from "@data/estaciones-quintana-roo";
+// Configuración del estado
+const estado = "Quintana Roo";
+const sigla = "QROO";
+const slug = "quintana-roo";
 
-// Configuración de página
-const title = `${QUINTANA_ROO_SEO.titulo} | Cancún, Riviera Maya | BOMBERO.MX`;
-const description = QUINTANA_ROO_SEO.descripcion;
+// Miniaturas hero - Caribe Mexicano
+const heroThumbs = [
+  {
+    src: "/images/directorio/qroo-cancun-zona-hotelera.avif",
+    alt: "Zona Hotelera de Cancún - Quintana Roo",
+    label: "Cancún ZH"
+  },
+  {
+    src: "/images/directorio/qroo-riviera-maya.avif",
+    alt: "Riviera Maya playas y resorts - Quintana Roo",
+    label: "Riviera Maya"
+  },
+  {
+    src: "/images/directorio/qroo-cozumel-cruceros.avif",
+    alt: "Puerto de cruceros de Cozumel - Quintana Roo",
+    label: "Cozumel"
+  }
+];
 
-// Estadísticas
-const totalEstaciones = estacionesQuintanaRoo.length;
-const estacionesBilingues = getEstacionesBilingues();
-const estacionesAcuatico = getEstacionesRescateAcuatico();
-const estacionesHoteleras = getEstacionesHoteleras();
-const estacionesAeropuertos = getEstacionesAeropuertos();
-const estacionesCruceros = getEstacionesCruceros();
-const estacionesIslas = getEstacionesIslas();
+// Galería de imágenes
+const galleryImages = [
+  {
+    src: "/images/directorio/qroo-bomberos-rescate-acuatico.avif",
+    alt: "Bomberos de Quintana Roo en rescate acuático playas Cancún",
+    label: "Rescate Acuático"
+  },
+  {
+    src: "/images/directorio/qroo-aeropuerto-cancun.avif",
+    alt: "Aeropuerto Internacional de Cancún SSEI categoría 9",
+    label: "Aeropuerto CUN"
+  },
+  {
+    src: "/images/directorio/qroo-tulum-ruinas.avif",
+    alt: "Zona arqueológica de Tulum frente al mar Caribe",
+    label: "Tulum"
+  },
+  {
+    src: "/images/directorio/qroo-cenote-rescate.avif",
+    alt: "Rescate en cenotes de Quintana Roo buceo profesional",
+    label: "Cenotes"
+  },
+  {
+    src: "/images/directorio/qroo-sian-kaan.avif",
+    alt: "Reserva de la Biósfera Sian Ka'an UNESCO",
+    label: "Sian Ka'an UNESCO"
+  },
+  {
+    src: "/images/directorio/qroo-playa-carmen.avif",
+    alt: "Quinta Avenida Playa del Carmen Riviera Maya",
+    label: "Playa del Carmen"
+  }
+];
 
-// Datos turismo
-const statsTurismo = getEstadisticasTurismo();
-const zonasHoteleras = getZonasHoteleras();
+// Números de emergencia QROO - Bilingüe
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias / Emergency" },
+  { number: "(998) 884-1300", label: "Bomberos Cancún Central" },
+  { number: "(984) 873-0291", label: "Bomberos Playa del Carmen" },
+  { number: "(987) 872-0800", label: "Bomberos Cozumel" }
+];
 
-// Interlinking
-const { estados: estadosVecinos, productos: productosRelacionados } = generarInterlinking();
+// Regiones de Quintana Roo
+const regiones = [
+  {
+    nombre: "Zona Norte - Cancún",
+    desc: "Zona Hotelera (30,000+ habitaciones), Centro, Aeropuerto Internacional SSEI Cat. 9, Puerto Juárez"
+  },
+  {
+    nombre: "Riviera Maya",
+    desc: "Playa del Carmen, Puerto Morelos, Akumal, Tulum - 25+ millones de turistas anuales"
+  },
+  {
+    nombre: "Isla Cozumel",
+    desc: "Puerto de cruceros #3 mundial (4.5M pasajeros), arrecife de coral, buceo profesional"
+  },
+  {
+    nombre: "Costa Maya - Sur",
+    desc: "Bacalar (Laguna de los 7 Colores), Chetumal capital, Felipe Carrillo Puerto, Reserva Sian Ka'an"
+  }
+];
 
-// Alertas activas (español)
-const alertasActivas = getAlertasActivas(undefined, "es");
+// Tarjetas de equipamiento EPP - Enfoque turístico
+const eppCards = [
+  {
+    image: "/images/productos/equipo-rescate-acuatico.avif",
+    imageAlt: "Equipo de rescate acuático para playas del Caribe",
+    badge: "Acuático",
+    title: "Rescate Acuático Certificado",
+    text: "Equipamiento profesional para rescate oceánico, cenotes y arrecifes del Caribe Mexicano.",
+    href: "/productos/rescate-acuatico",
+    linkLabel: "Ver equipo acuático"
+  },
+  {
+    image: "/images/productos/traje-bombero-estructural.avif",
+    imageAlt: "Traje estructural para emergencias hoteleras",
+    badge: "Hotelero",
+    title: "Emergencias en Resorts",
+    text: "Protección certificada NFPA para emergencias en los 400+ hoteles de la Riviera Maya.",
+    href: "/productos/trajes-para-bomberos",
+    linkLabel: "Ver trajes estructurales"
+  },
+  {
+    image: "/images/productos/equipo-scba-bombero.avif",
+    imageAlt: "Equipo SCBA para rescate en espacios confinados cenotes",
+    badge: "Cenotes",
+    title: "Rescate en Cenotes",
+    text: "Equipos de respiración para buceo en los 6,000+ cenotes de la Península de Yucatán.",
+    href: "/productos/scba",
+    linkLabel: "Ver equipos SCBA"
+  }
+];
 
-// Personal total
-const personalTotal = estacionesQuintanaRoo.reduce((sum, e) => sum + (e.personal || 0), 0);
-
-// Schema.org Enterprise-Level Multi-tipo
-const schemaOrg = {
+// Schema.org estructurado
+const itemListSchema = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "GovernmentOrganization",
-      "@id": "https://bombero.mx/directorio/quintana-roo#organization",
-      "name": "H. Cuerpo de Bomberos de Quintana Roo",
-      "alternateName": ["Bomberos Quintana Roo", "Quintana Roo Fire Department", "Bomberos Cancún", "Cancun Fire Rescue"],
-      "description": "Servicio de bomberos del estado de Quintana Roo, México. Cobertura especializada para el destino turístico más importante de Latinoamérica.",
-      "areaServed": {
-        "@type": "State",
-        "name": "Quintana Roo",
-        "containedInPlace": { "@type": "Country", "name": "México" }
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de ${estacionesQuintanaRoo.length} estaciones de bomberos en Quintana Roo. Destino turístico #1 de Latinoamérica con servicio bilingüe 24/7. Cobertura Cancún, Riviera Maya, Playa del Carmen, Tulum, Cozumel. Rescate acuático especializado.`,
+  numberOfItems: estacionesQuintanaRoo.length,
+  itemListElement: estacionesQuintanaRoo.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.zona,
+        addressRegion: estado,
+        addressCountry: "MX"
       },
-      "numberOfEmployees": personalTotal,
-      "knowsAbout": ["Water Rescue", "Hotel Fire Safety", "Hurricane Response", "Tourist Emergency Services", "Cruise Ship Emergencies"],
-      "availableLanguage": ["Spanish", "English"]
-    },
-    {
-      "@type": "ItemList",
-      "name": "Estaciones de Bomberos en Quintana Roo",
-      "description": `Directorio de ${totalEstaciones} estaciones de bomberos en Quintana Roo, México`,
-      "numberOfItems": totalEstaciones,
-      "itemListElement": estacionesQuintanaRoo.map((estacion, index) => ({
-        "@type": "ListItem",
-        "position": index + 1,
-        "item": {
-          "@type": "FireStation",
-          "name": estacion.nombre,
-          "address": estacion.direccion,
-          "telephone": estacion.telefono,
-          "availableLanguage": estacion.idiomas || ["Spanish"]
-        }
-      }))
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://bombero.mx" },
-        { "@type": "ListItem", "position": 2, "name": "Directorio", "item": "https://bombero.mx/directorio" },
-        { "@type": "ListItem", "position": 3, "name": "Quintana Roo", "item": "https://bombero.mx/directorio/quintana-roo" }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": FAQ_QUINTANA_ROO.slice(0, 8).map(faq => ({
-        "@type": "Question",
-        "name": faq.pregunta,
-        "acceptedAnswer": { "@type": "Answer", "text": faq.respuesta }
-      }))
-    },
-    {
-      "@type": "TouristDestination",
-      "name": "Quintana Roo - Caribe Mexicano",
-      "description": "Destino turístico #1 de Latinoamérica con 25+ millones de visitantes anuales",
-      "touristType": ["Beach Tourism", "Eco-tourism", "Archaeological Tourism", "Cruise Tourism"],
-      "includesAttraction": [
-        { "@type": "TouristAttraction", "name": "Cancún Zona Hotelera" },
-        { "@type": "TouristAttraction", "name": "Riviera Maya" },
-        { "@type": "TouristAttraction", "name": "Cozumel" },
-        { "@type": "TouristAttraction", "name": "Tulum" },
-        { "@type": "NaturalFeature", "name": "Gran Arrecife Maya" },
-        { "@type": "LandmarksOrHistoricalBuildings", "name": "Reserva Sian Ka'an UNESCO" }
-      ]
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://bombero.mx/directorio/quintana-roo#webpage",
-      "url": "https://bombero.mx/directorio/quintana-roo",
-      "name": title,
-      "description": description,
-      "inLanguage": ["es-MX", "en-US"],
-      "isPartOf": { "@id": "https://bombero.mx/#website" }
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+      availableLanguage: e.idiomas || ["Spanish"]
     }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` }
   ]
 };
 
-const keywords = [
-  "bomberos quintana roo",
-  "estaciones bomberos cancún",
-  "emergencias quintana roo 911",
-  "bomberos playa del carmen",
-  "bomberos tulum",
-  "bomberos cozumel",
-  "cuerpo bomberos caribe",
+// Imágenes para tarjetas de estaciones
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/rescate-swift-water-rios-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/ambulancia-bomberos-emergencias-01.avif",
+  "/images/directorio/equipo-rescate-completo-01.avif",
 ];
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio", url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio" },
-  { name: "Quintana Roo", url: "/directorio/quintana-roo" },
-]);
+
+// Estados vecinos
+const estadosVecinos = [
+  { nombre: "Yucatán", slug: "yucatan" },
+  { nombre: "Campeche", slug: "campeche" },
+];
 ---
 
-<PageLayout
-  title={title}
-  description={description}
-  keywords={keywords}
-  canonical="https://bombero.mx/directorio/quintana-roo"
-  jsonLd={[breadcrumbSchema, schemaOrg]}
+<DirectorioEstadoLayout
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  estaciones={estacionesQuintanaRoo}
+  stationImages={stationImages}
+  municipios={getMunicipios()}
+  estadosVecinos={estadosVecinos}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en ${estado} | Directorio Oficial ${estacionesQuintanaRoo.length} Estaciones | BOMBERO.MX`}
+  description={`Directorio completo de ${estacionesQuintanaRoo.length} estaciones de bomberos en Quintana Roo 2024. Destino turístico #1 de Latinoamérica con servicio bilingüe 24/7. Cobertura Cancún, Riviera Maya, Playa del Carmen, Tulum, Cozumel. Rescate acuático certificado, emergencias hoteleras, respuesta a huracanes. Tel: (998) 884-1300. Emergencias 911.`}
 >
+  <Fragment slot="seo">
+    <section class="seo-content">
+      <h2>Bomberos de Quintana Roo: Protección del Caribe Mexicano</h2>
+      <p>
+        El <strong>Heroico Cuerpo de Bomberos de Quintana Roo</strong> protege el <strong>destino turístico más
+        importante de Latinoamérica</strong>, recibiendo más de <strong>25 millones de visitantes anuales</strong>.
+        Con <strong>17 estaciones especializadas</strong> distribuidas estratégicamente desde <strong>Cancún hasta
+        Chetumal</strong>, los bomberos quintanarroenses ofrecen <strong>servicio bilingüe español/inglés 24/7</strong>
+        para atender las necesidades de la industria turística más dinámica del país, incluyendo emergencias en
+        <strong>400+ hoteles y resorts de clase mundial</strong>.
+      </p>
 
-  <!-- Hero Section Ultra-Premium Bilingüe -->
-  <section class="qroo-hero">
-    <div class="qroo-hero__bg">
-      <div class="qroo-hero__gradient"></div>
-      <div class="qroo-hero__waves"></div>
-      <div class="qroo-hero__pattern"></div>
-    </div>
+      <h3>Cancún Zona Hotelera: Cobertura de Clase Mundial</h3>
+      <p>
+        La <strong>Zona Hotelera de Cancún</strong> concentra más de <strong>30,000 habitaciones</strong> en
+        <strong>150+ resorts</strong> a lo largo de sus <strong>23 kilómetros de playas</strong>. Las estaciones
+        de bomberos de la zona cuentan con personal bilingüe certificado y protocolos especializados para
+        <strong>evacuación de hoteles de gran altura</strong>, coordinación con cadenas internacionales como
+        <strong>Marriott, Hilton, Hyatt, RIU, Iberostar y Palace Resorts</strong>. El <strong>Aeropuerto
+        Internacional de Cancún</strong> opera estación <strong>SSEI Categoría 9</strong> (máxima clasificación
+        OACI), siendo el <strong>segundo aeropuerto más transitado de Latinoamérica</strong> con más de
+        <strong>25 millones de pasajeros anuales</strong>.
+      </p>
 
-    <div class="container">
-      <div class="qroo-hero__container">
-        <!-- Breadcrumb -->
-        <nav class="qroo-breadcrumb" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/directorio">Directorio</a></li>
-            <li aria-current="page">Quintana Roo</li>
-          </ol>
-        </nav>
+      <h3>Riviera Maya: De Playa del Carmen a Tulum</h3>
+      <p>
+        La <strong>Riviera Maya</strong> se extiende <strong>130 kilómetros</strong> desde Puerto Morelos hasta
+        la Reserva Sian Ka'an. <strong>Playa del Carmen</strong> es la ciudad de más rápido crecimiento de México,
+        mientras que <strong>Tulum</strong> combina la única zona arqueológica maya frente al mar con playas
+        premium que reciben <strong>2 millones de visitantes anuales</strong>. Los bomberos de la Riviera Maya
+        están capacitados en <strong>rescate acuático oceánico</strong>, emergencias en parques temáticos como
+        <strong>Xcaret, Xel-Há y Xplor</strong>, y coordinación con la Guardia Nacional para seguridad turística.
+      </p>
 
-        <!-- Alertas Críticas -->
-        {alertasActivas.length > 0 && (
-          <div class="qroo-alerts">
-            {alertasActivas.slice(0, 2).map(alerta => (
-              <div class={`qroo-alert qroo-alert--${alerta.tipo}`}>
-                <span class="qroo-alert__icon">{alerta.icono}</span>
-                <span class="qroo-alert__text">{alerta.mensaje}</span>
-                <span class="qroo-alert__priority">{alerta.prioridad}</span>
-              </div>
-            ))}
-          </div>
-        )}
+      <h3>Cozumel: Puerto de Cruceros #3 del Mundo</h3>
+      <p>
+        <strong>Isla Cozumel</strong> es el <strong>tercer puerto de cruceros más importante del planeta</strong>,
+        recibiendo más de <strong>4.5 millones de cruceristas anuales</strong> en sus tres terminales marítimas.
+        La estación de bomberos de Cozumel mantiene protocolos de <strong>respuesta a emergencias en cruceros</strong>,
+        coordinación con las navieras <strong>Carnival, Royal Caribbean, Norwegian y MSC</strong>, y capacidad de
+        rescate en el <strong>Parque Nacional Arrecifes de Cozumel</strong>, considerado uno de los
+        <strong>5 mejores destinos de buceo del mundo</strong>.
+      </p>
 
-        <div class="qroo-hero__grid">
-          <div class="qroo-hero__content">
-            <!-- Badges Premium -->
-            <div class="qroo-hero__badges">
-              <span class="qroo-hero__badge qroo-hero__badge--tourism">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-                  <path d="M2 12h20"/>
-                </svg>
-                #1 Destino Latinoamérica
-              </span>
-              <span class="qroo-hero__badge qroo-hero__badge--bilingual">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M5 8l6 6"/><path d="M4 14l6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/>
-                  <path d="M22 22l-5-10-5 10"/><path d="M14 18h6"/>
-                </svg>
-                Servicio Bilingüe 24/7
-              </span>
-              <span class="qroo-hero__badge qroo-hero__badge--water">
-                🌊 Rescate Acuático
-              </span>
-            </div>
+      <h3>Rescate Acuático: Playas, Cenotes y Gran Arrecife Maya</h3>
+      <p>
+        Quintana Roo posee más de <strong>6,000 cenotes registrados</strong>, sistemas de ríos subterráneos que
+        requieren <strong>rescate especializado en aguas confinadas</strong>. El <strong>Gran Arrecife Maya</strong>
+        (segundo más largo del mundo con <strong>1,000 km</strong>) genera demanda constante de <strong>rescate
+        de buceadores</strong>. Las estaciones de rescate acuático cuentan con <strong>lanchas de respuesta rápida,
+        motos acuáticas, equipo de buceo profesional</strong> y personal certificado en <strong>rescate oceánico,
+        lacustre y aguas confinadas</strong>.
+      </p>
 
-            <h1 class="qroo-hero__title">
-              <span class="qroo-hero__title-es">Estaciones de Bomberos en</span>
-              <span class="qroo-hero__highlight">Quintana Roo</span>
-            </h1>
+      <h3>Reserva Sian Ka'an: Patrimonio Mundial UNESCO</h3>
+      <p>
+        La <strong>Reserva de la Biósfera Sian Ka'an</strong>, declarada <strong>Patrimonio de la Humanidad
+        por UNESCO en 1987</strong>, abarca <strong>528,000 hectáreas</strong> de selva, humedales, manglares
+        y arrecifes. Los bomberos de la zona sur coordinan con <strong>CONANP</strong> la protección contra
+        <strong>incendios forestales</strong> que amenazan este ecosistema único, además de <strong>rescates
+        de ecoturistas</strong> en las remotas comunidades de la reserva.
+      </p>
 
-            <p class="qroo-hero__title-en">Fire Stations in Quintana Roo - Cancun & Riviera Maya</p>
+      <h3>Temporada de Huracanes: Junio a Noviembre</h3>
+      <p>
+        Quintana Roo es una de las zonas con <strong>mayor exposición a huracanes del Caribe</strong>.
+        Históricamente ha sido impactado por huracanes devastadores como <strong>Wilma (2005)</strong> y
+        <strong>Dean (2007)</strong>. Los bomberos mantienen <strong>protocolos de evacuación masiva</strong>
+        para la industria hotelera, coordinación con <strong>Protección Civil Federal</strong>, y capacidad
+        de <strong>respuesta post-huracán</strong> incluyendo búsqueda y rescate, remoción de escombros y
+        atención de emergencias en infraestructura dañada.
+      </p>
 
-            <p class="qroo-hero__desc">
-              Directorio completo del <strong>H. Cuerpo de Bomberos de Quintana Roo</strong>.
-              <strong>{totalEstaciones} estaciones</strong> con cobertura especializada para
-              <strong>Cancún, Riviera Maya, Playa del Carmen, Tulum y Cozumel</strong>.
-              Rescate acuático, emergencias hoteleras y respuesta a huracanes.
-            </p>
+      <h3>Chetumal: Capital del Estado y Zona Libre</h3>
+      <p>
+        <strong>Chetumal</strong>, capital de Quintana Roo, es frontera con <strong>Belice</strong> y opera
+        como <strong>Zona Libre</strong> con intenso comercio transfronterizo. La <strong>Estación Central
+        de Bomberos de Chetumal</strong> coordina la respuesta de emergencias para toda la <strong>zona sur
+        del estado</strong>, incluyendo <strong>Bacalar</strong> (Laguna de los 7 Colores) y las comunidades
+        mayas de <strong>Felipe Carrillo Puerto</strong>. Mantiene protocolos de <strong>cooperación binacional
+        con Belice</strong> para emergencias fronterizas.
+      </p>
 
-            <p class="qroo-hero__desc-en">
-              Complete directory of Quintana Roo Fire Department. <strong>{totalEstaciones} stations</strong> with
-              specialized coverage for <strong>Cancun, Riviera Maya, Playa del Carmen, Tulum, and Cozumel</strong>.
-              Water rescue, hotel emergencies, and hurricane response. <strong>English service available 24/7</strong>.
-            </p>
+      <h3>Servicios Bilingües para Turismo Internacional</h3>
+      <p>
+        El <strong>70% de los visitantes de Quintana Roo provienen de Estados Unidos y Canadá</strong>. Por
+        ello, las estaciones en zonas turísticas cuentan con <strong>personal bilingüe español/inglés</strong>
+        y el servicio <strong>911 tiene operadores en ambos idiomas 24/7</strong>. Los bomberos coordinan con
+        los <strong>departamentos de seguridad de cadenas hoteleras internacionales</strong>, consulados y
+        servicios médicos privados para atención integral de emergencias turísticas.
+      </p>
 
-            <!-- Stats Grid -->
-            <div class="qroo-hero__stats">
-              <div class="qroo-hero__stat">
-                <span class="qroo-hero__stat-number">{totalEstaciones}</span>
-                <span class="qroo-hero__stat-label">Estaciones / Stations</span>
-              </div>
-              <div class="qroo-hero__stat">
-                <span class="qroo-hero__stat-number">{estacionesBilingues.length}</span>
-                <span class="qroo-hero__stat-label">Bilingües / Bilingual</span>
-              </div>
-              <div class="qroo-hero__stat">
-                <span class="qroo-hero__stat-number">{personalTotal}+</span>
-                <span class="qroo-hero__stat-label">Bomberos / Firefighters</span>
-              </div>
-              <div class="qroo-hero__stat qroo-hero__stat--emergency">
-                <span class="qroo-hero__stat-number">911</span>
-                <span class="qroo-hero__stat-label">Emergencias / Emergency</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Emergency Card Premium Bilingüe -->
-          <div class="qroo-hero__emergency">
-            <div class="qroo-emergency-card">
-              <div class="qroo-emergency-card__header">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
-                </svg>
-                <span>Emergency / Emergencias</span>
-              </div>
-
-              <a href="tel:911" class="qroo-emergency-card__911">911</a>
-              <p class="qroo-emergency-card__note">
-                <span class="qroo-emergency-card__note-es">Línea Nacional - Operadores en Inglés</span>
-                <span class="qroo-emergency-card__note-en">National Line - English Operators Available</span>
-              </p>
-
-              <div class="qroo-emergency-card__locals">
-                <div class="qroo-emergency-card__local">
-                  <span>Cancún Hotel Zone</span>
-                  <a href="tel:+529988852222">(998) 885-2222</a>
-                </div>
-                <div class="qroo-emergency-card__local">
-                  <span>Cancún Central</span>
-                  <a href="tel:+529988841300">(998) 884-1300</a>
-                </div>
-                <div class="qroo-emergency-card__local">
-                  <span>Playa del Carmen</span>
-                  <a href="tel:+529848730291">(984) 873-0291</a>
-                </div>
-                <div class="qroo-emergency-card__local">
-                  <span>Cozumel</span>
-                  <a href="tel:+529878720800">(987) 872-0800</a>
-                </div>
-              </div>
-
-              <div class="qroo-emergency-card__bilingual-notice">
-                <span class="qroo-emergency-card__bilingual-flag">EN</span>
-                <span>All operators speak English / Todos los operadores hablan inglés</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tourism Industry Stats Section -->
-  <section class="qroo-tourism">
-    <div class="container">
-      <div class="qroo-section-header qroo-section-header--center">
-        <span class="qroo-section-label">Industria Turística / Tourism Industry</span>
-        <h2 class="qroo-section-title">Destino #1 de Latinoamérica</h2>
-        <p class="qroo-section-subtitle">Latin America's #1 Tourist Destination</p>
-      </div>
-
-      <div class="qroo-tourism__stats">
-        <div class="qroo-tourism__stat">
-          <span class="qroo-tourism__stat-value">{statsTurismo.visitantesAnuales}</span>
-          <span class="qroo-tourism__stat-label">Visitantes/año<br/>Visitors/year</span>
-        </div>
-        <div class="qroo-tourism__stat">
-          <span class="qroo-tourism__stat-value">{statsTurismo.habitacionesHoteleras}</span>
-          <span class="qroo-tourism__stat-label">Habitaciones<br/>Hotel Rooms</span>
-        </div>
-        <div class="qroo-tourism__stat">
-          <span class="qroo-tourism__stat-value">{statsTurismo.cruceristas}</span>
-          <span class="qroo-tourism__stat-label">Cruceristas/año<br/>Cruisers/year</span>
-        </div>
-        <div class="qroo-tourism__stat">
-          <span class="qroo-tourism__stat-value">{statsTurismo.aeropuertoPasajeros}</span>
-          <span class="qroo-tourism__stat-label">Pasajeros Aeropuerto<br/>Airport Passengers</span>
-        </div>
-      </div>
-
-      <!-- Hotel Zones -->
-      <div class="qroo-tourism__zones">
-        <h3>Zonas Hoteleras con Cobertura / Hotel Zones Coverage</h3>
-        <div class="qroo-tourism__zones-grid">
-          {zonasHoteleras.map(zona => (
-            <div class="qroo-tourism__zone">
-              <h4>{zona.nombre}</h4>
-              <div class="qroo-tourism__zone-stats">
-                <span><strong>{zona.habitaciones.toLocaleString()}</strong> habitaciones</span>
-                <span><strong>{zona.hoteles}</strong> hoteles</span>
-              </div>
-              <div class="qroo-tourism__zone-chains">
-                {zona.cadenasPrincipales?.slice(0, 3).map(c => (
-                  <span class="qroo-tourism__chain">{c}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Highlights -->
-  <section class="qroo-services">
-    <div class="container">
-      <div class="qroo-section-header qroo-section-header--center">
-        <span class="qroo-section-label">Servicios Especializados / Specialized Services</span>
-        <h2 class="qroo-section-title">Capacidades de Emergencia</h2>
-      </div>
-
-      <div class="qroo-services__grid">
-        <div class="qroo-service-card qroo-service-card--water">
-          <div class="qroo-service-card__icon">🌊</div>
-          <h3>Rescate Acuático<br/><span>Water Rescue</span></h3>
-          <p>{estacionesAcuatico.length} estaciones con capacidad de rescate oceánico, cenotes y buceo profesional</p>
-          <p class="qroo-service-card__en">{estacionesAcuatico.length} stations with ocean rescue, cenote rescue, and professional diving capability</p>
-        </div>
-
-        <div class="qroo-service-card qroo-service-card--hotel">
-          <div class="qroo-service-card__icon">🏨</div>
-          <h3>Emergencias Hoteleras<br/><span>Hotel Emergencies</span></h3>
-          <p>{estacionesHoteleras.length} estaciones con cobertura de {statsTurismo.habitacionesHoteleras} habitaciones y 400+ resorts</p>
-          <p class="qroo-service-card__en">{estacionesHoteleras.length} stations covering {statsTurismo.habitacionesHoteleras} rooms and 400+ resorts</p>
-        </div>
-
-        <div class="qroo-service-card qroo-service-card--airport">
-          <div class="qroo-service-card__icon">✈️</div>
-          <h3>SSEI Aeroportuario<br/><span>Airport ARFF</span></h3>
-          <p>{estacionesAeropuertos.length} estaciones SSEI cubriendo aeropuerto Top 2 de Latinoamérica (25M pasajeros)</p>
-          <p class="qroo-service-card__en">{estacionesAeropuertos.length} ARFF stations covering Latin America's #2 airport (25M passengers)</p>
-        </div>
-
-        <div class="qroo-service-card qroo-service-card--cruise">
-          <div class="qroo-service-card__icon">🚢</div>
-          <h3>Emergencias Cruceros<br/><span>Cruise Emergencies</span></h3>
-          <p>Cobertura del puerto de cruceros #3 del mundo con 4.5 millones de pasajeros anuales</p>
-          <p class="qroo-service-card__en">Coverage of world's #3 cruise port with 4.5 million passengers annually</p>
-        </div>
-
-        <div class="qroo-service-card qroo-service-card--hurricane">
-          <div class="qroo-service-card__icon">🌀</div>
-          <h3>Respuesta Huracanes<br/><span>Hurricane Response</span></h3>
-          <p>Protocolo especializado junio-noviembre con evacuación coordinada y refugios</p>
-          <p class="qroo-service-card__en">Specialized protocol June-November with coordinated evacuation and shelters</p>
-        </div>
-
-        <div class="qroo-service-card qroo-service-card--bilingual">
-          <div class="qroo-service-card__icon">🌐</div>
-          <h3>Servicio Bilingüe<br/><span>Bilingual Service</span></h3>
-          <p>{estacionesBilingues.length} estaciones con personal bilingüe español/inglés en zonas turísticas</p>
-          <p class="qroo-service-card__en">{estacionesBilingues.length} stations with bilingual Spanish/English staff in tourist zones</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Zones Grid -->
-  <section class="qroo-zones">
-    <div class="container">
-      <div class="qroo-section-header qroo-section-header--center">
-        <span class="qroo-section-label">8 Zonas de Cobertura</span>
-        <h2 class="qroo-section-title">Cobertura Geográfica</h2>
-      </div>
-
-      <div class="qroo-zones__grid">
-        {Object.entries(ZONAS_QUINTANA_ROO).map(([key, zona]) => {
-          const estacionesZona = getEstacionesPorZona(zona.nombre);
-          return (
-            <div class="qroo-zone-card" style={`--zone-color: ${zona.color}`}>
-              <div class="qroo-zone-card__header">
-                <div>
-                  <h3>{zona.nombre}</h3>
-                  <p class="qroo-zone-card__name-en">{zona.nombreEn}</p>
-                </div>
-                <span class="qroo-zone-card__count">{estacionesZona.length}</span>
-              </div>
-              <p class="qroo-zone-card__desc">{zona.descripcion}</p>
-              <div class="qroo-zone-card__meta">
-                {zona.poblacion && <span>👥 {zona.poblacion}</span>}
-                {zona.poblacionFlotante && <span>🏖️ {zona.poblacionFlotante}</span>}
-                {zona.cruceristas && <span>🚢 {zona.cruceristas}</span>}
-                {zona.visitantes && <span>📸 {zona.visitantes}</span>}
-              </div>
-              <div class="qroo-zone-card__response">
-                <span>⏱️ Tiempo respuesta: {zona.tiempoRespuesta}</span>
-              </div>
-              <ul class="qroo-zone-card__stations">
-                {estacionesZona.slice(0, 2).map(e => (
-                  <li>
-                    <a href={`/directorio/quintana-roo/${e.slug}`}>
-                      {e.nombre.replace("Estación de Bomberos ", "").replace("Estación Central de Bomberos ", "")}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-  <!-- All Stations Grid -->
-  <section class="qroo-stations">
-    <div class="container">
-      <div class="qroo-section-header qroo-section-header--center">
-        <span class="qroo-section-label">{totalEstaciones} Estaciones</span>
-        <h2 class="qroo-section-title">Directorio Completo / Complete Directory</h2>
-      </div>
-
-      <div class="qroo-stations__grid">
-        {estacionesQuintanaRoo.map((estacion) => {
-          const zonaInfo = ZONAS_QUINTANA_ROO[Object.keys(ZONAS_QUINTANA_ROO).find(k =>
-            ZONAS_QUINTANA_ROO[k as keyof typeof ZONAS_QUINTANA_ROO].nombre === estacion.zona
-          ) as keyof typeof ZONAS_QUINTANA_ROO];
-
-          const esBilingue = estacion.idiomas?.includes("Inglés");
-          const esAcuatico = estacion.servicios?.some(s => s.toLowerCase().includes("acuático"));
-          const esAeropuerto = estacion.servicios?.some(s => s.toLowerCase().includes("ssei"));
-          const esCrucero = estacion.servicios?.some(s => s.toLowerCase().includes("crucero"));
-
-          return (
-            <a href={`/directorio/quintana-roo/${estacion.slug}`} class="qroo-station-card">
-              <div class="qroo-station-card__header">
-                <span class="qroo-station-card__zone" style={`--zone-color: ${zonaInfo?.color || '#0ea5e9'}`}>
-                  {estacion.zona}
-                </span>
-                <div class="qroo-station-card__badges">
-                  {esBilingue && <span class="qroo-station-card__badge qroo-station-card__badge--bilingual" title="Bilingual">EN</span>}
-                  {esAcuatico && <span class="qroo-station-card__badge qroo-station-card__badge--water" title="Water Rescue">🌊</span>}
-                  {esAeropuerto && <span class="qroo-station-card__badge qroo-station-card__badge--airport" title="Airport">✈️</span>}
-                  {esCrucero && <span class="qroo-station-card__badge qroo-station-card__badge--cruise" title="Cruise">🚢</span>}
-                </div>
-              </div>
-
-              <h3 class="qroo-station-card__name">
-                {estacion.nombre.replace("Estación de Bomberos ", "").replace("Estación Central de Bomberos ", "")}
-              </h3>
-
-              <p class="qroo-station-card__address">{estacion.direccion}</p>
-
-              <div class="qroo-station-card__contact">
-                <span class="qroo-station-card__phone">{estacion.telefono}</span>
-                {estacion.personal && <span class="qroo-station-card__personnel">{estacion.personal} bomberos</span>}
-              </div>
-
-              {estacion.tiempoRespuesta && (
-                <p class="qroo-station-card__response">⏱️ {estacion.tiempoRespuesta}</p>
-              )}
-
-              <span class="qroo-station-card__cta">Ver detalles / View details →</span>
-            </a>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ Section Bilingüe -->
-  <section class="qroo-faq">
-    <div class="container">
-      <div class="qroo-section-header qroo-section-header--center">
-        <span class="qroo-section-label">FAQ / Preguntas Frecuentes</span>
-        <h2 class="qroo-section-title">Información Importante</h2>
-        <p class="qroo-section-subtitle">Important Information for Visitors</p>
-      </div>
-
-      <div class="qroo-faq__grid">
-        {FAQ_QUINTANA_ROO.slice(0, 8).map((faq, index) => (
-          <details class="qroo-faq__item" open={index < 2}>
-            <summary>
-              <span class="qroo-faq__q-es">{faq.pregunta}</span>
-              <span class="qroo-faq__q-en">{faq.preguntaEn}</span>
-            </summary>
-            <div class="qroo-faq__answer">
-              <p class="qroo-faq__a-es">{faq.respuesta}</p>
-              <p class="qroo-faq__a-en">{faq.respuestaEn}</p>
-            </div>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Interlinking States -->
-  <section class="qroo-interlinking">
-    <div class="container">
-      <div class="qroo-section-header qroo-section-header--center">
-        <span class="qroo-section-label">Península de Yucatán</span>
-        <h2 class="qroo-section-title">Bomberos en Estados Vecinos</h2>
-      </div>
-
-      <div class="qroo-interlinking__grid">
-        {estadosVecinos.map(estado => (
-          <a href={`/directorio/${estado.slug}`} class={`qroo-neighbor-card qroo-neighbor-card--${estado.prioridad}`}>
-            <div class="qroo-neighbor-card__header">
-              <h3>{estado.estado}</h3>
-              <span class="qroo-neighbor-card__priority">{estado.prioridad}</span>
-            </div>
-            <p class="qroo-neighbor-card__relation">{estado.relacion}</p>
-            <p class="qroo-neighbor-card__context">{estado.contexto}</p>
-            <div class="qroo-neighbor-card__distance">
-              <span>📍 {estado.distanciaKm} km</span>
-              <span>🚗 {estado.tiempoViaje}</span>
-            </div>
-            <span class="qroo-neighbor-card__link">Ver estaciones →</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Products Section para Hoteleros -->
-  <section class="qroo-products">
-    <div class="container">
-      <div class="qroo-section-header qroo-section-header--center">
-        <span class="qroo-section-label">Para Hoteles y Resorts / For Hotels & Resorts</span>
-        <h2 class="qroo-section-title">Equipamiento de Seguridad</h2>
-        <p class="qroo-section-subtitle">Safety Equipment for Tourism Industry</p>
-      </div>
-
-      <div class="qroo-products__grid">
-        {productosRelacionados.filter(p => p.prioridad === 'critica' || p.prioridad === 'alta').map(producto => (
-          <a href={producto.slug} class={`qroo-product-card qroo-product-card--${producto.prioridad}`}>
-            <span class="qroo-product-card__priority">{producto.prioridad}</span>
-            <h3>{producto.producto}</h3>
-            <p>{producto.contexto}</p>
-            <div class="qroo-product-card__audience">
-              {producto.audiencia?.map(a => <span>{a}</span>)}
-            </div>
-            <span class="qroo-product-card__roi">{producto.roi}</span>
-          </a>
-        ))}
-      </div>
-
-      <div class="qroo-products__cta">
-        <a href="/cotizar" class="qroo-btn qroo-btn--primary">
-          Cotización Corporativa Hotelera
-          <span class="qroo-btn__en">Hotel Corporate Quote</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEO Content Bilingüe -->
-  <section class="qroo-seo">
-    <div class="container">
-      <div class="qroo-seo__grid">
-        <div class="qroo-seo__content">
-          <h2>Bomberos de Quintana Roo: Protección del Caribe Mexicano</h2>
-          <p>
-            El <strong>H. Cuerpo de Bomberos de Quintana Roo</strong> protege el destino turístico más importante de
-            Latinoamérica. Con <strong>{totalEstaciones} estaciones especializadas</strong>, brindamos cobertura las 24 horas
-            para los <strong>25+ millones de visitantes anuales</strong> que disfrutan de Cancún, Riviera Maya, Playa del Carmen,
-            Tulum y Cozumel.
-          </p>
-
-          <h3>Capacidades de Rescate Acuático Certificadas</h3>
-          <p>
-            Nuestras <strong>{estacionesAcuatico.length} estaciones de rescate acuático</strong> cuentan con personal certificado
-            en rescate oceánico, rescate en cenotes (aguas confinadas) y buceo profesional. Cobertura del <strong>Gran Arrecife Maya</strong>,
-            segundo más grande del mundo, y más de <strong>6,000 cenotes registrados</strong>.
-          </p>
-
-          <h3>Servicio Bilingüe para Turismo Internacional</h3>
-          <p>
-            Las <strong>{estacionesBilingues.length} estaciones bilingües</strong> en zonas turísticas cuentan con personal que habla
-            español e inglés. El servicio 911 tiene operadores bilingües 24/7. Coordinación con seguridad de
-            <strong>Marriott, Hilton, Hyatt, RIU, Iberostar y Palace Resorts</strong>.
-          </p>
-        </div>
-
-        <div class="qroo-seo__content qroo-seo__content--en">
-          <h2>Quintana Roo Fire Department: Protecting the Mexican Caribbean</h2>
-          <p>
-            The <strong>Quintana Roo Fire Department</strong> protects Latin America's most important tourist destination.
-            With <strong>{totalEstaciones} specialized stations</strong>, we provide 24-hour coverage for the
-            <strong>25+ million annual visitors</strong> enjoying Cancun, Riviera Maya, Playa del Carmen, Tulum, and Cozumel.
-          </p>
-
-          <h3>Certified Water Rescue Capabilities</h3>
-          <p>
-            Our <strong>{estacionesAcuatico.length} water rescue stations</strong> have personnel certified in ocean rescue,
-            cenote rescue (confined waters), and professional diving. Coverage of the <strong>Great Mayan Reef</strong>,
-            world's second largest, and more than <strong>6,000 registered cenotes</strong>.
-          </p>
-
-          <h3>Bilingual Service for International Tourism</h3>
-          <p>
-            The <strong>{estacionesBilingues.length} bilingual stations</strong> in tourist zones have Spanish and English-speaking
-            personnel. 911 service has bilingual operators 24/7. Coordination with <strong>Marriott, Hilton, Hyatt, RIU,
-            Iberostar, and Palace Resorts</strong> security teams.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-</PageLayout>
+      <h3>Servicios Especializados de los Bomberos de Quintana Roo</h3>
+      <p>
+        Los bomberos de Quintana Roo ofrecen: <strong>combate de incendios estructurales y forestales</strong>;
+        <strong>rescate acuático oceánico certificado</strong>; <strong>rescate en cenotes y aguas confinadas</strong>;
+        <strong>respuesta ARFF aeroportuaria SSEI Cat. 9</strong>; <strong>emergencias en cruceros</strong>;
+        <strong>evacuación de hoteles de gran altura</strong>; <strong>atención de huracanes</strong>;
+        <strong>búsqueda y rescate en selva y manglares</strong>; <strong>rescate de buceadores</strong>;
+        y <strong>servicio bilingüe 24/7</strong>. El tiempo de respuesta promedio en zonas turísticas es de
+        <strong>5-8 minutos</strong>.
+      </p>
+    </section>
+  </Fragment>
+</DirectorioEstadoLayout>
 
 <style>
-  /* ═══════════════════════════════════════════════════════════════════════════════════════════════════
-     QUINTANA ROO - PÁGINA ULTRA-PROFESIONAL BILINGÜE
-     Theme: Turquesa Caribe (#06b6d4) con acentos tropicales
-     ═══════════════════════════════════════════════════════════════════════════════════════════════════ */
-
-  :root {
-    --qroo-primary: #06b6d4;
-    --qroo-primary-dark: #0891b2;
-    --qroo-primary-light: #22d3ee;
-    --qroo-accent: #f59e0b;
-    --qroo-water: #0ea5e9;
-    --qroo-sand: #fbbf24;
-    --qroo-jungle: #16a34a;
-    --qroo-coral: #f43f5e;
+  .seo-content {
+    padding: var(--space-8);
+    background: white;
+    border-radius: var(--radius-xl);
+    margin-top: var(--space-8);
   }
 
-  /* ═══ Hero Ultra-Premium ═══ */
-  .qroo-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: linear-gradient(135deg, #083344 0%, #0e7490 30%, #06b6d4 60%, #22d3ee 100%);
-    overflow: hidden;
+  .seo-content h2 {
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-4);
+    line-height: 1.3;
   }
 
-  .qroo-hero__bg { position: absolute; inset: 0; pointer-events: none; }
-
-  .qroo-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 100% 80% at 20% 0%, rgba(6, 182, 212, 0.5), transparent),
-      radial-gradient(ellipse 60% 60% at 100% 100%, rgba(34, 211, 238, 0.3), transparent);
+  .seo-content h3 {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-fire-700);
+    margin: var(--space-8) 0 var(--space-3);
   }
 
-  .qroo-hero__waves {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 120px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23ffffff08' d='M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,64C960,75,1056,85,1152,80C1248,75,1344,53,1392,42.7L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
-    background-size: cover;
+  .seo-content p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-700);
+    line-height: 1.8;
+    margin: 0 0 var(--space-4);
   }
 
-  .qroo-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0C62.09 0 80 17.91 80 40S62.09 80 40 80 0 62.09 0 40 17.91 0 40 0zm0 10c-16.57 0-30 13.43-30 30s13.43 30 30 30 30-13.43 30-30-13.43-30-30-30z' fill='%23ffffff05'/%3E%3C/svg%3E");
-  }
-
-  .qroo-hero__container { position: relative; }
-
-  .qroo-breadcrumb { margin-bottom: var(--space-6); }
-  .qroo-breadcrumb ol { display: flex; gap: var(--space-2); list-style: none; padding: 0; margin: 0; }
-  .qroo-breadcrumb li { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
-  .qroo-breadcrumb li:not(:last-child)::after { content: "/"; color: rgba(255,255,255,0.3); }
-  .qroo-breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; }
-  .qroo-breadcrumb a:hover { color: white; }
-  .qroo-breadcrumb [aria-current] { color: var(--qroo-primary-light); font-weight: 600; }
-
-  .qroo-alerts { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-6); }
-  .qroo-alert { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg); font-size: var(--text-sm); }
-  .qroo-alert--info { background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.3); color: #a5f3fc; }
-  .qroo-alert--warning { background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
-  .qroo-alert--danger { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
-  .qroo-alert__priority { margin-left: auto; font-size: var(--text-xs); text-transform: uppercase; opacity: 0.7; }
-
-  .qroo-hero__grid { display: grid; grid-template-columns: 1fr 420px; gap: var(--space-10); align-items: start; }
-
-  .qroo-hero__badges { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-6); }
-  .qroo-hero__badge { display: inline-flex; align-items: center; gap: var(--space-2); padding: var(--space-2) var(--space-4); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; }
-  .qroo-hero__badge--tourism { background: rgba(245,158,11,0.25); border: 1px solid rgba(245,158,11,0.5); color: #fcd34d; }
-  .qroo-hero__badge--bilingual { background: rgba(34,211,238,0.25); border: 1px solid rgba(34,211,238,0.5); color: #a5f3fc; }
-  .qroo-hero__badge--water { background: rgba(14,165,233,0.25); border: 1px solid rgba(14,165,233,0.5); color: #7dd3fc; }
-
-  .qroo-hero__title { margin: 0 0 var(--space-2); }
-  .qroo-hero__title-es { display: block; font-size: var(--text-xl); font-weight: 500; color: rgba(255,255,255,0.8); }
-  .qroo-hero__highlight { display: block; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; background: linear-gradient(135deg, white, var(--qroo-primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
-  .qroo-hero__title-en { font-size: var(--text-lg); font-weight: 500; color: rgba(255,255,255,0.6); font-style: italic; margin: 0 0 var(--space-6); }
-
-  .qroo-hero__desc { font-size: var(--text-base); color: rgba(255,255,255,0.9); line-height: 1.7; margin: 0 0 var(--space-3); }
-  .qroo-hero__desc strong { color: white; }
-  .qroo-hero__desc-en { font-size: var(--text-sm); color: rgba(255,255,255,0.7); line-height: 1.6; margin: 0 0 var(--space-8); padding: var(--space-4); background: rgba(255,255,255,0.06); border-radius: var(--radius-lg); border-left: 3px solid var(--qroo-primary-light); }
-
-  .qroo-hero__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); padding: var(--space-6); background: rgba(255,255,255,0.08); border-radius: var(--radius-xl); border: 1px solid rgba(255,255,255,0.1); }
-  .qroo-hero__stat { text-align: center; }
-  .qroo-hero__stat-number { display: block; font-size: var(--text-3xl); font-weight: 800; color: white; }
-  .qroo-hero__stat--emergency .qroo-hero__stat-number { color: var(--color-fire-400); text-shadow: 0 0 20px rgba(239,68,68,0.5); }
-  .qroo-hero__stat-label { font-size: var(--text-xs); color: rgba(255,255,255,0.6); }
-
-  /* Emergency Card Premium */
-  .qroo-emergency-card { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-2xl); padding: var(--space-6); }
-  .qroo-emergency-card__header { display: flex; align-items: center; justify-content: center; gap: var(--space-2); color: white; font-weight: 600; margin-bottom: var(--space-4); }
-  .qroo-emergency-card__911 { display: block; font-size: 4.5rem; font-weight: 900; color: var(--color-fire-400); text-decoration: none; line-height: 1; text-align: center; margin-bottom: var(--space-2); text-shadow: 0 0 30px rgba(239, 68, 68, 0.5); }
-  .qroo-emergency-card__note { text-align: center; margin: 0 0 var(--space-5); }
-  .qroo-emergency-card__note-es { display: block; font-size: var(--text-sm); color: rgba(255,255,255,0.7); }
-  .qroo-emergency-card__note-en { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.5); font-style: italic; }
-
-  .qroo-emergency-card__locals { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-4) 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: var(--space-4); }
-  .qroo-emergency-card__local { display: flex; justify-content: space-between; padding: var(--space-2) var(--space-3); background: rgba(255,255,255,0.05); border-radius: var(--radius-md); }
-  .qroo-emergency-card__local span { font-size: var(--text-sm); color: rgba(255,255,255,0.7); }
-  .qroo-emergency-card__local a { font-size: var(--text-sm); font-weight: 700; color: var(--qroo-primary-light); text-decoration: none; }
-
-  .qroo-emergency-card__bilingual-notice { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3); background: rgba(34,211,238,0.15); border-radius: var(--radius-lg); }
-  .qroo-emergency-card__bilingual-flag { padding: var(--space-1) var(--space-2); background: var(--qroo-primary); border-radius: var(--radius-sm); font-size: var(--text-xs); font-weight: 700; color: white; }
-  .qroo-emergency-card__bilingual-notice span:last-child { font-size: var(--text-xs); color: rgba(255,255,255,0.8); }
-
-  /* ═══ Section Styles ═══ */
-  .qroo-section-header { margin-bottom: var(--space-10); }
-  .qroo-section-header--center { text-align: center; }
-  .qroo-section-label { display: inline-block; padding: var(--space-1) var(--space-4); background: rgba(6,182,212,0.1); border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; color: var(--qroo-primary); margin-bottom: var(--space-3); }
-  .qroo-section-title { font-size: var(--text-3xl); font-weight: 800; color: var(--color-smoke-900); margin: 0; }
-  .qroo-section-subtitle { font-size: var(--text-lg); color: var(--color-smoke-500); margin: var(--space-2) 0 0; font-style: italic; }
-
-  /* ═══ Tourism Stats ═══ */
-  .qroo-tourism { padding: var(--space-16) 0; background: linear-gradient(180deg, #ecfeff 0%, white 50%); }
-  .qroo-tourism__stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-6); margin-bottom: var(--space-12); }
-  .qroo-tourism__stat { text-align: center; padding: var(--space-6); background: white; border-radius: var(--radius-2xl); box-shadow: 0 4px 20px rgba(6,182,212,0.1); }
-  .qroo-tourism__stat-value { display: block; font-size: var(--text-2xl); font-weight: 800; color: var(--qroo-primary); margin-bottom: var(--space-2); }
-  .qroo-tourism__stat-label { font-size: var(--text-sm); color: var(--color-smoke-600); line-height: 1.4; }
-
-  .qroo-tourism__zones h3 { font-size: var(--text-xl); font-weight: 700; color: var(--color-smoke-800); text-align: center; margin: 0 0 var(--space-6); }
-  .qroo-tourism__zones-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-  .qroo-tourism__zone { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
-  .qroo-tourism__zone h4 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); }
-  .qroo-tourism__zone-stats { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--text-sm); color: var(--color-smoke-600); margin-bottom: var(--space-3); }
-  .qroo-tourism__zone-chains { display: flex; flex-wrap: wrap; gap: var(--space-1); }
-  .qroo-tourism__chain { font-size: var(--text-xs); padding: 2px 8px; background: var(--color-smoke-100); border-radius: var(--radius-full); color: var(--color-smoke-600); }
-
-  /* ═══ Services ═══ */
-  .qroo-services { padding: var(--space-16) 0; background: white; }
-  .qroo-services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
-  .qroo-service-card { padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-2xl); border: 1px solid var(--color-smoke-200); text-align: center; transition: all 0.3s; }
-  .qroo-service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
-  .qroo-service-card__icon { font-size: 3rem; margin-bottom: var(--space-4); }
-  .qroo-service-card h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-3); line-height: 1.3; }
-  .qroo-service-card h3 span { font-weight: 400; font-size: var(--text-base); color: var(--color-smoke-500); }
-  .qroo-service-card p { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-2); line-height: 1.5; }
-  .qroo-service-card__en { font-size: var(--text-xs); color: var(--color-smoke-400); font-style: italic; margin: 0; }
-
-  .qroo-service-card--water { border-color: rgba(14,165,233,0.3); background: rgba(14,165,233,0.05); }
-  .qroo-service-card--hotel { border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.05); }
-  .qroo-service-card--airport { border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.05); }
-  .qroo-service-card--cruise { border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.05); }
-  .qroo-service-card--hurricane { border-color: rgba(244,63,94,0.3); background: rgba(244,63,94,0.05); }
-  .qroo-service-card--bilingual { border-color: rgba(6,182,212,0.3); background: rgba(6,182,212,0.05); }
-
-  /* ═══ Zones ═══ */
-  .qroo-zones { padding: var(--space-16) 0; background: var(--color-smoke-50); }
-  .qroo-zones__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
-  .qroo-zone-card { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border-left: 4px solid var(--zone-color); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-  .qroo-zone-card__header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-3); }
-  .qroo-zone-card__header h3 { font-size: var(--text-base); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
-  .qroo-zone-card__name-en { font-size: var(--text-xs); color: var(--color-smoke-500); font-style: italic; margin: 0; }
-  .qroo-zone-card__count { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: var(--zone-color); border-radius: 50%; font-size: var(--text-xs); font-weight: 700; color: white; }
-  .qroo-zone-card__desc { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); line-height: 1.5; }
-  .qroo-zone-card__meta { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
-  .qroo-zone-card__meta span { font-size: var(--text-xs); color: var(--color-smoke-500); }
-  .qroo-zone-card__response { font-size: var(--text-xs); color: var(--zone-color); font-weight: 600; margin-bottom: var(--space-3); }
-  .qroo-zone-card__stations { list-style: none; padding: 0; margin: 0; }
-  .qroo-zone-card__stations li { margin-bottom: var(--space-1); }
-  .qroo-zone-card__stations a { font-size: var(--text-sm); color: var(--qroo-primary); text-decoration: none; }
-  .qroo-zone-card__stations a:hover { text-decoration: underline; }
-
-  /* ═══ Stations Grid ═══ */
-  .qroo-stations { padding: var(--space-16) 0; background: white; }
-  .qroo-stations__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
-  .qroo-station-card { display: flex; flex-direction: column; padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
-  .qroo-station-card:hover { background: white; box-shadow: 0 12px 40px rgba(6,182,212,0.15); transform: translateY(-4px); border-color: var(--qroo-primary-light); }
-
-  .qroo-station-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3); }
-  .qroo-station-card__zone { font-size: var(--text-xs); font-weight: 600; padding: var(--space-1) var(--space-2); background: rgba(6,182,212,0.1); color: var(--zone-color); border-radius: var(--radius-sm); }
-  .qroo-station-card__badges { display: flex; gap: var(--space-1); }
-  .qroo-station-card__badge { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 12px; }
-  .qroo-station-card__badge--bilingual { background: var(--qroo-primary); color: white; font-size: 10px; font-weight: 700; }
-  .qroo-station-card__badge--water { background: rgba(14,165,233,0.15); }
-  .qroo-station-card__badge--airport { background: rgba(99,102,241,0.15); }
-  .qroo-station-card__badge--cruise { background: rgba(139,92,246,0.15); }
-
-  .qroo-station-card__name { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0 0 var(--space-2); line-height: 1.3; }
-  .qroo-station-card__address { font-size: var(--text-sm); color: var(--color-smoke-500); margin: 0 0 var(--space-4); line-height: 1.5; flex: 1; }
-  .qroo-station-card__contact { display: flex; justify-content: space-between; align-items: center; padding: var(--space-3) 0; border-top: 1px solid var(--color-smoke-200); margin-bottom: var(--space-2); }
-  .qroo-station-card__phone { font-size: var(--text-sm); font-weight: 700; color: var(--qroo-primary); }
-  .qroo-station-card__personnel { font-size: var(--text-xs); color: var(--color-smoke-500); }
-  .qroo-station-card__response { font-size: var(--text-xs); color: var(--color-smoke-500); margin: 0 0 var(--space-3); }
-  .qroo-station-card__cta { font-size: var(--text-sm); font-weight: 600; color: var(--qroo-primary); }
-
-  /* ═══ FAQ Bilingüe ═══ */
-  .qroo-faq { padding: var(--space-16) 0; background: var(--color-smoke-50); }
-  .qroo-faq__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); max-width: 1000px; margin: 0 auto; }
-  .qroo-faq__item { padding: var(--space-5); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
-  .qroo-faq__item[open] { border-color: var(--qroo-primary-light); }
-  .qroo-faq__item summary { cursor: pointer; list-style: none; }
-  .qroo-faq__item summary::-webkit-details-marker { display: none; }
-  .qroo-faq__q-es { display: block; font-size: var(--text-base); font-weight: 600; color: var(--color-smoke-900); margin-bottom: var(--space-1); }
-  .qroo-faq__q-en { display: block; font-size: var(--text-sm); color: var(--color-smoke-500); font-style: italic; }
-  .qroo-faq__answer { padding-top: var(--space-4); margin-top: var(--space-4); border-top: 1px solid var(--color-smoke-200); }
-  .qroo-faq__a-es { font-size: var(--text-sm); color: var(--color-smoke-700); line-height: 1.7; margin: 0 0 var(--space-3); }
-  .qroo-faq__a-en { font-size: var(--text-sm); color: var(--color-smoke-500); line-height: 1.6; margin: 0; padding: var(--space-3); background: var(--color-smoke-50); border-radius: var(--radius-md); font-style: italic; }
-
-  /* ═══ Interlinking ═══ */
-  .qroo-interlinking { padding: var(--space-16) 0; background: white; }
-  .qroo-interlinking__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
-  .qroo-neighbor-card { padding: var(--space-6); background: var(--color-smoke-50); border-radius: var(--radius-xl); text-decoration: none; border: 1px solid var(--color-smoke-200); transition: all 0.2s; }
-  .qroo-neighbor-card:hover { background: white; border-color: var(--qroo-primary); box-shadow: 0 8px 24px rgba(6,182,212,0.1); }
-  .qroo-neighbor-card__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-2); }
-  .qroo-neighbor-card__header h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-900); margin: 0; }
-  .qroo-neighbor-card__priority { font-size: 9px; padding: 2px 8px; background: var(--color-smoke-200); border-radius: var(--radius-full); color: var(--color-smoke-500); text-transform: uppercase; }
-  .qroo-neighbor-card--critica .qroo-neighbor-card__priority { background: rgba(239,68,68,0.1); color: #dc2626; }
-  .qroo-neighbor-card--alta .qroo-neighbor-card__priority { background: rgba(6,182,212,0.1); color: var(--qroo-primary); }
-  .qroo-neighbor-card__relation { font-size: var(--text-sm); color: var(--qroo-primary); margin: 0 0 var(--space-1); }
-  .qroo-neighbor-card__context { font-size: var(--text-sm); color: var(--color-smoke-600); margin: 0 0 var(--space-3); }
-  .qroo-neighbor-card__distance { display: flex; gap: var(--space-4); font-size: var(--text-xs); color: var(--color-smoke-500); margin-bottom: var(--space-3); }
-  .qroo-neighbor-card__link { font-size: var(--text-sm); font-weight: 600; color: var(--qroo-primary); }
-
-  /* ═══ Products ═══ */
-  .qroo-products { padding: var(--space-16) 0; background: linear-gradient(135deg, #083344 0%, #0e7490 50%, #06b6d4 100%); }
-  .qroo-products .qroo-section-label { background: rgba(255,255,255,0.15); color: white; }
-  .qroo-products .qroo-section-title { color: white; }
-  .qroo-products .qroo-section-subtitle { color: rgba(255,255,255,0.7); }
-
-  .qroo-products__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-10); }
-  .qroo-product-card { padding: var(--space-5); background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-xl); text-decoration: none; transition: all 0.2s; position: relative; }
-  .qroo-product-card:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
-  .qroo-product-card__priority { position: absolute; top: var(--space-3); right: var(--space-3); font-size: 9px; padding: 2px 8px; background: rgba(255,255,255,0.2); border-radius: var(--radius-full); color: white; text-transform: uppercase; }
-  .qroo-product-card--critica .qroo-product-card__priority { background: rgba(239,68,68,0.3); }
-  .qroo-product-card h3 { font-size: var(--text-base); font-weight: 700; color: white; margin: 0 0 var(--space-2); padding-right: var(--space-10); }
-  .qroo-product-card p { font-size: var(--text-sm); color: rgba(255,255,255,0.8); margin: 0 0 var(--space-3); }
-  .qroo-product-card__audience { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-bottom: var(--space-2); }
-  .qroo-product-card__audience span { font-size: var(--text-xs); padding: 2px 8px; background: rgba(255,255,255,0.15); border-radius: var(--radius-full); color: rgba(255,255,255,0.8); }
-  .qroo-product-card__roi { font-size: var(--text-xs); color: rgba(255,255,255,0.6); font-style: italic; }
-
-  .qroo-products__cta { text-align: center; }
-  .qroo-btn { display: inline-flex; flex-direction: column; align-items: center; padding: var(--space-4) var(--space-8); border-radius: var(--radius-lg); font-size: var(--text-base); font-weight: 700; text-decoration: none; transition: all 0.2s; }
-  .qroo-btn--primary { background: white; color: var(--qroo-primary-dark); }
-  .qroo-btn--primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-  .qroo-btn__en { font-size: var(--text-sm); font-weight: 400; color: var(--color-smoke-500); margin-top: var(--space-1); }
-
-  /* ═══ SEO Content ═══ */
-  .qroo-seo { padding: var(--space-16) 0; background: var(--color-smoke-50); }
-  .qroo-seo__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); }
-  .qroo-seo__content h2 { font-size: var(--text-xl); font-weight: 800; color: var(--color-smoke-900); margin: 0 0 var(--space-4); }
-  .qroo-seo__content h3 { font-size: var(--text-lg); font-weight: 700; color: var(--color-smoke-800); margin: var(--space-6) 0 var(--space-2); }
-  .qroo-seo__content p { font-size: var(--text-sm); color: var(--color-smoke-600); line-height: 1.8; margin: 0 0 var(--space-4); }
-  .qroo-seo__content strong { color: var(--color-smoke-800); }
-  .qroo-seo__content--en { padding: var(--space-6); background: white; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); }
-  .qroo-seo__content--en h2, .qroo-seo__content--en h3 { color: var(--qroo-primary-dark); }
-
-  /* ═══ Responsive ═══ */
-  @media (max-width: 1200px) {
-    .qroo-tourism__stats, .qroo-tourism__zones-grid, .qroo-products__grid { grid-template-columns: repeat(2, 1fr); }
-    .qroo-zones__grid { grid-template-columns: repeat(2, 1fr); }
-    .qroo-services__grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (max-width: 1024px) {
-    .qroo-hero__grid { grid-template-columns: 1fr; }
-    .qroo-hero__emergency { max-width: 450px; }
-    .qroo-stations__grid { grid-template-columns: repeat(2, 1fr); }
-    .qroo-seo__grid { grid-template-columns: 1fr; }
+  .seo-content strong {
+    color: var(--color-smoke-900);
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
-    .qroo-hero { padding: var(--space-12) 0; }
-    .qroo-hero__stats { grid-template-columns: repeat(2, 1fr); }
-    .qroo-tourism__stats, .qroo-tourism__zones-grid, .qroo-zones__grid, .qroo-services__grid, .qroo-stations__grid, .qroo-faq__grid, .qroo-interlinking__grid, .qroo-products__grid { grid-template-columns: 1fr; }
+    .seo-content {
+      padding: var(--space-5);
+    }
+
+    .seo-content h2 {
+      font-size: var(--text-xl);
+    }
+
+    .seo-content h3 {
+      font-size: var(--text-base);
+    }
   }
 </style>
