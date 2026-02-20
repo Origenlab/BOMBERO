@@ -38,7 +38,15 @@ const { estacion } = Astro.props;
 // Metadata dinámica bilingüe
 const nombreCorto = estacion.nombre.replace("Estación de Bomberos ", "").replace("Estación Central de Bomberos ", "");
 const title = `${estacion.nombre} | Bomberos Quintana Roo | BOMBERO.MX`;
-const description = `${estacion.descripcion} Tel: ${estacion.telefono}. ${estacion.horario}.`;
+// Truncar descripción para meta description SEO (max 155 chars)
+function truncateForSEO(text: string, maxLength: number): string {
+  if (!text || text.length <= maxLength) return text;
+  const truncated = text.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return lastSpace > maxLength * 0.7 ? truncated.slice(0, lastSpace) + '...' : truncated + '...';
+}
+const ubicacion = estacion.municipiosCubiertos?.[0] || "Quintana Roo";
+const seoDescription = `${truncateForSEO(estacion.descripcion || '', 120)} Tel: ${estacion.telefono}. ${ubicacion}, Quintana Roo.`;
 
 // Clasificadores
 const esBilingue = estacion.idiomas?.includes("Inglés");
@@ -125,7 +133,7 @@ const schemaOrg = {
 };
 ---
 
-<PageLayout title={title} description={description}>
+<PageLayout title={title} description={seoDescription}>
   <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
   <meta name="geo.region" content="MX-ROO" slot="head" />
   <meta name="geo.position" content={`${estacion.coordenadas.lat};${estacion.coordenadas.lng}`} slot="head" />

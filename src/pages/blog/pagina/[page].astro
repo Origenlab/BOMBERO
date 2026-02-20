@@ -44,14 +44,20 @@ const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
 const endIndex = startIndex + ARTICLES_PER_PAGE;
 const articulos = allArticulos.slice(startIndex, endIndex);
 
-const categorias = [
-  { label: "Normativas", count: 1, slug: "normativas" },
-  { label: "Mantenimiento", count: 1, slug: "mantenimiento" },
-  { label: "Técnicas", count: 1, slug: "tecnicas" },
-  { label: "Industrial", count: 1, slug: "industrial" },
-  { label: "Forestales", count: 1, slug: "forestales" },
-  { label: "Equipo", count: 11, slug: "equipo" },
+/* ── Categorías con conteo dinámico ── */
+const catsList = [
+  { label: "Normativas", slug: "normativas" },
+  { label: "Mantenimiento", slug: "mantenimiento" },
+  { label: "Técnicas", slug: "tecnicas" },
+  { label: "Industrial", slug: "industrial" },
+  { label: "Forestales", slug: "forestales" },
+  { label: "Equipo", slug: "equipo" },
 ];
+
+const categorias = catsList.map((cat) => ({
+  ...cat,
+  count: allArticulos.filter((a) => a.categoria.toLowerCase() === cat.label.toLowerCase()).length,
+}));
 
 const breadcrumb = [
   { label: "Blog", href: "/blog" },

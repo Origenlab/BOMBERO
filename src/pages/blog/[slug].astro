@@ -30,14 +30,22 @@ const breadcrumb = [
   { label: articulo.titulo },
 ];
 
-const categorias = [
-  { label: "Normativas", href: "/blog/categoria/normativas", count: 1 },
-  { label: "Mantenimiento", href: "/blog/categoria/mantenimiento", count: 1 },
-  { label: "Técnicas", href: "/blog/categoria/tecnicas", count: 1 },
-  { label: "Industrial", href: "/blog/categoria/industrial", count: 1 },
-  { label: "Forestales", href: "/blog/categoria/forestales", count: 1 },
-  { label: "Equipo", href: "/blog/categoria/equipo", count: 11 },
+/* ── Categorías con conteo dinámico ── */
+const allArticulos = getAllArticulos();
+const catsList = [
+  { label: "Normativas", slug: "normativas" },
+  { label: "Mantenimiento", slug: "mantenimiento" },
+  { label: "Técnicas", slug: "tecnicas" },
+  { label: "Industrial", slug: "industrial" },
+  { label: "Forestales", slug: "forestales" },
+  { label: "Equipo", slug: "equipo" },
 ];
+
+const categorias = catsList.map((cat) => ({
+  label: cat.label,
+  href: `/blog/categoria/${cat.slug}`,
+  count: allArticulos.filter((a) => a.categoria.toLowerCase() === cat.label.toLowerCase()).length,
+}));
 
 const articulosPopulares = [
   { label: "NFPA 1971: Guía Completa", href: "/blog/nfpa-1971-guia-completa" },

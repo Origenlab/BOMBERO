@@ -1,0 +1,132 @@
+import { b as createAstro, c as createComponent, r as renderComponent, a as renderTemplate, m as maybeRenderHead, d as addAttribute, e as renderSlot, u as unescapeHTML } from './astro/server_D9FxF255.mjs';
+import 'piccolore';
+import { $ as $$PageLayout } from './PageLayout_C37tG6Zv.mjs';
+import { $ as $$CTABanner } from './CTABanner_CozAoE6V.mjs';
+import { c as cdnW } from './cdn_BlgyKQ2i.mjs';
+/* empty css                          */
+
+const $$Astro = createAstro("https://bombero.mx");
+const $$EstacionLayout = createComponent(($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
+  Astro2.self = $$EstacionLayout;
+  const { estacion, estado, estadosVecinos, estacionesCercanas, eppCards } = Astro2.props;
+  const eppCardsCdn = eppCards.map((c) => ({ ...c, image: cdnW(c.image, 400) }));
+  const ubicacion = estacion.municipio ?? estacion.ciudad;
+  const nombreCortoDisplay = estacion.nombreCorto ?? estacion.nombre;
+  const colonia = estacion.colonia ?? "";
+  const zonasCobertura = estacion.zonasCobertura ?? estacion.cobertura ?? [];
+  const telefonoLink = estacion.telefono.replace(/\s/g, "");
+  const productosRelacionados = [
+    { nombre: "Trajes Estructurales", href: "/productos/trajes-para-bomberos", desc: "Trajes NFPA 1971 para bomberos" },
+    { nombre: "Cascos de Bombero", href: "/productos/cascos-para-bomberos", desc: "Cascos certificados NFPA" },
+    { nombre: "Equipos SCBA", href: "/productos/scba", desc: "Equipos de respiraci\xF3n aut\xF3noma" },
+    { nombre: "Herramientas de Rescate", href: "/productos/herramientas-rescate", desc: "Equipo Holmatro y m\xE1s" }
+  ];
+  const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(estacion.nombre + " " + estacion.direccion + " " + colonia + " " + ubicacion + " " + estado.nombre)}`;
+  const canonical = `https://bombero.mx/directorio/${estado.slug}/${estacion.slug}`;
+  const seoKeywords = [
+    `bomberos ${ubicacion.toLowerCase()}`,
+    `estacion de bomberos ${ubicacion.toLowerCase()}`,
+    `telefono bomberos ${ubicacion.toLowerCase()}`,
+    `bomberos ${estado.nombre.toLowerCase()}`,
+    "estaciones de bomberos en mexico"
+  ];
+  function truncateForSEO(text, maxLength) {
+    if (!text || text.length <= maxLength) return text;
+    const truncated = text.slice(0, maxLength);
+    const lastSpace = truncated.lastIndexOf(" ");
+    return lastSpace > maxLength * 0.7 ? truncated.slice(0, lastSpace) + "..." : truncated + "...";
+  }
+  const seoDescription = `${truncateForSEO(estacion.descripcion || "", 120)} Tel: ${estacion.telefono}. ${ubicacion}, ${estado.nombre}.`;
+  const stationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FireStation",
+    name: estacion.nombre,
+    description: estacion.descripcion,
+    url: canonical,
+    telephone: estacion.telefono,
+    email: estacion.email,
+    openingHours: "Mo-Su 00:00-23:59",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: [estacion.direccion, estacion.colonia].filter(Boolean).join(", "),
+      addressLocality: estacion.ciudad,
+      addressRegion: estado.nombre,
+      postalCode: estacion.codigoPostal,
+      addressCountry: "MX"
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: estacion.coordenadas.lat,
+      longitude: estacion.coordenadas.lng
+    },
+    areaServed: {
+      "@type": "City",
+      name: ubicacion
+    }
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
+      { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
+      { "@type": "ListItem", position: 3, name: estado.nombre, item: `https://bombero.mx/directorio/${estado.slug}` },
+      { "@type": "ListItem", position: 4, name: estacion.nombre, item: canonical }
+    ]
+  };
+  return renderTemplate`${renderComponent($$result, "PageLayout", $$PageLayout, { "title": `${nombreCortoDisplay} | ${ubicacion} | BOMBERO.MX`, "description": seoDescription, "keywords": seoKeywords, "canonical": canonical, "jsonLd": [stationJsonLd, breadcrumbJsonLd], "data-astro-cid-uxy4ipun": true }, { "default": ($$result2) => renderTemplate`  ${maybeRenderHead()}<section class="est-hero" data-astro-cid-uxy4ipun> <div class="est-hero__bg" data-astro-cid-uxy4ipun> <div class="est-hero__gradient" data-astro-cid-uxy4ipun></div> </div> <div class="container" data-astro-cid-uxy4ipun> <!-- Breadcrumb --> <nav class="est-hero__breadcrumb" data-astro-cid-uxy4ipun> <a href="/" data-astro-cid-uxy4ipun>Inicio</a> <span data-astro-cid-uxy4ipun>/</span> <a href="/directorio" data-astro-cid-uxy4ipun>Directorio</a> <span data-astro-cid-uxy4ipun>/</span> <a${addAttribute(`/directorio/${estado.slug}`, "href")} data-astro-cid-uxy4ipun>${estado.nombre}</a> <span data-astro-cid-uxy4ipun>/</span> <span data-astro-cid-uxy4ipun>${nombreCortoDisplay}</span> </nav> <div class="est-hero__grid" data-astro-cid-uxy4ipun> <div class="est-hero__content" data-astro-cid-uxy4ipun> <div class="est-hero__badges" data-astro-cid-uxy4ipun> <span class="est-hero__badge est-hero__badge--municipio" data-astro-cid-uxy4ipun>${ubicacion}</span> <span class="est-hero__badge est-hero__badge--horario" data-astro-cid-uxy4ipun>${estacion.horario}</span> </div> <h1 class="est-hero__title" data-astro-cid-uxy4ipun>${estacion.nombre}</h1> <p class="est-hero__desc" data-astro-cid-uxy4ipun>${estacion.descripcion}</p> <div class="est-hero__actions" data-astro-cid-uxy4ipun> <a${addAttribute(`tel:${telefonoLink}`, "href")} class="est-hero__btn est-hero__btn--primary" data-astro-cid-uxy4ipun> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72" data-astro-cid-uxy4ipun></path> </svg> <span data-astro-cid-uxy4ipun>Llamar: ${estacion.telefono}</span> </a> <a${addAttribute(mapUrl, "href")} target="_blank" rel="noopener" class="est-hero__btn est-hero__btn--secondary" data-astro-cid-uxy4ipun> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" data-astro-cid-uxy4ipun></path> <circle cx="12" cy="10" r="3" data-astro-cid-uxy4ipun></circle> </svg> <span data-astro-cid-uxy4ipun>Ver en Google Maps</span> </a> </div> </div> <div class="est-hero__card" data-astro-cid-uxy4ipun> <div class="est-hero__card-header" data-astro-cid-uxy4ipun> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M3 21h18" data-astro-cid-uxy4ipun></path> <path d="M5 21V7l8-4 8 4v14" data-astro-cid-uxy4ipun></path> <path d="M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" data-astro-cid-uxy4ipun></path> </svg> <span data-astro-cid-uxy4ipun>Información de Contacto</span> </div> <div class="est-hero__card-body" data-astro-cid-uxy4ipun> <div class="est-hero__info-row" data-astro-cid-uxy4ipun> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" data-astro-cid-uxy4ipun></path> <circle cx="12" cy="10" r="3" data-astro-cid-uxy4ipun></circle> </svg> <div data-astro-cid-uxy4ipun> <strong data-astro-cid-uxy4ipun>Dirección</strong> <span data-astro-cid-uxy4ipun>${estacion.direccion}, ${estacion.colonia}, CP ${estacion.codigoPostal}</span> </div> </div> <div class="est-hero__info-row" data-astro-cid-uxy4ipun> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72" data-astro-cid-uxy4ipun></path> </svg> <div data-astro-cid-uxy4ipun> <strong data-astro-cid-uxy4ipun>Teléfono</strong> <a${addAttribute(`tel:${telefonoLink}`, "href")} data-astro-cid-uxy4ipun>${estacion.telefono}</a> </div> </div> <div class="est-hero__info-row" data-astro-cid-uxy4ipun> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07" data-astro-cid-uxy4ipun></path> </svg> <div data-astro-cid-uxy4ipun> <strong data-astro-cid-uxy4ipun>Emergencias</strong> <a href="tel:911" class="est-hero__emergency" data-astro-cid-uxy4ipun>911</a> </div> </div> ${estacion.tiempoRespuesta && renderTemplate`<div class="est-hero__info-row" data-astro-cid-uxy4ipun> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <circle cx="12" cy="12" r="10" data-astro-cid-uxy4ipun></circle> <polyline points="12 6 12 12 16 14" data-astro-cid-uxy4ipun></polyline> </svg> <div data-astro-cid-uxy4ipun> <strong data-astro-cid-uxy4ipun>Tiempo de Respuesta</strong> <span data-astro-cid-uxy4ipun>${estacion.tiempoRespuesta}</span> </div> </div>`} <div class="est-hero__info-row" data-astro-cid-uxy4ipun> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <rect x="3" y="4" width="18" height="18" rx="2" ry="2" data-astro-cid-uxy4ipun></rect> <line x1="16" y1="2" x2="16" y2="6" data-astro-cid-uxy4ipun></line> <line x1="8" y1="2" x2="8" y2="6" data-astro-cid-uxy4ipun></line> <line x1="3" y1="10" x2="21" y2="10" data-astro-cid-uxy4ipun></line> </svg> <div data-astro-cid-uxy4ipun> <strong data-astro-cid-uxy4ipun>Municipio</strong> <span data-astro-cid-uxy4ipun>${ubicacion}, ${estado.nombre}</span> </div> </div> </div> </div> </div> </div> </section>  <section class="est-main" data-astro-cid-uxy4ipun> <div class="container" data-astro-cid-uxy4ipun> <div class="est-main__grid" data-astro-cid-uxy4ipun> <!-- Content --> <div class="est-main__content" data-astro-cid-uxy4ipun> <!-- Servicios --> <article class="est-section" data-astro-cid-uxy4ipun> <h2 class="est-section__title" data-astro-cid-uxy4ipun> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" data-astro-cid-uxy4ipun></path> </svg>
+Servicios de Emergencia
+</h2> <p class="est-section__intro" data-astro-cid-uxy4ipun>
+La <strong data-astro-cid-uxy4ipun>${nombreCortoDisplay}</strong> ofrece los siguientes servicios de emergencia
+              a los habitantes de <strong data-astro-cid-uxy4ipun>${ubicacion}</strong> y zonas aledañas en ${estado.nombre}:
+</p> <ul class="est-services" data-astro-cid-uxy4ipun> ${estacion.servicios.map((servicio) => renderTemplate`<li class="est-services__item" data-astro-cid-uxy4ipun> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" data-astro-cid-uxy4ipun> <polyline points="20 6 9 17 4 12" data-astro-cid-uxy4ipun></polyline> </svg> <span data-astro-cid-uxy4ipun>${servicio}</span> </li>`)} </ul> </article> <!-- Especialidades --> ${estacion.especialidades && estacion.especialidades.length > 0 && renderTemplate`<article class="est-section" data-astro-cid-uxy4ipun> <h2 class="est-section__title" data-astro-cid-uxy4ipun> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" data-astro-cid-uxy4ipun></polygon> </svg>
+Especialidades
+</h2> <div class="est-specialties" data-astro-cid-uxy4ipun> ${estacion.especialidades.map((esp) => renderTemplate`<div class="est-specialties__item" data-astro-cid-uxy4ipun> <span class="est-specialties__icon" data-astro-cid-uxy4ipun> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" data-astro-cid-uxy4ipun></path> </svg> </span> <span data-astro-cid-uxy4ipun>${esp}</span> </div>`)} </div> </article>`} <!-- Cobertura --> ${zonasCobertura && zonasCobertura.length > 0 && renderTemplate`<article class="est-section" data-astro-cid-uxy4ipun> <h2 class="est-section__title" data-astro-cid-uxy4ipun> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <circle cx="12" cy="12" r="10" data-astro-cid-uxy4ipun></circle> <line x1="2" y1="12" x2="22" y2="12" data-astro-cid-uxy4ipun></line> <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" data-astro-cid-uxy4ipun></path> </svg>
+Zonas de Cobertura
+</h2> <p class="est-section__intro" data-astro-cid-uxy4ipun>
+Esta estación brinda cobertura a las siguientes colonias y zonas del municipio de <strong data-astro-cid-uxy4ipun>${ubicacion}</strong>:
+</p> <div class="est-zones" data-astro-cid-uxy4ipun> ${zonasCobertura.map((zona) => renderTemplate`<span class="est-zones__tag" data-astro-cid-uxy4ipun>${zona}</span>`)} </div> </article>`} <!-- Equipamiento --> ${estacion.equipamiento && estacion.equipamiento.length > 0 && renderTemplate`<article class="est-section" data-astro-cid-uxy4ipun> <h2 class="est-section__title" data-astro-cid-uxy4ipun> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" data-astro-cid-uxy4ipun></path> <path d="M15 18H9" data-astro-cid-uxy4ipun></path> <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" data-astro-cid-uxy4ipun></path> <circle cx="17" cy="18" r="2" data-astro-cid-uxy4ipun></circle> <circle cx="7" cy="18" r="2" data-astro-cid-uxy4ipun></circle> </svg>
+Equipamiento y Unidades
+</h2> <ul class="est-equipment" data-astro-cid-uxy4ipun> ${estacion.equipamiento.map((equipo) => renderTemplate`<li data-astro-cid-uxy4ipun>${equipo}</li>`)} </ul> ${estacion.unidadesDisponibles && renderTemplate`<div class="est-units" data-astro-cid-uxy4ipun> <h4 data-astro-cid-uxy4ipun>Unidades Operativas:</h4> <div class="est-units__grid" data-astro-cid-uxy4ipun> ${estacion.unidadesDisponibles.map((unidad) => renderTemplate`<span class="est-units__item" data-astro-cid-uxy4ipun>${unidad}</span>`)} </div> </div>`} </article>`} <!-- Personal y Estadísticas --> ${(estacion.personalActivo || estacion.unidadesDisponibles) && renderTemplate`<article class="est-section" data-astro-cid-uxy4ipun> <h2 class="est-section__title" data-astro-cid-uxy4ipun> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" data-astro-cid-uxy4ipun></path> <circle cx="9" cy="7" r="4" data-astro-cid-uxy4ipun></circle> <path d="M23 21v-2a4 4 0 0 0-3-3.87" data-astro-cid-uxy4ipun></path> <path d="M16 3.13a4 4 0 0 1 0 7.75" data-astro-cid-uxy4ipun></path> </svg>
+Personal y Recursos
+</h2> <div class="est-stats" data-astro-cid-uxy4ipun> ${estacion.personalActivo && renderTemplate`<div class="est-stats__item" data-astro-cid-uxy4ipun> <span class="est-stats__number" data-astro-cid-uxy4ipun>${estacion.personalActivo}</span> <span class="est-stats__label" data-astro-cid-uxy4ipun>Elementos Activos</span> </div>`} ${estacion.unidadesDisponibles && renderTemplate`<div class="est-stats__item" data-astro-cid-uxy4ipun> <span class="est-stats__number" data-astro-cid-uxy4ipun>${estacion.unidadesDisponibles.length}</span> <span class="est-stats__label" data-astro-cid-uxy4ipun>Unidades Operativas</span> </div>`} <div class="est-stats__item" data-astro-cid-uxy4ipun> <span class="est-stats__number" data-astro-cid-uxy4ipun>24/7</span> <span class="est-stats__label" data-astro-cid-uxy4ipun>Disponibilidad</span> </div> </div> </article>`} <!-- Historia --> ${estacion.historia && renderTemplate`<article class="est-section" data-astro-cid-uxy4ipun> <h2 class="est-section__title" data-astro-cid-uxy4ipun> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" data-astro-cid-uxy4ipun></path> <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" data-astro-cid-uxy4ipun></path> </svg>
+Historia
+</h2> <p class="est-section__text" data-astro-cid-uxy4ipun>${estacion.historia}</p> </article>`} <!-- SEO Content (slot) --> <article class="est-section est-section--seo" data-astro-cid-uxy4ipun> ${renderSlot($$result2, $$slots["seo-content"], renderTemplate` <h2 data-astro-cid-uxy4ipun>Bomberos en ${ubicacion}, ${estado.nombre}</h2> <p data-astro-cid-uxy4ipun>
+La <strong data-astro-cid-uxy4ipun>${nombreCortoDisplay}</strong> es parte del <strong data-astro-cid-uxy4ipun>H. Cuerpo de Bomberos de ${estado.nombre}</strong>.
+                Esta estación, ubicada en <strong data-astro-cid-uxy4ipun>${estacion.direccion}${colonia ? `, ${colonia}` : ""}, ${ubicacion}</strong>,
+                brinda atención las 24 horas del día, los 365 días del año.
+</p> <p data-astro-cid-uxy4ipun>
+En caso de <strong data-astro-cid-uxy4ipun>emergencia en ${ubicacion}</strong>, marca el <strong data-astro-cid-uxy4ipun>911</strong> o comunícate directamente
+                a esta estación al <strong data-astro-cid-uxy4ipun>${estacion.telefono}</strong>. Los bomberos de ${estado.nombre} están capacitados para atender
+                incendios, rescates vehiculares, fugas de gas, emergencias industriales y todo tipo de emergencias.
+</p> <h3 data-astro-cid-uxy4ipun>¿Necesitas equipo certificado para bomberos?</h3> <p data-astro-cid-uxy4ipun>
+En <strong data-astro-cid-uxy4ipun><a href="/" data-astro-cid-uxy4ipun>BOMBERO.MX</a></strong> somos distribuidores autorizados de <strong data-astro-cid-uxy4ipun>equipo para bomberos certificado NFPA</strong>.
+                Equipamos estaciones en todo ${estado.nombre} con <a href="/productos/trajes-para-bomberos" data-astro-cid-uxy4ipun>trajes estructurales</a>,
+<a href="/productos/cascos-para-bomberos" data-astro-cid-uxy4ipun>cascos</a>, <a href="/productos/guantes-para-bomberos" data-astro-cid-uxy4ipun>guantes</a>,
+<a href="/productos/botas-para-bomberos" data-astro-cid-uxy4ipun>botas certificadas</a> y más.
+<a href="/cotizar" data-astro-cid-uxy4ipun>Solicita una cotización</a> sin compromiso.
+</p> `)} </article> </div> <!-- Sidebar --> <aside class="est-sidebar" data-astro-cid-uxy4ipun> <!-- Emergency Card --> <div class="est-sidebar__card est-sidebar__card--emergency" data-astro-cid-uxy4ipun> <h4 data-astro-cid-uxy4ipun>Emergencias</h4> <a href="tel:911" class="est-sidebar__emergency" data-astro-cid-uxy4ipun> <span class="est-sidebar__emergency-number" data-astro-cid-uxy4ipun>911</span> <span class="est-sidebar__emergency-label" data-astro-cid-uxy4ipun>Llamar ahora</span> </a> <p data-astro-cid-uxy4ipun>Número único de emergencias en ${estado.nombre}</p> </div> <!-- Estaciones Cercanas --> <div class="est-sidebar__card" data-astro-cid-uxy4ipun> <h4 data-astro-cid-uxy4ipun>Otras Estaciones en ${estado.siglas}</h4> <ul class="est-sidebar__stations" data-astro-cid-uxy4ipun> ${estacionesCercanas.map((est) => renderTemplate`<li data-astro-cid-uxy4ipun> <a${addAttribute(`/directorio/${estado.slug}/${est.slug}`, "href")} data-astro-cid-uxy4ipun> <span class="est-sidebar__station-name" data-astro-cid-uxy4ipun>${est.nombreCorto ?? est.nombre}</span> <span class="est-sidebar__station-municipio" data-astro-cid-uxy4ipun>${est.municipio ?? est.ciudad}</span> </a> </li>`)} </ul> <a${addAttribute(`/directorio/${estado.slug}`, "href")} class="est-sidebar__link" data-astro-cid-uxy4ipun>
+Ver todas las estaciones
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M5 12h14M12 5l7 7-7 7" data-astro-cid-uxy4ipun></path> </svg> </a> </div> <!-- Productos Relacionados --> <div class="est-sidebar__card" data-astro-cid-uxy4ipun> <h4 data-astro-cid-uxy4ipun>Equipo para Bomberos</h4> <ul class="est-sidebar__products" data-astro-cid-uxy4ipun> ${productosRelacionados.map((prod) => renderTemplate`<li data-astro-cid-uxy4ipun> <a${addAttribute(prod.href, "href")} data-astro-cid-uxy4ipun> <span class="est-sidebar__product-name" data-astro-cid-uxy4ipun>${prod.nombre}</span> <span class="est-sidebar__product-desc" data-astro-cid-uxy4ipun>${prod.desc}</span> </a> </li>`)} </ul> <a href="/productos" class="est-sidebar__link" data-astro-cid-uxy4ipun>
+Ver catálogo completo
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M5 12h14M12 5l7 7-7 7" data-astro-cid-uxy4ipun></path> </svg> </a> </div> <!-- CTA --> <div class="est-sidebar__card est-sidebar__card--cta" data-astro-cid-uxy4ipun> <h4 data-astro-cid-uxy4ipun>¿Equipas Bomberos?</h4> <p data-astro-cid-uxy4ipun>Distribuimos equipo certificado NFPA a estaciones de bomberos en todo México</p> <a href="/cotizar" class="est-sidebar__cta-btn" data-astro-cid-uxy4ipun>Solicitar Cotización</a> </div> <!-- Estados Cercanos --> <div class="est-sidebar__card" data-astro-cid-uxy4ipun> <h4 data-astro-cid-uxy4ipun>Directorio Nacional</h4> <ul class="est-sidebar__states" data-astro-cid-uxy4ipun> ${estadosVecinos.map((estadoVecino) => renderTemplate`<li data-astro-cid-uxy4ipun> <a${addAttribute(`/directorio/${estadoVecino.slug}`, "href")} data-astro-cid-uxy4ipun> ${estadoVecino.nombre} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M5 12h14M12 5l7 7-7 7" data-astro-cid-uxy4ipun></path> </svg> </a> </li>`)} </ul> <a href="/directorio" class="est-sidebar__link" data-astro-cid-uxy4ipun>
+Ver todos los estados
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M5 12h14M12 5l7 7-7 7" data-astro-cid-uxy4ipun></path> </svg> </a> </div> <!-- Contacto BOMBERO.MX --> <div class="est-sidebar__card" data-astro-cid-uxy4ipun> <h4 data-astro-cid-uxy4ipun>Contacto BOMBERO.MX</h4> <ul class="est-sidebar__contact" data-astro-cid-uxy4ipun> <li data-astro-cid-uxy4ipun> <a href="tel:+525520780102" data-astro-cid-uxy4ipun> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07" data-astro-cid-uxy4ipun></path> </svg>
+55 2078 0102
+</a> </li> <li data-astro-cid-uxy4ipun> <a href="https://wa.me/525520780102" data-astro-cid-uxy4ipun> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" data-astro-cid-uxy4ipun></path> </svg>
+WhatsApp
+</a> </li> <li data-astro-cid-uxy4ipun> <a href="mailto:ventas@bombero.mx" data-astro-cid-uxy4ipun> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" data-astro-cid-uxy4ipun> <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" data-astro-cid-uxy4ipun></path> <polyline points="22,6 12,13 2,6" data-astro-cid-uxy4ipun></polyline> </svg>
+ventas@bombero.mx
+</a> </li> </ul> </div> </aside> </div> </div> </section>  <section class="est-epp" data-astro-cid-uxy4ipun> <div class="container" data-astro-cid-uxy4ipun> <div class="est-epp__header" data-astro-cid-uxy4ipun> <div class="est-epp__header-left" data-astro-cid-uxy4ipun> <span class="est-epp__label" data-astro-cid-uxy4ipun>EPP Certificado NFPA</span> <h2 class="est-epp__title" data-astro-cid-uxy4ipun>Completa tu Equipo de Protección</h2> </div> <div class="est-epp__header-right" data-astro-cid-uxy4ipun> <p class="est-epp__intro" data-astro-cid-uxy4ipun>
+El traje estructural NFPA 1971 trabaja como parte de un sistema. Distribuimos equipo certificado
+            directamente a los cuerpos de bomberos de <strong data-astro-cid-uxy4ipun>${estado.nombre}</strong>. Todos los equipos cumplen
+            la misma edición de norma y están disponibles en stock inmediato.
+</p> <p class="est-epp__intro" data-astro-cid-uxy4ipun>
+Desde cascos y guantes estructurales hasta equipos SCBA y extintores certificados NOM, cada pieza
+            del catálogo está disponible para licitación gubernamental con ficha técnica y certificado de
+            laboratorio incluidos.
+</p> </div> </div> <div class="est-epp__grid" data-astro-cid-uxy4ipun> ${eppCardsCdn.map((card) => renderTemplate`<article class="est-epp__card" data-astro-cid-uxy4ipun> <a${addAttribute(card.href, "href")} class="est-epp__card-image" data-astro-cid-uxy4ipun> <img${addAttribute(card.image, "src")}${addAttribute(card.imageAlt, "alt")} width="400" height="260" loading="lazy" decoding="async" data-astro-cid-uxy4ipun> <span class="est-epp__card-badge" data-astro-cid-uxy4ipun>${card.badge}</span> </a> <div class="est-epp__card-content" data-astro-cid-uxy4ipun> <h3 class="est-epp__card-title" data-astro-cid-uxy4ipun>${card.title}</h3> <p class="est-epp__card-text" data-astro-cid-uxy4ipun>${unescapeHTML(card.text)}</p> <a${addAttribute(card.href, "href")} class="est-epp__card-link" data-astro-cid-uxy4ipun> ${card.linkLabel} <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" data-astro-cid-uxy4ipun> <path d="M5 12h14M12 5l7 7-7 7" data-astro-cid-uxy4ipun></path> </svg> </a> </div> </article>`)} </div> </div> </section>  ${renderComponent($$result2, "CTABanner", $$CTABanner, { "title": `\xBFEquipas a los Bomberos de ${ubicacion}?`, "desc": `Cotiza equipo certificado NFPA para la ${nombreCortoDisplay} y todas las estaciones de ${estado.nombre}. Env\xEDo a todos los municipios.`, "btnText": "Solicitar Cotizaci\xF3n", "btnHref": "/cotizar", "whatsapp": true, "data-astro-cid-uxy4ipun": true })} ` })} `;
+}, "/Users/carsolio/Desktop/PAGINAS-HTML/BOMBERO/src/LAYOUTS/EstacionLayout.astro", void 0);
+
+export { $$EstacionLayout as $ };

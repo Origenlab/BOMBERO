@@ -52,6 +52,14 @@ const seoKeywords = [
   "bomberos sinaloa",
   "estaciones de bomberos en mexico",
 ];
+// Truncar descripción para meta description SEO (max 155 chars)
+function truncateForSEO(text: string, maxLength: number): string {
+  if (!text || text.length <= maxLength) return text;
+  const truncated = text.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return lastSpace > maxLength * 0.7 ? truncated.slice(0, lastSpace) + '...' : truncated + '...';
+}
+const seoDescription = `${truncateForSEO(estacion.descripcion || '', 120)} Tel: ${estacion.telefono}. ${ubicacion}, Sinaloa.`;
 const stationJsonLd = {
   "@context": "https://schema.org",
   "@type": "FireStation",
@@ -92,7 +100,7 @@ const breadcrumbJsonLd = {
 
 <PageLayout
   title={`${estacion.nombreCorto} | Bomberos ${ubicacion} | BOMBERO.MX`}
-  description={`${estacion.descripcion} Teléfono: ${estacion.telefono}. Dirección: ${estacion.direccion}, ${estacion.colonia}, ${ubicacion}, Sinaloa.`}
+  description={seoDescription}
   keywords={seoKeywords}
   canonical={canonical}
   jsonLd={[stationJsonLd, breadcrumbJsonLd]}

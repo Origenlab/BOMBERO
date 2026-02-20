@@ -9,6 +9,7 @@ import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
 import Pagination from "@components/Pagination.astro";
+import BlogSearch from "@components/BlogSearch.astro";
 import { cdnW } from "@utils/cdn";
 import { getAllArticulos } from "@data/blog-articulos";
 
@@ -21,14 +22,20 @@ const allArticulos = getAllArticulos();
 const totalPages = Math.ceil(allArticulos.length / ARTICLES_PER_PAGE);
 const articulos = allArticulos.slice(0, ARTICLES_PER_PAGE);
 
-const categorias = [
-  { label: "Normativas", count: 1, slug: "normativas" },
-  { label: "Mantenimiento", count: 1, slug: "mantenimiento" },
-  { label: "Técnicas", count: 1, slug: "tecnicas" },
-  { label: "Industrial", count: 1, slug: "industrial" },
-  { label: "Forestales", count: 1, slug: "forestales" },
-  { label: "Equipo", count: 11, slug: "equipo" },
+/* ── Categorías con conteo dinámico ── */
+const catsList = [
+  { label: "Normativas", slug: "normativas" },
+  { label: "Mantenimiento", slug: "mantenimiento" },
+  { label: "Técnicas", slug: "tecnicas" },
+  { label: "Industrial", slug: "industrial" },
+  { label: "Forestales", slug: "forestales" },
+  { label: "Equipo", slug: "equipo" },
 ];
+
+const categorias = catsList.map((cat) => ({
+  ...cat,
+  count: allArticulos.filter((a) => a.categoria.toLowerCase() === cat.label.toLowerCase()).length,
+}));
 
 const breadcrumb = [
   { label: "Blog" },
@@ -169,6 +176,19 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
       <!-- ─── SIDEBAR ─── -->
       <aside class="blog-index-sidebar">
+
+        <!-- BÚSQUEDA -->
+        <div class="sb-card sb-card--search">
+          <h3 class="sb-card__title sb-card__title--dark">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Buscar
+          </h3>
+          <BlogSearch />
+          <a href="/blog/rss.xml" class="sb-rss-link" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
+            Suscríbete al RSS
+          </a>
+        </div>
 
         <!-- CTA COTIZAR -->
         <div class="sb-card sb-card--cta">
@@ -773,6 +793,31 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     text-align: right;
     padding-top: var(--space-1);
     border-top: 1px solid var(--color-smoke-100);
+  }
+
+  .sb-card--search {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .sb-rss-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-ember-600);
+    text-decoration: none;
+    padding: var(--space-2);
+    background: var(--color-ember-50);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+  }
+
+  .sb-rss-link:hover {
+    background: var(--color-ember-100);
+    color: var(--color-ember-700);
   }
 
   /* ══════════════════════════════════════════════════════════════════════

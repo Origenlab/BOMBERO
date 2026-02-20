@@ -50,7 +50,15 @@ const { estacion } = Astro.props;
 // Metadata dinamica
 const nombreCorto = estacion.nombre.replace("Estacion de Bomberos ", "").replace("Estacion Central de Bomberos ", "").replace("Estacion HAZMAT ", "");
 const title = `${estacion.nombre} | Bomberos Veracruz | BOMBERO.MX`;
-const description = `${estacion.descripcion} Tel: ${estacion.telefono}. ${estacion.horario}.`;
+// Truncar descripción para meta description SEO (max 155 chars)
+function truncateForSEO(text: string, maxLength: number): string {
+  if (!text || text.length <= maxLength) return text;
+  const truncated = text.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return lastSpace > maxLength * 0.7 ? truncated.slice(0, lastSpace) + '...' : truncated + '...';
+}
+const ubicacion = estacion.municipiosCubiertos?.[0] || "Veracruz";
+const seoDescription = `${truncateForSEO(estacion.descripcion || '', 120)} Tel: ${estacion.telefono}. ${ubicacion}, Veracruz.`;
 
 // Clasificadores
 const esHAZMAT = estacion.nombre.toLowerCase().includes("hazmat") ||
@@ -211,7 +219,7 @@ const schemaOrg = {
 };
 ---
 
-<PageLayout title={title} description={description}>
+<PageLayout title={title} description={seoDescription}>
   <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
   <meta name="geo.region" content="MX-VER" slot="head" />
   <meta name="geo.position" content={`${estacion.coordenadas.lat};${estacion.coordenadas.lng}`} slot="head" />

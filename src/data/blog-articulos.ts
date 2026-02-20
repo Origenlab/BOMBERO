@@ -19,7 +19,7 @@ export const articulosData: Record<string, ArticuloData> = {
   "nfpa-1971-guia-completa": {
     titulo: "NFPA 1971: Guía Completa del Estándar para Trajes y EPP Estructural de Bomberos",
     excerpt: "Guía definitiva sobre la norma NFPA 1971 para EPP de bomberos estructurales. Requisitos de certificación, componentes cubiertos, pruebas de laboratorio y cómo verificar que tu equipo cumple el estándar más exigente del mundo.",
-    imagen: "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+    imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Normativas",
     tags: ["NFPA 1971", "Certificación EPP", "Trajes Estructurales", "Normativa Bomberos", "TPP THL", "UL Intertek"],
     autor: "Equipo BOMBERO.MX",
@@ -1918,7 +1918,7 @@ En **BOMBERO.MX** tenemos el casco perfecto para cada operación de tu departame
   "traje-estructural-nfpa-1971": {
     titulo: "Traje Estructural NFPA 1971: Guía Definitiva del Sistema de 3 Capas para Bomberos",
     excerpt: "Guía completa del traje estructural NFPA 1971 para bomberos. Sistema de 3 capas, valores TPP y THL, marcas líderes, selección de tallas, mantenimiento y certificaciones. Todo lo que necesitas saber antes de comprar.",
-    imagen: "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+    imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Equipo",
     tags: ["Traje Estructural", "NFPA 1971", "Sistema 3 Capas", "TPP THL", "Turnout Gear", "EPP Bomberos"],
     autor: "Equipo BOMBERO.MX",
@@ -2267,7 +2267,7 @@ Nuestros especialistas están listos para asesorarte en la selección del traje 
 ### ¿Listo para Equipar a tu Departamento?
 
 - [**Ver catálogo de trajes estructurales →**](/productos/trajes-para-bomberos)
-- [**Conocer el sistema de 3 capas →**](/productos/sistema-3-capas)
+- [**Conocer el sistema de 3 capas →**](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas)
 - [**Solicitar cotización y medición →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -3964,7 +3964,7 @@ Departamentos de bomberos con equipos TRT (Technical Rescue Team):
 
 El casco es parte del **sistema de protección personal para rescate técnico**:
 
-- **[Arnés de rescate certificado](/productos/rescate):** NFPA 1983, Petzl, CMC
+- **[Arnés de rescate certificado](/productos/herramientas-rescate):** NFPA 1983, Petzl, CMC
 - **[Guantes de rescate técnico](/productos/guantes-para-bomberos/rescate):** Cuero y sintético
 - **[Botas de rescate](/productos/botas-para-bomberos):** Tracción y protección
 - **[Goggles de protección](/productos/gafas-para-bomberos):** ESS, Wiley X
@@ -4578,7 +4578,7 @@ La mayoría de guantes de rescate usan tallaje estándar S-XXL basado en circunf
 Los guantes son parte del **sistema de protección para rescate técnico**:
 
 - **[Casco de rescate NFPA 1951](/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951):** Protección de cabeza
-- **[Arnés de rescate](/productos/rescate):** Sistema de cuerdas
+- **[Arnés de rescate](/productos/herramientas-rescate):** Sistema de cuerdas
 - **[Goggles de protección](/productos/gafas-para-bomberos):** Protección ocular
 - **[Botas de rescate](/productos/botas-para-bomberos):** Tracción y protección
 
