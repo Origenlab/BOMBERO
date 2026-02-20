@@ -1,0 +1,334 @@
+---
+/**
+ * ─── BOMBERO.MX ───
+ * Producto: Capucha / Monja Particulada NFPA 1971 + Bloqueo PM2.5
+ * URL: /productos/capuchas-para-bomberos/particulada
+ * SEO Target: "capucha particulada bombero", "capucha anti carcinógenos bombero", "monja particulada NFPA 1971"
+ */
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/directorio/capucha-bombero-nomex-01.avif";
+
+/* ── Datos del producto ─────────────────────────────────────── */
+const capas = [
+  {
+    num: "01",
+    titulo: "Capa Exterior — Nomex® IIIA Certificado",
+    descripcion:
+      "Primera línea de defensa: tejido Nomex® IIIA con resistencia inherente a la llama. Cumple todos los requisitos de NFPA 1971 para capuchas estructurales. Protege contra llama directa, calor radiante y brasas mientras la capa interior trabaja bloqueando las partículas que atraviesan el tejido convencional.",
+    specs: [
+      { label: "Material", valor: "Nomex® IIIA (meta-aramida)" },
+      { label: "Peso del tejido", valor: "4.5 – 5.5 oz/yd²" },
+      { label: "Resistencia a la llama", valor: "ASTM D6413 — inherente" },
+      { label: "Función", valor: "Protección térmica + soporte estructural" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Membrana Interior — Bloqueo de Partículas PM2.5",
+    descripcion:
+      "Capa de barrera de partículas que bloquea contaminantes ultrafinos (PM2.5 y menores) presentes en el humo de incendio. Estudios de la IARC (Agencia Internacional de Investigación del Cáncer) confirman que el humo de incendio contiene carcinógenos como benceno, formaldehído y HAPs que penetran la piel. Esta membrana reduce la absorción dérmica de toxinas en la zona de cabeza y cuello — la más vascularizada y permeable del cuerpo.",
+    specs: [
+      { label: "Tecnología", valor: "Membrana de bloqueo particulado" },
+      { label: "Filtración", valor: "Partículas PM2.5 y menores" },
+      { label: "Carcinógenos bloqueados", valor: "Benceno, HAPs, formaldehído" },
+      { label: "Zona protegida", valor: "Cuello, nuca, mentón, orejas, frente" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Corte Ergonómico — Protocolo de Reducción de Exposición",
+    descripcion:
+      "Diseño de ajuste integral compatible con los protocolos de reducción de exposición a carcinógenos adoptados por departamentos de bomberos a nivel mundial. La cobertura de 360° en cabeza y cuello es crítica: la zona cervical es una de las de mayor absorción dérmica del cuerpo humano. El puño inferior solapa con el cuello del traje sin dejar piel expuesta.",
+    specs: [
+      { label: "Cobertura", valor: "360° — cuello, nuca, mentón, orejas, frente" },
+      { label: "Protocolo", valor: "Reducción de exposición a carcinógenos" },
+      { label: "Abertura facial", valor: "Compatible con máscara SCBA" },
+      { label: "Descontaminación", valor: "Lavable — protocolo NFPA 1851" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Material",           label: "Capa exterior",                valor: "Nomex® IIIA (meta-aramida)" },
+  { categoria: "Material",           label: "Capa interior",                valor: "Membrana de bloqueo de partículas PM2.5" },
+  { categoria: "Material",           label: "Peso total",                   valor: "5.5 – 7.0 oz/yd² (doble capa)" },
+  { categoria: "Material",           label: "Hilo de costura",              valor: "100 % Nomex® resistente a la llama" },
+  { categoria: "Protección Térmica", label: "Resistencia a la llama",       valor: "ASTM D6413 — inherente" },
+  { categoria: "Protección Térmica", label: "Encogimiento máximo",          valor: "< 5 % post-exposición" },
+  { categoria: "Protección Térmica", label: "Punto de fusión",              valor: "No aplica — no funde" },
+  { categoria: "Bloqueo Partículas", label: "Filtración",                   valor: "PM2.5 y partículas ultrafinas" },
+  { categoria: "Bloqueo Partículas", label: "Carcinógenos",                 valor: "Benceno, HAPs, formaldehído, acroleína" },
+  { categoria: "Bloqueo Partículas", label: "Vía de protección",            valor: "Absorción dérmica en zona cervical" },
+  { categoria: "Bloqueo Partículas", label: "Lavable",                      valor: "Sí — protocolo NFPA 1851" },
+  { categoria: "Compatibilidad",     label: "Casco",                        valor: "Todo casco NFPA 1971 / 1977 / 1951" },
+  { categoria: "Compatibilidad",     label: "SCBA",                         valor: "Toda máscara facial completa" },
+  { categoria: "Compatibilidad",     label: "Traje",                        valor: "Solape con cuello de traje NFPA 1971" },
+  { categoria: "Uso",                label: "Tallas disponibles",           valor: "Universal / Estándar / XL" },
+  { categoria: "Uso",                label: "Vida útil recomendada",        valor: "Según protocolo NFPA 1851" },
+  { categoria: "Certificación",      label: "Norma principal",              valor: "NFPA 1971 (edición vigente)" },
+  { categoria: "Certificación",      label: "Protección adicional",         valor: "Bloqueo de partículas (particulate blocking)" },
+  { categoria: "Certificación",      label: "Documentación incluida",       valor: "Ficha técnica + Certificado de laboratorio" },
+];
+
+const catClass: Record<string, string> = {
+  "Material":           "material",
+  "Protección Térmica": "proteccion",
+  "Bloqueo Partículas": "bloqueo",
+  "Compatibilidad":     "compatibilidad",
+  "Uso":                "uso",
+  "Certificación":      "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Protocolo de Reducción de Exposición",
+    desc: "Corporaciones que implementan protocolos de reducción de exposición a carcinógenos del humo. La capucha particulada es el primer paso en la protección dérmica de cabeza y cuello — la zona más permeable.",
+  },
+  {
+    titulo: "Prevención Oncológica Ocupacional",
+    desc: "Los bomberos tienen tasas significativamente más altas de ciertos tipos de cáncer. La membrana particulada bloquea la absorción de benceno, HAPs y formaldehído a través de la piel del cuello y la nuca durante y después del combate.",
+  },
+  {
+    titulo: "Overhaul y Post-Incendio",
+    desc: "Las fases de overhaul y revisión post-incendio generan humo con alta concentración de partículas tóxicas. La capucha particulada protege durante estas operaciones donde muchos bomberos retiran el SCBA prematuramente.",
+  },
+  {
+    titulo: "Combate Estructural con Protección Mejorada",
+    desc: "Mismo rendimiento que una capucha Nomex® estándar en protección térmica NFPA 1971, con la capa adicional de bloqueo de partículas para reducir la carga tóxica acumulativa a lo largo de la carrera del bombero.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Por qué los bomberos necesitan protección contra partículas?",
+    a: "Estudios de la IARC (Agencia Internacional de Investigación del Cáncer) clasifican la exposición ocupacional del bombero como 'cancerígena para humanos' (Grupo 1). El humo de incendio contiene benceno, formaldehído, HAPs y otros carcinógenos que penetran la piel — especialmente en la zona del cuello, que es altamente vascularizada y permeable. La capucha particulada bloquea estas partículas antes de que lleguen a la piel.",
+  },
+  {
+    q: "¿La capucha particulada protege igual que una Nomex® estándar contra el fuego?",
+    a: "Sí. La capa exterior es Nomex® IIIA certificado NFPA 1971, idéntica a la de una capucha estándar. La membrana de bloqueo de partículas es una capa adicional interior que no compromete la protección térmica. Es protección térmica NFPA 1971 + bloqueo de carcinógenos en una sola prenda.",
+  },
+  {
+    q: "¿La membrana de partículas se degrada con los lavados?",
+    a: "La membrana de bloqueo de partículas mantiene su eficacia durante la vida útil de la capucha cuando se sigue el protocolo de lavado de NFPA 1851 (agua tibia, detergente neutro, sin blanqueador). La descontaminación post-incendio es crucial: una capucha contaminada que no se lava adecuadamente sigue exponiendo al bombero a toxinas.",
+  },
+  {
+    q: "¿Qué departamentos ya usan capuchas particuladas?",
+    a: "Departamentos de bomberos en Estados Unidos, Canadá, Australia y Europa han adoptado la capucha particulada como parte de sus protocolos de reducción de exposición a carcinógenos. En México, corporaciones con protocolos avanzados de salud ocupacional ya las incorporan como estándar.",
+  },
+  {
+    q: "¿La capucha es más gruesa o incómoda que la estándar?",
+    a: "La doble capa (Nomex® + membrana) aumenta ligeramente el grosor pero no afecta la comodidad ni la compatibilidad con casco y SCBA. El diseño ergonómico está optimizado para que el bombero no note diferencia significativa en ajuste ni movilidad respecto a una capucha de capa simple.",
+  },
+  {
+    q: "¿Incluye documentación para licitaciones gubernamentales?",
+    a: "Sí. Cada capucha particulada incluye ficha técnica con especificaciones de ambas capas (Nomex® + membrana particulada), certificado de laboratorio NFPA 1971 y documentación de bloqueo de partículas — documentación completa para procesos de licitación en los 32 estados de México.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Capucha Nomex® Estructural",
+    badge: "NFPA 1971",
+    description: "Estándar de protección cefálica con Nomex® IIIA. Resistencia inherente a la llama para combate estructural certificado.",
+    href: "/productos/capuchas-para-bomberos/nomex",
+    buttonText: "Capucha Nomex®",
+    image: IMAGE,
+  },
+  {
+    title: "Capucha PBI Gold® Premium",
+    badge: "NFPA 1971",
+    description: "Máximo rendimiento térmico con mezcla PBI Gold®/Nomex®. No arde ni funde, ideal para combate interior agresivo.",
+    href: "/productos/capuchas-para-bomberos/pbi",
+    buttonText: "Capucha PBI Gold®",
+    image: IMAGE,
+  },
+  {
+    title: "Casco Estructural NFPA 1971",
+    badge: "NFPA 1971",
+    description: "Protección cefálica certificada. La capucha particulada complementa al casco protegiendo cuello y nuca contra calor y carcinógenos.",
+    href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971",
+    buttonText: "Cascos para Bombero",
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+  },
+  {
+    title: "Traje Estructural NFPA 1971",
+    badge: "NFPA 1971",
+    description: "Sistema 3 capas certificado. El puño de la capucha solapa con el cuello del traje para protección térmica y contra partículas completa.",
+    href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",
+    buttonText: "Trajes para Bombero",
+    image: "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+  },
+];
+
+/* ── Datos del sidebar ──────────────────────────────────────── */
+const otrosModelos = [
+  { label: "Capucha Nomex® Estructural",        href: "/productos/capuchas-para-bomberos/nomex" },
+  { label: "Capucha PBI Gold® Premium",          href: "/productos/capuchas-para-bomberos/pbi" },
+  { label: "Ver Todas las Capuchas",             href: "/productos/capuchas-para-bomberos" },
+];
+
+const epp = [
+  { label: "Casco Estructural NFPA 1971",   href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971",       tag: "Cabeza" },
+  { label: "Traje Estructural NFPA 1971",   href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",       tag: "Cuerpo" },
+  { label: "Guantes Estructurales",          href: "/productos/guantes-para-bomberos/estructurales",                     tag: "Manos" },
+  { label: "Botas de Cuero Bombero",         href: "/productos/botas-para-bomberos/estructural",                         tag: "Pies" },
+  { label: "SCBA Equipo Respiratorio",       href: "/productos",                                                         tag: "Resp." },
+];
+
+const articulos = [
+  { label: "Catálogo Capuchas de Bombero",      href: "/productos/capuchas-para-bomberos",                tag: "Catálogo" },
+  { label: "Trajes Estructurales NFPA 1971",    href: "/productos/trajes-para-bomberos",                  tag: "Producto" },
+  { label: "EPP Completo para Bomberos",         href: "/productos",                                       tag: "Guía" },
+  { label: "Cascos NFPA 1971 y 1977",            href: "/productos/cascos-para-bomberos",                  tag: "Catálogo" },
+  { label: "Guantes y Protección de Manos",      href: "/productos/guantes-para-bomberos",                 tag: "Catálogo" },
+  { label: "Botas y Calzado para Bomberos",      href: "/productos/botas-para-bomberos",                   tag: "Catálogo" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Ciudad de México",       href: "/directorio/ciudad-de-mexico" },
+  { label: "Bomberos Jalisco — Guadalajara",  href: "/directorio/jalisco" },
+  { label: "Bomberos Nuevo León — Monterrey", href: "/directorio/nuevo-leon" },
+  { label: "Bomberos Puebla",                 href: "/directorio/puebla" },
+  { label: "Bomberos Querétaro",              href: "/directorio/queretaro" },
+  { label: "Directorio Nacional Bomberos",    href: "/directorio" },
+];
+
+const specsRapidas = [
+  { label: "Norma",          valor: "NFPA 1971" },
+  { label: "Capa exterior",  valor: "Nomex® IIIA" },
+  { label: "Capa interior",  valor: "Membrana PM2.5" },
+  { label: "Bloqueo",        valor: "Partículas PM2.5" },
+  { label: "Carcinógenos",   valor: "Benceno, HAPs" },
+  { label: "Lavable",        valor: "Sí — NFPA 1851" },
+  { label: "Compatibilidad", valor: "Todo casco/SCBA" },
+  { label: "Cobertura",      valor: "360° cabeza/cuello" },
+];
+
+const certItems = [
+  { code: "NFPA 1971",     desc: "Protección estructural — edición vigente" },
+  { code: "PM2.5",          desc: "Bloqueo de partículas ultrafinas" },
+  { code: "ASTM D6413",    desc: "Resistencia vertical a la llama" },
+  { code: "NFPA 1851",     desc: "Protocolo de descontaminación y cuidado" },
+  { code: "ISO/IEC 17025", desc: "Laboratorio acreditado para ensayos" },
+];
+---
+
+<ProductoLayout
+  title="Capucha Particulada NFPA 1971 — Bloqueo PM2.5 para Bombero | BOMBERO.MX"
+  description="Capucha particulada certificada NFPA 1971 con membrana de bloqueo de partículas PM2.5 y carcinógenos del humo. Protección térmica + reducción de exposición dérmica. Compatible con todo casco y SCBA. Ficha técnica incluida. Envío a los 32 estados de México."
+  keywords={[
+    "capucha particulada bombero",
+    "capucha anti carcinógenos bombero",
+    "monja particulada NFPA 1971",
+    "capucha bloqueo partículas PM2.5",
+    "capucha bombero protección cáncer",
+    "capucha particulada México",
+    "comprar capucha particulada bombero",
+    "capucha bombero reducción exposición",
+  ]}
+  canonical="/productos/capuchas-para-bomberos/particulada"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                          href: "/" },
+    { label: "Productos",                       href: "/productos" },
+    { label: "Capuchas para Bombero",           href: "/productos/capuchas-para-bomberos" },
+    { label: "Capucha Particulada PM2.5" },
+  ]}
+
+  heroBadge="Capucha Particulada · NFPA 1971 · Bloqueo PM2.5"
+  heroTitle="Capucha Particulada"
+  heroTitleHighlight="Bloqueo de Carcinógenos PM2.5"
+  heroSubtitle="Protección térmica NFPA 1971 + membrana de bloqueo de partículas carcinógenas del humo. Reduce la absorción dérmica de benceno, HAPs y formaldehído en la zona de cabeza y cuello — la más permeable del cuerpo. El primer paso en el protocolo de reducción de exposición del bombero."
+  heroSeoBlocks={[
+    {
+      title: "Capucha Particulada NFPA 1971 — Protección contra Carcinógenos del Humo",
+      text: "La IARC clasifica la exposición ocupacional del bombero como <strong>cancerígena para humanos (Grupo 1)</strong>. La <strong>capucha particulada</strong> añade una membrana de bloqueo de partículas PM2.5 a la protección térmica estándar NFPA 1971 — reduciendo la absorción dérmica de toxinas en la zona más vulnerable. En <strong>BOMBERO.MX</strong> distribuimos capuchas particuladas certificadas para los <strong>32 estados de México</strong>.",
+    },
+    {
+      title: "Doble Protección: Térmica + Bloqueo de Partículas en Una Sola Prenda",
+      text: "La <strong>capucha particulada</strong> combina la capa exterior de <strong>Nomex® IIIA certificado NFPA 1971</strong> con una membrana interior de bloqueo de partículas que filtra contaminantes ultrafinos (PM2.5). Cada capucha incluye <strong>ficha técnica y certificado de laboratorio</strong> con documentación de ambas funciones — lista para <strong>licitaciones gubernamentales</strong>.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Capucha Particulada para Bombero"
+
+  productoCategoria="Capucha / Monja de Bombero"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1971" },
+    { modifier: "tpp",   text: "PM2.5" },
+    { modifier: "solas", text: "Anti-carcinógenos" },
+  ]}
+  productoTitle="Capucha Particulada"
+  productoTitleSub="NFPA 1971 + Bloqueo PM2.5"
+  productoDesc="Capucha de doble capa con protección térmica NFPA 1971 y membrana interior de bloqueo de partículas PM2.5 y carcinógenos del humo. Reduce la absorción dérmica de benceno, HAPs y formaldehído en la zona de cabeza y cuello. Compatible con todo casco y SCBA. Lavable y descontaminable."
+  productoFeatures={[
+    "Capa exterior Nomex® IIIA certificada NFPA 1971",
+    "Membrana interior de bloqueo de partículas PM2.5",
+    "Reduce absorción dérmica de carcinógenos del humo",
+    "Compatible con todo casco NFPA y máscara SCBA",
+    "Lavable con protocolo de descontaminación NFPA 1851",
+    "Certificado de laboratorio NFPA 1971 incluido",
+  ]}
+  productoAppTags={[
+    "Reducción de exposición",
+    "Prevención oncológica",
+    "Combate estructural",
+    "Overhaul post-incendio",
+    "Protocolo de salud",
+  ]}
+
+  gallery={[
+    { src: "/images/directorio/capucha-bombero-nomex-01.avif",                   alt: "Capucha particulada NFPA 1971 con bloqueo PM2.5" },
+    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Bomberos en incendio estructural con protección particulada" },
+    { src: "/images/directorio/equipo-bomberos-completo-01.avif",                alt: "Equipo completo EPP con capucha particulada" },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",            alt: "Entrenamiento con EPP y capucha particulada" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Bomberos profesionales con protección contra carcinógenos" },
+    { src: "/images/directorio/equipo-proteccion-bomberos-01.avif",              alt: "Equipo de protección personal completo" },
+  ]}
+
+  capasEyebrow="Anatomía de la Capucha"
+  capasTitle="Sistema de Doble Capa: Térmica + Particulada"
+  capasDesc="La capucha particulada integra dos niveles de protección en una sola prenda: la barrera térmica Nomex® NFPA 1971 y la membrana de bloqueo de partículas carcinógenas del humo."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones Completas"
+  specsDesc="Parámetros verificados en laboratorio certificado ISO/IEC 17025. La capucha particulada cumple NFPA 1971 en protección térmica y añade el bloqueo de partículas como función adicional."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Escenarios de Uso"
+  aplicacionesTitle="¿Dónde se Usa la Capucha Particulada?"
+  aplicacionesContent="<p>La <strong>capucha particulada NFPA 1971</strong> se recomienda para toda corporación que implemente protocolos de <strong>reducción de exposición a carcinógenos</strong> del humo de incendio. Es el mismo rendimiento térmico que una capucha Nomex® estándar con la protección adicional contra partículas tóxicas.</p><p>La zona de cabeza y cuello es una de las más permeables del cuerpo humano. Protegerla contra la absorción dérmica de toxinas del humo es una medida de <strong>prevención oncológica ocupacional</strong> respaldada por la evidencia científica.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="NFPA 1971 + Bloqueo de Partículas — Protección Integral"
+  certsDesc="La <strong>capucha particulada</strong> cumple todos los requisitos de <strong>NFPA 1971</strong> para protección térmica estructural y añade la función de <strong>bloqueo de partículas PM2.5</strong>. La IARC clasifica la exposición del bombero como cancerígena (Grupo 1) — esta capucha es parte de la respuesta."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/capuchas-para-bomberos"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Todo sobre la Capucha Particulada para Bombero"
+  faqDescription="Respondemos las dudas técnicas más frecuentes sobre el bloqueo de partículas, carcinógenos del humo, descontaminación y certificación NFPA 1971."
+  faqDocTitle="Descarga la Ficha Técnica"
+  faqDocDesc="Solicita la ficha técnica completa con especificaciones de la membrana particulada y certificado de laboratorio NFPA 1971."
+  faqDocCtaHref="/cotizar"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="EPP Complementario"
+  relacionadosTitle="Completa tu Equipo de Protección"
+  relacionadosDesc="La capucha particulada es parte del protocolo de reducción de exposición. Complementa con el resto del EPP certificado NFPA para protección integral."
+  relacionados={relacionados}
+/>

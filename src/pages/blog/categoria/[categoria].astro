@@ -1,0 +1,645 @@
+---
+/**
+ * ─── Blog Category Page ───
+ * Página de categoría del blog con artículos filtrados.
+ * URL: /blog/categoria/[categoria]
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import CTABanner from "@components/CTABanner.astro";
+import { cdnW } from "@utils/cdn";
+import { getAllArticulos } from "@data/blog-articulos";
+
+/* ── Generar rutas estáticas ── */
+export function getStaticPaths() {
+  const cats = [
+    { slug: "normativas", nombre: "Normativas", descripcion: "Artículos sobre normas NFPA, certificaciones y requisitos legales para equipo de bomberos.", keywords: ["NFPA 1971", "certificación EPP", "normas bomberos", "requisitos legales"] },
+    { slug: "mantenimiento", nombre: "Mantenimiento", descripcion: "Guías de mantenimiento, inspección y cuidado de equipos de protección personal.", keywords: ["mantenimiento SCBA", "inspección EPP", "cuidado equipo bomberos"] },
+    { slug: "tecnicas", nombre: "Técnicas", descripcion: "Técnicas modernas de rescate, extricación y operaciones de emergencia.", keywords: ["rescate vehicular", "técnicas bomberos", "extricación", "operaciones emergencia"] },
+    { slug: "industrial", nombre: "Industrial", descripcion: "Contenido especializado para brigadas industriales y equipos de respuesta en plantas.", keywords: ["brigadas industriales", "EPP industrial", "seguridad planta", "respuesta emergencia"] },
+    { slug: "forestales", nombre: "Forestales", descripcion: "Artículos sobre combate de incendios forestales, temporadas y equipo especializado.", keywords: ["incendios forestales", "NFPA 1977", "combate forestal", "temporada incendios"] },
+    { slug: "equipo", nombre: "Equipo", descripcion: "Guías de selección, comparativas y análisis de equipo de protección personal.", keywords: ["cascos bombero", "equipo EPP", "selección equipo", "comparativa EPP"] },
+  ];
+
+  return cats.map((cat) => ({
+    params: { categoria: cat.slug },
+    props: { catData: cat },
+  }));
+}
+
+const { categoria } = Astro.params;
+const { catData } = Astro.props;
+
+/* ── Filtrar artículos por categoría ── */
+const todosArticulos = getAllArticulos();
+const articulosCategoria = todosArticulos.filter(
+  (a) => a.categoria.toLowerCase() === catData.nombre.toLowerCase()
+);
+
+/* ── Sidebar data ── */
+const catsList = [
+  { slug: "normativas", nombre: "Normativas" },
+  { slug: "mantenimiento", nombre: "Mantenimiento" },
+  { slug: "tecnicas", nombre: "Técnicas" },
+  { slug: "industrial", nombre: "Industrial" },
+  { slug: "forestales", nombre: "Forestales" },
+  { slug: "equipo", nombre: "Equipo" },
+];
+
+const categorias = catsList.map((cat) => ({
+  label: cat.nombre,
+  slug: cat.slug,
+  count: todosArticulos.filter((a) => a.categoria.toLowerCase() === cat.nombre.toLowerCase()).length,
+  active: cat.slug === categoria,
+}));
+
+const articulosPopulares = [
+  { label: "NFPA 1971: Guía Completa", href: "/blog/nfpa-1971-guia-completa" },
+  { label: "Mantenimiento SCBA", href: "/blog/mantenimiento-scba" },
+  { label: "Rescate Vehicular", href: "/blog/rescate-vehicular-tecnicas" },
+  { label: "EPP para Brigadas", href: "/blog/brigadas-industriales-epp" },
+];
+
+const productosRelacionados = [
+  { label: "Trajes Estructurales", href: "/productos/trajes-para-bomberos" },
+  { label: "Cascos NFPA", href: "/productos/cascos-para-bomberos" },
+  { label: "Equipos SCBA", href: "/productos/scba" },
+  { label: "Guantes Estructurales", href: "/productos/guantes-para-bomberos" },
+];
+
+const directorioLinks = [
+  { label: "Ciudad de México", href: "/directorio/ciudad-de-mexico" },
+  { label: "Jalisco", href: "/directorio/jalisco" },
+  { label: "Nuevo León", href: "/directorio/nuevo-leon" },
+];
+
+const breadcrumb = [
+  { label: "Blog", href: "/blog" },
+  { label: catData.nombre },
+];
+---
+
+<PageLayout
+  title={`${catData.nombre} — Blog BOMBERO.MX`}
+  description={catData.descripcion}
+  keywords={catData.keywords}
+  canonical={`/blog/categoria/${categoria}`}
+>
+
+  <Breadcrumb items={breadcrumb} />
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- HERO                                                             -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="cat-hero">
+    <div class="cat-hero__bg">
+      <div class="cat-hero__gradient"></div>
+      <div class="cat-hero__grid"></div>
+    </div>
+
+    <div class="container">
+      <div class="cat-hero__content">
+        <div class="cat-hero__badge">
+          <span class="cat-hero__badge-dot"></span>
+          Blog · Categoría
+        </div>
+        <h1 class="cat-hero__title">{catData.nombre}</h1>
+        <p class="cat-hero__desc">{catData.descripcion}</p>
+        <div class="cat-hero__meta">
+          <span class="cat-hero__count">{articulosCategoria.length} artículo{articulosCategoria.length !== 1 ? 's' : ''}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- LAYOUT PRINCIPAL — ARTÍCULOS + SIDEBAR                          -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <section class="blog-layout">
+    <div class="container">
+      <div class="blog-layout__grid">
+
+        <!-- Main Content -->
+        <main class="blog-main">
+          {articulosCategoria.length > 0 ? (
+            <div class="articles-grid">
+              {articulosCategoria.map((articulo) => (
+                <article class="article-card">
+                  <div class="article-card__img-wrap">
+                    <img
+                      src={cdnW(articulo.imagen, 500)}
+                      alt={articulo.titulo}
+                      width="500"
+                      height="280"
+                      loading="lazy"
+                      class="article-card__img"
+                    />
+                    <span class="article-card__cat">{articulo.categoria}</span>
+                  </div>
+                  <div class="article-card__body">
+                    <h2 class="article-card__title">
+                      <a href={`/blog/${articulo.slug}`}>{articulo.titulo}</a>
+                    </h2>
+                    <p class="article-card__excerpt">{articulo.excerpt}</p>
+                    <div class="article-card__footer">
+                      <div class="article-card__tags">
+                        {articulo.tags.slice(0, 2).map((tag) => (
+                          <span class="article-card__tag">{tag}</span>
+                        ))}
+                      </div>
+                      <a href={`/blog/${articulo.slug}`} class="article-card__link">
+                        {articulo.anchorKeyword}
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div class="no-articles">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V9a2 2 0 0 0-2-2h-1"/>
+                <line x1="9" y1="9" x2="13" y2="9"/>
+                <line x1="9" y1="13" x2="15" y2="13"/>
+              </svg>
+              <h3>Próximamente</h3>
+              <p>Estamos preparando contenido para esta categoría. Mientras tanto, explora otras secciones del blog.</p>
+              <a href="/blog" class="btn btn--primary">Ver todos los artículos</a>
+            </div>
+          )}
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="blog-sidebar">
+          <!-- Categorías -->
+          <div class="sb-card">
+            <h3 class="sb-card__title">Categorías</h3>
+            <div class="sb-cats">
+              {categorias.map((cat) => (
+                <a
+                  href={`/blog/categoria/${cat.slug}`}
+                  class={`sb-cat__link ${cat.active ? 'sb-cat__link--active' : ''}`}
+                >
+                  <span>{cat.label}</span>
+                  <span class="sb-cat__count">{cat.count}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Artículos Populares -->
+          <div class="sb-card">
+            <h3 class="sb-card__title">Artículos Populares</h3>
+            <ul class="sb-links">
+              {articulosPopulares.map((item) => (
+                <li>
+                  <a href={item.href} class="sb-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Productos Relacionados -->
+          <div class="sb-card">
+            <h3 class="sb-card__title">Productos Relacionados</h3>
+            <ul class="sb-links">
+              {productosRelacionados.map((item) => (
+                <li>
+                  <a href={item.href} class="sb-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+                      <line x1="7" y1="7" x2="7.01" y2="7"/>
+                    </svg>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="/productos" class="sb-see-all">Ver catálogo completo →</a>
+          </div>
+
+          <!-- Directorio -->
+          <div class="sb-card">
+            <h3 class="sb-card__title">Directorio de Bomberos</h3>
+            <ul class="sb-links">
+              {directorioLinks.map((item) => (
+                <li>
+                  <a href={item.href} class="sb-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="/directorio" class="sb-see-all">Ver todas las estaciones →</a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Equipa a tu Departamento"
+    desc="Más de 500 productos certificados NFPA listos para envío inmediato a toda la República."
+    btnText="Solicitar Cotización"
+    btnHref="/cotizar"
+  />
+
+</PageLayout>
+
+<style>
+  /* ══════════════════════════════════════════════════════════════════════
+     HERO
+     ══════════════════════════════════════════════════════════════════════ */
+  .cat-hero {
+    position: relative;
+    padding: var(--space-16) 0 var(--space-12);
+    background: var(--color-smoke-950);
+    overflow: hidden;
+  }
+
+  .cat-hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .cat-hero__gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent);
+  }
+
+  .cat-hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .cat-hero__content {
+    position: relative;
+    max-width: 700px;
+  }
+
+  .cat-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-4);
+    background: rgba(220, 38, 38, 0.1);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-fire-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-6);
+  }
+
+  .cat-hero__badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-fire-500);
+    border-radius: 50%;
+  }
+
+  .cat-hero__title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    color: white;
+    line-height: 1.1;
+    margin: 0 0 var(--space-4);
+  }
+
+  .cat-hero__desc {
+    font-size: var(--text-lg);
+    color: var(--color-smoke-300);
+    line-height: 1.7;
+    margin: 0 0 var(--space-6);
+  }
+
+  .cat-hero__meta {
+    display: flex;
+    gap: var(--space-4);
+  }
+
+  .cat-hero__count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: rgba(255,255,255,0.05);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-300);
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     BLOG LAYOUT
+     ══════════════════════════════════════════════════════════════════════ */
+  .blog-layout {
+    padding: var(--space-16) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .blog-layout__grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     ARTICLES GRID
+     ══════════════════════════════════════════════════════════════════════ */
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+
+  .article-card {
+    background: white;
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    border: 1px solid var(--color-smoke-100);
+  }
+
+  .article-card__img-wrap {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  .article-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-card__cat {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-fire-600);
+    color: white;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-md);
+  }
+
+  .article-card__body {
+    padding: var(--space-6);
+  }
+
+  .article-card__title {
+    font-size: var(--text-lg);
+    font-weight: 800;
+    line-height: 1.3;
+    margin: 0 0 var(--space-3);
+  }
+
+  .article-card__title a {
+    color: var(--color-smoke-900);
+    text-decoration: none;
+  }
+
+  .article-card__excerpt {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    line-height: 1.6;
+    margin: 0 0 var(--space-4);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .article-card__footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .article-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .article-card__tag {
+    padding: var(--space-1) var(--space-2);
+    background: var(--color-smoke-100);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-smoke-600);
+    border-radius: var(--radius-sm);
+  }
+
+  .article-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--color-fire-600);
+    text-decoration: none;
+  }
+
+  .article-card__link svg {
+    transition: transform 0.2s;
+  }
+
+  .article-card__link:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     NO ARTICLES
+     ══════════════════════════════════════════════════════════════════════ */
+  .no-articles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-16);
+    background: white;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--color-smoke-100);
+  }
+
+  .no-articles svg {
+    color: var(--color-smoke-300);
+    margin-bottom: var(--space-6);
+  }
+
+  .no-articles h3 {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-2);
+  }
+
+  .no-articles p {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    margin: 0 0 var(--space-6);
+    max-width: 400px;
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     SIDEBAR
+     ══════════════════════════════════════════════════════════════════════ */
+  .blog-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  .sb-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    border: 1px solid var(--color-smoke-100);
+  }
+
+  .sb-card__title {
+    font-size: var(--text-sm);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 2px solid var(--color-fire-500);
+  }
+
+  .sb-cats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .sb-cat__link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+  }
+
+  .sb-cat__link--active {
+    background: var(--color-fire-50);
+    color: var(--color-fire-700);
+    font-weight: 700;
+  }
+
+  .sb-cat__count {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-smoke-400);
+    background: var(--color-smoke-100);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+  }
+
+  .sb-cat__link--active .sb-cat__count {
+    background: var(--color-fire-100);
+    color: var(--color-fire-600);
+  }
+
+  .sb-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .sb-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+  }
+
+  .sb-link svg {
+    color: var(--color-smoke-400);
+    flex-shrink: 0;
+  }
+
+  .sb-see-all {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-fire-600);
+    text-decoration: none;
+    text-align: right;
+    padding-top: var(--space-3);
+    margin-top: var(--space-3);
+    border-top: 1px solid var(--color-smoke-100);
+  }
+
+  /* ══════════════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ══════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .blog-layout__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-sidebar {
+      position: static;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cat-hero {
+      padding: var(--space-12) 0 var(--space-10);
+    }
+
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .blog-sidebar {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

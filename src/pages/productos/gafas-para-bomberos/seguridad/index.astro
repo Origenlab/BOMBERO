@@ -1,0 +1,332 @@
+---
+/**
+ * ─── BOMBERO.MX ───
+ * Producto: Gafas de Seguridad Antiimpacto para Bombero
+ * URL: /productos/gafas-para-bomberos/seguridad
+ * SEO Target: "gafas seguridad bombero", "gafas antiimpacto bombero ANSI Z87.1", "gafas rescate bombero México"
+ */
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/directorio/equipo-proteccion-bomberos-01.avif";
+
+/* ── Datos del producto ─────────────────────────────────────── */
+const capas = [
+  {
+    num: "01",
+    titulo: "Lente Envolvente — Policarbonato Antiimpacto",
+    descripcion:
+      "Lente de policarbonato de una sola pieza con diseño envolvente que maximiza el campo visual periférico. Resistencia certificada ANSI Z87.1 contra impactos de partículas de alta y baja velocidad. Protección UV 400 que bloquea el 99.9 % de radiación UVA y UVB. Tratamiento antiempañante interior para operaciones de rescate con esfuerzo físico intenso.",
+    specs: [
+      { label: "Material", valor: "Policarbonato óptico de una pieza" },
+      { label: "Diseño", valor: "Envolvente 180° — máximo campo visual" },
+      { label: "Resistencia impacto", valor: "ANSI Z87.1 certificado" },
+      { label: "Protección UV", valor: "UV 400 — 99.9 % UVA/UVB" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Montura Flexible — Perfil Ultra Bajo",
+    descripcion:
+      "Montura de nylon o TR-90 ultraflexible que se adapta a diferentes formas de rostro sin puntos de presión. El perfil ultra bajo permite el uso bajo cascos de rescate NFPA 1951 sin interferir con el sistema de suspensión ni con los arcos de sujeción. Los arcos antideslizantes con puntas de silicona mantienen las gafas en posición durante movimientos bruscos sin necesidad de banda.",
+    specs: [
+      { label: "Material montura", valor: "Nylon / TR-90 ultraflexible" },
+      { label: "Perfil", valor: "Ultra bajo — compatible con casco" },
+      { label: "Arcos", valor: "Antideslizantes con puntas de silicona" },
+      { label: "Ajuste", valor: "Flexible a diferentes formas de rostro" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Protección Periférica — Cobertura Envolvente",
+    descripcion:
+      "El diseño envolvente proporciona protección lateral contra partículas e impactos sin necesidad de protectores laterales adicionales. La curvatura del lente sigue la línea natural de las cejas y los pómulos, creando una barrera continua. A diferencia del goggle sellado, las gafas permiten mayor ventilación natural — ideal para operaciones prolongadas donde el riesgo de salpicaduras es bajo.",
+    specs: [
+      { label: "Protección lateral", valor: "Integrada en diseño envolvente" },
+      { label: "Ventilación", valor: "Natural — sin sellado perimetral" },
+      { label: "Peso total", valor: "< 30 g (ultraligeras)" },
+      { label: "Ideal para", valor: "Operaciones prolongadas sin salpicaduras" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Óptica",          label: "Material del lente",             valor: "Policarbonato óptico de una pieza" },
+  { categoria: "Óptica",          label: "Diseño del lente",               valor: "Envolvente 180° sin distorsión" },
+  { categoria: "Óptica",          label: "Resistencia al impacto",         valor: "ANSI Z87.1 certificado" },
+  { categoria: "Óptica",          label: "Protección UV",                  valor: "UV 400 — 99.9 % UVA/UVB" },
+  { categoria: "Óptica",          label: "Tratamiento antiempañante",      valor: "Cara interior" },
+  { categoria: "Óptica",          label: "Tratamiento antirayado",         valor: "Cara exterior" },
+  { categoria: "Montura",         label: "Material",                       valor: "Nylon / TR-90 ultraflexible" },
+  { categoria: "Montura",         label: "Perfil",                         valor: "Ultra bajo — compatible con cascos" },
+  { categoria: "Montura",         label: "Arcos",                          valor: "Antideslizantes con puntas de silicona" },
+  { categoria: "Montura",         label: "Peso total",                     valor: "< 30 g" },
+  { categoria: "Protección",      label: "Impacto frontal",                valor: "ANSI Z87.1 certificado" },
+  { categoria: "Protección",      label: "Protección lateral",             valor: "Integrada en diseño envolvente" },
+  { categoria: "Protección",      label: "Partículas y polvo",             valor: "Protección envolvente (no sellada)" },
+  { categoria: "Protección",      label: "Salpicaduras",                   valor: "Limitada — usar goggle para sellado total" },
+  { categoria: "Compatibilidad",  label: "Casco rescate",                  valor: "NFPA 1951 — bajo el casco" },
+  { categoria: "Compatibilidad",  label: "Casco forestal",                 valor: "NFPA 1977 — bajo el casco" },
+  { categoria: "Compatibilidad",  label: "Casco estructural",              valor: "NFPA 1971 — bajo el visor" },
+  { categoria: "Certificación",   label: "Normas",                         valor: "ANSI Z87.1 / EN 166 (edición vigente)" },
+  { categoria: "Certificación",   label: "Documentación incluida",         valor: "Ficha técnica + Certificado de laboratorio" },
+];
+
+const catClass: Record<string, string> = {
+  "Óptica":          "optica",
+  "Montura":         "montura",
+  "Protección":      "proteccion",
+  "Compatibilidad":  "compatibilidad",
+  "Certificación":   "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Rescate Vehicular y Extricación",
+    desc: "Protección contra fragmentos de vidrio, metal y plástico durante el corte con herramientas hidráulicas. El perfil bajo permite usar las gafas bajo el casco de rescate sin interferir con visores ni arcos de sujeción.",
+  },
+  {
+    titulo: "Rescate Técnico y Espacios Confinados",
+    desc: "Operaciones de búsqueda y rescate en derrumbes, zanjas y espacios confinados. Las gafas ultraligeras (< 30 g) permiten uso prolongado sin fatiga. Mayor campo visual periférico que el goggle para maniobras de precisión.",
+  },
+  {
+    titulo: "Operaciones en Altura y Rappel",
+    desc: "Rescate vertical donde el viento, el polvo y los fragmentos de roca o estructura pueden impactar los ojos. El diseño envolvente protege sin necesidad de sellado — mayor comodidad en ascenso y descenso.",
+  },
+  {
+    titulo: "Brigadas Industriales y Protección Civil",
+    desc: "Protección ocular estándar para brigadas industriales, protección civil y equipos de emergencia que no enfrentan riesgo de salpicaduras químicas. Cumplen la norma ANSI Z87.1 exigida en protocolos de seguridad industrial.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Cuál es la diferencia entre las gafas antiimpacto y el goggle sellado?",
+    a: "Las gafas antiimpacto ofrecen protección envolvente contra partículas e impactos con mayor comodidad, menor peso (< 30 g vs > 120 g) y mejor campo visual. El goggle sellado ofrece protección perimetral total contra salpicaduras, gases y calor radiante. Las gafas son ideales para rescate técnico; el goggle para combate estructural.",
+  },
+  {
+    q: "¿Las gafas son compatibles con el casco de rescate NFPA 1951?",
+    a: "Sí. El perfil ultra bajo de las gafas está diseñado específicamente para caber bajo el casco de rescate sin interferir con el sistema de suspensión ni con los arcos de sujeción. También son compatibles con cascos forestales NFPA 1977 y estructurales NFPA 1971.",
+  },
+  {
+    q: "¿Puedo usar las gafas en combate de incendio estructural?",
+    a: "Las gafas antiimpacto NO sustituyen al goggle sellado en combate estructural, donde hay riesgo de salpicaduras, brasas y calor radiante intenso. Las gafas son la opción para rescate técnico, extricación y operaciones donde el riesgo principal es el impacto de partículas, no las salpicaduras ni el calor.",
+  },
+  {
+    q: "¿Las gafas se empañan?",
+    a: "El diseño envolvente con ventilación natural reduce significativamente el empañamiento comparado con el goggle sellado. El tratamiento antiempañante en la cara interior del lente complementa la ventilación. Para operaciones de máximo esfuerzo, la ventilación natural de las gafas es una ventaja sobre el goggle.",
+  },
+  {
+    q: "¿Las gafas protegen contra radiación UV?",
+    a: "Sí. El lente de policarbonato incluye protección UV 400 que bloquea el 99.9 % de radiación UVA y UVB. Esto protege en operaciones al aire libre bajo sol directo — rescate en altura, incidentes forestales y operaciones prolongadas en exteriores.",
+  },
+  {
+    q: "¿Incluyen ficha técnica para licitaciones?",
+    a: "Sí. Cada par de gafas de seguridad incluye ficha técnica con especificaciones ópticas y de protección, certificado de laboratorio ANSI Z87.1 y documentación de cumplimiento EN 166 — todo lo requerido para procesos de licitación gubernamental en los 32 estados de México.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Goggle de Bombero",
+    badge: "NFPA 1971",
+    description: "Protección ocular sellada para combate estructural. Sellado perimetral completo contra partículas, salpicaduras y calor radiante.",
+    href: "/productos/gafas-para-bomberos/goggle",
+    buttonText: "Goggle de Bombero",
+    image: IMAGE,
+  },
+  {
+    title: "Casco de Rescate NFPA 1951",
+    badge: "NFPA 1951",
+    description: "Casco de rescate técnico compatible con las gafas antiimpacto. Perfil bajo para trabajo en extricación y espacios confinados.",
+    href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951",
+    buttonText: "Cascos para Bombero",
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+  },
+  {
+    title: "Guantes de Rescate",
+    badge: "NFPA 1951",
+    description: "Guantes de extricación para operaciones de rescate vehicular y técnico. El complemento natural de las gafas en operaciones de rescate.",
+    href: "/productos/guantes-para-bomberos/rescate",
+    buttonText: "Guantes para Bombero",
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+  },
+  {
+    title: "Traje Estructural NFPA 1971",
+    badge: "NFPA 1971",
+    description: "Sistema 3 capas certificado. Las gafas complementan el EPP para protección visual en operaciones de soporte y rescate.",
+    href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",
+    buttonText: "Trajes para Bombero",
+    image: "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+  },
+];
+
+/* ── Datos del sidebar ──────────────────────────────────────── */
+const otrosModelos = [
+  { label: "Goggle de Bombero Sellado",          href: "/productos/gafas-para-bomberos/goggle" },
+  { label: "Ver Toda la Protección Visual",      href: "/productos/gafas-para-bomberos" },
+];
+
+const epp = [
+  { label: "Casco de Rescate NFPA 1951",    href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951",  tag: "Cabeza" },
+  { label: "Casco Estructural NFPA 1971",   href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971",      tag: "Cabeza" },
+  { label: "Guantes de Rescate",             href: "/productos/guantes-para-bomberos/rescate",                          tag: "Manos" },
+  { label: "Traje Estructural NFPA 1971",   href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",      tag: "Cuerpo" },
+  { label: "Botas Estructurales",            href: "/productos/botas-para-bomberos/estructural",                        tag: "Pies" },
+];
+
+const articulos = [
+  { label: "Catálogo Protección Visual",         href: "/productos/gafas-para-bomberos",                tag: "Catálogo" },
+  { label: "Cascos NFPA 1971 y 1951",            href: "/productos/cascos-para-bomberos",               tag: "Catálogo" },
+  { label: "Guantes de Rescate y Extricación",   href: "/productos/guantes-para-bomberos",              tag: "Catálogo" },
+  { label: "Trajes Estructurales NFPA 1971",     href: "/productos/trajes-para-bomberos",               tag: "Producto" },
+  { label: "EPP Completo para Bomberos",          href: "/productos",                                    tag: "Guía" },
+  { label: "Botas y Calzado para Bomberos",       href: "/productos/botas-para-bomberos",                tag: "Catálogo" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Ciudad de México",       href: "/directorio/ciudad-de-mexico" },
+  { label: "Bomberos Jalisco — Guadalajara",  href: "/directorio/jalisco" },
+  { label: "Bomberos Nuevo León — Monterrey", href: "/directorio/nuevo-leon" },
+  { label: "Bomberos Puebla",                 href: "/directorio/puebla" },
+  { label: "Bomberos Querétaro",              href: "/directorio/queretaro" },
+  { label: "Directorio Nacional Bomberos",    href: "/directorio" },
+];
+
+const specsRapidas = [
+  { label: "Norma",          valor: "ANSI Z87.1 / EN 166" },
+  { label: "Lente",          valor: "Policarbonato una pieza" },
+  { label: "Diseño",         valor: "Envolvente 180°" },
+  { label: "UV",             valor: "UV 400 — 99.9 %" },
+  { label: "Peso",           valor: "< 30 g" },
+  { label: "Montura",        valor: "Nylon / TR-90 flex" },
+  { label: "Perfil",         valor: "Ultra bajo" },
+  { label: "Compatibilidad", valor: "Todo casco NFPA" },
+];
+
+const certItems = [
+  { code: "ANSI Z87.1",    desc: "Resistencia al impacto — norma americana" },
+  { code: "EN 166",         desc: "Protección ocular personal — norma europea" },
+  { code: "UV 400",         desc: "Bloqueo 99.9 % radiación UVA/UVB" },
+  { code: "NFPA 1951",     desc: "Compatible con sistema de rescate técnico" },
+  { code: "ISO/IEC 17025", desc: "Laboratorio acreditado para ensayos" },
+];
+---
+
+<ProductoLayout
+  title="Gafas de Seguridad Antiimpacto para Bombero ANSI Z87.1 | BOMBERO.MX"
+  description="Gafas de seguridad antiimpacto certificadas ANSI Z87.1 para bomberos y rescatistas. Lente policarbonato envolvente, perfil ultra bajo para casco de rescate. Protección UV 400. Ficha técnica incluida. Envío a los 32 estados de México."
+  keywords={[
+    "gafas seguridad bombero",
+    "gafas antiimpacto bombero ANSI Z87.1",
+    "gafas rescate bombero México",
+    "gafas policarbonato bombero",
+    "gafas protección UV bombero",
+    "gafas extricación bombero",
+    "comprar gafas bombero México",
+    "gafas envolventes rescate técnico",
+  ]}
+  canonical="/productos/gafas-para-bomberos/seguridad"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                              href: "/" },
+    { label: "Productos",                           href: "/productos" },
+    { label: "Gafas y Protección Visual",           href: "/productos/gafas-para-bomberos" },
+    { label: "Gafas de Seguridad Antiimpacto" },
+  ]}
+
+  heroBadge="Gafas Antiimpacto · ANSI Z87.1 · EN 166"
+  heroTitle="Gafas de Seguridad"
+  heroTitleHighlight="Antiimpacto para Bombero"
+  heroSubtitle="Protección ocular envolvente de perfil ultra bajo para rescate técnico, extricación vehicular y operaciones en altura. Lente policarbonato de una pieza con protección UV 400 y tratamiento antiempañante. Menos de 30 gramos para uso prolongado sin fatiga."
+  heroSeoBlocks={[
+    {
+      title: "Gafas de Seguridad Antiimpacto ANSI Z87.1 para Bomberos y Rescatistas",
+      text: "Las <strong>gafas de seguridad antiimpacto</strong> son la protección visual estándar para operaciones de <strong>rescate técnico, extricación vehicular y trabajo en espacios confinados</strong>. En <strong>BOMBERO.MX</strong> somos distribuidores autorizados de gafas certificadas <strong>ANSI Z87.1 y EN 166</strong> para cuerpos de bomberos, brigadas industriales y protección civil en los <strong>32 estados de México</strong>.",
+    },
+    {
+      title: "Perfil Ultra Bajo para Casco de Rescate — Menos de 30 g",
+      text: "El <strong>perfil ultra bajo</strong> de las gafas permite su uso bajo cascos de rescate <strong>NFPA 1951</strong> sin interferir con el sistema de suspensión. Con menos de <strong>30 gramos de peso</strong>, el bombero puede usarlas durante horas sin fatiga. Incluyen <strong>ficha técnica y certificado de laboratorio</strong> para <strong>licitaciones gubernamentales</strong>.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Gafas de Seguridad para Bombero"
+
+  productoCategoria="Protección Visual para Bombero"
+  productoBadges={[
+    { modifier: "nfpa",  text: "ANSI Z87.1" },
+    { modifier: "tpp",   text: "EN 166" },
+    { modifier: "solas", text: "UV 400" },
+  ]}
+  productoTitle="Gafas de Seguridad"
+  productoTitleSub="Antiimpacto ANSI Z87.1"
+  productoDesc="Gafas de protección visual envolventes con lente policarbonato de una pieza. Perfil ultra bajo compatible con cascos de rescate NFPA 1951 y NFPA 1977. Montura flexible TR-90 con arcos antideslizantes. Peso inferior a 30 g. Protección UV 400 y tratamiento antiempañante."
+  productoFeatures={[
+    "Lente policarbonato envolvente 180° antiimpacto",
+    "Perfil ultra bajo para casco de rescate NFPA 1951",
+    "Peso inferior a 30 g — uso prolongado sin fatiga",
+    "Protección UV 400 — bloqueo 99.9 % UVA/UVB",
+    "Montura TR-90 flexible con arcos antideslizantes",
+    "Certificado ANSI Z87.1 + EN 166 incluido",
+  ]}
+  productoAppTags={[
+    "Rescate vehicular",
+    "Extricación",
+    "Espacios confinados",
+    "Operaciones en altura",
+    "Brigadas industriales",
+  ]}
+
+  gallery={[
+    { src: "/images/directorio/equipo-proteccion-bomberos-01.avif",              alt: "Gafas de seguridad antiimpacto para bombero" },
+    { src: "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",       alt: "Gafas en operación de rescate vehicular" },
+    { src: "/images/directorio/equipo-bomberos-completo-01.avif",                alt: "Equipo EPP completo con gafas de seguridad" },
+    { src: "/images/directorio/rescate-urbano-bomberos-01.avif",                 alt: "Bomberos en rescate urbano con gafas antiimpacto" },
+    { src: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",         alt: "Gafas bajo casco de rescate NFPA 1951" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Rescatistas con protección visual en operación" },
+  ]}
+
+  capasEyebrow="Anatomía de las Gafas"
+  capasTitle="Construcción y Componentes"
+  capasDesc="Diseño optimizado para el rescatista: máxima protección con mínimo peso y perfil. Cada componente está pensado para compatibilidad total con cascos de rescate."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones Completas"
+  specsDesc="Parámetros verificados en laboratorio certificado ISO/IEC 17025. Todos los valores cumplen o superan los mínimos exigidos por ANSI Z87.1 y EN 166 edición vigente."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Escenarios de Uso"
+  aplicacionesTitle="¿Dónde se Usan las Gafas Antiimpacto?"
+  aplicacionesContent="<p>Las <strong>gafas de seguridad antiimpacto</strong> son la opción de protección visual para operaciones donde el riesgo principal es el impacto de partículas y fragmentos, no las salpicaduras o el calor radiante.</p><p>Su peso inferior a 30 g y perfil ultra bajo las hacen ideales para operaciones prolongadas de rescate, extricación y trabajo en altura donde la comodidad determina si el bombero las usa o no.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="ANSI Z87.1 + EN 166 — Protección Visual Certificada"
+  certsDesc="Las <strong>gafas de seguridad antiimpacto</strong> cumplen la norma <strong>ANSI Z87.1</strong> americana y <strong>EN 166</strong> europea para protección ocular contra impactos. La protección <strong>UV 400</strong> complementa la seguridad en operaciones al aire libre. Cada par se verifica en laboratorio acreditado <strong>ISO/IEC 17025</strong>."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/gafas-para-bomberos"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Todo sobre las Gafas Antiimpacto para Bombero"
+  faqDescription="Respondemos las dudas técnicas más frecuentes sobre gafas antiimpacto, diferencias con el goggle, compatibilidad con cascos y certificaciones."
+  faqDocTitle="Descarga la Ficha Técnica"
+  faqDocDesc="Solicita la ficha técnica completa y el certificado de laboratorio ANSI Z87.1 / EN 166."
+  faqDocCtaHref="/cotizar"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="EPP Complementario"
+  relacionadosTitle="Completa tu Equipo de Protección"
+  relacionadosDesc="Las gafas antiimpacto se integran al sistema de rescate técnico. Combínalas con casco NFPA 1951 y guantes de rescate para protección completa."
+  relacionados={relacionados}
+/>

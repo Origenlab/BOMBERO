@@ -95,6 +95,35 @@ const {
 
 const heroImageCdn = heroImage ? cdnW(heroImage, 800) : undefined;
 const relacionadosCdn = relacionados.map(r => ({ ...r, image: cdnW(r.image, 400) }));
+
+/* ── Schema.org BlogPosting ── */
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": heroTitle,
+  "description": description,
+  "image": heroImage ? `https://bombero.mx${heroImage}` : "https://bombero.mx/images/og-default.jpg",
+  "author": {
+    "@type": "Organization",
+    "name": autor || "BOMBERO.MX",
+    "url": "https://bombero.mx"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "BOMBERO.MX",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://bombero.mx/images/logo-bombero-mx.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://bombero.mx${canonical}`
+  },
+  "keywords": keywords?.join(", ") || "",
+  "articleSection": heroBadge.replace("Blog · ", ""),
+  "inLanguage": "es-MX"
+};
 ---
 
 <PageLayout
@@ -104,6 +133,9 @@ const relacionadosCdn = relacionados.map(r => ({ ...r, image: cdnW(r.image, 400)
   canonical={canonical}
   image={image}
 >
+
+  <!-- Schema.org BlogPosting -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- BREADCRUMB                                                       -->

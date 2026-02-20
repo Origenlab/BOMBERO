@@ -1,0 +1,333 @@
+---
+/**
+ * ─── BOMBERO.MX ───
+ * Producto: Goggle de Bombero — Protección Ocular Sellada
+ * URL: /productos/gafas-para-bomberos/goggle
+ * SEO Target: "goggle bombero NFPA 1971", "goggle sellado bombero", "protección ocular bombero México"
+ */
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/directorio/equipo-proteccion-bomberos-01.avif";
+
+/* ── Datos del producto ─────────────────────────────────────── */
+const capas = [
+  {
+    num: "01",
+    titulo: "Lente — Policarbonato de Alta Resistencia",
+    descripcion:
+      "Lente de policarbonato óptico de grado balístico: 250 veces más resistente al impacto que el vidrio y la mitad de peso. Soporta impactos de alta velocidad certificados ANSI Z87.1+ (High Impact). Tratamiento dual antiempañante interior y antirayado exterior para mantener la visión clara en condiciones de calor extremo, humo y esfuerzo físico intenso.",
+    specs: [
+      { label: "Material", valor: "Policarbonato óptico grado balístico" },
+      { label: "Resistencia impacto", valor: "ANSI Z87.1+ (High Impact)" },
+      { label: "Tratamiento interior", valor: "Antiempañante permanente" },
+      { label: "Tratamiento exterior", valor: "Antirayado de alta dureza" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Marco — Sellado Perimetral con Ventilación Indirecta",
+    descripcion:
+      "Marco de TPE (elastómero termoplástico) resistente al calor con sellado perimetral completo. Impide la entrada de partículas en suspensión, brasas, salpicaduras de líquidos y gases irritantes. El sistema de ventilación indirecta canaliza el flujo de aire a través de cámaras internas que filtran partículas sin comprometer el sellado — la solución al empañamiento sin sacrificar protección.",
+    specs: [
+      { label: "Material marco", valor: "TPE resistente al calor (hasta 150 °C)" },
+      { label: "Sellado", valor: "Perimetral 360° — silicona hipoalergénica" },
+      { label: "Ventilación", valor: "Indirecta con cámaras de filtración" },
+      { label: "Protección", valor: "Partículas, salpicaduras, brasas, gases" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Banda de Sujeción — Compatibilidad con Casco EPP",
+    descripcion:
+      "Banda elástica ancha con ajuste de tensión para uso sobre el casco estructural NFPA 1971 o bajo el casco de rescate NFPA 1951. Sistema de retención antideslizante que mantiene el goggle en posición durante operaciones dinámicas. Compatible con capucha Nomex® y máscara SCBA — se retira el goggle al colocar la máscara sin necesidad de quitar el casco.",
+    specs: [
+      { label: "Material banda", valor: "Elástico de alta retención" },
+      { label: "Ancho", valor: "Banda ancha antideslizante" },
+      { label: "Ajuste", valor: "Hebilla deslizante de tensión" },
+      { label: "Compatibilidad", valor: "Cascos NFPA 1971 / 1951 / 1977" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Óptica",          label: "Material del lente",             valor: "Policarbonato óptico grado balístico" },
+  { categoria: "Óptica",          label: "Resistencia al impacto",         valor: "ANSI Z87.1+ (High Impact)" },
+  { categoria: "Óptica",          label: "Protección UV",                  valor: "UV 400 — 99.9 % UVA/UVB bloqueados" },
+  { categoria: "Óptica",          label: "Tratamiento antiempañante",      valor: "Permanente (cara interior)" },
+  { categoria: "Óptica",          label: "Tratamiento antirayado",         valor: "Alta dureza (cara exterior)" },
+  { categoria: "Óptica",          label: "Campo visual",                   valor: "180° panorámico sin distorsión" },
+  { categoria: "Marco",           label: "Material del marco",             valor: "TPE resistente al calor (hasta 150 °C)" },
+  { categoria: "Marco",           label: "Sellado perimetral",             valor: "Silicona hipoalergénica 360°" },
+  { categoria: "Marco",           label: "Ventilación",                    valor: "Indirecta con cámaras internas" },
+  { categoria: "Marco",           label: "Peso total",                     valor: "< 120 g" },
+  { categoria: "Protección",      label: "Partículas y polvo",             valor: "Sellado completo" },
+  { categoria: "Protección",      label: "Salpicaduras de líquidos",       valor: "Sellado completo" },
+  { categoria: "Protección",      label: "Calor radiante",                 valor: "Marco TPE hasta 150 °C" },
+  { categoria: "Protección",      label: "Brasas y chispas",               valor: "Lente y marco resistentes" },
+  { categoria: "Compatibilidad",  label: "Casco estructural",              valor: "NFPA 1971 — sobre el casco" },
+  { categoria: "Compatibilidad",  label: "Casco rescate",                  valor: "NFPA 1951 — bajo o sobre el casco" },
+  { categoria: "Compatibilidad",  label: "Capucha Nomex®",                 valor: "Compatible — no interfiere" },
+  { categoria: "Compatibilidad",  label: "SCBA",                           valor: "Se retira al colocar máscara" },
+  { categoria: "Certificación",   label: "Normas",                         valor: "NFPA 1971 / ANSI Z87.1+ / EN 166" },
+  { categoria: "Certificación",   label: "Documentación incluida",         valor: "Ficha técnica + Certificado de laboratorio" },
+];
+
+const catClass: Record<string, string> = {
+  "Óptica":          "optica",
+  "Marco":           "marco",
+  "Protección":      "proteccion",
+  "Compatibilidad":  "compatibilidad",
+  "Certificación":   "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Combate de Incendio Estructural",
+    desc: "Protección ocular sellada durante combate activo cuando no se usa SCBA. El goggle protege contra partículas en suspensión, brasas, salpicaduras y calor radiante en fases de aproximación y ventilación.",
+  },
+  {
+    titulo: "Operaciones de Ventilación",
+    desc: "La apertura de ventilación en techos y muros genera una descarga de partículas, ceniza y fragmentos. El sellado perimetral del goggle protege los ojos donde las gafas convencionales fallan.",
+  },
+  {
+    titulo: "Overhaul y Revisión Post-Incendio",
+    desc: "Las fases de limpieza y revisión post-incendio exponen al bombero a ceniza, partículas de aislamiento y material carbonizado. El goggle sellado es esencial cuando el SCBA ya se ha retirado.",
+  },
+  {
+    titulo: "Rescate con Riesgo de Salpicaduras",
+    desc: "Escenarios de rescate donde hay líquidos peligrosos, sangre u otros fluidos biológicos. El sellado del goggle impide el contacto con los ojos — protección que las gafas abiertas no ofrecen.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Cuándo uso el goggle en lugar de la máscara SCBA?",
+    a: "El goggle se usa en operaciones donde no se requiere equipo de respiración autónoma: overhaul, ventilación, rescate técnico sin humo y fases de aproximación. Cuando se activa el SCBA, la máscara facial cubre los ojos y el goggle se retira o se posiciona sobre el casco. El goggle NO sustituye al SCBA en ambientes IDLH.",
+  },
+  {
+    q: "¿El goggle se empaña durante el trabajo físico intenso?",
+    a: "El sistema de ventilación indirecta con cámaras internas minimiza el empañamiento al permitir el flujo de aire sin comprometer el sellado. El tratamiento antiempañante permanente en la cara interior del lente complementa este sistema. En condiciones extremas de calor y humedad, el empañamiento se reduce significativamente comparado con goggles de sellado directo.",
+  },
+  {
+    q: "¿Es compatible con todos los cascos de bombero?",
+    a: "Sí. La banda elástica ajustable permite usar el goggle sobre el casco estructural NFPA 1971, bajo o sobre el casco de rescate NFPA 1951 y con el casco forestal NFPA 1977. También es compatible con capuchas Nomex® y PBI Gold® sin interferir con el ajuste del casco.",
+  },
+  {
+    q: "¿El lente soporta impactos de alta velocidad?",
+    a: "Sí. El lente de policarbonato cumple ANSI Z87.1+ (High Impact), que certifica resistencia a impactos de alta velocidad — superior al estándar básico Z87.1. Esto protege contra fragmentos proyectados durante operaciones de ventilación, corte y extricación.",
+  },
+  {
+    q: "¿Se pueden reemplazar los lentes?",
+    a: "Depende del modelo. Varios modelos de goggle de bombero permiten reemplazar el lente sin cambiar el marco — lo que extiende la vida útil del producto. Consulta con nuestro equipo técnico la disponibilidad de lentes de repuesto para el modelo seleccionado.",
+  },
+  {
+    q: "¿Incluye documentación para licitaciones gubernamentales?",
+    a: "Sí. Cada goggle incluye ficha técnica con especificaciones ópticas y de protección, certificado de laboratorio ANSI Z87.1+ y documentación de cumplimiento NFPA 1971 — documentación completa para procesos de licitación en los 32 estados de México.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Gafas de Seguridad Antiimpacto",
+    badge: "ANSI Z87.1",
+    description: "Gafas de perfil bajo para rescate técnico y extricación. Mayor campo visual y comodidad en operaciones sin riesgo de salpicaduras.",
+    href: "/productos/gafas-para-bomberos/seguridad",
+    buttonText: "Gafas Antiimpacto",
+    image: IMAGE,
+  },
+  {
+    title: "Casco Estructural NFPA 1971",
+    badge: "NFPA 1971",
+    description: "Protección cefálica certificada. El goggle se ajusta sobre el casco con banda elástica o bajo el visor desplegable.",
+    href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971",
+    buttonText: "Cascos para Bombero",
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+  },
+  {
+    title: "Capucha Nomex® NFPA 1971",
+    badge: "NFPA 1971",
+    description: "El goggle se usa sobre la capucha Nomex® sin interferir con el ajuste facial ni con la máscara del SCBA.",
+    href: "/productos/capuchas-para-bomberos/nomex",
+    buttonText: "Capuchas para Bombero",
+    image: "/images/directorio/capucha-bombero-nomex-01.avif",
+  },
+  {
+    title: "Traje Estructural NFPA 1971",
+    badge: "NFPA 1971",
+    description: "Sistema 3 capas certificado. El goggle complementa el EPP completo para protección integral del bombero.",
+    href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",
+    buttonText: "Trajes para Bombero",
+    image: "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+  },
+];
+
+/* ── Datos del sidebar ──────────────────────────────────────── */
+const otrosModelos = [
+  { label: "Gafas de Seguridad Antiimpacto",     href: "/productos/gafas-para-bomberos/seguridad" },
+  { label: "Ver Toda la Protección Visual",      href: "/productos/gafas-para-bomberos" },
+];
+
+const epp = [
+  { label: "Casco Estructural NFPA 1971",   href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971",  tag: "Cabeza" },
+  { label: "Capucha Nomex® NFPA 1971",      href: "/productos/capuchas-para-bomberos/nomex",                      tag: "Cabeza" },
+  { label: "Traje Estructural NFPA 1971",   href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",  tag: "Cuerpo" },
+  { label: "Guantes Estructurales",          href: "/productos/guantes-para-bomberos/estructurales",                tag: "Manos" },
+  { label: "Botas de Cuero Bombero",         href: "/productos/botas-para-bomberos/estructural",                    tag: "Pies" },
+];
+
+const articulos = [
+  { label: "Catálogo Protección Visual",         href: "/productos/gafas-para-bomberos",                tag: "Catálogo" },
+  { label: "Cascos NFPA 1971 y 1977",            href: "/productos/cascos-para-bomberos",               tag: "Catálogo" },
+  { label: "Capuchas y Monjas para Bombero",     href: "/productos/capuchas-para-bomberos",             tag: "Catálogo" },
+  { label: "Trajes Estructurales NFPA 1971",     href: "/productos/trajes-para-bomberos",               tag: "Producto" },
+  { label: "EPP Completo para Bomberos",          href: "/productos",                                    tag: "Guía" },
+  { label: "Guantes y Protección de Manos",       href: "/productos/guantes-para-bomberos",              tag: "Catálogo" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Ciudad de México",       href: "/directorio/ciudad-de-mexico" },
+  { label: "Bomberos Jalisco — Guadalajara",  href: "/directorio/jalisco" },
+  { label: "Bomberos Nuevo León — Monterrey", href: "/directorio/nuevo-leon" },
+  { label: "Bomberos Puebla",                 href: "/directorio/puebla" },
+  { label: "Bomberos Querétaro",              href: "/directorio/queretaro" },
+  { label: "Directorio Nacional Bomberos",    href: "/directorio" },
+];
+
+const specsRapidas = [
+  { label: "Norma",          valor: "NFPA 1971 / Z87.1+" },
+  { label: "Lente",          valor: "Policarbonato balístico" },
+  { label: "Impacto",        valor: "ANSI Z87.1+ High" },
+  { label: "Sellado",        valor: "Perimetral 360°" },
+  { label: "Ventilación",    valor: "Indirecta" },
+  { label: "UV",             valor: "UV 400 — 99.9 %" },
+  { label: "Peso",           valor: "< 120 g" },
+  { label: "Marco",          valor: "TPE hasta 150 °C" },
+];
+
+const certItems = [
+  { code: "NFPA 1971",     desc: "Protección ocular para combate estructural" },
+  { code: "ANSI Z87.1+",   desc: "Resistencia a impacto de alta velocidad" },
+  { code: "EN 166",         desc: "Protección ocular personal — norma europea" },
+  { code: "UV 400",         desc: "Bloqueo 99.9 % radiación UVA/UVB" },
+  { code: "ISO/IEC 17025", desc: "Laboratorio acreditado para ensayos" },
+];
+---
+
+<ProductoLayout
+  title="Goggle de Bombero NFPA 1971 — Protección Ocular Sellada | BOMBERO.MX"
+  description="Goggle de bombero certificado NFPA 1971 y ANSI Z87.1+. Sellado perimetral, lente policarbonato antiimpacto, ventilación indirecta antiempañante. Compatible con casco y SCBA. Ficha técnica incluida. Envío a los 32 estados de México."
+  keywords={[
+    "goggle bombero NFPA 1971",
+    "goggle sellado bombero",
+    "protección ocular bombero certificada",
+    "goggle antiimpacto bombero México",
+    "goggle policarbonato bombero",
+    "goggle ANSI Z87.1 bombero",
+    "comprar goggle bombero México",
+    "goggle sellado incendio estructural",
+  ]}
+  canonical="/productos/gafas-para-bomberos/goggle"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                              href: "/" },
+    { label: "Productos",                           href: "/productos" },
+    { label: "Gafas y Protección Visual",           href: "/productos/gafas-para-bomberos" },
+    { label: "Goggle de Bombero" },
+  ]}
+
+  heroBadge="Goggle Sellado · NFPA 1971 · ANSI Z87.1+"
+  heroTitle="Goggle de Bombero"
+  heroTitleHighlight="Protección Ocular Sellada"
+  heroSubtitle="Protección ocular de sellado perimetral completo para combate de incendios y operaciones de rescate. Lente policarbonato de grado balístico con tratamiento antiempañante y antirayado. Compatible con casco NFPA 1971, capucha Nomex® y máscara SCBA."
+  heroSeoBlocks={[
+    {
+      title: "Goggle de Bombero NFPA 1971 — Distribuidor Autorizado en México",
+      text: "El <strong>goggle de bombero</strong> es la protección ocular de primera línea en operaciones sin SCBA: overhaul, ventilación, rescate técnico y aproximación. En <strong>BOMBERO.MX</strong> somos distribuidores autorizados de goggles certificados <strong>NFPA 1971 y ANSI Z87.1+</strong> para cuerpos de bomberos municipales, brigadas industriales y protección civil en los <strong>32 estados de México</strong>.",
+    },
+    {
+      title: "Sellado Perimetral + Ventilación Indirecta — Visión Clara sin Compromisos",
+      text: "El <strong>sellado perimetral 360°</strong> impide la entrada de partículas, brasas y salpicaduras. La <strong>ventilación indirecta con cámaras internas</strong> elimina el empañamiento sin abrir el sellado. Lente de <strong>policarbonato con impacto ANSI Z87.1+</strong> y protección UV 400. Cada goggle incluye <strong>ficha técnica y certificado de laboratorio</strong> para <strong>licitaciones gubernamentales</strong>.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Goggle de Bombero"
+
+  productoCategoria="Protección Visual para Bombero"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1971" },
+    { modifier: "tpp",   text: "ANSI Z87.1+" },
+    { modifier: "solas", text: "EN 166" },
+  ]}
+  productoTitle="Goggle de Bombero"
+  productoTitleSub="Sellado NFPA 1971"
+  productoDesc="Goggle de protección ocular con sellado perimetral completo para combate de incendios y rescate. Lente policarbonato de grado balístico con tratamiento antiempañante y antirayado. Marco TPE resistente al calor. Ventilación indirecta. Compatible con todo casco, capucha y SCBA."
+  productoFeatures={[
+    "Sellado perimetral 360° contra partículas y salpicaduras",
+    "Lente policarbonato ANSI Z87.1+ de alta resistencia",
+    "Ventilación indirecta antiempañante con cámaras",
+    "Marco TPE resistente al calor hasta 150 °C",
+    "Compatible con casco NFPA 1971/1951/1977 y SCBA",
+    "Certificado NFPA 1971 + ANSI Z87.1+ incluido",
+  ]}
+  productoAppTags={[
+    "Combate estructural",
+    "Overhaul post-incendio",
+    "Ventilación de estructuras",
+    "Rescate con salpicaduras",
+    "Brigadas industriales",
+  ]}
+
+  gallery={[
+    { src: "/images/directorio/equipo-proteccion-bomberos-01.avif",              alt: "Goggle de bombero con protección ocular sellada" },
+    { src: "/images/directorio/equipo-bomberos-completo-01.avif",                alt: "Equipo EPP completo con goggle de bombero" },
+    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Bomberos en operación con protección visual" },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",            alt: "Entrenamiento con goggle y EPP" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",           alt: "Bomberos profesionales con goggle sellado" },
+    { src: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",         alt: "Goggle compatible con casco estructural" },
+  ]}
+
+  capasEyebrow="Anatomía del Goggle"
+  capasTitle="Construcción y Componentes"
+  capasDesc="Cada componente del goggle cumple una función crítica: el lente resiste impactos, el marco sella y ventila, y la banda asegura compatibilidad con el sistema EPP."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones Completas"
+  specsDesc="Parámetros verificados en laboratorio certificado ISO/IEC 17025. Todos los valores cumplen o superan los mínimos exigidos por NFPA 1971 y ANSI Z87.1+ edición vigente."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Escenarios de Uso"
+  aplicacionesTitle="¿Dónde se Usa el Goggle de Bombero?"
+  aplicacionesContent="<p>El <strong>goggle de bombero NFPA 1971</strong> se usa en toda operación donde los ojos están expuestos a partículas, brasas, salpicaduras o calor radiante y no se utiliza la máscara SCBA.</p><p>Más del 10 % de las lesiones de bombero involucran los ojos. El goggle sellado es una pieza crítica del EPP que a menudo se subestima — hasta que ocurre la lesión.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="NFPA 1971 + ANSI Z87.1+ — Protección Ocular Certificada"
+  certsDesc="El <strong>goggle de bombero</strong> cumple la norma <strong>NFPA 1971</strong> para protección ocular en combate estructural y <strong>ANSI Z87.1+</strong> para resistencia a impacto de alta velocidad. La certificación <strong>EN 166</strong> cubre el mercado europeo. Cada goggle se ensaya en laboratorio acreditado <strong>ISO/IEC 17025</strong>."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/gafas-para-bomberos"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Todo sobre el Goggle de Bombero"
+  faqDescription="Respondemos las dudas técnicas más frecuentes sobre goggles sellados, empañamiento, compatibilidad con casco y SCBA, y certificaciones."
+  faqDocTitle="Descarga la Ficha Técnica"
+  faqDocDesc="Solicita la ficha técnica completa y el certificado de laboratorio NFPA 1971 / ANSI Z87.1+."
+  faqDocCtaHref="/cotizar"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="EPP Complementario"
+  relacionadosTitle="Completa tu Equipo de Protección"
+  relacionadosDesc="El goggle trabaja en sistema con el casco, la capucha y el resto del EPP certificado NFPA. Todos los equipos deben ser compatibles entre sí."
+  relacionados={relacionados}
+/>
