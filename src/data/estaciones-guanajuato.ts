@@ -1212,6 +1212,25 @@ export function getContextoZona(ciudad: string): {
 }
 
 /**
+ * Obtener estación por slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesGuanajuato.find(e => e.slug === slug);
+}
+
+/**
+ * Obtener estaciones cercanas (excluyendo la actual)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+
+  return estacionesGuanajuato
+    .filter(e => e.slug !== slug)
+    .slice(0, limit);
+}
+
+/**
  * Estadísticas totales del estado
  */
 export const ESTADISTICAS_GUANAJUATO = {

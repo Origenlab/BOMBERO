@@ -1450,6 +1450,31 @@ export function getContextoZona(ciudad: string): {
 }
 
 /**
+ * Obtener estación por slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesCoahuila.find((e) => e.slug === slug);
+}
+
+/**
+ * Obtener estaciones cercanas (excluyendo la actual)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+
+  const mismoMunicipio = estacionesCoahuila.filter(
+    (e) => e.ciudad === estacion.ciudad && e.slug !== slug
+  );
+
+  const otrosMunicipios = estacionesCoahuila.filter(
+    (e) => e.ciudad !== estacion.ciudad
+  );
+
+  return [...mismoMunicipio, ...otrosMunicipios].slice(0, limit);
+}
+
+/**
  * Estadísticas totales del estado
  */
 export const ESTADISTICAS_COAHUILA = {

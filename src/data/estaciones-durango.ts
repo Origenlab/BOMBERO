@@ -1044,6 +1044,31 @@ export function getNivelRiesgoForestal(ciudad: string): {
 }
 
 /**
+ * Obtener estación por slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesDurango.find((e) => e.slug === slug);
+}
+
+/**
+ * Obtener estaciones cercanas (excluyendo la actual)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+
+  const mismaCiudad = estacionesDurango.filter(
+    (e) => e.ciudad === estacion.ciudad && e.slug !== slug
+  );
+
+  const otrasCiudades = estacionesDurango.filter(
+    (e) => e.ciudad !== estacion.ciudad
+  );
+
+  return [...mismaCiudad, ...otrasCiudades].slice(0, limit);
+}
+
+/**
  * Estadísticas totales del estado
  */
 export const ESTADISTICAS_DURANGO = {

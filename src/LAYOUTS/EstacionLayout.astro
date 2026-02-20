@@ -22,27 +22,30 @@
 import PageLayout from "@layouts/PageLayout.astro";
 import CTABanner from "@components/CTABanner.astro";
 
-// Interfaz de la estación
+// Interfaz de la estación (campos opcionales tienen fallbacks en el layout)
 interface Estacion {
   slug: string;
   nombre: string;
-  nombreCorto: string;
-  descripcion: string;
+  nombreCorto?: string;
+  descripcion?: string;
   ciudad: string;
-  municipio: string;
+  municipio?: string;
   direccion: string;
-  colonia: string;
-  codigoPostal: string;
+  colonia?: string;
+  codigoPostal?: string;
   telefono: string;
   email?: string;
   horario: string;
-  coordenadas: { lat: number; lng: number };
+  coordenadas?: { lat: number; lng: number };
   servicios: string[];
   especialidades?: string[];
-  zonasCobertura: string[];
+  zonasCobertura?: string[];
+  cobertura?: string[];
   equipamiento?: string[];
   unidadesDisponibles?: string[];
+  personal?: number;
   personalActivo?: number;
+  unidades?: number;
   tiempoRespuesta?: string;
   historia?: string;
 }
@@ -57,8 +60,10 @@ interface Estado {
 
 interface EstacionCercana {
   slug: string;
-  nombreCorto: string;
-  municipio: string;
+  nombreCorto?: string;
+  nombre?: string;
+  municipio?: string;
+  ciudad?: string;
 }
 
 interface EstadoVecino {
@@ -88,6 +93,9 @@ const { estacion, estado, estadosVecinos, estacionesCercanas, eppCards } = Astro
 
 // Variables derivadas
 const ubicacion = estacion.municipio ?? estacion.ciudad;
+const nombreCortoDisplay = estacion.nombreCorto ?? estacion.nombre;
+const colonia = estacion.colonia ?? '';
+const zonasCobertura = estacion.zonasCobertura ?? estacion.cobertura ?? [];
 const telefonoLink = estacion.telefono.replace(/\s/g, '');
 
 // Productos relacionados (fijos)
@@ -99,7 +107,7 @@ const productosRelacionados = [
 ];
 
 // URLs y SEO
-const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(estacion.nombre + ' ' + estacion.direccion + ' ' + estacion.colonia + ' ' + ubicacion + ' ' + estado.nombre)}`;
+const mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(estacion.nombre + ' ' + estacion.direccion + ' ' + colonia + ' ' + ubicacion + ' ' + estado.nombre)}`;
 const canonical = `https://bombero.mx/directorio/${estado.slug}/${estacion.slug}`;
 const seoKeywords = [
   `bomberos ${ubicacion.toLowerCase()}`,
@@ -151,7 +159,7 @@ const breadcrumbJsonLd = {
 ---
 
 <PageLayout
-  title={`${estacion.nombreCorto} | Bomberos ${ubicacion} | BOMBERO.MX`}
+  title={`${nombreCortoDisplay} | Bomberos ${ubicacion} | BOMBERO.MX`}
   description={`${estacion.descripcion} Teléfono: ${estacion.telefono}. Dirección: ${estacion.direccion}, ${estacion.colonia}, ${ubicacion}, ${estado.nombre}.`}
   keywords={seoKeywords}
   canonical={canonical}
@@ -171,13 +179,13 @@ const breadcrumbJsonLd = {
         <span>/</span>
         <a href={`/directorio/${estado.slug}`}>{estado.nombre}</a>
         <span>/</span>
-        <span>{estacion.nombreCorto}</span>
+        <span>{nombreCortoDisplay}</span>
       </nav>
 
       <div class="est-hero__grid">
         <div class="est-hero__content">
           <div class="est-hero__badges">
-            <span class="est-hero__badge est-hero__badge--municipio">{estacion.municipio}</span>
+            <span class="est-hero__badge est-hero__badge--municipio">{ubicacion}</span>
             <span class="est-hero__badge est-hero__badge--horario">{estacion.horario}</span>
           </div>
           <h1 class="est-hero__title">{estacion.nombre}</h1>
@@ -259,7 +267,7 @@ const breadcrumbJsonLd = {
               </svg>
               <div>
                 <strong>Municipio</strong>
-                <span>{estacion.municipio}, {estado.nombre}</span>
+                <span>{ubicacion}, {estado.nombre}</span>
               </div>
             </div>
           </div>
@@ -283,8 +291,8 @@ const breadcrumbJsonLd = {
               Servicios de Emergencia
             </h2>
             <p class="est-section__intro">
-              La <strong>{estacion.nombreCorto}</strong> ofrece los siguientes servicios de emergencia
-              a los habitantes de <strong>{estacion.municipio}</strong> y zonas aledañas en {estado.nombre}:
+              La <strong>{nombreCortoDisplay}</strong> ofrece los siguientes servicios de emergencia
+              a los habitantes de <strong>{ubicacion}</strong> y zonas aledañas en {estado.nombre}:
             </p>
             <ul class="est-services">
               {estacion.servicios.map((servicio) => (
@@ -323,24 +331,26 @@ const breadcrumbJsonLd = {
           )}
 
           <!-- Cobertura -->
-          <article class="est-section">
-            <h2 class="est-section__title">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-              Zonas de Cobertura
-            </h2>
-            <p class="est-section__intro">
-              Esta estación brinda cobertura a las siguientes colonias y zonas del municipio de <strong>{estacion.municipio}</strong>:
-            </p>
-            <div class="est-zones">
-              {estacion.zonasCobertura.map((zona) => (
-                <span class="est-zones__tag">{zona}</span>
-              ))}
-            </div>
-          </article>
+          {zonasCobertura && zonasCobertura.length > 0 && (
+            <article class="est-section">
+              <h2 class="est-section__title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="2" y1="12" x2="22" y2="12"/>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+                Zonas de Cobertura
+              </h2>
+              <p class="est-section__intro">
+                Esta estación brinda cobertura a las siguientes colonias y zonas del municipio de <strong>{ubicacion}</strong>:
+              </p>
+              <div class="est-zones">
+                {zonasCobertura.map((zona) => (
+                  <span class="est-zones__tag">{zona}</span>
+                ))}
+              </div>
+            </article>
+          )}
 
           <!-- Equipamiento -->
           {estacion.equipamiento && estacion.equipamiento.length > 0 && (
@@ -423,14 +433,14 @@ const breadcrumbJsonLd = {
           <!-- SEO Content (slot) -->
           <article class="est-section est-section--seo">
             <slot name="seo-content">
-              <h2>Bomberos en {estacion.municipio}, {estado.nombre}</h2>
+              <h2>Bomberos en {ubicacion}, {estado.nombre}</h2>
               <p>
-                La <strong>{estacion.nombreCorto}</strong> es parte del <strong>H. Cuerpo de Bomberos de {estado.nombre}</strong>.
-                Esta estación, ubicada en <strong>{estacion.direccion}, {estacion.colonia}, {estacion.municipio}</strong>,
+                La <strong>{nombreCortoDisplay}</strong> es parte del <strong>H. Cuerpo de Bomberos de {estado.nombre}</strong>.
+                Esta estación, ubicada en <strong>{estacion.direccion}{colonia ? `, ${colonia}` : ''}, {ubicacion}</strong>,
                 brinda atención las 24 horas del día, los 365 días del año.
               </p>
               <p>
-                En caso de <strong>emergencia en {estacion.municipio}</strong>, marca el <strong>911</strong> o comunícate directamente
+                En caso de <strong>emergencia en {ubicacion}</strong>, marca el <strong>911</strong> o comunícate directamente
                 a esta estación al <strong>{estacion.telefono}</strong>. Los bomberos de {estado.nombre} están capacitados para atender
                 incendios, rescates vehiculares, fugas de gas, emergencias industriales y todo tipo de emergencias.
               </p>
@@ -465,8 +475,8 @@ const breadcrumbJsonLd = {
               {estacionesCercanas.map((est) => (
                 <li>
                   <a href={`/directorio/${estado.slug}/${est.slug}`}>
-                    <span class="est-sidebar__station-name">{est.nombreCorto}</span>
-                    <span class="est-sidebar__station-municipio">{est.municipio}</span>
+                    <span class="est-sidebar__station-name">{est.nombreCorto ?? est.nombre}</span>
+                    <span class="est-sidebar__station-municipio">{est.municipio ?? est.ciudad}</span>
                   </a>
                 </li>
               ))}
@@ -621,7 +631,7 @@ const breadcrumbJsonLd = {
   <!-- CTA Banner -->
   <CTABanner
     title={`¿Equipas a los Bomberos de ${ubicacion}?`}
-    desc={`Cotiza equipo certificado NFPA para la ${estacion.nombreCorto} y todas las estaciones de ${estado.nombre}. Envío a todos los municipios.`}
+    desc={`Cotiza equipo certificado NFPA para la ${nombreCortoDisplay} y todas las estaciones de ${estado.nombre}. Envío a todos los municipios.`}
     btnText="Solicitar Cotización"
     btnHref="/cotizar"
     whatsapp={true}

@@ -1953,4 +1953,23 @@ export const ESTADISTICAS_HIDALGO = {
   sector_economico_principal: 'Industria, Turismo, Minería',
 };
 
+/**
+ * Obtener estación por slug
+ */
+export function getEstacionBySlug(slug: string): Estacion | undefined {
+  return estacionesHidalgo.find(e => e.slug === slug);
+}
+
+/**
+ * Obtener estaciones cercanas (excluyendo la actual)
+ */
+export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
+  const estacion = getEstacionBySlug(slug);
+  if (!estacion) return [];
+
+  return estacionesHidalgo
+    .filter(e => e.slug !== slug)
+    .slice(0, limit);
+}
+
 export default estacionesHidalgo;
