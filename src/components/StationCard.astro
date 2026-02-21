@@ -15,6 +15,8 @@
  * - image: URL de imagen (opcional)
  */
 
+import { cdnW } from "@utils/cdn";
+
 interface Props {
   nombre?: string;
   slug: string;
@@ -46,13 +48,14 @@ const cleanBaseUrl = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
 const detalleUrl = href ?? (slug.startsWith("/") ? slug : `${cleanBaseUrl}/${slug}`);
 const nombreEstacion = nombre ?? "Estación de Bomberos";
 const zona = alcaldia ?? "Cobertura local";
+const imageCdn = image ? cdnW(image, 400) : undefined;
 ---
 
 <article class="station-card">
   <!-- Image Section -->
   <a href={detalleUrl} class="station-card__image">
-    {image ? (
-      <img src={image} alt={nombreEstacion} width="400" height="250" loading="lazy" decoding="async" />
+    {imageCdn ? (
+      <img src={imageCdn} alt={nombreEstacion} width="400" height="250" loading="lazy" decoding="async" />
     ) : (
       <div class="station-card__placeholder">
         <div class="station-card__icon">

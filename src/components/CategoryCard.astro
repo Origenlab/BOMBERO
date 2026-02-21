@@ -13,6 +13,7 @@
  * - image: URL de imagen (opcional)
  * - description: Texto descriptivo para cards informativas (sin lista ni botón)
  */
+import { cdnW } from "@utils/cdn";
 
 interface CardItem {
   label: string;
@@ -41,6 +42,8 @@ const {
   description,
 } = Astro.props;
 
+const imageCdn = image ? cdnW(image, 400) : undefined;
+
 const icons: Record<string, string> = {
   shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>`,
   helmet: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M4 15v-3a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v3"/></svg>`,
@@ -58,8 +61,8 @@ const icons: Record<string, string> = {
 
 <article class="category-card">
   <div class="category-card__image">
-    {image ? (
-      <img src={image} alt={title} width="400" height="300" loading="lazy" decoding="async" />
+    {imageCdn ? (
+      <img src={imageCdn} alt={title} width="400" height="300" loading="lazy" decoding="async" />
     ) : (
       <div class="category-card__placeholder">
         <Fragment set:html={icons[icon] || icons.shield} />
@@ -99,8 +102,7 @@ const icons: Record<string, string> = {
 
 <style>
   /* ═══════════════════════════════════════════════════════════════════════
-     CATEGORY CARD COMPONENT
-     Único componente de cards para todo el sitio BOMBERO.MX
+     CATEGORY CARD COMPONENT — Mobile First
      ═══════════════════════════════════════════════════════════════════════ */
 
   .category-card {
@@ -110,12 +112,21 @@ const icons: Record<string, string> = {
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
   }
 
-  /* ═══ Image ═══ */
+  /* Touch-friendly: larger tap targets on mobile */
+  @media (hover: hover) {
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  /* ═══ Image — Mobile First ═══ */
   .category-card__image {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 10;
     background: linear-gradient(135deg, var(--color-smoke-100) 0%, var(--color-smoke-200) 100%);
     overflow: hidden;
   }
@@ -124,6 +135,13 @@ const icons: Record<string, string> = {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  @media (hover: hover) {
+    .category-card:hover .category-card__image img {
+      transform: scale(1.05);
+    }
   }
 
   .category-card__placeholder {
@@ -133,18 +151,18 @@ const icons: Record<string, string> = {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--space-3);
+    gap: var(--space-2);
   }
 
   .category-card__placeholder :global(svg) {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     stroke: var(--color-smoke-400);
     opacity: 0.6;
   }
 
   .category-card__placeholder span {
-    font-size: var(--text-xs);
+    font-size: 10px;
     color: var(--color-smoke-400);
     font-weight: 500;
     text-transform: uppercase;
@@ -153,46 +171,51 @@ const icons: Record<string, string> = {
 
   .category-card__badge {
     position: absolute;
-    top: var(--space-4);
-    right: var(--space-4);
+    top: var(--space-3);
+    right: var(--space-3);
     background: var(--color-fire-600);
     color: white;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    padding: var(--space-1) var(--space-3);
+    padding: 4px var(--space-2);
     border-radius: var(--radius-full);
     text-transform: uppercase;
     letter-spacing: 0.02em;
   }
 
-  /* ═══ Content ═══ */
+  /* ═══ Content — Mobile First ═══ */
   .category-card__content {
     display: flex;
     flex-direction: column;
-    padding: var(--space-6);
+    padding: var(--space-4);
     flex-grow: 1;
+    gap: var(--space-3);
   }
 
   .category-card__title {
-    font-size: var(--text-xl);
+    font-size: var(--text-base);
     font-weight: 800;
     color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    line-height: 1.2;
+    margin: 0;
+    line-height: 1.25;
   }
 
   .category-card__description {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-smoke-600);
-    line-height: 1.7;
+    line-height: 1.6;
     margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  /* ═══ List ═══ */
+  /* ═══ List — Mobile First ═══ */
   .category-card__list {
     list-style: none;
     padding: 0;
-    margin: 0 0 var(--space-5);
+    margin: 0;
     flex-grow: 1;
   }
 
@@ -208,42 +231,68 @@ const icons: Record<string, string> = {
   .category-card__list a {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--space-2);
     color: var(--color-smoke-600);
     text-decoration: none;
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     font-weight: 500;
+    line-height: 1.4;
+    transition: color var(--transition-fast);
+    /* Touch-friendly minimum height */
+    min-height: 32px;
+  }
+
+  .category-card__list a:active {
+    color: var(--color-fire-600);
+  }
+
+  @media (hover: hover) {
+    .category-card__list a:hover {
+      color: var(--color-fire-600);
+    }
   }
 
   .category-card__list a::before {
     content: '';
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background: var(--color-fire-500);
     border-radius: 50%;
     flex-shrink: 0;
   }
 
-
-  /* ═══ Button ═══ */
+  /* ═══ Button — Mobile First ═══ */
   .category-card__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
-    padding: var(--space-4) var(--space-5);
+    padding: var(--space-3) var(--space-4);
     background: var(--color-fire-600);
     color: white;
     text-decoration: none;
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     font-weight: 600;
     border-radius: var(--radius-lg);
     margin-top: auto;
     transition: all var(--transition-fast);
+    /* Touch-friendly minimum height */
+    min-height: 44px;
   }
 
-  .category-card__btn:hover {
+  .category-card__btn:active {
     background: var(--color-fire-700);
+    transform: scale(0.98);
+  }
+
+  @media (hover: hover) {
+    .category-card__btn:hover {
+      background: var(--color-fire-700);
+    }
+
+    .category-card__btn:hover svg {
+      transform: translateX(3px);
+    }
   }
 
   .category-card__btn svg {
@@ -251,22 +300,71 @@ const icons: Record<string, string> = {
     transition: transform var(--transition-fast);
   }
 
-  .category-card__btn:hover svg {
-    transform: translateX(3px);
-  }
+  /* ═══ Tablet (≥640px) ═══ */
+  @media (min-width: 640px) {
+    .category-card__image {
+      aspect-ratio: 4 / 3;
+    }
 
-  /* ═══ Responsive ═══ */
-  @media (max-width: 768px) {
+    .category-card__badge {
+      top: var(--space-4);
+      right: var(--space-4);
+      font-size: 11px;
+      padding: var(--space-1) var(--space-3);
+    }
+
     .category-card__content {
       padding: var(--space-5);
+      gap: var(--space-4);
     }
 
     .category-card__title {
       font-size: var(--text-lg);
     }
 
+    .category-card__description {
+      font-size: var(--text-sm);
+      -webkit-line-clamp: 5;
+    }
+
     .category-card__list a {
+      font-size: var(--text-sm);
+      gap: var(--space-3);
+    }
+
+    .category-card__list a::before {
+      width: 6px;
+      height: 6px;
+    }
+
+    .category-card__btn {
+      padding: var(--space-4) var(--space-5);
+      font-size: var(--text-sm);
+    }
+
+    .category-card__placeholder :global(svg) {
+      width: 48px;
+      height: 48px;
+    }
+
+    .category-card__placeholder span {
       font-size: var(--text-xs);
+    }
+  }
+
+  /* ═══ Desktop (≥1024px) ═══ */
+  @media (min-width: 1024px) {
+    .category-card__content {
+      padding: var(--space-6);
+    }
+
+    .category-card__title {
+      font-size: var(--text-xl);
+      margin-bottom: var(--space-2);
+    }
+
+    .category-card__list {
+      margin-bottom: var(--space-4);
     }
   }
 </style>
