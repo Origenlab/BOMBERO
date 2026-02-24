@@ -1343,6 +1343,7 @@ export const estacionesVeracruz: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Coatzacoalcos Centro",
+    nombreCorto: "Bomberos Coatzacoalcos",
     slug: "estacion-bomberos-coatzacoalcos-centro",
     direccion: "Av. Ignacio Zaragoza 500, Centro, Coatzacoalcos, Ver.",
     coordenadas: { lat: 18.1456, lng: -94.4356 },
@@ -1364,9 +1365,8 @@ export const estacionesVeracruz: Estacion[] = [
     personal: 45,
     copiasActa: true,
     zona: "Zona Petroquímica Coatzacoalcos",
-    ciudad: 'Coatzacoalcos Centro',
-
-    municipio: 'Coatzacoalcos Centro',
+    ciudad: 'Coatzacoalcos',
+    municipio: 'Coatzacoalcos',
 
     municipiosCubiertos: ["Coatzacoalcos Centro", "Zona comercial", "Colonias residenciales"],
     descripcion: "Cobertura de la zona urbana de Coatzacoalcos. Atención de emergencias estructurales y residenciales. Apoyo a estación HAZMAT para evacuaciones civiles en caso de emergencia industrial.",

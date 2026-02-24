@@ -17,7 +17,7 @@ export interface ArticuloData {
 
 export const articulosData: Record<string, ArticuloData> = {
   "nfpa-1971-guia-completa": {
-    titulo: "NFPA 1971: Guía Completa del Estándar para Trajes y EPP Estructural de Bomberos",
+    titulo: "Guía NFPA 1971: EPP Estructural para Bomberos",
     excerpt: "Guía definitiva sobre la norma NFPA 1971 para EPP de bomberos estructurales. Requisitos de certificación, componentes cubiertos, pruebas de laboratorio y cómo verificar que tu equipo cumple el estándar más exigente del mundo.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Normativas",
@@ -79,7 +79,7 @@ El casco debe proteger contra:
 - **Calor radiante** — Exposición a 260°C (500°F) sin deformación
 - **Llama directa** — 10 segundos sin ignición
 
-[**Ver catálogo de cascos NFPA 1971 →**](/productos/cascos-para-bomberos)
+[**Ver catálogo de cascos NFPA 1971 →**](/productos/cascos-para-bomberos/)
 
 ### 3. Guantes Estructurales
 
@@ -91,7 +91,7 @@ El casco debe proteger contra:
 | **Resistencia a cortes** | Nivel de corte mínimo |
 | **Impermeabilidad** | Barrera de humedad integrada |
 
-[**Ver guantes estructurales certificados →**](/productos/guantes-para-bomberos/estructurales)
+[**Ver guantes estructurales certificados →**](/productos/guantes-para-bomberos/estructurales/)
 
 ### 4. Botas Estructurales
 
@@ -101,7 +101,7 @@ El casco debe proteger contra:
 - **Aislamiento eléctrico** — Protección contra descargas
 - **Suela antideslizante** — En superficies mojadas y con aceite
 
-[**Ver botas estructurales NFPA 1971 →**](/productos/botas-para-bomberos)
+[**Ver botas estructurales NFPA 1971 →**](/productos/botas-para-bomberos/)
 
 ### 5. Capucha Protectora (Monja)
 
@@ -115,7 +115,7 @@ La capucha es el componente **más crítico** según estudios recientes de cánc
 
 > **Alerta de salud:** La edición 2018 de NFPA 1971 introdujo requisitos opcionales de **protección particulada** debido a la correlación entre exposición a humo y cáncer en bomberos. En BOMBERO.MX recomendamos actualizar a capuchas con esta protección.
 
-[**Ver capuchas particuladas →**](/productos/capuchas-para-bomberos/particulada)
+[**Ver capuchas particuladas →**](/productos/capuchas-para-bomberos/particulada/)
 
 ---
 
@@ -255,7 +255,7 @@ En **BOMBERO.MX** nos especializamos en equipar departamentos de bomberos con EP
 
 ### ¿Listo para Equipar a tu Departamento con EPP Certificado?
 
-- [**Ver catálogo de trajes estructurales NFPA 1971 →**](/productos/trajes-para-bomberos)
+- [**Ver catálogo de trajes estructurales NFPA 1971 →**](/productos/trajes-para-bomberos/)
 - [**Solicitar cotización personalizada →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -263,10 +263,10 @@ En **BOMBERO.MX** nos especializamos en equipar departamentos de bomberos con EP
 
 ### Artículos Relacionados
 
-- [**Traje Estructural NFPA 1971: Sistema de 3 Capas →**](/blog/traje-estructural-nfpa-1971)
-- [**Cascos para Bombero: Tipos y Selección NFPA →**](/blog/cascos-bombero-tipos)
-- [**Mantenimiento de Equipos SCBA: Protocolo NFPA 1852 →**](/blog/mantenimiento-scba)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp)
+- [**Traje Estructural NFPA 1971: Sistema de 3 Capas →**](/blog/traje-estructural-nfpa-1971/)
+- [**Cascos para Bombero: Tipos y Selección NFPA →**](/blog/cascos-bombero-tipos/)
+- [**Mantenimiento de Equipos SCBA: Protocolo NFPA 1852 →**](/blog/mantenimiento-scba/)
+- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
 
 ---
 
@@ -274,7 +274,7 @@ En **BOMBERO.MX** nos especializamos en equipar departamentos de bomberos con EP
     `,
   },
   "mantenimiento-scba": {
-    titulo: "Mantenimiento de Equipos SCBA: Protocolo Completo según NFPA 1852 y 1981",
+    titulo: "Mantenimiento SCBA: Protocolo NFPA 1852",
     excerpt: "Guía profesional de inspección, limpieza y mantenimiento de equipos de respiración autónoma SCBA. Protocolos NFPA 1852, pruebas hidrostáticas, calibración de reguladores y programa de mantenimiento preventivo para bomberos.",
     imagen: "/images/trajes-para-bombero/traje-bombero-retrato-scba-capucha-proteccion-01.avif",
     categoria: "Mantenimiento",
@@ -572,7 +572,7 @@ Desde el bombero que hace su inspección diaria hasta el técnico que realiza el
 
 ### ¿Necesitas Equipos, Refacciones o Servicio SCBA?
 
-- [**Ver catálogo de equipos SCBA →**](/productos/scba)
+- [**Ver catálogo de equipos SCBA →**](/productos/scba/)
 - [**Solicitar cotización de refacciones →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -580,10 +580,10 @@ Desde el bombero que hace su inspección diaria hasta el técnico que realiza el
 
 ### Artículos Relacionados
 
-- [**NFPA 1971: Guía Completa del Estándar para EPP →**](/blog/nfpa-1971-guia-completa)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp)
-- [**Traje Estructural NFPA 1971: Guía Definitiva →**](/blog/traje-estructural-nfpa-1971)
-- [**Cascos para Bombero: Tipos y Certificaciones →**](/blog/cascos-bombero-tipos)
+- [**NFPA 1971: Guía Completa del Estándar para EPP →**](/blog/nfpa-1971-guia-completa/)
+- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
+- [**Traje Estructural NFPA 1971: Guía Definitiva →**](/blog/traje-estructural-nfpa-1971/)
+- [**Cascos para Bombero: Tipos y Certificaciones →**](/blog/cascos-bombero-tipos/)
 
 ---
 
@@ -591,7 +591,7 @@ Desde el bombero que hace su inspección diaria hasta el técnico que realiza el
     `,
   },
   "rescate-vehicular-tecnicas": {
-    titulo: "Técnicas de Rescate Vehicular: Guía Completa de Extricación para Vehículos Modernos",
+    titulo: "Rescate Vehicular: Técnicas de Extricación",
     excerpt: "Guía profesional de rescate vehicular y extricación para bomberos. Técnicas actualizadas para vehículos eléctricos, híbridos y con aceros UHSS. Protocolos de seguridad, herramientas hidráulicas y capacitación especializada.",
     imagen: "/images/trajes-para-bombero/traje-bombero-operacion-rescate-equipo-accion-01.avif",
     categoria: "Técnicas",
@@ -925,10 +925,10 @@ En **BOMBERO.MX** somos tu aliado para mantener a tu equipo preparado. Desde her
 
 ### Artículos Relacionados
 
-- [**Casco de Rescate Técnico NFPA 1951: Guía Completa →**](/blog/casco-rescate-nfpa-1951)
-- [**Guantes de Rescate y Extricación: Guía Técnica →**](/blog/guantes-rescate-extricacion)
-- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp)
-- [**Cascos para Bombero: Tipos y Selección →**](/blog/cascos-bombero-tipos)
+- [**Casco de Rescate Técnico NFPA 1951: Guía Completa →**](/blog/casco-rescate-nfpa-1951/)
+- [**Guantes de Rescate y Extricación: Guía Técnica →**](/blog/guantes-rescate-extricacion/)
+- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp/)
+- [**Cascos para Bombero: Tipos y Selección →**](/blog/cascos-bombero-tipos/)
 
 ---
 
@@ -936,7 +936,7 @@ En **BOMBERO.MX** somos tu aliado para mantener a tu equipo preparado. Desde her
     `,
   },
   "brigadas-industriales-epp": {
-    titulo: "EPP para Brigadas Industriales: Guía Completa de Selección por Sector y Nivel de Riesgo",
+    titulo: "EPP para Brigadas Industriales: Guía de Selección",
     excerpt: "Guía profesional para seleccionar EPP de brigadas industriales según sector: petroquímica, manufactura, minería, alimentos. Certificaciones NFPA, niveles de protección química y cumplimiento NOM-017-STPS.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-brigada-industrial-01.avif",
     categoria: "Industrial",
@@ -1029,7 +1029,7 @@ Para instalaciones con riesgo de incendio que requieren respuesta antes de que l
 | **Capucha** | NFPA 1971 | Protección cabeza, cuello |
 | **SCBA** | NFPA 1981, 30 min mín | Protección respiratoria |
 
-[**Ver catálogo de trajes estructurales →**](/productos/trajes-para-bomberos)
+[**Ver catálogo de trajes estructurales →**](/productos/trajes-para-bomberos/)
 
 ---
 
@@ -1289,7 +1289,7 @@ En **BOMBERO.MX** somos expertos en equipar brigadas industriales de todos los s
     `,
   },
   "incendios-forestales-mexico": {
-    titulo: "Incendios Forestales en México: Guía Completa de Preparación, EPP NFPA 1977 y Técnicas de Combate",
+    titulo: "Incendios Forestales México: Guía EPP NFPA 1977",
     excerpt: "Guía profesional para combate de incendios forestales en México. EPP certificado NFPA 1977, herramientas manuales, técnicas de línea de fuego, coordinación con CONAFOR y preparación para la temporada de estiaje.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-forestal-nfpa-1977-01.avif",
     categoria: "Forestales",
@@ -1673,10 +1673,10 @@ En **BOMBERO.MX** estamos comprometidos con equipar a quienes protegen nuestros 
 
 ### Artículos Relacionados
 
-- [**Casco Forestal NFPA 1977: Guía Técnica →**](/blog/casco-forestal-nfpa-1977)
-- [**Guantes Forestales NFPA 1977: Selección y Cuidado →**](/blog/guantes-forestales-nfpa-1977)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp)
-- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa)
+- [**Casco Forestal NFPA 1977: Guía Técnica →**](/blog/casco-forestal-nfpa-1977/)
+- [**Guantes Forestales NFPA 1977: Selección y Cuidado →**](/blog/guantes-forestales-nfpa-1977/)
+- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
+- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa/)
 
 ---
 
@@ -1684,7 +1684,7 @@ En **BOMBERO.MX** estamos comprometidos con equipar a quienes protegen nuestros 
     `,
   },
   "cascos-bombero-tipos": {
-    titulo: "Cascos para Bombero: Guía Completa de Tipos, Certificaciones y Selección NFPA",
+    titulo: "Cascos para Bombero: Tipos y Certificaciones NFPA",
     excerpt: "Guía profesional para seleccionar cascos de bombero certificados NFPA 1971, 1977 y 1951. Comparativa estructural vs forestal, marcas líderes y criterios de compra para cuerpos de bomberos en México.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-estructural-nfpa-1971-01.avif",
     categoria: "Equipo",
@@ -1738,7 +1738,7 @@ En **BOMBERO.MX** trabajamos exclusivamente con fabricantes certificados:
 - **Honeywell First Responder** — Innovación en materiales compuestos
 - **Lion** — Especialistas en cascos de alto rendimiento
 
-[**Ver catálogo de cascos estructurales →**](/productos/cascos-para-bomberos)
+[**Ver catálogo de cascos estructurales →**](/productos/cascos-para-bomberos/)
 
 ---
 
@@ -1937,7 +1937,7 @@ En **BOMBERO.MX** tenemos el casco perfecto para cada operación de tu departame
 
 ### ¿Listo para Equipar a tu Departamento?
 
-- [**Ver catálogo completo de cascos →**](/productos/cascos-para-bomberos)
+- [**Ver catálogo completo de cascos →**](/productos/cascos-para-bomberos/)
 - [**Solicitar cotización personalizada →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -1945,10 +1945,10 @@ En **BOMBERO.MX** tenemos el casco perfecto para cada operación de tu departame
 
 ### Artículos Relacionados
 
-- [**Casco Estructural NFPA 1971: Anatomía y Selección →**](/blog/casco-estructural-nfpa-1971)
-- [**Casco Forestal NFPA 1977: Guía Técnica →**](/blog/casco-forestal-nfpa-1977)
-- [**Casco de Rescate NFPA 1951: Multipropósito →**](/blog/casco-rescate-nfpa-1951)
-- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa)
+- [**Casco Estructural NFPA 1971: Anatomía y Selección →**](/blog/casco-estructural-nfpa-1971/)
+- [**Casco Forestal NFPA 1977: Guía Técnica →**](/blog/casco-forestal-nfpa-1977/)
+- [**Casco de Rescate NFPA 1951: Multipropósito →**](/blog/casco-rescate-nfpa-1951/)
+- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa/)
 
 ---
 
@@ -1956,7 +1956,7 @@ En **BOMBERO.MX** tenemos el casco perfecto para cada operación de tu departame
     `,
   },
   "traje-estructural-nfpa-1971": {
-    titulo: "Traje Estructural NFPA 1971: Guía Definitiva del Sistema de 3 Capas para Bomberos",
+    titulo: "Traje Estructural NFPA 1971: Sistema de 3 Capas",
     excerpt: "Guía completa del traje estructural NFPA 1971 para bomberos. Sistema de 3 capas, valores TPP y THL, marcas líderes, selección de tallas, mantenimiento y certificaciones. Todo lo que necesitas saber antes de comprar.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-03.avif",
     categoria: "Equipo",
@@ -2116,10 +2116,10 @@ El traje estructural es solo una parte del **ensemble completo** requerido por N
 
 ### Accesorios Incluidos
 
-- [**Casco estructural NFPA 1971**](/blog/cascos-bombero-tipos) — Protección craneal
-- [**Capucha protectora**](/productos/capuchas-para-bomberos) — Protección de cabeza y cuello
-- [**Guantes estructurales**](/productos/guantes-para-bomberos/estructurales) — Protección de manos
-- [**Botas estructurales**](/productos/botas-para-bomberos) — Protección de pies
+- [**Casco estructural NFPA 1971**](/blog/cascos-bombero-tipos/) — Protección craneal
+- [**Capucha protectora**](/productos/capuchas-para-bomberos/) — Protección de cabeza y cuello
+- [**Guantes estructurales**](/productos/guantes-para-bomberos/estructurales/) — Protección de manos
+- [**Botas estructurales**](/productos/botas-para-bomberos/) — Protección de pies
 
 ---
 
@@ -2192,7 +2192,7 @@ Un traje mal ajustado compromete la seguridad:
 | **FXR** | Innovación en diseño | Alto rendimiento |
 | **Chieftain** | Balance, buen precio | Uso general |
 
-[**Ver catálogo completo de trajes estructurales →**](/productos/trajes-para-bomberos)
+[**Ver catálogo completo de trajes estructurales →**](/productos/trajes-para-bomberos/)
 
 ---
 
@@ -2267,10 +2267,10 @@ Un traje mal ajustado compromete la seguridad:
 
 ### Artículos Relacionados
 
-- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa)
-- [**Cascos para Bombero: Tipos y Selección →**](/blog/cascos-bombero-tipos)
-- [**Mantenimiento de Equipos SCBA →**](/blog/mantenimiento-scba)
-- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp)
+- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa/)
+- [**Cascos para Bombero: Tipos y Selección →**](/blog/cascos-bombero-tipos/)
+- [**Mantenimiento de Equipos SCBA →**](/blog/mantenimiento-scba/)
+- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp/)
 
 ---
 
@@ -2286,7 +2286,7 @@ La vida útil máxima es de **10 años desde la fecha de fabricación**, pero el
 
 ### ¿Puedo usar el mismo traje para incendios estructurales y forestales?
 
-**No es recomendable.** El traje NFPA 1971 es demasiado pesado y caluroso para operaciones forestales prolongadas. Para incendios forestales, usa equipo [NFPA 1977](/blog/incendios-forestales-mexico).
+**No es recomendable.** El traje NFPA 1971 es demasiado pesado y caluroso para operaciones forestales prolongadas. Para incendios forestales, usa equipo [NFPA 1977](/blog/incendios-forestales-mexico/).
 
 ### ¿Qué diferencia hay entre un traje de $40,000 y uno de $70,000?
 
@@ -2306,8 +2306,8 @@ Nuestros especialistas están listos para asesorarte en la selección del traje 
 
 ### ¿Listo para Equipar a tu Departamento?
 
-- [**Ver catálogo de trajes estructurales →**](/productos/trajes-para-bomberos)
-- [**Conocer el sistema de 3 capas →**](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas)
+- [**Ver catálogo de trajes estructurales →**](/productos/trajes-para-bomberos/)
+- [**Conocer el sistema de 3 capas →**](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas/)
 - [**Solicitar cotización y medición →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -2318,7 +2318,7 @@ Nuestros especialistas están listos para asesorarte en la selección del traje 
     `,
   },
   "traje-hazmat-proteccion-quimica": {
-    titulo: "Trajes HAZMAT: Guía Completa de Niveles de Protección Química A, B, C y D",
+    titulo: "Trajes HAZMAT: Niveles de Protección A, B, C, D",
     excerpt: "Guía profesional de trajes HAZMAT para bomberos y brigadas industriales. Niveles de protección A, B, C, D según EPA/OSHA, normas NFPA 1991, 1992 y 1994, selección por tipo de químico y aplicaciones en México.",
     imagen: "/images/directorio/traje-hazmat-nivel-a-01.avif",
     categoria: "Equipo",
@@ -2331,7 +2331,7 @@ Nuestros especialistas están listos para asesorarte en la selección del traje 
 
 Un **traje HAZMAT** (Hazardous Materials) es equipo de protección personal especializado diseñado para proteger al usuario contra la exposición a **materiales peligrosos**: químicos tóxicos, corrosivos, inflamables, radiológicos y biológicos.
 
-A diferencia del [traje estructural NFPA 1971](/blog/traje-estructural-nfpa-1971) que protege contra el calor del fuego, los trajes HAZMAT protegen contra la **penetración y permeación de sustancias químicas**. Usar el equipo incorrecto ante un derrame químico puede resultar en lesiones graves o muerte.
+A diferencia del [traje estructural NFPA 1971](/blog/traje-estructural-nfpa-1971/) que protege contra el calor del fuego, los trajes HAZMAT protegen contra la **penetración y permeación de sustancias químicas**. Usar el equipo incorrecto ante un derrame químico puede resultar en lesiones graves o muerte.
 
 En **BOMBERO.MX** equipamos a equipos HAZMAT de bomberos, brigadas industriales y protección civil con trajes certificados para cada nivel de riesgo. Esta guía te ayudará a entender qué tipo de protección necesitas.
 
@@ -2540,7 +2540,7 @@ El **tiempo de breakthrough** es cuánto tarda un químico en penetrar el materi
 | **Lakeland** | MicroMax® NS | Clase 3 |
 | **DuPont** | Tychem® ThermoPro | Clase 1 |
 
-[**Ver catálogo de protección química →**](/productos/hazmat)
+[**Ver catálogo de protección química →**](/productos/hazmat/)
 
 ---
 
@@ -2645,9 +2645,9 @@ El proceso de vestirse (donning) y quitarse (doffing) el traje es **crítico** p
 
 ### Artículos Relacionados
 
-- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp)
-- [**Mantenimiento de Equipos SCBA →**](/blog/mantenimiento-scba)
-- [**NFPA 1971: Guía del Estándar →**](/blog/nfpa-1971-guia-completa)
+- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp/)
+- [**Mantenimiento de Equipos SCBA →**](/blog/mantenimiento-scba/)
+- [**NFPA 1971: Guía del Estándar →**](/blog/nfpa-1971-guia-completa/)
 
 ---
 
@@ -2679,7 +2679,7 @@ En **BOMBERO.MX** te ayudamos a identificar exactamente qué nivel de protecció
 
 ### ¿Listo para Equipar tu Equipo HAZMAT?
 
-- [**Ver catálogo de trajes HAZMAT →**](/productos/hazmat)
+- [**Ver catálogo de trajes HAZMAT →**](/productos/hazmat/)
 - [**Solicitar asesoría por tipo de químico →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -2690,7 +2690,7 @@ En **BOMBERO.MX** te ayudamos a identificar exactamente qué nivel de protecció
     `,
   },
   "traje-aproximacion-calor-radiante": {
-    titulo: "Traje de Aproximación: Guía del EPP para Calor Radiante Extremo y Operaciones ARFF",
+    titulo: "Traje de Aproximación: EPP Calor Radiante ARFF",
     excerpt: "Guía completa del traje de aproximación (proximity suit) para bomberos ARFF y operaciones con calor radiante extremo. Tecnología aluminizada, norma NFPA 1971 Chapter 8, aplicaciones aeroportuarias e industriales.",
     imagen: "/images/trajes-para-bombero/traje-bombero-incendio-estructural-accion-01.avif",
     categoria: "Equipo",
@@ -2703,7 +2703,7 @@ En **BOMBERO.MX** te ayudamos a identificar exactamente qué nivel de protecció
 
 El **traje de aproximación** (proximity suit o approach suit) es equipo de protección personal diseñado para operaciones donde el bombero debe acercarse a fuentes de **calor radiante extremo**: incendios de combustible de aviación, metales fundidos, hornos industriales y similares.
 
-A diferencia del [traje estructural NFPA 1971](/blog/traje-estructural-nfpa-1971) que protege principalmente contra **calor convectivo** (llamas y aire caliente), el traje de aproximación incorpora una **capa exterior aluminizada** que refleja hasta el **95% del calor radiante**.
+A diferencia del [traje estructural NFPA 1971](/blog/traje-estructural-nfpa-1971/) que protege principalmente contra **calor convectivo** (llamas y aire caliente), el traje de aproximación incorpora una **capa exterior aluminizada** que refleja hasta el **95% del calor radiante**.
 
 ### Traje Estructural vs Traje de Aproximación
 
@@ -2948,7 +2948,7 @@ El interior mantiene el sistema de 3 capas similar al traje estructural:
 | **Newtex** | Z-Flex® | Trabajo con metal fundido |
 | **National Safety** | Aluminized Series | Uso industrial general |
 
-[**Ver catálogo de trajes de aproximación →**](/productos/trajes-para-bomberos)
+[**Ver catálogo de trajes de aproximación →**](/productos/trajes-para-bomberos/)
 
 ---
 
@@ -3010,10 +3010,10 @@ El interior mantiene el sistema de 3 capas similar al traje estructural:
 
 ### Artículos Relacionados
 
-- [**Traje Estructural NFPA 1971 →**](/blog/traje-estructural-nfpa-1971)
-- [**Cascos para Bombero: Tipos y Selección →**](/blog/cascos-bombero-tipos)
-- [**NFPA 1971: Guía del Estándar →**](/blog/nfpa-1971-guia-completa)
-- [**Mantenimiento de Equipos SCBA →**](/blog/mantenimiento-scba)
+- [**Traje Estructural NFPA 1971 →**](/blog/traje-estructural-nfpa-1971/)
+- [**Cascos para Bombero: Tipos y Selección →**](/blog/cascos-bombero-tipos/)
+- [**NFPA 1971: Guía del Estándar →**](/blog/nfpa-1971-guia-completa/)
+- [**Mantenimiento de Equipos SCBA →**](/blog/mantenimiento-scba/)
 
 ---
 
@@ -3045,7 +3045,7 @@ En **BOMBERO.MX** somos especialistas en equipar servicios ARFF y brigadas indus
 
 ### ¿Listo para Equipar tu Operación ARFF o Industrial?
 
-- [**Ver catálogo de trajes de aproximación →**](/productos/trajes-para-bomberos)
+- [**Ver catálogo de trajes de aproximación →**](/productos/trajes-para-bomberos/)
 - [**Solicitar cotización especializada →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -3061,7 +3061,7 @@ En **BOMBERO.MX** somos especialistas en equipar servicios ARFF y brigadas indus
      ═══════════════════════════════════════════════════════════════════════ */
 
   "casco-estructural-nfpa-1971": {
-    titulo: "Casco Estructural NFPA 1971: Anatomía, Selección y Mantenimiento del Casco de Bombero Profesional",
+    titulo: "Casco Estructural NFPA 1971: Anatomía y Selección",
     excerpt: "Guía técnica completa del casco estructural certificado NFPA 1971. Anatomía del casco (shell, suspensión, liner), comparativa de materiales termoplásticos vs composite, marcas líderes (Bullard, MSA, Cairns), y protocolo de inspección según NFPA 1851.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-estudio-dramatico-perfil-01.avif",
     categoria: "Equipo",
@@ -3300,18 +3300,18 @@ En México, el casco estructural debe cumplir:
 
 El casco estructural es parte del **sistema de protección integral** que incluye:
 
-- **[Traje estructural NFPA 1971](/productos/trajes-para-bomberos):** Chaquetón y pantalón con sistema de 3 capas
-- **[Guantes estructurales](/productos/guantes-para-bomberos/estructurales):** Protección de manos certificada
-- **[Botas estructurales](/productos/botas-para-bomberos/estructural):** Cuero certificado NFPA 1971
-- **[Capucha Nomex®](/productos/capuchas-para-bomberos/nomex):** Protección facial bajo casco
-- **[SCBA autónomo](/productos/scba):** Equipo de respiración NFPA 1981
+- **[Traje estructural NFPA 1971](/productos/trajes-para-bomberos/):** Chaquetón y pantalón con sistema de 3 capas
+- **[Guantes estructurales](/productos/guantes-para-bomberos/estructurales/):** Protección de manos certificada
+- **[Botas estructurales](/productos/botas-para-bomberos/estructural/):** Cuero certificado NFPA 1971
+- **[Capucha Nomex®](/productos/capuchas-para-bomberos/nomex/):** Protección facial bajo casco
+- **[SCBA autónomo](/productos/scba/):** Equipo de respiración NFPA 1981
 
 ### Artículos Relacionados
 
-- [**Guía completa NFPA 1971** →](/blog/nfpa-1971-guia-completa)
-- [**Tipos de cascos para bombero** →](/blog/cascos-bombero-tipos)
-- [**Traje estructural: Sistema de 3 capas** →](/blog/traje-estructural-nfpa-1971)
-- [**Mantenimiento de EPP según NFPA 1851** →](/blog/mantenimiento-scba)
+- [**Guía completa NFPA 1971** →](/blog/nfpa-1971-guia-completa/)
+- [**Tipos de cascos para bombero** →](/blog/cascos-bombero-tipos/)
+- [**Traje estructural: Sistema de 3 capas** →](/blog/traje-estructural-nfpa-1971/)
+- [**Mantenimiento de EPP según NFPA 1851** →](/blog/mantenimiento-scba/)
 
 ---
 
@@ -3323,7 +3323,7 @@ En **BOMBERO.MX** trabajamos con todas las marcas líderes (Bullard, MSA Cairns,
 
 ### ¿Listo para Equipar a tu Departamento?
 
-- [**Ver catálogo de cascos estructurales →**](/productos/cascos-para-bomberos)
+- [**Ver catálogo de cascos estructurales →**](/productos/cascos-para-bomberos/)
 - [**Solicitar cotización personalizada →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -3335,7 +3335,7 @@ En **BOMBERO.MX** trabajamos con todas las marcas líderes (Bullard, MSA Cairns,
   },
 
   "casco-forestal-nfpa-1977": {
-    titulo: "Casco Forestal NFPA 1977: Guía Técnica del Casco para Incendios de Vegetación y Línea de Fuego",
+    titulo: "Casco Forestal NFPA 1977: Guía Técnica Completa",
     excerpt: "Guía profesional del casco forestal certificado NFPA 1977. Diferencias vs casco estructural, requisitos de certificación, materiales (policarbonato, composite), marcas especializadas (Bullard, MSA, Kask), y uso correcto en operaciones forestales.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-forestal-nfpa-1977-02.avif",
     categoria: "Equipo",
@@ -3607,17 +3607,17 @@ Empresas en zonas de riesgo forestal (CFE, PEMEX, parques industriales) deben eq
 
 El casco es parte del **sistema de protección personal forestal** que incluye:
 
-- **[Traje forestal NFPA 1977](/productos/trajes-para-bomberos):** Chaquetín y pantalón de Nomex® ligero
-- **[Guantes forestales](/productos/guantes-para-bomberos/forestales):** Cuero flexible para trabajo con herramienta
-- **[Botas forestales](/productos/botas-para-bomberos/forestal):** Diseño para terreno irregular
-- **[Goggles de protección](/productos/gafas-para-bomberos):** Protección UV y partículas
+- **[Traje forestal NFPA 1977](/productos/trajes-para-bomberos/):** Chaquetín y pantalón de Nomex® ligero
+- **[Guantes forestales](/productos/guantes-para-bomberos/forestales/):** Cuero flexible para trabajo con herramienta
+- **[Botas forestales](/productos/botas-para-bomberos/forestal/):** Diseño para terreno irregular
+- **[Goggles de protección](/productos/gafas-para-bomberos/):** Protección UV y partículas
 
 ### Artículos Relacionados
 
-- [**Incendios forestales en México: Guía completa** →](/blog/incendios-forestales-mexico)
-- [**Casco estructural NFPA 1971** →](/blog/casco-estructural-nfpa-1971)
-- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp)
-- [**Tipos de cascos para bombero** →](/blog/cascos-bombero-tipos)
+- [**Incendios forestales en México: Guía completa** →](/blog/incendios-forestales-mexico/)
+- [**Casco estructural NFPA 1971** →](/blog/casco-estructural-nfpa-1971/)
+- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp/)
+- [**Tipos de cascos para bombero** →](/blog/cascos-bombero-tipos/)
 
 ---
 
@@ -3629,7 +3629,7 @@ En **BOMBERO.MX** somos distribuidores autorizados de las principales marcas de 
 
 ### ¿Equipando tu Brigada para la Temporada de Incendios?
 
-- [**Ver catálogo de cascos forestales →**](/productos/cascos-para-bomberos/casco-forestal-nfpa-1977)
+- [**Ver catálogo de cascos forestales →**](/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/)
 - [**Solicitar cotización para brigadas →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -3641,7 +3641,7 @@ En **BOMBERO.MX** somos distribuidores autorizados de las principales marcas de 
   },
 
   "casco-rescate-nfpa-1951": {
-    titulo: "Casco de Rescate Técnico NFPA 1951: Guía del Casco Multipropósito para TRT, USAR y Operaciones Especiales",
+    titulo: "Casco Rescate NFPA 1951: Guía TRT y USAR",
     excerpt: "Guía técnica completa del casco de rescate certificado NFPA 1951 para operaciones TRT, USAR, rescate en alturas, vehicular y colapso estructural. Comparativa con cascos estructurales, marcas especializadas (Petzl, Team Wendy, CMC), y certificaciones complementarias.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-rescate-tecnico-01.avif",
     categoria: "Equipo",
@@ -4004,17 +4004,17 @@ Departamentos de bomberos con equipos TRT (Technical Rescue Team):
 
 El casco es parte del **sistema de protección personal para rescate técnico**:
 
-- **[Arnés de rescate certificado](/productos/herramientas-rescate):** NFPA 1983, Petzl, CMC
-- **[Guantes de rescate técnico](/productos/guantes-para-bomberos/rescate):** Cuero y sintético
-- **[Botas de rescate](/productos/botas-para-bomberos):** Tracción y protección
-- **[Goggles de protección](/productos/gafas-para-bomberos):** ESS, Wiley X
+- **[Arnés de rescate certificado](/productos/herramientas-rescate/):** NFPA 1983, Petzl, CMC
+- **[Guantes de rescate técnico](/productos/guantes-para-bomberos/rescate/):** Cuero y sintético
+- **[Botas de rescate](/productos/botas-para-bomberos/):** Tracción y protección
+- **[Goggles de protección](/productos/gafas-para-bomberos/):** ESS, Wiley X
 
 ### Artículos Relacionados
 
-- [**Técnicas de rescate vehicular** →](/blog/rescate-vehicular-tecnicas)
-- [**Casco estructural NFPA 1971** →](/blog/casco-estructural-nfpa-1971)
-- [**Tipos de cascos para bombero** →](/blog/cascos-bombero-tipos)
-- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp)
+- [**Técnicas de rescate vehicular** →](/blog/rescate-vehicular-tecnicas/)
+- [**Casco estructural NFPA 1971** →](/blog/casco-estructural-nfpa-1971/)
+- [**Tipos de cascos para bombero** →](/blog/cascos-bombero-tipos/)
+- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp/)
 
 ---
 
@@ -4026,7 +4026,7 @@ En **BOMBERO.MX** somos especialistas en equipar equipos de rescate técnico con
 
 ### ¿Equipando tu Equipo de Rescate Técnico?
 
-- [**Ver catálogo de cascos de rescate →**](/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951)
+- [**Ver catálogo de cascos de rescate →**](/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/)
 - [**Solicitar cotización para equipos TRT →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -4042,7 +4042,7 @@ En **BOMBERO.MX** somos especialistas en equipar equipos de rescate técnico con
      ═══════════════════════════════════════════════════════════════════════ */
 
   "guantes-estructurales-nfpa-1971": {
-    titulo: "Guantes Estructurales NFPA 1971: Anatomía, Materiales y Selección del Guante de Bombero Profesional",
+    titulo: "Guantes Estructurales NFPA 1971: Guía Completa",
     excerpt: "Guía técnica completa del guante estructural certificado NFPA 1971. Anatomía del guante (shell, liner, barrera), materiales (Kevlar®, cuero, PBI®), pruebas de certificación, marcas líderes (Shelby, Pro-Tech 8, Honeywell) y protocolo de tallaje profesional.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-estructural-nfpa-1971-01.avif",
     categoria: "Equipo",
@@ -4310,17 +4310,17 @@ Todo guante certificado debe tener etiqueta permanente con:
 
 El guante estructural es parte del **sistema de protección de extremidades**:
 
-- **[Traje estructural NFPA 1971](/productos/trajes-para-bomberos):** Interfaz con manga del chaquetón
-- **[Casco estructural NFPA 1971](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971):** Protección de cabeza
-- **[Botas estructurales](/productos/botas-para-bomberos/estructural):** Protección de pies y tobillos
-- **[Capucha Nomex®](/productos/capuchas-para-bomberos/nomex):** Cierre de sistema en cuello
+- **[Traje estructural NFPA 1971](/productos/trajes-para-bomberos/):** Interfaz con manga del chaquetón
+- **[Casco estructural NFPA 1971](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/):** Protección de cabeza
+- **[Botas estructurales](/productos/botas-para-bomberos/estructural/):** Protección de pies y tobillos
+- **[Capucha Nomex®](/productos/capuchas-para-bomberos/nomex/):** Cierre de sistema en cuello
 
 ### Artículos Relacionados
 
-- [**Guía completa NFPA 1971** →](/blog/nfpa-1971-guia-completa)
-- [**Casco estructural NFPA 1971** →](/blog/casco-estructural-nfpa-1971)
-- [**Traje estructural: Sistema de 3 capas** →](/blog/traje-estructural-nfpa-1971)
-- [**Guantes de rescate/extricación** →](/blog/guantes-rescate-extricacion)
+- [**Guía completa NFPA 1971** →](/blog/nfpa-1971-guia-completa/)
+- [**Casco estructural NFPA 1971** →](/blog/casco-estructural-nfpa-1971/)
+- [**Traje estructural: Sistema de 3 capas** →](/blog/traje-estructural-nfpa-1971/)
+- [**Guantes de rescate/extricación** →](/blog/guantes-rescate-extricacion/)
 
 ---
 
@@ -4332,7 +4332,7 @@ En **BOMBERO.MX** trabajamos con todas las marcas líderes (Shelby, Pro-Tech 8, 
 
 ### ¿Equipando a tu Departamento con Guantes Profesionales?
 
-- [**Ver catálogo de guantes estructurales →**](/productos/guantes-para-bomberos/estructurales)
+- [**Ver catálogo de guantes estructurales →**](/productos/guantes-para-bomberos/estructurales/)
 - [**Solicitar cotización con tallaje →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -4344,7 +4344,7 @@ En **BOMBERO.MX** trabajamos con todas las marcas líderes (Shelby, Pro-Tech 8, 
   },
 
   "guantes-rescate-extricacion": {
-    titulo: "Guantes de Rescate y Extricación: Guía Técnica del Guante para Operaciones TRT, Vehicular y USAR",
+    titulo: "Guantes de Rescate: Guía TRT y Extricación",
     excerpt: "Guía profesional de guantes de rescate técnico y extricación vehicular. Diferencias con guantes estructurales, certificación NFPA 1951, materiales (cuero sintético, Kevlar®, TPR), marcas especializadas (Ringers, Mechanix, HexArmor) y selección por tipo de operación.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-rescate-nfpa-1951-01.avif",
     categoria: "Equipo",
@@ -4617,17 +4617,17 @@ La mayoría de guantes de rescate usan tallaje estándar S-XXL basado en circunf
 
 Los guantes son parte del **sistema de protección para rescate técnico**:
 
-- **[Casco de rescate NFPA 1951](/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951):** Protección de cabeza
-- **[Arnés de rescate](/productos/herramientas-rescate):** Sistema de cuerdas
-- **[Goggles de protección](/productos/gafas-para-bomberos):** Protección ocular
-- **[Botas de rescate](/productos/botas-para-bomberos):** Tracción y protección
+- **[Casco de rescate NFPA 1951](/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/):** Protección de cabeza
+- **[Arnés de rescate](/productos/herramientas-rescate/):** Sistema de cuerdas
+- **[Goggles de protección](/productos/gafas-para-bomberos/):** Protección ocular
+- **[Botas de rescate](/productos/botas-para-bomberos/):** Tracción y protección
 
 ### Artículos Relacionados
 
-- [**Técnicas de rescate vehicular** →](/blog/rescate-vehicular-tecnicas)
-- [**Casco de rescate NFPA 1951** →](/blog/casco-rescate-nfpa-1951)
-- [**Guantes estructurales NFPA 1971** →](/blog/guantes-estructurales-nfpa-1971)
-- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp)
+- [**Técnicas de rescate vehicular** →](/blog/rescate-vehicular-tecnicas/)
+- [**Casco de rescate NFPA 1951** →](/blog/casco-rescate-nfpa-1951/)
+- [**Guantes estructurales NFPA 1971** →](/blog/guantes-estructurales-nfpa-1971/)
+- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp/)
 
 ---
 
@@ -4639,7 +4639,7 @@ En **BOMBERO.MX** ofrecemos asesoría especializada para configurar el inventari
 
 ### ¿Equipando tu Unidad de Rescate?
 
-- [**Ver catálogo de guantes de rescate →**](/productos/guantes-para-bomberos/rescate)
+- [**Ver catálogo de guantes de rescate →**](/productos/guantes-para-bomberos/rescate/)
 - [**Solicitar cotización para equipos TRT →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -4651,7 +4651,7 @@ En **BOMBERO.MX** ofrecemos asesoría especializada para configurar el inventari
   },
 
   "guantes-hazmat-proteccion-quimica": {
-    titulo: "Guantes HAZMAT: Guía Completa de Selección por Químico, Material y Nivel de Protección",
+    titulo: "Guantes HAZMAT: Selección por Químico y Material",
     excerpt: "Guía técnica profesional de guantes de protección química para operaciones HAZMAT. Materiales (butilo, Viton®, nitrilo, neopreno), compatibilidad química, permeación y degradación, normas NFPA 1991/1992/1994, y selección según tipo de sustancia peligrosa.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-hazmat-nfpa-1991-01.avif",
     categoria: "Equipo",
@@ -5027,15 +5027,15 @@ La práctica profesional de HAZMAT utiliza múltiples capas:
 
 Los guantes son parte del **sistema de protección química completo**:
 
-- **[Trajes HAZMAT (Nivel A, B, C, D)](/productos/hazmat):** Protección corporal
-- **[SCBA autónomo](/productos/scba):** Protección respiratoria
-- **[Botas químicas](/productos/botas-para-bomberos/caucho):** Protección de pies
+- **[Trajes HAZMAT (Nivel A, B, C, D)](/productos/hazmat/):** Protección corporal
+- **[SCBA autónomo](/productos/scba/):** Protección respiratoria
+- **[Botas químicas](/productos/botas-para-bomberos/caucho/):** Protección de pies
 
 ### Artículos Relacionados
 
-- [**Trajes HAZMAT: Guía de niveles A, B, C, D** →](/blog/traje-hazmat-proteccion-quimica)
-- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp)
-- [**Guantes estructurales NFPA 1971** →](/blog/guantes-estructurales-nfpa-1971)
+- [**Trajes HAZMAT: Guía de niveles A, B, C, D** →](/blog/traje-hazmat-proteccion-quimica/)
+- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp/)
+- [**Guantes estructurales NFPA 1971** →](/blog/guantes-estructurales-nfpa-1971/)
 
 ---
 
@@ -5047,7 +5047,7 @@ En **BOMBERO.MX** somos especialistas en equipar equipos HAZMAT con los guantes 
 
 ### ¿Equipando tu Equipo HAZMAT?
 
-- [**Ver catálogo de guantes HAZMAT →**](/productos/guantes-para-bomberos/hazmat)
+- [**Ver catálogo de guantes HAZMAT →**](/productos/guantes-para-bomberos/hazmat/)
 - [**Solicitar asesoría de compatibilidad química →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -5059,7 +5059,7 @@ En **BOMBERO.MX** somos especialistas en equipar equipos HAZMAT con los guantes 
   },
 
   "guantes-forestales-nfpa-1977": {
-    titulo: "Guantes Forestales NFPA 1977: Guía del Guante para Combate de Incendios de Vegetación y Línea de Fuego",
+    titulo: "Guantes Forestales NFPA 1977: Guía Técnica",
     excerpt: "Guía técnica completa del guante forestal certificado NFPA 1977. Diferencias con guantes estructurales, materiales (cuero de res, Nomex®), construcción para trabajo con herramienta manual, marcas especializadas y cuidado para temporada de incendios.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-forestal-nfpa-1977-01.avif",
     categoria: "Equipo",
@@ -5394,17 +5394,17 @@ Requisitos variables por estado. Verificar con coordinación estatal.
 
 Los guantes son parte del **sistema de EPP forestal completo**:
 
-- **[Casco forestal NFPA 1977](/productos/cascos-para-bomberos/casco-forestal-nfpa-1977):** Protección de cabeza
-- **[Traje forestal NFPA 1977](/productos/trajes-para-bomberos):** Chaquetín y pantalón
-- **[Botas forestales](/productos/botas-para-bomberos/forestal):** Protección de pies
-- **[Goggles de protección](/productos/gafas-para-bomberos):** Protección ocular
+- **[Casco forestal NFPA 1977](/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/):** Protección de cabeza
+- **[Traje forestal NFPA 1977](/productos/trajes-para-bomberos/):** Chaquetín y pantalón
+- **[Botas forestales](/productos/botas-para-bomberos/forestal/):** Protección de pies
+- **[Goggles de protección](/productos/gafas-para-bomberos/):** Protección ocular
 
 ### Artículos Relacionados
 
-- [**Incendios forestales en México: Guía completa** →](/blog/incendios-forestales-mexico)
-- [**Casco forestal NFPA 1977** →](/blog/casco-forestal-nfpa-1977)
-- [**Guantes estructurales NFPA 1971** →](/blog/guantes-estructurales-nfpa-1971)
-- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp)
+- [**Incendios forestales en México: Guía completa** →](/blog/incendios-forestales-mexico/)
+- [**Casco forestal NFPA 1977** →](/blog/casco-forestal-nfpa-1977/)
+- [**Guantes estructurales NFPA 1971** →](/blog/guantes-estructurales-nfpa-1971/)
+- [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp/)
 
 ---
 
@@ -5416,7 +5416,7 @@ En **BOMBERO.MX** somos proveedores de brigadas CONAFOR y protección civil esta
 
 ### ¿Preparando tu Brigada para la Temporada?
 
-- [**Ver catálogo de guantes forestales →**](/productos/guantes-para-bomberos/forestales)
+- [**Ver catálogo de guantes forestales →**](/productos/guantes-para-bomberos/forestales/)
 - [**Solicitar cotización para brigadas →**](/cotizar)
 - **Llamar ahora:** [55 2078 0102](tel:+525520780102)
 - **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
@@ -5427,8 +5427,8 @@ En **BOMBERO.MX** somos proveedores de brigadas CONAFOR y protección civil esta
     `,
   },
   "gama-de-mexico-equipos-contra-incendio": {
-    titulo: "Gama de México: Análisis Técnico del Distribuidor Autorizado Elkhart Brass — Especificaciones de Equipos Contra Incendio UL/FM para Proyectos NFPA en México",
-    excerpt: "Evaluación profesional de Gama de México como canal autorizado de Elkhart Brass. Especificaciones técnicas detalladas: monitores 500-6,000 GPM, válvulas OS&Y FM 1120, boquillas fog/straight stream. Normativa NFPA 11, 13, 14, 15, 16, 20, 24, 30. Datos de contacto verificados.",
+    titulo: "Gama de México: Distribuidor Elkhart Brass",
+    excerpt: "Gama de México, canal autorizado Elkhart Brass, ofrece equipos UL/FM para proyectos NFPA: monitores, válvulas OS&Y y boquillas con datos técnicos verificados.",
     imagen: "/images/directorio/estacion-bomberos-industrial-01.avif",
     categoria: "Industrial",
     tags: ["Gama de México Distribuidor Elkhart Brass", "Monitores FM Approved NFPA 15", "Válvulas OS&Y UL Listed FM 1120", "Equipos Contra Incendio Certificados México", "Boquillas NFPA 1964", "Sistemas Fijos Protección Incendio"],
@@ -5899,11 +5899,11 @@ Los sistemas de protección contra incendio fijos constituyen la **defensa pasiv
 
 En **BOMBERO.MX** nos especializamos en el suministro de **EPP certificado NFPA** para complementar los sistemas de protección fija. Nuestro inventario incluye:
 
-- [**Traje estructural NFPA 1971 →**](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971) — Sistema de 3 capas (shell, moisture barrier, thermal liner)
-- [**SCBA certificado NFPA 1981 →**](/productos/scba) — Equipos de respiración autónoma de 30/45/60 minutos
-- [**Casco estructural NFPA 1971 →**](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971) — Protección de impacto, penetración y calor
-- [**Guantes estructurales NFPA 1971 →**](/productos/guantes-para-bomberos/estructurales) — Máxima destreza con protección certificada
-- [**Botas estructurales →**](/productos/botas-para-bomberos/estructural) — Cuero resistente al calor con protección metatarsal
+- [**Traje estructural NFPA 1971 →**](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/) — Sistema de 3 capas (shell, moisture barrier, thermal liner)
+- [**SCBA certificado NFPA 1981 →**](/productos/scba/) — Equipos de respiración autónoma de 30/45/60 minutos
+- [**Casco estructural NFPA 1971 →**](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/) — Protección de impacto, penetración y calor
+- [**Guantes estructurales NFPA 1971 →**](/productos/guantes-para-bomberos/estructurales/) — Máxima destreza con protección certificada
+- [**Botas estructurales →**](/productos/botas-para-bomberos/estructural/) — Cuero resistente al calor con protección metatarsal
 
 ---
 
@@ -5971,10 +5971,10 @@ Este artículo técnico ha sido preparado por el **Departamento de Ingeniería d
 
 ### Artículos Relacionados
 
-- [**MESECI: 16 Años Protegiendo México →**](/blog/meseci-equipos-contra-incendio-mexico)
-- [**MANEXT: 80 Años de Excelencia en Extintores →**](/blog/manext-mantenimiento-extintores-cdmx)
-- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico)
-- [**NFPA 1971: Guía Completa del Estándar para EPP →**](/blog/nfpa-1971-guia-completa)
+- [**MESECI: 16 Años Protegiendo México →**](/blog/meseci-equipos-contra-incendio-mexico/)
+- [**MANEXT: 80 Años de Excelencia en Extintores →**](/blog/manext-mantenimiento-extintores-cdmx/)
+- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [**NFPA 1971: Guía Completa del Estándar para EPP →**](/blog/nfpa-1971-guia-completa/)
 
 ---
 
@@ -5982,8 +5982,8 @@ Este artículo técnico ha sido preparado por el **Departamento de Ingeniería d
     `,
   },
   "meseci-equipos-contra-incendio-mexico": {
-    titulo: "MESECI: 16 Años Protegiendo México con Sistemas Contra Incendio de Clase Mundial",
-    excerpt: "MESECI es la empresa mexicana fundada en 2008 que ha transformado el sector de protección contra incendio con su modelo Servicio Integral 360°. Dos sucursales estratégicas en CDMX y Estado de México, catálogo completo de extintores, sistemas de rociadores ESFR, detectores X-Sense, y el exclusivo traje de bombero SKÖLD HERÖ certificado NFPA 1971.",
+    titulo: "MESECI: Sistemas Contra Incendio en México",
+    excerpt: "MESECI, fundada en 2008, ofrece Servicio Integral 360° con sucursales en CDMX y Edomex: extintores, rociadores ESFR, detectores y EPP NFPA.",
     imagen: "/images/directorio/estacion-bomberos-moderna-01.avif",
     categoria: "Industrial",
     tags: ["MESECI México", "Extintores CDMX", "Sistemas Rociadores ESFR", "Traje Bombero SKÖLD HERÖ", "NOM-002-STPS", "Servicio Integral 360"],
@@ -6382,12 +6382,12 @@ La protección contra incendio completa requiere **sistemas fijos de calidad** Y
 
 | Categoría | Producto | Certificación |
 |-----------|----------|---------------|
-| **Protección corporal** | [Traje estructural NFPA 1971 →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971) | NFPA 1971 Ed. 2018 |
-| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971) | NFPA 1971 |
-| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales) | NFPA 1971 |
-| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural) | NFPA 1971 |
-| **Protección respiratoria** | [Equipos SCBA →](/productos/scba) | NFPA 1981 |
-| **Protección de cuello** | [Capuchas protectoras →](/productos/capuchas-para-bomberos) | NFPA 1971 |
+| **Protección corporal** | [Traje estructural NFPA 1971 →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/) | NFPA 1971 Ed. 2018 |
+| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/) | NFPA 1971 |
+| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales/) | NFPA 1971 |
+| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural/) | NFPA 1971 |
+| **Protección respiratoria** | [Equipos SCBA →](/productos/scba/) | NFPA 1981 |
+| **Protección de cuello** | [Capuchas protectoras →](/productos/capuchas-para-bomberos/) | NFPA 1971 |
 
 ---
 
@@ -6427,10 +6427,10 @@ Para equipamiento de protección personal con certificación NFPA:
 
 ### Artículos Relacionados
 
-- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio)
-- [**MANEXT: 80 Años de Excelencia en Extintores →**](/blog/manext-mantenimiento-extintores-cdmx)
-- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis)
-- [**Traje Estructural NFPA 1971: Guía Definitiva →**](/blog/traje-estructural-nfpa-1971)
+- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio/)
+- [**MANEXT: 80 Años de Excelencia en Extintores →**](/blog/manext-mantenimiento-extintores-cdmx/)
+- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
+- [**Traje Estructural NFPA 1971: Guía Definitiva →**](/blog/traje-estructural-nfpa-1971/)
 
 ---
 
@@ -6438,8 +6438,8 @@ Para equipamiento de protección personal con certificación NFPA:
     `,
   },
   "manext-mantenimiento-extintores-cdmx": {
-    titulo: "MANEXT: 80 Años de Excelencia en Mantenimiento y Venta de Extintores en CDMX",
-    excerpt: "Desde 1943, MANEXT ha protegido a más de 15,000 clientes en la Ciudad de México y área metropolitana. Fundada por Esteban García Martínez, esta empresa familiar de tercera generación ofrece venta, mantenimiento, recarga, prueba hidrostática y capacitación de brigadas con certificación NOM-154-SCFI y DC-3.",
+    titulo: "MANEXT: Extintores y Mantenimiento en CDMX",
+    excerpt: "MANEXT protege CDMX desde 1943 con venta, mantenimiento, recarga y prueba hidrostática de extintores, además de capacitación DC-3 y NOM-154-SCFI.",
     imagen: "/images/directorio/extintor-polvo-quimico-01.avif",
     categoria: "Industrial",
     tags: ["MANEXT Extintores", "Mantenimiento Extintores CDMX", "Recarga Extintores México", "NOM-154-SCFI", "Capacitación Brigadas DC-3", "Prueba Hidrostática"],
@@ -6810,12 +6810,12 @@ La protección contra incendio completa requiere **equipos de extinción confiab
 
 | Categoría | Producto | Certificación |
 |-----------|----------|---------------|
-| **Protección corporal** | [Traje estructural NFPA 1971 →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971) | NFPA 1971 |
-| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971) | NFPA 1971 |
-| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales) | NFPA 1971 |
-| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural) | NFPA 1971 |
-| **Protección respiratoria** | [Equipos SCBA →](/productos/scba) | NFPA 1981 |
-| **Protección de cuello** | [Capuchas protectoras →](/productos/capuchas-para-bomberos) | NFPA 1971 |
+| **Protección corporal** | [Traje estructural NFPA 1971 →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/) | NFPA 1971 |
+| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/) | NFPA 1971 |
+| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales/) | NFPA 1971 |
+| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural/) | NFPA 1971 |
+| **Protección respiratoria** | [Equipos SCBA →](/productos/scba/) | NFPA 1981 |
+| **Protección de cuello** | [Capuchas protectoras →](/productos/capuchas-para-bomberos/) | NFPA 1971 |
 
 ---
 
@@ -6846,10 +6846,10 @@ Para equipamiento de protección personal con certificación NFPA:
 
 ### Artículos Relacionados
 
-- [**Venta de Extintores Certificados NOM en CDMX →**](/blog/manext-venta-extintores-certificados-cdmx)
-- [**MESECI: Servicio Integral 360° →**](/blog/meseci-equipos-contra-incendio-mexico)
-- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp)
+- [**Venta de Extintores Certificados NOM en CDMX →**](/blog/manext-venta-extintores-certificados-cdmx/)
+- [**MESECI: Servicio Integral 360° →**](/blog/meseci-equipos-contra-incendio-mexico/)
+- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio/)
+- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
 
 ---
 
@@ -6857,7 +6857,7 @@ Para equipamiento de protección personal con certificación NFPA:
     `,
   },
   "manext-venta-extintores-certificados-cdmx": {
-    titulo: "Venta de Extintores Certificados NOM en CDMX: Guía Completa de Tipos, Capacidades y Precios | MANEXT",
+    titulo: "Extintores Certificados NOM CDMX: Guía MANEXT",
     excerpt: "Guía técnica completa para comprar extintores certificados NOM-154-SCFI en Ciudad de México. Comparativa de 6 tipos de extintores (PQS, CO₂, Tipo K, Espuma AFFF, Agentes Limpios, Agua), capacidades desde 1 kg hasta 50 kg, precios de referencia y qué incluye cada compra con MANEXT.",
     imagen: "/images/directorio/estacion-bomberos-cdmx-01.avif",
     categoria: "Industrial",
@@ -7332,10 +7332,10 @@ Los extintores protegen tu patrimonio, pero **las personas que los operan tambi�
 
 | Categoría | Producto | Certificación |
 |-----------|----------|---------------|
-| **Protección corporal** | [Traje estructural →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971) | NFPA 1971 |
-| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971) | NFPA 1971 |
-| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales) | NFPA 1971 |
-| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural) | NFPA 1971 |
+| **Protección corporal** | [Traje estructural →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/) | NFPA 1971 |
+| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/) | NFPA 1971 |
+| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales/) | NFPA 1971 |
+| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural/) | NFPA 1971 |
 
 ### Contacto BOMBERO.MX
 
@@ -7348,10 +7348,10 @@ Los extintores protegen tu patrimonio, pero **las personas que los operan tambi�
 
 ### Artículos Relacionados
 
-- [**MANEXT: 80 Años de Excelencia en Mantenimiento →**](/blog/manext-mantenimiento-extintores-cdmx)
-- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico)
-- [**EPP para Brigadas Industriales: Guía Completa →**](/blog/brigadas-industriales-epp)
-- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa)
+- [**MANEXT: 80 Años de Excelencia en Mantenimiento →**](/blog/manext-mantenimiento-extintores-cdmx/)
+- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [**EPP para Brigadas Industriales: Guía Completa →**](/blog/brigadas-industriales-epp/)
+- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa/)
 
 ---
 
@@ -7359,8 +7359,8 @@ Los extintores protegen tu patrimonio, pero **las personas que los operan tambi�
     `,
   },
   "mejores-empresas-equipos-contra-incendio-mexico": {
-    titulo: "Las 3 Mejores Empresas de Equipos Contra Incendio en México: GAMA DE MÉXICO, MESECI y MANEXT",
-    excerpt: "Análisis comparativo de las empresas líderes en protección contra incendio en México. GAMA DE MÉXICO (distribuidor Elkhart Brass), MESECI (Servicio Integral 360°) y MANEXT (80+ años de experiencia). Descubre sus fortalezas, productos, certificaciones y cuál es la mejor opción para tu proyecto.",
+    titulo: "3 Mejores Empresas de Equipos Contra Incendio",
+    excerpt: "Comparativo de GAMA DE MÉXICO, MESECI y MANEXT: fortalezas, certificaciones y oferta de equipos contra incendio para elegir mejor proveedor en México.",
     imagen: "/images/directorio/estacion-bomberos-equipada-01.avif",
     categoria: "Industrial",
     tags: ["Empresas Equipos Contra Incendio México", "GAMA DE MÉXICO", "MESECI", "MANEXT", "Proveedores Extintores CDMX", "Sistemas Contra Incendio México"],
@@ -7723,11 +7723,11 @@ Las instalaciones protegidas necesitan **brigadas equipadas profesionalmente**. 
 
 | Categoría | Producto | Certificación |
 |-----------|----------|---------------|
-| **Protección corporal** | [Traje estructural →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971) | NFPA 1971 |
-| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971) | NFPA 1971 |
-| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales) | NFPA 1971 |
-| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural) | NFPA 1971 |
-| **Protección respiratoria** | [Equipos SCBA →](/productos/scba) | NFPA 1981 |
+| **Protección corporal** | [Traje estructural →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/) | NFPA 1971 |
+| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/) | NFPA 1971 |
+| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales/) | NFPA 1971 |
+| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural/) | NFPA 1971 |
+| **Protección respiratoria** | [Equipos SCBA →](/productos/scba/) | NFPA 1981 |
 
 ### Contacto BOMBERO.MX
 
@@ -7769,10 +7769,10 @@ Las instalaciones protegidas necesitan **brigadas equipadas profesionalmente**. 
 
 ### Artículos Relacionados
 
-- [**Gama de México: Análisis Técnico Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio)
-- [**MESECI: 16 Años Protegiendo México →**](/blog/meseci-equipos-contra-incendio-mexico)
-- [**MANEXT: 80 Años de Excelencia en Extintores →**](/blog/manext-mantenimiento-extintores-cdmx)
-- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis)
+- [**Gama de México: Análisis Técnico Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio/)
+- [**MESECI: 16 Años Protegiendo México →**](/blog/meseci-equipos-contra-incendio-mexico/)
+- [**MANEXT: 80 Años de Excelencia en Extintores →**](/blog/manext-mantenimiento-extintores-cdmx/)
+- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
 
 ---
 
@@ -7780,8 +7780,8 @@ Las instalaciones protegidas necesitan **brigadas equipadas profesionalmente**. 
     `,
   },
   "industria-proteccion-contra-incendio-mexico-analisis": {
-    titulo: "Radiografía del Sector: Las Empresas que Definen la Protección Contra Incendio en México",
-    excerpt: "Análisis ejecutivo del mercado de protección contra incendio en México (USD $110.87 millones en 2024). Investigación a fondo de GAMA DE MÉXICO, MESECI y MANEXT: modelos de negocio, certificaciones, capacidades técnicas y recomendaciones por tipo de proyecto. Con datos de AMIS, NOM-002-STPS y estadísticas de siniestralidad.",
+    titulo: "Empresas de Protección Contra Incendio en México",
+    excerpt: "Análisis del mercado mexicano de protección contra incendio (USD $110.87M, 2024) con estudio de GAMA, MESECI y MANEXT y recomendaciones por proyecto.",
     imagen: "/images/directorio/estacion-bomberos-profesional-01.avif",
     categoria: "Industrial",
     tags: ["Industria Protección Contra Incendio México", "Mercado Extintores México", "GAMA DE MÉXICO Análisis", "MESECI Análisis", "MANEXT Análisis", "NOM-002-STPS Cumplimiento"],
@@ -8346,12 +8346,12 @@ Las instalaciones protegidas necesitan **brigadas equipadas profesionalmente**. 
 
 | Categoría | Producto | Certificación |
 |-----------|----------|---------------|
-| **Protección corporal** | [Traje estructural NFPA 1971 →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971) | NFPA 1971 |
-| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971) | NFPA 1971 |
-| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales) | NFPA 1971 |
-| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural) | NFPA 1971 |
-| **Protección respiratoria** | [Equipos SCBA →](/productos/scba) | NFPA 1981 |
-| **Protección de cuello** | [Capuchas protectoras →](/productos/capuchas-para-bomberos) | NFPA 1971 |
+| **Protección corporal** | [Traje estructural NFPA 1971 →](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/) | NFPA 1971 |
+| **Protección de cabeza** | [Casco estructural →](/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/) | NFPA 1971 |
+| **Protección de manos** | [Guantes estructurales →](/productos/guantes-para-bomberos/estructurales/) | NFPA 1971 |
+| **Protección de pies** | [Botas estructurales →](/productos/botas-para-bomberos/estructural/) | NFPA 1971 |
+| **Protección respiratoria** | [Equipos SCBA →](/productos/scba/) | NFPA 1981 |
+| **Protección de cuello** | [Capuchas protectoras →](/productos/capuchas-para-bomberos/) | NFPA 1971 |
 
 ### Contacto BOMBERO.MX
 
@@ -8411,10 +8411,10 @@ Este análisis fue elaborado por el **Departamento de Investigación de BOMBERO.
 
 ### Artículos Relacionados
 
-- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico)
-- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026)
-- [**Informe Ejecutivo 2026: Ecosistema de Proveedores →**](/blog/informe-ejecutivo-proveedores-proteccion-incendio-mexico-2026)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp)
+- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026/)
+- [**Informe Ejecutivo 2026: Ecosistema de Proveedores →**](/blog/informe-ejecutivo-proveedores-proteccion-incendio-mexico-2026/)
+- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
 
 ---
 
@@ -8422,8 +8422,8 @@ Este análisis fue elaborado por el **Departamento de Investigación de BOMBERO.
     `,
   },
   "proyecto-red-plataforma-equipos-contra-incendio": {
-    titulo: "PROYECTO RED: La Plataforma que Está Transformando el Acceso a Equipos Contra Incendio en México",
-    excerpt: "PROYECTO RED ha revolucionado la forma en que empresas y profesionales acceden a equipos de protección contra incendio en México. Desde su ubicación estratégica en Paseo de la Reforma, esta plataforma conecta a clientes con proveedores verificados de extintores, sistemas de detección, equipos para bomberos y soluciones integrales de seguridad, garantizando cumplimiento normativo y calidad certificada.",
+    titulo: "PROYECTO RED: Plataforma Equipos Contra Incendio",
+    excerpt: "PROYECTO RED conecta empresas con proveedores verificados de equipos contra incendio en México, con enfoque en cumplimiento normativo y calidad certificada.",
     imagen: "/images/directorio/estacion-bomberos-mexico-fachada-01.avif",
     categoria: "Industrial",
     tags: ["PROYECTO RED México", "Plataforma Equipos Contra Incendio", "Proveedores Verificados Seguridad", "Elkhart Brass México", "Sistemas Detección Incendio CDMX"],
@@ -8573,10 +8573,10 @@ Para las organizaciones que buscan una solución integral de protección contra 
 
 ### Artículos Relacionados
 
-- [**PROYECTO RED: Catálogo de 656+ Productos →**](/blog/proyecto-red-venta-equipos-contra-incendio-mexico)
-- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio)
-- [**LGA Contra Incendios Querétaro: 25 Años →**](/blog/lga-contra-incendios-queretaro-equipos-certificados)
-- [**Traje Estructural NFPA 1971: Guía Definitiva →**](/blog/traje-estructural-nfpa-1971)
+- [**PROYECTO RED: Catálogo de 656+ Productos →**](/blog/proyecto-red-venta-equipos-contra-incendio-mexico/)
+- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio/)
+- [**LGA Contra Incendios Querétaro: 25 Años →**](/blog/lga-contra-incendios-queretaro-equipos-certificados/)
+- [**Traje Estructural NFPA 1971: Guía Definitiva →**](/blog/traje-estructural-nfpa-1971/)
 
 ---
 
@@ -8585,8 +8585,8 @@ Para las organizaciones que buscan una solución integral de protección contra 
   },
 
   "proyecto-red-venta-equipos-contra-incendio-mexico": {
-    titulo: "PROYECTO RED: Líder en Venta de Equipos Contra Incendio en México — Catálogo de 656+ Productos Certificados",
-    excerpt: "PROYECTO RED se ha consolidado como la plataforma líder en México para la venta de equipos contra incendio, con más de 656 productos certificados, distribución autorizada de Elkhart Brass, y cobertura en todo el país. Descubra por qué las empresas más exigentes del sector industrial, comercial y de servicios confían en PROYECTO RED para proteger sus instalaciones.",
+    titulo: "PROYECTO RED: 656+ Productos Contra Incendio",
+    excerpt: "PROYECTO RED ofrece 656+ productos contra incendio certificados, distribución autorizada de Elkhart Brass y cobertura nacional para industria y comercio.",
     imagen: "/images/directorio/estacion-bomberos-emergencias-01.avif",
     categoria: "equipos",
     tags: ["extintores", "equipos contra incendio", "venta", "certificación NOM", "Elkhart Brass", "CDMX"],
@@ -8761,10 +8761,10 @@ La combinación de los equipos contra incendio de PROYECTO RED con la protecció
 
 ### Artículos Relacionados
 
-- [**PROYECTO RED: La Plataforma que Transforma el Acceso →**](/blog/proyecto-red-plataforma-equipos-contra-incendio)
-- [**MESECI: Servicio Integral 360° →**](/blog/meseci-equipos-contra-incendio-mexico)
-- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026)
-- [**Trajes HAZMAT: Niveles de Protección Química →**](/blog/traje-hazmat-proteccion-quimica)
+- [**PROYECTO RED: La Plataforma que Transforma el Acceso →**](/blog/proyecto-red-plataforma-equipos-contra-incendio/)
+- [**MESECI: Servicio Integral 360° →**](/blog/meseci-equipos-contra-incendio-mexico/)
+- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026/)
+- [**Trajes HAZMAT: Niveles de Protección Química →**](/blog/traje-hazmat-proteccion-quimica/)
 
 ---
 
@@ -8773,8 +8773,8 @@ La combinación de los equipos contra incendio de PROYECTO RED con la protecció
   },
 
   "lga-contra-incendios-queretaro-equipos-certificados": {
-    titulo: "LGA Contra Incendios Querétaro: 25 Años Protegiendo el Bajío con Equipos Certificados y Servicio Profesional",
-    excerpt: "Con más de 25 años de trayectoria desde su fundación en el año 2000, LGA Contra Incendios se ha consolidado como la empresa líder en venta, mantenimiento y recarga de equipos contra incendio en Querétaro. Distribuidor autorizado de Elkhart Brass, ofrece soluciones integrales certificadas bajo normas NOM, NFPA e ISO para el sector industrial, comercial y residencial del Bajío mexicano.",
+    titulo: "LGA Contra Incendios Querétaro: 25 Años",
+    excerpt: "LGA Contra Incendios, con 25+ años en Querétaro, ofrece venta, mantenimiento y recarga de equipos certificados NOM, NFPA e ISO para el Bajío.",
     imagen: "/images/directorio/estacion-bomberos-queretaro-01.avif",
     categoria: "equipos",
     tags: ["extintores", "Querétaro", "LGA Contra Incendios", "Elkhart Brass", "monitores contra incendio", "equipo bomberos"],
@@ -8987,15 +8987,15 @@ La combinación de los sistemas y equipos de LGA Contra Incendios con la protecc
 | **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
 | **Cotización** | [Solicitar cotización →](/cotizar) |
 | **Catálogo EPP** | [Ver productos →](/productos) |
-| **Directorio Querétaro** | [Ver estaciones →](/directorio/queretaro) |
+| **Directorio Querétaro** | [Ver estaciones →](/directorio/queretaro/) |
 
 
 ### Artículos Relacionados
 
-- [**PROYECTO RED: Plataforma de Equipos Contra Incendio →**](/blog/proyecto-red-plataforma-equipos-contra-incendio)
-- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio)
-- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp)
+- [**PROYECTO RED: Plataforma de Equipos Contra Incendio →**](/blog/proyecto-red-plataforma-equipos-contra-incendio/)
+- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio/)
+- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026/)
+- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
 
 ---
 
@@ -9004,8 +9004,8 @@ La combinación de los sistemas y equipos de LGA Contra Incendios con la protecc
   },
 
   "guia-empresas-equipos-contra-incendio-mexico-2026": {
-    titulo: "Guía Definitiva 2026: Las 5 Mejores Empresas de Equipos Contra Incendio en México — Análisis Comparativo Profesional",
-    excerpt: "Análisis exhaustivo de las empresas líderes en protección contra incendio en México: GAMA DE MÉXICO, MESECI, MANEXT, PROYECTO RED y LGA CONTRA INCENDIOS. Comparamos trayectoria, certificaciones, productos, servicios, cobertura geográfica y especialidades para ayudarte a elegir el proveedor ideal según tus necesidades específicas.",
+    titulo: "5 Mejores Empresas Equipos Contra Incendio 2026",
+    excerpt: "Guía 2026 de 5 empresas líderes en equipos contra incendio en México. Compara trayectoria, certificaciones, cobertura y servicios para elegir proveedor.",
     imagen: "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
     categoria: "equipos",
     tags: ["equipos contra incendio", "empresas México", "comparativo", "extintores", "Elkhart Brass", "NFPA", "NOM"],
@@ -9445,10 +9445,10 @@ La combinación de los sistemas y equipos de las empresas analizadas con la prot
 
 ### Artículos Relacionados
 
-- [**Informe Ejecutivo 2026: Ecosistema de Proveedores →**](/blog/informe-ejecutivo-proveedores-proteccion-incendio-mexico-2026)
-- [**Las 3 Mejores Empresas: GAMA, MESECI y MANEXT →**](/blog/mejores-empresas-equipos-contra-incendio-mexico)
-- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis)
-- [**NFPA 1971: Guía Completa del Estándar para EPP →**](/blog/nfpa-1971-guia-completa)
+- [**Informe Ejecutivo 2026: Ecosistema de Proveedores →**](/blog/informe-ejecutivo-proveedores-proteccion-incendio-mexico-2026/)
+- [**Las 3 Mejores Empresas: GAMA, MESECI y MANEXT →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
+- [**NFPA 1971: Guía Completa del Estándar para EPP →**](/blog/nfpa-1971-guia-completa/)
 
 ---
 
@@ -9457,8 +9457,8 @@ La combinación de los sistemas y equipos de las empresas analizadas con la prot
   },
 
   "informe-ejecutivo-proveedores-proteccion-incendio-mexico-2026": {
-    titulo: "Informe Ejecutivo 2026: Análisis del Ecosistema de Proveedores de Protección Contra Incendio en México — Mercado, Regulación y Líderes del Sector",
-    excerpt: "Informe ejecutivo con análisis profundo del mercado mexicano de protección contra incendio valorado en USD $110.87 millones. Examinamos el contexto regulatorio, la evolución de la siniestralidad (+157% según AMIS), y presentamos un análisis detallado de los cinco proveedores líderes: GAMA DE MÉXICO, MESECI, MANEXT, PROYECTO RED y LGA CONTRA INCENDIOS. Incluye recomendaciones por sector industrial y matriz de selección para tomadores de decisiones.",
+    titulo: "Informe 2026: Proveedores Protección Incendio",
+    excerpt: "Informe ejecutivo del mercado de protección contra incendio en México (USD $110.87M), con regulación, siniestralidad AMIS y análisis de 5 proveedores líderes.",
     imagen: "/images/directorio/bomberos-trabajo-equipo-01.avif",
     categoria: "industrial",
     tags: ["análisis de mercado", "protección contra incendio", "México", "NOM-002-STPS", "proveedores certificados", "Elkhart Brass", "AMIS"],
@@ -9741,10 +9741,10 @@ La información presentada tiene fines informativos y no constituye una recomend
 
 ### Artículos Relacionados
 
-- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026)
-- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis)
-- [**Las 3 Mejores Empresas: GAMA, MESECI y MANEXT →**](/blog/mejores-empresas-equipos-contra-incendio-mexico)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp)
+- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026/)
+- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
+- [**Las 3 Mejores Empresas: GAMA, MESECI y MANEXT →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
 
 ---
 

@@ -691,7 +691,7 @@ export const estacionesEdoMex: Estacion[] = [
     id: "edomex-valle-de-chalco",
     slug: "estacion-bomberos-valle-de-chalco",
     nombre: "Estación de Bomberos de Valle de Chalco Solidaridad",
-    nombreCorto: "Estación de Bomberos Valle de Chalco",
+    nombreCorto: "Bomberos Valle de Chalco",
     direccion: "Av. Tezozómoc s/n",
     colonia: "Xico",
     codigoPostal: "56617",

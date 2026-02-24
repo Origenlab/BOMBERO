@@ -873,6 +873,7 @@ export const estacionesSanLuisPotosi: Estacion[] = [
   // ═══ ZONA METROPOLITANA ═══
   {
     nombre: "Estación Central de Bomberos San Luis Potosí",
+    nombreCorto: "Central Bomberos SLP",
     slug: "estacion-central-san-luis-potosi",
     direccion: "Av. Venustiano Carranza 1950, Col. Tequisquiapan, San Luis Potosí, S.L.P.",
     coordenadas: { lat: 22.1565, lng: -100.9855 },
@@ -951,6 +952,7 @@ export const estacionesSanLuisPotosi: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Soledad de Graciano Sánchez",
+    nombreCorto: "Bomberos Soledad",
     slug: "estacion-bomberos-soledad",
     direccion: "Av. Himno Nacional 500, Centro, Soledad de Graciano Sánchez, S.L.P.",
     coordenadas: { lat: 22.1834, lng: -100.9334 },
@@ -1021,6 +1023,7 @@ export const estacionesSanLuisPotosi: Estacion[] = [
   // ═══ ZONA INDUSTRIAL AUTOMOTRIZ ═══
   {
     nombre: "Estación de Bomberos HAZMAT Zona Industrial",
+    nombreCorto: "Bomberos HAZMAT Industrial",
     slug: "estacion-bomberos-hazmat-zona-industrial",
     direccion: "Carretera 57 km 12, Parque Industrial Logistik, Villa de Reyes, S.L.P.",
     coordenadas: { lat: 22.0834, lng: -100.9012 },
@@ -1055,7 +1058,7 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 75,
     copiasActa: false,
     zona: "Zona Industrial Automotriz",
-    ciudad: 'Parque Industrial Logistik',
+    ciudad: 'Zona Industrial SLP',
 
     municipio: 'Parque Industrial Logistik',
 
@@ -1100,6 +1103,7 @@ export const estacionesSanLuisPotosi: Estacion[] = [
   },
   {
     nombre: "Estación de Bomberos Parque Tres Naciones",
+    nombreCorto: "Bomberos Tres Naciones",
     slug: "estacion-bomberos-tres-naciones",
     direccion: "Av. Industrial 100, Parque Industrial Tres Naciones, San Luis Potosí, S.L.P.",
     coordenadas: { lat: 22.2156, lng: -100.8834 },
@@ -1125,7 +1129,7 @@ export const estacionesSanLuisPotosi: Estacion[] = [
     personal: 45,
     copiasActa: false,
     zona: "Zona Industrial Automotriz",
-    ciudad: 'Parque Industrial Tres Naciones',
+    ciudad: 'Tres Naciones',
 
     municipio: 'Parque Industrial Tres Naciones',
 
