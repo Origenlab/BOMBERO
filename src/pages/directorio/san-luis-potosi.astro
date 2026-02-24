@@ -7,6 +7,7 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesSanLuisPotosi, getMunicipios } from "@data/estaciones-san-luis-potosi";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Configuración del estado
 const estado = "San Luis Potosí";
@@ -16,17 +17,13 @@ const slug = "san-luis-potosi";
 // Miniaturas hero - Industria y Huasteca
 const heroThumbs = [
   {
-    src: "/images/directorio/slp-centro-historico.avif",
+    src: "/images/directorio/estacion-bomberos-centro-historico-01.avif",
     alt: "Centro Histórico de San Luis Potosí - Candidato UNESCO",
     label: "Centro Histórico"
   },
+  { src: "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif", alt: "Central de despacho de bomberos de San Luis Potosí con bandera de México", label: "Despacho Nacional" },
   {
-    src: "/images/directorio/slp-bmw-plant.avif",
-    alt: "Planta BMW Group San Luis Potosí",
-    label: "BMW Plant"
-  },
-  {
-    src: "/images/directorio/slp-huasteca-tamul.avif",
+    src: "/images/directorio/rescate-swift-water-rios-01.avif",
     alt: "Cascada de Tamul Huasteca Potosina",
     label: "Huasteca Potosina"
   }
@@ -35,35 +32,21 @@ const heroThumbs = [
 // Galería de imágenes
 const galleryImages = [
   {
-    src: "/images/directorio/slp-bomberos-hazmat.avif",
+    src: "/images/directorio/unidad-hazmat-emergencias-01.avif",
     alt: "Equipo HAZMAT de Bomberos de SLP en zona industrial automotriz",
     label: "HAZMAT Industrial"
   },
   {
-    src: "/images/directorio/slp-sotano-golondrinas.avif",
+    src: "/images/directorio/rescate-espeleologico-cuevas-01.avif",
     alt: "Sótano de las Golondrinas 512m de profundidad Aquismón",
     label: "Sótano Golondrinas"
   },
+  { src: "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif", alt: "Estación de bomberos de San Luis Potosí con puertas de cristal y unidades visibles", label: "Estación Profesional" },
   {
-    src: "/images/directorio/slp-real-catorce.avif",
-    alt: "Real de Catorce Pueblo Mágico desierto",
-    label: "Real de Catorce"
-  },
-  {
-    src: "/images/directorio/slp-gm-complejo.avif",
+    src: "/images/directorio/estacion-bomberos-industrial-01.avif",
     alt: "General Motors Complejo San Luis Potosí",
     label: "GM Complejo"
   },
-  {
-    src: "/images/directorio/slp-xilitla-pozas.avif",
-    alt: "Jardín Surrealista Edward James Las Pozas Xilitla",
-    label: "Xilitla PM"
-  },
-  {
-    src: "/images/directorio/slp-parque-tangamanga.avif",
-    alt: "Parque Tangamanga uno de los más grandes de Latinoamérica",
-    label: "Parque Tangamanga"
-  }
 ];
 
 // Números de emergencia SLP
@@ -97,32 +80,41 @@ const regiones = [
 // Tarjetas de equipamiento EPP
 const eppCards = [
   {
-    image: "/images/productos/equipo-hazmat-industrial.avif",
-    imageAlt: "Equipo HAZMAT para industria automotriz BMW GM",
-    badge: "HAZMAT",
-    title: "HAZMAT Automotriz",
-    text: "Equipamiento Nivel A para emergencias con pinturas, solventes y baterías de litio en plantas BMW y GM.",
-    href: "/productos/hazmat",
-    linkLabel: "Ver equipos HAZMAT"
+    image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+    imageAlt:  "Equipo HAZMAT para plantas automotrices en San Luis Potosí",
+    badge:     "Industrial",
+    title:     "HAZMAT Automotriz",
+    text:      "Trajes y detectores para emergencias en plantas <strong>BMW, GM y corredor automotriz</strong> de SLP. Protección certificada contra materiales peligrosos industriales.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
   },
   {
-    image: "/images/productos/equipo-espeleologia.avif",
-    imageAlt: "Equipo de rescate espeleológico para Sótano de las Golondrinas",
-    badge: "Espeleología",
-    title: "Rescate en Sótanos",
-    text: "Cuerdas 600m, sistemas de anclaje y camillas técnicas para el Sótano de las Golondrinas (512m).",
-    href: "/productos/rescate-montana",
-    linkLabel: "Ver equipo espeleología"
+    image:     "/images/directorio/rescate-espeleologico-cuevas-01.avif",
+    imageAlt:  "Equipo de espeleología para sótanos de San Luis Potosí",
+    badge:     "Espeleología",
+    title:     "Rescate en Sótanos",
+    text:      "Equipo especializado para rescate en el <strong>Sótano de las Golondrinas</strong> y sistema de cuevas de la Huasteca. Cuerdas técnicas y sistemas de ascenso/descenso.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
   },
   {
-    image: "/images/productos/equipo-swift-water.avif",
-    imageAlt: "Equipo swift water rescue para ríos de la Huasteca",
-    badge: "Swift Water",
-    title: "Rescate Acuático Ríos",
-    text: "PFDs clase V, lanchas y throw bags para rescate en ríos Tampaón y Santa María.",
-    href: "/productos/rescate-acuatico",
-    linkLabel: "Ver equipo acuático"
-  }
+    image:     "/images/directorio/rescate-swift-water-rios-01.avif",
+    imageAlt:  "Equipo de rescate en ríos de la Huasteca Potosina",
+    badge:     "Swift Water",
+    title:     "Rescate Acuático Ríos",
+    text:      "Equipamiento swift water para rescate en <strong>cascadas de Tamul, río Gallinas</strong> y ríos de la Huasteca Potosina. Chalecos y tablas de aguas rápidas.",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Acuático",
+  },
+  {
+    image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt:  "Guantes estructurales para bomberos de San Luis Potosí",
+    badge:     "NFPA 1971",
+    title:     "Guantes Industriales",
+    text:      "Guantes estructurales con protección térmica para emergencias en <strong>zona industrial y minera</strong> de SLP. Prensión certificada para rescate y combate de incendios.",
+    href:      "/productos/guantes-para-bomberos",
+    linkLabel: "Ver Guantes para Bombero",
+  },
 ];
 
 // Schema.org estructurado
@@ -151,15 +143,11 @@ const itemListSchema = {
   }))
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
-    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
-    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` }
-  ]
-};
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "San Luis Potosí",         url: "/directorio/san-luis-potosi" },
+]);
 
 // Imágenes para tarjetas de estaciones
 const stationImages = [
@@ -172,8 +160,39 @@ const stationImages = [
   "/images/directorio/estacion-bomberos-central-edificio-01.avif",
   "/images/directorio/camion-escalera-bomberos-01.avif",
   "/images/directorio/bombero-chaqueton-vestidor-oscuro-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
 ];
-
 // Estados vecinos (desde archivo centralizado)
 const estadosVecinos = getEstadosVecinos("san-luis-potosi");
 ---
@@ -182,6 +201,15 @@ const estadosVecinos = getEstadosVecinos("san-luis-potosi");
   estado={estado}
   sigla={sigla}
   slug={slug}
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de San Luis Potosí</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
+  heroImage="/images/directorio/estacion-bomberos-centro-historico-01.avif"
+  heroImageAlt="Estación de Bomberos en San Luis Potosí"
+  heroCaption="H. Cuerpo de Bomberos · San Luis Potosí"
+  totalEstaciones={estacionesSanLuisPotosi.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="2.8M+"
+  canonical="https://bombero.mx/directorio/san-luis-potosi"
+  keywords={["bomberos san-luis-potosi", "estaciones bomberos san-luis-potosi", "emergencias san-luis-potosi 911", "cuerpo bomberos san-luis-potosi"]}
   estaciones={estacionesSanLuisPotosi}
   stationImages={stationImages}
   municipios={getMunicipios()}
@@ -196,7 +224,7 @@ const estadosVecinos = getEstadosVecinos("san-luis-potosi");
   description={`Directorio completo de ${estacionesSanLuisPotosi.length} estaciones de bomberos en San Luis Potosí 2024. HAZMAT especializado para BMW Group Plant y GM Complejo. Rescate espeleológico Sótano de las Golondrinas (512m). Cobertura Huasteca Potosina y 4 Pueblos Mágicos. Tel: (444) 812-2583. Emergencias 911.`}
 >
   <Fragment slot="seo">
-    <section class="seo-content">
+    
       <h2>Bomberos de San Luis Potosí: El Corazón de México</h2>
       <p>
         El <strong>Heroico Cuerpo de Bomberos de San Luis Potosí</strong> protege a más de <strong>2.8 millones
@@ -301,56 +329,6 @@ const estadosVecinos = getEstadosVecinos("san-luis-potosi");
         para industria internacional. El tiempo de respuesta varía de <strong>6 minutos</strong> en zona
         metropolitana a <strong>60+ minutos</strong> en zonas remotas de la Huasteca y el Altiplano.
       </p>
-    </section>
-  </Fragment>
+    </Fragment>
 </DirectorioEstadoLayout>
 
-<style>
-  .seo-content {
-    padding: var(--space-8);
-    background: white;
-    border-radius: var(--radius-xl);
-    margin-top: var(--space-8);
-  }
-
-  .seo-content h2 {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    line-height: 1.3;
-  }
-
-  .seo-content h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-fire-700);
-    margin: var(--space-8) 0 var(--space-3);
-  }
-
-  .seo-content p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-700);
-    line-height: 1.8;
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content strong {
-    color: var(--color-smoke-900);
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    .seo-content {
-      padding: var(--space-5);
-    }
-
-    .seo-content h2 {
-      font-size: var(--text-xl);
-    }
-
-    .seo-content h3 {
-      font-size: var(--text-base);
-    }
-  }
-</style>

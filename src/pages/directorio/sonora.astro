@@ -16,6 +16,7 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesSonora, getMunicipios, ESTADISTICAS_SONORA } from "@data/estaciones-sonora";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 const estado = "Sonora";
 const sigla = "SON";
@@ -23,17 +24,23 @@ const slug = "sonora";
 
 // ─── Imágenes Hero ────────────────────────────────────────────────────────────
 const heroThumbs = [
-  { src: "/images/directorio/estacion-bomberos-sonora-01.avif", alt: "Bomberos de Sonora en acción contra incendio industrial" },
-  { src: "/images/directorio/estacion-bomberos-sonora-02.avif", alt: "Unidad HAZMAT en zona minera de Cananea" },
-  { src: "/images/directorio/estacion-bomberos-sonora-03.avif", alt: "Rescate acuático en el Golfo de California" },
+  { src: "/images/directorio/estacion-bomberos-norte-mexico-01.avif", alt: "Bomberos de Sonora en acción contra incendio industrial", label: "Respuesta Rápida" },
+  { src: "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif", alt: "Operador nocturno en central de bomberos de Sonora", label: "Operación Nocturna" },
+  { src: "/images/directorio/estacion-bomberos-moderna-01.avif", alt: "Rescate acuático en el Golfo de California", label: "Servicio 24/7" },
 ];
 
 // ─── Galería de Imágenes ──────────────────────────────────────────────────────
 const galleryImages = [
-  { src: "/images/directorio/bomberos-sonora-ford.avif", alt: "Unidad industrial en planta Ford Hermosillo" },
-  { src: "/images/directorio/bomberos-sonora-mineria.avif", alt: "Emergencia HAZMAT en mina de cobre" },
-  { src: "/images/directorio/bomberos-sonora-frontera.avif", alt: "Coordinación binacional con Arizona" },
-  { src: "/images/directorio/bomberos-sonora-guaymas.avif", alt: "Rescate marítimo en Puerto de Guaymas" },
+  { src: "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif", alt: "Bombero mexicano en turno de guardia en Sonora", label: "Guardia de Turno" },
+  { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "Emergencia HAZMAT en mina de cobre",
+    label: "Emergencia HAZMAT en mina de cobre"
+  },
+  { src: "/images/directorio/estacion-bomberos-norte-mexico-01.avif", alt: "Coordinación binacional con Arizona",
+    label: "Coordinación binacional con Arizona"
+  },
+  { src: "/images/directorio/estacion-bomberos-puerto-01.avif", alt: "Rescate marítimo en Puerto de Guaymas",
+    label: "Rescate marítimo en Puerto de Guaymas"
+  },
 ];
 
 // ─── Números de Emergencia ────────────────────────────────────────────────────
@@ -55,10 +62,42 @@ const regiones = [
 
 // ─── Cards de EPP ─────────────────────────────────────────────────────────────
 const eppCards = [
-  { title: "HAZMAT Minero", desc: "Nivel A para ácido sulfúrico, cianuro y reactivos en Cananea y Nacozari", icon: "hazmat" },
-  { title: "Rescate Marino", desc: "Lanchas y equipo para Golfo de California y Puerto de Guaymas", icon: "water" },
-  { title: "Industrial Automotriz", desc: "Protección para emergencias en Ford, Kia y corredor maquilador", icon: "industry" },
-  { title: "Rescate Desértico", desc: "Vehículos 4x4 y equipo para temperaturas extremas del Desierto de Sonora", icon: "desert" },
+  {
+    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+    imageAlt:  "Traje HAZMAT para emergencias mineras en Sonora",
+    badge:     "Minero",
+    title:     "HAZMAT Minero",
+    text:      "Trajes Nivel A para emergencias con <strong>ácido sulfúrico y cianuro</strong> en Cananea y Nacozari. Protección certificada para la industria minera de Sonora.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+  {
+    image:     "/images/directorio/lancha-rescate-bomberos-01.avif",
+    imageAlt:  "Lancha de rescate para el Golfo de California Sonora",
+    badge:     "Marino",
+    title:     "Rescate Marino",
+    text:      "Lanchas y equipo acuático para rescate en <strong>Golfo de California y Puerto de Guaymas</strong>. Trajes de inmersión y dispositivos de flotación certificados.",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Acuático",
+  },
+  {
+    image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+    imageAlt:  "Traje estructural para industria automotriz en Sonora",
+    badge:     "Industrial",
+    title:     "Industrial Automotriz",
+    text:      "Protección estructural para emergencias en plantas <strong>Ford, Kia</strong> y corredor maquilador de Hermosillo. Equipo certificado NFPA 1971 para brigadas industriales.",
+    href:      "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",
+    linkLabel: "Ver Trajes Estructurales",
+  },
+  {
+    image:     "/images/directorio/equipo-rescate-completo-01.avif",
+    imageAlt:  "Equipo de rescate para zonas desérticas de Sonora",
+    badge:     "Desértico",
+    title:     "Rescate Desértico",
+    text:      "Equipamiento técnico para operaciones en el <strong>Desierto de Altar y Gran Desierto de Sonora</strong>. Protección contra calor extremo y equipo de hidratación táctica.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
+  },
 ];
 
 // ─── SEO y Meta ───────────────────────────────────────────────────────────────
@@ -93,8 +132,39 @@ const stationImages = [
   "/images/directorio/rescate-swift-water-rios-01.avif",
   "/images/directorio/bomberos-preparacion-salida-emergencia-02.avif",
   "/images/directorio/estacion-bomberos-vestidor-equipo-02.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
 ];
-
 // ─── Schema.org JSON-LD ───────────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
@@ -121,18 +191,18 @@ const itemListSchema = {
   })),
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx/" },
-    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
-    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` },
-  ],
-};
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Sonora",         url: "/directorio/sonora" },
+]);
 ---
 
 <DirectorioEstadoLayout
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Sonora</strong>.     Encuentra teléfonos de emergencia, direcciones y servicios en el estado más grande del noroeste:     <strong>capital del cobre mexicano</strong>, corredor automotriz Ford-Kia,     <strong>588 km de frontera con Arizona</strong>, el Mar de Cortés y el Valle del Yaqui."
+  heroImage="/images/directorio/estacion-bomberos-norte-mexico-01.avif"
+  heroImageAlt="Estación de Bomberos en Sonora"
+  heroCaption="H. Cuerpo de Bomberos · Sonora"
   title={`Bomberos en ${estado} | ${estacionesSonora.length} Estaciones | Directorio Oficial BOMBERO.MX`}
   description={`Directorio oficial de las ${estacionesSonora.length} estaciones de bomberos en Sonora. Hermosillo, Nogales, Ciudad Obregón, Guaymas, Cananea. Minería de cobre #1, corredor automotriz Ford/Kia, 588km frontera con Arizona, Golfo de California. Emergencias 911.`}
   keywords={keywords}
@@ -141,8 +211,8 @@ const breadcrumbSchema = {
   sigla={sigla}
   slug={slug}
   totalEstaciones={estacionesSonora.length}
-  municipiosCount={ESTADISTICAS_SONORA.municipios_cubiertos}
-  poblacion="3M+"
+  totalMunicipios={getMunicipios().length}
+  habitantes="3.0M+"
   heroThumbs={heroThumbs}
   galleryImages={galleryImages}
   emergencyNumbers={emergencyNumbers}
@@ -154,39 +224,9 @@ const breadcrumbSchema = {
   estadosVecinos={estadosVecinos}
   jsonLd={[itemListSchema, breadcrumbSchema]}
 >
-  <Fragment slot="intro">
-    Directorio completo del <strong>H. Cuerpo de Bomberos de Sonora</strong>.
-    Encuentra teléfonos de emergencia, direcciones y servicios en el estado más grande del noroeste:
-    <strong>capital del cobre mexicano</strong>, corredor automotriz Ford-Kia,
-    <strong>588 km de frontera con Arizona</strong>, el Mar de Cortés y el Valle del Yaqui.
-  </Fragment>
-
-  <Fragment slot="hero-seo">
-    <h2 class="hero-seo__title">Minería de Cobre #1 de México</h2>
-    <p class="hero-seo__text">
-      Sonora produce el <strong>65% del cobre nacional</strong> en las minas de
-      <strong>Cananea</strong> (Buenavista del Cobre) y <strong>Nacozari</strong> (La Caridad),
-      ambas operadas por Grupo México. Los bomberos de estas zonas dominan
-      <strong>rescate minero</strong> y HAZMAT con ácido sulfúrico, cianuro y reactivos metalúrgicos.
-    </p>
-    <h2 class="hero-seo__title">Corredor Automotriz Ford - Kia</h2>
-    <p class="hero-seo__text">
-      La <strong>Planta Ford Hermosillo</strong> (Bronco Sport, Maverick) y el corredor
-      <strong>Kia Pesqueira</strong> generan riesgos con pinturas, solventes y materiales automotrices.
-      Las estaciones industriales cuentan con <strong>certificación HAZMAT nivel A</strong>
-      para atender emergencias en manufactura automotriz de clase mundial.
-    </p>
-    <h2 class="hero-seo__title">588 km de Frontera con Arizona</h2>
-    <p class="hero-seo__text">
-      Los cuerpos de bomberos de <strong>Nogales, Agua Prieta y San Luis Río Colorado</strong>
-      operan bajo <strong>acuerdos de cooperación binacional</strong> con bomberos de Arizona,
-      compartiendo recursos, protocolos y capacitación. Esta coordinación permite respuestas
-      más rápidas en la franja fronteriza de alta densidad industrial y comercial.
-    </p>
-  </Fragment>
 
   <Fragment slot="seo">
-    <section class="seo-content">
+    
       <h2>El H. Cuerpo de Bomberos de Sonora</h2>
       <p>
         El <strong>H. Cuerpo de Bomberos de Sonora</strong> protege a más de <strong>3 millones de sonorenses</strong>
@@ -261,66 +301,6 @@ const breadcrumbSchema = {
         <strong>Ciudad Obregón 644 415 7070</strong>,
         <strong>Guaymas 622 226 0095</strong>.
       </p>
-    </section>
   </Fragment>
 </DirectorioEstadoLayout>
 
-<style>
-  .seo-content {
-    padding: var(--space-8);
-    background: white;
-    border-radius: var(--radius-xl);
-    margin-top: var(--space-10);
-  }
-
-  .seo-content h2 {
-    font-size: var(--text-xl);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin: var(--space-6) 0 var(--space-3);
-  }
-
-  .seo-content p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-600);
-    line-height: 1.8;
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content p:last-child {
-    margin-bottom: 0;
-  }
-
-  .seo-content strong {
-    color: var(--color-smoke-800);
-  }
-
-  .hero-seo__title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin: 0 0 var(--space-2);
-  }
-
-  .hero-seo__text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-4);
-  }
-
-  .hero-seo__text:last-child {
-    margin-bottom: 0;
-  }
-
-  .hero-seo__text strong {
-    color: white;
-  }
-</style>

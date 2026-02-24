@@ -43,6 +43,7 @@ import {
   getEstacionesCercanas,
 } from "@data/estaciones-veracruz";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 const estado = "Veracruz";
 const sigla = "VER";
@@ -52,32 +53,38 @@ const slug = "veracruz";
    THUMBNAILS HERO — Imágenes destacadas del estado
    ═══════════════════════════════════════════════════════════════════════════ */
 const heroThumbs = [
-  { src: "/images/directorio/estacion-bomberos-veracruz-01.avif", alt: "Estación Central de Bomberos Puerto Veracruz" },
-  { src: "/images/directorio/estacion-bomberos-veracruz-02.avif", alt: "Bomberos HAZMAT Coatzacoalcos petroquímica" },
-  { src: "/images/directorio/estacion-bomberos-veracruz-03.avif", alt: "Rescate marítimo Puerto de Veracruz SEMAR" },
+  { src: "/images/directorio/estacion-bomberos-veracruz-01.avif", alt: "Estación Central de Bomberos Puerto Veracruz", label: "Respuesta Rápida" },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif", alt: "Entrenamiento funcional en estación de bomberos de Veracruz", label: "Entrenamiento Funcional" },
+  { src: "/images/directorio/estacion-bomberos-petrolera-01.avif", alt: "Rescate marítimo Puerto de Veracruz SEMAR", label: "Servicio 24/7" },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
    GALERÍA DE IMÁGENES — Operaciones destacadas
    ═══════════════════════════════════════════════════════════════════════════ */
 const galleryImages = [
-  { src: "/images/directorio/bomberos-veracruz-puerto.avif", alt: "Emergencias portuarias Puerto de Veracruz" },
-  { src: "/images/directorio/bomberos-veracruz-pemex.avif", alt: "HAZMAT refinería PEMEX Minatitlán" },
-  { src: "/images/directorio/bomberos-veracruz-huracan.avif", alt: "Operativo huracanes costa veracruzana" },
-  { src: "/images/directorio/bomberos-veracruz-carnaval.avif", alt: "Cobertura Carnaval de Veracruz" },
+  { src: "/images/directorio/estacion-bomberos-maritimo-01.avif", alt: "Emergencias portuarias Puerto de Veracruz",
+    label: "Emergencias portuarias Puerto de"
+  },
+  { src: "/images/directorio/estacion-bomberos-refineria-01.avif", alt: "HAZMAT refinería PEMEX Minatitlán",
+    label: "HAZMAT refinería PEMEX Minatitlán"
+  },
+  { src: "/images/directorio/estacion-bomberos-huracanes-01.avif", alt: "Operativo huracanes costa veracruzana",
+    label: "Operativo huracanes costa veracruzana"
+  },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif", alt: "Zona de fuerza en gimnasio de bomberos de Veracruz", label: "Acondicionamiento Físico" },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TELÉFONOS DE EMERGENCIA — Líneas críticas del estado
    ═══════════════════════════════════════════════════════════════════════════ */
 const emergencyNumbers = [
-  { name: "Emergencias", number: "911" },
-  { name: "Bomberos Puerto Veracruz", number: "(229) 932-0202" },
-  { name: "HAZMAT Coatzacoalcos", number: "(921) 211-7000" },
-  { name: "Bomberos Xalapa", number: "(228) 842-1400" },
-  { name: "Emergencias PEMEX", number: "(921) 211-7000" },
-  { name: "SEMAR Rescate Marítimo", number: "(229) 932-0090" },
-  { name: "VHF Canal 16", number: "Marítimo" },
+  { label: "Emergencias", number: "911" },
+  { label: "Bomberos Puerto Veracruz", number: "(229) 932-0202" },
+  { label: "HAZMAT Coatzacoalcos", number: "(921) 211-7000" },
+  { label: "Bomberos Xalapa", number: "(228) 842-1400" },
+  { label: "Emergencias PEMEX", number: "(921) 211-7000" },
+  { label: "SEMAR Rescate Marítimo", number: "(229) 932-0090" },
+  { label: "VHF Canal 16", number: "Marítimo" },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -97,10 +104,42 @@ const regiones = [
    TARJETAS EPP DESTACADAS — Especialidades del estado
    ═══════════════════════════════════════════════════════════════════════════ */
 const eppCards = [
-  { icon: "oil", title: "HAZMAT Petrolero", desc: "Refinería Minatitlán, Complejo Coatzacoalcos, Terminal Pajaritos — 35% petroquímica nacional" },
-  { icon: "ship", title: "Rescate Marítimo", desc: "Puerto comercial #1 México, coordinación SEMAR, VHF Canal 16, 24M ton/año" },
-  { icon: "hurricane", title: "Operativos Huracanes", desc: "745 km de costa, 2-3 ciclones/año, Sistema de Alerta SMN, 95,000 evacuados" },
-  { icon: "flame", title: "Eventos Masivos", desc: "Carnaval de Veracruz (1.5M asistentes), pirotecnia, carros alegóricos" },
+  {
+    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+    imageAlt:  "Traje HAZMAT para industria petrolera en Veracruz",
+    badge:     "PEMEX",
+    title:     "HAZMAT Petrolero",
+    text:      "Trajes encapsulados para emergencias en <strong>refinerías de Minatitlán y Coatzacoalcos</strong>. Protección contra hidrocarburos y derivados del petróleo.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+  {
+    image:     "/images/directorio/lancha-rescate-bomberos-01.avif",
+    imageAlt:  "Lancha de rescate para puerto de Veracruz",
+    badge:     "SEMAR",
+    title:     "Rescate Marítimo",
+    text:      "Equipo de rescate marítimo para operaciones en el <strong>Puerto de Veracruz y Coatzacoalcos</strong>. Lanchas de rescate y equipo de inmersión para emergencias portuarias.",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Marítimo",
+  },
+  {
+    image:     "/images/directorio/equipo-bomberos-completo-01.avif",
+    imageAlt:  "Equipo completo para operativos de huracanes en Veracruz",
+    badge:     "Huracanes",
+    title:     "Operativos Huracanes",
+    text:      "Equipamiento integral para temporada de <strong>huracanes del Golfo de México</strong>. Equipo de rescate acuático, comunicaciones y protección personal reforzada.",
+    href:      "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",
+    linkLabel: "Ver Equipo de Protección",
+  },
+  {
+    image:     "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+    imageAlt:  "Autobomba para eventos masivos en Veracruz",
+    badge:     "Eventos",
+    title:     "Eventos Masivos",
+    text:      "Equipo de prevención y respuesta para <strong>Carnaval de Veracruz y Cumbre Tajín</strong>. Sistemas de evacuación y protección para aglomeraciones de más de 50,000 personas.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo de Seguridad",
+  },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -111,13 +150,44 @@ const stationImages = [
   "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
   "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
   "/images/directorio/estacion-bomberos-moderna-01.avif",
-  "/images/directorio/camion-bomberos-escalera-telescopica-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
   "/images/directorio/estacion-bomberos-mexico-01.avif",
   "/images/directorio/unidad-rescate-bomberos-01.avif",
-  "/images/directorio/bomberos-entrenamiento-01.avif",
+  "/images/directorio/entrenamiento-bomberos-fuego-01.avif",
   "/images/directorio/bomberos-guardia-nocturna-scba-equipo-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
 ];
-
 /* ═══════════════════════════════════════════════════════════════════════════
    ESTADOS VECINOS — Interlinking geográfico
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -151,18 +221,23 @@ const itemListSchema = {
   })),
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx/" },
-    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
-    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` },
-  ],
-};
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Veracruz",         url: "/directorio/veracruz" },
+]);
 ---
 
 <DirectorioEstadoLayout
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Veracruz</strong>.     El tercer estado más poblado de México (<strong>8 millones de habitantes</strong>)     y el de mayor importancia estratégica para el comercio exterior:     el <strong>Puerto de Veracruz</strong> mueve <strong>24 millones de toneladas anuales</strong>     (60% del comercio marítimo mexicano), mientras el <strong>Complejo Petroquímico de Coatzacoalcos</strong>     es el <strong>mayor de Latinoamérica</strong>. Con <strong>745 km de costa</strong> expuesta     a huracanes y una industria petrolera que representa el <strong>35% de la producción     petroquímica nacional</strong>, Veracruz requiere bomberos con certificaciones     HAZMAT de clase mundial y coordinación permanente con <strong>SEMAR</strong> y <strong>PEMEX</strong>."
+  heroImage="/images/directorio/estacion-bomberos-veracruz-01.avif"
+  heroImageAlt="Estación de Bomberos en Veracruz"
+  heroCaption="H. Cuerpo de Bomberos · Veracruz"
+  totalEstaciones={estacionesVeracruz.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="8.1M+"
+  canonical="https://bombero.mx/directorio/veracruz"
+  keywords={["bomberos veracruz", "estaciones bomberos veracruz", "emergencias veracruz 911"]}
   estado={estado}
   sigla={sigla}
   slug={slug}
@@ -179,56 +254,12 @@ const breadcrumbSchema = {
   title={`Bomberos en Veracruz | ${estacionesVeracruz.length} Estaciones | Puerto #1 México | PEMEX | HAZMAT | BOMBERO.MX`}
   description="Directorio oficial de las 36 estaciones de bomberos en Veracruz. Puerto comercial #1 de México (24M toneladas/año), Complejo Petroquímico Coatzacoalcos (mayor de Latinoamérica), Refinería PEMEX Minatitlán (150,000 bbl/día), 745 km de costa del Golfo de México, coordinación SEMAR para rescate marítimo, operativos huracanes. Emergencias 911."
 >
-  <!-- ══════════════════════════════════════════════════════════════════════════
-       INTRO SLOT — Presentación del estado
-       ══════════════════════════════════════════════════════════════════════════ -->
-  <Fragment slot="intro">
-    Directorio completo del <strong>H. Cuerpo de Bomberos de Veracruz</strong>.
-    El tercer estado más poblado de México (<strong>8 millones de habitantes</strong>)
-    y el de mayor importancia estratégica para el comercio exterior:
-    el <strong>Puerto de Veracruz</strong> mueve <strong>24 millones de toneladas anuales</strong>
-    (60% del comercio marítimo mexicano), mientras el <strong>Complejo Petroquímico de Coatzacoalcos</strong>
-    es el <strong>mayor de Latinoamérica</strong>. Con <strong>745 km de costa</strong> expuesta
-    a huracanes y una industria petrolera que representa el <strong>35% de la producción
-    petroquímica nacional</strong>, Veracruz requiere bomberos con certificaciones
-    HAZMAT de clase mundial y coordinación permanente con <strong>SEMAR</strong> y <strong>PEMEX</strong>.
-  </Fragment>
-
-  <!-- ══════════════════════════════════════════════════════════════════════════
-       HERO SEO SLOT — Contenido SEO en el hero
-       ══════════════════════════════════════════════════════════════════════════ -->
-  <Fragment slot="hero-seo">
-    <div class="hero-seo__block">
-      <h2 class="hero-seo__title">Puerto de Veracruz: La Puerta de México al Mundo</h2>
-      <p class="hero-seo__text">
-        El <strong>Puerto de Veracruz</strong> es el <strong>principal puerto comercial de México</strong>,
-        movilizando más de <strong>24 millones de toneladas anuales</strong> de carga —el <strong>60%
-        del comercio exterior marítimo del país</strong>—. La Estación Central de Bomberos Puerto Veracruz
-        mantiene coordinación permanente con <strong>SEMAR</strong> (Secretaría de Marina) para emergencias
-        marítimas, utilizando VHF Canal 16 las 24 horas. El rescate en buques, muelles, contenedores y la
-        Fortaleza de <strong>San Juan de Ulúa</strong> (patrimonio colonial) exige protocolos especializados
-        y personal bilingüe para tripulaciones internacionales.
-      </p>
-    </div>
-    <div class="hero-seo__block">
-      <h2 class="hero-seo__title">Coatzacoalcos: El Mayor Complejo Petroquímico de Latinoamérica</h2>
-      <p class="hero-seo__text">
-        El <strong>Corredor Petroquímico Coatzacoalcos-Minatitlán</strong> concentra la mayor infraestructura
-        de hidrocarburos de América Latina: los complejos <strong>Pajaritos, Cangrejera y Morelos</strong>,
-        la <strong>Refinería PEMEX Minatitlán</strong> (<strong>150,000 barriles/día</strong>) y la
-        <strong>Terminal Marítima de exportación</strong>. Los bomberos HAZMAT de esta zona operan con
-        <strong>certificación Nivel A</strong>, protocolos API 2021, ISO 45001, y coordinación 24/7 con
-        las brigadas internas de PEMEX. El <strong>35% de la producción petroquímica nacional</strong>
-        se procesa aquí, haciendo de esta zona una de las más críticas industrialmente en todo México.
-      </p>
-    </div>
-  </Fragment>
 
   <!-- ══════════════════════════════════════════════════════════════════════════
        SEO CONTENT SLOT — Contenido SEO extenso
        ══════════════════════════════════════════════════════════════════════════ -->
   <Fragment slot="seo">
-    <section class="seo-content">
+    
       <h2>El H. Cuerpo de Bomberos de Veracruz</h2>
       <p>
         El <strong>H. Cuerpo de Bomberos de Veracruz</strong> protege a más de <strong>8 millones de
@@ -338,75 +369,6 @@ const breadcrumbSchema = {
         <strong>incendios forestales</strong> (Reserva Los Tuxtlas) y
         <strong>emergencias aeroportuarias</strong> (Aeropuerto Internacional VER).
       </p>
-    </section>
   </Fragment>
 </DirectorioEstadoLayout>
 
-<style>
-  /* ══════════════════════════════════════════════════════════════════════════════
-     VERACRUZ — ESTILOS SEO
-     Color: Azul Marino/Golfo #0369a1 — Puerto, Mar, Petróleo
-     ══════════════════════════════════════════════════════════════════════════════ */
-
-  .hero-seo__block {
-    margin-bottom: var(--space-4);
-  }
-
-  .hero-seo__block:last-child {
-    margin-bottom: 0;
-  }
-
-  .hero-seo__title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: #38bdf8;
-    margin: 0 0 var(--space-2);
-  }
-
-  .hero-seo__text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .hero-seo__text strong {
-    color: white;
-  }
-
-  /* ─── SEO Content ─── */
-  .seo-content {
-    padding: var(--space-8);
-    background: white;
-    border-radius: var(--radius-xl);
-  }
-
-  .seo-content h2 {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin: var(--space-6) 0 var(--space-3);
-  }
-
-  .seo-content p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-600);
-    line-height: 1.8;
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content p:last-child {
-    margin-bottom: 0;
-  }
-
-  .seo-content strong {
-    color: var(--color-smoke-800);
-  }
-</style>

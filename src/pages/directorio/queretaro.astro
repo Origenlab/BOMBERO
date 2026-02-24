@@ -7,6 +7,7 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesQueretaro, getMunicipios } from "@data/estaciones-queretaro";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Configuración del estado
 const estado = "Querétaro";
@@ -15,18 +16,14 @@ const slug = "queretaro";
 
 // Miniaturas hero - Aeroespacial, UNESCO y Peña de Bernal
 const heroThumbs = [
+  { src: "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif", alt: "Central de despacho de emergencias de bomberos de Querétaro con monitores", label: "Central de Despacho" },
   {
-    src: "/images/directorio/qro-aeroespacial-bombardier.avif",
-    alt: "Industria aeroespacial Bombardier Safran Querétaro",
-    label: "Hub Aeroespacial #1"
-  },
-  {
-    src: "/images/directorio/qro-centro-historico-acueducto.avif",
+    src: "/images/directorio/estacion-bomberos-queretaro-01.avif",
     alt: "Centro Histórico de Querétaro Acueducto UNESCO 1996",
     label: "UNESCO 1996"
   },
   {
-    src: "/images/directorio/qro-pena-bernal.avif",
+    src: "/images/directorio/rescate-montana-bomberos-01.avif",
     alt: "Peña de Bernal tercer monolito más grande del mundo",
     label: "Peña de Bernal"
   }
@@ -34,36 +31,22 @@ const heroThumbs = [
 
 // Galería de imágenes
 const galleryImages = [
+  { src: "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif", alt: "Bahía de bomberos de Querétaro con ventanal panorámico", label: "Instalaciones Modernas" },
   {
-    src: "/images/directorio/qro-ruta-vino.avif",
-    alt: "Ruta del Vino y Queso viñedos Tequisquiapan Querétaro",
-    label: "Ruta del Vino"
-  },
-  {
-    src: "/images/directorio/qro-sierra-gorda-misiones.avif",
+    src: "/images/directorio/estacion-bomberos-selva-01.avif",
     alt: "Misiones Franciscanas Sierra Gorda UNESCO 2003",
     label: "Misiones UNESCO"
   },
   {
-    src: "/images/directorio/qro-juriquilla-unam.avif",
+    src: "/images/directorio/estacion-bomberos-moderna-01.avif",
     alt: "Campus UNAM Juriquilla parques tecnológicos",
     label: "Silicon Valley MX"
   },
   {
-    src: "/images/directorio/qro-festival-globo.avif",
+    src: "/images/directorio/bomberos-profesionales-accion-01.avif",
     alt: "Festival Internacional del Globo Tequisquiapan",
     label: "Festival del Globo"
   },
-  {
-    src: "/images/directorio/qro-autopista-57d.avif",
-    alt: "Autopista México-Querétaro 57D rescate carretero",
-    label: "Autopista 57D"
-  },
-  {
-    src: "/images/directorio/qro-parque-aeroespacial.avif",
-    alt: "Parque Aeroespacial Querétaro ITP Aero Airbus",
-    label: "Parque Aeroespacial"
-  }
 ];
 
 // Números de emergencia Querétaro
@@ -97,32 +80,41 @@ const regiones = [
 // Tarjetas de equipamiento EPP
 const eppCards = [
   {
-    image: "/images/productos/traje-hazmat-aeroespacial.avif",
-    imageAlt: "Traje HAZMAT Nivel A para industria aeroespacial",
-    badge: "Aeroespacial",
-    title: "HAZMAT Nivel A Aeroespacial",
-    text: "Trajes encapsulados y detectores para Bombardier, Safran. Materiales compuestos y combustibles aviación.",
-    href: "/productos/hazmat",
-    linkLabel: "Ver equipos HAZMAT"
+    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+    imageAlt:  "Traje HAZMAT para industria aeroespacial en Querétaro",
+    badge:     "Aeroespacial",
+    title:     "HAZMAT Nivel A Aeroespacial",
+    text:      "Trajes encapsulados para emergencias en <strong>Bombardier, Safran y parque aeroespacial</strong>. Protección contra fluidos hidráulicos y combustibles de aviación.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
   },
   {
-    image: "/images/productos/equipo-rescate-vertical.avif",
-    imageAlt: "Equipo de rescate vertical para Peña de Bernal",
-    badge: "Rescate Vertical",
-    title: "Rescate Peña de Bernal",
-    text: "Cuerdas, arneses y equipo certificado para rescate en el tercer monolito más grande del mundo (350m).",
-    href: "/productos/rescate-altura",
-    linkLabel: "Ver equipo altura"
+    image:     "/images/directorio/equipo-rescate-vertical-01.avif",
+    imageAlt:  "Equipo de rescate vertical para Peña de Bernal Querétaro",
+    badge:     "Rescate",
+    title:     "Rescate Peña de Bernal",
+    text:      "Sistemas de rescate vertical y cuerdas técnicas para emergencias en la <strong>Peña de Bernal</strong> y Sierra Gorda. Arneses y dispositivos de descenso certificados.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
   },
   {
-    image: "/images/productos/equipo-rescate-carretero.avif",
-    imageAlt: "Herramientas rescate carretero autopista México-Querétaro",
-    badge: "Carretero",
-    title: "Rescate Autopista 57D",
-    text: "Herramientas hidráulicas para la autopista más transitada de México (100,000+ vehículos/día).",
-    href: "/productos/herramientas-rescate",
-    linkLabel: "Ver herramientas rescate"
-  }
+    image:     "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",
+    imageAlt:  "Equipo de rescate vehicular para autopista 57D Querétaro",
+    badge:     "Carretero",
+    title:     "Rescate Autopista 57D",
+    text:      "Herramientas hidráulicas para extricación en la <strong>autopista 57D México-Querétaro</strong> y periférico. Spreaders y cutters para vehículos pesados.",
+    href:      "/productos/guantes-para-bomberos",
+    linkLabel: "Ver Herramientas de Rescate",
+  },
+  {
+    image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt:  "Casco estructural para bomberos de Querétaro",
+    badge:     "NFPA 1971",
+    title:     "Cascos NFPA Certificados",
+    text:      "Cascos estructurales para emergencias en <strong>zona industrial El Marqués y Juriquilla</strong>. Protección térmica avanzada con visor y sistema de comunicación integrado.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Cascos para Bombero",
+  },
 ];
 
 // Schema.org estructurado
@@ -151,15 +143,11 @@ const itemListSchema = {
   }))
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
-    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
-    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` }
-  ]
-};
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Querétaro",         url: "/directorio/queretaro" },
+]);
 
 // Imágenes para tarjetas de estaciones
 const stationImages = [
@@ -172,8 +160,39 @@ const stationImages = [
   "/images/directorio/camion-escalera-bomberos-01.avif",
   "/images/directorio/equipo-rescate-completo-01.avif",
   "/images/directorio/bombero-casco-bullard-incendio-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
 ];
-
 // Estados vecinos (desde archivo centralizado)
 const estadosVecinos = getEstadosVecinos("queretaro");
 ---
@@ -182,6 +201,15 @@ const estadosVecinos = getEstadosVecinos("queretaro");
   estado={estado}
   sigla={sigla}
   slug={slug}
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Querétaro</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
+  heroImage="/images/directorio/estacion-bomberos-industrial-01.avif"
+  heroImageAlt="Estación de Bomberos en Querétaro"
+  heroCaption="H. Cuerpo de Bomberos · Querétaro"
+  totalEstaciones={estacionesQueretaro.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="2.4M+"
+  canonical="https://bombero.mx/directorio/queretaro"
+  keywords={["bomberos queretaro", "estaciones bomberos queretaro", "emergencias queretaro 911", "cuerpo bomberos queretaro"]}
   estaciones={estacionesQueretaro}
   stationImages={stationImages}
   municipios={getMunicipios()}
@@ -196,7 +224,7 @@ const estadosVecinos = getEstadosVecinos("queretaro");
   description={`Directorio completo de ${estacionesQueretaro.length} estaciones de bomberos en Querétaro 2024. Hub aeroespacial #1 México: Bombardier, Safran HAZMAT. 2 sitios UNESCO. 4 Pueblos Mágicos: Bernal, Tequisquiapan. Ruta del Vino. Tel: (442) 212-3939. Emergencias 911.`}
 >
   <Fragment slot="seo">
-    <section class="seo-content">
+    
       <h2>Bomberos de Querétaro: Protección del Hub Aeroespacial de México</h2>
       <p>
         El <strong>H. Cuerpo de Bomberos de Querétaro</strong> protege uno de los estados con mayor dinamismo
@@ -296,56 +324,6 @@ const estadosVecinos = getEstadosVecinos("queretaro");
         y <strong>cobertura de 4 Pueblos Mágicos</strong>. El tiempo de respuesta promedio en zona metropolitana
         es de <strong>4-6 minutos</strong>.
       </p>
-    </section>
-  </Fragment>
+    </Fragment>
 </DirectorioEstadoLayout>
 
-<style>
-  .seo-content {
-    padding: var(--space-8);
-    background: white;
-    border-radius: var(--radius-xl);
-    margin-top: var(--space-8);
-  }
-
-  .seo-content h2 {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    line-height: 1.3;
-  }
-
-  .seo-content h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-fire-700);
-    margin: var(--space-8) 0 var(--space-3);
-  }
-
-  .seo-content p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-700);
-    line-height: 1.8;
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content strong {
-    color: var(--color-smoke-900);
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    .seo-content {
-      padding: var(--space-5);
-    }
-
-    .seo-content h2 {
-      font-size: var(--text-xl);
-    }
-
-    .seo-content h3 {
-      font-size: var(--text-base);
-    }
-  }
-</style>

@@ -14,6 +14,7 @@ import {
   getEstacionesCercanas,
 } from "@data/estaciones-tlaxcala";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 const estado = "Tlaxcala";
 const sigla = "TLA";
@@ -21,27 +22,33 @@ const slug = "tlaxcala";
 
 /* ───────────────────────────── THUMBNAILS HERO ───────────────────────────── */
 const heroThumbs = [
-  { src: "/images/directorio/estacion-bomberos-tlaxcala-01.avif", alt: "Estación Central de Bomberos Tlaxcala" },
-  { src: "/images/directorio/estacion-bomberos-tlaxcala-02.avif", alt: "Bomberos planta Audi San José Chiapa" },
-  { src: "/images/directorio/estacion-bomberos-tlaxcala-03.avif", alt: "Rescate Volcán La Malinche Tlaxcala" },
+  { src: "/images/directorio/estacion-bomberos-moderna-01.avif", alt: "Estación Central de Bomberos Tlaxcala", label: "Respuesta Rápida" },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif", alt: "Área de pesas y entrenamiento en estación de bomberos de Tlaxcala", label: "Entrenamiento Físico" },
+  { src: "/images/directorio/estacion-bomberos-equipada-01.avif", alt: "Rescate Volcán La Malinche Tlaxcala", label: "Servicio 24/7" },
 ];
 
 /* ─────────────────────────── GALERÍA DE IMÁGENES ─────────────────────────── */
 const galleryImages = [
-  { src: "/images/directorio/bomberos-tlaxcala-audi.avif", alt: "HAZMAT automotriz planta Audi México" },
-  { src: "/images/directorio/bomberos-tlaxcala-malinche.avif", alt: "Rescate en alta montaña Volcán La Malinche" },
-  { src: "/images/directorio/bomberos-tlaxcala-textil.avif", alt: "Bomberos industria textil Chiautempan" },
-  { src: "/images/directorio/bomberos-tlaxcala-apizaco.avif", alt: "HAZMAT ferroviario Apizaco Ferromex" },
+  { src: "/images/directorio/estacion-bomberos-industrial-01.avif", alt: "HAZMAT automotriz planta Audi México",
+    label: "HAZMAT automotriz planta Audi México"
+  },
+  { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Rescate en alta montaña Volcán La Malinche",
+    label: "Rescate en alta montaña Volcán La"
+  },
+  { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Bomberos industria textil Chiautempan",
+    label: "Bomberos industria textil Chiautempan"
+  },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif", alt: "Entrenamiento funcional en estación de bomberos de Tlaxcala", label: "Entrenamiento Funcional" },
 ];
 
 /* ───────────────────────── TELÉFONOS DE EMERGENCIA ───────────────────────── */
 const emergencyNumbers = [
-  { name: "Emergencias", number: "911" },
-  { name: "Bomberos Tlaxcala Capital", number: "246 462 0100" },
-  { name: "Bomberos Apizaco", number: "241 418 0300" },
-  { name: "Bomberos Huamantla", number: "247 472 0500" },
-  { name: "Bomberos Calpulalpan", number: "591 922 0300" },
-  { name: "Bomberos Chiautempan", number: "241 416 0200" },
+  { label: "Emergencias", number: "911" },
+  { label: "Bomberos Tlaxcala Capital", number: "246 462 0100" },
+  { label: "Bomberos Apizaco", number: "241 418 0300" },
+  { label: "Bomberos Huamantla", number: "247 472 0500" },
+  { label: "Bomberos Calpulalpan", number: "591 922 0300" },
+  { label: "Bomberos Chiautempan", number: "241 416 0200" },
 ];
 
 /* ──────────────────────────── REGIONES DEL ESTADO ────────────────────────── */
@@ -56,10 +63,42 @@ const regiones = [
 
 /* ────────────────────────── TARJETAS EPP DESTACADAS ──────────────────────── */
 const eppCards = [
-  { icon: "factory", title: "HAZMAT Automotriz", desc: "Audi México: baterías HV, VOCs pintura, isocianatos" },
-  { icon: "flame", title: "Incendios Textiles", desc: "Fibras sintéticas poliéster/nylon, colorantes azo tóxicos" },
-  { icon: "mountain", title: "Rescate Alta Montaña", desc: "Volcán La Malinche 4,461 msnm — nieve, hielo, hipotermia" },
-  { icon: "rail", title: "HAZMAT Ferroviario", desc: "Nodo Ferromex Apizaco — carga peligrosa clasificada UN" },
+  {
+    image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+    imageAlt:  "Equipo HAZMAT para planta Audi en Tlaxcala",
+    badge:     "Audi",
+    title:     "HAZMAT Automotriz",
+    text:      "Equipos de protección para emergencias químicas en <strong>planta Audi y corredor industrial Puebla-Tlaxcala</strong>. Trajes y detectores certificados para la industria automotriz.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+  {
+    image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+    imageAlt:  "Traje estructural para incendios textiles en Tlaxcala",
+    badge:     "Textil",
+    title:     "Incendios Textiles",
+    text:      "Protección estructural para emergencias en <strong>fábricas textiles de Tlaxcala y Santa Ana Chiautempan</strong>. Trajes certificados para incendios con materiales sintéticos.",
+    href:      "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",
+    linkLabel: "Ver Trajes Estructurales",
+  },
+  {
+    image:     "/images/directorio/rescate-montana-bomberos-01.avif",
+    imageAlt:  "Equipo de rescate en altura para La Malinche Tlaxcala",
+    badge:     "Montaña",
+    title:     "Rescate Alta Montaña",
+    text:      "Sistemas de rescate vertical para emergencias en <strong>volcán La Malinche</strong> y zonas boscosas. Cuerdas técnicas y equipo de protección para alta montaña.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
+  },
+  {
+    image:     "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+    imageAlt:  "Autobomba para emergencias ferroviarias en Tlaxcala",
+    badge:     "Ferroviario",
+    title:     "HAZMAT Ferroviario",
+    text:      "Equipo especializado para emergencias en la <strong>red ferroviaria que cruza Tlaxcala</strong>. Protección HAZMAT para descarrilamientos con materiales peligrosos.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
 ];
 
 /* ─────────────────────── IMÁGENES TARJETAS ESTACIONES ────────────────────── */
@@ -68,13 +107,44 @@ const stationImages = [
   "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
   "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
   "/images/directorio/estacion-bomberos-moderna-01.avif",
-  "/images/directorio/camion-bomberos-escalera-telescopica-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
   "/images/directorio/estacion-bomberos-mexico-01.avif",
   "/images/directorio/unidad-rescate-bomberos-01.avif",
-  "/images/directorio/bomberos-entrenamiento-01.avif",
+  "/images/directorio/entrenamiento-bomberos-fuego-01.avif",
   "/images/directorio/rescate-montana-bomberos-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
 ];
-
 /* ──────────────────────────── ESTADOS VECINOS ────────────────────────────── */
 const estadosVecinos = getEstadosVecinos("tlaxcala");
 
@@ -104,18 +174,23 @@ const itemListSchema = {
   })),
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx/" },
-    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
-    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` },
-  ],
-};
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Tlaxcala",         url: "/directorio/tlaxcala" },
+]);
 ---
 
 <DirectorioEstadoLayout
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Tlaxcala</strong>.     El <strong>estado más pequeño de México</strong> (3,991 km²) y paradójicamente     el de <strong>mayor densidad industrial por km²</strong>: sede de la     <strong>única planta Audi en todo el continente americano</strong>,     capital textilera nacional, el Volcán La Malinche a 4,461 msnm     y la cervecería más grande del centro del país."
+  heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
+  heroImageAlt="Estación de Bomberos en Tlaxcala"
+  heroCaption="H. Cuerpo de Bomberos · Tlaxcala"
+  totalEstaciones={estacionesTlaxcala.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="1.3M+"
+  canonical="https://bombero.mx/directorio/tlaxcala"
+  keywords={["bomberos tlaxcala", "estaciones bomberos tlaxcala", "emergencias tlaxcala 911"]}
   estado={estado}
   sigla={sigla}
   slug={slug}
@@ -132,51 +207,12 @@ const breadcrumbSchema = {
   title={`Bomberos en Tlaxcala | ${estacionesTlaxcala.length} Estaciones | Planta Audi | La Malinche | BOMBERO.MX`}
   description="Directorio oficial de las 15 estaciones de bomberos en Tlaxcala. Única planta Audi en las Américas (San José Chiapa, 12,000 empleados), capital textilera de México (Chiautempan), Volcán La Malinche (4,461 msnm), Grupo Modelo Calpulalpan. Estado más pequeño de México con mayor densidad industrial por km². Emergencias 911."
 >
-  <!-- ════════════════════════════════════════════════════════════════════════
-       INTRO SLOT
-       ════════════════════════════════════════════════════════════════════════ -->
-  <Fragment slot="intro">
-    Directorio completo del <strong>H. Cuerpo de Bomberos de Tlaxcala</strong>.
-    El <strong>estado más pequeño de México</strong> (3,991 km²) y paradójicamente
-    el de <strong>mayor densidad industrial por km²</strong>: sede de la
-    <strong>única planta Audi en todo el continente americano</strong>,
-    capital textilera nacional, el Volcán La Malinche a 4,461 msnm
-    y la cervecería más grande del centro del país.
-  </Fragment>
-
-  <!-- ════════════════════════════════════════════════════════════════════════
-       HERO SEO SLOT
-       ════════════════════════════════════════════════════════════════════════ -->
-  <Fragment slot="hero-seo">
-    <div class="hero-seo__block">
-      <h2 class="hero-seo__title">Audi México: La Única Planta en las Américas</h2>
-      <p class="hero-seo__text">
-        La <strong>Planta Audi México en San José Chiapa</strong> (2016, $1,300 MDD de inversión)
-        es la <strong>única fábrica de automóviles Audi en todo el continente americano</strong>.
-        Produce los modelos <strong>Audi Q5</strong> y <strong>A3 Sedan</strong> para distribución
-        global —más de <strong>150,000 unidades/año</strong>— y emplea a <strong>12,000 personas</strong>.
-        Los bomberos de San José Chiapa dominan HAZMAT automotriz premium: disolventes VOC del taller
-        de pintura, baterías de alta tensión (400V) para híbridos plug-in y celdas de soldadura robotizada.
-      </p>
-    </div>
-    <div class="hero-seo__block">
-      <h2 class="hero-seo__title">Capital Textilera + Volcán La Malinche</h2>
-      <p class="hero-seo__text">
-        <strong>Santa Ana Chiautempan</strong> concentra el mayor número de telares industriales de México
-        —más de 500 empresas textileras— con riesgos específicos de incendios en fibras sintéticas
-        (poliéster, nylon) y colorantes azo tóxicos. El <strong>Volcán La Malinche</strong> (4,461 msnm)
-        exige equipos de rescate en alta montaña: hipotermia, nieve, hielo y emergencias por altitud.
-        Con apenas <strong>3,991 km²</strong>, Tlaxcala tiene la <strong>mayor concentración de parques
-        industriales por km² de México</strong>.
-      </p>
-    </div>
-  </Fragment>
 
   <!-- ════════════════════════════════════════════════════════════════════════
        SEO CONTENT SLOT
        ════════════════════════════════════════════════════════════════════════ -->
   <Fragment slot="seo">
-    <section class="seo-content">
+    
       <h2>El H. Cuerpo de Bomberos de Tlaxcala</h2>
       <p>
         El <strong>H. Cuerpo de Bomberos de Tlaxcala</strong> protege a más de <strong>1.3 millones
@@ -265,75 +301,6 @@ const breadcrumbSchema = {
         <strong>rescate vehicular</strong> en la Autopista 150D; y
         <strong>HAZMAT químico-farmacéutico</strong> en el corredor norte.
       </p>
-    </section>
   </Fragment>
 </DirectorioEstadoLayout>
 
-<style>
-  /* ══════════════════════════════════════════════════════════════════════════
-     TLAXCALA — ESTILOS SEO
-     Color: Amber/Cobre #b45309 — Audi + tradición textilera
-     ══════════════════════════════════════════════════════════════════════════ */
-
-  .hero-seo__block {
-    margin-bottom: var(--space-4);
-  }
-
-  .hero-seo__block:last-child {
-    margin-bottom: 0;
-  }
-
-  .hero-seo__title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: #fbbf24;
-    margin: 0 0 var(--space-2);
-  }
-
-  .hero-seo__text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .hero-seo__text strong {
-    color: white;
-  }
-
-  /* ─── SEO Content ─── */
-  .seo-content {
-    padding: var(--space-8);
-    background: white;
-    border-radius: var(--radius-xl);
-  }
-
-  .seo-content h2 {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin: var(--space-6) 0 var(--space-3);
-  }
-
-  .seo-content p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-600);
-    line-height: 1.8;
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content p:last-child {
-    margin-bottom: 0;
-  }
-
-  .seo-content strong {
-    color: var(--color-smoke-800);
-  }
-</style>

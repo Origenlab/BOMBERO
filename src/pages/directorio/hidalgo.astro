@@ -15,6 +15,7 @@ import {
   HIDALGO_SEO
 } from "@data/estaciones-hidalgo";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CALCULAR DATOS DERIVADOS
@@ -22,16 +23,6 @@ import { getEstadosVecinos } from "@data/estados-vecinos";
 
 const municipios = [...new Set(estacionesHidalgo.map((e) => e.ciudad))].sort();
 
-// Estaciones por zona para referencia
-const estacionesPorZona = {
-  pachuca: estacionesHidalgo.filter(e => ['Pachuca de Soto', 'Mineral de la Reforma', 'Real del Monte'].includes(e.ciudad)),
-  industrial: estacionesHidalgo.filter(e => ['Tula de Allende', 'Tepeji del Río'].includes(e.ciudad)),
-  tulancingo: estacionesHidalgo.filter(e => ['Tulancingo', 'Cuautepec de Hinojosa', 'Acaxochitlán'].includes(e.ciudad)),
-  pueblosMagicos: estacionesHidalgo.filter(e => ['Huasca de Ocampo', 'Mineral del Chico', 'Huichapan'].includes(e.ciudad)),
-  mezquital: estacionesHidalgo.filter(e => ['Actopan', 'Ixmiquilpan'].includes(e.ciudad)),
-  huasteca: estacionesHidalgo.filter(e => ['Huejutla de Reyes', 'Molango'].includes(e.ciudad)),
-  sur: estacionesHidalgo.filter(e => e.ciudad === 'Tizayuca'),
-};
 
 // ═══════════════════════════════════════════════════════════════════════════
 // PROPS PARA DirectorioEstadoLayout
@@ -41,189 +32,97 @@ const estadoNombre = "Hidalgo";
 const estadoSlug = "hidalgo";
 const estadoCodigo = "HGO";
 
-const heroTitle = "Bomberos de Hidalgo";
-const heroSubtitle = `Directorio oficial de las ${ESTADISTICAS_HIDALGO.total_estaciones} estaciones que protegen Pachuca 'La Bella Airosa', 6 Pueblos Mágicos, el Corredor Industrial Tula-Tepeji y 500 años de patrimonio minero de plata`;
 const heroDesc = `Hidalgo, con ${(HIDALGO_SEO.poblacion / 1_000_000).toFixed(1)} millones de habitantes, destaca por su patrimonio único: 6 Pueblos Mágicos (récord nacional), 500 años de minería de plata en Real del Monte, el Acueducto del Padre Tembleque (UNESCO), y la Refinería PEMEX Tula. Pachuca, 'La Bella Airosa', se encuentra a 2,400 msnm. Los ${ESTADISTICAS_HIDALGO.total_bomberos}+ bomberos especializados protegen industria petroquímica, patrimonio colonial, minas históricas y turismo de altura con capacidad en HAZMAT, rescate minero y emergencias de montaña.`;
 
-const heroStats = [
-  { number: `${ESTADISTICAS_HIDALGO.total_estaciones}`, label: "Estaciones" },
-  { number: `${ESTADISTICAS_HIDALGO.total_bomberos}+`, label: "Bomberos" },
-  { number: `${ESTADISTICAS_HIDALGO.total_unidades}`, label: "Unidades" },
-  { number: "6", label: "Pueblos Mágicos" },
-];
 
 const heroThumbs = [
   {
-    imgSrc: "/images/directorio/camion-bomberos-equipado-01.avif",
-    imgAlt: "Autobomba del Cuerpo de Bomberos de Pachuca, capital de Hidalgo",
-    caption: "Autobomba Central Pachuca"
+    src: "/images/directorio/camion-bomberos-equipado-01.avif",
+    alt: "Autobomba del Cuerpo de Bomberos de Pachuca, capital de Hidalgo",
+    label: "Autobomba Central Pachuca"
   },
+  { src: "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif", alt: "Estación de bomberos de Hidalgo con puertas de cristal y unidades visibles", label: "Estación Profesional" },
   {
-    imgSrc: "/images/directorio/unidad-hazmat-emergencias-01.avif",
-    imgAlt: "Unidad HAZMAT especializada de Bomberos Tula para Refinería PEMEX",
-    caption: "HAZMAT Refinería Tula"
-  },
-  {
-    imgSrc: "/images/directorio/estacion-bomberos-mexico-01.avif",
-    imgAlt: "Estación de bomberos en Real del Monte, Pueblo Mágico minero",
-    caption: "Estación Real del Monte"
+    src: "/images/directorio/estacion-bomberos-mexico-01.avif",
+    alt: "Estación de bomberos en Real del Monte, Pueblo Mágico minero",
+    label: "Estación Real del Monte"
   }
 ];
 
 const emergencyNumbers = [
-  { label: "Emergencias Nacional", number: "911", href: "tel:911" },
-  { label: "Bomberos Pachuca", number: "(771) 715-8888", href: "tel:+527717158888" },
-  { label: "Bomberos Tula", number: "(773) 732-3333", href: "tel:+527737323333" },
-  { label: "Bomberos Tulancingo", number: "(775) 753-5555", href: "tel:+527757535555" },
-  { label: "Protección Civil Estatal", number: "(771) 718-1100", href: "tel:+527717181100" },
+  { label: "Emergencias Nacional", number: "911" },
+  { label: "Bomberos Pachuca", number: "(771) 715-8888" },
+  { label: "Bomberos Tula", number: "(773) 732-3333" },
+  { label: "Bomberos Tulancingo", number: "(775) 753-5555" },
+  { label: "Protección Civil Estatal", number: "(771) 718-1100" },
 ];
 
 const regiones = [
-  {
-    id: "pachuca",
-    nombre: "Zona Metropolitana Pachuca",
-    icono: "🏔️",
-    color: "blue",
-    descripcion: `**Pachuca 'La Bella Airosa'**, capital a 2,400 msnm. Área metropolitana con 500,000+ habitantes. Zona minera histórica con 500 años de extracción de plata en Real del Monte con herencia británica (Cornish). **Reloj Monumental** (1910), símbolo de la ciudad. Especialización en emergencias de altura, rescate minero, incendios forestales en sierra y protección del patrimonio minero colonial. Cuna del fútbol mexicano.`,
-    estaciones: estacionesPorZona.pachuca.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/hidalgo/${e.slug}`
-    }))
-  },
-  {
-    id: "industrial",
-    nombre: "Corredor Industrial Tula-Tepeji",
-    icono: "🏭",
-    color: "indigo",
-    descripcion: `**Corredor industrial más importante del estado** con la **Refinería PEMEX Tula** (proceso de 315,000 barriles diarios). **Cementeras Cruz Azul y Cemex**. Plantas automotrices y químicas. Zona arqueológica de Tula (capital tolteca). Especialización crítica en HAZMAT petroquímico, emergencias con hidrocarburos, incendios industriales de gran escala, evacuaciones masivas y coordinación con PEMEX. Personal certificado NFPA 472 Técnico.`,
-    estaciones: estacionesPorZona.industrial.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/hidalgo/${e.slug}`
-    }))
-  },
-  {
-    id: "tulancingo",
-    nombre: "Zona Tulancingo-Sierra Norte",
-    icono: "🏞️",
-    color: "green",
-    descripcion: `**Tulancingo: tercera ciudad del estado** con 150,000+ habitantes. Corredor textil y agroindustrial. **Acaxochitlán**: bosques de niebla y cascadas. Sierra Norte con ecosistemas únicos. Zona de transición entre altiplano y Huasteca. Especialización en emergencias en industria textil, incendios forestales en bosque de oyamel, rescate en sierra y atención en carretera hacia Veracruz.`,
-    estaciones: estacionesPorZona.tulancingo.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/hidalgo/${e.slug}`
-    }))
-  },
-  {
-    id: "pueblos-magicos",
-    nombre: "Pueblos Mágicos (Récord Nacional)",
-    icono: "⭐",
-    color: "amber",
-    descripcion: `**6 Pueblos Mágicos - récord nacional**: Real del Monte, Huasca de Ocampo, Mineral del Chico, Huichapan, Tecozautla, Zempoala. **Huasca**: Prismas Basálticos de Santa María Regla. **El Chico**: Parque Nacional más antiguo de México. **Huichapan**: arquitectura colonial otomí. Especialización en protección de patrimonio, turismo de aventura, rescate en formaciones geológicas y emergencias en hoteles boutique.`,
-    estaciones: estacionesPorZona.pueblosMagicos.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/hidalgo/${e.slug}`
-    }))
-  },
-  {
-    id: "mezquital",
-    nombre: "Valle del Mezquital",
-    icono: "🌵",
-    color: "orange",
-    descripcion: `**Valle del Mezquital** con sistema de irrigación más grande de Latinoamérica. **Ixmiquilpan**: centro otomí, balnearios termales. **Actopan**: convento agustino del siglo XVI (UNESCO propuesto). Zona semiárida con maguey y producción de pulque. Especialización en emergencias agroindustriales, incendios en zona árida, rescate en cañadas y protección de patrimonio religioso colonial.`,
-    estaciones: estacionesPorZona.mezquital.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/hidalgo/${e.slug}`
-    }))
-  },
-  {
-    id: "huasteca",
-    nombre: "Zona Huasteca Hidalguense",
-    icono: "🌴",
-    color: "teal",
-    descripcion: `**Región Huasteca** con clima tropical. **Huejutla**: centro comercial y cultural de la Huasteca, población náhuatl. **Molango**: explotación de manganeso. Zona de transición hacia Veracruz con biodiversidad única. Especialización en emergencias en comunidades indígenas, inundaciones por lluvias tropicales, rescate en ríos y atención multilingüe náhuatl-español.`,
-    estaciones: estacionesPorZona.huasteca.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/hidalgo/${e.slug}`
-    }))
-  },
-  {
-    id: "sur",
-    nombre: "Corredor Sur (Conexión CDMX)",
-    icono: "🚗",
-    color: "slate",
-    descripcion: `**Tizayuca**: ciudad frontera con Estado de México, puerta sur de Hidalgo. Zona de rápido crecimiento urbano e industrial por cercanía con CDMX (40 km). Parques industriales y logística. Autopista México-Pachuca de alta intensidad vehicular. Especialización en rescate vehicular carretero, emergencias en parques industriales, incendios urbanos y coordinación con CDMX.`,
-    estaciones: estacionesPorZona.sur.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/hidalgo/${e.slug}`
-    }))
-  }
+  { nombre: "Zona Metropolitana Pachuca", desc: "Pachuca 'La Bella Airosa', capital a 2,400 msnm." },
+  { nombre: "Corredor Industrial Tula-Tepeji", desc: "Corredor industrial más importante del estado con la Refinería PEMEX Tula (proceso de 315,000 barriles diarios)." },
+  { nombre: "Zona Tulancingo-Sierra Norte", desc: "Tulancingo: tercera ciudad del estado con 150,000+ habitantes." },
+  { nombre: "Pueblos Mágicos (Récord Nacional)", desc: "6 Pueblos Mágicos - récord nacional: Real del Monte, Huasca de Ocampo, Mineral del Chico," },
+  { nombre: "Valle del Mezquital", desc: "Valle del Mezquital con sistema de irrigación más grande de Latinoamérica." },
+  { nombre: "Zona Huasteca Hidalguense", desc: "Región Huasteca con clima tropical." },
+  { nombre: "Corredor Sur (Conexión CDMX)", desc: "Tizayuca: ciudad frontera con Estado de México, puerta sur de Hidalgo." },
 ];
 
 const galleryImages = [
   {
     src: "/images/directorio/estacion-bomberos-mexico-01.avif",
     alt: "Estación Central de Bomberos de Pachuca, capital de Hidalgo",
-    caption: "Estación Central Pachuca"
+    label: "Estación Central Pachuca"
   },
   {
     src: "/images/directorio/camion-bomberos-equipado-01.avif",
     alt: "Unidad HAZMAT de Bomberos Tula para emergencias en Refinería PEMEX",
-    caption: "HAZMAT Refinería Tula PEMEX"
+    label: "HAZMAT Refinería Tula PEMEX"
   },
   {
     src: "/images/directorio/bomberos-accion-incendio-01.avif",
     alt: "Bomberos de Hidalgo en maniobras de rescate minero en Real del Monte",
-    caption: "Rescate Minero Real del Monte"
+    label: "Rescate Minero Real del Monte"
   },
-  {
-    src: "/images/directorio/estacion-bomberos-moderna-01.avif",
-    alt: "Estación de bomberos en Huasca de Ocampo, Pueblo Mágico",
-    caption: "Bomberos Huasca de Ocampo"
-  }
+  { src: "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif", alt: "Sistema de alerta en estación de bomberos de Hidalgo", label: "Sistema de Alertas" }
 ];
 
 const eppCards = [
   {
-    title: "Equipo HAZMAT Refinería Tula",
-    subtitle: "PEMEX 315,000 bpd",
-    imgSrc: "/images/directorio/traje-hazmat-nivel-a-01.avif",
-    imgAlt: "Traje HAZMAT Nivel A para emergencias en Refinería PEMEX Tula",
-    text: `Equipo especializado para emergencias en la **Refinería PEMEX Miguel Hidalgo** en Tula de Allende, procesando 315,000 barriles diarios de petróleo crudo. Trajes encapsulados HAZMAT Nivel A totalmente herméticos para vapores de gasolina, diésel, turbosina, gas LP, amoniaco y H₂S. SCBA de 60 minutos Dräger. Detectores multigas calibrados para LEL, O₂, CO, H₂S. Trajes Nivel B para derrames líquidos. Equipos de contención con diques portátiles. Absorbentes Oil-Dri. Espumas AFFF clase B para hidrocarburos. Sistema de descontaminación con duchas químicas. Personal certificado NFPA 472 Técnico HAZMAT. Coordinación permanente con brigadas PEMEX. Simulacros mensuales obligatorios. Tiempo de respuesta 3 minutos a cualquier punto de la refinería.`
+    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+    imageAlt:  "Traje HAZMAT Nivel A para emergencias en Refinería PEMEX Tula",
+    badge:     "NFPA 1991",
+    title:     "Equipo HAZMAT Refinería Tula",
+    text:      "Equipo especializado para emergencias en la Refinería PEMEX Miguel Hidalgo en Tula de Allende, procesando 315,000 barriles diarios de petróleo crudo. Trajes encapsulados HAZMAT Nivel A totalmente herméticos para vapores de gasolina, diésel, turbosina, gas LP, amoniaco y H₂S. SCBA de 60 minutos...",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo HAZMAT",
   },
   {
-    title: "Equipo Rescate Minero",
-    subtitle: "Real del Monte - 500 Años Plata",
-    imgSrc: "/images/directorio/equipo-rescate-tecnico-01.avif",
-    imgAlt: "Equipo de rescate minero para minas históricas de Real del Monte",
-    text: `Equipo especializado para emergencias en **minas históricas de plata de Real del Monte y Mineral del Chico** con 500 años de operación continua. Detectores de gases en minas (metano, CO, CO₂, O₂). Lámparas mineras LED con batería de 12 horas. SCBA compactos para espacios confinados. Cuerdas de rescate Kernmantle de 200 metros. Arneses de cuerpo completo certificados ANSI. Camillas Sked para extracción en tiros verticales. Equipos de ventilación portátil para túneles. Detectores de movimiento sísmico. Radios UHF para comunicación en profundidad. Trajes ignífugos con reflectantes para trabajos subterráneos. Capacitación en rescate vertical y espacios confinados NFPA 1006. Coordinación con compañías mineras activas y PEMEX Minería. Herencia británica (Cornish) en técnicas de rescate del siglo XIX.`
+    image:     "/images/directorio/equipo-rescate-tecnico-01.avif",
+    imageAlt:  "Equipo de rescate minero para minas históricas de Real del Monte",
+    badge:     "Especializado",
+    title:     "Equipo Rescate Minero",
+    text:      "Equipo especializado para emergencias en minas históricas de plata de Real del Monte y Mineral del Chico con 500 años de operación continua. Detectores de gases en minas (metano, CO, CO₂, O₂). Lámparas mineras LED con batería de 12 horas. SCBA compactos para espacios confinados. Cuerdas de...",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
   },
   {
-    title: "EPP Altura y Frío Extremo",
-    subtitle: "Pachuca 2,400 msnm",
-    imgSrc: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-    imgAlt: "Traje estructural para operaciones en altura de Pachuca",
-    text: `Equipo adaptado para emergencias en **Pachuca 'La Bella Airosa'** a 2,400 metros sobre el nivel del mar con temperaturas de -5°C en invierno. Trajes estructurales NFPA 1971 con capa térmica reforzada Nomex® para operaciones con frío extremo. Capas base térmicas de polipropileno. Guantes con forro térmico Thinsulate™. Balaclavas ignífugas. SCBA con compensación de presión para altitud (menor O₂ atmosférico). Máscaras faciales con válvulas anti-condensación. Sistemas de hidratación CamelBak para operaciones prolongadas en altura. Calentadores portátiles tipo torpedo para calentamiento de víctimas con hipotermia. Mantas térmicas aluminizadas. EPP para incendios forestales en Sierra de Pachuca (bosques de oyamel y pino). Resistencia al viento de 60+ km/h característico de la ciudad. Capacitación en fisiología de altura.`
+    image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt:  "Traje estructural para operaciones en altura de Pachuca",
+    badge:     "NFPA 1971",
+    title:     "EPP Altura y Frío Extremo",
+    text:      "Equipo adaptado para emergencias en Pachuca 'La Bella Airosa' a 2,400 metros sobre el nivel del mar con temperaturas de -5°C en invierno. Trajes estructurales NFPA 1971 con capa térmica reforzada Nomex® para operaciones con frío extremo. Capas base térmicas de polipropileno. Guantes con forro...",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Trajes para Bombero",
   },
   {
-    title: "EPP Patrimonio Pueblos Mágicos",
-    subtitle: "6 Pueblos - Récord Nacional",
-    imgSrc: "/images/directorio/equipo-bomberos-completo-01.avif",
-    imgAlt: "Equipo para protección de 6 Pueblos Mágicos de Hidalgo",
-    text: `Equipo especializado para emergencias en los **6 Pueblos Mágicos de Hidalgo** (récord nacional): Real del Monte, Huasca, Mineral del Chico, Huichapan, Tecozautla, Zempoala. Autobombas compactas para calles coloniales empedradas estrechas. Mangueras de 1.5' para acceso en callejones. Extintores portátiles para edificios históricos de madera y adobe del siglo XVI-XIX. Escaleras de aluminio tipo A para arquitectura colonial de 1-2 pisos. Lonas ignífugas para protección de fachadas con valor histórico. Lámparas LED para evitar daño térmico en arte sacro. Herramientas manuales no destructivas. Sistema de bombeo portátil para edificios sin tomas siamesas. Equipos de rescate en Prismas Basálticos (formaciones geológicas únicas). Protocolos de coordinación con INAH. Personal capacitado en protección de patrimonio cultural y turismo de aventura. Atención multilingüe para turismo internacional.`
-  }
+    image:     "/images/directorio/equipo-bomberos-completo-01.avif",
+    imageAlt:  "Equipo para protección de 6 Pueblos Mágicos de Hidalgo",
+    badge:     "Certificado",
+    title:     "EPP Patrimonio Pueblos Mágicos",
+    text:      "Equipo especializado para emergencias en los 6 Pueblos Mágicos de Hidalgo (récord nacional): Real del Monte, Huasca, Mineral del Chico, Huichapan, Tecozautla, Zempoala. Autobombas compactas para calles coloniales empedradas estrechas. Mangueras de 1.5' para acceso en callejones. Extintores...",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Certificado",
+  },
 ];
 
 const stationImages = [
@@ -239,24 +138,89 @@ const stationImages = [
   "/images/directorio/casco-bombero-bullard-amarillo-visor-01.avif",
   "/images/directorio/bombero-hernandez-capucha-scba-estacion-01.avif",
   "/images/directorio/bombero-retrato-casco-fuego-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
 ]
-
 // Estados vecinos (desde archivo centralizado)
 const estadosVecinos = getEstadosVecinos("hidalgo");
 
 const ctaTitle = "¿Necesitas Bomberos en Hidalgo?";
 const ctaDesc = "Encuentra la estación más cercana en Pachuca, Tula, Tulancingo, Real del Monte o cualquier municipio del estado. Atención 24/7 en emergencias industriales, HAZMAT, rescate minero y protección de Pueblos Mágicos.";
 const ctaBtnText = "Ver Estaciones por Municipio";
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Hidalgo",               url: "/directorio/hidalgo" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Hidalgo, México",
+  "numberOfItems": estacionesHidalgo.length,
+  "itemListElement": estacionesHidalgo.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Hidalgo",
+        "addressCountry": "MX",
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/hidalgo/${e.slug}`,
+    }
+  }))
+};
 ---
 
 <DirectorioEstadoLayout
-  estadoNombre={estadoNombre}
-  estadoSlug={estadoSlug}
-  estadoCodigo={estadoCodigo}
-  heroTitle={heroTitle}
-  heroSubtitle={heroSubtitle}
+  estado={estadoNombre}
+  slug={estadoSlug}
+  sigla={estadoCodigo}
+  heroImage="/images/directorio/camion-bomberos-equipado-01.avif"
+  heroImageAlt="Estación de Bomberos en Hidalgo"
+  heroCaption="H. Cuerpo de Bomberos · Hidalgo"
+  totalEstaciones={estacionesHidalgo.length}
+  totalMunicipios={municipios.length}
+  habitantes="3.1M+"
+  canonical="https://bombero.mx/directorio/hidalgo"
   heroDesc={heroDesc}
-  heroStats={heroStats}
   heroThumbs={heroThumbs}
   emergencyNumbers={emergencyNumbers}
   estaciones={estacionesHidalgo}
@@ -269,14 +233,10 @@ const ctaBtnText = "Ver Estaciones por Municipio";
   ctaTitle={ctaTitle}
   ctaDesc={ctaDesc}
   ctaBtnText={ctaBtnText}
+  jsonLd={[breadcrumbSchema, itemListSchema]}
+  description={`Directorio completo de las ${ESTADISTICAS_HIDALGO.total_estaciones} estaciones de bomberos en Hidalgo. ${ESTADISTICAS_HIDALGO.total_bomberos}+ bomberos protegiendo Pachuca, Tula (Refinería PEMEX), Tulancingo, Real del Monte y 6 Pueblos Mágicos. Especialización HAZMAT, rescate minero. Teléfonos 24/7.`}
 
-  alertTitle="Corredor Industrial PEMEX | 6 Pueblos Mágicos | 500 Años Minería Plata"
-  alertText="Refinería Tula 315K bpd | Real del Monte UNESCO | Pachuca 2,400 msnm | Acueducto Padre Tembleque | Prismas Basálticos"
-
-  seoTitle={`Bomberos de Hidalgo | ${ESTADISTICAS_HIDALGO.total_estaciones} Estaciones | Directorio Oficial HGO`}
-  seoDescription={`Directorio completo de las ${ESTADISTICAS_HIDALGO.total_estaciones} estaciones de bomberos en Hidalgo. ${ESTADISTICAS_HIDALGO.total_bomberos}+ bomberos protegiendo Pachuca, Tula (Refinería PEMEX), Tulancingo, Real del Monte y 6 Pueblos Mágicos. Especialización HAZMAT, rescate minero. Teléfonos 24/7.`}
-
-  seoKeywords={[
+  keywords={[
     "bomberos hidalgo",
     "estaciones de bomberos hidalgo",
     "emergencias hidalgo mexico",
@@ -292,4 +252,37 @@ const ctaBtnText = "Ver Estaciones por Municipio";
     "bomberos pueblos magicos",
     "emergencias pachuca"
   ]}
-/>
+>
+  <Fragment slot="seo">
+    <h2>El H. Cuerpo de Bomberos de Hidalgo</h2>
+    <p>
+      El <strong>H. Cuerpo de Bomberos de Hidalgo</strong> protege a más de
+      <strong>3.1 millones de habitantes</strong> en un estado con riqueza industrial y cultural única.
+      Con presencia en Pachuca, Tula, Tulancingo, Real del Monte y 6 Pueblos Mágicos,
+      los bomberos atienden emergencias las <strong>24 horas del día, los 365 días del año</strong>.
+    </p>
+    <h3>Refinería PEMEX Tula</h3>
+    <p>
+      La <strong>Refinería PEMEX Miguel Hidalgo</strong> en Tula de Allende procesa
+      <strong>315,000 barriles diarios</strong> de petróleo crudo. Los bomberos del corredor
+      Tula-Tepeji están especializados en HAZMAT petroquímico, emergencias con hidrocarburos
+      y coordinación con brigadas PEMEX con certificación NFPA 472.
+    </p>
+    <h3>Pachuca y 6 Pueblos Mágicos</h3>
+    <p>
+      <strong>Pachuca "La Bella Airosa"</strong> se encuentra a 2,400 msnm. Hidalgo tiene
+      <strong>6 Pueblos Mágicos (récord nacional)</strong>: Real del Monte, Huasca de Ocampo,
+      Mineral del Chico, Huichapan, Tecozautla y Zempoala. Los bomberos protegen
+      500 años de patrimonio minero de plata y arquitectura colonial.
+    </p>
+    <h3>Servicios de los Bomberos de Hidalgo</h3>
+    <p>
+      Los bomberos de Hidalgo atienden: <strong>emergencias HAZMAT en refinería PEMEX</strong>;
+      <strong>rescate minero en Real del Monte</strong>;
+      <strong>incendios forestales en sierra</strong>;
+      <strong>protección de 6 Pueblos Mágicos</strong>;
+      <strong>emergencias de altura y frío extremo</strong>; y
+      <strong>rescate vehicular en Autopista México-Pachuca</strong>.
+    </p>
+  </Fragment>
+</DirectorioEstadoLayout>

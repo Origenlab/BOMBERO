@@ -15,6 +15,7 @@ import {
   GUANAJUATO_SEO
 } from "@data/estaciones-guanajuato";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CALCULAR DATOS DERIVADOS
@@ -22,14 +23,6 @@ import { getEstadosVecinos } from "@data/estados-vecinos";
 
 const municipios = [...new Set(estacionesGuanajuato.map((e) => e.ciudad))].sort();
 
-// Estaciones por zona para referencia
-const estacionesPorZona = {
-  leon: estacionesGuanajuato.filter(e => e.ciudad === 'León' || e.ciudad === 'Silao de la Victoria'),
-  corredorIndustrial: estacionesGuanajuato.filter(e => ['Celaya', 'Salamanca', 'Villagrán', 'Apaseo el Grande'].includes(e.ciudad)),
-  capital: estacionesGuanajuato.filter(e => e.ciudad === 'Guanajuato'),
-  bajioNorte: estacionesGuanajuato.filter(e => ['Irapuato', 'San Francisco del Rincón', 'Pénjamo'].includes(e.ciudad)),
-  pueblosMagicos: estacionesGuanajuato.filter(e => ['San Miguel de Allende', 'Dolores Hidalgo'].includes(e.ciudad)),
-};
 
 // ═══════════════════════════════════════════════════════════════════════════
 // PROPS PARA DirectorioEstadoLayout
@@ -39,163 +32,95 @@ const estadoNombre = "Guanajuato";
 const estadoSlug = "guanajuato";
 const estadoCodigo = "GTO";
 
-const heroTitle = "Bomberos de Guanajuato";
-const heroSubtitle = `Directorio oficial de las ${ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones que protegen el Corredor Industrial del Bajío, la Capital del Calzado y los Pueblos Mágicos más visitados de México`;
 const heroDesc = `Guanajuato es el líder nacional en producción automotriz con plantas de Toyota, GM, Mazda y Honda. León concentra el 70% de la producción nacional de calzado. La Refinería PEMEX Salamanca procesa 220,000 barriles diarios. San Miguel de Allende ha sido votada #1 ciudad del mundo. Los ${ESTADISTICAS_GUANAJUATO.total_bomberos}+ bomberos especializados protegen este patrimonio industrial, cultural y turístico.`;
 
-const heroStats = [
-  { number: `${ESTADISTICAS_GUANAJUATO.total_estaciones}`, label: "Estaciones" },
-  { number: `${ESTADISTICAS_GUANAJUATO.total_bomberos}+`, label: "Bomberos" },
-  { number: `${ESTADISTICAS_GUANAJUATO.total_unidades}`, label: "Unidades" },
-  { number: `${municipios.length}`, label: "Municipios" },
-];
 
 const heroThumbs = [
   {
-    imgSrc: "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
-    imgAlt: "Autobomba urbana del Cuerpo de Bomberos de León, Guanajuato",
-    caption: "Autobomba Central León"
+    src: "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+    alt: "Autobomba urbana del Cuerpo de Bomberos de León, Guanajuato",
+    label: "Autobomba Central León"
   },
+  { src: "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif", alt: "Bahía de bomberos de Guanajuato con ventanal panorámico", label: "Instalaciones Modernas" },
   {
-    imgSrc: "/images/directorio/unidad-hazmat-emergencias-01.avif",
-    imgAlt: "Unidad HAZMAT especializada Refinería Salamanca",
-    caption: "Unidad HAZMAT Salamanca"
-  },
-  {
-    imgSrc: "/images/directorio/bomberos-profesionales-accion-01.avif",
-    imgAlt: "Bomberos de Guanajuato en maniobras de rescate industrial",
-    caption: "Rescate Industrial GTO"
+    src: "/images/directorio/bomberos-profesionales-accion-01.avif",
+    alt: "Bomberos de Guanajuato en maniobras de rescate industrial",
+    label: "Rescate Industrial GTO"
   }
 ];
 
 const emergencyNumbers = [
-  { label: "Emergencias Nacional", number: "911", href: "tel:911" },
-  { label: "Bomberos León", number: "(477) 712-5555", href: "tel:+524777125555" },
-  { label: "Bomberos Celaya", number: "(461) 612-3222", href: "tel:+524616123222" },
-  { label: "Bomberos Salamanca", number: "(464) 648-0808", href: "tel:+524646480808" },
-  { label: "Bomberos Irapuato", number: "(462) 626-2222", href: "tel:+524626262222" },
+  { label: "Emergencias Nacional", number: "911" },
+  { label: "Bomberos León", number: "(477) 712-5555" },
+  { label: "Bomberos Celaya", number: "(461) 612-3222" },
+  { label: "Bomberos Salamanca", number: "(464) 648-0808" },
+  { label: "Bomberos Irapuato", number: "(462) 626-2222" },
 ];
 
 const regiones = [
-  {
-    id: "leon",
-    nombre: "Zona Metropolitana León",
-    icono: "👟",
-    color: "blue",
-    descripcion: `**Ciudad más poblada del estado** con 1.6+ millones de habitantes. León es la **Capital Mundial del Calzado** concentrando el 70% de la producción nacional con 1,500+ empresas. Silao alberga plantas de **Toyota, Mazda y Honda**. Especialización en emergencias industriales, HAZMAT solventes y operaciones automotrices.`,
-    estaciones: estacionesPorZona.leon.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guanajuato/${e.slug}`
-    }))
-  },
-  {
-    id: "corredor-industrial",
-    nombre: "Corredor Industrial Bajío",
-    icono: "🚗",
-    color: "indigo",
-    descripcion: `**Principal corredor automotriz de México** con plantas Honda y proveedoras tier-1. Salamanca alberga la **Refinería PEMEX** procesando 220,000 barriles diarios. Celaya es el centro logístico industrial. Especialización en HAZMAT petroquímico, emergencias automotrices e incendios industriales de alta complejidad.`,
-    estaciones: estacionesPorZona.corredorIndustrial.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guanajuato/${e.slug}`
-    }))
-  },
-  {
-    id: "capital",
-    nombre: "Capital Guanajuato (UNESCO)",
-    icono: "🏛️",
-    color: "amber",
-    descripcion: `**Patrimonio de la Humanidad UNESCO desde 1988**. Ciudad colonial con túneles viales, callejones estrechos y arquitectura histórica única. Sede del **Festival Internacional Cervantino**, el más importante de América Latina. Especialización en protección patrimonial, emergencias en espacios subterráneos y eventos masivos.`,
-    estaciones: estacionesPorZona.capital.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guanajuato/${e.slug}`
-    }))
-  },
-  {
-    id: "bajio-norte",
-    nombre: "Zona Bajío Norte (Agroindustrial)",
-    icono: "🍓",
-    color: "green",
-    descripcion: `**Irapuato: Capital Mundial de la Fresa**. Zona agroindustrial con empacadoras de exportación, cámaras de refrigeración y procesadoras de alimentos. San Francisco del Rincón destaca en industria del calzado y sombrero. Especialización en emergencias agroindustriales, sistemas de refrigeración y zonas rurales.`,
-    estaciones: estacionesPorZona.bajioNorte.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guanajuato/${e.slug}`
-    }))
-  },
-  {
-    id: "pueblos-magicos",
-    nombre: "Pueblos Mágicos (Turismo Premium)",
-    icono: "⭐",
-    color: "rose",
-    descripcion: `**San Miguel de Allende: #1 Ciudad del Mundo** según Condé Nast Traveler y Travel+Leisure. **Dolores Hidalgo: Cuna de la Independencia Nacional**. Guanajuato cuenta con 7 Pueblos Mágicos. Especialización en protección patrimonial, atención multilingüe y emergencias en turismo de lujo.`,
-    estaciones: estacionesPorZona.pueblosMagicos.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guanajuato/${e.slug}`
-    }))
-  }
+  { nombre: "Zona Metropolitana León", desc: "Ciudad más poblada del estado con 1." },
+  { nombre: "Corredor Industrial Bajío", desc: "Principal corredor automotriz de México con plantas Honda y proveedoras tier-1." },
+  { nombre: "Capital Guanajuato (UNESCO)", desc: "Patrimonio de la Humanidad UNESCO desde 1988." },
+  { nombre: "Zona Bajío Norte (Agroindustrial)", desc: "Irapuato: Capital Mundial de la Fresa." },
+  { nombre: "Pueblos Mágicos (Turismo Premium)", desc: "San Miguel de Allende: #1 Ciudad del Mundo según Condé Nast Traveler y Travel+Leisure." },
 ];
 
 const galleryImages = [
   {
     src: "/images/directorio/estacion-bomberos-mexico-01.avif",
     alt: "Estación Central de Bomberos de León, la más grande de Guanajuato",
-    caption: "Estación Central León"
+    label: "Estación Central León"
   },
   {
     src: "/images/directorio/camion-bomberos-equipado-01.avif",
     alt: "Unidad HAZMAT especializada de Bomberos Salamanca para emergencias en refinería",
-    caption: "HAZMAT Refinería Salamanca"
+    label: "HAZMAT Refinería Salamanca"
   },
   {
     src: "/images/directorio/bomberos-accion-incendio-01.avif",
     alt: "Bomberos de Guanajuato combatiendo incendio industrial en planta automotriz",
-    caption: "Incendio Industrial Corredor Bajío"
+    label: "Incendio Industrial Corredor Bajío"
   },
-  {
-    src: "/images/directorio/estacion-bomberos-moderna-01.avif",
-    alt: "Estación de Bomberos San Miguel de Allende, Pueblo Mágico UNESCO",
-    caption: "Bomberos San Miguel de Allende"
-  }
+  { src: "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif", alt: "Central de despacho nocturna de bomberos de Guanajuato", label: "Monitoreo 24/7" }
 ];
 
 const eppCards = [
   {
-    title: "Traje Estructural NFPA 1971",
-    subtitle: "Incendios Industriales Automotrices",
-    imgSrc: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-    imgAlt: "Traje estructural certificado NFPA 1971 para bomberos industriales de León y Celaya",
-    text: `Traje ignífugo de 3 capas certificado NFPA 1971 para combate de incendios en plantas automotrices (pintura, solventes, espumas), curtidurías y fábricas de calzado. Barrera térmica Nomex® con resistencia hasta 500°C. Reflectantes 3M Scotchlite™ para visibilidad en operaciones nocturnas industriales. Sistema de bolsillos para radio y herramientas. Refuerzos en rodillas y codos para trabajo en plantas. Obligatorio en León (calzado), Silao (Toyota/Mazda/Honda) y corredor Celaya-Salamanca.`
+    image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt:  "Traje estructural certificado NFPA 1971 para bomberos industriales de León y Celaya",
+    badge:     "NFPA 1971",
+    title:     "Traje Estructural NFPA 1971",
+    text:      "Traje ignífugo de 3 capas certificado NFPA 1971 para combate de incendios en plantas automotrices (pintura, solventes, espumas), curtidurías y fábricas de calzado. Barrera térmica Nomex® con resistencia hasta 500°C. Reflectantes 3M Scotchlite™ para visibilidad en operaciones nocturnas industriales....",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Trajes para Bombero",
   },
   {
-    title: "Equipo HAZMAT Nivel A",
-    subtitle: "Refinería PEMEX Salamanca",
-    imgSrc: "/images/directorio/traje-hazmat-nivel-a-01.avif",
-    imgAlt: "Traje HAZMAT Nivel A para emergencias petroquímicas en Refinería Salamanca",
-    text: `Traje encapsulado totalmente hermético para emergencias con hidrocarburos y productos petroquímicos en la Refinería Antonio M. Amor de Salamanca (220,000 bpd). Protección contra vapores de gasolina, diésel, turbosina, amoniaco y ácido sulfhídrico (H₂S). SCBA interno 60 minutos. Resistencia química a derivados del petróleo según NFPA 1991. Botines integrados anti-estáticos. Válvula de sobrepresión. Uso con detectores multigas calibrados para H₂S, LEL, O₂ y CO. Certificación anual obligatoria. Personal exclusivo de Salamanca y equipos de respuesta HAZMAT regional.`
+    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+    imageAlt:  "Traje HAZMAT Nivel A para emergencias petroquímicas en Refinería Salamanca",
+    badge:     "NFPA 1991",
+    title:     "Equipo HAZMAT Nivel A",
+    text:      "Traje encapsulado totalmente hermético para emergencias con hidrocarburos y productos petroquímicos en la Refinería Antonio M. Amor de Salamanca (220,000 bpd). Protección contra vapores de gasolina, diésel, turbosina, amoniaco y ácido sulfhídrico (H₂S). SCBA interno 60 minutos. Resistencia química...",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo HAZMAT",
   },
   {
-    title: "Botas Industriales Diélectricas",
-    subtitle: "Zonas Automotrices y Calzado",
-    imgSrc: "/images/directorio/botas-bombero-proteccion-01.avif",
-    imgAlt: "Botas dieléctricas de bombero para emergencias en plantas industriales de Guanajuato",
-    text: `Botas de seguridad dieléctrica certificadas ASTM F2413 clase 75 para emergencias en plantas automotrices con sistemas eléctricos de alto voltaje (prensas, hornos de pintura, robots industriales). Punta de acero ASTM F2413. Entresuela Kevlar® anti-perforación. Suela antideslizante Vibram® para pisos industriales con aceites y solventes. Resistencia química a adhesivos de calzado y químicos de curtido (León). Caña de 12' con protección a salpicaduras de metales fundidos. Impermeables Gore-Tex®. Obligatorias en León, Silao, Celaya y zona automotriz.`
+    image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt:  "Botas dieléctricas de bombero para emergencias en plantas industriales de Guanajuato",
+    badge:     "NFPA 1971",
+    title:     "Botas Industriales Diélectricas",
+    text:      "Botas de seguridad dieléctrica certificadas ASTM F2413 clase 75 para emergencias en plantas automotrices con sistemas eléctricos de alto voltaje (prensas, hornos de pintura, robots industriales). Punta de acero ASTM F2413. Entresuela Kevlar® anti-perforación. Suela antideslizante Vibram® para pisos...",
+    href:      "/productos/botas-para-bomberos",
+    linkLabel: "Ver Botas para Bombero",
   },
   {
-    title: "EPP Patrimonio UNESCO",
-    subtitle: "San Miguel de Allende y Capital",
-    imgSrc: "/images/directorio/equipo-bomberos-completo-01.avif",
-    imgAlt: "Equipo especializado para protección de patrimonio UNESCO en Guanajuato",
-    text: `Equipo especializado para emergencias en **sitios Patrimonio de la Humanidad UNESCO**: Ciudad de Guanajuato y San Miguel de Allende. Mangueras de 1.5' para acceso en callejones estrechos coloniales. Extintores portátiles ABC/K para estructuras históricas de madera del siglo XVII-XVIII. Trajes estructurales con cuidado en fachadas históricas. Lámparas LED de bajo calor para evitar daño térmico a murales y retablos. Herramientas manuales no destructivas. Lonas protectoras para objetos de valor artístico. Protocolos de coordinación con INAH. Obligatorio en centros históricos de Guanajuato capital, San Miguel de Allende y Dolores Hidalgo.`
-  }
+    image:     "/images/directorio/equipo-bomberos-completo-01.avif",
+    imageAlt:  "Equipo especializado para protección de patrimonio UNESCO en Guanajuato",
+    badge:     "Certificado",
+    title:     "EPP Patrimonio UNESCO",
+    text:      "Equipo especializado para emergencias en sitios Patrimonio de la Humanidad UNESCO: Ciudad de Guanajuato y San Miguel de Allende. Mangueras de 1.5' para acceso en callejones estrechos coloniales. Extintores portátiles ABC/K para estructuras históricas de madera del siglo XVII-XVIII. Trajes...",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Certificado",
+  },
 ];
 
 const stationImages = [
@@ -211,24 +136,89 @@ const stationImages = [
   "/images/directorio/bombero-hernandez-capucha-scba-estacion-02.avif",
   "/images/directorio/bombero-chaqueton-estacion-servicio-01.avif",
   "/images/directorio/estacion-bomberos-guardia-nocturna-02.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
 ]
-
 // Estados vecinos (desde archivo centralizado)
 const estadosVecinos = getEstadosVecinos("guanajuato");
 
 const ctaTitle = "¿Necesitas Bomberos en Guanajuato?";
 const ctaDesc = "Encuentra la estación más cercana en León, Celaya, Irapuato, San Miguel de Allende o cualquier municipio del estado. Atención 24/7 en emergencias industriales, HAZMAT y rescate.";
 const ctaBtnText = "Ver Estaciones por Municipio";
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Guanajuato",               url: "/directorio/guanajuato" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Guanajuato, México",
+  "numberOfItems": estacionesGuanajuato.length,
+  "itemListElement": estacionesGuanajuato.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Guanajuato",
+        "addressCountry": "MX",
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/guanajuato/${e.slug}`,
+    }
+  }))
+};
 ---
 
 <DirectorioEstadoLayout
-  estadoNombre={estadoNombre}
-  estadoSlug={estadoSlug}
-  estadoCodigo={estadoCodigo}
-  heroTitle={heroTitle}
-  heroSubtitle={heroSubtitle}
+  estado={estadoNombre}
+  slug={estadoSlug}
+  sigla={estadoCodigo}
+  heroImage="/images/directorio/camion-bomberos-autobomba-urbana-01.avif"
+  heroImageAlt="Estación de Bomberos en Guanajuato"
+  heroCaption="H. Cuerpo de Bomberos · Guanajuato"
+  totalEstaciones={estacionesGuanajuato.length}
+  totalMunicipios={municipios.length}
+  habitantes="6.2M+"
+  canonical="https://bombero.mx/directorio/guanajuato"
   heroDesc={heroDesc}
-  heroStats={heroStats}
   heroThumbs={heroThumbs}
   emergencyNumbers={emergencyNumbers}
   estaciones={estacionesGuanajuato}
@@ -241,14 +231,10 @@ const ctaBtnText = "Ver Estaciones por Municipio";
   ctaTitle={ctaTitle}
   ctaDesc={ctaDesc}
   ctaBtnText={ctaBtnText}
+  jsonLd={[breadcrumbSchema, itemListSchema]}
+  description={`Directorio completo de las ${ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones de bomberos en Guanajuato. ${ESTADISTICAS_GUANAJUATO.total_bomberos}+ bomberos protegiendo León, Celaya, Irapuato, San Miguel de Allende y la refinería de Salamanca. Teléfonos, direcciones y servicios 24/7.`}
 
-  alertTitle="Corredor Industrial del Bajío - Capital Automotriz de México"
-  alertText="#1 productor de vehículos | Toyota, GM, Mazda, Honda | Refinería PEMEX Salamanca | Capital del Calzado (70% producción nacional)"
-
-  seoTitle={`Bomberos de Guanajuato | ${ESTADISTICAS_GUANAJUATO.total_estaciones} Estaciones | Directorio Oficial GTO`}
-  seoDescription={`Directorio completo de las ${ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones de bomberos en Guanajuato. ${ESTADISTICAS_GUANAJUATO.total_bomberos}+ bomberos protegiendo León, Celaya, Irapuato, San Miguel de Allende y la refinería de Salamanca. Teléfonos, direcciones y servicios 24/7.`}
-
-  seoKeywords={[
+  keywords={[
     "bomberos guanajuato",
     "estaciones de bomberos guanajuato",
     "emergencias guanajuato mexico",
@@ -264,4 +250,37 @@ const ctaBtnText = "Ver Estaciones por Municipio";
     "bomberos bajio",
     "hazmat guanajuato"
   ]}
-/>
+>
+  <Fragment slot="seo">
+    <h2>El H. Cuerpo de Bomberos de Guanajuato</h2>
+    <p>
+      El <strong>H. Cuerpo de Bomberos de Guanajuato</strong> protege a más de
+      <strong>6.2 millones de habitantes</strong> en el corazón del Bajío mexicano.
+      Con presencia en León, Celaya, Irapuato, San Miguel de Allende y todo el territorio estatal,
+      los bomberos atienden emergencias las <strong>24 horas del día, los 365 días del año</strong>.
+    </p>
+    <h3>Corredor Industrial del Bajío</h3>
+    <p>
+      Guanajuato es el <strong>líder nacional en producción automotriz</strong> con plantas de
+      Toyota, GM, Mazda y Honda. León concentra el <strong>70% de la producción nacional de calzado</strong>.
+      La <strong>Refinería PEMEX Salamanca</strong> procesa 220,000 barriles diarios. Los bomberos
+      están especializados en emergencias industriales, HAZMAT petroquímico y rescate en plantas.
+    </p>
+    <h3>Pueblos Mágicos y Patrimonio UNESCO</h3>
+    <p>
+      <strong>San Miguel de Allende</strong> ha sido votada la ciudad #1 del mundo por Condé Nast
+      Traveler. La <strong>ciudad de Guanajuato</strong> es Patrimonio de la Humanidad UNESCO desde 1988.
+      Los bomberos protegen este patrimonio arquitectónico con equipos especializados para
+      callejones estrechos y edificios coloniales del siglo XVII-XVIII.
+    </p>
+    <h3>Servicios de los Bomberos de Guanajuato</h3>
+    <p>
+      Los bomberos de Guanajuato atienden: <strong>incendios industriales y estructurales</strong>;
+      <strong>emergencias HAZMAT en refinería y plantas automotrices</strong>;
+      <strong>rescate vehicular en autopistas</strong>;
+      <strong>protección de patrimonio UNESCO</strong>;
+      <strong>incendios forestales</strong>; y atención especializada en eventos como el
+      Festival Internacional Cervantino.
+    </p>
+  </Fragment>
+</DirectorioEstadoLayout>

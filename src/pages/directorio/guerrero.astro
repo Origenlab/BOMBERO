@@ -15,6 +15,7 @@ import {
   GUERRERO_SEO
 } from "@data/estaciones-guerrero";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CALCULAR DATOS DERIVADOS
@@ -22,15 +23,6 @@ import { getEstadosVecinos } from "@data/estados-vecinos";
 
 const municipios = [...new Set(estacionesGuerrero.map((e) => e.ciudad))].sort();
 
-// Estaciones por zona para referencia
-const estacionesPorZona = {
-  acapulco: estacionesGuerrero.filter(e => e.ciudad === 'Acapulco de Juárez'),
-  costaGrande: estacionesGuerrero.filter(e => ['Zihuatanejo de Azueta', 'Ixtapa'].includes(e.ciudad)),
-  centro: estacionesGuerrero.filter(e => e.ciudad === 'Chilpancingo de los Bravo'),
-  norte: estacionesGuerrero.filter(e => ['Iguala de la Independencia', 'Taxco de Alarcón', 'Teloloapan'].includes(e.ciudad)),
-  costaChica: estacionesGuerrero.filter(e => ['Ometepec', 'San Marcos'].includes(e.ciudad)),
-  montana: estacionesGuerrero.filter(e => ['Tlapa de Comonfort', 'Ciudad Altamirano'].includes(e.ciudad)),
-};
 
 // ═══════════════════════════════════════════════════════════════════════════
 // PROPS PARA DirectorioEstadoLayout
@@ -40,176 +32,96 @@ const estadoNombre = "Guerrero";
 const estadoSlug = "guerrero";
 const estadoCodigo = "GRO";
 
-const heroTitle = "Bomberos de Guerrero";
-const heroSubtitle = `Directorio oficial de las ${ESTADISTICAS_GUERRERO.total_estaciones} estaciones que protegen 500 km de costa del Pacífico, destinos turísticos de clase mundial y comunidades en alto riesgo de huracanes y sismos`;
 const heroDesc = `Guerrero enfrenta los riesgos naturales más extremos de México: huracanes categoría 5 (Otis 2023 devastó Acapulco), sismos de magnitud 8+ por la Brecha de Guerrero, y tsunamis del Pacífico. Acapulco recibe millones de turistas anuales. Taxco es la Capital Mundial de la Plata. Los ${ESTADISTICAS_GUERRERO.total_bomberos}+ bomberos especializados protegen destinos turísticos icónicos, comunidades costeras y zonas de montaña con capacidad única en rescate acuático, respuesta a huracanes y evacuaciones masivas.`;
 
-const heroStats = [
-  { number: `${ESTADISTICAS_GUERRERO.total_estaciones}`, label: "Estaciones" },
-  { number: `${ESTADISTICAS_GUERRERO.total_bomberos}+`, label: "Bomberos" },
-  { number: `${ESTADISTICAS_GUERRERO.total_unidades}`, label: "Unidades" },
-  { number: "500 km", label: "Costa Pacífico" },
-];
 
 const heroThumbs = [
   {
-    imgSrc: "/images/directorio/lancha-rescate-bomberos-01.avif",
-    imgAlt: "Lancha de rescate acuático de Bomberos Acapulco",
-    caption: "Rescate Acuático Acapulco"
+    src: "/images/directorio/lancha-rescate-bomberos-01.avif",
+    alt: "Lancha de rescate acuático de Bomberos Acapulco",
+    label: "Rescate Acuático Acapulco"
   },
+  { src: "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif", alt: "Bahía moderna con lockers de equipo en estación de bomberos de Guerrero", label: "Área de Equipamiento" },
   {
-    imgSrc: "/images/directorio/rescate-acuatico-bomberos-01.avif",
-    imgAlt: "Bomberos de Guerrero en operación de rescate tras Huracán Otis",
-    caption: "Respuesta Huracán Otis 2023"
-  },
-  {
-    imgSrc: "/images/directorio/estacion-bomberos-maritimo-01.avif",
-    imgAlt: "Estación costera de bomberos en Ixtapa-Zihuatanejo",
-    caption: "Estación Costa Grande"
+    src: "/images/directorio/estacion-bomberos-maritimo-01.avif",
+    alt: "Estación costera de bomberos en Ixtapa-Zihuatanejo",
+    label: "Estación Costa Grande"
   }
 ];
 
 const emergencyNumbers = [
-  { label: "Emergencias Nacional", number: "911", href: "tel:911" },
-  { label: "Bomberos Acapulco", number: "(744) 485-0808", href: "tel:+527444850808" },
-  { label: "Bomberos Chilpancingo", number: "(747) 472-0505", href: "tel:+527474720505" },
-  { label: "Bomberos Zihuatanejo", number: "(755) 554-2020", href: "tel:+527555542020" },
-  { label: "Bomberos Taxco", number: "(762) 622-0707", href: "tel:+527626220707" },
+  { label: "Emergencias Nacional", number: "911" },
+  { label: "Bomberos Acapulco", number: "(744) 485-0808" },
+  { label: "Bomberos Chilpancingo", number: "(747) 472-0505" },
+  { label: "Bomberos Zihuatanejo", number: "(755) 554-2020" },
+  { label: "Bomberos Taxco", number: "(762) 622-0707" },
 ];
 
 const regiones = [
-  {
-    id: "acapulco",
-    nombre: "Zona Acapulco (Turístico Principal)",
-    icono: "🏖️",
-    color: "cyan",
-    descripcion: `**Principal destino turístico de playa en México** con millones de visitantes anuales. Severamente afectado por el **Huracán Otis (2023) Categoría 5**, el ciclón más poderoso que jamás tocó tierra en el Pacífico oriental. 5 estaciones especializadas en emergencias turísticas, rescate acuático, evacuación de hoteles y respuesta a desastres. Cobertura a Zona Dorada, Diamante, aeropuerto y puerto de cruceros.`,
-    estaciones: estacionesPorZona.acapulco.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guerrero/${e.slug}`
-    }))
-  },
-  {
-    id: "costa-grande",
-    nombre: "Costa Grande (Ixtapa-Zihuatanejo)",
-    icono: "🌴",
-    color: "teal",
-    descripcion: `**Ixtapa: desarrollo turístico planificado** con resorts todo incluido. **Zihuatanejo: tradicional pueblo pesquero** convertido en destino de clase mundial. Especialización en rescate acuático, emergencias en hoteles, protección de turismo internacional y coordinación con operadores marítimos. Atención bilingüe para visitantes de Estados Unidos y Canadá.`,
-    estaciones: estacionesPorZona.costaGrande.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guerrero/${e.slug}`
-    }))
-  },
-  {
-    id: "centro",
-    nombre: "Zona Centro (Capital Chilpancingo)",
-    icono: "🏛️",
-    color: "blue",
-    descripcion: `**Capital del estado** con 280,000+ habitantes. Centro de coordinación estatal para emergencias mayores. Ubicada en la **Brecha de Guerrero**, zona de altísimo riesgo sísmico con potencial de magnitud 8.4. Especialización en respuesta sísmica USAR, colapso de estructuras, rescate vehicular en Autopista del Sol y emergencias en edificios gubernamentales.`,
-    estaciones: estacionesPorZona.centro.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guerrero/${e.slug}`
-    }))
-  },
-  {
-    id: "norte",
-    nombre: "Zona Norte (Taxco-Iguala)",
-    icono: "💎",
-    color: "slate",
-    descripcion: `**Taxco: Capital Mundial de la Plata**, Pueblo Mágico con arquitectura colonial del siglo XVIII. Calles empedradas estrechas requieren técnicas especializadas. **Iguala: Cuna de la Bandera de México**. Especialización en protección de patrimonio colonial, emergencias en 1,200 talleres de platería (soplete, químicos), rescate en terreno montañoso y carreteras de alta pendiente.`,
-    estaciones: estacionesPorZona.norte.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guerrero/${e.slug}`
-    }))
-  },
-  {
-    id: "costa-chica",
-    nombre: "Costa Chica (Afromexicana)",
-    icono: "🌊",
-    color: "amber",
-    descripcion: `**Región de importante población afromexicana** con tradiciones culturales únicas. Zona costera entre Acapulco y Oaxaca. Especialización en emergencias por inundaciones durante temporada de lluvias y huracanes, rescate en comunidades remotas, coordinación intercultural y atención en Carretera Federal 200 (Costera del Pacífico).`,
-    estaciones: estacionesPorZona.costaChica.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guerrero/${e.slug}`
-    }))
-  },
-  {
-    id: "montana",
-    nombre: "Montaña y Tierra Caliente",
-    icono: "🏔️",
-    color: "emerald",
-    descripcion: `**Tlapa: centro de la región Montaña** con población indígena Nahua, Mixteca y Tlapaneca. **Ciudad Altamirano: Tierra Caliente** con temperaturas extremas superiores a 40°C. Especialización en rescate en sierra, incendios forestales, deslaves, atención culturalmente apropiada a comunidades indígenas y emergencias por calor extremo.`,
-    estaciones: estacionesPorZona.montana.map(e => ({
-      nombre: e.nombreCorto,
-      direccion: e.direccion,
-      telefono: e.telefono,
-      slug: `/directorio/guerrero/${e.slug}`
-    }))
-  }
+  { nombre: "Zona Acapulco (Turístico Principal)", desc: "Principal destino turístico de playa en México con millones de visitantes anuales." },
+  { nombre: "Costa Grande (Ixtapa-Zihuatanejo)", desc: "Ixtapa: desarrollo turístico planificado con resorts todo incluido." },
+  { nombre: "Zona Centro (Capital Chilpancingo)", desc: "Capital del estado con 280,000+ habitantes." },
+  { nombre: "Zona Norte (Taxco-Iguala)", desc: "Taxco: Capital Mundial de la Plata, Pueblo Mágico con arquitectura colonial del siglo XVIII." },
+  { nombre: "Costa Chica (Afromexicana)", desc: "Región de importante población afromexicana con tradiciones culturales únicas." },
+  { nombre: "Montaña y Tierra Caliente", desc: "Tlapa: centro de la región Montaña con población indígena Nahua, Mixteca y Tlapaneca." },
 ];
 
 const galleryImages = [
   {
     src: "/images/directorio/estacion-bomberos-playa-01.avif",
     alt: "Estación Central de Bomberos de Acapulco con vista a la bahía",
-    caption: "Estación Central Acapulco"
+    label: "Estación Central Acapulco"
   },
   {
     src: "/images/directorio/rescate-swift-water-rios-01.avif",
     alt: "Bomberos de Guerrero en operación de rescate acuático tras huracán",
-    caption: "Rescate Acuático Huracán Otis"
+    label: "Rescate Acuático Huracán Otis"
   },
   {
     src: "/images/directorio/estacion-bomberos-puerto-01.avif",
     alt: "Estación de bomberos de Ixtapa-Zihuatanejo en zona turística",
-    caption: "Bomberos Ixtapa-Zihuatanejo"
+    label: "Bomberos Ixtapa-Zihuatanejo"
   },
-  {
-    src: "/images/directorio/estacion-bomberos-turistica-01.avif",
-    alt: "Estación de Bomberos de Taxco, Capital Mundial de la Plata",
-    caption: "Bomberos Taxco Pueblo Mágico"
-  }
+  { src: "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif", alt: "Central de despacho de bomberos de Guerrero con bandera de México", label: "Despacho Nacional" }
 ];
 
 const eppCards = [
   {
-    title: "Equipo Rescate Acuático",
-    subtitle: "Especialización Costa del Pacífico",
-    imgSrc: "/images/directorio/traje-inmersion-rescate-01.avif",
-    imgAlt: "Traje de inmersión para rescate acuático en costa de Guerrero",
-    text: `Equipo completo para rescate acuático en las 500 km de costa del Pacífico mexicano. Trajes de neopreno 5mm con flotabilidad incorporada para rescate en mar abierto con oleaje de 2-4 metros. Aletas de propulsión tipo rescue fin. Chalecos salvavidas tipo V PFD certificados USCG con arnés integrado. Cascos de rescate acuático Protec. Motos acuáticas Yamaha VXR homologadas para rescate. Lanchas inflables de alto bordo con motor fuera de borda 90HP. Cuerdas de rescate flotantes de 100 metros. Obligatorio en Acapulco, Ixtapa-Zihuatanejo, Costa Chica y todas las estaciones costeras. Capacitación anual en rescate con oleaje y corrientes del Pacífico.`
+    image:     "/images/directorio/traje-inmersion-rescate-01.avif",
+    imageAlt:  "Traje de inmersión para rescate acuático en costa de Guerrero",
+    badge:     "Especializado",
+    title:     "Equipo Rescate Acuático",
+    text:      "Equipo completo para rescate acuático en las 500 km de costa del Pacífico mexicano. Trajes de neopreno 5mm con flotabilidad incorporada para rescate en mar abierto con oleaje de 2-4 metros. Aletas de propulsión tipo rescue fin. Chalecos salvavidas tipo V PFD certificados USCG con arnés integrado....",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
   },
   {
-    title: "Equipo Respuesta Huracanes",
-    subtitle: "Post-Huracán Otis (Cat. 5)",
-    imgSrc: "/images/directorio/equipo-rescate-completo-01.avif",
-    imgAlt: "Equipo especializado para respuesta a huracanes categoría 5 en Guerrero",
-    text: `Equipo reforzado tras el **Huracán Otis (2023)**, el ciclón más poderoso que jamás tocó tierra en el Pacífico oriental con vientos de 270 km/h. Trajes impermeables nivel 3 resistentes a lluvia horizontal y vientos huracanados. Generadores de emergencia Caterpillar 45 kVA con autonomía 72 horas. Equipos de comunicación satelital Iridium cuando caen las torres celulares. Motosierras Stihl MS 881 para remoción de árboles caídos. Bombas sumergibles Honda de 3' para inundaciones. Equipo USAR ligero para colapso de estructuras. Lanchas inflables para evacuación en zonas inundadas. Kit médico de trauma para 100 personas. Suministros de emergencia para 7 días. Obligatorio temporada de huracanes (junio-noviembre) en toda la costa de Guerrero.`
+    image:     "/images/directorio/equipo-rescate-completo-01.avif",
+    imageAlt:  "Equipo especializado para respuesta a huracanes categoría 5 en Guerrero",
+    badge:     "Certificado",
+    title:     "Equipo Respuesta Huracanes",
+    text:      "Equipo reforzado tras el Huracán Otis (2023), el ciclón más poderoso que jamás tocó tierra en el Pacífico oriental con vientos de 270 km/h. Trajes impermeables nivel 3 resistentes a lluvia horizontal y vientos huracanados. Generadores de emergencia Caterpillar 45 kVA con autonomía 72 horas....",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Certificado",
   },
   {
-    title: "Equipo Rescate Sísmico USAR",
-    subtitle: "Brecha de Guerrero",
-    imgSrc: "/images/directorio/equipo-rescate-tecnico-01.avif",
-    imgAlt: "Equipo de búsqueda y rescate USAR para sismos en la Brecha de Guerrero",
-    text: `Equipo especializado USAR (Urban Search and Rescue) para la **Brecha de Guerrero**, zona de subducción con potencial de sismo magnitud 8.4+. Cámaras de búsqueda Delsar con detección de víctimas bajo escombros hasta 30 metros. Detectores acústicos de vida Geophone. Perros de búsqueda certificados FEMA. Equipo de apuntalamiento con puntales metálicos extensibles. Herramientas de corte hidráulico Holmatro para concreto reforzado. Rompe-concretos neumáticos Bosch. Grúas portátiles tirfor de 3 toneladas. Iluminación de emergencia con torres de 1,000W. Equipo de protección con casco de rescate estructural, rodilleras y guantes anti-corte Kevlar. Obligatorio en Chilpancingo, Acapulco e Iguala. Certificación internacional INSARAG Medium.`
+    image:     "/images/directorio/equipo-rescate-tecnico-01.avif",
+    imageAlt:  "Equipo de búsqueda y rescate USAR para sismos en la Brecha de Guerrero",
+    badge:     "Especializado",
+    title:     "Equipo Rescate Sísmico USAR",
+    text:      "Equipo especializado USAR (Urban Search and Rescue) para la Brecha de Guerrero, zona de subducción con potencial de sismo magnitud 8.4+. Cámaras de búsqueda Delsar con detección de víctimas bajo escombros hasta 30 metros. Detectores acústicos de vida Geophone. Perros de búsqueda certificados...",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
   },
   {
-    title: "EPP Patrimonio Colonial",
-    subtitle: "Taxco Pueblo Mágico",
-    imgSrc: "/images/directorio/equipo-bomberos-personal-01.avif",
-    imgAlt: "Equipo especializado para protección de patrimonio colonial en Taxco",
-    text: `Equipo especializado para emergencias en **Taxco de Alarcón**, Capital Mundial de la Plata y Pueblo Mágico con arquitectura colonial del siglo XVIII. Autobombas compactas Isuzu de &lt;2.2m ancho para callejones empedrados estrechos con pendientes de 15-20%. Mangueras de 1.5' para maniobra en espacios reducidos. Extintores portátiles ABC 20 lb para talleres de platería (soplete, ceras, químicos). Escaleras de aluminio tipo A de 3 metros para edificios coloniales de baja altura. Lonas ignífugas para protección de fachadas históricas. Lámparas LED de bajo calor para evitar daño térmico en retablos de madera dorada del siglo XVII. Herramientas manuales no destructivas. Trajes estructurales con cuidado especial en tejas de barro y balcones de hierro forjado. Coordinación con INAH para intervenciones en monumentos históricos.`
-  }
+    image:     "/images/directorio/equipo-bomberos-personal-01.avif",
+    imageAlt:  "Equipo especializado para protección de patrimonio colonial en Taxco",
+    badge:     "Certificado",
+    title:     "EPP Patrimonio Colonial",
+    text:      "Equipo especializado para emergencias en Taxco de Alarcón, Capital Mundial de la Plata y Pueblo Mágico con arquitectura colonial del siglo XVIII. Autobombas compactas Isuzu de &lt;2.2m ancho para callejones empedrados estrechos con pendientes de 15-20%. Mangueras de 1.5' para maniobra en...",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Certificado",
+  },
 ];
 
 const stationImages = [
@@ -225,23 +137,88 @@ const stationImages = [
   "/images/directorio/bombero-pantalon-bunker-vestidor-02.avif",
   "/images/directorio/bomberos-equipandose-turno-estacion-02.avif",
   "/images/directorio/bombero-proteccion-personal-estacion-02.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
 ]
-
 const estadosVecinos = getEstadosVecinos("guerrero");
 
 const ctaTitle = "¿Necesitas Bomberos en Guerrero?";
 const ctaDesc = "Encuentra la estación más cercana en Acapulco, Chilpancingo, Ixtapa-Zihuatanejo, Taxco o cualquier municipio del estado. Atención 24/7 en emergencias costeras, rescate acuático y respuesta a huracanes.";
 const ctaBtnText = "Ver Estaciones por Municipio";
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Guerrero",               url: "/directorio/guerrero" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Guerrero, México",
+  "numberOfItems": estacionesGuerrero.length,
+  "itemListElement": estacionesGuerrero.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Guerrero",
+        "addressCountry": "MX",
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/guerrero/${e.slug}`,
+    }
+  }))
+};
 ---
 
 <DirectorioEstadoLayout
-  estadoNombre={estadoNombre}
-  estadoSlug={estadoSlug}
-  estadoCodigo={estadoCodigo}
-  heroTitle={heroTitle}
-  heroSubtitle={heroSubtitle}
+  estado={estadoNombre}
+  slug={estadoSlug}
+  sigla={estadoCodigo}
+  heroImage="/images/directorio/lancha-rescate-bomberos-01.avif"
+  heroImageAlt="Estación de Bomberos en Guerrero"
+  heroCaption="H. Cuerpo de Bomberos · Guerrero"
+  totalEstaciones={estacionesGuerrero.length}
+  totalMunicipios={municipios.length}
+  habitantes="3.7M+"
+  canonical="https://bombero.mx/directorio/guerrero"
   heroDesc={heroDesc}
-  heroStats={heroStats}
   heroThumbs={heroThumbs}
   emergencyNumbers={emergencyNumbers}
   estaciones={estacionesGuerrero}
@@ -254,14 +231,10 @@ const ctaBtnText = "Ver Estaciones por Municipio";
   ctaTitle={ctaTitle}
   ctaDesc={ctaDesc}
   ctaBtnText={ctaBtnText}
+  jsonLd={[breadcrumbSchema, itemListSchema]}
+  description={`Directorio completo de las ${ESTADISTICAS_GUERRERO.total_estaciones} estaciones de bomberos en Guerrero. ${ESTADISTICAS_GUERRERO.total_bomberos}+ bomberos protegiendo Acapulco, Ixtapa-Zihuatanejo, Chilpancingo y Taxco. Especialización en huracanes, rescate acuático y emergencias turísticas. Teléfonos 24/7.`}
 
-  alertTitle="ZONA DE ALTO RIESGO: Huracanes Cat. 5 | Sismos M8+ | Tsunamis Pacífico"
-  alertText="Huracán Otis (2023) | Brecha de Guerrero | 500 km de costa | 12M turistas/año | Rescate acuático especializado"
-
-  seoTitle={`Bomberos de Guerrero | ${ESTADISTICAS_GUERRERO.total_estaciones} Estaciones | Directorio Oficial GRO`}
-  seoDescription={`Directorio completo de las ${ESTADISTICAS_GUERRERO.total_estaciones} estaciones de bomberos en Guerrero. ${ESTADISTICAS_GUERRERO.total_bomberos}+ bomberos protegiendo Acapulco, Ixtapa-Zihuatanejo, Chilpancingo y Taxco. Especialización en huracanes, rescate acuático y emergencias turísticas. Teléfonos 24/7.`}
-
-  seoKeywords={[
+  keywords={[
     "bomberos guerrero",
     "estaciones de bomberos guerrero",
     "emergencias guerrero mexico",
@@ -277,4 +250,36 @@ const ctaBtnText = "Ver Estaciones por Municipio";
     "emergencias costa guerrero",
     "bomberos playas guerrero"
   ]}
-/>
+>
+  <Fragment slot="seo">
+    <h2>El H. Cuerpo de Bomberos de Guerrero</h2>
+    <p>
+      El <strong>H. Cuerpo de Bomberos de Guerrero</strong> protege a más de
+      <strong>3.7 millones de habitantes</strong> a lo largo de 500 km de costa del Pacífico.
+      Con presencia en Acapulco, Ixtapa-Zihuatanejo, Chilpancingo y Taxco,
+      los bomberos atienden emergencias las <strong>24 horas del día, los 365 días del año</strong>.
+    </p>
+    <h3>Acapulco y Rescate Acuático</h3>
+    <p>
+      <strong>Acapulco</strong> es el principal destino turístico de playa del Pacífico mexicano.
+      Tras el devastador <strong>Huracán Otis (2023) categoría 5</strong>, los bomberos están
+      especializados en <strong>rescate acuático oceánico</strong>, respuesta a huracanes,
+      evacuación de hoteles y emergencias turísticas en la Bahía de Acapulco.
+    </p>
+    <h3>Taxco — Capital Mundial de la Plata</h3>
+    <p>
+      <strong>Taxco de Alarcón</strong> es Pueblo Mágico con arquitectura colonial del siglo XVIII.
+      Los bomberos cuentan con equipos compactos para calles empedradas estrechas y emergencias
+      en más de 1,200 talleres de platería con sopletes y químicos.
+    </p>
+    <h3>Servicios de los Bomberos de Guerrero</h3>
+    <p>
+      Los bomberos de Guerrero atienden: <strong>rescate acuático oceánico</strong>;
+      <strong>respuesta a huracanes y tsunamis</strong>;
+      <strong>rescate sísmico USAR (Brecha de Guerrero)</strong>;
+      <strong>emergencias turísticas en Acapulco e Ixtapa</strong>;
+      <strong>protección de patrimonio colonial en Taxco</strong>; y
+      <strong>rescate en sierra y montaña</strong>.
+    </p>
+  </Fragment>
+</DirectorioEstadoLayout>

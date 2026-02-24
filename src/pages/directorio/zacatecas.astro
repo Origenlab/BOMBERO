@@ -33,6 +33,7 @@
  */
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 import {
   estacionesZacatecas,
   getMunicipios,
@@ -48,31 +49,37 @@ const slug = "zacatecas";
    THUMBNAILS HERO — Imágenes destacadas del estado
    ═══════════════════════════════════════════════════════════════════════════ */
 const heroThumbs = [
-  { src: "/images/directorio/estacion-bomberos-zacatecas-01.avif", alt: "Cuartel Central de Bomberos de Zacatecas Centro Histórico UNESCO" },
-  { src: "/images/directorio/estacion-bomberos-zacatecas-02.avif", alt: "Bomberos HAZMAT Minera Peñasquito Fresnillo Zacatecas" },
-  { src: "/images/directorio/estacion-bomberos-zacatecas-03.avif", alt: "Rescate minero espacios confinados Zacatecas" },
+  { src: "/images/directorio/autobomba-panel-bombeo-manometros-01.avif", alt: "Panel de bombeo con manómetros en autobomba de Zacatecas", label: "Panel de Bombeo" },
+  { src: "/images/directorio/estacion-bomberos-equipada-01.avif", alt: "Bomberos HAZMAT Minera Peñasquito Fresnillo Zacatecas", label: "Equipo Profesional" },
+  { src: "/images/directorio/estacion-bomberos-central-edificio-01.avif", alt: "Rescate minero espacios confinados Zacatecas", label: "Servicio 24/7" },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
    GALERÍA DE IMÁGENES — Operaciones destacadas
    ═══════════════════════════════════════════════════════════════════════════ */
 const galleryImages = [
-  { src: "/images/directorio/bomberos-zacatecas-mina.avif", alt: "Emergencias HAZMAT Minera Peñasquito mayor mina plata mundo" },
-  { src: "/images/directorio/bomberos-zacatecas-unesco.avif", alt: "Protección Centro Histórico UNESCO Zacatecas" },
-  { src: "/images/directorio/bomberos-zacatecas-organos.avif", alt: "Incendios forestales Sierra de Órganos Parque Nacional" },
-  { src: "/images/directorio/bomberos-zacatecas-rescate.avif", alt: "Rescate en espacios confinados minas subterráneas" },
+  { src: "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif", alt: "Detalle de válvulas en autobomba de bomberos de Zacatecas", label: "Equipo Hidráulico" },
+  { src: "/images/directorio/estacion-bomberos-centro-historico-01.avif", alt: "Protección Centro Histórico UNESCO Zacatecas",
+    label: "Protección Centro Histórico UNESCO"
+  },
+  { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Incendios forestales Sierra de Órganos Parque Nacional",
+    label: "Incendios forestales Sierra de Órganos"
+  },
+  { src: "/images/directorio/equipo-rescate-completo-01.avif", alt: "Rescate en espacios confinados minas subterráneas",
+    label: "Rescate en espacios confinados minas"
+  },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
    TELÉFONOS DE EMERGENCIA — Líneas críticas del estado
    ═══════════════════════════════════════════════════════════════════════════ */
 const emergencyNumbers = [
-  { name: "Emergencias", number: "911" },
-  { name: "Cuartel Central Zacatecas", number: "492 922 0020" },
-  { name: "Bomberos Fresnillo (Hub Minero)", number: "493 932 0101" },
-  { name: "Bomberos Guadalupe", number: "492 899 1234" },
-  { name: "Bomberos Jerez", number: "494 945 0123" },
-  { name: "Protección Civil Zacatecas", number: "492 922 5059" },
+  { label: "Emergencias", number: "911" },
+  { label: "Cuartel Central Zacatecas", number: "492 922 0020" },
+  { label: "Bomberos Fresnillo (Hub Minero)", number: "493 932 0101" },
+  { label: "Bomberos Guadalupe", number: "492 899 1234" },
+  { label: "Bomberos Jerez", number: "494 945 0123" },
+  { label: "Protección Civil Zacatecas", number: "492 922 5059" },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -92,10 +99,42 @@ const regiones = [
    TARJETAS EPP DESTACADAS — Especialidades del estado
    ═══════════════════════════════════════════════════════════════════════════ */
 const eppCards = [
-  { icon: "pickaxe", title: "HAZMAT Minero Nivel 3", desc: "Peñasquito (mayor mina plata del mundo): explosivos, cianuro de sodio, xantatos, ácidos" },
-  { icon: "monument", title: "Patrimonio UNESCO", desc: "Centro Histórico 1993: Catedral Barroca, Acueducto, Mina El Edén — protocolos INAH" },
-  { icon: "mountain", title: "Sierra de Órganos", desc: "Parque Nacional: formaciones volcánicas únicas, incendios forestales, rescate técnico" },
-  { icon: "tunnel", title: "Rescate Minero", desc: "Espacios confinados subterráneos, atmósferas peligrosas, 600+ años de minas activas" },
+  {
+    image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+    imageAlt:  "Equipo HAZMAT para minería en Zacatecas",
+    badge:     "Minería",
+    title:     "HAZMAT Minero Nivel 3",
+    text:      "Trajes y detectores para emergencias con <strong>cianuro y ácidos</strong> en minas de Fresnillo, Peñoles y Goldcorp. Protección certificada para la industria minera.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+  {
+    image:     "/images/directorio/rescate-urbano-bomberos-01.avif",
+    imageAlt:  "Equipo de rescate para centro histórico UNESCO de Zacatecas",
+    badge:     "UNESCO",
+    title:     "Patrimonio UNESCO",
+    text:      "Equipo técnico para protección del <strong>Centro Histórico Patrimonio UNESCO</strong>. Sistemas de rescate y herramientas de intervención para edificaciones coloniales.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
+  },
+  {
+    image:     "/images/directorio/rescate-montana-bomberos-01.avif",
+    imageAlt:  "Equipo de rescate para Sierra de Órganos Zacatecas",
+    badge:     "Sierra",
+    title:     "Sierra de Órganos",
+    text:      "Equipamiento para rescate en <strong>Sierra de Órganos y Sierra de Valparaíso</strong>. Equipo forestal y sistemas de cuerdas para terreno montañoso agreste.",
+    href:      "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977",
+    linkLabel: "Ver Equipo Forestal",
+  },
+  {
+    image:     "/images/directorio/rescate-espeleologico-cuevas-01.avif",
+    imageAlt:  "Equipo de rescate en minas subterráneas de Zacatecas",
+    badge:     "Minero",
+    title:     "Rescate Minero",
+    text:      "Equipo de rescate para emergencias en <strong>minas subterráneas de Fresnillo y Sombrerete</strong>. SCBA, detectores de gases y sistemas de comunicación para galerías.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo Minero",
+  },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -106,13 +145,44 @@ const stationImages = [
   "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
   "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
   "/images/directorio/estacion-bomberos-moderna-01.avif",
-  "/images/directorio/camion-bomberos-escalera-telescopica-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
   "/images/directorio/estacion-bomberos-mexico-01.avif",
   "/images/directorio/unidad-rescate-bomberos-01.avif",
-  "/images/directorio/bomberos-entrenamiento-01.avif",
+  "/images/directorio/entrenamiento-bomberos-fuego-01.avif",
   "/images/directorio/bombero-equipamiento-personal-estacion-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
 ];
-
 /* ═══════════════════════════════════════════════════════════════════════════
    ESTADOS VECINOS — Interlinking geográfico
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -147,18 +217,23 @@ const itemListSchema = {
   })),
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx/" },
-    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
-    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` },
-  ],
-};
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Zacatecas",         url: "/directorio/zacatecas" },
+]);
 ---
 
 <DirectorioEstadoLayout
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Zacatecas</strong>.     El estado que forjó la historia de México con su plata: <strong>Minera Peñasquito</strong>     (Newmont) es la <strong>mayor mina de plata del mundo</strong>, produciendo más de     <strong>25 millones de onzas anuales</strong>. El <strong>Centro Histórico de Zacatecas</strong>     es <strong>Patrimonio de la Humanidad UNESCO desde 1993</strong>, con su Catedral Barroca     considerada la obra maestra del churrigueresco mexicano. Con <strong>600+ años de minería     continua</strong>, los bomberos zacatecanos dominan <strong>HAZMAT de clase mundial</strong>:     explosivos industriales, cianuro de sodio, xantatos y ácidos mineros. La <strong>Sierra     de Órganos</strong> (Parque Nacional) y los <strong>Pueblos Mágicos</strong> de <strong>Jerez</strong>     y <strong>Sombrerete</strong> completan un estado donde la tradición minera exige bomberos     con certificaciones únicas en México."
+  heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
+  heroImageAlt="Estación de Bomberos en Zacatecas"
+  heroCaption="H. Cuerpo de Bomberos · Zacatecas"
+  totalEstaciones={estacionesZacatecas.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="1.6M+"
+  canonical="https://bombero.mx/directorio/zacatecas"
+  keywords={["bomberos zacatecas", "estaciones bomberos zacatecas", "emergencias zacatecas 911"]}
   estado={estado}
   sigla={sigla}
   slug={slug}
@@ -175,62 +250,12 @@ const breadcrumbSchema = {
   title={`Bomberos en Zacatecas | ${estacionesZacatecas.length} Estaciones | Mayor Mina Plata del Mundo | UNESCO | HAZMAT Minero | BOMBERO.MX`}
   description="Directorio oficial de las 15 estaciones de bomberos en Zacatecas. Centro Histórico UNESCO (1993), Minera Peñasquito (mayor mina de plata del mundo, 25 millones oz/año), HAZMAT especializado en explosivos y cianuro minero, Sierra de Órganos Parque Nacional, Pueblos Mágicos Jerez y Sombrerete. 600+ años de tradición minera continua. Emergencias 911."
 >
-  <!-- ══════════════════════════════════════════════════════════════════════════
-       INTRO SLOT — Presentación del estado
-       ══════════════════════════════════════════════════════════════════════════ -->
-  <Fragment slot="intro">
-    Directorio completo del <strong>H. Cuerpo de Bomberos de Zacatecas</strong>.
-    El estado que forjó la historia de México con su plata: <strong>Minera Peñasquito</strong>
-    (Newmont) es la <strong>mayor mina de plata del mundo</strong>, produciendo más de
-    <strong>25 millones de onzas anuales</strong>. El <strong>Centro Histórico de Zacatecas</strong>
-    es <strong>Patrimonio de la Humanidad UNESCO desde 1993</strong>, con su Catedral Barroca
-    considerada la obra maestra del churrigueresco mexicano. Con <strong>600+ años de minería
-    continua</strong>, los bomberos zacatecanos dominan <strong>HAZMAT de clase mundial</strong>:
-    explosivos industriales, cianuro de sodio, xantatos y ácidos mineros. La <strong>Sierra
-    de Órganos</strong> (Parque Nacional) y los <strong>Pueblos Mágicos</strong> de <strong>Jerez</strong>
-    y <strong>Sombrerete</strong> completan un estado donde la tradición minera exige bomberos
-    con certificaciones únicas en México.
-  </Fragment>
-
-  <!-- ══════════════════════════════════════════════════════════════════════════
-       HERO SEO SLOT — Contenido SEO en el hero
-       ══════════════════════════════════════════════════════════════════════════ -->
-  <Fragment slot="hero-seo">
-    <div class="hero-seo__block">
-      <h2 class="hero-seo__title">Minera Peñasquito: La Mayor Mina de Plata del Mundo</h2>
-      <p class="hero-seo__text">
-        <strong>Minera Peñasquito</strong>, operada por <strong>Newmont Corporation</strong> (antes Goldcorp),
-        es la <strong>mayor mina de plata del planeta</strong>, produciendo más de <strong>25 millones
-        de onzas de plata al año</strong> —junto con 400,000 onzas de oro, zinc y plomo—. Ubicada en
-        el municipio de <strong>Mazapil</strong>, la mina emplea a más de <strong>7,000 personas</strong>
-        directas e indirectas. Los bomberos de <strong>Fresnillo</strong> son el hub de respuesta HAZMAT
-        para esta operación crítica, con <strong>certificación Nivel 3</strong> para: explosivos ANFO
-        y emulsiones, <strong>cianuro de sodio</strong> (letal a 50 ppm), <strong>xantatos</strong> de
-        flotación, ácido sulfúrico y cal viva. La coordinación con las brigadas internas de Newmont
-        sigue protocolos <strong>ICS (Incident Command System)</strong> internacionales.
-      </p>
-    </div>
-    <div class="hero-seo__block">
-      <h2 class="hero-seo__title">Centro Histórico UNESCO: 600 Años de Plata y Arquitectura</h2>
-      <p class="hero-seo__text">
-        El <strong>Centro Histórico de Zacatecas</strong>, declarado <strong>Patrimonio de la Humanidad
-        por la UNESCO en 1993</strong>, es un museo viviente de la arquitectura barroca novohispana.
-        La <strong>Catedral Basílica de Zacatecas</strong> es considerada la obra maestra del
-        <strong>churrigueresco mexicano</strong>, con una fachada de cantera rosa tallada durante 25 años.
-        La <strong>Mina El Edén</strong>, a 320 metros de profundidad, es hoy un museo y discoteca
-        subterránea. Los bomberos del Cuartel Central operan con protocolos especiales del <strong>INAH</strong>
-        para protección del patrimonio, limitando el uso de agua y químicos en estructuras históricas.
-        El <strong>Festival Cultural Zacatecas</strong> y la <strong>Morisma de Bracho</strong> (batalla
-        simulada con 10,000 participantes) activan operativos de seguridad masivos.
-      </p>
-    </div>
-  </Fragment>
 
   <!-- ══════════════════════════════════════════════════════════════════════════
        SEO CONTENT SLOT — Contenido SEO extenso
        ══════════════════════════════════════════════════════════════════════════ -->
   <Fragment slot="seo">
-    <section class="seo-content">
+    
       <h2>El H. Cuerpo de Bomberos de Zacatecas</h2>
       <p>
         El <strong>H. Cuerpo de Bomberos de Zacatecas</strong> protege a más de <strong>1.6 millones
@@ -342,75 +367,6 @@ const breadcrumbSchema = {
         <strong>emergencias agropecuarias</strong> (corredor ganadero norte); y
         <strong>apoyo mutuo interestatal</strong> (Aguascalientes, SLP, Jalisco, Durango).
       </p>
-    </section>
   </Fragment>
 </DirectorioEstadoLayout>
 
-<style>
-  /* ══════════════════════════════════════════════════════════════════════════════
-     ZACATECAS — ESTILOS SEO
-     Color: Rosa Cantera/Plata #d946ef — Cantera rosa + plata minera
-     ══════════════════════════════════════════════════════════════════════════════ */
-
-  .hero-seo__block {
-    margin-bottom: var(--space-4);
-  }
-
-  .hero-seo__block:last-child {
-    margin-bottom: 0;
-  }
-
-  .hero-seo__title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: #f0abfc;
-    margin: 0 0 var(--space-2);
-  }
-
-  .hero-seo__text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0;
-  }
-
-  .hero-seo__text strong {
-    color: white;
-  }
-
-  /* ─── SEO Content ─── */
-  .seo-content {
-    padding: var(--space-8);
-    background: white;
-    border-radius: var(--radius-xl);
-  }
-
-  .seo-content h2 {
-    font-size: var(--text-xl);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-800);
-    margin: var(--space-6) 0 var(--space-3);
-  }
-
-  .seo-content p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-600);
-    line-height: 1.8;
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content p:last-child {
-    margin-bottom: 0;
-  }
-
-  .seo-content strong {
-    color: var(--color-smoke-800);
-  }
-</style>

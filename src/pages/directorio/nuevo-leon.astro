@@ -7,6 +7,7 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesNuevoLeon, getMunicipios } from "@data/estaciones-nuevo-leon";
 import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
 
 // Configuración del estado
 const estado = "Nuevo León";
@@ -22,22 +23,49 @@ const stationImages = [
   "/images/directorio/rescate-montana-bomberos-01.avif",
   "/images/directorio/bomberos-profesionales-accion-01.avif",
   "/images/directorio/bomberos-equipandose-turno-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
 ];
-
 // Miniaturas hero - ZMM y Sierra Madre
 const heroThumbs = [
   {
-    src: "/images/directorio/nl-monterrey-skyline.avif",
+    src: "/images/directorio/estacion-bomberos-monterrey-01.avif",
     alt: "Skyline de Monterrey con Cerro de la Silla - Nuevo León",
     label: "Monterrey ZMM"
   },
+  { src: "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif", alt: "Equipo de protección personal completo en estación de bomberos de Nuevo León", label: "EPP Certificado" },
   {
-    src: "/images/directorio/nl-industria-ternium.avif",
-    alt: "Planta industrial TERNIUM en Nuevo León",
-    label: "Capital Industrial"
-  },
-  {
-    src: "/images/directorio/nl-sierra-madre.avif",
+    src: "/images/directorio/rescate-montana-bomberos-01.avif",
     alt: "Sierra Madre Oriental y Parque Chipinque",
     label: "Sierra Madre"
   }
@@ -46,35 +74,21 @@ const heroThumbs = [
 // Galería de imágenes
 const galleryImages = [
   {
-    src: "/images/directorio/nl-bomberos-hazmat.avif",
+    src: "/images/directorio/unidad-hazmat-emergencias-01.avif",
     alt: "Equipo HAZMAT de Bomberos de Monterrey en emergencia industrial",
     label: "HAZMAT Nivel III"
   },
+  { src: "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif", alt: "Flota completa de unidades de bomberos de Nuevo León", label: "Flota Completa" },
   {
-    src: "/images/directorio/nl-torre-koi.avif",
-    alt: "Torre KOI edificio más alto de México en San Pedro Garza García",
-    label: "Torre KOI 280m"
-  },
-  {
-    src: "/images/directorio/nl-cola-caballo.avif",
+    src: "/images/directorio/rescate-swift-water-rios-01.avif",
     alt: "Cascada Cola de Caballo en Santiago Pueblo Mágico",
     label: "Santiago PM"
   },
   {
-    src: "/images/directorio/nl-cemex-vitro.avif",
+    src: "/images/directorio/estacion-bomberos-petroquimica-01.avif",
     alt: "Corporativos CEMEX y Vitro en zona industrial sur",
     label: "Corporativos Globales"
   },
-  {
-    src: "/images/directorio/nl-autopista-laredo.avif",
-    alt: "Corredor comercial autopista Monterrey-Laredo",
-    label: "Corredor Laredo"
-  },
-  {
-    src: "/images/directorio/nl-parque-fundidora.avif",
-    alt: "Parque Fundidora y Museo del Acero Horno 3",
-    label: "Parque Fundidora"
-  }
 ];
 
 // Números de emergencia NL
@@ -111,32 +125,41 @@ const regiones = [
 // Tarjetas de equipamiento EPP
 const eppCards = [
   {
-    image: "/images/productos/traje-bombero-estructural.avif",
-    imageAlt: "Traje estructural NFPA para bomberos industriales",
-    badge: "HAZMAT",
-    title: "Trajes Industriales NL",
-    text: "Protección certificada NFPA para emergencias industriales en corredores manufactureros de Nuevo León.",
-    href: "/productos/trajes-para-bomberos",
-    linkLabel: "Ver trajes estructurales"
+    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+    imageAlt:  "Traje HAZMAT para emergencias industriales en Nuevo León",
+    badge:     "Industrial",
+    title:     "Trajes Industriales NL",
+    text:      "Equipo de protección HAZMAT para emergencias en los corredores industriales de <strong>Monterrey, Apodaca y Santa Catarina</strong>. Trajes certificados para el sector siderúrgico y petroquímico del estado.",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Trajes para Bombero",
   },
   {
-    image: "/images/productos/equipo-scba-bombero.avif",
-    imageAlt: "Equipo SCBA para espacios confinados industriales",
-    badge: "Industrial",
-    title: "SCBA Espacios Confinados",
-    text: "Equipos de respiración autónoma para rescate en plantas siderúrgicas y petroquímicas.",
-    href: "/productos/scba",
-    linkLabel: "Ver equipos SCBA"
+    image:     "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+    imageAlt:  "Equipo SCBA para espacios confinados en Nuevo León",
+    badge:     "SCBA",
+    title:     "SCBA Espacios Confinados",
+    text:      "Equipos de respiración autónoma para operaciones en <strong>plantas CEMEX, Ternium y FRISA</strong>. Máxima autonomía en atmósferas IDLH con certificación NFPA 1981.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo Respiratorio",
   },
   {
-    image: "/images/productos/herramientas-rescate-vehicular.avif",
-    imageAlt: "Herramientas de rescate para accidentes carreteros",
-    badge: "Carretero",
-    title: "Rescate Vehicular Pesado",
-    text: "Herramientas hidráulicas para rescate en autopista Monterrey-Laredo con tractocamiones.",
-    href: "/productos/herramientas-rescate",
-    linkLabel: "Ver herramientas rescate"
-  }
+    image:     "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",
+    imageAlt:  "Equipo de rescate vehicular para autopistas de Nuevo León",
+    badge:     "Rescate",
+    title:     "Rescate Vehicular Pesado",
+    text:      "Herramientas hidráulicas de extricación para accidentes en la <strong>autopista Monterrey-Laredo</strong> y vialidades del área metropolitana. Spreaders y cutters de última generación.",
+    href:      "/productos/guantes-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
+  },
+  {
+    image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt:  "Casco estructural NFPA para bomberos de Nuevo León",
+    badge:     "NFPA 1971",
+    title:     "Cascos Certificados NFPA",
+    text:      "Cascos estructurales con protección térmica avanzada para los bomberos de <strong>Monterrey y su zona metropolitana</strong>. Visores integrados y sistemas de comunicación compatibles.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Cascos para Bombero",
+  },
 ];
 
 // Schema.org estructurado
@@ -165,21 +188,26 @@ const itemListSchema = {
   }))
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
-    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
-    { "@type": "ListItem", position: 3, name: estado, item: `https://bombero.mx/directorio/${slug}` }
-  ]
-};
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio" },
+  { name: "Nuevo León",         url: "/directorio/nuevo-leon" },
+]);
 ---
 
 <DirectorioEstadoLayout
   estado={estado}
   sigla={sigla}
   slug={slug}
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Nuevo León</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
+  heroImage="/images/directorio/estacion-bomberos-monterrey-01.avif"
+  heroImageAlt="Estación de Bomberos en Nuevo León"
+  heroCaption="H. Cuerpo de Bomberos · Nuevo León"
+  totalEstaciones={estacionesNuevoLeon.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="5.8M+"
+  canonical="https://bombero.mx/directorio/nuevo-leon"
+  keywords={["bomberos nuevo-leon", "estaciones bomberos nuevo-leon", "emergencias nuevo-leon 911", "cuerpo bomberos nuevo-leon"]}
   estaciones={estacionesNuevoLeon}
   stationImages={stationImages}
   municipios={getMunicipios()}
@@ -194,7 +222,7 @@ const breadcrumbSchema = {
   description={`Directorio completo de ${estacionesNuevoLeon.length} estaciones de bomberos en Nuevo León 2024. Capital Industrial de México con 4 estaciones HAZMAT certificadas. Cobertura ZMM Monterrey, San Pedro, Guadalupe, corredores industriales TERNIUM, CEMEX. Rescate Sierra Madre Oriental. Tel: (81) 8345-2424. Emergencias 911.`}
 >
   <Fragment slot="seo">
-    <section class="seo-content">
+    
       <h2>Bomberos de Nuevo León: La Capital Industrial de México</h2>
       <p>
         El <strong>Heroico Cuerpo de Bomberos de Nuevo León</strong> protege a más de <strong>5.8 millones de habitantes</strong>
@@ -278,56 +306,6 @@ const breadcrumbSchema = {
         <strong>coordinación metropolitana con 12 municipios</strong>. El tiempo de respuesta promedio en la ZMM
         es de <strong>6-8 minutos</strong>.
       </p>
-    </section>
-  </Fragment>
+    </Fragment>
 </DirectorioEstadoLayout>
 
-<style>
-  .seo-content {
-    padding: var(--space-8);
-    background: white;
-    border-radius: var(--radius-xl);
-    margin-top: var(--space-8);
-  }
-
-  .seo-content h2 {
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-4);
-    line-height: 1.3;
-  }
-
-  .seo-content h3 {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-fire-700);
-    margin: var(--space-8) 0 var(--space-3);
-  }
-
-  .seo-content p {
-    font-size: var(--text-base);
-    color: var(--color-smoke-700);
-    line-height: 1.8;
-    margin: 0 0 var(--space-4);
-  }
-
-  .seo-content strong {
-    color: var(--color-smoke-900);
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    .seo-content {
-      padding: var(--space-5);
-    }
-
-    .seo-content h2 {
-      font-size: var(--text-xl);
-    }
-
-    .seo-content h3 {
-      font-size: var(--text-base);
-    }
-  }
-</style>
