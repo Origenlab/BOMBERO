@@ -12,7 +12,14 @@ import { SITE, type SEOProps } from "@data/site";
 export function canonicalURL(path: string): string {
   const base = SITE.url.endsWith("/") ? SITE.url.slice(0, -1) : SITE.url;
   const clean = path.startsWith("/") ? path : `/${path}`;
-  return `${base}${clean}`;
+  const url = `${base}${clean}`;
+
+  // Add trailing slash for pages (not for files with extensions or root)
+  // This matches trailingSlash: "always" in astro.config.mjs
+  if (clean === "/") return url; // Homepage: no change needed
+  if (/\.\w+$/.test(clean)) return url; // Files (e.g., /image.png): no trailing slash
+  if (url.endsWith("/")) return url; // Already has trailing slash
+  return `${url}/`; // Add trailing slash
 }
 
 /** Apply the title template from site config */
@@ -25,13 +32,24 @@ export function formatTitle(title?: string): string {
 
 /** Merge page-level SEO props with site defaults */
 export function resolveSEO(props: SEOProps) {
+  // Normalize canonical: convert relative paths to absolute URLs with trailing slash
+  let normalizedCanonical = props.canonical;
+  if (normalizedCanonical && !normalizedCanonical.startsWith("http")) {
+    normalizedCanonical = canonicalURL(normalizedCanonical);
+  } else if (normalizedCanonical?.startsWith("http") && !normalizedCanonical.endsWith("/")) {
+    // Add trailing slash to absolute URLs (except for files)
+    if (!/\.\w+$/.test(normalizedCanonical)) {
+      normalizedCanonical = `${normalizedCanonical}/`;
+    }
+  }
+
   return {
     title: formatTitle(props.title),
     description: props.description ?? SITE.seo.description,
     image: props.image ?? SITE.seo.image,
     type: props.type ?? SITE.seo.type,
     noindex: props.noindex ?? false,
-    canonical: props.canonical,
+    canonical: normalizedCanonical,
     publishedTime: props.publishedTime,
     modifiedTime: props.modifiedTime,
     author: props.author,
