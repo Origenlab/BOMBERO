@@ -91,7 +91,9 @@ export default defineConfig({
   },
 
   // ─── Trailing Slash (SEO consistency) ───
-  trailingSlash: "never",
+  // Cambiado a "always" para coincidir con build.format: "directory"
+  // Esto evita redirects 301 innecesarios de /blog → /blog/
+  trailingSlash: "always",
 
   // ─── Compression ───
   compressHTML: true,
