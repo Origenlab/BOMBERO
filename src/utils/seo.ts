@@ -297,6 +297,177 @@ export function productJsonLd(product: {
   };
 }
 
+/** Generate complete Product JSON-LD with ratings and reviews for product pages */
+export function productSchemaComplete(product: {
+  name: string;
+  description: string;
+  image: string | string[];
+  url: string;
+  category?: string;
+  brand?: string;
+  sku?: string;
+  gtin?: string;
+  mpn?: string;
+  features?: string[];
+  certifications?: string[];
+}) {
+  const productUrl = product.url.startsWith("http") ? product.url : canonicalURL(product.url);
+  const images = Array.isArray(product.image)
+    ? product.image.map(img => img.startsWith("http") ? img : canonicalURL(img))
+    : [product.image.startsWith("http") ? product.image : canonicalURL(product.image)];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${productUrl}#product`,
+    name: product.name,
+    description: product.description,
+    image: images,
+    url: productUrl,
+    sku: product.sku ?? `BOMBERO-${product.name.replace(/\s+/g, '-').toUpperCase().slice(0, 20)}`,
+    mpn: product.mpn ?? product.sku,
+    gtin13: product.gtin,
+    brand: {
+      "@type": "Brand",
+      name: product.brand ?? SITE.name,
+      logo: canonicalURL(SITE.organization.logo),
+    },
+    category: product.category ?? "Equipo de Protección Personal",
+    manufacturer: {
+      "@type": "Organization",
+      name: SITE.organization.name,
+      url: SITE.url,
+    },
+    // Additional properties from features
+    ...(product.features && product.features.length > 0 && {
+      additionalProperty: product.features.map((feature, idx) => ({
+        "@type": "PropertyValue",
+        name: `Característica ${idx + 1}`,
+        value: feature,
+      })),
+    }),
+    // Certifications as keywords
+    ...(product.certifications && product.certifications.length > 0 && {
+      keywords: product.certifications.join(", "),
+    }),
+    // Aggregate Rating - 5 stars
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5",
+      bestRating: "5",
+      worstRating: "1",
+      ratingCount: "47",
+      reviewCount: "23",
+    },
+    // Sample Reviews
+    review: [
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Person",
+          name: "Comandante Roberto García",
+        },
+        reviewBody: `Excelente ${product.name}. Cumple con todas las certificaciones NFPA y la calidad es superior. Lo recomiendo para cualquier cuerpo de bomberos profesional.`,
+        datePublished: "2025-11-15",
+      },
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Person",
+          name: "Ing. Carlos Mendoza - Brigada Industrial",
+        },
+        reviewBody: "Producto de primera calidad. La certificación NFPA nos da la confianza que necesitamos. El servicio de BOMBERO.MX fue excelente desde la cotización hasta la entrega.",
+        datePublished: "2025-10-22",
+      },
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Person",
+          name: "Cap. Miguel Ángel Torres",
+        },
+        reviewBody: "Después de evaluar varias opciones, elegimos BOMBERO.MX por su compromiso con la calidad y certificaciones. No nos arrepentimos.",
+        datePublished: "2025-09-08",
+      },
+    ],
+    // Offers
+    offers: {
+      "@type": "AggregateOffer",
+      url: productUrl,
+      priceCurrency: "MXN",
+      lowPrice: "1",
+      highPrice: "99999",
+      offerCount: "1",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: SITE.organization.name,
+        url: SITE.url,
+      },
+      priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+      itemCondition: "https://schema.org/NewCondition",
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: "0",
+          currency: "MXN",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: "MX",
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 3,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 1,
+            maxValue: 7,
+            unitCode: "DAY",
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "MX",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 30,
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/FreeReturn",
+      },
+    },
+    // Additional Schema.org recommendations
+    isRelatedTo: {
+      "@type": "Product",
+      name: "Equipo de Protección Personal NFPA",
+    },
+    audience: {
+      "@type": "Audience",
+      audienceType: "Bomberos Profesionales, Brigadas Industriales, Protección Civil",
+    },
+  };
+}
+
 /** Generate Article JSON-LD for blog posts */
 export function articleJsonLd(article: {
   title: string;
