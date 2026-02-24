@@ -58,7 +58,7 @@ const buttonClasses = [
 
   .back-to-top {
     position: fixed;
-    bottom: var(--space-6);
+    bottom: calc(var(--space-6) + var(--safe-bottom, 0px));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,16 +73,17 @@ const buttonClasses = [
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
-    transition: all var(--transition-base);
+    transition: transform var(--transition-base), opacity var(--transition-base), visibility var(--transition-base), background var(--transition-fast);
     z-index: var(--z-fixed);
+    touch-action: manipulation;
   }
 
   .back-to-top--right {
-    right: var(--space-6);
+    right: calc(var(--space-6) + var(--safe-right, 0px));
   }
 
   .back-to-top--left {
-    left: var(--space-6);
+    left: calc(var(--space-6) + var(--safe-left, 0px));
   }
 
   .back-to-top--visible {
@@ -109,31 +110,35 @@ const buttonClasses = [
   }
 
 
+  .back-to-top:active {
+    background: var(--color-fire-500);
+    border-color: var(--color-fire-500);
+    color: white;
+  }
+
   @media (max-width: 768px) {
     .back-to-top {
-      width: 44px;
-      height: 44px;
-      bottom: var(--space-4);
+      width: var(--touch-target-min);
+      height: var(--touch-target-min);
+      bottom: calc(var(--space-4) + var(--safe-bottom, 0px));
     }
 
     .back-to-top--right {
-      right: var(--space-4);
+      right: calc(var(--space-4) + var(--safe-right, 0px));
     }
 
     .back-to-top--left {
-      left: var(--space-4);
+      left: calc(var(--space-4) + var(--safe-left, 0px));
+      bottom: calc(var(--space-4) + 60px + var(--safe-bottom, 0px));
     }
 
     .back-to-top svg {
       width: 18px;
       height: 18px;
     }
-  }
 
-
-  @media (max-width: 768px) {
-    .back-to-top--left {
-      bottom: calc(var(--space-4) + 60px);
+    .back-to-top:hover {
+      transform: translateY(0);
     }
   }
 </style>

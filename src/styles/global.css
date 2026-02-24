@@ -22,15 +22,40 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent font scaling on orientation change iOS */
+  -webkit-text-size-adjust: 100%;
+  /* Smooth scrolling with reduced motion respect */
+  scroll-padding-top: 80px;
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {
   min-height: 100dvh;
+  min-height: -webkit-fill-available;
   background-color: var(--color-bg);
   font-family: var(--font-sans);
   color: var(--color-text);
   line-height: var(--leading-normal);
   overflow-x: hidden;
+  /* iOS tap highlight */
+  -webkit-tap-highlight-color: var(--tap-highlight);
+  /* Prevent pull-to-refresh on mobile */
+  overscroll-behavior-y: contain;
+  /* Safe area padding for notch devices */
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
 }
 
 img, picture, video, canvas, svg {
@@ -40,6 +65,49 @@ img, picture, video, canvas, svg {
 
 input, button, textarea, select {
   font: inherit;
+  /* Prevent zoom on focus in iOS */
+  font-size: 16px;
+}
+
+/* Mobile-optimized form inputs */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+textarea,
+select {
+  /* Minimum touch target */
+  min-height: var(--touch-target-min);
+  /* Prevent iOS zoom on focus */
+  font-size: max(16px, 1rem);
+  /* Better touch feedback */
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* Touch-friendly buttons */
+button,
+[role="button"],
+.btn {
+  min-height: var(--touch-target-min);
+  /* Remove default tap delay */
+  touch-action: manipulation;
 }
 
 a {
@@ -100,18 +168,18 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
 }
 
-/* ── Section Spacing ── */
+/* ── Section Spacing (Responsive) ── */
 .section {
-  padding-block: var(--space-24);
+  padding-block: var(--section-padding);
   position: relative;
 }
 
 .section--sm {
-  padding-block: var(--space-16);
+  padding-block: var(--section-padding-sm);
 }
 
 .section--lg {
-  padding-block: var(--space-32);
+  padding-block: var(--section-padding-lg);
 }
 
 .section--alt {
@@ -407,5 +475,155 @@ a {
 
 @media (min-width: 769px) {
   .hide-desktop { display: none !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   MOBILE OPTIMIZATIONS
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Mobile Typography ── */
+@media (max-width: 640px) {
+  body {
+    font-size: var(--text-fluid-base);
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: var(--text-fluid-4xl);
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: var(--text-fluid-3xl);
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-size: var(--text-fluid-2xl);
+    line-height: 1.2;
+  }
+
+  h4 {
+    font-size: var(--text-fluid-xl);
+  }
+
+  /* Improve readability on small screens */
+  p {
+    max-width: 100%;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+}
+
+/* ── Mobile Touch Interactions ── */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch device optimizations */
+  .btn:hover {
+    transform: none;
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  /* Larger tap targets for links in lists */
+  nav a,
+  .mobile-menu a {
+    min-height: var(--touch-target-min);
+    display: flex;
+    align-items: center;
+  }
+
+  /* Disable hover states that can cause sticky issues */
+  .card:hover {
+    transform: none;
+  }
+
+  .card:active {
+    transform: scale(0.99);
+  }
+}
+
+/* ── Mobile Grid Fallbacks ── */
+@media (max-width: 640px) {
+  .grid--2,
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Mobile Scrollbar (hide on touch) ── */
+@media (hover: none) and (pointer: coarse) {
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+/* ── iOS Specific Fixes ── */
+@supports (-webkit-touch-callout: none) {
+  /* Fix 100vh on iOS */
+  body {
+    min-height: -webkit-fill-available;
+  }
+
+  /* Prevent elastic scrolling on fixed elements */
+  .header--sticky {
+    position: -webkit-sticky;
+  }
+}
+
+/* ── Android Specific Fixes ── */
+@supports not (-webkit-touch-callout: none) {
+  /* Android specific optimizations */
+  input[type="date"],
+  input[type="time"],
+  input[type="datetime-local"] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+/* ── Landscape Mobile ── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero,
+  .section--hero {
+    min-height: auto;
+    padding-block: var(--space-8);
+  }
+
+  .mobile-menu {
+    padding-top: 80px;
+  }
+}
+
+/* ── Print Styles ── */
+@media print {
+  .header,
+  .footer,
+  .mobile-menu,
+  .whatsapp-float,
+  .back-to-top,
+  .btn,
+  nav {
+    display: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: black;
+    background: white;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  .section {
+    padding-block: 1rem;
+    break-inside: avoid;
+  }
 }
 

@@ -50,22 +50,23 @@ const buttonClasses = [
 
   .whatsapp-float {
     position: fixed;
-    bottom: var(--space-6);
+    bottom: calc(var(--space-6) + var(--safe-bottom, 0px));
     display: flex;
     align-items: center;
     gap: var(--space-3);
     z-index: var(--z-fixed);
     text-decoration: none;
-    transition: all var(--transition-base);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    touch-action: manipulation;
   }
 
   .whatsapp-float--right {
-    right: var(--space-6);
+    right: calc(var(--space-6) + var(--safe-right, 0px));
     flex-direction: row;
   }
 
   .whatsapp-float--left {
-    left: var(--space-6);
+    left: calc(var(--space-6) + var(--safe-left, 0px));
     flex-direction: row-reverse;
   }
 
@@ -144,17 +145,22 @@ const buttonClasses = [
   }
 
 
+  .whatsapp-float:active .whatsapp-float__icon {
+    transform: scale(0.95);
+    background: #128C7E;
+  }
+
   @media (max-width: 768px) {
     .whatsapp-float {
-      bottom: var(--space-4);
+      bottom: calc(var(--space-4) + var(--safe-bottom, 0px));
     }
 
     .whatsapp-float--right {
-      right: var(--space-4);
+      right: calc(var(--space-4) + var(--safe-right, 0px));
     }
 
     .whatsapp-float--left {
-      left: var(--space-4);
+      left: calc(var(--space-4) + var(--safe-left, 0px));
     }
 
     .whatsapp-float__icon {
@@ -176,6 +182,12 @@ const buttonClasses = [
     .whatsapp-float__icon svg {
       width: 24px;
       height: 24px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .whatsapp-float--pulse .whatsapp-float__icon {
+      animation: none;
     }
   }
 </style>
