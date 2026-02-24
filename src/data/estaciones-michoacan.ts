@@ -1,32 +1,5 @@
 import type { Estacion } from './types';
 
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════════════════════════╗
- * ║  DIRECTORIO DE BOMBEROS - MICHOACÁN DE OCAMPO                                                ║
- * ╠═══════════════════════════════════════════════════════════════════════════════════════════════╣
- * ║  "Alma de México" - Cuna de la Independencia                                                  ║
- * ║                                                                                               ║
- * ║  ESTADÍSTICAS:                                                                               ║
- * ║  • 22 Estaciones de Bomberos                                                                  ║
- * ║  • 4.7 millones de habitantes                                                                 ║
- * ║  • 113 municipios                                                                             ║
- * ║  • 58,643 km² de superficie                                                                   ║
- * ║                                                                                               ║
- * ║  ZONAS ESTRATÉGICAS:                                                                         ║
- * ║  • Metropolitana Morelia (Capital UNESCO)                                                     ║
- * ║  • Región Lacustre (Pátzcuaro, Zirahuén)                                                     ║
- * ║  • Tierra Caliente (Apatzingán, Huetamo)                                                     ║
- * ║  • Costa del Pacífico (Lázaro Cárdenas)                                                      ║
- * ║  • Meseta Purépecha (Uruapan, Paracho)                                                       ║
- * ║  • Ciénega de Chapala (Zamora, Jiquilpan)                                                    ║
- * ║  • Oriente (Zitácuaro, Mariposa Monarca)                                                     ║
- * ║                                                                                               ║
- * ║  PATRIMONIO UNESCO:                                                                          ║
- * ║  • Centro Histórico de Morelia (1991)                                                        ║
- * ║  • Reserva Biosfera Mariposa Monarca (2008)                                                  ║
- * ║  • Pirekua - Canto Purépecha (2010)                                                          ║
- * ╚═══════════════════════════════════════════════════════════════════════════════════════════════╝
- */
 
 export const estacionesMichoacan: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
@@ -831,39 +804,29 @@ export const ZONAS_MICHOACAN = [
 // FUNCIONES AUXILIARES
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones por zona
- */
+
 export function getEstacionesPorZona(zona: string): Estacion[] {
   return estacionesMichoacan.filter(e => e.zona === zona);
 }
 
-/**
- * Obtiene estaciones de la Zona Metropolitana de Morelia
- */
+
 export function getEstacionesMorelia(): Estacion[] {
   return estacionesMichoacan.filter(e => e.zona === "Zona Metropolitana Morelia");
 }
 
-/**
- * Obtiene estaciones de la costa (Lázaro Cárdenas)
- */
+
 export function getEstacionesCosta(): Estacion[] {
   return estacionesMichoacan.filter(e => e.zona === "Costa del Pacífico");
 }
 
-/**
- * Obtiene estaciones con especialidad HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesMichoacan.filter(e =>
     e.especialidades?.some(esp => esp.toLowerCase().includes("hazmat"))
   );
 }
 
-/**
- * Obtiene estaciones relacionadas con Mariposa Monarca
- */
+
 export function getEstacionesMariposaMonarca(): Estacion[] {
   return estacionesMichoacan.filter(e =>
     e.zona === "Región Oriente" ||
@@ -874,9 +837,7 @@ export function getEstacionesMariposaMonarca(): Estacion[] {
   );
 }
 
-/**
- * Genera meta tags SEO para una estación
- */
+
 export function generarMetaSEO(estacion: Estacion): { title: string; description: string; keywords: string } {
   return {
     title: `${estacion.nombre} | Bomberos ${estacion.ciudad}, Michoacán`,
@@ -885,9 +846,7 @@ export function generarMetaSEO(estacion: Estacion): { title: string; description
   };
 }
 
-/**
- * Obtiene contexto geográfico y cultural de una zona
- */
+
 export function getContextoZona(zona: string): { descripcion: string; riesgos: string[]; caracteristicas: string[] } {
   const contextos: Record<string, { descripcion: string; riesgos: string[]; caracteristicas: string[] }> = {
     "Zona Metropolitana Morelia": {
@@ -934,23 +893,17 @@ export function getContextoZona(zona: string): { descripcion: string; riesgos: s
   };
 }
 
-/**
- * Obtiene todos los municipios/ciudades únicos
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesMichoacan.map(e => e.ciudad))].filter(Boolean).sort() as string[];
 }
 
-/**
- * Obtiene estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesMichoacan.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

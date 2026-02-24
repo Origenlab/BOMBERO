@@ -1,76 +1,8 @@
-/**
- * ═══════════════════════════════════════════════════════════════════════════════
- * DATOS DE ESTACIONES DE BOMBEROS - ESTADO DE CAMPECHE
- * ═══════════════════════════════════════════════════════════════════════════════
- *
- * Base de datos profesional del H. Cuerpo de Bomberos del Estado de Campeche
- * Optimizada para SEO, accesibilidad y Schema.org
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │ INFORMACIÓN DEL ESTADO DE CAMPECHE                                          │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │ Capital:           San Francisco de Campeche                                │
- * │ Población:         928,363 habitantes (INEGI 2020)                         │
- * │ Superficie:        57,924 km² (18° estado más grande)                      │
- * │ Municipios:        13                                                       │
- * │ Densidad:          16 hab/km² (baja densidad)                              │
- * │ Lema:              "Campeche, la fuerza del Mayab"                         │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │ PATRIMONIO UNESCO                                                            │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │ 1. Ciudad Histórica Fortificada de Campeche (1999)                          │
- * │    - Única ciudad amurallada de México                                      │
- * │    - Sistema defensivo contra piratas del siglo XVII                        │
- * │    - 8 baluartes, 2 fuertes y murallas de 2.5 km                           │
- * │                                                                             │
- * │ 2. Antigua Ciudad Maya de Calakmul (2002 - Cultural)                        │
- * │    - Mayor sitio arqueológico maya de México                                │
- * │    - 6,750 estructuras antiguas                                             │
- * │    - Rival histórica de Tikal                                               │
- * │                                                                             │
- * │ 3. Reserva de la Biósfera de Calakmul (2014 - Natural)                      │
- * │    - 723,185 hectáreas de selva tropical                                    │
- * │    - Mayor reserva de bosque tropical de México                             │
- * │    - Jaguar, puma, tapir, guacamaya roja                                    │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │ INDUSTRIA PETROLERA - SONDA DE CAMPECHE                                      │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │ • Mayor zona de producción petrolera de México                              │
- * │ • Ciudad del Carmen: capital petrolera del país                             │
- * │ • 200+ plataformas marinas en operación                                     │
- * │ • Producción: 60% del petróleo y 30% del gas natural de México             │
- * │ • Empresas: PEMEX, Halliburton, Schlumberger, Baker Hughes                  │
- * │ • Emergencias: incendios en plataformas, derrames, rescate marítimo        │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │ RIESGOS PRINCIPALES                                                          │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │ • Huracanes del Golfo de México (temporada junio-noviembre)                 │
- * │ • Incendios forestales en selva y reservas naturales                        │
- * │ • Emergencias petroleras offshore y onshore                                 │
- * │ • Inundaciones costeras y mareas de tormenta                                │
- * │ • Incendios en centro histórico (construcciones coloniales)                 │
- * │ • Emergencias en zonas arqueológicas remotas                                │
- * │ • Accidentes en carretera transpeninsular (Escárcega-Chetumal)              │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * Información actualizada y optimizada para directorio profesional
- * Última actualización: 2024
- *
- * ═══════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
-/**
- * Base de datos de estaciones de bomberos de Campeche
- * 7 estaciones cubriendo los 13 municipios del estado
- */
+
 export const estacionesCampeche: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   // CAMPECHE - CAPITAL DEL ESTADO (1 estación)
@@ -598,39 +530,22 @@ export const estacionesCampeche: Estacion[] = [
 // FUNCIONES AUXILIARES PARA DIRECTORIO DE CAMPECHE
 // ═══════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtener estación por slug
- * @param slug - Identificador único URL-friendly
- * @returns Estación encontrada o undefined
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesCampeche.find((e) => e.slug === slug);
 }
 
-/**
- * Obtener estaciones por municipio
- * @param municipio - Nombre del municipio
- * @returns Array de estaciones en el municipio
- */
+
 export function getEstacionesByMunicipio(municipio: string): Estacion[] {
   return estacionesCampeche.filter((e) => e.municipio === municipio);
 }
 
-/**
- * Obtener todos los municipios únicos con estaciones
- * @returns Array de nombres de municipios ordenados alfabéticamente
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesCampeche.map((e) => e.municipio))].sort();
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- * Prioriza estaciones del mismo municipio
- * @param slug - Slug de la estación actual
- * @param limit - Número máximo de estaciones a retornar
- * @returns Array de estaciones cercanas
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -647,19 +562,12 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
   return [...mismoMunicipio, ...otrosMunicipios].slice(0, limit);
 }
 
-/**
- * Obtener estaciones por ciudad
- * @param ciudad - Nombre de la ciudad
- * @returns Array de estaciones en la ciudad
- */
+
 export function getEstacionesByCiudad(ciudad: string): Estacion[] {
   return estacionesCampeche.filter((e) => e.ciudad === ciudad);
 }
 
-/**
- * Estadísticas agregadas del estado de Campeche
- * @returns Objeto con estadísticas para SEO y visualización
- */
+
 export function getEstadisticas() {
   const totalEstaciones = estacionesCampeche.length;
   const totalPersonal = estacionesCampeche.reduce(
@@ -679,11 +587,7 @@ export function getEstadisticas() {
   };
 }
 
-/**
- * Obtener estaciones con capacidad HAZMAT
- * Útil para emergencias industriales petroleras
- * @returns Array de estaciones con certificación HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesCampeche.filter(
     (e) =>
@@ -692,11 +596,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtener estaciones con capacidad forestal
- * Útil para temporada de incendios
- * @returns Array de estaciones con equipo forestal
- */
+
 export function getEstacionesForestales(): Estacion[] {
   return estacionesCampeche.filter(
     (e) =>
@@ -705,10 +605,7 @@ export function getEstacionesForestales(): Estacion[] {
   );
 }
 
-/**
- * Obtener estaciones con capacidad de rescate acuático
- * @returns Array de estaciones con equipo marítimo/fluvial
- */
+
 export function getEstacionesRescateAcuatico(): Estacion[] {
   return estacionesCampeche.filter(
     (e) =>

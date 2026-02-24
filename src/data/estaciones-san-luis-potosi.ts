@@ -1,47 +1,4 @@
-/**
- * ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
- * ║                                                                                                          ║
- * ║   ESTACIONES DE BOMBEROS - SAN LUIS POTOSÍ                                                              ║
- * ║   ══════════════════════════════════════════════════════════════════════════════════════════════════════║
- * ║                                                                                                          ║
- * ║   "El Corazón de México" - Encrucijada Industrial y Cultural                                            ║
- * ║                                                                                                          ║
- * ║   Capital: San Luis Potosí | Población: 2,822,255 (2020)                                                ║
- * ║   Superficie: 60,983 km² | Altitud: 1,860 msnm                                                          ║
- * ║                                                                                                          ║
- * ║   ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐   ║
- * ║   │ CLÚSTER AUTOMOTRIZ                                                                               │   ║
- * ║   │ • BMW Group Plant San Luis Potosí (Serie 3, 2 Coupé)                                            │   ║
- * ║   │ • General Motors Complejo San Luis Potosí                                                        │   ║
- * ║   │ • 300+ proveedores tier 1, 2 y 3                                                                 │   ║
- * ║   │ • 45,000+ empleos directos en automotriz                                                         │   ║
- * ║   │ • $8,000 millones USD en exportaciones anuales                                                   │   ║
- * ║   └─────────────────────────────────────────────────────────────────────────────────────────────────┘   ║
- * ║                                                                                                          ║
- * ║   ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐   ║
- * ║   │ PATRIMONIO UNESCO                                                                                │   ║
- * ║   │ • Centro Histórico de San Luis Potosí (en Lista Tentativa)                                      │   ║
- * ║   │ • Camino Real de Tierra Adentro (2010) - Ruta compartida                                        │   ║
- * ║   └─────────────────────────────────────────────────────────────────────────────────────────────────┘   ║
- * ║                                                                                                          ║
- * ║   ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐   ║
- * ║   │ HUASTECA POTOSINA                                                                                │   ║
- * ║   │ • Cascada de Tamul (105m - más alta de SLP)                                                     │   ║
- * ║   │ • Sótano de las Golondrinas (512m profundidad)                                                  │   ║
- * ║   │ • 2,000,000+ visitantes anuales                                                                  │   ║
- * ║   │ • Ríos para rafting, rappel, espeleología                                                        │   ║
- * ║   └─────────────────────────────────────────────────────────────────────────────────────────────────┘   ║
- * ║                                                                                                          ║
- * ║   ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐   ║
- * ║   │ PUEBLOS MÁGICOS (4)                                                                              │   ║
- * ║   │ • Real de Catorce - Pueblo fantasma minero, turismo místico                                     │   ║
- * ║   │ • Xilitla - Jardín surrealista Edward James                                                      │   ║
- * ║   │ • Aquismón - Puerta de la Huasteca                                                               │   ║
- * ║   │ • Santa María del Río - Rebozos patrimonio                                                       │   ║
- * ║   └─────────────────────────────────────────────────────────────────────────────────────────────────┘   ║
- * ║                                                                                                          ║
- * ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝
- */
+
 
 import type { Estacion } from './types';
 
@@ -1474,16 +1431,12 @@ export const estacionesSanLuisPotosi: Estacion[] = [
 // ║ FUNCIONES DE UTILIDAD AVANZADAS                                                                          ║
 // ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-/**
- * Obtiene estaciones por zona geográfica
- */
+
 export function getEstacionesPorZona(zona: string): Estacion[] {
   return estacionesSanLuisPotosi.filter(e => e.zona === zona);
 }
 
-/**
- * Obtiene estaciones HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesSanLuisPotosi.filter(e =>
     e.servicios?.some(s => s.toLowerCase().includes("hazmat")) ||
@@ -1491,9 +1444,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con rescate espeleológico
- */
+
 export function getEstacionesEspeleologia(): Estacion[] {
   return estacionesSanLuisPotosi.filter(e =>
     e.servicios?.some(s => s.toLowerCase().includes("espeleolog")) ||
@@ -1504,9 +1455,7 @@ export function getEstacionesEspeleologia(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con swift water rescue
- */
+
 export function getEstacionesSwiftWater(): Estacion[] {
   return estacionesSanLuisPotosi.filter(e =>
     e.servicios?.some(s =>
@@ -1516,16 +1465,12 @@ export function getEstacionesSwiftWater(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones bilingües
- */
+
 export function getEstacionesBilingues(): Estacion[] {
   return estacionesSanLuisPotosi.filter(e => e.idiomas?.includes("Inglés"));
 }
 
-/**
- * Obtiene estaciones por municipio
- */
+
 export function getEstacionesPorMunicipio(municipio: string): Estacion[] {
   return estacionesSanLuisPotosi.filter(e =>
     e.municipiosCubiertos?.some(m =>
@@ -1534,16 +1479,12 @@ export function getEstacionesPorMunicipio(municipio: string): Estacion[] {
   );
 }
 
-/**
- * Obtiene protocolo por código
- */
+
 export function getProtocolo(codigo: string): ProtocoloEmergencia | undefined {
   return PROTOCOLOS_SLP.find(p => p.codigo === codigo);
 }
 
-/**
- * Obtiene alertas activas por zona
- */
+
 export function getAlertasActivas(zona?: string): Array<{
   mensaje: string;
   tipo: string;
@@ -1572,9 +1513,7 @@ export function getAlertasActivas(zona?: string): Array<{
   );
 }
 
-/**
- * Genera schema de estación para SEO
- */
+
 export function generarSchemaEstacion(estacion: Estacion) {
   return {
     "@context": "https://schema.org",
@@ -1600,9 +1539,7 @@ export function generarSchemaEstacion(estacion: Estacion) {
   };
 }
 
-/**
- * Genera interlinking completo con métricas
- */
+
 export function generarInterlinking() {
   return {
     estados: SAN_LUIS_POTOSI_SEO.interlinking.estadosVecinos,
@@ -1611,39 +1548,29 @@ export function generarInterlinking() {
   };
 }
 
-/**
- * Obtiene plantas automotrices principales
- */
+
 export function getPlantasAutomotrices() {
   return INDUSTRIA_AUTOMOTRIZ_SLP.plantasPrincipales;
 }
 
-/**
- * Obtiene estadísticas industria
- */
+
 export function getEstadisticasIndustria() {
   return INDUSTRIA_AUTOMOTRIZ_SLP.resumen;
 }
 
-/**
- * Obtiene atracciones Huasteca
- */
+
 export function getAtraccionesHuasteca() {
   return TURISMO_SLP.huastecaPotosina.atraccionesIconicas;
 }
 
-/**
- * Obtiene pueblos mágicos
- */
+
 export function getPueblosMagicos() {
   return TURISMO_SLP.pueblosMagicos;
 }
 
 // ─── Funciones Estándar para Layout ──────────────────────────────────────────
 
-/**
- * Obtiene lista única de municipios/ciudades
- */
+
 export function getMunicipios(): string[] {
   const ciudades = estacionesSanLuisPotosi.map(e => {
     if (e.municipiosCubiertos && e.municipiosCubiertos.length > 0) {
@@ -1654,16 +1581,12 @@ export function getMunicipios(): string[] {
   return [...new Set(ciudades)].filter(Boolean).sort();
 }
 
-/**
- * Obtiene una estación por su slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesSanLuisPotosi.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas basadas en la misma zona
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

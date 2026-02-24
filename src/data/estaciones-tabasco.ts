@@ -1,14 +1,4 @@
-/**
- * BOMBEROS DE TABASCO (TAB) - DIRECTORIO OFICIAL
- * Base de datos completa del H. Cuerpo de Bomberos de Tabasco
- * Capital: Villahermosa | Código: TAB | Región: Sureste de México
- * 17 Estaciones | 680 Bomberos | Estado más inundable de México
- *
- * Industrias clave: Petróleo y gas (25-30% producción nacional PEMEX),
- * Refinería Olmeca Dos Bocas (megaproyecto nacional), Cacao #1 México,
- * Ganadería, Agricultura tropical, Turismo arqueológico (Olmeca/La Venta)
- * Pantanos de Centla (reserva biósfera más grande del sureste)
- */
+
 
 import type { Estacion } from './types';
 

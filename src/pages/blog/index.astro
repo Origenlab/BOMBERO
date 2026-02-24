@@ -1,9 +1,5 @@
 ---
-/**
- * ─── Blog Index ───
- * Página principal del blog con listado de artículos.
- * URL: /blog
- */
+
 import PageLayout from "@layouts/PageLayout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
@@ -13,16 +9,16 @@ import BlogSearch from "@components/BlogSearch.astro";
 import { cdnW } from "@utils/cdn";
 import { getAllArticulos } from "@data/blog-articulos";
 
-/* ── Configuración de paginación ── */
+
 const ARTICLES_PER_PAGE = 6;
 const currentPage = 1;
 
-/* ── Obtener artículos paginados ── */
+
 const allArticulos = getAllArticulos();
 const totalPages = Math.ceil(allArticulos.length / ARTICLES_PER_PAGE);
 const articulos = allArticulos.slice(0, ARTICLES_PER_PAGE);
 
-/* ── Categorías con conteo dinámico ── */
+
 const catsList = [
   { label: "Normativas", slug: "normativas" },
   { label: "Mantenimiento", slug: "mantenimiento" },
@@ -53,9 +49,9 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
   <Breadcrumb items={breadcrumb} />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- HERO                                                             -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="blog-index-hero">
     <div class="blog-index-hero__bg">
       <div class="blog-index-hero__gradient"></div>
@@ -110,13 +106,13 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYOUT PRINCIPAL — ARTÍCULOS + SIDEBAR                          -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <div class="blog-index-layout">
     <div class="container blog-index-layout__inner">
 
-      <!-- ─── COLUMNA PRINCIPAL ─── -->
+
       <main class="blog-index-main">
 
         <SectionHeader
@@ -164,7 +160,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           ))}
         </div>
 
-        <!-- Paginación -->
+
         {totalPages > 1 && (
           <Pagination
             currentPage={currentPage}
@@ -175,10 +171,10 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
       </main>
 
-      <!-- ─── SIDEBAR ─── -->
+
       <aside class="blog-index-sidebar">
 
-        <!-- BÚSQUEDA -->
+
         <div class="sb-card sb-card--search">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -191,7 +187,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           </a>
         </div>
 
-        <!-- CTA COTIZAR -->
+
         <div class="sb-card sb-card--cta">
           <h3 class="sb-card__title">Catálogo de Productos</h3>
           <p class="sb-card__text">Equipo certificado NFPA listo para envío a toda la República.</p>
@@ -207,7 +203,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           </div>
         </div>
 
-        <!-- CATEGORÍAS -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -225,7 +221,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           </ul>
         </div>
 
-        <!-- PRODUCTOS DESTACADOS -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
@@ -256,7 +252,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           <a href="/productos/" class="sb-see-all">Ver catálogo completo →</a>
         </div>
 
-        <!-- DIRECTORIO -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -287,9 +283,9 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- EQUIPO COMPLEMENTARIO                                           -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="epp-section">
     <div class="container">
       <SectionHeader
@@ -302,7 +298,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
       </SectionHeader>
 
       <div class="epp-grid">
-        <!-- Cascos -->
+
         <article class="epp-card">
           <div class="epp-card__img-wrap">
             <img src={cdnW("/images/directorio/casco-bombero-proteccion-cabeza-01.avif", 400)} alt="Cascos para Bombero" width="400" height="225" loading="lazy" class="epp-card__img" />
@@ -319,7 +315,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           </div>
         </article>
 
-        <!-- Guantes -->
+
         <article class="epp-card">
           <div class="epp-card__img-wrap">
             <img src={cdnW("/images/directorio/guantes-bombero-resistentes-01.avif", 400)} alt="Guantes para Bombero" width="400" height="225" loading="lazy" class="epp-card__img" />
@@ -336,7 +332,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           </div>
         </article>
 
-        <!-- Botas -->
+
         <article class="epp-card">
           <div class="epp-card__img-wrap">
             <img src={cdnW("/images/directorio/botas-bombero-proteccion-01.avif", 400)} alt="Botas para Bombero" width="400" height="225" loading="lazy" class="epp-card__img" />
@@ -352,7 +348,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           </div>
         </article>
 
-        <!-- Capuchas -->
+
         <article class="epp-card">
           <div class="epp-card__img-wrap">
             <img src={cdnW("/images/directorio/capucha-bombero-nomex-01.avif", 400)} alt="Capuchas para Bombero" width="400" height="225" loading="lazy" class="epp-card__img" />
@@ -382,9 +378,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 </PageLayout>
 
 <style>
-  /* ══════════════════════════════════════════════════════════════════════
-     HERO
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-index-hero {
     position: relative;
     display: flex;
@@ -426,7 +420,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
   .blog-index-hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
   .blog-index-hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
 
-  /* Hero Container - dos columnas (igual que index.astro) */
+
   .hero__container {
     position: relative;
     display: grid;
@@ -489,7 +483,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     margin-bottom: var(--space-12);
   }
 
-  /* Hero SEO - columna derecha con dos bloques */
+
   .hero__seo {
     display: flex;
     flex-direction: column;
@@ -519,9 +513,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     font-weight: 600;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     LAYOUT PRINCIPAL
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-index-layout {
     background: var(--color-smoke-50);
     padding: var(--space-12) 0 var(--space-16);
@@ -540,9 +532,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     gap: var(--space-8);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     GRID DE ARTÍCULOS
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -644,9 +634,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     flex-shrink: 0;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     SIDEBAR
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-index-sidebar {
     display: flex;
     flex-direction: column;
@@ -813,9 +801,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     color: var(--color-ember-700);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     EQUIPO COMPLEMENTARIO (EPP)
-     ══════════════════════════════════════════════════════════════════════ */
+
   .epp-section {
     padding: var(--space-20) 0;
     background: white;
@@ -885,9 +871,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     padding-bottom: 2px;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     RESPONSIVE
-     ══════════════════════════════════════════════════════════════════════ */
+
   @media (max-width: 1024px) {
     .hero__container {
       grid-template-columns: 1fr;

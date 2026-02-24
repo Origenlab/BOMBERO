@@ -1,35 +1,4 @@
-/**
- * ═══════════════════════════════════════════════════════════════════════════════════════════════════════
- * ESTACIONES DE BOMBEROS - QUINTANA ROO
- * ═══════════════════════════════════════════════════════════════════════════════════════════════════════
- * "El Caribe Mexicano" - Destino Turístico #1 de Latinoamérica
- * Capital: Chetumal | Población: 1,857,985 (2020)
- *
- * DATOS CLAVE INDUSTRIA TURÍSTICA:
- * ────────────────────────────────────────────────────────────────────────────────────────────────────────
- * • Aeropuerto Cancún: 25+ millones de pasajeros/año (Top 2 Latinoamérica)
- * • Zona Hotelera Cancún: 30,000+ habitaciones, 150+ resorts
- * • Riviera Maya: 60,000+ habitaciones totales
- * • Puerto Cozumel: 4+ millones de cruceristas/año (Top 3 mundial)
- * • PIB Turístico: $18,000 millones USD/año (35% del PIB estatal)
- * • Empleos Turísticos: 500,000+ directos e indirectos
- *
- * PATRIMONIO Y NATURALEZA:
- * ────────────────────────────────────────────────────────────────────────────────────────────────────────
- * • Reserva Sian Ka'an UNESCO (1987) - 528,000 hectáreas
- * • Gran Arrecife Maya - 2do más grande del mundo (1,000 km)
- * • 6,000+ cenotes registrados
- * • 5 Parques Nacionales y Áreas Protegidas
- *
- * RIESGOS PRINCIPALES:
- * ────────────────────────────────────────────────────────────────────────────────────────────────────────
- * • Temporada de Huracanes: Junio-Noviembre (Categoría 5 históricos)
- * • Rescate Acuático: Playas, cenotes, deportes náuticos
- * • Incendios Hoteleros: Alta ocupación, cocinas industriales
- * • HAZMAT: Combustibles náuticos, químicos hoteleros
- * • Emergencias Masivas: Eventos con 50,000+ asistentes
- * ═══════════════════════════════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
@@ -1406,16 +1375,12 @@ export const estacionesQuintanaRoo: Estacion[] = [
 // FUNCIONES DE UTILIDAD AVANZADAS
 // ═══════════════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones por zona geográfica
- */
+
 export function getEstacionesPorZona(zona: string): Estacion[] {
   return estacionesQuintanaRoo.filter(e => e.zona === zona);
 }
 
-/**
- * Obtiene estaciones con servicio bilingüe
- */
+
 export function getEstacionesBilingues(): Estacion[] {
   return estacionesQuintanaRoo.filter(e =>
     e.idiomas?.includes("Inglés") ||
@@ -1423,9 +1388,7 @@ export function getEstacionesBilingues(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con rescate acuático
- */
+
 export function getEstacionesRescateAcuatico(): Estacion[] {
   return estacionesQuintanaRoo.filter(e =>
     e.servicios?.some(s =>
@@ -1436,9 +1399,7 @@ export function getEstacionesRescateAcuatico(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con cobertura hotelera
- */
+
 export function getEstacionesHoteleras(): Estacion[] {
   return estacionesQuintanaRoo.filter(e =>
     e.servicios?.some(s => s.toLowerCase().includes("hotel")) ||
@@ -1450,9 +1411,7 @@ export function getEstacionesHoteleras(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones aeroportuarias
- */
+
 export function getEstacionesAeropuertos(): Estacion[] {
   return estacionesQuintanaRoo.filter(e =>
     e.servicios?.some(s =>
@@ -1463,9 +1422,7 @@ export function getEstacionesAeropuertos(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones de cruceros
- */
+
 export function getEstacionesCruceros(): Estacion[] {
   return estacionesQuintanaRoo.filter(e =>
     e.servicios?.some(s => s.toLowerCase().includes("crucero")) ||
@@ -1473,18 +1430,14 @@ export function getEstacionesCruceros(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones en islas
- */
+
 export function getEstacionesIslas(): Estacion[] {
   return estacionesQuintanaRoo.filter(e =>
     e.zona === "Cozumel" || e.zona === "Isla Mujeres"
   );
 }
 
-/**
- * Genera schema de estación para SEO
- */
+
 export function generarSchemaEstacion(estacion: Estacion) {
   return {
     "@context": "https://schema.org",
@@ -1511,9 +1464,7 @@ export function generarSchemaEstacion(estacion: Estacion) {
   };
 }
 
-/**
- * Genera interlinking completo con métricas
- */
+
 export function generarInterlinking() {
   return {
     estados: QUINTANA_ROO_SEO.interlinking.estadosVecinos,
@@ -1522,9 +1473,7 @@ export function generarInterlinking() {
   };
 }
 
-/**
- * Obtiene alertas activas con soporte bilingüe
- */
+
 export function getAlertasActivas(zona?: string, idioma: "es" | "en" = "es"): Array<{
   mensaje: string;
   tipo: string;
@@ -1556,32 +1505,24 @@ export function getAlertasActivas(zona?: string, idioma: "es" | "en" = "es"): Ar
   );
 }
 
-/**
- * Obtiene FAQ por categoría
- */
+
 export function getFAQPorCategoria(categoria: string) {
   return FAQ_QUINTANA_ROO.filter(faq => faq.categoria === categoria);
 }
 
-/**
- * Obtiene estadísticas de la industria turística
- */
+
 export function getEstadisticasTurismo() {
   return INDUSTRIA_TURISTICA_QR.estadisticas;
 }
 
-/**
- * Obtiene zonas hoteleras con detalles
- */
+
 export function getZonasHoteleras() {
   return INDUSTRIA_TURISTICA_QR.zonasHoteleras;
 }
 
 // ─── Funciones Auxiliares Estándar para Directorio ───────────────────────────
 
-/**
- * Obtiene lista única de municipios/ciudades ordenados alfabéticamente
- */
+
 export function getMunicipios(): string[] {
   const ciudades = estacionesQuintanaRoo.map(e => {
     if (e.municipiosCubiertos && e.municipiosCubiertos.length > 0) {
@@ -1592,16 +1533,12 @@ export function getMunicipios(): string[] {
   return [...new Set(ciudades)].filter(Boolean).sort();
 }
 
-/**
- * Obtiene una estación por su slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesQuintanaRoo.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas (misma zona primero, luego otras)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

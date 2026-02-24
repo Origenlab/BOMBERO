@@ -1,27 +1,12 @@
 ---
-/**
- * ─── BlogLayout ───
- * Layout reutilizable para TODAS las páginas del blog.
- * Contiene toda la estructura HTML y CSS.
- * Los archivos de artículos solo necesitan pasar datos como props — cero CSS.
- *
- * Secciones incluidas:
- *  1. Breadcrumb
- *  2. Hero (badge + título + extracto)
- *  3. Layout principal (main + sidebar)
- *     3a. Contenido del artículo (slot)
- *     3b. Autor y etiquetas
- *  4. Sidebar con enlaces relacionados
- *  5. Artículos relacionados
- *  6. CTABanner
- */
+
 import PageLayout from "@layouts/PageLayout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
 import { cdnW } from "@utils/cdn";
 
-/* ── Tipos ─────────────────────────────────────────────────────────────── */
+
 interface BreadcrumbItem {
   label: string;
   href?: string;
@@ -47,36 +32,36 @@ interface ArticuloRelacionado {
 }
 
 interface Props {
-  /* SEO */
+
   title: string;
   description: string;
   keywords?: string[];
   canonical: string;
   image?: string;
 
-  /* Breadcrumb */
+
   breadcrumb: BreadcrumbItem[];
 
-  /* Hero */
+
   heroBadge: string;
   heroTitle: string;
   heroExcerpt: string;
   heroImage?: string;
 
-  /* Autor (opcional) */
+
   autor?: string;
   autorRol?: string;
 
-  /* Tags/Etiquetas */
+
   tags?: string[];
 
-  /* Sidebar */
+
   categorias?: CategoriaItem[];
   articulosPopulares?: SidebarLinkItem[];
   productosRelacionados?: SidebarLinkItem[];
   directorioLinks?: SidebarLinkItem[];
 
-  /* Artículos relacionados (footer) */
+
   relacionados?: ArticuloRelacionado[];
 }
 
@@ -96,7 +81,7 @@ const {
 const heroImageCdn = heroImage ? cdnW(heroImage, 800) : undefined;
 const relacionadosCdn = relacionados.map(r => ({ ...r, image: cdnW(r.image, 400) }));
 
-/* ── Schema.org BlogPosting ── */
+
 const schemaOrg = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -134,17 +119,17 @@ const schemaOrg = {
   image={image}
 >
 
-  <!-- Schema.org BlogPosting -->
+
   <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- BREADCRUMB                                                       -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <Breadcrumb items={breadcrumb} />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- HERO                                                             -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="blog-hero">
     <div class="blog-hero__bg">
       <div class="blog-hero__gradient"></div>
@@ -185,16 +170,16 @@ const schemaOrg = {
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYOUT PRINCIPAL — CONTENIDO + SIDEBAR                          -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <div class="blog-layout">
     <div class="container blog-layout__inner">
 
-      <!-- ─── COLUMNA PRINCIPAL ─── -->
+
       <main class="blog-main">
 
-        <!-- CONTENIDO DEL ARTÍCULO -->
+
         <article class="blog-article">
           <div class="blog-article__content prose">
             <slot />
@@ -230,7 +215,7 @@ const schemaOrg = {
           )}
         </article>
 
-        <!-- CTA DENTRO DEL ARTÍCULO -->
+
         <div class="blog-cta-inline">
           <div class="blog-cta-inline__icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -249,10 +234,10 @@ const schemaOrg = {
 
       </main>
 
-      <!-- ─── SIDEBAR ─── -->
+
       <aside class="blog-sidebar">
 
-        <!-- CTA COTIZAR -->
+
         <div class="sb-card sb-card--cta">
           <h3 class="sb-card__title">Catálogo Completo</h3>
           <p class="sb-card__text">Equipo certificado NFPA listo para envío a toda la República.</p>
@@ -272,7 +257,7 @@ const schemaOrg = {
           </div>
         </div>
 
-        <!-- CATEGORÍAS -->
+
         {categorias.length > 0 && (
           <div class="sb-card">
             <h3 class="sb-card__title sb-card__title--dark">
@@ -292,7 +277,7 @@ const schemaOrg = {
           </div>
         )}
 
-        <!-- ARTÍCULOS POPULARES -->
+
         {articulosPopulares.length > 0 && (
           <div class="sb-card">
             <h3 class="sb-card__title sb-card__title--dark">
@@ -313,7 +298,7 @@ const schemaOrg = {
           </div>
         )}
 
-        <!-- PRODUCTOS RELACIONADOS -->
+
         {productosRelacionados.length > 0 && (
           <div class="sb-card">
             <h3 class="sb-card__title sb-card__title--dark">
@@ -334,7 +319,7 @@ const schemaOrg = {
           </div>
         )}
 
-        <!-- DIRECTORIO DE BOMBEROS -->
+
         {directorioLinks.length > 0 && (
           <div class="sb-card">
             <h3 class="sb-card__title sb-card__title--dark">
@@ -359,9 +344,9 @@ const schemaOrg = {
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- ARTÍCULOS RELACIONADOS                                           -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   {relacionadosCdn.length > 0 && (
     <section class="blog-relacionados">
       <div class="container">
@@ -401,7 +386,7 @@ const schemaOrg = {
     </section>
   )}
 
-  <!-- CTA BANNER FINAL -->
+
   <CTABanner
     title="Explora Nuestro Catálogo Completo"
     btnText="Ver Productos"
@@ -411,9 +396,7 @@ const schemaOrg = {
 </PageLayout>
 
 <style>
-  /* ══════════════════════════════════════════════════════════════════════
-     HERO
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-hero {
     position: relative;
     display: flex;
@@ -534,9 +517,7 @@ const schemaOrg = {
     aspect-ratio: 16/9;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     LAYOUT PRINCIPAL CON SIDEBAR
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-layout {
     background: var(--color-smoke-50);
     padding: var(--space-12) 0 var(--space-16);
@@ -555,9 +536,7 @@ const schemaOrg = {
     gap: var(--space-8);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     ARTÍCULO
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-article {
     background: white;
     border-radius: var(--radius-2xl);
@@ -570,7 +549,7 @@ const schemaOrg = {
     padding: var(--space-10);
   }
 
-  /* ── Prose styles para contenido Markdown ── */
+
   .prose {
     font-size: var(--text-base);
     color: var(--color-smoke-700);
@@ -702,7 +681,7 @@ const schemaOrg = {
     color: var(--color-smoke-800);
   }
 
-  /* ── Footer del artículo ── */
+
   .blog-article__footer {
     display: flex;
     align-items: center;
@@ -779,7 +758,7 @@ const schemaOrg = {
     padding: 4px 10px;
   }
 
-  /* ── CTA Inline ── */
+
   .blog-cta-inline {
     display: flex;
     align-items: center;
@@ -837,9 +816,7 @@ const schemaOrg = {
     transform: translateY(-1px);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     SIDEBAR (reutilizando clases de ProductoLayout)
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-sidebar {
     display: flex;
     flex-direction: column;
@@ -919,7 +896,7 @@ const schemaOrg = {
 
   .sb-contact--wa { color: #86efac; }
 
-  /* ── Categorías ── */
+
   .sb-cats {
     list-style: none;
     padding: 0;
@@ -952,7 +929,7 @@ const schemaOrg = {
     border-radius: var(--radius-full);
   }
 
-  /* ── Links ── */
+
   .sb-links {
     list-style: none;
     padding: 0;
@@ -987,9 +964,7 @@ const schemaOrg = {
     border-top: 1px solid var(--color-smoke-100);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     ARTÍCULOS RELACIONADOS
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-relacionados {
     padding: var(--space-20) 0;
     background: white;
@@ -1066,9 +1041,7 @@ const schemaOrg = {
     text-decoration: none;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     RESPONSIVE
-     ══════════════════════════════════════════════════════════════════════ */
+
   @media (max-width: 1024px) {
     .blog-hero__container {
       grid-template-columns: 1fr;

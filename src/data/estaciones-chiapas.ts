@@ -1,134 +1,8 @@
-/**
- * ══════════════════════════════════════════════════════════════════════════════
- * DIRECTORIO DE ESTACIONES DE BOMBEROS - CHIAPAS (CHIS)
- * ══════════════════════════════════════════════════════════════════════════════
- *
- * Archivo de datos optimizado para SEO y marketing digital.
- * Estado: Chiapas | Abreviatura: CHIS | Capital: Tuxtla Gutiérrez
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PERFIL ESTRATÉGICO DE CHIAPAS                           │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │ Población:           5,543,828 habitantes (2020)                           │
- * │ Superficie:          73,289 km² (8° más grande de México)                  │
- * │ Municipios:          124 municipios                                         │
- * │ Densidad:            75.6 hab/km²                                          │
- * │ PIB Estatal:         $380,000 MDP (turismo, café, agricultura)             │
- * │ Turistas anuales:    4.5+ millones (nacionales e internacionales)          │
- * │ Frontera:            Guatemala (658 km de frontera internacional)          │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PATRIMONIO UNESCO Y PUEBLOS MÁGICOS                      │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │ UNESCO:                                                                     │
- * │   • Zona Arqueológica de Palenque (1987) - Ciudad maya clásica              │
- * │   • Selva Lacandona - Reserva de la Biosfera Montes Azules                  │
- * │                                                                             │
- * │ PUEBLOS MÁGICOS (5):                                                        │
- * │   1. San Cristóbal de las Casas - Capital cultural del sureste             │
- * │   2. Chiapa de Corzo - Cañón del Sumidero, Fiesta Grande                   │
- * │   3. Comitán de Domínguez - Lagos de Montebello                            │
- * │   4. Palenque - Zona arqueológica maya                                      │
- * │   5. San Juan Chamula - Tradiciones tzotziles                              │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    KEYWORDS SEO PRINCIPALES                                 │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │ Geográficos:                                                                │
- * │   • Bomberos Tuxtla Gutiérrez, Bomberos San Cristóbal de las Casas         │
- * │   • Bomberos Tapachula, Bomberos Palenque, Bomberos Comitán                │
- * │   • Emergencias Chiapas, 911 Chiapas                                        │
- * │                                                                             │
- * │ Turísticos:                                                                 │
- * │   • Emergencias Cañón del Sumidero, Bomberos Cascadas Agua Azul            │
- * │   • Rescate Lagos de Montebello, Emergencias Selva Lacandona               │
- * │   • Bomberos zona arqueológica Palenque                                     │
- * │                                                                             │
- * │ Especializados:                                                             │
- * │   • Bomberos incendios forestales Chiapas, Rescate selva Lacandona         │
- * │   • Emergencias frontera Guatemala, HAZMAT Reforma Chiapas                 │
- * │   • Rescate acuático ríos Chiapas, Bomberos huracanes Chiapas              │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    ANÁLISIS DE RIESGOS POR ZONA                            │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │ ZONA METROPOLITANA (Tuxtla, Chiapa de Corzo):                              │
- * │   • Incendios urbanos, accidentes vehiculares, emergencias médicas         │
- * │   • Rescate en Cañón del Sumidero (turistas)                               │
- * │   • Temporada de lluvias: inundaciones río Grijalva                        │
- * │                                                                             │
- * │ LOS ALTOS (San Cristóbal, Chamula, Zinacantán):                            │
- * │   • Incendios forestales en temporada seca (febrero-mayo)                  │
- * │   • Hipotermia turistas (altitud 2,200 msnm)                               │
- * │   • Accidentes carreteros en neblina                                       │
- * │                                                                             │
- * │ SELVA LACANDONA (Palenque, Ocosingo, Las Margaritas):                      │
- * │   • Incendios forestales masivos                                           │
- * │   • Rescate en zonas arqueológicas                                         │
- * │   • Tiempos de respuesta extendidos (comunidades aisladas)                 │
- * │   • Fauna peligrosa (serpientes, jaguares)                                 │
- * │                                                                             │
- * │ SOCONUSCO (Tapachula, Huixtla, frontera Guatemala):                        │
- * │   • Huracanes del Pacífico (temporada junio-noviembre)                     │
- * │   • Inundaciones río Suchiate                                              │
- * │   • Emergencias migratorias                                                │
- * │   • Incendios en plantaciones de café                                      │
- * │                                                                             │
- * │ COSTA DEL PACÍFICO (Tonalá, Arriaga):                                      │
- * │   • Huracanes y marejadas                                                  │
- * │   • Rescate acuático en playas                                             │
- * │   • Accidentes en carretera costera                                        │
- * │                                                                             │
- * │ ZONA PETROLERA (Reforma, Pichucalco):                                      │
- * │   • Emergencias HAZMAT en instalaciones PEMEX                              │
- * │   • Incendios industriales                                                 │
- * │   • Derrames de hidrocarburos                                              │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    DISTRIBUCIÓN DE 18 ESTACIONES                           │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  #  │ ESTACIÓN                    │ MUNICIPIO           │ PERSONAL │ TIPO  │
- * ├─────┼─────────────────────────────┼─────────────────────┼──────────┼───────┤
- * │  1  │ Central Tuxtla Gutiérrez    │ Tuxtla Gutiérrez    │    95    │ CENT  │
- * │  2  │ Tuxtla Norte                │ Tuxtla Gutiérrez    │    42    │ DIST  │
- * │  3  │ Tuxtla Oriente              │ Tuxtla Gutiérrez    │    38    │ DIST  │
- * │  4  │ San Cristóbal de las Casas  │ San Cristóbal       │    65    │ MUNI  │
- * │  5  │ Tapachula Central           │ Tapachula           │    78    │ MUNI  │
- * │  6  │ Tapachula Puerto Chiapas    │ Tapachula           │    35    │ DIST  │
- * │  7  │ Comitán de Domínguez        │ Comitán             │    45    │ MUNI  │
- * │  8  │ Palenque                    │ Palenque            │    52    │ MUNI  │
- * │  9  │ Ocosingo                    │ Ocosingo            │    38    │ MUNI  │
- * │ 10  │ Chiapa de Corzo             │ Chiapa de Corzo     │    42    │ MUNI  │
- * │ 11  │ Tonalá                      │ Tonalá              │    32    │ MUNI  │
- * │ 12  │ Villaflores                 │ Villaflores         │    28    │ MUNI  │
- * │ 13  │ Arriaga                     │ Arriaga             │    25    │ MUNI  │
- * │ 14  │ Huixtla                     │ Huixtla             │    30    │ MUNI  │
- * │ 15  │ Pichucalco                  │ Pichucalco          │    35    │ MUNI  │
- * │ 16  │ Reforma                     │ Reforma             │    48    │ MUNI  │
- * │ 17  │ Las Margaritas              │ Las Margaritas      │    32    │ MUNI  │
- * │ 18  │ Cintalapa                   │ Cintalapa           │    28    │ MUNI  │
- * ├─────┴─────────────────────────────┴─────────────────────┼──────────┼───────┤
- * │                                            TOTAL:       │   788    │  18   │
- * └─────────────────────────────────────────────────────────┴──────────┴───────┘
- *
- * @version 2.0.0
- * @author BOMBERO.MX
- * @license MIT
- * @seo-optimized true
- * @marketing-ready true
- */
+
 
 import type { Estacion } from "./types";
 
-/**
- * ══════════════════════════════════════════════════════════════════════════════
- * CONSTANTES SEO Y MARKETING
- * ══════════════════════════════════════════════════════════════════════════════
- */
+
 export const CHIAPAS_SEO = {
   estado: "Chiapas",
   abreviatura: "CHIS",
@@ -199,11 +73,7 @@ export const CHIAPAS_SEO = {
   ],
 };
 
-/**
- * ══════════════════════════════════════════════════════════════════════════════
- * DATOS DE LAS 18 ESTACIONES DE BOMBEROS DE CHIAPAS
- * ══════════════════════════════════════════════════════════════════════════════
- */
+
 export const estacionesChiapas: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════
   // ESTACIÓN 1: CENTRAL TUXTLA GUTIÉRREZ
@@ -1520,37 +1390,23 @@ export const estacionesChiapas: Estacion[] = [
   },
 ];
 
-/**
- * ══════════════════════════════════════════════════════════════════════════════
- * FUNCIONES HELPER PARA SEO Y MARKETING
- * ══════════════════════════════════════════════════════════════════════════════
- */
 
-/**
- * Obtiene una estación por su slug (para routing dinámico)
- */
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesChiapas.find((estacion) => estacion.slug === slug);
 }
 
-/**
- * Obtiene lista única de municipios con estaciones
- */
+
 export function getMunicipios(): string[] {
   const municipios = [...new Set(estacionesChiapas.map((e) => e.municipio))];
   return municipios.sort();
 }
 
-/**
- * Obtiene estaciones por municipio
- */
+
 export function getEstacionesByMunicipio(municipio: string): Estacion[] {
   return estacionesChiapas.filter((e) => e.municipio === municipio);
 }
 
-/**
- * Obtiene estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(
   slugActual: string,
   limite: number = 4
@@ -1560,9 +1416,7 @@ export function getEstacionesCercanas(
     .slice(0, limite);
 }
 
-/**
- * Calcula estadísticas generales para SEO
- */
+
 export function getEstadisticas() {
   const totalEstaciones = estacionesChiapas.length;
   const totalPersonal = estacionesChiapas.reduce(
@@ -1590,16 +1444,7 @@ export function getEstadisticas() {
   };
 }
 
-/**
- * ══════════════════════════════════════════════════════════════════════════════
- * FUNCIONES ESPECIALIZADAS POR TIPO DE EMERGENCIA
- * (Útiles para contenido SEO y páginas de servicios)
- * ══════════════════════════════════════════════════════════════════════════════
- */
 
-/**
- * Obtiene estaciones con capacidad HAZMAT
- */
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesChiapas.filter(
     (e) =>
@@ -1617,9 +1462,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con brigadas forestales
- */
+
 export function getEstacionesForestales(): Estacion[] {
   return estacionesChiapas.filter(
     (e) =>
@@ -1632,9 +1475,7 @@ export function getEstacionesForestales(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con rescate acuático
- */
+
 export function getEstacionesRescateAcuatico(): Estacion[] {
   return estacionesChiapas.filter(
     (e) =>
@@ -1652,9 +1493,7 @@ export function getEstacionesRescateAcuatico(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones turísticas (Pueblos Mágicos y zonas arqueológicas)
- */
+
 export function getEstacionesTuristicas(): Estacion[] {
   const municipiosTuristicos = [
     "San Cristóbal de las Casas",
@@ -1674,9 +1513,7 @@ export function getEstacionesTuristicas(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones fronterizas
- */
+
 export function getEstacionesFronterizas(): Estacion[] {
   return estacionesChiapas.filter(
     (e) =>
@@ -1694,9 +1531,7 @@ export function getEstacionesFronterizas(): Estacion[] {
   );
 }
 
-/**
- * Genera metadatos SEO para una estación específica
- */
+
 export function generarMetaSEO(estacion: Estacion) {
   return {
     title: `${estacion.nombreCorto} | Bomberos ${estacion.municipio}, Chiapas | BOMBERO.MX`,

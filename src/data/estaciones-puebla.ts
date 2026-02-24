@@ -1,13 +1,4 @@
-/**
- * ═══════════════════════════════════════════════════════════════════════════════
- * ESTACIONES DE BOMBEROS - PUEBLA
- * ═══════════════════════════════════════════════════════════════════════════════
- * Estado industrial con importante patrimonio histórico
- * Capital: Puebla de Zaragoza | Población: 6,583,278 (2020)
- * Patrimonio: Centro Histórico UNESCO + Cholula + Pueblos Mágicos
- * Industria: Volkswagen, Audi, sector textil, química
- * ═══════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
@@ -955,16 +946,12 @@ export const estacionesPuebla: Estacion[] = [
 
 // ─── Funciones de Utilidad ───────────────────────────────────────────────────
 
-/**
- * Obtiene estaciones por zona geográfica
- */
+
 export function getEstacionesPorZona(zona: string): Estacion[] {
   return estacionesPuebla.filter(e => e.zona === zona);
 }
 
-/**
- * Obtiene estaciones HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesPuebla.filter(e =>
     e.servicios.some(s => s.toLowerCase().includes("hazmat")) ||
@@ -972,16 +959,12 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones industriales
- */
+
 export function getEstacionesIndustriales(): Estacion[] {
   return estacionesPuebla.filter(e => e.zona === "Zona Industrial Automotriz");
 }
 
-/**
- * Obtiene estaciones volcánicas (Popocatépetl)
- */
+
 export function getEstacionesVolcanicas(): Estacion[] {
   return estacionesPuebla.filter(e =>
     e.servicios?.some(s =>
@@ -995,18 +978,14 @@ export function getEstacionesVolcanicas(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones en Pueblos Mágicos
- */
+
 export function getEstacionesPueblosMagicos(): Estacion[] {
   return estacionesPuebla.filter(e =>
     e.caracteristicasEspeciales?.some(c => c.toLowerCase().includes("pueblo mágico"))
   );
 }
 
-/**
- * Obtiene estaciones carreteras
- */
+
 export function getEstacionesCarreteras(): Estacion[] {
   return estacionesPuebla.filter(e =>
     e.servicios?.some(s =>
@@ -1016,9 +995,7 @@ export function getEstacionesCarreteras(): Estacion[] {
   );
 }
 
-/**
- * Genera schema de estación para SEO
- */
+
 export function generarSchemaEstacion(estacion: Estacion) {
   return {
     "@context": "https://schema.org",
@@ -1041,9 +1018,7 @@ export function generarSchemaEstacion(estacion: Estacion) {
   };
 }
 
-/**
- * Genera interlinking para SEO
- */
+
 export function generarInterlinking(): {
   estados: typeof PUEBLA_SEO.interlinking.estadosVecinos,
   productos: typeof PUEBLA_SEO.interlinking.productosRelacionados
@@ -1054,9 +1029,7 @@ export function generarInterlinking(): {
   };
 }
 
-/**
- * Obtiene alertas activas para una zona
- */
+
 export function getAlertasActivas(zona?: string): Array<{
   mensaje: string;
   tipo: string;
@@ -1081,9 +1054,7 @@ export function getAlertasActivas(zona?: string): Array<{
 
 // ─── Funciones Auxiliares Estándar para Directorio ───────────────────────────
 
-/**
- * Obtiene lista única de municipios/ciudades ordenados alfabéticamente
- */
+
 export function getMunicipios(): string[] {
   const ciudades = estacionesPuebla.map(e => {
     if (e.municipiosCubiertos && e.municipiosCubiertos.length > 0) {
@@ -1094,16 +1065,12 @@ export function getMunicipios(): string[] {
   return [...new Set(ciudades)].filter(Boolean).sort();
 }
 
-/**
- * Obtiene una estación por su slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesPuebla.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas (misma zona primero, luego otras)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

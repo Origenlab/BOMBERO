@@ -1,8 +1,4 @@
-/**
- * ─── Datos de Estaciones de Bomberos CDMX ───
- * Base de datos completa del Heroico Cuerpo de Bomberos de la Ciudad de México
- * Información actualizada para SEO y directorio
- */
+
 
 import type { Estacion } from './types';
 

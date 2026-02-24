@@ -1,31 +1,5 @@
 ---
-/**
- * ─── CategoriaLayout ───
- * Layout reutilizable para TODAS las páginas de categoría y subcategoría.
- * Contiene toda la estructura HTML y CSS.
- * Los archivos de categoría solo necesitan pasar datos como props — cero CSS.
- *
- * Aplica a dos niveles de jerarquía:
- *  A) Categoría principal  → /productos/trajes-para-bomberos
- *  B) Subcategoría         → /productos/trajes-para-bomberos/traje-estructural-nfpa-1971
- *
- * Secciones incluidas:
- *  1. Breadcrumb
- *  2. Hero (badge animado + título + highlight + subtítulo + 2 bloques SEO)
- *  3. CTABar
- *  4. Grid de tarjetas de productos/variantes (ProductCard)
- *  5. Tecnología y certificaciones — sección dark (3 CategoryCard)
- *  6. Tabla comparativa (headers + rows configurables)
- *  7. WhyChooseUs (global)
- *  8. FAQ (global, personalizable)
- *  9. Categorías relacionadas / EPP complementario (CategoryCard grid)
- * 10. CTABanner (global)
- *
- * Schema.org:
- *  - BreadcrumbList
- *  - ItemList (productos)
- *  - FAQPage (si se proveen faqs)
- */
+
 
 import PageLayout from "@layouts/PageLayout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
@@ -39,7 +13,6 @@ import FAQ from "@components/FAQ.astro";
 import { SITE } from "@data/site";
 import { canonicalURL } from "@utils/seo";
 
-/* ── Tipos ─────────────────────────────────────────────────────────────── */
 
 interface BreadcrumbItem {
   label: string;
@@ -95,7 +68,7 @@ interface FaqItem {
 }
 
 interface Props {
-  /* ── SEO / Meta ──────────────────────────────────────────────── */
+
   title: string;
   description: string;
   keywords: string[];
@@ -103,20 +76,20 @@ interface Props {
   type?: "website" | "product";
   image?: string;
 
-  /* ── Breadcrumb ──────────────────────────────────────────────── */
+
   breadcrumb: BreadcrumbItem[];
 
-  /* ── Hero ────────────────────────────────────────────────────── */
+
   heroBadge: string;
   heroTitle: string;
   heroTitleHighlight: string;
   heroSubtitle: string;
   heroSeoBlocks: HeroSeoBlock[];    // 2 bloques SEO (H2 + párrafo)
 
-  /* ── CTABar ──────────────────────────────────────────────────── */
+
   ctaBarQuote: string;
 
-  /* ── Sección productos / variantes ──────────────────────────── */
+
   productosLabel: string;
   productosTitle: string;
   productosDesc: string;
@@ -124,14 +97,14 @@ interface Props {
   productoCards: ProductCardItem[];
   productosAltSuffix?: string;      // sufijo del alt de las imágenes
 
-  /* ── Sección specs / tecnología (dark) ──────────────────────── */
+
   specsLabel?: string;
   specsTitle: string;
   specsDesc: string;
   specsContent: string;             // HTML — párrafos descriptivos (set:html)
   specsCards: SpecCard[];           // exactamente 3 tarjetas
 
-  /* ── Tabla comparativa ───────────────────────────────────────── */
+
   comparativaLabel?: string;
   comparativaTitle: string;
   comparativaDesc: string;
@@ -139,17 +112,17 @@ interface Props {
   tablaHeaders: string[];           // cabeceras de la tabla
   tablaRows: TablaRow[];            // filas de datos
 
-  /* ── Sección relacionados / EPP complementario ─────────────── */
+
   relacionadosLabel?: string;
   relacionadosTitle: string;
   relacionadosDesc: string;
   relacionadosContent: string;      // HTML — párrafos descriptivos (set:html)
   relacionadoCards: RelacionadoCard[];
 
-  /* ── FAQ (opcional, schema FAQPage) ─────────────────────────── */
+
   faqs?: FaqItem[];
 
-  /* ── WhyChooseUs images (opcional, 6 imgs) ─────────────────── */
+
   whyChooseImages?: string[];
 }
 
@@ -179,7 +152,7 @@ const normalizedProductoCards = productoCards.map((card) => ({
   slug: normalizeInternalPath(card.slug),
 }));
 
-/* ── Schema.org ──────────────────────────────────────────────────────────── */
+
 const productUrl = canonicalURL(canonical);
 const productImage = image
   ? canonicalURL(image)
@@ -342,12 +315,10 @@ const specCardFallbackImages = [
   jsonLd={jsonLdSchemas}
 >
 
-  <!-- BREADCRUMB -->
+
   <Breadcrumb items={breadcrumb} />
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       HERO
-       ═══════════════════════════════════════════════════════════════════ -->
+
   <section class="hero">
     <div class="hero__bg">
       <div class="hero__gradient"></div>
@@ -380,12 +351,10 @@ const specCardFallbackImages = [
     </div>
   </section>
 
-  <!-- CTA BAR -->
+
   <CTABar quote={ctaBarQuote} />
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       GRID DE PRODUCTOS / VARIANTES
-       ═══════════════════════════════════════════════════════════════════ -->
+
   <section class="section productos" id="catalogo">
     <div class="container">
       <SectionHeader
@@ -414,9 +383,7 @@ const specCardFallbackImages = [
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       TECNOLOGÍA Y CERTIFICACIONES — DARK
-       ═══════════════════════════════════════════════════════════════════ -->
+
   <section class="section section--dark specs">
     <div class="container">
       <SectionHeader
@@ -439,9 +406,7 @@ const specCardFallbackImages = [
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       TABLA COMPARATIVA
-       ═══════════════════════════════════════════════════════════════════ -->
+
   <section class="section comparativa">
     <div class="container">
       <SectionHeader
@@ -479,17 +444,13 @@ const specCardFallbackImages = [
     </div>
   </section>
 
-  <!-- WHY CHOOSE US -->
+
   <WhyChooseUs images={whyChooseImages} />
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       FAQ
-       ═══════════════════════════════════════════════════════════════════ -->
+
   <FAQ />
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       RELACIONADOS / EPP COMPLEMENTARIO
-       ═══════════════════════════════════════════════════════════════════ -->
+
   <section class="section relacionados">
     <div class="container">
       <SectionHeader
@@ -515,16 +476,14 @@ const specCardFallbackImages = [
     </div>
   </section>
 
-  <!-- CTA BANNER FINAL -->
+
   <CTABanner />
 </PageLayout>
 
 <style>
-  /* ══════════════════════════════════════════════════════════════════════
-     CATEGORIA LAYOUT — Mobile First
-     ══════════════════════════════════════════════════════════════════════ */
 
-  /* ═══ HERO — Mobile ═══ */
+
+
   .hero {
     position: relative;
     display: flex;
@@ -571,7 +530,7 @@ const specCardFallbackImages = [
   .hero__glow--1 { top: -100px; right: -50px; background: var(--color-ember-600); }
   .hero__glow--2 { bottom: -100px; left: -50px; background: var(--color-fire-600); }
 
-  /* ── Mobile: single column ── */
+
   .hero__container {
     position: relative;
     display: grid;
@@ -630,7 +589,7 @@ const specCardFallbackImages = [
     margin-bottom: var(--space-6);
   }
 
-  /* Mobile: hide SEO blocks */
+
   .hero__seo { display: none; }
 
   .hero__seo-block { padding: var(--space-4) 0; }
@@ -651,7 +610,7 @@ const specCardFallbackImages = [
 
   .hero__seo-text :global(strong) { color: #ffffff; font-weight: 600; }
 
-  /* ═══ PRODUCTOS GRID — Mobile ═══ */
+
   .productos { background: var(--color-smoke-50); }
 
   .productos__grid {
@@ -660,7 +619,7 @@ const specCardFallbackImages = [
     gap: var(--space-4);
   }
 
-  /* ═══ SPECS — DARK — Mobile ═══ */
+
   .specs { background: var(--gradient-dark); }
 
   .specs :global(.section-header__label) { color: var(--color-fire-400); }
@@ -675,7 +634,7 @@ const specCardFallbackImages = [
     gap: var(--space-4);
   }
 
-  /* ═══ TABLA COMPARATIVA — Mobile ═══ */
+
   .comparativa { background: #ffffff; }
 
   .comparativa__wrapper {
@@ -742,7 +701,7 @@ const specCardFallbackImages = [
   .cert-chip--fire  { background: rgba(249, 115, 22, 0.1); color: var(--color-fire-700); }
   .cert-chip--smoke { background: var(--color-smoke-100);  color: var(--color-smoke-700); }
 
-  /* ═══ FAQ — Mobile ═══ */
+
   .faq { background: var(--color-smoke-50); }
 
   .faq__container { max-width: 900px; }
@@ -778,7 +737,7 @@ const specCardFallbackImages = [
     font-size: var(--text-sm);
     color: var(--color-smoke-900);
     user-select: none;
-    min-height: 56px; /* Touch-friendly */
+    min-height: 56px;
   }
 
   .faq__question::-webkit-details-marker { display: none; }
@@ -808,7 +767,7 @@ const specCardFallbackImages = [
     font-weight: 600;
   }
 
-  /* ═══ RELACIONADOS — Mobile ═══ */
+
   .relacionados { background: var(--color-smoke-50); }
 
   .rel__grid {
@@ -817,7 +776,7 @@ const specCardFallbackImages = [
     gap: var(--space-4);
   }
 
-  /* ═══ Tablet (≥640px) ═══ */
+
   @media (min-width: 640px) {
     .hero__glow {
       width: 400px;
@@ -891,7 +850,7 @@ const specCardFallbackImages = [
     }
   }
 
-  /* ═══ Desktop (≥968px) ═══ */
+
   @media (min-width: 968px) {
     .hero {
       padding: var(--space-14) 0;
@@ -962,7 +921,7 @@ const specCardFallbackImages = [
     }
   }
 
-  /* ═══ Large Desktop (≥1024px) ═══ */
+
   @media (min-width: 1024px) {
     .hero {
       padding: var(--space-16) 0;
@@ -973,7 +932,7 @@ const specCardFallbackImages = [
       gap: var(--space-6);
     }
 
-    /* Grid de 5 items: últimos 2 centrados */
+
     .productos__grid[data-count="5"] > :global(:nth-child(4)) { grid-column: 1; }
     .productos__grid[data-count="5"] > :global(:nth-child(5)) { grid-column: 2; }
 

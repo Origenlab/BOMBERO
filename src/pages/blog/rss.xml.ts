@@ -1,8 +1,4 @@
-/**
- * ─── Blog RSS Feed ───
- * Genera feed RSS para suscriptores del blog.
- * URL: /blog/rss.xml
- */
+
 import rss from "@astrojs/rss";
 import type { APIContext } from "astro";
 import { getAllArticulos } from "@data/blog-articulos";

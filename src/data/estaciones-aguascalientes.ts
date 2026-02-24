@@ -1,12 +1,4 @@
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════╗
- * ║  BOMBEROS DE AGUASCALIENTES (AGS) - DIRECTORIO OFICIAL                    ║
- * ║  Base de datos completa del H. Cuerpo de Bomberos de Aguascalientes       ║
- * ╠═══════════════════════════════════════════════════════════════════════════╣
- * ║  Capital: Aguascalientes | Código: AGS | Región: Centro-Norte             ║
- * ║  13 Estaciones | 396 Bomberos | Cobertura en 11 Municipios                ║
- * ╚═══════════════════════════════════════════════════════════════════════════╝
- */
+
 
 import type { Estacion } from './types';
 
@@ -564,30 +556,22 @@ export const estacionesAguascalientes: Estacion[] = [
 
 // ═══ FUNCIONES AUXILIARES ═══
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesAguascalientes.find(e => e.slug === slug);
 }
 
-/**
- * Obtener estaciones por municipio
- */
+
 export function getEstacionesByMunicipio(municipio: string): Estacion[] {
   return estacionesAguascalientes.filter(e => e.municipio === municipio);
 }
 
-/**
- * Obtener todos los municipios únicos
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesAguascalientes.map(e => e.municipio))].sort();
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -597,9 +581,7 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
     .slice(0, limit);
 }
 
-/**
- * Obtener estaciones por región
- */
+
 export function getEstacionesPorRegion(region: 'metropolitana' | 'norte' | 'sur' | 'oriente'): Estacion[] {
   const regiones: Record<string, string[]> = {
     metropolitana: ['Aguascalientes', 'Jesús María', 'San Francisco de los Romo'],

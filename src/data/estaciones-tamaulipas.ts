@@ -1,16 +1,4 @@
-/**
- * BOMBEROS DE TAMAULIPAS (TAM) - DIRECTORIO OFICIAL
- * Base de datos completa del H. Cuerpo de Bomberos de Tamaulipas
- * Capital: Ciudad Victoria | Código: TAM | Región: Noreste de México
- * 20 Estaciones | 960 Bomberos | ~500 km frontera con Texas (EE.UU.)
- *
- * Industrias clave: Maquiladora/automotriz (Reynosa, Matamoros: Samsung, Delphi, GM),
- * PEMEX Cuenca de Burgos (mayor reserva onshore de gas natural de México),
- * Refinería Francisco I. Madero (Ciudad Madero, 190,000 bbl/día),
- * Puerto Industrial Altamira (top 3 industrial de México: BASF, Celanese, Vitro),
- * Puerto de Tampico (primer boom petrolero de México 1900-1920),
- * Nuevo Laredo: mayor puerto terrestre de las Américas (40% exportaciones MX a EE.UU.)
- */
+
 
 import type { Estacion } from './types';
 

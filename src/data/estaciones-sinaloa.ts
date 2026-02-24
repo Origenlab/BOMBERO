@@ -1,9 +1,4 @@
-/**
- * BOMBEROS DE SINALOA (SIN) - DIRECTORIO OFICIAL
- * Base de datos completa del H. Cuerpo de Bomberos de Sinaloa
- * Capital: Culiacán | Código: SIN | Región: Noroeste de México
- * 20 Estaciones | 850 Bomberos | Cobertura en 18 Municipios
- */
+
 
 import type { Estacion } from './types';
 

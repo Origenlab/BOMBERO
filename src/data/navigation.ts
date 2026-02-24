@@ -1,8 +1,4 @@
-/**
- * ─── Navigation Configuration ───
- * Estructura de navegación profesional para BOMBERO.MX
- * Diseño limpio con mega menu para productos
- */
+
 
 export type NavItem = {
   label: string;

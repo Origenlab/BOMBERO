@@ -1,77 +1,4 @@
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════╗
- * ║  BOMBEROS DE GUANAJUATO (GTO) - DIRECTORIO OFICIAL                        ║
- * ║  Sistema de Información para SEO y Servicios de Emergencia               ║
- * ╠═══════════════════════════════════════════════════════════════════════════╣
- * ║  Capital: Guanajuato | Código: GTO | Región: Bajío                        ║
- * ║  15 Estaciones | 580+ Bomberos | Cobertura Estatal Completa              ║
- * ╚═══════════════════════════════════════════════════════════════════════════╝
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PERFIL GEOGRÁFICO Y DEMOGRÁFICO                         │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  Superficie:        30,607 km² (22° lugar nacional)                        │
- * │  Población:         6,166,934 habitantes (6° lugar nacional)               │
- * │  Municipios:        46 municipios                                          │
- * │  Densidad:          201.5 hab/km² (4ª más alta del país)                   │
- * │  PIB Estatal:       4.2% del PIB nacional (6° lugar)                       │
- * │  Altitud capital:   2,045 msnm                                             │
- * │  Clima:             Semicálido a templado                                  │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                         SECTORES ECONÓMICOS CLAVE                          │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🚗 AUTOMOTRIZ       │ Toyota, GM, Mazda, Honda - Corredor Industrial     │
- * │                      │ #1 en producción de vehículos en México            │
- * │  👟 CALZADO          │ León: Capital Mundial del Calzado y la Piel        │
- * │                      │ 70% de la producción nacional                       │
- * │  🛢️ PETROQUÍMICA     │ Refinería PEMEX Salamanca (160,000 bpd)            │
- * │  🍓 AGROINDUSTRIA    │ Irapuato: Capital Mundial de la Fresa              │
- * │  🏛️ TURISMO          │ San Miguel de Allende #1 mundial, UNESCO           │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                         RIESGOS CRÍTICOS                                   │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🏭 INDUSTRIAL        │ Plantas automotrices, curtidurías, refinería      │
- * │  ☢️ HAZMAT            │ Petroquímicos, solventes, amoniaco industrial     │
- * │  🚗 VEHICULAR         │ Autopistas de alto tráfico, carreteras federales  │
- * │  🔥 INCENDIOS URBANOS │ Alta densidad poblacional, zonas comerciales      │
- * │  🌡️ SEQUÍAS           │ Escasez hídrica, incendios en pastizales          │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PATRIMONIO CULTURAL Y TURISMO                           │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🏛️ UNESCO:           │ Ciudad de Guanajuato y minas adyacentes (1988)    │
- * │  ⭐ San Miguel:        │ #1 ciudad del mundo (Condé Nast, Travel+Leisure)  │
- * │  🎭 Cervantino:        │ Festival Internacional más importante de AL       │
- * │  🎺 Independencia:     │ Dolores Hidalgo, Cuna de la Independencia         │
- * │  🏘️ Pueblos Mágicos:   │ 7 pueblos (más que cualquier otro estado)        │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ════════════════════════════════════════════════════════════════════════════
- *  DISTRIBUCIÓN ESTRATÉGICA DE 15 ESTACIONES
- * ════════════════════════════════════════════════════════════════════════════
- *
- *  ZONA METROPOLITANA LEÓN (Industrial-Calzado)........... 4 estaciones
- *  │ Central León │ León Norte │ León Sur-Aeropuerto │ Silao
- *
- *  ZONA CORREDOR INDUSTRIAL (Automotriz-Refinería)........ 4 estaciones
- *  │ Central Celaya │ Salamanca │ Villagrán │ Apaseo el Grande
- *
- *  ZONA CAPITAL GUANAJUATO (Turístico-UNESCO)............. 2 estaciones
- *  │ Central Guanajuato │ Marfil
- *
- *  ZONA BAJÍO NORTE (Agroindustrial)...................... 3 estaciones
- *  │ Central Irapuato │ San Francisco del Rincón │ Pénjamo
- *
- *  ZONA PUEBLOS MÁGICOS (Turismo Premium)................. 2 estaciones
- *  │ San Miguel de Allende │ Dolores Hidalgo
- *
- * ════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
@@ -996,49 +923,37 @@ export const estacionesGuanajuato: Estacion[] = [
 // FUNCIONES AUXILIARES SEO Y FILTRADO
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones de la zona metropolitana León
- */
+
 export function getEstacionesLeon(): Estacion[] {
   return estacionesGuanajuato.filter(e =>
     e.ciudad === 'León' || e.ciudad === 'Silao de la Victoria'
   );
 }
 
-/**
- * Obtiene estaciones del corredor industrial
- */
+
 export function getEstacionesCorredorIndustrial(): Estacion[] {
   const ciudades = ['Celaya', 'Salamanca', 'Villagrán', 'Apaseo el Grande'];
   return estacionesGuanajuato.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la capital
- */
+
 export function getEstacionesCapital(): Estacion[] {
   return estacionesGuanajuato.filter(e => e.ciudad === 'Guanajuato');
 }
 
-/**
- * Obtiene estaciones de la zona Bajío Norte
- */
+
 export function getEstacionesBajioNorte(): Estacion[] {
   const ciudades = ['Irapuato', 'San Francisco del Rincón', 'Pénjamo'];
   return estacionesGuanajuato.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de Pueblos Mágicos
- */
+
 export function getEstacionesPueblosMagicos(): Estacion[] {
   const ciudades = ['San Miguel de Allende', 'Dolores Hidalgo'];
   return estacionesGuanajuato.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones con capacidad HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesGuanajuato.filter(e =>
     e.servicios.some(s =>
@@ -1050,9 +965,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con especialización industrial
- */
+
 export function getEstacionesIndustriales(): Estacion[] {
   return estacionesGuanajuato.filter(e =>
     e.servicios.some(s =>
@@ -1064,9 +977,7 @@ export function getEstacionesIndustriales(): Estacion[] {
   );
 }
 
-/**
- * Genera metadatos SEO para una estación específica
- */
+
 export function generarMetaSEO(estacion: Estacion): {
   title: string;
   description: string;
@@ -1122,9 +1033,7 @@ export function generarMetaSEO(estacion: Estacion): {
   };
 }
 
-/**
- * Obtiene contexto SEO por zona
- */
+
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
@@ -1211,16 +1120,12 @@ export function getContextoZona(ciudad: string): {
   };
 }
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesGuanajuato.find(e => e.slug === slug);
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -1230,9 +1135,7 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
     .slice(0, limit);
 }
 
-/**
- * Estadísticas totales del estado
- */
+
 export const ESTADISTICAS_GUANAJUATO = {
   total_estaciones: estacionesGuanajuato.length,
   total_bomberos: estacionesGuanajuato.reduce((sum, e) => sum + (e.personal || 0), 0),

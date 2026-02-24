@@ -1,0 +1,1062 @@
+---
+
+import PageLayout from "@layouts/PageLayout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import CategoryCard from "@components/CategoryCard.astro";
+import CTABanner from "@components/CTABanner.astro";
+import { SITE } from "@data/site";
+
+const beneficios = [
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+    title: "Cotización Detallada",
+    desc: "Presupuestos completos con especificaciones técnicas, certificaciones y tiempos de entrega.",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+    title: "Sin Compromiso",
+    desc: "Solicita tu cotización sin ningún costo ni obligación de compra. Respuesta garantizada.",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    title: "Asesoría Técnica",
+    desc: "Expertos en normativa NFPA te ayudan a elegir el equipo ideal para tu operación.",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    title: "Respuesta Rápida",
+    desc: "Cotizaciones enviadas en menos de 24 horas hábiles. Atención prioritaria.",
+  },
+];
+
+const categoriasCotizar = [
+  {
+    icon: "shield",
+    title: "Equipo de Protección Personal",
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-07.avif",
+    description: "Trajes estructurales, forestales, ARFF y HAZMAT. Cascos, guantes, botas y capuchas certificados NFPA.",
+    href: "/productos/trajes-para-bomberos/",
+  },
+  {
+    icon: "helmet",
+    title: "Cascos y Protección Facial",
+    image: "/images/cascos-para-bomberos/casco-bombero-profesional-03.avif",
+    description: "Cascos estructurales, forestales, de rescate y accesorios. Visores, goggles y protección visual.",
+    href: "/productos/cascos-para-bomberos/",
+  },
+  {
+    icon: "glove",
+    title: "Guantes y Botas",
+    image: "/images/guantes-para-bomberos/guante-bombero-forestal-nfpa-1977-04.avif",
+    description: "Guantes estructurales, de rescate, HAZMAT y forestales. Botas de cuero, caucho y logger.",
+    href: "/productos/guantes-para-bomberos/",
+  },
+  {
+    icon: "truck",
+    title: "Paquetes para Estaciones",
+    image: "/images/directorio/camion-bomberos-equipado-01.avif",
+    description: "Equipamiento completo para estaciones de bomberos. Paquetes personalizados según necesidades.",
+    href: "/directorio/",
+  },
+];
+
+const pasos = [
+  { num: "1", title: "Solicita", desc: "Envía tu requerimiento por WhatsApp o formulario con los detalles de lo que necesitas." },
+  { num: "2", title: "Asesoría", desc: "Nuestro equipo técnico te contacta para entender tus necesidades específicas." },
+  { num: "3", title: "Cotización", desc: "Recibe tu presupuesto detallado con especificaciones, precios y tiempos de entrega." },
+  { num: "4", title: "Entrega", desc: "Coordinamos la entrega a tu estación o centro de trabajo en cualquier estado." },
+];
+
+const faqs = [
+  { icon: "clock", title: "¿Cuánto tarda la cotización?", image: "/images/directorio/centro-mando-bomberos-01.avif", description: "Las cotizaciones se envían en menos de 24 horas hábiles. Para pedidos grandes o licitaciones, el tiempo puede extenderse hasta 48 horas para incluir toda la documentación requerida." },
+  { icon: "certificate", title: "¿Incluyen factura fiscal?", image: "/images/directorio/estacion-bomberos-profesional-01.avif", description: "Sí, emitimos factura CFDI 4.0 con todos los requisitos fiscales para deducción de impuestos, licitaciones gubernamentales y procesos de adquisición institucional." },
+  { icon: "truck", title: "¿Hacen envíos a todo México?", image: "/images/directorio/camion-bomberos-equipado-01.avif", description: "Sí, tenemos cobertura en los 32 estados de México. Coordinamos entregas directas en estaciones de bomberos, centros de protección civil y empresas industriales." },
+  { icon: "shield", title: "¿Qué garantía tienen los productos?", image: "/images/directorio/equipo-proteccion-bomberos-01.avif", description: "Todos nuestros productos cuentan con garantía del fabricante. Los plazos varían según el tipo de equipo, desde 1 año hasta garantía de por vida en componentes específicos." },
+];
+
+const cotizarJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Solicitar Cotización | BOMBERO.MX",
+  description: "Solicita cotización de equipo para bomberos, protección civil y brigadas industriales. Asesoría técnica gratuita.",
+  mainEntity: {
+    "@type": "Organization",
+    name: SITE.organization.name,
+    telephone: SITE.contact.phone,
+    email: SITE.contact.email,
+  },
+};
+---
+
+<PageLayout
+  title="Cotizar Equipo para Bomberos | Cotizaciones Sin Compromiso | BOMBERO.MX"
+  description="Solicita cotización de equipo para bomberos: trajes, cascos, guantes, botas NFPA. Asesoría técnica gratuita, respuesta en 24 horas, envíos a toda la República Mexicana."
+  jsonLd={[cotizarJsonLd]}
+>
+
+
+
+
+  <Breadcrumb items={[{ label: "Cotizar" }]} />
+
+
+
+
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__gradient"></div>
+      <div class="hero__grid"></div>
+    </div>
+
+    <div class="container hero__container">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Cotizaciones sin compromiso
+        </div>
+
+        <h1 class="hero__title">
+          Solicita tu <span class="hero__title-highlight">Cotización</span>
+        </h1>
+
+        <p class="hero__subtitle">
+          Comparte tu requerimiento y nuestro equipo de especialistas te enviará una propuesta técnica y comercial personalizada para tu cuerpo de bomberos, brigada o unidad de protección civil.
+        </p>
+
+        <div class="hero__stats">
+          <div class="hero__stat">
+            <span class="hero__stat-number">24h</span>
+            <span class="hero__stat-label">Tiempo de respuesta</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-number">100%</span>
+            <span class="hero__stat-label">Certificado NFPA</span>
+          </div>
+          <div class="hero__stat">
+            <span class="hero__stat-number">32</span>
+            <span class="hero__stat-label">Estados cubiertos</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="hero__form-wrapper">
+        <div class="hero__form-card">
+          <h2 class="hero__form-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Solicita tu Cotización
+          </h2>
+          <form id="cotizar-form" class="hero__form">
+            <div class="form-group">
+              <label for="nombre">Nombre completo *</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="empresa">Empresa / Estación</label>
+                <input type="text" id="empresa" name="empresa" placeholder="Ej: Bomberos Municipales de..." />
+              </div>
+              <div class="form-group">
+                <label for="estado">Estado</label>
+                <input type="text" id="estado" name="estado" placeholder="Ej: Jalisco" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="productos">¿Qué productos necesitas? *</label>
+              <textarea id="productos" name="productos" rows="3" placeholder="Describe los productos, cantidades y especificaciones que requieres..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn--whatsapp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Enviar Solicitud por WhatsApp
+            </button>
+          </form>
+          <p class="hero__form-note">
+            * También puedes escribirnos directamente al <a href="mailto:ventas@bombero.mx">ventas@bombero.mx</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section class="beneficios section">
+    <div class="container">
+      <SectionHeader
+        label="¿Por Qué Cotizar con Nosotros?"
+        title="Beneficios de Trabajar con BOMBERO.MX"
+        description="Más de 15 años de experiencia equipando estaciones de bomberos y brigadas industriales en todo México."
+      >
+        <p>
+          Somos <strong>distribuidores autorizados</strong> de las principales marcas de equipo para bomberos. Nuestro equipo técnico está certificado para asesorarte en la <strong>selección correcta de EPP</strong> según normativa NFPA, UL y NOM.
+        </p>
+      </SectionHeader>
+
+      <div class="beneficios__grid">
+        {beneficios.map((beneficio) => (
+          <div class="beneficios__card">
+            <div class="beneficios__icon">
+              <Fragment set:html={beneficio.icon} />
+            </div>
+            <h3 class="beneficios__title">{beneficio.title}</h3>
+            <p class="beneficios__desc">{beneficio.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section class="categorias section">
+    <div class="container">
+      <SectionHeader
+        label="¿Qué Podemos Cotizar?"
+        title="Categorías de Equipamiento"
+        description="Ofrecemos una amplia gama de equipo de protección personal y herramientas para cuerpos de emergencia."
+      >
+        <p>
+          Desde <strong>equipos individuales</strong> hasta <strong>paquetes completos para estaciones</strong>. Trabajamos con las mejores marcas y garantizamos productos <strong>100% certificados</strong> para operaciones de combate de incendios y rescate.
+        </p>
+      </SectionHeader>
+
+      <div class="categorias__grid">
+        {categoriasCotizar.map((cat) => (
+          <CategoryCard
+            title={cat.title}
+            icon={cat.icon}
+            image={cat.image}
+            description={cat.description}
+            href={cat.href}
+            buttonText="Ver Productos"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section class="proceso section">
+    <div class="container">
+      <SectionHeader
+        label="¿Cómo Funciona?"
+        title="Proceso de Cotización"
+        description="Un proceso simple y transparente para que obtengas exactamente lo que necesitas."
+      />
+
+      <div class="proceso__grid">
+        {pasos.map((paso, index) => (
+          <div class="proceso__step">
+            <div class="proceso__num">{paso.num}</div>
+            <div class="proceso__content">
+              <h3 class="proceso__title">{paso.title}</h3>
+              <p class="proceso__desc">{paso.desc}</p>
+            </div>
+            {index < pasos.length - 1 && <div class="proceso__arrow" />}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section class="info section">
+    <div class="container">
+      <div class="info__content">
+        <div class="info__text">
+          <SectionHeader
+            label="Información Recomendada"
+            title="Ayúdanos a Cotizar Mejor"
+            description="Incluye estos datos en tu solicitud para recibir una cotización más precisa."
+          />
+
+          <ul class="info__list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Ciudad y estado</strong> de entrega</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Volumen estimado</strong> (cantidad de piezas)</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Tipo de operación</strong> (estructural, forestal, industrial)</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Certificaciones requeridas</strong> (NFPA, UL, NOM)</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Fecha objetivo</strong> de adquisición</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="info__cta">
+          <div class="info__cta-card">
+            <h3 class="info__cta-title">¿Necesitas Ayuda?</h3>
+            <p class="info__cta-desc">Nuestro equipo está disponible para asistirte con cualquier duda sobre productos o especificaciones técnicas.</p>
+            <div class="info__cta-actions">
+              <a href={`https://wa.me/${SITE.contact.whatsapp.replace(/\D/g, '')}?text=Hola%2C%20necesito%20asesoría%20para%20cotizar%20equipo`} class="btn btn--whatsapp-alt">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </a>
+              <a href={`tel:${SITE.contact.phone.replace(/\s/g, '')}`} class="btn btn--ghost-dark">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Llamar
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section class="faq section">
+    <div class="container">
+      <SectionHeader
+        label="Preguntas Frecuentes"
+        title="Dudas sobre Cotizaciones"
+        description="Las preguntas más comunes sobre nuestro proceso de cotización y compra."
+      >
+        <p>
+          ¿Tienes otra duda? <strong>Contáctanos directamente</strong> por WhatsApp o teléfono y te respondemos de inmediato.
+        </p>
+      </SectionHeader>
+
+      <div class="faq__grid">
+        {faqs.map((faq) => (
+          <CategoryCard
+            title={faq.title}
+            icon={faq.icon}
+            image={faq.image}
+            description={faq.description}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <CTABanner
+    title="¿Listo para Equipar tu Estación?"
+    desc="Solicita tu cotización ahora. Asesoría técnica gratuita y envíos a toda la República Mexicana."
+    btnText="Cotizar por WhatsApp"
+    btnHref={`https://wa.me/${SITE.contact.whatsapp.replace(/\D/g, '')}?text=Hola%2C%20quiero%20solicitar%20una%20cotización`}
+    whatsapp={true}
+  />
+</PageLayout>
+
+<style>
+
+  .hero {
+    position: relative;
+    background: var(--color-smoke-950);
+    overflow: hidden;
+    padding: var(--space-8) 0 var(--space-12);
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero__gradient {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
+      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
+  }
+
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .hero__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .hero__content {
+    text-align: center;
+  }
+
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-fire-400);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero__badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-ember-500);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .hero__title {
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    color: #ffffff;
+    margin-bottom: var(--space-4);
+  }
+
+  .hero__title-highlight {
+    background: var(--gradient-fire);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero__subtitle {
+    font-size: var(--text-base);
+    color: var(--color-smoke-300);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+    max-width: 540px;
+    margin-inline: auto;
+  }
+
+  .hero__stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+
+  .hero__stat {
+    text-align: center;
+  }
+
+  .hero__stat-number {
+    display: block;
+    font-size: var(--text-2xl);
+    font-weight: 800;
+    color: var(--color-fire-400);
+    line-height: 1;
+  }
+
+  .hero__stat-label {
+    display: block;
+    font-size: 10px;
+    color: var(--color-smoke-400);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: var(--space-1);
+  }
+
+
+  .hero__form-wrapper {
+    width: 100%;
+  }
+
+  .hero__form-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6);
+  }
+
+  .hero__form-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 var(--space-5);
+  }
+
+  .hero__form-title svg {
+    width: 24px;
+    height: 24px;
+    stroke: #25D366;
+  }
+
+  .hero__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .form-group label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-300);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--color-smoke-500);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #25D366;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.15);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .btn--whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-4);
+    background: #25D366;
+    color: white;
+    font-size: var(--text-base);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+
+  .btn--whatsapp:hover {
+    background: #20bd5a;
+  }
+
+  .btn--whatsapp:active {
+    transform: scale(0.98);
+  }
+
+  .hero__form-note {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    margin-top: var(--space-3);
+    text-align: center;
+  }
+
+  .hero__form-note a {
+    color: var(--color-fire-400);
+    text-decoration: none;
+  }
+
+  .hero__form-note a:hover {
+    text-decoration: underline;
+  }
+
+
+  .beneficios {
+    padding: var(--space-12) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .beneficios__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .beneficios__card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+
+  .beneficios__icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(220, 38, 38, 0.08);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .beneficios__icon :global(svg) {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-fire-600);
+  }
+
+  .beneficios__title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-2);
+  }
+
+  .beneficios__desc {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+
+  .categorias {
+    padding: var(--space-12) 0;
+    background: white;
+  }
+
+  .categorias :global(.section-header__label) {
+    color: var(--color-fire-600);
+  }
+
+  .categorias :global(.section-header__title) {
+    color: var(--color-smoke-900);
+  }
+
+  .categorias :global(.section-header__desc) {
+    color: var(--color-smoke-600);
+  }
+
+  .categorias :global(.section-header__right p) {
+    color: var(--color-smoke-600);
+  }
+
+  .categorias :global(.section-header__right strong) {
+    color: var(--color-smoke-800);
+  }
+
+  .categorias__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+
+  .proceso {
+    padding: var(--space-12) 0;
+    background: var(--color-smoke-950);
+  }
+
+  .proceso :global(.section-header__label) {
+    color: var(--color-fire-400);
+  }
+
+  .proceso :global(.section-header__title) {
+    color: #ffffff;
+  }
+
+  .proceso :global(.section-header__desc) {
+    color: var(--color-smoke-300);
+  }
+
+  .proceso__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .proceso__step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .proceso__num {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-fire);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: white;
+  }
+
+  .proceso__content {
+    flex: 1;
+    padding-top: var(--space-1);
+  }
+
+  .proceso__title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 var(--space-2);
+  }
+
+  .proceso__desc {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-400);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .proceso__arrow {
+    display: none;
+  }
+
+
+  .info {
+    padding: var(--space-12) 0;
+    background: var(--color-smoke-50);
+  }
+
+  .info__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .info__list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-6) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .info__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .info__list svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-fire-500);
+  }
+
+  .info__list span {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-700);
+  }
+
+  .info__list strong {
+    color: var(--color-smoke-900);
+  }
+
+  .info__cta-card {
+    background: var(--color-smoke-950);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6);
+    text-align: center;
+  }
+
+  .info__cta-title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 var(--space-2);
+  }
+
+  .info__cta-desc {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-400);
+    line-height: 1.6;
+    margin: 0 0 var(--space-5);
+  }
+
+  .info__cta-actions {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+
+  .btn--whatsapp-alt {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: #25D366;
+    color: white;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .btn--whatsapp-alt:hover {
+    background: #20bd5a;
+  }
+
+  .btn--ghost-dark {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: transparent;
+    color: #ffffff;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .btn--ghost-dark:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+
+  .faq {
+    padding: var(--space-12) 0;
+    background: white;
+  }
+
+  .faq :global(.section-header__label) {
+    color: var(--color-fire-600);
+  }
+
+  .faq :global(.section-header__title) {
+    color: var(--color-smoke-900);
+  }
+
+  .faq :global(.section-header__desc) {
+    color: var(--color-smoke-600);
+  }
+
+  .faq :global(.section-header__right p) {
+    color: var(--color-smoke-600);
+  }
+
+  .faq :global(.section-header__right strong) {
+    color: var(--color-smoke-800);
+  }
+
+  .faq__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+
+  @media (min-width: 640px) {
+    .hero {
+      padding: var(--space-12) 0 var(--space-16);
+    }
+
+    .hero__title {
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    .hero__stats {
+      gap: var(--space-10);
+    }
+
+    .hero__stat-number {
+      font-size: var(--text-3xl);
+    }
+
+    .form-row {
+      flex-direction: row;
+      gap: var(--space-4);
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .beneficios,
+    .categorias,
+    .proceso,
+    .info,
+    .faq {
+      padding: var(--space-16) 0;
+    }
+
+    .beneficios__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+    }
+
+    .categorias__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+    }
+
+    .proceso__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+    }
+
+    .info__content {
+      grid-template-columns: 1.2fr 1fr;
+      align-items: start;
+    }
+
+    .faq__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+    }
+  }
+
+
+  @media (min-width: 968px) {
+    .hero {
+      padding: var(--space-16) 0 var(--space-20);
+    }
+
+    .hero__container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .hero__content {
+      text-align: left;
+    }
+
+    .hero__subtitle {
+      margin-inline: 0;
+    }
+
+    .hero__stats {
+      justify-content: flex-start;
+    }
+
+    .beneficios,
+    .categorias,
+    .proceso,
+    .info,
+    .faq {
+      padding: var(--space-20) 0;
+    }
+
+    .beneficios__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+
+    .categorias__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+
+    .proceso__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+
+    .proceso__step {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .proceso__num {
+      margin: 0 auto var(--space-4);
+    }
+
+    .faq__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+
+  @media (min-width: 1200px) {
+    .hero__title {
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+    }
+
+    .hero__stat-number {
+      font-size: var(--text-4xl);
+    }
+  }
+</style>
+
+<script define:vars={{ whatsappNumber: "5520780102" }}>
+  document.getElementById('cotizar-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const empresa = document.getElementById('empresa').value.trim();
+    const estado = document.getElementById('estado').value.trim();
+    const productos = document.getElementById('productos').value.trim();
+
+    let textoWhatsApp = `*SOLICITUD DE COTIZACIÓN*%0A%0A`;
+    textoWhatsApp += `*Nombre:* ${nombre}%0A`;
+    if (empresa) {
+      textoWhatsApp += `*Empresa/Estación:* ${empresa}%0A`;
+    }
+    if (estado) {
+      textoWhatsApp += `*Estado:* ${estado}%0A`;
+    }
+    textoWhatsApp += `%0A*Productos requeridos:*%0A${productos}`;
+
+    const url = `https://wa.me/${whatsappNumber}?text=${textoWhatsApp}`;
+    window.open(url, '_blank');
+  });
+</script>

@@ -1,49 +1,5 @@
 import type { Estacion } from './types';
 
-/**
- * ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
- * ║  DIRECTORIO DE BOMBEROS - NAYARIT                                                                                ║
- * ╠══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
- * ║  "La Puerta de Oro del Pacífico Mexicano" - Riviera Nayarit                                                     ║
- * ║                                                                                                                  ║
- * ║  ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────┐  ║
- * ║  │  ESTADÍSTICAS CLAVE                                                                                        │  ║
- * ║  │  ─────────────────                                                                                         │  ║
- * ║  │  • 14 Estaciones de Bomberos estratégicamente distribuidas                                                 │  ║
- * ║  │  • 1,288,571 habitantes (2024)                                                                             │  ║
- * ║  │  • 20 municipios                                                                                           │  ║
- * ║  │  • 27,815 km² de superficie                                                                                │  ║
- * ║  │  • 289 km de litoral costero del Pacífico                                                                  │  ║
- * ║  │  • +3 millones de turistas internacionales anuales                                                         │  ║
- * ║  └────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  ║
- * ║                                                                                                                  ║
- * ║  ZONAS ESTRATÉGICAS DE COBERTURA                                                                                ║
- * ║  ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════ ║
- * ║  🏙️ Zona Metropolitana Tepic        │ Capital estatal, centro administrativo y comercial                       ║
- * ║  🏖️ Riviera Nayarit Sur             │ Nuevo Vallarta, Bucerías, Punta de Mita, turismo de lujo               ║
- * ║  🏄 Riviera Nayarit Norte           │ Sayulita (Pueblo Mágico), San Pancho, Lo de Marcos                      ║
- * ║  🐊 Zona Histórica San Blas         │ Puerto colonial, manglares, La Tovara, ecoturismo                       ║
- * ║  🌋 Sierra del Nayar                │ Comunidades Wixárikas, volcán Ceboruco, zona montañosa                  ║
- * ║  🌾 Llanura Costera Norte           │ Agricultura, Santiago Ixcuintla, marismas                               ║
- * ║  🏭 Corredor Industrial Sur         │ Bahía de Banderas, desarrollo turístico, aeropuerto                     ║
- * ║  ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════ ║
- * ║                                                                                                                  ║
- * ║  PATRIMONIO NATURAL                                                                                              ║
- * ║  ─────────────────────                                                                                           ║
- * ║  • Islas Marietas - Área Natural Protegida (Playa del Amor, Playa Escondida)                                   ║
- * ║  • Reserva de la Biosfera Marismas Nacionales - Humedal RAMSAR                                                 ║
- * ║  • Parque Nacional Isla Isabel - Santuario de aves marinas                                                     ║
- * ║  • Zona Sagrada Huichol Wirikuta (compartida con otros estados)                                                ║
- * ║                                                                                                                  ║
- * ║  RIESGOS ESPECIALES                                                                                              ║
- * ║  ──────────────────                                                                                              ║
- * ║  • Temporada de huracanes: Junio-Noviembre (Categoría 5 potencial)                                             ║
- * ║  • Alerta de tsunami para toda la costa del Pacífico                                                           ║
- * ║  • Volcán Ceboruco: monitoreo activo (última erupción 1870)                                                    ║
- * ║  • Cocodrilos en estuarios y zonas turísticas                                                                  ║
- * ║  • Temporada de lluvias intensas: Julio-Septiembre                                                             ║
- * ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
- */
 
 export const estacionesNayarit: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -976,9 +932,7 @@ export const ALERTAS_NAYARIT = {
 // FUNCIONES AUXILIARES PROFESIONALES
 // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones por zona geográfica
- */
+
 export function getEstacionesPorZona(zonaId: string): Estacion[] {
   const zonaMap: Record<string, string> = {
     tepic: "Zona Metropolitana Tepic",
@@ -992,18 +946,14 @@ export function getEstacionesPorZona(zonaId: string): Estacion[] {
   return estacionesNayarit.filter(e => e.zona === zonaMap[zonaId]);
 }
 
-/**
- * Obtiene estaciones de la Riviera Nayarit (norte y sur)
- */
+
 export function getEstacionesRivieraNayarit(): Estacion[] {
   return estacionesNayarit.filter(e =>
     e.zona?.includes("Riviera Nayarit")
   );
 }
 
-/**
- * Obtiene estaciones con capacidad de rescate acuático
- */
+
 export function getEstacionesRescateAcuatico(): Estacion[] {
   return estacionesNayarit.filter(e =>
     e.especialidades?.some(esp =>
@@ -1019,18 +969,14 @@ export function getEstacionesRescateAcuatico(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con capacidad ARFF (aeropuerto)
- */
+
 export function getEstacionesARFF(): Estacion[] {
   return estacionesNayarit.filter(e =>
     e.especialidades?.some(esp => esp.toLowerCase().includes("arff"))
   );
 }
 
-/**
- * Obtiene estaciones turísticas (resorts, hoteles, playas)
- */
+
 export function getEstacionesTuristicas(): Estacion[] {
   return estacionesNayarit.filter(e =>
     e.especialidades?.some(esp =>
@@ -1047,9 +993,7 @@ export function getEstacionesTuristicas(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con emergencias volcánicas
- */
+
 export function getEstacionesVolcanicas(): Estacion[] {
   return estacionesNayarit.filter(e =>
     e.especialidades?.some(esp => esp.toLowerCase().includes("volcán")) ||
@@ -1057,9 +1001,7 @@ export function getEstacionesVolcanicas(): Estacion[] {
   );
 }
 
-/**
- * Genera meta tags SEO bilingüe para una estación
- */
+
 export function generarMetaSEOEstacion(estacion: Estacion): {
   title: string;
   description: string;
@@ -1093,9 +1035,7 @@ export function generarMetaSEOEstacion(estacion: Estacion): {
   return result;
 }
 
-/**
- * Obtiene contexto geográfico detallado de una zona con alertas activas
- */
+
 export function getContextoZona(zonaId: string): {
   zona: typeof ZONAS_NAYARIT[0] | null;
   estaciones: Estacion[];
@@ -1147,9 +1087,7 @@ export function getContextoZona(zonaId: string): {
   return { zona, estaciones, alertasActivas, recomendaciones, telefonosEmergencia };
 }
 
-/**
- * Genera Schema.org completo para una estación con datos turísticos
- */
+
 export function generarSchemaEstacion(estacion: Estacion): object {
   const esZonaTuristica = estacion.zona?.includes("Riviera") ||
     estacion.ciudad === "Bahía de Banderas";
@@ -1218,23 +1156,17 @@ export function generarSchemaEstacion(estacion: Estacion): object {
 // FUNCIONES AUXILIARES ADICIONALES
 // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene todos los municipios/ciudades únicos
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesNayarit.map(e => e.ciudad))].filter(Boolean).sort() as string[];
 }
 
-/**
- * Obtiene estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesNayarit.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

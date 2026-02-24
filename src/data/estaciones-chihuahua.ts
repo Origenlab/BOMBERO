@@ -1,91 +1,4 @@
-/**
- * ============================================================================
- * BOMBEROS DE CHIHUAHUA (CHIH) - DIRECTORIO OFICIAL DE ESTACIONES
- * ============================================================================
- *
- * Estado más grande de México por superficie territorial
- * Capital: Chihuahua | Código: CHIH | Región: Norte
- *
- * CARACTERÍSTICAS GEOGRÁFICAS Y DE RIESGO:
- * ├── Superficie: 247,455 km² (estado más grande de México)
- * ├── Población: 3.8 millones de habitantes
- * ├── Desierto Chihuahuense: el desierto más grande de Norteamérica
- * ├── Sierra Madre Occidental: Barrancas del Cobre
- * ├── Frontera con Estados Unidos: 560 km (Texas y Nuevo México)
- * └── Zonas climáticas: desértico, semiárido, templado de montaña
- *
- * PATRIMONIO Y TURISMO:
- * ├── UNESCO: Paquimé (Casas Grandes) - Patrimonio de la Humanidad
- * ├── Barrancas del Cobre: 4 veces más grande que el Gran Cañón
- * ├── Pueblo Mágico: Creel (puerta a la Sierra Tarahumara)
- * ├── Cultura Rarámuri (Tarahumara): pueblo originario
- * ├── Comunidades Menonitas: Cuauhtémoc, Casas Grandes
- * └── Turismo de aventura: ciclismo de montaña, rappel, tirolesas
- *
- * INDUSTRIA Y ECONOMÍA:
- * ├── Ciudad Juárez: centro maquilador más grande de México
- * ├── Minería: cobre, plata, oro, plomo, zinc
- * ├── Agricultura: manzana, nuez, chile, algodón
- * ├── Ganadería: principal productor de carne de res
- * └── Comercio fronterizo: puentes internacionales
- *
- * RIESGOS ESPECÍFICOS DEL ESTADO:
- * ├── Incendios forestales en Sierra Madre Occidental
- * ├── Temperaturas extremas (-20°C en invierno, +45°C en verano)
- * ├── Materiales peligrosos en zonas industriales y maquiladoras
- * ├── Accidentes en autopistas federales y carreteras serranas
- * ├── Sequías prolongadas y escasez de agua
- * └── Inundaciones súbitas en zonas urbanas
- *
- * ============================================================================
- * 28 ESTACIONES | 1,420 BOMBEROS | COBERTURA ESTATAL COMPLETA
- * ============================================================================
- *
- * DISTRIBUCIÓN POR ZONA:
- *
- * ┌─────────────────────────────────────────────────────────────────────────┐
- * │ ZONA METROPOLITANA CHIHUAHUA (CAPITAL)                    5 estaciones │
- * ├─────────────────────────────────────────────────────────────────────────┤
- * │ Central Chihuahua      │ Chihuahua Norte    │ Chihuahua Sur            │
- * │ Chihuahua Oriente      │ Zona Industrial    │                          │
- * └─────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────┐
- * │ ZONA METROPOLITANA CIUDAD JUÁREZ (FRONTERA)               7 estaciones │
- * ├─────────────────────────────────────────────────────────────────────────┤
- * │ Central Juárez         │ Zona Industrial    │ PRONAF                   │
- * │ Centro Histórico       │ Juárez Oriente     │ Juárez Poniente          │
- * │ Aeropuerto Juárez      │                    │                          │
- * └─────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────┐
- * │ ZONA AGRÍCOLA CENTRO-SUR                                  6 estaciones │
- * ├─────────────────────────────────────────────────────────────────────────┤
- * │ Delicias               │ Cuauhtémoc         │ Camargo                  │
- * │ Jiménez                │ Meoqui             │ Saucillo                 │
- * └─────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────┐
- * │ ZONA SIERRA TARAHUMARA                                    4 estaciones │
- * ├─────────────────────────────────────────────────────────────────────────┤
- * │ Creel (Pueblo Mágico)  │ Guachochi          │ Bocoyna                  │
- * │ Madera                 │                    │                          │
- * └─────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────┐
- * │ ZONA NOROESTE (PAQUIMÉ)                                   3 estaciones │
- * ├─────────────────────────────────────────────────────────────────────────┤
- * │ Nuevo Casas Grandes    │ Casas Grandes      │ Janos                    │
- * └─────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────┐
- * │ ZONA SUR (MINERÍA HISTÓRICA)                              3 estaciones │
- * ├─────────────────────────────────────────────────────────────────────────┤
- * │ Hidalgo del Parral     │ Santa Bárbara      │ Valle de Allende         │
- * └─────────────────────────────────────────────────────────────────────────┘
- *
- * ============================================================================
- */
+
 
 import type { Estacion } from './types';
 
@@ -1315,27 +1228,21 @@ export const estacionesChihuahua: Estacion[] = [
 // FUNCIONES AUXILIARES SEO Y FILTRADO
 // ============================================================================
 
-/**
- * Obtiene todas las estaciones de la zona metropolitana de Chihuahua (capital)
- */
+
 export function getEstacionesCapital(): Estacion[] {
   return estacionesChihuahua.filter(e =>
     e.ciudad === 'Chihuahua' && e.estado === 'Chihuahua'
   );
 }
 
-/**
- * Obtiene todas las estaciones de Ciudad Juárez (frontera)
- */
+
 export function getEstacionesCiudadJuarez(): Estacion[] {
   return estacionesChihuahua.filter(e =>
     e.ciudad === 'Ciudad Juárez'
   );
 }
 
-/**
- * Obtiene estaciones con capacidad HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesChihuahua.filter(e =>
     e.servicios.some(s =>
@@ -1346,9 +1253,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones especializadas en incendios forestales
- */
+
 export function getEstacionesForestales(): Estacion[] {
   return estacionesChihuahua.filter(e =>
     e.servicios.some(s =>
@@ -1359,9 +1264,7 @@ export function getEstacionesForestales(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones de la Sierra Tarahumara
- */
+
 export function getEstacionesSierraTarahumara(): Estacion[] {
   const ciudadesSierra = ['Creel', 'Guachochi', 'Bocoyna', 'Madera'];
   return estacionesChihuahua.filter(e =>
@@ -1369,9 +1272,7 @@ export function getEstacionesSierraTarahumara(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con capacidad de rescate minero
- */
+
 export function getEstacionesMineras(): Estacion[] {
   return estacionesChihuahua.filter(e =>
     e.servicios.some(s =>
@@ -1381,9 +1282,7 @@ export function getEstacionesMineras(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones en zonas turísticas
- */
+
 export function getEstacionesTuristicas(): Estacion[] {
   const ciudadesTuristicas = ['Creel', 'Bocoyna', 'Casas Grandes', 'Nuevo Casas Grandes'];
   return estacionesChihuahua.filter(e =>
@@ -1391,9 +1290,7 @@ export function getEstacionesTuristicas(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones en zona agrícola
- */
+
 export function getEstacionesAgricolas(): Estacion[] {
   const ciudadesAgricolas = ['Delicias', 'Cuauhtémoc', 'Camargo', 'Jiménez', 'Meoqui', 'Saucillo'];
   return estacionesChihuahua.filter(e =>
@@ -1401,9 +1298,7 @@ export function getEstacionesAgricolas(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones en zona fronteriza
- */
+
 export function getEstacionesFronterizas(): Estacion[] {
   return estacionesChihuahua.filter(e =>
     e.ciudad === 'Ciudad Juárez' ||
@@ -1411,9 +1306,7 @@ export function getEstacionesFronterizas(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con servicio aeroportuario
- */
+
 export function getEstacionesAeroportuarias(): Estacion[] {
   return estacionesChihuahua.filter(e =>
     e.servicios.some(s =>
@@ -1424,9 +1317,7 @@ export function getEstacionesAeroportuarias(): Estacion[] {
   );
 }
 
-/**
- * Genera metadatos SEO para una estación específica
- */
+
 export function generarMetaSEO(estacion: Estacion): {
   title: string;
   description: string;
@@ -1476,9 +1367,7 @@ export function generarMetaSEO(estacion: Estacion): {
   };
 }
 
-/**
- * Obtiene el contexto SEO por tipo de zona
- */
+
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
@@ -1539,16 +1428,12 @@ export function getContextoZona(ciudad: string): {
   };
 }
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesChihuahua.find((e) => e.slug === slug);
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -1564,9 +1449,7 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
   return [...mismoMunicipio, ...otrosMunicipios].slice(0, limit);
 }
 
-/**
- * Estadísticas totales del estado
- */
+
 export const ESTADISTICAS_CHIHUAHUA = {
   total_estaciones: estacionesChihuahua.length,
   total_bomberos: estacionesChihuahua.reduce((sum, e) => sum + e.personal, 0),

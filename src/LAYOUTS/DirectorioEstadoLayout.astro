@@ -1,18 +1,5 @@
 ---
-/**
- * ─── DirectorioEstadoLayout ───
- * Layout reutilizable para TODAS las páginas de estado del directorio.
- * Contiene toda la estructura HTML y CSS.
- * Los archivos de estado solo necesitan pasar datos como props — cero CSS.
- *
- * Secciones incluidas:
- *  1. Hero (mosaico de imágenes + stats)
- *  2. Emergency Banner (911)
- *  3. Gallery Strip (4 imágenes)
- *  4. Main Grid (estaciones + sidebar)
- *  5. EPP Complementario (4 tarjetas de producto)
- *  6. CTABanner
- */
+
 import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
@@ -20,7 +7,7 @@ import StationCard from "@components/StationCard.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import { cdnW } from "@utils/cdn";
 
-/* ── Tipos ─────────────────────────────────────────────────────────────── */
+
 interface EstacionData {
   nombreCorto: string;
   slug: string;
@@ -71,7 +58,7 @@ interface EstadoVecino {
 }
 
 interface Props {
-  /* SEO */
+
   estado: string;               // "Baja California"
   sigla: string;                // "BC"
   slug: string;                 // "baja-california"
@@ -80,37 +67,37 @@ interface Props {
   canonical: string;
   jsonLd?: Record<string, unknown>[];
 
-  /* Estadísticas Hero */
+
   totalEstaciones: number;
   totalMunicipios: number;
   habitantes: string;           // "3.8M+"
 
-  /* Hero contenido */
+
   heroDesc: string;             // HTML (solo inner — sin <p> wrapper)
   heroImage: string;
   heroImageAlt: string;
   heroCaption: string;
   heroThumbs: [HeroThumb, HeroThumb, HeroThumb];  // exactamente 3
 
-  /* Gallery */
+
   galleryImages: [GalleryImage, GalleryImage, GalleryImage, GalleryImage]; // 4
 
-  /* Teléfonos emergencia sidebar */
+
   emergencyNumbers: EmergencyNumber[];
 
-  /* Estaciones */
+
   estaciones: EstacionData[];
   stationImages: string[];
 
-  /* Sidebar */
+
   municipios: string[];
   regiones: Region[];
   estadosVecinos: EstadoVecino[];
 
-  /* EPP */
+
   eppCards: [EppCard, EppCard, EppCard, EppCard];  // exactamente 4
 
-  /* CTABanner */
+
   ctaTitle: string;
   ctaDesc: string;
   ctaBtnText: string;
@@ -129,14 +116,14 @@ const {
   ctaTitle, ctaDesc, ctaBtnText, ctaBtnHref = "/cotizar",
 } = Astro.props;
 
-/* CDN: transformar URLs de imágenes a través de ExactDN */
+
 const heroImageCdn = cdnW(heroImage, 800);
 const heroThumbsCdn = heroThumbs.map(t => ({ ...t, src: cdnW(t.src, 400) }));
 const galleryImagesCdn = galleryImages.map(g => ({ ...g, src: cdnW(g.src, 500) }));
 const stationImagesCdn = stationImages.map(s => cdnW(s, 400));
 const eppCardsCdn = eppCards.map(c => ({ ...c, image: cdnW(c.image, 400) }));
 
-/* Helper: genera slug-anchor de un municipio */
+
 const toAnchor = (s: string) =>
   s.toLowerCase()
     .replace(/\s+/g, '-')
@@ -155,17 +142,13 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
   jsonLd={jsonLd}
 >
 
-  <!-- ══════════════════════════════════════════════════
-       BREADCRUMB
-  ══════════════════════════════════════════════════ -->
+
   <Breadcrumb items={[
     { label: "Directorio", href: "/directorio/" },
     { label: estado },
   ]} />
 
-  <!-- ══════════════════════════════════════════════════
-       SECCIÓN 1 — HERO
-  ══════════════════════════════════════════════════ -->
+
   <section class="de-hero">
     <div class="de-hero__bg">
       <div class="de-hero__gradient"></div>
@@ -174,7 +157,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     <div class="container">
       <div class="de-hero__container">
 
-        <!-- Columna izquierda -->
+
         <div class="de-hero__content">
           <span class="de-hero__badge">
             <span class="de-hero__badge-dot"></span>
@@ -205,7 +188,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
           </div>
         </div>
 
-        <!-- Columna derecha — Mosaico de imágenes -->
+
         <div class="de-hero__visual">
           <div class="de-hero__visual-main">
             <img
@@ -235,9 +218,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════
-       SECCIÓN 2 — EMERGENCY BANNER
-  ══════════════════════════════════════════════════ -->
+
   <section class="de-emergency">
     <div class="container">
       <div class="de-emergency__content">
@@ -257,9 +238,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════
-       SECCIÓN 3 — GALLERY STRIP
-  ══════════════════════════════════════════════════ -->
+
   <section class="de-gallery">
     <div class="container">
       <div class="de-gallery__grid">
@@ -280,14 +259,12 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════
-       SECCIÓN 4 — MAIN GRID: CONTENIDO + SIDEBAR
-  ══════════════════════════════════════════════════ -->
+
   <section class="de-main">
     <div class="container">
       <div class="de-main__grid">
 
-        <!-- Contenido principal -->
+
         <div class="de-main__content">
           <SectionHeader
             label="Directorio Completo"
@@ -311,16 +288,16 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
             ))}
           </div>
 
-          <!-- Slot SEO — contenido de texto para posicionamiento -->
+
           <div class="de-seo">
             <slot name="seo" />
           </div>
         </div>
 
-        <!-- Sidebar -->
+
         <aside class="de-sidebar">
 
-          <!-- 1. Filtrar por Municipio -->
+
           <div class="de-sidebar__card">
             <h4>Filtrar por Municipio</h4>
             <ul class="de-sidebar__municipios">
@@ -335,7 +312,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
             </ul>
           </div>
 
-          <!-- 2. Teléfonos de Emergencia -->
+
           <div class="de-sidebar__card de-sidebar__card--emergency">
             <h4>Teléfonos de Emergencia</h4>
             <div class="de-sidebar__emergency-list">
@@ -348,7 +325,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
             </div>
           </div>
 
-          <!-- 3. Regiones del Estado -->
+
           <div class="de-sidebar__card">
             <h4>Regiones del Estado</h4>
             <ul class="de-sidebar__regiones">
@@ -361,7 +338,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
             </ul>
           </div>
 
-          <!-- 4. Estados Vecinos -->
+
           <div class="de-sidebar__card">
             <h4>Estados Vecinos</h4>
             <ul class="de-sidebar__states">
@@ -378,14 +355,14 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
             </ul>
           </div>
 
-          <!-- 5. CTA Cotización -->
+
           <div class="de-sidebar__card de-sidebar__card--cta">
             <h4>¿Equipas una Estación en {sigla}?</h4>
             <p>Somos distribuidores de equipo certificado NFPA para cuerpos de bomberos en todo {estado}</p>
             <a href="/cotizar/" class="de-sidebar__cta-btn">Solicitar Cotización</a>
           </div>
 
-          <!-- 6. Equipo para Bomberos -->
+
           <div class="de-sidebar__card">
             <h4>Equipo para Bomberos</h4>
             <ul class="de-sidebar__products">
@@ -402,7 +379,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
             </a>
           </div>
 
-          <!-- 7. Volver al Directorio -->
+
           <div class="de-sidebar__card">
             <a href="/directorio/" class="de-sidebar__back">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -412,7 +389,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
             </a>
           </div>
 
-          <!-- 8. Contacto BOMBERO.MX -->
+
           <div class="de-sidebar__card">
             <h4>Contacto BOMBERO.MX</h4>
             <ul class="de-sidebar__contact">
@@ -427,9 +404,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════
-       SECCIÓN 5 — EPP COMPLEMENTARIO
-  ══════════════════════════════════════════════════ -->
+
   <section class="de-epp">
     <div class="container">
       <SectionHeader
@@ -468,9 +443,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════
-       SECCIÓN 6 — CTA BANNER
-  ══════════════════════════════════════════════════ -->
+
   <CTABanner
     title={ctaTitle}
     desc={ctaDesc}
@@ -482,12 +455,9 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
 </PageLayout>
 
 <style>
-  /* ═══════════════════════════════════════════════════════════════════════
-     DIRECTORIO ESTADO LAYOUT — CSS COMPARTIDO PARA TODOS LOS ESTADOS
-     Prefijo: de- (directorio-estado)
-     ═══════════════════════════════════════════════════════════════════════ */
 
-  /* ════════════════════════ HERO ════════════════════════ */
+
+
   .de-hero {
     position: relative;
     padding: var(--space-16) 0;
@@ -599,7 +569,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     letter-spacing: 0.1em;
   }
 
-  /* Hero visual mosaic */
+
   .de-hero__visual {
     display: flex;
     flex-direction: column;
@@ -667,7 +637,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     letter-spacing: 0.05em;
   }
 
-  /* ════════════════════════ EMERGENCY BANNER ════════════════════════ */
+
   .de-emergency {
     background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
     padding: var(--space-5) 0;
@@ -717,7 +687,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     max-width: 400px;
   }
 
-  /* ════════════════════════ GALLERY STRIP ════════════════════════ */
+
   .de-gallery {
     background: var(--color-smoke-900);
     padding: var(--space-6) 0;
@@ -761,7 +731,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     letter-spacing: 0.02em;
   }
 
-  /* ════════════════════════ MAIN SECTION ════════════════════════ */
+
   .de-main {
     padding: var(--space-16) 0;
     background: var(--color-smoke-50);
@@ -774,7 +744,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     align-items: start;
   }
 
-  /* ════════════════════════ STATIONS GRID ════════════════════════ */
+
   .de-stations-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -782,7 +752,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     margin-top: var(--space-8);
   }
 
-  /* ════════════════════════ SEO CONTENT ════════════════════════ */
+
   .de-seo {
     margin-top: var(--space-12);
     padding: var(--space-8);
@@ -815,7 +785,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
 
   .de-seo :global(strong) { color: var(--color-smoke-800); }
 
-  /* ════════════════════════ SIDEBAR ════════════════════════ */
+
   .de-sidebar {
     display: flex;
     flex-direction: column;
@@ -846,7 +816,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     margin: 0 0 var(--space-4);
   }
 
-  /* Municipios */
+
   .de-sidebar__municipios {
     list-style: none;
     padding: 0;
@@ -882,7 +852,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     flex-shrink: 0;
   }
 
-  /* Regiones */
+
   .de-sidebar__regiones {
     list-style: none;
     padding: 0;
@@ -912,7 +882,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     line-height: 1.4;
   }
 
-  /* Emergency Card */
+
   .de-sidebar__card--emergency {
     background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
   }
@@ -948,7 +918,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     color: var(--color-smoke-400);
   }
 
-  /* States List */
+
   .de-sidebar__states {
     list-style: none;
     padding: 0;
@@ -986,7 +956,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     transform: translateX(0);
   }
 
-  /* CTA Card */
+
   .de-sidebar__card--cta {
     background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
   }
@@ -1019,7 +989,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  /* Products */
+
   .de-sidebar__products {
     list-style: none;
     padding: 0;
@@ -1055,7 +1025,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
 
   .de-sidebar__link:hover svg { transform: translateX(4px); }
 
-  /* Back Link */
+
   .de-sidebar__back {
     display: flex;
     align-items: center;
@@ -1074,7 +1044,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     color: var(--color-fire-600);
   }
 
-  /* Contact */
+
   .de-sidebar__contact {
     list-style: none;
     padding: 0;
@@ -1093,7 +1063,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
 
   .de-sidebar__contact a:hover { color: var(--color-fire-700); }
 
-  /* ════════════════════════ EPP COMPLEMENTARIO ════════════════════════ */
+
   .de-epp {
     padding: var(--space-16) 0;
     background: var(--color-smoke-50);
@@ -1184,7 +1154,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
 
   .de-epp__card-link:hover { color: var(--color-fire-700); }
 
-  /* ════════════════════════ RESPONSIVE ════════════════════════ */
+
   @media (max-width: 1200px) {
     .de-stations-grid { grid-template-columns: 1fr; }
     .de-epp__grid { grid-template-columns: repeat(2, 1fr); }

@@ -1,9 +1,5 @@
 ---
-/**
- * ─── Blog Paginated Pages ───
- * Páginas de paginación del blog (página 2 en adelante).
- * URL: /blog/pagina/[page]
- */
+
 import PageLayout from "@layouts/PageLayout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
@@ -12,14 +8,14 @@ import Pagination from "@components/Pagination.astro";
 import { cdnW } from "@utils/cdn";
 import { getAllArticulos } from "@data/blog-articulos";
 
-/* ── Configuración de paginación ── */
+
 const ARTICLES_PER_PAGE = 6;
 
-/* ── Obtener todos los artículos ── */
+
 const allArticulos = getAllArticulos();
 const totalPages = Math.ceil(allArticulos.length / ARTICLES_PER_PAGE);
 
-/* ── Generar rutas estáticas ── */
+
 export function getStaticPaths() {
   const articulos = getAllArticulos();
   const perPage = 6;
@@ -39,12 +35,12 @@ if (isNaN(currentPage) || currentPage < 2 || currentPage > totalPages) {
   return Astro.redirect("/blog");
 }
 
-/* ── Obtener artículos para esta página ── */
+
 const startIndex = (currentPage - 1) * ARTICLES_PER_PAGE;
 const endIndex = startIndex + ARTICLES_PER_PAGE;
 const articulos = allArticulos.slice(startIndex, endIndex);
 
-/* ── Categorías con conteo dinámico ── */
+
 const catsList = [
   { label: "Normativas", slug: "normativas" },
   { label: "Mantenimiento", slug: "mantenimiento" },
@@ -76,9 +72,9 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
   <Breadcrumb items={breadcrumb} />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- HEADER SIMPLE                                                   -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="blog-page-header">
     <div class="container">
       <div class="blog-page-header__content">
@@ -94,13 +90,13 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYOUT PRINCIPAL — ARTÍCULOS + SIDEBAR                          -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <div class="blog-index-layout">
     <div class="container blog-index-layout__inner">
 
-      <!-- ─── COLUMNA PRINCIPAL ─── -->
+
       <main class="blog-index-main">
 
         <div class="blog-grid">
@@ -138,7 +134,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           ))}
         </div>
 
-        <!-- Paginación -->
+
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -147,10 +143,10 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
       </main>
 
-      <!-- ─── SIDEBAR ─── -->
+
       <aside class="blog-index-sidebar">
 
-        <!-- CTA COTIZAR -->
+
         <div class="sb-card sb-card--cta">
           <h3 class="sb-card__title">Catálogo de Productos</h3>
           <p class="sb-card__text">Equipo certificado NFPA listo para envío a toda la República.</p>
@@ -166,7 +162,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           </div>
         </div>
 
-        <!-- CATEGORÍAS -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -184,7 +180,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           </ul>
         </div>
 
-        <!-- PRODUCTOS DESTACADOS -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
@@ -215,7 +211,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
           <a href="/productos/" class="sb-see-all">Ver catálogo completo →</a>
         </div>
 
-        <!-- DIRECTORIO -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -256,9 +252,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 </PageLayout>
 
 <style>
-  /* ══════════════════════════════════════════════════════════════════════
-     PAGE HEADER (versión simplificada para páginas internas)
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-page-header {
     background: var(--color-smoke-950);
     padding: var(--space-12) 0;
@@ -317,9 +311,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     line-height: var(--leading-relaxed);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     LAYOUT PRINCIPAL
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-index-layout {
     background: var(--color-smoke-50);
     padding: var(--space-12) 0 var(--space-16);
@@ -338,9 +330,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     gap: var(--space-8);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     GRID DE ARTÍCULOS
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -442,9 +432,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     flex-shrink: 0;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     SIDEBAR
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-index-sidebar {
     display: flex;
     flex-direction: column;
@@ -587,9 +575,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     border-top: 1px solid var(--color-smoke-100);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     RESPONSIVE
-     ══════════════════════════════════════════════════════════════════════ */
+
   @media (max-width: 1024px) {
     .blog-index-layout__inner {
       grid-template-columns: 1fr;

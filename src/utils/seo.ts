@@ -1,14 +1,8 @@
-/**
- * ─── SEO Utilities ───
- * Comprehensive helpers for SEO optimization in Mexico market:
- * - Canonical URLs
- * - Title formatting
- * - JSON-LD Structured Data (Organization, LocalBusiness, WebSite, Product, etc.)
- */
+
 
 import { SITE, type SEOProps } from "@data/site";
 
-/** Build a full canonical URL from a relative path */
+
 export function canonicalURL(path: string): string {
   const base = SITE.url.endsWith("/") ? SITE.url.slice(0, -1) : SITE.url;
   const clean = path.startsWith("/") ? path : `/${path}`;
@@ -22,7 +16,7 @@ export function canonicalURL(path: string): string {
   return `${url}/`; // Add trailing slash
 }
 
-/** Apply the title template from site config */
+
 export function formatTitle(title?: string): string {
   if (!title) return SITE.seo.title;
   // Avoid duplicate branding when a page title already includes the site name.
@@ -30,10 +24,7 @@ export function formatTitle(title?: string): string {
   return SITE.seo.titleTemplate.replace("%s", title);
 }
 
-/**
- * Keep meta descriptions within SERP-friendly limits.
- * Prefers complete sentences; falls back to word-safe trimming.
- */
+
 export function truncateMetaDescription(description: string, maxLength = 160): string {
   const escapedLength = (text: string) =>
     text
@@ -135,7 +126,7 @@ export function truncateMetaDescription(description: string, maxLength = 160): s
   return applyPracticalTarget(result);
 }
 
-/** Merge page-level SEO props with site defaults */
+
 export function resolveSEO(props: SEOProps) {
   // Normalize canonical: convert relative paths to absolute URLs with trailing slash
   let normalizedCanonical = props.canonical;
@@ -162,7 +153,7 @@ export function resolveSEO(props: SEOProps) {
   };
 }
 
-/** Generate Organization JSON-LD - Enhanced for Mexico */
+
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -230,7 +221,7 @@ export function organizationJsonLd() {
   };
 }
 
-/** Generate LocalBusiness JSON-LD - Critical for local SEO in Mexico */
+
 export function localBusinessJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -317,7 +308,7 @@ export function localBusinessJsonLd() {
   };
 }
 
-/** Generate WebSite JSON-LD with SearchAction */
+
 export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -341,7 +332,7 @@ export function websiteJsonLd() {
   };
 }
 
-/** Generate Product JSON-LD for product pages */
+
 export function productJsonLd(product: {
   name: string;
   description: string;
@@ -402,7 +393,7 @@ export function productJsonLd(product: {
   };
 }
 
-/** Generate complete Product JSON-LD with ratings and reviews for product pages */
+
 export function productSchemaComplete(product: {
   name: string;
   description: string;
@@ -573,7 +564,7 @@ export function productSchemaComplete(product: {
   };
 }
 
-/** Generate Article JSON-LD for blog posts */
+
 export function articleJsonLd(article: {
   title: string;
   description: string;
@@ -613,7 +604,7 @@ export function articleJsonLd(article: {
   };
 }
 
-/** Generate BreadcrumbList JSON-LD */
+
 export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
   return {
     "@context": "https://schema.org",
@@ -627,7 +618,7 @@ export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
   };
 }
 
-/** Generate FAQPage JSON-LD for FAQ sections */
+
 export function faqJsonLd(faqs: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",
@@ -643,7 +634,7 @@ export function faqJsonLd(faqs: { question: string; answer: string }[]) {
   };
 }
 
-/** Generate Service JSON-LD for service pages */
+
 export function serviceJsonLd(service: {
   name: string;
   description: string;

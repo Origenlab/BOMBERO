@@ -1,84 +1,4 @@
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════╗
- * ║  BOMBEROS DE DURANGO (DGO) - DIRECTORIO OFICIAL ULTRA-PREMIUM             ║
- * ║  Sistema de Información Premium para SEO y Marketing Digital              ║
- * ╠═══════════════════════════════════════════════════════════════════════════╣
- * ║  Capital: Victoria de Durango | Código: DGO | Región: Norte de México     ║
- * ║  12 Estaciones | 420 Bomberos | Cobertura Estatal Completa                ║
- * ╚═══════════════════════════════════════════════════════════════════════════╝
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PERFIL GEOGRÁFICO Y DEMOGRÁFICO                         │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  Superficie:        123,451 km² (4° lugar nacional)                        │
- * │  Población:         1,832,650 habitantes (24° nacional)                    │
- * │  Municipios:        39 municipios                                          │
- * │  Densidad:          14.8 hab/km² (2ª más baja del país)                    │
- * │  PIB Estatal:       1.4% del PIB nacional                                  │
- * │  Altitud capital:   1,880 msnm                                             │
- * │  Clima:             Semiárido a templado (Sierra Madre Occidental)         │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                         RIESGOS NATURALES CRÍTICOS                         │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🔥 INCENDIOS FOREST │ Sierra Madre Occidental, temporada ene-jun          │
- * │                      │ #1 nacional en superficie boscosa afectable         │
- * │  🌡️ SEQUÍAS          │ Zona semidesértica, crisis hídrica recurrente      │
- * │  ❄️ HELADAS/NEVADAS  │ Sierra de Durango, temperaturas bajo cero          │
- * │  🌊 INUNDACIONES     │ Temporada de lluvias jul-sep                        │
- * │  🏔️ DESLAVES         │ Zona serrana, carreteras de montaña                │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                         SECTORES ECONÓMICOS CLAVE                          │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🌲 FORESTAL         │ #1 nacional en producción de madera (25% país)      │
- * │  🥛 AGROINDUSTRIA    │ La Laguna (compartida): principal cuenca lechera    │
- * │  ⛏️ MINERÍA          │ Oro, plata, hierro, fluorita                        │
- * │  🌾 AGRICULTURA      │ Frijol, maíz, avena, chile                          │
- * │  🐄 GANADERÍA        │ Importante productor de ganado bovino               │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PATRIMONIO CULTURAL Y TURISMO                           │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🏛️ Pueblos Mágicos: │ Mapimí, Nombre de Dios                              │
- * │  🌿 Áreas Naturales:  │ Reserva de la Biosfera de Mapimí (Zona del Silencio)│
- * │                       │ Parque Nacional Cumbres de Majalca                 │
- * │  🏔️ Sierra Madre:     │ Bosques de pino-encino, Quebrada de Mexiquillo     │
- * │  🎭 Cultura:          │ Raíces menonitas, herencia española colonial       │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    ESPECIALIDADES BOMBERILES REQUERIDAS                    │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🔥 Incendios Forestales │ Brigadas especializadas, Sierra Madre           │
- * │  🏭 Industrial           │ Agroindustria, madereras, minería               │
- * │  🚗 Vehicular            │ Carreteras de montaña, autopistas               │
- * │  🏔️ Rescate en Montaña   │ Sierra de Durango, zonas remotas                │
- * │  ❄️ Emergencias Invernales│ Nevadas, hipotermia, carreteras cerradas       │
- * │  🥛 HAZMAT Lácteo        │ Amoniaco en plantas refrigeradoras              │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ════════════════════════════════════════════════════════════════════════════
- *  DISTRIBUCIÓN ESTRATÉGICA DE 12 ESTACIONES
- * ════════════════════════════════════════════════════════════════════════════
- *
- *  ZONA METROPOLITANA DURANGO (Capital).............. 3 estaciones
- *  │ Central Durango │ Norte │ Sur
- *
- *  ZONA LA LAGUNA (Industrial-Lechera)............... 3 estaciones
- *  │ Gómez Palacio Central │ Gómez Palacio Industrial │ Lerdo
- *
- *  ZONA SIERRA (Forestal)............................ 3 estaciones
- *  │ Santiago Papasquiaro │ Pueblo Nuevo │ El Salto
- *
- *  ZONA CENTRO-SUR (Agrícola)........................ 3 estaciones
- *  │ Canatlán │ Nombre de Dios │ Vicente Guerrero
- *
- * ════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
@@ -815,32 +735,24 @@ export const estacionesDurango: Estacion[] = [
 // FUNCIONES AUXILIARES SEO Y FILTRADO
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones de la zona metropolitana Durango
- */
+
 export function getEstacionesMetropolitanas(): Estacion[] {
   return estacionesDurango.filter(e => e.ciudad === 'Durango');
 }
 
-/**
- * Obtiene estaciones de la zona La Laguna
- */
+
 export function getEstacionesLaLaguna(): Estacion[] {
   const ciudadesLaguna = ['Gómez Palacio', 'Lerdo'];
   return estacionesDurango.filter(e => ciudadesLaguna.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la zona Sierra
- */
+
 export function getEstacionesSierra(): Estacion[] {
   const ciudadesSierra = ['Santiago Papasquiaro', 'Pueblo Nuevo', 'Pueblo Nuevo (El Salto)'];
   return estacionesDurango.filter(e => ciudadesSierra.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones con capacidad forestal
- */
+
 export function getEstacionesForestales(): Estacion[] {
   return estacionesDurango.filter(e =>
     e.servicios.some(s =>
@@ -851,9 +763,7 @@ export function getEstacionesForestales(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con capacidad HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesDurango.filter(e =>
     e.servicios.some(s =>
@@ -865,9 +775,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con cobertura industrial
- */
+
 export function getEstacionesIndustriales(): Estacion[] {
   return estacionesDurango.filter(e =>
     e.servicios.some(s =>
@@ -879,9 +787,7 @@ export function getEstacionesIndustriales(): Estacion[] {
   );
 }
 
-/**
- * Genera metadatos SEO para una estación específica
- */
+
 export function generarMetaSEO(estacion: Estacion): {
   title: string;
   description: string;
@@ -937,9 +843,7 @@ export function generarMetaSEO(estacion: Estacion): {
   };
 }
 
-/**
- * Obtiene contexto SEO por zona
- */
+
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
@@ -1026,9 +930,7 @@ export function getContextoZona(ciudad: string): {
   };
 }
 
-/**
- * Obtiene nivel de riesgo de incendio forestal por ciudad
- */
+
 export function getNivelRiesgoForestal(ciudad: string): {
   nivel: 'muy alto' | 'alto' | 'medio' | 'bajo';
   temporada: string;
@@ -1066,16 +968,12 @@ export function getNivelRiesgoForestal(ciudad: string): {
   };
 }
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesDurango.find((e) => e.slug === slug);
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -1091,9 +989,7 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
   return [...mismaCiudad, ...otrasCiudades].slice(0, limit);
 }
 
-/**
- * Estadísticas totales del estado
- */
+
 export const ESTADISTICAS_DURANGO = {
   total_estaciones: estacionesDurango.length,
   total_bomberos: estacionesDurango.reduce((sum, e) => sum + e.personal, 0),

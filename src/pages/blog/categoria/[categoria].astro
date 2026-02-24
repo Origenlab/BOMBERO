@@ -1,9 +1,5 @@
 ---
-/**
- * ─── Blog Category Page ───
- * Página de categoría del blog con artículos filtrados.
- * URL: /blog/categoria/[categoria]
- */
+
 import PageLayout from "@layouts/PageLayout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
@@ -11,7 +7,7 @@ import CTABanner from "@components/CTABanner.astro";
 import { cdnW } from "@utils/cdn";
 import { getAllArticulos } from "@data/blog-articulos";
 
-/* ── Generar rutas estáticas ── */
+
 export function getStaticPaths() {
   const cats = [
     { slug: "normativas", nombre: "Normativas", descripcion: "Artículos sobre normas NFPA, certificaciones y requisitos legales para equipo de bomberos.", keywords: ["NFPA 1971", "certificación EPP", "normas bomberos", "requisitos legales"] },
@@ -31,13 +27,13 @@ export function getStaticPaths() {
 const { categoria } = Astro.params;
 const { catData } = Astro.props;
 
-/* ── Filtrar artículos por categoría ── */
+
 const todosArticulos = getAllArticulos();
 const articulosCategoria = todosArticulos.filter(
   (a) => a.categoria.toLowerCase() === catData.nombre.toLowerCase()
 );
 
-/* ── Sidebar data ── */
+
 const catsList = [
   { slug: "normativas", nombre: "Normativas" },
   { slug: "mantenimiento", nombre: "Mantenimiento" },
@@ -89,9 +85,9 @@ const breadcrumb = [
 
   <Breadcrumb items={breadcrumb} />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- HERO (mismo patrón que blog index)                               -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="blog-index-hero">
     <div class="blog-index-hero__bg">
       <div class="blog-index-hero__gradient"></div>
@@ -146,14 +142,14 @@ const breadcrumb = [
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYOUT PRINCIPAL — ARTÍCULOS + SIDEBAR                          -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="blog-layout">
     <div class="container">
       <div class="blog-layout__grid">
 
-        <!-- Main Content -->
+
         <main class="blog-main">
           {articulosCategoria.length > 0 ? (
             <div class="articles-grid">
@@ -206,9 +202,9 @@ const breadcrumb = [
           )}
         </main>
 
-        <!-- Sidebar -->
+
         <aside class="blog-sidebar">
-          <!-- Categorías -->
+
           <div class="sb-card">
             <h3 class="sb-card__title">Categorías</h3>
             <div class="sb-cats">
@@ -224,7 +220,7 @@ const breadcrumb = [
             </div>
           </div>
 
-          <!-- Artículos Populares -->
+
           <div class="sb-card">
             <h3 class="sb-card__title">Artículos Populares</h3>
             <ul class="sb-links">
@@ -241,7 +237,7 @@ const breadcrumb = [
             </ul>
           </div>
 
-          <!-- Productos Relacionados -->
+
           <div class="sb-card">
             <h3 class="sb-card__title">Productos Relacionados</h3>
             <ul class="sb-links">
@@ -260,7 +256,7 @@ const breadcrumb = [
             <a href="/productos/" class="sb-see-all">Ver catálogo completo →</a>
           </div>
 
-          <!-- Directorio -->
+
           <div class="sb-card">
             <h3 class="sb-card__title">Directorio de Bomberos</h3>
             <ul class="sb-links">
@@ -294,9 +290,7 @@ const breadcrumb = [
 </PageLayout>
 
 <style>
-  /* ══════════════════════════════════════════════════════════════════════
-     HERO (mismo patrón que blog index)
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-index-hero {
     position: relative;
     background: var(--color-smoke-950);
@@ -336,7 +330,7 @@ const breadcrumb = [
   .blog-index-hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
   .blog-index-hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
 
-  /* Hero Container - dos columnas */
+
   .hero__container {
     position: relative;
     display: grid;
@@ -399,7 +393,7 @@ const breadcrumb = [
     margin-bottom: var(--space-12);
   }
 
-  /* Hero SEO - columna derecha */
+
   .hero__seo {
     display: flex;
     flex-direction: column;
@@ -429,9 +423,7 @@ const breadcrumb = [
     font-weight: 600;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     BLOG LAYOUT
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-layout {
     padding: var(--space-16) 0;
     background: var(--color-smoke-50);
@@ -444,9 +436,7 @@ const breadcrumb = [
     align-items: start;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     ARTICLES GRID
-     ══════════════════════════════════════════════════════════════════════ */
+
   .articles-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -548,9 +538,7 @@ const breadcrumb = [
     transform: translateX(4px);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     NO ARTICLES
-     ══════════════════════════════════════════════════════════════════════ */
+
   .no-articles {
     display: flex;
     flex-direction: column;
@@ -582,9 +570,7 @@ const breadcrumb = [
     max-width: 400px;
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     SIDEBAR
-     ══════════════════════════════════════════════════════════════════════ */
+
   .blog-sidebar {
     display: flex;
     flex-direction: column;
@@ -687,9 +673,7 @@ const breadcrumb = [
     border-top: 1px solid var(--color-smoke-100);
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     RESPONSIVE
-     ══════════════════════════════════════════════════════════════════════ */
+
   @media (max-width: 1024px) {
     .hero__container {
       grid-template-columns: 1fr;

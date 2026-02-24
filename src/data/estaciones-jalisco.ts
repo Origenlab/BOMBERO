@@ -823,48 +823,36 @@ export const JALISCO_SEO = {
 // FUNCIONES AUXILIARES
 // =====================================================
 
-/**
- * Obtiene estaciones de la Zona Metropolitana de Guadalajara
- */
+
 export function getEstacionesZMG(): Estacion[] {
   return estacionesJalisco.filter(e => e.zona === "Zona Metropolitana de Guadalajara");
 }
 
-/**
- * Obtiene estaciones de Puerto Vallarta y costa
- */
+
 export function getEstacionesCosta(): Estacion[] {
   return estacionesJalisco.filter(e =>
     e.zona?.includes("Costa") || e.zona?.includes("Puerto Vallarta")
   );
 }
 
-/**
- * Obtiene estaciones de la zona tequilera
- */
+
 export function getEstacionesTequila(): Estacion[] {
   return estacionesJalisco.filter(e => e.zona?.includes("Tequila"));
 }
 
-/**
- * Obtiene estaciones del Lago de Chapala
- */
+
 export function getEstacionesChapala(): Estacion[] {
   return estacionesJalisco.filter(e => e.zona?.includes("Chapala"));
 }
 
-/**
- * Obtiene estaciones con especialidad HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesJalisco.filter(e =>
     e.especialidades?.some(esp => esp.toLowerCase().includes("hazmat"))
   );
 }
 
-/**
- * Obtiene estaciones con rescate acuático
- */
+
 export function getEstacionesRescateAcuatico(): Estacion[] {
   return estacionesJalisco.filter(e =>
     e.especialidades?.some(esp =>
@@ -875,9 +863,7 @@ export function getEstacionesRescateAcuatico(): Estacion[] {
   );
 }
 
-/**
- * Genera meta tags SEO para una estación
- */
+
 export function generarMetaSEO(estacion: Estacion): { title: string; description: string; keywords: string } {
   return {
     title: `${estacion.nombre} | Bomberos ${estacion.ciudad}, Jalisco`,
@@ -886,9 +872,7 @@ export function generarMetaSEO(estacion: Estacion): { title: string; description
   };
 }
 
-/**
- * Obtiene contexto geográfico y cultural de una zona
- */
+
 export function getContextoZona(zona: string): { descripcion: string; riesgos: string[]; caracteristicas: string[] } {
   const contextos: Record<string, { descripcion: string; riesgos: string[]; caracteristicas: string[] }> = {
     "Zona Metropolitana de Guadalajara": {
@@ -925,23 +909,17 @@ export function getContextoZona(zona: string): { descripcion: string; riesgos: s
   };
 }
 
-/**
- * Obtiene todos los municipios/ciudades únicos
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesJalisco.map(e => e.ciudad))].sort();
 }
 
-/**
- * Obtiene estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesJalisco.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

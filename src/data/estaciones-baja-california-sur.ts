@@ -1,34 +1,4 @@
-/**
- * ─────────────────────────────────────────────────────────────────────────────
- * DATOS DE ESTACIONES DE BOMBEROS - BAJA CALIFORNIA SUR
- * ─────────────────────────────────────────────────────────────────────────────
- * Base de datos profesional del H. Cuerpo de Bomberos del Estado de Baja California Sur
- *
- * Baja California Sur: Estado peninsular del noroeste de México
- * - Población: 798,447 habitantes (2020)
- * - Capital: La Paz (la capital más aislada de México continental)
- * - Superficie: 73,909 km² (9° estado más grande)
- * - Municipios: 5 (Los Cabos, La Paz, Comondú, Loreto, Mulegé)
- * - Características distintivas:
- *   • Mar de Cortés (Patrimonio Natural de la Humanidad UNESCO)
- *   • Destino turístico de clase mundial (Los Cabos)
- *   • Avistamiento de ballena gris (Guerrero Negro, Laguna San Ignacio)
- *   • Desierto del Vizcaíno (Reserva de la Biósfera)
- *   • Pinturas rupestres de la Sierra de San Francisco (Patrimonio UNESCO)
- *   • Menor densidad poblacional de México
- *   • Península de Baja California - 1,200 km de longitud
- *
- * Riesgos principales del estado:
- * - Huracanes del Pacífico (temporada junio-noviembre)
- * - Incendios forestales en zonas serranas
- * - Emergencias turísticas en mar y playa
- * - Temperaturas extremas en desierto
- * - Aislamiento geográfico de comunidades
- *
- * Información optimizada para SEO y directorio profesional de emergencias
- * Última actualización: 2024
- * ─────────────────────────────────────────────────────────────────────────────
- */
+
 
 import type { Estacion } from './types';
 
@@ -376,39 +346,22 @@ export const estacionesBajaCaliforniaSur: Estacion[] = [
 // FUNCIONES AUXILIARES PARA DIRECTORIO DE BAJA CALIFORNIA SUR
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtener estación por slug
- * @param slug - Identificador único de la estación
- * @returns Estación encontrada o undefined
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesBajaCaliforniaSur.find(e => e.slug === slug);
 }
 
-/**
- * Obtener estaciones por municipio
- * @param municipio - Nombre del municipio (La Paz, Los Cabos, Comondú, Loreto, Mulegé)
- * @returns Array de estaciones en el municipio
- */
+
 export function getEstacionesByMunicipio(municipio: string): Estacion[] {
   return estacionesBajaCaliforniaSur.filter(e => e.municipio === municipio);
 }
 
-/**
- * Obtener todos los municipios únicos de BCS
- * @returns Array de nombres de municipios ordenados alfabéticamente
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesBajaCaliforniaSur.map(e => e.municipio))].sort();
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- * Prioriza estaciones del mismo municipio
- * @param slug - Slug de la estación actual
- * @param limit - Número máximo de estaciones a retornar
- * @returns Array de estaciones cercanas
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -425,19 +378,12 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
   return [...mismoMunicipio, ...otrosMunicipios].slice(0, limit);
 }
 
-/**
- * Obtener estaciones por ciudad
- * @param ciudad - Nombre de la ciudad
- * @returns Array de estaciones en la ciudad
- */
+
 export function getEstacionesByCiudad(ciudad: string): Estacion[] {
   return estacionesBajaCaliforniaSur.filter(e => e.ciudad === ciudad);
 }
 
-/**
- * Estadísticas del estado de Baja California Sur
- * @returns Objeto con estadísticas agregadas
- */
+
 export function getEstadisticas() {
   const totalEstaciones = estacionesBajaCaliforniaSur.length;
   const totalPersonal = estacionesBajaCaliforniaSur.reduce((acc, e) => acc + (e.personalActivo || 0), 0);
@@ -454,11 +400,7 @@ export function getEstadisticas() {
   };
 }
 
-/**
- * Obtener estaciones con capacidad de rescate acuático
- * Útil para emergencias marítimas en el Mar de Cortés
- * @returns Array de estaciones con equipo de rescate acuático
- */
+
 export function getEstacionesRescateAcuatico(): Estacion[] {
   return estacionesBajaCaliforniaSur.filter(e =>
     e.servicios.some(s => s.toLowerCase().includes('acuático') || s.toLowerCase().includes('marítimo')) ||
@@ -466,10 +408,7 @@ export function getEstacionesRescateAcuatico(): Estacion[] {
   );
 }
 
-/**
- * Obtener estaciones turísticas (Los Cabos, Loreto)
- * @returns Array de estaciones en zonas turísticas principales
- */
+
 export function getEstacionesTuristicas(): Estacion[] {
   const municipiosTuristicos = ['Los Cabos', 'Loreto'];
   return estacionesBajaCaliforniaSur.filter(e => municipiosTuristicos.includes(e.municipio));

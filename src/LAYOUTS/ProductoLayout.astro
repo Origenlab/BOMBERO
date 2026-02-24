@@ -1,26 +1,5 @@
 ---
-/**
- * ─── ProductoLayout ───
- * Layout reutilizable para TODAS las páginas de producto.
- * Contiene toda la estructura HTML y CSS.
- * Los archivos de producto solo necesitan pasar datos como props — cero CSS.
- *
- * Secciones incluidas:
- *  1. Breadcrumb
- *  2. Hero (badge + título + SEO blocks)
- *  3. CTABar
- *  4. Layout principal (main + sidebar)
- *     4a. Tarjeta intro del producto
- *     4b. Galería horizontal (6 imágenes)
- *     4c. Sistema de capas / características
- *     4d. Especificaciones técnicas (tabla)
- *     4e. Aplicaciones / escenarios de uso
- *     4f. Certificaciones (dark)
- *  5. WhyChooseUs
- *  6. FAQ con aside de ayuda
- *  7. Relacionados / EPP Complementario
- *  8. CTABanner
- */
+
 import PageLayout from "@layouts/PageLayout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import CTABar from "@components/CTABar.astro";
@@ -31,7 +10,7 @@ import FAQ from "@components/FAQ.astro";
 import { cdnW } from "@utils/cdn";
 import { productSchemaComplete, breadcrumbJsonLd, faqJsonLd, canonicalURL } from "@utils/seo";
 
-/* ── Tipos ─────────────────────────────────────────────────────────────── */
+
 interface CapaSpec {
   label: string;
   valor: string;
@@ -114,27 +93,27 @@ interface BreadcrumbItem {
 }
 
 interface Props {
-  /* SEO */
+
   title: string;
   description: string;
   keywords?: string[];
   canonical: string;
   image?: string;
 
-  /* Breadcrumb */
+
   breadcrumb: BreadcrumbItem[];
 
-  /* Hero */
+
   heroBadge: string;
   heroTitle: string;
   heroTitleHighlight: string;
   heroSubtitle: string;
   heroSeoBlocks: [HeroSeoBlock, HeroSeoBlock];
 
-  /* CTA Bar */
+
   ctaBarQuote: string;
 
-  /* Intro del producto */
+
   productoCategoria: string;
   productoBadges: BadgeItem[];
   productoMasVendido?: boolean;
@@ -145,35 +124,35 @@ interface Props {
   productoFeatures: string[];
   productoAppTags: string[];
 
-  /* Galería (6 imágenes) */
+
   gallery: { src: string; alt: string }[];
 
-  /* Sistema de capas */
+
   capasEyebrow?: string;
   capasTitle: string;
   capasDesc: string;
   capas: CapaItem[];
 
-  /* Especificaciones */
+
   specsEyebrow?: string;
   specsTitle?: string;
   specsDesc?: string;
   especificaciones: EspecificacionItem[];
   catClass?: Record<string, string>;
 
-  /* Aplicaciones */
+
   aplicacionesLabel?: string;
   aplicacionesTitle: string;
   aplicacionesContent: string;    // HTML para el slot del SectionHeader (p tags, strong, etc.)
   aplicaciones: AplicacionItem[];
 
-  /* Certificaciones */
+
   certsEyebrow?: string;
   certsTitle: string;
   certsDesc: string;              // HTML permitido (puede tener <strong> y <em>)
   certItems: CertItem[];          // 5 items (el 6º es siempre el CTA "Solicitar Ficha Técnica")
 
-  /* Sidebar */
+
   specsRapidas: SpecRapida[];
   otrosModelos: SidebarLinkItem[];
   otrosModelosSeeAllHref: string;
@@ -182,7 +161,7 @@ interface Props {
   articulos: ArticuloItem[];
   directorioLinks: SidebarLinkItem[];
 
-  /* FAQ */
+
   faqTitle: string;
   faqDescription: string;
   faqDocTitle?: string;
@@ -191,13 +170,13 @@ interface Props {
   faqDocCtaText?: string;
   faqs: FaqItem[];
 
-  /* Relacionados */
+
   relacionadosLabel?: string;
   relacionadosTitle?: string;
   relacionadosDesc?: string;
   relacionados: RelacionadoItem[];
 
-  /* WhyChooseUs images (opcional, 6 imgs) */
+
   whyChooseImages?: string[];
 }
 
@@ -234,10 +213,10 @@ const {
   whyChooseImages,
 } = Astro.props;
 
-/* ── CDN transformaciones ── */
+
 const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
 
-/* ── Schema.org JSON-LD ── */
+
 // Product Schema with ratings and reviews
 const productSchema = productSchemaComplete({
   name: productoTitle,
@@ -275,14 +254,14 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
   jsonLd={jsonLdSchemas}
 >
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- BREADCRUMB                                                       -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <Breadcrumb items={breadcrumb} />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- HERO                                                             -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="hero">
     <div class="hero__bg">
       <div class="hero__gradient"></div>
@@ -315,22 +294,22 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     </div>
   </section>
 
-  <!-- CTA BAR -->
+
   <CTABar quote={ctaBarQuote} />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- LAYOUT PRINCIPAL — CONTENIDO + SIDEBAR                          -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <div class="prod-layout">
     <div class="container prod-layout__inner">
 
-      <!-- ─── COLUMNA PRINCIPAL ─── -->
+
       <main class="prod-main">
 
-        <!-- TARJETA DE PRODUCTO -->
+
         <section class="prod-intro" id="producto">
 
-          <!-- Barra superior: categoría + badges + vendido -->
+
           <div class="prod-intro__topbar">
             <span class="prod-intro__category">{productoCategoria}</span>
             <div class="prod-intro__topbar-badges">
@@ -343,7 +322,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
             </div>
           </div>
 
-          <!-- Cuerpo: col izquierda (título + desc + features) | col derecha (app + CTA) -->
+
           <div class="prod-intro__body">
 
             <div class="prod-intro__left">
@@ -379,7 +358,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           </div>
         </section>
 
-        <!-- GALERÍA HORIZONTAL DE IMÁGENES -->
+
         <div class="prod-gallery" aria-label="Galería del producto">
           <div class="prod-gallery__track">
             {galleryCdn.map((img) => (
@@ -397,7 +376,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           </div>
         </div>
 
-        <!-- SISTEMA DE CAPAS / CARACTERÍSTICAS -->
+
         <section class="prod-section" id="sistema-capas">
           <div class="prod-section__head">
             <span class="prod-section__eyebrow">{capasEyebrow}</span>
@@ -431,7 +410,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           </div>
         </section>
 
-        <!-- ESPECIFICACIONES TÉCNICAS -->
+
         <section class="prod-section" id="especificaciones">
           <div class="prod-section__head">
             <span class="prod-section__eyebrow">{specsEyebrow}</span>
@@ -475,7 +454,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           </p>
         </section>
 
-        <!-- APLICACIONES -->
+
         <section class="prod-section prod-section--light" id="aplicaciones">
           <SectionHeader
             label={aplicacionesLabel}
@@ -497,7 +476,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           </div>
         </section>
 
-        <!-- CERTIFICACIONES — dark -->
+
         <section class="certs-dark" id="certificaciones">
           <div class="certs-dark__head">
             <p class="certs-dark__eyebrow">{certsEyebrow}</p>
@@ -521,10 +500,10 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
 
       </main>
 
-      <!-- ─── SIDEBAR ─── -->
+
       <aside class="prod-sidebar">
 
-        <!-- CTA COTIZAR -->
+
         <div class="sb-card sb-card--cta">
           <h3 class="sb-card__title">Solicita Cotización</h3>
           <p class="sb-card__text">Precios especiales para cuerpos de bomberos y licitaciones.</p>
@@ -544,7 +523,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           </div>
         </div>
 
-        <!-- ESPECIFICACIONES RÁPIDAS -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12h6m-6 4h6M9 8h6M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg>
@@ -560,7 +539,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           </ul>
         </div>
 
-        <!-- OTROS MODELOS -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -581,7 +560,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           </a>
         </div>
 
-        <!-- EPP COMPLEMENTARIO -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
@@ -601,7 +580,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           <a href={eppSeeAllHref} class="sb-see-all">Ver catálogo completo →</a>
         </div>
 
-        <!-- ARTÍCULOS Y RECURSOS -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
@@ -619,7 +598,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
           </ul>
         </div>
 
-        <!-- DIRECTORIO DE BOMBEROS -->
+
         <div class="sb-card">
           <h3 class="sb-card__title sb-card__title--dark">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -642,19 +621,19 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- WHY CHOOSE US                                                    -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <WhyChooseUs images={whyChooseImages} />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- FAQ                                                              -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <FAQ />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- RELACIONADOS                                                      -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="relacionados">
     <div class="container">
       <SectionHeader
@@ -692,17 +671,15 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     </div>
   </section>
 
-  <!-- CTA BANNER FINAL -->
+
   <CTABanner />
 
 </PageLayout>
 
 <style>
-  /* ══════════════════════════════════════════════════════════════════════
-     PRODUCTO LAYOUT — Mobile First
-     ══════════════════════════════════════════════════════════════════════ */
 
-  /* ═══ HERO — Mobile ═══ */
+
+
   .hero {
     position: relative;
     display: flex;
@@ -745,7 +722,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
   .hero__glow--1 { top: -100px; right: -50px; background: var(--color-ember-600); }
   .hero__glow--2 { bottom: -100px; left: -50px; background: var(--color-fire-600); }
 
-  /* Mobile: single column */
+
   .hero__container {
     position: relative;
     display: grid;
@@ -804,7 +781,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     margin-bottom: var(--space-6);
   }
 
-  /* Mobile: hide SEO blocks */
+
   .hero__seo {
     display: none;
     flex-direction: column;
@@ -829,13 +806,13 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
 
   .hero__seo-text :global(strong) { color: #ffffff; font-weight: 600; }
 
-  /* ═══ LAYOUT PRINCIPAL — Mobile ═══ */
+
   .prod-layout {
     background: var(--color-smoke-50);
     padding: var(--space-8) 0 var(--space-12);
   }
 
-  /* Mobile: single column, sidebar at bottom */
+
   .prod-layout__inner {
     display: grid;
     grid-template-columns: 1fr;
@@ -849,9 +826,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     gap: var(--space-2);
   }
 
-  /* ══════════════════════════════════════════════════════════════
-     TARJETA INTRO PRODUCTO — Mobile First
-  ══════════════════════════════════════════════════════════════ */
+
   .prod-intro {
     background: white;
     border-radius: var(--radius-xl);
@@ -914,7 +889,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
   .pcert--nfpa77{ background: rgba(16,185,129,0.10); color: #047857;                border: 1px solid rgba(16,185,129,0.2); }
   .pcert--astm  { background: rgba(139,92,246,0.10); color: #6d28d9;                border: 1px solid rgba(139,92,246,0.2); }
 
-  /* Mobile: single column stacked */
+
   .prod-intro__body {
     display: grid;
     grid-template-columns: 1fr;
@@ -952,7 +927,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     margin: 0;
   }
 
-  /* Mobile: single column features */
+
   .prod-intro__features {
     list-style: none;
     padding: 0;
@@ -1040,17 +1015,15 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
   }
 
   .prod-intro__actions :global(.btn) {
-    min-height: 44px; /* Touch-friendly */
+    min-height: 44px;
   }
 
-  /* ══════════════════════════════════════════════════════════════
-     GALERÍA HORIZONTAL — Mobile First
-  ══════════════════════════════════════════════════════════════ */
+
   .prod-gallery {
     margin-top: var(--space-3);
   }
 
-  /* Mobile: 2 columns */
+
   .prod-gallery__track {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1072,7 +1045,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     display: block;
   }
 
-  /* ── Secciones internas ── */
+
   .prod-section {
     background: white;
     border-radius: var(--radius-2xl);
@@ -1116,9 +1089,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     max-width: 600px;
   }
 
-  /* ══════════════════════════════════════════════════════════════
-     SISTEMA DE CAPAS
-  ══════════════════════════════════════════════════════════════ */
+
   .capas__grid {
     display: flex;
     flex-direction: column;
@@ -1213,7 +1184,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     line-height: 1.3;
   }
 
-  /* ── Specs table ── */
+
   .specs__table-wrap { overflow-x: auto; border-radius: var(--radius-xl); border: 1px solid var(--color-smoke-200); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
   .specs__table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
   .specs__table thead tr { background: var(--color-smoke-900); }
@@ -1238,7 +1209,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
   .specs__val   { color: var(--color-smoke-900); font-weight: 700; }
   .specs__note  { margin-top: var(--space-4); font-size: var(--text-xs); color: var(--color-smoke-500); font-style: italic; padding: var(--space-3) var(--space-4); background: var(--color-smoke-50); border-radius: var(--radius-lg); border: 1px solid var(--color-smoke-100); }
 
-  /* ── Aplicaciones ── */
+
   .aplic__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1306,7 +1277,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     border-top: 1px solid var(--color-smoke-100);
   }
 
-  /* ── Certificaciones dark ── */
+
   .certs-dark {
     background: var(--color-smoke-900);
     border-radius: var(--radius-2xl);
@@ -1417,10 +1388,8 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
 
   .cert-item__cta-btn:hover { background: var(--color-fire-700); }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     SIDEBAR — Mobile First
-     ══════════════════════════════════════════════════════════════════════ */
-  /* Mobile: static, single column */
+
+
   .prod-sidebar {
     display: flex;
     flex-direction: column;
@@ -1653,15 +1622,13 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
 
   .sb-article__link:hover .sb-article__label { color: var(--color-fire-700); }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     FAQ — Mobile First
-     ══════════════════════════════════════════════════════════════════════ */
+
   .faq-prod {
     padding: var(--space-12) 0;
     background: white;
   }
 
-  /* Mobile: single column */
+
   .faq-prod__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1695,7 +1662,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     font-weight: 600;
     color: var(--color-smoke-800);
     line-height: 1.4;
-    min-height: 56px; /* Touch-friendly */
+    min-height: 56px;
   }
 
   .faq-item__q::-webkit-details-marker { display: none; }
@@ -1730,7 +1697,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
   .faq-item__a { padding: 0 var(--space-4) var(--space-4); }
   .faq-item__a p { font-size: var(--text-xs); color: var(--color-smoke-600); line-height: 1.7; margin: 0; }
 
-  /* Mobile: static, single column */
+
   .faq-prod__aside {
     display: flex;
     flex-direction: column;
@@ -1781,15 +1748,13 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
   .faq-aside-card__btn--wa { background: #25d366; }
   .faq-aside-card__btn--wa:hover { background: #1fba58; }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     RELACIONADOS — Mobile First
-     ══════════════════════════════════════════════════════════════════════ */
+
   .relacionados {
     padding: var(--space-12) 0;
     background: var(--color-smoke-50);
   }
 
-  /* Mobile: single column */
+
   .rel__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1874,7 +1839,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     margin-top: var(--space-1);
     letter-spacing: 0.01em;
     transition: background var(--transition-fast);
-    min-height: 44px; /* Touch-friendly */
+    min-height: 44px;
   }
 
   .rel-card__btn:active { background: var(--color-fire-600); }
@@ -1883,11 +1848,9 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     .rel-card__btn:hover { background: var(--color-fire-600); }
   }
 
-  /* ══════════════════════════════════════════════════════════════════════
-     RESPONSIVE — Mobile First Breakpoints
-     ══════════════════════════════════════════════════════════════════════ */
 
-  /* ═══ Tablet (≥640px) ═══ */
+
+
   @media (min-width: 640px) {
     .hero {
       padding: var(--space-14) 0;
@@ -1967,7 +1930,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     }
   }
 
-  /* ═══ Desktop (≥968px) ═══ */
+
   @media (min-width: 968px) {
     .hero__container {
       grid-template-columns: 1fr 1fr;
@@ -2042,7 +2005,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     }
   }
 
-  /* ═══ Large Desktop (≥1024px) ═══ */
+
   @media (min-width: 1024px) {
     .hero {
       padding: var(--space-16) 0;
@@ -2079,7 +2042,7 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSche
     }
   }
 
-  /* ═══ Extra Large Desktop (≥1280px) ═══ */
+
   @media (min-width: 1280px) {
     .rel__grid {
       grid-template-columns: repeat(4, 1fr);

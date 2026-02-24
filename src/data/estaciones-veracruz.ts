@@ -1,48 +1,4 @@
-/**
- * ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════╗
- * ║                                                                                                          ║
- * ║   ESTACIONES DE BOMBEROS - VERACRUZ                                                                      ║
- * ║   ══════════════════════════════════════════════════════════════════════════════════════════════════════║
- * ║                                                                                                          ║
- * ║   "El Puerto de México" - Costa del Golfo, Petróleo y Patrimonio UNESCO                                 ║
- * ║                                                                                                          ║
- * ║   Capital: Xalapa | Población: 8,062,579 (2020) - 3er estado más poblado                                ║
- * ║   Superficie: 71,820 km² | Costa: 745 km de litoral                                                     ║
- * ║                                                                                                          ║
- * ║   ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐   ║
- * ║   │ INDUSTRIA PETROLERA Y PETROQUÍMICA                                                              │   ║
- * ║   │ • PEMEX Refinería Minatitlán (150,000 barriles/día)                                            │   ║
- * ║   │ • Complejo Petroquímico Coatzacoalcos (más grande de Latinoamérica)                            │   ║
- * ║   │ • Terminal Marítima Pajaritos (exportación hidrocarburos)                                       │   ║
- * ║   │ • Pozos activos región Poza Rica-Altamira                                                       │   ║
- * ║   │ • 35% de producción petroquímica nacional                                                       │   ║
- * ║   └─────────────────────────────────────────────────────────────────────────────────────────────────┘   ║
- * ║                                                                                                          ║
- * ║   ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐   ║
- * ║   │ PUERTOS ESTRATÉGICOS                                                                            │   ║
- * ║   │ • Puerto de Veracruz - Principal puerto comercial de México                                     │   ║
- * ║   │ • Puerto de Coatzacoalcos - Exportación petroquímica                                            │   ║
- * ║   │ • Puerto de Tuxpan - Carga general y granel                                                     │   ║
- * ║   │ • 60% del comercio exterior mexicano pasa por puertos veracruzanos                              │   ║
- * ║   └─────────────────────────────────────────────────────────────────────────────────────────────────┘   ║
- * ║                                                                                                          ║
- * ║   ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐   ║
- * ║   │ PATRIMONIO UNESCO                                                                               │   ║
- * ║   │ • El Tajín (1992) - Ciudad prehispánica totonaca                                               │   ║
- * ║   │ • Sistema de Fuertes de San Juan de Ulúa                                                        │   ║
- * ║   │ • Reserva de la Biosfera Los Tuxtlas                                                            │   ║
- * ║   └─────────────────────────────────────────────────────────────────────────────────────────────────┘   ║
- * ║                                                                                                          ║
- * ║   ┌─────────────────────────────────────────────────────────────────────────────────────────────────┐   ║
- * ║   │ RIESGO HURACANES - TEMPORADA JUNIO-NOVIEMBRE                                                    │   ║
- * ║   │ • 745 km de costa expuesta al Golfo de México                                                   │   ║
- * ║   │ • Promedio 2-3 ciclones tropicales/año                                                          │   ║
- * ║   │ • Zonas críticas: Veracruz, Tuxpan, Coatzacoalcos, Alvarado                                     │   ║
- * ║   │ • Sistema de alerta temprana coordinado con SMN                                                 │   ║
- * ║   └─────────────────────────────────────────────────────────────────────────────────────────────────┘   ║
- * ║                                                                                                          ║
- * ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝
- */
+
 
 import type { Estacion } from './types';
 

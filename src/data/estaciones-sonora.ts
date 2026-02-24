@@ -1,13 +1,4 @@
-/**
- * BOMBEROS DE SONORA (SON) - DIRECTORIO OFICIAL
- * Base de datos completa del H. Cuerpo de Bomberos de Sonora
- * Capital: Hermosillo | Código: SON | Región: Noroeste de México
- * 20 Estaciones | 920 Bomberos | 588 km frontera con EE.UU.
- *
- * Industrias clave: Minería de cobre (#1 México), Automotriz (Ford, Kia),
- * Acuacultura (camarón #1 México), Agricultura (trigo, garbanzo),
- * Maquiladora (Nogales, Agua Prieta), Puerto de Guaymas
- */
+
 
 import type { Estacion } from './types';
 

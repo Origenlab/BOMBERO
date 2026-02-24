@@ -1,13 +1,4 @@
-/**
- * ═══════════════════════════════════════════════════════════════════════════════
- * ESTACIONES DE BOMBEROS - QUERÉTARO
- * ═══════════════════════════════════════════════════════════════════════════════
- * "El Silicon Valley de México" - Hub aeroespacial y automotriz
- * Capital: Santiago de Querétaro | Población: 2,368,467 (2020)
- * Patrimonio: Centro Histórico UNESCO (1996)
- * Industria: Aeroespacial (#1 México), Automotriz, Tecnología
- * ═══════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
@@ -989,16 +980,12 @@ export const estacionesQueretaro: Estacion[] = [
 
 // ─── Funciones de Utilidad Avanzadas ─────────────────────────────────────────
 
-/**
- * Obtiene estaciones por zona geográfica
- */
+
 export function getEstacionesPorZona(zona: string): Estacion[] {
   return estacionesQueretaro.filter(e => e.zona === zona);
 }
 
-/**
- * Obtiene estaciones HAZMAT (industriales)
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesQueretaro.filter(e =>
     e.servicios.some(s => s.toLowerCase().includes("hazmat")) ||
@@ -1006,9 +993,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones aeroespaciales
- */
+
 export function getEstacionesAeroespaciales(): Estacion[] {
   return estacionesQueretaro.filter(e =>
     e.zona === "Zona Industrial Norte" ||
@@ -1020,18 +1005,14 @@ export function getEstacionesAeroespaciales(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones en Pueblos Mágicos
- */
+
 export function getEstacionesPueblosMagicos(): Estacion[] {
   return estacionesQueretaro.filter(e =>
     e.caracteristicasEspeciales?.some(c => c.toLowerCase().includes("pueblo mágico"))
   );
 }
 
-/**
- * Obtiene estaciones UNESCO
- */
+
 export function getEstacionesUNESCO(): Estacion[] {
   return estacionesQueretaro.filter(e =>
     e.caracteristicasEspeciales?.some(c =>
@@ -1041,9 +1022,7 @@ export function getEstacionesUNESCO(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones de rescate carretero
- */
+
 export function getEstacionesCarreteras(): Estacion[] {
   return estacionesQueretaro.filter(e =>
     e.servicios?.some(s =>
@@ -1057,9 +1036,7 @@ export function getEstacionesCarreteras(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones de rescate vertical
- */
+
 export function getEstacionesRescateVertical(): Estacion[] {
   return estacionesQueretaro.filter(e =>
     e.servicios?.some(s => s.toLowerCase().includes("vertical")) ||
@@ -1070,9 +1047,7 @@ export function getEstacionesRescateVertical(): Estacion[] {
   );
 }
 
-/**
- * Genera schema de estación para SEO
- */
+
 export function generarSchemaEstacion(estacion: Estacion) {
   return {
     "@context": "https://schema.org",
@@ -1097,9 +1072,7 @@ export function generarSchemaEstacion(estacion: Estacion) {
   };
 }
 
-/**
- * Genera interlinking completo
- */
+
 export function generarInterlinking(): {
   estados: typeof QUERETARO_SEO.interlinking.estadosVecinos,
   productos: typeof QUERETARO_SEO.interlinking.productosRelacionados,
@@ -1112,9 +1085,7 @@ export function generarInterlinking(): {
   };
 }
 
-/**
- * Obtiene alertas activas filtradas por zona y prioridad
- */
+
 export function getAlertasActivas(zona?: string): Array<{
   mensaje: string;
   tipo: string;
@@ -1144,25 +1115,19 @@ export function getAlertasActivas(zona?: string): Array<{
   );
 }
 
-/**
- * Obtiene empresas aeroespaciales para una zona
- */
+
 export function getEmpresasAeroespaciales() {
   return INDUSTRIA_QUERETARO.aeroespacial.empresasPrincipales;
 }
 
-/**
- * Obtiene estadísticas del clúster aeroespacial
- */
+
 export function getEstadisticasAeroespaciales() {
   return INDUSTRIA_QUERETARO.aeroespacial.estadisticas;
 }
 
 // ─── Funciones Auxiliares Estándar para Directorio ───────────────────────────
 
-/**
- * Obtiene lista única de municipios/ciudades ordenados alfabéticamente
- */
+
 export function getMunicipios(): string[] {
   const ciudades = estacionesQueretaro.map(e => {
     if (e.municipiosCubiertos && e.municipiosCubiertos.length > 0) {
@@ -1173,16 +1138,12 @@ export function getMunicipios(): string[] {
   return [...new Set(ciudades)].filter(Boolean).sort();
 }
 
-/**
- * Obtiene una estación por su slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesQueretaro.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas (misma zona primero, luego otras)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

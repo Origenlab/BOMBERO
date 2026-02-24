@@ -1,28 +1,11 @@
-/**
- * ═══════════════════════════════════════════════════════════════════════════
- * ESTADOS VECINOS - Gestión Centralizada de Interlinking SEO
- * ═══════════════════════════════════════════════════════════════════════════
- *
- * Este archivo centraliza los enlaces entre estados para:
- * 1. Mantener consistencia en el interlinking
- * 2. Garantizar reciprocidad bidireccional
- * 3. Facilitar auditorías SEO
- * 4. Evitar duplicación de código
- *
- * Uso:
- *   import { getEstadosVecinos } from '@data/estados-vecinos';
- *   const vecinos = getEstadosVecinos('zacatecas');
- */
+
 
 export interface EstadoVecino {
   nombre: string;
   slug: string;
 }
 
-/**
- * Mapa completo de estados vecinos de México
- * Basado en fronteras geográficas reales
- */
+
 export const estadosVecinos: Record<string, EstadoVecino[]> = {
   // ═══════════════════════════════════════════════════════════════════════
   // REGIÓN NOROESTE
@@ -289,30 +272,18 @@ export const estadosVecinos: Record<string, EstadoVecino[]> = {
   ],
 };
 
-/**
- * Obtiene los estados vecinos de un estado dado
- * @param slug - Slug del estado (e.g., "zacatecas")
- * @returns Array de estados vecinos
- */
+
 export function getEstadosVecinos(slug: string): EstadoVecino[] {
   return estadosVecinos[slug] ?? [];
 }
 
-/**
- * Verifica si dos estados son vecinos
- * @param slugA - Slug del primer estado
- * @param slugB - Slug del segundo estado
- * @returns true si son vecinos
- */
+
 export function sonEstadosVecinos(slugA: string, slugB: string): boolean {
   const vecinosA = estadosVecinos[slugA];
   return vecinosA?.some(v => v.slug === slugB) ?? false;
 }
 
-/**
- * Valida la reciprocidad de todos los enlaces
- * @returns Array de errores de reciprocidad
- */
+
 export function validarReciprocidad(): string[] {
   const errores: string[] = [];
 
@@ -336,9 +307,7 @@ export function validarReciprocidad(): string[] {
   return errores;
 }
 
-/**
- * Obtiene estadísticas del mapa de interlinking
- */
+
 export function getEstadisticasInterlinking(): {
   totalEstados: number;
   totalEnlaces: number;
@@ -360,9 +329,7 @@ export function getEstadisticasInterlinking(): {
   };
 }
 
-/**
- * Lista de todos los estados de México con sus nombres completos
- */
+
 export const todosLosEstados: EstadoVecino[] = [
   { nombre: "Aguascalientes", slug: "aguascalientes" },
   { nombre: "Baja California", slug: "baja-california" },

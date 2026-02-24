@@ -1,85 +1,4 @@
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════╗
- * ║  BOMBEROS DE COLIMA (COL) - DIRECTORIO OFICIAL ULTRA-PREMIUM              ║
- * ║  Sistema de Información Premium para SEO y Marketing Digital              ║
- * ╠═══════════════════════════════════════════════════════════════════════════╣
- * ║  Capital: Colima | Código: COL | Región: Occidente de México              ║
- * ║  5 Estaciones | 185 Bomberos | Cobertura Estatal Completa                 ║
- * ╚═══════════════════════════════════════════════════════════════════════════╝
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PERFIL GEOGRÁFICO Y DEMOGRÁFICO                         │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  Superficie:        5,627 km² (4° lugar más pequeño, 31° nacional)         │
- * │  Población:         785,153 habitantes (31° nacional)                      │
- * │  Municipios:        10 municipios                                          │
- * │  Litoral Pacífico:  157 km de costas                                       │
- * │  Densidad:          139.5 hab/km² (alta densidad poblacional)              │
- * │  PIB Estatal:       0.6% del PIB nacional                                  │
- * │  Altitud capital:   500 msnm                                               │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                         RIESGOS NATURALES CRÍTICOS                         │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🌋 VOLCÁN DE FUEGO │ Uno de los volcanes más activos de Norteamérica      │
- * │                     │ Erupciones frecuentes, lahares, caída de ceniza     │
- * │                     │ Radio de riesgo: 8 km (zona de exclusión permanente) │
- * │  🌊 TSUNAMIS        │ Costa del Pacífico vulnerable a eventos sísmicos    │
- * │  🌀 HURACANES       │ Temporada jun-nov, impacto directo categoría 3+     │
- * │  🌡️ SISMOS          │ Zona altamente sísmica (Placa de Cocos)             │
- * │  🔥 INCENDIOS FOREST│ Temporada seca enero-mayo, Sierra de Manantlán     │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                         SECTORES ECONÓMICOS CLAVE                          │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🍋 AGRICULTURA      │ #1 nacional en limón, coco, plátano, papaya        │
- * │  🚢 PORTUARIO        │ Manzanillo: puerto #1 del Pacífico mexicano        │
- * │  🏖️ TURISMO          │ Playas, volcán, Comala (Pueblo Mágico)            │
- * │  ⛏️ MINERÍA          │ Hierro (Peña Colorada), sal marina                 │
- * │  🏭 INDUSTRIA        │ Procesamiento de cítricos, acero, comercio         │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PATRIMONIO CULTURAL Y TURISMO                           │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🏛️ Pueblos Mágicos: │ Comala ("Pueblo Blanco", escenario Pedro Páramo)   │
- * │  🏖️ Playas:          │ Manzanillo, Santiago, Cuyutlán, El Paraíso        │
- * │  🌿 Áreas Naturales:  │ Reserva de la Biosfera Sierra de Manantlán,       │
- * │                       │ Parque Nacional Volcán Nevado de Colima           │
- * │  🎭 Cultura:          │ Danzas prehispánicas, artesanías de madera        │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    ESPECIALIDADES BOMBERILES REQUERIDAS                    │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🌋 Emergencias Volcánicas │ Evacuaciones, lahares, caída de ceniza        │
- * │  🚢 Emergencias Portuarias │ HAZMAT marítimo, incendios en buques          │
- * │  🌊 Rescate Acuático       │ Playas, tsunami, inundaciones costeras        │
- * │  🔥 Incendios Forestales   │ Sierra de Manantlán, zona volcánica           │
- * │  🏭 Industrial             │ Procesadoras, puerto, minería de hierro       │
- * │  🚗 Vehicular              │ Autopista Colima-Manzanillo, carreteras       │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ════════════════════════════════════════════════════════════════════════════
- *  DISTRIBUCIÓN ESTRATÉGICA DE 5 ESTACIONES
- * ════════════════════════════════════════════════════════════════════════════
- *
- *  ZONA METROPOLITANA COLIMA-VILLA DE ÁLVAREZ........... 2 estaciones
- *  │ Central Colima │ Villa de Álvarez
- *
- *  ZONA PORTUARIA MANZANILLO............................ 1 estación
- *  │ Manzanillo (Puerto Principal del Pacífico)
- *
- *  ZONA AGRÍCOLA TECOMÁN................................ 1 estación
- *  │ Tecomán (Capital Nacional del Limón)
- *
- *  ZONA VOLCÁNICA COMALA................................ 1 estación
- *  │ Comala (Pueblo Mágico, Monitoreo Volcánico)
- *
- * ════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
@@ -582,17 +501,13 @@ export const estacionesColima: Estacion[] = [
 // FUNCIONES AUXILIARES SEO Y FILTRADO
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones de la zona metropolitana Colima-Villa de Álvarez
- */
+
 export function getEstacionesMetropolitanas(): Estacion[] {
   const ciudadesMetro = ['Colima', 'Villa de Álvarez'];
   return estacionesColima.filter(e => ciudadesMetro.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones con capacidad de respuesta volcánica
- */
+
 export function getEstacionesVolcanicas(): Estacion[] {
   return estacionesColima.filter(e =>
     e.servicios.some(s =>
@@ -604,9 +519,7 @@ export function getEstacionesVolcanicas(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones portuarias
- */
+
 export function getEstacionesPortuarias(): Estacion[] {
   return estacionesColima.filter(e =>
     e.servicios.some(s =>
@@ -617,9 +530,7 @@ export function getEstacionesPortuarias(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con rescate acuático
- */
+
 export function getEstacionesRescateAcuatico(): Estacion[] {
   return estacionesColima.filter(e =>
     e.servicios.some(s =>
@@ -630,9 +541,7 @@ export function getEstacionesRescateAcuatico(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con capacidad HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesColima.filter(e =>
     e.servicios.some(s =>
@@ -643,9 +552,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con cobertura agrícola
- */
+
 export function getEstacionesAgricolas(): Estacion[] {
   return estacionesColima.filter(e =>
     e.servicios.some(s =>
@@ -657,9 +564,7 @@ export function getEstacionesAgricolas(): Estacion[] {
   );
 }
 
-/**
- * Genera metadatos SEO para una estación específica
- */
+
 export function generarMetaSEO(estacion: Estacion): {
   title: string;
   description: string;
@@ -712,9 +617,7 @@ export function generarMetaSEO(estacion: Estacion): {
   };
 }
 
-/**
- * Obtiene contexto SEO por zona
- */
+
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
@@ -781,9 +684,7 @@ export function getContextoZona(ciudad: string): {
   };
 }
 
-/**
- * Obtiene nivel de riesgo volcánico por ciudad
- */
+
 export function getNivelRiesgoVolcanico(ciudad: string): {
   nivel: 'muy alto' | 'alto' | 'medio' | 'bajo';
   radio_km: number;
@@ -821,16 +722,12 @@ export function getNivelRiesgoVolcanico(ciudad: string): {
   };
 }
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesColima.find((e) => e.slug === slug);
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -846,9 +743,7 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
   return [...mismaCiudad, ...otrasCiudades].slice(0, limit);
 }
 
-/**
- * Estadísticas totales del estado
- */
+
 export const ESTADISTICAS_COLIMA = {
   total_estaciones: estacionesColima.length,
   total_bomberos: estacionesColima.reduce((sum, e) => sum + e.personal, 0),

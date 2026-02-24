@@ -1,8 +1,4 @@
-/**
- * ─── Content Collections Configuration ───
- * Defines schemas for static pages.
- * Astro validates frontmatter at build time using these schemas.
- */
+
 import { defineCollection, z } from "astro:content";
 
 const pages = defineCollection({

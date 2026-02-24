@@ -1,8 +1,4 @@
-/**
- * ─── Site-wide Configuration ───
- * Single source of truth for SEO defaults, branding, and contact info.
- * Optimized for positioning "equipo para bomberos" in Mexico.
- */
+
 
 export const SITE = {
   name: "BOMBERO.MX",
@@ -139,7 +135,7 @@ export const SITE = {
   ],
 } as const;
 
-/** Type helper for SEO props */
+
 export type SEOProps = {
   title?: string;
   description?: string;

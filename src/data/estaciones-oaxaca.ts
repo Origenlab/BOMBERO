@@ -1,12 +1,4 @@
-/**
- * ═══════════════════════════════════════════════════════════════════════════════
- * ESTACIONES DE BOMBEROS - OAXACA
- * ═══════════════════════════════════════════════════════════════════════════════
- * Estado pluricultural con 16 grupos étnicos reconocidos
- * Capital: Oaxaca de Juárez | Población: 4,132,148 (2020)
- * Patrimonio: 2 sitios UNESCO (Centro Histórico + Monte Albán)
- * ═══════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
@@ -889,16 +881,12 @@ export const estacionesOaxaca: Estacion[] = [
 
 // ─── Funciones de Utilidad ───────────────────────────────────────────────────
 
-/**
- * Obtiene estaciones por zona geográfica
- */
+
 export function getEstacionesPorZona(zona: string): Estacion[] {
   return estacionesOaxaca.filter(e => e.zona === zona);
 }
 
-/**
- * Obtiene estaciones costeras (rescate acuático)
- */
+
 export function getEstacionesCosteras(): Estacion[] {
   return estacionesOaxaca.filter(e =>
     e.zona === "Costa Oaxaqueña" ||
@@ -906,27 +894,21 @@ export function getEstacionesCosteras(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesOaxaca.filter(e =>
     e.servicios.some(s => s.toLowerCase().includes("hazmat"))
   );
 }
 
-/**
- * Obtiene estaciones forestales
- */
+
 export function getEstacionesForestales(): Estacion[] {
   return estacionesOaxaca.filter(e =>
     e.servicios.some(s => s.toLowerCase().includes("forestal"))
   );
 }
 
-/**
- * Obtiene estaciones UNESCO (patrimonio)
- */
+
 export function getEstacionesUNESCO(): Estacion[] {
   return estacionesOaxaca.filter(e =>
     e.descripcion?.toLowerCase().includes("unesco") ||
@@ -935,9 +917,7 @@ export function getEstacionesUNESCO(): Estacion[] {
   );
 }
 
-/**
- * Genera schema de estación para SEO
- */
+
 export function generarSchemaEstacion(estacion: Estacion) {
   return {
     "@context": "https://schema.org",
@@ -960,9 +940,7 @@ export function generarSchemaEstacion(estacion: Estacion) {
   };
 }
 
-/**
- * Genera interlinking HTML para estados vecinos
- */
+
 export function generarInterlinking(): {
   estados: typeof OAXACA_SEO.interlinking.estadosVecinos,
   productos: typeof OAXACA_SEO.interlinking.productosRelacionados
@@ -973,9 +951,7 @@ export function generarInterlinking(): {
   };
 }
 
-/**
- * Obtiene alertas activas para una zona
- */
+
 export function getAlertasActivas(zona?: string): Array<{
   mensaje: string;
   tipo: string;
@@ -1000,9 +976,7 @@ export function getAlertasActivas(zona?: string): Array<{
 
 // ─── Funciones Auxiliares Estándar para Directorio ───────────────────────────
 
-/**
- * Obtiene lista única de municipios/ciudades ordenados alfabéticamente
- */
+
 export function getMunicipios(): string[] {
   const ciudades = estacionesOaxaca.map(e => {
     // Extraer ciudad del campo municipiosCubiertos o de la dirección
@@ -1014,16 +988,12 @@ export function getMunicipios(): string[] {
   return [...new Set(ciudades)].filter(Boolean).sort();
 }
 
-/**
- * Obtiene una estación por su slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesOaxaca.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas (misma zona primero, luego otras)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

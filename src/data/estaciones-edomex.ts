@@ -1,8 +1,4 @@
-/**
- * ─── Datos de Estaciones de Bomberos Estado de México ───
- * Base de datos completa del H. Cuerpo de Bomberos del Estado de México
- * Información actualizada para SEO y directorio profesional
- */
+
 
 import type { Estacion } from './types';
 
@@ -817,30 +813,22 @@ export const estacionesEdoMex: Estacion[] = [
 
 // ═══ FUNCIONES AUXILIARES ═══
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesEdoMex.find(e => e.slug === slug);
 }
 
-/**
- * Obtener estaciones por municipio
- */
+
 export function getEstacionesByMunicipio(municipio: string): Estacion[] {
   return estacionesEdoMex.filter(e => e.municipio === municipio);
 }
 
-/**
- * Obtener todos los municipios únicos
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesEdoMex.map(e => e.municipio))].sort();
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -850,9 +838,7 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
     .slice(0, limit);
 }
 
-/**
- * Obtener estaciones por región
- */
+
 export function getEstacionesPorRegion(region: 'norte' | 'oriente' | 'sur' | 'poniente' | 'toluca'): Estacion[] {
   const regiones: Record<string, string[]> = {
     norte: ['Ecatepec de Morelos', 'Tlalnepantla de Baz', 'Cuautitlán Izcalli', 'Coacalco de Berriozábal', 'Tultitlán', 'Tecámac'],

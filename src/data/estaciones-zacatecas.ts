@@ -1,10 +1,4 @@
-/**
- * BOMBEROS DE ZACATECAS (ZAC) - DIRECTORIO OFICIAL
- * Capital: Zacatecas | Codigo: ZAC | 15 Estaciones | 480 Bomberos
- * Centro Historico UNESCO, Minera Penasquito (mayor mina plata del mundo),
- * Corredor Minero HAZMAT explosivos/cianuro, Pueblos Magicos Jerez y Sombrerete,
- * Sierra de Organos Parque Nacional y 600+ anios mineria continua.
- */
+
 
 import type { Estacion } from "./types";
 

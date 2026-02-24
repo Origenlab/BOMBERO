@@ -1,79 +1,4 @@
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════╗
- * ║  BOMBEROS DE COAHUILA DE ZARAGOZA (COAH) - DIRECTORIO OFICIAL             ║
- * ║  Sistema de Información Premium para SEO y Marketing Digital              ║
- * ╠═══════════════════════════════════════════════════════════════════════════╣
- * ║  Capital: Saltillo | Código: COAH | Región: Noreste de México             ║
- * ║  24 Estaciones | 1,180 Bomberos | Cobertura Estatal Completa              ║
- * ╚═══════════════════════════════════════════════════════════════════════════╝
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PERFIL GEOGRÁFICO Y DEMOGRÁFICO                         │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  Superficie:        151,563 km² (3er lugar nacional)                       │
- * │  Población:         3.2 millones de habitantes                             │
- * │  Municipios:        38 municipios                                          │
- * │  Frontera EE.UU.:   512 km con Texas                                       │
- * │  Densidad:          21.1 hab/km²                                           │
- * │  PIB Estatal:       4.1% del PIB nacional (6° economía de México)          │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                         SECTORES ECONÓMICOS CLAVE                          │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🚗 AUTOMOTRIZ       │ Saltillo-Ramos Arizpe: GM, Chrysler, Daimler        │
- * │  🔩 SIDERÚRGICA      │ Monclova: AHMSA (mayor acería de México)            │
- * │  ⚫ MINERÍA CARBÓN   │ Región Carbonífera: 95% producción nacional         │
- * │  🍷 VITIVINÍCOLA     │ Parras: Casa Madero (viñedo más antiguo América)    │
- * │  🥛 AGROINDUSTRIA    │ La Laguna: principal cuenca lechera del país        │
- * │  🏭 MAQUILADORA      │ Frontera: Piedras Negras, Acuña                     │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PATRIMONIO Y TURISMO                                    │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🏛️ Pueblos Mágicos: │ Parras de la Fuente, Cuatro Ciénegas, Arteaga,     │
- * │                       │ Viesca, Candela, Guerrero                          │
- * │  🌿 Áreas Protegidas: │ Cuatro Ciénegas (especies endémicas únicas),       │
- * │                       │ Sierra de Arteaga, Maderas del Carmen              │
- * │  🏔️ Geografía:        │ Desierto Chihuahuense, Sierra Madre Oriental       │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    RIESGOS Y ESPECIALIDADES BOMBERILES                     │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  ⚠️ HAZMAT Industrial │ Siderúrgicas, automotrices, químicas               │
- * │  ⛏️ Rescate Minero    │ Minas de carbón activas, riesgo de colapso         │
- * │  🔥 Incendios Forest. │ Sierra de Arteaga, bosques de coníferas            │
- * │  🌡️ Calor Extremo     │ +45°C en verano, deshidratación, golpe de calor   │
- * │  🌊 Inundaciones      │ Temporada de lluvias en La Laguna                  │
- * │  🚛 Carreteros        │ Autopistas federales de alto tránsito              │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ════════════════════════════════════════════════════════════════════════════
- *  DISTRIBUCIÓN DE 24 ESTACIONES POR ZONA GEOGRÁFICA
- * ════════════════════════════════════════════════════════════════════════════
- *
- *  ZONA METROPOLITANA SALTILLO (Capital).............. 5 estaciones
- *  │ Central Saltillo │ Norte │ Sur │ Ramos Arizpe │ Arteaga
- *
- *  ZONA METROPOLITANA LA LAGUNA (Torreón)............ 5 estaciones
- *  │ Central Torreón │ Norte │ Industrial │ Matamoros │ San Pedro
- *
- *  ZONA CENTRO (Monclova - Acero).................... 4 estaciones
- *  │ Central Monclova │ Frontera │ Castaños │ Cuatro Ciénegas
- *
- *  ZONA CARBONÍFERA (Minería)........................ 4 estaciones
- *  │ Sabinas │ Nueva Rosita │ Múzquiz │ San Juan de Sabinas
- *
- *  ZONA FRONTERIZA (Texas)........................... 4 estaciones
- *  │ Piedras Negras │ Acuña │ Allende │ Nava
- *
- *  ZONA SUR (Vitivinícola)........................... 2 estaciones
- *  │ Parras de la Fuente │ General Cepeda
- *
- * ════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
@@ -1251,57 +1176,43 @@ export const estacionesCoahuila: Estacion[] = [
 // FUNCIONES AUXILIARES SEO Y FILTRADO
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones de la zona metropolitana de Saltillo
- */
+
 export function getEstacionesSaltillo(): Estacion[] {
   const ciudadesSaltillo = ['Saltillo', 'Ramos Arizpe', 'Arteaga'];
   return estacionesCoahuila.filter(e => ciudadesSaltillo.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la Comarca Lagunera (Torreón)
- */
+
 export function getEstacionesLaLaguna(): Estacion[] {
   const ciudadesLaguna = ['Torreón', 'Matamoros', 'San Pedro'];
   return estacionesCoahuila.filter(e => ciudadesLaguna.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la zona acerera (Monclova)
- */
+
 export function getEstacionesMonclova(): Estacion[] {
   const ciudadesMonclova = ['Monclova', 'Frontera', 'Castaños', 'Cuatro Ciénegas'];
   return estacionesCoahuila.filter(e => ciudadesMonclova.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la Región Carbonífera
- */
+
 export function getEstacionesCarboniferas(): Estacion[] {
   const ciudadesCarboniferas = ['Sabinas', 'Nueva Rosita', 'Múzquiz', 'San Juan de Sabinas'];
   return estacionesCoahuila.filter(e => ciudadesCarboniferas.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la zona fronteriza
- */
+
 export function getEstacionesFrontera(): Estacion[] {
   const ciudadesFrontera = ['Piedras Negras', 'Ciudad Acuña', 'Allende', 'Nava'];
   return estacionesCoahuila.filter(e => ciudadesFrontera.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la zona vitivinícola
- */
+
 export function getEstacionesVitivinicola(): Estacion[] {
   const ciudadesVino = ['Parras de la Fuente', 'General Cepeda'];
   return estacionesCoahuila.filter(e => ciudadesVino.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones con capacidad HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesCoahuila.filter(e =>
     e.servicios.some(s =>
@@ -1312,9 +1223,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con rescate minero
- */
+
 export function getEstacionesRescateMinero(): Estacion[] {
   return estacionesCoahuila.filter(e =>
     e.servicios.some(s =>
@@ -1325,26 +1234,20 @@ export function getEstacionesRescateMinero(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones en Pueblos Mágicos
- */
+
 export function getEstacionesPueblosMagicos(): Estacion[] {
   const pueblosMagicos = ['Parras de la Fuente', 'Cuatro Ciénegas', 'Arteaga'];
   return estacionesCoahuila.filter(e => pueblosMagicos.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones con coordinación binacional
- */
+
 export function getEstacionesBinacionales(): Estacion[] {
   return estacionesCoahuila.filter(e =>
     e.servicios.some(s => s.toLowerCase().includes('binacional'))
   );
 }
 
-/**
- * Genera metadatos SEO para una estación específica
- */
+
 export function generarMetaSEO(estacion: Estacion): {
   title: string;
   description: string;
@@ -1406,9 +1309,7 @@ export function generarMetaSEO(estacion: Estacion): {
   };
 }
 
-/**
- * Obtiene contexto SEO por zona
- */
+
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
@@ -1495,16 +1396,12 @@ export function getContextoZona(ciudad: string): {
   };
 }
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesCoahuila.find((e) => e.slug === slug);
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -1520,9 +1417,7 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
   return [...mismoMunicipio, ...otrosMunicipios].slice(0, limit);
 }
 
-/**
- * Estadísticas totales del estado
- */
+
 export const ESTADISTICAS_COAHUILA = {
   total_estaciones: estacionesCoahuila.length,
   total_bomberos: estacionesCoahuila.reduce((sum, e) => sum + e.personal, 0),

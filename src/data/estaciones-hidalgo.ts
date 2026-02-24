@@ -1,83 +1,4 @@
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════════════════╗
- * ║                                                                                       ║
- * ║   BOMBEROS DE HIDALGO (HGO) - DIRECTORIO OFICIAL Y SISTEMA SEO AVANZADO             ║
- * ║   Base de Datos Optimizada para Posicionamiento en Buscadores                        ║
- * ║                                                                                       ║
- * ╠═══════════════════════════════════════════════════════════════════════════════════════╣
- * ║                                                                                       ║
- * ║   INFORMACIÓN GENERAL DEL ESTADO                                                     ║
- * ║   ─────────────────────────────────────────────────────────────────────────────────  ║
- * ║   • Capital: Pachuca de Soto ("La Bella Airosa")                                     ║
- * ║   • Código ISO: HGO | Código INEGI: 13                                               ║
- * ║   • Región: Centro de México                                                          ║
- * ║   • Población: 3,082,841 habitantes (2020)                                           ║
- * ║   • Superficie: 20,846 km² (26° lugar nacional)                                      ║
- * ║   • Municipios: 84                                                                   ║
- * ║   • Densidad: 147.9 hab/km²                                                          ║
- * ║                                                                                       ║
- * ╠═══════════════════════════════════════════════════════════════════════════════════════╣
- * ║                                                                                       ║
- * ║   PATRIMONIO CULTURAL Y TURÍSTICO                                                    ║
- * ║   ─────────────────────────────────────────────────────────────────────────────────  ║
- * ║   • 6 Pueblos Mágicos: Real del Monte, Huasca de Ocampo, Mineral del Chico,         ║
- * ║     Huichapan, Tecozautla, Zempoala                                                  ║
- * ║   • Patrimonio UNESCO: Acueducto del Padre Tembleque (2015)                          ║
- * ║   • Zona Arqueológica de Tula (Capital Tolteca)                                      ║
- * ║   • Prismas Basálticos de Santa María Regla                                          ║
- * ║   • Herencia Cornish: Los famosos "Pastes" de Real del Monte                         ║
- * ║   • Reloj Monumental de Pachuca (1910)                                               ║
- * ║                                                                                       ║
- * ╠═══════════════════════════════════════════════════════════════════════════════════════╣
- * ║                                                                                       ║
- * ║   SECTORES ECONÓMICOS ESTRATÉGICOS                                                   ║
- * ║   ─────────────────────────────────────────────────────────────────────────────────  ║
- * ║   • MINERÍA: Historia de 500 años de extracción de plata                             ║
- * ║   • INDUSTRIA: Corredor Tula-Tepeji (cemento, refinería, automotriz)                ║
- * ║   • AGROINDUSTRIA: Valle del Mezquital (irrigación, barbacoa)                        ║
- * ║   • TURISMO: 4.5+ millones de visitantes anuales                                     ║
- * ║   • LOGÍSTICA: Plataforma Logística de Hidalgo (cercanía a CDMX)                    ║
- * ║   • TEXTIL: Corredor Tulancingo-Cuautepec                                            ║
- * ║                                                                                       ║
- * ╠═══════════════════════════════════════════════════════════════════════════════════════╣
- * ║                                                                                       ║
- * ║   RIESGOS Y EMERGENCIAS PRINCIPALES                                                  ║
- * ║   ─────────────────────────────────────────────────────────────────────────────────  ║
- * ║   • INDUSTRIALES: Refinería Tula, cementeras, químicos                               ║
- * ║   • MINEROS: Minas históricas y activas, rescate en profundidad                      ║
- * ║   • FORESTALES: Sierra de Pachuca, bosques de oyamel                                 ║
- * ║   • INUNDACIONES: Valle del Mezquital, zonas bajas                                   ║
- * ║   • SÍSMICOS: Zona de transición, edificios coloniales                               ║
- * ║   • VIALES: Autopistas México-Pachuca, México-Tuxpan                                 ║
- * ║                                                                                       ║
- * ╠═══════════════════════════════════════════════════════════════════════════════════════╣
- * ║                                                                                       ║
- * ║   DISTRIBUCIÓN ESTRATÉGICA: 18 ESTACIONES EN 7 ZONAS                                ║
- * ║   ─────────────────────────────────────────────────────────────────────────────────  ║
- * ║                                                                                       ║
- * ║   ZONA METROPOLITANA PACHUCA ............................ 4 estaciones               ║
- * ║   │ Central Pachuca │ Pachuca Norte │ Mineral de la Reforma │ Real del Monte        ║
- * ║                                                                                       ║
- * ║   CORREDOR INDUSTRIAL TULA-TEPEJI ....................... 3 estaciones               ║
- * ║   │ Central Tula │ Refinería │ Tepeji del Río                                        ║
- * ║                                                                                       ║
- * ║   ZONA TULANCINGO-SIERRA ................................ 3 estaciones               ║
- * ║   │ Central Tulancingo │ Cuautepec │ Acaxochitlán                                    ║
- * ║                                                                                       ║
- * ║   PUEBLOS MÁGICOS Y TURISMO ............................. 3 estaciones               ║
- * ║   │ Huasca de Ocampo │ Mineral del Chico │ Huichapan                                 ║
- * ║                                                                                       ║
- * ║   VALLE DEL MEZQUITAL ................................... 2 estaciones               ║
- * ║   │ Actopan │ Ixmiquilpan                                                            ║
- * ║                                                                                       ║
- * ║   ZONA HUASTECA ......................................... 2 estaciones               ║
- * ║   │ Huejutla │ Molango                                                                ║
- * ║                                                                                       ║
- * ║   CORREDOR SUR (CDMX) ................................... 1 estación                  ║
- * ║   │ Tizayuca                                                                         ║
- * ║                                                                                       ║
- * ╚═══════════════════════════════════════════════════════════════════════════════════════╝
- */
+
 
 import type { Estacion } from './types';
 
@@ -1575,57 +1496,43 @@ export const estacionesHidalgo: Estacion[] = [
 // FUNCIONES AUXILIARES SEO Y FILTRADO AVANZADO
 // ═══════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones de la Zona Metropolitana de Pachuca
- */
+
 export function getEstacionesPachuca(): Estacion[] {
   const ciudades = ['Pachuca de Soto', 'Mineral de la Reforma', 'Mineral del Monte'];
   return estacionesHidalgo.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones del Corredor Industrial Tula-Tepeji
- */
+
 export function getEstacionesCorredorIndustrial(): Estacion[] {
   const ciudades = ['Tula de Allende', 'Tepeji del Río de Ocampo'];
   return estacionesHidalgo.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la Zona Tulancingo-Sierra
- */
+
 export function getEstacionesTulancingo(): Estacion[] {
   const ciudades = ['Tulancingo de Bravo', 'Cuautepec de Hinojosa', 'Acaxochitlán'];
   return estacionesHidalgo.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones en Pueblos Mágicos
- */
+
 export function getEstacionesPueblosMagicos(): Estacion[] {
   const ciudades = ['Mineral del Monte', 'Huasca de Ocampo', 'Mineral del Chico', 'Huichapan'];
   return estacionesHidalgo.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones del Valle del Mezquital
- */
+
 export function getEstacionesMezquital(): Estacion[] {
   const ciudades = ['Actopan', 'Ixmiquilpan'];
   return estacionesHidalgo.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la Huasteca Hidalguense
- */
+
 export function getEstacionesHuasteca(): Estacion[] {
   const ciudades = ['Huejutla de Reyes', 'Molango de Escamilla'];
   return estacionesHidalgo.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones con capacidad HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesHidalgo.filter(e =>
     e.servicios.some(s => s.toLowerCase().includes('hazmat')) ||
@@ -1633,18 +1540,14 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con especialidad en rescate minero
- */
+
 export function getEstacionesRescateMinero(): Estacion[] {
   return estacionesHidalgo.filter(e =>
     e.servicios.some(s => s.toLowerCase().includes('mina') || s.toLowerCase().includes('minero'))
   );
 }
 
-/**
- * Obtiene estaciones con capacidad de rescate en montaña
- */
+
 export function getEstacionesRescateMontana(): Estacion[] {
   return estacionesHidalgo.filter(e =>
     e.servicios.some(s =>
@@ -1655,9 +1558,7 @@ export function getEstacionesRescateMontana(): Estacion[] {
   );
 }
 
-/**
- * Genera metadatos SEO avanzados para una estación específica
- */
+
 export function generarMetaSEO(estacion: Estacion): {
   title: string;
   description: string;
@@ -1729,9 +1630,7 @@ export function generarMetaSEO(estacion: Estacion): {
   };
 }
 
-/**
- * Obtiene contexto SEO enriquecido por zona geográfica
- */
+
 export function getContextoZona(ciudad: string): {
   tipo: string;
   nombre: string;
@@ -1899,9 +1798,7 @@ export function getContextoZona(ciudad: string): {
   };
 }
 
-/**
- * Genera breadcrumbs estructurados para SEO
- */
+
 export function generarBreadcrumbs(estacion: Estacion) {
   return [
     { nombre: 'Inicio', url: 'https://bombero.mx' },
@@ -1953,16 +1850,12 @@ export const ESTADISTICAS_HIDALGO = {
   sector_economico_principal: 'Industria, Turismo, Minería',
 };
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesHidalgo.find(e => e.slug === slug);
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

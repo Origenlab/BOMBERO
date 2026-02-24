@@ -1,29 +1,16 @@
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════════════════════════╗
- * ║  TIPOS Y CONSTANTES - DIRECTORIO NACIONAL DE BOMBEROS DE MÉXICO                              ║
- * ║  Sistema de tipado profesional para todas las estaciones del país                            ║
- * ╠═══════════════════════════════════════════════════════════════════════════════════════════════╣
- * ║  VERSIÓN: 2.0.0                                                                              ║
- * ║  ÚLTIMA ACTUALIZACIÓN: 2024                                                                  ║
- * ║  COBERTURA: 32 Estados de la República Mexicana                                              ║
- * ╚═══════════════════════════════════════════════════════════════════════════════════════════════╝
- */
+
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 // TIPOS BASE
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Coordenadas geográficas para ubicación en mapa
- */
+
 export interface Coordenadas {
   lat: number;
   lng: number;
 }
 
-/**
- * Redes sociales de la estación
- */
+
 export interface RedesSociales {
   facebook?: string;
   twitter?: string;
@@ -32,14 +19,10 @@ export interface RedesSociales {
   sitioWeb?: string;
 }
 
-/**
- * Niveles de riesgo para zonas
- */
+
 export type NivelRiesgo = 'critico' | 'muy_alto' | 'alto' | 'medio' | 'bajo';
 
-/**
- * Tipos de especialidades reconocidas
- */
+
 export type TipoEspecialidad =
   | 'HAZMAT'
   | 'ARFF'
@@ -56,9 +39,7 @@ export type TipoEspecialidad =
   | 'Emergencias Sísmicas'
   | string;
 
-/**
- * Regiones geográficas de México
- */
+
 export type RegionMexico =
   | 'Norte'
   | 'Noroeste'
@@ -76,122 +57,116 @@ export type RegionMexico =
 // INTERFAZ PRINCIPAL: ESTACIÓN DE BOMBEROS
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Interfaz principal para estaciones de bomberos
- * Compatible con todos los estados del directorio
- *
- * CAMPOS REQUERIDOS: nombre, slug, direccion, ciudad, estado, telefono, horario, servicios
- * CAMPOS OPCIONALES: Todo lo demás para flexibilidad
- */
+
 export interface Estacion {
   // ─── Identificación ───
-  /** Identificador único (opcional, se puede generar del slug) */
+
   id?: string;
 
-  /** Nombre completo oficial de la estación */
+
   nombre: string;
 
-  /** Nombre corto para UI compacta */
+
   nombreCorto?: string;
 
-  /** Slug URL-friendly (ej: "estacion-central-guadalajara") */
+
   slug: string;
 
   // ─── Ubicación ───
-  /** Dirección física completa */
+
   direccion: string;
 
-  /** Colonia o fraccionamiento */
+
   colonia?: string;
 
-  /** Ciudad o localidad */
+
   ciudad: string;
 
-  /** Municipio (para estados que lo requieren) */
+
   municipio?: string;
 
-  /** Alcaldía (específico para CDMX) */
+
   alcaldia?: string;
 
-  /** Estado de la república */
+
   estado: string;
 
-  /** Código postal - acepta 'cp' o 'codigoPostal' */
+
   cp?: string;
   codigoPostal?: string;
 
-  /** Coordenadas geográficas */
+
   coordenadas?: Coordenadas;
 
   // ─── Contacto ───
-  /** Teléfono principal */
+
   telefono: string;
 
-  /** Teléfono secundario */
+
   telefono2?: string;
 
-  /** Teléfono de emergencias directo */
+
   telefonoEmergencia?: string;
 
-  /** Correo electrónico */
+
   email?: string;
 
-  /** Redes sociales */
+
   redes?: RedesSociales;
 
   // ─── Operación ───
-  /** Horario de atención */
+
   horario: string;
 
-  /** Tiempo promedio de respuesta */
+
   tiempoRespuesta?: string;
 
   // ─── Servicios y Capacidades ───
-  /** Lista de servicios que ofrece */
+
   servicios: string[];
 
-  /** Especialidades certificadas */
+
   especialidades?: TipoEspecialidad[];
 
-  /** Equipamiento disponible */
+
   equipamiento?: string[];
 
-  /** Número de personal activo */
+
   personal?: number;
   personalActivo?: number;
 
-  /** Número de unidades/vehículos */
+
   unidades?: number;
 
-  /** Descripción de unidades disponibles */
+
   unidadesDisponibles?: string[];
 
   // ─── Cobertura ───
-  /** Zonas/colonias de cobertura */
+
   cobertura?: string[];
   zonasCobertura?: string[];
 
-  /** Zona geográfica dentro del estado */
+
   zona?: string;
 
   // ─── Información Adicional ───
-  /** Descripción general */
+
   descripcion?: string;
 
-  /** Historia de la estación */
+
   historia?: string;
 
-  /** Nombre de la comandancia o cuerpo */
+
   comandancia?: string;
 
-  /** Año de fundación */
+
   fundacion?: string;
   fechaFundacion?: string;
 
-  /** Imagen principal */
+
   imagen?: string;
 
-  /** Galería de imágenes */
+
   galeria?: string[];
 }
 
@@ -199,9 +174,7 @@ export interface Estacion {
 // INTERFAZ: CONFIGURACIÓN DE ESTADO
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Información demográfica y geográfica del estado
- */
+
 export interface DemografiaEstado {
   poblacion: string | number;
   superficie: string;
@@ -211,9 +184,7 @@ export interface DemografiaEstado {
   gentilicio: string;
 }
 
-/**
- * Información de infraestructura del estado
- */
+
 export interface InfraestructuraEstado {
   aeropuertos?: {
     nombre: string;
@@ -227,9 +198,7 @@ export interface InfraestructuraEstado {
   zonasIndustriales?: string[];
 }
 
-/**
- * Información turística del estado
- */
+
 export interface TurismoEstado {
   visitantesAnuales?: string;
   atracciones?: string[];
@@ -244,9 +213,7 @@ export interface TurismoEstado {
   }[];
 }
 
-/**
- * Perfil de riesgos del estado
- */
+
 export interface RiesgosEstado {
   sismico?: string;
   volcanico?: string;
@@ -257,9 +224,7 @@ export interface RiesgosEstado {
   otros?: string[];
 }
 
-/**
- * Keywords SEO organizadas por categoría
- */
+
 export interface KeywordsSEO {
   principales: string[];
   ciudades?: string[];
@@ -271,9 +236,7 @@ export interface KeywordsSEO {
   [key: string]: string[] | undefined;
 }
 
-/**
- * Teléfonos de emergencia del estado
- */
+
 export interface TelefonosEmergencia {
   emergencias: string;
   bomberosEstatal?: string;
@@ -284,9 +247,7 @@ export interface TelefonosEmergencia {
   [key: string]: string | undefined;
 }
 
-/**
- * Configuración SEO completa del estado
- */
+
 export interface EstadoSEO {
   // Identificación
   estado: string;
@@ -328,9 +289,7 @@ export interface EstadoSEO {
   ogDescription?: string;
 }
 
-/**
- * Configuración de zona geográfica dentro de un estado
- */
+
 export interface ZonaConfig {
   id: string;
   nombre: string;
@@ -341,9 +300,7 @@ export interface ZonaConfig {
   caracteristicas?: string[];
 }
 
-/**
- * Contexto geográfico para contenido SEO
- */
+
 export interface ContextoZona {
   tipo: string;
   descripcion: string;
@@ -358,9 +315,7 @@ export interface ContextoZona {
 // INTERFAZ: METADATOS SEO
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Metadatos SEO para páginas
- */
+
 export interface MetaSEO {
   title: string;
   description: string;
@@ -371,9 +326,7 @@ export interface MetaSEO {
   ogImage?: string;
 }
 
-/**
- * Estadísticas agregadas de un estado
- */
+
 export interface EstadisticasEstado {
   totalEstaciones: number;
   totalBomberos?: number;
@@ -387,9 +340,7 @@ export interface EstadisticasEstado {
 // CONSTANTES: ESTADOS DE MÉXICO
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Lista oficial de los 32 estados de México
- */
+
 export const ESTADOS_MEXICO = [
   { nombre: 'Aguascalientes', slug: 'aguascalientes', codigo: 'AGS', capital: 'Aguascalientes', region: 'Centro' },
   { nombre: 'Baja California', slug: 'baja-california', codigo: 'BC', capital: 'Mexicali', region: 'Noroeste' },
@@ -425,9 +376,7 @@ export const ESTADOS_MEXICO = [
   { nombre: 'Zacatecas', slug: 'zacatecas', codigo: 'ZAC', capital: 'Zacatecas', region: 'Centro' },
 ] as const;
 
-/**
- * Colores temáticos por región
- */
+
 export const COLORES_REGION: Record<string, { primary: string; secondary: string; accent: string }> = {
   Norte: { primary: '#b91c1c', secondary: '#dc2626', accent: '#fbbf24' },
   Noroeste: { primary: '#0369a1', secondary: '#0ea5e9', accent: '#f59e0b' },
@@ -443,9 +392,7 @@ export const COLORES_REGION: Record<string, { primary: string; secondary: string
 // FUNCIONES UTILITARIAS
 // ═══════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Genera meta tags SEO para una estación
- */
+
 export function generarMetaSEOEstacion(estacion: Estacion, estadoNombre: string): MetaSEO {
   const serviciosResumen = estacion.servicios.slice(0, 3).join(', ');
   const cobertura = estacion.cobertura?.slice(0, 3).join(', ') || estacion.ciudad;
@@ -458,37 +405,27 @@ export function generarMetaSEOEstacion(estacion: Estacion, estadoNombre: string)
   };
 }
 
-/**
- * Obtiene el código postal unificado (soporta 'cp' y 'codigoPostal')
- */
+
 export function getCodigoPostal(estacion: Estacion): string {
   return estacion.cp || estacion.codigoPostal || '';
 }
 
-/**
- * Obtiene la cobertura unificada (soporta 'cobertura' y 'zonasCobertura')
- */
+
 export function getCobertura(estacion: Estacion): string[] {
   return estacion.cobertura || estacion.zonasCobertura || [];
 }
 
-/**
- * Formatea número de teléfono para href tel:
- */
+
 export function formatTelefono(telefono: string): string {
   return telefono.replace(/\D/g, '');
 }
 
-/**
- * Genera URL de Google Maps para coordenadas
- */
+
 export function getGoogleMapsUrl(coordenadas: Coordenadas): string {
   return `https://www.google.com/maps?q=${coordenadas.lat},${coordenadas.lng}`;
 }
 
-/**
- * Genera Schema.org para una estación de bomberos
- */
+
 export function generarSchemaEstacion(estacion: Estacion, estadoNombre: string): object {
   return {
     "@context": "https://schema.org",

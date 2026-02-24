@@ -1,9 +1,4 @@
-/**
- * BOMBEROS DE YUCATÁN (YUC) - DIRECTORIO OFICIAL
- * Capital: Mérida | Código: YUC | 18 Estaciones | 620 Bomberos
- * Chichén Itzá (Maravilla del Mundo), 6000+ cenotes, Puerto Progreso,
- * Reservas Biósfera UNESCO Celestún y Ría Lagartos.
- */
+
 
 import type { Estacion } from './types';
 

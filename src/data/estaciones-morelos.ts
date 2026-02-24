@@ -1,38 +1,5 @@
 import type { Estacion } from './types';
 
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗
- * ║  DIRECTORIO DE BOMBEROS - MORELOS                                                                 ║
- * ╠═══════════════════════════════════════════════════════════════════════════════════════════════════╣
- * ║  "La Ciudad de la Eterna Primavera" - Cuna del Zapatismo                                          ║
- * ║                                                                                                   ║
- * ║  ESTADÍSTICAS CLAVE:                                                                              ║
- * ║  • 16 Estaciones de Bomberos estratégicamente distribuidas                                        ║
- * ║  • 2,044,058 habitantes (2024)                                                                    ║
- * ║  • 36 municipios                                                                                  ║
- * ║  • 4,893 km² de superficie (segundo estado más pequeño)                                           ║
- * ║  • Densidad: 418 hab/km² (cuarto más denso de México)                                             ║
- * ║                                                                                                   ║
- * ║  ZONAS ESTRATÉGICAS DE COBERTURA:                                                                 ║
- * ║  ┌─────────────────────────────────────────────────────────────────────────────────────────────┐  ║
- * ║  │ 🏛️ Zona Metropolitana Cuernavaca     │ Capital estatal, turismo, comercio                  │  ║
- * ║  │ 🏭 Zona Industrial CIVAC             │ Parques industriales, manufactura, automotriz       │  ║
- * ║  │ 🌄 Altos de Morelos                  │ Tepoztlán, misticismo, ecoturismo, senderismo       │  ║
- * ║  │ 🌾 Valle de Cuautla                  │ Agricultura, historia zapatista, balnearios         │  ║
- * ║  │ 🏯 Haciendas del Sur                 │ Jojutla, cañaverales, patrimonio histórico          │  ║
- * ║  │ 🚗 Corredor Norte CDMX               │ Tráfico intenso, conexión con capital del país      │  ║
- * ║  └─────────────────────────────────────────────────────────────────────────────────────────────┘  ║
- * ║                                                                                                   ║
- * ║  PATRIMONIO UNESCO:                                                                               ║
- * ║  • Zona Arqueológica de Xochicalco (1999) - Centro ceremonial prehispánico                       ║
- * ║                                                                                                   ║
- * ║  POSICIÓN ESTRATÉGICA:                                                                            ║
- * ║  • A solo 85 km de Ciudad de México                                                               ║
- * ║  • Destino #1 de fin de semana para capitalinos                                                   ║
- * ║  • Más de 4 millones de visitantes anuales                                                        ║
- * ║  • Clima primaveral todo el año (18-27°C)                                                         ║
- * ╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝
- */
 
 export const estacionesMorelos: Estacion[] = [
   // ═══════════════════════════════════════════════════════════════════════════════════════════════
@@ -923,9 +890,7 @@ export const ZONAS_MORELOS = [
 // FUNCIONES AUXILIARES PROFESIONALES
 // ═══════════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones por zona geográfica
- */
+
 export function getEstacionesPorZona(zonaId: string): Estacion[] {
   const zonaMap: Record<string, string> = {
     cuernavaca: "Zona Metropolitana Cuernavaca",
@@ -938,25 +903,19 @@ export function getEstacionesPorZona(zonaId: string): Estacion[] {
   return estacionesMorelos.filter(e => e.zona === zonaMap[zonaId]);
 }
 
-/**
- * Obtiene estaciones de la Zona Metropolitana Cuernavaca
- */
+
 export function getEstacionesCuernavaca(): Estacion[] {
   return estacionesMorelos.filter(e => e.zona === "Zona Metropolitana Cuernavaca");
 }
 
-/**
- * Obtiene estaciones con capacidad HAZMAT
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesMorelos.filter(e =>
     e.especialidades?.some(esp => esp.toLowerCase().includes("hazmat"))
   );
 }
 
-/**
- * Obtiene estaciones de rescate carretero (Autopista del Sol)
- */
+
 export function getEstacionesCarreteras(): Estacion[] {
   return estacionesMorelos.filter(e =>
     e.especialidades?.some(esp =>
@@ -967,9 +926,7 @@ export function getEstacionesCarreteras(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones de turismo/balnearios
- */
+
 export function getEstacionesTuristicas(): Estacion[] {
   return estacionesMorelos.filter(e =>
     e.especialidades?.some(esp =>
@@ -985,9 +942,7 @@ export function getEstacionesTuristicas(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones de rescate de montaña
- */
+
 export function getEstacionesMontana(): Estacion[] {
   return estacionesMorelos.filter(e =>
     e.especialidades?.some(esp =>
@@ -998,9 +953,7 @@ export function getEstacionesMontana(): Estacion[] {
   );
 }
 
-/**
- * Genera meta tags SEO optimizados para una estación
- */
+
 export function generarMetaSEOEstacion(estacion: Estacion): {
   title: string;
   description: string;
@@ -1018,9 +971,7 @@ export function generarMetaSEOEstacion(estacion: Estacion): {
   };
 }
 
-/**
- * Obtiene contexto geográfico detallado de una zona
- */
+
 export function getContextoZona(zonaId: string): {
   zona: typeof ZONAS_MORELOS[0];
   estaciones: Estacion[];
@@ -1078,9 +1029,7 @@ export function getContextoZona(zonaId: string): {
   return { zona, estaciones, alertas, recomendaciones };
 }
 
-/**
- * Genera Schema.org completo para una estación
- */
+
 export function generarSchemaEstacion(estacion: Estacion): object {
   return {
     "@context": "https://schema.org",
@@ -1137,23 +1086,17 @@ export function generarSchemaEstacion(estacion: Estacion): object {
 // FUNCIONES AUXILIARES ADICIONALES
 // ═══════════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene todos los municipios/ciudades únicos
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesMorelos.map(e => e.ciudad))].filter(Boolean).sort() as string[];
 }
 
-/**
- * Obtiene estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesMorelos.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

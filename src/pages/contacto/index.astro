@@ -1,12 +1,9 @@
 ---
-/**
- * ─── BOMBERO.MX ───
- * Contacto — Página profesional de contacto
- * Canales de comunicación, ubicación y formulario de cotización
- */
+
 import PageLayout from "@layouts/PageLayout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
+import CategoryCard from "@components/CategoryCard.astro";
 import CTABanner from "@components/CTABanner.astro";
 import { SITE } from "@data/site";
 
@@ -54,10 +51,10 @@ const services = [
 ];
 
 const faqs = [
-  { q: "¿Cuál es el tiempo de entrega?", a: "Para productos en stock, el tiempo de entrega es de 24-48 horas en las principales ciudades. Equipos especializados o pedidos grandes pueden requerir 2-4 semanas." },
-  { q: "¿Ofrecen factura fiscal?", a: "Sí, emitimos factura CFDI 4.0 con todos los requisitos fiscales para deducción de impuestos y procesos de licitación." },
-  { q: "¿Tienen garantía los productos?", a: "Todos nuestros productos cuentan con garantía del fabricante. Los plazos varían según el tipo de equipo, desde 1 año hasta garantía de por vida en algunos casos." },
-  { q: "¿Hacen envíos a toda la República?", a: "Sí, tenemos cobertura en los 32 estados de México. Coordinamos entregas directas en estaciones de bomberos y centros de trabajo." },
+  { icon: "truck", title: "¿Cuál es el tiempo de entrega?", image: "/images/directorio/camion-bomberos-equipado-01.avif", description: "Para productos en stock, el tiempo de entrega es de 24-48 horas en las principales ciudades. Equipos especializados o pedidos grandes pueden requerir 2-4 semanas." },
+  { icon: "certificate", title: "¿Ofrecen factura fiscal?", image: "/images/directorio/centro-mando-bomberos-01.avif", description: "Sí, emitimos factura CFDI 4.0 con todos los requisitos fiscales para deducción de impuestos y procesos de licitación." },
+  { icon: "shield", title: "¿Tienen garantía los productos?", image: "/images/directorio/equipo-proteccion-bomberos-01.avif", description: "Todos nuestros productos cuentan con garantía del fabricante. Los plazos varían según el tipo de equipo, desde 1 año hasta garantía de por vida en algunos casos." },
+  { icon: "clock", title: "¿Hacen envíos a toda la República?", image: "/images/directorio/estacion-bomberos-profesional-01.avif", description: "Sí, tenemos cobertura en los 32 estados de México. Coordinamos entregas directas en estaciones de bomberos y centros de trabajo." },
 ];
 
 const contactJsonLd = {
@@ -87,14 +84,14 @@ const contactJsonLd = {
   jsonLd={[contactJsonLd]}
 >
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- BREADCRUMB -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <Breadcrumb items={[{ label: "Contacto" }]} />
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- HERO SECTION -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="hero">
     <div class="hero__bg">
       <div class="hero__gradient"></div>
@@ -132,7 +129,7 @@ const contactJsonLd = {
         </div>
       </div>
 
-      <!-- Contact Cards -->
+
       <div class="hero__cards">
         {contactChannels.map((channel) => (
           <div class={`contact-card ${channel.highlight ? 'contact-card--highlight' : ''}`}>
@@ -155,9 +152,9 @@ const contactJsonLd = {
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- SERVICIOS DE ATENCIÓN -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="servicios section">
     <div class="container">
       <SectionHeader
@@ -184,9 +181,9 @@ const contactJsonLd = {
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- UBICACIÓN -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="ubicacion section">
     <div class="container">
       <SectionHeader
@@ -245,41 +242,65 @@ const contactJsonLd = {
           </a>
         </div>
 
-        <div class="ubicacion__map">
-          <div class="ubicacion__map-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>Col. Condesa, CDMX</span>
-          </div>
+        <div class="ubicacion__form">
+          <h3 class="ubicacion__form-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Envíanos un mensaje
+          </h3>
+          <form id="whatsapp-form" class="ubicacion__form-fields">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label for="empresa">Empresa / Estación</label>
+              <input type="text" id="empresa" name="empresa" placeholder="Ej: Bomberos Municipales de..." />
+            </div>
+            <div class="form-group">
+              <label for="mensaje">¿En qué podemos ayudarte?</label>
+              <textarea id="mensaje" name="mensaje" rows="3" placeholder="Cuéntanos sobre tu proyecto de equipamiento..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn--whatsapp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Enviar por WhatsApp
+            </button>
+          </form>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- PREGUNTAS FRECUENTES -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <section class="faq section">
     <div class="container">
       <SectionHeader
         label="Preguntas Frecuentes"
         title="Resolvemos tus Dudas"
         description="Las preguntas más comunes sobre nuestros servicios de equipamiento para bomberos."
-      />
+      >
+        <p>
+          ¿No encuentras lo que buscas? <strong>Contáctanos directamente</strong> por WhatsApp o teléfono y nuestro equipo te asistirá de inmediato con cualquier duda sobre productos, envíos o cotizaciones.
+        </p>
+      </SectionHeader>
 
       <div class="faq__grid">
         {faqs.map((faq) => (
-          <div class="faq__item">
-            <h3 class="faq__question">{faq.q}</h3>
-            <p class="faq__answer">{faq.a}</p>
-          </div>
+          <CategoryCard
+            title={faq.title}
+            icon={faq.icon}
+            image={faq.image}
+            description={faq.description}
+          />
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- CTA BANNER -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+
+
   <CTABanner
     title="¿Listo para Cotizar?"
     desc="Solicita una cotización sin compromiso. Asesoría técnica gratuita para tu proyecto de equipamiento."
@@ -290,9 +311,7 @@ const contactJsonLd = {
 </PageLayout>
 
 <style>
-  /* ════════════════════════════════════════════════════════════════════
-     HERO SECTION — Mobile First
-     ════════════════════════════════════════════════════════════════════ */
+
   .hero {
     position: relative;
     background: var(--color-smoke-950);
@@ -414,7 +433,7 @@ const contactJsonLd = {
     margin-top: var(--space-1);
   }
 
-  /* Contact Cards */
+
   .hero__cards {
     display: flex;
     flex-direction: column;
@@ -502,9 +521,7 @@ const contactJsonLd = {
     padding: var(--space-2) var(--space-3);
   }
 
-  /* ════════════════════════════════════════════════════════════════════
-     SERVICIOS — Grid Cards
-     ════════════════════════════════════════════════════════════════════ */
+
   .servicios {
     padding: var(--space-12) 0;
     background: var(--color-smoke-50);
@@ -554,11 +571,30 @@ const contactJsonLd = {
     margin: 0;
   }
 
-  /* ════════════════════════════════════════════════════════════════════
-     UBICACIÓN — Map & Info
-     ════════════════════════════════════════════════════════════════════ */
+
   .ubicacion {
     padding: var(--space-12) 0;
+    background: white;
+  }
+
+  .ubicacion :global(.section-header__label) {
+    color: var(--color-fire-600);
+  }
+
+  .ubicacion :global(.section-header__title) {
+    color: var(--color-smoke-900);
+  }
+
+  .ubicacion :global(.section-header__desc) {
+    color: var(--color-smoke-600);
+  }
+
+  .ubicacion :global(.section-header__right p) {
+    color: var(--color-smoke-600);
+  }
+
+  .ubicacion :global(.section-header__right strong) {
+    color: var(--color-smoke-800);
   }
 
   .ubicacion__content {
@@ -658,38 +694,102 @@ const contactJsonLd = {
     width: 100%;
   }
 
-  .ubicacion__map {
-    min-height: 250px;
-    background: var(--color-smoke-100);
+
+  .ubicacion__form {
+    background: var(--color-smoke-50);
     border-radius: var(--radius-xl);
-    overflow: hidden;
+    padding: var(--space-6);
   }
 
-  .ubicacion__map-placeholder {
-    height: 100%;
-    min-height: 250px;
+  .ubicacion__form-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-5);
+  }
+
+  .ubicacion__form-title svg {
+    width: 24px;
+    height: 24px;
+    stroke: #25D366;
+  }
+
+  .ubicacion__form-fields {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
     gap: var(--space-2);
+  }
+
+  .form-group label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-700);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-smoke-200);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    color: var(--color-smoke-900);
+    background: white;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
     color: var(--color-smoke-400);
   }
 
-  .ubicacion__map-placeholder svg {
-    width: 48px;
-    height: 48px;
-    stroke: var(--color-smoke-300);
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #25D366;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
   }
 
-  .ubicacion__map-placeholder span {
-    font-size: var(--text-sm);
-    font-weight: 500;
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
   }
 
-  /* ════════════════════════════════════════════════════════════════════
-     FAQ — Questions Grid
-     ════════════════════════════════════════════════════════════════════ */
+  .btn--whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: var(--space-4);
+    background: #25D366;
+    color: white;
+    font-size: var(--text-base);
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+
+  .btn--whatsapp:hover {
+    background: #20bd5a;
+  }
+
+  .btn--whatsapp:active {
+    transform: scale(0.98);
+  }
+
+
   .faq {
     padding: var(--space-12) 0;
     background: var(--color-smoke-50);
@@ -701,30 +801,7 @@ const contactJsonLd = {
     gap: var(--space-4);
   }
 
-  .faq__item {
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: var(--space-5);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  }
 
-  .faq__question {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin: 0 0 var(--space-2);
-  }
-
-  .faq__answer {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-600);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* ════════════════════════════════════════════════════════════════════
-     TABLET BREAKPOINT (>=640px)
-     ════════════════════════════════════════════════════════════════════ */
   @media (min-width: 640px) {
     .hero {
       padding: var(--space-12) 0 var(--space-16);
@@ -774,9 +851,7 @@ const contactJsonLd = {
     }
   }
 
-  /* ════════════════════════════════════════════════════════════════════
-     DESKTOP (>=968px)
-     ════════════════════════════════════════════════════════════════════ */
+
   @media (min-width: 968px) {
     .hero {
       padding: var(--space-16) 0 var(--space-20);
@@ -817,19 +892,13 @@ const contactJsonLd = {
       gap: var(--space-6);
     }
 
-    .ubicacion__map {
-      min-height: 350px;
-    }
-
     .faq__grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: var(--space-6);
     }
   }
 
-  /* ════════════════════════════════════════════════════════════════════
-     LARGE DESKTOP (>=1200px)
-     ════════════════════════════════════════════════════════════════════ */
+
   @media (min-width: 1200px) {
     .hero__title {
       font-size: clamp(2.5rem, 4vw, 3.5rem);
@@ -840,3 +909,22 @@ const contactJsonLd = {
     }
   }
 </style>
+
+<script define:vars={{ whatsappNumber: "5520780102" }}>
+  document.getElementById('whatsapp-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const empresa = document.getElementById('empresa').value.trim();
+    const mensaje = document.getElementById('mensaje').value.trim();
+
+    let textoWhatsApp = `Hola, soy ${nombre}`;
+    if (empresa) {
+      textoWhatsApp += ` de ${empresa}`;
+    }
+    textoWhatsApp += `.%0A%0A${mensaje}`;
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(textoWhatsApp).replace(/%20/g, '%20')}`;
+    window.open(url, '_blank');
+  });
+</script>

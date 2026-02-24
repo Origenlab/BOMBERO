@@ -1,57 +1,5 @@
 import type { Estacion } from './types';
 
-/**
- * ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
- * ║  DIRECTORIO DE BOMBEROS - NUEVO LEÓN                                                                                                   ║
- * ║  "La Capital Industrial de México" - Zona Metropolitana de Monterrey                                                                  ║
- * ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
- * ║                                                                                                                                        ║
- * ║  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐  ║
- * ║  │  PERFIL ESTRATÉGICO DEL ESTADO                                                                                                   │  ║
- * ║  │  ══════════════════════════════                                                                                                  │  ║
- * ║  │  • 3ª economía más grande de México (después de CDMX y EdoMex)                                                                  │  ║
- * ║  │  • PIB: $1.6 billones MXN (7.3% del PIB nacional)                                                                               │  ║
- * ║  │  • Centro industrial: Acero, Automotriz, Cemento, Cerveza, Vidrio, Petroquímica                                                │  ║
- * ║  │  • Zona Metropolitana: 5.3 millones de habitantes (2ª más grande del país)                                                     │  ║
- * ║  │  • +15,000 industrias manufactureras                                                                                            │  ║
- * ║  │  • Frontera con Texas: comercio internacional intenso                                                                           │  ║
- * ║  │  • Sede de corporativos: CEMEX, FEMSA, Alfa, Ternium, Vitro, Banorte, OXXO                                                     │  ║
- * ║  └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  ║
- * ║                                                                                                                                        ║
- * ║  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐  ║
- * ║  │  ESTADÍSTICAS CLAVE DE EMERGENCIAS                                                                                               │  ║
- * ║  │  ─────────────────────────────────                                                                                               │  ║
- * ║  │  • 18 Estaciones de Bomberos estratégicamente distribuidas                                                                       │  ║
- * ║  │  • 5,784,442 habitantes (2024)                                                                                                   │  ║
- * ║  │  • 51 municipios                                                                                                                 │  ║
- * ║  │  • 64,220 km² de superficie                                                                                                      │  ║
- * ║  │  • +35,000 llamadas de emergencia anuales                                                                                        │  ║
- * ║  │  • 4 estaciones HAZMAT certificadas (mayor concentración del país)                                                              │  ║
- * ║  │  • Tiempo de respuesta promedio: 6-8 minutos zona metro                                                                         │  ║
- * ║  └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  ║
- * ║                                                                                                                                        ║
- * ║  ZONAS ESTRATÉGICAS DE COBERTURA                                                                                                       ║
- * ║  ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════   ║
- * ║  🏙️ Zona Centro Monterrey        │ Centro histórico, Barrio Antiguo, Macroplaza, corporativos                                       ║
- * ║  🏭 Corredor Industrial Norte    │ TERNIUM, Parques industriales, manufactura pesada                                                ║
- * ║  🏭 Corredor Industrial Sur      │ CEMEX, Vitro, petroquímica, materiales peligrosos                                                ║
- * ║  🏘️ Zona Metropolitana Poniente  │ San Pedro Garza García, Santa Catarina, zona residencial AAA                                     ║
- * ║  🏘️ Zona Metropolitana Oriente   │ Guadalupe, Apodaca, Juárez, zona industrial mixta                                                ║
- * ║  🛣️ Corredor Carretero Norte     │ Autopista Monterrey-Laredo, comercio internacional                                               ║
- * ║  🏔️ Sierra Madre Oriental        │ Santiago, Chipinque, incendios forestales, rescate montaña                                       ║
- * ║  🌵 Zona Citrícola               │ Montemorelos, Linares, agroindustria                                                             ║
- * ║  ═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════   ║
- * ║                                                                                                                                        ║
- * ║  RIESGOS ESPECIALES DEL ESTADO                                                                                                         ║
- * ║  ────────────────────────────────                                                                                                      ║
- * ║  • HAZMAT Industrial: 4,500+ empresas con materiales peligrosos                                                                       ║
- * ║  • Incendios forestales: Sierra Madre Oriental (temporada marzo-junio)                                                                ║
- * ║  • Clima extremo: Ondas de calor (+45°C) y heladas (-10°C)                                                                            ║
- * ║  • Huracanes: Golfo de México (Alex 2010 - $7,500 millones USD en daños)                                                             ║
- * ║  • Accidentes carreteros: +800 anuales en autopistas principales                                                                      ║
- * ║  • Explosiones industriales: Alto riesgo en corredores manufactureros                                                                 ║
- * ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
- */
 
 export const estacionesNuevoLeon: Estacion[] = [
   // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════
@@ -1116,9 +1064,7 @@ export const EMPRESAS_NUEVO_LEON = {
 // FUNCIONES AUXILIARES PROFESIONALES CON INTERLINKING
 // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones por zona geográfica
- */
+
 export function getEstacionesPorZona(zonaId: string): Estacion[] {
   const zonaMap: Record<string, string> = {
     centro: "Zona Centro Monterrey",
@@ -1133,9 +1079,7 @@ export function getEstacionesPorZona(zonaId: string): Estacion[] {
   return estacionesNuevoLeon.filter(e => e.zona === zonaMap[zonaId]);
 }
 
-/**
- * Obtiene estaciones HAZMAT certificadas
- */
+
 export function getEstacionesHAZMAT(): Estacion[] {
   return estacionesNuevoLeon.filter(e =>
     e.especialidades?.some(esp =>
@@ -1144,9 +1088,7 @@ export function getEstacionesHAZMAT(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones industriales
- */
+
 export function getEstacionesIndustriales(): Estacion[] {
   return estacionesNuevoLeon.filter(e =>
     e.zona?.includes("Industrial") ||
@@ -1157,9 +1099,7 @@ export function getEstacionesIndustriales(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones de rescate de montaña
- */
+
 export function getEstacionesMontana(): Estacion[] {
   return estacionesNuevoLeon.filter(e =>
     e.zona === "Sierra Madre Oriental" ||
@@ -1171,9 +1111,7 @@ export function getEstacionesMontana(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones con rescate carretero
- */
+
 export function getEstacionesCarreteras(): Estacion[] {
   return estacionesNuevoLeon.filter(e =>
     e.zona?.includes("Carretero") ||
@@ -1184,9 +1122,7 @@ export function getEstacionesCarreteras(): Estacion[] {
   );
 }
 
-/**
- * Genera meta tags SEO optimizados para una estación
- */
+
 export function generarMetaSEOEstacion(estacion: Estacion): {
   title: string;
   description: string;
@@ -1208,9 +1144,7 @@ export function generarMetaSEOEstacion(estacion: Estacion): {
   };
 }
 
-/**
- * Genera Schema.org completo para una estación
- */
+
 export function generarSchemaEstacion(estacion: Estacion): object {
   const esHAZMAT = estacion.especialidades?.some(e => e.toLowerCase().includes('hazmat'));
   const esIndustrial = estacion.zona?.includes('Industrial');
@@ -1272,9 +1206,7 @@ export function generarSchemaEstacion(estacion: Estacion): object {
   };
 }
 
-/**
- * Genera links de interlinking para una estación
- */
+
 export function generarInterlinking(estacion: Estacion): {
   estadosRelacionados: Array<{ nombre: string; slug: string; razon: string }>;
   productosRelacionados: Array<{ nombre: string; slug: string }>;
@@ -1371,23 +1303,17 @@ export const FAQ_NUEVO_LEON = [
 // FUNCIONES AUXILIARES ESTÁNDAR PARA DIRECTORIO
 // ════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene lista única de municipios/ciudades ordenados alfabéticamente
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesNuevoLeon.map(e => e.ciudad))].filter(Boolean).sort() as string[];
 }
 
-/**
- * Obtiene una estación por su slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesNuevoLeon.find(e => e.slug === slug);
 }
 
-/**
- * Obtiene estaciones cercanas (misma zona primero, luego otras)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];

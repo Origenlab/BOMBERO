@@ -1,82 +1,4 @@
-/**
- * ╔═══════════════════════════════════════════════════════════════════════════╗
- * ║  BOMBEROS DE GUERRERO (GRO) - DIRECTORIO OFICIAL                          ║
- * ║  Sistema de Información para SEO y Servicios de Emergencia               ║
- * ╠═══════════════════════════════════════════════════════════════════════════╣
- * ║  Capital: Chilpancingo de los Bravo | Código: GRO | Región: Sur          ║
- * ║  16 Estaciones | 520+ Bomberos | Cobertura Estatal                       ║
- * ╚═══════════════════════════════════════════════════════════════════════════╝
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PERFIL GEOGRÁFICO Y DEMOGRÁFICO                         │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  Superficie:        63,596 km² (14° lugar nacional)                        │
- * │  Población:         3,540,685 habitantes (12° lugar nacional)              │
- * │  Municipios:        81 municipios                                          │
- * │  Densidad:          55.7 hab/km²                                           │
- * │  PIB Estatal:       1.5% del PIB nacional                                  │
- * │  Altitud capital:   1,250 msnm                                             │
- * │  Clima:             Tropical a templado en sierra                          │
- * │  Litoral:           500 km de costa en el Pacífico                         │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                         RIESGOS NATURALES CRÍTICOS                         │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🌀 HURACANES        │ Categoría 5 potencial, temporada jun-nov            │
- * │                      │ Huracán Otis (2023) Cat. 5 devastó Acapulco         │
- * │  🌊 TSUNAMIS         │ Zona de subducción Cocos-Norteamérica               │
- * │  🔴 SISMOS           │ Brecha de Guerrero, alto riesgo sísmico             │
- * │  🌊 INUNDACIONES     │ Ríos Balsas, Papagayo, temporada de lluvias         │
- * │  🔥 INCENDIOS        │ Sierra Madre del Sur, temporada seca                │
- * │  🏔️ DESLAVES         │ Zona serrana, carreteras de montaña                │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                         SECTORES ECONÓMICOS CLAVE                          │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🏖️ TURISMO          │ Acapulco, Ixtapa-Zihuatanejo, Taxco                │
- * │                      │ 12+ millones de visitantes anuales                  │
- * │  💎 MINERÍA          │ Taxco: Capital Mundial de la Plata                  │
- * │  🌾 AGRICULTURA      │ Coco, mango, limón, maíz, café                      │
- * │  🐟 PESCA            │ Flota pesquera del Pacífico                         │
- * │  🎭 ARTESANÍAS       │ Plata, lacas, máscaras, textiles                    │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ┌─────────────────────────────────────────────────────────────────────────────┐
- * │                    PATRIMONIO CULTURAL Y TURISMO                           │
- * ├─────────────────────────────────────────────────────────────────────────────┤
- * │  🏖️ Acapulco:        │ Bahía icónica, clavadistas de La Quebrada          │
- * │  💎 Taxco:           │ Pueblo Mágico, Ciudad de la Plata                   │
- * │  🏝️ Ixtapa:          │ Desarrollo turístico planificado                   │
- * │  🎣 Zihuatanejo:     │ Pueblo pesquero tradicional                        │
- * │  🏛️ Chilpancingo:    │ Capital histórica de la Independencia             │
- * └─────────────────────────────────────────────────────────────────────────────┘
- *
- * ════════════════════════════════════════════════════════════════════════════
- *  DISTRIBUCIÓN ESTRATÉGICA DE 16 ESTACIONES
- * ════════════════════════════════════════════════════════════════════════════
- *
- *  ZONA ACAPULCO (Turístico Principal).................... 5 estaciones
- *  │ Central Acapulco │ Zona Dorada │ Diamante │ Pie de la Cuesta │ Aeropuerto
- *
- *  ZONA COSTA GRANDE (Ixtapa-Zihuatanejo)................. 2 estaciones
- *  │ Central Zihuatanejo │ Ixtapa
- *
- *  ZONA CENTRO (Capital)................................... 2 estaciones
- *  │ Central Chilpancingo │ Chilpancingo Sur
- *
- *  ZONA NORTE (Taxco-Iguala)............................... 3 estaciones
- *  │ Central Iguala │ Taxco │ Teloloapan
- *
- *  ZONA COSTA CHICA........................................ 2 estaciones
- *  │ Ometepec │ San Marcos
- *
- *  ZONA MONTAÑA Y TIERRA CALIENTE.......................... 2 estaciones
- *  │ Tlapa de Comonfort │ Altamirano
- *
- * ════════════════════════════════════════════════════════════════════════════
- */
+
 
 import type { Estacion } from './types';
 
@@ -995,55 +917,41 @@ export const estacionesGuerrero: Estacion[] = [
 // FUNCIONES AUXILIARES SEO Y FILTRADO
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtiene estaciones de la zona Acapulco
- */
+
 export function getEstacionesAcapulco(): Estacion[] {
   return estacionesGuerrero.filter(e => e.ciudad === 'Acapulco de Juárez');
 }
 
-/**
- * Obtiene estaciones de la Costa Grande (Ixtapa-Zihuatanejo)
- */
+
 export function getEstacionesCostaGrande(): Estacion[] {
   const ciudades = ['Zihuatanejo de Azueta', 'Ixtapa'];
   return estacionesGuerrero.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la zona Centro (Capital)
- */
+
 export function getEstacionesCentro(): Estacion[] {
   return estacionesGuerrero.filter(e => e.ciudad === 'Chilpancingo de los Bravo');
 }
 
-/**
- * Obtiene estaciones de la zona Norte
- */
+
 export function getEstacionesNorte(): Estacion[] {
   const ciudades = ['Iguala de la Independencia', 'Taxco de Alarcón', 'Teloloapan'];
   return estacionesGuerrero.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la Costa Chica
- */
+
 export function getEstacionesCostaChica(): Estacion[] {
   const ciudades = ['Ometepec', 'San Marcos'];
   return estacionesGuerrero.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones de la Montaña y Tierra Caliente
- */
+
 export function getEstacionesMontana(): Estacion[] {
   const ciudades = ['Tlapa de Comonfort', 'Ciudad Altamirano'];
   return estacionesGuerrero.filter(e => ciudades.includes(e.ciudad));
 }
 
-/**
- * Obtiene estaciones con capacidad de rescate acuático
- */
+
 export function getEstacionesRescateAcuatico(): Estacion[] {
   return estacionesGuerrero.filter(e =>
     e.servicios.some(s =>
@@ -1055,9 +963,7 @@ export function getEstacionesRescateAcuatico(): Estacion[] {
   );
 }
 
-/**
- * Obtiene estaciones turísticas
- */
+
 export function getEstacionesTuristicas(): Estacion[] {
   return estacionesGuerrero.filter(e =>
     e.servicios.some(s =>
@@ -1068,9 +974,7 @@ export function getEstacionesTuristicas(): Estacion[] {
   );
 }
 
-/**
- * Genera metadatos SEO para una estación específica
- */
+
 export function generarMetaSEO(estacion: Estacion): {
   title: string;
   description: string;
@@ -1123,9 +1027,7 @@ export function generarMetaSEO(estacion: Estacion): {
   };
 }
 
-/**
- * Obtiene contexto SEO por zona
- */
+
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
@@ -1222,16 +1124,12 @@ export function getContextoZona(ciudad: string): {
   };
 }
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesGuerrero.find(e => e.slug === slug);
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -1241,9 +1139,7 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
     .slice(0, limit);
 }
 
-/**
- * Estadísticas totales del estado
- */
+
 export const ESTADISTICAS_GUERRERO = {
   total_estaciones: estacionesGuerrero.length,
   total_bomberos: estacionesGuerrero.reduce((sum, e) => sum + (e.personal || 0), 0),

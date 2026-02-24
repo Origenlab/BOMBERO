@@ -1,7 +1,4 @@
-/**
- * ─── Blog Artículos Data ───
- * Datos de artículos del blog (migrar a content collections después).
- */
+
 
 export interface ArticuloData {
   titulo: string;
@@ -3056,9 +3053,7 @@ En **BOMBERO.MX** somos especialistas en equipar servicios ARFF y brigadas indus
     `,
   },
 
-  /* ═══════════════════════════════════════════════════════════════════════
-     ARTÍCULOS DE CASCOS PARA BOMBEROS
-     ═══════════════════════════════════════════════════════════════════════ */
+
 
   "casco-estructural-nfpa-1971": {
     titulo: "Casco Estructural NFPA 1971: Anatomía y Selección",
@@ -4037,9 +4032,7 @@ En **BOMBERO.MX** somos especialistas en equipar equipos de rescate técnico con
     `,
   },
 
-  /* ═══════════════════════════════════════════════════════════════════════
-     ARTÍCULOS DE GUANTES PARA BOMBEROS
-     ═══════════════════════════════════════════════════════════════════════ */
+
 
   "guantes-estructurales-nfpa-1971": {
     titulo: "Guantes Estructurales NFPA 1971: Guía Completa",

@@ -1,23 +1,4 @@
-/**
- * BOMBEROS DE TLAXCALA (TLA) - DIRECTORIO OFICIAL
- * Base de datos completa del H. Cuerpo de Bomberos de Tlaxcala
- * Capital: Tlaxcala de Xicohténcatl | Código: TLA | Región: Centro de México
- * 15 Estaciones | 520 Bomberos | Estado más pequeño de México (3,991 km²)
- *
- * Diferenciadores únicos:
- * - ÚNICA PLANTA AUDI EN LAS AMÉRICAS (San José Chiapa): Audi Q5/A3, baterías PHEV,
- *   12,000 empleados, 150,000 unidades/año — el mayor riesgo industrial de Tlaxcala
- * - GRUPO MODELO (Calpulalpan): una de las 3 cervecerías más grandes de México,
- *   CO₂ industrial, amoniaco en refrigeración, granos fermentables
- * - VOLCÁN LA MALINCHE (Matlalcuéitl): 4,461 msnm, segundo más alto de México central,
- *   rescates en alta montaña, incendios forestales de altitud
- * - CAPITAL TEXTILERA DE MÉXICO: Santa Ana Chiautempan, tintas y azo-colorantes,
- *   ácido sulfúrico, sosa cáustica, solventes industriales
- * - CORREDOR MEXICO 150D: Autopista México-Puebla (más transitada del país),
- *   mayor densidad de accidentes con carga peligrosa del centro de México
- * - ESTADO MÁS DENSAMENTE INDUSTRIALIZADO POR km²:
- *   mayor concentración de parques industriales por superficie de México
- */
+
 
 import type { Estacion } from './types';
 

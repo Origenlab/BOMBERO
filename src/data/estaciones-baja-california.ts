@@ -1,21 +1,4 @@
-/**
- * ─────────────────────────────────────────────────────────────────────────────
- * DATOS DE ESTACIONES DE BOMBEROS - BAJA CALIFORNIA
- * ─────────────────────────────────────────────────────────────────────────────
- * Base de datos profesional del H. Cuerpo de Bomberos del Estado de Baja California
- *
- * Baja California: Estado fronterizo del noroeste de México
- * - Población: 3.8 millones de habitantes
- * - Capital: Mexicali
- * - Ciudad más poblada: Tijuana (2+ millones)
- * - Municipios: 5 (Mexicali, Tijuana, Ensenada, Tecate, Playas de Rosarito)
- * - Características: Frontera con California (USA), industria maquiladora,
- *   turismo internacional, zona vitivinícola, Puerto de Ensenada
- *
- * Información optimizada para SEO y directorio profesional
- * Última actualización: 2024
- * ─────────────────────────────────────────────────────────────────────────────
- */
+
 
 import type { Estacion } from './types';
 
@@ -1004,30 +987,22 @@ export const estacionesBajaCalifornia: Estacion[] = [
 // FUNCIONES AUXILIARES
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Obtener estación por slug
- */
+
 export function getEstacionBySlug(slug: string): Estacion | undefined {
   return estacionesBajaCalifornia.find(e => e.slug === slug);
 }
 
-/**
- * Obtener estaciones por municipio
- */
+
 export function getEstacionesByMunicipio(municipio: string): Estacion[] {
   return estacionesBajaCalifornia.filter(e => e.municipio === municipio);
 }
 
-/**
- * Obtener todos los municipios únicos
- */
+
 export function getMunicipios(): string[] {
   return [...new Set(estacionesBajaCalifornia.map(e => e.municipio))].sort();
 }
 
-/**
- * Obtener estaciones cercanas (excluyendo la actual)
- */
+
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
   const estacion = getEstacionBySlug(slug);
   if (!estacion) return [];
@@ -1044,16 +1019,12 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
   return [...mismoMunicipio, ...otrosMunicipios].slice(0, limit);
 }
 
-/**
- * Obtener estaciones por ciudad
- */
+
 export function getEstacionesByCiudad(ciudad: string): Estacion[] {
   return estacionesBajaCalifornia.filter(e => e.ciudad === ciudad);
 }
 
-/**
- * Estadísticas del estado
- */
+
 export function getEstadisticas() {
   const totalEstaciones = estacionesBajaCalifornia.length;
   const totalPersonal = estacionesBajaCalifornia.reduce((acc, e) => acc + (e.personalActivo || 0), 0);
