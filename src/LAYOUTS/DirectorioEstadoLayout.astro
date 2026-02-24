@@ -17,6 +17,7 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
 import StationCard from "@components/StationCard.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
 import { cdnW } from "@utils/cdn";
 
 /* ── Tipos ─────────────────────────────────────────────────────────────── */
@@ -155,6 +156,14 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
 >
 
   <!-- ══════════════════════════════════════════════════
+       BREADCRUMB
+  ══════════════════════════════════════════════════ -->
+  <Breadcrumb items={[
+    { label: "Directorio", href: "/directorio/" },
+    { label: estado },
+  ]} />
+
+  <!-- ══════════════════════════════════════════════════
        SECCIÓN 1 — HERO
   ══════════════════════════════════════════════════ -->
   <section class="de-hero">
@@ -167,13 +176,6 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
 
         <!-- Columna izquierda -->
         <div class="de-hero__content">
-          <nav class="de-hero__breadcrumb">
-            <a href="/">Inicio</a>
-            <span>/</span>
-            <a href="/directorio/">Directorio</a>
-            <span>/</span>
-            <span>{estado}</span>
-          </nav>
           <span class="de-hero__badge">
             <span class="de-hero__badge-dot"></span>
             {sigla}
@@ -289,7 +291,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
         <div class="de-main__content">
           <SectionHeader
             label="Directorio Completo"
-            title={`Estaciones de Bomberos en ${estado}/`}
+            title={`Estaciones de Bomberos en ${estado}`}
             description={`Información de contacto actualizada de todas las estaciones del H. Cuerpo de Bomberos en ${estado}. Selecciona una estación para ver sus datos de contacto, servicios y zonas de cobertura.`}
           />
 
@@ -298,7 +300,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
               <StationCard
                 nombre={estacion.nombreCorto}
                 slug={estacion.slug}
-                direccion={`${estacion.direccion}${estacion.colonia ? ', ' + estacion.colonia : ''}/`}
+                direccion={`${estacion.direccion}${estacion.colonia ? ', ' + estacion.colonia : ''}`}
                 alcaldia={estacion.municipio || estacion.ciudad || ''}
                 telefono={estacion.telefono}
                 servicios={estacion.servicios}
@@ -324,7 +326,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
             <ul class="de-sidebar__municipios">
               {municipios.map((municipio) => (
                 <li>
-                  <a href={`#${toAnchor(municipio)}/`}>
+                  <a href={`#${toAnchor(municipio)}`}>
                     <span class="de-sidebar__bullet"></span>
                     <span>{municipio}</span>
                   </a>
@@ -387,10 +389,10 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
           <div class="de-sidebar__card">
             <h4>Equipo para Bomberos</h4>
             <ul class="de-sidebar__products">
-              <li><a href="/productos/trajes-para-bomberos">Trajes Estructurales NFPA</a></li>
-              <li><a href="/productos/cascos-para-bomberos">Cascos de Bombero</a></li>
-              <li><a href="/productos/guantes-para-bomberos">Guantes para Bombero</a></li>
-              <li><a href="/productos/botas-para-bomberos">Botas para Bombero</a></li>
+              <li><a href="/productos/trajes-para-bomberos/">Trajes Estructurales NFPA</a></li>
+              <li><a href="/productos/cascos-para-bomberos/">Cascos de Bombero</a></li>
+              <li><a href="/productos/guantes-para-bomberos/">Guantes para Bombero</a></li>
+              <li><a href="/productos/botas-para-bomberos/">Botas para Bombero</a></li>
             </ul>
             <a href="/productos/" class="de-sidebar__link">
               Ver catálogo completo
@@ -525,24 +527,6 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     gap: var(--space-12);
     align-items: center;
   }
-
-  .de-hero__breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-4);
-  }
-
-  .de-hero__breadcrumb a {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .de-hero__breadcrumb a:hover { color: var(--color-fire-400); }
-
-  .de-hero__breadcrumb span { color: var(--color-smoke-600); }
 
   .de-hero__badge {
     display: inline-flex;
@@ -883,7 +867,6 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     font-size: var(--text-sm);
     color: var(--color-smoke-600);
     text-decoration: none;
-    transition: all 0.2s;
   }
 
   .de-sidebar__municipios li a:hover {
@@ -986,7 +969,6 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     font-weight: 500;
     color: var(--color-smoke-700);
     text-decoration: none;
-    transition: all 0.2s;
   }
 
   .de-sidebar__states li a:hover {
@@ -997,7 +979,6 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
   .de-sidebar__states li a svg {
     opacity: 0;
     transform: translateX(-4px);
-    transition: all 0.2s;
   }
 
   .de-sidebar__states li a:hover svg {
@@ -1072,8 +1053,6 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
 
   .de-sidebar__link:hover { color: var(--color-fire-700); }
 
-  .de-sidebar__link svg { transition: transform 0.2s; }
-
   .de-sidebar__link:hover svg { transform: translateX(4px); }
 
   /* Back Link */
@@ -1088,7 +1067,6 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     font-weight: 600;
     color: var(--color-smoke-700);
     text-decoration: none;
-    transition: all 0.2s;
   }
 
   .de-sidebar__back:hover {

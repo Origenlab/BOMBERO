@@ -101,13 +101,13 @@ export default defineConfig({
   // ─── Redirects for SEO ───
   redirects: {
     // Common misspellings and variations
-    "/equipo-bomberos": "/productos",
-    "/trajes-bombero": "/productos/epp-bomberos",
-    "/cascos-bombero": "/productos/cascos",
-    "/extintores-mexico": "/productos/extintores",
-    "/equipo-scba": "/productos/scba",
+    "/equipo-bomberos": "/productos/",
+    "/trajes-bombero": "/productos/epp-bomberos/",
+    "/cascos-bombero": "/productos/cascos/",
+    "/extintores-mexico": "/productos/extintores/",
+    "/equipo-scba": "/productos/scba/",
     // Old URLs (if any)
-    "/tienda": "/productos",
-    "/catalogo": "/productos",
+    "/tienda": "/productos/",
+    "/catalogo": "/productos/",
   },
 });

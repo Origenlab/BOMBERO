@@ -16,7 +16,13 @@ import { resolveSEO, canonicalURL } from "@utils/seo";
 type Props = SEOProps;
 
 const resolved = resolveSEO(Astro.props);
-const canonical = resolved.canonical ?? canonicalURL(Astro.url.pathname);
+const canonicalCandidate = (resolved.canonical ?? Astro.url.pathname).trim();
+const canonical = canonicalCandidate.match(/^https?:\/\//i)
+  ? (/\.\w+$/.test(canonicalCandidate) || canonicalCandidate.endsWith("/") ? canonicalCandidate : `${canonicalCandidate}/`)
+  : canonicalURL(canonicalCandidate);
+const currentPageUrl = canonicalURL(Astro.url.pathname);
+const isSelfCanonical = canonical === currentPageUrl;
+const shouldRenderHreflang = !resolved.noindex && isSelfCanonical;
 const imageURL = resolved.image?.startsWith("http")
   ? resolved.image
   : canonicalURL(resolved.image);
@@ -37,7 +43,7 @@ const allKeywords = [...new Set([...pageKeywords, ...SITE.seo.keywords])].join("
 <meta name="keywords" content={allKeywords} />
 <meta name="author" content={SITE.organization.name} />
 <meta name="publisher" content={SITE.organization.name} />
-<meta name="copyright" content={`© ${new Date().getFullYear()} ${SITE.organization.name}/`} />
+<meta name="copyright" content={`© ${new Date().getFullYear()} ${SITE.organization.name}`} />
 {resolved.noindex && <meta name="robots" content="noindex, nofollow" />}
 {!resolved.noindex && <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
 <link rel="canonical" href={canonical} />
@@ -45,9 +51,13 @@ const allKeywords = [...new Set([...pageKeywords, ...SITE.seo.keywords])].join("
 <!-- Language & Region -->
 <meta name="language" content={SITE.language} />
 <meta http-equiv="content-language" content={SITE.locale} />
-<link rel="alternate" hreflang="es-MX" href={canonical} />
-<link rel="alternate" hreflang="es" href={canonical} />
-<link rel="alternate" hreflang="x-default" href={canonical} />
+{shouldRenderHreflang && (
+  <>
+    <link rel="alternate" hreflang="es-MX" href={canonical} />
+    <link rel="alternate" hreflang="es" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+  </>
+)}
 
 <!-- Geo Tags for Local SEO Mexico -->
 <meta name="geo.region" content={SITE.geo.region} />

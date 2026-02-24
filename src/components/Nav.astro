@@ -1,117 +1,96 @@
 ---
 /**
  * ─── Nav Component ───
- * Accessible navigation with simple dropdown and mega-menu support.
- * - Flat children  → standard dropdown
- * - Children with their own children → mega menu (grid de categorías)
+ * Navegación profesional con mega menu para productos.
+ * Diseño limpio, accesible y optimizado para conversión.
  */
-import { mainNav } from "@data/navigation";
+import { mainNav, productCategories } from "@data/navigation";
 
 const currentPath = Astro.url.pathname;
+
+// Iconos SVG para categorías
+const icons: Record<string, string> = {
+  shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  helmet: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>`,
+  gloves: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>`,
+  boot: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18"/><path d="M19 21v-4H5v4"/><path d="M19 17V9a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v8"/><path d="M7 7V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3"/></svg>`,
+  hood: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a8 8 0 0 0-8 8v4a8 8 0 0 0 16 0v-4a8 8 0 0 0-8-8z"/><path d="M12 18v4"/><circle cx="12" cy="10" r="3"/></svg>`,
+  goggles: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/><path d="M10 12h4"/><path d="M4 12H2"/><path d="M22 12h-2"/></svg>`,
+  lungs: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.081 20C2.5 20 2 16.5 2 14c0-3 1-6.5 4-7.5 1-.33 1.5-1 1.5-2 0-.17.01-.33.03-.5"/><path d="M17.92 20C21.5 20 22 16.5 22 14c0-3-1-6.5-4-7.5-1-.33-1.5-1-1.5-2 0-.17-.01-.33-.03-.5"/><path d="M12 4v16"/><path d="M8 4h8"/></svg>`,
+  fire: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+  tools: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+  camera: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
+  extinguisher: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2v2"/><path d="M14 2v2"/><rect x="7" y="4" width="10" height="16" rx="2"/><path d="M12 4v4"/><path d="M7 12h10"/></svg>`,
+};
 ---
 
 <nav class="nav" aria-label="Navegación principal">
-  <ul class="nav__list" role="list">
+  <ul class="nav__list">
     {mainNav.map((item) => {
-      const isMega = item.children?.some(c => c.children?.length);
+      const isProducts = item.label === "Productos";
+      const isActive = item.href === "/"
+        ? currentPath === "/"
+        : currentPath === item.href || currentPath.startsWith(item.href);
+
       return (
-        <li class:list={[
-          "nav__item",
-          { "nav__item--has-dropdown": item.children?.length && !isMega },
-          { "nav__item--has-mega":     isMega },
-        ]}>
+        <li class:list={["nav__item", { "nav__item--mega": isProducts }]}>
           <a
             href={item.href}
-            class:list={[
-              "nav__link",
-              {
-                "nav__link--active": item.href === "/"
-                  ? currentPath === "/"
-                  : currentPath === item.href || currentPath.startsWith(item.href + "/"),
-              },
-            ]}
+            class:list={["nav__link", { "nav__link--active": isActive }]}
             aria-current={currentPath === item.href ? "page" : undefined}
           >
             {item.label}
-            {item.children?.length && (
-              <svg class="nav__chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            {isProducts && (
+              <svg class="nav__chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M6 9l6 6 6-6"/>
               </svg>
             )}
           </a>
 
-          {/* ── Dropdown simple ── */}
-          {!isMega && item.children?.length && (
-            <ul class="nav__dropdown" role="list">
-              {item.children.map((child) => (
-                <li>
-                  <a
-                    href={child.href}
-                    class:list={[
-                      "nav__dropdown-link",
-                      {
-                        "nav__dropdown-link--active":
-                          currentPath === child.href ||
-                          currentPath.startsWith(child.href + "/"),
-                      },
-                    ]}
-                  >
-                    {child.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {/* ── Mega menu ── */}
-          {isMega && (
-            <div class="nav__mega" role="region" aria-label={`Submenú de ${item.label}/`}>
-              <div class="nav__mega-inner">
-                {item.children!.map((group) => (
-                  <div class="nav__mega-col">
-                    <a
-                      href={group.href}
-                      class:list={[
-                        "nav__mega-heading",
-                        {
-                          "nav__mega-heading--active":
-                            currentPath === group.href ||
-                            currentPath.startsWith(group.href + "/"),
-                        },
-                      ]}
-                    >
-                      {group.label}
-                    </a>
-                    {group.children?.length && (
-                      <ul class="nav__mega-list" role="list">
-                        {group.children.map((sub) => (
-                          <li>
-                            <a
-                              href={sub.href}
-                              class:list={[
-                                "nav__mega-link",
-                                {
-                                  "nav__mega-link--active":
-                                    currentPath === sub.href ||
-                                    currentPath.startsWith(sub.href + "/"),
-                                },
-                              ]}
-                            >
-                              {sub.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <a href={group.href} class="nav__mega-see-all">
-                      Ver todos →
-                    </a>
+          {/* ── Mega Menu de Productos ── */}
+          {isProducts && (
+            <div class="mega" role="dialog" aria-label="Menú de productos">
+              <div class="mega__container">
+                {/* Columna principal - Categorías EPP */}
+                <div class="mega__main">
+                  <div class="mega__section-title">Equipo de Protección Personal</div>
+                  <div class="mega__grid">
+                    {productCategories.map((cat) => (
+                      <div class="mega__category">
+                        <a href={cat.href} class="mega__category-header">
+                          <span class="mega__icon" set:html={icons[cat.icon ?? "shield"]} />
+                          <div class="mega__category-info">
+                            <span class="mega__category-name">
+                              {cat.label}
+                              {cat.badge && <span class="mega__badge">{cat.badge}</span>}
+                            </span>
+                            <span class="mega__category-desc">{cat.description}</span>
+                          </div>
+                        </a>
+                        {cat.children && cat.children.length > 0 && (
+                          <ul class="mega__sublist">
+                            {cat.children.slice(0, 4).map((sub) => (
+                              <li>
+                                <a href={sub.href} class="mega__sublink">{sub.label}</a>
+                              </li>
+                            ))}
+                            {cat.children.length > 4 && (
+                              <li>
+                                <a href={cat.href} class="mega__sublink mega__sublink--more">
+                                  Ver todos →
+                                </a>
+                              </li>
+                            )}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+
               </div>
             </div>
           )}
-
         </li>
       );
     })}
@@ -119,26 +98,28 @@ const currentPath = Astro.url.pathname;
 </nav>
 
 <style>
-  /* nav is the positioning context for mega menus */
+  /* ═══════════════════════════════════════════════════════════════════════════
+     NAVEGACIÓN PRINCIPAL
+     ═══════════════════════════════════════════════════════════════════════════ */
+
   .nav {
     position: relative;
   }
 
   .nav__list {
     display: flex;
-    gap: var(--space-lg);
-    list-style: none;
     align-items: center;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
-  /* ─── Top-level item ─── */
   .nav__item {
     position: relative;
   }
 
-  /* Mega items delegate positioning to the sticky header,
-     so left:50% centers the panel within the full viewport */
-  .nav__item--has-mega {
+  .nav__item--mega {
     position: static;
   }
 
@@ -146,306 +127,303 @@ const currentPath = Astro.url.pathname;
     display: inline-flex;
     align-items: center;
     gap: 4px;
+    padding: var(--space-2) var(--space-3);
     font-size: var(--text-sm);
     font-weight: 600;
-    color: var(--color-smoke-800);
+    color: var(--color-smoke-700);
     text-decoration: none;
-    padding-block: var(--space-xs);
-    border-block-end: 2px solid transparent;
+    border-radius: var(--radius-lg);
     white-space: nowrap;
+  }
+
+  .nav__link:hover {
+    color: var(--color-smoke-900);
+    background: var(--color-smoke-50);
   }
 
   .nav__link--active {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
+    color: var(--color-fire-600);
+    background: var(--color-fire-50);
   }
 
   .nav__chevron {
-    transition: transform 0.2s ease;
     flex-shrink: 0;
   }
 
-  /* ─── Dropdown simple ─── */
-  .nav__dropdown {
-    display: none;
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 220px;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    list-style: none;
-    padding: 8px;
-    z-index: 100;
-  }
-
-  /* Arrow indicator */
-  .nav__dropdown::before {
-    content: "";
-    position: absolute;
-    top: -6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 12px;
-    height: 12px;
-    background: #ffffff;
-    border-left: 1px solid #e5e7eb;
-    border-top: 1px solid #e5e7eb;
-    rotate: 45deg;
-  }
-
-  .nav__dropdown-link {
-    display: block;
-    padding: 8px 12px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #374151;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.15s, color 0.15s;
-    white-space: nowrap;
-  }
-
-  .nav__dropdown-link:hover {
-    background: #fef2f2;
-    color: var(--color-accent);
-  }
-
-  .nav__dropdown-link--active {
-    background: #fef2f2;
-    color: var(--color-accent);
-    font-weight: 600;
-  }
-
-  /* Show dropdown on hover */
-  .nav__item--has-dropdown:hover .nav__dropdown,
-  .nav__item--has-dropdown:focus-within .nav__dropdown {
-    display: block;
-  }
-
-  .nav__item--has-dropdown:hover .nav__chevron,
-  .nav__item--has-dropdown:focus-within .nav__chevron {
+  .nav__item--mega:hover .nav__chevron,
+  .nav__item--mega:focus-within .nav__chevron {
     transform: rotate(180deg);
   }
 
-  /* ─── Mega menu ─── */
-  .nav__mega {
-    display: none;
+  /* ═══════════════════════════════════════════════════════════════════════════
+     MEGA MENU
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  .mega {
     position: absolute;
-    top: calc(100% + 8px);
+    top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    width: max(860px, 60vw);
+    width: min(1100px, 95vw);
     background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14);
-    z-index: 100;
+    border-radius: var(--radius-xl);
+    box-shadow:
+      0 25px 50px -12px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.2s ease;
+    z-index: 1000;
+    margin-top: var(--space-2);
   }
 
-  /* Arrow */
-  .nav__mega::before {
+  /* Flecha indicadora */
+  .mega::before {
     content: "";
     position: absolute;
     top: -6px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) rotate(45deg);
     width: 12px;
     height: 12px;
     background: #ffffff;
-    border-left: 1px solid #e5e7eb;
-    border-top: 1px solid #e5e7eb;
-    rotate: 45deg;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
   }
 
-  .nav__mega-inner {
+  .nav__item--mega:hover .mega,
+  .nav__item--mega:focus-within .mega {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .mega__container {
+    display: block;
+  }
+
+  /* ── Sección Principal ── */
+  .mega__main {
+    padding: var(--space-6);
+  }
+
+  .mega__section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-smoke-400);
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-2);
+  }
+
+  .mega__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    padding: var(--space-6);
-    gap: var(--space-2);
+    gap: var(--space-4);
   }
 
-  .nav__mega-col {
-    padding: var(--space-4) var(--space-4);
-    border-radius: 10px;
-    transition: background 0.15s;
+  /* ── Categoría ── */
+  .mega__category {
+    display: flex;
+    flex-direction: column;
   }
 
-  .nav__mega-col:hover {
-    background: #fafafa;
-  }
-
-  .nav__mega-heading {
-    display: block;
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--color-smoke-900);
+  .mega__category-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
     text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: var(--space-3);
-    padding-bottom: var(--space-2);
-    border-bottom: 2px solid var(--color-smoke-100);
-    transition: color 0.15s, border-color 0.15s;
   }
 
-  .nav__mega-heading:hover,
-  .nav__mega-heading--active {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
+  .mega__category-header:hover {
+    background: var(--color-smoke-50);
   }
 
-  .nav__mega-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 var(--space-3);
+  .mega__icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-fire-50);
+    border-radius: var(--radius-md);
+    color: var(--color-fire-600);
+  }
+
+  .mega__icon :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mega__category-header:hover .mega__icon {
+    background: var(--color-fire-100);
+  }
+
+  .mega__category-info {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    min-width: 0;
   }
 
-  .nav__mega-link {
-    display: block;
-    padding: 5px 6px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #4b5563;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.12s, color 0.12s;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .nav__mega-link:hover {
-    background: #fef2f2;
-    color: var(--color-accent);
-  }
-
-  .nav__mega-link--active {
-    background: #fef2f2;
-    color: var(--color-accent);
-    font-weight: 600;
-  }
-
-  .nav__mega-see-all {
-    display: inline-flex;
+  .mega__category-name {
+    display: flex;
     align-items: center;
-    font-size: 11px;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-900);
+    line-height: 1.3;
+  }
+
+  .mega__badge {
+    display: inline-flex;
+    padding: 2px 6px;
+    font-size: 9px;
     font-weight: 700;
-    color: var(--color-accent);
-    text-decoration: none;
+    text-transform: uppercase;
     letter-spacing: 0.02em;
-    transition: opacity 0.15s;
-    opacity: 0.75;
+    color: var(--color-fire-700);
+    background: var(--color-fire-100);
+    border-radius: var(--radius-sm);
   }
 
-  .nav__mega-see-all:hover { opacity: 1; }
+  .mega__category-desc {
+    font-size: 12px;
+    color: var(--color-smoke-500);
+    line-height: 1.4;
+  }
 
-  /* Show mega menu on hover */
-  .nav__item--has-mega:hover .nav__mega,
-  .nav__item--has-mega:focus-within .nav__mega {
+  /* ── Sublista ── */
+  .mega__sublist {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 calc(36px + var(--space-3));
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mega__sublink {
     display: block;
+    padding: 5px var(--space-3);
+    font-size: 13px;
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    border-radius: var(--radius-md);
   }
 
-  .nav__item--has-mega:hover .nav__chevron,
-  .nav__item--has-mega:focus-within .nav__chevron {
-    transform: rotate(180deg);
+  .mega__sublink:hover {
+    color: var(--color-fire-600);
+    background: var(--color-fire-50);
   }
 
-  /* ─── Mobile ─── */
+  .mega__sublink--more {
+    color: var(--color-fire-600);
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  @media (max-width: 1200px) {
+    .mega__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 768px) {
+    /* En móvil, la navegación se muestra de forma diferente */
     .nav__list {
       flex-direction: column;
-      align-items: flex-start;
-      gap: var(--space-sm);
-    }
-
-    .nav__dropdown {
-      position: static;
-      transform: none;
-      box-shadow: none;
-      border: none;
-      border-left: 3px solid #e5e7eb;
-      border-radius: 0;
-      background: transparent;
-      padding: 4px 0 4px 12px;
-      margin-top: 4px;
-      display: block;
-    }
-
-    .nav__dropdown::before { display: none; }
-
-    .nav__dropdown-link {
-      font-size: 13px;
-      color: #6b7280;
-      padding: 6px 8px;
-    }
-
-    .nav__dropdown-link:hover,
-    .nav__dropdown-link--active {
-      background: transparent;
-      color: var(--color-accent);
-    }
-
-    /* Mega menu mobile — stack columns */
-    .nav__mega {
-      position: static;
-      transform: none;
-      box-shadow: none;
-      border: none;
-      border-left: 3px solid #e5e7eb;
-      border-radius: 0;
-      background: transparent;
-      display: block;
-      width: auto;
-      overflow: visible;
-    }
-
-    .nav__mega::before { display: none; }
-
-    .nav__mega-inner {
-      grid-template-columns: 1fr;
-      padding: 4px 0 4px 12px;
+      align-items: stretch;
       gap: 0;
     }
 
-    .nav__mega-col {
-      padding: var(--space-2) 0;
+    .nav__link {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-base);
       border-radius: 0;
+      justify-content: space-between;
     }
 
-    .nav__mega-col:hover { background: transparent; }
-
-    .nav__mega-heading {
-      font-size: 12px;
-      color: #374151;
-      border-bottom: none;
-      margin-bottom: var(--space-1);
-      padding-bottom: 0;
-    }
-
-    .nav__mega-list { margin-bottom: var(--space-1); }
-
-    .nav__mega-link {
-      font-size: 12px;
-      color: #6b7280;
-      padding: 4px 6px;
-    }
-
-    .nav__mega-link:hover,
-    .nav__mega-link--active {
+    .nav__link--active {
       background: transparent;
-      color: var(--color-accent);
+      border-left: 3px solid var(--color-fire-600);
+      padding-left: calc(var(--space-4) - 3px);
     }
 
-    .nav__mega-see-all { font-size: 11px; margin-bottom: var(--space-3); }
+    .mega {
+      position: static;
+      transform: none;
+      width: 100%;
+      border-radius: 0;
+      box-shadow: none;
+      margin-top: 0;
+      opacity: 1;
+      visibility: visible;
+      display: none;
+      background: var(--color-smoke-50);
+    }
 
-    .nav__chevron { display: none; }
+    .mega::before {
+      display: none;
+    }
+
+    .nav__item--mega:hover .mega,
+    .nav__item--mega:focus-within .mega,
+    .nav__item--mega.is-open .mega {
+      display: block;
+    }
+
+    .mega__container {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .mega__main {
+      padding: var(--space-4);
+    }
+
+    .mega__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+
+    .mega__category-header {
+      padding: var(--space-2);
+    }
+
+    .mega__sublist {
+      padding-left: calc(36px + var(--space-2));
+    }
+
+    .nav__chevron {
+      display: block;
+    }
   }
 </style>
+
+<script>
+  // Toggle mega menu en móvil
+  document.addEventListener('DOMContentLoaded', () => {
+    const megaItems = document.querySelectorAll('.nav__item--mega');
+
+    megaItems.forEach(item => {
+      const link = item.querySelector('.nav__link');
+
+      link?.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          item.classList.toggle('is-open');
+        }
+      });
+    });
+  });
+</script>

@@ -27,7 +27,9 @@ import CTABar from "@components/CTABar.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import WhyChooseUs from "@components/WhyChooseUs.astro";
 import CTABanner from "@components/CTABanner.astro";
+import FAQ from "@components/FAQ.astro";
 import { cdnW } from "@utils/cdn";
+import { productSchemaComplete, breadcrumbJsonLd, faqJsonLd, canonicalURL } from "@utils/seo";
 
 /* ── Tipos ─────────────────────────────────────────────────────────────── */
 interface CapaSpec {
@@ -234,6 +236,34 @@ const {
 
 /* ── CDN transformaciones ── */
 const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
+
+/* ── Schema.org JSON-LD ── */
+// Product Schema with ratings and reviews
+const productSchema = productSchemaComplete({
+  name: productoTitle,
+  description: description,
+  image: gallery.map(img => img.src),
+  url: canonical,
+  category: productoCategoria,
+  features: productoFeatures,
+  certifications: productoBadges.map(b => b.text),
+});
+
+// Breadcrumb Schema
+const breadcrumbSchema = breadcrumbJsonLd(
+  breadcrumb.map(item => ({
+    name: item.label,
+    url: item.href ?? canonical,
+  }))
+);
+
+// FAQ Schema (if FAQs exist)
+const faqSchema = faqs.length > 0
+  ? faqJsonLd(faqs.map(faq => ({ question: faq.q, answer: faq.a })))
+  : null;
+
+// Combine all schemas
+const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
 ---
 
 <PageLayout
@@ -242,6 +272,7 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
   keywords={keywords}
   canonical={canonical}
   image={image}
+  jsonLd={jsonLdSchemas}
 >
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
@@ -304,7 +335,7 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
             <span class="prod-intro__category">{productoCategoria}</span>
             <div class="prod-intro__topbar-badges">
               {productoBadges.map((b) => (
-                <span class={`pcert pcert--${b.modifier}/`}>{b.text}</span>
+                <span class={`pcert pcert--${b.modifier}`}>{b.text}</span>
               ))}
               {(productoMasVendido || productoSoldLabel) && (
                 <span class="prod-intro__sold">{productoSoldLabel ?? "MÁS VENDIDO"}</span>
@@ -376,7 +407,7 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
 
           <div class="capas__grid">
             {capas.map((capa) => (
-              <div class={`capa-card capa-card--${capa.color}/`}>
+              <div class={`capa-card capa-card--${capa.color}`}>
 
                 <div class="capa-card__head">
                   <span class="capa-card__num">{capa.num}</span>
@@ -619,52 +650,7 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- FAQ                                                              -->
   <!-- ═══════════════════════════════════════════════════════════════ -->
-  <section class="faq-prod" id="preguntas-frecuentes">
-    <div class="container">
-      <SectionHeader
-        label="Preguntas Frecuentes"
-        title={faqTitle}
-        description={faqDescription}
-      />
-
-      <div class="faq-prod__grid">
-        <div class="faq-prod__list">
-          {faqs.map((faq) => (
-            <details class="faq-item" name="faq-producto">
-              <summary class="faq-item__q">
-                <span>{faq.q}</span>
-                <span class="faq-item__toggle" aria-hidden="true"></span>
-              </summary>
-              <div class="faq-item__a">
-                <p>{faq.a}</p>
-              </div>
-            </details>
-          ))}
-        </div>
-
-        <aside class="faq-prod__aside">
-          <div class="faq-aside-card">
-            <div class="faq-aside-card__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/>
-              </svg>
-            </div>
-            <h4>{faqDocTitle}</h4>
-            <p>{faqDocDesc}</p>
-            <a href={faqDocCtaHref} class="faq-aside-card__btn">{faqDocCtaText}</a>
-          </div>
-
-          <div class="faq-aside-card faq-aside-card--fire">
-            <h4>¿Necesitas asesoría técnica?</h4>
-            <p>Nuestros especialistas te ayudan a elegir la configuración correcta según el riesgo operativo.</p>
-            <a href="https://wa.me/525520780102" target="_blank" rel="noopener noreferrer" class="faq-aside-card__btn faq-aside-card__btn--wa">
-              Consultar por WhatsApp
-            </a>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
+  <FAQ />
 
   <!-- ═══════════════════════════════════════════════════════════════ -->
   <!-- RELACIONADOS                                                      -->
@@ -790,12 +776,6 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
     height: 6px;
     background: var(--color-ember-500);
     border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.6; transform: scale(0.85); }
   }
 
   .hero__title {
@@ -1238,7 +1218,7 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
   .specs__table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
   .specs__table thead tr { background: var(--color-smoke-900); }
   .specs__table th { padding: var(--space-4) var(--space-6); text-align: left; font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-smoke-300); white-space: nowrap; }
-  .specs__table tbody tr { border-bottom: 1px solid var(--color-smoke-100); transition: background 0.12s; }
+  .specs__table tbody tr { border-bottom: 1px solid var(--color-smoke-100); }
   .specs__table tbody tr:last-child { border-bottom: none; }
   .specs__table tbody tr:hover { background: var(--color-smoke-50); }
   .specs__row--first { border-top: 2px solid var(--color-smoke-200) !important; }
@@ -1520,7 +1500,6 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
     font-weight: 600;
     color: rgba(255,255,255,0.75);
     text-decoration: none;
-    transition: color 0.15s;
   }
 
   .sb-contact:hover { color: white; }
@@ -1568,7 +1547,6 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
     text-decoration: none;
     padding: var(--space-1) var(--space-2);
     border-radius: var(--radius-md);
-    transition: background 0.15s, color 0.15s;
   }
 
   .sb-link:hover { background: rgba(220,38,38,0.06); color: var(--color-fire-700); }
@@ -1584,7 +1562,6 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
     text-align: right;
     padding-top: var(--space-1);
     border-top: 1px solid var(--color-smoke-100);
-    transition: color 0.15s;
   }
 
   .sb-see-all:hover { color: var(--color-fire-800); }
@@ -1607,7 +1584,6 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
     text-decoration: none;
     padding: var(--space-2) var(--space-2);
     border-radius: var(--radius-md);
-    transition: background 0.15s;
   }
 
   .sb-epp__link:hover { background: rgba(220,38,38,0.06); }
@@ -1651,7 +1627,6 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
     text-decoration: none;
     padding: var(--space-2) var(--space-2);
     border-radius: var(--radius-md);
-    transition: background 0.15s;
   }
 
   .sb-article__link:hover { background: rgba(220,38,38,0.06); }
@@ -1734,7 +1709,6 @@ const galleryCdn = gallery.map(img => ({ ...img, src: cdnW(img.src, 420) }));
     background: var(--color-smoke-200);
     border-radius: 50%;
     position: relative;
-    transition: background var(--transition-fast), transform var(--transition-fast);
   }
 
   .faq-item__toggle::before,

@@ -30,6 +30,111 @@ export function formatTitle(title?: string): string {
   return SITE.seo.titleTemplate.replace("%s", title);
 }
 
+/**
+ * Keep meta descriptions within SERP-friendly limits.
+ * Prefers complete sentences; falls back to word-safe trimming.
+ */
+export function truncateMetaDescription(description: string, maxLength = 160): string {
+  const escapedLength = (text: string) =>
+    text
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;").length;
+
+  const normalized = description
+    .replace(/\.{3,}/g, " ")
+    .replace(/\s+/g, " ")
+    .replace(/[“”"]/g, "'")
+    .trim();
+
+  const trimEnding = (text: string) => text.trim().replace(/[,:;.\-–—\s]+$/g, "").trim();
+  const weakEndingWords = new Set([
+    "a",
+    "al",
+    "con",
+    "como",
+    "de",
+    "del",
+    "el",
+    "en",
+    "la",
+    "las",
+    "los",
+    "para",
+    "por",
+    "sin",
+    "un",
+    "una",
+    "y",
+  ]);
+  const trimWeakEndingWords = (text: string) => {
+    const words = trimEnding(text).split(" ").filter(Boolean);
+    while (words.length > 3) {
+      const lastWord = words[words.length - 1]
+        ?.normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+      if (!lastWord || !weakEndingWords.has(lastWord)) break;
+      words.pop();
+    }
+    return words.join(" ");
+  };
+  const finalize = (text: string) => {
+    let result = trimWeakEndingWords(text) || trimEnding(text);
+    if (!result) return "";
+
+    if (!/[.!?]$/.test(result)) {
+      const punctuated = `${trimEnding(result)}.`;
+      if (escapedLength(punctuated) <= maxLength) result = punctuated;
+    }
+
+    return result;
+  };
+  const tightenToTarget = (text: string, targetLength: number) => {
+    let result = finalize(text);
+    while (result.split(" ").length > 3 && escapedLength(result) > targetLength) {
+      result = finalize(result.replace(/\s+\S+\.?$/, ""));
+    }
+    return result;
+  };
+  const applyPracticalTarget = (text: string) => {
+    const practicalTarget = Math.min(maxLength, 155);
+    return escapedLength(text) > practicalTarget ? tightenToTarget(text, practicalTarget) : text;
+  };
+
+  if (escapedLength(normalized) <= maxLength) return applyPracticalTarget(finalize(normalized));
+
+  // Prefer whole sentences if we can keep enough context.
+  const sentences = normalized.split(/(?<=[.!?])\s+/);
+  let sentenceResult = "";
+  for (const sentence of sentences) {
+    const candidate = sentenceResult ? `${sentenceResult} ${sentence}` : sentence;
+    if (escapedLength(candidate) > maxLength) break;
+    sentenceResult = candidate;
+  }
+  if (sentenceResult && escapedLength(sentenceResult) >= Math.floor(maxLength * 0.65)) {
+    return applyPracticalTarget(finalize(sentenceResult.trim()));
+  }
+
+  // Fallback: trim by whole words and close with a period when possible.
+  const words = normalized.split(" ");
+  let wordResult = "";
+  for (const word of words) {
+    const candidate = wordResult ? `${wordResult} ${word}` : word;
+    if (escapedLength(candidate) > maxLength) break;
+    wordResult = candidate;
+  }
+
+  let result = finalize(wordResult || normalized);
+
+  while (result.length > 1 && escapedLength(result) > maxLength) {
+    result = finalize(trimEnding(result.slice(0, -1)));
+  }
+
+  return applyPracticalTarget(result);
+}
+
 /** Merge page-level SEO props with site defaults */
 export function resolveSEO(props: SEOProps) {
   // Normalize canonical: convert relative paths to absolute URLs with trailing slash
@@ -45,7 +150,7 @@ export function resolveSEO(props: SEOProps) {
 
   return {
     title: formatTitle(props.title),
-    description: props.description ?? SITE.seo.description,
+    description: truncateMetaDescription(props.description ?? SITE.seo.description),
     image: props.image ?? SITE.seo.image,
     type: props.type ?? SITE.seo.type,
     noindex: props.noindex ?? false,

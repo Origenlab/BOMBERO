@@ -21,7 +21,9 @@
  */
 import PageLayout from "@layouts/PageLayout.astro";
 import CTABanner from "@components/CTABanner.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
 import { cdnW } from "@utils/cdn";
+import { truncateMetaDescription } from "@utils/seo";
 
 // Interfaz de la estación (campos opcionales tienen fallbacks en el layout)
 interface Estacion {
@@ -97,6 +99,7 @@ const eppCardsCdn = eppCards.map(c => ({ ...c, image: cdnW(c.image, 400) }));
 
 // Variables derivadas
 const ubicacion = estacion.municipio ?? estacion.ciudad;
+const ubicacionCorta = estacion.ciudad ?? estacion.municipio; // Preferir ciudad (más corta) para títulos
 const nombreCortoDisplay = estacion.nombreCorto ?? estacion.nombre;
 const colonia = estacion.colonia ?? '';
 const zonasCobertura = estacion.zonasCobertura ?? estacion.cobertura ?? [];
@@ -104,10 +107,10 @@ const telefonoLink = estacion.telefono.replace(/\s/g, '');
 
 // Productos relacionados (fijos)
 const productosRelacionados = [
-  { nombre: "Trajes Estructurales", href: "/productos/trajes-para-bomberos", desc: "Trajes NFPA 1971 para bomberos" },
-  { nombre: "Cascos de Bombero", href: "/productos/cascos-para-bomberos", desc: "Cascos certificados NFPA" },
-  { nombre: "Equipos SCBA", href: "/productos/scba", desc: "Equipos de respiración autónoma" },
-  { nombre: "Herramientas de Rescate", href: "/productos/herramientas-rescate", desc: "Equipo Holmatro y más" },
+  { nombre: "Trajes Estructurales", href: "/productos/trajes-para-bomberos/", desc: "Trajes NFPA 1971 para bomberos" },
+  { nombre: "Cascos de Bombero", href: "/productos/cascos-para-bomberos/", desc: "Cascos certificados NFPA" },
+  { nombre: "Equipos SCBA", href: "/productos/scba/", desc: "Equipos de respiración autónoma" },
+  { nombre: "Herramientas de Rescate", href: "/productos/herramientas-rescate/", desc: "Equipo Holmatro y más" },
 ];
 
 // URLs y SEO
@@ -121,14 +124,11 @@ const seoKeywords = [
   "estaciones de bomberos en mexico",
 ];
 
-// Truncar descripción para meta description SEO (max 155 chars)
-function truncateForSEO(text: string, maxLength: number): string {
-  if (!text || text.length <= maxLength) return text;
-  const truncated = text.slice(0, maxLength);
-  const lastSpace = truncated.lastIndexOf(' ');
-  return lastSpace > maxLength * 0.7 ? truncated.slice(0, lastSpace) + '...' : truncated + '...';
-}
-const seoDescription = `${truncateForSEO(estacion.descripcion || '', 120)} Tel: ${estacion.telefono}. ${ubicacion}, ${estado.nombre}.`;
+const stationSummary = estacion.descripcion || `Estación de bomberos en ${ubicacion}.`;
+const seoDescription = truncateMetaDescription(
+  `${stationSummary} Tel: ${estacion.telefono}. ${ubicacion}, ${estado.nombre}.`,
+  155,
+);
 
 // Schema.org JSON-LD
 const stationJsonLd = {
@@ -159,42 +159,28 @@ const stationJsonLd = {
   },
 };
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx" },
-    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio" },
-    { "@type": "ListItem", position: 3, name: estado.nombre, item: `https://bombero.mx/directorio/${estado.slug}` },
-    { "@type": "ListItem", position: 4, name: estacion.nombre, item: canonical },
-  ],
-};
 ---
 
 <PageLayout
-  title={`${nombreCortoDisplay} | ${ubicacion} | BOMBERO.MX`}
+  title={`${nombreCortoDisplay} | ${ubicacionCorta} | BOMBERO.MX`}
   description={seoDescription}
   keywords={seoKeywords}
   canonical={canonical}
-  jsonLd={[stationJsonLd, breadcrumbJsonLd]}
+  jsonLd={[stationJsonLd]}
 >
+  <!-- Breadcrumb -->
+  <Breadcrumb items={[
+    { label: "Directorio", href: "/directorio/" },
+    { label: estado.nombre, href: `/directorio/${estado.slug}/` },
+    { label: nombreCortoDisplay },
+  ]} />
+
   <!-- Hero Section -->
   <section class="est-hero">
     <div class="est-hero__bg">
       <div class="est-hero__gradient"></div>
     </div>
     <div class="container">
-      <!-- Breadcrumb -->
-      <nav class="est-hero__breadcrumb">
-        <a href="/">Inicio</a>
-        <span>/</span>
-        <a href="/directorio/">Directorio</a>
-        <span>/</span>
-        <a href={`/directorio/${estado.slug}/`}>{estado.nombre}</a>
-        <span>/</span>
-        <span>{nombreCortoDisplay}</span>
-      </nav>
-
       <div class="est-hero__grid">
         <div class="est-hero__content">
           <div class="est-hero__badges">
@@ -205,7 +191,7 @@ const breadcrumbJsonLd = {
           <p class="est-hero__desc">{estacion.descripcion}</p>
 
           <div class="est-hero__actions">
-            <a href={`tel:${telefonoLink}/`} class="est-hero__btn est-hero__btn--primary">
+            <a href={`tel:${telefonoLink}`} class="est-hero__btn est-hero__btn--primary">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72"/>
               </svg>
@@ -247,7 +233,7 @@ const breadcrumbJsonLd = {
               </svg>
               <div>
                 <strong>Teléfono</strong>
-                <a href={`tel:${telefonoLink}/`}>{estacion.telefono}</a>
+                <a href={`tel:${telefonoLink}`}>{estacion.telefono}</a>
               </div>
             </div>
             <div class="est-hero__info-row">
@@ -460,9 +446,9 @@ const breadcrumbJsonLd = {
               <h3>¿Necesitas equipo certificado para bomberos?</h3>
               <p>
                 En <strong><a href="/">BOMBERO.MX</a></strong> somos distribuidores autorizados de <strong>equipo para bomberos certificado NFPA</strong>.
-                Equipamos estaciones en todo {estado.nombre} con <a href="/productos/trajes-para-bomberos">trajes estructurales</a>,
-                <a href="/productos/cascos-para-bomberos">cascos</a>, <a href="/productos/guantes-para-bomberos">guantes</a>,
-                <a href="/productos/botas-para-bomberos">botas certificadas</a> y más.
+                Equipamos estaciones en todo {estado.nombre} con <a href="/productos/trajes-para-bomberos/">trajes estructurales</a>,
+                <a href="/productos/cascos-para-bomberos/">cascos</a>, <a href="/productos/guantes-para-bomberos/">guantes</a>,
+                <a href="/productos/botas-para-bomberos/">botas certificadas</a> y más.
                 <a href="/cotizar/">Solicita una cotización</a> sin compromiso.
               </p>
             </slot>
@@ -676,29 +662,6 @@ const breadcrumbJsonLd = {
     background:
       radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
       radial-gradient(ellipse 60% 50% at 100% 80%, rgba(249, 115, 22, 0.08), transparent);
-  }
-
-  .est-hero__breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-6);
-    position: relative;
-    flex-wrap: wrap;
-  }
-
-  .est-hero__breadcrumb a {
-    color: var(--color-smoke-400);
-    text-decoration: none;
-  }
-
-  .est-hero__breadcrumb a:hover {
-    color: var(--color-fire-400);
-  }
-
-  .est-hero__breadcrumb span {
-    color: var(--color-smoke-600);
   }
 
   .est-hero__grid {
@@ -1191,11 +1154,6 @@ const breadcrumbJsonLd = {
     border-radius: var(--radius-lg);
     text-decoration: none;
     margin-bottom: var(--space-3);
-    transition: transform 0.2s;
-  }
-
-  .est-sidebar__emergency:hover {
-    transform: scale(1.02);
   }
 
   .est-sidebar__emergency-number {
@@ -1229,7 +1187,6 @@ const breadcrumbJsonLd = {
     background: var(--color-smoke-50);
     border-radius: var(--radius-lg);
     text-decoration: none;
-    transition: background 0.2s;
   }
 
   .est-sidebar__stations li a:hover {
@@ -1265,7 +1222,6 @@ const breadcrumbJsonLd = {
     background: var(--color-smoke-50);
     border-radius: var(--radius-lg);
     text-decoration: none;
-    transition: background 0.2s;
   }
 
   .est-sidebar__products li a:hover {
@@ -1297,10 +1253,6 @@ const breadcrumbJsonLd = {
 
   .est-sidebar__link:hover {
     color: var(--color-fire-700);
-  }
-
-  .est-sidebar__link svg {
-    transition: transform 0.2s;
   }
 
   .est-sidebar__link:hover svg {
@@ -1357,7 +1309,6 @@ const breadcrumbJsonLd = {
     font-size: var(--text-sm);
     color: var(--color-smoke-600);
     text-decoration: none;
-    transition: color 0.2s;
   }
 
   .est-sidebar__states li a:hover {
@@ -1366,7 +1317,6 @@ const breadcrumbJsonLd = {
 
   .est-sidebar__states li a svg {
     opacity: 0;
-    transition: all 0.2s;
   }
 
   .est-sidebar__states li a:hover svg {
@@ -1547,12 +1497,6 @@ const breadcrumbJsonLd = {
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .est-epp__card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 12px 32px rgba(0,0,0,0.08);
   }
 
   .est-epp__card-image {
@@ -1568,11 +1512,6 @@ const breadcrumbJsonLd = {
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.3s;
-  }
-
-  .est-epp__card:hover .est-epp__card-image img {
-    transform: scale(1.05);
   }
 
   .est-epp__card-badge {
@@ -1626,15 +1565,10 @@ const breadcrumbJsonLd = {
     color: var(--color-fire-600);
     text-decoration: none;
     margin-top: auto;
-    transition: color 0.2s;
   }
 
   .est-epp__card-link:hover {
     color: var(--color-fire-700);
-  }
-
-  .est-epp__card-link svg {
-    transition: transform 0.2s;
   }
 
   .est-epp__card-link:hover svg {

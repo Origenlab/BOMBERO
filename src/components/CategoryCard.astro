@@ -43,6 +43,15 @@ const {
 } = Astro.props;
 
 const imageCdn = image ? cdnW(image, 400) : undefined;
+const normalizeInternalPath = (value: string) =>
+  value.startsWith("http")
+    ? value
+    : (value.startsWith("/") ? value : `/${value}`).replace(/\/{2,}/g, "/");
+const normalizedHref = href ? normalizeInternalPath(href) : undefined;
+const normalizedItems = items.map((item) => ({
+  ...item,
+  href: normalizeInternalPath(item.href),
+}));
 
 const icons: Record<string, string> = {
   shield: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>`,
@@ -66,7 +75,6 @@ const icons: Record<string, string> = {
     ) : (
       <div class="category-card__placeholder">
         <Fragment set:html={icons[icon] || icons.shield} />
-        <span>Imagen próximamente</span>
       </div>
     )}
     {badge && <span class="category-card__badge">{badge}</span>}
@@ -79,9 +87,9 @@ const icons: Record<string, string> = {
       <p class="category-card__description">{description}</p>
     )}
 
-    {items.length > 0 && (
+    {normalizedItems.length > 0 && (
       <ul class="category-card__list">
-        {items.map((item) => (
+        {normalizedItems.map((item) => (
           <li>
             <a href={item.href}>{item.label}</a>
           </li>
@@ -89,8 +97,8 @@ const icons: Record<string, string> = {
       </ul>
     )}
 
-    {href && buttonText && (
-      <a href={href} class="category-card__btn">
+    {normalizedHref && buttonText && (
+      <a href={normalizedHref} class="category-card__btn">
         <span>{buttonText}</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -132,10 +140,8 @@ const icons: Record<string, string> = {
     position: absolute;
     inset: 0;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
   }
 
   .category-card__placeholder :global(svg) {
@@ -143,14 +149,6 @@ const icons: Record<string, string> = {
     height: 40px;
     stroke: var(--color-smoke-400);
     opacity: 0.6;
-  }
-
-  .category-card__placeholder span {
-    font-size: 10px;
-    color: var(--color-smoke-400);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
   }
 
   .category-card__badge {
@@ -221,7 +219,6 @@ const icons: Record<string, string> = {
     font-size: var(--text-xs);
     font-weight: 500;
     line-height: 1.4;
-    transition: color var(--transition-fast);
     /* Touch-friendly minimum height */
     min-height: 32px;
   }

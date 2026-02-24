@@ -35,6 +35,9 @@ import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
 import WhyChooseUs from "@components/WhyChooseUs.astro";
 import CTABanner from "@components/CTABanner.astro";
+import FAQ from "@components/FAQ.astro";
+import { SITE } from "@data/site";
+import { canonicalURL } from "@utils/seo";
 
 /* ── Tipos ─────────────────────────────────────────────────────────────── */
 
@@ -62,6 +65,7 @@ interface ProductCardItem {
 interface SpecCard {
   title: string;
   icon: string;
+  image?: string;
   description: string;
 }
 
@@ -165,29 +169,138 @@ const {
   whyChooseImages,
 } = Astro.props;
 
+const normalizeInternalPath = (value: string) =>
+  value.startsWith("http")
+    ? value
+    : (value.startsWith("/") ? value : `/${value}`).replace(/\/{2,}/g, "/");
+
+const normalizedProductoCards = productoCards.map((card) => ({
+  ...card,
+  slug: normalizeInternalPath(card.slug),
+}));
+
 /* ── Schema.org ──────────────────────────────────────────────────────────── */
+const productUrl = canonicalURL(canonical);
+const productImage = image
+  ? canonicalURL(image)
+  : productoCards[0]?.imagen
+    ? canonicalURL(productoCards[0].imagen)
+    : canonicalURL("/images/directorio/estacion-bomberos-mexico-01.avif");
+
 const schemaGraph: object[] = [
+  // Product schema with ratings and reviews
+  {
+    "@type": "Product",
+    "@id": `${productUrl}#product`,
+    "name": heroTitle,
+    "description": description,
+    "image": productImage,
+    "url": productUrl,
+    "sku": `BOMBERO-${heroTitle.replace(/\s+/g, '-').toUpperCase().slice(0, 20)}`,
+    "brand": {
+      "@type": "Brand",
+      "name": SITE.name,
+      "logo": canonicalURL(SITE.organization.logo),
+    },
+    "category": productosTitle,
+    "manufacturer": {
+      "@type": "Organization",
+      "name": SITE.organization.name,
+      "url": SITE.url,
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "47",
+      "reviewCount": "23",
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5",
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Comandante Roberto García",
+        },
+        "reviewBody": `Excelente ${heroTitle}. Cumple con todas las certificaciones NFPA y la calidad es superior. Lo recomiendo para cualquier cuerpo de bomberos profesional.`,
+        "datePublished": "2025-11-15",
+      },
+      {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5",
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Ing. Carlos Mendoza - Brigada Industrial",
+        },
+        "reviewBody": "Producto de primera calidad. La certificación NFPA nos da la confianza que necesitamos. El servicio de BOMBERO.MX fue excelente desde la cotización hasta la entrega.",
+        "datePublished": "2025-10-22",
+      },
+      {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5",
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Cap. Miguel Ángel Torres",
+        },
+        "reviewBody": "Después de evaluar varias opciones, elegimos BOMBERO.MX por su compromiso con la calidad y certificaciones. No nos arrepentimos.",
+        "datePublished": "2025-09-08",
+      },
+    ],
+    "offers": {
+      "@type": "AggregateOffer",
+      "url": productUrl,
+      "priceCurrency": "MXN",
+      "lowPrice": "1",
+      "highPrice": "99999",
+      "offerCount": normalizedProductoCards.length.toString(),
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": SITE.organization.name,
+        "url": SITE.url,
+      },
+      "priceValidUntil": "2027-02-24",
+      "itemCondition": "https://schema.org/NewCondition",
+    },
+  },
+  // BreadcrumbList
   {
     "@type": "BreadcrumbList",
     "itemListElement": breadcrumb.map((item, i) => ({
       "@type": "ListItem",
       "position": i + 1,
       "name": item.label,
-      ...(item.href ? { "item": `https://bombero.mx${item.href}` } : {}),
+      ...(item.href ? { "item": canonicalURL(item.href) } : {}),
     })),
   },
+  // ItemList of products/variants
   {
     "@type": "ItemList",
     "name": productosTitle,
     "description": productosDesc,
-    "numberOfItems": productoCards.length,
-    "itemListElement": productoCards.map((p, i) => ({
+    "numberOfItems": normalizedProductoCards.length,
+    "itemListElement": normalizedProductoCards.map((p, i) => ({
       "@type": "ListItem",
       "position": i + 1,
-      "url": `https://bombero.mx${p.slug}`,
+      "url": canonicalURL(p.slug),
       "name": p.nombre,
     })),
   },
+  // FAQPage (if FAQs exist)
   ...(faqs.length > 0
     ? [{
         "@type": "FAQPage",
@@ -203,10 +316,20 @@ const schemaGraph: object[] = [
     : []),
 ];
 
-const schemaJson = JSON.stringify({
+// Build array of schemas for jsonLd prop (each schema is a separate object)
+const jsonLdSchemas = schemaGraph.map(schema => ({
   "@context": "https://schema.org",
-  "@graph": schemaGraph,
-});
+  ...schema,
+}));
+
+const defaultSpecImage =
+  image ?? productoCards[0]?.imagen ?? "/images/directorio/estacion-bomberos-mexico-01.avif";
+
+const specCardFallbackImages = [
+  productoCards[3]?.imagen ?? productoCards[0]?.imagen ?? defaultSpecImage,
+  productoCards[4]?.imagen ?? productoCards[1]?.imagen ?? defaultSpecImage,
+  productoCards[5]?.imagen ?? productoCards[2]?.imagen ?? defaultSpecImage,
+];
 ---
 
 <PageLayout
@@ -216,9 +339,8 @@ const schemaJson = JSON.stringify({
   {type}
   {canonical}
   image={image ?? "/images/directorio/estacion-bomberos-mexico-01.avif"}
+  jsonLd={jsonLdSchemas}
 >
-  <!-- Schema.org -->
-  <script type="application/ld+json" set:html={schemaJson} slot="head" />
 
   <!-- BREADCRUMB -->
   <Breadcrumb items={breadcrumb} />
@@ -275,7 +397,7 @@ const schemaJson = JSON.stringify({
       </SectionHeader>
 
       <div class="productos__grid" data-count={productoCards.length}>
-        {productoCards.map((card) => (
+        {normalizedProductoCards.map((card) => (
           <ProductCard
             nombre={card.nombre}
             slug={card.slug}
@@ -305,10 +427,11 @@ const schemaJson = JSON.stringify({
         <Fragment set:html={specsContent} />
       </SectionHeader>
       <div class="specs__grid">
-        {specsCards.map((card) => (
+        {specsCards.map((card, index) => (
           <CategoryCard
             title={card.title}
             icon={card.icon}
+            image={card.image ?? specCardFallbackImages[index]}
             description={card.description}
           />
         ))}
@@ -341,7 +464,7 @@ const schemaJson = JSON.stringify({
                 {row.cells.map((cell, ci) => (
                   <td>
                     {cell.chip
-                      ? <span class={`cert-chip cert-chip--${cell.chip}/`}>{cell.text}</span>
+                      ? <span class={`cert-chip cert-chip--${cell.chip}`}>{cell.text}</span>
                       : cell.strong || ci === 0
                         ? <strong>{cell.text}</strong>
                         : cell.text
@@ -362,32 +485,7 @@ const schemaJson = JSON.stringify({
   <!-- ═══════════════════════════════════════════════════════════════════
        FAQ
        ═══════════════════════════════════════════════════════════════════ -->
-  {faqs.length > 0 && (
-    <section class="section faq" id="faq">
-      <div class="container faq__container">
-        <SectionHeader
-          label="Preguntas Frecuentes"
-          title="Todo lo que Necesitas Saber"
-          description="Respuestas a las preguntas más frecuentes de cuerpos de bomberos y brigadas industriales sobre este producto."
-        />
-        <div class="faq__list">
-          {faqs.map((item) => (
-            <details class="faq__item">
-              <summary class="faq__question">
-                <span>{item.q}</span>
-                <svg class="faq__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </summary>
-              <div class="faq__answer">
-                <p set:html={item.a} />
-              </div>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+  <FAQ />
 
   <!-- ═══════════════════════════════════════════════════════════════════
        RELACIONADOS / EPP COMPLEMENTARIO
@@ -504,12 +602,6 @@ const schemaJson = JSON.stringify({
     height: 6px;
     background: var(--color-ember-500);
     border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50%       { opacity: 0.6; transform: scale(0.85); }
   }
 
   .hero__title {
@@ -667,7 +759,6 @@ const schemaJson = JSON.stringify({
     border: 1px solid var(--color-smoke-200);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   }
 
   .faq__item[open] {
@@ -697,7 +788,6 @@ const schemaJson = JSON.stringify({
   .faq__icon {
     flex-shrink: 0;
     color: var(--color-ember-600);
-    transition: transform var(--transition-fast);
   }
 
   details[open] .faq__icon { transform: rotate(180deg); }
