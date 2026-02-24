@@ -48,7 +48,8 @@ const cleanBaseUrl = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
 const detalleUrl = href ?? (slug.startsWith("/") ? slug : `${cleanBaseUrl}/${slug}`);
 const nombreEstacion = nombre ?? "Estación de Bomberos";
 const zona = alcaldia ?? "Cobertura local";
-const imageCdn = image ? cdnW(image, 400) : undefined;
+// Si la imagen ya tiene CDN (viene del layout), no aplicar de nuevo
+const imageCdn = image ? (image.includes('exactdn.com') ? image : cdnW(image, 400)) : undefined;
 ---
 
 <article class="station-card">
