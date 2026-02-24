@@ -77,9 +77,9 @@ export const SITE = {
   contact: {
     email: "ventas@bombero.mx",
     emailSupport: "soporte@bombero.mx",
-    phone: "+52 55 2078 0102",
+    phone: "55 2078 0102",
     phoneRaw: "+525520780102",
-    phoneTollFree: "800-BOMBERO",
+    phoneTollFree: "55 2078 0102",
     address: "Av. Tamaulipas 150, Piso 13, Col. Condesa, Cuauhtémoc, 06140 Ciudad de México, CDMX",
     addressShort: "Col. Condesa, CDMX",
     whatsapp: "525520780102",
