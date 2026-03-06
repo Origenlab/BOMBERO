@@ -1,0 +1,284 @@
+---
+
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesMichoacan, getMunicipios, ESTADISTICAS_MICHOACAN, MICHOACAN_SEO } from "@data/estaciones-michoacan";
+import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
+
+const estadosVecinos = getEstadosVecinos("michoacan");
+
+const municipios = getMunicipios();
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio/" },
+  { name: "Michoacán",              url: "/directorio/michoacan" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Michoacán de Ocampo, México",
+  "description": "Directorio completo de las 22 estaciones de bomberos en Michoacán. Protección para Morelia (Patrimonio UNESCO), Lázaro Cárdenas, Uruapan, Pátzcuaro, Reserva Mariposa Monarca y 4.7 millones de habitantes. Emergencias 911.",
+  "numberOfItems": estacionesMichoacan.length,
+  "itemListElement": estacionesMichoacan.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Michoacán",
+        "addressCountry": "MX",
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/michoacan/${e.slug}`,
+    }
+  }))
+};
+
+const stationImages = [
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/bomberos-profesionales-accion-01.avif",
+  "/images/directorio/estacion-bomberos-equipada-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/bomberos-accion-incendio-01.avif",
+  "/images/directorio/rescate-urbano-bomberos-01.avif",
+  "/images/directorio/rescate-acuatico-bomberos-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
+  "/images/directorio/capacitacion-bomberos-profesional-01.avif",
+  "/images/directorio/bomberos-trabajo-equipo-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/camion-cisterna-bomberos-01.avif",
+  "/images/directorio/ambulancia-bomberos-emergencias-01.avif",
+  "/images/directorio/entrenamiento-bomberos-fuego-01.avif",
+  "/images/directorio/estacion-bomberos-mexico-01.avif",
+  "/images/directorio/camion-bomberos-torre-01.avif",
+  "/images/directorio/simulacro-bomberos-profesional-01.avif",
+  "/images/directorio/autobomba-bomberos-equipada-01.avif",
+  "/images/directorio/estacion-bomberos-industrial-01.avif",
+  "/images/directorio/bombero-mexico-servicio-emergencias-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+];
+---
+
+<DirectorioEstadoLayout
+  estado="Michoacán"
+  sigla="MICH"
+  slug="michoacan"
+  description="Directorio completo de las 22 estaciones de bomberos en Michoacán. Protección para Morelia (UNESCO), Lázaro Cárdenas, Uruapan, Pátzcuaro, Reserva Mariposa Monarca y 4.7M+ habitantes. Emergencias 911."
+  keywords={["bomberos michoacán","estaciones bomberos morelia","bomberos lázaro cárdenas","emergencias michoacán 911","bomberos uruapan","bomberos pátzcuaro","cuerpo bomberos michoacán","bomberos mariposa monarca","rescate acuático lago pátzcuaro","bomberos puerto industrial"]}
+  canonical="https://bombero.mx/directorio/michoacan/"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
+
+  totalEstaciones={estacionesMichoacan.length}
+  totalMunicipios={municipios.length}
+  habitantes="4.7M+"
+
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Michoacán</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de las 22 estaciones que protegen 2 sitios Patrimonio UNESCO, el puerto industrial más importante del Pacífico y la capital mundial del aguacate."
+  heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
+  heroImageAlt="Estación Central de Bomberos Morelia, Michoacán - Centro Histórico UNESCO"
+  heroCaption="H. Cuerpo de Bomberos · Michoacán"
+  heroThumbs={[
+    { src: "/images/directorio/camion-bomberos-moderno-01.avif",          alt: "Camión de bomberos Morelia MICH",             label: "Flota Morelia"      },
+    { src: "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif", alt: "Bombero de Michoacán junto a unidad de emergencia", label: "Guardia Permanente" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",    alt: "Bomberos Michoacán protegiendo patrimonio",   label: "Protección UNESCO"  },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",       alt: "Entrenamiento bomberos Michoacán",          label: "Academia Bomberil"     },
+    { src: "/images/directorio/camion-escalera-bomberos-01.avif",           alt: "Camión escalera bomberos Morelia",          label: "Rescate en Altura"     },
+    { src: "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif", alt: "Bahía con lockers y extractores en estación de bomberos de Michoacán", label: "Equipamiento Profesional" },
+    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",alt: "Equipo HAZMAT Lázaro Cárdenas",             label: "HAZMAT Portuario"      },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",               label: "Emergencias"           },
+    { number: "(443) 312-3232",    label: "Bomberos Morelia"      },
+    { number: "(753) 532-0606",    label: "Bomberos Lázaro C."    },
+    { number: "(452) 524-5252",    label: "Bomberos Uruapan"      },
+  ]}
+
+  municipios={municipios}
+
+  regiones={[
+    { nombre: "Zona Metropolitana Morelia",  desc: "Capital UNESCO, Tarímbaro, zona industrial sur"           },
+    { nombre: "Región Lacustre",             desc: "Pátzcuaro, Quiroga, Lago de Zirahuén, Día de Muertos"     },
+    { nombre: "Meseta Purépecha",            desc: "Uruapan, Paracho, Tancítaro - Capital del aguacate"       },
+    { nombre: "Costa del Pacífico",          desc: "Lázaro Cárdenas, Playa Azul, puerto industrial"           },
+    { nombre: "Ciénega de Chapala",          desc: "Zamora, Jiquilpan, Sahuayo"                               },
+    { nombre: "Oriente - Mariposa Monarca",  desc: "Zitácuaro, Angangueo, Reserva Biosfera UNESCO"            },
+  ]}
+
+  estadosVecinos={estadosVecinos}
+
+  estaciones={estacionesMichoacan}
+  stationImages={stationImages}
+
+  eppCards={[
+    {
+      image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+      imageAlt:  "Traje Estructural NFPA 1971 para bomberos Morelia - Centro Histórico UNESCO",
+      badge:     "NFPA 1971",
+      title:     "Traje Estructural NFPA 1971",
+      text:      "Equipo certificado para los bomberos de <strong>Morelia</strong> que protegen el Centro Histórico Patrimonio de la Humanidad. Diseñado para incendios en edificios de cantera rosa, casonas coloniales y protección del patrimonio michoacano desde 1991.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+      imageAlt:  "Casco NFPA 1971 para bomberos Lázaro Cárdenas - Puerto Industrial",
+      badge:     "NFPA 1971",
+      title:     "Casco Estructural NFPA 1971",
+      text:      "Protección certificada para emergencias en el <strong>Puerto de Lázaro Cárdenas</strong>, el más importante del Pacífico mexicano. Compatible con equipos de comunicación para coordinación en emergencias industriales, navales y HAZMAT portuario.",
+      href:      "/productos/cascos-para-bomberos",
+      linkLabel: "Ver Cascos para Bombero",
+    },
+    {
+      image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
+      imageAlt:  "Guantes NFPA 1971 para bomberos Uruapan - Industria Aguacatera",
+      badge:     "NFPA 1971",
+      title:     "Guantes Estructurales NFPA 1971",
+      text:      "Resistencia térmica certificada para emergencias en <strong>Uruapan, Capital Mundial del Aguacate</strong>. Prensión segura para operaciones en empacadoras, incendios forestales en bosques de pino-encino y rescate en el Parque Nacional Barranca del Cupatitzio.",
+      href:      "/productos/guantes-para-bomberos",
+      linkLabel: "Ver Guantes para Bombero",
+    },
+    {
+      image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+      imageAlt:  "Botas NFPA 1971 para bomberos Pátzcuaro - Rescate Lacustre",
+      badge:     "NFPA 1971",
+      title:     "Botas Estructurales de Cuero",
+      text:      "Calzado certificado NFPA 1971 para los bomberos de <strong>Pátzcuaro y la Región Lacustre</strong>. Resistentes al agua para rescate acuático en el Lago de Pátzcuaro, protección de Janitzio y emergencias masivas durante las celebraciones del Día de Muertos.",
+      href:      "/productos/botas-para-bomberos",
+      linkLabel: "Ver Botas para Bombero",
+    },
+  ]}
+
+  ctaTitle="Equipamos a los Bomberos de Michoacán"
+  ctaDesc="Cotiza equipo certificado NFPA para tu estación. Stock inmediato para licitaciones en Morelia, Lázaro Cárdenas, Uruapan, Zamora y los 113 municipios del estado. Protección para 2 sitios Patrimonio UNESCO."
+  ctaBtnText="Solicitar Cotización — Michoacán"
+>
+
+  <Fragment slot="seo">
+    <h2>El H. Cuerpo de Bomberos de Michoacán de Ocampo</h2>
+    <p>
+      El <strong>H. Cuerpo de Bomberos de Michoacán</strong> es la institución encargada de
+      proteger la vida, el medio ambiente y el patrimonio de los más de <strong>4.7 millones de michoacanos</strong>.
+      Con presencia estratégica en las 7 regiones del estado —desde la costa del Pacífico hasta la Sierra Madre—,
+      los bomberos atienden emergencias las <strong>24 horas del día, los 365 días del año</strong>, protegiendo
+      2 sitios declarados <strong>Patrimonio de la Humanidad por la UNESCO</strong>.
+    </p>
+
+    <h3>¿Cómo contactar a los bomberos en Michoacán?</h3>
+    <p>
+      En caso de <strong>emergencia en Michoacán</strong>, marca el <strong>911</strong> desde
+      cualquier teléfono. Este número conecta con el <strong>C4 de Michoacán</strong> que coordina
+      la respuesta de bomberos, policía y servicios médicos. En Morelia puedes llamar directamente
+      al <strong>(443) 312-3232</strong>, en Lázaro Cárdenas al <strong>(753) 532-0606</strong> y en
+      Uruapan al <strong>(452) 524-5252</strong>.
+    </p>
+
+    <h3>Centro Histórico de Morelia - Patrimonio UNESCO desde 1991</h3>
+    <p>
+      <strong>Morelia</strong>, capital de Michoacán, posee uno de los centros históricos más bellos de América,
+      declarado <strong>Patrimonio de la Humanidad por la UNESCO en 1991</strong>. Los bomberos de la Estación
+      Central están especializados en <strong>protección de edificios coloniales de cantera rosa</strong>,
+      con protocolos específicos para incendios en casonas históricas, templos barrocos y el famoso
+      <strong>Acueducto de Morelia</strong> con sus 253 arcos. La Catedral de Morelia, el Palacio de Gobierno
+      y el Colegio de San Nicolás requieren atención especializada en protección patrimonial.
+    </p>
+
+    <h3>Puerto de Lázaro Cárdenas - El más importante del Pacífico</h3>
+    <p>
+      El <strong>Puerto de Lázaro Cárdenas</strong> es el puerto industrial más importante del Pacífico mexicano,
+      manejando <strong>más de 30 millones de toneladas</strong> de carga anualmente. Los bomberos del puerto
+      están especializados en <strong>emergencias HAZMAT de nivel industrial</strong>, incendios en terminales
+      de contenedores, rescate naval y protección de las instalaciones de <strong>ArcelorMittal</strong>
+      (antes Sicartsa), la siderúrgica más grande de México. La terminal de gas natural licuado y las
+      instalaciones petroquímicas requieren equipos de respuesta certificados.
+    </p>
+
+    <h3>Reserva de la Biosfera Mariposa Monarca - UNESCO 2008</h3>
+    <p>
+      La <strong>Reserva de la Biosfera Mariposa Monarca</strong>, declarada Patrimonio de la Humanidad
+      en 2008, recibe anualmente <strong>millones de mariposas monarca</strong> que migran desde Canadá.
+      Los bomberos de <strong>Zitácuaro y Angangueo</strong> están capacitados para combatir
+      <strong>incendios forestales</strong> en los bosques de oyamel que albergan los santuarios,
+      protegiendo este fenómeno natural único en el mundo. Los santuarios de El Rosario y Sierra Chincua
+      son vigilados durante la temporada de noviembre a marzo.
+    </p>
+
+    <h3>Región Lacustre - Pátzcuaro y el Día de Muertos</h3>
+    <p>
+      La <strong>Región Lacustre de Pátzcuaro</strong> es el corazón cultural de México y escenario principal
+      de las celebraciones del <strong>Día de Muertos</strong>. Los bomberos están especializados en
+      <strong>rescate acuático en el Lago de Pátzcuaro</strong>, emergencias en la <strong>Isla de Janitzio</strong>
+      y atención masiva durante las noches del 1 y 2 de noviembre, cuando cientos de miles de visitantes
+      llegan a presenciar las tradiciones purépechas. El Lago de Zirahuén y los pueblos mágicos de la región
+      también requieren atención especializada.
+    </p>
+
+    <h3>Uruapan - Capital Mundial del Aguacate</h3>
+    <p>
+      <strong>Uruapan</strong> es reconocida como la <strong>Capital Mundial del Aguacate</strong>, con más de
+      100 empacadoras y miles de hectáreas de huertas. Los bomberos están capacitados para
+      <strong>emergencias agroindustriales</strong>, incendios en empacadoras y cámaras de frío, así como
+      protección del <strong>Parque Nacional Barranca del Cupatitzio</strong> con su famosa cascada
+      "La Tzaráracua". Los bosques de pino-encino de la Meseta Purépecha requieren vigilancia constante
+      contra incendios forestales.
+    </p>
+
+    <h3>Servicios de los Bomberos Michoacanos</h3>
+    <p>
+      Los bomberos de Michoacán están capacitados para atender:
+      <strong>incendios estructurales en centros históricos</strong>;
+      <strong>emergencias industriales y portuarias</strong>;
+      <strong>materiales peligrosos HAZMAT</strong>;
+      <strong>rescate acuático en lagos y costas</strong>;
+      <strong>incendios forestales en reservas naturales</strong>;
+      <strong>rescate vehicular en carreteras serranas</strong>;
+      <strong>emergencias agroindustriales</strong>;
+      <strong>protección de patrimonio UNESCO</strong>; y atención especializada
+      durante eventos masivos como el Día de Muertos en Pátzcuaro y las fiestas patronales
+      de Morelia. El estado cuenta con equipos especializados para emergencias en zonas volcánicas
+      (Jorullo, Paricutín) y rescate en comunidades purépechas de difícil acceso.
+    </p>
+  </Fragment>
+</DirectorioEstadoLayout>

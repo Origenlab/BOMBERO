@@ -1,0 +1,264 @@
+---
+
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesJalisco, getMunicipios, ESTADISTICAS_JALISCO } from "@data/estaciones-jalisco";
+import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
+
+const estadosVecinos = getEstadosVecinos("jalisco");
+
+const municipios = getMunicipios();
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio/" },
+  { name: "Jalisco",                url: "/directorio/jalisco" },
+]);
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Jalisco, México",
+  "description": "Directorio completo de las estaciones de bomberos en Jalisco. 38 estaciones protegiendo la Zona Metropolitana de Guadalajara, Puerto Vallarta, la Ruta del Tequila y 8.3 millones de habitantes. Emergencias 911.",
+  "numberOfItems": estacionesJalisco.length,
+  "itemListElement": estacionesJalisco.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Jalisco",
+        "addressCountry": "MX",
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/jalisco/${e.slug}`,
+    }
+  }))
+};
+
+const stationImages = [
+  "/images/directorio/estacion-bomberos-guadalajara-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/bomberos-profesionales-accion-01.avif",
+  "/images/directorio/estacion-bomberos-equipada-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/bomberos-accion-incendio-01.avif",
+  "/images/directorio/rescate-urbano-bomberos-01.avif",
+  "/images/directorio/rescate-acuatico-bomberos-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
+  "/images/directorio/capacitacion-bomberos-profesional-01.avif",
+  "/images/directorio/bomberos-trabajo-equipo-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/camion-cisterna-bomberos-01.avif",
+  "/images/directorio/ambulancia-bomberos-emergencias-01.avif",
+  "/images/directorio/entrenamiento-bomberos-fuego-01.avif",
+  "/images/directorio/estacion-bomberos-mexico-01.avif",
+  "/images/directorio/camion-bomberos-torre-01.avif",
+  "/images/directorio/simulacro-bomberos-profesional-01.avif",
+  "/images/directorio/autobomba-bomberos-equipada-01.avif",
+  "/images/directorio/estacion-bomberos-industrial-01.avif",
+  "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif",
+  "/images/directorio/estacion-bomberos-norte-mexico-01.avif",
+  "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",
+  "/images/directorio/camion-forestal-bomberos-01.avif",
+  "/images/directorio/descontaminacion-hazmat-01.avif",
+  "/images/directorio/unidad-hazmat-emergencias-01.avif",
+  "/images/directorio/rescate-montana-bomberos-01.avif",
+  "/images/directorio/traje-hazmat-nivel-a-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/bomberos-profesionales-accion-01.avif",
+  "/images/directorio/estacion-bomberos-equipada-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/bomberos-accion-incendio-01.avif",
+  "/images/directorio/bombero-vestidor-preparacion-guardia-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+];
+---
+
+<DirectorioEstadoLayout
+  estado="Jalisco"
+  sigla="JAL"
+  slug="jalisco"
+  description="Directorio completo de las estaciones de bomberos en Jalisco. 38 estaciones protegiendo la ZMG, Puerto Vallarta, Ruta del Tequila y más de 8.3 millones de habitantes. Emergencias 911."
+  keywords={["bomberos jalisco","estaciones bomberos guadalajara","bomberos puerto vallarta","emergencias jalisco 911","bomberos zapopan","bomberos tonala","rescate acuático vallarta","cuerpo bomberos jalisco","bomberos tequila","bomberos lago chapala"]}
+  canonical="https://bombero.mx/directorio/jalisco/"
+  jsonLd={[breadcrumbSchema, itemListSchema]}
+
+  totalEstaciones={estacionesJalisco.length}
+  totalMunicipios={municipios.length}
+  habitantes="8.3M+"
+
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Jalisco</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones en la segunda metrópoli de México, Puerto Vallarta y la Ruta del Tequila UNESCO."
+  heroImage="/images/directorio/estacion-bomberos-guadalajara-01.avif"
+  heroImageAlt="Estación Central de Bomberos Guadalajara, Jalisco"
+  heroCaption="H. Cuerpo de Bomberos · Jalisco"
+  heroThumbs={[
+    { src: "/images/directorio/camion-bomberos-moderno-01.avif",            alt: "Camión de bomberos Guadalajara ZMG",        label: "Flota ZMG"  },
+    { src: "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif", alt: "Bombero profesional de Jalisco con casco y equipo completo", label: "Servicio Profesional" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",      alt: "Bomberos Jalisco en acción",               label: "Respuesta 24/7"   },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",  alt: "Entrenamiento de bomberos en Jalisco",     label: "Capacitación NFPA"   },
+    { src: "/images/directorio/camion-escalera-bomberos-01.avif",      alt: "Camión escalera bomberos Guadalajara",     label: "Rescate en Altura"   },
+    { src: "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif", alt: "Bahía interior de estación de bomberos de Jalisco con bandera de México", label: "Bahía Interior" },
+    { src: "/images/directorio/equipo-scba-aparato-respiratorio-01.avif", alt: "Equipo SCBA bomberos Jalisco",          label: "SCBA Certificado"    },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",             label: "Emergencias"           },
+    { number: "(33) 3619-1515",  label: "Bomberos Guadalajara"  },
+    { number: "(33) 3818-2267",  label: "Bomberos Zapopan"      },
+    { number: "(322) 222-0109",  label: "Bomberos Vallarta"     },
+  ]}
+
+  municipios={municipios}
+
+  regiones={[
+    { nombre: "Zona Metropolitana GDL", desc: "Guadalajara, Zapopan, Tlaquepaque, Tonalá, Tlajomulco" },
+    { nombre: "Costa Puerto Vallarta",  desc: "Puerto Vallarta, Marina, Nuevo Vallarta"              },
+    { nombre: "Ruta del Tequila",       desc: "Tequila, Amatitán (Patrimonio UNESCO)"                },
+    { nombre: "Lago de Chapala",        desc: "Chapala, Ajijic, Jocotepec"                           },
+  ]}
+
+  estadosVecinos={estadosVecinos}
+
+  estaciones={estacionesJalisco}
+  stationImages={stationImages}
+
+  eppCards={[
+    {
+      image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+      imageAlt:  "Traje Estructural NFPA 1971 para bomberos Guadalajara",
+      badge:     "NFPA 1971",
+      title:     "Traje Estructural NFPA 1971",
+      text:      "Equipo certificado para los bomberos de la <strong>Zona Metropolitana de Guadalajara</strong>, segunda metrópoli de México. Diseñado para incendios estructurales en zonas industriales, centros comerciales y edificios de gran altura del corredor tecnológico.",
+      href:      "/productos/trajes-para-bomberos",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+      imageAlt:  "Casco NFPA 1971 para bomberos Puerto Vallarta",
+      badge:     "NFPA 1971",
+      title:     "Casco Estructural NFPA 1971",
+      text:      "Protección certificada para emergencias en <strong>Puerto Vallarta</strong> y la zona hotelera. Compatible con equipos de comunicación para coordinación en emergencias turísticas y rescate acuático en la Bahía de Banderas.",
+      href:      "/productos/cascos-para-bomberos",
+      linkLabel: "Ver Cascos para Bombero",
+    },
+    {
+      image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
+      imageAlt:  "Guantes NFPA 1971 para bomberos Tequila",
+      badge:     "NFPA 1971",
+      title:     "Guantes Estructurales NFPA 1971",
+      text:      "Resistencia térmica certificada para emergencias en <strong>destilerías de la Ruta del Tequila</strong>, Patrimonio UNESCO. Prensión segura para operaciones con materiales peligrosos y alcohol en zonas de producción tequilera.",
+      href:      "/productos/guantes-para-bomberos",
+      linkLabel: "Ver Guantes para Bombero",
+    },
+    {
+      image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+      imageAlt:  "Botas NFPA 1971 para bomberos Lago de Chapala",
+      badge:     "NFPA 1971",
+      title:     "Botas Estructurales de Cuero",
+      text:      "Calzado certificado NFPA 1971 para los bomberos del <strong>Lago de Chapala</strong> y zonas ribereñas. Resistentes al agua para operaciones de rescate acuático lacustre y atención en comunidades de expatriados.",
+      href:      "/productos/botas-para-bomberos",
+      linkLabel: "Ver Botas para Bombero",
+    },
+  ]}
+
+  ctaTitle="Equipamos a los Bomberos de Jalisco"
+  ctaDesc="Cotiza equipo certificado NFPA directamente para tu estación. Stock inmediato para licitaciones en Guadalajara, Zapopan, Puerto Vallarta y los 125 municipios del estado."
+  ctaBtnText="Solicitar Cotización — Jalisco"
+>
+
+  <Fragment slot="seo">
+    <h2>El H. Cuerpo de Bomberos de Jalisco</h2>
+    <p>
+      El <strong>H. Cuerpo de Bomberos de Jalisco</strong> es la institución encargada de
+      proteger la vida, el medio ambiente y el patrimonio de los más de <strong>8.3 millones de jaliscienses</strong>.
+      Con presencia estratégica en la Zona Metropolitana de Guadalajara, Puerto Vallarta, la Ruta del Tequila
+      y todo el territorio estatal, los bomberos atienden emergencias las <strong>24 horas del día, los 365 días del año</strong>.
+    </p>
+    <h3>¿Cómo contactar a los bomberos en Jalisco?</h3>
+    <p>
+      En caso de <strong>emergencia en Jalisco</strong>, marca el <strong>911</strong> desde
+      cualquier teléfono. Este número conecta con el <strong>C5 de Jalisco</strong> que coordina
+      la respuesta de bomberos, policía y servicios médicos. En Guadalajara puedes llamar directamente
+      al <strong>(33) 3619-1515</strong>, en Zapopan al <strong>(33) 3818-2267</strong> y en
+      Puerto Vallarta al <strong>(322) 222-0109</strong>.
+    </p>
+    <h3>Zona Metropolitana de Guadalajara (ZMG)</h3>
+    <p>
+      La <strong>Zona Metropolitana de Guadalajara</strong> es la segunda más grande de México con más de
+      <strong>5.2 millones de habitantes</strong>. El Cuerpo de Bomberos de Guadalajara, fundado en 1873,
+      es uno de los más antiguos y profesionales del país. Las estaciones de la ZMG cubren los municipios de
+      <strong>Guadalajara, Zapopan, Tlaquepaque, Tonalá y Tlajomulco</strong>, atendiendo emergencias en
+      zonas residenciales, comerciales, industriales y el corredor tecnológico "Silicon Valley de México".
+    </p>
+    <h3>Puerto Vallarta y Rescate Acuático</h3>
+    <p>
+      <strong>Puerto Vallarta</strong> es el principal destino turístico de playa del Pacífico mexicano,
+      recibiendo más de <strong>7 millones de visitantes anuales</strong>. Los bomberos de Vallarta están
+      especializados en <strong>rescate acuático oceánico</strong>, emergencias hoteleras y protocolos de
+      huracanes. La estación cuenta con equipo bilingüe para atender a turistas internacionales.
+    </p>
+    <h3>Ruta del Tequila - Patrimonio UNESCO</h3>
+    <p>
+      El <strong>Paisaje Agavero</strong> fue declarado Patrimonio de la Humanidad por la UNESCO en 2006.
+      Los bomberos de <strong>Tequila y Amatitán</strong> están especializados en incendios en destilerías
+      y emergencias con materiales peligrosos relacionados con la producción de tequila. La concentración
+      de alcohol y las instalaciones históricas requieren protocolos especiales de extinción.
+    </p>
+    <h3>Servicios de los Bomberos Jaliscienses</h3>
+    <p>
+      Los bomberos de Jalisco están capacitados para atender:
+      <strong>incendios estructurales, industriales y forestales</strong>;
+      <strong>rescate vehicular en autopistas</strong>;
+      <strong>rescate acuático en Puerto Vallarta y Lago de Chapala</strong>;
+      <strong>materiales peligrosos (HAZMAT)</strong>;
+      <strong>emergencias aeroportuarias ARFF</strong>;
+      <strong>incendios en destilerías de tequila</strong>;
+      <strong>protección del Bosque La Primavera</strong>; y atención especializada
+      en eventos masivos como la Feria Internacional del Libro y el Festival de Cine de Guadalajara.
+    </p>
+  </Fragment>
+</DirectorioEstadoLayout>

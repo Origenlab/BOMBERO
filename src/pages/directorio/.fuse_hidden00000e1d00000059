@@ -1,0 +1,339 @@
+---
+
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesSinaloa, getMunicipios } from "@data/estaciones-sinaloa";
+import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
+
+// Configuración del estado
+const estado = "Sinaloa";
+const sigla = "SIN";
+const slug = "sinaloa";
+
+// Miniaturas hero - Agroexportación y Costa
+const heroThumbs = [
+  {
+    src: "/images/directorio/estacion-bomberos-playa-01.avif",
+    alt: "Malecón de Mazatlán y Zona Dorada - Sinaloa",
+    label: "Mazatlán"
+  },
+  { src: "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif", alt: "Sistema de alerta en estación de bomberos de Sinaloa", label: "Sistema de Alertas" },
+  {
+    src: "/images/directorio/estacion-bomberos-equipada-01.avif",
+    alt: "Campos agrícolas de tomate y hortalizas Sinaloa",
+    label: "Agroexportación"
+  }
+];
+
+// Galería de imágenes
+const galleryImages = [
+  {
+    src: "/images/directorio/estacion-bomberos-puerto-01.avif",
+    alt: "Bomberos de Sinaloa en operaciones portuarias Mazatlán",
+    label: "Puerto Mazatlán"
+  },
+  {
+    src: "/images/directorio/camion-bomberos-equipado-01.avif",
+    alt: "Tren Chepe Express ruta El Fuerte a Barrancas del Cobre",
+    label: "Tren Chepe"
+  },
+  { src: "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif", alt: "Operador nocturno en central de bomberos de Sinaloa", label: "Operación Nocturna" },
+  {
+    src: "/images/directorio/estacion-bomberos-norte-mexico-01.avif",
+    alt: "Ciudad de Los Mochis zona agroindustrial norte",
+    label: "Los Mochis"
+  },
+];
+
+// Números de emergencia SIN
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias" },
+  { number: "(667) 715-8311", label: "Bomberos Culiacán" },
+  { number: "(669) 982-0800", label: "Bomberos Mazatlán" },
+  { number: "(668) 815-7050", label: "Bomberos Los Mochis" }
+];
+
+// Regiones de Sinaloa
+const regiones = [
+  {
+    nombre: "Zona Centro",
+    desc: "Culiacán capital, Navolato (Ingenio El Dorado), zona cañera, aeropuerto internacional"
+  },
+  {
+    nombre: "Zona Sur - Mazatlán",
+    desc: "Puerto de Mazatlán, Zona Dorada, cruceros, Rosario y Concordia (Pueblos Mágicos)"
+  },
+  {
+    nombre: "Zona Norte",
+    desc: "Los Mochis, Guasave, El Fuerte (Pueblo Mágico), inicio Tren Chepe a Barrancas del Cobre"
+  },
+  {
+    nombre: "Sierra Madre Occidental",
+    desc: "Badiraguato, Choix, Cosalá (Pueblo Mágico) - incendios forestales y rescate en montaña"
+  }
+];
+
+// Tarjetas de equipamiento EPP
+const eppCards = [
+  {
+    image:     "/images/directorio/rescate-acuatico-bomberos-01.avif",
+    imageAlt:  "Equipo de rescate acuático para costas de Sinaloa",
+    badge:     "Costa",
+    title:     "Rescate Acuático Pacífico",
+    text:      "Equipamiento para rescate en <strong>playas de Mazatlán y zona costera</strong> del Pacífico. Lanchas, tablas de rescate y equipo de neopreno para oleaje fuerte.",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Acuático",
+  },
+  {
+    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+    imageAlt:  "Equipo HAZMAT para agroindustria en Sinaloa",
+    badge:     "HAZMAT",
+    title:     "HAZMAT Agroindustrial",
+    text:      "Trajes y detectores para emergencias con <strong>agroquímicos y fertilizantes</strong> en los valles agrícolas de Sinaloa. Protección contra pesticidas y sustancias tóxicas.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+  {
+    image:     "/images/directorio/camion-forestal-bomberos-01.avif",
+    imageAlt:  "Equipo forestal para incendios en Sierra Madre de Sinaloa",
+    badge:     "Forestal",
+    title:     "Incendios Sierra Madre",
+    text:      "Equipo forestal NFPA 1977 para combate de incendios en la <strong>Sierra Madre Occidental</strong>. Trajes ligeros y herramientas manuales para terreno escarpado.",
+    href:      "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977",
+    linkLabel: "Ver Equipo Forestal",
+  },
+  {
+    image:     "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt:  "Botas estructurales para bomberos de Sinaloa",
+    badge:     "NFPA 1971",
+    title:     "Botas Estructurales",
+    text:      "Calzado certificado para los bomberos de <strong>Culiacán, Mazatlán y Los Mochis</strong>. Puntera de acero y suela antiderrapante para todo tipo de terreno y emergencias.",
+    href:      "/productos/botas-para-bomberos",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+
+// Schema.org estructurado
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de ${estacionesSinaloa.length} estaciones de bomberos en Sinaloa. Líder nacional en agroexportación. Puerto de Mazatlán, Zona Dorada turística. Cobertura zona de huracanes del Pacífico.`,
+  numberOfItems: estacionesSinaloa.length,
+  itemListElement: estacionesSinaloa.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.municipio,
+        addressRegion: estado,
+        addressCountry: "MX"
+      },
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
+    }
+  }))
+};
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio/" },
+  { name: "Sinaloa",         url: "/directorio/sinaloa" },
+]);
+
+// Imágenes para tarjetas de estaciones
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/rescate-swift-water-rios-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/camion-forestal-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/bombero-proteccion-personal-estacion-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+];
+// Estados vecinos (desde archivo centralizado)
+const estadosVecinos = getEstadosVecinos("sinaloa");
+---
+
+<DirectorioEstadoLayout
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Sinaloa</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
+  heroImage="/images/directorio/estacion-bomberos-playa-01.avif"
+  heroImageAlt="Estación de Bomberos en Sinaloa"
+  heroCaption="H. Cuerpo de Bomberos · Sinaloa"
+  totalEstaciones={estacionesSinaloa.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="3.1M+"
+  canonical="https://bombero.mx/directorio/sinaloa/"
+  keywords={["bomberos sinaloa", "estaciones bomberos sinaloa", "emergencias sinaloa 911", "cuerpo bomberos sinaloa"]}
+  estaciones={estacionesSinaloa}
+  stationImages={stationImages}
+  municipios={getMunicipios()}
+  estadosVecinos={estadosVecinos}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en ${estado} | Directorio Oficial ${estacionesSinaloa.length} Estaciones | BOMBERO.MX`}
+  description={`Directorio completo de ${estacionesSinaloa.length} estaciones de bomberos en Sinaloa 2024. Líder en agroexportación de México. Puerto de Mazatlán, Zona Dorada, Los Mochis, Tren Chepe. Protección civil ante huracanes del Pacífico. HAZMAT agroindustrial. Tel: (667) 715-8311. Emergencias 911.`}
+>
+  <Fragment slot="seo">
+
+      <h2>Bomberos de Sinaloa: El Granero de México</h2>
+      <p>
+        El <strong>Heroico Cuerpo de Bomberos de Sinaloa</strong> protege a más de <strong>3 millones de
+        habitantes</strong> en el estado <strong>líder nacional en agroexportación</strong>. Con
+        <strong>20 estaciones distribuidas en 18 municipios</strong>, los bomberos sinaloenses atienden
+        desde <strong>emergencias agroindustriales en campos de tomate y hortalizas</strong> hasta
+        <strong>operaciones de rescate marítimo en el Puerto de Mazatlán</strong>, el principal puerto
+        comercial y turístico del Pacífico mexicano.
+      </p>
+
+      <h3>Puerto de Mazatlán: Rescate Marítimo y Turismo</h3>
+      <p>
+        <strong>Mazatlán</strong> es el <strong>principal puerto del Pacífico mexicano</strong> con
+        operaciones de carga comercial, flota camaronera y <strong>terminal de cruceros</strong> que
+        recibe más de <strong>300,000 cruceristas anuales</strong>. La <strong>Estación Central de
+        Mazatlán</strong> cuenta con <strong>lanchas de rescate, capacidad HAZMAT portuaria</strong> y
+        personal certificado en <strong>rescate acuático</strong>. La <strong>Zona Dorada</strong>,
+        corredor hotelero con más de <strong>10,000 habitaciones</strong>, requiere atención especializada
+        para emergencias en hoteles, restaurantes y el famoso <strong>Malecón</strong> (21 km, uno de
+        los más largos del mundo).
+      </p>
+
+      <h3>Temporada de Huracanes: Protección Civil Costera</h3>
+      <p>
+        Sinaloa tiene <strong>640 km de litoral</strong> expuesto a la <strong>temporada de huracanes
+        del Pacífico</strong> (junio-noviembre). Históricamente ha sido impactado por ciclones como
+        <strong>Manuel (2013)</strong> que causó inundaciones devastadoras en Culiacán. Las estaciones
+        costeras (Mazatlán, Escuinapa, Rosario) mantienen <strong>protocolos de evacuación masiva</strong>,
+        coordinación con la <strong>Armada de México</strong> y capacidad de respuesta post-huracán
+        incluyendo <strong>rescate en inundaciones, remoción de escombros y atención de damnificados</strong>.
+      </p>
+
+      <h3>Agroexportación: HAZMAT para el Campo Sinaloense</h3>
+      <p>
+        Sinaloa es el <strong>estado #1 en producción de tomate, pepino, chile y berenjena</strong>,
+        exportando más de <strong>$3,000 millones de dólares anuales</strong> a Estados Unidos y Canadá.
+        Las estaciones de <strong>Culiacán, Guasave, Navolato y Los Mochis</strong> mantienen capacidad
+        <strong>HAZMAT agroindustrial</strong> para emergencias con <strong>agroquímicos, fertilizantes,
+        fumigantes y combustibles agrícolas</strong>. Durante la <strong>temporada de cosecha</strong>
+        (octubre-mayo), el riesgo de incendios en <strong>bodegas de empaque y campos de rastrojo</strong>
+        aumenta significativamente.
+      </p>
+
+      <h3>Ingenio El Dorado: Zona Cañera de Navolato</h3>
+      <p>
+        El <strong>Ingenio Azucarero El Dorado</strong> en Navolato es uno de los más importantes del
+        Pacífico mexicano, procesando <strong>caña de azúcar de miles de hectáreas</strong>. La estación
+        de bomberos de Navolato está especializada en <strong>incendios en cañaverales</strong> (quemas
+        controladas y accidentales), emergencias industriales del ingenio y rescate en la
+        <strong>zona costera de Altata</strong> con sus comunidades pesqueras.
+      </p>
+
+      <h3>Tren Chepe y El Fuerte: Turismo de Aventura</h3>
+      <p>
+        <strong>El Fuerte</strong>, designado <strong>Pueblo Mágico</strong>, es el punto de partida
+        del legendario <strong>Tren Chepe Express</strong> hacia las <strong>Barrancas del Cobre</strong>
+        en Chihuahua. La estación de bomberos de El Fuerte atiende <strong>emergencias turísticas</strong>,
+        coordinación con operadores ferroviarios para incidentes en la ruta, y <strong>rescate en la
+        sierra norte</strong> donde habitan comunidades indígenas mayo y tarahumara. También cubre
+        <strong>Mochicahui</strong> y las comunidades ribereñas del <strong>Río El Fuerte</strong>.
+      </p>
+
+      <h3>Pueblos Mágicos: Cosalá, Mocorito, Concordia y Rosario</h3>
+      <p>
+        Sinaloa cuenta con <strong>5 Pueblos Mágicos</strong> con necesidades únicas: <strong>Cosalá</strong>
+        (zona minera colonial con minas abandonadas que requieren rescate especializado),
+        <strong>Mocorito</strong> (primer Pueblo Mágico del estado con patrimonio histórico),
+        <strong>Concordia</strong> (sierra sur con cascadas turísticas), <strong>Rosario</strong>
+        (costa sur con playas) y <strong>El Fuerte</strong> (turismo ferroviario). Cada estación mantiene
+        protocolos para <strong>protección patrimonial y atención turística</strong>.
+      </p>
+
+      <h3>Sierra Madre Occidental: Combate de Incendios Forestales</h3>
+      <p>
+        Los municipios serranos de <strong>Badiraguato, Choix y Cosalá</strong> se encuentran en la
+        <strong>Sierra Madre Occidental</strong>, con extensos bosques de pino y encino vulnerables a
+        <strong>incendios forestales</strong> durante la temporada seca (marzo-junio). Las estaciones
+        serranas cuentan con <strong>unidades 4x4 todoterreno, brigadas forestales</strong> y coordinación
+        con <strong>CONAFOR</strong>. También atienden <strong>rescates de personas perdidas en la sierra</strong>
+        y emergencias en comunidades de muy difícil acceso.
+      </p>
+
+      <h3>Culiacán: Capital Administrativa y Económica</h3>
+      <p>
+        <strong>Culiacán</strong> concentra <strong>1 millón de habitantes</strong> en su zona metropolitana,
+        siendo el centro administrativo, comercial y universitario del estado. La <strong>Estación Central</strong>
+        coordina operaciones estatales con <strong>escalera aérea, unidad HAZMAT y capacidad de rescate
+        urbano avanzado</strong>. El <strong>Aeropuerto Internacional de Bachigualato</strong> opera
+        estación <strong>ARFF certificada</strong> para emergencias aeronáuticas. La zona sur de la
+        ciudad concentra la <strong>industria agroindustrial</strong> con bodegas y empacadoras.
+      </p>
+
+      <h3>Los Mochis: Hub Agroindustrial del Norte</h3>
+      <p>
+        <strong>Los Mochis</strong> (municipio de Ahome) es el segundo centro urbano más importante
+        con <strong>500,000 habitantes</strong> en su zona metropolitana. La estación central atiende
+        la <strong>zona agroindustrial más tecnificada del estado</strong> con invernaderos de alta
+        tecnología, el puerto pesquero de <strong>Topolobampo</strong> y el inicio de la ruta del
+        <strong>Tren Chepe</strong>. Guasave, conocido como el <strong>"Corazón Agrícola de México"</strong>,
+        depende de esta coordinación regional.
+      </p>
+
+      <h3>Servicios Especializados de los Bomberos Sinaloenses</h3>
+      <p>
+        Los bomberos de Sinaloa ofrecen: <strong>combate de incendios estructurales, industriales y
+        forestales</strong>; <strong>HAZMAT agroindustrial y portuario</strong>; <strong>rescate acuático
+        marítimo y lacustre</strong>; <strong>protección civil ante huracanes</strong>; <strong>ARFF
+        aeroportuario</strong>; <strong>rescate en sierra y zonas de difícil acceso</strong>;
+        <strong>emergencias en campos agrícolas e ingenios</strong>; <strong>rescate turístico en
+        Pueblos Mágicos</strong>; y <strong>coordinación con Marina para operaciones costeras</strong>.
+        El tiempo de respuesta es de <strong>4-7 minutos</strong> en zonas urbanas y hasta
+        <strong>40 minutos</strong> en comunidades serranas remotas.
+      </p>
+    </Fragment>
+</DirectorioEstadoLayout>
+

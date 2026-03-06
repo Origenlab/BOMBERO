@@ -1,0 +1,125 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { estacionesYucatan, getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-yucatan";
+
+// Generar rutas estaticas
+export function getStaticPaths() {
+  return estacionesYucatan.map((estacion) => ({
+    params: { slug: estacion.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const estacion = getEstacionBySlug(slug as string);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+// Obtener estaciones cercanas para el sidebar
+const estacionesCercanas = getEstacionesCercanas(slug as string, 3);
+
+// Datos del estado
+const estado = {
+  nombre: "Yucatan",
+  slug: "yucatan",
+  siglas: "YUC",
+  poblacion: "2.3 millones",
+  municipios: 106,
+};
+
+// Estados vecinos para interlinking
+const estadosVecinos = [
+  { nombre: "Quintana Roo", slug: "quintana-roo" },
+  { nombre: "Campeche", slug: "campeche" },
+  { nombre: "Tabasco", slug: "tabasco" },
+  { nombre: "Ciudad de Mexico", slug: "ciudad-de-mexico" },
+  { nombre: "Jalisco", slug: "jalisco" },
+];
+
+// Variables para contenido personalizado
+const ubicacion = estacion.municipio ?? estacion.ciudad ?? "Yucatan";
+
+// Tarjetas EPP para la seccion de equipo certificado
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: `Traje Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Disenado para los bomberos de <strong>${ubicacion}</strong> que protegen la capital cultural del sureste. Certificacion NFPA para emergencias en el Centro Historico UNESCO, rescate en cenotes y zona arqueologica maya.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: `Casco Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Certificacion NFPA 1971 para operaciones en <strong>Yucatan</strong>. Compatible con rescate en cenotes, proteccion de Chichen Itza y Uxmal UNESCO, y respuesta a huracanes en temporada.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: `Guantes Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia termica certificada para emergencias en <strong>${ubicacion}</strong>. Prension segura para rescate en cenotes, operaciones en el Puerto de Progreso y temporada de huracanes.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: `Botas Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Calzado certificado NFPA 1971 para el entorno de <strong>Yucatan</strong>. Suela antiderrapante para cenotes, zonas arqueologicas, Centro Historico de Merida y clima tropical humedo.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+
+  <Fragment slot="seo-content">
+    <h2>Bomberos en {ubicacion}, Yucatan</h2>
+    <p>
+      La <strong>{estacion.nombreCorto ?? estacion.nombre}</strong> es parte del <strong>H. Cuerpo de Bomberos de {ubicacion}</strong>,
+      institucion que protege a los mas de <strong>2.3 millones de yucatecos</strong>. Esta estacion, ubicada en
+      <strong>{estacion.direccion}</strong>, brinda atencion las 24 horas del dia,
+      los 365 dias del ano.
+    </p>
+    <p>
+      En caso de <strong>emergencia en {ubicacion}</strong>, marca el <strong>911</strong> o comunicate directamente
+      a esta estacion al <strong>{estacion.telefono}</strong>. Los bomberos de Yucatan estan capacitados para atender
+      incendios estructurales, rescate en cenotes, respuesta a huracanes, proteccion de patrimonio arqueologico
+      y todo tipo de emergencias.
+    </p>
+    <h3>Yucatan: Capital Cultural del Sureste</h3>
+    <p>
+      <strong>Yucatan</strong> es la capital cultural del sureste mexicano, hogar de la civilizacion <strong>maya</strong>.
+      <strong>Chichen Itza</strong> es una de las Nuevas 7 Maravillas del Mundo y Patrimonio UNESCO, junto con <strong>Uxmal</strong>.
+      El Centro Historico de <strong>Merida</strong> es una joya colonial. El estado tiene mas de <strong>6,000 cenotes</strong>
+      que requieren equipos especializados de rescate acuatico. El <strong>Puerto de Progreso</strong> es importante para cruceros.
+      La temporada de <strong>huracanes</strong> afecta al estado anualmente. Los bomberos tienen capacidades de rescate en cenotes
+      y proteccion del invaluable patrimonio maya.
+    </p>
+    <h3>Necesitas equipo certificado para bomberos?</h3>
+    <p>
+      En <strong><a href="/">BOMBERO.MX</a></strong> somos distribuidores autorizados de <strong>equipo para bomberos certificado NFPA</strong>.
+      Equipamos estaciones en todo Yucatan con <a href="/productos/trajes-para-bomberos/">trajes estructurales</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>, <a href="/productos/guantes-para-bomberos/">guantes</a>,
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a> y mas.
+      <a href="/cotizar/">Solicita una cotizacion</a> sin compromiso.
+    </p>
+  </Fragment>
+</EstacionLayout>

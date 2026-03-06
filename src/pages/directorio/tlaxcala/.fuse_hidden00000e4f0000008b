@@ -1,0 +1,124 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { estacionesTlaxcala, getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-tlaxcala";
+
+// Generar rutas estaticas
+export function getStaticPaths() {
+  return estacionesTlaxcala.map((estacion) => ({
+    params: { slug: estacion.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const estacion = getEstacionBySlug(slug as string);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+// Obtener estaciones cercanas para el sidebar
+const estacionesCercanas = getEstacionesCercanas(slug as string, 3);
+
+// Datos del estado
+const estado = {
+  nombre: "Tlaxcala",
+  slug: "tlaxcala",
+  siglas: "TLAX",
+  poblacion: "1.3 millones",
+  municipios: 60,
+};
+
+// Estados vecinos para interlinking
+const estadosVecinos = [
+  { nombre: "Puebla", slug: "puebla" },
+  { nombre: "Hidalgo", slug: "hidalgo" },
+  { nombre: "Estado de Mexico", slug: "estado-de-mexico" },
+  { nombre: "Ciudad de Mexico", slug: "ciudad-de-mexico" },
+  { nombre: "Veracruz", slug: "veracruz" },
+];
+
+// Variables para contenido personalizado
+const ubicacion = estacion.municipio ?? estacion.ciudad ?? "Tlaxcala";
+
+// Tarjetas EPP para la seccion de equipo certificado
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: `Traje Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Disenado para los bomberos de <strong>${ubicacion}</strong> que protegen la cuna de la nacion. Certificacion NFPA para emergencias industriales textiles y automotrices, y proteccion del patrimonio historico.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: `Casco Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Certificacion NFPA 1971 para operaciones en <strong>Tlaxcala</strong>. Compatible con emergencias en el corredor industrial automotriz Volkswagen-Audi y proteccion de zonas arqueologicas prehispanicas.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: `Guantes Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia termica certificada para emergencias industriales en <strong>${ubicacion}</strong>. Prension segura para operaciones en plantas textiles, automotrices y zona arqueologica de Cacaxtla.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: `Botas Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Calzado certificado NFPA 1971 para el entorno de <strong>Tlaxcala</strong>. Suela antiderrapante para pisos industriales, centros historicos coloniales y terreno del volcan La Malinche.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+
+  <Fragment slot="seo-content">
+    <h2>Bomberos en {ubicacion}, Tlaxcala</h2>
+    <p>
+      La <strong>{estacion.nombreCorto ?? estacion.nombre}</strong> es parte del <strong>H. Cuerpo de Bomberos de {ubicacion}</strong>,
+      institucion que protege a los mas de <strong>1.3 millones de tlaxcaltecas</strong>. Esta estacion, ubicada en
+      <strong>{estacion.direccion}</strong>, brinda atencion las 24 horas del dia,
+      los 365 dias del ano.
+    </p>
+    <p>
+      En caso de <strong>emergencia en {ubicacion}</strong>, marca el <strong>911</strong> o comunicate directamente
+      a esta estacion al <strong>{estacion.telefono}</strong>. Los bomberos de Tlaxcala estan capacitados para atender
+      incendios estructurales e industriales, emergencias en plantas textiles y automotrices, incendios forestales
+      y todo tipo de emergencias.
+    </p>
+    <h3>Tlaxcala: La Cuna de la Nacion</h3>
+    <p>
+      <strong>Tlaxcala</strong> es conocida como "La Cuna de la Nacion" por su papel historico en la conquista de Mexico.
+      El estado es sede del corredor industrial <strong>Volkswagen-Audi</strong> y tiene una importante industria textil.
+      El Centro Historico de <strong>Tlaxcala</strong> es Patrimonio Colonial y la zona arqueologica de <strong>Cacaxtla</strong>
+      es famosa por sus murales prehispanicos. El volcan <strong>La Malinche</strong> (Matlalcueyatl) domina el paisaje
+      y requiere equipos especializados de rescate en montana. Los bomberos protegen tanto la industria como el patrimonio cultural.
+    </p>
+    <h3>Necesitas equipo certificado para bomberos?</h3>
+    <p>
+      En <strong><a href="/">BOMBERO.MX</a></strong> somos distribuidores autorizados de <strong>equipo para bomberos certificado NFPA</strong>.
+      Equipamos estaciones en todo Tlaxcala con <a href="/productos/trajes-para-bomberos/">trajes estructurales</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>, <a href="/productos/guantes-para-bomberos/">guantes</a>,
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a> y mas.
+      <a href="/cotizar/">Solicita una cotizacion</a> sin compromiso.
+    </p>
+  </Fragment>
+</EstacionLayout>

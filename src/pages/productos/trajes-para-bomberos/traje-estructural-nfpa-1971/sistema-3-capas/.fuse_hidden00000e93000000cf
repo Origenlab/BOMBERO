@@ -1,0 +1,340 @@
+---
+
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif";
+
+
+const capas = [
+  {
+    num: "01",
+    titulo: "Capa Exterior — Nomex® IIIA",
+    descripcion:
+      "Primera barrera de defensa. El tejido Nomex® IIIA ofrece resistencia inherente a la llama: el material no arde, no se derrite ni encoge incluso bajo exposición directa. Peso óptimo de 6.0–7.5 oz/yd² para equilibrar protección y movilidad.",
+    specs: [
+      { label: "Material", valor: "Nomex® IIIA / Nomex® Nano" },
+      { label: "Peso tela", valor: "6.0 – 7.5 oz/yd²" },
+      { label: "Norma llama", valor: "ASTM D6413 — Clase 1" },
+      { label: "Resistencia inherente", valor: "Sí — no se lava" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Barrera de Humedad — Gore-Tex® PTFE",
+    descripcion:
+      "Segunda capa: membrana de politetrafluoroetileno expandido (ePTFE). Impide el paso de agua, vapores tóxicos y líquidos peligrosos. Permite la evacuación del vapor corporal hacia el exterior, controlando la temperatura interna del bombero.",
+    specs: [
+      { label: "Membrana", valor: "Gore-Tex® ePTFE expandido" },
+      { label: "Impermeabilidad", valor: "NFPA 1971 Method 6 ✓" },
+      { label: "Transpirabilidad", valor: "MVTR > 1,500 g/m²/24 h" },
+      { label: "Líquidos peligrosos", valor: "Clase F3 certificada" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Acolchado Térmico — Caldura® / PBI® Gold",
+    descripcion:
+      "Tercera capa: liner térmico que aísla al bombero del calor intenso. Un TPP ≥ 35 cal/cm² garantiza al menos 3 segundos antes de quemadura de 2.º grado — tiempo crítico para abandonar la zona de peligro.",
+    specs: [
+      { label: "Liner", valor: "Caldura® E89 o PBI® Gold Comfort" },
+      { label: "TPP mínimo", valor: "≥ 35 cal/cm² certificado" },
+      { label: "THL", valor: "> 205 W/m²" },
+      { label: "Peso liner", valor: "< 400 g total" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Construcción",    label: "Número de capas",           valor: "3 (exterior + barrera + liner)" },
+  { categoria: "Construcción",    label: "Capa exterior",              valor: "Nomex® IIIA o Nomex® Nano" },
+  { categoria: "Construcción",    label: "Barrera de humedad",         valor: "Gore-Tex® PTFE expandido" },
+  { categoria: "Construcción",    label: "Liner térmico",              valor: "Caldura® E89 / PBI® Gold Comfort" },
+  { categoria: "Construcción",    label: "Costura",                    valor: "Hilo Nomex® certificado" },
+  { categoria: "Protección",      label: "TPP mínimo",                 valor: "≥ 35 cal/cm²" },
+  { categoria: "Protección",      label: "THL mínimo",                 valor: "> 205 W/m²" },
+  { categoria: "Protección",      label: "Resistencia a la llama",     valor: "ASTM D6413 — Clase 1" },
+  { categoria: "Protección",      label: "Impermeabilidad",            valor: "NFPA 1971 Method 6 aprobado" },
+  { categoria: "Protección",      label: "Líquidos peligrosos",        valor: "Clase F3" },
+  { categoria: "Visibilidad",     label: "Bandas retroreflectivas",    valor: "Scotchlite™ 3M 5 cm — esquema 360°" },
+  { categoria: "Visibilidad",     label: "Clase SOLAS",                valor: "Clase 2" },
+  { categoria: "Ergonomía",       label: "Paneles preformados",        valor: "Codos y rodillas" },
+  { categoria: "Ergonomía",       label: "Cierre principal",           valor: "Velcro® de cierre rápido" },
+  { categoria: "Ergonomía",       label: "Tallas disponibles",         valor: "S · M · L · XL · 2XL · 3XL · 4XL" },
+  { categoria: "Certificación",   label: "Norma principal",            valor: "NFPA 1971 edición vigente" },
+  { categoria: "Certificación",   label: "Documentación incluida",     valor: "Ficha técnica + Certificado de laboratorio" },
+  { categoria: "Certificación",   label: "Compatible con EPP NFPA",    valor: "Sí — todos los fabricantes" },
+];
+
+const catClass: Record<string, string> = {
+  "Construcción":  "construccion",
+  "Protección":    "proteccion",
+  "Visibilidad":   "visibilidad",
+  "Ergonomía":     "ergonomia",
+  "Certificación": "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Incendio Estructural",
+    desc: "Combate activo en edificios residenciales, comerciales e industriales. Protección integral frente a llama directa, calor radiante y vapores tóxicos.",
+  },
+  {
+    titulo: "Rescate Urbano",
+    desc: "Búsqueda y rescate en estructuras colapsadas o incendiadas. El diseño ergonómico facilita la movilidad en espacios reducidos.",
+  },
+  {
+    titulo: "Colapso de Estructuras",
+    desc: "Escenarios de derrumbe con riesgo de llama, gas e inflamables. La capa Nomex® resiste cortes y abrasión entre escombros.",
+  },
+  {
+    titulo: "Operaciones de Alto Riesgo",
+    desc: "Accidentes con combustible y explosiones menores. Protección térmica certificada donde otros EPP no alcanzan.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Qué diferencia hay entre el sistema de 3 capas y un traje de una sola capa?",
+    a: "El sistema de 3 capas integra capa exterior (resistencia a la llama), barrera de humedad (impermeabilidad + transpiración) y liner térmico (aislamiento del calor). Un traje de una capa solo ofrece resistencia básica sin las otras dos funciones críticas. NFPA 1971 exige el sistema de 3 capas para protección estructural certificada.",
+  },
+  {
+    q: "¿Qué significa TPP ≥ 35 cal/cm² en la práctica?",
+    a: "El Thermal Protective Performance (TPP) mide el tiempo antes de una quemadura de segundo grado. Un TPP de 35 cal/cm² equivale a ~3.5 segundos de exposición directa a una llamarada. Este es el mínimo exigido por NFPA 1971. A mayor TPP, mayor protección ante flash-over.",
+  },
+  {
+    q: "¿El traje incluye ficha técnica y certificado de laboratorio?",
+    a: "Sí. Cada traje incluye ficha técnica completa y certificado de laboratorio independiente que acredita el cumplimiento de NFPA 1971 — documentación indispensable para licitaciones gubernamentales en México.",
+  },
+  {
+    q: "¿La resistencia Nomex® se pierde con el lavado?",
+    a: "No. La resistencia inherente del Nomex® es parte de su estructura molecular, no un tratamiento superficial. A diferencia de tejidos FR tratados, el Nomex® no pierde su protección con lavados industriales.",
+  },
+  {
+    q: "¿Con qué EPP NFPA es compatible este traje?",
+    a: "Compatible con casco NFPA 1971, guantes estructurales NFPA 1971, botas de cuero certificadas y SCBA NFPA 1981. Para protección integral, todos los componentes deben ser de la misma edición de norma.",
+  },
+  {
+    q: "¿Cuánto tiempo tarda la entrega en México?",
+    a: "Tallas estándar (M, L, XL): 24–48 h en CDMX y área metropolitana, 3–5 días al resto de la república. Tallas especiales o personalizadas: 3 a 6 semanas de fabricación.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Traje Forestal NFPA 1977",
+    badge: "NFPA 1977",
+    description: "Tejido ultraligero transpirable para combate forestal. Diseñado para operaciones prolongadas en campo abierto.",
+    href: "/productos/trajes-para-bomberos/",
+    buttonText: "Trajes para Bombero",
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+  },
+  {
+    title: "Casco Estructural NFPA 1971",
+    badge: "NFPA 1971",
+    description: "Protección cefálica certificada NFPA 1971. Compatible con el sistema 3 capas para el bombero estructural.",
+    href: "/productos/cascos-para-bomberos/",
+    buttonText: "Cascos para Bombero",
+    image: "/images/cascos-para-bomberos/casco-bombero-profesional-01.avif",
+  },
+  {
+    title: "Guantes Estructurales NFPA 1971",
+    badge: "NFPA 1971",
+    description: "Guantes certificados para trabajo estructural. Resistencia térmica certificada, compatibles con traje NFPA 1971.",
+    href: "/productos/guantes-para-bomberos/",
+    buttonText: "Guantes para Bombero",
+    image: "/images/guantes-para-bomberos/guante-bombero-producto-par-cuero-kevlar-01.avif",
+  },
+  {
+    title: "Botas Estructurales de Cuero",
+    badge: "NFPA 1971",
+    description: "Calzado certificado para completar el EPP NFPA 1971. Suela antiderrapante y puntera de acero reforzada.",
+    href: "/productos/botas-para-bomberos/",
+    buttonText: "Botas para Bombero",
+    image: "/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif",
+  },
+];
+
+
+const otrosModelos = [
+  { label: "Capa Exterior Nomex® IIIA",       href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/capa-exterior-nomex/" },
+  { label: "Barrera Gore-Tex® PTFE",          href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/membrana-gore-tex/"   },
+  { label: "Acolchado Térmico Caldura®",      href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/acolchado-termico/"  },
+  { label: "Alta Visibilidad SOLAS Cl.2",     href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/alta-visibilidad/"   },
+  { label: "Diseño Ergonómico 3D",            href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/diseno-ergonomico/"  },
+  { label: "Ver Todos los Trajes",            href: "/productos/trajes-para-bomberos/"                                                },
+];
+
+const epp = [
+  { label: "Casco Estructural NFPA 1971",   href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/", tag: "Cabeza" },
+  { label: "Guantes Estructurales",          href: "/productos/guantes-para-bomberos/estructurales/",              tag: "Manos" },
+  { label: "Botas Estructurales (Cuero)",    href: "/productos/botas-para-bomberos/estructural/",                  tag: "Pies" },
+  { label: "Capucha Nomex® Bombero",         href: "/productos/capuchas-para-bomberos/nomex/",                     tag: "Cabeza" },
+  { label: "Goggle de Bombero NFPA 1971",   href: "/productos/gafas-para-bomberos/goggle/",                       tag: "Visual" },
+];
+
+const articulos = [
+  { label: "Catálogo Trajes de Bombero NFPA",   href: "/productos/trajes-para-bomberos/",  tag: "Catálogo" },
+  { label: "Trajes Forestales NFPA 1977",        href: "/productos/trajes-para-bomberos/",  tag: "Producto" },
+  { label: "EPP Completo para Bomberos",         href: "/productos/",                       tag: "Guía" },
+  { label: "Cascos NFPA 1971 y 1977",            href: "/productos/cascos-para-bomberos/",  tag: "Catálogo" },
+  { label: "Guantes y Protección de Manos",      href: "/productos/guantes-para-bomberos/", tag: "Catálogo" },
+  { label: "Botas y Calzado para Bomberos",      href: "/productos/botas-para-bomberos/",   tag: "Catálogo" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Ciudad de México",       href: "/directorio/ciudad-de-mexico/" },
+  { label: "Bomberos Jalisco — Guadalajara",  href: "/directorio/jalisco/" },
+  { label: "Bomberos Nuevo León — Monterrey", href: "/directorio/nuevo-leon/" },
+  { label: "Bomberos Puebla",                 href: "/directorio/puebla/" },
+  { label: "Bomberos Querétaro",              href: "/directorio/queretaro/" },
+  { label: "Directorio Nacional Bomberos",    href: "/directorio/" },
+];
+
+const specsRapidas = [
+  { label: "Norma",          valor: "NFPA 1971" },
+  { label: "Sistema",        valor: "3 capas" },
+  { label: "TPP mínimo",     valor: "≥ 35 cal/cm²" },
+  { label: "THL mínimo",     valor: "> 205 W/m²" },
+  { label: "Capa exterior",  valor: "Nomex® IIIA" },
+  { label: "Barrera",        valor: "Gore-Tex® PTFE" },
+  { label: "Liner",          valor: "Caldura® / PBI®" },
+  { label: "Visibilidad",    valor: "SOLAS Clase 2" },
+];
+
+const certItems = [
+  { code: "NFPA 1971",     desc: "Protección estructural — edición vigente" },
+  { code: "ASTM D6413",    desc: "Resistencia a la llama vertical" },
+  { code: "TPP ≥ 35",      desc: "cal/cm² — protección térmica mínima" },
+  { code: "SOLAS Cl.2",    desc: "Bandas retroreflectivas alta visibilidad" },
+  { code: "ISO/IEC 17025", desc: "Laboratorio acreditado para certificación" },
+];
+---
+
+<ProductoLayout
+  title="Traje Estructural NFPA 1971 — Sistema 3 Capas | BOMBERO.MX"
+  description="Traje estructural NFPA 1971 Sistema 3 Capas certificado. Capa exterior Nomex®, barrera Gore-Tex® y liner térmico TPP ≥ 35 cal/cm². Ficha técnica incluida. Envío a los 32 estados de México."
+  keywords={[
+    "traje estructural NFPA 1971 sistema 3 capas",
+    "traje bombero 3 capas México",
+    "traje Nomex Gore-Tex bombero",
+    "traje bombero TPP 35",
+    "traje NFPA 1971 precio México",
+    "traje bombero certificado México",
+    "traje estructural bombero Nomex",
+    "comprar traje bombero NFPA 1971",
+  ]}
+  canonical="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas/"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos/" },
+    { label: "Trajes de Bombero",           href: "/productos/trajes-para-bomberos/" },
+    { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" },
+    { label: "Sistema 3 Capas" },
+  ]}
+
+  heroBadge="Traje Estructural · NFPA 1971 · Sistema 3 Capas"
+  heroTitle="Traje Estructural NFPA 1971"
+  heroTitleHighlight="Sistema 3 Capas"
+  heroSubtitle="El estándar de oro para incendios estructurales. Sistema integrado de tres capas certificado NFPA 1971: capa exterior Nomex®, barrera de humedad Gore-Tex® y acolchado térmico TPP ≥ 35 cal/cm². Ficha técnica y certificado de laboratorio incluidos."
+  heroSeoBlocks={[
+    {
+      title: "Traje Estructural NFPA 1971 Sistema 3 Capas — Distribuidor Autorizado México",
+      text: "El <strong>sistema de tres capas NFPA 1971</strong> combina capa exterior Nomex® IIIA, barrera de humedad Gore-Tex® y acolchado térmico con TPP ≥ 35 cal/cm² en un solo conjunto certificado. En <strong>BOMBERO.MX</strong> somos distribuidores autorizados del traje estructural líder del mercado mexicano para cuerpos de bomberos municipales, brigadas industriales y protección civil en los 32 estados.",
+    },
+    {
+      title: "Certificación NFPA 1971 con Ficha Técnica y Certificado de Laboratorio",
+      text: "Cada <strong>traje estructural NFPA 1971 sistema 3 capas</strong> incluye ficha técnica completa y certificado de laboratorio independiente — documentación indispensable para <strong>licitaciones gubernamentales en los 32 estados de México</strong>. TPP ≥ 35 cal/cm², SOLAS Clase 2, costuras en hilo Nomex®. Compatible con todo el EPP NFPA certificado.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Traje Estructural NFPA 1971"
+
+  productoCategoria="Traje de Bombero Estructural"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1971" },
+    { modifier: "tpp",   text: "TPP ≥ 35" },
+    { modifier: "solas", text: "SOLAS Cl.2" },
+  ]}
+  productoMasVendido={true}
+  productoTitle="Traje Estructural NFPA 1971"
+  productoTitleSub="Sistema 3 Capas"
+  productoDesc="Sistema integrado de tres capas certificado NFPA 1971: capa exterior Nomex® IIIA de resistencia inherente, barrera de humedad Gore-Tex® y acolchado térmico TPP ≥ 35 cal/cm². Incluye ficha técnica y certificado de laboratorio."
+  productoFeatures={[
+    "Sistema 3 capas certificado NFPA 1971",
+    "Protección térmica TPP ≥ 35 cal/cm²",
+    "Bandas retroreflectivas SOLAS Clase 2",
+    "Costuras en hilo Nomex® certificado",
+    "Tallas S a 4XL — paneles preformados",
+    "Certificado de laboratorio incluido",
+  ]}
+  productoAppTags={[
+    "Incendio estructural",
+    "Rescate urbano",
+    "Colapso de estructuras",
+    "Brigadas industriales",
+    "Protección Civil",
+  ]}
+
+  gallery={[
+    { src: "/images/trajes-para-bombero/sistema-3-capas-traje-bombero-diagrama-01.avif",              alt: "Sistema 3 capas traje estructural NFPA 1971 diagrama" },
+    { src: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",  alt: "Traje bombero estructural NFPA 1971 modelo frontal" },
+    { src: "/images/trajes-para-bombero/sistema-3-capas-traje-bombero-exploded-view-01.avif",         alt: "Vista explosionada sistema 3 capas traje bombero" },
+    { src: "/images/trajes-para-bombero/chaqueton-bombero-goretex-sistema-3-capas-detalle-01.avif",   alt: "Detalle GORE-TEX sistema 3 capas chaquetón bombero" },
+    { src: "/images/trajes-para-bombero/certificacion-nfpa-1971-tejido-nomex-goretex-01.avif",        alt: "Certificación NFPA 1971 tejido NOMEX GORE-TEX" },
+    { src: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-03.avif",  alt: "Bombero profesional con traje estructural NFPA 1971" },
+  ]}
+
+  capasEyebrow="Anatomía del Traje"
+  capasTitle="Sistema Integrado de 3 Capas"
+  capasDesc="Cada capa cumple una función específica e insustituible. La sinergia entre las tres es lo que determina el nivel de protección NFPA 1971."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones Completas"
+  specsDesc="Parámetros verificados en laboratorio certificado ISO/IEC 17025. Todos los valores cumplen o superan los mínimos exigidos por NFPA 1971 edición vigente."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Escenarios de Uso"
+  aplicacionesTitle="¿Dónde se Usa el Sistema 3 Capas?"
+  aplicacionesContent="<p>El traje estructural NFPA 1971 es el EPP estándar para las operaciones de mayor riesgo dentro del servicio de bomberos.</p><p>El sistema de 3 capas coordina protección térmica, impermeabilidad y aislamiento en una sola prenda certificada. Cada capa tiene una función específica — ninguna puede reemplazar a las demás.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="Certificado NFPA 1971 — El estándar que salva vidas"
+  certsDesc="La norma <strong>NFPA 1971</strong> (<em>Standard on Protective Ensembles for Structural Fire Fighting</em>) es el referente mundial para la protección del bombero estructural. Establece requisitos mínimos por capa: resistencia a la llama, impermeabilidad, aislamiento térmico y visibilidad retroreflectiva."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Todo sobre el Traje Estructural NFPA 1971"
+  faqDescription="Respondemos las dudas técnicas más frecuentes sobre el sistema de 3 capas, certificaciones, mantenimiento y compatibilidad con el resto del EPP."
+  faqDocTitle="Descarga la Ficha Técnica"
+  faqDocDesc="Solicita la ficha técnica completa y el certificado de laboratorio NFPA 1971."
+  faqDocCtaHref="/cotizar/"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="EPP Complementario"
+  relacionadosTitle="Completa tu Equipo de Protección"
+  relacionadosDesc="El traje estructural NFPA 1971 trabaja como parte de un sistema. Todos los equipos están certificados con la misma edición de norma."
+  relacionados={relacionados}
+  whyChooseImages={[
+    "/images/trajes-para-bombero/traje-bombero-experiencia-profesional-certificado-01.avif",
+    "/images/trajes-para-bombero/traje-bombero-cuerpo-completo-marcas-certificadas-01.avif",
+    "/images/trajes-para-bombero/traje-bombero-estacion-equipo-scba-asesoria-01.avif",
+    "/images/trajes-para-bombero/traje-bombero-stock-variedad-modelos-disponibles-01.avif",
+    "/images/trajes-para-bombero/traje-bombero-operacion-rescate-direccion-equipo-01.avif",
+    "/images/trajes-para-bombero/traje-bombero-equipo-profesional-estacion-atencion-01.avif",
+  ]}
+/>

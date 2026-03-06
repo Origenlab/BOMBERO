@@ -1,0 +1,307 @@
+---
+
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesNuevoLeon, getMunicipios } from "@data/estaciones-nuevo-leon";
+import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
+
+// Configuración del estado
+const estado = "Nuevo León";
+const sigla = "NL";
+const slug = "nuevo-leon";
+
+// Imágenes para tarjetas de estaciones
+const stationImages = [
+  "/images/directorio/estacion-bomberos-industrial-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/rescate-montana-bomberos-01.avif",
+  "/images/directorio/bomberos-profesionales-accion-01.avif",
+  "/images/directorio/bomberos-equipandose-turno-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+];
+// Miniaturas hero - ZMM y Sierra Madre
+const heroThumbs = [
+  {
+    src: "/images/directorio/estacion-bomberos-monterrey-01.avif",
+    alt: "Skyline de Monterrey con Cerro de la Silla - Nuevo León",
+    label: "Monterrey ZMM"
+  },
+  { src: "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif", alt: "Equipo de protección personal completo en estación de bomberos de Nuevo León", label: "EPP Certificado" },
+  {
+    src: "/images/directorio/rescate-montana-bomberos-01.avif",
+    alt: "Sierra Madre Oriental y Parque Chipinque",
+    label: "Sierra Madre"
+  }
+];
+
+// Galería de imágenes
+const galleryImages = [
+  {
+    src: "/images/directorio/unidad-hazmat-emergencias-01.avif",
+    alt: "Equipo HAZMAT de Bomberos de Monterrey en emergencia industrial",
+    label: "HAZMAT Nivel III"
+  },
+  { src: "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif", alt: "Flota completa de unidades de bomberos de Nuevo León", label: "Flota Completa" },
+  {
+    src: "/images/directorio/rescate-swift-water-rios-01.avif",
+    alt: "Cascada Cola de Caballo en Santiago Pueblo Mágico",
+    label: "Santiago PM"
+  },
+  {
+    src: "/images/directorio/estacion-bomberos-petroquimica-01.avif",
+    alt: "Corporativos CEMEX y Vitro en zona industrial sur",
+    label: "Corporativos Globales"
+  },
+];
+
+// Números de emergencia NL
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias" },
+  { number: "(81) 8345-2424", label: "Bomberos Monterrey" },
+  { number: "(81) 8378-8080", label: "Bomberos San Pedro" },
+  { number: "(81) 8350-6060", label: "HAZMAT Industrial" }
+];
+
+// Estados vecinos (desde archivo centralizado)
+const estadosVecinos = getEstadosVecinos("nuevo-leon");
+
+// Regiones de Nuevo León
+const regiones = [
+  {
+    nombre: "Zona Metropolitana Monterrey",
+    desc: "Monterrey, San Pedro, Guadalupe, Apodaca, Santa Catarina, Escobedo, García, Juárez"
+  },
+  {
+    nombre: "Corredores Industriales",
+    desc: "TERNIUM, CEMEX, Vitro, KIA Motors, Navistar - 4 estaciones HAZMAT certificadas"
+  },
+  {
+    nombre: "Sierra Madre Oriental",
+    desc: "Santiago (Pueblo Mágico), Chipinque, La Huasteca, Cola de Caballo"
+  },
+  {
+    nombre: "Zona Citrícola Sur",
+    desc: "Montemorelos (capital citrícola), Linares, agroindustria"
+  }
+];
+
+// Tarjetas de equipamiento EPP
+const eppCards = [
+  {
+    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+    imageAlt:  "Traje HAZMAT para emergencias industriales en Nuevo León",
+    badge:     "Industrial",
+    title:     "Trajes Industriales NL",
+    text:      "Equipo de protección HAZMAT para emergencias en los corredores industriales de <strong>Monterrey, Apodaca y Santa Catarina</strong>. Trajes certificados para el sector siderúrgico y petroquímico del estado.",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image:     "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+    imageAlt:  "Equipo SCBA para espacios confinados en Nuevo León",
+    badge:     "SCBA",
+    title:     "SCBA Espacios Confinados",
+    text:      "Equipos de respiración autónoma para operaciones en <strong>plantas CEMEX, Ternium y FRISA</strong>. Máxima autonomía en atmósferas IDLH con certificación NFPA 1981.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo Respiratorio",
+  },
+  {
+    image:     "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",
+    imageAlt:  "Equipo de rescate vehicular para autopistas de Nuevo León",
+    badge:     "Rescate",
+    title:     "Rescate Vehicular Pesado",
+    text:      "Herramientas hidráulicas de extricación para accidentes en la <strong>autopista Monterrey-Laredo</strong> y vialidades del área metropolitana. Spreaders y cutters de última generación.",
+    href:      "/productos/guantes-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
+  },
+  {
+    image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt:  "Casco estructural NFPA para bomberos de Nuevo León",
+    badge:     "NFPA 1971",
+    title:     "Cascos Certificados NFPA",
+    text:      "Cascos estructurales con protección térmica avanzada para los bomberos de <strong>Monterrey y su zona metropolitana</strong>. Visores integrados y sistemas de comunicación compatibles.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+];
+
+// Schema.org estructurado
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de ${estacionesNuevoLeon.length} estaciones de bomberos en Nuevo León. La Capital Industrial de México con 4 estaciones HAZMAT certificadas. Cobertura ZMM, corredores industriales y Sierra Madre Oriental.`,
+  numberOfItems: estacionesNuevoLeon.length,
+  itemListElement: estacionesNuevoLeon.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.ciudad,
+        addressRegion: estado,
+        addressCountry: "MX"
+      },
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
+    }
+  }))
+};
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio/" },
+  { name: "Nuevo León",         url: "/directorio/nuevo-leon" },
+]);
+---
+
+<DirectorioEstadoLayout
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Nuevo León</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
+  heroImage="/images/directorio/estacion-bomberos-monterrey-01.avif"
+  heroImageAlt="Estación de Bomberos en Nuevo León"
+  heroCaption="H. Cuerpo de Bomberos · Nuevo León"
+  totalEstaciones={estacionesNuevoLeon.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="5.8M+"
+  canonical="https://bombero.mx/directorio/nuevo-leon/"
+  keywords={["bomberos nuevo-leon", "estaciones bomberos nuevo-leon", "emergencias nuevo-leon 911", "cuerpo bomberos nuevo-leon"]}
+  estaciones={estacionesNuevoLeon}
+  stationImages={stationImages}
+  municipios={getMunicipios()}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  estadosVecinos={estadosVecinos}
+  eppCards={eppCards}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en ${estado} | Directorio Oficial ${estacionesNuevoLeon.length} Estaciones | BOMBERO.MX`}
+  description={`Directorio completo de ${estacionesNuevoLeon.length} estaciones de bomberos en Nuevo León 2024. Capital Industrial de México con 4 estaciones HAZMAT certificadas. Cobertura ZMM Monterrey, San Pedro, Guadalupe, corredores industriales TERNIUM, CEMEX. Rescate Sierra Madre Oriental. Tel: (81) 8345-2424. Emergencias 911.`}
+>
+  <Fragment slot="seo">
+
+      <h2>Bomberos de Nuevo León: La Capital Industrial de México</h2>
+      <p>
+        El <strong>Heroico Cuerpo de Bomberos de Nuevo León</strong> protege a más de <strong>5.8 millones de habitantes</strong>
+        en la <strong>Zona Metropolitana de Monterrey</strong>, la segunda más grande del país. Con <strong>18 estaciones
+        estratégicamente distribuidas</strong> y <strong>4 unidades HAZMAT certificadas</strong> (la mayor concentración de México),
+        los bomberos neoleoneses están especializados en <strong>emergencias industriales de alta complejidad</strong> que
+        atienden a más de <strong>15,000 empresas manufactureras</strong> incluyendo corporativos globales como
+        <strong>CEMEX, FEMSA, TERNIUM, Vitro y Banorte</strong>.
+      </p>
+
+      <h3>Zona Metropolitana de Monterrey: Cobertura Industrial Especializada</h3>
+      <p>
+        La <strong>ZMM</strong> concentra la actividad económica más intensa del norte de México, con un PIB que representa
+        el <strong>7.3% del total nacional</strong>. Las estaciones de bomberos cubren el <strong>Corredor Industrial Norte</strong>
+        (TERNIUM, KIA Motors, Navistar, Aeropuerto Internacional) y el <strong>Corredor Industrial Sur</strong>
+        (CEMEX cementera #1 mundial, Vitro, PPG Industries). La <strong>Estación HAZMAT Norte</strong> es la más especializada
+        en emergencias con <strong>metales fundidos y materiales peligrosos</strong> de todo el país, atendiendo plantas
+        siderúrgicas que procesan <strong>6 millones de toneladas de acero anuales</strong>.
+      </p>
+
+      <h3>San Pedro Garza García: Protección de Alto Valor</h3>
+      <p>
+        <strong>San Pedro Garza García</strong> es el municipio con <strong>mayor ingreso per cápita de América Latina</strong>,
+        sede de la <strong>Torre KOI</strong> (280 metros, el edificio más alto de México), corporativos de clase mundial y
+        el <strong>Parque Ecológico Chipinque</strong>. La estación de bomberos de San Pedro cuenta con protocolos especializados
+        para <strong>edificios de gran altura, emergencias VIP</strong> y <strong>rescate técnico en estructuras premium</strong>.
+        Durante la temporada de incendios forestales (marzo-junio), coordina la protección de <strong>Chipinque y La Huasteca</strong>.
+      </p>
+
+      <h3>Sierra Madre Oriental: Rescate de Montaña y Turismo</h3>
+      <p>
+        <strong>Santiago</strong>, designado <strong>Pueblo Mágico desde 2006</strong>, es la puerta de entrada a la
+        <strong>Sierra Madre Oriental</strong> y recibe más de <strong>1.5 millones de visitantes anuales</strong>.
+        La estación de bomberos de Santiago es la más especializada en <strong>rescate de montaña del noreste de México</strong>,
+        atendiendo emergencias en las cascadas <strong>Cola de Caballo y El Chipitín</strong>, búsqueda de excursionistas
+        y coordinación con <strong>CONAFOR</strong> para incendios forestales que amenazan <strong>100,000+ hectáreas de bosque</strong>.
+      </p>
+
+      <h3>Corredor Comercial Monterrey-Laredo: Rescate Carretero Internacional</h3>
+      <p>
+        La autopista <strong>Monterrey-Colombia-Laredo</strong> es el <strong>corredor comercial terrestre más importante
+        de México hacia Estados Unidos</strong>, con más de <strong>15,000 tractocamiones diarios</strong> transportando
+        mercancías valoradas en <strong>$45,000 millones de dólares anuales</strong>. Las estaciones del corredor norte
+        están especializadas en <strong>rescate de vehículos pesados, emergencias HAZMAT en tránsito</strong> y coordinación
+        con aduanas mexicanas y el <strong>CBP estadounidense</strong> para incidentes transfronterizos.
+      </p>
+
+      <h3>Huracán Alex 2010: Lecciones de Resiliencia</h3>
+      <p>
+        El <strong>Huracán Alex</strong> en julio de 2010 dejó daños por <strong>$7,500 millones de dólares</strong> y
+        más de <strong>12 víctimas mortales</strong> cuando el <strong>Río Santa Catarina</strong> se desbordó devastando
+        puentes e infraestructura. Esta experiencia fortaleció los protocolos de emergencia del estado, resultando en
+        <strong>sistemas de alerta temprana</strong>, mejor coordinación interinstitucional y preparación especializada
+        para la temporada de huracanes (junio-noviembre) que incluye el <strong>Golfo de México</strong>.
+      </p>
+
+      <h3>Clima Extremo: Del Calor Intenso a las Heladas</h3>
+      <p>
+        Nuevo León experimenta <strong>condiciones climáticas extremas</strong>: temperaturas que superan los <strong>45°C
+        en verano</strong> causando emergencias por golpes de calor e incendios, y <strong>heladas de hasta -10°C en la
+        Sierra Madre</strong> durante invierno que requieren rescates de excursionistas con hipotermia. Los bomberos
+        están capacitados para ambos escenarios, incluyendo la <strong>sequía recurrente</strong> que ha llevado a la
+        <strong>Presa de la Boca</strong> a niveles críticos y aumenta el riesgo de incendios forestales.
+      </p>
+
+      <h3>Metro de Monterrey: Emergencias en Transporte Masivo</h3>
+      <p>
+        El <strong>Sistema de Transporte Colectivo Metrorrey</strong> opera <strong>3 líneas con 32 estaciones</strong>
+        transportando más de <strong>500,000 pasajeros diarios</strong>. La <strong>Estación Central de Bomberos Monterrey</strong>
+        mantiene protocolos especializados para emergencias en el metro, incluyendo <strong>evacuaciones masivas,
+        incendios en túneles y rescate técnico</strong> en las instalaciones subterráneas que cruzan el centro de la ciudad.
+      </p>
+
+      <h3>Servicios Especializados de los Bomberos Neoleoneses</h3>
+      <p>
+        Los bomberos de Nuevo León ofrecen: <strong>combate de incendios estructurales, industriales y forestales</strong>;
+        <strong>materiales peligrosos HAZMAT Nivel III</strong>; <strong>rescate urbano especializado USAR</strong>;
+        <strong>emergencias en edificios de gran altura</strong>; <strong>rescate vehicular pesado en autopistas</strong>;
+        <strong>rescate de montaña y en cascadas</strong>; <strong>emergencias en el Metro</strong>;
+        <strong>atención de explosiones industriales</strong>; <strong>descontaminación masiva</strong>; y
+        <strong>coordinación metropolitana con 12 municipios</strong>. El tiempo de respuesta promedio en la ZMM
+        es de <strong>6-8 minutos</strong>.
+      </p>
+    </Fragment>
+</DirectorioEstadoLayout>
+

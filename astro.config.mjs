@@ -74,7 +74,7 @@ export default defineConfig({
 
   // ─── Build Configuration ───
   build: {
-    inlineStylesheets: "auto",
+    inlineStylesheets: "always",
     // Generate clean URLs
     format: "directory",
   },
@@ -109,5 +109,7 @@ export default defineConfig({
     // Old URLs (if any)
     "/tienda": "/productos/",
     "/catalogo": "/productos/",
+    // Fix 404: Kanasín slug con acento → sin acento (04/Mar/2026)
+    "/directorio/yucatan/yuc-kanasín/": "/directorio/yucatan/yuc-kanasin/",
   },
 });

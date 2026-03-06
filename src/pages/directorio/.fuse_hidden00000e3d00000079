@@ -1,0 +1,301 @@
+---
+
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import {
+  estacionesYucatan,
+  getMunicipios,
+  getEstacionBySlug,
+  getEstacionesCercanas,
+} from "@data/estaciones-yucatan";
+import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
+
+const estado = "Yucatán";
+const sigla = "YUC";
+const slug = "yucatan";
+
+
+const heroThumbs = [
+  { src: "/images/directorio/estacion-bomberos-turistica-01.avif", alt: "Cuartel Central de Bomberos de Mérida Yucatán", label: "Respuesta Rápida" },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif", alt: "Zona de fuerza en gimnasio de bomberos de Yucatán", label: "Acondicionamiento Físico" },
+  { src: "/images/directorio/estacion-bomberos-playa-01.avif", alt: "Bomberos Chichén Itzá protección patrimonio", label: "Servicio 24/7" },
+];
+
+
+const galleryImages = [
+  { src: "/images/directorio/equipo-buceo-rescate-01.avif", alt: "Rescate acuático en cenotes Yucatán",
+    label: "Rescate acuático en cenotes Yucatán"
+  },
+  { src: "/images/directorio/autobomba-panel-bombeo-manometros-01.avif", alt: "Panel de bombeo con manómetros en autobomba de Yucatán", label: "Panel de Bombeo" },
+  { src: "/images/directorio/estacion-bomberos-equipada-01.avif", alt: "Emergencias Centro Histórico Mérida",
+    label: "Emergencias Centro Histórico Mérida"
+  },
+  { src: "/images/directorio/estacion-bomberos-puerto-01.avif", alt: "Emergencias Puerto Progreso cruceros",
+    label: "Emergencias Puerto Progreso cruceros"
+  },
+];
+
+
+const emergencyNumbers = [
+  { label: "Emergencias", number: "911" },
+  { label: "Cuartel Central Mérida", number: "999 924 9242" },
+  { label: "Bomberos Norte Mérida", number: "999 944 1155" },
+  { label: "Bomberos Progreso", number: "969 935 0909" },
+  { label: "Bomberos Valladolid", number: "985 856 2121" },
+  { label: "Protección Civil Yucatán", number: "999 930 3200" },
+];
+
+
+const regiones = [
+  { nombre: "Zona Metropolitana de Mérida", desc: "Mérida capital (1.2M hab.), Umán, Kanasín, Progreso — ciudad más segura de México, Centro Histórico colonial" },
+  { nombre: "Corredor Chichén Itzá", desc: "Chichén Itzá (Maravilla del Mundo), Valladolid (Pueblo Mágico), Pisté — 2.5 millones de visitantes/año" },
+  { nombre: "Costa Norte / Puerto Progreso", desc: "Progreso (cruceros 500,000 pax/año), Chicxulub, Telchac — rescate marítimo, huracanes" },
+  { nombre: "Ruta Puuc UNESCO", desc: "Uxmal, Kabah, Labná, Sayil — ciudades mayas del Clásico Terminal, selva baja" },
+  { nombre: "Reservas Biósfera", desc: "Celestún (flamencos UNESCO/RAMSAR), Ría Lagartos, Las Coloradas — incendios forestales, manglares" },
+  { nombre: "Oriente / Zona Maya", desc: "Tizimín, Izamal (Pueblo Mágico), Motul — agroindustria, cenotes ceremoniales" },
+];
+
+
+const eppCards = [
+  {
+    image:     "/images/directorio/equipo-buceo-rescate-01.avif",
+    imageAlt:  "Equipo de buceo para rescate en cenotes de Yucatán",
+    badge:     "Cenotes",
+    title:     "Rescate en Cenotes",
+    text:      "Equipamiento de buceo técnico para rescate en los <strong>miles de cenotes de la Península</strong>. Equipo de inmersión con comunicación y sistemas de iluminación subacuática.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo de Buceo",
+  },
+  {
+    image:     "/images/directorio/equipo-rescate-vertical-01.avif",
+    imageAlt:  "Equipo de rescate para zonas arqueológicas de Yucatán",
+    badge:     "UNESCO",
+    title:     "Patrimonio UNESCO",
+    text:      "Equipo técnico para protección de <strong>Chichén Itzá, Uxmal</strong> y zonas arqueológicas mayas. Sistemas de rescate vertical y equipo de aproximación no invasivo.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
+  },
+  {
+    image:     "/images/directorio/rescate-acuatico-bomberos-01.avif",
+    imageAlt:  "Equipo de rescate acuático para Puerto Progreso Yucatán",
+    badge:     "Puerto",
+    title:     "Puerto Cruceros",
+    text:      "Equipo de rescate marítimo para el <strong>Puerto de Progreso</strong> y terminal de cruceros. Lanchas de rescate y equipo de emergencia para embarcaciones turísticas.",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Acuático",
+  },
+  {
+    image:     "/images/directorio/camion-forestal-bomberos-01.avif",
+    imageAlt:  "Equipo forestal para reservas naturales de Yucatán",
+    badge:     "Biósfera",
+    title:     "Reservas Biósfera",
+    text:      "Equipo forestal para protección de <strong>Reserva de la Biósfera Ría Celestún y Ría Lagartos</strong>. Trajes ligeros NFPA 1977 para incendios en humedales tropicales.",
+    href:      "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977",
+    linkLabel: "Ver Equipo Forestal",
+  },
+];
+
+
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-mexico-01.avif",
+  "/images/directorio/unidad-rescate-bomberos-01.avif",
+  "/images/directorio/entrenamiento-bomberos-fuego-01.avif",
+  "/images/directorio/cuartel-bomberos-lockers-personal-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+];
+
+const estadosVecinos = getEstadosVecinos("yucatan");
+
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de las ${estacionesYucatan.length} estaciones de bomberos en Yucatán. Mérida (ciudad más segura de México), Chichén Itzá (Maravilla del Mundo), Uxmal UNESCO, 6,000+ cenotes, Puerto Progreso (cruceros), Reservas Biósfera Celestún y Ría Lagartos. Rescate acuático especializado en cenotes y cavernas. Emergencias 911.`,
+  numberOfItems: estacionesYucatan.length,
+  itemListElement: estacionesYucatan.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.municipio,
+        addressRegion: estado,
+        addressCountry: "MX",
+      },
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+    },
+  })),
+};
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio/" },
+  { name: "Yucatán",         url: "/directorio/yucatan" },
+]);
+---
+
+<DirectorioEstadoLayout
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Yucatán</strong>.     El estado alberga <strong>Chichén Itzá</strong>, una de las <strong>7 Maravillas del Mundo Moderno</strong>,     <strong>Uxmal</strong> (UNESCO), y más de <strong>6,000 cenotes</strong> —incluyendo el anillo     del cráter de <strong>Chicxulub</strong>, el asteroide que extinguió a los dinosaurios—.     <strong>Mérida</strong>, la capital, es consistentemente la <strong>ciudad más segura de México</strong>.     Con <strong>3.5 millones de turistas anuales</strong>, <strong>Puerto Progreso</strong> recibiendo     cruceros internacionales, y las <strong>Reservas de la Biósfera Celestún y Ría Lagartos</strong>     (hogar de la mayor colonia de flamencos rosados de México), los bomberos yucatecos dominan     rescate acuático en cenotes, protección de patrimonio y emergencias turísticas de clase mundial."
+  heroImage="/images/directorio/estacion-bomberos-turistica-01.avif"
+  heroImageAlt="Estación de Bomberos en Yucatán"
+  heroCaption="H. Cuerpo de Bomberos · Yucatán"
+  totalEstaciones={estacionesYucatan.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="2.3M+"
+  canonical="https://bombero.mx/directorio/yucatan/"
+  keywords={["bomberos yucatan", "estaciones bomberos yucatan", "emergencias yucatan 911"]}
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  estaciones={estacionesYucatan}
+  municipios={getMunicipios()}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  stationImages={stationImages}
+  estadosVecinos={estadosVecinos}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en Yucatán | ${estacionesYucatan.length} Estaciones | Chichén Itzá | Cenotes | Mérida | BOMBERO.MX`}
+  description="Directorio oficial de las 18 estaciones de bomberos en Yucatán. Mérida (ciudad más segura de México), Chichén Itzá (Maravilla del Mundo), Uxmal UNESCO, rescate en 6,000+ cenotes, Puerto Progreso (cruceros internacionales), Reservas de la Biósfera Celestún y Ría Lagartos. Emergencias 911."
+>
+
+
+  <Fragment slot="seo">
+
+      <h2>El H. Cuerpo de Bomberos de Yucatán</h2>
+      <p>
+        El <strong>H. Cuerpo de Bomberos de Yucatán</strong> protege a más de <strong>2.3 millones de
+        yucatecos</strong> y a los <strong>3.5 millones de turistas</strong> que visitan el estado cada año.
+        Yucatán es único en México por concentrar <strong>dos sitios UNESCO</strong> (Chichén Itzá y Uxmal),
+        <strong>dos Reservas de la Biósfera RAMSAR</strong> (Celestún y Ría Lagartos), más de <strong>6,000
+        cenotes</strong>, y una de las ciudades coloniales más importantes de América. <strong>Mérida</strong>,
+        la capital, es consistentemente clasificada como la <strong>ciudad más segura de México</strong>,
+        lo que refleja la eficiencia de sus servicios de emergencia.
+      </p>
+
+      <h3>¿Cómo contactar a los bomberos en Yucatán?</h3>
+      <p>
+        En cualquier <strong>emergencia en Yucatán</strong>, marca el <strong>911</strong>. Para contacto
+        directo: <strong>Cuartel Central de Mérida 999 924 9242</strong>, <strong>Bomberos Norte Mérida
+        999 944 1155</strong>, <strong>Bomberos Progreso 969 935 0909</strong>, <strong>Bomberos Valladolid
+        985 856 2121</strong>. Para emergencias en zonas arqueológicas, contactar también a <strong>INAH
+        Yucatán</strong>.
+      </p>
+
+      <h3>Chichén Itzá y el Patrimonio Maya</h3>
+      <p>
+        <strong>Chichén Itzá</strong> es el sitio arqueológico más visitado de México y una de las
+        <strong>7 Maravillas del Mundo Moderno</strong>, atrayendo más de <strong>2.5 millones de visitantes
+        anuales</strong>. La <strong>Pirámide de Kukulcán</strong> (El Castillo), el <strong>Cenote Sagrado</strong>,
+        el <strong>Templo de los Guerreros</strong> y el <strong>Juego de Pelota</strong> más grande de
+        Mesoamérica requieren protocolos de emergencia especializados. Durante los equinoccios de primavera
+        y otoño, cuando la sombra de la serpiente desciende por la pirámide, se concentran hasta <strong>50,000
+        personas en un solo día</strong>. Los bomberos de Pisté y Valladolid mantienen operativos permanentes
+        con el <strong>INAH</strong> y coordinación de Protección Civil estatal.
+      </p>
+
+      <h3>Rescate en Cenotes: Especialización Única</h3>
+      <p>
+        Yucatán tiene más de <strong>6,000 cenotes</strong> catalogados, desde pequeños pozos hasta vastos
+        sistemas de cuevas submarinas. El <strong>Anillo de Cenotes</strong> marca el borde del cráter de
+        <strong>Chicxulub</strong>, el impacto de asteroide que causó la extinción de los dinosaurios hace
+        66 millones de años. Los bomberos yucatecos son especialistas en <strong>rescate acuático en cavernas</strong>,
+        <strong>buceo técnico en cuevas</strong> y <strong>recuperación de víctimas en cenotes</strong>. Los
+        cenotes turísticos más visitados —<strong>Ik Kil</strong>, <strong>Suytun</strong>, <strong>X'Kekén</strong>,
+        <strong>Dzitnup</strong>— generan emergencias que requieren equipos de buceo avanzado, conocimiento
+        de sistemas de cuevas subterráneas y coordinación con operadores turísticos.
+      </p>
+
+      <h3>Puerto Progreso: Cruceros Internacionales</h3>
+      <p>
+        <strong>Puerto Progreso</strong> es el principal puerto de cruceros de Yucatán, recibiendo más de
+        <strong>500,000 cruceristas anuales</strong> de líneas como Carnival, Royal Caribbean, Norwegian y
+        MSC. El muelle de Progreso es el segundo más largo del mundo (<strong>6.5 km</strong>), lo que implica
+        tiempos de respuesta especiales para emergencias en el extremo del muelle. Los bomberos de Progreso
+        coordinan con la <strong>API Puerto Progreso</strong> y <strong>SEMAR</strong> para emergencias
+        marítimas, y mantienen protocolos para evacuación de cruceros con hasta <strong>5,000 pasajeros</strong>.
+      </p>
+
+      <h3>Reservas de la Biósfera: Celestún y Ría Lagartos</h3>
+      <p>
+        Las Reservas de la Biósfera <strong>Celestún</strong> y <strong>Ría Lagartos</strong> son sitios
+        <strong>RAMSAR</strong> de importancia internacional que albergan la <strong>mayor colonia de flamenco
+        rosado de México</strong> (más de 40,000 ejemplares). <strong>Las Coloradas</strong>, con sus lagos
+        rosados de sal, se han convertido en uno de los destinos fotográficos más populares del país. Los
+        bomberos de estas zonas operan con protocolos especiales de <strong>CONANP</strong> para protección
+        de fauna, prevención de incendios en manglares y rescate en humedales. El riesgo de huracanes en
+        la costa norte de Yucatán (junio-noviembre) activa operativos de evacuación coordinados con
+        Protección Civil.
+      </p>
+
+      <h3>Mérida: La Ciudad Más Segura de México</h3>
+      <p>
+        <strong>Mérida</strong>, conocida como "La Ciudad Blanca" por sus edificios coloniales de piedra
+        caliza, es consistentemente clasificada como la <strong>ciudad más segura de México</strong> en
+        encuestas nacionales. Con más de <strong>1.2 millones de habitantes</strong> en su zona metropolitana,
+        es el centro económico, cultural y turístico del sureste mexicano. El <strong>Centro Histórico</strong>,
+        el <strong>Paseo de Montejo</strong>, y la zona hotelera de <strong>Altabrisa</strong> requieren
+        protocolos diferenciados. El Cuartel Central de Bomberos de Mérida es el <strong>hub de coordinación
+        regional del sureste de México</strong> y centro de capacitación para bomberos de Campeche y
+        Quintana Roo.
+      </p>
+
+      <h3>Servicios de los Bomberos Yucatecos</h3>
+      <p>
+        Los bomberos de Yucatán están certificados para atender:
+        <strong>rescate acuático en cenotes y cavernas</strong> (buceo técnico, sistemas de cuevas);
+        <strong>protección de patrimonio UNESCO</strong> (Chichén Itzá, Uxmal, coordinación INAH);
+        <strong>emergencias en cruceros</strong> (Puerto Progreso, hasta 5,000 pasajeros);
+        <strong>incendios forestales en reservas</strong> (Celestún, Ría Lagartos, manglares);
+        <strong>eventos masivos</strong> (Equinoccio Kukulcán 50,000+ personas);
+        <strong>emergencias turísticas</strong> (3.5 millones de visitantes/año);
+        <strong>operativos de huracanes</strong> (costa norte, temporada junio-noviembre);
+        <strong>rescate en la Ruta Puuc</strong> (Uxmal, Kabah, Labná); y
+        <strong>emergencias industriales</strong> (polo maquilador del sureste).
+      </p>
+  </Fragment>
+</DirectorioEstadoLayout>
+

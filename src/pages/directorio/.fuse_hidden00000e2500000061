@@ -1,0 +1,301 @@
+---
+
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import { estacionesTamaulipas, getMunicipios, ESTADISTICAS_TAMAULIPAS } from "@data/estaciones-tamaulipas";
+import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
+
+const estado = "Tamaulipas";
+const sigla = "TAM";
+const slug = "tamaulipas";
+
+// ─── Imágenes Hero ────────────────────────────────────────────────────────────
+const heroThumbs = [
+  { src: "/images/directorio/estacion-bomberos-norte-mexico-01.avif", alt: "Bomberos de Tamaulipas en emergencia industrial", label: "Respuesta Rápida" },
+  { src: "/images/directorio/estacion-bomberos-petroquimica-01.avif", alt: "Unidad HAZMAT en Puerto Industrial Altamira", label: "Equipo Profesional" },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif", alt: "Gimnasio crossfit en estación de bomberos de Tamaulipas", label: "Preparación Física" },
+];
+
+// ─── Galería de Imágenes ──────────────────────────────────────────────────────
+const galleryImages = [
+  { src: "/images/directorio/estacion-bomberos-refineria-01.avif", alt: "Brigada en Refinería PEMEX Madero",
+    label: "Brigada en Refinería PEMEX Madero"
+  },
+  { src: "/images/directorio/estacion-bomberos-norte-mexico-01.avif", alt: "Emergencia en puente internacional Nuevo Laredo",
+    label: "Emergencia en puente internacional"
+  },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif", alt: "Área de pesas y entrenamiento en estación de bomberos de Tamaulipas", label: "Entrenamiento Físico" },
+  { src: "/images/directorio/estacion-bomberos-petroquimica-01.avif", alt: "HAZMAT químico en Puerto Altamira",
+    label: "HAZMAT químico en Puerto Altamira"
+  },
+];
+
+// ─── Números de Emergencia ────────────────────────────────────────────────────
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias" },
+  { number: "899 922 0500", label: "Bomberos Reynosa" },
+  { number: "833 212 1515", label: "Bomberos Tampico" },
+  { number: "867 712 8600", label: "Bomberos Nuevo Laredo" },
+];
+
+// ─── Regiones del Estado ──────────────────────────────────────────────────────
+const regiones = [
+  { nombre: "Frontera Norte", desc: "Nuevo Laredo (40% exportaciones MX), Reynosa, Matamoros — 500km frontera con Texas" },
+  { nombre: "Zona Petrolera-Gas", desc: "Reynosa (Cuenca de Burgos), Ciudad Madero (Refinería 190,000 bbl/día)" },
+  { nombre: "Puerto Industrial", desc: "Altamira (BASF, Celanese, Vitro), Tampico — petroquímica de clase mundial" },
+  { nombre: "Región Centro", desc: "Ciudad Victoria (capital), San Fernando — corredor carretero federal" },
+  { nombre: "Zona Sur / Sierra", desc: "Ciudad Mante, Linares, Reserva El Cielo — bosque de niebla UNESCO" },
+];
+
+// ─── Cards de EPP ─────────────────────────────────────────────────────────────
+const eppCards = [
+  {
+    image:     "/images/directorio/detector-multigas-hazmat-01.avif",
+    imageAlt:  "Detector de gas para industria gasera en Tamaulipas",
+    badge:     "Gas",
+    title:     "HAZMAT Gas Natural",
+    text:      "Detectores y equipo de protección para emergencias en <strong>terminales de gas natural en Altamira y Reynosa</strong>. Monitoreo continuo de atmósferas explosivas.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+  {
+    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+    imageAlt:  "Traje HAZMAT para industria petroquímica de Tamaulipas",
+    badge:     "Químico",
+    title:     "HAZMAT Químico",
+    text:      "Trajes encapsulados para emergencias en el <strong>corredor petroquímico Altamira-Tampico</strong>. Protección certificada contra ácidos y solventes industriales.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Trajes HAZMAT",
+  },
+  {
+    image:     "/images/directorio/rescate-swift-water-rios-01.avif",
+    imageAlt:  "Equipo de rescate fluvial para ríos de Tamaulipas",
+    badge:     "Fluvial",
+    title:     "Rescate Fluvial",
+    text:      "Equipamiento swift water para rescate en <strong>río Bravo y río Pánuco</strong>. Chalecos, tablas y equipo de aguas rápidas para temporada de huracanes.",
+    href:      "/productos/trajes-para-bomberos",
+    linkLabel: "Ver Equipo Acuático",
+  },
+  {
+    image:     "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",
+    imageAlt:  "Equipo de rescate vehicular para cruces fronterizos de Tamaulipas",
+    badge:     "Frontera",
+    title:     "Transporte Internacional",
+    text:      "Herramientas de extricación para accidentes en <strong>cruces fronterizos y autopista Reynosa-Matamoros</strong>. Equipo hidráulico para vehículos pesados de carga.",
+    href:      "/productos/guantes-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
+  },
+];
+
+// ─── SEO y Meta ───────────────────────────────────────────────────────────────
+const municipios = getMunicipios();
+
+const keywords = [
+  "bomberos tamaulipas",
+  "estaciones bomberos reynosa",
+  "bomberos tampico",
+  "emergencias tamaulipas 911",
+  "bomberos matamoros tamaulipas",
+  "bomberos nuevo laredo",
+  "cuerpo bomberos tamaulipas",
+  "bomberos ciudad victoria tamaulipas",
+  "proteccion civil tamaulipas",
+  "bomberos frontera tamaulipas texas",
+  "hazmat cuenca burgos",
+  "puerto industrial altamira bomberos",
+];
+
+// Estados vecinos (desde archivo centralizado)
+const estadosVecinos = getEstadosVecinos("tamaulipas");
+
+// Imágenes para tarjetas de estaciones
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-bomberos-moderno-01.avif",
+  "/images/directorio/estacion-bomberos-central-edificio-01.avif",
+  "/images/directorio/rescate-swift-water-rios-01.avif",
+  "/images/directorio/unidad-hazmat-emergencias-01.avif",
+  "/images/directorio/oficial-bomberos-camion-nocturno-lluvia-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+];
+// ─── Schema.org JSON-LD ───────────────────────────────────────────────────────
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de las ${estacionesTamaulipas.length} estaciones de bomberos en Tamaulipas. Reynosa, Matamoros, Nuevo Laredo, Tampico, Ciudad Victoria. PEMEX Cuenca de Burgos, maquiladora automotriz, Puerto Industrial Altamira y ~500km frontera con Texas. Emergencias 911.`,
+  numberOfItems: estacionesTamaulipas.length,
+  itemListElement: estacionesTamaulipas.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.municipio,
+        addressRegion: estado,
+        addressCountry: "MX",
+      },
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+    },
+  })),
+};
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio/" },
+  { name: "Tamaulipas",         url: "/directorio/tamaulipas" },
+]);
+---
+
+<DirectorioEstadoLayout
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Tamaulipas</strong>.     Encuentra teléfonos de emergencia, direcciones y servicios en el estado con la     <strong>frontera más activa de México con Texas</strong>: el mayor puerto terrestre de las Américas,     la Cuenca de Burgos, y los corredores maquiladores de Reynosa y Matamoros."
+  heroImage="/images/directorio/estacion-bomberos-norte-mexico-01.avif"
+  heroImageAlt="Estación de Bomberos en Tamaulipas"
+  heroCaption="H. Cuerpo de Bomberos · Tamaulipas"
+  title={`Bomberos en ${estado} | ${estacionesTamaulipas.length} Estaciones | Directorio Oficial BOMBERO.MX`}
+  description={`Directorio oficial de las ${estacionesTamaulipas.length} estaciones de bomberos en Tamaulipas. Reynosa, Matamoros, Nuevo Laredo, Tampico, Altamira. PEMEX Cuenca de Burgos, maquiladora automotriz, Puerto Industrial y el mayor puerto terrestre de las Américas. Emergencias 911.`}
+  keywords={keywords}
+  canonical={`https://bombero.mx/directorio/${slug}/`}
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  totalEstaciones={estacionesTamaulipas.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="3.5M+"
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  estaciones={estacionesTamaulipas}
+  stationImages={stationImages}
+  municipios={municipios}
+  estadosVecinos={estadosVecinos}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+>
+
+  <Fragment slot="seo">
+
+      <h2>El H. Cuerpo de Bomberos de Tamaulipas</h2>
+      <p>
+        El <strong>H. Cuerpo de Bomberos de Tamaulipas</strong> protege a más de <strong>3.5 millones de tamaulipecos</strong>
+        en el estado con la línea fronteriza más estratégica de México. Tamaulipas comparte cerca de <strong>500 km de frontera
+        con el estado de Texas</strong>, albergando los cruces fronterizos de mayor actividad comercial del continente americano.
+        La diversidad industrial —petróleo, maquiladora, petroquímica y agroindustria— forja bomberos de alta especialización
+        técnica con protocolos únicos en el país.
+      </p>
+
+      <h3>Nuevo Laredo: El Mayor Puerto Terrestre de las Américas</h3>
+      <p>
+        Los <strong>cinco puentes internacionales de Nuevo Laredo</strong> mueven más del <strong>40% de las
+        exportaciones mexicanas a Estados Unidos</strong>, con miles de tractocamiones diarios transportando
+        mercancías de todo tipo —incluyendo productos químicos y materiales peligrosos—. Los bomberos trabajan
+        bajo protocolos <strong>UN/DOT para HAZMAT de transporte terrestre internacional</strong> y mantienen
+        acuerdos de cooperación binacional con el Cuerpo de Bomberos de Laredo, Texas.
+      </p>
+
+      <h3>Cuenca de Burgos: Gas Natural del Noreste</h3>
+      <p>
+        La <strong>Cuenca de Burgos</strong>, que cubre el norte de Tamaulipas, es la mayor reserva de
+        <strong>gas natural no asociado de México</strong>, con cientos de pozos, compresoras y gasoductos
+        operados por PEMEX. La concentración de infraestructura gasífera en Reynosa genera riesgos HAZMAT
+        de máxima complejidad: fugas de gas metano, incendios en compresoras y emergencias con gas sulfhídrico (H₂S).
+      </p>
+
+      <h3>Puerto Industrial Altamira: Química de Clase Mundial</h3>
+      <p>
+        El <strong>Puerto Industrial de Altamira</strong> es el principal del Golfo de México en movimiento
+        de carga química. <strong>BASF</strong> (la mayor planta química privada de México), <strong>Celanese</strong>
+        (ácido acético y acetato de vinilo), <strong>Vitro</strong> (sosa cáustica), <strong>Braskem</strong>
+        y PEMEX Petroquímica generan riesgos HAZMAT de primera magnitud: ácido acético, amoniaco, metanol
+        y productos petroquímicos de alta toxicidad.
+      </p>
+
+      <h3>Coordinación Binacional con Texas</h3>
+      <p>
+        Los cuerpos de bomberos de <strong>Reynosa, Matamoros y Nuevo Laredo</strong> mantienen acuerdos formales
+        de <strong>cooperación binacional</strong> con sus pares texanos (McAllen/Hidalgo County, Brownsville/Cameron
+        County y Laredo Fire Department). Esta coordinación —única entre estados fronterizos por su nivel de
+        formalización— permite tiempos de respuesta óptimos en puentes y cruces internacionales.
+      </p>
+
+      <h3>Matamoros: La Detroit de México</h3>
+      <p>
+        <strong>Matamoros</strong> alberga el mayor clúster automotriz de Tamaulipas con plantas de
+        <strong>Delphi Technologies</strong> (la mayor en su tipo en México), <strong>Pioneer, Continental,
+        Remy</strong> y decenas de proveedores Tier-1. Los bomberos dominan la respuesta a incendios con
+        materiales automotrices: pinturas, solventes, lubricantes y componentes electrónicos.
+      </p>
+
+      <h3>Reserva El Cielo: Bosque de Niebla UNESCO</h3>
+      <p>
+        La <strong>Reserva de la Biósfera El Cielo</strong>, la única zona de bosque de niebla del noreste
+        de México, es patrimonio UNESCO. Los bomberos de Linares están especializados en <strong>incendios
+        forestales en la Sierra Madre Oriental</strong> y rescate de montaña, cubriendo los cañones,
+        cascadas y senderos ecoturísticos que atraen miles de visitantes.
+      </p>
+
+      <h3>Servicios de los Bomberos Tamaulipecos</h3>
+      <p>
+        Los bomberos de Tamaulipas están certificados para atender:
+        <strong>incendios industriales HAZMAT</strong> (gas natural, productos petroquímicos, automotriz);
+        <strong>rescate acuático</strong> en el Río Bravo/Grande, Presa Falcón y Laguna Madre;
+        <strong>ARFF aeroportuario</strong> en Tampico y Reynosa;
+        <strong>rescate en accidentes de tractocamiones</strong> en corredores fronterizos;
+        <strong>incendios en refinería</strong> con espumas AFFF;
+        <strong>rescate técnico de montaña</strong> en la Sierra Madre Oriental;
+        <strong>coordinación binacional</strong> con bomberos de Texas; y
+        <strong>protección civil ante huracanes</strong> en la costa del Golfo.
+      </p>
+
+      <h3>¿Cómo contactar a los Bomberos en Tamaulipas?</h3>
+      <p>
+        En cualquier <strong>emergencia en Tamaulipas</strong>, marca el <strong>911</strong>.
+        El C4 estatal despacha la unidad más cercana. Contactos directos:
+        <strong>Reynosa 899 922 0500</strong>,
+        <strong>Tampico 833 212 1515</strong>,
+        <strong>Nuevo Laredo 867 712 8600</strong>,
+        <strong>Matamoros 868 813 2222</strong>,
+        <strong>Ciudad Victoria 834 312 1330</strong>.
+      </p>
+  </Fragment>
+</DirectorioEstadoLayout>
+

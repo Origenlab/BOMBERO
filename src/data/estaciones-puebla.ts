@@ -81,12 +81,12 @@ export const PUEBLA_SEO = {
       }
     ],
     productosRelacionados: [
-      { producto: "Trajes Estructurales NFPA", slug: "/productos/trajes-para-bomberos", contexto: "Protección en incendios industriales" },
-      { producto: "Equipos HAZMAT", slug: "/productos/hazmat", contexto: "Materiales peligrosos industria química" },
-      { producto: "Equipos SCBA", slug: "/productos/scba", contexto: "Respiración autónoma planta automotriz" },
-      { producto: "Herramientas de Rescate", slug: "/productos/herramientas-rescate", contexto: "Rescate vehicular autopistas" },
-      { producto: "Equipo Contra Incendios", slug: "/productos/equipo-contra-incendios", contexto: "Equipamiento completo bomberos" },
-      { producto: "Cotización Personalizada", slug: "/cotizar", contexto: "Equipamiento para tu corporación" }
+      { producto: "Trajes Estructurales NFPA", slug: /productos/trajes-para-bomberos/, contexto: "Protección en incendios industriales" },
+      { producto: "Equipos HAZMAT", slug: /productos/hazmat/, contexto: "Materiales peligrosos industria química" },
+      { producto: "Equipos SCBA", slug: /productos/scba/, contexto: "Respiración autónoma planta automotriz" },
+      { producto: "Herramientas de Rescate", slug: /productos/herramientas-rescate/, contexto: "Rescate vehicular autopistas" },
+      { producto: "Equipo Contra Incendios", slug: /productos/equipo-contra-incendios/, contexto: "Equipamiento completo bomberos" },
+      { producto: "Cotización Personalizada", slug: "/cotizar/", contexto: "Equipamiento para tu corporación" }
     ]
   },
 

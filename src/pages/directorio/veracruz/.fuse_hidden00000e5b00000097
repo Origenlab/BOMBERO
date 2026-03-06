@@ -1,0 +1,125 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { estacionesVeracruz, getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-veracruz";
+
+// Generar rutas estaticas
+export function getStaticPaths() {
+  return estacionesVeracruz.map((estacion) => ({
+    params: { slug: estacion.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const estacion = getEstacionBySlug(slug as string);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+// Obtener estaciones cercanas para el sidebar
+const estacionesCercanas = getEstacionesCercanas(slug as string, 3);
+
+// Datos del estado
+const estado = {
+  nombre: "Veracruz",
+  slug: "veracruz",
+  siglas: "VER",
+  poblacion: "8.1 millones",
+  municipios: 212,
+};
+
+// Estados vecinos para interlinking
+const estadosVecinos = [
+  { nombre: "Tamaulipas", slug: "tamaulipas" },
+  { nombre: "Puebla", slug: "puebla" },
+  { nombre: "Oaxaca", slug: "oaxaca" },
+  { nombre: "Tabasco", slug: "tabasco" },
+  { nombre: "Hidalgo", slug: "hidalgo" },
+];
+
+// Variables para contenido personalizado
+const ubicacion = estacion.municipio ?? estacion.ciudad ?? estacion.municipiosCubiertos?.[0] ?? "Veracruz";
+
+// Tarjetas EPP para la seccion de equipo certificado
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: `Traje Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Disenado para los bomberos de <strong>${ubicacion}</strong> que protegen el puerto mas importante de Mexico. Certificacion HAZMAT para emergencias en PEMEX, refineria Minatitlan y terminales portuarias.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: `Casco Estructural NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Certificacion NFPA 1971 para operaciones en <strong>Veracruz</strong>. Compatible con emergencias portuarias, rescate maritimo SEMAR, respuesta a huracanes y proteccion de El Tajin UNESCO.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: `Guantes Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia termica y quimica certificada para emergencias petroleras en <strong>${ubicacion}</strong>. Prension segura para operaciones HAZMAT, rescate maritimo y respuesta a huracanes.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: `Botas Estructurales NFPA 1971 para bomberos ${ubicacion}`,
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Calzado certificado NFPA 1971 para el exigente entorno de <strong>Veracruz</strong>. Suela antiderrapante para terminales portuarias, refinerias, clima tropical y rescate en inundaciones.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+
+  <Fragment slot="seo-content">
+    <h2>Bomberos en {ubicacion}, Veracruz</h2>
+    <p>
+      La <strong>{estacion.nombreCorto ?? estacion.nombre}</strong> es parte del <strong>H. Cuerpo de Bomberos de {ubicacion}</strong>,
+      institucion que protege a los mas de <strong>8.1 millones de veracruzanos</strong>. Esta estacion, ubicada en
+      <strong>{estacion.direccion}</strong>, brinda atencion las 24 horas del dia,
+      los 365 dias del ano.
+    </p>
+    <p>
+      En caso de <strong>emergencia en {ubicacion}</strong>, marca el <strong>911</strong> o comunicate directamente
+      a esta estacion al <strong>{estacion.telefono}</strong>. Los bomberos de Veracruz estan capacitados para atender
+      incendios estructurales y petroleros, emergencias HAZMAT, rescate maritimo, respuesta a huracanes, incendios forestales
+      y todo tipo de emergencias.
+    </p>
+    <h3>Veracruz: El Puerto de Mexico</h3>
+    <p>
+      <strong>Veracruz</strong> es el estado con el puerto mas importante de Mexico, manejando el 40% del comercio exterior.
+      La industria petrolera de <strong>PEMEX</strong> tiene presencia fundamental con la <strong>Refineria de Minatitlan</strong>
+      y el complejo petroquimico de Coatzacoalcos. El estado enfrenta <strong>temporada de huracanes</strong> anualmente
+      y tiene coordinacion con la <strong>SEMAR</strong> para rescate maritimo. <strong>El Tajin</strong> es Patrimonio UNESCO
+      y hay <strong>4 Pueblos Magicos</strong>. El <strong>Pico de Orizaba</strong> (Citlaltepetl) es la montana mas alta de Mexico.
+      Los bomberos tienen capacidades especializadas en HAZMAT petrolero, rescate maritimo y respuesta a huracanes.
+    </p>
+    <h3>Necesitas equipo certificado para bomberos?</h3>
+    <p>
+      En <strong><a href="/">BOMBERO.MX</a></strong> somos distribuidores autorizados de <strong>equipo para bomberos certificado NFPA</strong>.
+      Equipamos estaciones en todo Veracruz con <a href="/productos/trajes-para-bomberos/">trajes estructurales</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>, <a href="/productos/guantes-para-bomberos/">guantes</a>,
+      <a href="/productos/trajes-para-bomberos/traje-hazmat/">trajes HAZMAT</a> y mas.
+      <a href="/cotizar/">Solicita una cotizacion</a> sin compromiso.
+    </p>
+  </Fragment>
+</EstacionLayout>

@@ -1,0 +1,298 @@
+---
+
+import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
+import {
+  estacionesTlaxcala,
+  getMunicipios,
+  getEstacionBySlug,
+  getEstacionesCercanas,
+} from "@data/estaciones-tlaxcala";
+import { getEstadosVecinos } from "@data/estados-vecinos";
+import { breadcrumbJsonLd } from "@utils/seo";
+
+const estado = "Tlaxcala";
+const sigla = "TLA";
+const slug = "tlaxcala";
+
+
+const heroThumbs = [
+  { src: "/images/directorio/estacion-bomberos-moderna-01.avif", alt: "Estación Central de Bomberos Tlaxcala", label: "Respuesta Rápida" },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif", alt: "Área de pesas y entrenamiento en estación de bomberos de Tlaxcala", label: "Entrenamiento Físico" },
+  { src: "/images/directorio/estacion-bomberos-equipada-01.avif", alt: "Rescate Volcán La Malinche Tlaxcala", label: "Servicio 24/7" },
+];
+
+
+const galleryImages = [
+  { src: "/images/directorio/estacion-bomberos-industrial-01.avif", alt: "HAZMAT automotriz planta Audi México",
+    label: "HAZMAT automotriz planta Audi México"
+  },
+  { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Rescate en alta montaña Volcán La Malinche",
+    label: "Rescate en alta montaña Volcán La"
+  },
+  { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Bomberos industria textil Chiautempan",
+    label: "Bomberos industria textil Chiautempan"
+  },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif", alt: "Entrenamiento funcional en estación de bomberos de Tlaxcala", label: "Entrenamiento Funcional" },
+];
+
+
+const emergencyNumbers = [
+  { label: "Emergencias", number: "911" },
+  { label: "Bomberos Tlaxcala Capital", number: "246 462 0100" },
+  { label: "Bomberos Apizaco", number: "241 418 0300" },
+  { label: "Bomberos Huamantla", number: "247 472 0500" },
+  { label: "Bomberos Calpulalpan", number: "591 922 0300" },
+  { label: "Bomberos Chiautempan", number: "241 416 0200" },
+];
+
+
+const regiones = [
+  { nombre: "Corredor Audi", desc: "San José Chiapa (ÚNICA planta Audi Américas), proveedores Tier-1/Tier-2, Tlaltelulco" },
+  { nombre: "Capital Industrial", desc: "Apizaco (nodo ferroviario Ferromex), Tetla (farmacéutico), corredor logístico" },
+  { nombre: "Capital Textilera", desc: "Santa Ana Chiautempan (mayor concentración telares de México), Papalotla" },
+  { nombre: "Región Capital", desc: "Tlaxcala de Xicohténcatl (capital), Centro Histórico colonial, Ixtacuixtla" },
+  { nombre: "Oriente / La Malinche", desc: "Huamantla (volcán 4,461 msnm), San Pablo del Monte, Tetlatlahuca — rescate alta montaña" },
+  { nombre: "Noroeste / Autopista 150D", desc: "Calpulalpan (Grupo Modelo cervecería), corredor México-Puebla-Veracruz" },
+];
+
+
+const eppCards = [
+  {
+    image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+    imageAlt:  "Equipo HAZMAT para planta Audi en Tlaxcala",
+    badge:     "Audi",
+    title:     "HAZMAT Automotriz",
+    text:      "Equipos de protección para emergencias químicas en <strong>planta Audi y corredor industrial Puebla-Tlaxcala</strong>. Trajes y detectores certificados para la industria automotriz.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+  {
+    image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
+    imageAlt:  "Traje estructural para incendios textiles en Tlaxcala",
+    badge:     "Textil",
+    title:     "Incendios Textiles",
+    text:      "Protección estructural para emergencias en <strong>fábricas textiles de Tlaxcala y Santa Ana Chiautempan</strong>. Trajes certificados para incendios con materiales sintéticos.",
+    href:      "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971",
+    linkLabel: "Ver Trajes Estructurales",
+  },
+  {
+    image:     "/images/directorio/rescate-montana-bomberos-01.avif",
+    imageAlt:  "Equipo de rescate en altura para La Malinche Tlaxcala",
+    badge:     "Montaña",
+    title:     "Rescate Alta Montaña",
+    text:      "Sistemas de rescate vertical para emergencias en <strong>volcán La Malinche</strong> y zonas boscosas. Cuerdas técnicas y equipo de protección para alta montaña.",
+    href:      "/productos/cascos-para-bomberos",
+    linkLabel: "Ver Equipo de Rescate",
+  },
+  {
+    image:     "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+    imageAlt:  "Autobomba para emergencias ferroviarias en Tlaxcala",
+    badge:     "Ferroviario",
+    title:     "HAZMAT Ferroviario",
+    text:      "Equipo especializado para emergencias en la <strong>red ferroviaria que cruza Tlaxcala</strong>. Protección HAZMAT para descarrilamientos con materiales peligrosos.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+];
+
+
+const stationImages = [
+  "/images/directorio/estacion-bomberos-profesional-01.avif",
+  "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
+  "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+  "/images/directorio/estacion-bomberos-moderna-01.avif",
+  "/images/directorio/camion-escalera-bomberos-01.avif",
+  "/images/directorio/estacion-bomberos-mexico-01.avif",
+  "/images/directorio/unidad-rescate-bomberos-01.avif",
+  "/images/directorio/entrenamiento-bomberos-fuego-01.avif",
+  "/images/directorio/rescate-montana-bomberos-01.avif",
+  "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+  "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
+  "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
+  "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
+  "/images/directorio/autobomba-panel-bombeo-conexiones-manguera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+  "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
+  "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
+  "/images/directorio/bombero-profesional-retrato-casco-camion-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
+  "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+  "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif",
+  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
+  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
+];
+
+const estadosVecinos = getEstadosVecinos("tlaxcala");
+
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de las ${estacionesTlaxcala.length} estaciones de bomberos en Tlaxcala. Única planta Audi en las Américas (San José Chiapa), capital textilera de México (Chiautempan), Volcán La Malinche (4,461 msnm), Grupo Modelo Calpulalpan. El estado más pequeño con la mayor densidad industrial. Emergencias 911.`,
+  numberOfItems: estacionesTlaxcala.length,
+  itemListElement: estacionesTlaxcala.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.municipio,
+        addressRegion: estado,
+        addressCountry: "MX",
+      },
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+    },
+  })),
+};
+
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio",                 url: "/" },
+  { name: "Directorio de Bomberos", url: "/directorio/" },
+  { name: "Tlaxcala",         url: "/directorio/tlaxcala" },
+]);
+---
+
+<DirectorioEstadoLayout
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Tlaxcala</strong>.     El <strong>estado más pequeño de México</strong> (3,991 km²) y paradójicamente     el de <strong>mayor densidad industrial por km²</strong>: sede de la     <strong>única planta Audi en todo el continente americano</strong>,     capital textilera nacional, el Volcán La Malinche a 4,461 msnm     y la cervecería más grande del centro del país."
+  heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
+  heroImageAlt="Estación de Bomberos en Tlaxcala"
+  heroCaption="H. Cuerpo de Bomberos · Tlaxcala"
+  totalEstaciones={estacionesTlaxcala.length}
+  totalMunicipios={getMunicipios().length}
+  habitantes="1.3M+"
+  canonical="https://bombero.mx/directorio/tlaxcala/"
+  keywords={["bomberos tlaxcala", "estaciones bomberos tlaxcala", "emergencias tlaxcala 911"]}
+  estado={estado}
+  sigla={sigla}
+  slug={slug}
+  estaciones={estacionesTlaxcala}
+  municipios={getMunicipios()}
+  heroThumbs={heroThumbs}
+  galleryImages={galleryImages}
+  emergencyNumbers={emergencyNumbers}
+  regiones={regiones}
+  eppCards={eppCards}
+  stationImages={stationImages}
+  estadosVecinos={estadosVecinos}
+  jsonLd={[itemListSchema, breadcrumbSchema]}
+  title={`Bomberos en Tlaxcala | ${estacionesTlaxcala.length} Estaciones | Planta Audi | La Malinche | BOMBERO.MX`}
+  description="Directorio oficial de las 15 estaciones de bomberos en Tlaxcala. Única planta Audi en las Américas (San José Chiapa, 12,000 empleados), capital textilera de México (Chiautempan), Volcán La Malinche (4,461 msnm), Grupo Modelo Calpulalpan. Estado más pequeño de México con mayor densidad industrial por km². Emergencias 911."
+>
+
+
+  <Fragment slot="seo">
+
+      <h2>El H. Cuerpo de Bomberos de Tlaxcala</h2>
+      <p>
+        El <strong>H. Cuerpo de Bomberos de Tlaxcala</strong> protege a más de <strong>1.3 millones
+        de tlaxcaltecas</strong> en el estado más pequeño de México —y paradójicamente uno de los más
+        importantes industrialmente—. Tlaxcala es el único estado de la República que nunca fue conquistado
+        ni sometido por la Corona española y que, aliado con Hernán Cortés, fue decisivo en la historia de
+        México. Ese espíritu de excelencia se refleja hoy en un cuerpo de bomberos altamente especializado
+        que enfrenta riesgos industriales de primer nivel mundial.
+      </p>
+
+      <h3>¿Cómo contactar a los bomberos en Tlaxcala?</h3>
+      <p>
+        En cualquier <strong>emergencia en Tlaxcala</strong>, marca el <strong>911</strong>. Para contacto
+        directo: <strong>Tlaxcala capital 246 462 0100</strong>, <strong>Apizaco 241 418 0300</strong>,
+        <strong>Huamantla 247 472 0500</strong>, <strong>Calpulalpan 591 922 0300</strong>,
+        <strong>Chiautempan 241 416 0200</strong>.
+      </p>
+
+      <h3>Planta Audi México — El Orgullo Industrial de Tlaxcala</h3>
+      <p>
+        La <strong>Planta Audi México en San José Chiapa</strong>, inaugurada en 2016 con una inversión de
+        <strong>1,300 millones de dólares</strong>, es la única fábrica de automóviles <strong>Audi en
+        todo el continente americano</strong>. Produce los modelos <strong>Audi Q5</strong> y <strong>Audi
+        A3 Sedan</strong> para distribución global —más de 150,000 unidades anuales— y emplea directa e
+        indirectamente a más de 12,000 personas. El taller de pintura con disolventes orgánicos volátiles,
+        las líneas de producción de baterías de alta tensión (400V) para los modelos plug-in hybrid, y las
+        celdas de soldadura robotizada (KUKA, FANUC) representan riesgos HAZMAT que demandan protocolos
+        del Grupo Volkswagen y certificaciones internacionales.
+      </p>
+
+      <h3>La Capital Textilera de México: Santa Ana Chiautempan</h3>
+      <p>
+        <strong>Santa Ana Chiautempan</strong> concentra la mayor densidad de telares industriales del país,
+        con más de 500 empresas textileras que producen <strong>sarapes, cobertores, ropa deportiva y
+        telas técnicas</strong> para mercados de América del Norte, Europa y Asia. El riesgo de incendio
+        es de alta complejidad: las fibras sintéticas (poliéster, nylon, acrílico) tienen una velocidad
+        de propagación del fuego entre 5 y 10 veces superior a la madera. Los colorantes azo empleados en
+        los baños de tintura contienen precursores que, al combustionar, generan gases tóxicos como el
+        cloruro de hidrógeno y el cianuro de hidrógeno.
+      </p>
+
+      <h3>Volcán La Malinche: Rescate en Alta Montaña</h3>
+      <p>
+        El <strong>Volcán La Malinche</strong> —también llamado <strong>Matlalcuéitl</strong>, «la señora
+        de las faldas azules» en náhuatl— alcanza los <strong>4,461 msnm</strong>, siendo la segunda
+        montaña más alta del centro de México. El Parque Nacional que lo rodea recibe más de
+        <strong>200,000 visitantes anuales</strong> entre excursionistas, montañistas y turistas. Los
+        rescates en el volcán son frecuentes: hipotermia, torceduras en terreno volcánico irregular,
+        lesiones por caídas en zonas de roca suelta y emergencias cardiorrespiratorias por altitud. Los
+        bomberos de Huamantla y San Pablo del Monte mantienen equipos de <strong>rescate en alta montaña</strong>
+        con indumentaria específica para nieve, hielo y condiciones extremas.
+      </p>
+
+      <h3>Grupo Modelo Calpulalpan y el Corredor Autopista 150D</h3>
+      <p>
+        La <strong>Planta Cervecera Grupo Modelo de Calpulalpan</strong> es una de las tres cervecerías
+        más grandes de México, produciendo más de <strong>10 millones de hectolitros</strong> anuales de
+        marcas como Corona, Modelo Especial y Pacífico. Sus riesgos industriales son específicos: el
+        <strong>amoniaco</strong> empleado en refrigeración industrial puede ser letal en concentraciones
+        de 50 ppm; el <strong>CO₂</strong> producido en la fermentación desplaza el oxígeno en espacios
+        confinados. La autopista <strong>México 150D</strong> —la de mayor tráfico de carga del centro
+        del país— pasa por el municipio, generando riesgo permanente de accidentes con materiales peligrosos.
+      </p>
+
+      <h3>Apizaco: El Nodo Ferroviario del Centro de México</h3>
+      <p>
+        <strong>Apizaco</strong> es el principal nodo ferroviario del centro de México, donde confluyen
+        las rutas de <strong>Ferromex</strong> que conectan la Ciudad de México con Veracruz, el Bajío
+        con el Golfo, y el corredor norte-sur del sistema ferroviario nacional. Diariamente pasan por
+        Apizaco <strong>decenas de trenes de carga</strong>, incluyendo convoyes con carga peligrosa
+        clasificada UN: clorosulfúrico, ácidos industriales, gases comprimidos, combustibles y productos
+        petroquímicos. Los bomberos de Apizaco son los únicos en Tlaxcala con <strong>certificación de
+        respuesta a accidentes ferroviarios</strong> y protocolos específicos con Ferromex.
+      </p>
+
+      <h3>Servicios de los Bomberos Tlaxcaltecas</h3>
+      <p>
+        Los bomberos de Tlaxcala están certificados para atender:
+        <strong>incendios HAZMAT automotriz</strong> (Audi: VOCs, baterías HV, isocianatos);
+        <strong>incendios de fibras textiles</strong> y colorantes industriales;
+        <strong>HAZMAT ferroviario</strong> (carga peligrosa UN en tránsito Ferromex);
+        <strong>HAZMAT cervecería</strong> (amoniaco, CO₂, alcohol);
+        <strong>rescate en alta montaña</strong> (Volcán La Malinche, nieve y hielo);
+        <strong>incendios forestales de altitud</strong> (bosque templado 2,800-4,200 msnm);
+        <strong>protección de patrimonio cultural</strong> (Centro Histórico colonial);
+        <strong>rescate vehicular</strong> en la Autopista 150D; y
+        <strong>HAZMAT químico-farmacéutico</strong> en el corredor norte.
+      </p>
+  </Fragment>
+</DirectorioEstadoLayout>
+
