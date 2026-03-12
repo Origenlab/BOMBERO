@@ -221,7 +221,7 @@ export const SAN_LUIS_POTOSI_SEO = {
     productosRelacionados: [
       {
         producto: "Equipos HAZMAT Industria Automotriz",
-        slug: /productos/hazmat/,
+        slug: "/productos/hazmat/",
         contexto: "Pinturas, solventes, baterías, combustibles",
         prioridad: "critica",
         audiencia: ["gerentes planta", "seguridad industrial", "bomberos"],
@@ -230,7 +230,7 @@ export const SAN_LUIS_POTOSI_SEO = {
       },
       {
         producto: "Sistemas Detección Incendios Industriales",
-        slug: /productos/deteccion-incendios/,
+        slug: "/productos/deteccion-incendios/",
         contexto: "Normativa NFPA para plantas automotrices",
         prioridad: "critica",
         audiencia: ["gerentes mantenimiento", "HSE managers"],
@@ -239,7 +239,7 @@ export const SAN_LUIS_POTOSI_SEO = {
       },
       {
         producto: "Equipos Rescate Montaña y Espeleología",
-        slug: /productos/rescate-montana/,
+        slug: "/productos/rescate-montana/",
         contexto: "Huasteca Potosina, cuevas, sótanos",
         prioridad: "critica",
         audiencia: ["bomberos", "protección civil", "operadores turismo"],
@@ -248,7 +248,7 @@ export const SAN_LUIS_POTOSI_SEO = {
       },
       {
         producto: "Equipos Swift Water Rescue",
-        slug: /productos/rescate-acuatico/,
+        slug: "/productos/rescate-acuatico/",
         contexto: "Ríos Huasteca, rafting, inundaciones",
         prioridad: "alta",
         audiencia: ["bomberos", "protección civil"],
@@ -257,7 +257,7 @@ export const SAN_LUIS_POTOSI_SEO = {
       },
       {
         producto: "Trajes Estructurales NFPA 1971",
-        slug: /productos/trajes-para-bomberos/,
+        slug: "/productos/trajes-para-bomberos/",
         contexto: "Incendios industriales y urbanos",
         prioridad: "alta",
         audiencia: ["bomberos", "brigadas industriales"],
@@ -266,7 +266,7 @@ export const SAN_LUIS_POTOSI_SEO = {
       },
       {
         producto: "Equipos SCBA Industrial",
-        slug: /productos/scba/,
+        slug: "/productos/scba/",
         contexto: "Atmósferas IDLH en plantas",
         prioridad: "alta",
         audiencia: ["bomberos", "brigadas", "rescatistas"],
@@ -275,7 +275,7 @@ export const SAN_LUIS_POTOSI_SEO = {
       },
       {
         producto: "Extintores Industriales Certificados",
-        slug: /productos/extintores/,
+        slug: "/productos/extintores/",
         contexto: "Plantas automotrices, comercios",
         prioridad: "alta",
         audiencia: ["gerentes planta", "comercios", "gobierno"],
@@ -294,8 +294,8 @@ export const SAN_LUIS_POTOSI_SEO = {
     ],
     paginasInternas: [
       { titulo: "Directorio Nacional", slug: "/directorio/", contexto: "32 estados de México", prioridad: "alta" },
-      { titulo: "Productos HAZMAT", slug: /productos/hazmat/, contexto: "Materiales peligrosos", prioridad: "critica" },
-      { titulo: "Rescate Técnico", slug: /productos/rescate-montana/, contexto: "Montaña y espeleología", prioridad: "alta" },
+      { titulo: "Productos HAZMAT", slug: "/productos/hazmat/", contexto: "Materiales peligrosos", prioridad: "critica" },
+      { titulo: "Rescate Técnico", slug: "/productos/rescate-montana/", contexto: "Montaña y espeleología", prioridad: "alta" },
       { titulo: "Cotización Empresas", slug: "/cotizar/", contexto: "B2B industrial", prioridad: "critica" },
       { titulo: "Sobre Nosotros", slug: "/nosotros/", contexto: "BOMBERO.MX", prioridad: "media" }
     ]

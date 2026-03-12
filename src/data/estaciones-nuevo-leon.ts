@@ -828,10 +828,10 @@ export const NUEVO_LEON_SEO = {
       { estado: "Chihuahua", slug: "chihuahua", razon: "Industria y frontera norte" }
     ],
     productosRelacionados: [
-      { producto: "Trajes de bombero", slug: /productos/trajes-para-bomberos/, contexto: "Protección industrial" },
-      { producto: "Equipos HAZMAT", slug: /productos/hazmat/, contexto: "Materiales peligrosos" },
-      { producto: "Equipos SCBA", slug: /productos/scba/, contexto: "Rescate en espacios confinados" },
-      { producto: "Herramientas de rescate", slug: /productos/rescate/, contexto: "Rescate vehicular" }
+      { producto: "Trajes de bombero", slug: "/productos/trajes-para-bomberos/", contexto: "Protección industrial" },
+      { producto: "Equipos HAZMAT", slug: "/productos/hazmat/", contexto: "Materiales peligrosos" },
+      { producto: "Equipos SCBA", slug: "/productos/scba/", contexto: "Rescate en espacios confinados" },
+      { producto: "Herramientas de rescate", slug: "/productos/rescate/", contexto: "Rescate vehicular" }
     ],
     paginasInternas: [
       { pagina: "Cotizar equipamiento", slug: "/cotizar/", contexto: "Equipamiento para estaciones" },
@@ -1231,15 +1231,15 @@ export function generarInterlinking(estacion: Estacion): {
 
   // Productos relacionados
   const productosRelacionados = [
-    { nombre: "Trajes de bombero", slug: /productos/trajes-para-bomberos/ }
+    { nombre: "Trajes de bombero", slug: "/productos/trajes-para-bomberos/" }
   ];
 
   if (esHAZMAT) {
-    productosRelacionados.push({ nombre: "Equipos HAZMAT", slug: /productos/hazmat/ });
-    productosRelacionados.push({ nombre: "Equipos SCBA", slug: /productos/scba/ });
+    productosRelacionados.push({ nombre: "Equipos HAZMAT", slug: "/productos/hazmat/" });
+    productosRelacionados.push({ nombre: "Equipos SCBA", slug: "/productos/scba/" });
   }
   if (esCarretero) {
-    productosRelacionados.push({ nombre: "Herramientas de rescate", slug: /productos/rescate/ });
+    productosRelacionados.push({ nombre: "Herramientas de rescate", slug: "/productos/rescate/" });
   }
 
   // Estaciones cercanas de la misma zona

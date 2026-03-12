@@ -247,7 +247,7 @@ export const VERACRUZ_SEO = {
     productosRelacionados: [
       {
         producto: "Equipos HAZMAT Industria Petrolera",
-        slug: /productos/hazmat-petrolero/,
+        slug: "/productos/hazmat-petrolero/",
         contexto: "Refinería, petroquímica, derrames hidrocarburos",
         prioridad: "critica",
         audiencia: ["PEMEX", "bomberos", "brigadas petroleras"],
@@ -256,7 +256,7 @@ export const VERACRUZ_SEO = {
       },
       {
         producto: "Equipos Rescate Marítimo",
-        slug: /productos/rescate-maritimo/,
+        slug: "/productos/rescate-maritimo/",
         contexto: "Puertos, embarcaciones, ahogamiento",
         prioridad: "critica",
         audiencia: ["bomberos portuarios", "Marina", "capitanías"],
@@ -265,7 +265,7 @@ export const VERACRUZ_SEO = {
       },
       {
         producto: "Sistemas Espuma AFFF Petrolera",
-        slug: /productos/espuma-afff/,
+        slug: "/productos/espuma-afff/",
         contexto: "Incendios clase B, tanques almacenamiento",
         prioridad: "critica",
         audiencia: ["PEMEX", "bomberos industriales", "terminales"],
@@ -274,7 +274,7 @@ export const VERACRUZ_SEO = {
       },
       {
         producto: "Embarcaciones Rescate Profesional",
-        slug: /productos/embarcaciones-rescate/,
+        slug: "/productos/embarcaciones-rescate/",
         contexto: "Rescate costero, inundaciones, huracanes",
         prioridad: "alta",
         audiencia: ["bomberos", "protección civil", "Marina"],
@@ -283,7 +283,7 @@ export const VERACRUZ_SEO = {
       },
       {
         producto: "Trajes Inmersión y Neopreno",
-        slug: /productos/trajes-inmersion/,
+        slug: "/productos/trajes-inmersion/",
         contexto: "Rescate acuático, buceo, agua fría",
         prioridad: "alta",
         audiencia: ["rescatistas", "buzos", "bomberos"],

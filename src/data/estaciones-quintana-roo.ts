@@ -148,7 +148,7 @@ export const QUINTANA_ROO_SEO = {
     productosRelacionados: [
       {
         producto: "Equipos de Rescate Acuático",
-        slug: /productos/rescate-acuatico/,
+        slug: "/productos/rescate-acuatico/",
         contexto: "Playas, cenotes, deportes náuticos",
         prioridad: "critica",
         audiencia: ["bomberos", "hoteles", "parques"],
@@ -156,7 +156,7 @@ export const QUINTANA_ROO_SEO = {
       },
       {
         producto: "Trajes de Buceo Profesional",
-        slug: /productos/buceo/,
+        slug: "/productos/buceo/",
         contexto: "Rescate submarino, cenotes",
         prioridad: "critica",
         audiencia: ["bomberos", "operadores tours"],
@@ -164,7 +164,7 @@ export const QUINTANA_ROO_SEO = {
       },
       {
         producto: "Sistemas de Detección de Incendios",
-        slug: /productos/deteccion-incendios/,
+        slug: "/productos/deteccion-incendios/",
         contexto: "Hoteles, resorts, centros comerciales",
         prioridad: "critica",
         audiencia: ["hoteleros", "desarrolladores"],
@@ -172,7 +172,7 @@ export const QUINTANA_ROO_SEO = {
       },
       {
         producto: "Extintores Certificados",
-        slug: /productos/extintores/,
+        slug: "/productos/extintores/",
         contexto: "Cocinas industriales, áreas comunes",
         prioridad: "alta",
         audiencia: ["hoteles", "restaurantes"],
@@ -180,7 +180,7 @@ export const QUINTANA_ROO_SEO = {
       },
       {
         producto: "Equipos SCBA",
-        slug: /productos/scba/,
+        slug: "/productos/scba/",
         contexto: "Rescate en edificios, humo",
         prioridad: "alta",
         audiencia: ["bomberos", "brigadas hoteleras"],
@@ -188,7 +188,7 @@ export const QUINTANA_ROO_SEO = {
       },
       {
         producto: "Chalecos Salvavidas Profesionales",
-        slug: /productos/chalecos-salvavidas/,
+        slug: "/productos/chalecos-salvavidas/",
         contexto: "Operaciones náuticas, rescate",
         prioridad: "alta",
         audiencia: ["hoteles", "operadores tours"],
@@ -196,7 +196,7 @@ export const QUINTANA_ROO_SEO = {
       },
       {
         producto: "Sistemas de Alarma Hotelera",
-        slug: /productos/alarmas/,
+        slug: "/productos/alarmas/",
         contexto: "Normativa hotelera internacional",
         prioridad: "alta",
         audiencia: ["hoteleros", "desarrolladores"],
@@ -213,7 +213,7 @@ export const QUINTANA_ROO_SEO = {
     ],
     paginasInternas: [
       { titulo: "Directorio Nacional", slug: "/directorio/", contexto: "32 estados de México" },
-      { titulo: "Productos Rescate Acuático", slug: /productos/rescate-acuatico/, contexto: "Equipamiento especializado" },
+      { titulo: "Productos Rescate Acuático", slug: "/productos/rescate-acuatico/", contexto: "Equipamiento especializado" },
       { titulo: "Cotización Empresas", slug: "/cotizar/", contexto: "Hoteles y resorts" },
       { titulo: "Sobre Nosotros", slug: "/nosotros/", contexto: "BOMBERO.MX" }
     ]

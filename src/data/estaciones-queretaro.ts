@@ -109,17 +109,17 @@ export const QUERETARO_SEO = {
       }
     ],
     productosRelacionados: [
-      { producto: "Equipos HAZMAT Nivel A", slug: /productos/hazmat/, contexto: "Industria aeroespacial y química", prioridad: "critica" },
-      { producto: "Trajes Aluminizados", slug: /productos/trajes-aluminizados/, contexto: "Fundición y metalmecánica", prioridad: "alta" },
-      { producto: "Equipos SCBA", slug: /productos/scba/, contexto: "Espacios confinados industriales", prioridad: "alta" },
-      { producto: "Detectores Multigas", slug: /productos/detectores/, contexto: "Monitoreo atmosférico industrial", prioridad: "alta" },
-      { producto: "Trajes Estructurales NFPA", slug: /productos/trajes-para-bomberos/, contexto: "Combate incendios", prioridad: "media" },
-      { producto: "Herramientas Rescate Vehicular", slug: /productos/herramientas-rescate/, contexto: "Accidentes autopista", prioridad: "media" },
+      { producto: "Equipos HAZMAT Nivel A", slug: "/productos/hazmat/", contexto: "Industria aeroespacial y química", prioridad: "critica" },
+      { producto: "Trajes Aluminizados", slug: "/productos/trajes-aluminizados/", contexto: "Fundición y metalmecánica", prioridad: "alta" },
+      { producto: "Equipos SCBA", slug: "/productos/scba/", contexto: "Espacios confinados industriales", prioridad: "alta" },
+      { producto: "Detectores Multigas", slug: "/productos/detectores/", contexto: "Monitoreo atmosférico industrial", prioridad: "alta" },
+      { producto: "Trajes Estructurales NFPA", slug: "/productos/trajes-para-bomberos/", contexto: "Combate incendios", prioridad: "media" },
+      { producto: "Herramientas Rescate Vehicular", slug: "/productos/herramientas-rescate/", contexto: "Accidentes autopista", prioridad: "media" },
       { producto: "Cotización Corporativa", slug: "/cotizar/", contexto: "Equipamiento completo", prioridad: "alta" }
     ],
     paginasInternas: [
       { titulo: "Directorio Nacional", slug: "/directorio/", contexto: "32 estados" },
-      { titulo: "Productos HAZMAT", slug: /productos/hazmat/, contexto: "Materiales peligrosos" },
+      { titulo: "Productos HAZMAT", slug: "/productos/hazmat/", contexto: "Materiales peligrosos" },
       { titulo: "Sobre Nosotros", slug: "/nosotros/", contexto: "BOMBERO.MX" }
     ]
   },
