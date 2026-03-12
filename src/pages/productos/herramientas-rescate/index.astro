@@ -1,0 +1,641 @@
+---
+import PageLayout    from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import CTABanner     from "@components/CTABanner.astro";
+import CTABar        from "@components/CTABar.astro";
+import CategoryCard  from "@components/CategoryCard.astro";
+import ProductCard   from "@components/ProductCard.astro";
+import FAQ           from "@components/FAQ.astro";
+import Breadcrumb    from "@components/Breadcrumb.astro";
+import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+
+// ─── Catálogo Herramientas de Rescate ────────────────────────────────────────
+const productos = [
+  {
+    id: "cizallas-hidraulicas",
+    nombre: "Cizallas Hidráulicas (Jaws of Life) — LUKAS / Holmatro / Hurst",
+    slug: "/productos/herramientas-rescate/",
+    badge: "NFPA 1936",
+    badgeColor: "fire" as const,
+    imagen: "/images/directorio/herramienta-hidraulica-rescate-01.avif",
+    descripcion:
+      "Las cizallas hidráulicas —conocidas mundialmente como Jaws of Life— son la herramienta principal para rescate vehicular. Diseñadas para cortar postes de vehículos, techos, pedales y cinturones de seguridad atascados. Fuerza de corte de hasta 600 kN. Marcas de referencia: LUKAS (Alemania), Holmatro (Países Bajos), Hurst (EUA). Certificadas NFPA 1936. Compatibles con unidades hidráulicas de motor de gasolina o sistema eléctrico de batería.",
+    caracteristicas: [
+      "Fuerza de corte: hasta 600 kN — corta vigas de acero estructural",
+      "Peso operativo: 14–25 kg según modelo y potencia",
+      "Apertura de cuchillas: hasta 220 mm para ángulos difíciles",
+      "Sistema de batería autónomo (modelos inalámbricos) — sin mangueras en la escena",
+      "Certificación NFPA 1936 obligatoria para servicio de emergencia",
+      "Compatible con unidad hidráulica portátil o sistema integrado en vehículo",
+      "Tiempo de corte de poste B: < 15 segundos en acero de alta resistencia",
+    ],
+    aplicacion: "Rescate vehicular (RV) · Accidentes en carretera · Extricación de víctimas · Cuerpos de bomberos municipales y estatales",
+  },
+  {
+    id: "expansores-hidraulicos",
+    nombre: "Expansores / Separadores Hidráulicos — Rescate Vehicular",
+    slug: "/productos/herramientas-rescate/",
+    badge: "NFPA 1936",
+    badgeColor: "fire" as const,
+    imagen: "/images/directorio/spreader-rescate-vehicular-01.avif",
+    descripcion:
+      "El expansor hidráulico (spreader) abre espacios en vehículos accidentados para crear espacio vital alrededor de la víctima antes de la extricación. Trabaja en conjunto con las cizallas. Fuerza de apertura de hasta 350 kN. Esencial en el protocolo de 'creación de espacio' antes de retirar a un herido con posible lesión de columna. Disponibles en versiones de punta de flecha para entrada en espacios reducidos.",
+    caracteristicas: [
+      "Fuerza de apertura: hasta 350 kN — abre puertas blindadas",
+      "Apertura máxima: hasta 700 mm — suficiente para crear espacio vital",
+      "Punta intercambiable: cuchilla de entrada o puntas redondeadas",
+      "Versión inalámbrica de batería de 18V–36V para mayor movilidad",
+      "Sistema de seguridad anti-retorno — evita cierre accidental sobre víctima",
+      "Certificación NFPA 1936 — estándar para bomberos de emergencia",
+      "Tiempo de apertura de puerta: < 20 segundos en condiciones normales",
+    ],
+    aplicacion: "Rescate vehicular · Accidentes de tráfico · Extricación de víctimas atrapadas · Primera respuesta en carreteras",
+  },
+  {
+    id: "herramienta-combinada",
+    nombre: "Herramienta Combinada Hidráulica — Cizalla + Expansor",
+    slug: "/productos/herramientas-rescate/",
+    badge: "NFPA 1936 — Versátil",
+    badgeColor: "ember" as const,
+    imagen: "/images/directorio/herramientas-bomberos-rescate-01.avif",
+    descripcion:
+      "La herramienta combinada integra cizalla y expansor en una sola unidad. Ideal para equipos pequeños o unidades ligeras donde el espacio y el peso son críticos. Permite al rescatista cambiar entre función de corte y apertura sin cambiar de herramienta. Sacrifica algo de fuerza máxima respecto a herramientas especializadas, pero en rescate vehicular urbano cubre el 80% de los escenarios con un solo equipo.",
+    caracteristicas: [
+      "Doble función: cizalla (corte) + expansor (apertura) en una sola herramienta",
+      "Fuerza de corte: hasta 420 kN · Fuerza de apertura: hasta 280 kN",
+      "Peso: ~18 kg — el más práctico para operador en solitario",
+      "Cambio de función en < 5 segundos — sin soltar la herramienta",
+      "Sistema inalámbrico de batería integrado — sin unidad hidráulica externa",
+      "Certificación NFPA 1936 — apta para servicio de emergencia",
+      "Ideal para ambulancias, unidades de rescate ligero y bomberos rurales",
+    ],
+    aplicacion: "Cuerpos de bomberos con recursos limitados · Unidades de rescate ligero · Ambulancias de rescate · Primera respuesta rural",
+  },
+  {
+    id: "airbag-rescate",
+    nombre: "Airbags de Rescate (Lifting Bags) — Rescate USAR y Derrumbes",
+    slug: "/productos/herramientas-rescate/",
+    badge: "ISO 10333 — USAR",
+    badgeColor: "ember" as const,
+    imagen: "/images/directorio/rescate-urbano-bomberos-01.avif",
+    descripcion:
+      "Los airbags de rescate son bolsas neumáticas de alta resistencia que se inflan con aire comprimido para levantar estructuras colapsadas, vehículos o maquinaria sobre víctimas atrapadas. Capacidad de levantamiento de hasta 74 toneladas métricas. Fabricados en neopreno reforzado con Kevlar. Norma ISO 10333. Esenciales en operaciones USAR (Urban Search and Rescue) post-sismo o colapso de estructura. Los kits incluyen controlador de presión, válvulas de seguridad y mangueras de alta presión.",
+    caracteristicas: [
+      "Capacidad de levantamiento: desde 5 hasta 74 toneladas según tamaño",
+      "Presión de trabajo: 8 bar (116 psi) — máximo de norma ISO 10333",
+      "Espesor desinflado: 25–50 mm — entra en espacios extremadamente reducidos",
+      "Material: neopreno reforzado con fibra de Kevlar — resistente a cortes",
+      "Kit completo: 2 airbags + controlador dual + cilindro de aire comprimido",
+      "Certificación ISO 10333 — estándar internacional para airbags de rescate",
+      "Compatible con otros airbags para uso en paralelo (mayor levantamiento)",
+    ],
+    aplicacion: "USAR — Rescate urbano · Colapso de estructuras · Post-sismo · Maquinaria industrial · Derrumbes en construcción",
+  },
+  {
+    id: "kit-rescate-altura",
+    nombre: "Kit de Rescate en Altura — Cuerdas y Sistema de Poleas NFPA 1983",
+    slug: "/productos/herramientas-rescate/",
+    badge: "NFPA 1983",
+    badgeColor: "smoke" as const,
+    imagen: "/images/directorio/rescate-montana-bomberos-01.avif",
+    descripcion:
+      "El kit de rescate en altura incluye cuerdas de rescate certificadas NFPA 1983, arneses de trabajo y rescate, sistemas de poleas de ventaja mecánica 3:1 y 6:1, y dispositivos anticaída. Diseñado para rescate en edificios altos, barrancas, puentes, silos industriales y operaciones de rapel. La NFPA 1983 clasifica las cuerdas en Escape (uso personal), Operaciones Generales y Técnicas según el peso de carga.",
+    caracteristicas: [
+      "Cuerda de rescate técnico: diámetro 12.5 mm · resistencia mínima 40 kN (NFPA 1983)",
+      "Arnés de rescate integral: certificado NFPA 1983 para rescate de víctimas",
+      "Sistema de poleas: ventaja mecánica 3:1, 4:1 y 6:1 configurables",
+      "Bloqueador de progresión y dispositivo anticaída NFPA 1983 incluidos",
+      "Bolsa de rescate de lanzamiento para acceso a víctima en zona de riesgo",
+      "Camilla Sked o rígida compatible con operaciones verticales",
+      "Capacitación en técnicas de rescate en altura disponible con el equipo",
+    ],
+    aplicacion: "Rescate en altura · Edificios altos · Barrancas y desfiladeros · Silos industriales · Puentes · Rescate espeleológico",
+  },
+  {
+    id: "iluminacion-emergencia",
+    nombre: "Torres de Iluminación de Emergencia — 20,000+ Lúmenes",
+    slug: "/productos/herramientas-rescate/",
+    badge: "Operaciones Nocturnas",
+    badgeColor: "smoke" as const,
+    imagen: "/images/directorio/unidad-rescate-bomberos-01.avif",
+    descripcion:
+      "Las torres de iluminación portátiles son esenciales para operaciones nocturnas o en condiciones de visibilidad reducida. Modelos de 20,000 a 80,000 lúmenes con tecnología LED de bajo consumo. Sistemas de mástil telescópico elevable hasta 5 metros. Alimentación por generador integrado, conexión a vehículo 12V/24V o batería recargable. Para rescate vehicular nocturno, operaciones USAR en edificios y perímetros de seguridad.",
+    caracteristicas: [
+      "Potencia luminosa: 20,000 a 80,000 lúmenes según modelo",
+      "Tecnología LED — 10x más eficiente que halógeno, sin calor radiado",
+      "Mástil telescópico: altura de 1.5 m (plegado) a 5 m (desplegado)",
+      "Rotación 360° en cabezal — iluminación omnidireccional de la escena",
+      "Batería LiFePO4: hasta 8 horas de operación autónoma",
+      "Peso total: 18–35 kg según modelo — transportable por 2 rescatistas",
+      "Protección IP65: resistente a lluvia y polvo en operaciones de campo",
+    ],
+    aplicacion: "Rescate vehicular nocturno · Operaciones USAR nocturnas · Perimetraje de escena · Búsqueda y rescate en campo",
+  },
+];
+
+// ─── Tabla comparativa ───────────────────────────────────────────────────────
+const comparativa = [
+  {
+    herramienta: "Cizallas Hidráulicas",
+    norma: "NFPA 1936",
+    fuerza: "Hasta 600 kN",
+    uso: "Corte de metal vehicular",
+    precio: "Desde $95,000 MXN",
+    para: "RV urbano y carretera",
+    badge: "Rescate vehicular",
+  },
+  {
+    herramienta: "Expansores Hidráulicos",
+    norma: "NFPA 1936",
+    fuerza: "Hasta 350 kN",
+    uso: "Apertura de espacios",
+    precio: "Desde $85,000 MXN",
+    para: "RV · Apertura de puertas",
+    badge: "Rescate vehicular",
+  },
+  {
+    herramienta: "Airbags de Rescate",
+    norma: "ISO 10333",
+    fuerza: "Hasta 74 toneladas",
+    uso: "Levantamiento de estructuras",
+    precio: "Desde $45,000 MXN",
+    para: "USAR · Post-sismo",
+    badge: "USAR / Derrumbes",
+  },
+  {
+    herramienta: "Kit Cuerdas NFPA 1983",
+    norma: "NFPA 1983",
+    fuerza: "40 kN (cuerda técnica)",
+    uso: "Rescate en altura",
+    precio: "Desde $35,000 MXN",
+    para: "Altura · Barrancas",
+    badge: "Rescate en altura",
+  },
+];
+
+// ─── FAQs ────────────────────────────────────────────────────────────────────
+const faqs = [
+  {
+    question: "¿Qué son las Jaws of Life y cómo funcionan?",
+    answer: "Las 'Jaws of Life' (Garras de la Vida) son el nombre popular de las cizallas hidráulicas de rescate vehicular, término acuñado por la marca Hurst en los años 70. Funcionan mediante un sistema hidráulico de alta presión (700 bar) que acciona dos cuchillas de acero de alta resistencia capaces de cortar postes B y C de vehículos modernos, techos, pedales y marcos de puertas en segundos. El bombero conecta la herramienta a una unidad hidráulica portátil (motor de gasolina o batería) que genera el caudal de aceite necesario. Los modelos modernos son inalámbricos y funcionan con baterías de alta descarga, eliminando las mangueras en la escena. La fuerza de corte va de 300 a 600 kN según el modelo, capaz de cortar el acero de ultra-alta resistencia (UHSS) que usan los vehículos modernos post-2015.",
+  },
+  {
+    question: "¿Cuál es la diferencia entre rescate vehicular (RV) y USAR?",
+    answer: "El Rescate Vehicular (RV) se enfoca específicamente en la extricación de víctimas atrapadas en vehículos accidentados: autos, camiones, autobuses. Las herramientas principales son cizallas, expansores y herramientas combinadas hidráulicas (NFPA 1936). El USAR (Urban Search and Rescue — Búsqueda y Rescate Urbano) es una disciplina más amplia que incluye rescate en colapso de estructuras (edificios, derrumbes, post-sismo), espacios confinados estructurales, túneles y minas. Las herramientas USAR incluyen airbags de levantamiento (ISO 10333), sierras de rescate, equipos de detección de víctimas (cámaras vibrométricas, detectores CO2), arietes hidráulicos y equipo de entibación. Un equipo profesional moderno debe tener capacidades tanto de RV como de USAR básico.",
+  },
+  {
+    question: "¿Qué norma regula las herramientas de rescate hidráulicas?",
+    answer: "En México, las herramientas de rescate hidráulicas para bomberos y protección civil se regulan principalmente por la NFPA 1936 (Standard on Powered Rescue Tools), que establece los requisitos de diseño, desempeño y prueba para cizallas, expansores, herramientas combinadas, arietes y cortadores de pedales. Complementariamente, la NFPA 1951 regula el equipo de protección personal para rescate técnico, y la NFPA 1983 regula las cuerdas y accesorios para rescate en altura. Para airbags de rescate, la norma internacional aplicable es la ISO 10333. BOMBERO.MX provee certificados de laboratorio acreditado con cada herramienta para procesos de licitación.",
+  },
+  {
+    question: "¿Cuánto cuesta un kit de cizallas hidráulicas en México?",
+    answer: "Un kit de cizallas hidráulicas profesional certificado NFPA 1936 en México tiene un costo aproximado de $95,000 a $200,000 MXN para la herramienta sola (sin unidad hidráulica). La unidad hidráulica portátil de motor de gasolina agrega entre $45,000 y $80,000 MXN. Los sistemas inalámbricos de batería (que incluyen 2 baterías + cargador) oscilan entre $130,000 y $250,000 MXN en total. Un kit completo de rescate vehicular (cizalla + expansor + unidad hidráulica) de marcas de referencia (LUKAS, Holmatro) puede costar entre $180,000 y $380,000 MXN. Para cuerpos de bomberos municipales, BOMBERO.MX emite cotización con especificaciones NFPA para proceso de licitación. Contáctenos para precio exacto según configuración.",
+  },
+  {
+    question: "¿Qué herramientas mínimas necesita un equipo de rescate vehicular?",
+    answer: "Un equipo mínimo de rescate vehicular (RV) según los estándares de la National Fire Protection Association debe incluir: (1) Cizallas hidráulicas NFPA 1936 — para corte de estructura vehicular; (2) Expansor/Separador hidráulico NFPA 1936 — para apertura de espacios; (3) Ariete hidráulico o cortador de pedales — para liberación de extremidades; (4) Unidad hidráulica portátil — fuente de energía del sistema; (5) Cuñas de estabilización — para inmovilizar el vehículo antes de intervenir; (6) Kit de protección de víctima — manta ignífuga, protección ocular; (7) Equipo de iluminación — para operaciones nocturnas. En la práctica, muchos cuerpos de bomberos municipales en México arrancan con una herramienta combinada (cizalla + expansor) más una unidad hidráulica para optimizar la inversión inicial.",
+  },
+  {
+    question: "¿Los airbags de rescate se pueden usar en derrumbes?",
+    answer: "Sí, es precisamente para lo que fueron diseñados. Los airbags de rescate o 'lifting bags' son la herramienta estándar en operaciones USAR para levantar escombros, losas de concreto, vigas metálicas y elementos estructurales sobre víctimas atrapadas. El protocolo operativo implica: (1) Estabilizar la estructura circundante para evitar colapso secundario; (2) Insertar el airbag desinflado en el espacio disponible (mínimo 25-50 mm de hueco); (3) Inflar lentamente mientras un bombero monitorea la estabilidad; (4) Colocar cuñas de madera bajo la estructura elevada como respaldo de seguridad; (5) Crear el espacio de rescate para extraer a la víctima. Los kits de airbags de alta capacidad (hasta 74 toneladas) permiten levantar elementos estructurales masivos en colapsos de edificios. La norma ISO 10333 garantiza que el airbag no falle bajo carga.",
+  },
+  {
+    question: "¿Tienen servicio de capacitación en uso de herramientas de rescate?",
+    answer: "Sí. BOMBERO.MX provee asesoría técnica en el uso correcto de herramientas de rescate hidráulicas (cizallas, expansores, arietes) tanto en la entrega del equipo como como servicio adicional de capacitación. La capacitación cubre: operación básica y avanzada de herramientas hidráulicas, mantenimiento preventivo según NFPA 1936, protocolos de seguridad en escena de rescate vehicular, y escenarios prácticos en vehículos. Para capacitación formal certificada en rescate vehicular, recomendamos complementar con cursos de instituciones como TEEX (Texas A&M), IFSAC o el Heroico Cuerpo de Bomberos de la Ciudad de México. Contáctenos para consultar disponibilidad de capacitación en su región.",
+  },
+];
+
+// ─── Schema.org ──────────────────────────────────────────────────────────────
+const CANONICAL = "/productos/herramientas-rescate/";
+const productSchema = productSchemaComplete({
+  name: "Herramientas de Rescate para Bomberos — NFPA 1936 — Cizallas, Airbags, USAR",
+  description: "Herramientas de rescate certificadas NFPA 1936 para bomberos en México. Cizallas hidráulicas Jaws of Life, expansores, airbags de rescate USAR, kits de altura NFPA 1983. LUKAS, Holmatro, Hurst. Envío a 32 estados. Cotiza sin compromiso.",
+  image: "/images/directorio/herramienta-hidraulica-rescate-01.avif",
+  url: CANONICAL,
+  category: "Herramientas de Rescate — NFPA 1936",
+  features: ["NFPA 1936", "ISO 10333", "NFPA 1983", "NFPA 1951", "Rescate Vehicular", "USAR"],
+  certifications: ["NFPA 1936", "ISO 10333", "NFPA 1983", "NFPA 1951"],
+});
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Productos", url: "/productos/" },
+  { name: "Herramientas de Rescate", url: CANONICAL },
+]);
+const jsonLdSchemas = [productSchema, breadcrumbSchema];
+---
+
+<PageLayout
+  title="Herramientas de Rescate para Bomberos México | NFPA 1936 | Jaws of Life | BOMBERO.MX"
+  description="Herramientas de rescate certificadas NFPA 1936 para bomberos en México. Cizallas hidráulicas Jaws of Life, expansores, airbags de rescate USAR, kits de altura NFPA 1983. LUKAS, Holmatro, Hurst. Cotiza para licitación. Envío a 32 estados."
+  canonical={CANONICAL}
+  jsonLd={jsonLdSchemas}
+  keywords={[
+    "herramientas de rescate para bomberos México",
+    "cizallas hidráulicas bomberos",
+    "jaws of life México",
+    "equipo rescate vehicular bomberos",
+    "tools rescate NFPA 1936",
+    "airbags de rescate USAR",
+    "equipo USAR bomberos México",
+    "expansores hidráulicos rescate",
+    "rescate vehicular herramientas",
+    "LUKAS Holmatro Hurst México",
+    "lifting bags bomberos",
+    "kit rescate altura NFPA 1983",
+    "cuerdas rescate bomberos NFPA",
+    "herramientas hidráulicas bomberos",
+    "equipo rescate técnico bomberos",
+    "iluminación emergencia bomberos",
+  ]}
+  type="website"
+>
+
+  <Breadcrumb items={[
+    { label: "Productos", href: "/productos/" },
+    { label: "Herramientas de Rescate" },
+  ]} />
+
+  <!-- ════════════════════ HERO ════════════════════ -->
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__gradient"></div>
+      <div class="hero__grid"></div>
+      <div class="hero__glow hero__glow--1"></div>
+      <div class="hero__glow hero__glow--2"></div>
+    </div>
+
+    <div class="container hero__container">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          NFPA 1936 · ISO 10333 · NFPA 1983 · Rescate Vehicular y USAR
+        </div>
+        <h1 class="hero__title">
+          <span class="hero__title-highlight">Herramientas</span>
+          de Rescate para<br />Bomberos en México
+        </h1>
+        <p class="hero__subtitle">
+          Desde las Jaws of Life para extricación vehicular hasta airbags USAR para colapso de
+          estructuras. Herramientas certificadas NFPA 1936 para rescate vehicular, rescate urbano,
+          trabajo en altura y operaciones nocturnas. Asesoría técnica para municipios, protección
+          civil y brigadas de rescate técnico en los 32 estados.
+        </p>
+
+        <div class="hero__urgencia">
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">600 kN</span>
+            <span class="hero__urgencia-label">fuerza de corte de cizallas hidráulicas de última generación — cortan acero UHSS vehicular</span>
+          </div>
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">NFPA 1936</span>
+            <span class="hero__urgencia-label">norma que regula todas las herramientas hidráulicas de rescate para bomberos</span>
+          </div>
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">74 ton</span>
+            <span class="hero__urgencia-label">capacidad de levantamiento de airbags de rescate USAR para colapso estructural</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__seo">
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">Distribuidores de Herramientas de Rescate NFPA 1936 en México</h2>
+          <p class="hero__seo-text">
+            <strong>BOMBERO.MX</strong> distribuye <strong>herramientas de rescate certificadas NFPA 1936</strong> para cuerpos de bomberos, protección civil y brigadas de rescate técnico en los 32 estados de México. Comercializamos las marcas líderes mundiales: <strong>LUKAS (Alemania)</strong>, <strong>Holmatro (Países Bajos)</strong> y <strong>Hurst (EUA)</strong>. Para protección completa del rescatista, el equipo se complementa con <a href="/productos/trajes-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">traje estructural NFPA 1971</a>, <a href="/productos/cascos-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">casco certificado</a> y <a href="/productos/scba/" style="color: var(--color-fire-400); text-decoration: underline;">SCBA NFPA 1981</a>.
+          </p>
+        </div>
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">¿Por Qué las Herramientas de Rescate Deben Ser NFPA 1936?</h2>
+          <p class="hero__seo-text">
+            Los vehículos modernos post-2015 utilizan acero de ultra-alta resistencia (UHSS) en estructuras de habitáculo que puede resistir fuerzas de hasta 1,500 MPa. Una cizalla no certificada NFPA 1936 puede fallar al cortar estos materiales, poniendo en riesgo al rescatista y a la víctima. La norma NFPA 1936 exige pruebas de desempeño en materiales actuales. Complementa con <a href="/productos/forestales/" style="color: var(--color-fire-400); text-decoration: underline;">equipo forestal</a> para incendios en vegetación.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABar quote="Cotizar Herramientas de Rescate para mi Cuerpo de Bomberos" />
+
+  <!-- ════════════════════ CATÁLOGO ════════════════════ -->
+  <section class="section productos" id="catalogo">
+    <div class="container">
+      <SectionHeader
+        label="Catálogo — Herramientas de Rescate Certificadas NFPA"
+        title="6 Herramientas de Rescate para Cada Tipo de Operación"
+        description="Desde cizallas Jaws of Life para rescate vehicular hasta airbags USAR para colapso de estructuras. Cada herramienta está seleccionada para un escenario operativo específico."
+      >
+        <p>
+          Elegir las <strong>herramientas de rescate correctas</strong> es una decisión táctica crítica. Las <strong>cizallas hidráulicas NFPA 1936</strong> son el estándar para rescate vehicular, pero un equipo de rescate técnico completo también necesita expansores, airbags para USAR, cuerdas certificadas para altura y iluminación para operaciones nocturnas. En México, los accidentes viales representan más del 60% de las intervenciones de rescate de los cuerpos de bomberos, haciendo del equipo de <strong>rescate vehicular</strong> la prioridad número uno.
+        </p>
+        <p>
+          Para equipos de <strong>protección civil</strong> y brigadas de <strong>USAR</strong> que responden a sismos y colapsos de estructuras —escenario recurrente en México— los airbags de rescate ISO 10333 y el equipo de entibación son herramientas de vida o muerte. <strong>BOMBERO.MX</strong> asesora sin costo sobre la configuración correcta para su tipo de operación.
+        </p>
+      </SectionHeader>
+
+      <div class="productos__grid">
+        {productos.map((producto) => (
+          <ProductCard {...producto} altSuffix="herramientas rescate bomberos México NFPA 1936" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ COMPARATIVA ════════════════════ -->
+  <section class="section section--dark comparativa">
+    <div class="container">
+      <SectionHeader
+        label="Guía de Selección"
+        title="¿Qué Herramientas de Rescate Necesita tu Equipo?"
+        description="Cuatro herramientas fundamentales, cuatro normas, cuatro escenarios operativos. Selecciona según el perfil de incidentes de tu cuerpo de bomberos."
+      >
+        <p>
+          Un cuerpo de bomberos municipal en zona urbana o carretera prioriza las <strong>cizallas y expansores hidráulicos NFPA 1936</strong> para rescate vehicular. Los equipos de <strong>protección civil</strong> y brigadas de USAR en zonas sísmicas deben incluir <strong>airbags de rescate ISO 10333</strong>. Los cuerpos en zonas montañosas o industriales con silos, torres y puentes necesitan el <strong>kit de cuerdas NFPA 1983</strong>. Un equipo de primera respuesta completo combina todas estas herramientas.
+        </p>
+      </SectionHeader>
+
+      <div class="comparativa__table-wrap">
+        <table class="comparativa__table">
+          <thead>
+            <tr>
+              <th>Herramienta</th>
+              <th>Norma</th>
+              <th>Capacidad</th>
+              <th>Uso Principal</th>
+              <th>Precio aprox. (MXN)</th>
+              <th>Perfil recomendado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparativa.map((c) => (
+              <tr>
+                <td><strong>{c.herramienta}</strong><br /><span class="comparativa__badge">{c.badge}</span></td>
+                <td>{c.norma}</td>
+                <td>{c.fuerza}</td>
+                <td>{c.uso}</td>
+                <td>{c.precio}</td>
+                <td>{c.para}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="comparativa__nota">* Precios orientativos sujetos a marca, modelo y volumen. Solicita cotización exacta con especificaciones NFPA para tu licitación.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ COMPONENTES / SPECS ════════════════════ -->
+  <section class="section specs">
+    <div class="container">
+      <SectionHeader
+        label="Equipamiento Completo de Rescate"
+        title="Los 6 Componentes de un Equipo de Rescate Técnico Profesional"
+        description="Un equipo de rescate técnico completo va más allá de las cizallas. Estos son los componentes que definen la capacidad operativa de un cuerpo de bomberos moderno."
+      >
+        <p>
+          El <strong>rescate técnico</strong> moderno exige versatilidad: el mismo equipo puede responder a un accidente vehicular en carretera, un colapso de edificio post-sismo y un rescate en altura en una instalación industrial. La clave es tener las herramientas correctas para cada escenario, certificadas según las normas NFPA correspondientes. El equipo de rescate siempre se usa con <a href="/productos/scba/" style="color: inherit; text-decoration: underline; opacity:.7">SCBA NFPA 1981</a> cuando hay atmósferas IDLH en la escena.
+        </p>
+      </SectionHeader>
+
+      <div class="specs__grid">
+        <CategoryCard
+          title="Herramientas Hidráulicas de Corte y Apertura"
+          icon="axe"
+          image="/images/directorio/herramienta-hidraulica-rescate-01.avif"
+          description="Cizallas, expansores y herramientas combinadas certificadas NFPA 1936. El núcleo del rescate vehicular. Marcas de referencia: LUKAS E-Force, Holmatro HP Series, Hurst eDRAULIC. Modelos inalámbricos eliminan las mangueras en la escena de accidente."
+        />
+        <CategoryCard
+          title="Sistemas de Levantamiento — Airbags USAR"
+          icon="shield"
+          image="/images/directorio/rescate-urbano-bomberos-01.avif"
+          description="Airbags de alta presión ISO 10333 para levantamiento de estructuras en operaciones USAR. Disponibles en capacidades de 5 a 74 toneladas. Esenciales para respuesta post-sismo y colapso de estructuras. Compatible con sistemas de rescate industriales."
+        />
+        <CategoryCard
+          title="Equipo de Rescate en Altura"
+          icon="certificate"
+          image="/images/directorio/rescate-montana-bomberos-01.avif"
+          description="Cuerdas técnicas, arneses de rescate, sistemas de poleas y dispositivos anticaída certificados NFPA 1983. Para rescate en edificios altos, barrancas, silos industriales y operaciones de rapel. La norma NFPA 1983 clasifica el equipo por capacidad de carga."
+        />
+        <CategoryCard
+          title="Sierras de Rescate y Corte"
+          icon="axe"
+          image="/images/directorio/herramientas-bomberos-rescate-01.avif"
+          description="Sierras rotativas de rescate con discos de diamante y carburo para corte de concreto, metal y vidrio laminado. Para operaciones USAR en estructuras colapsadas. Compatible con uso con SCBA y traje de rescate técnico NFPA 1951."
+        />
+        <CategoryCard
+          title="Iluminación de Emergencia LED"
+          icon="shield"
+          image="/images/directorio/unidad-rescate-bomberos-01.avif"
+          description="Torres de luz LED portátiles de 20,000 a 80,000 lúmenes para operaciones nocturnas o en condiciones de visibilidad reducida. Mástil telescópico hasta 5 metros, rotación 360°, batería LiFePO4 de hasta 8 horas de autonomía. IP65 para lluvia y campo."
+        />
+        <CategoryCard
+          title="Unidades Hidráulicas Portátiles"
+          icon="certificate"
+          image="/images/directorio/spreader-rescate-vehicular-01.avif"
+          description="Fuente de poder hidráulico portátil para todas las herramientas de rescate vehicular. Modelos de motor de gasolina de 2 tiempos para máxima portabilidad o sistema eléctrico de batería de alta descarga para operaciones silenciosas en espacios confinados. Caudal: 3–8 L/min a 700 bar."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ SECTORES ════════════════════ -->
+  <section class="section section--dark sectores">
+    <div class="container">
+      <SectionHeader
+        label="¿Quién Necesita Herramientas de Rescate Certificadas?"
+        title="Sectores que Equipamos con Herramientas de Rescate NFPA en México"
+        description="El rescate técnico certificado NFPA es requerido en múltiples sectores. Estos son los principales perfiles operativos que atendemos."
+      />
+      <div class="sectores__grid">
+        <div class="sector-card">
+          <div class="sector-card__icon">🚒</div>
+          <h3>Cuerpos de Bomberos Municipales y Estatales</h3>
+          <p>Equipamiento de rescate vehicular para los 32 estados. Las carreteras federales y estatales registran más de 400,000 accidentes anuales en México. Las cizallas y expansores hidráulicos son equipo crítico para cuerpos de bomberos en zonas de alta incidencia vial.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🏛️</div>
+          <h3>Protección Civil — Rescate USAR</h3>
+          <p>Las brigadas de protección civil municipal y estatal necesitan equipamiento USAR para respuesta a sismos, derrumbes y colapsos estructurales. México es un país sísmico de alta actividad: los airbags de rescate ISO 10333 y equipo de entibación son herramientas esenciales.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🛣️</div>
+          <h3>Rescate Vehicular en Carreteras Federales</h3>
+          <p>Los cuerpos de bomberos con cobertura en tramos de carretera federal necesitan el kit completo de rescate vehicular: cizallas, expansores, estabilizadores de vehículo, kit de protección de víctima. La nueva normativa de CAPUFE exige herramientas certificadas NFPA 1936.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🏗️</div>
+          <h3>Industria de la Construcción y Manufactura</h3>
+          <p>Los accidentes industriales con maquinaria atrapante, estructuras colapsadas o personal en altura requieren herramientas de rescate técnico certificadas. Brigadas de emergencia en parques industriales, plantas automotrices y constructoras deben contar con este equipo.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">⛰️</div>
+          <h3>Rescate en Altura y Espeleológico</h3>
+          <p>Cuerpos de bomberos con cobertura en zonas montañosas, barrancas, cañones o áreas con infraestructura industrial vertical (silos, chimeneas, torres) necesitan el kit de rescate en altura NFPA 1983 con cuerdas técnicas, arneses y sistema de poleas certificado.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">⚓</div>
+          <h3>Rescate Acuático y Zonas de Desastre</h3>
+          <p>Las brigadas de rescate en zonas de inundación, deslave o tsunami necesitan equipo de corte para vehículos sumergidos o estructuras arrastradas, airbags para levantamiento de escombros y equipo de iluminación para operaciones nocturnas en zonas de desastre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ FAQ ════════════════════ -->
+  <FAQ
+    title="Preguntas Frecuentes — Herramientas de Rescate NFPA 1936 para Bomberos"
+    description="Respuestas técnicas para jefes de cuerpo, coordinadores de protección civil y responsables de rescate técnico que necesitan tomar la decisión correcta de equipamiento."
+    items={faqs}
+  />
+
+  <!-- ════════════════════ CTA ════════════════════ -->
+  <CTABanner
+    title="¿Necesitas Cotizar Herramientas de Rescate para tu Cuerpo de Bomberos?"
+    description="Asesoría técnica sin costo. Cotización con especificaciones NFPA 1936 lista para licitación. Respuesta en menos de 24 horas. Enviamos a los 32 estados de México."
+    primaryCta={{ label: "Solicitar Cotización de Herramientas de Rescate", href: "/cotizar/" }}
+    secondaryCTA={{ label: "Consultar por WhatsApp", href: `https://wa.me/525520780102?text=${encodeURIComponent('Hola BOMBERO.MX, necesito cotizar herramientas de rescate NFPA 1936 para mi cuerpo de bomberos / brigada de rescate.')}` }}
+  />
+
+</PageLayout>
+
+<style>
+  /* ─── Hero ─────────────────────────────────── */
+  .hero {
+    position: relative; padding: 5rem 0 4rem;
+    overflow: hidden; background: var(--color-bg-dark, #0a0a0f);
+  }
+  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero__gradient {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,20,20,0.2) 0%, transparent 70%);
+  }
+  .hero__grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero__glow {
+    position: absolute; border-radius: 50%;
+    filter: blur(120px); pointer-events: none;
+  }
+  .hero__glow--1 {
+    width: 600px; height: 400px; top: -150px; right: -100px;
+    background: rgba(220,20,20,0.15);
+  }
+  .hero__glow--2 {
+    width: 350px; height: 350px; bottom: -100px; left: -80px;
+    background: rgba(180,60,20,0.1);
+  }
+  .hero__container { position: relative; z-index: 1; }
+  .hero__badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(220,20,20,.15); border: 1px solid rgba(220,20,20,.35);
+    border-radius: 999px; padding: .375rem 1rem;
+    font-size: .8125rem; font-weight: 600;
+    color: var(--color-fire-400, #f87171); margin-bottom: 1.5rem;
+  }
+  .hero__badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--color-fire-400, #f87171);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(1.3); } }
+  .hero__title {
+    font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 900;
+    line-height: 1.1; color: #fff; margin-bottom: 1.25rem;
+  }
+  .hero__title-highlight {
+    background: linear-gradient(135deg, #f87171, #dc2626);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; display: block; font-size: 1.2em;
+  }
+  .hero__subtitle {
+    font-size: 1.125rem; line-height: 1.75;
+    color: rgba(255,255,255,.65); max-width: 680px; margin-bottom: 2.5rem;
+  }
+  .hero__urgencia {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; margin-bottom: 2.5rem;
+  }
+  .hero__urgencia-item {
+    background: rgba(220,20,20,.1); border: 1px solid rgba(220,20,20,.25);
+    border-radius: 10px; padding: 1rem 1.25rem; text-align: center;
+  }
+  .hero__urgencia-num {
+    display: block; font-size: 1.375rem; font-weight: 900;
+    color: #f87171; margin-bottom: .25rem;
+  }
+  .hero__urgencia-label {
+    font-size: .75rem; color: rgba(255,255,255,.5); line-height: 1.4;
+  }
+  @media (max-width: 640px) {
+    .hero__urgencia { grid-template-columns: 1fr; }
+  }
+  .hero__seo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+  .hero__seo-block {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px; padding: 1.5rem;
+  }
+  .hero__seo-title { font-size: .9375rem; font-weight: 700; color: #fff; margin-bottom: .75rem; }
+  .hero__seo-text  { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+  @media (max-width: 768px) { .hero__seo { grid-template-columns: 1fr; } }
+
+  /* ─── Secciones ──────────────────────────────── */
+  .section { padding: 5rem 0; }
+  .section--dark {
+    background: var(--color-bg-dark, #0a0a0f);
+    border-top: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .productos__grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .specs__grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+
+  /* ─── Tabla comparativa ──────────────────────── */
+  .comparativa__table-wrap { margin-top: 2.5rem; overflow-x: auto; }
+  .comparativa__table {
+    width: 100%; border-collapse: collapse;
+    font-size: .9rem;
+  }
+  .comparativa__table th {
+    background: rgba(220,20,20,.15); color: #f87171;
+    font-weight: 700; font-size: .8125rem; text-transform: uppercase;
+    letter-spacing: .05em; padding: .875rem 1rem; text-align: left;
+    border-bottom: 1px solid rgba(220,20,20,.3);
+  }
+  .comparativa__table td {
+    padding: .875rem 1rem; border-bottom: 1px solid rgba(255,255,255,.06);
+    color: rgba(255,255,255,.75); vertical-align: top;
+  }
+  .comparativa__table tr:hover td { background: rgba(255,255,255,.03); }
+  .comparativa__badge {
+    display: inline-block; margin-top: .25rem;
+    font-size: .7rem; font-weight: 600; color: #f87171;
+    background: rgba(220,20,20,.15); border: 1px solid rgba(220,20,20,.3);
+    border-radius: 999px; padding: .15rem .5rem;
+  }
+  .comparativa__nota {
+    font-size: .8125rem; color: rgba(255,255,255,.35);
+    margin-top: 1rem; font-style: italic;
+  }
+
+  /* ─── Sectores ───────────────────────────────── */
+  .sectores__grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .sector-card {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px; padding: 1.75rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .sector-card:hover { border-color: rgba(220,20,20,.4); transform: translateY(-2px); }
+  .sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+  .sector-card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .625rem; }
+  .sector-card p { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+</style>
