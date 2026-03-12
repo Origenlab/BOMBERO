@@ -1,0 +1,637 @@
+---
+import PageLayout    from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import CTABanner     from "@components/CTABanner.astro";
+import CTABar        from "@components/CTABar.astro";
+import CategoryCard  from "@components/CategoryCard.astro";
+import ProductCard   from "@components/ProductCard.astro";
+import FAQ           from "@components/FAQ.astro";
+import Breadcrumb    from "@components/Breadcrumb.astro";
+import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+
+// ─── Catálogo SCBA ──────────────────────────────────────────────────────────
+const productos = [
+  {
+    id: "scba-30min",
+    nombre: "SCBA 30 Minutos — Cilindro de Acero",
+    slug: "/productos/scba/",
+    badge: "NFPA 1981",
+    badgeColor: "fire" as const,
+    imagen: "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+    descripcion:
+      "El SCBA de entrada profesional más distribuido en cuerpos de bomberos municipales de México. Cilindro de acero de 30 min a 300 bar (4,500 psi) con máscara facial completa sellada, regulador de demanda a presión positiva y PASS integrado certificado NFPA 1982. Presión positiva continua — si la máscara falla, el aire fluye hacia afuera, nunca entra humo ni gas tóxico.",
+    caracteristicas: [
+      "Duración: 30 minutos a carga de trabajo media",
+      "Cilindro de acero cromado — mayor durabilidad y menor costo",
+      "Presión: 300 bar (4,500 psi) — máximo en norma NFPA 1981",
+      "Máscara de silicón o neopreno con sello facial hermético",
+      "Regulador de demanda a presión positiva certificado",
+      "PASS (Personal Alert Safety System) integrado NFPA 1982",
+      "Alarma de baja presión a 55 bar — aviso de evacuación",
+    ],
+    aplicacion: "Bomberos municipales · Incendio estructural · Rescate en espacios confinados · Primera respuesta",
+  },
+  {
+    id: "scba-45min",
+    nombre: "SCBA 45 Minutos — Cilindro Compuesto",
+    slug: "/productos/scba/",
+    badge: "NFPA 1981 — Alta Presión",
+    badgeColor: "ember" as const,
+    imagen: "/images/directorio/cilindro-scba-bomberos-01.avif",
+    descripcion:
+      "El equilibrio óptimo entre duración, peso y costo. Cilindro compuesto de fibra de vidrio/aluminio (lighter 40% vs acero) con mayor duración de trabajo en escenarios complejos. Ideal para cuerpos de bomberos metropolitanos con operaciones de rescate prolongadas o estructuras de más de 10 pisos donde la evacuación demora.",
+    caracteristicas: [
+      "Duración: 45 minutos a carga de trabajo media",
+      "Cilindro compuesto fibra de vidrio/aluminio — 40% más ligero que acero",
+      "Presión: 300 bar (4,500 psi)",
+      "HUD (Heads-Up Display) en máscara — presión visible sin bajar la vista",
+      "Sistema de alarma de baja presión audible + vibración táctil",
+      "Correas de arnés ergonómicas con ajuste rápido bajo guantes",
+      "Compatible con sistema de comunicaciones integrado en máscara",
+    ],
+    aplicacion: "Bomberos metropolitanos · Edificios altos · Operaciones prolongadas · Búsqueda y rescate estructural",
+  },
+  {
+    id: "scba-60min",
+    nombre: "SCBA 60 Minutos — Cilindro Carbono",
+    slug: "/productos/scba/",
+    badge: "NFPA 1981 — Premium",
+    badgeColor: "ember" as const,
+    imagen: "/images/trajes-para-bombero/traje-bombero-retrato-scba-capucha-proteccion-01.avif",
+    descripcion:
+      "El SCBA de máxima duración para operaciones de alto riesgo. Cilindro de fibra de carbono — el material más ligero disponible (60% más ligero que acero) con la mayor capacidad de aire. Estándar para brigadas industriales PEMEX/CFE, HAZMAT y operaciones de rescate técnico donde el tiempo de trabajo crítico supera los 45 minutos.",
+    caracteristicas: [
+      "Duración: 60 minutos a carga de trabajo media (hasta 90 min en reposo)",
+      "Cilindro de fibra de carbono — el más ligero del mercado para su capacidad",
+      "HUD digital con indicador de presión, tiempo estimado y alertas",
+      "PASS de cuarta generación: movimiento, inclinación, temperatura y alarma manual",
+      "Regulador de ultra-baja resistencia respiratoria — menor fatiga en operaciones largas",
+      "Sistema de comunicación de voz integrado compatible con radio externo",
+      "Arnés modular compatible con sistemas RIT (Rapid Intervention Team)",
+    ],
+    aplicacion: "HAZMAT · PEMEX/CFE/Petroquímica · Brigadas de rescate · Espacios confinados · Incidentes de larga duración",
+  },
+  {
+    id: "scba-arff",
+    nombre: "SCBA para ARFF — Bomberos Aeroportuarios",
+    slug: "/productos/scba/",
+    badge: "NFPA 1981 / ICAO",
+    badgeColor: "smoke" as const,
+    imagen: "/images/directorio/bomberos-guardia-nocturna-scba-equipo-01.avif",
+    descripcion:
+      "SCBA especialmente configurado para bomberos ARFF (Aircraft Rescue and Firefighting). El entorno aeroportuario combina jet fuel, materiales compuestos de aviación y altas temperaturas en espacios confinados dentro de aeronaves. Requiere configuración de alta temperatura, compatibilidad con traje ARFF aluminizado y sistema de comunicaciones compatible con torre de control.",
+    caracteristicas: [
+      "Cilindro 45–60 min — duración crítica en emergencias aeronáuticas",
+      "Resistencia a alta temperatura en componentes externos (jet fuel burns hotter)",
+      "Compatible con traje ARFF aluminizado NFPA 1971 / EN 1486",
+      "Sistema de comunicaciones compatible con frecuencias ICAO",
+      "HUD de alta visibilidad — legible con visor dorado de casco ARFF",
+      "Conexión rápida para sistema de suministro desde vehículo ARFF",
+      "Certificado NFPA 1981 y compatible con requerimientos ICAO Annex 14",
+    ],
+    aplicacion: "Aeropuertos nacionales e internacionales · Pistas de aterrizaje · Emergencias aeronáuticas · Hangares",
+  },
+  {
+    id: "scba-rit",
+    nombre: "RIT-Pak — SCBA de Rescate Rápido",
+    slug: "/productos/scba/",
+    badge: "Intervención Rápida",
+    badgeColor: "smoke" as const,
+    imagen: "/images/trajes-para-bombero/traje-bombero-estacion-equipo-scba-asesoria-01.avif",
+    descripcion:
+      "El RIT-Pak (Rapid Intervention Team Pack) es el SCBA de emergencia que el equipo RIT lleva para rescatar a un bombero en apuro dentro del edificio. Cuando un bombero activa su PASS, el RIT entra con este equipo para darle aire adicional y sacarlo. Diseño compacto y de despliegue en segundos — cuando el tiempo se mide en décimas, la rapidez de acceso al cilindro salva vidas.",
+    caracteristicas: [
+      "Diseño ultra-compacto — el equipo RIT puede cargarlo sobre su propio SCBA",
+      "Conexión rápida universal — compatible con la mayoría de máscaras del mercado",
+      "Cilindro de 5–10 min de duración — suficiente para la evacuación de emergencia",
+      "Manguera de conexión de 1.5 m con acoplamiento rápido universal",
+      "Sin arnés completo — se despliega en < 10 segundos sobre el bombero rescatado",
+      "Presión visual de cilindro legible con guantes estructurales puestos",
+    ],
+    aplicacion: "Equipos RIT/RIC · Rescate de bombero en apuro · Operaciones de búsqueda en edificio · MAYDAY response",
+  },
+  {
+    id: "mantenimiento-scba",
+    nombre: "Mantenimiento y Recarga de Cilindros SCBA",
+    slug: "/productos/scba/",
+    badge: "Servicio Técnico",
+    badgeColor: "smoke" as const,
+    imagen: "/images/directorio/mascara-scba-bombero-01.avif",
+    descripcion:
+      "La NFPA 1852 establece los protocolos obligatorios de mantenimiento, inspección y prueba hidrostática de cilindros SCBA. En México, los cilindros requieren prueba hidrostática cada 3 o 5 años según el material. El mantenimiento deficiente de un SCBA no es un riesgo de equipo — es un riesgo de vida. BOMBERO.MX asesora sobre programas de mantenimiento y provee piezas certificadas.",
+    caracteristicas: [
+      "Prueba hidrostática: cada 3 años (acero) o 5 años (compuesto/carbono)",
+      "Inspección anual de máscara, regulador y arnés según NFPA 1852",
+      "Recarga de cilindros con compresor certificado de aire respirable Grade E",
+      "Piezas de reposición originales: membranas de máscara, válvulas, correas",
+      "Capacitación en mantenimiento preventivo para el personal de la estación",
+      "Ficha de historial de mantenimiento por equipo (requerida por NFPA 1852)",
+    ],
+    aplicacion: "Todos los cuerpos de bomberos · Brigadas industriales · Programa preventivo anual",
+  },
+];
+
+// ─── Tabla comparativa de cilindros ─────────────────────────────────────────
+const comparativa = [
+  {
+    tipo: "Acero",
+    duracion: "30 min",
+    peso: "~16 kg",
+    presion: "300 bar",
+    precio: "Desde $85,000 MXN",
+    para: "Municipios, primera respuesta",
+    badge: "Más económico",
+  },
+  {
+    tipo: "Compuesto (fibra/aluminio)",
+    duracion: "45 min",
+    peso: "~13 kg",
+    presion: "300 bar",
+    precio: "Desde $120,000 MXN",
+    para: "Zonas metropolitanas, edificios altos",
+    badge: "Mejor relación peso/precio",
+  },
+  {
+    tipo: "Fibra de carbono",
+    duracion: "60 min",
+    peso: "~10 kg",
+    presion: "300 bar",
+    precio: "Desde $165,000 MXN",
+    para: "HAZMAT, PEMEX, brigadas de élite",
+    badge: "Mayor duración",
+  },
+];
+
+// ─── FAQs de alto valor SEO ─────────────────────────────────────────────────
+const faqs = [
+  {
+    question: "¿Qué significa SCBA y para qué sirve exactamente?",
+    answer: "SCBA son las siglas en inglés de Self-Contained Breathing Apparatus — en español, Equipo de Respiración Autónomo (ERA). Es el aparato que permite al bombero respirar aire limpio en atmósferas inmediatamente peligrosas para la vida (IDLH): incendios con humo tóxico, espacios confinados, derrames químicos y entornos con déficit de oxígeno. El SCBA es la diferencia entre entrar a un incendio y poder salir. Sin él, una atmósfera con 0.5% de monóxido de carbono (CO) genera incapacitación en minutos.",
+  },
+  {
+    question: "¿Qué norma regula el SCBA en México?",
+    answer: "El SCBA para bomberos en México se rige por la NFPA 1981 (Standard on Open-Circuit Self-Contained Breathing Apparatus for Emergency Services). Complementariamente, el dispositivo PASS integrado debe cumplir NFPA 1982, y el mantenimiento se rige por NFPA 1852. Para brigadas industriales, la NOM-002-STPS también hace referencia al uso de equipos de respiración autónomos en operaciones de emergencia.",
+  },
+  {
+    question: "¿Cuánto dura realmente un cilindro de 30 minutos?",
+    answer: "La duración nominal (30, 45 o 60 min) se calcula bajo condiciones de trabajo moderado en laboratorio. En un incendio estructural activo, la duración real puede reducirse significativamente: un bombero con alta carga física (subiendo escaleras con 30 kg de equipo bajo calor extremo) puede consumir un cilindro de '30 minutos' en 15-18 minutos. La regla operativa estándar es el 'principio de un tercio': 1/3 para entrar, 1/3 para trabajar, 1/3 para salir. Con un cilindro de 30 min, el tiempo de trabajo real dentro del edificio es de aproximadamente 10 minutos.",
+  },
+  {
+    question: "¿Cuál es la diferencia entre cilindro de acero, compuesto y carbono?",
+    answer: "Los tres tipos tienen la misma presión (300 bar) y cumplen NFPA 1981. La diferencia es peso, durabilidad y costo: (1) Acero: el más pesado (~2.5 kg el cilindro solo), el más duradero y el más económico. Prueba hidrostática cada 3 años. (2) Compuesto (fibra de vidrio/aluminio): 30-40% más ligero que acero, mejor ergonomía, prueba hidrostática cada 5 años. (3) Fibra de carbono: el más ligero (hasta 60% vs acero), mayor capacidad de aire en el mismo volumen, mayor costo inicial. Para municipios con presupuesto limitado, el acero es la opción correcta. Para brigadas de rescate técnico o HAZMAT que usan el equipo diariamente, carbono justifica su costo.",
+  },
+  {
+    question: "¿Qué es el PASS y por qué es crítico?",
+    answer: "El PASS (Personal Alert Safety System) es un dispositivo de alarma de movimiento integrado en el SCBA. Si el bombero deja de moverse durante 30 segundos (porque está atrapado, inconsciente o incapacitado), el PASS emite una alarma de 95 dB visible y audible que guía al equipo de rescate hacia su ubicación. En México, el MAYDAY —la llamada de emergencia de un bombero en apuro— se complementa con el PASS activado. La NFPA 1982 exige el PASS en todo SCBA certificado. Un SCBA sin PASS es técnicamente inoperante para uso en incendio estructural.",
+  },
+  {
+    question: "¿Cuánto cuesta un SCBA completo en México?",
+    answer: "Un SCBA completo (cilindro + máscara + regulador + arnés + PASS) certificado NFPA 1981 en México oscila entre $85,000 MXN (cilindro de acero 30 min, marcas de entrada profesional) y $250,000+ MXN (cilindro de carbono 60 min, marcas premium como MSA G1, Scott Air-Pak X3 Pro o Dräger PSS 7000). El costo de no invertir en un SCBA adecuado no se mide en pesos: un regulador deficiente o una máscara sin sello adecuado puede exponer al bombero a gases que generan daño pulmonar permanente en una sola exposición.",
+  },
+  {
+    question: "¿Con qué frecuencia se debe dar mantenimiento al SCBA?",
+    answer: "Según la NFPA 1852, el programa mínimo de mantenimiento incluye: (1) Inspección antes de cada uso: sello de máscara, presión de cilindro, funcionamiento de PASS y regulador; (2) Inspección mensual documentada: todos los componentes según checklist; (3) Inspección anual por técnico certificado: regulador, válvulas, membranas; (4) Prueba hidrostática del cilindro: cada 3 años (acero) o 5 años (compuesto/carbono). Un cilindro vencido en prueba hidrostática es legalmente inutilizable y representa riesgo de explosión.",
+  },
+  {
+    question: "¿Pueden los municipios pequeños cotizar SCBA por licitación?",
+    answer: "Sí. BOMBERO.MX apoya a cuerpos de bomberos municipales de cualquier tamaño en sus procesos de adquisición. Emitimos: ficha técnica completa con especificaciones NFPA 1981, certificados de laboratorio acreditado, carta de garantía de 2 años en componentes, y tiempos de entrega comprometidos por escrito. El costo unitario baja entre 8 y 15% en compras de 5 o más equipos. Contáctenos para iniciar el proceso sin costo.",
+  },
+];
+
+// ─── Schema.org ─────────────────────────────────────────────────────────────
+const CANONICAL = "/productos/scba/";
+const productSchema = productSchemaComplete({
+  name: "SCBA — Equipo de Respiración Autónomo para Bomberos NFPA 1981",
+  description: "SCBA certificado NFPA 1981 para bomberos en México. Cilindros de acero, compuesto y fibra de carbono de 30, 45 y 60 minutos. MSA, Scott, Dräger. PASS integrado NFPA 1982. Envío a 32 estados. Cotiza sin compromiso.",
+  image: "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+  url: CANONICAL,
+  category: "SCBA — Equipo de Respiración Autónomo",
+  features: ["NFPA 1981", "NFPA 1982", "NFPA 1852", "Presión Positiva", "PASS Integrado"],
+  certifications: ["NFPA 1981", "NFPA 1982", "NFPA 1852"],
+});
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Productos", url: "/productos/" },
+  { name: "SCBA — Equipo de Respiración Autónomo", url: CANONICAL },
+]);
+const jsonLdSchemas = [productSchema, breadcrumbSchema];
+---
+
+<PageLayout
+  title="SCBA para Bomberos en México | NFPA 1981 | Cilindros 30–60 Min | BOMBERO.MX"
+  description="SCBA certificado NFPA 1981 para bomberos en México. Cilindros de acero, compuesto y carbono de 30, 45 y 60 minutos con PASS integrado. MSA, Scott Air-Pak, Dräger. Brigadas industriales, HAZMAT, ARFF y municipios. Asesoría técnica. Envío a 32 estados."
+  canonical={CANONICAL}
+  jsonLd={jsonLdSchemas}
+  keywords={[
+    "SCBA para bomberos México",
+    "equipo de respiración autónomo bomberos",
+    "SCBA NFPA 1981",
+    "cilindro SCBA 30 minutos",
+    "cilindro SCBA 60 minutos fibra carbono",
+    "equipo respiración autónomo NFPA",
+    "MSA SCBA México",
+    "Scott Air-Pak México",
+    "Dräger SCBA México",
+    "PASS bomberos NFPA 1982",
+    "ERA equipo respiracion autonomo",
+    "SCBA brigadas industriales Mexico",
+    "SCBA HAZMAT bomberos",
+    "equipo SCBA ARFF aeroportuario",
+    "mantenimiento SCBA NFPA 1852",
+    "RIT-Pak rescate bomberos",
+  ]}
+  type="website"
+>
+
+  <Breadcrumb items={[
+    { label: "Productos", href: "/productos/" },
+    { label: "SCBA — Equipo de Respiración Autónomo" },
+  ]} />
+
+  <!-- ════════════════════ HERO ════════════════════ -->
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__gradient"></div>
+      <div class="hero__grid"></div>
+      <div class="hero__glow hero__glow--1"></div>
+      <div class="hero__glow hero__glow--2"></div>
+    </div>
+
+    <div class="container hero__container">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          NFPA 1981 · PASS NFPA 1982 · 30 / 45 / 60 Minutos
+        </div>
+        <h1 class="hero__title">
+          <span class="hero__title-highlight">SCBA</span>
+          Equipo de Respiración<br />Autónomo para Bomberos
+        </h1>
+        <p class="hero__subtitle">
+          El equipo de mayor criticidad en la dotación del bombero. Sin SCBA no hay entrada segura a
+          atmósferas IDLH. Cilindros de acero, compuesto y fibra de carbono de 30, 45 y 60 minutos,
+          todos certificados NFPA 1981 con PASS integrado. Asesoría técnica para municipios,
+          brigadas industriales, HAZMAT y ARFF.
+        </p>
+
+        <div class="hero__urgencia">
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">< 30s</span>
+            <span class="hero__urgencia-label">tiempo que tarda el CO en niveles letales en incendio estructural sin SCBA</span>
+          </div>
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">NFPA 1981</span>
+            <span class="hero__urgencia-label">norma que regula todo SCBA para servicio de emergencia en México</span>
+          </div>
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">32 Estados</span>
+            <span class="hero__urgencia-label">cobertura de entrega con documentación para licitación incluida</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__seo">
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">Distribuidores de SCBA Certificado NFPA 1981 en México</h2>
+          <p class="hero__seo-text">
+            <strong>BOMBERO.MX</strong> distribuye <strong>equipos SCBA certificados NFPA 1981</strong> para cuerpos de bomberos, protección civil, brigadas industriales y equipos HAZMAT en los 32 estados de México. Trabajamos con las marcas líderes mundiales: <strong>MSA Safety (G1 SCBA, AirHawk II)</strong>, <strong>Scott Aviation (Air-Pak X3 Pro)</strong> y <strong>Dräger (PSS 7000)</strong>. Para protección completa, el SCBA se complementa con <a href="/productos/capuchas-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">capucha NFPA certificada</a> y <a href="/productos/cascos-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">casco compatible</a>.
+          </p>
+        </div>
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">¿Por Qué el SCBA Es el Equipo Más Crítico del Bombero?</h2>
+          <p class="hero__seo-text">
+            En un incendio estructural, la principal causa de muerte del bombero no es el fuego — es la inhalación de gases tóxicos. El monóxido de carbono (CO), el cianuro de hidrógeno (HCN) y los gases de combustión de materiales sintéticos modernos generan incapacitación en menos de 60 segundos a concentraciones que se alcanzan rutinariamente en incendios de habitación. El <strong>SCBA de presión positiva NFPA 1981</strong> es la única protección efectiva. Complementa con <a href="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" style="color: var(--color-fire-400); text-decoration: underline;">traje estructural NFPA 1971</a> para EPP completo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABar quote="Cotizar SCBA para mi Cuerpo de Bomberos" />
+
+  <!-- ════════════════════ CATÁLOGO ════════════════════ -->
+  <section class="section productos" id="catalogo">
+    <div class="container">
+      <SectionHeader
+        label="Catálogo SCBA — Equipos de Respiración Autónoma"
+        title="6 Configuraciones SCBA para Cada Tipo de Operación"
+        description="Desde el equipo municipal de 30 minutos hasta el RIT-Pak de rescate rápido. Cada configuración está pensada para un escenario operativo específico."
+      >
+        <p>
+          Elegir el <strong>SCBA correcto</strong> no es solo una decisión de presupuesto — es una decisión táctica. La duración del cilindro, el peso del equipo y las funciones del regulador determinan qué puede y qué no puede hacer el bombero dentro del incendio. Un <strong>cilindro de 30 minutos</strong> con el <strong>principio de tercio</strong> deja apenas 10 minutos de trabajo real en el punto de ataque. Un cilindro de 45 o 60 minutos en operaciones de búsqueda en edificios de varios pisos puede marcar la diferencia entre rescatar a una víctima o no llegar a tiempo.
+        </p>
+        <p>
+          Para <strong>brigadas industriales</strong> que manejan espacios confinados, productos químicos o instalaciones PEMEX/CFE, la norma NOM-002-STPS y los protocolos HAZMAT exigen cilindros de mínimo 45 minutos con PASS de cuarta generación. <strong>BOMBERO.MX</strong> asesora sobre la configuración correcta sin costo.
+        </p>
+      </SectionHeader>
+
+      <div class="productos__grid">
+        {productos.map((producto) => (
+          <ProductCard {...producto} altSuffix="SCBA equipo de respiración autónomo bomberos México NFPA 1981" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ COMPARATIVA DE CILINDROS ════════════════════ -->
+  <section class="section section--dark comparativa">
+    <div class="container">
+      <SectionHeader
+        label="Guía de Selección"
+        title="¿Qué Cilindro SCBA Necesita tu Cuerpo de Bomberos?"
+        description="Tres materiales, tres presupuestos, tres perfiles operativos distintos. Elige según la frecuencia de uso, el tipo de incendio predominante y el presupuesto disponible."
+      >
+        <p>
+          La elección del cilindro SCBA es la decisión de mayor impacto en el costo total del equipo. Un <strong>cilindro de acero</strong> es la opción correcta para un municipio con presupuesto ajustado que necesita equipo confiable. El <strong>cilindro compuesto</strong> (fibra de vidrio/aluminio) ofrece el mejor balance de peso y costo para cuerpos de bomberos metropolitanos. El <strong>cilindro de fibra de carbono</strong> justifica su mayor inversión en operaciones donde el bombero usa el SCBA múltiples veces por turno o necesita máxima movilidad en rescate técnico.
+        </p>
+      </SectionHeader>
+
+      <div class="comparativa__table-wrap">
+        <table class="comparativa__table">
+          <thead>
+            <tr>
+              <th>Tipo de Cilindro</th>
+              <th>Duración</th>
+              <th>Peso aprox.</th>
+              <th>Prueba Hidrostática</th>
+              <th>Precio aprox. (MXN)</th>
+              <th>Perfil recomendado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparativa.map((c) => (
+              <tr>
+                <td><strong>{c.tipo}</strong><br /><span class="comparativa__badge">{c.badge}</span></td>
+                <td>{c.duracion}</td>
+                <td>{c.peso}</td>
+                <td>{c.tipo === "Acero" ? "Cada 3 años" : "Cada 5 años"}</td>
+                <td>{c.precio}</td>
+                <td>{c.para}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="comparativa__nota">* Precios orientativos sujetos a configuración, marca y volumen. Solicita cotización exacta para tu cuerpo de bomberos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ COMPONENTES DEL SCBA ════════════════════ -->
+  <section class="section specs">
+    <div class="container">
+      <SectionHeader
+        label="Anatomía del SCBA"
+        title="Los 5 Componentes Críticos de un SCBA NFPA 1981"
+        description="Cada componente del SCBA tiene función, norma y criterio de reemplazo específico. Un fallo en cualquiera de ellos invalida la protección del sistema completo."
+      >
+        <p>
+          Un <strong>SCBA completo NFPA 1981</strong> es un sistema integrado donde cada pieza debe cumplir su norma específica. La máscara debe sellar herméticamente con el rostro del bombero — esto incluye restricciones sobre el uso de barba. El regulador de presión positiva garantiza que si el sello falla, el aire fluye hacia afuera (no entra atmósfera tóxica). El PASS integrado activa la alarma de emergencia automáticamente. Todo este sistema requiere mantenimiento según <a href="/productos/scba/">NFPA 1852</a> para mantener su certificación operativa.
+        </p>
+      </SectionHeader>
+
+      <div class="specs__grid">
+        <CategoryCard
+          title="Máscara Facial Completa"
+          icon="shield"
+          image="/images/directorio/mascara-scba-bombero-01.avif"
+          description="Sello hermético contra el rostro en silicón o neopreno. Visor de policarbonato resistente a impacto y calor. Debe ajustarse con arnés de cabeza de 5 o 6 puntos. La barba rompe el sello — requerimiento operativo: bombero con SCBA debe rasurar la zona de contacto. Compatible con capucha Nomex certificada."
+        />
+        <CategoryCard
+          title="Regulador a Presión Positiva"
+          icon="certificate"
+          image="/images/trajes-para-bombero/traje-bombero-estacion-equipo-scba-asesoria-01.avif"
+          description="El componente más crítico. El regulador de presión positiva mantiene presión de aire levemente superior al exterior dentro de la máscara. Si el sello falla, el aire sale — nunca entra atmósfera tóxica. La NFPA 1981 exige presión positiva en todo SCBA certificado para servicio de emergencia."
+        />
+        <CategoryCard
+          title="Cilindro de Aire Respirable"
+          icon="axe"
+          image="/images/directorio/cilindro-scba-bomberos-01.avif"
+          description="El cilindro almacena aire comprimido certificado Grado D o E (no oxígeno puro). Solo puede recargarse con compresor de aire respirable certificado. La presión de trabajo es 300 bar (4,500 psi). Sujeto a prueba hidrostática periódica según material. Cilindro sin certificación vigente = equipo fuera de servicio."
+        />
+        <CategoryCard
+          title="Arnés y Sistema de Carga"
+          icon="users"
+          image="/images/directorio/bombero-hernandez-capucha-scba-estacion-01.avif"
+          description="El arnés distribuye el peso del SCBA (10–16 kg según configuración) sobre hombros, pecho y cadera. Diseño ergonómico para trabajo físico intenso. Debe permitir donning (ponerse el equipo) en menos de 60 segundos. Compatibilidad con sistemas de enganche de traje estructural y radios portátiles."
+        />
+        <CategoryCard
+          title="PASS — Alarma de Emergencia"
+          icon="shield"
+          image="/images/directorio/bomberos-guardia-nocturna-scba-equipo-02.avif"
+          description="El PASS (Personal Alert Safety System) detecta falta de movimiento en 30 segundos y activa alarma de 95 dB. Es el sistema de rescate pasivo del bombero. En MAYDAY, el bombero activa el PASS manual para guiar al equipo RIT hacia su posición. La NFPA 1982 es la norma específica del PASS. Un SCBA sin PASS en servicio activo viola los protocolos NFPA."
+        />
+        <CategoryCard
+          title="HUD — Indicador de Presión"
+          icon="certificate"
+          image="/images/gafas-para-bomberos/goggle-bombera-scba-proteccion-respiratoria-01.avif"
+          description="El HUD (Heads-Up Display) proyecta la presión del cilindro en el visor de la máscara o en un módulo visible en el arnés. Permite al bombero monitorear su nivel de aire sin bajar la vista ni quitar las manos del trabajo. En modelos premium incluye indicador de tiempo estimado restante, alerta de baja presión y temperatura ambiente."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ SECTORES ════════════════════ -->
+  <section class="section section--dark sectores">
+    <div class="container">
+      <SectionHeader
+        label="¿Quién Necesita SCBA en México?"
+        title="Sectores que Equipamos con SCBA Certificado NFPA 1981"
+        description="El SCBA es requerido en cualquier operación con atmósfera potencialmente peligrosa para la vida (IDLH). Estos son los principales sectores que atendemos."
+      />
+      <div class="sectores__grid">
+        <div class="sector-card">
+          <div class="sector-card__icon">🚒</div>
+          <h3>Cuerpos de Bomberos Municipales y Estatales</h3>
+          <p>Equipamiento de primera línea para los 32 estados. Desde municipios rurales con 1–2 unidades de SCBA hasta cuerpos metropolitanos con flotas de 50+ equipos. Asesoría en licitaciones CompraNet.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🏭</div>
+          <h3>Brigadas Industriales — NOM-002-STPS</h3>
+          <p>La NOM-002-STPS exige equipo de respiración autónomo en brigadas de emergencia de centros de trabajo con riesgo de incendio. Plantas manufactureras, parques industriales y centros de distribución.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">⚗️</div>
+          <h3>HAZMAT — Materiales Peligrosos</h3>
+          <p>Derrames químicos, fugas de gas y emergencias con sustancias CBRN requieren SCBA de mínimo 45–60 min. Integración con traje Nivel A y B. Brigadas PEMEX, CFE, industria química y petroquímica.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">✈️</div>
+          <h3>ARFF — Bomberos Aeroportuarios</h3>
+          <p>Los aeropuertos internacionales en México exigen SCBA certificado NFPA 1981 compatible con el entorno de alta temperatura de combustible de aviación. Configuración especial para vehículos ARFF.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">⛏️</div>
+          <h3>Minería y Espacios Confinados</h3>
+          <p>Operaciones en minas, túneles, pozos y espacios confinados con atmósferas deficientes en oxígeno o presencia de gases. El SCBA es el único equipo que garantiza protección respiratoria completa en estas condiciones.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🏗️</div>
+          <h3>Protección Civil y Rescate Urbano</h3>
+          <p>Unidades de rescate urbano en colapso de estructuras, búsqueda en zonas de gas y operaciones post-sismo. El SCBA es equipo estándar para protección civil en los 32 estados.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ FAQ ════════════════════ -->
+  <FAQ
+    title="Preguntas Frecuentes — SCBA para Bomberos NFPA 1981"
+    description="Respuestas técnicas para jefes de cuerpo, responsables de seguridad industrial y coordinadores de protección civil que necesitan tomar la decisión correcta de equipamiento."
+    items={faqs}
+  />
+
+  <!-- ════════════════════ CTA ════════════════════ -->
+  <CTABanner
+    title="¿Necesitas Cotizar SCBA para tu Cuerpo de Bomberos o Brigada?"
+    description="Asesoría técnica sin costo. Cotización con especificaciones NFPA 1981 lista para licitación. Respuesta en menos de 24 horas. Enviamos a los 32 estados de México."
+    primaryCta={{ label: "Solicitar Cotización de SCBA", href: "/cotizar/" }}
+    secondaryCTA={{ label: "Consultar por WhatsApp", href: `https://wa.me/525520780102?text=${encodeURIComponent('Hola BOMBERO.MX, necesito cotizar equipos SCBA NFPA 1981 para mi cuerpo de bomberos / brigada industrial.')}` }}
+  />
+
+</PageLayout>
+
+<style>
+  /* ─── Hero ─────────────────────────────────── */
+  .hero {
+    position: relative; padding: 5rem 0 4rem;
+    overflow: hidden; background: var(--color-bg-dark, #0a0a0f);
+  }
+  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero__gradient {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,20,20,0.2) 0%, transparent 70%);
+  }
+  .hero__grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero__glow {
+    position: absolute; border-radius: 50%;
+    filter: blur(120px); pointer-events: none;
+  }
+  .hero__glow--1 {
+    width: 600px; height: 400px; top: -150px; right: -100px;
+    background: rgba(220,20,20,0.15);
+  }
+  .hero__glow--2 {
+    width: 350px; height: 350px; bottom: -100px; left: -80px;
+    background: rgba(180,60,20,0.1);
+  }
+  .hero__container { position: relative; z-index: 1; }
+  .hero__badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(220,20,20,.15); border: 1px solid rgba(220,20,20,.35);
+    border-radius: 999px; padding: .375rem 1rem;
+    font-size: .8125rem; font-weight: 600;
+    color: var(--color-fire-400, #f87171); margin-bottom: 1.5rem;
+  }
+  .hero__badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--color-fire-400, #f87171);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(1.3); } }
+  .hero__title {
+    font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 900;
+    line-height: 1.1; color: #fff; margin-bottom: 1.25rem;
+  }
+  .hero__title-highlight {
+    background: linear-gradient(135deg, #f87171, #dc2626);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; display: block; font-size: 1.2em;
+  }
+  .hero__subtitle {
+    font-size: 1.125rem; line-height: 1.75;
+    color: rgba(255,255,255,.65); max-width: 680px; margin-bottom: 2.5rem;
+  }
+
+  /* Stats de urgencia */
+  .hero__urgencia {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; margin-bottom: 2.5rem;
+  }
+  .hero__urgencia-item {
+    background: rgba(220,20,20,.1); border: 1px solid rgba(220,20,20,.25);
+    border-radius: 10px; padding: 1rem 1.25rem; text-align: center;
+  }
+  .hero__urgencia-num {
+    display: block; font-size: 1.375rem; font-weight: 900;
+    color: #f87171; margin-bottom: .25rem;
+  }
+  .hero__urgencia-label {
+    font-size: .75rem; color: rgba(255,255,255,.5); line-height: 1.4;
+  }
+  @media (max-width: 640px) {
+    .hero__urgencia { grid-template-columns: 1fr; }
+  }
+
+  .hero__seo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+  .hero__seo-block {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px; padding: 1.5rem;
+  }
+  .hero__seo-title { font-size: .9375rem; font-weight: 700; color: #fff; margin-bottom: .75rem; }
+  .hero__seo-text  { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+  @media (max-width: 768px) { .hero__seo { grid-template-columns: 1fr; } }
+
+  /* ─── Secciones ──────────────────────────────── */
+  .section { padding: 5rem 0; }
+  .section--dark {
+    background: var(--color-bg-dark, #0a0a0f);
+    border-top: 1px solid rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .productos__grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .specs__grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+
+  /* ─── Tabla comparativa ──────────────────────── */
+  .comparativa__table-wrap { margin-top: 2.5rem; overflow-x: auto; }
+  .comparativa__table {
+    width: 100%; border-collapse: collapse;
+    font-size: .9rem;
+  }
+  .comparativa__table th {
+    background: rgba(220,20,20,.15); color: #f87171;
+    font-weight: 700; font-size: .8125rem; text-transform: uppercase;
+    letter-spacing: .05em; padding: .875rem 1rem; text-align: left;
+    border-bottom: 1px solid rgba(220,20,20,.3);
+  }
+  .comparativa__table td {
+    padding: .875rem 1rem; border-bottom: 1px solid rgba(255,255,255,.06);
+    color: rgba(255,255,255,.75); vertical-align: top;
+  }
+  .comparativa__table tr:hover td { background: rgba(255,255,255,.03); }
+  .comparativa__badge {
+    display: inline-block; margin-top: .25rem;
+    font-size: .7rem; font-weight: 600; color: #f87171;
+    background: rgba(220,20,20,.15); border: 1px solid rgba(220,20,20,.3);
+    border-radius: 999px; padding: .15rem .5rem;
+  }
+  .comparativa__nota {
+    font-size: .8125rem; color: rgba(255,255,255,.35);
+    margin-top: 1rem; font-style: italic;
+  }
+
+  /* ─── Sectores ───────────────────────────────── */
+  .sectores__grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .sector-card {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px; padding: 1.75rem;
+    transition: border-color .2s, transform .2s;
+  }
+  .sector-card:hover { border-color: rgba(220,20,20,.4); transform: translateY(-2px); }
+  .sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+  .sector-card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .625rem; }
+  .sector-card p { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+</style>
