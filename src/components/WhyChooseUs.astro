@@ -1,5 +1,4 @@
 ---
-
 import SectionHeader from "./SectionHeader.astro";
 import CategoryCard from "./CategoryCard.astro";
 
@@ -10,15 +9,16 @@ interface Props {
 const { images } = Astro.props;
 
 const defaultImages = [
-  "/images/directorio/simulacro-bomberos-profesional-01.avif",
-  "/images/directorio/equipo-proteccion-bomberos-01.avif",
-  "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
-  "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
-  "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
-  "/images/directorio/bombero-profesional-closeup-servicio-01.avif",
+  "/images/directorio/bombero-equipo-completo-guardia-01.avif",
+  "/images/directorio/casco-bombero-bullard-fx3-estacion-01.avif",
+  "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
+  "/images/directorio/autobomba-bomberos-equipada-01.avif",
+  "/images/directorio/estacion-bomberos-equipada-01.avif",
+  "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
 ];
 
-const cardImages = defaultImages.map((defaultImage, index) => images?.[index] ?? defaultImage);
+const cardImages = defaultImages.map((def, i) => images?.[i] ?? def);
 ---
 
 <section class="why-choose" id="por-que-elegirnos">
@@ -42,56 +42,80 @@ const cardImages = defaultImages.map((defaultImage, index) => images?.[index] ??
       </p>
     </SectionHeader>
 
-
     <div class="why-choose__grid">
+
       <CategoryCard
         title="Experiencia Comprobada"
-        icon="certificate"
+        badge="500+ estaciones"
         image={cardImages[0]}
         description="Más de 500 estaciones de bomberos equipadas en México. Proveedor de confianza para Protección Civil estatal, brigadas de PEMEX, CFE y empresas del sector industrial. Casos de éxito documentados y referencias verificables."
+        href="/nosotros/"
+        buttonText="Conoce nuestra trayectoria"
       />
+
       <CategoryCard
         title="Marcas Líderes Mundiales"
-        icon="shield"
+        badge="7 marcas autorizadas"
         image={cardImages[1]}
-        description="Distribuidores autorizados de MSA, Honeywell, Globe, Bullard, Cairns, Lion y Holmatro. Equipos de protección personal fabricados bajo los más altos estándares internacionales. Autenticidad garantizada con números de serie verificables."
+        description="Distribuidores autorizados de MSA, Honeywell, Globe, Bullard, Cairns, Lion y Holmatro. Equipos fabricados bajo los más altos estándares internacionales. Autenticidad garantizada con números de serie verificables."
+        href="/productos/"
+        buttonText="Ver catálogo de marcas"
       />
+
       <CategoryCard
         title="Asesoría Técnica Gratuita"
-        icon="headphones"
+        badge="Especialistas NFPA"
         image={cardImages[2]}
-        description="Especialistas certificados en normativa NFPA y equipamiento contra incendios. Elaboramos especificaciones técnicas, comparativos de productos y recomendaciones personalizadas según el tipo de riesgo. Apoyo en procesos de licitación pública."
+        description="Especialistas certificados en normativa NFPA y equipamiento contra incendios. Elaboramos especificaciones técnicas, comparativos y recomendaciones personalizadas según el tipo de riesgo. Apoyo en procesos de licitación pública."
+        href="/contacto/"
+        buttonText="Solicitar asesoría"
       />
+
       <CategoryCard
         title="Stock Permanente"
-        icon="clock"
+        badge="Entrega inmediata"
         image={cardImages[3]}
         description="Inventario activo de los productos más demandados: trajes estructurales, cascos, guantes, botas y SCBA en tallas estándar. Disponibilidad inmediata sin tiempos de espera. Equipos especializados bajo pedido con tiempos garantizados."
+        href="/cotizar/"
+        buttonText="Consultar disponibilidad"
       />
+
       <CategoryCard
         title="Logística Nacional"
-        icon="truck"
+        badge="32 estados"
         image={cardImages[4]}
         description="Red de distribución optimizada para equipo contra incendios. Entregas coordinadas directamente en estaciones, dependencias gubernamentales e instalaciones industriales. Embalaje especializado y seguro de envío incluido."
+        href="/contacto/"
+        buttonText="Ver cobertura"
       />
+
       <CategoryCard
         title="Ejecutivo de Cuenta Asignado"
-        icon="users"
+        badge="Atención personalizada"
         image={cardImages[5]}
         description="Un solo contacto para todas tus necesidades. Seguimiento personalizado desde la cotización hasta la entrega. Recordatorios de mantenimiento, renovación de equipos y acceso prioritario a nuevos productos y promociones."
+        href="/cotizar/"
+        buttonText="Hablar con un ejecutivo"
       />
+
+      <CategoryCard
+        title="Catálogo Completo"
+        badge="500+ productos"
+        image={cardImages[6]}
+        description="13 categorías de equipo certificado NFPA. Trajes, cascos, guantes, botas, SCBA, herramientas de rescate, extintores, HAZMAT y más. Fichas técnicas y certificados de laboratorio disponibles para cada producto."
+        href="/productos/"
+        buttonText="Explorar catálogo completo"
+      />
+
     </div>
   </div>
 </section>
 
 <style>
-
-
   .why-choose {
     padding: var(--space-12) 0;
-    background: white;
+    background: var(--color-smoke-50);
   }
-
 
   .why-choose__grid {
     display: grid;
@@ -99,27 +123,25 @@ const cardImages = defaultImages.map((defaultImage, index) => images?.[index] ??
     gap: var(--space-4);
   }
 
-
   @media (min-width: 640px) {
-    .why-choose {
-      padding: var(--space-16) 0;
-    }
-
+    .why-choose { padding: var(--space-16) 0; }
     .why-choose__grid {
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-5);
     }
   }
 
-
-  @media (min-width: 1024px) {
-    .why-choose {
-      padding: var(--space-20) 0;
-    }
-
+  @media (min-width: 900px) {
     .why-choose__grid {
       grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-6);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .why-choose { padding: var(--space-20) 0; }
+    .why-choose__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-5);
     }
   }
 </style>
