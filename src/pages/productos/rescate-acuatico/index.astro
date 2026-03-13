@@ -1,0 +1,533 @@
+---
+import PageLayout    from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import CTABanner     from "@components/CTABanner.astro";
+import CTABar        from "@components/CTABar.astro";
+import CategoryCard  from "@components/CategoryCard.astro";
+import ProductCard   from "@components/ProductCard.astro";
+import FAQ           from "@components/FAQ.astro";
+import Breadcrumb    from "@components/Breadcrumb.astro";
+import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+
+// ─── Catálogo Rescate Acuático ────────────────────────────────────────────────
+const productos = [
+  {
+    id: "traje-inmersion-neopreno",
+    nombre: "Traje de Inmersión / Neopreno para Rescate Acuático — 5 mm",
+    slug: "/productos/rescate-acuatico/",
+    badge: "NFPA 1952",
+    badgeColor: "fire" as const,
+    imagen: "/images/directorio/traje-inmersion-rescate-01.avif",
+    descripcion:
+      "El traje de inmersión de neopreno es la primera línea de protección del rescatista acuático contra la hipotermia, uno de los principales riesgos en operaciones de rescate en agua. El neopreno de celda cerrada de 5 mm crea una capa de agua tibia entre el traje y el cuerpo que mantiene la temperatura corporal incluso en agua a 10°C. Los modelos para rescate de bomberos cumplen con la norma NFPA 1952 (Surface Water Operations) e incluyen mangas cortas con escotillas para rápida entrada al agua. El traje debe combinarse siempre con chaleco salvavidas, casco y el resto del sistema de rescate acuático.",
+    caracteristicas: [
+      "Material: neopreno de celda cerrada de 5 mm — aislamiento térmico óptimo en agua fría",
+      "Certificación NFPA 1952 para operaciones en superficie de agua",
+      "Cierre frontal de cremallera impermeable diagonal — fácil puesta con equipo puesto",
+      "Rodillas y codos reforzados con neopreno de 7 mm — para trabajo en orillas rocosas",
+      "Bolsillos de parche con drenaje — accesibles con guantes gruesos de rescate",
+      "Talla: XS a 4XL — disponible en versión masculina, femenina y genérica",
+      "Compatible: botas de neopreno, guantes de rescate y casco de rescate acuático",
+    ],
+    aplicacion: "Rescate en ríos · Inundaciones · Operaciones de buceo de superficie · Swift water rescue · Rescate en mar y lagos · Búsqueda y recuperación",
+  },
+  {
+    id: "chaleco-salvavidas-nfpa-rescate",
+    nombre: "Chaleco Salvavidas de Rescate PFD — NFPA 1952 / USCG Tipo III",
+    slug: "/productos/rescate-acuatico/",
+    badge: "NFPA 1952",
+    badgeColor: "fire" as const,
+    imagen: "/images/directorio/rescate-acuatico-bomberos-01.avif",
+    descripcion:
+      "El chaleco salvavidas de rescate (PFD — Personal Flotation Device) para bomberos no es un chaleco recreativo. Cumple con la NFPA 1952 y está diseñado para el trabajo activo del rescatista: brinda flotabilidad mínima de 70 N (≈ 7 kg de empuje), tiene paneles de malla para no sobrepasar al rescatista en corrientes fuertes, y está equipado con manijas de rescate para que el compañero pueda extraer al rescatista del agua en caso de emergencia. Los modelos para swift water (corrientes rápidas) incluyen cuchillo de seguridad, silbato y cinta de cincha de emergencia.",
+    caracteristicas: [
+      "Flotabilidad: ≥ 70 N (NFPA 1952) — mantiene a la víctima boca arriba en agua",
+      "Diseño de chaleco dividido: libertad de movimiento total de hombros y brazos",
+      "Manijas de rescate en hombros: para extracción del agua por compañero o helicóptero",
+      "Paneles de malla: reducen resistencia hidrodinámica en corrientes fuertes",
+      "Reflectantes 3M: visibilidad nocturna y en condiciones de baja visibilidad",
+      "Silbato FOX40 integrado: señal de socorro audible a 120+ dB",
+      "Cuchillo de seguridad de hoja fija de acero inoxidable — para cortar líneas de enredo",
+    ],
+    aplicacion: "Operaciones en swift water · Inundaciones urbanas · Rescate en lagos y presas · Operaciones de búsqueda y recuperación · Vigilancia de playas",
+  },
+  {
+    id: "tabla-swift-water",
+    nombre: "Rescue Board — Tabla de Rescate Acuático Swift Water",
+    slug: "/productos/rescate-acuatico/",
+    badge: "Swift Water — NFPA 1952",
+    badgeColor: "ember" as const,
+    imagen: "/images/directorio/rescate-swift-water-rios-01.avif",
+    descripcion:
+      "La tabla de rescate (rescue board) permite al rescatista llegar a una víctima en aguas rápidas o profundas de forma más rápida que nadando, y proporciona flotabilidad adicional tanto al rescatista como a la víctima durante la extricación. El núcleo de EPS de alta densidad da una flotabilidad de 80-120 kg adicionales sobre el peso del equipo. Los modelos de rescate difieren de las tablas de surf: son más cortos (1.8-2.1 m), más anchos y tienen asas de rescate a los lados para que la víctima se sujete. Incluyen cuerda de remolque de 15 m.",
+    caracteristicas: [
+      "Longitud: 1.8 a 2.2 m — manejable en ríos angostos y zonas urbanas inundadas",
+      "Flotabilidad: 80-120 kg adicionales — sostiene a rescatista más víctima adulta",
+      "Núcleo EPS de alta densidad + cubierta de polietileno de alta resistencia al impacto",
+      "6 asas de rescate distribuidas — para sujeción de víctima desde cualquier posición",
+      "Cuerda de remolque integrada de 15 m — para conexión al equipo de orilla",
+      "Color naranja fluorescente con franjas reflectantes — máxima visibilidad en agua",
+      "Peso: 6-8 kg — manejable por un solo rescatista en desplazamiento rápido",
+    ],
+    aplicacion: "Swift water rescue · Inundaciones por lluvias · Rescate en ríos en crecida · Playas con corrientes · Operaciones en presas y embalses",
+  },
+  {
+    id: "cuerda-rescate-acuatico",
+    nombre: "Cuerda de Lanzamiento de Rescate — Throw Bag 25 m / 70 m",
+    slug: "/productos/rescate-acuatico/",
+    badge: "NFPA 1952",
+    badgeColor: "fire" as const,
+    imagen: "/images/directorio/equipo-buceo-rescate-01.avif",
+    descripcion:
+      "La bolsa de lanzamiento (throw bag) es la herramienta de rescate acuático más simple y más efectiva: permite al rescatista en orilla lanzar una cuerda flotante a una víctima en el agua desde hasta 25 metros. La técnica no requiere que el rescatista entre al agua, reduciendo el riesgo para el equipo de rescate. La bolsa de 25 m es la estándar para ríos de hasta 20 m de ancho; la de 70 m se usa en operaciones de orilla a orilla en embalses. La cuerda de polipropileno flota en el agua para que la víctima pueda verla y sujetarla.",
+    caracteristicas: [
+      "Cuerda de polipropileno 8 mm flotante: visible en agua y no se hunde si la víctima la suelta",
+      "Longitud: 25 m (estándar urbano) y 70 m (operaciones en embalses y ríos anchos)",
+      "Bolsa autodesplegable: se llena sola de agua al tocar el río — lista para relanzamiento en 20 seg",
+      "Manija de sujeción con ojal: para anclaje del rescatista antes del lanzamiento",
+      "Color naranja fluorescente: máxima visibilidad en agua revuelta",
+      "Resistencia de cuerda: > 14 kN — soporta el tirón de una víctima en corriente fuerte",
+      "Certificación NFPA 1952 para operaciones de rescate en superficie de agua",
+    ],
+    aplicacion: "Rescate desde orilla en ríos · Swift water sin entrar al agua · Operaciones de inundación · Rescate en canales · Primera respuesta en cuerpos de agua",
+  },
+  {
+    id: "lancha-rescate-inflable",
+    nombre: "Lancha de Rescate Inflable — IRB / Zodiac para Bomberos",
+    slug: "/productos/rescate-acuatico/",
+    badge: "NFPA 1952 — Embarcación",
+    badgeColor: "ember" as const,
+    imagen: "/images/directorio/lancha-rescate-bomberos-01.avif",
+    descripcion:
+      "La lancha de rescate inflable (IRB — Inflatable Rescue Boat) permite al equipo de bomberos operar en aguas abiertas, presas y zonas inundadas donde la natación o la tabla de rescate son insuficientes. Los modelos para bomberos tienen casco semirrígido con quilla de fibra de vidrio, lo que les permite navegar en aguas movidas sin volcarse. La capacidad de carga va de 450 a 700 kg según el modelo. El motor fuera de borda de 15-40 HP permite velocidades de hasta 35 km/h para llegar rápido a la víctima.",
+    caracteristicas: [
+      "Casco semirrígido RHIB: inflable Hypalon/PVC + quilla de fibra de vidrio — estabilidad en aguas movidas",
+      "Capacidad de carga: 450-700 kg según modelo (3-6 personas o 2 rescatistas + equipo + víctimas)",
+      "Motor fuera de borda: 15 a 40 HP — velocidad máxima 30-38 km/h",
+      "Banda de rodaje: para transporte en camión o remolque ligero, sin grúa ni rampa especial",
+      "Inflado de emergencia: sistema CO2 de inflado rápido en < 3 minutos",
+      "Equipo de seguridad incluido: cuchillo de corte de red, bichero, ancla ligera y cabo de amarre",
+      "Cumple normativa SEMAR y NFPA 1952 para embarcaciones de rescate de emergencia",
+    ],
+    aplicacion: "Rescate en inundaciones · Búsqueda en presas y embalses · Rescate en litoral costero · Operaciones SAR marítimas · Evacuación de zonas inundadas",
+  },
+  {
+    id: "casco-rescate-acuatico",
+    nombre: "Casco de Rescate Acuático — Protección de Cabeza en Swift Water",
+    slug: "/productos/rescate-acuatico/",
+    badge: "EN 1385 — Swift Water",
+    badgeColor: "smoke" as const,
+    imagen: "/images/directorio/rescate-acuatico-bomberos-01.avif",
+    descripcion:
+      "El casco de rescate acuático protege la cabeza del rescatista de los impactos con rocas, pilares de puentes, ramas y otros obstáculos en aguas rápidas. A diferencia de un casco de kayak recreativo, los modelos para rescate cumplen la norma EN 1385 (actividades en aguas bravas) con mayor cobertura de la nuca y orejeras reforzadas. La correa de sujeción de seguridad permite el ajuste rápido con guantes y tiene sistema de liberación de emergencia para que el casco no quede enganchado bajo el agua.",
+    caracteristicas: [
+      "Certificación EN 1385 para aguas bravas — prueba de impacto a 2.5 m/s",
+      "Cubierta de ABS de alto impacto + forro EPS de absorción de energía",
+      "Cobertura completa de orejeras y nuca — protección 360° en swiftwater",
+      "Correa de barbilla con clip de seguridad de liberación rápida — una mano, un movimiento",
+      "Sistema de ventilación: rejillas en corona para drenaje rápido tras inmersión",
+      "Compatible con visor de policarbonato y protector facial de malla para aguas con escombros",
+      "Peso: 450-650 g — ligero para natación activa y trabajo físico intenso",
+    ],
+    aplicacion: "Rescate en ríos en crecida · Swift water · Operaciones en inundaciones con escombros · Búsqueda en litoral rocoso · Trabajos en estructuras sobre agua",
+  },
+];
+
+// ─── Tabla comparativa ───────────────────────────────────────────────────────
+const comparativa = [
+  {
+    equipo: "Traje de Inmersión 5 mm",
+    norma: "NFPA 1952",
+    proteccion: "Hipotermia hasta 10°C",
+    uso: "Protección térmica en agua fría",
+    precio: "Desde $12,500 MXN",
+    para: "Ríos, inundaciones, mar",
+  },
+  {
+    equipo: "Chaleco PFD NFPA 1952",
+    norma: "NFPA 1952",
+    proteccion: "70 N flotabilidad",
+    uso: "Flotación del rescatista",
+    precio: "Desde $4,200 MXN",
+    para: "Todo rescate acuático",
+  },
+  {
+    equipo: "Throw Bag 25 m",
+    norma: "NFPA 1952",
+    proteccion: "14 kN resistencia",
+    uso: "Rescate desde orilla",
+    precio: "Desde $1,800 MXN",
+    para: "Ríos y canales < 25 m",
+  },
+  {
+    equipo: "Lancha IRB RHIB",
+    norma: "NFPA 1952 / SEMAR",
+    proteccion: "450-700 kg carga",
+    uso: "Rescate en aguas abiertas",
+    precio: "Desde $185,000 MXN",
+    para: "Presas, inundaciones, litoral",
+  },
+];
+
+// ─── FAQs ────────────────────────────────────────────────────────────────────
+const faqs = [
+  {
+    question: "¿Qué norma NFPA regula el equipo de rescate acuático para bomberos?",
+    answer: "La NFPA 1952 (Standard on Surface Water Operations Protective Clothing and Equipment) regula específicamente el equipo de protección personal para operaciones de rescate en superficie de agua para bomberos y servicios de emergencia. Establece los requisitos para trajes de inmersión, chalecos salvavidas (PFD), cascos de rescate acuático y otros equipos de protección. Complementariamente, la NFPA 1006 (Standard for Technical Rescuer Professional Qualifications) establece las competencias que deben tener los rescatistas acuáticos certificados. En México, la norma de la SEMAR regula las embarcaciones utilizadas en operaciones SAR marítimas.",
+  },
+  {
+    question: "¿Qué es el Swift Water Rescue y cómo se diferencia del rescate acuático convencional?",
+    answer: "El Swift Water Rescue (SWR) es la disciplina de rescate especializada en aguas en movimiento rápido: ríos en crecida, corrientes de inundación, canales con flujo fuerte y agua de deshielo. Se diferencia del rescate acuático convencional en que el movimiento del agua multiplica las fuerzas sobre el rescatista y la víctima, haciendo que técnicas simples de natación sean insuficientes o peligrosas. Las técnicas de SWR incluyen: lectura de la corriente para anticipar dónde llevará a la víctima, lanzamiento de throw bag desde orilla (evitar entrar al agua siempre que sea posible), natación de rescate defensiva y ofensiva, y uso de la tabla de rescate para acceder a la víctima sin nadar. El rescatista de SWR profesional usa equipo completo: traje de neopreno o drysuit, PFD de rescate, casco, cuchillo de seguridad y comunicación con el equipo de orilla.",
+  },
+  {
+    question: "¿Cuándo se usa traje de neopreno vs traje seco (drysuit)?",
+    answer: "La elección entre neopreno y traje seco (drysuit) depende principalmente de la temperatura del agua: El traje de neopreno (wetsuit) es adecuado para agua entre 15°C y 25°C. Permite algo de agua entre el traje y la piel, que el cuerpo calienta formando una capa térmica. Es más económico, más flexible y más resistente al abuso en aguas con escombros. El traje seco (drysuit) es necesario en agua fría (< 15°C). Mantiene completamente seco al rescatista mediante cierres impermeables en muñecas y cuello, y se puede usar con ropa interior térmica para mayor aislamiento. Es más voluminoso y require mayor entrenamiento para usarlo correctamente. En México, la mayoría de los rescates acuáticos ocurren en agua templada (15-25°C), haciendo del neopreno de 5 mm la elección más práctica para la mayoría de los cuerpos de bomberos.",
+  },
+  {
+    question: "¿Los bomberos en México necesitan equipo de rescate acuático?",
+    answer: "Sí, especialmente considerando la geografía mexicana. México tiene: (1) Costas en el Pacífico y Golfo de México con playas, puertos y actividad pesquera; (2) Ríos como el Grijalva, Usumacinta, Papaloapan y Lerma que registran inundaciones anuales; (3) Zonas de alta pluviometría como Tabasco, Veracruz y Chiapas donde las inundaciones son un riesgo recurrente; (4) Más de 7,000 presas y embalses de todos los tamaños; (5) Cenotes y sistemas de cavernas subacuáticas en Yucatán y Quintana Roo. Los cuerpos de bomberos municipales en estas zonas deben contar mínimamente con equipo de rescate acuático básico: PFD, throw bags, trajes de neopreno y tabla de rescate para sus rescatistas.",
+  },
+  {
+    question: "¿Qué equipo mínimo necesita un cuerpo de bomberos para hacer rescate acuático?",
+    answer: "El kit mínimo de rescate acuático para un equipo de 4 rescatistas incluye: (1) Chalecos salvavidas de rescate NFPA 1952 × 4; (2) Trajes de neopreno 5 mm × 4; (3) Cascos de rescate acuático EN 1385 × 4; (4) Throw bags 25 m × 4 (una por rescatista); (5) Throw bag 70 m × 2 (operaciones de mayor alcance); (6) Tabla de rescate × 2; (7) Cuchillos de seguridad acuáticos × 4. El costo aproximado de este kit mínimo en BOMBERO.MX es de $85,000-120,000 MXN. Para operaciones en aguas abiertas (presas, litoral, inundaciones extensas), se recomienda agregar una lancha inflable RHIB, lo que eleva la inversión a $270,000-350,000 MXN.",
+  },
+  {
+    question: "¿Cuáles son las marcas líderes en equipo de rescate acuático para bomberos?",
+    answer: "Las marcas de referencia mundial en equipo de rescate acuático para bomberos son: (1) Mustang Survival (Canadá): chalecos PFD de rescate y trajes de inmersión para servicios de emergencia. (2) NRS (EUA): tablas de rescate, throw bags y equipo completo de swiftwater rescue. (3) Kokatat (EUA): trajes de neopreno y drysuits certificados para rescate acuático. (4) Bending Branches / Aquabound: remos para tabla de rescate y kayak de rescate. (5) Salamander (EUA): PFDs y accesorios de rescate acuático. (6) Zodiac (Francia): lanchas inflables para servicios de emergencia (línea Rescue). (7) RIBCRAFT (RU): lanchas RHIB para guardia costera y bomberos. En México, la disponibilidad de estas marcas varía; BOMBERO.MX importa y distribuye el equipo más demandado para las condiciones mexicanas.",
+  },
+];
+
+// ─── Schema.org ──────────────────────────────────────────────────────────────
+const CANONICAL = "/productos/rescate-acuatico/";
+const productSchema = productSchemaComplete({
+  name: "Equipo de Rescate Acuático para Bomberos — NFPA 1952 | Swift Water | Trajes Neopreno",
+  description: "Equipo de rescate acuático certificado NFPA 1952 para bomberos en México. Trajes de inmersión, chalecos PFD, throw bags, tablas de rescate y lanchas RHIB. Swift water rescue. Cotiza para licitación. Envío a 32 estados.",
+  image: "/images/directorio/rescate-acuatico-bomberos-01.avif",
+  url: CANONICAL,
+  category: "Rescate Acuático — NFPA 1952",
+  features: ["NFPA 1952", "EN 1385", "Swift Water Rescue", "USCG Tipo III", "IRB"],
+  certifications: ["NFPA 1952", "EN 1385", "CE EN 395"],
+});
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Productos", url: "/productos/" },
+  { name: "Rescate Acuático", url: CANONICAL },
+]);
+const jsonLdSchemas = [productSchema, breadcrumbSchema];
+---
+
+<PageLayout
+  title="Rescate Acuático para Bomberos México | NFPA 1952 | Trajes Neopreno | Swift Water | BOMBERO.MX"
+  description="Equipo de rescate acuático certificado NFPA 1952 para bomberos en México. Trajes de inmersión neopreno, chalecos PFD de rescate, throw bags, tablas swift water y lanchas RHIB. Cotización para licitación. Envío a 32 estados."
+  canonical={CANONICAL}
+  jsonLd={jsonLdSchemas}
+  keywords={[
+    "rescate acuático bomberos México",
+    "equipo rescate acuático NFPA 1952",
+    "traje neopreno rescate bomberos",
+    "chaleco salvavidas rescate bomberos",
+    "swift water rescue equipo México",
+    "throw bag lanzamiento rescate",
+    "tabla rescate acuático bomberos",
+    "lancha rescate bomberos México",
+    "IRB RHIB bomberos México",
+    "equipo inundaciones bomberos",
+    "rescate ríos bomberos",
+    "equipo rescate en agua",
+    "NFPA 1952 México",
+    "casco rescate acuático",
+    "equipo rescate litoral México",
+    "inundaciones protección civil equipo",
+  ]}
+  type="website"
+>
+
+  <Breadcrumb items={[
+    { label: "Productos", href: "/productos/" },
+    { label: "Rescate Acuático" },
+  ]} />
+
+  <!-- ════════════════════ HERO ════════════════════ -->
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__gradient"></div>
+      <div class="hero__grid"></div>
+      <div class="hero__glow hero__glow--1"></div>
+      <div class="hero__glow hero__glow--2"></div>
+    </div>
+
+    <div class="container hero__container">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          NFPA 1952 · EN 1385 · Swift Water Rescue · Rescate en Inundaciones
+        </div>
+        <h1 class="hero__title">
+          <span class="hero__title-highlight">Rescate Acuático</span>
+          para Bomberos<br />en México
+        </h1>
+        <p class="hero__subtitle">
+          Trajes de inmersión neopreno, chalecos PFD de rescate, throw bags, tablas de swift water
+          y lanchas inflables RHIB. Equipo certificado NFPA 1952 para inundaciones, ríos en crecida,
+          presas y operaciones en litoral. Para cuerpos de bomberos, protección civil y brigadas
+          de rescate acuático en los 32 estados.
+        </p>
+
+        <div class="hero__urgencia">
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">70 N</span>
+            <span class="hero__urgencia-label">flotabilidad mínima del PFD de rescate NFPA 1952 — mantiene a la víctima boca arriba</span>
+          </div>
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">NFPA 1952</span>
+            <span class="hero__urgencia-label">norma que regula el equipo de protección para rescate en superficie de agua</span>
+          </div>
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">5 mm</span>
+            <span class="hero__urgencia-label">grosor de neopreno del traje de inmersión — protección contra hipotermia desde 10°C</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__seo">
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">Distribuidores de Equipo de Rescate Acuático NFPA 1952 en México</h2>
+          <p class="hero__seo-text">
+            <strong>BOMBERO.MX</strong> distribuye <strong>equipo de rescate acuático certificado NFPA 1952</strong> para cuerpos de bomberos y protección civil en México. Con más de <strong>7,000 presas y embalses</strong>, costas en el Pacífico y Golfo, y estados como <strong>Tabasco, Veracruz y Chiapas</strong> con inundaciones recurrentes, el rescate acuático es una capacidad crítica. El equipo se complementa con <a href="/productos/rescate-vertical/" style="color: var(--color-fire-400); text-decoration: underline;">sistema de rescate vertical NFPA 1983</a> y <a href="/productos/herramientas-rescate/" style="color: var(--color-fire-400); text-decoration: underline;">herramientas de rescate NFPA 1936</a>.
+          </p>
+        </div>
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">¿Por Qué el Equipo de Rescate Acuático Debe Cumplir NFPA 1952?</h2>
+          <p class="hero__seo-text">
+            Un chaleco salvavidas recreativo no es equipo de rescate profesional. La <strong>NFPA 1952</strong> exige que el equipo resista las condiciones reales de operación: resistencia a desgarros en rocas y escombros, sistemas de liberación de emergencia, reflectantes de alta intensidad y resistencia de cuerdas de throw bags en corrientes fuertes. Usar equipo no certificado en un rescate acuático pone en riesgo al rescatista. Complementa con <a href="/productos/equipo-medico/" style="color: var(--color-fire-400); text-decoration: underline;">equipo médico EMS</a> para atención de víctimas con hipotermia.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABar quote="Cotizar Kit de Rescate Acuático para mi Cuerpo de Bomberos" />
+
+  <!-- ════════════════════ CATÁLOGO ════════════════════ -->
+  <section class="section productos" id="catalogo">
+    <div class="container">
+      <SectionHeader
+        label="Catálogo — Equipo de Rescate Acuático Certificado NFPA"
+        title="6 Equipos Esenciales para el Rescate Acuático Profesional"
+        description="Desde el traje de neopreno para protección térmica hasta la lancha RHIB para aguas abiertas. El equipo correcto para cada escenario acuático mexicano."
+      >
+        <p>
+          El <strong>rescate acuático profesional</strong> en México enfrenta escenarios muy distintos: ríos en crecida del tipo <strong>swift water</strong> en Chiapas o Veracruz; inundaciones urbanas de poca profundidad pero alta corriente como las de Culiacán o Monterrey; operaciones en presas y embalses de aguas profundas; y rescate litoral en el Golfo y Pacífico. Cada escenario demanda equipo específico, aunque el núcleo del sistema —traje de neopreno, PFD, casco y throw bag— es común a todos.
+        </p>
+        <p>
+          La regla de oro del rescate acuático es <strong>"reach, throw, row, go"</strong>: primero intenta llegar con una pértiga, luego lanza una throw bag, después usa la embarcación y solo como último recurso el rescatista entra al agua. Esta jerarquía protege al rescatista de convertirse en una segunda víctima, el escenario más frecuente en rescates acuáticos sin preparación adecuada.
+        </p>
+      </SectionHeader>
+
+      <div class="productos__grid">
+        {productos.map((producto) => (
+          <ProductCard {...producto} altSuffix="rescate acuático bomberos México NFPA 1952" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ COMPARATIVA ════════════════════ -->
+  <section class="section section--dark comparativa">
+    <div class="container">
+      <SectionHeader
+        label="Guía de Selección"
+        title="Equipo de Rescate Acuático por Escenario Operativo"
+        description="México tiene cuatro escenarios acuáticos principales que requieren distintas configuraciones de equipo."
+      >
+        <p>
+          No todos los escenarios acuáticos son iguales. El <strong>rescate en río rápido</strong> exige neopreno y casco. El <strong>rescate en inundación urbana</strong> prioriza la embarcación y las throw bags. El <strong>rescate en presa</strong> necesita la lancha RHIB. Esta guía ayuda a seleccionar la configuración correcta según el perfil de riesgo de cada cuerpo de bomberos.
+        </p>
+      </SectionHeader>
+
+      <div class="comparativa__table-wrap">
+        <table class="comparativa__table">
+          <thead>
+            <tr>
+              <th>Equipo</th>
+              <th>Norma</th>
+              <th>Capacidad</th>
+              <th>Uso Principal</th>
+              <th>Precio aprox. (MXN)</th>
+              <th>Escenario</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparativa.map((c) => (
+              <tr>
+                <td><strong>{c.equipo}</strong></td>
+                <td>{c.norma}</td>
+                <td>{c.proteccion}</td>
+                <td>{c.uso}</td>
+                <td>{c.precio}</td>
+                <td>{c.para}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="comparativa__nota">* Precios orientativos. Solicita cotización con especificaciones NFPA 1952 para proceso de licitación municipal o estatal.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ COMPONENTES ════════════════════ -->
+  <section class="section specs">
+    <div class="container">
+      <SectionHeader
+        label="Sistema Completo de Rescate Acuático"
+        title="Los 6 Componentes de un Equipo de Rescate Acuático Profesional"
+        description="Más allá del neopreno y el chaleco. Un equipo de rescate acuático profesional requiere estos componentes complementarios para operar con seguridad en cualquier escenario."
+      >
+        <p>
+          El <strong>rescate acuático profesional</strong> combina equipo de protección personal, herramientas de rescate y embarcaciones en un sistema integrado. Cada componente tiene una función específica dentro del sistema. La clave es entrenar con el equipo completo: un rescatista con neopreno y sin PFD, o con PFD y sin cuchillo de seguridad, corre riesgos innecesarios.
+        </p>
+      </SectionHeader>
+
+      <div class="specs__grid">
+        <CategoryCard
+          title="Kit de Primeros Auxilios para Hipotermia"
+          icon="shield"
+          image="/images/directorio/camilla-rescate-emergencias-01.avif"
+          description="Las víctimas de rescate acuático frecuentemente presentan hipotermia. El kit de manejo de hipotermia incluye mantas térmicas de aluminio, bolsas de calor químico y protocolo de recalentamiento pasivo. Compatible con el equipo médico EMS estándar."
+        />
+        <CategoryCard
+          title="Comunicaciones de Rescate Acuático"
+          icon="certificate"
+          image="/images/directorio/equipo-rescate-completo-01.avif"
+          description="Radio VHF marina IP67 para comunicación entre el rescatista en el agua y el equipo de orilla o embarcación de apoyo. Frecuencias de emergencia marinas internacionales. Compatible con uso con guantes de neopreno gruesos."
+        />
+        <CategoryCard
+          title="Sistema de Línea de Rescate (Tag Line)"
+          icon="shield"
+          image="/images/directorio/cuerdas-rappel-bomberos-01.avif"
+          description="Sistema de cuerda de seguridad para el rescatista que entra al agua: la tag line mantiene al rescatista conectado a la orilla, permitiendo su extracción rápida si pierde el control. El ángulo de la cuerda puede usarse para 'péndular' al rescatista de orilla a orilla."
+        />
+        <CategoryCard
+          title="Dispositivo de Localización Personal (PLB)"
+          icon="certificate"
+          image="/images/directorio/equipo-rescate-tecnico-01.avif"
+          description="Radiobaliza personal activada por el rescatista o por inmersión automática. Transmite la posición GPS a los 406 MHz del sistema COSPAS-SARSAT en caso de emergencia. Esencial en operaciones nocturnas o en ríos con mucho ruido donde la comunicación por radio falla."
+        />
+        <CategoryCard
+          title="Cuatrimoto / ATV para Rescate en Playa"
+          icon="shield"
+          image="/images/directorio/cuatrimoto-bomberos-rescate-01.avif"
+          description="Las cuatrimotos permiten llegar rápidamente a la víctima en playas, riberas de ríos y orillas de presas donde los vehículos convencionales no pueden acceder. Equipadas con portabotiquín, throw bags y tabla de rescate en el portaequipaje trasero."
+        />
+        <CategoryCard
+          title="Señalización de Escena Acuática"
+          icon="certificate"
+          image="/images/directorio/equipo-rescate-completo-01.avif"
+          description="Boyas de señalización para delimitar la zona de rescate, luces estroboscópicas flotantes para operaciones nocturnas y señales de humo para localización desde helicóptero. La señalización correcta de la escena acuática protege tanto a la víctima como al equipo de rescate."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ SECTORES ════════════════════ -->
+  <section class="section section--dark sectores">
+    <div class="container">
+      <SectionHeader
+        label="¿Quién Necesita Equipo de Rescate Acuático en México?"
+        title="Cuerpos de Bomberos y Brigadas que Equipamos para Rescate en Agua"
+        description="La geografía y el clima de México generan múltiples escenarios de rescate acuático que requieren equipamiento certificado NFPA 1952."
+      />
+      <div class="sectores__grid">
+        <div class="sector-card">
+          <div class="sector-card__icon">🌊</div>
+          <h3>Bomberos en Zonas Costeras — Pacífico y Golfo</h3>
+          <p>Los cuerpos de bomberos en puertos, municipios costeros y zonas turísticas de Cancún, Los Cabos, Acapulco, Veracruz y Puerto Vallarta necesitan equipo de rescate en litoral para emergencias marítimas cercanas a la costa, hundimientos de embarcaciones menores y ahogamientos.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🌧️</div>
+          <h3>Protección Civil — Inundaciones en Tabasco, Veracruz y Chiapas</h3>
+          <p>Los estados del Golfo y sureste mexicano registran inundaciones anuales que afectan miles de familias. Las brigadas de protección civil y bomberos en Villahermosa, Coatzacoalcos, Minatitlán y Tuxtla necesitan el kit completo de rescate acuático para cada temporada de lluvias.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🏞️</div>
+          <h3>Bomberos en Ríos y Corrientes — Swift Water</h3>
+          <p>Los ríos Grijalva, Usumacinta, Papaloapan, Lerma, Verde y Balsas generan incidentes de swift water frecuentes, especialmente en temporada de lluvias. Los cuerpos de bomberos en sus márgenes necesitan rescatistas certificados en SWR con equipo NFPA 1952 completo.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">💧</div>
+          <h3>Bomberos cerca de Presas y Embalses</h3>
+          <p>México tiene más de 7,000 presas. Los cuerpos de bomberos municipales cercanos a grandes embalses como Agua Prieta, Plutarco Elías Calles o El Caracol necesitan lancha de rescate y equipo completo para responder a accidentes de embarcaciones y caídas desde estructuras.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🧿</div>
+          <h3>Rescate en Cenotes — Yucatán y Quintana Roo</h3>
+          <p>Los cenotes y sistemas de cavernas subacuáticas de la Riviera Maya son escenario de accidentes frecuentes con turistas. Los bomberos y protección civil de Tulum, Playa del Carmen y Valladolid necesitan equipo de rescate acuático adaptado a estos entornos únicos.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">⚡</div>
+          <h3>Industria — Plantas con Cuerpos de Agua Internos</h3>
+          <p>Las plantas industriales con depósitos, canales de proceso, torres de enfriamiento y estanques de retención necesitan brigadas de emergencia equipadas para rescate acuático. La NOM exige planes de emergencia para instalaciones con riesgo de inmersión de trabajadores.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ FAQ ════════════════════ -->
+  <FAQ
+    title="Preguntas Frecuentes — Equipo de Rescate Acuático NFPA 1952 para Bomberos"
+    description="Respuestas técnicas para jefes de cuerpo, coordinadores de protección civil y responsables de brigadas acuáticas que necesitan equipar correctamente a su equipo."
+    items={faqs}
+  />
+
+  <!-- ════════════════════ CTA ════════════════════ -->
+  <CTABanner
+    title="¿Necesitas Cotizar Equipo de Rescate Acuático para tu Cuerpo de Bomberos?"
+    description="Asesoría técnica sin costo. Cotización con especificaciones NFPA 1952 lista para licitación. Kit básico de 4 rescatistas acuáticos desde $85,000 MXN. Enviamos a los 32 estados."
+    primaryCta={{ label: "Solicitar Cotización de Equipo de Rescate Acuático", href: "/cotizar/" }}
+    secondaryCTA={{ label: "Consultar por WhatsApp", href: `https://wa.me/525520780102?text=${encodeURIComponent('Hola BOMBERO.MX, necesito cotizar equipo de rescate acuático NFPA 1952 para mi cuerpo de bomberos / brigada de rescate en agua.')}` }}
+  />
+
+</PageLayout>
+
+<style>
+  .hero { position: relative; padding: 5rem 0 4rem; overflow: hidden; background: var(--color-bg-dark, #0a0a0f); }
+  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero__gradient { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,20,20,0.2) 0%, transparent 70%); }
+  .hero__grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 40px 40px; }
+  .hero__glow { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; }
+  .hero__glow--1 { width: 600px; height: 400px; top: -150px; right: -100px; background: rgba(220,20,20,0.15); }
+  .hero__glow--2 { width: 350px; height: 350px; bottom: -100px; left: -80px; background: rgba(180,60,20,0.1); }
+  .hero__container { position: relative; z-index: 1; }
+  .hero__badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(220,20,20,.15); border: 1px solid rgba(220,20,20,.35); border-radius: 999px; padding: .375rem 1rem; font-size: .8125rem; font-weight: 600; color: var(--color-fire-400, #f87171); margin-bottom: 1.5rem; }
+  .hero__badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-fire-400, #f87171); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(1.3); } }
+  .hero__title { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 1.25rem; }
+  .hero__title-highlight { background: linear-gradient(135deg, #f87171, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; font-size: 1.2em; }
+  .hero__subtitle { font-size: 1.125rem; line-height: 1.75; color: rgba(255,255,255,.65); max-width: 680px; margin-bottom: 2.5rem; }
+  .hero__urgencia { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
+  .hero__urgencia-item { background: rgba(220,20,20,.1); border: 1px solid rgba(220,20,20,.25); border-radius: 10px; padding: 1rem 1.25rem; text-align: center; }
+  .hero__urgencia-num { display: block; font-size: 1.375rem; font-weight: 900; color: #f87171; margin-bottom: .25rem; }
+  .hero__urgencia-label { font-size: .75rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+  @media (max-width: 640px) { .hero__urgencia { grid-template-columns: 1fr; } }
+  .hero__seo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+  .hero__seo-block { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 1.5rem; }
+  .hero__seo-title { font-size: .9375rem; font-weight: 700; color: #fff; margin-bottom: .75rem; }
+  .hero__seo-text  { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+  @media (max-width: 768px) { .hero__seo { grid-template-columns: 1fr; } }
+  .section { padding: 5rem 0; }
+  .section--dark { background: var(--color-bg-dark, #0a0a0f); border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06); }
+  .productos__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .specs__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .comparativa__table-wrap { margin-top: 2.5rem; overflow-x: auto; }
+  .comparativa__table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .comparativa__table th { background: rgba(220,20,20,.15); color: #f87171; font-weight: 700; font-size: .8125rem; text-transform: uppercase; letter-spacing: .05em; padding: .875rem 1rem; text-align: left; border-bottom: 1px solid rgba(220,20,20,.3); }
+  .comparativa__table td { padding: .875rem 1rem; border-bottom: 1px solid rgba(255,255,255,.06); color: rgba(255,255,255,.75); vertical-align: top; }
+  .comparativa__table tr:hover td { background: rgba(255,255,255,.03); }
+  .comparativa__nota { font-size: .8125rem; color: rgba(255,255,255,.35); margin-top: 1rem; font-style: italic; }
+  .sectores__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .sector-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 1.75rem; transition: border-color .2s, transform .2s; }
+  .sector-card:hover { border-color: rgba(220,20,20,.4); transform: translateY(-2px); }
+  .sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+  .sector-card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .625rem; }
+  .sector-card p { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+</style>

@@ -1,0 +1,537 @@
+---
+import PageLayout    from "@layouts/PageLayout.astro";
+import SectionHeader from "@components/SectionHeader.astro";
+import CTABanner     from "@components/CTABanner.astro";
+import CTABar        from "@components/CTABar.astro";
+import CategoryCard  from "@components/CategoryCard.astro";
+import ProductCard   from "@components/ProductCard.astro";
+import FAQ           from "@components/FAQ.astro";
+import Breadcrumb    from "@components/Breadcrumb.astro";
+import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+
+// ─── Catálogo Equipo Médico / EMS ─────────────────────────────────────────────
+const productos = [
+  {
+    id: "camilla-rescate-plegable",
+    nombre: "Camilla de Rescate Plegable — Aluminio / SKED para Bomberos y EMS",
+    slug: "/productos/equipo-medico/",
+    badge: "NFPA 1999",
+    badgeColor: "fire" as const,
+    imagen: "/images/directorio/camilla-rescate-emergencias-01.avif",
+    descripcion:
+      "La camilla de rescate es el equipo de traslado de víctimas más importante del paramédico y del bombero-rescatista. Las camillas para servicios de emergencia deben soportar el peso del paciente más el equipo de soporte vital bajo condiciones de transporte físico intenso (subir escaleras, cruzar escombros, izaje vertical). La camilla plegable de aluminio tipo cuchara se separa en dos mitades para introducirse bajo el paciente sin moverlo, crucial en víctimas con posible lesión de columna. La SKED (camilla de polietileno flexible) es la estándar para evacuación en espacios confinados y rescate vertical.",
+    caracteristicas: [
+      "Capacidad de carga: hasta 180 kg — para pacientes bariátricos con equipo de soporte",
+      "Camilla tipo cuchara (scoop): se separa en dos mitades — mínimo movimiento del paciente",
+      "Material: aluminio aeronáutico 6061 T6 — ligero (9 kg) y resistente a la corrosión",
+      "Plegado en acordeón: 4 posiciones de ajuste en longitud (150-200 cm)",
+      "Rieles laterales de acero inoxidable: puntos de sujeción para cintas de inmovilización",
+      "Compatible con silla de ruedas de emergencia, collarín y inmovilizador de cabeza",
+      "Certificación ISO 9001 y compatible con normativas NOM-237-SSA1 para traslado",
+    ],
+    aplicacion: "Traslado de pacientes en emergencias · Rescate vehicular · Rescate en altura (SKED) · Post-sismo · Espacios confinados · Evacuaciones masivas",
+  },
+  {
+    id: "dea-desfibrilador",
+    nombre: "DEA Desfibrilador Externo Automático — Philips HeartStart / ZOLL AED Plus",
+    slug: "/productos/equipo-medico/",
+    badge: "FDA / COFEPRIS",
+    badgeColor: "fire" as const,
+    imagen: "/images/directorio/camion-bomberos-rescate-01.avif",
+    descripcion:
+      "El Desfibrilador Externo Automático (DEA) es el dispositivo que más vidas salva en paros cardíacos. Cada minuto sin desfibrilación reduce la probabilidad de supervivencia en un 10%. El DEA analiza automáticamente el ritmo cardíaco y libera una descarga eléctrica solo cuando detecta una fibrilación ventricular —la arritmia reversible más común en paro cardíaco. Los modelos para bomberos y EMS profesional (AED Plus, HeartStart FRx) son resistentes a polvo y humedad (IP55), operan en temperaturas de -20°C a +60°C y guían al operador con instrucciones de voz paso a paso. No requiere entrenamiento médico para operar.",
+    caracteristicas: [
+      "Análisis automático del ritmo cardíaco — el dispositivo decide si descarga o no",
+      "Descarga bifásica: 150-360 J según modelo — más efectiva que descarga monofásica",
+      "Protección IP55: resistente a polvo y agua en condiciones de emergencia exterior",
+      "Instrucciones de voz paso a paso: guía al socorrista incluso sin entrenamiento médico previo",
+      "Batería de larga duración: hasta 5 años en standby o 200+ descargas sin reemplazar",
+      "RCP guiada: metrónomo de ritmo y detector de profundidad de compresión (modelos avanzados)",
+      "Registro ECG: almacena la grabación completa del evento para revisión médica posterior",
+    ],
+    aplicacion: "Paro cardíaco · Fibrilación ventricular · Primera respuesta de bomberos · Espacios públicos · Unidades móviles de EMS · Brigadas industriales de emergencia",
+  },
+  {
+    id: "kit-trauma-bolsa-emergencia",
+    nombre: "Kit de Trauma / IFAK — Bolsa de Emergencia para Bomberos y Paramédicos",
+    slug: "/productos/equipo-medico/",
+    badge: "TCCC / PHTLS",
+    badgeColor: "fire" as const,
+    imagen: "/images/directorio/equipo-rescate-completo-01.avif",
+    descripcion:
+      "El kit de trauma o IFAK (Individual First Aid Kit) para bomberos está diseñado para el control de hemorragias masivas y estabilización en el campo antes del traslado: las primeras intervenciones que salvan vidas en los primeros 10 minutos. Los componentes críticos del kit siguien el protocolo TCCC (Tactical Combat Casualty Care) adaptado a emergencias civiles: torniquete CAT o SOFTT-W, vendaje hemostático QuikClot o HemCon, sello torácico para neumotórax, y vía aérea nasofaríngea. Los bomberos deben tener acceso inmediato al IFAK individual y al kit de trauma de equipo en cada intervención.",
+    caracteristicas: [
+      "Torniquete CAT Gen7 o SOFTT-W: control de hemorragia de extremidades en < 30 segundos",
+      "Vendaje hemostático QuikClot Combat Gauze: detiene hemorragias que no son compresibles",
+      "Sello torácico Hyfin o Bolin: para neumotórax abierto y neumotórax a tensión",
+      "Vía aérea nasofaríngea 28 Fr: para mantenimiento de vía aérea en inconscientes",
+      "Marcador de tiempo: para registrar hora de aplicación del torniquete en la víctima",
+      "Guantes de nitrilo × 4 pares: protección biológica del rescatista",
+      "Bolsa MOLLE modular: se adjunta al chaleco o arnés del bombero para acceso inmediato",
+    ],
+    aplicacion: "Control de hemorragias masivas · Primeros auxilios avanzados · Emergencias con múltiples víctimas · Rescate vehicular · Accidentes industriales · Quemaduras",
+  },
+  {
+    id: "inmovilizador-columna-kked",
+    nombre: "Inmovilizador de Columna — KED / Chaleco de Extricación + Collarín",
+    slug: "/productos/equipo-medico/",
+    badge: "EMS Avanzado",
+    badgeColor: "ember" as const,
+    imagen: "/images/directorio/equipo-rescate-tecnico-01.avif",
+    descripcion:
+      "El inmovilizador de extricación KED (Kendrick Extrication Device) es el dispositivo de manejo de columna cervical y torácica estándar para el rescate vehicular. Permite extraer a una víctima sentada con posible lesión de columna del vehículo accidentado sin alinear ni mover la columna. El chaleco rígido sostiene la cabeza, el cuello y el tronco como una unidad durante la rotación y el traslado a la camilla. Se usa siempre en conjunto con collarín cervical rígido Philadelphia de talla correcta. La combinación KED + collarín + camilla de cuchara es el estándar de manejo de columna en rescate vehicular para EMS y bomberos.",
+    caracteristicas: [
+      "Chaleco de extricación KED: inmoviliza cabeza, cuello y tronco como una unidad",
+      "Correas de sujeción de colores: codificadas por color para aplicación correcta y rápida",
+      "Aletas de cabeza plegables: soportan lateralmente la cabeza sin presión en heridas del cuello",
+      "Collarín cervical Philadelphia: talla ajustable S/M/L — aplicación en < 30 segundos",
+      "Material: polietileno reforzado con madera multilaminada — rígido y radiotransparente",
+      "Compatibilidad: se transfiere directamente a la camilla de cuchara sin mover al paciente",
+      "Peso del sistema KED + collarín: < 2 kg — manejable dentro del habitáculo del vehículo",
+    ],
+    aplicacion: "Rescate vehicular con víctimas sentadas · Lesión cervical potencial · Extricación de vehículos volcados · Accidentes industriales con maquinaria · Primera respuesta EMS",
+  },
+  {
+    id: "oxigeno-portatil-emergencias",
+    nombre: "Kit de Oxígeno Portátil para Emergencias — Cilindro M9 + Mascarilla",
+    slug: "/productos/equipo-medico/",
+    badge: "EMS / BLS",
+    badgeColor: "ember" as const,
+    imagen: "/images/directorio/equipo-rescate-completo-01.avif",
+    descripcion:
+      "El suministro de oxígeno suplementario es una de las primeras intervenciones en múltiples emergencias: victimas de incendio con inhalación de humo (CO y CN), ahogados con hipoxia, pacientes con paro cardíaco en post-RCP y traumatizados con shock. El kit de oxígeno portátil para bomberos incluye el cilindro de aluminio M9 (520 L a 200 bar), regulador de caudal con toma DISS, mascarilla de no re-inhalación (NRM) con bolsa reservorio para FiO2 del 90-100%, y cánula nasal para flujos bajos. El conjunto pesa 3.8 kg y proporciona hasta 60 minutos de O2 al 100% para una víctima.",
+    caracteristicas: [
+      "Cilindro M9 de aluminio: 520 L · 200 bar · peso 3.8 kg — el más manejable para bomberos",
+      "Regulador de caudal ajustable: 0 a 25 L/min — para NRM (15 L/min) y cánula (2-6 L/min)",
+      "Mascarilla NRM con bolsa reservorio 1 L: FiO2 del 90-100% al 100% al 15 L/min",
+      "Cánula nasal adulto/pediátrico: FiO2 36-44% a 2-6 L/min — para pacientes conscientes",
+      "Bolsa porta-kit de lona Cordura 1000D con sujeción externa al SCBA o porta-equipo",
+      "Válvula de seguridad de sobreresión: protección contra fallo del regulador",
+      "Compatible con mascarilla de RCP y balón ambú para ventilación asistida",
+    ],
+    aplicacion: "Inhalación de humo en incendios · Intoxicación por CO · Post-RCP · Ahogamiento / hipoxia · Trauma con shock · Emergencias médicas en campo",
+  },
+  {
+    id: "mochila-ems-bomberos",
+    nombre: "Mochila EMS para Bomberos — Kit de Soporte Vital Básico Completo",
+    slug: "/productos/equipo-medico/",
+    badge: "BLS / SVB Completo",
+    badgeColor: "smoke" as const,
+    imagen: "/images/directorio/equipo-rescate-completo-01.avif",
+    descripcion:
+      "La mochila EMS (Emergency Medical Services) del bombero concentra todo el equipo de soporte vital básico (BLS/SVB) en una bolsa organizada y de acceso rápido. La organización modular por bolsillos de color permite al bombero-paramédico localizar cualquier elemento en segundos incluso bajo estrés extremo. El kit completo incluye: DEA o marcapasos externo, kit de vía aérea, kit de control de hemorragias, oxígeno portátil, kit de trauma y equipos de monitorización de signos vitales. La mochila resistente al agua de 60 L en nylon balístico 1000D distribuye el peso en dos rescatistas para llevarla en escenas con acceso difícil.",
+    caracteristicas: [
+      "Capacidad: 60 L — todo el equipo BLS en una sola mochila",
+      "Bolsillos codificados por color: rojo (hemorragias), azul (vía aérea), amarillo (monitorización)",
+      "Material: nylon balístico 1000D — resistente al desgarro en escenas con escombros",
+      "Resistencia al agua IPX4: protección en lluvia intensa y operaciones de inundación",
+      "Estructura rígida de espalda: mantiene la forma y facilita búsqueda de equipo bajo estrés",
+      "Asas reforzadas dobles: para transporte rápido entre dos rescatistas",
+      "Incluye: kit de vía aérea, control de hemorragias, oxigenoterapia, monitorización y trauma",
+    ],
+    aplicacion: "Primera respuesta de bomberos · Unidades de rescate médico · Brigadas industriales BLS · Protección civil · Eventos masivos · Atención pre-hospitalaria en campo",
+  },
+];
+
+// ─── Tabla comparativa ───────────────────────────────────────────────────────
+const comparativa = [
+  {
+    equipo: "DEA / Desfibrilador",
+    norma: "FDA / COFEPRIS",
+    uso: "Paro cardíaco",
+    tiempo: "< 2 min de preparación",
+    precio: "Desde $28,500 MXN",
+    para: "Todo cuerpo de bomberos",
+  },
+  {
+    equipo: "Kit de Trauma IFAK",
+    norma: "TCCC / PHTLS",
+    uso: "Control de hemorragia",
+    tiempo: "< 30 seg torniquete",
+    precio: "Desde $3,800 MXN",
+    para: "Rescate vehicular e industrial",
+  },
+  {
+    equipo: "Camilla Tipo Cuchara",
+    norma: "ISO 9001 / NOM-237",
+    uso: "Traslado de víctimas",
+    tiempo: "< 3 min de preparación",
+    precio: "Desde $7,200 MXN",
+    para: "Todo tipo de rescate",
+  },
+  {
+    equipo: "Kit de Oxígeno M9",
+    norma: "NOM / EMS",
+    uso: "Inhalación humo / hipoxia",
+    tiempo: "< 1 min de preparación",
+    precio: "Desde $9,500 MXN",
+    para: "Incendios + rescate acuático",
+  },
+];
+
+// ─── FAQs ────────────────────────────────────────────────────────────────────
+const faqs = [
+  {
+    question: "¿Por qué los bomberos necesitan equipo médico EMS?",
+    answer: "Los bomberos modernos son, en la gran mayoría de los cuerpos de bomberos en México y el mundo, los primeros respondientes en casi cualquier emergencia médica: paros cardíacos, accidentes viales, caídas, quemaduras y traumatismos. En muchos municipios mexicanos, el cuerpo de bomberos es la única unidad de emergencia con capacidad de respuesta en menos de 10 minutos. La regla 'platinum 10 minutes' del trauma establece que las primeras intervenciones en los primeros 10 minutos post-trauma son las que determinan la supervivencia. Esto hace que el equipo médico básico —DEA, kit de trauma, inmovilizador de columna y oxígeno— sea tan crítico para un bombero como sus herramientas de extinción.",
+  },
+  {
+    question: "¿Qué certificación médica necesitan los bomberos para usar este equipo?",
+    answer: "En México, los niveles de certificación médica para bomberos van desde el Primer Respondiente (RCP/DEA básico, 16 horas) hasta el Técnico en Urgencias Médicas (TUM) y el Paramédico. El Primer Respondiente puede operar el DEA, aplicar torniquete, RCP y primeros auxilios básicos. El TUM avanzado puede establecer vías intravenosas, administrar medicamentos de emergencia y manejar la vía aérea avanzada. La NFPA 1001 (estándar de competencias del bombero) exige competencias médicas de Primer Respondiente como mínimo para todos los bomberos. El curso de TCCC (Tactical Combat Casualty Care) adaptado para bomberos civiles da las competencias para el kit de trauma completo. BOMBERO.MX puede orientar sobre instituciones que ofrecen estos cursos en México.",
+  },
+  {
+    question: "¿Qué es el protocolo TCCC y cómo se aplica en bomberos civiles?",
+    answer: "El TCCC (Tactical Combat Casualty Care) es el protocolo de atención de trauma desarrollado por las fuerzas armadas de EUA basado en las causas de muerte prevenibles en combate: hemorragia masiva de extremidades (torniquete), neumotórax a tensión (sello torácico) y obstrucción de vía aérea. Adaptado para bomberos civiles como TECC (Tactical Emergency Casualty Care), el protocolo prioriza en esta secuencia: (1) Control de hemorragia masiva con torniquete o presión directa; (2) Permeabilidad de vía aérea; (3) Tratamiento de neumotórax abierto; (4) Hipotermia (mantas térmicas); (5) Traslado rápido para intervención quirúrgica. El kit IFAK para bomberos está organizado exactamente en este orden de prioridad.",
+  },
+  {
+    question: "¿Cómo se usa correctamente un DEA sin entrenamiento médico?",
+    answer: "El DEA está diseñado específicamente para ser usado por cualquier persona sin entrenamiento médico. El proceso es: (1) Encender el DEA — las instrucciones de voz comienzan inmediatamente; (2) Conectar los electrodos al pecho desnudo del paciente como indican los diagramas en las pegatinas de los parches; (3) Alejarse del paciente mientras el DEA analiza el ritmo — el dispositivo indicará si se debe o no descargar; (4) Presionar el botón de descarga solo cuando el DEA lo indica y nadie toca al paciente; (5) Continuar la RCP hasta que el DEA indique volver a analizar. El DEA nunca descarga si no detecta fibrilación ventricular — no puede hacer daño si se usa incorrectamente. La única decisión del socorrista es comenzar la RCP y activar el DEA. Los modelos para bomberos como el ZOLL AED Plus incluyen retroalimentación en tiempo real sobre la calidad de las compresiones.",
+  },
+  {
+    question: "¿Cuánto tiempo proporciona el cilindro de oxígeno M9 en una emergencia?",
+    answer: "El cilindro M9 contiene 520 litros de oxígeno a 200 bar. La duración depende del flujo seleccionado: A 15 litros por minuto (mascarilla de no re-inhalación para una víctima con hipoxia severa): aproximadamente 34 minutos. A 10 litros por minuto (mascarilla con bolsa para hipoxia moderada): aproximadamente 52 minutos. A 4 litros por minuto (cánula nasal para paciente consciente con hipoxia leve): aproximadamente 130 minutos. A 2 litros por minuto (cánula para mantenimiento): aproximadamente 260 minutos. En una emergencia real donde el bombero llega antes de la ambulancia, 34 minutos de O2 al 100% es suficiente para estabilizar a la víctima de inhalación de humo hasta que llegue el servicio médico avanzado. Para operaciones más largas, se recomienda el cilindro D (425 L) o el cilindro E (680 L) en la unidad vehicular.",
+  },
+  {
+    question: "¿Qué diferencia hay entre el KED y el collarín cervical?",
+    answer: "El collarín cervical (Philadelphia o tipo rígido) inmoviliza específicamente la columna cervical (cuello) al limitar la flexión y extensión de C1-C7. Es la primera intervención de inmovilización que se aplica antes de mover al paciente. Sin embargo, el collarín solo protege el cuello — el tronco y la columna torácica siguen expuestos al movimiento durante la extricación del vehículo. El KED (Kendrick Extrication Device) es el chaleco de inmovilización que protege toda la columna desde la cabeza hasta el sacro durante la extricación de una víctima sentada en el vehículo. Funciona inmovilizando el tronco entero al asiento y permitiendo la rotación controlada del paciente (pivoteo) para extraerlo sin doblar la columna. El protocolo correcto es: (1) Aplicar collarín mientras la víctima sigue en el asiento; (2) Aplicar KED encima del collarín; (3) Extraer al paciente con control de cabeza; (4) Transferir a camilla de cuchara; (5) Retirar KED solo cuando el paciente está inmovilizado en la camilla.",
+  },
+  {
+    question: "¿Qué equipo médico mínimo debe tener cada unidad de bomberos?",
+    answer: "El equipo médico mínimo de una unidad de bomberos (Engine / autobomba) según las recomendaciones de la NFPA 1901 y los estándares operativos de cuerpos de bomberos modernos incluye: DEA o desfibrilador manual × 1 por unidad; Oxígeno portátil con mascarillas adulto/pediátrico × 1; Kit de trauma/control de hemorragias con torniquetes × según número de bomberos en la unidad; Bolsa de vía aérea con ambú y cánulas de Guedel × 1; Camilla de extricación o SKED × 1; Collarín cervical en tallas S/M/L × 1 set; Tabla espinal larga × 1; Tensiómetro, estetoscopio y oxímetro de pulso × 1 set; Kit de quemaduras (apósitos hidrogel y mantas) × 1. El costo de este kit básico completo para una unidad oscila entre $45,000 y $90,000 MXN según marcas y modelos. BOMBERO.MX cotiza el kit completo para una o toda la flota del cuerpo de bomberos.",
+  },
+];
+
+// ─── Schema.org ──────────────────────────────────────────────────────────────
+const CANONICAL = "/productos/equipo-medico/";
+const productSchema = productSchemaComplete({
+  name: "Equipo Médico EMS para Bomberos México — DEA, Kit Trauma, Camilla, Oxígeno",
+  description: "Equipo médico EMS certificado para bomberos en México. DEA desfibriladores, kits de trauma TCCC, camillas de rescate, inmovilizadores KED y kits de oxígeno portátil. ZOLL, Philips, Ferno. Cotiza para licitación. Envío a 32 estados.",
+  image: "/images/directorio/camilla-rescate-emergencias-01.avif",
+  url: CANONICAL,
+  category: "Equipo Médico / EMS — BLS y Rescate",
+  features: ["DEA / AED", "TCCC", "NFPA 1999", "BLS / SVB", "EMS Avanzado"],
+  certifications: ["FDA", "COFEPRIS", "NOM-237-SSA1", "ISO 9001"],
+});
+const breadcrumbSchema = breadcrumbJsonLd([
+  { name: "Inicio", url: "/" },
+  { name: "Productos", url: "/productos/" },
+  { name: "Equipo Médico / EMS", url: CANONICAL },
+]);
+const jsonLdSchemas = [productSchema, breadcrumbSchema];
+---
+
+<PageLayout
+  title="Equipo Médico EMS para Bomberos México | DEA | Kit Trauma | Camilla de Rescate | BOMBERO.MX"
+  description="Equipo médico EMS certificado para bomberos en México. DEA desfibriladores Philips/ZOLL, kits de trauma TCCC/IFAK, camillas de rescate, inmovilizadores KED y oxígeno portátil. Cotización para licitación. Envío a 32 estados."
+  canonical={CANONICAL}
+  jsonLd={jsonLdSchemas}
+  keywords={[
+    "equipo médico bomberos México",
+    "DEA desfibrilador bomberos",
+    "AED bomberos México",
+    "kit trauma bomberos TCCC",
+    "IFAK bomberos México",
+    "camilla rescate bomberos",
+    "equipo EMS bomberos México",
+    "inmovilizador KED rescate vehicular",
+    "oxígeno portátil emergencias bomberos",
+    "mochila EMS bomberos",
+    "Philips HeartStart México",
+    "ZOLL AED bomberos",
+    "equipo soporte vital básico bomberos",
+    "BLS bomberos México",
+    "equipo paramédico bomberos",
+    "torniquete CAT bomberos México",
+  ]}
+  type="website"
+>
+
+  <Breadcrumb items={[
+    { label: "Productos", href: "/productos/" },
+    { label: "Equipo Médico / EMS" },
+  ]} />
+
+  <!-- ════════════════════ HERO ════════════════════ -->
+  <section class="hero">
+    <div class="hero__bg">
+      <div class="hero__gradient"></div>
+      <div class="hero__grid"></div>
+      <div class="hero__glow hero__glow--1"></div>
+      <div class="hero__glow hero__glow--2"></div>
+    </div>
+
+    <div class="container hero__container">
+      <div class="hero__content">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          FDA / COFEPRIS · TCCC · BLS / SVB · NOM-237-SSA1 · Soporte Vital
+        </div>
+        <h1 class="hero__title">
+          <span class="hero__title-highlight">Equipo Médico</span>
+          EMS para Bomberos<br />en México
+        </h1>
+        <p class="hero__subtitle">
+          DEA desfibriladores, kits de trauma TCCC/IFAK, camillas de extricación, inmovilizadores KED
+          y oxígeno portátil. El equipo de soporte vital básico que los bomberos necesitan para salvar
+          vidas en los primeros 10 minutos. Certificado FDA / COFEPRIS. Asesoría técnica para
+          cuerpos de bomberos y protección civil en los 32 estados.
+        </p>
+
+        <div class="hero__urgencia">
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">10 min</span>
+            <span class="hero__urgencia-label">regla platinum: las intervenciones en los primeros 10 minutos determinan la supervivencia en trauma</span>
+          </div>
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">10%</span>
+            <span class="hero__urgencia-label">reducción en supervivencia por cada minuto sin desfibrilación en paro cardíaco</span>
+          </div>
+          <div class="hero__urgencia-item">
+            <span class="hero__urgencia-num">90%</span>
+            <span class="hero__urgencia-label">FiO2 que alcanza la mascarilla NRM con cilindro M9 — estándar para intoxicación por CO</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__seo">
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">Distribuidores de Equipo Médico EMS para Bomberos en México</h2>
+          <p class="hero__seo-text">
+            <strong>BOMBERO.MX</strong> distribuye <strong>equipo médico EMS certificado</strong> para cuerpos de bomberos, protección civil y brigadas de emergencia en los 32 estados de México. Comercializamos las marcas líderes: <strong>Philips HeartStart</strong>, <strong>ZOLL AED Plus</strong> y <strong>Ferno</strong> para camillas. Los bomberos son los primeros respondientes en más del <strong>60% de las emergencias médicas</strong> en México. El equipo médico EMS es tan crítico como el <a href="/productos/scba/" style="color: var(--color-fire-400); text-decoration: underline;">SCBA NFPA 1981</a> o el <a href="/productos/trajes-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">traje estructural NFPA 1971</a>.
+          </p>
+        </div>
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">¿Por Qué los Bomberos Necesitan Equipo Médico Certificado?</h2>
+          <p class="hero__seo-text">
+            En México, muchos municipios no cuentan con servicio de ambulancia dedicado — el cuerpo de bomberos es la única unidad con capacidad de respuesta rápida. Un DEA de calidad hospitalaria versus uno recreativo puede significar la diferencia entre un ritmo desfibrilado a tiempo o un paro irreversible. La certificación <strong>FDA / COFEPRIS</strong> garantiza que el equipo ha superado pruebas clínicas de eficacia. Complementa el equipo médico con <a href="/productos/rescate-acuatico/" style="color: var(--color-fire-400); text-decoration: underline;">equipo de rescate acuático NFPA 1952</a> para atención de hipotermia en rescates en agua.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABar quote="Cotizar Equipo Médico EMS para mi Cuerpo de Bomberos" />
+
+  <!-- ════════════════════ CATÁLOGO ════════════════════ -->
+  <section class="section productos" id="catalogo">
+    <div class="container">
+      <SectionHeader
+        label="Catálogo — Equipo Médico EMS Certificado para Bomberos"
+        title="6 Equipos Médicos Esenciales para el Bombero Primer Respondiente"
+        description="Desde el DEA para paro cardíaco hasta la mochila EMS completa. Cada equipo está seleccionado para las intervenciones de soporte vital básico que salvan vidas en los primeros 10 minutos de una emergencia."
+      >
+        <p>
+          Los bomberos mexicanos responden a una amplia variedad de emergencias médicas: paros cardíacos en espacios públicos, víctimas de accidentes vehiculares con trauma severo, quemados en incendios con inhalación de humo, ahogados con hipoxia y víctimas de colapso en eventos masivos. El protocolo médico del bombero primer respondiente sigue la secuencia: <strong>garantizar la seguridad de la escena → evaluación primaria (ABCDE) → control de hemorragias masivas → mantenimiento de vía aérea → oxigenoterapia → soporte circulatorio → traslado controlado</strong>.
+        </p>
+        <p>
+          El equipo médico de un cuerpo de bomberos no solo debe ser clínicamente efectivo — también debe sobrevivir a las condiciones extremas de una escena de emergencia: polvo, agua, caídas, temperaturas extremas y manejo agresivo. Por eso <strong>BOMBERO.MX</strong> distribuye exclusivamente marcas con certificaciones clínicas y de robustez de campo.
+        </p>
+      </SectionHeader>
+
+      <div class="productos__grid">
+        {productos.map((producto) => (
+          <ProductCard {...producto} altSuffix="equipo médico EMS bomberos México" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ COMPARATIVA ════════════════════ -->
+  <section class="section section--dark comparativa">
+    <div class="container">
+      <SectionHeader
+        label="Guía de Priorización"
+        title="¿Qué Equipo Médico Priorizar Primero en un Cuerpo de Bomberos?"
+        description="Si el presupuesto es limitado, esta guía prioriza el equipo médico según su impacto en la supervivencia de las víctimas más frecuentes."
+      >
+        <p>
+          La prioridad número uno siempre es el <strong>DEA</strong>: el paro cardíaco es la emergencia médica con mayor ventana temporal donde el equipo hace la diferencia. El segundo es el <strong>kit de trauma</strong>: la hemorragia masiva es la principal causa de muerte prevenible en trauma. El tercero es el <strong>oxígeno portátil</strong>: la inhalación de humo es la causa de muerte en la mayoría de los fallecidos en incendios estructurales.
+        </p>
+      </SectionHeader>
+
+      <div class="comparativa__table-wrap">
+        <table class="comparativa__table">
+          <thead>
+            <tr>
+              <th>Equipo</th>
+              <th>Certificación</th>
+              <th>Aplicación</th>
+              <th>Tiempo de intervención</th>
+              <th>Precio aprox. (MXN)</th>
+              <th>Prioridad de adquisición</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparativa.map((c) => (
+              <tr>
+                <td><strong>{c.equipo}</strong></td>
+                <td>{c.norma}</td>
+                <td>{c.uso}</td>
+                <td>{c.tiempo}</td>
+                <td>{c.precio}</td>
+                <td>{c.para}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="comparativa__nota">* Precios orientativos. Solicita cotización con especificaciones FDA/COFEPRIS para proceso de licitación municipal o estatal.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ COMPONENTES ════════════════════ -->
+  <section class="section specs">
+    <div class="container">
+      <SectionHeader
+        label="Sistema Completo de Atención Pre-Hospitalaria"
+        title="Los 6 Componentes del Sistema de Soporte Vital para Bomberos"
+        description="Un cuerpo de bomberos moderno va más allá de la extinción. Estos son los componentes que completan la capacidad de atención médica pre-hospitalaria de primer nivel."
+      >
+        <p>
+          La <strong>atención pre-hospitalaria</strong> del bombero cubre el intervalo crítico entre la emergencia y la llegada de la ambulancia o el traslado al hospital. En México, los tiempos de respuesta de ambulancias en zonas urbanas periféricas y rurales pueden superar los 20 minutos — tiempo más que suficiente para que una hemorragia masiva o un paro cardíaco sin atender sean fatales. Un bombero bien equipado y entrenado puede cambiar el pronóstico de la víctima en ese intervalo.
+        </p>
+      </SectionHeader>
+
+      <div class="specs__grid">
+        <CategoryCard
+          title="Monitor Desfibrilador Manual — Paramédicos Avanzados"
+          icon="shield"
+          image="/images/directorio/equipo-rescate-completo-01.avif"
+          description="Los cuerpos de bomberos con paramédicos certificados pueden operar monitores desfibriladores manuales (LIFEPAK 15, ZOLL X Series) que ofrecen ECG de 12 derivaciones, marcapasos externo, cardioversión sincronizada y desfibrilación manual. Capacidades muy por encima del DEA convencional."
+        />
+        <CategoryCard
+          title="Dispositivos de Vía Aérea Avanzada"
+          icon="certificate"
+          image="/images/directorio/equipo-rescate-tecnico-01.avif"
+          description="Mascarilla laríngea, tubo endotraqueal y sistema de videolaringoscopía para bomberos-paramédicos avanzados. El manejo de la vía aérea avanzada es la intervención que más reduce la mortalidad en víctimas de trauma con Glasgow < 9 o en paro cardíaco post-RCP."
+        />
+        <CategoryCard
+          title="Kit de Quemaduras para Bomberos"
+          icon="shield"
+          image="/images/directorio/equipo-rescate-completo-01.avif"
+          description="Apósitos de hidrogel Burnshield y mantas térmicas para cobertura de quemaduras en víctimas de incendio. El hidrogel enfría la quemadura activa, reduce el dolor y previene la contaminación. Los bomberos son frecuentemente los primeros en atender quemados graves en incendios estructurales."
+        />
+        <CategoryCard
+          title="Tabla Espinal Larga y Corta"
+          icon="certificate"
+          image="/images/directorio/camilla-rescate-emergencias-01.avif"
+          description="La tabla espinal larga (backboard) inmoviliza la columna completa para traslado de víctimas con mecanismo de trauma de alta energía. La tabla corta (short board) se usa dentro del vehículo antes de extraer al paciente. Ambas son polietileno de alta densidad (HDPE), radiotransparente."
+        />
+        <CategoryCard
+          title="Oxímetro de Pulso y Capnógrafo"
+          icon="shield"
+          image="/images/directorio/equipo-rescate-tecnico-01.avif"
+          description="El oxímetro de pulso (SpO2) mide la saturación de oxígeno en sangre de forma continua y no invasiva. El capnógrafo (EtCO2) confirma la correcta colocación del tubo endotraqueal y monitoriza la calidad de la RCP. Ambos son dispositivos de monitorización básica para el bombero paramédico."
+        />
+        <CategoryCard
+          title="Mantas Térmicas de Aluminio"
+          icon="certificate"
+          image="/images/directorio/equipo-rescate-completo-01.avif"
+          description="Las mantas de aluminio (space blankets) retienen el 90% del calor corporal y son el tratamiento de primera línea para la hipotermia en víctimas de rescate acuático, trauma con shock y exposición al frío. Cada bombero debe tener al menos 4 en su kit individual — pesan menos de 100 g."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ SECTORES ════════════════════ -->
+  <section class="section section--dark sectores">
+    <div class="container">
+      <SectionHeader
+        label="¿Quién Necesita Equipo Médico EMS en México?"
+        title="Perfiles que Equipamos con Material Médico de Emergencia"
+        description="Los bomberos son los primeros respondientes en la mayoría de las emergencias médicas en México. Estos son los perfiles que más necesitan equipo médico EMS de calidad."
+      />
+      <div class="sectores__grid">
+        <div class="sector-card">
+          <div class="sector-card__icon">🚒</div>
+          <h3>Cuerpos de Bomberos — Primer Respondiente Médico</h3>
+          <p>En más del 60% de los municipios mexicanos, los bomberos llegan primero a las emergencias médicas. El DEA, kit de trauma y oxígeno portátil deben estar en cada unidad de bomberos. La NFPA 1001 exige competencias de Primer Respondiente para todos los bomberos certificados.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🏛️</div>
+          <h3>Protección Civil Municipal y Estatal</h3>
+          <p>Las brigadas de protección civil en México son frecuentemente los primeros respondientes en desastres naturales con múltiples víctimas: sismos, inundaciones, deslizamientos. El equipo médico de atención masiva de víctimas (triage START, camillas, DEA) es parte del equipamiento básico de protección civil.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🏗️</div>
+          <h3>Brigadas de Emergencia Industrial</h3>
+          <p>Las plantas industriales con brigadas de emergencia interna (NOM-002-STPS, NOM-019-STPS) deben contar con equipo médico básico: DEA, kit de trauma, camilla de extricación y oxígeno. Los accidentes industriales con aplastamiento, quemaduras eléctricas o caídas requieren atención médica inmediata.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🎪</div>
+          <h3>Protección Civil en Eventos Masivos</h3>
+          <p>Los eventos con más de 5,000 asistentes (conciertos, festivales, eventos deportivos) requieren cobertura médica certificada en México. El equipo de respuesta médica en eventos incluye DEA, kits de trauma, camillas de traslado y estaciones de primeros auxilios con acceso rápido en toda el área del evento.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🚗</div>
+          <h3>Brigadas de Rescate Vehicular</h3>
+          <p>Los accidentes viales son la principal causa de intervención de rescate en México. El personal de rescate vehicular necesita el kit médico completo: collarín + KED + tabla espinal para inmovilización de columna, kit de trauma para control de hemorragias y oxígeno para víctimas con inhalación de gases del vehículo.</p>
+        </div>
+        <div class="sector-card">
+          <div class="sector-card__icon">🏫</div>
+          <h3>Escuelas, Universidades y Espacios Públicos</h3>
+          <p>La Ley General de Protección Civil y las normativas estatales promueven la instalación de DEA en espacios públicos de alta concurrencia. BOMBERO.MX suministra kits de DEA para instalación fija en escuelas, centros comerciales, estadios y edificios corporativos con asesoría sobre instalación y mantenimiento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════ FAQ ════════════════════ -->
+  <FAQ
+    title="Preguntas Frecuentes — Equipo Médico EMS para Bomberos en México"
+    description="Respuestas técnicas para jefes de cuerpo, coordinadores de protección civil y responsables de brigadas de emergencia que necesitan equipar correctamente su unidad médica."
+    items={faqs}
+  />
+
+  <!-- ════════════════════ CTA ════════════════════ -->
+  <CTABanner
+    title="¿Necesitas Cotizar Equipo Médico EMS para tu Cuerpo de Bomberos?"
+    description="Asesoría técnica sin costo. Cotización con especificaciones FDA/COFEPRIS lista para licitación. Kit médico básico BLS por unidad desde $45,000 MXN. Enviamos a los 32 estados."
+    primaryCta={{ label: "Solicitar Cotización de Equipo Médico EMS", href: "/cotizar/" }}
+    secondaryCTA={{ label: "Consultar por WhatsApp", href: `https://wa.me/525520780102?text=${encodeURIComponent('Hola BOMBERO.MX, necesito cotizar equipo médico EMS (DEA, kit trauma, camilla) para mi cuerpo de bomberos / brigada de emergencia.')}` }}
+  />
+
+</PageLayout>
+
+<style>
+  .hero { position: relative; padding: 5rem 0 4rem; overflow: hidden; background: var(--color-bg-dark, #0a0a0f); }
+  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
+  .hero__gradient { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,20,20,0.2) 0%, transparent 70%); }
+  .hero__grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 40px 40px; }
+  .hero__glow { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; }
+  .hero__glow--1 { width: 600px; height: 400px; top: -150px; right: -100px; background: rgba(220,20,20,0.15); }
+  .hero__glow--2 { width: 350px; height: 350px; bottom: -100px; left: -80px; background: rgba(180,60,20,0.1); }
+  .hero__container { position: relative; z-index: 1; }
+  .hero__badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(220,20,20,.15); border: 1px solid rgba(220,20,20,.35); border-radius: 999px; padding: .375rem 1rem; font-size: .8125rem; font-weight: 600; color: var(--color-fire-400, #f87171); margin-bottom: 1.5rem; }
+  .hero__badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-fire-400, #f87171); animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(1.3); } }
+  .hero__title { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 1.25rem; }
+  .hero__title-highlight { background: linear-gradient(135deg, #f87171, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; font-size: 1.2em; }
+  .hero__subtitle { font-size: 1.125rem; line-height: 1.75; color: rgba(255,255,255,.65); max-width: 680px; margin-bottom: 2.5rem; }
+  .hero__urgencia { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
+  .hero__urgencia-item { background: rgba(220,20,20,.1); border: 1px solid rgba(220,20,20,.25); border-radius: 10px; padding: 1rem 1.25rem; text-align: center; }
+  .hero__urgencia-num { display: block; font-size: 1.375rem; font-weight: 900; color: #f87171; margin-bottom: .25rem; }
+  .hero__urgencia-label { font-size: .75rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+  @media (max-width: 640px) { .hero__urgencia { grid-template-columns: 1fr; } }
+  .hero__seo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+  .hero__seo-block { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 1.5rem; }
+  .hero__seo-title { font-size: .9375rem; font-weight: 700; color: #fff; margin-bottom: .75rem; }
+  .hero__seo-text  { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+  @media (max-width: 768px) { .hero__seo { grid-template-columns: 1fr; } }
+  .section { padding: 5rem 0; }
+  .section--dark { background: var(--color-bg-dark, #0a0a0f); border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06); }
+  .productos__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .specs__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .comparativa__table-wrap { margin-top: 2.5rem; overflow-x: auto; }
+  .comparativa__table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .comparativa__table th { background: rgba(220,20,20,.15); color: #f87171; font-weight: 700; font-size: .8125rem; text-transform: uppercase; letter-spacing: .05em; padding: .875rem 1rem; text-align: left; border-bottom: 1px solid rgba(220,20,20,.3); }
+  .comparativa__table td { padding: .875rem 1rem; border-bottom: 1px solid rgba(255,255,255,.06); color: rgba(255,255,255,.75); vertical-align: top; }
+  .comparativa__table tr:hover td { background: rgba(255,255,255,.03); }
+  .comparativa__nota { font-size: .8125rem; color: rgba(255,255,255,.35); margin-top: 1rem; font-style: italic; }
+  .sectores__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .sector-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 1.75rem; transition: border-color .2s, transform .2s; }
+  .sector-card:hover { border-color: rgba(220,20,20,.4); transform: translateY(-2px); }
+  .sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+  .sector-card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .625rem; }
+  .sector-card p { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+</style>
