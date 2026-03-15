@@ -28,29 +28,31 @@ const buttonClasses = [
   </svg>
 </button>
 
-<script>
-  const backToTop = document.querySelector('.back-to-top') as HTMLButtonElement | null;
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function() {
+    var backToTop = document.querySelector('.back-to-top');
 
-  if (backToTop) {
-    const threshold = parseInt(backToTop.dataset.threshold || '400', 10);
+    if (backToTop) {
+      var threshold = parseInt(backToTop.dataset.threshold || '400', 10);
 
-    // Show/hide based on scroll position
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > threshold) {
-        backToTop.classList.add('back-to-top--visible');
-      } else {
-        backToTop.classList.remove('back-to-top--visible');
-      }
-    });
-
-    // Scroll to top on click
-    backToTop.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
+      // Show/hide based on scroll position
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > threshold) {
+          backToTop.classList.add('back-to-top--visible');
+        } else {
+          backToTop.classList.remove('back-to-top--visible');
+        }
       });
-    });
-  }
+
+      // Scroll to top on click
+      backToTop.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+    }
+  });
 </script>
 
 <style>
