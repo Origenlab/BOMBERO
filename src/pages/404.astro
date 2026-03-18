@@ -11,9 +11,75 @@ import PageLayout from "@layouts/PageLayout.astro";
       <p class="error-page__description">
         Lo sentimos, la página que buscas no existe o fue movida a otra dirección.
       </p>
+      <p class="error-page__redirect" id="redirect-msg" style="display:none; color: var(--color-primary); font-weight: 600; margin-block-end: var(--space-md);">
+        Redirigiendo...
+      </p>
       <a href="/" class="btn btn--primary">Volver al inicio</a>
+      <div style="margin-top: var(--space-xl); display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-content: center;">
+        <a href="/productos/" class="btn btn--outline">Ver Productos</a>
+        <a href="/catalogo/" class="btn btn--outline">Catálogo</a>
+        <a href="/blog/" class="btn btn--outline">Blog</a>
+        <a href="/directorio/" class="btn btn--outline">Directorio</a>
+        <a href="/contacto/" class="btn btn--outline">Contacto</a>
+      </div>
     </div>
   </section>
+
+  <!-- Smart redirects for old WordPress/WooCommerce URLs -->
+  <script is:inline>
+  (function() {
+    var path = window.location.pathname.toLowerCase();
+    var dest = null;
+
+    // Old WooCommerce product URLs → /productos/
+    if (path.startsWith('/producto/')) {
+      var slug = path.replace('/producto/', '').replace(/\/$/, '');
+      // Map keywords to current product categories
+      if (slug.match(/casco|helmet/)) dest = '/productos/';
+      else if (slug.match(/traje|suit|estructural|turnout/)) dest = '/trajes-bombero/';
+      else if (slug.match(/bota|boot/)) dest = '/productos/botas-para-bomberos/';
+      else if (slug.match(/guante|glove/)) dest = '/productos/guantes/';
+      else if (slug.match(/scba|era|respiracion|mascara|respirador/)) dest = '/equipo-scba/';
+      else if (slug.match(/extintor|extinguisher/)) dest = '/extintores-mexico/';
+      else if (slug.match(/radio|comunicacion/)) dest = '/productos/';
+      else if (slug.match(/capucha|hood|monja/)) dest = '/productos/capuchas-para-bomberos/';
+      else if (slug.match(/hazmat|quimic/)) dest = '/productos/hazmat/';
+      else if (slug.match(/rescate|rescue|vertical/)) dest = '/productos/rescate-vertical/';
+      else dest = '/productos/';
+    }
+    // Old product tags → /productos/
+    else if (path.startsWith('/etiqueta-producto/') || path.startsWith('/tag/')) {
+      var tag = path.replace('/etiqueta-producto/', '').replace('/tag/', '').replace(/\/$/, '');
+      if (tag.match(/casco/)) dest = '/cascos-bombero/';
+      else if (tag.match(/traje|estructural/)) dest = '/trajes-bombero/';
+      else if (tag.match(/bota/)) dest = '/productos/botas-para-bomberos/';
+      else if (tag.match(/guante/)) dest = '/productos/guantes/';
+      else if (tag.match(/scba|era|respiracion/)) dest = '/equipo-scba/';
+      else if (tag.match(/extintor/)) dest = '/extintores-mexico/';
+      else if (tag.match(/nfpa/)) dest = '/blog/nfpa-1971-guia-completa/';
+      else dest = '/productos/';
+    }
+    // Old category URLs
+    else if (path.startsWith('/categoria-producto/') || path.startsWith('/product-category/')) {
+      dest = '/productos/';
+    }
+    // Old WP pages
+    else if (path.startsWith('/tienda/') && path !== '/tienda/') {
+      dest = '/tienda/';
+    }
+    else if (path.startsWith('/carrito') || path.startsWith('/cart')) {
+      dest = '/cotizar/';
+    }
+    else if (path.startsWith('/mi-cuenta') || path.startsWith('/my-account')) {
+      dest = '/';
+    }
+
+    if (dest) {
+      document.getElementById('redirect-msg').style.display = 'block';
+      setTimeout(function() { window.location.replace(dest); }, 1500);
+    }
+  })();
+  </script>
 </PageLayout>
 
 <style>
