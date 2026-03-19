@@ -417,20 +417,43 @@ const stationJsonLd = {
               <p>
                 La <strong>{nombreCortoDisplay}</strong> es parte del <strong>H. Cuerpo de Bomberos de {estado.nombre}</strong>.
                 Esta estación, ubicada en <strong>{estacion.direccion}{colonia ? `, ${colonia}` : ''}, {ubicacion}</strong>,
-                brinda atención las 24 horas del día, los 365 días del año.
+                brinda atención las 24 horas del día, los 365 días del año. Para reportar una emergencia
+                en {ubicacion}, marca el <strong>911</strong> o comunícate directamente al <strong>{estacion.telefono}</strong>.
+              </p>
+
+              {estacion.servicios && estacion.servicios.length > 0 && (
+                <p>
+                  Los servicios que ofrece esta estación incluyen {estacion.servicios.slice(0, 5).join(', ').toLowerCase()}{estacion.servicios.length > 5 ? ` y ${estacion.servicios.length - 5} servicios adicionales` : ''}.
+                  Cada uno de estos servicios requiere equipo de protección personal certificado bajo normas
+                  <strong>NFPA</strong> para garantizar la seguridad del personal operativo durante las intervenciones.
+                </p>
+              )}
+
+              {zonasCobertura && zonasCobertura.length > 0 && (
+                <p>
+                  La cobertura de esta estación abarca {zonasCobertura.slice(0, 4).join(', ')}
+                  {zonasCobertura.length > 4 ? ` y ${zonasCobertura.length - 4} zonas adicionales` : ''} en el municipio de {ubicacion}.
+                  El tiempo de respuesta depende de la distancia, el tráfico y las condiciones del incidente.
+                  Si necesitas el directorio completo de estaciones en el estado, consulta el
+                  <a href={`/directorio/${estado.slug}/`}>directorio de bomberos de {estado.nombre}</a>.
+                </p>
+              )}
+
+              <h3>Equipo NFPA para bomberos de {estado.nombre}</h3>
+              <p>
+                Los bomberos de {ubicacion} operan en condiciones que exigen equipo certificado: incendios
+                estructurales requieren <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a> con
+                protección térmica mínima de 35 cal/cm², rescate vehicular demanda
+                <a href="/productos/guantes-para-bomberos/">guantes de extricación</a> con resistencia al
+                corte nivel 4, y cualquier entrada a una atmósfera con humo necesita
+                <a href="/productos/scba/">SCBA certificado NFPA 1981</a> con presión positiva.
               </p>
               <p>
-                En caso de <strong>emergencia en {ubicacion}</strong>, marca el <strong>911</strong> o comunícate directamente
-                a esta estación al <strong>{estacion.telefono}</strong>. Los bomberos de {estado.nombre} están capacitados para atender
-                incendios, rescates vehiculares, fugas de gas, emergencias industriales y todo tipo de emergencias.
-              </p>
-              <h3>¿Necesitas equipo certificado para bomberos?</h3>
-              <p>
-                En <strong><a href="/">BOMBERO.MX</a></strong> somos distribuidores autorizados de <strong>equipo para bomberos certificado NFPA</strong>.
-                Equipamos estaciones en todo {estado.nombre} con <a href="/productos/trajes-para-bomberos/">trajes estructurales</a>,
-                <a href="/productos/cascos-para-bomberos/">cascos</a>, <a href="/productos/guantes-para-bomberos/">guantes</a>,
-                <a href="/productos/botas-para-bomberos/">botas certificadas</a> y más.
-                <a href="/cotizar/">Solicita una cotización</a> sin compromiso.
+                En <strong><a href="/">BOMBERO.MX</a></strong> distribuimos equipo certificado NFPA a estaciones
+                de bomberos en los 32 estados de México desde 2010. Cada pedido incluye ficha técnica y
+                certificado de laboratorio del fabricante. Si tu estación necesita renovar equipo o
+                documentación para una licitación, <a href="/cotizar/">solicita una cotización</a> con
+                especificaciones técnicas incluidas.
               </p>
             </slot>
           </article>

@@ -1,4 +1,5 @@
 
+import { articulosEstacionesData } from "./blog-articulos-estaciones";
 
 export interface ArticuloData {
   titulo: string;
@@ -12809,8 +12810,720 @@ Todo nuestro equipo incluye la garantía del fabricante original, que varía seg
     `,
   },
 
+  "como-elegir-traje-bombero-nfpa-1971": {
+    titulo: "Como elegir un traje de bombero NFPA 1971: guia para jefes de cuerpo",
+    excerpt: "Sistema de 3 capas, TPP minimo 35 cal/cm², THL minimo 130 W/m², marcas disponibles en Mexico y errores comunes al comprar trajes estructurales.",
+    imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    categoria: "Guias Tecnicas",
+    tags: ["NFPA 1971", "Trajes Estructurales", "EPP Bomberos", "Globe", "Lion Apparel", "Honeywell"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en EPP NFPA",
+    anchorKeyword: "traje de bombero NFPA 1971 Mexico",
+    contenido: `
+## Qué exige NFPA 1971 y por qué importa al comprar trajes estructurales
+
+NFPA 1971 regula el diseño, los materiales y las pruebas que debe pasar cualquier traje de bombero estructural antes de venderse. Si un traje no cumple esta norma, no es apto para combate de incendios interiores. Punto. No importa cuánto ahorre el municipio ni qué tan bien se vea en las fotos de la entrega.
+
+La norma establece requisitos mínimos de protección térmica (TPP), transferencia de calor total (THL), resistencia al desgarro, repelencia a líquidos y visibilidad. Cada uno de estos valores se prueba en laboratorio con protocolos específicos. A continuación explicamos los que usted necesita verificar antes de firmar una orden de compra.
+
+## El sistema de 3 capas: qué hace cada una
+
+Un traje NFPA 1971 se compone de tres capas que trabajan en conjunto:
+
+**Capa exterior** — Fabricada en Nomex IIIA, PBI Gold o PBI Matrix. Su función es resistir la abrasión, el contacto directo con llama y la radiación térmica. Un tejido de PBI/Kevlar pesa entre 200 y 230 g/m² y resiste temperaturas de descomposición superiores a 400 °C. Las opciones de Nomex IIIA son más económicas pero ofrecen menor resistencia mecánica.
+
+**Barrera de humedad** — Casi siempre es GORE Crosstech o Stedair 3000. Esta capa impide que agua, sangre, combustibles y otros líquidos penetren al interior, mientras permite que el vapor de sudor salga hacia afuera. Sin esta barrera, el bombero termina empapado por dentro en los primeros cinco minutos de trabajo.
+
+**Forro térmico** — Combina una cara de aramida acolchada con una tela de contacto con la piel. Es la capa que absorbe la mayor parte de la energía térmica y le da al bombero esos segundos críticos para salir de un flashover.
+
+Las tres capas juntas determinan los dos valores que usted debe exigir en la ficha técnica:
+
+| Parámetro | Mínimo NFPA 1971 | Valor recomendado | Qué mide |
+|-----------|-------------------|-------------------|----------|
+| TPP (Thermal Protective Performance) | 35 cal/cm² | 40+ cal/cm² | Tiempo hasta quemadura de segundo grado bajo exposición radiante y convectiva. Un TPP de 35 equivale a ~17.5 segundos de protección. |
+| THL (Total Heat Loss) | 130 W/m² | 205+ W/m² | Capacidad del traje para disipar calor corporal. Abajo de 130, el riesgo de golpe de calor aumenta significativamente. |
+
+Aquí hay un dato que muchos proveedores omiten: el golpe de calor mata más bomberos al año que las quemaduras directas. Un traje con TPP de 50 pero THL de 115 protege contra la llama pero cocina al bombero desde adentro. El equilibrio entre protección y transpirabilidad es la decisión de ingeniería más importante del traje.
+
+## Marcas disponibles en México
+
+Tres fabricantes cubren la mayor parte del mercado mexicano de trajes NFPA 1971:
+
+**Globe (MSA)** — Su línea G-Xtreme ofrece TPP de 42 cal/cm² y THL de 228 W/m² en la configuración con GORE Crosstech. Buena disponibilidad de tallas y refacciones en México a través de distribuidores autorizados. Es el traje que más vendemos a cuerpos municipales por la relación costo-protección.
+
+**Lion Apparel** — El modelo V-Force utiliza PBI Matrix y alcanza TPP de 46 cal/cm² con THL de 195 W/m². Construcción robusta, costuras reforzadas con hilo Kevlar. Su punto débil: los tiempos de entrega a México pueden llegar a 16 semanas cuando se piden tallas especiales.
+
+**Honeywell/Morning Pride** — La línea TAILS tiene buena reputación en Estados Unidos. En México la distribución es más limitada y las refacciones tardan más en conseguirse. Si ya tienen trajes Morning Pride y necesitan uniformidad en el cuerpo, tiene sentido seguir con la marca. Si parten de cero, Globe o Lion suelen ser más prácticos.
+
+## Cómo solicitar una cotización correcta
+
+Cuando nos llama un jefe de cuerpo, necesitamos esta información para cotizar con precisión:
+
+**Tipo de operación** — Estructural, forestal, rescate vehicular o combinación. NFPA 1971 cubre estructural; para forestal aplica NFPA 1977, que es un traje completamente distinto.
+
+**Cantidad de trajes** — Pedidos de 10 o más unidades generalmente permiten negociar mejor precio unitario con el fabricante.
+
+**Medidas individuales** — Pecho, cintura, tiro, largo de pierna, largo de brazo. Cada bombero se mide. No hay atajos aquí.
+
+**Método de adquisición** — Compra directa, licitación pública, convenio con Protección Civil estatal. Cada vía tiene sus tiempos y documentos. Una licitación pública puede agregar 8-12 semanas al proceso.
+
+## Errores que vemos con frecuencia
+
+Hemos vendido trajes estructurales por más de una década y estos errores se repiten año tras año:
+
+**Pedir tallas estándar sin medir a nadie.** Hemos visto departamentos ordenar 20 trajes talla Large porque "la mayoría de los elementos son de complexión media". Al llegar los trajes, seis no le quedan a nadie. Un traje que no ajusta bien deja huecos en las zonas de superposición con guantes y botas, que es exactamente donde ocurren las quemaduras.
+
+**Comprar trajes usados o donados sin verificar la edición NFPA.** Un traje fabricado bajo NFPA 1971 edición 2007 ya rebasó su vida útil de 10 años. No importa que "se vea bien". La degradación de la barrera de humedad y el forro térmico no es visible a simple vista. La norma establece un retiro obligatorio a los 10 años desde la fecha de manufactura, no desde la fecha de compra ni desde que se puso en servicio.
+
+**Ignorar el programa de inspección.** NFPA 1851 exige inspección avanzada anual y limpieza especializada. Un traje contaminado con productos de combustión pierde propiedades y se convierte en riesgo cancerígeno para el usuario.
+
+## Preguntas frecuentes
+
+**¿Cuánto cuesta un traje NFPA 1971 en México?**
+Depende de la configuración. Un traje Globe G-Xtreme completo (chaquetón y pantalón) con GORE Crosstech está en el rango de $45,000 a $65,000 MXN dependiendo del volumen del pedido. Modelos con PBI pueden superar los $80,000 MXN. Desconfíe de cualquier oferta por debajo de $30,000 que diga cumplir NFPA 1971: o es edición antigua, o es usado, o no cumple.
+
+**¿Cada cuánto hay que reemplazar los trajes?**
+NFPA 1851 establece un máximo de 10 años desde la fecha de manufactura. Si el traje sufre exposición severa a productos químicos o un flashover, debe retirarse de inmediato sin importar la antigüedad. La etiqueta interior tiene la fecha de fabricación en formato mes/año.
+
+**¿Puedo mezclar componentes de distintas marcas?**
+Técnicamente sí puede usar chaquetón Globe con pantalón Lion, pero no es recomendable. Los sistemas de cierre, los puntos de superposición y los materiales están diseñados para trabajar como conjunto. Además, complica la gestión de refacciones y la trazabilidad para inspecciones NFPA 1851.
+
+**¿Qué documentos debo exigir al proveedor?**
+Certificado de cumplimiento NFPA 1971 (con número de edición), reporte de laboratorio con valores TPP y THL del ensamble específico, carta de distribuidor autorizado del fabricante, y garantía por escrito. Si el proveedor no puede entregar estos cuatro documentos, busque otro.
+
+---
+
+[**Cotizar trajes estructurales →**](/cotizar/)
+
+[**Ver catálogo de trajes →**](/productos/trajes-para-bomberos/)
+    `,
+  },
+
+  "scba-msag1-vs-scott-airpak": {
+    titulo: "MSA G1 vs Scott Air-Pak 50: comparativa para bomberos en Mexico",
+    excerpt: "Peso, presion de trabajo, duracion de cilindros, HUD, costo de mantenimiento y disponibilidad de refacciones en Mexico. Comparativa tecnica real.",
+    imagen: "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+    categoria: "Comparativas",
+    tags: ["SCBA", "MSA G1", "Scott Air-Pak", "NFPA 1981", "Cilindros SCBA"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en SCBA NFPA",
+    anchorKeyword: "MSA G1 vs Scott Air-Pak bomberos Mexico",
+    contenido: `
+## MSA G1 contra Scott Air-Pak 50: qué conviene para su departamento
+
+Cuando un jefe de cuerpo nos pregunta "¿cuál SCBA compro?", la respuesta honesta es: depende de su presupuesto, su parque instalado y quién le puede dar servicio en su zona. No existe un equipo universalmente superior. Lo que sí existe son diferencias técnicas concretas que afectan la operación diaria, y eso es lo que vamos a revisar.
+
+Ambos equipos cumplen NFPA 1981 en su edición vigente, así que la certificación no es factor diferenciador. La decisión se toma por peso, ergonomía, compatibilidad de cilindros, electrónica integrada y, sobre todo, soporte postventa en México.
+
+## Especificaciones frente a frente
+
+| Característica | MSA G1 | Scott Air-Pak 50 (3M Scott) |
+|---------------|--------|----------------------------|
+| Peso con cilindro 30 min (carbón) | ~10.5 kg | ~11.0 kg |
+| Peso con cilindro 45 min (carbón) | ~11.8 kg | ~12.2 kg |
+| Presión de trabajo | 4,500 psi (310 bar) | 4,500 psi (310 bar) |
+| Regulador | e-Z Flo con bypass manual | E-Z Flo II con purga rápida |
+| Máscara estándar | G1 con conexión de voz integrada | AV-3000 HT con EPIC 3 (amplificador de voz opcional) |
+| PASS integrado | Sí (motionSCOUT) | Sí (Pak-Alert SE) |
+| HUD (pantalla en máscara) | Sí, con opción LUNAR (imagen térmica) | Sí, indicador LED de presión |
+| Alarma de baja presión | Audible + vibración + visual en HUD | Audible + visual en HUD |
+
+La diferencia de 500 gramos entre el G1 y el Air-Pak 50 parece menor en la mesa, pero después de subir tres pisos con manguera cargada y herramienta, medio kilo se nota. Dicho esto, el peso depende mucho de qué cilindro se monte y qué accesorios lleve el equipo.
+
+## Cilindros: el componente que más afecta costo y peso
+
+Los cilindros son donde realmente se juega el presupuesto. Ambas marcas aceptan tres tipos:
+
+**Acero** — El más barato (~$8,000-$12,000 MXN) y el más pesado. Un cilindro de acero de 30 minutos pesa alrededor de 5.5 kg vacío. Funcional para departamentos con presupuesto muy limitado, pero la fatiga del usuario es considerable.
+
+**Composite (fibra de vidrio/aluminio)** — Punto medio. Aproximadamente 40% más ligero que el acero. Precio en el rango de $18,000-$25,000 MXN. Buena opción para la mayoría de los cuerpos municipales.
+
+**Fibra de carbono** — El más ligero (~2.5 kg vacío para 30 min) y el más caro ($35,000-$50,000 MXN). Justificable para departamentos con alta frecuencia de incidentes estructurales. No tiene sentido económico para un cuerpo que atiende tres incendios estructurales al año.
+
+Aquí va un consejo práctico que damos con frecuencia: si su presupuesto solo alcanza para cilindros de 30 minutos, cómprelos y destine la diferencia a contratos de mantenimiento anual. Un cilindro de 45 minutos que no recibe servicio es peor inversión que uno de 30 minutos con pruebas hidrostáticas al día.
+
+## Duración real contra duración nominal
+
+Los fabricantes especifican la duración del cilindro en condiciones controladas: respiración de 40 L/min a ritmo constante. En un incendio real, la tasa respiratoria de un bombero bajo carga física y estrés sube a 60-80 L/min fácilmente.
+
+En la práctica:
+
+- Cilindro de 30 minutos → 15 a 18 minutos de trabajo efectivo
+- Cilindro de 45 minutos → 25 a 30 minutos de trabajo efectivo
+
+Estos números varían según el acondicionamiento físico del usuario, la temperatura ambiente y la intensidad de la actividad. Hemos medido bomberos que agotan un cilindro de 30 minutos en 12 minutos durante búsqueda y rescate en estructura de dos niveles. Planifique sus rotaciones con los números reales, no con los de la etiqueta.
+
+## Mantenimiento y costos recurrentes
+
+Aquí es donde muchos departamentos se llevan sorpresas. El SCBA no es un equipo que se compra y se guarda:
+
+**Prueba hidrostática del cilindro** — Cada 5 años para composite y fibra de carbono, cada 3 años para acero. Costo por cilindro: $1,500-$3,000 MXN dependiendo del tipo. Los cilindros de fibra de carbono tienen vida útil máxima de 15 años sin importar cuántas pruebas pasen.
+
+**Servicio de regulador** — Anual. Incluye cambio de diafragma, revisión de asientos de válvula y prueba de presión. Costo: $3,000-$5,000 MXN por unidad dependiendo de la marca. Saltarse este servicio es la forma más rápida de tener fallas en escena.
+
+**Prueba de ajuste de máscara (fit test)** — Anual para cada usuario. Protocolo cuantitativo con generador de partículas. Sin fit test, no hay garantía de que la máscara selle correctamente y todo lo demás pierde sentido.
+
+**Sensor y electrónica PASS** — Cambio de batería según especificación del fabricante. El MSA G1 usa batería recargable con ~14 horas de autonomía. El Scott Air-Pak 50 varía según la configuración.
+
+## Disponibilidad de refacciones en México
+
+Este punto es determinante y muchos compradores lo ignoran hasta que necesitan una pieza urgente:
+
+**MSA** tiene oficinas y almacén en Ciudad de México y Monterrey. Las refacciones comunes (diafragmas, O-rings, baterías PASS, cintas de arnés) generalmente están en stock. Las piezas especiales como reguladores completos o módulos electrónicos pueden tardar 2-4 semanas.
+
+**3M/Scott** opera en México a través de distribuidores autorizados. La disponibilidad de refacciones depende del inventario del distribuidor local. En ciudades grandes funciona bien; en zonas remotas, puede haber demoras de 4-6 semanas para piezas específicas. Confirme con su distribuidor regional antes de comprar qué piezas mantiene en stock.
+
+## Cuál elegir según el tipo de departamento
+
+Para **cuerpos municipales con presupuesto ajustado**, el MSA G1 generalmente gana. Tiene precio de entrada más competitivo, la red de servicio en México es más directa, y la integración de PASS y HUD en el equipo base reduce accesorios adicionales. Hemos equipado departamentos completos con G1 y cilindros composite de 30 minutos a un costo total por unidad razonable para licitaciones estatales.
+
+Para **brigadas industriales**, la decisión depende del parque existente. Si la planta ya opera con Scott, meter equipos MSA genera problemas de compatibilidad de cilindros, refacciones duplicadas y capacitación adicional. La estandarización pesa más que las diferencias técnicas entre marcas.
+
+Para **departamentos que buscan tecnología avanzada**, la opción LUNAR de MSA (imagen térmica integrada en la máscara) es un diferenciador real. Permite localizar compañeros caídos a través de humo denso. No es barata, pero para departamentos con alto volumen de incidentes estructurales, puede justificar la inversión.
+
+## Preguntas frecuentes
+
+**¿Puedo usar cilindros MSA en un arnés Scott o viceversa?**
+No. Las roscas de conexión y los mecanismos de retención son propietarios de cada marca. Un cilindro MSA no se monta en un arnés Scott sin un adaptador que, además de no estar certificado, compromete la seguridad. Estandarice por marca.
+
+**¿Cuánto cuesta un SCBA completo en México?**
+Un MSA G1 con cilindro composite de 30 minutos y máscara se ubica entre $85,000 y $110,000 MXN según volumen. Un Scott Air-Pak 50 en configuración similar está entre $95,000 y $120,000 MXN. Estos rangos cambian con tipo de cambio y condiciones de licitación. Pida cotización formal con precios vigentes.
+
+**¿Cada cuánto debo reemplazar un SCBA completo?**
+NFPA 1981 no establece un retiro obligatorio por edad como lo hace NFPA 1851 con trajes. Sin embargo, el fabricante especifica vida útil de componentes individuales. En la práctica, un SCBA bien mantenido con reemplazos periódicos de cilindro y regulador puede operar 15-20 años. El cilindro de fibra de carbono sí tiene límite duro de 15 años.
+
+**¿Qué capacitación necesita mi personal para operar SCBA?**
+Cada usuario debe completar capacitación del fabricante o de un centro autorizado. Incluye armado, colocación en menos de 60 segundos (benchmark NFPA), operación del regulador y bypass, interpretación del HUD, y procedimientos de emergencia (RIT/RIC). La capacitación no es opcional: un bombero que no domina su SCBA bajo estrés es un riesgo para todo el equipo.
+
+---
+
+[**Cotizar SCBA →**](/cotizar/)
+
+[**Ver equipos SCBA →**](/productos/scba/)
+    `,
+  },
+
+
+  "mantenimiento-equipo-nfpa-bomberos": {
+    titulo: "Mantenimiento del EPP NFPA: qué revisar y con qué frecuencia",
+    excerpt: "Inspección visual diaria, revisión mensual, retiro de servicio y cuándo reemplazar el traje vs reparar. Lo que exige NFPA 1851.",
+    imagen: "/images/trajes-para-bombero/chaqueton-bombero-goretex-sistema-3-capas-detalle-01.avif",
+    categoria: "Mantenimiento",
+    tags: ["NFPA 1851", "Mantenimiento EPP", "Inspección Trajes", "Retiro Servicio", "Lavado EPP"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en EPP NFPA",
+    anchorKeyword: "mantenimiento EPP NFPA bomberos México",
+    contenido: `
+## Mantenimiento del EPP NFPA: qué revisar y con qué frecuencia
+
+La norma **NFPA 1851** (Standard on Selection, Care, and Maintenance of Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting) establece los requisitos mínimos para inspección, limpieza, reparación y retiro de servicio del equipo de protección personal. En México, la mayoría de los departamentos no siguen esta norma. El resultado: trajes con barreras de humedad comprometidas, cascos con suspensiones vencidas y guantes que ya no protegen. Este artículo detalla cada nivel de inspección que NFPA 1851 exige y cómo implementarlo en tu estación.
+
+### Por qué NFPA 1851 existe
+
+Un traje estructural NFPA 1971 tiene tres capas con funciones distintas: la capa exterior (Nomex, PBI o mezcla) resiste la llama directa; la barrera de humedad (típicamente Gore-Tex Crosstech o Stedair) impide el paso de líquidos y vapores peligrosos; y la barrera térmica aísla del calor. Cada capa se degrada de forma diferente. La exposición repetida a calor, humo, productos de combustión y radiación UV reduce progresivamente la protección. Sin inspecciones sistemáticas, un traje puede parecer funcional por fuera mientras la barrera de humedad tiene microfisuras que permiten el paso de carcinógenos disueltos en agua.
+
+NFPA 1851 no es opcional si tu departamento opera con equipo certificado NFPA 1971. La norma establece cuatro niveles de inspección con frecuencias específicas.
+
+### Inspección visual de rutina (antes de cada uso)
+
+Toma 2 minutos. Se revisa con el traje extendido sobre una superficie limpia:
+
+- Capa exterior: buscar rasgaduras, quemaduras, abrasión, decoloración por calor (la tela PBI Gold pasa de dorado a marrón oscuro con daño térmico), costuras expuestas o rotas.
+- Cinta reflectiva: verificar que no esté despegada, derretida o con pérdida de retroreflexión. La cinta 3M Scotchlite pierde reflectividad cuando se expone a temperaturas superiores a 260 °C.
+- Herrajes y cierres: broches, ganchos, snaps y zipper deben operar sin atorarse. El zipper YKK Aquaguard que usan la mayoría de los fabricantes resiste bien, pero acumula hollín que traba el deslizador.
+- Velcro: debe adherir con firmeza. Velcro contaminado con hollín pierde hasta 70 % de su capacidad de retención.
+
+La mayoría de los departamentos en México no realizan esta inspección. Se coloca el traje y se sale a la llamada. Esa omisión es la primera grieta en la cadena de protección.
+
+### Inspección después de cada exposición
+
+Tras cualquier contacto con fuego, humo o sustancias químicas, se requiere una inspección más detallada:
+
+- Daño térmico: revisar si la tela exterior presenta rigidez, textura quebradiza o cambio de color. Si la tela se quiebra al doblarla, el traje sale de servicio.
+- Contaminación química: manchas de hidrocarburos, ácidos u otras sustancias requieren limpieza avanzada antes de volver a usar el traje. Los productos de combustión incluyen benzo(a)pireno y otros carcinógenos del Grupo 1 de la IARC que se absorben a través de la piel.
+- Cinta reflectiva: tras exposición a calor radiante superior a 200 °C, verificar con linterna a 30 metros de distancia que la cinta sigue reflejando.
+- Casco: revisar la suspensión interna, la corona y el visor. Policarbonato del visor se degrada con exposición UV y calor; si presenta crazing (microfisuras), reemplazar.
+
+### Inspección mensual
+
+Una vez al mes, con el traje limpio, se realiza una revisión más profunda:
+
+| Componente | Qué revisar | Criterio de fallo |
+|-----------|------------|-------------------|
+| Zipper principal | Operación suave, dientes alineados, sin corrosión | Si no cierra en un solo movimiento continuo |
+| Velcro (tormentas) | Adherencia firme en toda la superficie | Si se separa con menos de 2.2 N/cm de fuerza |
+| Barrera de humedad | Prueba de penetración: aplicar agua en la superficie interior y observar si traspasa en 3 minutos | Cualquier penetración visible |
+| Costuras interiores | Sellado de costuras íntegro, sin burbujas ni despegue de la cinta selladora | Cualquier separación de la cinta de sellado |
+| Suspensión del casco | Bandas sin elongación, rivetes firmes, ajuste de ratchet funcional | Banda que no regresa a su posición o rivete suelto |
+| Guantes | Integridad de costuras en dedos, flexibilidad de la piel, barrera de humedad | Rigidez excesiva o costuras abiertas |
+
+### Inspección anual por ISP (proveedor de servicio independiente)
+
+NFPA 1851 exige que una vez al año un ISP (Independent Service Provider) certificado realice una inspección avanzada. Esta incluye:
+
+- Inspección completa de la barrera térmica: se retira el liner y se revisa compresión, espesor y uniformidad. Si el aislamiento térmico pierde más del 20 % de su espesor original (medido con calibrador), el traje se retira.
+- Prueba de integridad de barrera de humedad: se utiliza un método de inflado o prueba hidrostática para verificar que no existen fugas. Una sola fuga significa retiro o reemplazo del liner.
+- Prueba de resistencia a la tracción de costuras: muestreo destructivo en prendas seleccionadas para verificar que las costuras mantienen al menos 667 N de resistencia (requisito NFPA 1971).
+- Evaluación de cinta reflectiva: medición de retroreflexión con fotómetro. Debe mantener al menos 100 cd/lux/m².
+
+En México existen pocos ISP certificados. Si tu departamento no tiene acceso a uno, contacta al fabricante o distribuidor del equipo para coordinar este servicio.
+
+### Limpieza avanzada: no es lavar en casa
+
+NFPA 1851 prohíbe el lavado doméstico de trajes estructurales. La limpieza avanzada requiere:
+
+- Extractor de tipo comercial (lavadora frontal industrial), no lavadora de agitador vertical. El agitador daña las costuras selladas y la cinta reflectiva.
+- Temperatura máxima de agua: 40 °C (105 °F). Agua más caliente degrada la barrera de humedad Gore-Tex.
+- Detergente específico: productos como Uni-Mac o los recomendados por el fabricante. Sin cloro, sin blanqueador, sin suavizante de telas. El cloro degrada las fibras de Nomex y PBI.
+- Secado al aire o en secadora a temperatura baja (no mayor a 40 °C). Nunca al sol directo; la radiación UV degrada PBI y Kevlar.
+
+La barrera de humedad y la barrera térmica se lavan por separado de la capa exterior cuando el diseño del traje lo permite.
+
+### Cuándo retirar vs cuándo reparar
+
+NFPA 1851 establece un límite absoluto de 10 años de vida útil desde la fecha de manufactura, sin importar el estado aparente del traje. Se retira de servicio si:
+
+- La barrera de humedad falla la prueba de penetración de agua.
+- La barrera térmica muestra compresión irreversible mayor al 20 %.
+- La capa exterior presenta carbonización, derretimiento o pérdida de resistencia a la tracción.
+- Cualquier componente tiene daño que no puede ser reparado por un centro certificado.
+
+Las reparaciones menores sí son posibles: un rasgón en la capa exterior menor a 25 mm puede ser parchado por un centro de reparación certificado por el fabricante. El reemplazo de cinta reflectiva también es reparación aceptable. Pero la reparación debe quedar documentada y la prenda debe pasar una nueva inspección antes de volver al servicio.
+
+### Documentación: lo que nadie hace y todos deberían
+
+NFPA 1851 requiere un registro individual por cada prenda. Cada inspección (rutinaria, mensual, anual), cada lavado, cada reparación y cada incidente de exposición debe quedar documentado con fecha, hallazgos y nombre del inspector.
+
+En la práctica mexicana, menos del 10 % de los departamentos lleva este registro. El problema no es solo operativo. Si un bombero sufre una lesión y no existe registro de mantenimiento del equipo que portaba, la responsabilidad legal recae directamente en el departamento y en el oficial a cargo. Un registro adecuado demuestra diligencia y protege tanto al bombero como a la institución.
+
+Un formato simple en hoja de cálculo con número de serie, fecha de inspección, hallazgos y acción tomada es suficiente para cumplir con NFPA 1851.
+
+---
+
+## Preguntas frecuentes sobre mantenimiento de EPP NFPA
+
+### ¿Puedo lavar mi traje estructural en la lavadora de la estación?
+Solo si es una lavadora extractora de carga frontal (tipo comercial) sin agitador central. La temperatura del agua no debe superar 40 °C y se debe usar detergente sin cloro ni suavizante. Las lavadoras domésticas de agitador vertical dañan las costuras selladas y la cinta reflectiva.
+
+### ¿Qué pasa si mi traje tiene 8 años pero se ve en buen estado?
+Puede seguir en servicio hasta cumplir 10 años desde la fecha de manufactura, siempre que pase las inspecciones anuales de ISP y no presente fallas en barrera de humedad o térmica. A partir del año 7-8 es recomendable presupuestar el reemplazo, ya que los tiempos de entrega en México pueden ser de 8 a 16 semanas.
+
+### ¿Quién puede hacer la inspección anual que exige NFPA 1851?
+Un ISP (Independent Service Provider) certificado o un verificador entrenado conforme a NFPA 1851. En México, los distribuidores autorizados de marcas como Globe, Morning Pride o Lion pueden coordinar este servicio. En BOMBERO.MX ofrecemos asesoría para conectarte con proveedores de inspección.
+
+### ¿Qué hago con un traje que ya cumplió 10 años?
+NFPA 1851 exige su retiro permanente del servicio de emergencia. No se puede donar a otro departamento para uso operativo. Se puede utilizar exclusivamente para entrenamiento en frío (sin exposición a fuego ni calor) y debe marcarse claramente como "RETIRADO DE SERVICIO". Muchos departamentos en México siguen usando trajes de 15 o 20 años; eso pone en riesgo directo al bombero.
+
+---
+
+### Protege a tu personal con mantenimiento adecuado
+
+Si necesitas trajes nuevos para reemplazar equipo vencido, o asesoría para implementar un programa de mantenimiento NFPA 1851 en tu estación:
+
+- [**Solicita cotización →**](/cotizar/)
+- [**Trajes para Bomberos →**](/productos/trajes-para-bomberos/)
+- [**Catálogo completo →**](/productos/)
+    `,
+  },
+
+
+  "casco-bombero-bullard-vs-cairns": {
+    titulo: "Casco Bullard vs Cairns para bomberos: cuál elegir según la operación",
+    excerpt: "Diferencias técnicas entre cascos Bullard y Cairns (MSA). Visor integrado vs separado, peso, NFPA 1971 vs 1977 y qué usa la mayoría en México.",
+    imagen: "/images/cascos-para-bomberos/casco-bombero-profesional-01.avif",
+    categoria: "Comparativas",
+    tags: ["Cascos Bombero", "Bullard", "Cairns", "MSA", "NFPA 1971", "NFPA 1977"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en EPP NFPA",
+    anchorKeyword: "casco Bullard vs Cairns bomberos México",
+    contenido: `
+## Casco Bullard vs Cairns: cuál elegir según la operación
+
+La elección de casco para bombero no es cosmética. El casco absorbe impactos, resiste calor radiante hasta 260 °C, protege de agua hirviente que escurre del techo y sostiene el visor o goggles que protegen la cara. En México, dos marcas dominan el mercado: **Bullard** y **Cairns** (propiedad de MSA Safety desde 2018). Ambas fabrican cascos certificados NFPA 1971 para trabajo estructural, pero con diferencias de diseño, materiales y precio que afectan la operación diaria. Este artículo compara los modelos más vendidos en México con datos técnicos específicos.
+
+### Bullard: quién son y qué ofrecen
+
+Bullard es fabricante norteamericano fundado en 1898, con sede en Cynthiana, Kentucky. Comenzó haciendo cascos para minería y se expandió a protección contra incendios. En México es la marca más común en departamentos municipales, principalmente por su relación costo-rendimiento.
+
+Modelos principales disponibles en México:
+
+- **Bullard UST:** estilo tradicional americano con ala trasera completa. Carcasa de termoplástico (Ultem). Peso: 1.27 kg sin accesorios. Incluye visor flip-down integrado de 4 pulgadas. Sistema de retención de 4 puntos con ratchet Sure-Lock. Certificado NFPA 1971 edición vigente. Precio en México: rango medio.
+- **Bullard FXE:** estilo europeo (tipo jet). Carcasa de termoplástico. Peso: 1.15 kg. Perfil más bajo y compacto. Visor facial completo integrado que se abate hacia arriba. Popular en brigadas industriales y algunos departamentos que operan en espacios confinados. Certificado NFPA 1971.
+- **Bullard TrakLite:** gama alta, carcasa de fibra de vidrio. Peso: 1.18 kg. Sistema de iluminación LED integrado en el frente (no es una lámpara adicional, viene de fábrica). Disponible en estilo tradicional.
+
+### Cairns (MSA): quién son y qué ofrecen
+
+Cairns & Brother fue fundada en 1836 en Nueva York, lo que la convierte en el fabricante de cascos de bombero más antiguo de Estados Unidos. En 2018, MSA Safety adquirió la línea Cairns. Hoy los cascos se venden bajo la marca MSA Cairns.
+
+Modelos principales disponibles en México:
+
+- **Cairns 1044:** el casco más reconocible del mundo. Estilo tradicional americano con ala trasera pronunciada. Carcasa de material compuesto (fiberglass). Peso: 1.47 kg sin accesorios. Sistema de retención de 4 puntos con ratchet. Compatible con goggles ESS o con visor Bourkes (accesorio separado que se monta sobre el ala). Certificado NFPA 1971. Precio en México: rango alto.
+- **Cairns 1010:** estilo moderno con ala trasera más corta. Carcasa de material compuesto. Peso: 1.36 kg. Diseño más aerodinámico que el 1044. Incluye visor flip-down integrado.
+- **Cairns XF1:** estilo europeo de MSA. Carcasa de material compuesto de alto rendimiento. Peso: 1.29 kg. Visor facial integrado con tratamiento anti-empañamiento. Es el modelo que MSA posiciona para competir con el Bullard FXE y con los cascos europeos Dräger y Rosenbauer.
+
+### Comparativa técnica directa
+
+| Característica | Bullard UST | Cairns 1044 | Bullard FXE | Cairns XF1 |
+|---------------|-------------|-------------|-------------|------------|
+| Estilo | Tradicional americano | Tradicional americano | Europeo | Europeo |
+| Carcasa | Termoplástico (Ultem) | Compuesto (fiberglass) | Termoplástico | Compuesto |
+| Peso | 1.27 kg | 1.47 kg | 1.15 kg | 1.29 kg |
+| Visor | Flip-down integrado 4" | Bourkes o goggles (separados) | Facial completo integrado | Facial completo integrado |
+| Retención | 4 puntos, ratchet | 4 puntos, ratchet | 4 puntos, ratchet | 4 puntos, ratchet |
+| Certificación | NFPA 1971 | NFPA 1971 | NFPA 1971 | NFPA 1971 |
+| Precio relativo México | Medio | Alto | Medio | Alto |
+
+### Termoplástico vs compuesto: importa la diferencia
+
+El Bullard UST usa Ultem (polieterimida), un termoplástico de ingeniería con buena resistencia térmica (deflexión al calor a 200 °C). Es más ligero y absorbe impactos por deformación plástica. El Cairns 1044 usa fiberglass (resina reforzada con fibra de vidrio), que tiene mayor rigidez y resiste mejor la abrasión superficial, pero es más pesado.
+
+En la práctica, ambos materiales cumplen con los mismos requisitos de impacto y penetración de NFPA 1971. La diferencia se nota en durabilidad a largo plazo: el termoplástico resiste mejor las caídas del casco al piso (se abolla pero no se fisura), mientras que el compuesto mantiene mejor la forma pero puede presentar microfisuras internas después de un impacto fuerte que no son visibles a simple vista. Esto hace que la inspección del casco de compuesto requiera más atención.
+
+### Estilo tradicional vs europeo: no es solo apariencia
+
+El ala trasera del casco tradicional americano cumple una función concreta: desvía el agua caliente, escombros y materiales fundidos que caen del techo para que no entren por el cuello del chaquetón. En incendio estructural interior con flashover o condiciones de techo comprometido, esa protección es real.
+
+El casco estilo europeo tiene un perfil más bajo, pesa menos (el FXE pesa 120 g menos que el UST, que en un turno de 12 horas se notan en el cuello) y permite mayor movilidad en espacios reducidos. Ductos de ventilación, entretechos y vehículos son más fáciles de navegar con perfil bajo.
+
+En México, la distribución es clara: la mayoría de los departamentos de bomberos municipales y estatales usan estilo tradicional. Las brigadas industriales de Pemex, CFE y plantas petroquímicas prefieren estilo europeo por las condiciones de trabajo en plantas y espacios confinados.
+
+### NFPA 1971 vs NFPA 1977: no son intercambiables
+
+Esto parece obvio, pero ocurre con frecuencia en México: departamentos que usan cascos de incendio forestal (NFPA 1977) para responder a incendios estructurales. Un casco NFPA 1977 está diseñado para calor radiante de baja intensidad, partículas y ramas. No tiene la protección térmica, resistencia al impacto ni estabilidad estructural de un casco NFPA 1971.
+
+La situación inversa también es problemática: usar un casco estructural de 1.4 kg para combate de incendio forestal donde se camina 8 horas por terreno irregular. El peso y la falta de ventilación generan fatiga térmica innecesaria.
+
+Si tu departamento responde a ambos tipos de incidente, necesita ambos tipos de casco. No hay forma de evitarlo.
+
+### Cascos donados: cómo verificar si todavía sirven
+
+México recibe cantidades significativas de equipo donado de departamentos de Estados Unidos y Canadá. Antes de poner un casco donado en servicio:
+
+1. Localiza la etiqueta interior: debe indicar fabricante, modelo, fecha de manufactura, norma NFPA y edición.
+2. Verifica la edad: NFPA 1851 establece un máximo de 10 años de servicio desde la fecha de manufactura. Si el casco fue fabricado hace más de 10 años, no es apto para servicio de emergencia.
+3. Revisa la edición de la norma: un casco certificado bajo NFPA 1971 edición 2000 puede tener 20+ años. Retíralo.
+4. Inspecciona físicamente: busca fisuras en la carcasa, deformación, suspensión degradada (bandas estiradas, espuma aplastada), visor rayado o con crazing. Si la suspensión se siente floja o el ratchet no ajusta, el casco es inseguro.
+
+Un casco donado en buen estado y dentro de su vida útil puede ser perfectamente funcional. Pero un casco vencido, sin importar la marca, es una protección ficticia.
+
+### Entonces, cuál comprar
+
+No hay una respuesta universal. Depende de tres factores:
+
+- Tipo de operación principal: si tu departamento hace principalmente incendio estructural urbano, el estilo tradicional (UST o 1044) ofrece mejor protección de cuello y nuca. Si la operación es mixta con rescate vehicular e industrial, el europeo (FXE o XF1) da más versatilidad.
+- Presupuesto disponible: el Bullard UST cuesta considerablemente menos que el Cairns 1044 y cumple con la misma norma NFPA 1971. Para departamentos que equipan 20, 50 o 100 elementos, la diferencia de precio se multiplica.
+- Accesorios necesarios: si requieres lámpara integrada, el TrakLite de Bullard la trae de fábrica. Si necesitas compatibilidad con sistemas de comunicación específicos (radio integrado en orejera), verifica la disponibilidad de accesorios para cada modelo en México.
+
+---
+
+## Preguntas frecuentes sobre cascos para bomberos
+
+### ¿Puedo usar un casco Bullard UST para incendio forestal?
+Técnicamente no lo prohíbe ninguna norma mexicana, pero no es recomendable. El UST pesa 1.27 kg y no tiene ventilación adecuada para jornadas largas en exterior. Para incendio forestal, usa un casco certificado NFPA 1977, que pesa alrededor de 700 g y tiene canales de ventilación.
+
+### ¿Cada cuánto debo reemplazar el casco de bombero?
+NFPA 1851 establece un máximo de 10 años desde la fecha de manufactura. Se reemplaza inmediatamente si sufre un impacto significativo (caída de escombros, compresión estructural) o si la inspección revela fisuras, deformación o degradación de la suspensión que no puede repararse.
+
+### ¿El casco Cairns 1044 incluye visor o hay que comprarlo aparte?
+El Cairns 1044 no incluye visor integrado de fábrica. Viene preparado para montar goggles ESS (modelo Profile) o el visor Bourkes Eye Shield, que se adquieren por separado. Esto suma al costo total pero permite elegir el tipo de protección ocular que prefieras.
+
+### ¿Qué casco me conviene si mi estación tiene presupuesto limitado?
+El Bullard UST ofrece la mejor relación entre precio y cumplimiento normativo NFPA 1971 en el mercado mexicano. Incluye visor integrado (ahorro adicional vs el Cairns 1044 que requiere goggles aparte), es más ligero que el 1044 y tiene buena disponibilidad de refacciones en México.
+
+---
+
+### Cotiza el casco adecuado para tu departamento
+
+En BOMBERO.MX trabajamos con ambas marcas y podemos asesorarte según el tipo de operación, cantidad de elementos y presupuesto de tu departamento:
+
+- [**Solicita cotización →**](/cotizar/)
+- [**Cascos para Bomberos →**](/productos/cascos-para-bomberos/)
+- [**Catálogo completo →**](/productos/)
+    `,
+  },
+
+
+  "extintores-tipos-clases-fuego-mexico": {
+    titulo: "Tipos de extintor por clase de fuego: guía NOM para México",
+    excerpt: "Clases A, B, C, D y K: qué extintor usar en cada caso, distancia máxima de colocación, revisión anual NOM-154 y errores frecuentes en la selección.",
+    imagen: "/images/extintores/extintor-pqs-polvo-quimico-seco-01.avif",
+    categoria: "Guias Tecnicas",
+    tags: ["Extintores", "NOM-154-SCFI", "Clases de Fuego", "PQS", "CO2", "Clase K"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en Protección contra Incendios",
+    anchorKeyword: "tipos de extintor clases de fuego Mexico NOM",
+    contenido: `
+## Clasificación de fuegos en México: el mismo sistema que EE.UU., diferente marco normativo
+
+México adopta la clasificación de fuegos A, B, C, D y K, alineada con la NFPA 10 y respaldada localmente por la **NOM-002-STPS-2010** (Condiciones de seguridad, prevención y protección contra incendios en centros de trabajo). Cada clase describe el combustible involucrado, y cada combustible exige un agente extintor específico. Usar el equivocado no solo es inútil: puede agravar el incendio o poner en riesgo al operador.
+
+---
+
+## Clase A: combustibles ordinarios
+
+Materiales sólidos que generan brasa: madera, papel, cartón, textiles, plásticos comunes.
+
+Agentes recomendados:
+- **Agua presurizada (2.5 galones / 9.46 L):** enfría la superficie y penetra materiales porosos. Eficaz en oficinas, escuelas, archivos.
+- **PQS ABC (polvo químico seco, fosfato monoamónico):** interrumpe la reacción en cadena. Funciona, pero el residuo corrosivo complica la limpieza y puede dañar documentos, textiles o maquinaria.
+
+Nota práctica: en bodegas de almacenamiento con racks de más de 3.6 m de altura, la NOM-002-STPS exige sistemas fijos (rociadores) además de extintores portátiles. Los extintores solos no tienen capacidad de descarga suficiente para fuegos de rack profundo.
+
+---
+
+## Clase B: líquidos inflamables y combustibles
+
+Gasolina, diésel, solventes, aceites minerales, pinturas base solvente, alcoholes industriales.
+
+Agentes recomendados:
+- **CO2 (dióxido de carbono):** desplaza el oxígeno sin dejar residuo. Descarga efectiva a 1-2 metros. Unidades de 4.5 kg o 9 kg según la superficie a proteger.
+- **PQS ABC o BC:** el polvo forma una capa sobre el líquido que sofoca la llama. Efectivo pero con el problema del residuo.
+- **Espuma AFFF (Aqueous Film Forming Foam):** crea una película sellante sobre la superficie del líquido que impide la evaporación de vapores. Estándar en depósitos de combustible, hangares y plantas petroquímicas. Concentración típica al 3 % o 6 %.
+
+Para la mayoría de talleres mecánicos y estacionamientos, un PQS ABC de 6 kg con rating mínimo 20-B cubre el riesgo estándar.
+
+---
+
+## Clase C: equipo eléctrico energizado
+
+Tableros de distribución, transformadores, motores, cableado bajo tensión, equipos de cómputo conectados.
+
+Agentes recomendados:
+- **CO2:** no conduce electricidad, no deja residuo. Primera opción para cuartos de servidores, centros de datos, cabinas de telecomunicaciones.
+- **Agente limpio (Halotron I, HFC-236fa):** alternativa al CO2 con mayor alcance de descarga (3-4 metros vs. 1-2 metros del CO2). No daña componentes electrónicos. Costo por unidad 3-4 veces mayor que el CO2.
+- **PQS ABC:** funciona pero el polvo de fosfato monoamónico es corrosivo y conductor en presencia de humedad. Usarlo en un site de servidores significa reemplazar equipo después.
+
+Nunca usar agua ni espuma en equipo energizado. El riesgo de electrocución es directo. Si se puede cortar la alimentación eléctrica, el fuego deja de ser Clase C y se trata según el combustible base (generalmente A o B).
+
+---
+
+## Clase D: metales combustibles
+
+Magnesio, titanio, sodio, potasio, litio, circonio, aluminio en polvo fino.
+
+Agente recomendado:
+- **Polvo seco especializado (Met-L-X, Lith-X, cloruro de sodio, grafito):** cada metal requiere un agente diferente. No existe un extintor Clase D "universal".
+
+Este tipo de fuego es infrecuente fuera de fundidoras, laboratorios metalúrgicos y plantas aeronáuticas. Si tu centro de trabajo maneja alguno de estos metales, la evaluación de riesgo debe especificar exactamente qué metal y en qué cantidad, porque el agente extintor se selecciona caso por caso.
+
+Aplicar agua a un fuego de magnesio o sodio provoca una reacción exotérmica violenta con liberación de hidrógeno. El PQS tampoco sirve. Solo agentes Clase D certificados para el metal específico.
+
+---
+
+## Clase K: aceites y grasas de cocina
+
+Aceites vegetales, manteca, grasa animal en freidoras, planchas y hornos de cocinas comerciales.
+
+Agente recomendado:
+- **Químico húmedo (acetato de potasio o citrato de potasio):** reacciona con el aceite por saponificación, formando una capa de jabón que sella la superficie y enfría por debajo del punto de autoignición (aprox. 363 °C para aceite vegetal).
+
+La NOM-002-STPS y los lineamientos de Protección Civil estatales exigen extintores Clase K en toda cocina comercial (restaurantes, comedores industriales, hoteles). Un extintor PQS ABC no controla un fuego de freidora: el polvo no penetra la superficie del aceite caliente y el fuego se reaviva en segundos.
+
+Capacidad estándar: 6 litros. Alcance de descarga: 3-4 metros. Se instala a no más de 9 metros de la fuente de riesgo (la freidora o estufa).
+
+---
+
+## Reglas de colocación: NOM-002-STPS
+
+| Parámetro | Riesgo ligero | Riesgo ordinario | Riesgo alto |
+|-----------|--------------|-------------------|-------------|
+| Distancia máxima de recorrido | 23 m | 15 m | 15 m |
+| Capacidad mínima por unidad | 2-A:10-B:C | 4-A:40-B:C | 6-A:80-B:C |
+| Altura de montaje | 80-150 cm desde piso al asa | Igual | Igual |
+| Señalización | Letrero visible + franja roja en muro | Igual | Igual |
+
+El extintor debe tener acceso libre permanente. Colocar mercancía, cajas o equipo frente a un extintor es una violación directa de la NOM y un hallazgo recurrente en inspecciones de Protección Civil. Si la inspección detecta acceso bloqueado, la multa puede superar los $80,000 MXN dependiendo del estado.
+
+---
+
+## Inspección y mantenimiento: NOM-154-SCFI
+
+La **NOM-154-SCFI-2005** regula los servicios de mantenimiento y recarga de extintores. Puntos clave:
+
+- Inspección mensual (interna): verificar manómetro en zona verde, pasador y sello intactos, manguera sin grietas, etiqueta legible.
+- Mantenimiento anual (por prestador autorizado): revisión interna del agente, verificación de peso, prueba de componentes, re-etiquetado con fecha de servicio.
+- Prueba hidrostática: cada 5 años para extintores de CO2 y agente limpio, cada 12 años para PQS y agua. Se verifica la integridad estructural del cilindro a 1.5 veces la presión de trabajo.
+- Vida útil: un extintor bien mantenido puede durar 20 años, pero el costo acumulado de recargas y pruebas hidrostáticas hace que el reemplazo sea más práctico después de 10-12 años en la mayoría de los casos.
+
+Conserva las bitácoras de inspección. Si ocurre un accidente y no hay registro documental de mantenimiento, la responsabilidad recae directamente sobre el administrador del inmueble o el responsable de Protección Civil interno.
+
+---
+
+## Errores frecuentes en la selección y uso
+
+1. PQS en cuartos de servidores. El daño por el polvo corrosivo supera con frecuencia el daño del fuego mismo. Para TI y telecomunicaciones: CO2 o agente limpio, sin excepción.
+2. Agua en fuegos de grasa. El agua a 100 °C entra en contacto con aceite a +300 °C y se vaporiza de forma explosiva, lanzando aceite ardiente. Clase K o tapar con un material incombustible.
+3. Extintores vencidos o sin manómetro funcional. Un extintor con presión baja descarga menos del 40 % de su capacidad nominal. Es como tener medio extintor.
+4. Acceso bloqueado. El extintor existe, pero nadie puede llegar a él en menos de 15 segundos. En un incendio, 15 segundos de retraso pueden significar que el fuego pase de incipiente a desarrollado.
+
+---
+
+## Preguntas frecuentes
+
+### Si compro solo extintores PQS ABC, ¿cubro todas las clases de fuego?
+No. El PQS ABC no es efectivo en Clase D (metales) ni en Clase K (aceites de cocina). Para cocinas comerciales necesitas extintor de químico húmedo Clase K por norma. Para metales combustibles, necesitas agente Clase D específico para el metal en cuestión.
+
+### ¿Cada cuánto se recarga un extintor que no se ha usado?
+El mantenimiento anual por un prestador certificado NOM-154 es obligatorio aunque el extintor no se haya descargado. La recarga completa (vaciar y rellenar el agente) se realiza cada 5-6 años o cuando la inspección anual detecta pérdida de presión o degradación del agente.
+
+### ¿Puedo hacer la prueba hidrostática yo mismo?
+No. La NOM-154-SCFI exige que la prueba hidrostática la realice un taller con equipo calibrado y personal certificado. El taller debe emitir una etiqueta con fecha de prueba, presión aplicada y datos de la empresa. Sin esa etiqueta, el extintor se considera fuera de servicio.
+
+### ¿Cuántos extintores necesito para una bodega de 500 m²?
+Depende de la clasificación de riesgo. En riesgo ordinario (la mayoría de bodegas), la distancia máxima de recorrido es 15 metros. Para 500 m² necesitas al menos 3-4 extintores de 6 kg PQS ABC distribuidos para que ningún punto quede a más de 15 m de un extintor. Si hay áreas con riesgo específico (solventes, equipo eléctrico, cocina), se requieren extintores adicionales de la clase correspondiente.
+
+---
+
+Si necesitas una cotización formal con especificaciones técnicas por clase de fuego y distribución para tu planta, bodega o edificio:
+
+- [**Solicita cotización →**](/cotizar/)
+- [**Catálogo de extintores →**](/productos/extintores/)
+    `,
+  },
+
+
+  "equipo-bomberos-municipal-como-cotizar": {
+    titulo: "Cómo cotizar equipo NFPA para un cuerpo de bomberos municipal",
+    excerpt: "Documentación para compras públicas, inventario de necesidades, diferencia entre licitación y adjudicación directa, y qué incluir en el escrito técnico.",
+    imagen: "/images/directorio/estacion-bomberos-mexico-01.avif",
+    categoria: "Guias Tecnicas",
+    tags: ["Licitacion Bomberos", "Cotizacion EPP", "Compras Publicas", "NFPA", "Equipo Municipal"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en EPP NFPA",
+    anchorKeyword: "cotizar equipo NFPA bomberos municipal Mexico",
+    contenido: `
+## El problema real: bomberos que saben operar pero no tramitar
+
+La mayoría de los jefes de estación en México llegaron al puesto por experiencia operativa, no por habilidad administrativa. Y sin embargo, el proceso de adquisición de equipo NFPA pasa por compras públicas, con reglas que cambian entre municipios, formatos que nadie enseña en la academia, y plazos que se cierran antes de que el expediente esté completo.
+
+Lo que sigue es el proceso que hemos visto funcionar en más de 80 cuerpos de bomberos municipales y estatales. No es teoría de manual de adquisiciones: es lo que efectivamente mueve el equipo del almacén del proveedor a la estación.
+
+---
+
+## Paso 1: inventario de necesidades por posición
+
+Antes de tocar un formato de compras, hay que saber exactamente qué falta. La forma más efectiva es recorrer la estación puesto por puesto:
+
+Prioridad 1 (vida del bombero, resolver primero):
+- SCBA (equipo de respiración autónomo) con cilindros dentro de vida útil (15 años máximo por DOT/TC). Verificar fecha estampada en el cilindro.
+- Trajes estructurales NFPA 1971. Revisar etiquetas: si tienen más de 10 años desde fabricación, están fuera de estándar NFPA 1851.
+- Capuchas NFPA 1971 (monofilamento o partículas). Las capuchas viejas de punto sencillo ya no cumplen edición vigente.
+
+Prioridad 2 (protección complementaria):
+- Cascos NFPA 1971 con goggles y protector facial.
+- Botas NFPA 1971 (verificar suela, compresión, penetración).
+- Guantes NFPA 1971 estructurales.
+
+Prioridad 3 (herramientas y operación):
+- Herramienta de rescate hidráulica (quijadas de vida).
+- Mangueras y conexiones (verificar fechas de prueba hidrostática).
+- Equipo de iluminación, ventilación, cuerdas.
+
+Registra todo en una tabla simple: artículo, cantidad, condición actual (funcional / deteriorado / inexistente), norma aplicable. Este documento se convierte en el anexo técnico de la solicitud de compra.
+
+Tip: haz este inventario entre octubre y noviembre. Los presupuestos municipales se aprueban en diciembre para ejercerse a partir de enero. Si el inventario está listo cuando se libera el presupuesto, puedes iniciar el trámite en las primeras semanas del año fiscal, cuando hay dinero disponible y menos saturación en el área de compras.
+
+---
+
+## Paso 2: redacción de especificaciones técnicas
+
+Este es el paso donde más cuerpos de bomberos pierden tiempo o terminan con equipo que no sirve.
+
+Regla de oro en compras públicas mexicanas: no se especifican marcas. La Ley de Adquisiciones (federal y sus equivalentes estatales) prohíbe dirigir la licitación a un fabricante. Lo que sí puedes, y debes, es especificar estándares de rendimiento.
+
+Ejemplo correcto para un traje estructural:
+
+> "Traje estructural para combate de incendios en edificaciones. Debe cumplir NFPA 1971, edición vigente. Sistema de 3 capas (capa exterior, barrera de humedad, barrera térmica). TPP mínimo 35 cal/cm². THL mínimo 205 W/m². Certificado por laboratorio acreditado por la ILAC (UL, Intertek, FM o equivalente). Incluir copia de certificado vigente."
+
+Ejemplo incorrecto:
+
+> "Traje marca [X], modelo [Y], color negro."
+
+El segundo ejemplo puede ser impugnado por cualquier proveedor no seleccionado y resultar en la cancelación del procedimiento.
+
+Detalle que se omite con frecuencia: incluir en las especificaciones el requisito de que el proveedor entregue el certificado original del laboratorio de pruebas, no solo una carta del fabricante. Hemos visto casos de equipo vendido como "NFPA" que solo tenía una autodeclaración del fabricante sin prueba de laboratorio independiente. Eso no es certificación.
+
+---
+
+## Paso 3: estimación presupuestal
+
+Para que el área de finanzas autorice la partida, necesitan un rango de costo fundamentado. Solicita cotizaciones formales a 2-3 proveedores especializados. Las cotizaciones deben incluir:
+
+- Descripción técnica completa del producto
+- Norma que cumple y referencia al certificado
+- Precio unitario y total (con IVA desglosado)
+- Vigencia de la cotización (mínimo 30 días, ideal 60)
+- Tiempo de entrega estimado
+- Condiciones de garantía
+
+En BOMBERO.MX generamos cotizaciones formales con ficha técnica adjunta y copia del certificado de laboratorio. Las entregamos en 24-48 horas hábiles. Eso le da al departamento de compras un documento sólido para justificar la partida presupuestal.
+
+Rango de referencia para equipo estructural completo (traje + casco + botas + guantes + capucha + SCBA): entre $120,000 y $280,000 MXN por bombero, dependiendo del nivel de protección y el fabricante. La variación es amplia porque un SCBA solo puede representar el 40-50 % del costo total del conjunto.
+
+---
+
+## Métodos de compra pública en México
+
+### Adjudicación directa
+Monto: generalmente hasta $300,000-$500,000 MXN (varía por municipio y estado). El área de compras solicita mínimo 3 cotizaciones, elabora un cuadro comparativo, y adjudica con justificación técnica y económica. Tiempo: 2-4 semanas si la documentación está completa. Es el mecanismo más usado para equipar de 1 a 3 bomberos o reponer piezas específicas.
+
+### Invitación a cuando menos tres personas
+Monto: rango intermedio (varía por entidad, típicamente $500,000 a $2,000,000 MXN). Invitación formal a mínimo 3 proveedores. Evaluación técnica y económica con acta de fallo. Tiempo: 4-6 semanas.
+
+### Licitación pública
+Monto: por encima del umbral estatal. Publicación en CompraNet (federal) o el sistema estatal equivalente. Junta de aclaraciones, presentación de propuestas, evaluación, fallo. Abierta a cualquier proveedor que cumpla las bases. Tiempo: 30-60 días mínimo desde la publicación hasta el fallo. Los plazos se extienden. Si hay impugnación de un participante, puede tomar 90 días o más. Planifica con margen.
+
+---
+
+## Documentación que el proveedor debe entregar
+
+Exige estos documentos antes de firmar el contrato o la orden de compra:
+
+1. Certificados de laboratorio acreditado (UL, Intertek, SEI) para cada producto que declare cumplir NFPA. No aceptes solo la carta del fabricante.
+2. Ficha técnica con especificaciones medibles (TPP, THL, resistencia a la penetración, etc.).
+3. Garantía por escrito con alcance, duración y proceso de reclamación.
+4. Póliza de mantenimiento o refacciones (especialmente para SCBA, que requiere servicio periódico).
+5. Carta de distribuidor autorizado del fabricante, cuando aplique.
+
+---
+
+## Errores recurrentes que retrasan o arruinan la compra
+
+- No iniciar el trámite hasta que el presupuesto ya está comprometido en otras partidas. Enero y febrero son los meses con mayor disponibilidad presupuestal. Para julio, la mayoría de los municipios ya asignaron el 70-80 % del gasto corriente.
+- Comprar por precio sin verificar certificación. Equipo barato sin certificado NFPA real es equipo que no protege. Y si hay un accidente, la responsabilidad legal recae sobre quien autorizó la compra. Guarda copia del certificado en el expediente.
+- Omitir el contrato de mantenimiento. Un SCBA sin servicio anual pierde su garantía y su confiabilidad. Incluir el mantenimiento en la misma licitación o en un contrato paralelo.
+- No llevar bitácora de inspección del equipo. La NOM-002-STPS y la NFPA 1851 exigen registros de inspección, limpieza y reparación del EPP. Si hay una lesión y no existe documentación de que el equipo estaba en condiciones, el jefe del cuerpo tiene responsabilidad personal.
+
+---
+
+## Preguntas frecuentes
+
+### ¿Puedo exigir NFPA en una licitación pública si no es norma mexicana obligatoria?
+Sí. La Ley de Adquisiciones permite especificar normas internacionales cuando no existe NOM equivalente. NFPA 1971, 1981 y 1852 son las referencias técnicas reconocidas por la mayoría de cuerpos de bomberos en México. Lo que no puedes es especificar una marca comercial; especifica el estándar y el requisito de certificación por laboratorio acreditado.
+
+### Nuestro presupuesto no alcanza para equipar a todos. ¿Cómo priorizamos?
+Equipa primero a los bomberos que entran a interiores (primera línea de ataque). SCBA y traje estructural son la prioridad absoluta porque protegen contra las dos causas principales de muerte en servicio: inhalación de humo y quemaduras. El resto del equipo se programa para el siguiente ejercicio fiscal. Podemos armar una propuesta en dos o tres fases con entregas escalonadas.
+
+### ¿Cuánto tarda la entrega una vez firmada la orden de compra?
+Para equipo que tenemos en inventario en México: 5-10 días hábiles. Para equipo que se fabrica sobre pedido (trajes con tallas especiales, SCBA con configuración específica): 8-12 semanas desde la confirmación del pedido. Si tu proceso de compra es licitación pública, contempla esos tiempos al fijar la fecha de entrega en las bases.
+
+### ¿Aceptan órdenes de compra gubernamentales con pago a 30 o 60 días?
+Sí. Trabajamos con órdenes de compra de municipios, estados y dependencias federales. Los plazos de pago estándar del gobierno (30-60 días después de la recepción del equipo y la factura) son parte normal de nuestra operación. Solo necesitamos que la orden de compra incluya la partida presupuestal asignada y la firma del funcionario autorizado.
+
+---
+
+Si eres jefe de estación, oficial de protección civil o responsable de compras de un municipio:
+
+- [**Solicita cotización formal →**](/cotizar/)
+- [**Catálogo completo de EPP →**](/productos/)
+    `,
+  },
+
 
 };
+
+Object.assign(articulosData, articulosEstacionesData);
+
 export function getArticuloSlugs(): string[] {
   return Object.keys(articulosData);
 }
