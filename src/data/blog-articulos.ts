@@ -13519,6 +13519,350 @@ Si eres jefe de estación, oficial de protección civil o responsable de compras
     `,
   },
 
+  "extintores-nom-100-guia-mexico": {
+    titulo: "Extintores Certificados NOM-100: Guía de Selección para Bomberos y Brigadas en México",
+    excerpt: "Guía técnica completa sobre extintores certificados NOM-100-STPS y NFPA 10 en México. Tipos de extintor, clases de fuego, capacidades, agentes extintores (PQS, CO2, agua, espuma AFFF), requisitos de instalación y mantenimiento para cuerpos de bomberos, brigadas industriales y protección civil.",
+    imagen: "/images/base/equipo-completo.avif",
+    categoria: "Equipo",
+    tags: ["NOM-100-STPS", "NFPA 10", "Extintores México", "PQS", "CO2", "Espuma AFFF", "Brigadas Contra Incendio", "Clases de Fuego"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en Protección Contra Incendios NFPA y NOM",
+    anchorKeyword: "extintores NOM-100 México selección bomberos brigadas",
+    contenido: `
+## Extintores en México: Entre la NOM-100-STPS y la NFPA 10
+
+Elegir el extintor correcto no es trivial. En México, un extintor mal seleccionado —o instalado fuera de la norma— no solo puede ser inefectivo: puede empeorar el incendio, generar responsabilidad legal y costar vidas. Para los **cuerpos de bomberos, brigadas industriales y equipos de protección civil** que asesoran a organizaciones sobre prevención de incendios, conocer a fondo la normatividad aplicable es una responsabilidad técnica irrenunciable.
+
+En México, los extintores están regulados por **dos marcos normativos complementarios**:
+
+| Marco | Aplicación en México |
+|-------|---------------------|
+| **NOM-100-STPS-1994** | Seguridad contra incendios en centros de trabajo. Obligatoria para toda empresa con trabajadores. |
+| **NOM-002-STPS-2010** | Condiciones de seguridad — prevención y protección contra incendios. Instalaciones y equipos. |
+| **NFPA 10** | Standard for Portable Fire Extinguishers. Referencia técnica de facto para licitaciones gobierno, PEMEX, CFE, aeropuertos. |
+| **NOM-154-SCFI-2005** | Extintores de polvo químico seco — especificaciones y métodos de prueba. |
+
+> **Nota técnica:** La NOM-100-STPS regula el *uso y mantenimiento* en centros de trabajo. La NFPA 10 es más detallada en selección, distribución y frecuencia de recarga. En la práctica, los cuerpos de bomberos profesionales y la industria pesada en México se guían por ambas de manera complementaria.
+
+---
+
+## Clases de Fuego: La Base de Toda Selección
+
+Antes de elegir un extintor, es indispensable identificar correctamente la **clase de fuego** que puede presentarse en cada área. Un error en esta clasificación lleva directamente al extintor incorrecto.
+
+### Clasificación Internacional (NFPA / NOM)
+
+| Clase | Tipo de Combustible | Ejemplos Comunes | Riesgo en México |
+|-------|---------------------|------------------|------------------|
+| **Clase A** | Combustibles sólidos ordinarios | Madera, papel, cartón, telas, plásticos | Oficinas, bodegas, talleres, hoteles |
+| **Clase B** | Líquidos inflamables y combustibles | Gasolina, diesel, thinner, aceites, pinturas | Talleres mecánicos, estaciones de servicio, industria química |
+| **Clase C** | Equipos eléctricos energizados | Tableros, motores, servidores, transformadores | Data centers, subestaciones eléctricas, edificios de oficinas |
+| **Clase D** | Metales combustibles | Magnesio, titanio, sodio, litio | Industria aeronáutica, farmacéutica, baterías de VE |
+| **Clase K** | Grasas y aceites de cocina | Aceite vegetal, manteca, grasa animal | Cocinas industriales, restaurantes, hoteles, hospitales |
+
+> **Importante:** Los fuegos **Clase C** no son un tipo de combustible — son fuegos Clase A o B en presencia de electricidad. Una vez desconectada la energía, se manejan como su clase de origen. El extintor "Clase C" significa que el agente extintor es eléctricamente no conductivo.
+
+### Combinaciones de Riesgo Más Frecuentes en México
+
+| Instalación | Clases Presentes | Agente Recomendado |
+|-------------|------------------|--------------------|
+| Oficinas y bodegas | A, C | PQS ABC o CO2 para equipos electrónicos |
+| Talleres mecánicos | A, B, C | PQS ABC |
+| Cocinas industriales | A, K | Agente Clase K (no PQS) |
+| Subestaciones eléctricas | C | CO2 o agente limpio (FM-200, Novec) |
+| Plantas petroquímicas | A, B, C | Espuma AFFF + PQS + CO2 (sistema mixto) |
+| Hangares aeronáuticos | A, B, D | Agente AFFF + polvo especial para metales |
+| Bodegas con metales | D | Polvo especial (Clase D específico al metal) |
+
+---
+
+## Tipos de Extintores: Agentes Extintores en Detalle
+
+### 1. Polvo Químico Seco (PQS) — El Más Versátil
+
+El **PQS** (o ABC en formulación tri-clase) es el extintor más distribuido en México por su versatilidad y bajo costo. Sin embargo, su uso requiere criterio técnico.
+
+| Característica | PQS BC | PQS ABC | PQS Púrpura K (Clase D) |
+|----------------|--------|---------|-------------------------|
+| **Clases** | B, C | A, B, C | D (metales específicos) |
+| **Agente activo** | Bicarbonato de sodio | Fosfato monoamónico | Cloruro de sodio u otros |
+| **Mecanismo** | Interrupción cadena química | Interrupción cadena química + sofocación | Sofocación por capa fundida |
+| **Conductividad eléctrica** | No conductivo | No conductivo | No conductivo |
+| **Daño residual** | Alto (corrosivo, difícil de limpiar) | Alto | Muy alto |
+| **Uso en data centers** | **No recomendado** | **No recomendado** | No aplica |
+| **Aplicación principal** | Fuegos B y C | Uso general | Metales reactivos |
+
+**⚠️ Limitación crítica del PQS:** El polvo contamina equipos electrónicos de manera irreversible. En áreas con servidores, tableros de control o maquinaria de precisión, optar por CO2 o agentes limpios es la decisión técnicamente correcta, aunque el costo sea mayor.
+
+[**Ver extintores PQS certificados NOM-100 →**](/cotizar/)
+
+### 2. Dióxido de Carbono (CO2) — Para Equipos Eléctricos
+
+El **CO2** es el agente extintor preferido donde el daño residual es inaceptable: centros de datos, laboratorios, control rooms, salas de cómputo y áreas con equipos electrónicos de alto valor.
+
+| Característica | Valor |
+|----------------|-------|
+| **Clases** | B, C (limitado en A) |
+| **Mecanismo** | Desplazamiento de oxígeno + enfriamiento |
+| **Conductividad eléctrica** | **Cero — seguro para equipos energizados** |
+| **Daño residual** | Ninguno — gas se disipa completamente |
+| **Limitación** | No efectivo en espacios abiertos con viento |
+| **Peligro** | Riesgo de asfixia en espacios confinados |
+| **Temperatura de operación** | Eficacia reducida bajo -18°C |
+
+**Capacidades más comunes en México:**
+- 2.3 kg — Oficinas, vehículos, servidores pequeños
+- 4.5 kg — Centros de datos medianos
+- 9 kg — Control rooms, subestaciones
+- 15 kg (rodante) — Plantas industriales, hangares
+
+### 3. Espuma AFFF (Aqueous Film Forming Foam) — Para Líquidos Inflamables
+
+La **espuma AFFF** (Foam Film Forming Aqueous) es el agente estándar para fuegos de líquidos inflamables en escenarios de alta carga de combustible: terminales de combustible, talleres de pintura, refinerías, hangares y plataformas marinas.
+
+| Característica | AFFF | FFFP (Proteínica) |
+|----------------|------|-------------------|
+| **Clases** | A, B | A, B |
+| **Mecanismo** | Película acuosa + sofocación | Película proteínica + sofocación |
+| **Resistencia a reignición** | Alta | Muy alta |
+| **Compatibilidad con PQS** | Compatible | Compatible |
+| **Impacto ambiental** | PFAS (restricción creciente) | Biodegradable |
+| **Estándar aplicable** | NFPA 11, NFPA 16 | NFPA 11 |
+
+> **Alerta regulatoria:** La Agencia de Protección Ambiental de EE.UU. (EPA) y reguladores europeos están restringiendo el uso de **PFAS** (compuestos per y polifluoroalquilados) presentes en AFFF tradicional. México aún no tiene restricción oficial, pero industrias con clientes en EE.UU. o Europa deben considerar alternativas PFAS-free.
+
+### 4. Agente Limpio (FM-200, Novec 1230) — Para Protección de Alto Valor
+
+Los **agentes limpios gaseosos** son la solución premium para proteger activos de altísimo valor donde ni el PQS ni el CO2 son aceptables.
+
+| Agente | Nombre Químico | ODP | GWP | Tiempo Extinción |
+|--------|---------------|-----|-----|-----------------|
+| **FM-200 (HFC-227ea)** | Heptafluoropropano | 0 | 3,220 | < 10 seg |
+| **Novec 1230** | FK-5-1-12 (3M) | 0 | 1 | < 10 seg |
+| **CO2 (sistemas fijos)** | Dióxido de carbono | 0 | 1 | Variable |
+
+**Aplicaciones en México:**
+- Bóvedas bancarias y centros de datos
+- Museos y archivos históricos
+- Salas de control de plantas eléctricas
+- Quirófanos y áreas médicas críticas
+
+[**Solicitar asesoría técnica para selección de agente →**](/cotizar/)
+
+### 5. Agente Clase K — Para Cocinas Industriales
+
+Este es el extintor **más ignorado y más importante** en cocinas industriales, restaurantes y comedores de planta.
+
+| Característica | Detalle |
+|----------------|---------|
+| **Mecanismo** | Saponificación (reacción química que solidifica la grasa) |
+| **Agente activo** | Acetato de potasio o carbonato de potasio en solución acuosa |
+| **Temperatura de operación** | Efectivo en aceites a >300°C |
+| **Uso complementario** | Siempre junto con campana de extracción con supresión automática |
+
+**Error común en México:** Muchas cocinas industriales instalan extintores PQS ABC como "cumplimiento" de la NOM. El PQS **no es efectivo** en fuegos Clase K y puede provocar reignición. La NOM-002-STPS y la NFPA 96 son claras: las cocinas industriales requieren agente Clase K.
+
+---
+
+## NOM-100-STPS vs NFPA 10: Comparativa Técnica
+
+| Aspecto | NOM-100-STPS-1994 | NFPA 10 (ed. 2022) |
+|---------|-------------------|--------------------|
+| **Cobertura máxima por extintor (Clase A)** | 200 m² | Hasta 278 m² (Clase A) dependiendo de la calificación |
+| **Distancia máxima de recorrido** | 30 m para riesgos normales | 23 m (75 pies) para riesgo ordinario |
+| **Altura de instalación** | 1.5 m máximo (manija) | 1.5 m máximo (mango/válvula) |
+| **Inspección visual** | Mensual | Mensual |
+| **Mantenimiento anual** | Obligatorio | Obligatorio (inspección anual) |
+| **Prueba hidrostática** | Cada 5 años | Cada 5 o 12 años según tipo |
+| **Recarga obligatoria** | Según tipo y uso | Tras cada uso + mantenimiento anual |
+| **Señalización** | NOM-003-SEGOB | NFPA 170 |
+
+### Distribución de Extintores según NFPA 10
+
+Para **Riesgo Ligero (Light Hazard)** — oficinas, hoteles, escuelas:
+- Extintor mínimo: 2.5 lbs PQS ABC o 5 lb CO2
+- Área máxima: 278 m² por extintor
+- Distancia máxima de recorrido: 23 m
+
+Para **Riesgo Ordinario (Ordinary Hazard)** — talleres, bodegas, comercio:
+- Extintor mínimo: 5 lbs PQS ABC
+- Área máxima: 139 m² por extintor
+- Distancia máxima de recorrido: 23 m
+
+Para **Riesgo Extra (Extra Hazard)** — petroquímica, hangares, almacén de químicos:
+- Extintor mínimo: 10-20 lbs PQS ABC o espuma
+- Área máxima: 93 m² por extintor
+- Distancia máxima de recorrido: 15 m
+
+---
+
+## Mantenimiento y Vida Útil: Lo Que la NOM Exige
+
+### Programa de Inspección y Mantenimiento
+
+| Actividad | Frecuencia | Responsable | Norma |
+|-----------|-----------|-------------|-------|
+| **Inspección visual** | Mensual | Personal interno capacitado | NOM-100 / NFPA 10 |
+| **Mantenimiento anual** | Anual | Empresa certificada | NOM-100 / NFPA 10 |
+| **Recarga** | Tras cada uso o mantenimiento | Empresa certificada | NOM-100 |
+| **Prueba hidrostática** | 5 años (PQS) / 5-12 años (CO2) | Laboratorio certificado | NOM-154 / NFPA 10 |
+| **Retiro de servicio** | 12 años máximo (muchos tipos) | Responsable seguridad | NFPA 10 |
+
+### Puntos de Inspección Visual Mensual (NOM-100 / NFPA 10)
+
+Durante la inspección mensual, el inspector debe verificar:
+
+- [ ] Acceso libre al extintor (no bloqueado por objetos)
+- [ ] Señalización visible y en buen estado
+- [ ] Manija de seguridad (pin) en su lugar
+- [ ] Indicador de presión en zona verde
+- [ ] Cuerpo sin daños físicos visibles (golpes, corrosión, abolladuras)
+- [ ] Manguera y boquilla sin obstrucciones ni daños
+- [ ] Etiqueta de mantenimiento al día
+- [ ] Peso aceptable (mover y sentir que no está descargado)
+
+> **Dato legal:** En México, la falta de extintores en buen estado y con mantenimiento al día puede resultar en clausura temporal del centro de trabajo por parte de la STPS, más sanciones económicas. En caso de incendio sin extintores adecuados, la responsabilidad civil y penal del patrón se incrementa significativamente.
+
+---
+
+## Guía de Selección para Bomberos y Brigadas
+
+Cuando un bombero o técnico de protección civil realiza una **evaluación de riesgo de incendio** en una instalación, esta es la secuencia lógica para recomendar extintores:
+
+### Paso 1: Identificar todas las Clases de Fuego posibles
+Recorrer las instalaciones e identificar cada área con su tipo de combustible predominante. Documentar.
+
+### Paso 2: Determinar el Nivel de Riesgo (NFPA 10)
+- **Ligero:** Ocupación residencial, oficinas, hoteles
+- **Ordinario Grupo 1:** Panaderías, tiendas, estacionamientos
+- **Ordinario Grupo 2:** Talleres, bodegas de pintura, comedores
+- **Extra Grupo 1 y 2:** Hangares, plantas de proceso, talleres de madera
+
+### Paso 3: Seleccionar el Agente Extintor Correcto
+
+| Si el riesgo predominante es... | Recomendar... |
+|--------------------------------|---------------|
+| Clase A general | PQS ABC |
+| Clase B (líquidos) | PQS BC o AFFF + PQS |
+| Clase C (eléctrico crítico) | CO2 o agente limpio |
+| Clase K (cocina industrial) | Agente Clase K obligatorio |
+| Clase D (metales) | Polvo especial Clase D |
+| Mixto A+B+C (riesgo ordinario) | PQS ABC como base |
+
+### Paso 4: Calcular Número y Distribución
+Aplicar las áreas de cobertura según nivel de riesgo (NFPA 10) y verificar que la distancia de recorrido no supere 23 m para ningún punto del área protegida.
+
+### Paso 5: Diseñar el Programa de Mantenimiento
+Establecer calendario de inspección mensual, contrato de mantenimiento anual con empresa certificada y fechas de prueba hidrostática.
+
+[**Solicitar evaluación técnica de riesgo de incendio →**](/cotizar/)
+
+---
+
+## Marcas y Certificaciones: Qué Buscar al Comprar en México
+
+### Marcas con Presencia Activa en México
+
+| Marca | País de Origen | Certificaciones | Especialidad |
+|-------|---------------|-----------------|--------------|
+| **Amerex** | EE.UU. | UL, NFPA | PQS, CO2, AFFF, Clase K |
+| **Kidde** | EE.UU./UK | UL, ULC | PQS, CO2, agentes limpios |
+| **Ansul** | EE.UU. (Tyco) | UL | Sistemas fijos, Clase K (Ansul R-102) |
+| **Buckeye** | EE.UU. | UL | PQS, CO2, AFFF |
+| **Pyro-Chem** | EE.UU. | UL | Cocinas industriales |
+| **Fike** | EE.UU. | UL | Agentes limpios, CO2 sistemas fijos |
+| **Tecno** | México | NOM-154 | PQS económico para cumplimiento NOM |
+
+### Sellos de Certificación a Verificar
+
+Al comprar un extintor para cumplimiento normativo en México, verificar:
+
+- **Etiqueta UL** — Para cumplimiento NFPA 10 y licitaciones gobierno
+- **NOM-154-SCFI-2005** — Para extintores de PQS en centros de trabajo
+- **Sello de la PROFECO** — Para productos comercializados en México
+- **Registro STPS** del proveedor de mantenimiento
+
+> **Alerta BOMBERO.MX:** El mercado mexicano tiene numerosos extintores de bajo costo sin certificación real. Algunas marcas locales utilizan calcomanías que imitan sellos UL. Exige siempre el **número de archivo UL** para verificar en la base de datos pública de Underwriters Laboratories.
+
+---
+
+## Casos Especiales: Instalaciones de Alta Complejidad en México
+
+### Plantas PEMEX y CFE
+
+Las instalaciones petroleras y eléctricas en México tienen protocolos específicos:
+
+- **PEMEX:** Sigue sus propias normas técnicas (NRF) además de NFPA. Requieren extintores AFFF en áreas de proceso y CO2 en salas de control.
+- **CFE:** Aplica estándares de IEC y NFPA. Áreas de transformadores requieren CO2 o agentes limpios; patios de maniobra requieren AFFF.
+- **Ambas:** Las brigadas industriales internas deben dominar el manejo de extintores de gran capacidad (rodantes de 50-150 lbs) y sistemas fijos de activación manual.
+
+### Aeropuertos (ICAO/NFPA 409)
+
+Los aeropuertos mexicanos coordinados por SENEAM y AFAC aplican:
+- **NFPA 409** para hangares
+- **NFPA 407** para plataformas de abastecimiento
+- **ICAO Annex 14** para equipos ARFF
+- Extintores rodantes de 125-150 lbs de agente en posiciones fijas del hangar
+
+### Hospitales y Centros de Salud
+
+La Norma Oficial Mexicana **NOM-016-SSA3-2012** (requisitos mínimos de hospitales) exige:
+- Extintores en cada área de hospitalización
+- Agente limpio en áreas de equipos médicos críticos (UCI, quirófanos)
+- Extintores Clase K en cocinas hospitalarias
+- Planes de evacuación y brigadas capacitadas
+
+---
+
+## Preguntas Frecuentes sobre Extintores en México
+
+### ¿Cuál es la multa por no tener extintores en una empresa?
+
+La STPS puede imponer multas de **5 a 5,000 UMAS** (Unidad de Medida y Actualización) por incumplimiento de la NOM-002-STPS y NOM-100-STPS. En 2026, 1 UMA equivale a $113.14 MXN, por lo que la sanción máxima supera los **$565,700 MXN**. Además, en caso de incendio, la responsabilidad civil y penal del patrón puede ser mucho mayor.
+
+### ¿Cada cuánto hay que recargar los extintores PQS?
+
+Por normativa NOM-100-STPS: **anualmente** como mantenimiento preventivo, independientemente del uso. Después de cualquier uso, inmediatamente. El polvo PQS absorbe humedad y pierde efectividad incluso sin ser usado.
+
+### ¿Los extintores de CO2 también requieren mantenimiento anual?
+
+Sí. Aunque el CO2 no se degrada como el PQS, los extintores deben inspeccionarse anualmente para verificar peso (nivel de llenado), presión del sifón interno, estado de la bocina y condición general del cilindro.
+
+### ¿Un extintor de 1 kg es suficiente para una oficina?
+
+Para una oficina pequeña de uso ligero (hasta 50 m²), un extintor PQS ABC de 2.5 kg puede ser suficiente. Sin embargo, la NOM-100 establece un mínimo de **9 libras (4 kg) de PQS ABC** para cumplimiento en centros de trabajo.
+
+### ¿Puede un bombero manejar extintores sin capacitación?
+
+Los bomberos reciben capacitación en el manejo de extintores como parte de su formación básica. Sin embargo, el manejo de extintores industriales de gran capacidad (rodantes de 50+ lbs), sistemas AFFF y agentes especiales requiere **capacitación específica adicional** bajo NFPA 1 y NFPA 10.
+
+### ¿Qué extintor usar en un incendio de batería de litio?
+
+Los incendios de baterías de litio (Clase D si es litio metálico, o "incendio de ión-litio" como categoría emergente) representan un reto único. Las mejores prácticas actuales según NFPA son:
+- **Inundación con agua** para control térmico (no extinción, sino prevención de propagación)
+- **Agentes especiales de litio** en desarrollo (LithEx, F-500)
+- **Contención y evacuación** como prioridad principal
+- **No usar CO2 ni PQS** — inefectivos para detener la reacción térmica
+
+---
+
+## Conclusión: La Selección Correcta Es una Responsabilidad Técnica
+
+En **BOMBERO.MX** entendemos que la selección de extintores no es una decisión de compra trivial. Es una decisión técnica con implicaciones de seguridad, legales y operativas. Un extintor incorrecto no protege — puede empeorar el incendio.
+
+Nuestro equipo de especialistas puede ayudarte a:
+- **Auditar tu instalación** actual e identificar incumplimientos NOM
+- **Diseñar el programa** completo de extintores según NFPA 10 y NOM-100
+- **Suministrar equipos** certificados UL de marcas reconocidas
+- **Implementar el programa de mantenimiento** anual con documentación para la STPS
+- **Capacitar a tu brigada** en el uso correcto de cada tipo de extintor
+
+[**Solicita tu evaluación técnica gratuita →**](/cotizar/)
+
+Equipar bien no es gastar más — es gastar donde importa.
+    `,
+  },
+
 
 };
 
