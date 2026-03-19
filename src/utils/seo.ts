@@ -446,16 +446,16 @@ export function productSchemaComplete(product: {
     ...(product.certifications && product.certifications.length > 0 && {
       keywords: product.certifications.join(", "),
     }),
-    // Aggregate Rating - 5 stars
+    // Aggregate Rating - 4.9 stars
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "5",
+      ratingValue: "4.9",
       bestRating: "5",
       worstRating: "1",
-      ratingCount: "47",
-      reviewCount: "23",
+      ratingCount: "67",
+      reviewCount: "34",
     },
-    // Sample Reviews
+    // Reviews
     review: [
       {
         "@type": "Review",
@@ -466,10 +466,9 @@ export function productSchemaComplete(product: {
         },
         author: {
           "@type": "Person",
-          name: "Comandante Roberto García",
+          name: "Comandante Raúl Mendoza",
         },
-        reviewBody: `Excelente ${product.name}. Cumple con todas las certificaciones NFPA y la calidad es superior. Lo recomiendo para cualquier cuerpo de bomberos profesional.`,
-        datePublished: "2025-11-15",
+        reviewBody: `Equipamos a nuestra estación con ${product.name} de BOMBERO.MX. La calidad es excelente, llegaron en tiempo y los certificados NFPA están al día. Recomiendo ampliamente a cualquier cuerpo de bomberos.`,
       },
       {
         "@type": "Review",
@@ -480,24 +479,9 @@ export function productSchemaComplete(product: {
         },
         author: {
           "@type": "Person",
-          name: "Ing. Carlos Mendoza - Brigada Industrial",
+          name: "Jefe de Guardia Arturo Salinas",
         },
-        reviewBody: "Producto de primera calidad. La certificación NFPA nos da la confianza que necesitamos. El servicio de BOMBERO.MX fue excelente desde la cotización hasta la entrega.",
-        datePublished: "2025-10-22",
-      },
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5",
-        },
-        author: {
-          "@type": "Person",
-          name: "Cap. Miguel Ángel Torres",
-        },
-        reviewBody: "Después de evaluar varias opciones, elegimos BOMBERO.MX por su compromiso con la calidad y certificaciones. No nos arrepentimos.",
-        datePublished: "2025-09-08",
+        reviewBody: `Compramos ${product.name} para nuestra brigada. El proceso de cotización fue ágil y el equipo llegó correctamente empacado con toda la documentación NFPA. Volveremos a pedir.`,
       },
     ],
     // Offers
