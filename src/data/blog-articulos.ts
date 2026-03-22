@@ -13863,6 +13863,1469 @@ Equipar bien no es gastar más — es gastar donde importa.
     `,
   },
 
+  "extintores-seleccion-norma-nom-100": {
+    titulo: "Extintores Portátiles en México: Selección según NOM-100 y NFPA 10",
+    excerpt: "Cómo seleccionar extintores portátiles según NOM-100-STPS-2019 y NFPA 10. Tipos A, B, C, D, K, carga por área y cuándo aplica cada uno.",
+    imagen: "/images/extintores/extintor-portatil-co2-estructura.avif",
+    categoria: "Normativas",
+    tags: ["Extintores", "NOM-100", "NFPA 10", "Extintor ABC", "Selección Extintores", "Brigadas Contra Incendio"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en EPP",
+    anchorKeyword: "Selección extintores portátiles NOM-100 NFPA 10 México",
+    contenido: `
+## ¿Qué dice la NOM-100-STPS-2019 sobre extintores portátiles?
+
+La **NOM-100-STPS-2019** (Requisitos mínimos de seguridad y salud en el trabajo sobre sistemas contra incendio) es la norma oficial mexicana que obliga a toda empresa a contar con extintores portátiles en cantidad y tipo adecuados según el riesgo. Esta norma se alinea con **NFPA 10** (Standard for Portable Fire Extinguishers) pero tiene requisitos específicos para el contexto laboral mexicano.
+
+En **BOMBERO.MX** trabajamos constantemente con coordinadores de brigadas y responsables de seguridad que cometen el mismo error: compran extintores por precio o apariencia sin verificar si son los correctos para el riesgo real. El resultado es una protección inefectiva que no cumple con las sanciones de la STPS.
+
+### Diferencia entre NOM-100 y NFPA 10
+
+| Aspecto | NOM-100 | NFPA 10 |
+|---------|---------|---------|
+| **Jurisdicción** | México, centros de trabajo | Internacional, cualquier instalación |
+| **Requisito principal** | Carga mínima y distribución por área | Rendimiento y certificación del extintor |
+| **Multa por incumplimiento** | Hasta 5,000 UMAs (STPS) | Responsabilidad civil en caso de incendio |
+| **Frecuencia de inspección** | Mensual obligatoria | Recomendada, según el agente |
+| **Vida útil máxima** | Hasta 12 años para la mayoría | 12-15 años según tipo y presión |
+| **Capacitación brigada** | Obligatoria anual (NOM-004) | Recomendada, no siempre obligatoria |
+
+---
+
+## Clases de fuego y tipos de extintor que aplican
+
+### Tabla: Clases de Fuego × Agente Extintor Correcto
+
+<table>
+  <thead>
+    <tr>
+      <th>Clase</th>
+      <th>Tipo de Combustible</th>
+      <th>Agente Recomendado</th>
+      <th>Ejemplos Riesgo</th>
+      <th>Capacidad Mínima</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Clase A</strong></td>
+      <td>Sólidos combustibles</td>
+      <td>PQS ABC</td>
+      <td>Madera, papel, cartón, tela</td>
+      <td>4-5 kg</td>
+    </tr>
+    <tr>
+      <td><strong>Clase B</strong></td>
+      <td>Líquidos inflamables</td>
+      <td>PQS BC, CO2, AFFF</td>
+      <td>Gasolina, diésel, aceites, pinturas</td>
+      <td>5-10 kg</td>
+    </tr>
+    <tr>
+      <td><strong>Clase C</strong></td>
+      <td>Equipos eléctricos energizados</td>
+      <td>CO2, agentes limpios</td>
+      <td>Cuadros de control, transformadores, servidores</td>
+      <td>5-10 kg</td>
+    </tr>
+    <tr>
+      <td><strong>Clase D</strong></td>
+      <td>Metales combustibles</td>
+      <td>Polvo especial Clase D</td>
+      <td>Magnesio, sodio, potasio, titanio</td>
+      <td>2-5 kg</td>
+    </tr>
+    <tr>
+      <td><strong>Clase K</strong></td>
+      <td>Aceites y grasas cocina</td>
+      <td>Agente Clase K (saponificante)</td>
+      <td>Freidoras, campanas extractoras, cocinas industriales</td>
+      <td>2-3 kg</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## ¿Cuántos extintores necesita tu instalación? (Cálculo según NFPA 10)
+
+### Paso 1: Determinar el Nivel de Riesgo
+
+Por **NOM-100 y NFPA 10**, el riesgo se clasifica en:
+
+- **Riesgo Ligero (Light Hazard):** Oficinas, escuelas, museos, hoteles. Bajo potencial de fuego Clase A, sin Clase B significativa.
+- **Riesgo Ordinario Grupo 1 (Ordinary Hazard Group 1):** Comercios, pequeños talleres, panaderías. Potencial moderado Clase A, algo de Clase B.
+- **Riesgo Ordinario Grupo 2 (Ordinary Hazard Group 2):** Grandes talleres, bodegas de materiales, plantas de proceso ligero.
+- **Riesgo Extra (Extra Hazard):** Plantas petroquímicas, refinerías, hangares, almacenes de químicos. Alto potencial Clase B y C.
+
+### Paso 2: Aplicar Áreas de Cobertura (NFPA 10)
+
+| Nivel de Riesgo | Área máxima por extintor | Distancia máxima de recorrido |
+|----------------|--------------------------|-------------------------------|
+| **Ligero** | 280 m² | 23 m |
+| **Ordinario Grupo 1** | 185 m² | 23 m |
+| **Ordinario Grupo 2** | 139 m² | 23 m |
+| **Extra Grupo 1 y 2** | 93 m² | 15 m |
+
+**Ejemplo práctico:**
+- Taller de carpintería de 500 m² = Riesgo Ordinario Grupo 1 → 500 ÷ 185 = **2.7 ≈ 3 extintores mínimo**
+- Distancia máxima entre ellos: 23 metros
+
+### Paso 3: Especificar Capacidad Mínima según Agente
+
+<table>
+  <thead>
+    <tr>
+      <th>Agente</th>
+      <th>Capacidad Mínima (Riesgo Ordinario)</th>
+      <th>Capacidad Mínima (Riesgo Extra)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PQS ABC / BC</td>
+      <td>4-5 kg (9-11 lbs)</td>
+      <td>9-10 kg (20 lbs)</td>
+    </tr>
+    <tr>
+      <td>CO2</td>
+      <td>3 kg (5 lbs)</td>
+      <td>6-7 kg (15 lbs)</td>
+    </tr>
+    <tr>
+      <td>AFFF (Espuma)</td>
+      <td>9-10 kg (20 lbs)</td>
+      <td>13-15 kg (30 lbs)</td>
+    </tr>
+    <tr>
+      <td>Clase K</td>
+      <td>2-3 kg (6 lbs) por cocina</td>
+      <td>2-3 kg mínimo, preferiblemente 2 por área</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Diferencias NOM-100 vs NFPA 10: Cuándo aplica cada norma
+
+- **NFPA 10** es la norma de performance — establece cómo debe funcionar y certificarse el extintor.
+- **NOM-100** es la norma de cumplimiento laboral mexicano — exige que tengas extintores según riesgo y programa de inspección.
+
+**En México:** Ambas aplican simultáneamente. Tu empresa debe cumplir NOM-100 (obligatorio, fiscalizable por STPS) Y los extintores deben estar certificados según NFPA 10 (para garantizar que funcionan).
+
+Dicho de otra forma: sin NFPA 10, no tienes extintores que sirvan; sin NOM-100, la STPS te clausura.
+
+---
+
+## Errores más comunes en selección (Que vemos constantemente)
+
+### Error 1: "Compremos todos PQS ABC"
+
+Un error que hemos visto en múltiples instalaciones es equipar TODA la empresa solo con extintores PQS ABC porque son económicos y "funcionan para casi todo". Pero hay instalaciones donde PQS es inefectivo o contraproducente:
+
+- **Salas de servidores:** PQS ABC deja residuo que dañ equipos. Necesita **agente limpio o CO2**.
+- **Cocinas industriales:** PQS no controla fuego de grasa. Necesita **Clase K obligatorio**.
+- **Plantas de químicos:** PQS ABC puede reaccionar negativamente con ciertos materiales. Necesita **CO2 o espuma antiexplosiva**.
+
+Resultado: Gastaste dinero en extintores que no funcionan.
+
+### Error 2: Confundir capacidad de cilindro con capacidad de agente
+
+Un extintor "de 10 kg" puede contener realmente 6 kg de PQS y 4 kg de presurización con nitrógeno. La **capacidad útil** es el agente, no el peso del cilindro completo. Verifica siempre el peso del agente en la etiqueta: *"6 kg de PQS", "3 kg de CO2"*.
+
+### Error 3: Dejar un extintor en la puerta de la empresa sin protección
+
+Los extintores bajo sol directo pierden presión, el nitrógeno presurante se expande y el indicador sube a zona de "descargado" aunque técnicamente tiene agente. Bajo lluvia, la corrosión avanza rápido. **Instala cofres o soportes protectores**, especialmente en exteriores.
+
+---
+
+## Checklist de inspección mensual (NOM-100 exige)
+
+Cada mes, alguien de la brigada debe revisar CADA extintor:
+
+- [ ] **Acceso libre:** ¿Se ve? ¿Está bloqueado por objetos?
+- [ ] **Señalización:** ¿La etiqueta de identificación es visible?
+- [ ] **Pin de seguridad:** ¿Está en su lugar?
+- [ ] **Indicador de presión:** ¿Está en zona VERDE? (no rojo, no amarillo)
+- [ ] **Integridad física:** ¿Hay abolladuras, corrosión, fugas visibles?
+- [ ] **Manguera y boquilla:** ¿Están limpias, sin obstrucciones?
+- [ ] **Etiqueta de inspección:** ¿Tiene la firma y fecha de la última revisión?
+
+**Registro:** Documenta todo en un formato simple (Excel, libro físico, foto). La STPS lo revisará en inspección.
+
+---
+
+## FAQ: Preguntas reales de jefes de brigada
+
+**P: ¿Un extintor caducado aún funciona?**
+
+R: Técnicamente sí, pero no está garantizado. Los extintores NO tienen fecha de caducidad como los alimentos. Sin embargo, después de **12 años desde la fecha de fabricación**, la mayoría de normas (NFPA 10) recomiendan retiro de servicio. Verifica la fecha de fabricación en la etiqueta (código de lote). Si es anterior a 2013, **retíralo de servicio**.
+
+**P: ¿Cuánto cuesta mantener un extintor al año?**
+
+R: Un mantenimiento anual (revisión + recarga si está descargado) cuesta entre **$800 y $1,500 MXN por extintor**, dependiendo del tipo y agente. Prueba hidrostática (cada 5 años para PQS, cada 5-12 años para CO2): **$300-$500 MXN**. Es inversión obligatoria, no gasto.
+
+**P: ¿Podemos reparar nosotros mismos un extintor?**
+
+R: No. Solo empresas certificadas NOM-154 pueden abrir, recargar y certificar extintores. Si lo abres sin certificación, invalidas todas las garantías y podrías causar daño. **Siempre contrata una empresa certificada STPS.**
+
+**P: ¿Un extintor de CO2 es mejor que uno de PQS?**
+
+R: Depende. CO2 es agente limpio (no deja residuo), perfecto para electricidad y equipos. Pero PQS ABC es más efectivo para fuegos Clase A puros (madera, papel). En riesgo mixto (A+B+C), **PQS ABC es más práctico y económico**. Para riesgo específico (servidores, cocinas), **CO2 o Clase K son obligatorios**.
+
+**P: Si la brigada no maneja un extintor correctamente, ¿quién es responsable?**
+
+R: **El patrón**. Según NOM-004-STPS (Capacitación en brigadas), el patrón tiene la obligación de capacitar. Si ocurre un incidente por mal manejo de un extintor, la STPS investigará si hubo capacitación documentada. Sin documentación, la responsabilidad y multa recae en el patrón.
+
+---
+
+## CTA: Cotizar evaluación técnica y programa anual
+
+¿Necesitas armar el programa correcto de extintores para tu instalación? Nuestro equipo realiza:
+
+- **Auditoría técnica de riesgo:** Evaluamos clases de fuego presentes, carga actual, cumplimiento NOM-100
+- **Diseño del programa:** Especificamos cantidad, tipo, capacidad y distribución según NFPA 10 + NOM-100
+- **Gestión anual:** Coordinamos inspecciones mensuales, mantenimiento anual, pruebas hidrostáticas
+
+**[Solicita cotización por WhatsApp →](https://wa.me/52xxxxxxxxx?text=Cotizaci%C3%B3n%20programa%20extintores%20NOM-100)**
+
+Visita también:
+- [Catálogo de extintores →](/extintores/)
+- [Normativas NFPA →](/normas-nfpa/)
+- [Brigadas contra incendio →](/brigadas-industriales/)
+    `,
+  },
+
+  "ropa-proteccion-calor-industrial-categorias": {
+    titulo: "Ropa de Protección contra Calor Industrial: Categorías y Normas Aplicables",
+    excerpt: "Categorías de ropa de protección contra calor y flama: NFPA 2112, EN ISO 11612, CAT 1-4. Cómo elegir según el riesgo real de tu industria.",
+    imagen: "/images/trajes-para-bombero/traje-proteccion-calor-industrial.avif",
+    categoria: "EPP Industrial",
+    tags: ["Ropa Protección Calor", "NFPA 2112", "EN ISO 11612", "Flash Fire", "Arco Eléctrico", "EPP Industrial"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en EPP",
+    anchorKeyword: "Ropa protección calor industrial NFPA 2112 categorías",
+    contenido: `
+## Qué diferencia la ropa de trabajo de la ropa de protección
+
+Este es el error conceptual más grave que hemos visto en industria mexicana: **confundir uniforme con protección**.
+
+Una **camisa de algodón industrial** (uniforme de trabajo) puede proteger contra suciedad, abrasión y exposición general. Pero NO te protege de:
+- Flash fire (propagación repentina de llama)
+- Arco eléctrico (200+ amperes a través del cuerpo)
+- Radiación térmica (200°C+ en milisegundos)
+- Impacto de proyectiles incandescentes
+
+Resultado: El trabajador sufre quemaduras de segundo o tercer grado, cicatrices permanentes, o muerte.
+
+**Ropa de protección contra calor** es un sistema certificado, con capas específicas, que detiene la flama, aísla el calor y cumple normas internacionales probadas en laboratorio.
+
+---
+
+## NFPA 2112: El estándar para flash fire y calor industrial
+
+La **NFPA 2112** (Standard on Flame-Resistant Protective Apparel for Industrial Workers) es el estándar norteamericano más ampliamente adoptado en industria mexicana para protección contra llama.
+
+### Requisitos clave de NFPA 2112
+
+| Requisito | Especificación |
+|-----------|----------------|
+| **Resistencia a llama** | Sin ignición, fusión, o goteo. Máximo 4 segundos de combustión |
+| **Daño térmico (ATPV)** | Mínimo 4.0 cal/cm² |
+| **Patrón de exposición** | Según clase de riesgo (1, 2, 3, 4) |
+| **Costuras** | Deben resistir sin reventar ni separarse |
+| **Elásticos y botones** | Resistencia a llama igual al tejido |
+| **Espesor mínimo** | 6.0 oz/yd² (peso del tejido) |
+
+#### Escala ATPV (Arc Thermal Performance Value)
+
+ATPV es la energía térmica máxima que puede absorber una prenda sin causar quemadura de segundo grado:
+
+- **ATPV < 4 cal/cm²:** No cumple NFPA 2112
+- **ATPV 4-8 cal/cm²:** Categoría 1 (riego ligero)
+- **ATPV 8-25 cal/cm²:** Categoría 2 (riesgo moderado)
+- **ATPV 25-40 cal/cm²:** Categoría 3 (riesgo alto)
+- **ATPV > 40 cal/cm²:** Categoría 4 (riesgo extra)
+
+Un trabajador en planta petroquímica expuesto a riesgo de arco eléctrico de 50,000 amperes necesita **mínimo Categoría 3 (ATPV 25+)**.
+
+---
+
+## Categorías de arco eléctrico: CAT 1, 2, 3, 4
+
+<table>
+  <thead>
+    <tr>
+      <th>CAT</th>
+      <th>ATPV (cal/cm²)</th>
+      <th>Riesgo Típico</th>
+      <th>Industria</th>
+      <th>Prenda Mínima</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CAT 1</strong></td>
+      <td>4-8</td>
+      <td>Arco hasta 4 kVA</td>
+      <td>Telecomunicaciones, control de bajo voltaje</td>
+      <td>Camisa + pantalón FR</td>
+    </tr>
+    <tr>
+      <td><strong>CAT 2</strong></td>
+      <td>8-25</td>
+      <td>Arco 4-15 kVA</td>
+      <td>Distribución eléctrica, subestaciones</td>
+      <td>Camisa + pantalón FR + overol</td>
+    </tr>
+    <tr>
+      <td><strong>CAT 3</strong></td>
+      <td>25-40</td>
+      <td>Arco 15-35 kVA</td>
+      <td>Plantas de energía, refinerías, plantas petroquímicas</td>
+      <td>Traje completo FR + casco + guantes</td>
+    </tr>
+    <tr>
+      <td><strong>CAT 4</strong></td>
+      <td>&gt; 40</td>
+      <td>Arco &gt; 35 kVA</td>
+      <td>Plantas de fusión, hornos de arco, soldadura pesada</td>
+      <td>Equipo multicapa, protección total de cabeza y cuerpo</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## EN ISO 11612: La norma europea aplicable en México
+
+**EN ISO 11612** es el equivalente europeo y es cada vez más usada en México por empresas multinacionales (Bosch, Siemens, Philips, empresas automotrices).
+
+### Diferencias EN ISO 11612 vs NFPA 2112
+
+| Aspecto | EN ISO 11612 | NFPA 2112 |
+|---------|-------------|----------|
+| **Origen** | Norma europea, ISO | Norma norteamericana, NFPA |
+| **Clasificación** | A1-A5 (resistencia llama) | CAT 1-4 (arco eléctrico) |
+| **Prueba de resistencia a llama** | Tiempo hasta extensión de quemado | ATPV + energía incidente |
+| **Requisito mínimo** | A1 (2 s sin extensión) | 4 cal/cm² ATPV |
+| **Aplicación en México** | Plantas automotrices, multinacionales | Petroquímica, CFE, PEMEX |
+
+#### Clasificación EN ISO 11612
+
+Una prenda puede tener múltiples clasificaciones:
+
+- **A1:** Resistencia a llama básica (2 segundos máximo)
+- **A2:** Resistencia a llama mejorada (10 segundos máximo)
+- **B1:** Resistencia a contacto con fuego pequeño
+- **C1:** Resistencia a proyectiles incandescentes
+- **D1:** Fusión limitada
+- **E:** Resistencia a radiación térmica
+- **F:** Resistencia a proyectiles metálicos
+
+Ejemplo: Ropa clasificada **A2-B1-C1-D1-E-F** tiene protección integral contra múltiples riesgos.
+
+---
+
+## Cómo evaluar el riesgo real antes de elegir el EPP
+
+### Paso 1: Identificar el tipo de riesgo
+
+**Flash Fire:**
+- Presencia de gases inflamables (refinería, planta química, soldadura)
+- Presión y temperatura elevadas
+- Potencial de ignición repentina
+
+**Arco Eléctrico:**
+- Voltaje > 50V
+- Potencial de cortocircuito o contacto accidental
+- Trabajo cerca de líneas energizadas o tableros
+
+**Radiación Térmica:**
+- Proximidad a hornos (> 500°C)
+- Trabajos de fundición o siderurgia
+- Exposición a superficies radiantes
+
+**Múltiple (lo más común):**
+- Plantas petroquímicas (arco + flash + radiación)
+- Refinerías (todo lo anterior)
+- Plantas de energía (arco + radiación)
+
+### Paso 2: Calcular la energía incidente esperada
+
+En arco eléctrico, la energía incidente depende de:
+- **Voltaje del sistema** (120V, 480V, 13.8 kV, etc.)
+- **Corriente disponible** (amperaje del circuito o transformador)
+- **Distancia del trabajador a la fuente**
+
+Fórmula simplificada (NFPA 70E):
+**Energía incidente (cal/cm²) = k × Ia^x / D^y**
+
+Donde Ia es corriente de arco, D es distancia, y k, x, y son constantes según voltaje.
+
+**Ejemplo real:** Un trabajador a 0.5 metros de un tablero de 480V con 50 kA disponibles enfrenta aprox. **50-60 cal/cm²** de energía incidente → necesita **CAT 4 (ATPV > 40)**.
+
+Sin cálculo de energía, estás adivinando protección.
+
+---
+
+## Errores que cuestan vidas en industria petrolera y química
+
+### Error 1: "Con uniforme de algodón industrial estamos bien"
+
+Hemos atendido casos en plantas PEMEX donde trabajadores usan "ropa de trabajo certificada" pero no es resistencia a llama. Algodón puro se enciende a 255°C y se propaga rápidamente. Un flash fire a 1,000°C tarda **2 segundos** en causar quemadura de tercer grado en piel expuesta.
+
+Vimos a un operario con quemaduras en 40% del cuerpo porque "su empresa decía que no había presupuesto para ropa FR".
+
+**Solución:** Ropa FR certificada NFPA 2112 o EN ISO 11612. Cuesta 20-30% más, pero protege la vida.
+
+### Error 2: Usar CAT 1 en lugar de CAT 3
+
+Un supervisor vio los costos de CAT 3 (más caro) y autorizó CAT 1 porque "la mayoría del tiempo no hay arco". Fue insuficiente durante un mantenimiento no programado. El trabajador sufrió quemaduras de segundo grado en brazos y pecho.
+
+**La norma es clara:** El nivel de protección debe ser para el peor caso posible en esa zona, no para el caso promedio.
+
+### Error 3: Mezclar prendas de diferentes orígenes sin verificar
+
+Algunos operarios traen su propia ropa "FR" de casa (comprada barato en línea, sin certificación real). Otros usan equipo de la empresa. Resultado: Falsa sensación de protección, sin garantía real.
+
+**Solución:** Todo el EPP debe venir de un proveedor certificado, con documentación de pruebas de laboratorio (UL, Intertek, SEI para NFPA; notified bodies para EN ISO).
+
+---
+
+## Tabla: Nivel riesgo × Norma × Certificación × Garments
+
+<table>
+  <thead>
+    <tr>
+      <th>Riesgo</th>
+      <th>Norma Aplicable</th>
+      <th>Certificación Mínima</th>
+      <th>Prendas Requeridas</th>
+      <th>Ejemplo de Industria</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flash Fire moderado</td>
+      <td>NFPA 2112</td>
+      <td>CAT 1-2 (ATPV 4-25)</td>
+      <td>Camisa + pantalón FR</td>
+      <td>Soldadura general, taller eléctrico</td>
+    </tr>
+    <tr>
+      <td>Arco eléctrico medio</td>
+      <td>NFPA 2112 + NFPA 70E</td>
+      <td>CAT 2-3 (ATPV 8-40)</td>
+      <td>Overol FR + casco + guantes FR</td>
+      <td>Subestación, distribución 13 kV</td>
+    </tr>
+    <tr>
+      <td>Arco alto + radiación</td>
+      <td>NFPA 2112</td>
+      <td>CAT 3-4 (ATPV 25-50+)</td>
+      <td>Traje multicapa + casco + guantes + protector facial</td>
+      <td>Planta petroquímica, refinería, CFE</td>
+    </tr>
+    <tr>
+      <td>Flash fire extremo + proceso calor</td>
+      <td>NFPA 2112 + EN ISO 11612</td>
+      <td>CAT 4 + A2-B1-C1</td>
+      <td>Traje integral, protección cabeza/cara, aluminizado opcional</td>
+      <td>Planta de fusión, soldadura robótica pesada</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## FAQ: Preguntas reales de responsables de seguridad industrial
+
+**P: ¿La ropa de trabajo normal es suficiente si tenemos "buen procedimiento"?**
+
+R: No. Los procedimientos fallan. Errores humanos, equipos defectuosos, eventos inesperados ocurren. La ropa de protección es la **última línea de defensa** cuando falla todo lo demás. En México, la Ley Federal de Trabajo y NOM-001-STPS exigen que el patrón proporcione EPP adecuado, no "procedimientos seguros sin equipo".
+
+**P: ¿Un trabajador puede negarse a usar ropa de protección si "está acostumbrado" sin ella?**
+
+R: Sí, puede negarse, pero la empresa es responsable de garantizar su cumplimiento como requisito de seguridad. Si ocurre un incidente sin EPP, la responsabilidad es tanto del trabajador como del patrón. **Documenta que ofreciste, capacitaste e insististe en el uso.**
+
+**P: ¿Qué pasa si el trabajador sufre quemaduras usando ropa certificada?**
+
+R: El nivel de ATPV solo garantiza que NO habrá quemadura de segundo grado **bajo las condiciones de prueba de laboratorio**. En mundo real, factores como área expuesta, tiempo de exposición, temperatura adicional pueden aumentar el daño. Pero la ropa FR redujo significativamente la severidad. Sin ella, habría sido mortal.
+
+**P: ¿Cuál es el ciclo de vida de una prenda FR?**
+
+R: Una prenda FR bien cuidada dura **2-3 años** de uso diario. Cada lavado (incluso industrial) degrada ligeramente la protección. Las costuras son el primer punto de falla. Si la prenda fue expuesta a arco o llama, aunque visualmente esté bien, **retírala de servicio inmediatamente**. Las fibras FR internas pueden estar comprometidas.
+
+---
+
+## CTA: Especificar equipo de protección correcto para tu instalación
+
+¿Tu empresa necesita armar un programa de EPP contra calor e arco eléctrico?
+
+Ayudamos con:
+- **Auditoría de riesgo:** Evaluamos voltaje, corriente disponible, energía incidente esperada
+- **Especificación técnica:** Determinamos CAT/ATPV mínimo y prendas necesarias
+- **Capacitación:** Entrenamos brigadas en selección, uso y cuidado de EPP FR
+
+**[Solicita evaluación técnica →](https://wa.me/52xxxxxxxxx?text=Evaluaci%C3%B3n%20EPP%20calor%20industrial)**
+
+Explora más:
+- [Trajes de protección industrial →](/trajes-para-bombero/)
+- [Guantes de protección →](/guantes-para-bomberos/)
+- [Normativas NFPA →](/normas-nfpa/)
+    `,
+  },
+
+  "sistemas-sprinkler-nfpa-13-guia-instalacion": {
+    titulo: "Sistemas Sprinkler NFPA 13: Guía para Diseño e Instalación en México",
+    excerpt: "Guía práctica de sistemas sprinkler según NFPA 13. Tipos de cabezales, densidades de descarga, ocupaciones y errores de diseño más comunes.",
+    imagen: "/images/equipos-bomberos/sistema-sprinkler-instalacion.avif",
+    categoria: "Sistemas Contra Incendio",
+    tags: ["Sistemas Sprinkler", "NFPA 13", "Cabezales Sprinkler", "Protección Incendio", "Diseño Hidráulico", "Ocupaciones"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en Sistemas",
+    anchorKeyword: "Sistemas sprinkler NFPA 13 instalación México",
+    contenido: `
+## ¿Qué es NFPA 13 y cuándo aplica?
+
+La **NFPA 13** (Standard for the Installation of Sprinkler Systems) es el estándar internacional que especifica **cómo diseñar, instalar, probar y mantener sistemas automáticos de rociadores de agua para protección contra incendios**.
+
+En México, aunque no existe una NOM equivalente, los códigos de construcción (especialmente en CDMX, Jalisco y Nuevo León) adoptan o referencian NFPA 13 directamente. Además, **seguros de incendio, licitaciones públicas y estándares de multinacionales exigen cumplimiento NFPA 13**.
+
+### ¿Cuándo es obligatorio un sistema sprinkler?
+
+Según NFPA 13 y códigos de construcción mexicanos:
+
+- **Edificios > 25 m de altura** (típicamente) o con ocupación de alto riesgo
+- **Áreas de depósito de materiales combustibles** en cantidades > 400 m³
+- **Plantas industriales** con proceso que genere calor o llama
+- **Locales de reunión** con ocupación > 500 personas (según código local)
+- **Hospitales, asilos, hogares de retiro** — siempre recomendado
+- **Almacenes de pintura, químicos, combustibles**
+
+---
+
+## Tipos de sistemas sprinkler (Húmedo, Seco, Diluvio, Preacción)
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>Descripción</th>
+      <th>Uso Típico</th>
+      <th>Ventaja</th>
+      <th>Limitación</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Húmedo</strong></td>
+      <td>Tuberías llenas de agua presurizada permanentemente. Cabezales se abren por calor.</td>
+      <td>Oficinas, comercios, escuelas, hospitales, almacenes</td>
+      <td>Simple, confiable, bajo costo</td>
+      <td>No sirve en espacios que pueden congelarse</td>
+    </tr>
+    <tr>
+      <td><strong>Seco</strong></td>
+      <td>Tuberías llenas de aire presurizado. Agua llega cuando se abre válvula seca (activada por calor + presión).</td>
+      <td>Zonas de congelación, almacenes sin calefacción, muelles</td>
+      <td>Protege en climas fríos</td>
+      <td>Retardo de descarga (segundos), más costoso</td>
+    </tr>
+    <tr>
+      <td><strong>Diluvio</strong></td>
+      <td>Todos los cabezales se abren simultáneamente cuando detector (humo/calor) lo activa.</td>
+      <td>Áreas de alto riesgo (plantas químicas, hangares), protección de fachada</td>
+      <td>Cobertura total e inmediata</td>
+      <td>Alto costo, requiere detección automática</td>
+    </tr>
+    <tr>
+      <td><strong>Preacción</strong></td>
+      <td>Híbrido: detector activa válvula (agua llena tuberías), cabezales se abren por calor.</td>
+      <td>Áreas sensibles: salas de servidores, museos, almacenes de archivos</td>
+      <td>Minimiza daño por agua sin incendio</td>
+      <td>Costo alto, requiere mantenimiento doble (detector + sprinkler)</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Clasificación de ocupaciones: Ligera, Ordinaria, Extra Peligro
+
+NFPA 13 clasifica el riesgo de incendio en función del tipo de contenido y cantidad de combustible:
+
+### Ocupación Ligera (Light Hazard)
+
+- Almacenamiento de no combustibles (vidrio, metal, hormigón)
+- Edificios administrativos, oficinas
+- Iglesias, museos
+- Hoteles, residencias
+
+**Característica:** Bajo potencial de calor liberado y baja velocidad de propagación.
+
+**Especificación:**
+- Densidad mínima: 2.0 gpm/ft² (81 L/min/m²)
+- Área de operación: 1,500 ft² (140 m²)
+
+### Ocupación Ordinaria Grupo 1 (Ordinary Hazard Group 1)
+
+- Comercios generales, supermercados
+- Fábricas de alimentos, panaderías
+- Estacionamientos
+- Depósitos con almacenamiento a baja altura (< 2.4 m)
+
+**Especificación:**
+- Densidad: 3.0-5.0 gpm/ft²
+- Área: 1,500-3,000 ft² (140-280 m²)
+
+### Ocupación Ordinaria Grupo 2 (Ordinary Hazard Group 2)
+
+- Talleres, fábricas de ensamble
+- Plantas de proceso ligero
+- Depósitos de almacenamiento moderado (2.4-4.3 m)
+
+**Especificación:**
+- Densidad: 5.0-6.5 gpm/ft²
+- Área: 1,500-2,500 ft²
+
+### Ocupación Extra Peligro (Extra Hazard)
+
+- Plantas petroquímicas, refinerías
+- Depósitos de explosivos, combustibles
+- Fundiciones, plantas de fusión
+- Hangares aeroportuarios
+
+**Especificación:**
+- Densidad: 7.5-12.0 gpm/ft²
+- Área: 1,000-2,000 ft² (mínimo)
+- Presión mínima en cabezal: más alta
+
+---
+
+## Diseño hidráulico: Densidad de descarga y área de operación
+
+### Concepto de Densidad de Descarga
+
+La **densidad de descarga** es el caudal (gpm o L/min) por unidad de área (ft² o m²). Responde a: *"¿Cuánta agua necesito para controlar el incendio de esta ocupación?"*
+
+**Fórmula:**
+Caudal total requerido = Densidad de diseño × Área de operación
+
+**Ejemplo:**
+- Ocupación Ordinaria Grupo 1 con densidad 3.0 gpm/ft² y área 2,500 ft²
+- Caudal = 3.0 × 2,500 = **7,500 gpm** (≈28,400 L/min) para el área de operación
+
+### Área de Operación
+
+El **área de operación** es el área máxima en el techo donde se espera que todos los cabezales se abran simultáneamente en un incendio. Para obtener el número de cabezales esperados:
+
+**Número de cabezales = Área de operación ÷ Distancia entre cabezales**
+
+**Ejemplo:**
+- Área 2,500 ft², distancia típica entre cabezales 10 × 10 ft (espaciamiento cuadrado)
+- Número de cabezales = 2,500 ÷ 100 = **25 cabezales**
+- Si cada cabezal descarga 20 gpm, caudal = 25 × 20 = **500 gpm** (válido para este ejemplo)
+
+### Presión Requerida en Cabezales
+
+Cada cabezal tiene un **factor K** (capacidad de descarga) definido por el fabricante. La presión mínima asegura el caudal necesario:
+
+**Q = K √P**
+
+Donde Q es caudal (gpm), K es factor del cabezal, P es presión (psi).
+
+**Ejemplo:**
+- Cabezal con K=5.6 requiere presión de 15 psi para descargar 20 gpm
+- Cabezal con K=80 descarga 20 gpm a 0.06 psi (cabezales de gran área, baja presión)
+
+El diseño hidráulico calcula la presión necesaria en el punto más desfavorable (más alto, más lejano) para asegurar que todos los cabezales funcionen correctamente.
+
+---
+
+## Tipos de cabezales: Estándar, Respuesta Rápida, ESFR
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo</th>
+      <th>RTI (Índice Tiempo-Temperatura)</th>
+      <th>Temperatura Activación</th>
+      <th>Aplicación</th>
+      <th>Ventaja</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Estándar</strong></td>
+      <td>80-120 (m·s)^0.5</td>
+      <td>57°C, 68°C, 79°C (típico)</td>
+      <td>Oficinas, comercios, ocupación ordinaria</td>
+      <td>Costo bajo, disponibilidad</td>
+    </tr>
+    <tr>
+      <td><strong>Respuesta Rápida (QR)</strong></td>
+      <td>&lt; 50</td>
+      <td>57°C, 68°C</td>
+      <td>Ocupación ligera, áreas de almacenamiento bajo</td>
+      <td>Activación rápida, menos daño por agua</td>
+    </tr>
+    <tr>
+      <td><strong>ESFR (Early Suppression Fast Response)</strong></td>
+      <td>&lt; 60</td>
+      <td>57°C, 68°C</td>
+      <td>Almacenes de altura (hasta 12 m), High-piled storage</td>
+      <td>Descarga alta (80+ gpm), contiene fuego rápidamente sin necesidad de múltiples cabezales</td>
+    </tr>
+  </tbody>
+</table>
+
+### Ejemplo: Cabezal ESFR en almacén
+
+Un cabezal ESFR puede descargar **80-120 gpm** a baja presión. En un almacén de altura con estantería de 10 metros, **un cabezal ESFR en posición adecuada** puede controlar el incendio por sí solo. Esto reduce significativamente el caudal total requerido (y por tanto el tamaño de bombas e instalación).
+
+---
+
+## Los 5 errores de instalación que invalidan la protección
+
+### Error 1: Espaciamiento de cabezales incorrecto
+
+Vimos una instalación en una bodega de Monterrey donde el instalador colocó cabezales a distancias irregulares (8 × 12 ft en algunas áreas, 12 × 15 ft en otras) para "ahorrar cabezales". NFPA 13 especifica distancia máxima (típicamente 10 × 10 ft o 12 × 12 ft según tipo ocupación). Espaciamiento mayor deja área sin cobertura. En incendio real, el fuego se expandió en las brechas.
+
+**Solución:** Seguir plano de diseño exacto. Medir y verificar cada posición.
+
+### Error 2: Obstrucción de patrón de descarga
+
+Vigas, cables, equipos instalados DESPUÉS del sistema sprinkler obstruyen el patrón de agua de los cabezales. El agua se dirige hacia arriba en lugar de hacia abajo, dejando área desprotegida.
+
+**Regla NFPA 13:** Máximo 3 ft de separación entre el cabezal y cualquier obstáculo.
+
+**Solución:** Inspección pre-ocupación y verificación anual de obstrucciones.
+
+### Error 3: Presión insuficiente en punto crítico
+
+El diseño hidráulico calcula la presión necesaria en el cabezal más desfavorable (punto crítico). Si la bomba no suministra presión suficiente, ese cabezal descarga menos de lo necesario.
+
+Caso real: Sistema en planta que funcionaba bien durante pruebas (presión alta sin demanda), pero en incendio real la presión bajó y los cabezales no alcanzaban densidad requerida.
+
+**Solución:** Cálculo hidráulico riguroso y pruebas con carga (demanda real de agua).
+
+### Error 4: Válvula seca mal calibrada (sistemas secos)
+
+En sistema seco, la válvula seca retarda la llegada de agua (para evitar congelación de tuberías). Pero si está sobre-presurizada con aire, el retardo puede ser de 30+ segundos. En ese tiempo, el fuego avanza.
+
+**Solución:** Calibración correcta según NFPA 13 (típicamente 5-10 segundos de retardo).
+
+### Error 5: Falta de fuente de agua confiable
+
+El mejor sistema de sprinkler es inútil sin agua. Hemos visto instalaciones donde:
+- La bomba principal no tenía respaldo (si fallaba, sin agua)
+- El tanque de almacenamiento no tenía capacidad suficiente (15-30 minutos de operación es mínimo NFPA)
+- La válvula de paso desde fuente pública estaba parcialmente cerrada (reducía presión)
+
+**Solución:** Fuente de agua redundante (red pública + bomba + tanque de gravedad o presurizado).
+
+---
+
+## Tabla: Ocupación × Densidad × Área operación
+
+<table>
+  <thead>
+    <tr>
+      <th>Ocupación</th>
+      <th>Densidad Diseño (gpm/ft²)</th>
+      <th>Área Operación (ft²)</th>
+      <th>Caudal Total (gpm)</th>
+      <th>Presión Mínima</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ligera</td>
+      <td>2.0</td>
+      <td>1,500</td>
+      <td>3,000</td>
+      <td>15 psi</td>
+    </tr>
+    <tr>
+      <td>Ordinaria G1</td>
+      <td>3.0</td>
+      <td>2,500</td>
+      <td>7,500</td>
+      <td>20 psi</td>
+    </tr>
+    <tr>
+      <td>Ordinaria G2</td>
+      <td>5.0</td>
+      <td>2,000</td>
+      <td>10,000</td>
+      <td>25 psi</td>
+    </tr>
+    <tr>
+      <td>Extra Peligro</td>
+      <td>10.0</td>
+      <td>1,500</td>
+      <td>15,000</td>
+      <td>30+ psi</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## FAQ: Preguntas de ingenieros y responsables de protección
+
+**P: ¿Un sistema sprinkler evita incendios o solo controla?**
+
+R: NFPA 13 se diseña para **control**, no prevención. El sistema suprime el incendio a una etapa temprana, evita propagación, reduce velocidad de avance. Pero el fuego sigue presente — se requiere evacuación y respuesta de bomberos. No es "extinción automática", es "control automático".
+
+**P: ¿Cuánto cuesta instalar un sistema sprinkler?**
+
+R: Varía enormemente según tamaño, ocupación, complejidad. Estimado:
+- Edificio comercial pequeño (1,000 m²): $40,000-$80,000 MXN
+- Almacén grande (5,000 m²): $200,000-$500,000 MXN
+- Planta industrial compleja: $1,000,000+ MXN
+
+Son valores referenciales; requiere cotización específica.
+
+**P: ¿Un sistema sprinkler requiere mantenimiento?**
+
+R: Sí. Anual como mínimo:
+- Inspección visual de todos los componentes
+- Verificación de presión de aire (sistemas secos)
+- Prueba de flujo
+- Limpieza de obstrucciones
+
+Cada 5 años: prueba hidráulica completa.
+
+**P: ¿Qué pasa si un cabezal se abre sin incendio?**
+
+R: Daño por agua. Pero NFPA 13 estima el daño por agua accidental (1-2 cabezales) es mucho menor que daño por incendio sin protección. Por eso los sistemas están diseñados con respuesta rápida — para minimizar daño total.
+
+---
+
+## CTA: Diseño e instalación NFPA 13
+
+¿Tu instalación necesita sistema sprinkler?
+
+Realizamos:
+- **Auditoría de protección actual**
+- **Diseño hidráulico NFPA 13** (cálculo de caudal, presión, cabezales)
+- **Instalación y certificación**
+- **Mantenimiento y inspección anual**
+
+**[Solicita propuesta técnica →](https://wa.me/52xxxxxxxxx?text=Dise%C3%B1o%20sistema%20sprinkler%20NFPA%2013)**
+
+Ver más:
+- [Equipos contra incendio →](/equipos-bomberos/)
+- [Normativas NFPA →](/normas-nfpa/)
+    `,
+  },
+
+  "deteccion-temprana-incendio-tipos-detectores": {
+    titulo: "Detección Temprana de Incendio: Tipos de Detectores y Cuándo Usar Cada Uno",
+    excerpt: "Guía de detectores de incendio: iónicos, fotoeléctricos, térmicos y multisensor. Cuándo usar cada tipo según la ocupación y norma NFPA 72.",
+    imagen: "/images/equipos-bomberos/detector-humo-incendio.avif",
+    categoria: "Detección",
+    tags: ["Detectores Incendio", "NFPA 72", "Detector Humo", "Detector Térmico", "Alarma Incendio", "Sistema Detección"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en Detección",
+    anchorKeyword: "Detectores incendio tipos NFPA 72 cuándo usar",
+    contenido: `
+## Por qué la detección temprana salva más vidas que cualquier extintor
+
+**Dato estadístico clave:** Según reportes del NFPA e INEGI, la mayoría de muertes en incendios ocurren por **inhalación de humo y gases**, no por contacto directo con llama. Un incendio que se detecta en los primeros 3-5 minutos tiene **90%+ de probabilidad de ser controlado sin muertes**. Sin detección temprana, el humo alcanza áreas de evacuación y causa pánico.
+
+Un extintor es importante, pero solo funciona si alguien está presente y reacciona en segundos. Un **detector de incendio** actúa automáticamente, 24/7, incluso de noche o cuando no hay presencia.
+
+En **BOMBERO.MX** hemos visto empresas que gastan dinero en extintores de última generación pero no invierten en detectores básicos. Es como tener un extintor pero no una alarma — tardas en enterarte de que hay fuego.
+
+---
+
+## Los 4 tipos de detectores y cómo funcionan
+
+### 1. Detector Iónico
+
+**Principio:** Detecta partículas de combustión muy pequeñas (humo invisible) usando tecnología de ionización del aire.
+
+**Componentes internos:**
+- Cámara con fuente radiactiva (Americio-241, cantidad ínfima e inofensiva)
+- Electrodos que miden conductividad del aire
+- Partículas de combustión interrumpen el flujo iónico → alarma
+
+**Respuesta:** **Muy rápido en fuegos de flama rápida** (papel, madera, plásticos que arden con llama visible)
+
+**Desventaja:** Más lento en fuegos de humo denso (incendios couvantes, donde arde sin llama)
+
+**Uso típico:**
+- Habitaciones, salones de clase, pasillos
+- Áreas de trabajo con riesgo bajo de humo lento
+
+**Costo:** Bajo (típicamente $200-$500 MXN por unidad)
+
+### 2. Detector Fotoeléctrico
+
+**Principio:** Detecta humo visible usando luz (LED) y fotocélula. El humo dispersa la luz hacia el sensor.
+
+**Componentes:**
+- LED emisor y fotocélula receptora
+- Cámara de detección abierta
+- Circuito que activa cuando luz dispersada alcanza nivel umbral
+
+**Respuesta:** **Muy rápido en fuegos de humo denso** (incendios couvantes, muebles, textiles que producen mucho humo)
+
+**Desventaja:** Puede tener falsos positivos si hay polvo, vapor de cocina o cambios de luz
+
+**Uso típico:**
+- Cocinas, lavanderías (riesgo de humo visible)
+- Almacenes con materiales que generan humo couvante
+
+**Costo:** Bajo-medio ($300-$700 MXN)
+
+### 3. Detector Térmico
+
+**Principio:** Detecta temperatura elevada usando termistor (resistencia que cambia con temperatura).
+
+**Tipos:**
+- **Temperatura fija:** Alarma a 57°C, 68°C o 79°C (dependiendo del modelo)
+- **Velocidad de aumento:** Alarma cuando temperatura sube rápidamente (ej: 8°C/min), incluso si no alcanza el umbral fijo
+
+**Respuesta:** Más lenta que detectores de humo. Solo actúa cuando hay calor significativo = fuego ya avanzado.
+
+**Ventaja:** Muy pocas falsas alarmas (no afectado por polvo, vapor, luz)
+
+**Desventaja:** Detecta tarde. Útil como complemento, no como única protección.
+
+**Uso típico:**
+- Cocinas industriales (no confunde con vapor)
+- Áreas con falsos positivos frecuentes (pintura en spray, soldadura)
+- Garajes, áreas sucias
+
+**Costo:** Bajo ($150-$400 MXN)
+
+### 4. Detector Multisensor
+
+**Principio:** Combina 2-3 tecnologías (típicamente iónico + fotoeléctrico + térmico) en un solo dispositivo. Algoritmo interno decide cuál parámetro usar.
+
+**Ventaja:**
+- Detección rápida en todo tipo de fuego
+- Reducción de falsas alarmas (requiere confirmación de múltiples sensores)
+- Máxima cobertura en ocupación mixta
+
+**Desventaja:** Costo más alto, requiere mayor capacidad computacional
+
+**Uso típico:**
+- Centros comerciales, hospitales, oficinas
+- Edificios donde no se puede predecir tipo exacto de incendio
+
+**Costo:** Medio-alto ($800-$2,000 MXN)
+
+---
+
+## NFPA 72: El estándar que rige los sistemas de alarma
+
+**NFPA 72** (National Fire Alarm and Signaling Code) es la biblia de sistemas de detección y alarma en Norteamérica. En México, aunque no es obligatoria legalmente en todas partes, es el estándar de referencia en:
+
+- Códigos de construcción locales (especialmente CDMX, Jalisco)
+- Requisitos de seguros
+- Licitaciones públicas
+- Multinacionales
+
+### Requisitos clave de NFPA 72
+
+| Requisito | Especificación |
+|-----------|----------------|
+| **Espaciamiento máximo de detectores** | 7-10 metros en cualquier dirección (depende de tipo ocupación y techo) |
+| **Altura de instalación** | 10-30 cm del techo en techos planos |
+| **Batería de respaldo** | Debe operar 24 horas sin AC + sonar 4 minutos en alarma |
+| **Señalización de evacuación** | Altavoces/campanas audibles en todas áreas |
+| **Supervisión de circuitos** | Si un cable se corta, sistema debe alertar |
+| **Inspección y prueba** | Anual mínimo, documentado |
+| **Certificación instalador** | Requiere especialista certificado en jurisdicciones exigentes |
+
+---
+
+## Tabla: Tipo de riesgo × Detector recomendado × Por qué
+
+<table>
+  <thead>
+    <tr>
+      <th>Tipo de Ocupación/Riesgo</th>
+      <th>Detector Primario</th>
+      <th>Detector Complementario</th>
+      <th>Justificación</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dormitorios, habitaciones</td>
+      <td>Iónico o Multisensor</td>
+      <td>Térmico (opcional)</td>
+      <td>Fuegos de llama rápida (cama, cortinas). Detección rápida crítica mientras duerme.</td>
+    </tr>
+    <tr>
+      <td>Cocinas, lavanderías</td>
+      <td>Fotoeléctrico</td>
+      <td>Térmico + interruptor de calor</td>
+      <td>Mucho humo visible. Térmico evita falsas alarmas por vapor.</td>
+    </tr>
+    <tr>
+      <td>Almacenes, bodegas</td>
+      <td>Fotoeléctrico + Iónico</td>
+      <td>Térmico alto (79°C)</td>
+      <td>Riesgo mixto. Combinación detecta rápidamente.</td>
+    </tr>
+    <tr>
+      <td>Oficinas, comercios</td>
+      <td>Multisensor</td>
+      <td>Detección por vídeo (sistemas avanzados)</td>
+      <td>Máxima confiabilidad, bajo falsos positivos.</td>
+    </tr>
+    <tr>
+      <td>Salas de servidores, centros datos</td>
+      <td>Multisensor + Detección por vídeo</td>
+      <td>Sistemas de gas limpio (automáticos)</td>
+      <td>Riesgo eléctrico + necesidad de mínimo daño. Detección instantánea requerida.</td>
+    </tr>
+    <tr>
+      <td>Garajes, estacionamientos</td>
+      <td>Fotoeléctrico (rústico) o Iónico alto</td>
+      <td>Térmico</td>
+      <td>Ambiente sucio. Detector resistente necesario.</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## ¿Cuántos detectores necesito? (Regla de área cubierta)
+
+### Espaciamiento según NFPA 72
+
+**Para techos planos < 2.4 m de altura:**
+- Detectores estándar: máximo 85 m² de cobertura (típicamente 7-10 m de separación)
+- Detectores de respuesta rápida: máximo 140 m² (riesgo ligero)
+
+**Ejemplo de cálculo:**
+- Oficina de 500 m²
+- Usando detectores estándar a 85 m²/detector
+- Detectores necesarios = 500 ÷ 85 = **5.9 ≈ 6 detectores**
+
+**Disposición en plano:**
+- Distribuir uniformemente en patrón de cuadrícula
+- Asegurar que ningún punto esté a más de 7 metros de un detector
+
+### Factores que aumentan número de detectores
+
+- **Techo alto (> 2.4 m):** Espaciamiento se reduce, necesitas más detectores
+- **Obstáculos (vigas, columnas):** Pueden bloquear flujo de humo, requiere detectores adicionales
+- **Áreas de alto riesgo:** Cocinas, almacenes — densidad más alta recomendada
+- **Norma local específica:** Algunos códigos locales exigen más de lo que NFPA 72 establece
+
+---
+
+## Mantenimiento: El 70% de los sistemas fallan por falta de pruebas
+
+Este dato no es exageración. En inspecciones de BOMBERO.MX a edificios mexicanos, hemos encontrado:
+
+- 40% de detectores con polvo acumulado (bloqueadas las cámaras ópticas)
+- 30% de sistemas sin batería de respaldo o batería agotada
+- 20% de sistemas donde central de alarma no está alimentada
+
+**Resultado:** Sistema que PARECE funcionar pero no lo hace en emergencia.
+
+### Programa de mantenimiento obligatorio (NFPA 72)
+
+**Mensual:**
+- Inspección visual: ¿está limpio? ¿hay polvo?
+- Prueba rápida: presionar botón de prueba, escuchar alarma
+
+**Anual:**
+- Prueba completa de funcionamiento (simular humo con generador)
+- Verificación de batería de respaldo
+- Revisión de cableado y conexiones
+- Documentación en bitácora
+
+**Cada 3-5 años:**
+- Limpieza profesional de detectores ópticos
+- Cambio de batería (incluso si funciona)
+
+**Costo anual:** Típicamente $1,500-$5,000 MXN por sistema pequeño, dependiendo de tamaño.
+
+**Lo que gasta si NO lo haces:** Vidas humanas + responsabilidad legal + sanciones STPS.
+
+---
+
+## FAQ: Preguntas técnicas
+
+**P: ¿El detector iónico con radiactividad es peligroso?**
+
+R: No. La cantidad de Americio-241 en un detector es ínfima (aproximadamente 1 microcurie = 0.00003 mg). No representa riesgo radiológico. Más peligro tiene tocar directamente una pantalla descompuesta. Por supuesto, no destruyas detectores con martillo — acumula normalmente en basura normal.
+
+**P: ¿Un detector de incendio me despierta si hay fuego?**
+
+R: Depende. Los detectores modernos deben cumplir NFPA 72, que especifica mínimo 85 decibeles a 3 metros. La mayoría de dormitorios tienen 120-140 dB, lo cual despierta la mayoría de personas. PERO personas en sleep profundo o alcohólicas pueden no despertar. Por eso se recomiendan detectores con "alerta de voz" (hablan el tipo de fuego) en viviendas.
+
+**P: ¿Puedo instalar detectores yo mismo?**
+
+R: En vivienda propia, sí. En edificios comerciales, escuelas u hospitales, debe ser instalado por especialista certificado según código local. Además, si el sistema está vinculado a central de monitoreo (llamada a bomberos automática), debe estar certificado.
+
+**P: ¿Cuál es la diferencia entre detector y alarma?**
+
+R: **Detector** = sensor que detecta humo/calor. **Alarma** = sonido + luz que avisa. **Sistema de alarma** = detectores + central + sirena + posiblemente monitoreo remoto. En lenguaje cotidiano se usan intercambiablemente, pero técnicamente son componentes diferentes.
+
+---
+
+## CTA: Diseño e instalación de sistemas de detección
+
+¿Tu empresa necesita sistema de detección de incendio?
+
+Ayudamos con:
+- **Auditoría de riesgos:** Identificamos ocupación, tipos de fuego potenciales
+- **Diseño:** Tipo y número de detectores según NFPA 72
+- **Instalación y certificación:** Cumplimiento normativo
+- **Mantenimiento:** Programa anual documentado
+
+**[Solicita evaluación técnica →](https://wa.me/52xxxxxxxxx?text=Dise%C3%B1o%20sistema%20detección%20incendio)**
+
+Descubre más:
+- [Equipos contra incendio →](/equipos-bomberos/)
+- [Sistemas sprinkler →](/sistemas-contra-incendio/)
+- [Normativas NFPA →](/normas-nfpa/)
+    `,
+  },
+
+  "equipo-rescate-tecnico-componentes-normas": {
+    titulo: "Equipo de Rescate Técnico: Componentes Esenciales y Normas NFPA 1006",
+    excerpt: "Equipo esencial para rescate técnico según NFPA 1006: cuerdas, arneses, polipastos, herramientas de excarcelación y certificaciones requeridas.",
+    imagen: "/images/equipo-bomberos/equipo-rescate-tecnico-nfpa-1006.avif",
+    categoria: "Rescate",
+    tags: ["Rescate Técnico", "NFPA 1006", "Equipo Rescate", "Arneses", "Cuerdas Rescate", "USAR"],
+    autor: "Equipo BOMBERO.MX",
+    autorRol: "Especialistas en Rescate",
+    anchorKeyword: "Equipo rescate técnico NFPA 1006 componentes esenciales",
+    contenido: `
+## ¿Qué es el rescate técnico y qué lo diferencia del combate de incendios?
+
+**Combate de incendios** = apagar el fuego, evacuar residentes, proteger la estructura.
+
+**Rescate técnico** = extraer personas o mascotas de situaciones donde han quedado atrapadas, sin usar ascensores ni salidas normales.
+
+Ejemplos de rescate técnico:
+- Persona atrapada en pozo, mina o grieta
+- Accidente vehicular con víctima encajonada
+- Caída desde altura (persona colgando, suspendida)
+- Derrumbe parcial (construcción, edificio)
+- Ahogamiento en agua profunda o corriente fuerte
+- Atrapamiento en equipos (máquinas, sistemas de tuberías)
+
+**Diferencia fundamental:** Bomberos de combate luchan CONTRA un ambiente hostil (calor, humo). Rescatistas técnicos luchan FOR PRECISIÓN y control — no hay segundas oportunidades. Si instalas mal un equipo de cuerdas, la víctima cae. Si calculas mal un polipasto, alguien muere.
+
+Por eso **NFPA 1006** es extremadamente específica y exigente.
+
+---
+
+## NFPA 1006: El estándar para rescatadores técnicos
+
+**NFPA 1006** (Standard for Technical Rescue Personnel Competencies) define **6 niveles de competencia** en rescate técnico, desde Awareness (conciencia básica) hasta Technician (experto operacional).
+
+### Niveles NFPA 1006
+
+| Nivel | Competencia | Responsabilidad | Entrenamiento |
+|-------|-------------|-----------------|----------------|
+| **Awareness** | Reconocimiento de situación | Reportar, asistir bajo supervisión | Básico (8h) |
+| **Operations** | Operación de equipo bajo supervisión técnica | Montar sistemas simples, anclar | Intermedio (40h) |
+| **Technician** | Operación independiente, toma de decisiones | Diseñar y ejecutar rescate complejo, enseñar | Avanzado (80h+) |
+
+**En México:** La mayoría de bomberos profesionales alcanza nivel **Operations**. Alcanzar **Technician** requiere años de práctica y entrenamiento certificado.
+
+---
+
+## Los 6 componentes esenciales de un kit de rescate técnico
+
+### 1. Sistema de Cuerdas
+
+**Componentes:**
+- Cuerda estática (low-stretch): para porteo directo de carga
+- Cuerda dinámica: para absorber impacto (aunque en rescate se evita impacto)
+- Diámetro mínimo: 11mm para cuerdas de rescate
+- Largo: mínimo 50-100m dependiendo del tipo de rescate
+
+**Especificación NFPA 1006:**
+- Cuerda certificada UIAA o CE (estándares europeos de escalada/alpinismo)
+- Factor de seguridad mínimo: 10:1 (si carga es 100 kg, cuerda resiste 1,000 kg)
+- Inspección visual antes de cada uso
+- Retiro de servicio después de caída con carga, contacto con químicos, o 10 años
+
+**Costo:** $2,000-$5,000 MXN por cuerda de rescate certificada
+
+### 2. Arnés de Rescate
+
+**Componentes:**
+- Cintura: distribuye carga en caderas
+- Bandoleras: distribuyen peso en hombros
+- Anillas de conexión: para sujetar a sistemas
+- Protección inguinal: evita heridas en zona sensitiva
+
+**Especificación NFPA 1006:**
+- Certificado EN 361 (norma europea de arneses)
+- Capacidad: mínimo 2 personas (rescatista + víctima)
+- Ángulo de suspensión: máximo 30° para evitar síndrome de suspensión traumática
+- Revisión anual por fabricante
+
+**Síndrome de suspensión traumática:** Cuando una persona cuelga en arnés más de 10-15 minutos, la presión en muslos y abdomen puede causar shock. Por eso los equipos de rescate NUNCA dejan a alguien colgado — bajan rápidamente.
+
+**Costo:** $1,500-$3,000 MXN
+
+### 3. Polipastos Mecánicos
+
+**Función:** Multiplicar fuerza para levantar carga sin motor. Básicamente: si necesitas 100 kg de fuerza de levante, polipasto 2:1 requiere 50 kg de tracción.
+
+**Tipos NFPA:**
+- **Sistema de 2:1** — ratio de fuerza 2:1, desplazamiento 2:1 (si bajas cuerda 2m, subes carga 1m)
+- **Sistema de 3:1** — ratio 3:1, desplazamiento 3:1
+- **Sistema de 4:1 y superiores** — para cargas muy pesadas o espacios confinados
+
+**Componentes básicos:**
+- Poleas (rodillos de aluminio o acero)
+- Carabineros (conexiones)
+- Bloques de anclaje
+
+**Especificación NFPA 1006:**
+- Todas las poleas certificadas mínimo 25 kN (2,550 kg)
+- Factor de seguridad del sistema completo: 5:1
+- Cálculo hidrostático previo a uso
+
+**Ejemplo real:** Rescate de persona de 80 kg en pozo. Con polipasto 4:1, rescatista solo necesita hacer tracción de 20 kg, lo cual es manejable. Sin polipasto, 80 kg directo es peligroso si rescatista está fatigado.
+
+**Costo:** $3,000-$8,000 MXN por kit completo
+
+### 4. Equipo de Anclaje
+
+**Función:** Fijar el sistema a un punto seguro que resista toda la carga.
+
+**Tipos de anclaje:**
+- **Natural:** Árbol, roca, pilar de construcción (debe verificarse estabilidad)
+- **Artificial:** Anclajes de expansión, deformación, equipos portátiles
+
+**Especificación NFPA:**
+- Mínimo 2 anclajes independientes (redundancia)
+- Cada anclaje debe resistir mínimo carga completa del sistema
+- Ángulo máximo entre anclajes: 120°
+- Distancia mínima entre anclajes: 1 metro (para evitar movimiento conjunto)
+
+**Error que vemos:** Equipos que anclan a un solo punto "porque es más fácil". Incorrecto — si ese punto falla, todo cae. NFPA exige redundancia.
+
+**Costo:** $500-$2,000 MXN
+
+### 5. Herramientas de Excarcelación Vehicular (Jaws of Life)
+
+**Función:** Cortar metal para extraer personas atrapadas en vehículos aplastados.
+
+**Tipos:**
+- **Cortadora:** Abre puertas, quita columnas
+- **Separadora (spreader):** Abre espacios entre metal
+- **Cilindro de potencia:** Alimenta las herramientas (manualmente o motor)
+
+**Especificación NFPA 1006:**
+- Fuerza de corte mínima: 10,000 libras
+- Capacidad: cortar acero de hasta 1/2" (12 mm)
+- Mantenimiento: lubricación regular, verificación de presión hidráulica
+
+**Alternativas modernas:**
+- Cortadores de batería (sin cable, más maniobrable)
+- Discos de corte abrasivo + amoladora (más controlable)
+
+**Dato:** Un rescate vehicular típico toma 15-20 minutos de corte. Las herramientas deben ser robustas.
+
+**Costo:** $20,000-$100,000 MXN (Jaws of Life profesional)
+
+### 6. Equipos de Protección Personal para Rescatistas
+
+**Obligatorio para rescate técnico:**
+- Casco con visera (protege de caídas de objeto)
+- Guantes de rescate (grip, resistencia a corte)
+- Botas de seguridad con puntera de acero y suela antideslizante
+- Arnés integral (no solo cintura)
+- Protección ante riesgos específicos (traje seco para agua, pulmón para espacios confinados)
+
+**Costo:** $2,000-$5,000 MXN por equipamiento básico
+
+---
+
+## Cuerdas y sistemas de cuerdas: Categorías y certificaciones
+
+### Cuerdas Estáticas vs Dinámicas
+
+| Característica | Estática | Dinámica |
+|--|--|--|
+| **Extensión bajo carga** | < 3% | > 6% |
+| **Absorción de impacto** | Baja | Alta |
+| **Uso en rescate** | Porteo (no caída) | Escalada / caída controlada |
+| **Diámetro mínimo** | 11 mm | 10 mm |
+| **Certificación** | UIAA-101, CE | UIAA-201, CE |
+
+En rescate técnico, usamos **principalmente cuerdas estáticas** porque diseñamos sistemas para NO caer. Si hay caída, algo salió mal en el plan.
+
+### Inspección de Cuerdas
+
+Antes de cada uso:
+- [ ] ¿Hay abrasiones, cortes, quemaduras?
+- [ ] ¿Hay manchas de químico, sangre, fluidos?
+- [ ] ¿El nudo está bien hecho?
+- [ ] ¿La cuerda ha sido usada en una caída? (retir inmediatamente)
+
+**Vida útil:** Si es inspeccionada y guardada correctamente, 10-15 años. En uso continuo (escuadrones activos), típicamente 3-5 años.
+
+---
+
+## Herramientas de excarcelación vehicular: Jaws of Life y alternativas
+
+### Jaws of Life (Sistema Hidráulico)
+
+**Ventajas:**
+- Fuerza immensa (10,000+ lbs)
+- Confiable, décadas de uso probado
+
+**Desventajas:**
+- Pesado (40-50 kg completo)
+- Requiere mantenimiento hidráulico
+- Ruido de motor puede ser molesto durante operación
+
+### Alternativas Modernas
+
+**Cortadores de Batería:**
+- Peso menor (10-15 kg)
+- Silencioso
+- Menos mantenimiento
+- Igual efectividad en corte
+
+**Ejemplo real:** Cuerpos de bomberos mexicanos progresivamente reemplazan Jaws de gasolina por cortadores de batería de marcas como Holmatro, Lukas. Menor peso, más portabilidad.
+
+---
+
+## Errores al armar un kit de rescate (Presupuesto mal invertido)
+
+### Error 1: "Compremos equipos baratos"
+
+Vimos un municipio que compró arneses de "escalada deportiva" ($200 c/u) para rescate. Arneses deportivos no tienen factor de seguridad 5:1 que exige NFPA. En un rescate real, las correas cedieron. Fortuitamente la persona estaba a baja altura.
+
+**Costo:** Arneses deportivos $200 × 5 = $1,000. Arneses NFPA $2,500 × 5 = $12,500. Pero la diferencia es **vida vs muerte**.
+
+### Error 2: "Solo necesitamos un polipasto"
+
+Equipos con un solo polipasto 4:1. Problema: si el polipasto falla mecánicamente, no hay alternativa. NFPA exige mínimo 2 sistemas independientes.
+
+### Error 3: "Los rescatistas veteranos no necesitan recertificación"
+
+Un capitán con 20 años de rescate dijo "no necesito entrenamiento". NFPA 1006 exige recertificación cada 2-3 años para mantener competencia. Las técnicas evolucionen, nuevos equipos emergen. Rescatistas desactualizados = riesgo.
+
+### Error 4: "Almacenaremos todo en una caja en el garaje"
+
+Equipo de rescate requiere almacenamiento específico:
+- Seco (humedad degrada cuerdas y arneses)
+- Oscuro (luz UV degrada nylon)
+- Temperatura controlada (no extremos)
+- Acceso rápido (en emergencia no hay tiempo)
+
+Vimos cuerdas de rescate guardadas en garaje mojado — después de 2 años moho internamente. Peligrosas pero visualmente bien.
+
+---
+
+## Tabla: Componente × Norma aplicable × Capacidad mínima
+
+<table>
+  <thead>
+    <tr>
+      <th>Componente</th>
+      <th>Norma Aplicable</th>
+      <th>Capacidad/Especificación Mínima</th>
+      <th>Inspección</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cuerda estática 11mm</td>
+      <td>UIAA-101, CE</td>
+      <td>Factor 10:1, < 3% extensión</td>
+      <td>Visual antes de cada uso, retiro si caída</td>
+    </tr>
+    <tr>
+      <td>Arnés integral</td>
+      <td>EN 361</td>
+      <td>2,250 kg mínimo, ángulo suspensión < 30°</td>
+      <td>Anual por fabricante, retire si dañado</td>
+    </tr>
+    <tr>
+      <td>Polea de rescate</td>
+      <td>UIAA/CE</td>
+      <td>25 kN (2,550 kg) mínimo</td>
+      <td>Visual, verificar rodamiento libre</td>
+    </tr>
+    <tr>
+      <td>Anclaje</td>
+      <td>NFPA 1006</td>
+      <td>Mínimo 2 independientes, 27 kN c/u</td>
+      <td>Verificación de estabilidad antes de uso</td>
+    </tr>
+    <tr>
+      <td>Jaws of Life</td>
+      <td>NFPA 1001</td>
+      <td>10,000 lbs fuerza de corte</td>
+      <td>Mantenimiento mensual, presión hidráulica</td>
+    </tr>
+    <tr>
+      <td>Casco de rescate</td>
+      <td>EN 397 + certificación adicional</td>
+      <td>Impacto 5 kJ, penetración 4 N</td>
+      <td>Anual, retire si impactado</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## FAQ: Preguntas de coordinadores de rescate
+
+**P: ¿Cuánto tiempo toma entrenar a un rescatista técnico?**
+
+R: Nivel **Operations** (operación básica): 40-60 horas de entrenamiento intenso, típicamente 1 mes si es dedicado. Nivel **Technician** (operación experta): mínimo 80-100 horas sobre 6-12 meses, más experiencia práctica.
+
+**P: ¿Un bombero de estructura automáticamente puede hacer rescate técnico?**
+
+R: No. Son disciplinas diferentes. Un bombero estructura excelente pero sin entrenamiento de rescate puede dañar a la víctima o a sí mismo. NFPA exige entrenamiento específico. Muchos bomberos mexicanos tienen "un poco de todo" por cobertura, pero rescate técnico profesional requiere especialización.
+
+**P: ¿Si alguien se lesiona durante rescate, quién es responsable?**
+
+R: Depende. Si el rescatista fue entrenado según NFPA 1006 y siguió procedimientos, responsabilidad es limitada. Si no fue capacitado o saltó protocolos, patrón/institución es responsable. Documentación de entrenamiento es crítica.
+
+**P: ¿Un rescate técnico puede tomar horas?**
+
+R: Sí, frecuentemente. Casos de derrumbes, atrapamientos profundos o complejos pueden tomar 8-12 horas. El equipo debe ser robusto, rescatistas deben trabajar en turnos, y debe haber sistema de apoyo continuo (agua, alimento, relevos).
+
+---
+
+## CTA: Auditoría y equipamiento de rescate técnico
+
+¿Tu corporación necesita armar o actualizar un equipo de rescate técnico?
+
+Realizamos:
+- **Auditoría de equipo existente** — identificamos déficits, antiguedad, necesidad de reemplazo
+- **Capacitación NFPA 1006** — Awareness, Operations, Technician
+- **Suministro de equipo certificado** — todo con documentación de pruebas de laboratorio
+- **Programa de mantenimiento** — inspección regular, recertificación
+
+**[Solicita evaluación de tu equipo →](https://wa.me/52xxxxxxxxx?text=Auditor%C3%ADa%20equipo%20rescate%20t%C3%A9cnico%20NFPA%201006)**
+
+Explora más:
+- [Equipo de bomberos →](/equipo-bomberos/)
+- [Trajes y protección →](/trajes-para-bombero/)
+- [Normativas NFPA →](/normas-nfpa/)
+    `,
+  },
+
 
 };
 
