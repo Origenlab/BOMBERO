@@ -1,0 +1,347 @@
+---
+
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/equipo-contra-incendios/boquillas-pitones-bombero-01.avif";
+
+
+const capas = [
+  {
+    num: "01",
+    titulo: "Boquillas de Ataque Combinado (Chorro/Niebla)",
+    descripcion:
+      "La boquilla combinada es el equipo estándar para combate estructural. Permite al operador seleccionar en tiempo real entre chorro sólido de penetración y niebla de protección. El cuerpo en aluminio forjado 6061-T6 resiste el calor, los golpes y la corrosión por sal. Caudal ajustable de 95 a 350 GPM sin interrumpir la descarga.",
+    specs: [
+      { label: "Norma", valor: "NFPA 1964 (edición vigente)" },
+      { label: "Rango de flujo", valor: "95 – 350 GPM ajustable" },
+      { label: "Patrones", valor: "Chorro sólido / Niebla amplia / Neblina defensiva" },
+      { label: "Material", valor: "Aluminio forjado 6061-T6" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Pitón de Chorro Sólido (Smooth Bore)",
+    descripcion:
+      "El pitón de chorro sólido ofrece máximo alcance y poder de penetración para incendios estructurales de gran magnitud. Produce un chorro compacto que proyecta el agua hasta 30+ metros, ideal para volumen masivo de agua en incendios industriales, bodegas de alto rack y plantas petroquímicas. Compatible con boquillas de expansión de espuma clase A.",
+    specs: [
+      { label: "Norma", valor: "NFPA 1964 / NFPA 13E" },
+      { label: "Diámetros de punta", valor: "1\" / 1⅛\" / 1¼\" / 1⅜\" / 1½\"" },
+      { label: "Caudal típico (1⅛\")", valor: "250 GPM a 100 PSI" },
+      { label: "Alcance del chorro", valor: "+30 m (a 100 PSI NP)" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Boquillas de Espuma Clase A y AFFF",
+    descripcion:
+      "Las boquillas de espuma de Clase A y AFFF integran el dispositivo de aspiración de concentrado (eductor) en la misma pieza, produciendo espuma de expansión media o alta en el punto de aplicación. Imprescindibles en incendios de maderas y vegetación (espuma Clase A al 0.5–1 %) y en derrames de hidrocarburos (AFFF al 3 % o 6 %).",
+    specs: [
+      { label: "Norma", valor: "NFPA 11 / NFPA 1150" },
+      { label: "Concentración espuma A", valor: "0.1 % – 1 % ajustable" },
+      { label: "Concentración AFFF", valor: "3 % y 6 %  (NOM-113-STPS)" },
+      { label: "Expansión", valor: "Media (10:1) y Alta (>200:1)" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Boquilla Combinada", label: "Norma",                 valor: "NFPA 1964 (edición vigente)" },
+  { categoria: "Boquilla Combinada", label: "Caudal mínimo",         valor: "95 GPM (ataque inicial)" },
+  { categoria: "Boquilla Combinada", label: "Caudal máximo",         valor: "350 GPM" },
+  { categoria: "Boquilla Combinada", label: "Presión nominal (NP)",  valor: "100 PSI (6.9 bar)" },
+  { categoria: "Boquilla Combinada", label: "Material",              valor: "Aluminio forjado 6061-T6" },
+  { categoria: "Boquilla Combinada", label: "Conexión",              valor: "1½\" NH / 2½\" NH (NST)" },
+  { categoria: "Pitón Chorro Sólido", label: "Norma",                valor: "NFPA 1964 / NFPA 13E" },
+  { categoria: "Pitón Chorro Sólido", label: "Punta intercambiable", valor: "1\" – 1½\" en acero inox" },
+  { categoria: "Pitón Chorro Sólido", label: "Caudal 1⅛\" @ 100 PSI", valor: "250 GPM" },
+  { categoria: "Pitón Chorro Sólido", label: "Alcance efectivo",     valor: "30+ m en chorro sólido" },
+  { categoria: "Espuma Clase A/AFFF", label: "Norma",                valor: "NFPA 11 / NFPA 1150" },
+  { categoria: "Espuma Clase A/AFFF", label: "Concentración A",      valor: "0.1 % – 1 %" },
+  { categoria: "Espuma Clase A/AFFF", label: "Concentración AFFF",   valor: "3 % / 6 %" },
+  { categoria: "Espuma Clase A/AFFF", label: "Expansión",            valor: "Media (10:1) / Alta (>200:1)" },
+  { categoria: "Certificación",       label: "UL Listed",            valor: "UL 374 / UL 162 (espuma)" },
+  { categoria: "Certificación",       label: "Norma México",         valor: "NOM-113-STPS / NOM-002-STPS" },
+];
+
+const catClass: Record<string, string> = {
+  "Boquilla Combinada":   "combinada",
+  "Pitón Chorro Sólido":  "piton",
+  "Espuma Clase A/AFFF":  "espuma",
+  "Certificación":        "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Incendio Estructural Urbano",
+    desc: "La boquilla combinada de 1¾\" a 200 GPM es la herramienta estándar para la línea de ataque en edificaciones. El operador alterna entre niebla de protección en pasillos y chorro de penetración para aplicación directa al asiento del fuego, conforme a las tácticas de NFPA 1710.",
+  },
+  {
+    titulo: "Incendio Industrial y Petroquímico",
+    desc: "Los pitones de chorro sólido de 2½\" y 1⅜\" de punta a 250–325 GPM proporcionan el volumen de agua necesario para enfriar tanques, válvulas y estructuras en plantas de proceso. Se combinan con boquillas AFFF al 3 % para derrames de hidrocarburo conforme a API 2030.",
+  },
+  {
+    titulo: "Combate Forestal y Interfaz Urbano-Forestal",
+    desc: "Las boquillas de espuma Clase A al 0.5 % multiplican la eficacia del agua hasta 5× en combustibles sólidos. Se utilizan con camiones cisternas o mochilas de bomba sobre líneas de 1\" y 1½\" en operaciones de interfaz según NFPA 1150 y la NOM-015-SEMARNAT.",
+  },
+  {
+    titulo: "Nebulización en Espacios Confinados y HAZMAT",
+    desc: "Las boquillas de neblina de ángulo fijo (60°–180°) producen una cortina de vapor que absorbe gases y vapores inflamables en espacios confinados. Aplicación en tanques de almacenamiento, alcantarillado y operaciones de descontaminación HAZMAT Nivel B.",
+  },
+  {
+    titulo: "Entrenamiento y Cuerpos de Bomberos Municipales",
+    desc: "Los cuerpos de bomberos municipales y empresariales en México requieren boquillas certificadas NFPA 1964 para sus líneas de entrenamiento y operativas. BOMBERO.MX provee boquillas de repuesto, adaptadores NST/Stortz y cursos de mantenimiento para el personal técnico.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Qué norma certifica las boquillas para bomberos en México?",
+    a: "La norma internacional de referencia es la <strong>NFPA 1964</strong> — <em>Standard for Spray Nozzles</em>. Certifica el desempeño hidráulico, la resistencia mecánica y la calidad de fabricación de boquillas y pitones. En México, la <strong>NOM-002-STPS-2010</strong> exige que todo el equipo utilizado en sistemas contra incendios cuente con certificaciones reconocidas; la NFPA 1964 es la más aceptada por protección civil y aseguradoras.",
+  },
+  {
+    q: "¿Cuál es la diferencia entre una boquilla combinada y un pitón de chorro sólido?",
+    a: "La <strong>boquilla combinada</strong> (fog nozzle) permite al operador cambiar en tiempo real entre patrones: chorro sólido, niebla estrecha o neblina amplia. Es la opción más versátil para incendio estructural urbano. El <strong>pitón de chorro sólido</strong> (smooth bore) entrega toda la energía hidráulica en un chorro compacto de largo alcance y alta penetración; no puede hacer niebla pero es superior para altos volúmenes de agua en industria e incendios masivos. La elección depende del tipo de incendio y las tácticas del cuerpo.",
+  },
+  {
+    q: "¿A qué presión operan las boquillas NFPA 1964?",
+    a: "La presión nominal (NP) estándar para boquillas combinadas automáticas es <strong>100 PSI (6.9 bar)</strong>. Las boquillas de presión reducida operan a <strong>75 PSI</strong> para reducir la fatiga del operador en líneas de 1¾\". Los pitones de chorro sólido pueden trabajar desde 50 hasta 100 PSI dependiendo del diámetro de punta. Es fundamental no superar la presión máxima indicada en la boquilla para evitar dispersión del chorro.",
+  },
+  {
+    q: "¿Qué boquilla se usa para espuma AFFF en derrames de combustible?",
+    a: "Para espuma <strong>AFFF (Aqueous Film Forming Foam)</strong> se utilizan boquillas con <strong>eductor integrado</strong> o en línea que inductan el concentrado al 3 % o 6 % de la corriente de agua. Deben cumplir <strong>NFPA 11</strong> y, en México, la <strong>NOM-113-STPS-2009</strong>. Para espuma Clase A en incendios forestales, las boquillas aspiran el concentrado al 0.1–1 % y producen espuma húmeda o seca según el tipo de combustible.",
+  },
+  {
+    q: "¿Las boquillas de BOMBERO.MX son compatibles con todas las mangueras?",
+    a: "Sí, todas las boquillas que distribuimos en <strong>BOMBERO.MX</strong> tienen roscado <strong>NST (National Standard Thread)</strong> — el estándar universal en México y Estados Unidos — en tamaños 1½\" y 2½\". Son compatibles con cualquier manguera de presión certificada NFPA 1961 con acoplamiento STORTZ, ROCKER LUG o campana hembra NST. Si necesitas adaptadores para conexiones métricas o estándares europeos, también los tenemos.",
+  },
+  {
+    q: "¿Con qué frecuencia se deben inspeccionar las boquillas?",
+    a: "La <strong>NFPA 1962</strong> (<em>Standard for the Care, Use, Inspection, Service Testing, and Replacement of Fire Hose, Couplings, Nozzles, and Fire Hose Appliances</em>) establece: inspección visual después de cada uso, prueba de flujo anual a la presión nominal, y reemplazo cuando se detecten deformaciones, fugas en el cierre o mecanismo de giro deteriorado. En México, el mantenimiento preventivo debe documentarse conforme a la <strong>NOM-002-STPS-2010</strong>.",
+  },
+  {
+    q: "¿Qué ventaja ofrece la boquilla automática frente a la de caudal fijo?",
+    a: "La <strong>boquilla automática</strong> (también llamada de presión constante o constant-pressure nozzle) mantiene el patrón de descarga óptimo aunque la presión en la línea varíe entre 75 y 200 PSI. Esto es crítico en sistemas donde la presión fluctúa (cisterna casi vacía, múltiples líneas operando simultáneamente). La boquilla de <strong>caudal fijo</strong> es más simple y robusta, ideal cuando la presión se controla bien desde la bomba.",
+  },
+  {
+    q: "¿BOMBERO.MX ofrece piezas de repuesto y mantenimiento de boquillas?",
+    a: "Sí. <strong>BOMBERO.MX</strong> distribuye kits de mantenimiento con empaques, asientos de cierre, anillos de giro y puntas intercambiables para las marcas principales. También ofrecemos asesoría técnica para el personal de tu cuerpo de bomberos o brigada industrial sobre el mantenimiento preventivo conforme a <strong>NFPA 1962</strong>. Contáctanos para solicitar el catálogo de refacciones y partes.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Mangueras de Presión NFPA 1961",
+    badge: "NFPA 1961",
+    description: "Mangueras certificadas para sistemas estructurales y forestales compatibles con todas las boquillas NST que distribuimos.",
+    href: "/productos/equipo-contra-incendios/mangueras-presion-nfpa-1961/",
+    buttonText: "Ver Mangueras",
+    image: "/images/equipo-contra-incendios/mangueras-bombero-presion-01.avif",
+  },
+  {
+    title: "Hidrantes y Gabinetes NFPA 14",
+    badge: "NFPA 14",
+    description: "Gabinetes GMC clase I, II y III, hidrantes de columna seca y conexiones siamesas para el sistema fijo del edificio.",
+    href: "/productos/equipo-contra-incendios/hidrantes-gabinetes/",
+    buttonText: "Ver Hidrantes",
+    image: "/images/equipo-contra-incendios/hidrante-gabinete-contra-incendios-01.avif",
+  },
+  {
+    title: "Extintores Certificados NOM-100",
+    badge: "NOM-100-STPS",
+    description: "Primera línea de ataque: extintores PQS, CO2, Clase K y AFFF para complementar la acción de boquillas y mangueras.",
+    href: "/productos/extintores/",
+    buttonText: "Ver Extintores",
+    image: "/images/extintores/extintor-polvo-quimico-co2-abc-bomberos-01.avif",
+  },
+  {
+    title: "SCBA Autónomos NFPA 1981",
+    badge: "NFPA 1981",
+    description: "Protección respiratoria para el operador de manguera en atmósferas con IDLH de humo, gases y vapores tóxicos.",
+    href: "/productos/scba/",
+    buttonText: "Ver SCBA",
+    image: "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+  },
+];
+
+const otrosModelos = [
+  { label: "Hidrantes y Gabinetes NFPA 14",        href: "/productos/equipo-contra-incendios/hidrantes-gabinetes/" },
+  { label: "Mangueras de Presión NFPA 1961",       href: "/productos/equipo-contra-incendios/mangueras-presion-nfpa-1961/" },
+  { label: "Herramientas de Fuerza NFPA 1936",     href: "/productos/equipo-contra-incendios/herramientas-fuerza-nfpa-1936/" },
+  { label: "Escaleras de Rescate NFPA 1932",       href: "/productos/equipo-contra-incendios/escaleras-rescate-nfpa-1932/" },
+  { label: "SCBA Autónomos NFPA 1981",             href: "/productos/scba/" },
+  { label: "Todo el equipo contra incendios",      href: "/productos/equipo-contra-incendios/" },
+];
+
+const epp = [
+  { label: "Traje Estructural NFPA 1971",        href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", tag: "Cuerpo" },
+  { label: "Casco Estructural NFPA 1971",        href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/", tag: "Cabeza" },
+  { label: "Guantes Estructurales NFPA 1971",    href: "/productos/guantes-para-bomberos/estructurales/",              tag: "Manos" },
+  { label: "Botas Estructurales de Cuero",       href: "/productos/botas-para-bomberos/estructural/",                  tag: "Pies" },
+  { label: "SCBA Autónomo NFPA 1981",            href: "/productos/scba/",                                             tag: "Resp." },
+];
+
+const articulos = [
+  { label: "Equipo Contra Incendios Completo",   href: "/productos/equipo-contra-incendios/", tag: "Catálogo" },
+  { label: "Mangueras NFPA 1961",                href: "/productos/equipo-contra-incendios/mangueras-presion-nfpa-1961/", tag: "Producto" },
+  { label: "Extintores Certificados NOM",         href: "/productos/extintores/",              tag: "Producto" },
+  { label: "SCBA y Respiración Autónoma",         href: "/productos/scba/",                    tag: "Producto" },
+  { label: "EPP Completo para Bomberos",          href: "/productos/",                         tag: "Guía" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Ciudad de México",           href: "/directorio/ciudad-de-mexico/" },
+  { label: "Bomberos Estado de México",           href: "/directorio/estado-de-mexico/" },
+  { label: "Bomberos Jalisco — Guadalajara",      href: "/directorio/jalisco/" },
+  { label: "Bomberos Nuevo León — Monterrey",     href: "/directorio/nuevo-leon/" },
+  { label: "Directorio Nacional Bomberos",        href: "/directorio/" },
+];
+
+const specsRapidas = [
+  { label: "Norma",              valor: "NFPA 1964 (edición vigente)" },
+  { label: "Caudal mín.",        valor: "95 GPM (1¾\" combinada)" },
+  { label: "Caudal máx.",        valor: "350 GPM ajustable" },
+  { label: "Presión nominal",    valor: "100 PSI (6.9 bar)" },
+  { label: "Chorro sólido",      valor: "+30 m alcance efectivo" },
+  { label: "Conexión estándar",  valor: "NST 1½\" y 2½\"" },
+  { label: "Material",           valor: "Aluminio forjado 6061-T6" },
+  { label: "Aprobación",         valor: "UL 374 Listed" },
+];
+
+const certItems = [
+  { code: "NFPA 1964",      desc: "Standard for Spray Nozzles — el requisito de desempeño hidráulico" },
+  { code: "NFPA 1962",      desc: "Care, Use and Maintenance of Fire Hose, Couplings and Nozzles" },
+  { code: "UL 374",         desc: "Standard for Safety for Spray Nozzles — Underwriters Laboratories" },
+  { code: "NOM-002-STPS",   desc: "Condiciones de seguridad — Prevención y protección contra incendios" },
+  { code: "NOM-113-STPS",   desc: "Manejo de sustancias químicas inflamables y espumas extintoras" },
+];
+---
+
+<ProductoLayout
+  title="Boquillas y Pitones NFPA 1964 para Bomberos | México | BOMBERO.MX"
+  description="Boquillas combinadas y pitones de chorro sólido certificados NFPA 1964. Rango 95–350 GPM, aluminio forjado 6061-T6, conexión NST 1½\" y 2½\". Espuma Clase A y AFFF. Envío a los 32 estados de México."
+  keywords={[
+    "boquillas para bomberos NFPA 1964",
+    "pitón chorro sólido bombero",
+    "boquilla combinada niebla chorro",
+    "boquilla espuma AFFF México",
+    "boquilla espuma clase A forestal",
+    "nozzle bombero NST 1½",
+    "boquilla automática presión constante",
+    "equipo contra incendios México",
+    "boquilla certificada UL 374",
+    "boquilla manguera incendio 350 GPM",
+  ]}
+  canonical="/productos/equipo-contra-incendios/boquillas-pitones-nfpa-1964/"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos/" },
+    { label: "Equipo Contra Incendios",     href: "/productos/equipo-contra-incendios/" },
+    { label: "Boquillas y Pitones" },
+  ]}
+
+  heroBadge="Equipo Contra Incendios · NFPA 1964 · UL Listed"
+  heroTitle="Boquillas y Pitones"
+  heroTitleHighlight="para Combate de Incendios"
+  heroSubtitle="Boquillas combinadas, pitones de chorro sólido y boquillas de espuma certificados NFPA 1964. Aluminio forjado 6061-T6, conexión NST universal, caudal ajustable de 95 a 350 GPM. Envío a los 32 estados."
+  heroSeoBlocks={[
+    {
+      title: "Distribuidor de Boquillas y Pitones NFPA 1964 en México",
+      text: "En <strong>BOMBERO.MX</strong> distribuimos el arsenal completo de boquillas y pitones para cuerpos de bomberos, brigadas industriales y sistemas fijos contra incendios. Desde <strong>boquillas combinadas automáticas</strong> de presión constante hasta <strong>pitones de chorro sólido</strong> de alto volumen, todos los equipos están certificados bajo <strong>NFPA 1964</strong> y aprobados <strong>UL 374</strong>, con conexiones NST 1½\" y 2½\" compatibles con toda la infraestructura nacional.",
+    },
+    {
+      title: "Selección y Especificación Técnica Conforme a NFPA",
+      text: "La selección correcta de boquillas determina la efectividad y la seguridad de la operación de combate de incendios. En BOMBERO.MX asesoramos a los responsables de equipamiento en la especificación técnica: <strong>presión nominal (NP), caudal de diseño (GPM), patrón de descarga y compatibilidad con el sistema de bombeo</strong>. Entregamos la documentación UL/NFPA requerida para <strong>Protección Civil, aseguradoras y auditores de seguridad industrial</strong>.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Boquillas y Pitones NFPA 1964"
+
+  productoCategoria="Equipo Contra Incendios"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1964" },
+    { modifier: "tpp",   text: "UL 374" },
+    { modifier: "solas", text: "NST Universal" },
+  ]}
+  productoMasVendido={false}
+  productoTitle="Boquillas y Pitones"
+  productoTitleSub="Certificados NFPA 1964"
+  productoDesc="Boquillas combinadas chorro/niebla, pitones de chorro sólido y boquillas de espuma Clase A/AFFF. Aluminio forjado 6061-T6, caudal 95–350 GPM, presión nominal 100 PSI, conexión NST universal."
+  productoFeatures={[
+    "Boquillas combinadas automáticas 95–350 GPM",
+    "Pitones chorro sólido hasta +30 m de alcance",
+    "Boquillas de espuma Clase A (0.1–1 %) y AFFF (3–6 %)",
+    "Aluminio forjado 6061-T6 resistente a golpes y calor",
+    "Certificación NFPA 1964 y UL 374",
+    "Conexión NST 1½\" y 2½\" — compatible universal",
+  ]}
+  productoAppTags={[
+    "Incendio estructural urbano",
+    "Industria y petroquímica",
+    "Combate forestal y IUF",
+    "Espacios confinados y HAZMAT",
+    "Brigadas y entrenamiento",
+  ]}
+
+  gallery={[
+    { src: IMAGE,                                                                             alt: "Boquilla combinada chorro/niebla NFPA 1964 para bomberos" },
+    { src: "/images/equipo-contra-incendios/mangueras-bombero-presion-01.avif",               alt: "Manguera de presión NFPA 1961 con boquilla combinada" },
+    { src: "/images/equipo-contra-incendios/hidrante-gabinete-contra-incendios-01.avif",      alt: "Sistema gabinete GMC con manguera y boquilla instalado" },
+    { src: "/images/equipo-contra-incendios/herramientas-fuerza-rescate-01.avif",             alt: "Operación de combate de incendios con manguera y pitón" },
+    { src: "/images/equipo-contra-incendios/scba-equipo-autonomo-01.avif",                    alt: "Bombero con SCBA y manguera operativa" },
+    { src: "/images/equipo-contra-incendios/escaleras-rescate-bombero-01.avif",               alt: "Operación de rescate con escalera y línea de manguera" },
+  ]}
+
+  capasEyebrow="Tipos de Boquilla"
+  capasTitle="Arsenal Completo para Cada Tipo de Incendio"
+  capasDesc="No existe una boquilla universal para todos los escenarios. La selección correcta entre boquilla combinada, pitón de chorro sólido o boquilla de espuma define la efectividad táctica y la seguridad del operador."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones Técnicas"
+  specsDesc="Datos verificados conforme a NFPA 1964, UL 374 y NOM-002-STPS-2010. Toda la documentación está disponible para proyectos de Protección Civil, aseguradoras y auditorías de seguridad industrial."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Aplicaciones"
+  aplicacionesTitle="¿En Qué Escenarios se Usan?"
+  aplicacionesContent="<p>Las boquillas y pitones son el último eslabón entre el sistema de bombeo y el fuego. Su correcta selección y mantenimiento puede determinar si una operación resulta en control total del incendio o en un retroceso peligroso para el personal.</p><p>En <strong>BOMBERO.MX</strong> asesoramos a jefes de cuerpo, coordinadores de brigada y responsables de seguridad industrial en la selección de boquillas para cada escenario, acompañando la entrega con documentación NFPA 1964 y UL para trámites ante Protección Civil y aseguradoras.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="NFPA 1964 y UL 374"
+  certsDesc="Las boquillas que distribuimos en <strong>BOMBERO.MX</strong> cumplen simultáneamente la <strong>NFPA 1964</strong> para desempeño hidráulico y el estándar <strong>UL 374</strong> para seguridad de producto. Esta doble certificación es la que reconocen los seguros industriales y las auditorías de protección civil en México."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/equipo-contra-incendios/"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Preguntas Frecuentes — Boquillas y Pitones NFPA 1964"
+  faqDescription="Resolvemos las dudas más frecuentes sobre selección, operación y mantenimiento de boquillas y pitones para bomberos en México."
+  faqDocTitle="Solicita Fichas Técnicas y Certificados"
+  faqDocDesc="Entregamos la ficha técnica UL 374 y los certificados NFPA 1964 para tus trámites ante Protección Civil y aseguradoras."
+  faqDocCtaHref="/cotizar/"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="Equipo Complementario"
+  relacionadosTitle="Completa tu Sistema Contra Incendios"
+  relacionadosDesc="Las boquillas y pitones son parte de un sistema integrado. Complementa con mangueras, gabinetes, extintores y EPP certificado para tu brigada."
+  relacionados={relacionados}
+  whyChooseImages={[
+    "/images/equipo-contra-incendios/mangueras-bombero-presion-01.avif",
+    "/images/equipo-contra-incendios/boquillas-pitones-bombero-01.avif",
+    "/images/equipo-contra-incendios/herramientas-fuerza-rescate-01.avif",
+    "/images/equipo-contra-incendios/scba-equipo-autonomo-01.avif",
+    "/images/equipo-contra-incendios/escaleras-rescate-bombero-01.avif",
+    "/images/equipo-contra-incendios/accesorios-equipo-bombero-01.avif",
+  ]}
+/>
