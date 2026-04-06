@@ -7,7 +7,15 @@ interface FAQItem {
   answer: string;
 }
 
-const faqs: FAQItem[] = [
+interface Props {
+  items?: FAQItem[];
+  title?: string;
+  description?: string;
+}
+
+const { items, title, description } = Astro.props;
+
+const defaultFaqs: FAQItem[] = [
   {
     question: "¿Cómo puedo solicitar una cotización de equipo para bomberos?",
     answer: "Puedes solicitar tu cotización de tres formas: 1) Completando el formulario en nuestra página web con los productos que necesitas, 2) Enviándonos un WhatsApp al 55 2078 0102 con tu lista de equipo, o 3) Escribiendo a ventas@bombero.mx. Respondemos todas las cotizaciones en menos de 24 horas con precios, disponibilidad y tiempos de entrega.",
@@ -41,14 +49,16 @@ const faqs: FAQItem[] = [
     answer: "Sí, ofrecemos precios preferenciales para cuerpos de bomberos, protección civil y dependencias gubernamentales. También manejamos precios por volumen y preparamos cotizaciones formales con fichas técnicas para licitaciones.",
   },
 ];
+
+const faqs = items && items.length > 0 ? items : defaultFaqs;
 ---
 
 <section class="faq-section" id="preguntas-frecuentes">
   <div class="container">
     <SectionHeader
       label="Preguntas Frecuentes"
-      title="Resolvemos tus Dudas sobre Equipo para Bomberos"
-      description="Entendemos que la adquisición de equipo de protección implica decisiones técnicas importantes. Aquí encontrarás las consultas más frecuentes de nuestros clientes."
+      title={title ?? "Resolvemos tus Dudas sobre Equipo para Bomberos"}
+      description={description ?? "Entendemos que la adquisición de equipo de protección implica decisiones técnicas importantes. Aquí encontrarás las consultas más frecuentes de nuestros clientes."}
     >
       <p>
         En <strong>BOMBERO.MX</strong> sabemos que adquirir equipo de protección para bomberos implica
