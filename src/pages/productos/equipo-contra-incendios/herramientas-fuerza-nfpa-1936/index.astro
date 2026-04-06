@@ -1,0 +1,345 @@
+---
+
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/equipo-contra-incendios/herramientas-fuerza-rescate-01.avif";
+
+
+const capas = [
+  {
+    num: "01",
+    titulo: "Halligan y Herramientas de Entrada Forzada",
+    descripcion:
+      "El Halligan (o Halligan Bar) es la herramienta de entrada forzada por excelencia del bombero. Su geometría tripartita — punta de horquilla, hacha y pica — permite palanca, rotación y golpe en un solo equipo de 80–90 cm. Fabricado en acero forjado de alta resistencia (HRC 46–50 en punta), resiste fuerzas de más de 3,000 lb sin deformación permanente. Certificado NFPA 1936.",
+    specs: [
+      { label: "Norma", valor: "NFPA 1936 (edición vigente)" },
+      { label: "Material", valor: "Acero forjado HRC 46–50 en punta" },
+      { label: "Longitudes", valor: "30\" (762 mm) y 36\" (914 mm)" },
+      { label: "Peso", valor: "5.5 – 7.5 kg según modelo" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Pata de Cabra, Gancho y Hacha de Bombero",
+    descripcion:
+      "La pata de cabra (flathead axe), el gancho de techo (roof hook) y el hacha de bombero completan el arsenal de herramientas manuales para desescombro, apertura de techos y acceso lateral. El hacha de cabeza plana combinada con el Halligan forma el 'irons set' — el kit de entrada forzada estándar de todos los cuerpos de bomberos del mundo.",
+    specs: [
+      { label: "Norma", valor: "NFPA 1936" },
+      { label: "Hacha cabeza plana", valor: "Acero forjado ASTM A668 tratado térmicamente" },
+      { label: "Gancho de techo",    valor: "Aluminio 6061-T6 / Acero inox — hasta 6 m" },
+      { label: "Pata de cabra",      valor: "Acero al carbono forjado — palanca hasta 800 lb" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Herramientas Hidráulicas de Rescate (Quijadas de la Vida)",
+    descripcion:
+      "Los expansores hidráulicos ('quijadas de la vida'), cortadores y cilindros de rescate vehicular son herramientas de fuerza hidráulica certificadas NFPA 1936 y EN 13204. Fuerzas de expansión de 8,000 a 20,000 kg, fuerzas de corte de hasta 60,000 N. Compatibles con unidades de potencia de combustión, eléctrica y de batería.",
+    specs: [
+      { label: "Norma", valor: "NFPA 1936 / EN 13204" },
+      { label: "Fuerza de apertura", valor: "8,000 – 20,000 kg (expansor)" },
+      { label: "Fuerza de corte",    valor: "hasta 60,000 N (cortador)" },
+      { label: "Alimentación",       valor: "Hidráulica / Eléctrica / Batería Li-ion" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Halligan",            label: "Norma",              valor: "NFPA 1936 (edición vigente)" },
+  { categoria: "Halligan",            label: "Material",           valor: "Acero forjado HRC 46–50 en extremos" },
+  { categoria: "Halligan",            label: "Longitud estándar",  valor: "30\" (762 mm) y 36\" (914 mm)" },
+  { categoria: "Halligan",            label: "Peso",               valor: "5.5 – 7.5 kg" },
+  { categoria: "Hacha / Gancho",      label: "Norma",              valor: "NFPA 1936" },
+  { categoria: "Hacha / Gancho",      label: "Hacha cabeza plana", valor: "ASTM A668 forjado, tratamiento térmico" },
+  { categoria: "Hacha / Gancho",      label: "Gancho de techo",    valor: "6 m extensible aluminio 6061-T6" },
+  { categoria: "Hacha / Gancho",      label: "Palanca máxima",     valor: "800 lb (pata de cabra estándar)" },
+  { categoria: "Rescate Hidráulico",  label: "Norma",              valor: "NFPA 1936 / EN 13204" },
+  { categoria: "Rescate Hidráulico",  label: "Fuerza expansor",    valor: "8,000 – 20,000 kg" },
+  { categoria: "Rescate Hidráulico",  label: "Fuerza cortador",    valor: "hasta 60,000 N" },
+  { categoria: "Rescate Hidráulico",  label: "Alimentación",       valor: "Hidráulica / Eléctrica / Batería" },
+  { categoria: "Certificación",       label: "Norma México",       valor: "NOM-002-STPS-2010 / NOM-020-STPS" },
+  { categoria: "Certificación",       label: "Aprobación",         valor: "UL Listed / FM Approved (herr. hidráulicas)" },
+];
+
+const catClass: Record<string, string> = {
+  "Halligan":           "halligan",
+  "Hacha / Gancho":     "hacha",
+  "Rescate Hidráulico": "hidraulico",
+  "Certificación":      "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Entrada Forzada en Incendio Estructural",
+    desc: "El kit 'irons' (Halligan + hacha de cabeza plana) es la primera herramienta que entra con el equipo de ataque. Permite abrir puertas de madera, metálicas y de seguridad en 15–30 segundos, facilitando el tendido de la línea de manguera de ataque antes de que el incendio se expanda.",
+  },
+  {
+    titulo: "Extricación Vehicular y Rescate en Carretera",
+    desc: "Los expansores y cortadores hidráulicos son el equipo primario para la extricación de víctimas atrapadas en accidentes vehiculares. El expansor abre puertas o crea espacio alrededor del paciente; el cortador secciona columnas B/C/D y el techo del vehículo para acceso rápido. Protocolo conforme a NFPA 1006.",
+  },
+  {
+    titulo: "Desescombro en Derrumbes y Colapsos",
+    desc: "Los ganchos de techo y las palancas de acero permiten el levantamiento y desplazamiento controlado de escombros en búsqueda y rescate técnico (BRT). Los cilindros de rescate hidráulico elevan vigas y losas hasta 25 cm para crear espacio de trabajo seguro en operaciones de colapso estructural conforme a NFPA 1670.",
+  },
+  {
+    titulo: "Apertura de Techos y Ventilación Táctica",
+    desc: "El hacha y el gancho de techo son las herramientas para la apertura de techos (roof ventilation) — operación crítica para eliminar calor y gases antes del ataque interior. El hacha crea el corte inicial y el gancho expande la apertura para canalizar el calor hacia el exterior.",
+  },
+  {
+    titulo: "Brigadas Industriales y Protección Civil",
+    desc: "Las brigadas industriales de México certificadas bajo NOM-002-STPS y NOM-020-STPS requieren herramientas de fuerza para respuesta a incendios en proceso, derrames y colapso de estructuras industriales. BOMBERO.MX distribuye kits completos para brigadas de primera respuesta conforme a los estándares NFPA.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Qué norma certifica las herramientas de fuerza para bomberos en México?",
+    a: "La norma internacional de referencia es la <strong>NFPA 1936</strong> — <em>Standard on Powered Rescue Tools</em> (para herramientas hidráulicas) y la misma norma para herramientas manuales de fuerza. En México, la <strong>NOM-002-STPS-2010</strong> exige que las herramientas del equipo de respuesta contra incendios cumplan estándares reconocidos. Las herramientas hidráulicas de rescate vehicular también deben cumplir la <strong>EN 13204</strong> (norma europea) cuando se especifica para proyectos con aseguradoras europeas.",
+  },
+  {
+    q: "¿Qué es el 'irons set' y por qué es el kit estándar para bomberos?",
+    a: "El <strong>'irons set'</strong> es la combinación del <strong>Halligan Bar + hacha de cabeza plana (flathead axe)</strong>. Es el kit de entrada forzada estándar de los cuerpos de bomberos en todo el mundo porque cubre el 95 % de los escenarios de apertura de puertas y acceso a estructuras. El Halligan actúa como palanca y pica; el hacha golpea para penetrar y crea la superficie de contacto. Juntos permiten abrir la mayoría de los obstáculos en menos de 30 segundos.",
+  },
+  {
+    q: "¿Cuál es la diferencia entre las herramientas hidráulicas y las eléctricas de rescate?",
+    a: "Las <strong>herramientas hidráulicas</strong> (conexión a unidad de potencia con motor de combustión) ofrecen mayor fuerza continua pero requieren mangueras de alta presión y mayor coordinación en la escena. Las <strong>herramientas de batería</strong> (Li-ion 36V/48V) son autónomas, más ligeras y de despliegue más rápido — ideales para la primera unidad que llega. Para extricaciones largas o en condiciones extremas, el sistema hidráulico tradicional sigue siendo el más robusto. BOMBERO.MX distribuye ambas tecnologías.",
+  },
+  {
+    q: "¿Qué fuerza necesita un expansor hidráulico para abrir un vehículo moderno?",
+    a: "Los vehículos modernos con estructura de <strong>acero de ultra-alta resistencia (UHSS/AHSS)</strong> requieren expansores con <strong>fuerza de apertura mínima de 10,000 kg</strong> y cortadores con fuerza de corte superior a <strong>45,000 N</strong>. Los vehículos eléctricos e híbridos tienen estructuras aún más rígidas. Se recomienda equipo de <strong>generación 4</strong> (E-DRT o similar) con fuerzas de expansión de 16,000–20,000 kg para responder a la flota vehicular actual.",
+  },
+  {
+    q: "¿El Halligan se fabrica en diferentes tamaños y materiales?",
+    a: "El Halligan estándar mide <strong>30\" (762 mm)</strong> y pesa ~5.5 kg — el más común para operaciones interiores. El de 36\" (914 mm) ofrece mayor palanca y se usa para estructuras más pesadas. Algunos modelos van hasta <strong>42\"</strong> para trabajo en exterior. El material estándar es <strong>acero forjado sólido</strong>; existen versiones en acero inoxidable para ambientes marinos o corrosivos. Los de titanio son ultraligeros pero de mayor costo.",
+  },
+  {
+    q: "¿Con qué frecuencia se deben inspeccionar las herramientas hidráulicas?",
+    a: "La <strong>NFPA 1936</strong> establece: inspección visual mensual, prueba funcional trimestral y servicio completo (calibración de presión, revisión de mangueras, cambio de sellos) <strong>anual</strong> o cada 100 horas de operación. En México se recomienda documentar el mantenimiento conforme a la <strong>NOM-020-STPS</strong> (mantenimiento de maquinaria) y <strong>NOM-002-STPS-2010</strong> para el registro del equipo de emergencia.",
+  },
+  {
+    q: "¿BOMBERO.MX vende herramientas individuales o kits completos?",
+    a: "<strong>BOMBERO.MX</strong> distribuye herramientas individuales (Halligan, hacha, gancho, pata de cabra) y <strong>kits completos</strong> de entrada forzada y rescate vehicular con bolsa de transporte certificada. También ofrecemos kits de equipamiento para <strong>brigadas industriales</strong> conformes a NOM-002-STPS con las herramientas mínimas requeridas. Contáctanos para la especificación exacta de tu brigada o cuerpo de bomberos.",
+  },
+  {
+    q: "¿Puedo usar las herramientas hidráulicas en vehículos eléctricos e híbridos?",
+    a: "Sí, con los <strong>protocolos de seguridad correctos</strong>. Los vehículos eléctricos e híbridos tienen baterías de alta tensión (300–800 V) y sistemas de corte de tensión automático al detectar impacto. El operador debe verificar el corte de tensión antes de aplicar herramientas metálicas en zona de batería, usar <strong>guantes dieléctricos</strong> y seguir el protocolo NFPA 1006 para extricación en vehículos de energía alternativa (AEV). BOMBERO.MX incluye el protocolo de seguridad con cada equipo.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Mangueras de Presión NFPA 1961",
+    badge: "NFPA 1961",
+    description: "Líneas de ataque de 1¾\" y 2½\" que acompañan al equipo de entrada forzada en el ataque interior al incendio.",
+    href: "/productos/equipo-contra-incendios/mangueras-presion-nfpa-1961/",
+    buttonText: "Ver Mangueras",
+    image: "/images/equipo-contra-incendios/mangueras-bombero-presion-01.avif",
+  },
+  {
+    title: "SCBA Autónomos NFPA 1981",
+    badge: "NFPA 1981",
+    description: "Protección respiratoria indispensable para el operador de herramientas en atmósferas con IDLH de humo y gases.",
+    href: "/productos/scba/",
+    buttonText: "Ver SCBA",
+    image: "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+  },
+  {
+    title: "Traje Estructural NFPA 1971",
+    badge: "NFPA 1971",
+    description: "Protección estructural completa para el bombero que opera herramientas de entrada forzada en incendios.",
+    href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/",
+    buttonText: "Ver Traje",
+    image: "/images/trajes-para-bombero/traje-bombero-incendio-estructural-accion-01.avif",
+  },
+  {
+    title: "Escaleras de Rescate NFPA 1932",
+    badge: "NFPA 1932",
+    description: "Escaleras extensibles y de mano para acceso a pisos superiores y trabajos de apertura de techo.",
+    href: "/productos/equipo-contra-incendios/escaleras-rescate-nfpa-1932/",
+    buttonText: "Ver Escaleras",
+    image: "/images/equipo-contra-incendios/escaleras-rescate-bombero-01.avif",
+  },
+];
+
+const otrosModelos = [
+  { label: "Mangueras de Presión NFPA 1961",       href: "/productos/equipo-contra-incendios/mangueras-presion-nfpa-1961/" },
+  { label: "Boquillas y Pitones NFPA 1964",        href: "/productos/equipo-contra-incendios/boquillas-pitones-nfpa-1964/" },
+  { label: "Escaleras de Rescate NFPA 1932",       href: "/productos/equipo-contra-incendios/escaleras-rescate-nfpa-1932/" },
+  { label: "Hidrantes y Gabinetes NFPA 14",        href: "/productos/equipo-contra-incendios/hidrantes-gabinetes/" },
+  { label: "SCBA Autónomos NFPA 1981",             href: "/productos/scba/" },
+  { label: "Todo el equipo contra incendios",      href: "/productos/equipo-contra-incendios/" },
+];
+
+const epp = [
+  { label: "Traje Estructural NFPA 1971",        href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", tag: "Cuerpo" },
+  { label: "Casco Estructural NFPA 1971",        href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/", tag: "Cabeza" },
+  { label: "Guantes Estructurales NFPA 1971",    href: "/productos/guantes-para-bomberos/estructurales/",              tag: "Manos" },
+  { label: "Botas Estructurales de Cuero",       href: "/productos/botas-para-bomberos/estructural/",                  tag: "Pies" },
+  { label: "SCBA Autónomo NFPA 1981",            href: "/productos/scba/",                                             tag: "Resp." },
+];
+
+const articulos = [
+  { label: "Equipo Contra Incendios Completo",   href: "/productos/equipo-contra-incendios/", tag: "Catálogo" },
+  { label: "Mangueras NFPA 1961",               href: "/productos/equipo-contra-incendios/mangueras-presion-nfpa-1961/", tag: "Producto" },
+  { label: "SCBA y Respiración Autónoma",        href: "/productos/scba/",                    tag: "Producto" },
+  { label: "Trajes Estructurales NFPA 1971",     href: "/productos/trajes-para-bomberos/",    tag: "Catálogo" },
+  { label: "EPP Completo para Bomberos",         href: "/productos/",                         tag: "Guía" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Ciudad de México",           href: "/directorio/ciudad-de-mexico/" },
+  { label: "Bomberos Estado de México",           href: "/directorio/estado-de-mexico/" },
+  { label: "Bomberos Jalisco — Guadalajara",      href: "/directorio/jalisco/" },
+  { label: "Bomberos Nuevo León — Monterrey",     href: "/directorio/nuevo-leon/" },
+  { label: "Directorio Nacional Bomberos",        href: "/directorio/" },
+];
+
+const specsRapidas = [
+  { label: "Norma herr. manual",  valor: "NFPA 1936 (edición vigente)" },
+  { label: "Norma hidráulica",    valor: "NFPA 1936 / EN 13204" },
+  { label: "Halligan",            valor: "30\" y 36\" — acero forjado HRC 46" },
+  { label: "Fuerza expansor",     valor: "8,000 – 20,000 kg" },
+  { label: "Fuerza cortador",     valor: "hasta 60,000 N" },
+  { label: "Alimentación",        valor: "Hidráulica / Eléctrica / Batería" },
+  { label: "Norma México",        valor: "NOM-002-STPS / NOM-020-STPS" },
+  { label: "Aprobación",          valor: "UL Listed / FM Approved" },
+];
+
+const certItems = [
+  { code: "NFPA 1936",     desc: "Standard on Powered Rescue Tools — herramientas de fuerza y rescate" },
+  { code: "NFPA 1006",     desc: "Standard for Technical Rescuer Professional Qualifications" },
+  { code: "EN 13204",      desc: "Hydraulic rescue tools — norma europea para herramientas hidráulicas" },
+  { code: "NOM-002-STPS",  desc: "Condiciones de seguridad — Prevención y protección contra incendios" },
+  { code: "NOM-020-STPS",  desc: "Mantenimiento de las instalaciones y equipos en los centros de trabajo" },
+];
+---
+
+<ProductoLayout
+  title="Herramientas de Fuerza NFPA 1936 para Bomberos y Rescate | BOMBERO.MX"
+  description="Herramientas de fuerza para bomberos: Halligan, hacha, ganchos y kits de rescate hidráulico certificados NFPA 1936. Expansores 8,000–20,000 kg, cortadores hasta 60,000 N. Envío a los 32 estados de México."
+  keywords={[
+    "herramientas fuerza bomberos NFPA 1936",
+    "halligan bar México",
+    "quijadas de la vida rescate",
+    "expansor hidráulico rescate vehicular",
+    "cortador hidráulico bombero",
+    "entrada forzada bombero irons set",
+    "herramientas rescate técnico NFPA",
+    "hacha bombero cabeza plana",
+    "gancho techo bombero",
+    "herramientas extricación México",
+  ]}
+  canonical="/productos/equipo-contra-incendios/herramientas-fuerza-nfpa-1936/"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos/" },
+    { label: "Equipo Contra Incendios",     href: "/productos/equipo-contra-incendios/" },
+    { label: "Herramientas de Fuerza" },
+  ]}
+
+  heroBadge="Equipo Contra Incendios · NFPA 1936 · EN 13204"
+  heroTitle="Herramientas de Fuerza"
+  heroTitleHighlight="para Rescate y Combate de Incendios"
+  heroSubtitle="Halligan, hachas, ganchos y kits de rescate hidráulico certificados NFPA 1936. Expansores de 8,000 a 20,000 kg y cortadores hasta 60,000 N para extricación vehicular y entrada forzada. Envío a los 32 estados."
+  heroSeoBlocks={[
+    {
+      title: "Distribuidor de Herramientas de Fuerza NFPA 1936 en México",
+      text: "En <strong>BOMBERO.MX</strong> distribuimos el arsenal completo de herramientas de fuerza para cuerpos de bomberos y brigadas de rescate: desde <strong>Halligans y hachas</strong> para entrada forzada hasta <strong>expansores y cortadores hidráulicos</strong> para extricación vehicular. Todo certificado bajo <strong>NFPA 1936</strong> y <strong>EN 13204</strong>, con documentación para trámites ante Protección Civil y aseguradoras.",
+    },
+    {
+      title: "Herramientas Manuales e Hidráulicas para Todo Escenario",
+      text: "El bombero moderno necesita herramientas para dos mundos: el <strong>trabajo manual</strong> (Halligan, hacha, gancho) para entrada forzada rápida en incendio estructural, y el <strong>sistema hidráulico</strong> (expansor, cortador, cilindro) para la extricación de víctimas en accidentes vehiculares. BOMBERO.MX asesora a jefes de cuerpo en la selección y especificación del equipo adecuado para cada tipo de respuesta.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Herramientas de Fuerza NFPA 1936"
+
+  productoCategoria="Equipo Contra Incendios"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 1936" },
+    { modifier: "tpp",   text: "EN 13204" },
+    { modifier: "solas", text: "NFPA 1006" },
+  ]}
+  productoMasVendido={false}
+  productoTitle="Herramientas de Fuerza"
+  productoTitleSub="Certificadas NFPA 1936"
+  productoDesc="Herramientas de entrada forzada (Halligan, hacha, gancho) y sistemas de rescate hidráulico (expansor, cortador, cilindro). NFPA 1936, EN 13204, acero forjado HRC 46–50, fuerzas de hasta 60,000 N."
+  productoFeatures={[
+    "Halligan 30\" y 36\" en acero forjado HRC 46–50",
+    "Kit 'irons set': Halligan + hacha de cabeza plana",
+    "Expansor hidráulico 8,000 – 20,000 kg",
+    "Cortador hidráulico hasta 60,000 N",
+    "Alimentación hidráulica, eléctrica y batería",
+    "Certificación NFPA 1936 y EN 13204",
+  ]}
+  productoAppTags={[
+    "Entrada forzada estructural",
+    "Extricación vehicular",
+    "Desescombro y colapsos",
+    "Apertura de techos (ventilación)",
+    "Brigadas industriales",
+  ]}
+
+  gallery={[
+    { src: IMAGE,                                                                             alt: "Herramientas de fuerza NFPA 1936 para bomberos y rescate" },
+    { src: "/images/equipo-contra-incendios/mangueras-bombero-presion-01.avif",               alt: "Equipo de ataque con manguera y herramientas de entrada" },
+    { src: "/images/equipo-contra-incendios/escaleras-rescate-bombero-01.avif",               alt: "Escalera de rescate y herramientas de acceso" },
+    { src: "/images/equipo-contra-incendios/scba-equipo-autonomo-01.avif",                    alt: "Bombero con SCBA y herramientas de fuerza" },
+    { src: "/images/equipo-contra-incendios/boquillas-pitones-bombero-01.avif",               alt: "Línea de ataque con boquilla y herramientas de entrada" },
+    { src: "/images/equipo-contra-incendios/accesorios-equipo-bombero-01.avif",               alt: "Accesorios y herramientas complementarias" },
+  ]}
+
+  capasEyebrow="Arsenal de Herramientas"
+  capasTitle="Desde Entrada Forzada hasta Extricación Vehicular"
+  capasDesc="Las herramientas de fuerza para bomberos se dividen en tres categorías según el escenario: herramientas de entrada forzada manual, accesorios de desescombro y sistemas hidráulicos de rescate vehicular."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones Técnicas"
+  specsDesc="Datos verificados conforme a NFPA 1936, EN 13204 y NOM-002-STPS-2010. Documentación completa disponible para proyectos de Protección Civil y auditorías de seguridad industrial."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Aplicaciones"
+  aplicacionesTitle="¿En Qué Escenarios se Usan?"
+  aplicacionesContent="<p>Las herramientas de fuerza son el equipo que define la capacidad táctica de un cuerpo de bomberos: sin las herramientas correctas, no es posible acceder al incendio, rescatar a las víctimas atrapadas ni controlar la situación con seguridad.</p><p>En <strong>BOMBERO.MX</strong> asesoramos a jefes de cuerpo y coordinadores de brigada en la selección del arsenal adecuado para cada tipo de respuesta: incendio estructural, accidente vehicular, derrumbe o respuesta industrial.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="NFPA 1936 y EN 13204"
+  certsDesc="Las herramientas que distribuimos en <strong>BOMBERO.MX</strong> cumplen la <strong>NFPA 1936</strong> para herramientas de rescate y la <strong>EN 13204</strong> para herramientas hidráulicas. Esta documentación es la que reconocen las aseguradoras de riesgo industrial y las auditorías de Protección Civil en México."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/equipo-contra-incendios/"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Preguntas Frecuentes — Herramientas de Fuerza para Bomberos"
+  faqDescription="Resolvemos las dudas más frecuentes sobre herramientas de entrada forzada, rescate hidráulico y normativa NFPA 1936 en México."
+  faqDocTitle="Solicita Fichas Técnicas y Certificados"
+  faqDocDesc="Entregamos la ficha técnica NFPA 1936 y EN 13204 para tus trámites ante Protección Civil y aseguradoras."
+  faqDocCtaHref="/cotizar/"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="Equipo Complementario"
+  relacionadosTitle="Completa tu Arsenal Operativo"
+  relacionadosDesc="Las herramientas de fuerza forman un sistema. Complementa con mangueras, SCBA, trajes y escaleras para un equipo de respuesta completo."
+  relacionados={relacionados}
+  whyChooseImages={[
+    "/images/equipo-contra-incendios/herramientas-fuerza-rescate-01.avif",
+    "/images/equipo-contra-incendios/mangueras-bombero-presion-01.avif",
+    "/images/equipo-contra-incendios/escaleras-rescate-bombero-01.avif",
+    "/images/equipo-contra-incendios/scba-equipo-autonomo-01.avif",
+    "/images/equipo-contra-incendios/boquillas-pitones-bombero-01.avif",
+    "/images/equipo-contra-incendios/accesorios-equipo-bombero-01.avif",
+  ]}
+/>
