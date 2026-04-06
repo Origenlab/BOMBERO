@@ -1,0 +1,347 @@
+---
+
+import ProductoLayout from "@layouts/ProductoLayout.astro";
+
+const IMAGE = "/images/equipo-contra-incendios/hidrante-gabinete-contra-incendios-01.avif";
+
+
+const capas = [
+  {
+    num: "01",
+    titulo: "Gabinete de Manguera Contra Incendios (GMC)",
+    descripcion:
+      "Primera línea de defensa en edificaciones. El GMC aloja la manguera semirígida o plana, la válvula angular y la llave de paso en un gabinete metálico o de fibra de vidrio protegido. Cumple NOM-002-STPS y NFPA 14 para sistemas de mangueras de clase I, II y III. Instalación en pasillos, escaleras y zonas estratégicas.",
+    specs: [
+      { label: "Norma principal", valor: "NFPA 14 / NOM-002-STPS-2010" },
+      { label: "Clase de sistema", valor: "I, II y III" },
+      { label: "Presión de trabajo", valor: "100 – 250 PSI" },
+      { label: "Material gabinete", valor: "Acero pintado / Acero inox / Fibra de vidrio" },
+    ],
+    color: "ember" as const,
+  },
+  {
+    num: "02",
+    titulo: "Hidrante de Columna Seca y Pared",
+    descripcion:
+      "Los hidrantes de columna seca son el punto de conexión del cuerpo de bomberos con la red de distribución de agua contra incendios. Diseñados para aguantar presiones de hasta 150 PSI (UL/FM aprobado). Los hidrantes de pared integran la toma de agua en la fachada del edificio para uso mixto personal-bomberos.",
+    specs: [
+      { label: "Norma", valor: "NFPA 24 / AWWA C502 / UL 246" },
+      { label: "Presión de trabajo", valor: "hasta 150 PSI" },
+      { label: "Diámetro de entrada", valor: "4\" y 6\" (estándar mexicano)" },
+      { label: "Conexiones", valor: "NST / Stortz 2½\" y 4½\"" },
+    ],
+    color: "smoke" as const,
+  },
+  {
+    num: "03",
+    titulo: "Conexión Siamesa y Accesorios de Red",
+    descripcion:
+      "Las conexiones siamesas permiten a los cuerpos de bomberos aumentar el suministro de agua al sistema interno del edificio desde su equipo móvil. Elemento obligatorio en edificios de más de 5 pisos según el RCDF y las normas de protección civil estatales de México.",
+    specs: [
+      { label: "Norma", valor: "NFPA 13 / NFPA 14 / RCDF" },
+      { label: "Entradas", valor: "2 entradas de 2½\" NST con tapón" },
+      { label: "Salida", valor: "4\" o 6\" hacia el sistema interno" },
+      { label: "Material", valor: "Bronce UNS C84400 o latón forjado" },
+    ],
+    color: "fire" as const,
+  },
+];
+
+const especificaciones = [
+  { categoria: "Gabinete GMC",    label: "Norma aplicable",           valor: "NFPA 14 / NOM-002-STPS-2010" },
+  { categoria: "Gabinete GMC",    label: "Clase de sistema",           valor: "I (solo personal de bomberos) / II / III" },
+  { categoria: "Gabinete GMC",    label: "Longitud de manguera",       valor: "15 m, 20 m o 30 m" },
+  { categoria: "Gabinete GMC",    label: "Diámetro manguera",          valor: "1½\" (semirígida o plana)" },
+  { categoria: "Gabinete GMC",    label: "Presión de trabajo",         valor: "100 – 250 PSI" },
+  { categoria: "Hidrante",        label: "Tipo de hidrante",           valor: "Columna seca / Pared / Subterráneo" },
+  { categoria: "Hidrante",        label: "Norma",                      valor: "NFPA 24 / AWWA C502" },
+  { categoria: "Hidrante",        label: "Presión máx. operación",     valor: "150 PSI" },
+  { categoria: "Hidrante",        label: "Diámetro de alimentación",   valor: "4\" / 6\" (red principal)" },
+  { categoria: "Hidrante",        label: "Conexiones NST",             valor: "2½\" y 4½\" Stortz" },
+  { categoria: "Siamesa",         label: "Entradas",                   valor: "2 × 2½\" NST con tapa y cadena" },
+  { categoria: "Siamesa",         label: "Salida a sistema",           valor: "4\" o 6\"" },
+  { categoria: "Siamesa",         label: "Material",                   valor: "Bronce / Latón forjado" },
+  { categoria: "Siamesa",        label: "Norma",                      valor: "NFPA 13 / NFPA 14 / RCDF" },
+  { categoria: "Certificación",   label: "Aprobaciones",               valor: "UL Listed / FM Approved" },
+  { categoria: "Certificación",   label: "Norma mexicana",             valor: "NOM-002-STPS-2010 / RCDF" },
+];
+
+const catClass: Record<string, string> = {
+  "Gabinete GMC": "gabinete",
+  "Hidrante":     "hidrante",
+  "Siamesa":      "siamesa",
+  "Certificación": "certificacion",
+};
+
+const aplicaciones = [
+  {
+    titulo: "Edificios de Uso Mixto y Oficinas",
+    desc: "Gabinetes GMC clase II en pasillos y escaleras, hidrante de pared en fachada y conexión siamesa conforme a RCDF para edificios de más de 5 niveles en Ciudad de México y área metropolitana.",
+  },
+  {
+    titulo: "Centros Comerciales y Plazas",
+    desc: "Sistemas NFPA 14 clase III con GMC accesible al personal y a los bomberos. Hidrante de columna seca cada 100 m de perímetro y siamesa visible desde la vía pública para acceso rápido del cuerpo de bomberos.",
+  },
+  {
+    titulo: "Industria y Plantas Petroquímicas",
+    desc: "Redes de hidrantes de columna seca de alta presión (150 PSI) conformes a NFPA 24 y API 2030. Densidad de hidrantes según NFPA 1 y requerimientos de la aseguradora (FM Global, Lloyd's, AXA XL).",
+  },
+  {
+    titulo: "Hoteles, Hospitales y Educación",
+    desc: "Sistemas combinados de rociadores NFPA 13 y gabinetes NFPA 14 clase III para cumplir con la NOM-003-SEGOB-2011 y los lineamientos de la Secretaría de Salud para edificaciones de ocupación especial.",
+  },
+  {
+    titulo: "Bodegas y Logística",
+    desc: "Hidrantes de columna estratégicamente distribuidos para almacenes con rack de alta densidad. Conforme a NFPA 13 para sistemas de rociadores en rack y NFPA 24 para red exterior.",
+  },
+];
+
+const faqs = [
+  {
+    q: "¿Qué norma rige los gabinetes de manguera contra incendios en México?",
+    a: "Los <strong>gabinetes de manguera contra incendios (GMC)</strong> en México deben cumplir la <strong>NOM-002-STPS-2010</strong> — Condiciones de Seguridad para Prevención y Protección contra Incendios. Adicionalmente, la <strong>NFPA 14</strong> es la norma de referencia técnica internacional que aplican protección civil y aseguradoras. Los proyectos de edificaciones nuevas en CDMX también deben cumplir el RCDF (Reglamento de Construcción del Distrito Federal).",
+  },
+  {
+    q: "¿Cuál es la diferencia entre un GMC Clase I, II y III?",
+    a: "Un <strong>GMC Clase I</strong> solo tiene una toma de 2½\" sin manguera — es solo para el cuerpo de bomberos con su propio equipo. El <strong>Clase II</strong> tiene manguera de 1½\" semirígida lista para uso de ocupantes entrenados. El <strong>Clase III</strong> es la combinación de ambas: tiene la toma de 2½\" para bomberos y la manguera de 1½\" para el personal de emergencia del edificio. Es el más completo y el más recomendado por la <strong>NFPA 14</strong>.",
+  },
+  {
+    q: "¿Cada cuántos metros se instalan los hidrantes de columna seca en una instalación industrial?",
+    a: "La <strong>NFPA 1</strong> y la <strong>NFPA 24</strong> recomiendan que ningún punto de la edificación esté a más de <strong>60 metros</strong> de un hidrante medido por vías accesibles para el equipo de bomberos. En zonas de alto riesgo industrial (PEMEX, petroquímica, plantas de proceso) se reduce a 45 metros. El espaciado final depende del caudal disponible en la red, el tipo de riesgo y los requerimientos de la aseguradora.",
+  },
+  {
+    q: "¿Qué es una conexión siamesa y por qué es obligatoria?",
+    a: "Una <strong>conexión siamesa</strong> es un punto de entrada exterior que permite a los bomberos inyectar agua presurizada desde su unidad de bombeo al sistema interior del edificio (sprinklers, GMC, red interna). Es obligatoria en México para <strong>edificios de 5 pisos o más</strong> según el RCDF de CDMX y para cualquier edificio con sistema de rociadores NFPA 13. Debe estar visible desde la vía pública, señalizada y libre de obstáculos.",
+  },
+  {
+    q: "¿Los gabinetes y hidrantes requieren mantenimiento periódico?",
+    a: "Sí. La <strong>NOM-002-STPS-2010</strong> exige inspección mensual visual y prueba funcional semestral. La <strong>NFPA 25</strong> (<em>Standard for Inspection, Testing, and Maintenance of Water-Based Fire Protection Systems</em>) establece: inspección visual trimestral, prueba de flujo anual y prueba hidrostática cada 5 años. Las empresas certificadas en México ofrecen contratos de mantenimiento preventivo y correctivo.",
+  },
+  {
+    q: "¿BOMBERO.MX vende solo los equipos o también hace instalación?",
+    a: "<strong>BOMBERO.MX</strong> es el distribuidor de los equipos: gabinetes GMC, hidrantes de columna seca y pared, conexiones siamesas, mangueras, boquillas y accesorios certificados. Para la instalación trabajamos con una red de instaladores certificados NFPA en toda la República. Contáctanos y te conectamos con el instalador certificado más cercano a tu proyecto.",
+  },
+  {
+    q: "¿Cuáles son los tiempos de entrega de gabinetes e hidrantes?",
+    a: "Equipos estándar en inventario: <strong>2–5 días hábiles</strong> en CDMX y zona metropolitana, 5–10 días al resto de la República. Equipos especiales (hidrantes de especificación no estándar, gabinetes personalizados o grandes cantidades para proyectos): 4–8 semanas de tiempo de fabricación. Contacta a nuestro equipo para un programa de entrega específico para tu proyecto.",
+  },
+  {
+    q: "¿Los hidrantes y gabinetes de BOMBERO.MX están certificados UL/FM?",
+    a: "Sí. Distribuimos hidrantes y gabinetes con certificación <strong>UL Listed</strong> (Underwriters Laboratories) y aprobación <strong>FM Global</strong> cuando se requiere. Esta doble certificación es indispensable para proyectos con aseguradoras que operan bajo estándares internacionales (Lloyd's, AXA XL, FM Global). Solicita los certificados con tu cotización.",
+  },
+];
+
+const relacionados = [
+  {
+    title: "Mangueras de Presión NFPA 1961",
+    badge: "NFPA 1961",
+    description: "Mangueras certificadas para sistemas GMC y operaciones exteriores de combate de incendios con cuerpos de bomberos.",
+    href: "/productos/equipo-contra-incendios/",
+    buttonText: "Equipo Contra Incendios",
+    image: "/images/equipo-contra-incendios/mangueras-bombero-presion-01.avif",
+  },
+  {
+    title: "Extintores Certificados NOM",
+    badge: "NOM-154-SCFI",
+    description: "Extintores portátiles y de ruedas certificados NOM para protección de primera intervención en cualquier clase de fuego.",
+    href: "/productos/extintores/",
+    buttonText: "Ver Extintores",
+    image: "/images/extintores/extintor-polvo-quimico-co2-abc-bomberos-01.avif",
+  },
+  {
+    title: "SCBA Autónomos NFPA 1981",
+    badge: "NFPA 1981",
+    description: "Equipos de respiración autónomos para la brigada de emergencias que opera el sistema de gabinetes e hidrantes.",
+    href: "/productos/scba/",
+    buttonText: "Ver SCBA",
+    image: "/images/directorio/equipo-scba-aparato-respiratorio-01.avif",
+  },
+  {
+    title: "Equipo Contra Incendios",
+    badge: "Catálogo completo",
+    description: "Catálogo completo de equipo contra incendios: mangueras, boquillas, herramientas de rescate y accesorios certificados.",
+    href: "/productos/equipo-contra-incendios/",
+    buttonText: "Ver Catálogo",
+    image: "/images/equipo-contra-incendios/herramientas-fuerza-rescate-01.avif",
+  },
+];
+
+const otrosModelos = [
+  { label: "Mangueras de Presión NFPA 1961",    href: "/productos/equipo-contra-incendios/" },
+  { label: "Boquillas y Pitones NFPA 1964",      href: "/productos/equipo-contra-incendios/" },
+  { label: "Escaleras de Rescate NFPA 1932",     href: "/productos/equipo-contra-incendios/" },
+  { label: "Herramientas de Fuerza NFPA 1936",   href: "/productos/equipo-contra-incendios/" },
+  { label: "SCBA Autónomos NFPA 1981",           href: "/productos/scba/" },
+  { label: "Todo el catálogo de equipo",         href: "/productos/equipo-contra-incendios/" },
+];
+
+const epp = [
+  { label: "Traje Estructural NFPA 1971",        href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", tag: "Cuerpo" },
+  { label: "Casco Estructural NFPA 1971",        href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/", tag: "Cabeza" },
+  { label: "Guantes Estructurales NFPA 1971",    href: "/productos/guantes-para-bomberos/estructurales/",              tag: "Manos" },
+  { label: "Botas Estructurales de Cuero",       href: "/productos/botas-para-bomberos/estructural/",                  tag: "Pies" },
+  { label: "SCBA Autónomo NFPA 1981",            href: "/productos/scba/",                                             tag: "Resp." },
+];
+
+const articulos = [
+  { label: "Equipo Contra Incendios Completo",   href: "/productos/equipo-contra-incendios/", tag: "Catálogo" },
+  { label: "Extintores Certificados NOM",         href: "/productos/extintores/",              tag: "Producto" },
+  { label: "Trajes Estructurales NFPA 1971",      href: "/productos/trajes-para-bomberos/",    tag: "Catálogo" },
+  { label: "SCBA y Respiración Autónoma",         href: "/productos/scba/",                    tag: "Producto" },
+  { label: "EPP Completo para Bomberos",          href: "/productos/",                         tag: "Guía" },
+];
+
+const directorioLinks = [
+  { label: "Bomberos Ciudad de México",           href: "/directorio/ciudad-de-mexico/" },
+  { label: "Bomberos Estado de México",           href: "/directorio/estado-de-mexico/" },
+  { label: "Bomberos Jalisco — Guadalajara",      href: "/directorio/jalisco/" },
+  { label: "Bomberos Nuevo León — Monterrey",     href: "/directorio/nuevo-leon/" },
+  { label: "Directorio Nacional Bomberos",        href: "/directorio/" },
+];
+
+const specsRapidas = [
+  { label: "Norma GMC",          valor: "NFPA 14 / NOM-002-STPS" },
+  { label: "Clases",             valor: "I, II y III" },
+  { label: "Presión trabajo",    valor: "100 – 250 PSI" },
+  { label: "Norma hidrante",     valor: "NFPA 24 / AWWA C502" },
+  { label: "Presión hidrante",   valor: "hasta 150 PSI" },
+  { label: "Conexión NST",       valor: "2½\" y 4½\" Stortz" },
+  { label: "Aprobación",         valor: "UL Listed / FM Approved" },
+  { label: "Norma México",       valor: "NOM-002-STPS-2010" },
+];
+
+const certItems = [
+  { code: "NFPA 14",          desc: "Standard for the Installation of Standpipe and Hose Systems" },
+  { code: "NFPA 24",          desc: "Standard for the Installation of Private Fire Service Mains" },
+  { code: "NOM-002-STPS",     desc: "Condiciones de seguridad — Prevención y protección contra incendios" },
+  { code: "UL 246 / UL 668",  desc: "Hidrantes y gabinetes aprobados Underwriters Laboratories" },
+  { code: "FM Approved",      desc: "Factory Mutual — requisito de aseguradoras internacionales" },
+];
+---
+
+<ProductoLayout
+  title="Hidrantes y Gabinetes Contra Incendios NFPA 14 | México | BOMBERO.MX"
+  description="Gabinetes de manguera (GMC), hidrantes de columna seca y pared, y conexiones siamesas certificados NFPA 14 y NOM-002-STPS. UL Listed y FM Approved. Envío a los 32 estados de México."
+  keywords={[
+    "gabinete contra incendios NFPA 14",
+    "hidrante columna seca México",
+    "GMC manguera contra incendios",
+    "conexion siamesa NFPA",
+    "hidrante de pared edificio",
+    "sistema contra incendios NOM-002-STPS",
+    "equipo contra incendios UL listed",
+    "gabinete manguera clase II México",
+    "hidrantes industriales NFPA 24",
+    "sistema combate incendio edificio",
+  ]}
+  canonical="/productos/equipo-contra-incendios/hidrantes-gabinetes/"
+  image={IMAGE}
+
+  breadcrumb={[
+    { label: "Inicio",                      href: "/" },
+    { label: "Productos",                   href: "/productos/" },
+    { label: "Equipo Contra Incendios",     href: "/productos/equipo-contra-incendios/" },
+    { label: "Hidrantes y Gabinetes" },
+  ]}
+
+  heroBadge="Equipo Contra Incendios · NFPA 14 · NOM-002-STPS"
+  heroTitle="Hidrantes y Gabinetes"
+  heroTitleHighlight="Contra Incendios"
+  heroSubtitle="Gabinetes de manguera (GMC) clase I, II y III, hidrantes de columna seca y pared, y conexiones siamesas certificados NFPA 14 y NOM-002-STPS. UL Listed y FM Approved. Envío a los 32 estados."
+  heroSeoBlocks={[
+    {
+      title: "Distribuidor de Gabinetes e Hidrantes Contra Incendios en México",
+      text: "En <strong>BOMBERO.MX</strong> distribuimos sistemas fijos de combate de incendios para edificaciones: <strong>gabinetes de manguera (GMC) NFPA 14</strong>, hidrantes de columna seca y pared, y conexiones siamesas. Todos los equipos cuentan con certificación <strong>UL Listed</strong> y aprobación <strong>FM Global</strong> cuando se requiere, cumpliendo la <strong>NOM-002-STPS-2010</strong> y el RCDF para proyectos en los 32 estados de México.",
+    },
+    {
+      title: "Normas Aplicables: NFPA 14, NOM-002-STPS y RCDF",
+      text: "Los sistemas de hidrantes y gabinetes en México deben cumplir <strong>NFPA 14</strong> para standpipes, <strong>NFPA 24</strong> para redes de distribución privada, y la <strong>NOM-002-STPS-2010</strong> para centros de trabajo. En Ciudad de México aplica adicionalmente el <strong>RCDF</strong>. BOMBERO.MX entrega la documentación técnica completa — fichas de datos UL/FM y certificados de conformidad — para <strong>trámites ante Protección Civil y aseguradoras</strong>.",
+    },
+  ]}
+
+  ctaBarQuote="Cotizar Hidrantes y Gabinetes Contra Incendios"
+
+  productoCategoria="Equipo Contra Incendios"
+  productoBadges={[
+    { modifier: "nfpa",  text: "NFPA 14" },
+    { modifier: "tpp",   text: "UL Listed" },
+    { modifier: "solas", text: "FM Approved" },
+  ]}
+  productoMasVendido={false}
+  productoTitle="Gabinetes e Hidrantes"
+  productoTitleSub="Contra Incendios NFPA 14"
+  productoDesc="Sistemas fijos de combate de incendios: gabinetes GMC clase I/II/III, hidrantes de columna seca y pared, y conexiones siamesas. Certificados NFPA 14, NFPA 24, UL y NOM-002-STPS-2010 con documentación completa."
+  productoFeatures={[
+    "GMC clase I, II y III certificados NFPA 14",
+    "Hidrantes columna seca hasta 150 PSI",
+    "Conexiones siamesas 2½\" NST para bomberos",
+    "UL Listed y FM Approved",
+    "Cumple NOM-002-STPS-2010 y RCDF",
+    "Documentación técnica para Protección Civil",
+  ]}
+  productoAppTags={[
+    "Edificios y oficinas",
+    "Centros comerciales",
+    "Industria y petroquímica",
+    "Hoteles y hospitales",
+    "Bodegas y logística",
+  ]}
+
+  gallery={[
+    { src: IMAGE,                                                                           alt: "Gabinete contra incendios GMC NFPA 14 clase II" },
+    { src: "/images/equipo-contra-incendios/hidrante-columna-seca-exterior-01.avif",        alt: "Hidrante de columna seca exterior NFPA 24" },
+    { src: "/images/equipo-contra-incendios/conexion-siamesa-edificio-01.avif",             alt: "Conexión siamesa para bomberos NFPA 14" },
+    { src: "/images/equipo-contra-incendios/mangueras-bombero-presion-01.avif",             alt: "Manguera semirígida para gabinete contra incendios" },
+    { src: "/images/equipo-contra-incendios/boquillas-pitones-bombero-01.avif",             alt: "Boquilla y pitón para sistema GMC NFPA 1964" },
+    { src: "/images/equipo-contra-incendios/scba-equipo-autonomo-01.avif",                  alt: "SCBA autónomo para brigada de incendios" },
+  ]}
+
+  capasEyebrow="Componentes del Sistema"
+  capasTitle="Sistema Fijo de Combate de Incendios"
+  capasDesc="Un sistema eficaz de protección fija integra tres elementos clave: el gabinete de manguera para el personal del edificio, el hidrante para el cuerpo de bomberos, y la siamesa para refuerzo del caudal."
+  capas={capas}
+
+  specsEyebrow="Ficha Técnica"
+  specsTitle="Especificaciones Técnicas"
+  specsDesc="Datos verificados conforme a NFPA 14, NFPA 24, NOM-002-STPS-2010 y certificaciones UL/FM. Toda la documentación está disponible para proyectos de Protección Civil y aseguradoras."
+  especificaciones={especificaciones}
+  catClass={catClass}
+
+  aplicacionesLabel="Aplicaciones"
+  aplicacionesTitle="¿En Qué Tipo de Proyecto se Requieren?"
+  aplicacionesContent="<p>Los sistemas de hidrantes y gabinetes son obligatorios en México para una amplia gama de edificaciones. La normativa específica varía según el tipo de ocupación, el número de pisos y el estado donde se ubique el proyecto.</p><p>En <strong>BOMBERO.MX</strong> asesoramos a ingenieros, arquitectos y responsables de Protección Civil en la selección y especificación de los equipos más adecuados para cada proyecto, con documentación NFPA y NOM lista para los trámites.</p>"
+  aplicaciones={aplicaciones}
+
+  certsEyebrow="Normas y Certificaciones"
+  certsTitle="NFPA 14, UL Listed y FM Approved"
+  certsDesc="Los equipos que distribuimos en <strong>BOMBERO.MX</strong> cumplen simultáneamente con las normas <strong>NFPA</strong>, las certificaciones <strong>UL</strong> y la aprobación <strong>FM Global</strong>. Esta triple validación es la que exigen las aseguradoras de riesgo industrial y comercial más importantes del mercado mexicano."
+  certItems={certItems}
+
+  specsRapidas={specsRapidas}
+  otrosModelos={otrosModelos}
+  otrosModelosSeeAllHref="/productos/equipo-contra-incendios/"
+  epp={epp}
+  articulos={articulos}
+  directorioLinks={directorioLinks}
+
+  faqTitle="Preguntas Frecuentes — Hidrantes y Gabinetes Contra Incendios"
+  faqDescription="Resolvemos las dudas más frecuentes sobre normativa, selección de equipos y proyectos de protección contra incendios en México."
+  faqDocTitle="Solicita Fichas Técnicas y Certificados"
+  faqDocDesc="Entregamos la ficha técnica UL/FM y los certificados de conformidad para tus trámites ante Protección Civil y aseguradoras."
+  faqDocCtaHref="/cotizar/"
+  faqDocCtaText="Solicitar Documentación"
+  faqs={faqs}
+
+  relacionadosLabel="Equipo Complementario"
+  relacionadosTitle="Completa tu Sistema Contra Incendios"
+  relacionadosDesc="Los gabinetes e hidrantes son parte de un sistema integrado. Complementa con mangueras, extintores, SCBA y EPP certificado para tus brigadas."
+  relacionados={relacionados}
+  whyChooseImages={[
+    "/images/equipo-contra-incendios/mangueras-bombero-presion-01.avif",
+    "/images/equipo-contra-incendios/boquillas-pitones-bombero-01.avif",
+    "/images/equipo-contra-incendios/herramientas-fuerza-rescate-01.avif",
+    "/images/equipo-contra-incendios/scba-equipo-autonomo-01.avif",
+    "/images/equipo-contra-incendios/escaleras-rescate-bombero-01.avif",
+    "/images/equipo-contra-incendios/accesorios-equipo-bombero-01.avif",
+  ]}
+/>

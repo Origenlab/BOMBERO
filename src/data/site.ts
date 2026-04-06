@@ -110,6 +110,8 @@ export const SITE = {
       "https://instagram.com/bombero.mx",
       "https://youtube.com/@bomberomx",
       "https://linkedin.com/company/bomberomx",
+      "https://x.com/bomberomx",
+      "https://twitter.com/bomberomx",
     ],
   },
 
