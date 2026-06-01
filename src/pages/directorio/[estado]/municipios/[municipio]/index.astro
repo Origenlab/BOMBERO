@@ -1,0 +1,615 @@
+---
+/**
+ * /directorio/{estado}/municipios/{municipio}/
+ * Landing programática por municipio: enumera todas las estaciones,
+ * teléfonos, servicios y especialidades de ese municipio.
+ *
+ * Genera ~500 URLs SEO long-tail con intent claro:
+ *   "bomberos {municipio}", "teléfono bomberos {municipio}",
+ *   "estación de bomberos en {municipio}".
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import CTABanner from "@components/CTABanner.astro";
+import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
+import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
+import MunicipiosPhonesTable from "@components/directorio/MunicipiosPhonesTable.astro";
+import {
+  getAllMunicipios,
+  findMunicipio,
+  getEstadoInfo,
+  ESPECIALIDADES_CANONICAS,
+} from "@utils/directorio-index";
+import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
+import { truncateMetaDescription } from "@utils/seo";
+
+export function getStaticPaths() {
+  return getAllMunicipios().map((m) => ({
+    params: { estado: m.estadoSlug, municipio: m.municipioSlug },
+    props: {
+      estadoSlug: m.estadoSlug,
+      municipioSlug: m.municipioSlug,
+    },
+  }));
+}
+
+const { estadoSlug, municipioSlug } = Astro.props as {
+  estadoSlug: string;
+  municipioSlug: string;
+};
+
+const row = findMunicipio(estadoSlug, municipioSlug);
+const estadoInfo = getEstadoInfo(estadoSlug);
+
+if (!row || !estadoInfo) {
+  return Astro.redirect("/404");
+}
+
+const canonical = `https://bombero.mx/directorio/${estadoSlug}/municipios/${municipioSlug}/`;
+const totalEst = row.totalEstaciones;
+const cap = estadoInfo.capital;
+const esCapital = row.municipio.toLowerCase() === cap.toLowerCase();
+
+const titleH1 = `Bomberos en ${row.municipio}, ${row.estadoNombre}`;
+const titleHead = `Bomberos en ${row.municipio}, ${row.estadoNombre} — ${totalEst} ${totalEst === 1 ? "Estación" : "Estaciones"} y Teléfonos | BOMBERO.MX`;
+
+const description = truncateMetaDescription(
+  `Directorio de bomberos en ${row.municipio}, ${row.estadoNombre}: ${totalEst} ${
+    totalEst === 1 ? "estación con teléfono" : "estaciones con teléfonos"
+  } de emergencia, dirección y servicios 24/7. Llama al 911 o consulta la estación más cercana. Actualizado ${DIRECTORIO_VERIFICADO_LEGIBLE}.`,
+  155,
+);
+
+// JSON-LD: WebPage + ItemList + Place + BreadcrumbList
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${row.municipio}, ${row.estadoNombre}`,
+  numberOfItems: totalEst,
+  itemListElement: row.estaciones.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${estadoSlug}/${e.slug}/`,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.ciudad,
+        addressRegion: row.estadoNombre,
+        addressCountry: "MX",
+      },
+    },
+  })),
+};
+
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "City",
+  name: row.municipio,
+  containedInPlace: {
+    "@type": "AdministrativeArea",
+    name: row.estadoNombre,
+    containedInPlace: { "@type": "Country", name: "México" },
+  },
+  url: canonical,
+};
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx/" },
+    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio/" },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: row.estadoNombre,
+      item: `https://bombero.mx/directorio/${estadoSlug}/`,
+    },
+    { "@type": "ListItem", position: 4, name: `${row.municipio}` },
+  ],
+};
+---
+
+<PageLayout
+  title={titleHead}
+  description={description}
+  canonical={canonical}
+  modifiedTime={DIRECTORIO_VERIFICADO_ISO}
+  keywords={[
+    `bomberos ${row.municipio.toLowerCase()}`,
+    `teléfono bomberos ${row.municipio.toLowerCase()}`,
+    `estación de bomberos ${row.municipio.toLowerCase()}`,
+    `emergencias ${row.municipio.toLowerCase()}`,
+    `bomberos ${row.estadoNombre.toLowerCase()}`,
+  ]}
+  jsonLd={[itemListSchema, placeSchema, breadcrumb]}
+>
+  <Breadcrumb items={[
+    { label: "Directorio", href: "/directorio/" },
+    { label: row.estadoNombre, href: `/directorio/${estadoSlug}/` },
+    { label: row.municipio },
+  ]} />
+
+  <section class="muni-hero">
+    <div class="container">
+      <span class="muni-hero__badge">{row.estadoNombre} · Verificado {DIRECTORIO_VERIFICADO_LEGIBLE}</span>
+      <h1 class="muni-hero__title">
+        {titleH1}
+        {esCapital && <span class="muni-hero__chip">Capital</span>}
+      </h1>
+      <p class="muni-hero__desc">
+        {totalEst} {totalEst === 1 ? "estación operativa" : "estaciones operativas"} del
+        <strong>H. Cuerpo de Bomberos</strong> en {row.municipio}. Atienden las 24 horas del día,
+        los 365 días del año. Para emergencias inmediatas marca el <strong>911</strong>.
+      </p>
+
+      <div class="muni-hero__stats">
+        <div class="muni-hero__stat">
+          <span class="muni-hero__stat-num">{totalEst}</span>
+          <span class="muni-hero__stat-lab">{totalEst === 1 ? "Estación" : "Estaciones"}</span>
+        </div>
+        <div class="muni-hero__stat">
+          <span class="muni-hero__stat-num">{row.telefonos.length}</span>
+          <span class="muni-hero__stat-lab">Teléfonos directos</span>
+        </div>
+        <div class="muni-hero__stat">
+          <span class="muni-hero__stat-num">{row.especialidadesUnicas.length || row.serviciosUnicos.length}</span>
+          <span class="muni-hero__stat-lab">
+            {row.especialidadesUnicas.length ? "Especialidades" : "Servicios"}
+          </span>
+        </div>
+        <div class="muni-hero__stat">
+          <span class="muni-hero__stat-num">24/7</span>
+          <span class="muni-hero__stat-lab">Servicio</span>
+        </div>
+      </div>
+
+      <div class="muni-hero__cta">
+        <a class="muni-hero__btn muni-hero__btn--primary" href="tel:911">
+          Llamar al 911
+        </a>
+        <a class="muni-hero__btn muni-hero__btn--ghost" href="#estaciones">
+          Ver {totalEst} {totalEst === 1 ? "estación" : "estaciones"}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="estaciones" class="muni-main">
+    <div class="container">
+      <h2 class="muni-section__title">Estaciones de bomberos en {row.municipio}</h2>
+      <p class="muni-section__intro">
+        Listado oficial de las {totalEst} {totalEst === 1 ? "estación" : "estaciones"} del
+        H. Cuerpo de Bomberos en {row.municipio}, con teléfono directo, dirección
+        completa y horarios verificados.
+      </p>
+
+      <div class="muni-grid">
+        {row.estaciones.map((e) => (
+          <article class="muni-card" itemscope itemtype="https://schema.org/FireStation">
+            <header class="muni-card__head">
+              <h3 class="muni-card__name" itemprop="name">
+                <a href={`/directorio/${estadoSlug}/${e.slug}/`}>{e.nombreCorto ?? e.nombre}</a>
+              </h3>
+              {(e.tiempoRespuesta) && (
+                <span class="muni-card__resp">⏱ {e.tiempoRespuesta}</span>
+              )}
+            </header>
+            <p class="muni-card__addr" itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+              <span itemprop="streetAddress">{e.direccion}</span>
+              {e.colonia && <span>, <span itemprop="addressLocality">{e.colonia}</span></span>}
+              {e.codigoPostal && <span>, CP <span itemprop="postalCode">{e.codigoPostal}</span></span>}
+            </p>
+            <div class="muni-card__actions">
+              {e.telefono && (
+                <a class="muni-card__tel" href={`tel:${e.telefono.replace(/\s/g, '')}`} itemprop="telephone">
+                  📞 {e.telefono}
+                </a>
+              )}
+              <a class="muni-card__more" href={`/directorio/${estadoSlug}/${e.slug}/`}>
+                Ver ficha completa →
+              </a>
+            </div>
+            {e.servicios && e.servicios.length > 0 && (
+              <ul class="muni-card__svcs">
+                {e.servicios.slice(0, 4).map((s) => <li>{s}</li>)}
+                {e.servicios.length > 4 && <li class="muni-card__svcs-more">+{e.servicios.length - 4} más</li>}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+
+      {row.especialidadesUnicas.length > 0 && (
+        <section class="muni-esp">
+          <h2 class="muni-section__title">Especialidades de bomberos en {row.municipio}</h2>
+          <p class="muni-section__intro">
+            Los cuerpos de bomberos de {row.municipio} cuentan con las siguientes capacidades
+            especializadas certificadas:
+          </p>
+          <ul class="muni-esp__list">
+            {row.especialidadesUnicas.map((esp) => {
+              const cano = Object.values(ESPECIALIDADES_CANONICAS).find(c => esp.toLowerCase().includes(c.slug.replace(/-/g, ' ')) || c.label.toLowerCase().includes(esp.toLowerCase()));
+              return (
+                <li class="muni-esp__item">
+                  {cano ? (
+                    <a href={`/directorio/${estadoSlug}/especialidades/${cano.slug}/`}>
+                      <strong>{esp}</strong>
+                    </a>
+                  ) : (
+                    <strong>{esp}</strong>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      <section class="muni-context">
+        <h2 class="muni-section__title">Información de contacto y emergencia</h2>
+        <p>
+          En caso de <strong>emergencia en {row.municipio}, {row.estadoNombre}</strong>, marca el
+          <strong> 911</strong>: número único nacional 24/7 que conecta automáticamente con la
+          estación de bomberos, policía o servicio médico más cercano. También puedes contactar
+          directamente a una estación con los teléfonos publicados arriba.
+        </p>
+        <p>
+          {esCapital ? (
+            <>{row.municipio} es la capital del estado de <strong>{row.estadoNombre}</strong>, por lo que sus
+              estaciones suelen tener mayor capacidad operativa y coordinan refuerzos regionales.</>
+          ) : (
+            <>{row.municipio} pertenece al estado de <strong>{row.estadoNombre}</strong>, cuya capital
+              ({cap}) coordina los refuerzos regionales del H. Cuerpo de Bomberos cuando un incidente
+              supera la capacidad local.</>
+          )}
+        </p>
+        <p>
+          Consulta también el <a href={`/directorio/${estadoSlug}/`}>directorio completo de bomberos en {row.estadoNombre}</a>
+          para ver todas las estaciones del estado, regiones y números de emergencia adicionales.
+        </p>
+      </section>
+    </div>
+  </section>
+
+  <MunicipiosPhonesTable
+    estado={row.estadoNombre}
+    estaciones={row.estaciones as any}
+  />
+
+  <FAQDirectorio
+    scope="estado"
+    estado={`${row.municipio}, ${row.estadoNombre}`}
+    capital={cap}
+    totalEstaciones={totalEst}
+  />
+
+  <VerifiedBadge
+    estado={`${row.municipio}, ${row.estadoNombre}`}
+    fecha={DIRECTORIO_VERIFICADO_LEGIBLE}
+    totalEstaciones={totalEst}
+  />
+
+  <CTABanner
+    title={`¿Equipas a los bomberos de ${row.municipio}?`}
+    desc={`BOMBERO.MX es distribuidor NFPA. Cotizamos para los ${totalEst} ${totalEst === 1 ? "cuerpo" : "cuerpos"} municipales y patronato de ${row.municipio}.`}
+    btnText="Solicitar Cotización"
+    btnHref={`/cotizar/?utm_source=directorio&utm_medium=municipio&utm_campaign=${estadoSlug}_${municipioSlug}`}
+    whatsapp={true}
+  />
+</PageLayout>
+
+<style>
+  .muni-hero {
+    padding: var(--space-12, 3rem) 0 var(--space-10, 2.5rem);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0606 100%);
+    color: white;
+  }
+
+  .muni-hero__badge {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    background: rgba(220, 38, 38, 0.18);
+    color: #f97316;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.85rem;
+  }
+
+  .muni-hero__title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 0 0 0.65rem;
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: white;
+  }
+
+  .muni-hero__chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.7rem;
+    background: #dc2626;
+    color: white;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .muni-hero__desc {
+    color: rgba(255,255,255,0.78);
+    max-width: 760px;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+  }
+
+  .muni-hero__desc strong {
+    color: white;
+  }
+
+  .muni-hero__stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    max-width: 720px;
+  }
+
+  .muni-hero__stat {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.85rem;
+    padding: 0.9rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .muni-hero__stat-num {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fbbf24;
+  }
+
+  .muni-hero__stat-lab {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .muni-hero__cta {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+  }
+
+  .muni-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.85rem 1.4rem;
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+  }
+
+  .muni-hero__btn:hover { transform: translateY(-2px); }
+
+  .muni-hero__btn--primary {
+    background: linear-gradient(135deg, #dc2626, #f97316);
+    color: white;
+  }
+
+  .muni-hero__btn--ghost {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: white;
+  }
+
+  .muni-main {
+    padding: var(--space-12, 3rem) 0;
+    background: var(--color-smoke-50, #fafafa);
+  }
+
+  .muni-section__title {
+    font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+    font-weight: 800;
+    color: var(--color-smoke-900, #111);
+    margin: 0 0 0.55rem;
+    letter-spacing: -0.02em;
+  }
+
+  .muni-section__intro {
+    color: var(--color-smoke-600, #555);
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+    max-width: 760px;
+  }
+
+  .muni-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .muni-card {
+    background: white;
+    border: 1px solid var(--color-smoke-200, #e5e5e5);
+    border-radius: var(--radius-xl, 1rem);
+    padding: 1.1rem 1.2rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .muni-card:hover {
+    border-color: var(--color-fire-500, #dc2626);
+    box-shadow: 0 8px 22px -10px rgba(220,38,38,0.18);
+  }
+
+  .muni-card__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .muni-card__name {
+    font-size: 1.02rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .muni-card__name a {
+    color: var(--color-smoke-900, #111);
+    text-decoration: none;
+  }
+
+  .muni-card__name a:hover {
+    color: var(--color-fire-700, #b91c1c);
+  }
+
+  .muni-card__resp {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-fire-700, #b91c1c);
+    background: rgba(220,38,38,0.08);
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+  }
+
+  .muni-card__addr {
+    font-size: 0.88rem;
+    color: var(--color-smoke-600, #555);
+    margin: 0 0 0.8rem;
+    line-height: 1.5;
+  }
+
+  .muni-card__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.7rem;
+    flex-wrap: wrap;
+  }
+
+  .muni-card__tel {
+    font-weight: 700;
+    color: var(--color-fire-700, #b91c1c);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .muni-card__more {
+    font-size: 0.85rem;
+    color: var(--color-smoke-700, #444);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .muni-card__more:hover {
+    color: var(--color-fire-700, #b91c1c);
+  }
+
+  .muni-card__svcs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .muni-card__svcs li {
+    font-size: 0.74rem;
+    background: var(--color-smoke-100, #f3f3f3);
+    color: var(--color-smoke-700, #444);
+    padding: 0.18rem 0.55rem;
+    border-radius: 9999px;
+  }
+
+  .muni-card__svcs-more {
+    background: rgba(220,38,38,0.08) !important;
+    color: var(--color-fire-700, #b91c1c) !important;
+  }
+
+  .muni-esp {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-smoke-200, #e5e5e5);
+  }
+
+  .muni-esp__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .muni-esp__item a,
+  .muni-esp__item strong {
+    display: inline-block;
+    padding: 0.45rem 0.95rem;
+    background: white;
+    border: 1px solid var(--color-smoke-200, #e5e5e5);
+    border-radius: 9999px;
+    color: var(--color-smoke-800, #222);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .muni-esp__item a:hover {
+    background: var(--color-fire-700, #b91c1c);
+    color: white;
+    border-color: var(--color-fire-700, #b91c1c);
+  }
+
+  .muni-context {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-smoke-200, #e5e5e5);
+    max-width: 760px;
+  }
+
+  .muni-context p {
+    color: var(--color-smoke-700, #444);
+    line-height: 1.75;
+    margin: 0 0 1rem;
+  }
+
+  .muni-context strong {
+    color: var(--color-smoke-900, #111);
+  }
+
+  .muni-context a {
+    color: var(--color-fire-700, #b91c1c);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .muni-hero__stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

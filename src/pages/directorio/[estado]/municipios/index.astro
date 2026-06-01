@@ -1,0 +1,199 @@
+---
+/**
+ * /directorio/{estado}/municipios/
+ * Hub de municipios del estado: lista todos los municipios con
+ * conteo de estaciones y enlace a su landing.
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
+import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
+import CTABanner from "@components/CTABanner.astro";
+import {
+  getMunicipiosByEstado,
+  getAllMunicipios,
+  getEstadoInfo,
+} from "@utils/directorio-index";
+import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
+import { truncateMetaDescription } from "@utils/seo";
+
+export function getStaticPaths() {
+  const estados = new Set(getAllMunicipios().map((m) => m.estadoSlug));
+  return Array.from(estados).map((estadoSlug) => ({
+    params: { estado: estadoSlug },
+    props: { estadoSlug },
+  }));
+}
+
+const { estadoSlug } = Astro.props as { estadoSlug: string };
+const estadoInfo = getEstadoInfo(estadoSlug);
+if (!estadoInfo) return Astro.redirect("/404");
+
+const rows = getMunicipiosByEstado(estadoSlug)
+  .slice()
+  .sort((a, b) => b.totalEstaciones - a.totalEstaciones || a.municipio.localeCompare(b.municipio, "es"));
+
+const totalEstaciones = rows.reduce((acc, r) => acc + r.totalEstaciones, 0);
+const totalMunicipios = rows.length;
+const canonical = `https://bombero.mx/directorio/${estadoSlug}/municipios/`;
+
+const titleHead = `Municipios con bomberos en ${estadoInfo.nombre} — ${totalMunicipios} municipios, ${totalEstaciones} estaciones | BOMBERO.MX`;
+const description = truncateMetaDescription(
+  `Directorio de los ${totalMunicipios} municipios de ${estadoInfo.nombre} con bomberos: ${totalEstaciones} estaciones, teléfonos directos y dirección. Selecciona tu municipio o llama al 911.`,
+  155,
+);
+
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Municipios con bomberos en ${estadoInfo.nombre}`,
+  numberOfItems: totalMunicipios,
+  itemListElement: rows.map((r, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: `https://bombero.mx/directorio/${estadoSlug}/municipios/${r.municipioSlug}/`,
+    name: r.municipio,
+  })),
+};
+---
+
+<PageLayout
+  title={titleHead}
+  description={description}
+  canonical={canonical}
+  modifiedTime={DIRECTORIO_VERIFICADO_ISO}
+  keywords={[
+    `bomberos ${estadoInfo.nombre.toLowerCase()}`,
+    `municipios bomberos ${estadoInfo.nombre.toLowerCase()}`,
+    `directorio ${estadoInfo.nombre.toLowerCase()}`,
+  ]}
+  jsonLd={[itemList]}
+>
+  <Breadcrumb items={[
+    { label: "Directorio", href: "/directorio/" },
+    { label: estadoInfo.nombre, href: `/directorio/${estadoSlug}/` },
+    { label: "Municipios" },
+  ]} />
+
+  <section class="muh-hero">
+    <div class="container">
+      <span class="muh-hero__badge">{estadoInfo.codigo} · Verificado {DIRECTORIO_VERIFICADO_LEGIBLE}</span>
+      <h1 class="muh-hero__title">Municipios con bomberos en {estadoInfo.nombre}</h1>
+      <p class="muh-hero__desc">
+        Selecciona el <strong>municipio</strong> donde necesitas información de bomberos. {estadoInfo.nombre}
+        cuenta con <strong>{totalMunicipios}</strong> {totalMunicipios === 1 ? "municipio" : "municipios"} con
+        cobertura del <strong>H. Cuerpo de Bomberos</strong>, sumando <strong>{totalEstaciones}</strong>
+        estaciones operativas. Para emergencias inmediatas marca el <strong>911</strong>.
+      </p>
+    </div>
+  </section>
+
+  <section class="muh-main">
+    <div class="container">
+      <ul class="muh-grid">
+        {rows.map((r, i) => (
+          <li>
+            <a href={`/directorio/${estadoSlug}/municipios/${r.municipioSlug}/`} class={`muh-card ${i < 3 ? 'muh-card--top' : ''}`}>
+              <span class="muh-card__rank">#{i + 1}</span>
+              <span class="muh-card__name">{r.municipio}</span>
+              <span class="muh-card__meta">
+                <span class="muh-card__count">{r.totalEstaciones}</span>
+                {r.totalEstaciones === 1 ? "estación" : "estaciones"}
+              </span>
+              <span class="muh-card__arrow">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <section class="muh-context">
+        <h2>Sobre el directorio municipal de {estadoInfo.nombre}</h2>
+        <p>
+          Esta vista agrupa las estaciones del <strong>H. Cuerpo de Bomberos de {estadoInfo.nombre}</strong>
+          por municipio. La capital, <strong>{estadoInfo.capital}</strong>, suele concentrar la coordinación
+          regional y el mayor número de elementos operativos.
+        </p>
+        <p>
+          Para una vista global del estado, consulta el
+          <a href={`/directorio/${estadoSlug}/`}>directorio completo de bomberos en {estadoInfo.nombre}</a>.
+          Si buscas una capacidad específica (HAZMAT, ARFF, rescate acuático…), revisa las
+          <a href={`/directorio/${estadoSlug}/especialidades/`}>especialidades publicadas</a> del estado.
+        </p>
+      </section>
+    </div>
+  </section>
+
+  <FAQDirectorio scope="estado" estado={estadoInfo.nombre} capital={estadoInfo.capital} totalEstaciones={totalEstaciones} />
+
+  <VerifiedBadge estado={estadoInfo.nombre} fecha={DIRECTORIO_VERIFICADO_LEGIBLE} totalEstaciones={totalEstaciones} />
+
+  <CTABanner
+    title={`¿Equipas a los bomberos de ${estadoInfo.nombre}?`}
+    desc={`Cotizamos equipo NFPA certificado para los ${totalMunicipios} municipios de ${estadoInfo.nombre}.`}
+    btnText="Solicitar Cotización"
+    btnHref={`/cotizar/?utm_source=directorio&utm_medium=municipios_hub&utm_campaign=${estadoSlug}`}
+    whatsapp={true}
+  />
+</PageLayout>
+
+<style>
+  .muh-hero {
+    background: linear-gradient(135deg, #0a0a0a, #1a0606);
+    color: white;
+    padding: var(--space-12, 3rem) 0;
+  }
+  .muh-hero__badge {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    background: rgba(220,38,38,0.18);
+    color: #f97316;
+    border: 1px solid rgba(220,38,38,0.3);
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.85rem;
+  }
+  .muh-hero__title {
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: white;
+    margin: 0 0 0.7rem;
+  }
+  .muh-hero__desc {
+    color: rgba(255,255,255,0.78);
+    max-width: 760px;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .muh-hero__desc strong { color: white; }
+
+  .muh-main { padding: var(--space-12,3rem) 0; background: var(--color-smoke-50,#fafafa); }
+  .muh-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.85rem; }
+  .muh-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.95rem 1.1rem;
+    background: white;
+    border: 1px solid var(--color-smoke-200,#e5e5e5);
+    border-radius: 0.85rem;
+    text-decoration: none;
+    color: var(--color-smoke-900,#111);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .muh-card:hover { border-color: var(--color-fire-500,#dc2626); transform: translateY(-1px); }
+  .muh-card--top { border-left: 4px solid var(--color-fire-500,#dc2626); }
+  .muh-card__rank { font-size: 0.7rem; font-weight: 800; color: var(--color-fire-700,#b91c1c); background: rgba(220,38,38,0.08); padding: 0.18rem 0.5rem; border-radius: 9999px; font-variant-numeric: tabular-nums; }
+  .muh-card__name { flex: 1; font-weight: 700; font-size: 0.98rem; }
+  .muh-card__meta { font-size: 0.78rem; color: var(--color-smoke-500,#777); font-weight: 600; white-space: nowrap; }
+  .muh-card__count { color: var(--color-fire-700,#b91c1c); font-weight: 800; margin-right: 0.25rem; }
+  .muh-card__arrow { color: var(--color-smoke-400,#999); font-weight: 700; }
+  .muh-card:hover .muh-card__arrow { color: var(--color-fire-700,#b91c1c); transform: translateX(2px); }
+  .muh-context { margin-top: 2.5rem; max-width: 760px; }
+  .muh-context h2 { font-size: 1.4rem; margin: 0 0 0.6rem; }
+  .muh-context p { color: var(--color-smoke-700,#444); line-height: 1.7; margin: 0 0 0.85rem; }
+  .muh-context a { color: var(--color-fire-700,#b91c1c); text-decoration: underline; }
+</style>

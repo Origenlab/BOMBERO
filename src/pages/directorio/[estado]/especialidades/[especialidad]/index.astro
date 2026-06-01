@@ -1,0 +1,210 @@
+---
+/**
+ * /directorio/{estado}/especialidades/{especialidad}/
+ * Landing por especialidad operativa (HAZMAT, ARFF, rescate acuático…).
+ * Lista las estaciones del estado con esa capacidad + cross-link al producto NFPA.
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import CTABanner from "@components/CTABanner.astro";
+import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
+import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
+import {
+  getAllEspecialidades,
+  findEspecialidad,
+  getEstadoInfo,
+  ESPECIALIDADES_CANONICAS,
+} from "@utils/directorio-index";
+import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
+import { truncateMetaDescription } from "@utils/seo";
+
+export function getStaticPaths() {
+  return getAllEspecialidades().map((e) => ({
+    params: { estado: e.estadoSlug, especialidad: e.especialidadSlug },
+    props: { estadoSlug: e.estadoSlug, especialidadSlug: e.especialidadSlug },
+  }));
+}
+
+const { estadoSlug, especialidadSlug } = Astro.props as {
+  estadoSlug: string;
+  especialidadSlug: string;
+};
+
+const row = findEspecialidad(estadoSlug, especialidadSlug);
+const estadoInfo = getEstadoInfo(estadoSlug);
+if (!row || !estadoInfo) return Astro.redirect("/404");
+
+const espCanonica = Object.values(ESPECIALIDADES_CANONICAS).find(
+  (c) => c.slug === especialidadSlug,
+);
+if (!espCanonica) return Astro.redirect("/404");
+
+const canonical = `https://bombero.mx/directorio/${estadoSlug}/especialidades/${especialidadSlug}/`;
+const titleHead = `${espCanonica.label} — Bomberos en ${estadoInfo.nombre} | BOMBERO.MX`;
+const description = truncateMetaDescription(
+  `${row.totalEstaciones} ${row.totalEstaciones === 1 ? "estación" : "estaciones"} con ${espCanonica.label} en ${estadoInfo.nombre}. ${espCanonica.descripcion} Equipo NFPA certificado y cotización para procurement municipal.`,
+  155,
+);
+
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones con ${espCanonica.label} en ${estadoInfo.nombre}`,
+  numberOfItems: row.totalEstaciones,
+  itemListElement: row.estaciones.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${estadoSlug}/${e.slug}/`,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.ciudad,
+        addressRegion: estadoInfo.nombre,
+        addressCountry: "MX",
+      },
+    },
+  })),
+};
+---
+
+<PageLayout
+  title={titleHead}
+  description={description}
+  canonical={canonical}
+  modifiedTime={DIRECTORIO_VERIFICADO_ISO}
+  keywords={[
+    `${espCanonica.slug} ${estadoInfo.nombre.toLowerCase()}`,
+    `${espCanonica.label.toLowerCase()} ${estadoInfo.nombre.toLowerCase()}`,
+    `bomberos ${espCanonica.slug}`,
+    `estaciones ${espCanonica.slug} ${estadoInfo.nombre.toLowerCase()}`,
+  ]}
+  jsonLd={[itemList]}
+>
+  <Breadcrumb items={[
+    { label: "Directorio", href: "/directorio/" },
+    { label: estadoInfo.nombre, href: `/directorio/${estadoSlug}/` },
+    { label: "Especialidades", href: `/directorio/${estadoSlug}/especialidades/` },
+    { label: espCanonica.label },
+  ]} />
+
+  <section class="esp-hero">
+    <div class="container">
+      <span class="esp-hero__badge">{estadoInfo.codigo} · Capacidad especializada</span>
+      <h1 class="esp-hero__title">{espCanonica.label} en {estadoInfo.nombre}</h1>
+      <p class="esp-hero__desc">{espCanonica.descripcion}</p>
+      <p class="esp-hero__count">
+        <strong>{row.totalEstaciones}</strong> {row.totalEstaciones === 1 ? "estación cuenta" : "estaciones cuentan"} con esta capacidad en {estadoInfo.nombre}.
+      </p>
+
+      <div class="esp-hero__cta">
+        <a class="esp-hero__btn esp-hero__btn--primary" href={espCanonica.productoHref}>
+          Ver equipo NFPA para {espCanonica.label.split("—")[0].trim()}
+        </a>
+        <a class="esp-hero__btn esp-hero__btn--ghost" href="tel:911">Llamar al 911</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="esp-main">
+    <div class="container">
+      <h2 class="esp-section__title">Estaciones con esta capacidad en {estadoInfo.nombre}</h2>
+      <ul class="esp-list">
+        {row.estaciones.map((e) => (
+          <li class="esp-item">
+            <div class="esp-item__main">
+              <h3 class="esp-item__name">
+                <a href={`/directorio/${estadoSlug}/${e.slug}/`}>{e.nombreCorto ?? e.nombre}</a>
+              </h3>
+              <p class="esp-item__addr">
+                {e.direccion}{e.colonia ? `, ${e.colonia}` : ""}{e.codigoPostal ? `, CP ${e.codigoPostal}` : ""} ·
+                <strong> {e.municipio ?? e.ciudad}</strong>
+              </p>
+              {e.servicios && (
+                <p class="esp-item__svcs">
+                  Servicios: {e.servicios.slice(0, 3).join(", ")}
+                  {e.servicios.length > 3 && ` y ${e.servicios.length - 3} más.`}
+                </p>
+              )}
+            </div>
+            <div class="esp-item__cta">
+              {e.telefono && <a class="esp-item__tel" href={`tel:${e.telefono.replace(/\s/g, "")}`}>{e.telefono}</a>}
+              <a class="esp-item__more" href={`/directorio/${estadoSlug}/${e.slug}/`}>Ver ficha →</a>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <section class="esp-context">
+        <h2>Equipo NFPA para {espCanonica.label.split("—")[0].trim()}</h2>
+        <p>
+          Las operaciones de <strong>{espCanonica.label}</strong> requieren equipo certificado bajo
+          normas <strong>NFPA</strong> para garantizar la seguridad del personal operativo.
+          En BOMBERO.MX distribuimos equipo certificado para estos casos en todo el estado de {estadoInfo.nombre}.
+        </p>
+        <p>
+          <a href={espCanonica.productoHref}>Conoce el catálogo</a> de equipo recomendado para esta
+          especialidad o
+          <a href={`/cotizar/?utm_source=directorio&utm_medium=especialidad&utm_campaign=${estadoSlug}_${especialidadSlug}`}>solicita cotización</a>
+          para tu cuerpo de bomberos.
+        </p>
+      </section>
+    </div>
+  </section>
+
+  <FAQDirectorio scope="estado" estado={estadoInfo.nombre} capital={estadoInfo.capital} totalEstaciones={row.totalEstaciones} />
+
+  <VerifiedBadge estado={`${espCanonica.label} en ${estadoInfo.nombre}`} fecha={DIRECTORIO_VERIFICADO_LEGIBLE} totalEstaciones={row.totalEstaciones} />
+
+  <CTABanner
+    title={`Equipa a los bomberos de ${estadoInfo.nombre} con equipo ${espCanonica.label.split("—")[0].trim()}`}
+    desc={`BOMBERO.MX distribuye equipo NFPA certificado para ${row.totalEstaciones} ${row.totalEstaciones === 1 ? "estación" : "estaciones"} de ${estadoInfo.nombre}.`}
+    btnText="Solicitar Cotización"
+    btnHref={`/cotizar/?utm_source=directorio&utm_medium=especialidad&utm_campaign=${estadoSlug}_${especialidadSlug}`}
+    whatsapp={true}
+  />
+</PageLayout>
+
+<style>
+  .esp-hero { background: linear-gradient(135deg, #0a0a0a, #1a0606); color: white; padding: var(--space-12,3rem) 0; }
+  .esp-hero__badge { display: inline-block; padding: 0.3rem 0.85rem; background: rgba(220,38,38,0.18); color: #f97316; border: 1px solid rgba(220,38,38,0.3); border-radius: 9999px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.85rem; }
+  .esp-hero__title { font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.65rem; color: white; }
+  .esp-hero__desc { color: rgba(255,255,255,0.78); max-width: 760px; line-height: 1.7; margin: 0 0 0.85rem; }
+  .esp-hero__count { color: white; font-size: 0.95rem; margin: 0 0 1.5rem; }
+  .esp-hero__count strong { color: #fbbf24; font-size: 1.3rem; }
+  .esp-hero__cta { display: flex; gap: 0.65rem; flex-wrap: wrap; }
+  .esp-hero__btn { display: inline-flex; align-items: center; padding: 0.85rem 1.4rem; border-radius: 9999px; font-size: 0.95rem; font-weight: 700; text-decoration: none; transition: transform 0.15s ease; }
+  .esp-hero__btn:hover { transform: translateY(-2px); }
+  .esp-hero__btn--primary { background: linear-gradient(135deg, #dc2626, #f97316); color: white; }
+  .esp-hero__btn--ghost { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.18); }
+
+  .esp-main { padding: var(--space-12,3rem) 0; background: var(--color-smoke-50,#fafafa); }
+  .esp-section__title { font-size: clamp(1.4rem, 2.8vw, 1.9rem); font-weight: 800; color: var(--color-smoke-900,#111); margin: 0 0 1rem; letter-spacing: -0.02em; }
+  .esp-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.7rem; }
+  .esp-item { display: flex; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.2rem; background: white; border: 1px solid var(--color-smoke-200,#e5e5e5); border-radius: 0.85rem; }
+  .esp-item:hover { border-color: var(--color-fire-500,#dc2626); }
+  .esp-item__main { flex: 1; min-width: 0; }
+  .esp-item__name { margin: 0 0 0.3rem; font-size: 1.02rem; font-weight: 700; }
+  .esp-item__name a { color: var(--color-smoke-900,#111); text-decoration: none; }
+  .esp-item__name a:hover { color: var(--color-fire-700,#b91c1c); }
+  .esp-item__addr { font-size: 0.86rem; color: var(--color-smoke-600,#555); margin: 0 0 0.35rem; line-height: 1.5; }
+  .esp-item__addr strong { color: var(--color-smoke-900,#111); }
+  .esp-item__svcs { font-size: 0.82rem; color: var(--color-smoke-500,#777); margin: 0; }
+  .esp-item__cta { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; flex-shrink: 0; }
+  .esp-item__tel { font-weight: 800; color: var(--color-fire-700,#b91c1c); text-decoration: none; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .esp-item__more { font-size: 0.85rem; color: var(--color-smoke-700,#444); text-decoration: none; font-weight: 600; white-space: nowrap; }
+  .esp-item__more:hover { color: var(--color-fire-700,#b91c1c); }
+
+  .esp-context { margin-top: 2.5rem; max-width: 760px; }
+  .esp-context h2 { font-size: 1.4rem; margin: 0 0 0.55rem; }
+  .esp-context p { color: var(--color-smoke-700,#444); line-height: 1.7; margin: 0 0 0.85rem; }
+  .esp-context a { color: var(--color-fire-700,#b91c1c); text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    .esp-item { flex-direction: column; align-items: flex-start; }
+    .esp-item__cta { align-items: flex-start; }
+  }
+</style>

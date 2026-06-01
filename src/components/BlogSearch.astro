@@ -32,10 +32,16 @@
     let pagefind;
 
     try {
-      pagefind = await import('/pagefind/pagefind.js');
+      // URL construida en runtime para que Vite no intente resolverla en dev
+      const pagefindUrl = '/' + 'pagefind/' + 'pagefind.js';
+      const head = await fetch(pagefindUrl, { method: 'HEAD' }).catch(() => null);
+      if (!head || !head.ok) {
+        input.placeholder = 'Búsqueda disponible en producción';
+        return;
+      }
+      pagefind = await import(/* @vite-ignore */ pagefindUrl);
       await pagefind.init();
     } catch (e) {
-      // Pagefind no disponible en dev mode - mostrar mensaje
       input.placeholder = 'Búsqueda disponible en producción';
       return;
     }

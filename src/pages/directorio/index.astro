@@ -84,11 +84,20 @@ const directorioJsonLd = {
   about: {
     "@type": "Thing",
     name: "Estaciones de Bomberos en México",
-    sameAs: "https://es.wikipedia.org/wiki/Bombero",
+    sameAs: [
+      "https://es.wikipedia.org/wiki/Bombero",
+      "https://www.wikidata.org/wiki/Q33829",
+    ],
   },
   speakable: {
     "@type": "SpeakableSpecification",
     cssSelector: [".dir-hero__title", ".dir-hero__desc"],
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "BOMBERO.MX",
+    url: "https://bombero.mx",
+    logo: "https://bombero.mx/images/bombero.png",
   },
   mainEntity: {
     "@type": "ItemList",
@@ -99,6 +108,33 @@ const directorioJsonLd = {
       url: `https://bombero.mx/directorio/${e.slug}/`,
       name: `Bomberos en ${e.name}`,
     })),
+  },
+};
+
+// Service schema — para que aparezcamos en búsquedas tipo "servicios de bomberos en México"
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Directorio de Bomberos en México",
+  serviceType: "Información de emergencias y directorio público",
+  areaServed: {
+    "@type": "Country",
+    name: "México",
+    sameAs: "https://es.wikipedia.org/wiki/M%C3%A9xico",
+  },
+  provider: {
+    "@type": "Organization",
+    name: "BOMBERO.MX",
+    url: "https://bombero.mx",
+  },
+  category: [
+    "Emergency Services",
+    "Fire Stations",
+    "Public Safety Directory",
+  ],
+  audience: {
+    "@type": "Audience",
+    audienceType: "Ciudadanía general y procurement municipal",
   },
 };
 
@@ -116,7 +152,7 @@ const regiones = [
   description={`Directorio oficial con ${totalEstaciones}+ estaciones de bomberos verificadas en los 32 estados de México. Teléfonos de emergencia, direcciones, servicios y contacto directo. Actualizado ${DIRECTORIO_VERIFICADO_LEGIBLE}.`}
   canonical="https://bombero.mx/directorio/"
   modifiedTime={DIRECTORIO_VERIFICADO_ISO}
-  jsonLd={[directorioJsonLd]}
+  jsonLd={[directorioJsonLd, serviceJsonLd]}
 >
   <Breadcrumb items={[
     { label: "Directorio" },

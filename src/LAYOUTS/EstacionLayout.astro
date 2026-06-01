@@ -6,6 +6,7 @@ import Breadcrumb from "@components/Breadcrumb.astro";
 import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
 import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
 import StationCTA from "@components/directorio/StationCTA.astro";
+import StationDeepLinks from "@components/directorio/StationDeepLinks.astro";
 import { cdnW } from "@utils/cdn";
 import { truncateMetaDescription } from "@utils/seo";
 import { getProductosRelacionadosEstacion } from "@data/directorio-productos-map";
@@ -174,6 +175,7 @@ const stationJsonLd = {
   description={seoDescription}
   keywords={seoKeywords}
   canonical={canonical}
+  image={`/api/og/estacion/${estado.slug}/${estacion.slug}.svg`}
   modifiedTime={DIRECTORIO_VERIFICADO_ISO}
   jsonLd={[stationJsonLd]}
 >
@@ -660,6 +662,13 @@ const stationJsonLd = {
     </div>
   </section>
 
+
+  <StationDeepLinks
+    estadoSlug={estado.slug}
+    estadoNombre={estado.nombre}
+    municipio={ubicacion}
+    especialidades={estacion.especialidades ?? []}
+  />
 
   <StationCTA
     estacionNombre={nombreCortoDisplay}

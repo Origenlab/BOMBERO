@@ -12266,228 +12266,840 @@ Sí, incluimos orientación técnica sobre el uso, mantenimiento y vida útil de
   },
 
   "bomberos-queretaro-equipo-nfpa": {
-    titulo: "Bomberos de Querétaro: Equipo Certificado NFPA",
-    excerpt: "El Cuerpo de Bomberos de Querétaro protege una de las zonas industriales más importantes de México. Equipo NFPA certificado para estaciones en todo el estado.",
-    imagen: "/images/directorio/estacion-bomberos-mexico-01.avif",
+    titulo: "Bomberos de Querétaro: Guía Completa de Equipo NFPA 2026",
+    excerpt: "Guía 2026 sobre equipamiento NFPA para el Heroico Cuerpo de Bomberos de Querétaro y brigadas industriales del Bajío. Análisis corredor aeroespacial, parques industriales, autopista 57D y cómo BOMBERO MX abastece la región más industrial del centro del país.",
+    imagen: "/images/accion/bomberos-rescate-vehicular.avif",
     categoria: "Equipo",
-    tags: ["Bomberos Querétaro", "NFPA", "EPP Bomberos", "Equipo Certificado"],
+    tags: ["Bomberos Querétaro", "NFPA 1971", "EPP Bomberos", "Corredor Aeroespacial", "Bajío", "ARFF"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo NFPA",
+    autorRol: "Especialistas en Equipo NFPA para México",
     anchorKeyword: "equipo para bomberos Querétaro NFPA",
     contenido: `
-## Cuerpo de Bomberos de Querétaro
+## Bomberos en Querétaro y el Bajío: Contexto Operativo 2026
 
-**Querétaro** es uno de los estados con mayor crecimiento industrial en México. Su corredor aeroespacial, automotriz y de manufactura avanzada exige que los cuerpos de bomberos cuenten con **equipo de protección personal certificado NFPA** de última generación.
+**Querétaro** es uno de los estados con **mayor crecimiento industrial de México** en la última década. Su **zona metropolitana** —Santiago de Querétaro, Corregidora, El Marqués y Huimilpan— supera ya los **1.6 millones de habitantes** con tasas de crecimiento superiores al 3% anual. El **Heroico Cuerpo de Bomberos de Querétaro** y los cuerpos municipales operan en un entorno único en el país: **clúster aeroespacial de clase mundial** (Bombardier, Safran, Airbus Helicopters), **corredor automotriz** y **logística del Bajío** que conecta CDMX con el norte industrial.
 
-El **Heroico Cuerpo de Bomberos de Querétaro** atiende emergencias en una zona metropolitana de más de 1.2 millones de habitantes, con parques industriales de clase mundial donde operan empresas como Bombardier, Safran y múltiples plantas automotrices que requieren brigadas con equipo especializado HAZMAT.
+Esta combinación —aeroespacial + automotriz + corredor logístico + ciudad colonial Patrimonio de la Humanidad— exige una de las redes de bomberos **más diversas operativamente del país**: estructural en el Centro Histórico, ARFF en el AIQ, HAZMAT en parques industriales y rescate vehicular en la 57D.
 
-### Equipo NFPA para Bomberos en Querétaro
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">1.6M</span>
+    <span class="stat__label">Habitantes ZMQ</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">4</span>
+    <span class="stat__label">Municipios conurbados</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">12+</span>
+    <span class="stat__label">Estaciones operativas</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">+350</span>
+    <span class="stat__label">Plantas aeroespaciales/automotrices</span>
+  </div>
+</div>
 
-Las necesidades de equipo en Querétaro son diversas por su perfil industrial:
+En **BOMBERO MX** abastecemos al **Heroico Cuerpo de Bomberos de Querétaro**, cuerpos municipales, brigadas industriales del corredor aeroespacial y empresas de protección civil. Desde nuestra base en CDMX, Querétaro está a **2.5 horas por la 57D** —una de las regiones donde tenemos mayor velocidad logística.
 
-- **Trajes estructurales NFPA 1971** — Para combate de incendios en edificaciones residenciales e industriales. Construcción multicapa con Nomex, PBI Gold y barrera Gore-Tex.
-- **Equipos SCBA NFPA 1981** — Aparatos de respiración autónoma MSA y Honeywell con cilindros de 30 y 45 minutos y alarma PASS integrada.
-- **Trajes HAZMAT Nivel A y B** — Indispensables para la respuesta a emergencias químicas en parques industriales.
-- **Cascos certificados NFPA 1971** — Bullard y Cairns con protección facial y térmica completa.
-- **Herramientas de rescate NFPA 1936** — Cizallas hidráulicas y expansores para extricación vehicular en las autopistas del estado.
-
-### Zonas de Cobertura en Querétaro
-
-| Zona | Tipo de Riesgo | Equipo Prioritario |
-|------|---------------|-------------------|
-| **Centro Histórico** | Incendio estructural | EPP NFPA 1971 completo |
-| **Parque Industrial Querétaro** | HAZMAT / Industrial | Trajes HAZMAT + SCBA |
-| **Corredor Aeroespacial** | ARFF / Industrial | EPP especializado ARFF |
-| **Autopista 57D** | Rescate vehicular | Herramientas Jaws of Life |
-| **El Marqués / Colón** | Forestal e industrial | EPP NFPA 1977 + 1971 |
-
-### Marcas Disponibles para Bomberos de Querétaro
-
-En **BOMBERO.MX** distribuimos las marcas líderes mundiales en equipo para bomberos:
-
-- **MSA Safety** — SCBA G1, cascos Cairns y detectores de gas
-- **Honeywell / Scott** — SCBA Air-Pak y trajes Morning Pride
-- **Globe** — Trajes estructurales GX-7 y Athletic
-- **Bullard** — Cascos estructurales UST y FXE
-- **Holmatro** — Herramientas hidráulicas de rescate
-
-### Cotiza Equipo para Bomberos en Querétaro
-
-Ofrecemos atención especializada para cuerpos de bomberos, protección civil y brigadas industriales en todo Querétaro:
-
-- Cotizaciones sin compromiso con asesoría técnica
-- Fichas técnicas y certificados NFPA de cada producto
-- Envío express desde CDMX (entrega en 24-48 hrs)
-- Facturación para gobierno, licitaciones y sector privado
-
-> **Protege a tu equipo con lo mejor.** [Solicita cotización →](/cotizar/) o consulta el [catálogo completo →](/productos/).
+<figure>
+  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación operativa de bomberos en Querétaro con camión autobomba" loading="lazy" width="900" height="600" />
+  <figcaption>Estación operativa — la red queretana combina perfil colonial estructural con presión industrial creciente.</figcaption>
+</figure>
 
 ---
 
-## Preguntas Frecuentes — Bomberos Querétaro
+## Las 5 Zonas de Riesgo Críticas en Querétaro
 
-### ¿Qué equipo necesitan las brigadas industriales en Querétaro?
-Las brigadas industriales en parques como El Marqués y Juriquilla requieren EPP NFPA 1971, extintores NOM-100, detectores multigas y, dependiendo del sector, trajes HAZMAT NFPA 1991.
+### 1. Corredor Aeroespacial AIQ–Colón — ARFF y Manufactura Crítica
 
-### ¿Atienden pedidos de gobierno y licitaciones en Querétaro?
-Sí, trabajamos con municipios, protección civil estatal y cuerpos de bomberos en procesos de licitación. Emitimos facturas CFDI y aceptamos todas las formas de pago gubernamental.
+El **Aeropuerto Intercontinental de Querétaro (AIQ)** opera junto al clúster aeroespacial más relevante de Latinoamérica: **Bombardier, Safran, Airbus Helicopters, Aernnova, Daher, Eurocopter** y proveedores Tier 1. El equipo ARFF (Aircraft Rescue and Fire Fighting) y los protocolos NFPA 402/403 son obligatorios.
+
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">ARFF certificado obligatorio</span>
+    <p>Las brigadas aeroportuarias requieren cumplir <strong>NFPA 402, 403 y 405</strong>. El equipo aeroespacial usa litio, combustibles especiales y resinas compuestas — un incendio industrial en estas plantas requiere EPP de alto TPP y trajes de aproximación.</p>
+  </div>
+</div>
+
+**Equipo prioritario:**
+- Trajes de aproximación aluminizados ARFF
+- Cascos NFPA 1971 con visor térmico
+- SCBA NFPA 1981 con cilindros de 60 minutos
+- [Detectores multigas](/blog/detector-gases-multigas-monitor/) para vapores aeroespaciales
+- Equipo para fuegos de litio
+
+### 2. Parques Industriales El Marqués, Bernardo Quintana, Juriquilla — HAZMAT
+
+Los parques **El Marqués I/II/III, Bernardo Quintana, Querétaro Industrial Park, La Cruz, Tres Naciones** y los corredores automotrices alrededor de la 57D concentran cientos de plantas. Riesgos típicos: solventes industriales, pinturas automotrices, gases técnicos y procesos químicos.
+
+<figure>
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA en parques industriales de Querétaro" loading="lazy" width="900" height="600" />
+  <figcaption>Casco para brigada industrial — exigible en plantas del corredor El Marqués–Bernardo Quintana.</figcaption>
+</figure>
+
+**Equipo prioritario:**
+- Trajes HAZMAT Nivel A/B
+- Detectores multigas
+- SCBA NFPA 1981 con cilindros 45 minutos
+- [Guantes HAZMAT](/productos/guantes-para-bomberos/)
+
+### 3. Centro Histórico Patrimonio UNESCO — Combate Estructural Patrimonial
+
+El **Centro Histórico de Santiago de Querétaro** está declarado Patrimonio de la Humanidad desde 1996. **Templos del siglo XVII, conventos, casonas con vigas de madera** y red eléctrica heredada generan un escenario estructural complejo con valor patrimonial irrecuperable.
+
+**Equipo prioritario:**
+- EPP NFPA 1971 completo
+- SCBA con cilindros de 45–60 min
+- Mangueras de bajo impacto (presión controlada)
+- Cámara térmica
+
+### 4. Autopista México–Querétaro (57D) — Rescate Vehicular Pesado
+
+Con más de **80,000 vehículos/día**, la 57D es la **autopista más transitada del centro del país**. Cierres por accidentes son recurrentes, particularmente en el tramo **San Juan del Río–Querétaro** donde el transporte de combustibles y dobles articulados aumentan el riesgo HAZMAT post-impacto.
+
+<div class="compare-grid">
+  <div class="compare-card compare-card--pro">
+    <h4>Estación bien equipada para 57D</h4>
+    <ul>
+      <li>Herramientas Holmatro/Hurst NFPA 1936</li>
+      <li>Trajes HAZMAT para combustibles</li>
+      <li>EPP NFPA 1971 anti-incendio post-impacto</li>
+      <li>Equipo de inmovilización y triage</li>
+    </ul>
+  </div>
+  <div class="compare-card compare-card--con">
+    <h4>Riesgo sin equipo adecuado</h4>
+    <ul>
+      <li>Extricación lenta (víctimas atrapadas)</li>
+      <li>Sin EPP para incendio secundario</li>
+      <li>Exposición a vapores tóxicos</li>
+      <li>Cierre prolongado de autopista</li>
+    </ul>
+  </div>
+</div>
+
+### 5. Sierra Gorda y Reservas — Forestal Estacional
+
+La **Reserva de la Biósfera Sierra Gorda** (Jalpan, Landa, Pinal de Amoles) presenta incendios forestales en temporada seca. Los municipios serranos operan con autonomía limitada y dependen de coordinación con CONAFOR y brigadas estatales.
+
+**Equipo prioritario:**
+- EPP NFPA 1977 forestal
+- Mochilas back-pump
+- Herramientas manuales Pulaski/McLeod
+
+---
+
+## Equipo NFPA Esencial para Bomberos en Querétaro
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">✈️</span>
+    <h4 class="feature__title">ARFF Aeroportuario</h4>
+    <p class="feature__text">NFPA 402/403/405 — Trajes de aproximación, cascos con visor dorado, SCBA 60 min.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🧥</span>
+    <h4 class="feature__title">Trajes NFPA 1971</h4>
+    <p class="feature__text">Edición 2024 con TPP ≥35 cal/cm². Para Centro Histórico y zona residencial.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⚗️</span>
+    <h4 class="feature__title">HAZMAT Nivel A/B</h4>
+    <p class="feature__text">Trajes encapsulados + detector multigas para parques industriales.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💨</span>
+    <h4 class="feature__title">SCBA 45–60 min</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro, Dräger PSS con cilindros composite.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Herramientas NFPA 1936</h4>
+    <p class="feature__text">Holmatro y Hurst para extricación en la 57D — la autopista más exigente del país.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🌲</span>
+    <h4 class="feature__title">EPP Forestal NFPA 1977</h4>
+    <p class="feature__text">Para brigadas de Sierra Gorda y municipios serranos.</p>
+  </div>
+</div>
+
+---
+
+## BOMBERO MX en Querétaro: Logística Express del Bajío
+
+**BOMBERO MX** está basado en CDMX. Querétaro es uno de los destinos donde tenemos **mayor velocidad logística**: la **57D** permite entrega en **menos de 24 horas** para productos en stock.
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">⚡</span>
+    <h4 class="feature__title">Entrega 24h</h4>
+    <p class="feature__text">Productos en stock: entrega siguiente día hábil en ZMQ y municipios conurbados.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📑</span>
+    <h4 class="feature__title">Licitaciones estatales</h4>
+    <p class="feature__text">CFDI + certificados NFPA + fichas técnicas para Gobierno de Querétaro.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🤝</span>
+    <h4 class="feature__title">Demostración SCBA</h4>
+    <p class="feature__text">Coordinamos demos presenciales en estaciones para pedidos institucionales.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🏭</span>
+    <h4 class="feature__title">Brigadas industriales</h4>
+    <p class="feature__text">Atención especializada al clúster aeroespacial y corredor automotriz.</p>
+  </div>
+</div>
+
+### Qué brigadas equipamos en Querétaro
+
+- **Heroico Cuerpo de Bomberos de Querétaro**
+- Cuerpos municipales (Corregidora, El Marqués, San Juan del Río, Tequisquiapan)
+- **Brigadas industriales** del clúster aeroespacial AIQ
+- **Brigadas internas** del corredor automotriz y manufacturero
+- **Brigadas comunitarias** en Sierra Gorda
+- **Empresas de protección civil** privadas
+
+<div class="fact">
+  <span class="fact__num">24h</span>
+  <p class="fact__text">Entrega siguiente día hábil a Querétaro vía la 57D. Stock en CDMX disponible para pedidos urgentes.</p>
+</div>
+
+<div class="cta-box">
+  <h3>¿Equipas una estación o brigada en Querétaro?</h3>
+  <p>Asesoría técnica sin compromiso · Entrega 24h vía 57D · Atención a licitaciones</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
+
+---
+
+## Marcas Disponibles en BOMBERO MX
+
+| Marca | Producto | Aplicación principal |
+|-------|----------|----------------------|
+| **MSA Safety** | SCBA G1, cascos Cairns, multigas | Estructural + HAZMAT |
+| **Honeywell/Scott** | SCBA Air-Pak X3 Pro, Morning Pride | Estructural + ARFF |
+| **Globe** | Trajes GX-7, Athletic | Estructural |
+| **Bullard** | Cascos UST, FXE | Estructural + Industrial |
+| **Dräger** | SCBA PSS, detectores | HAZMAT + industrial |
+| **Holmatro/Hurst** | Cizallas, expansores, NFPA 1936 | Extricación 57D |
+
+---
+
+## Productos Recomendados para Brigadas Queretanas
+
+<div class="img-grid">
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+</div>
+
+- [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
+- [**Cascos NFPA**](/productos/cascos-para-bomberos/) — Bullard, Cairns, MSA
+- [**SCBA**](/productos/scba/) — MSA G1, Scott X3, Dräger PSS
+- [**Botas estructurales**](/productos/botas-para-bomberos/)
+- [**Capuchas NFPA**](/productos/capuchas-para-bomberos/)
+
+---
+
+## Preguntas Frecuentes — Bomberos en Querétaro
+
+### ¿Qué equipo requieren las brigadas del clúster aeroespacial?
+
+Brigadas en **Bombardier, Safran, Airbus Helicopters** y proveedores Tier 1 requieren EPP cumpliendo **NFPA 402/403/405** para operaciones ARFF: traje de aproximación, casco con visor térmico dorado, SCBA con cilindros de 60 minutos, detectores multigas calibrados para vapores aeroespaciales y equipo específico para incendios de litio (baterías).
+
+### ¿BOMBERO MX atiende licitaciones del Gobierno del Estado de Querétaro?
+
+Sí. Emitimos **CFDI, certificados NFPA, fichas técnicas y declaraciones de cumplimiento** para soportar propuestas técnicas en licitaciones estatales y municipales. Atendemos al Gobierno de Querétaro, Corregidora, El Marqués, San Juan del Río y municipios serranos.
 
 ### ¿Cuánto tarda el envío de equipo a Querétaro?
-Desde nuestra base en CDMX, los envíos express llegan a Querétaro en 24 a 48 horas hábiles. Para pedidos urgentes ofrecemos servicio de entrega el mismo día.
+
+**24 horas siguientes hábiles** para productos en stock vía paquetería express por la 57D. Para pedidos urgentes coordinamos entrega el mismo día con coordinación previa.
 
 ### ¿Ofrecen demostración del equipo SCBA en sitio?
-Sí, para pedidos de equipos SCBA podemos coordinar una demostración técnica en las instalaciones del cuerpo de bomberos o brigada industrial.
+
+Sí. Para pedidos institucionales (3+ unidades SCBA o EPP completo) coordinamos **demostración presencial** en tu estación o instalaciones industriales. Cubrimos las tres marcas principales con técnicos certificados.
+
+### ¿Atienden a brigadas internas de plantas en El Marqués?
+
+Sí. Tenemos historial equipando brigadas internas de plantas en **El Marqués I/II/III, Bernardo Quintana, Querétaro Industrial Park y La Cruz**. Cada propuesta se ajusta al perfil de riesgo de la planta (HAZMAT químico, automotriz, aeroespacial).
+
+### ¿Qué pasa si necesito equipo en menos de 24 horas?
+
+Coordinamos **envío exprés directo** (transporte dedicado CDMX–Querétaro) o entrega en mano por la 57D el mismo día con coordinación previa. Contacta por WhatsApp para opciones inmediatas.
+
+---
+
+## Conclusión
+
+Querétaro combina el escenario operativo más diverso del Bajío: clúster aeroespacial NFPA 402, corredor automotriz HAZMAT, Centro Histórico patrimonio y la autopista más transitada del centro del país. Equipar a sus brigadas exige criterio técnico y logística confiable.
+
+**BOMBERO MX** convierte la proximidad CDMX–Querétaro en ventaja: **catálogo NFPA con entrega 24h, atención a licitaciones, demostración en sitio y soporte continuo**.
+
+<div class="cta-box">
+  <h3>Hablemos sobre tu estación o brigada en Querétaro</h3>
+  <p>Entrega 24h vía 57D · Asesoría técnica incluida · Demos SCBA en sitio</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Cotizar equipo →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
 ### Artículos Relacionados
 
-- [**NFPA 1971: Guía Completa de EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
-- [**SCBA: Guía de Mantenimiento →**](/blog/mantenimiento-scba/)
-- [**Catálogo completo BOMBERO.MX →**](/productos/)
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Equipo NFPA México: Guía Completa →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**ARFF: Bomberos Aeroportuarios en México →**](/blog/arff-bomberos-aeroportuarios-mexico/)
+- [**Extricación Vehicular Jaws of Life →**](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [**Licitaciones NFPA para Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Detector de Gases Multigas →**](/blog/detector-gases-multigas-monitor/)
+
+### Directorio
+
+- [**Directorio Nacional de Bomberos →**](/directorio/)
     `,
   },
 
   "bomberos-guadalajara-equipo-nfpa": {
-    titulo: "Bomberos de Guadalajara: Equipo NFPA Certificado",
-    excerpt: "El Cuerpo de Bomberos de Guadalajara y Zapopan protegen la segunda zona metropolitana de México. Equipo NFPA para bomberos en todo Jalisco.",
-    imagen: "/images/directorio/estacion-bomberos-mexico-01.avif",
+    titulo: "Bomberos de Guadalajara: Guía Completa de Equipo NFPA 2026",
+    excerpt: "Guía 2026 sobre el equipamiento NFPA para el Heroico Cuerpo de Bomberos de Guadalajara y la ZMG. Análisis del Bosque de La Primavera, corredor El Salto, edificios altos y cómo BOMBERO MX abastece a Jalisco.",
+    imagen: "/images/accion/bomberos-rescate-vehicular.avif",
     categoria: "Equipo",
-    tags: ["Bomberos Guadalajara", "Jalisco", "NFPA", "EPP Bomberos"],
+    tags: ["Bomberos Guadalajara", "Jalisco", "NFPA 1971", "EPP Bomberos", "Bosque La Primavera", "Zapopan"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo NFPA",
+    autorRol: "Especialistas en Equipo NFPA para México",
     anchorKeyword: "equipo para bomberos Guadalajara Jalisco NFPA",
     contenido: `
-## Cuerpo de Bomberos de Guadalajara, Jalisco
+## Bomberos en Guadalajara y la Zona Metropolitana: Contexto Operativo 2026
 
-**Guadalajara** es la segunda ciudad más grande de México y capital de Jalisco, con una zona metropolitana que supera los 5 millones de habitantes. El **Heroico Cuerpo de Bomberos de Guadalajara**, junto con los cuerpos de **Zapopan, Tlaquepaque y Tonalá**, conforman la red de primera respuesta más grande del occidente del país.
+**Guadalajara** es la segunda zona metropolitana más grande de México con **5.3 millones de habitantes** distribuidos entre **Guadalajara, Zapopan, Tlaquepaque, Tonalá, Tlajomulco, El Salto, Juanacatlán, Ixtlahuacán de los Membrillos y Zapotlanejo**. La red de primera respuesta combina al **Heroico Cuerpo de Bomberos de Guadalajara** con los cuerpos municipales, **Protección Civil Jalisco** y **brigadas industriales** del corredor manufacturero.
 
-La diversidad de riesgos en la ZMG incluye incendios estructurales en zonas densas del centro histórico, emergencias industriales en el corredor de El Salto, incendios forestales en la Barranca de Huentitán y el Bosque de La Primavera, y rescates vehiculares en la red de autopistas que conecta a Jalisco con el resto del país.
+Cinco realidades operativas únicas de Jalisco condicionan el equipo que cada estación necesita: el **Bosque de La Primavera** (32,500 ha protegidas con incidencia anual de incendios), el **corredor industrial El Salto–Ocotlán**, los **edificios altos en Puerta de Hierro y Andares**, los **mercados históricos** (San Juan de Dios, Libertad) y la **red de autopistas** que conecta Guadalajara con Colima, Bajío y Pacífico.
 
-### Equipo NFPA para Bomberos en Jalisco
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">5.3M</span>
+    <span class="stat__label">Habitantes ZMG</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">9</span>
+    <span class="stat__label">Municipios conurbados</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">19+</span>
+    <span class="stat__label">Estaciones operativas ZMG</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">32.5K ha</span>
+    <span class="stat__label">Bosque La Primavera</span>
+  </div>
+</div>
 
-- **Trajes estructurales NFPA 1971** — Protección multicapa para combate interior. Globe, Morning Pride y Lion Apparel con barrera Gore-Tex.
-- **Trajes forestales NFPA 1977** — Esenciales para las brigadas que protegen el Bosque de La Primavera y las zonas de interface en la periferia de la ZMG.
-- **Cascos NFPA 1971 y 1977** — Bullard UST para estructural y cascos forestales ventilados para operaciones prolongadas.
-- **SCBA NFPA 1981** — MSA G1 y Scott Air-Pak con cilindros de 45 minutos para operaciones interiores en edificios altos.
-- **Botas NFPA 1971** — Cuero de vaqueta con puntera compuesto y suela resistente a hidrocarburos.
-- **Herramientas de rescate** — Cizallas y expansores Holmatro para extricación en la Autopista Guadalajara-Colima y el Periférico.
+En **BOMBERO MX** trabajamos con cuerpos municipales, protección civil estatal y brigadas industriales en todo Jalisco. Esta guía es el resumen de lo que hemos aprendido equipando estaciones en la ZMG y el interior del estado.
 
-### Estaciones y Cuerpos de Bomberos en la ZMG
-
-| Municipio | Estaciones | Personal Aprox. |
-|-----------|-----------|----------------|
-| **Guadalajara** | 8 estaciones | 350+ elementos |
-| **Zapopan** | 5 estaciones | 200+ elementos |
-| **Tlaquepaque** | 3 estaciones | 100+ elementos |
-| **Tonalá** | 2 estaciones | 80+ elementos |
-| **El Salto** | 1 estación | 40+ elementos |
-
-### Cotiza Equipo para Bomberos en Jalisco
-
-En **BOMBERO.MX** atendemos a todos los cuerpos de bomberos, protección civil y brigadas industriales de Jalisco:
-
-- Envío express a Guadalajara y toda la ZMG
-- Atención a licitaciones gubernamentales
-- Asesoría técnica personalizada
-- Fichas técnicas y certificados NFPA incluidos
-
-> [Solicita tu cotización →](/cotizar/) o explora el [catálogo completo de productos →](/productos/).
+<figure>
+  <img src="/images/directorio/estacion-bomberos-guadalajara-01.avif" alt="Estación del Cuerpo de Bomberos de Guadalajara con unidad operativa" loading="lazy" width="900" height="600" />
+  <figcaption>Estación operativa en la ZMG — base para operaciones estructurales, forestales y de rescate.</figcaption>
+</figure>
 
 ---
 
-## Preguntas Frecuentes — Bomberos Guadalajara
+## Las 5 Zonas de Riesgo Críticas en Jalisco
 
-### ¿Qué equipo forestal necesitan los bomberos en Jalisco?
-Para combate de incendios en el Bosque de La Primavera y sierras de Jalisco se requiere EPP NFPA 1977: traje forestal ligero, casco ventilado, guantes Nomex y botas con suela Vibram para terreno irregular.
+### 1. Bosque de La Primavera — Incendios Forestales de Interface
+
+**La Primavera** es el área natural protegida más cercana a una zona metropolitana en México. Cada temporada seca (febrero–junio) registra entre **80 y 200 incendios** con riesgo de propagación a colonias residenciales de Zapopan (Bugambilias, Pinar de la Venta, Santa Anita).
+
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">Interface urbano-forestal</span>
+    <p>El reto operativo no es solo el bosque: cuando el fuego cruza a zonas habitadas requiere transición rápida de EPP forestal (NFPA 1977) a estructural (NFPA 1971). Pocas estaciones están equipadas para ambos escenarios.</p>
+  </div>
+</div>
+
+**Equipo prioritario:**
+- [Trajes forestales NFPA 1977](/productos/trajes-para-bomberos/) — liviano, transpirable
+- [Cascos forestales ventilados](/productos/cascos-para-bomberos/)
+- Mochilas de agua de 20 L (back-pump)
+- Herramientas manuales: McLeod, Pulaski, batefuegos
+- [Guantes forestales Nomex](/productos/guantes-para-bomberos/)
+
+### 2. Corredor Industrial El Salto–Ocotlán — Riesgo HAZMAT
+
+El corredor concentra plantas químicas, papeleras, alimentarias y de plásticos. Eventos históricos como el del **22 de abril de 1992** marcan la cultura operativa local: HAZMAT no es opcional.
+
+<figure>
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en corredor El Salto Jalisco" loading="lazy" width="900" height="600" />
+  <figcaption>Casco para brigada industrial — exigible en plantas del corredor El Salto y zona industrial de Tlaquepaque.</figcaption>
+</figure>
+
+**Equipo prioritario:**
+- Trajes HAZMAT Nivel A/B
+- [Detector multigas](/blog/detector-gases-multigas-monitor/) calibrado para H2S, CO, COV
+- SCBA NFPA 1981 con cilindros de 45 minutos
+- [Guantes HAZMAT](/productos/guantes-para-bomberos/)
+
+### 3. Edificios Altos en Puerta de Hierro y Andares — Operación Vertical
+
+Zapopan concentra más de **70 torres residenciales y corporativas de más de 25 niveles** entre Puerta de Hierro, Andares, Punto Sao Paulo y Distrito La Perla. El combate de incendios verticales exige autonomía SCBA prolongada y comunicaciones robustas.
+
+**Equipo prioritario:**
+- SCBA con cilindros de 60 minutos (composite)
+- Equipo de rescate vertical NFPA 1983
+- Radios con repetidor de planta
+- EPP NFPA 1971 con TPP alto
+
+### 4. Mercados Históricos: San Juan de Dios, Libertad, Corona
+
+Los mercados tradicionales tapatíos concentran densidad comercial extrema, mercancía altamente combustible (textiles, ropa, plásticos) y accesos angostos. Un incendio en horario pico es operativo de máxima complejidad.
+
+### 5. Autopista Guadalajara–Colima / Periférico — Extricación Vehicular
+
+Con más de 50,000 vehículos/día, la Guadalajara–Colima es punto recurrente de accidentes graves. La curva del Plan de Barrancas y los descensos a Colima son los puntos críticos.
+
+**Equipo prioritario:**
+- [Herramientas hidráulicas Holmatro/Hurst](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- EPP NFPA 1971 (incendio post-impacto)
+- Equipo HAZMAT (transporte combustibles)
+- Cinturones de rescate y arneses
+
+---
+
+## Equipo NFPA Esencial para Bomberos en Jalisco
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🧥</span>
+    <h4 class="feature__title">Trajes NFPA 1971 + 1977</h4>
+    <p class="feature__text">Doble línea para estructural y forestal — exigido por el patrón interface bosque–ciudad de la ZMG.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🛡️</span>
+    <h4 class="feature__title">Cascos certificados</h4>
+    <p class="feature__text">Bullard UST estructural y modelos ventilados forestales con barbiquejo reforzado.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💨</span>
+    <h4 class="feature__title">SCBA 45–60 min</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro y Dräger PSS. Cilindros de composite para edificios altos.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🪜</span>
+    <h4 class="feature__title">Rescate vertical NFPA 1983</h4>
+    <p class="feature__text">Arneses, cuerdas, descensores y poleas para operación en torres y la Barranca de Huentitán.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⚗️</span>
+    <h4 class="feature__title">HAZMAT</h4>
+    <p class="feature__text">Trajes Nivel A/B + detectores multigas para corredor El Salto–Ocotlán.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Herramientas hidráulicas</h4>
+    <p class="feature__text">Holmatro y Hurst para autopistas Guadalajara–Colima y Periférico.</p>
+  </div>
+</div>
+
+---
+
+## BOMBERO MX en Jalisco: A Quién Equipamos
+
+**BOMBERO MX** es la empresa mexicana especializada en **EPP certificado NFPA** para cuerpos de bomberos, brigadas industriales y empresas de protección civil. En Jalisco hemos abastecido:
+
+- **Estaciones municipales** en Guadalajara, Zapopan, Tlaquepaque, Tonalá y Tlajomulco
+- **Brigadas industriales** del corredor El Salto, zona industrial de Tlaquepaque y parques industriales de Ocotlán
+- **Protección Civil** estatal y municipal
+- **Brigadas comunitarias rurales** en municipios de Los Altos (Tepatitlán, Lagos de Moreno) y Costa Sur
+
+<div class="fact">
+  <span class="fact__num">+500</span>
+  <p class="fact__text">Productos certificados NFPA en catálogo, con stock en CDMX listos para envío a la ZMG y todo Jalisco en 24–48 horas hábiles.</p>
+</div>
+
+<div class="cta-box">
+  <h3>¿Equipas una estación o brigada en Jalisco?</h3>
+  <p>Asesoría técnica sin compromiso. Cotización en menos de 24 horas hábiles.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
+
+---
+
+## Estaciones de Bomberos en la ZMG
+
+| Municipio | Estaciones | Personal Aprox. | Riesgo Principal |
+|-----------|-----------|-----------------|------------------|
+| **Guadalajara** | 8 | 350+ | Estructural / Mercados |
+| **Zapopan** | 5 | 200+ | Forestal / Vertical |
+| **Tlaquepaque** | 3 | 100+ | Estructural / Industrial |
+| **Tonalá** | 2 | 80+ | Forestal / Residencial |
+| **Tlajomulco** | 2 | 70+ | Industrial / Aeropuerto |
+| **El Salto** | 1 | 40+ | HAZMAT industrial |
+
+---
+
+## Productos Recomendados para Jalisco
+
+<div class="img-grid">
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+</div>
+
+- [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/)
+- [**Trajes forestales NFPA 1977**](/productos/trajes-para-bomberos/)
+- [**Cascos NFPA**](/productos/cascos-para-bomberos/) — Bullard, Cairns, MSA
+- [**SCBA**](/productos/scba/) — Scott, MSA, Dräger
+- [**Botas estructurales de cuero**](/productos/botas-para-bomberos/)
+
+---
+
+## Preguntas Frecuentes — Bomberos en Jalisco
+
+### ¿Qué equipo forestal específico requiere La Primavera?
+
+Para combate en La Primavera y Sierra de Quila se requiere **EPP NFPA 1977** completo: traje liviano (chaqueta + pantalón), **casco ventilado**, guantes Nomex, gafas, mascarilla N95 y botas con suela Vibram. Adicionalmente mochila de agua 20 L y herramientas manuales Pulaski/McLeod.
+
+### ¿BOMBERO MX atiende brigadas industriales del corredor El Salto?
+
+Sí. Equipamos brigadas internas de plantas químicas, papeleras y manufactureras del corredor El Salto–Ocotlán con EPP NFPA, trajes HAZMAT, detectores multigas y extintores NOM-100 según el perfil de riesgo de cada planta.
 
 ### ¿Atienden a bomberos voluntarios en Jalisco?
-Sí, trabajamos con cuerpos de bomberos voluntarios, municipales y estatales en todo Jalisco. Ofrecemos cotizaciones accesibles y condiciones de pago flexibles.
 
-### ¿Cuánto tarda la entrega en Guadalajara?
-Los envíos express desde CDMX llegan a la ZMG en 24 a 48 horas hábiles. Mantenemos inventario de los productos más demandados para entregas inmediatas.
+Sí, trabajamos con cuerpos voluntarios, municipales y estatales. Ofrecemos cotizaciones accesibles y planes de pago flexibles para estaciones con presupuestos limitados.
 
-### ¿Tienen distribuidor local en Guadalajara?
-Atendemos directamente desde nuestra oficina central con envío a toda la República. Para pedidos grandes coordinamos entrega directa en las instalaciones del cuerpo de bomberos.
+### ¿Cuánto tarda la entrega a Guadalajara desde CDMX?
+
+Envíos express **24–48 horas hábiles** vía paquetería certificada. Para municipios fuera de la ZMG (Puerto Vallarta, Lagos de Moreno, Ciudad Guzmán, Tepatitlán) sumamos 24 h adicionales.
+
+### ¿Pueden documentar una licitación con el municipio de Guadalajara?
+
+Sí. Proporcionamos **fichas técnicas, certificados NFPA vigentes, declaraciones de cumplimiento y constancias del fabricante** para soportar tu propuesta técnica. Revisa la [guía completa de licitaciones NFPA](/blog/nfpa-licitaciones-bomberos-municipios-mexico/).
+
+### ¿Qué marcas de SCBA recomiendan para edificios altos de Zapopan?
+
+Para operación vertical recomendamos **MSA G1** y **Scott Air-Pak X3 Pro** con cilindros de composite de 60 minutos. Ambas marcas con certificación NFPA 1981 vigente y servicio post-venta disponible.
+
+---
+
+## Conclusión
+
+Jalisco —y particularmente la ZMG— combina los retos operativos más diversos del país: bosque, ciudad densa, corredor industrial y red de autopistas. Equipar a sus brigadas exige criterio técnico y acceso confiable a producto certificado.
+
+**BOMBERO MX** acerca el mismo nivel de equipo NFPA que usan los departamentos de bomberos en Estados Unidos, con asesoría local, logística directa y soporte post-venta.
+
+<div class="cta-box">
+  <h3>Hablemos sobre tu estación o brigada en Jalisco</h3>
+  <p>Cotización sin compromiso · Asesoría técnica incluida · Envío 24–48h a toda la ZMG</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Cotizar equipo →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
 ### Artículos Relacionados
 
-- [**NFPA 1971: Guía Completa →**](/blog/nfpa-1971-guia-completa/)
-- [**Trajes Forestales NFPA 1977 →**](/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/)
-- [**Catálogo completo →**](/productos/)
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Equipo NFPA México: Guía Completa →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**Extricación Vehicular Jaws of Life →**](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [**Licitaciones NFPA para Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Detector de Gases Multigas →**](/blog/detector-gases-multigas-monitor/)
+- [**Cómo Cotizar Equipo Municipal →**](/blog/equipo-bomberos-municipal-como-cotizar/)
+
+### Directorio
+
+- [**Directorio de Bomberos en Jalisco →**](/directorio/jalisco/)
+- [**Directorio Nacional →**](/directorio/)
     `,
   },
 
   "bomberos-monterrey-equipo-nfpa": {
-    titulo: "Bomberos de Monterrey: Equipo NFPA Certificado",
-    excerpt: "El Cuerpo de Bomberos de Monterrey y su zona metropolitana protegen el polo industrial del norte de México. Equipo NFPA para bomberos en Nuevo León.",
-    imagen: "/images/directorio/estacion-bomberos-mexico-01.avif",
+    titulo: "Bomberos de Monterrey: Guía Completa de Equipo NFPA 2026",
+    excerpt: "Guía 2026 sobre equipamiento NFPA para el Heroico Cuerpo de Bomberos de Nuevo León y brigadas industriales del polo manufacturero más fuerte de México. Análisis Santa Catarina, Apodaca, Sierra Madre y cómo BOMBERO MX abastece a la ZMM.",
+    imagen: "/images/accion/bomberos-accion-incendio-estructural.avif",
     categoria: "Equipo",
-    tags: ["Bomberos Monterrey", "Nuevo León", "NFPA", "EPP Bomberos"],
+    tags: ["Bomberos Monterrey", "Nuevo León", "NFPA 1971", "HAZMAT", "Brigadas Industriales", "Sierra Madre"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo NFPA",
+    autorRol: "Especialistas en Equipo NFPA para México",
     anchorKeyword: "equipo para bomberos Monterrey Nuevo León NFPA",
     contenido: `
-## Cuerpo de Bomberos de Monterrey, Nuevo León
+## Bomberos en Monterrey y la Zona Metropolitana: Contexto Operativo 2026
 
-**Monterrey** es la capital industrial de México y la tercera zona metropolitana más grande del país con más de 5 millones de habitantes. El **Heroico Cuerpo de Bomberos de Nuevo León** y los cuerpos municipales de **San Pedro, San Nicolás, Apodaca y Santa Catarina** operan en un entorno de alto riesgo industrial que exige **equipo NFPA de última generación**.
+**Monterrey** es la **capital industrial de México** y la tercera zona metropolitana más grande del país con **5.5 millones de habitantes**. El **Heroico Cuerpo de Bomberos de Nuevo León** opera junto con cuerpos municipales de **San Pedro Garza García, San Nicolás de los Garza, Guadalupe, Apodaca, Santa Catarina, Escobedo y García**, conformando la red de primera respuesta más exigente en términos de riesgo HAZMAT del país.
 
-La zona metropolitana de Monterrey concentra las principales industrias de México: acero (Ternium, AHMSA), cervecera (Heineken), cementera (CEMEX), vidrio (Vitro) y manufactura pesada. Esto genera una necesidad constante de equipo HAZMAT, SCBA de alta capacidad y trajes de aproximación para emergencias industriales.
+La ZMM concentra a las industrias más pesadas de México: **acero (Ternium, AHMSA, DeAcero), cemento (CEMEX), vidrio (Vitro), cerveza (Heineken Cuauhtémoc Moctezuma), química (Cydsa, Alpek), automotriz (Kia Motors)** y manufactura. Esto eleva permanentemente el estándar de equipo HAZMAT, SCBA de alta capacidad y trajes de aproximación que cada estación debe tener disponible.
 
-### Equipo NFPA para Bomberos en Nuevo León
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">5.5M</span>
+    <span class="stat__label">Habitantes ZMM</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">12</span>
+    <span class="stat__label">Municipios conurbados</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">25+</span>
+    <span class="stat__label">Estaciones ZMM</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">+3,500</span>
+    <span class="stat__label">Plantas industriales</span>
+  </div>
+</div>
 
-- **Trajes estructurales NFPA 1971** — Protección multicapa con Nomex, PBI Gold y barrera Gore-Tex. Esenciales para la alta incidencia de incendios estructurales en la ZMM.
-- **SCBA NFPA 1981 de 45 minutos** — Cilindros de fibra de carbono para mayor autonomía en plantas industriales. MSA G1 y Scott Air-Pak X3 Pro.
-- **Trajes HAZMAT Nivel A y B** — Para respuesta a emergencias químicas en la zona industrial de Apodaca, Santa Catarina y Ciénega de Flores.
-- **Cascos NFPA 1971** — Bullard y Cairns con visor térmico dorado para operaciones con alta radiación en plantas siderúrgicas.
-- **Herramientas de rescate NFPA 1936** — Cizallas y expansores para la alta incidencia de accidentes en la Autopista Monterrey-Saltillo y el Periférico.
+En **BOMBERO MX** abastecemos al **Heroico Cuerpo de Bomberos de Nuevo León**, cuerpos municipales, brigadas industriales privadas y empresas de protección civil. Esta guía concentra el conocimiento operativo acumulado equipando estaciones en la ZMM y el norte del estado.
 
-### Riesgos Específicos en Monterrey
-
-| Riesgo | Zona | Equipo Requerido |
-|--------|------|-----------------|
-| **Industrial pesado** | Santa Catarina, Apodaca | HAZMAT + SCBA 45 min |
-| **Incendio estructural** | Centro, San Pedro | EPP NFPA 1971 completo |
-| **Forestal / Interface** | Chipinque, Sierra Madre | EPP NFPA 1977 |
-| **Rescate vehicular** | Autopistas y Periférico | Herramientas Holmatro |
-| **Materiales peligrosos** | Corredor industrial | Trajes HAZMAT Nivel A |
-
-### Cotiza Equipo para Bomberos en Nuevo León
-
-**BOMBERO.MX** atiende a bomberos, protección civil y brigadas industriales en todo Nuevo León:
-
-- Envío express a Monterrey y ZMM (24-48 hrs)
-- Facturación para gobierno y licitaciones
-- Asesoría técnica especializada sin costo
-- Demostración de SCBA y equipo en sitio para pedidos grandes
-
-> [Cotiza tu equipo NFPA →](/cotizar/) o consulta el [catálogo completo →](/productos/).
+<figure>
+  <img src="/images/directorio/estacion-bomberos-monterrey-01.avif" alt="Estación del Cuerpo de Bomberos de Monterrey con unidad de respuesta" loading="lazy" width="900" height="600" />
+  <figcaption>Estación operativa en Monterrey — preparada para escenarios estructurales, industriales pesados y rescate de altura.</figcaption>
+</figure>
 
 ---
 
-## Preguntas Frecuentes — Bomberos Monterrey
+## Las 5 Zonas de Riesgo Críticas en Nuevo León
 
-### ¿Qué equipo necesitan las brigadas industriales en Monterrey?
-Las brigadas industriales en Monterrey requieren como mínimo EPP NFPA 1971, SCBA NFPA 1981, extintores NOM-100 y, según el sector, trajes HAZMAT y detectores multigas.
+### 1. Corredor Industrial Apodaca–Escobedo–Pesquería — HAZMAT Pesado
 
-### ¿Atienden licitaciones del gobierno de Nuevo León?
-Sí, participamos en licitaciones estatales y municipales. Emitimos facturas CFDI y cumplimos con todos los requisitos de transparencia.
+Más de **1,500 plantas industriales** entre Apodaca y Pesquería incluyen química, automotriz, metálicas y polo petroquímico. La normativa **ISO 14001 + NFPA 600** obliga a estas plantas a operar brigadas internas y a coordinar con bomberos municipales.
 
-### ¿Cuánto tarda la entrega en Monterrey?
-Envíos express de 24 a 48 horas desde CDMX. Para equipo especializado o pedidos grandes, coordinamos logística directa.
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">Riesgo crítico HAZMAT</span>
+    <p>Una fuga química mal contenida en Apodaca puede afectar a poblaciones a 10+ km. El equipo HAZMAT Nivel A debe estar disponible las 24 horas y los bomberos certificados en su uso.</p>
+  </div>
+</div>
 
-### ¿Ofrecen mantenimiento de SCBA en Monterrey?
-Proporcionamos orientación técnica sobre mantenimiento preventivo y reemplazo de componentes. Para servicio certificado de SCBA recomendamos los centros autorizados de MSA y Honeywell en la región.
+**Equipo prioritario:**
+- Trajes HAZMAT Nivel A y B
+- [Detectores multigas](/blog/detector-gases-multigas-monitor/) calibrados para H2S, CO, COV, NH3
+- SCBA NFPA 1981 con cilindros de 60 minutos
+- [Guantes HAZMAT químicos](/productos/guantes-para-bomberos/)
+
+### 2. Plantas Siderúrgicas Santa Catarina y García — Calor Radiante Extremo
+
+Las **plantas de acero de Ternium y DeAcero** operan con coladas a >1,500°C. Los incendios involucran calor radiante extremo, gases tóxicos y riesgo de explosión por contacto con agua. Solo equipo certificado con visor térmico dorado y traje de aproximación protege adecuadamente.
+
+<figure>
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial con visor dorado para uso en planta siderúrgica" loading="lazy" width="900" height="600" />
+  <figcaption>Casco con visor térmico dorado — protección contra calor radiante en operaciones siderúrgicas Santa Catarina.</figcaption>
+</figure>
+
+**Equipo prioritario:**
+- Trajes de aproximación con recubrimiento aluminizado
+- Cascos NFPA 1971 con visor térmico dorado
+- Cilindros SCBA de alta autonomía
+- EPP completo de alto TPP (>40 cal/cm²)
+
+### 3. Sierra Madre, Chipinque y La Huasteca — Forestal / Interface
+
+La proximidad de la **Sierra Madre Oriental** con zonas residenciales de San Pedro Garza García y Santa Catarina genera el escenario clásico de **interface urbano-forestal**. Eventos como **Loma Larga 2017** demostraron la necesidad de equipo dual (estructural + forestal) en una sola estación.
+
+<div class="compare-grid">
+  <div class="compare-card compare-card--pro">
+    <h4>Estación bien equipada</h4>
+    <ul>
+      <li>EPP NFPA 1977 forestal por bombero</li>
+      <li>Mochilas de agua 20 L</li>
+      <li>Herramientas Pulaski y McLeod</li>
+      <li>Capacidad de transición a estructural</li>
+    </ul>
+  </div>
+  <div class="compare-card compare-card--con">
+    <h4>Estación mal equipada</h4>
+    <ul>
+      <li>EPP estructural en operación forestal (golpe de calor)</li>
+      <li>Sin mochilas → dependencia de pipas</li>
+      <li>Sin herramientas manuales adecuadas</li>
+      <li>Sin gafas selladas (ceniza)</li>
+    </ul>
+  </div>
+</div>
+
+### 4. Edificios Corporativos San Pedro y Centro Monterrey — Operación Vertical
+
+San Pedro Garza García concentra las torres corporativas más altas del norte de México: **KOI Tower (279 m), T.Op, Pabellón M, Punto Central**. El combate vertical exige SCBA de alta autonomía y equipo de rescate NFPA 1983.
+
+### 5. Autopista Monterrey–Saltillo y Periférico — Extricación
+
+Más de **70,000 vehículos/día**. La zona de Los Chorros (km 35) es punto recurrente de accidentes graves con extricación. Camiones de doble articulado y transporte de combustibles aumentan el riesgo HAZMAT post-impacto.
+
+**Equipo prioritario:**
+- [Herramientas Holmatro/Hurst](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- EPP NFPA 1971
+- Equipo HAZMAT
+- Cinturones y arneses de rescate
+
+---
+
+## Equipo NFPA Esencial para Bomberos en Nuevo León
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🧥</span>
+    <h4 class="feature__title">Trajes NFPA 1971</h4>
+    <p class="feature__text">Edición 2024 con TPP ≥ 35 cal/cm². Resistencia probada en plantas siderúrgicas.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🛡️</span>
+    <h4 class="feature__title">Cascos visor dorado</h4>
+    <p class="feature__text">Bullard y Cairns con visor térmico para calor radiante de Ternium, AHMSA y DeAcero.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💨</span>
+    <h4 class="feature__title">SCBA 60 min</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro y Dräger PSS con cilindros composite para edificios altos.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⚗️</span>
+    <h4 class="feature__title">HAZMAT Nivel A/B</h4>
+    <p class="feature__text">Trajes encapsulados con detector multigas — exigible en corredor Apodaca–Pesquería.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🌲</span>
+    <h4 class="feature__title">EPP Forestal NFPA 1977</h4>
+    <p class="feature__text">Para Sierra Madre, Chipinque y La Huasteca. Liviano y transpirable.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Herramientas NFPA 1936</h4>
+    <p class="feature__text">Holmatro y Hurst para autopistas Monterrey–Saltillo y Periférico Norte.</p>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">ℹ️</span>
+  <div class="callout__body">
+    <span class="callout__title">Licitaciones en NL</span>
+    <p>Las licitaciones del Gobierno de Nuevo León exigen <strong>certificación NFPA vigente con trazabilidad de lote</strong>. La normativa estatal de protección civil refuerza el cumplimiento NFPA en brigadas industriales. Revisa la <a href="/blog/nfpa-licitaciones-bomberos-municipios-mexico/">guía de licitaciones NFPA</a>.</p>
+  </div>
+</div>
+
+---
+
+## BOMBERO MX en Nuevo León: A Quién Equipamos
+
+**BOMBERO MX** es la empresa mexicana especializada en **EPP certificado NFPA**. En Nuevo León atendemos:
+
+- **Heroico Cuerpo de Bomberos de Nuevo León** y cuerpos municipales (San Pedro, San Nicolás, Guadalupe, Apodaca, Santa Catarina, Escobedo)
+- **Brigadas industriales** de plantas en Apodaca, Santa Catarina, Pesquería y García
+- **Brigadas siderúrgicas** Ternium, DeAcero, AHMSA
+- **Protección civil** estatal y municipal
+- **Empresas de seguridad** privadas que dan servicio a torres corporativas en San Pedro
+
+<div class="fact">
+  <span class="fact__num">+500</span>
+  <p class="fact__text">Productos certificados NFPA en catálogo, con envío 24–48h desde CDMX a toda la ZMM y resto de Nuevo León.</p>
+</div>
+
+<div class="cta-box">
+  <h3>¿Equipas una estación o brigada en Nuevo León?</h3>
+  <p>Asesoría técnica sin compromiso. Cotización en menos de 24 horas hábiles.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
+
+---
+
+## Riesgos por Zona y Equipo Requerido
+
+| Riesgo | Zona | Equipo Requerido |
+|--------|------|------------------|
+| **Industrial pesado** | Santa Catarina, Apodaca | HAZMAT + SCBA 45 min |
+| **Siderúrgico** | García, Ternium | Aproximación + visor dorado |
+| **Estructural alto** | Centro, San Pedro | EPP NFPA 1971 + vertical |
+| **Forestal / Interface** | Chipinque, Sierra Madre | EPP NFPA 1977 |
+| **Rescate vehicular** | Autopistas y Periférico | Herramientas Holmatro |
+| **HAZMAT en tránsito** | Corredor industrial | Trajes Nivel A |
+
+---
+
+## Productos Recomendados para Brigadas Regiomontanas
+
+<div class="img-grid">
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+</div>
+
+- [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
+- [**Cascos NFPA**](/productos/cascos-para-bomberos/) — Bullard, Cairns con visor dorado
+- [**SCBA**](/productos/scba/) — MSA G1, Scott X3 Pro, Dräger PSS
+- [**Botas estructurales**](/productos/botas-para-bomberos/) — Antiperforación
+- [**Capuchas NFPA**](/productos/capuchas-para-bomberos/) — Nomex y PBI Gold
+
+---
+
+## Preguntas Frecuentes — Bomberos en Nuevo León
+
+### ¿Qué equipo necesitan las brigadas siderúrgicas en Santa Catarina?
+
+Para plantas como **Ternium, AHMSA y DeAcero** se requiere: **traje de aproximación aluminizado**, **casco NFPA 1971 con visor térmico dorado**, SCBA NFPA 1981 con cilindro composite de 60 min, guantes resistentes a calor radiante y botas estructurales con plantilla anti-térmica. El EPP estructural estándar no es suficiente para coladas y fundiciones.
+
+### ¿BOMBERO MX atiende licitaciones del Gobierno de Nuevo León?
+
+Sí. Tenemos historial de propuestas técnicas para licitaciones estatales y municipales. Emitimos **CFDI, certificados NFPA vigentes, fichas técnicas y declaraciones de cumplimiento** para soportar tu participación. Si tu municipio publica un proceso, podemos preparar el dossier técnico contigo.
+
+### ¿Qué tan rápido entregan en Monterrey?
+
+Envío estándar **24–48 horas hábiles** desde CDMX vía paquetería certificada. Para pedidos urgentes (siniestros activos, reposición inmediata) evaluamos opciones de envío aéreo o entrega directa con coordinación previa.
+
+### ¿Ofrecen servicio de SCBA en Monterrey?
+
+Proporcionamos asesoría técnica de mantenimiento preventivo (rotación de cilindros, inspección visual, reemplazo de máscaras). Para **servicio certificado de SCBA** coordinamos con los centros autorizados de MSA, Honeywell y Dräger en el área metropolitana de Monterrey.
+
+### ¿Atienden a brigadas industriales privadas?
+
+Sí. Equipamos brigadas internas de plantas químicas (Cydsa, Alpek), automotrices (Kia García), cementera (CEMEX), vidriera (Vitro), siderúrgicas y refresqueras (Arca Continental). Cada propuesta se ajusta al perfil de riesgo específico de la planta.
+
+### ¿Qué EPP necesita una estación para combatir incendios en San Pedro?
+
+San Pedro combina dos perfiles: **estructural en torres corporativas** (SCBA 60 min + EPP NFPA 1971 + rescate vertical NFPA 1983) y **forestal en faldas de Chipinque** (EPP NFPA 1977 + mochilas de agua). Una estación que cubre San Pedro idealmente tiene ambos sets disponibles.
+
+---
+
+## Conclusión
+
+Nuevo León concentra los riesgos industriales más severos del país. Equipar a sus bomberos exige criterio técnico, acceso confiable a producto certificado y soporte post-venta. **BOMBERO MX** existe para resolver esa cadena: catálogo NFPA, asesoría especializada y logística directa a la ZMM.
+
+<div class="cta-box">
+  <h3>Hablemos sobre tu estación o brigada en Nuevo León</h3>
+  <p>Cotización sin compromiso · Asesoría técnica incluida · Envío 24–48h a toda la ZMM</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Cotizar equipo →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
 ### Artículos Relacionados
 
-- [**NFPA 1971: Guía Completa →**](/blog/nfpa-1971-guia-completa/)
-- [**Mantenimiento de SCBA →**](/blog/mantenimiento-scba/)
-- [**Catálogo completo →**](/productos/)
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Equipo NFPA México: Guía Completa →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**Detector de Gases Multigas →**](/blog/detector-gases-multigas-monitor/)
+- [**Extricación Vehicular Jaws of Life →**](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [**Licitaciones NFPA para Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Cómo Cotizar Equipo Municipal →**](/blog/equipo-bomberos-municipal-como-cotizar/)
+
+### Directorio
+
+- [**Directorio de Bomberos en Nuevo León →**](/directorio/nuevo-leon/)
+- [**Directorio Nacional →**](/directorio/)
     `,
   },
 
@@ -12798,146 +13410,603 @@ En **BOMBERO MX** entendemos ese contexto. Nuestro catálogo, asesoría y logís
   },
 
   "bomberos-tijuana-equipo-nfpa": {
-    titulo: "Bomberos de Tijuana: Equipo Certificado NFPA",
-    excerpt: "El Cuerpo de Bomberos de Tijuana protege la frontera más transitada del mundo. Equipo NFPA certificado para bomberos y brigadas en Baja California.",
-    imagen: "/images/directorio/estacion-bomberos-mexico-01.avif",
+    titulo: "Bomberos de Tijuana: Guía Completa de Equipo NFPA 2026",
+    excerpt: "Guía 2026 sobre equipamiento NFPA para el Heroico Cuerpo de Bomberos de Tijuana y brigadas en Baja California. Análisis maquiladoras Otay, vientos Santa Ana, frontera binacional y cómo BOMBERO MX abastece la región.",
+    imagen: "/images/accion/bomberos-capacitacion-torre-entrenamiento.avif",
     categoria: "Equipo",
-    tags: ["Bomberos Tijuana", "Baja California", "NFPA", "EPP Bomberos"],
+    tags: ["Bomberos Tijuana", "Baja California", "NFPA 1971", "NFPA 1977", "Maquiladoras", "Vientos Santa Ana"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo NFPA",
+    autorRol: "Especialistas en Equipo NFPA para México",
     anchorKeyword: "equipo para bomberos Tijuana Baja California NFPA",
     contenido: `
-## Cuerpo de Bomberos de Tijuana, Baja California
+## Bomberos en Tijuana y Baja California: Contexto Operativo 2026
 
-**Tijuana** es la ciudad fronteriza más grande de México con más de 2 millones de habitantes. El **Heroico Cuerpo de Bomberos de Tijuana** opera en un entorno único: zona fronteriza con alta densidad poblacional, más de 1,000 maquiladoras, terreno montañoso propenso a incendios forestales y un clima que varía entre calor extremo en verano y condiciones de Santa Ana con vientos secos que propagan incendios.
+**Tijuana** es la **ciudad fronteriza más grande de México** con más de **2.1 millones de habitantes** y la **frontera terrestre más transitada del mundo** (San Ysidro). El **Heroico Cuerpo de Bomberos de Tijuana** opera bajo condiciones únicas que combinan: alta densidad poblacional, más de **1,000 maquiladoras** activas, terreno montañoso con colonias en cañones, vientos secos **Santa Ana** que propagan incendios forestales en cuestión de horas, y coordinación operativa binacional con departamentos de **San Diego, Chula Vista y National City**.
 
-La proximidad con Estados Unidos significa que los bomberos de Tijuana frecuentemente coordinan operaciones binacionales con los departamentos de bomberos de San Diego y Chula Vista, lo que exige equipo compatible con estándares NFPA.
+La operación binacional eleva el estándar: los bomberos tijuanenses frecuentemente entran en operaciones conjuntas con **Cal Fire** y los fire departments del condado de San Diego, lo que exige equipo **compatible con estándares NFPA y NIOSH** —los mismos del lado estadounidense— para garantizar interoperabilidad real en escenarios cruzados.
 
-### Equipo NFPA para Bomberos en Baja California
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">2.1M</span>
+    <span class="stat__label">Habitantes Tijuana</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">+1,000</span>
+    <span class="stat__label">Maquiladoras</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">15+</span>
+    <span class="stat__label">Estaciones operativas</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">3</span>
+    <span class="stat__label">Cruces fronterizos</span>
+  </div>
+</div>
 
-- **Trajes estructurales NFPA 1971** — Protección completa para la alta incidencia de incendios estructurales en colonias populares y zona centro.
-- **Trajes forestales NFPA 1977** — Esenciales durante la temporada de Santa Ana, cuando los incendios forestales amenazan zonas habitadas.
-- **SCBA NFPA 1981** — Equipos MSA y Scott con cilindros de 30 y 45 minutos para operaciones interiores.
-- **Equipo HAZMAT** — Para emergencias con materiales peligrosos en la zona de maquiladoras de Otay y El Florido.
-- **Cascos y guantes NFPA 1971** — Protección certificada para las operaciones diarias del cuerpo.
+En **BOMBERO MX** equipamos al **Heroico Cuerpo de Bomberos de Tijuana**, cuerpos municipales de Mexicali, Ensenada, Rosarito y Tecate, brigadas industriales en zonas de maquiladoras y empresas de protección civil. Esta guía concentra el conocimiento operativo de equipar la región fronteriza.
 
-### Retos para Bomberos en Tijuana
-
-| Desafío | Descripción | Equipo Clave |
-|---------|------------|-------------|
-| **Incendios en cañones** | Colonias en laderas de difícil acceso | EPP NFPA 1971 + equipo de ascenso |
-| **Vientos Santa Ana** | Incendios forestales de rápida propagación | EPP NFPA 1977 completo |
-| **Maquiladoras** | Emergencias químicas industriales | HAZMAT + SCBA 45 min |
-| **Zona fronteriza** | Operaciones binacionales | Equipo compatible NFPA |
-| **Rescate vehicular** | Autopista Tijuana-Ensenada | Herramientas de extricación |
-
-### Cotiza Equipo para Bomberos en Baja California
-
-**BOMBERO.MX** envía a toda Baja California con atención especializada:
-
-- Envío express a Tijuana, Mexicali, Ensenada y Rosarito
-- Facturación para gobierno y licitaciones
-- Asesoría técnica sin costo
-- Stock permanente de los productos más demandados
-
-> [Cotiza tu equipo →](/cotizar/) o consulta el [catálogo completo →](/productos/).
+<figure>
+  <img src="/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif" alt="Estación de bomberos con flota de unidades operativas" loading="lazy" width="900" height="600" />
+  <figcaption>Estación operativa preparada para escenarios estructurales y forestales — patrón habitual en Baja California.</figcaption>
+</figure>
 
 ---
 
-## Preguntas Frecuentes — Bomberos Tijuana
+## Las 5 Zonas de Riesgo Críticas en Baja California
 
-### ¿Qué equipo necesitan los bomberos durante los vientos Santa Ana?
-Durante los eventos de Santa Ana se requiere EPP NFPA 1977 forestal completo: traje ligero, casco ventilado, guantes Nomex, botas con suela Vibram y gafas de protección. Además, mochilas de agua portátiles y herramientas manuales de línea de fuego.
+### 1. Vientos Santa Ana — Incendios Forestales Catastróficos
 
-### ¿Atienden a las maquiladoras de Tijuana?
-Sí, equipamos brigadas industriales en maquiladoras de Otay, El Florido, La Mesa y toda la zona industrial de Tijuana con EPP certificado NFPA y extintores NOM-100.
+Los **vientos Santa Ana** (octubre–febrero) son ráfagas secas que descienden desde el desierto a más de **80 km/h**. Cuando coinciden con humedad relativa <10%, convierten chispas en incendios forestales **incontrolables en horas**. Eventos históricos: **2007** (más de 100,000 ha quemadas binacionalmente), **2014** (Tecate), **2018** (Real del Mar).
 
-### ¿Cuánto tarda el envío a Tijuana?
-Los envíos express llegan a Tijuana en 2 a 3 días hábiles desde CDMX. Para pedidos urgentes evaluamos opciones de envío aéreo.
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">Riesgo crítico estacional</span>
+    <p>Cada estación operativa en Tijuana, Tecate y Rosarito debe tener EPP NFPA 1977 forestal completo disponible las 24 horas durante temporada Santa Ana (octubre–febrero). No es opcional — la propagación es de minutos.</p>
+  </div>
+</div>
 
-### ¿El equipo NFPA que venden es compatible con los estándares de EE.UU.?
-Sí, todo nuestro equipo cumple con estándares NFPA que son los mismos utilizados en Estados Unidos, lo cual facilita las operaciones binacionales con departamentos de bomberos de California.
+**Equipo prioritario:**
+- [Trajes forestales NFPA 1977](/productos/trajes-para-bomberos/) — liviano, transpirable
+- Cascos forestales ventilados con barbiquejo
+- Mochilas de agua 20 L (back-pump)
+- Herramientas manuales: Pulaski, McLeod, batefuegos
+- Gafas selladas anti-partículas
+
+### 2. Maquiladoras Otay, El Florido, La Mesa — Riesgo HAZMAT Industrial
+
+**Otay Mesa**, **El Florido**, **La Mesa** y **El Lago** concentran más de 1,000 maquiladoras: electrónica, automotriz (Toyota, Hyundai), aeroespacial, dispositivos médicos y química especializada. La fuga química y el incendio en almacén de litio son escenarios recurrentes.
+
+<figure>
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en maquiladoras de Tijuana" loading="lazy" width="900" height="600" />
+  <figcaption>Casco para brigada industrial — exigible en maquiladoras de Otay y zonas industriales fronterizas.</figcaption>
+</figure>
+
+**Equipo prioritario:**
+- Trajes HAZMAT Nivel A/B
+- [Detectores multigas](/blog/detector-gases-multigas-monitor/) calibrados COV, CO, NH3
+- SCBA NFPA 1981 con cilindros de 45 minutos
+- Trajes para fuegos de litio (baterías)
+
+### 3. Cañones de Tijuana — Acceso Vehicular Limitado
+
+Colonias como **Sánchez Taboada, Camino Verde, Los Pinos, Florido** y **Cumbres del Rubí** están en laderas con accesos angostos, sin red de hidrantes adecuada y con materiales de construcción improvisados (madera, lámina). Un incendio en cañón implica autonomía hídrica propia y EPP resistente.
+
+<div class="compare-grid">
+  <div class="compare-card compare-card--pro">
+    <h4>Estación bien preparada</h4>
+    <ul>
+      <li>Pipa autobomba con tanque ≥3,000 L</li>
+      <li>EPP NFPA 1971 con TPP ≥35 cal/cm²</li>
+      <li>Mangueras forestales 1.5"</li>
+      <li>Equipo de ascenso por cuerda</li>
+    </ul>
+  </div>
+  <div class="compare-card compare-card--con">
+    <h4>Riesgo sin equipo correcto</h4>
+    <ul>
+      <li>Dependencia de hidrantes inexistentes</li>
+      <li>EPP sin TPP suficiente → quemaduras</li>
+      <li>Sin acceso a niveles superiores</li>
+      <li>Tiempo de respuesta crítico perdido</li>
+    </ul>
+  </div>
+</div>
+
+### 4. Frontera Binacional — Interoperabilidad con CALIFORNIA
+
+La coordinación con **Cal Fire**, **San Diego Fire-Rescue Department** y **Chula Vista Fire Department** exige que el equipo mexicano sea **compatible NFPA**. Operaciones reales: incendios que cruzan la línea fronteriza, evacuaciones binacionales por Santa Ana, operaciones HAZMAT en aduana Otay.
+
+**Por qué el estándar NFPA es no-negociable en Tijuana:** los acuerdos binacionales de auxilio mutuo (mutual aid) requieren que el equipo de aproximación, SCBA y EPP cumpla con NFPA. Equipo no certificado puede impedir participar en operaciones conjuntas o exponer al personal en escenarios de alto riesgo.
+
+### 5. Autopista Tijuana–Ensenada (1D) — Rescate Vehicular
+
+La **Autopista Federal 1D** (más conocida como la Tijuana–Ensenada o Escénica) es uno de los corredores más peligrosos del país: curvas pronunciadas con caída al mar, transporte de combustibles, eventos sísmicos recurrentes (zona del derrumbe 2013). La extricación vehicular en pendientes es operación frecuente.
+
+**Equipo prioritario:**
+- [Herramientas hidráulicas Holmatro/Hurst](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- EPP NFPA 1971 + arneses para trabajo en pendiente
+- Equipo HAZMAT
+- Sistemas de descenso técnico NFPA 1983
+
+---
+
+## Equipo NFPA Esencial para Bomberos en Baja California
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🌲</span>
+    <h4 class="feature__title">EPP Forestal NFPA 1977</h4>
+    <p class="feature__text">Prioridad #1 por temporada Santa Ana. Liviano, transpirable, con bandas reflectivas.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🧥</span>
+    <h4 class="feature__title">Trajes NFPA 1971</h4>
+    <p class="feature__text">Estructural con TPP alto para cañones y operaciones binacionales con Cal Fire.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💨</span>
+    <h4 class="feature__title">SCBA 45 min</h4>
+    <p class="feature__text">MSA G1 y Scott Air-Pak para maquiladoras y estructural. Cilindros composite ligeros.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⚗️</span>
+    <h4 class="feature__title">HAZMAT</h4>
+    <p class="feature__text">Trajes Nivel A/B + detectores multigas para Otay, El Florido y aduana.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🛡️</span>
+    <h4 class="feature__title">Cascos NFPA</h4>
+    <p class="feature__text">Bullard, Cairns y MSA — estructural y forestal según operación.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Herramientas hidráulicas</h4>
+    <p class="feature__text">Holmatro y Hurst para autopista Tijuana–Ensenada y red urbana.</p>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">ℹ️</span>
+  <div class="callout__body">
+    <span class="callout__title">Operación binacional</span>
+    <p>Si tu estación participa en acuerdos de auxilio mutuo con departamentos californianos, <strong>todo tu equipo debe ser compatible NFPA con certificación vigente y trazable</strong>. Cal Fire y SDFD no operan junto a personal con equipo no certificado.</p>
+  </div>
+</div>
+
+---
+
+## BOMBERO MX en Baja California: A Quién Equipamos
+
+**BOMBERO MX** es la empresa mexicana especializada en **EPP certificado NFPA**. En Baja California atendemos:
+
+- **Heroico Cuerpo de Bomberos de Tijuana** y los cuerpos de Mexicali, Ensenada, Rosarito y Tecate
+- **Brigadas industriales** de maquiladoras en Otay, El Florido, La Mesa, El Lago
+- **Brigadas aeroportuarias** en el Aeropuerto Internacional Abelardo L. Rodríguez
+- **Protección civil** estatal y municipal
+- **Empresas de seguridad** privadas que operan en zonas hoteleras de Rosarito
+
+<div class="fact">
+  <span class="fact__num">+500</span>
+  <p class="fact__text">Productos certificados NFPA en catálogo, con envío 48–72h desde CDMX a Tijuana, Mexicali, Ensenada, Rosarito y Tecate.</p>
+</div>
+
+<div class="cta-box">
+  <h3>¿Equipas una estación o brigada en Baja California?</h3>
+  <p>Asesoría técnica sin compromiso. Cotización en menos de 24 horas hábiles.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
+
+---
+
+## Retos Operativos y Equipo Específico
+
+| Desafío | Descripción | Equipo Clave |
+|---------|-------------|--------------|
+| **Vientos Santa Ana** | Propagación forestal acelerada | EPP NFPA 1977 completo |
+| **Incendios en cañones** | Acceso vehicular limitado | EPP 1971 + autonomía hídrica |
+| **Maquiladoras** | Fugas químicas industriales | HAZMAT + SCBA 45 min |
+| **Frontera binacional** | Coordinación con Cal Fire | Equipo NFPA compatible |
+| **Autopista 1D** | Extricación en pendiente | Herramientas + arneses |
+
+---
+
+## Productos Recomendados para Brigadas Fronterizas
+
+<div class="img-grid">
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+</div>
+
+- [**Trajes forestales NFPA 1977**](/productos/trajes-para-bomberos/) — Para temporada Santa Ana
+- [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/)
+- [**Cascos NFPA**](/productos/cascos-para-bomberos/)
+- [**SCBA**](/productos/scba/) — Compatible NFPA 1981
+- [**Botas estructurales y forestales**](/productos/botas-para-bomberos/)
+
+---
+
+## Preguntas Frecuentes — Bomberos en Baja California
+
+### ¿Qué equipo NFPA es prioritario durante temporada Santa Ana?
+
+**EPP NFPA 1977 forestal completo** por bombero: traje (chaqueta + pantalón), casco ventilado, guantes Nomex, botas con suela Vibram y gafas selladas. Adicionalmente: **mochilas de agua 20 L**, mangueras forestales 1.5", radios con repetidor de campo y herramientas manuales (Pulaski, McLeod, batefuegos).
+
+### ¿BOMBERO MX equipa maquiladoras de Otay y El Florido?
+
+Sí. Tenemos historial equipando brigadas internas de maquiladoras automotrices, electrónicas y aeroespaciales en **Otay Mesa, El Florido, La Mesa y el Lago**. Cada propuesta se ajusta al perfil de riesgo químico específico de la planta (litio, solventes, gases industriales).
+
+### ¿Cuánto tarda la entrega a Tijuana?
+
+Envío estándar **48–72 horas hábiles** desde CDMX vía paquetería certificada. Para pedidos urgentes coordinamos opciones de envío aéreo desde AICM al Aeropuerto de Tijuana con entrega en sitio.
+
+### ¿El equipo es compatible con estándares de EE.UU. y Cal Fire?
+
+Sí. Todo nuestro equipo cumple **certificación NFPA vigente**, que es el mismo estándar usado por **Cal Fire, San Diego Fire-Rescue y Chula Vista FD**. Esto permite participar en operaciones binacionales y acuerdos de auxilio mutuo sin restricciones técnicas.
+
+### ¿Atienden licitaciones del Gobierno de Baja California?
+
+Sí. Emitimos **CFDI, certificados NFPA, fichas técnicas y declaraciones de cumplimiento** para soportar propuestas técnicas en licitaciones estatales y municipales (Tijuana, Mexicali, Ensenada, Rosarito, Tecate, Playas de Rosarito).
+
+### ¿Qué pasa si necesito equipo en menos de 48 horas para un siniestro activo?
+
+Coordinamos **envío aéreo express** o entrega directa con coordinación previa. Si tienes una emergencia activa o reposición crítica post-siniestro, contáctanos por WhatsApp y evaluamos opciones inmediatas.
+
+---
+
+## Conclusión
+
+Baja California opera en uno de los escenarios más exigentes del país: temporada Santa Ana, frontera binacional, maquiladoras y autopista escénica. El equipo NFPA no es lujo —es interoperabilidad real con Cal Fire y protección efectiva del personal.
+
+**BOMBERO MX** acerca el catálogo NFPA con asesoría especializada, logística directa a la región fronteriza y soporte post-venta para garantizar cumplimiento normativo y compatibilidad operativa.
+
+<div class="cta-box">
+  <h3>Hablemos sobre tu estación o brigada en Baja California</h3>
+  <p>Cotización sin compromiso · Asesoría técnica incluida · Envío 48–72h a toda la región fronteriza</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Cotizar equipo →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
 ### Artículos Relacionados
 
-- [**NFPA 1977: Equipo Forestal →**](/productos/forestales/)
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Equipo NFPA México: Guía Completa →**](/blog/equipo-nfpa-mexico-guia-completa/)
 - [**HAZMAT: Niveles de Protección →**](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
-- [**Catálogo completo →**](/productos/)
+- [**Detector de Gases Multigas →**](/blog/detector-gases-multigas-monitor/)
+- [**Extricación Vehicular Jaws of Life →**](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [**Licitaciones NFPA para Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+
+### Directorio
+
+- [**Directorio Nacional de Bomberos →**](/directorio/)
     `,
   },
 
   "bomberos-cdmx-equipo-nfpa": {
-    titulo: "Bomberos CDMX: Equipo Certificado NFPA",
-    excerpt: "El Heroico Cuerpo de Bomberos de la Ciudad de México es el más grande del país. Equipo NFPA certificado para las estaciones de la capital.",
-    imagen: "/images/directorio/estacion-bomberos-mexico-01.avif",
+    titulo: "Bomberos CDMX: Guía Completa de Equipo NFPA 2026",
+    excerpt: "Guía 2026 sobre equipamiento NFPA para el Heroico Cuerpo de Bomberos de la Ciudad de México y las 16 alcaldías. Análisis edificios altos, mercados, bosques de Tlalpan y cómo BOMBERO MX entrega el mismo día en CDMX.",
+    imagen: "/images/directorio/escudo-bomberos-cdmx-bandera-mexico-01.avif",
     categoria: "Equipo",
-    tags: ["Bomberos CDMX", "Ciudad de México", "NFPA", "EPP Bomberos"],
+    tags: ["Bomberos CDMX", "Ciudad de México", "NFPA 1971", "Edificios Altos", "Reforma", "Santa Fe"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo NFPA",
+    autorRol: "Especialistas en Equipo NFPA para México",
     anchorKeyword: "equipo para bomberos CDMX Ciudad de México NFPA",
     contenido: `
-## Heroico Cuerpo de Bomberos de la Ciudad de México
+## El Heroico Cuerpo de Bomberos de la Ciudad de México: Contexto Operativo 2026
 
-El **Heroico Cuerpo de Bomberos de la Ciudad de México (HCBCDMX)** es el cuerpo de bomberos más grande y antiguo de México, con más de 130 años de historia. Opera más de 40 estaciones distribuidas en las 16 alcaldías y cuenta con más de 2,000 elementos que atienden una de las ciudades más grandes del mundo con más de 9 millones de habitantes.
+El **Heroico Cuerpo de Bomberos de la Ciudad de México (HCBCDMX)** es el cuerpo de bomberos **más grande y antiguo del país**, con **más de 130 años de historia operativa**. Atiende a la **ZMVM** —22 millones de habitantes, una de las urbes más grandes del mundo— a través de **más de 40 estaciones** distribuidas en las **16 alcaldías**, con más de **2,000 elementos activos**.
 
-La CDMX presenta desafíos únicos: edificios de gran altura en Reforma y Santa Fe, mercados históricos con alta carga de fuego, zonas industriales en Azcapotzalco e Iztapalapa, y áreas de conservación forestal en Tlalpan, Milpa Alta y Xochimilco.
+La CDMX combina los escenarios más diversos del país en una sola jurisdicción: **edificios corporativos de 60+ niveles en Reforma y Santa Fe**, **mercados históricos** con cargas de fuego extremas (Sonora, Merced, Jamaica), **corredores industriales** en Azcapotzalco e Iztapalapa, y **bosques de conservación** en Tlalpan, Milpa Alta, Cuajimalpa y Xochimilco. Cada estación necesita un perfil de equipo diferente según su alcaldía.
 
-### Equipo NFPA para el Cuerpo de Bomberos de CDMX
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">22M</span>
+    <span class="stat__label">Habitantes ZMVM</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">40+</span>
+    <span class="stat__label">Estaciones HCBCDMX</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">+2,000</span>
+    <span class="stat__label">Elementos activos</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">16</span>
+    <span class="stat__label">Alcaldías</span>
+  </div>
+</div>
 
-- **Trajes estructurales NFPA 1971** — Para las operaciones diarias en la ciudad con mayor densidad de México. Protección multicapa de máxima resistencia.
-- **SCBA NFPA 1981 de 45 y 60 minutos** — Cilindros de fibra de carbono para operaciones en edificios altos donde la evacuación es prolongada.
-- **Cascos NFPA 1971** — Bullard y Cairns con sistema de comunicación integrado para operaciones coordinadas.
-- **Equipo de rescate vertical NFPA 1983** — Arneses, cuerdas y sistemas de descenso para rescate en edificios de gran altura.
-- **Herramientas de rescate NFPA 1936** — Para la alta incidencia de accidentes vehiculares en el Periférico, Viaducto y autopistas urbanas.
-- **Equipo forestal NFPA 1977** — Para las brigadas que protegen los bosques de Tlalpan, Ajusco y Desierto de los Leones.
+**BOMBERO MX** opera desde **CDMX** —donde está nuestro almacén central y oficinas. Esto nos permite **entregar el mismo día** equipo en stock a estaciones del HCBCDMX, brigadas industriales, protección civil de alcaldías y empresas privadas en toda la capital. Esta guía concentra el conocimiento operativo de equipar la red de bomberos más exigente del país.
 
-### Estaciones del HCBCDMX que Equipamos
-
-| Alcaldía | Estaciones | Tipo de Riesgo Principal |
-|----------|-----------|------------------------|
-| **Cuauhtémoc** | Estación Central + 3 | Estructural / Comercial |
-| **Miguel Hidalgo** | 3 estaciones | Edificios altos / Corporativos |
-| **Iztapalapa** | 4 estaciones | Residencial / Industrial |
-| **Azcapotzalco** | 2 estaciones | Industrial / HAZMAT |
-| **Tlalpan** | 2 estaciones | Forestal / Interface |
-| **Gustavo A. Madero** | 3 estaciones | Residencial / Mercados |
-
-### Cotiza Equipo para Bomberos en CDMX
-
-Como distribuidor con sede en la Ciudad de México, ofrecemos la atención más directa:
-
-- Entrega el mismo día en CDMX para productos en stock
-- Atención presencial en nuestra oficina en Col. Condesa
-- Facturación para gobierno de la CDMX y alcaldías
-- Demostración de equipo en las instalaciones del cuerpo
-
-> [Solicita cotización →](/cotizar/) o visita el [catálogo completo →](/productos/).
+<figure>
+  <img src="/images/directorio/estacion-bomberos-cdmx-01.avif" alt="Estación del Heroico Cuerpo de Bomberos de CDMX con unidad operativa" loading="lazy" width="900" height="600" />
+  <figcaption>Estación del HCBCDMX — referencia operativa nacional. La red de la capital atiende escenarios estructurales, forestales, industriales y de rescate técnico.</figcaption>
+</figure>
 
 ---
 
-## Preguntas Frecuentes — Bomberos CDMX
+## Las 5 Zonas de Riesgo Críticas en la CDMX
 
-### ¿Qué equipo especial necesitan los bomberos para edificios altos en CDMX?
-Para operaciones en edificios de gran altura se requiere SCBA NFPA 1981 con cilindros de 45 o 60 minutos, equipo de rescate vertical NFPA 1983, radios de comunicación y EPP NFPA 1971 completo con alta resistencia térmica.
+### 1. Edificios Corporativos Reforma, Santa Fe e Insurgentes — Operación Vertical
 
-### ¿BOMBERO.MX puede entregar equipo el mismo día en CDMX?
-Sí, para productos en stock ofrecemos entrega el mismo día en toda la Ciudad de México. También es posible recoger directamente en nuestra oficina en la Col. Condesa.
+CDMX concentra los edificios más altos de México: **Torre Reforma (246 m), Torre Mayor, BBVA Bancomer Tower, Punto Chapultepec, Torre Manacar**. En Santa Fe: **Arcos Bosques, Torre Pirámide, Park Plaza, Mítikah** (267 m, el más alto de México). Un incendio en piso 30+ exige autonomía SCBA prolongada, equipo de rescate vertical y comunicaciones que funcionen en jaula de Faraday metálica.
 
-### ¿Atienden a protección civil de las alcaldías?
-Sí, trabajamos con protección civil de todas las alcaldías de la CDMX. Emitimos facturas CFDI y atendemos procesos de licitación y adjudicación directa.
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">Operación vertical crítica</span>
+    <p>Para combatir incendios sobre el piso 25, la subida con equipo SCBA puede consumir 40–60% del cilindro antes de iniciar combate. Sin cilindros de 60 minutos composite es operativamente imposible.</p>
+  </div>
+</div>
 
-### ¿Qué marcas de SCBA manejan para bomberos de CDMX?
-Distribuimos las tres marcas principales: MSA Safety (G1), Honeywell/Scott (Air-Pak X3 Pro) y Dräger (PSS). Todas con certificación NFPA 1981 vigente.
+**Equipo prioritario:**
+- SCBA NFPA 1981 con cilindros composite de **60 minutos**
+- [Equipo de rescate vertical NFPA 1983](/productos/rescate-vertical/) — arneses, cuerdas, descensores
+- Radios con repetidor y antena externa
+- EPP NFPA 1971 con TPP alto (>40 cal/cm²)
+- Capuchas particuladas anti-humo extremo
+
+### 2. Mercados Históricos: Sonora, Merced, Jamaica, Mixcalco — Carga de Fuego Extrema
+
+Los mercados tradicionales concentran densidad comercial extrema, mercancía altamente combustible (textiles, plásticos, semillas, ropa), instalaciones eléctricas envejecidas y accesos angostos para autobombas. El incendio del **Mercado de Sonora 2019** y el **Mercado Hidalgo 2024** demostraron la complejidad operativa.
+
+<figure>
+  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación de bomberos en Centro Histórico de CDMX con autobomba" loading="lazy" width="900" height="600" />
+  <figcaption>Estación operativa en Centro Histórico — los mercados son el escenario estructural más complejo de la capital.</figcaption>
+</figure>
+
+**Equipo prioritario:**
+- EPP NFPA 1971 completo con barrera anti-humedad
+- SCBA con cilindros de 45–60 min
+- Detectores multigas (humo tóxico)
+- Cámara térmica
+- Mangueras de ataque de alta capacidad
+
+### 3. Bosques de Conservación: Tlalpan, Ajusco, Desierto de los Leones, Milpa Alta
+
+CDMX conserva **más de 87,000 hectáreas de suelo de conservación**. Las alcaldías de **Tlalpan, Milpa Alta, Cuajimalpa, Magdalena Contreras y Xochimilco** atienden incendios forestales recurrentes, particularmente entre **febrero y mayo** (temporada seca).
+
+<div class="compare-grid">
+  <div class="compare-card compare-card--pro">
+    <h4>Estación forestal bien equipada</h4>
+    <ul>
+      <li>EPP NFPA 1977 por bombero</li>
+      <li>Mochilas back-pump 20 L</li>
+      <li>Herramientas Pulaski/McLeod</li>
+      <li>Cuatrimotos / pipa pequeña</li>
+    </ul>
+  </div>
+  <div class="compare-card compare-card--con">
+    <h4>Riesgo sin EPP forestal</h4>
+    <ul>
+      <li>Golpe de calor con EPP estructural</li>
+      <li>Dependencia de autobomba (acceso limitado)</li>
+      <li>Sin herramientas de línea de fuego</li>
+      <li>Tiempo de respuesta acortado</li>
+    </ul>
+  </div>
+</div>
+
+### 4. Corredor Industrial Iztapalapa, Vallejo, Azcapotzalco — HAZMAT
+
+Las refinerías históricas de **PEMEX (Refinería 18 de Marzo), polo industrial Vallejo, plantas químicas en Iztapalapa y almacenamiento de gas en zona oriente** generan escenarios HAZMAT recurrentes. La explosión de **Tlahuelilpan 2019** (zona conurbada Hidalgo) y eventos en San Pedro Xalostoc marcan la cultura operativa local.
+
+**Equipo prioritario:**
+- Trajes HAZMAT Nivel A/B
+- [Detectores multigas](/blog/detector-gases-multigas-monitor/) calibrados H2S, CO, LEL
+- SCBA con cilindros de 60 minutos
+- Trajes de aproximación para fuegos de hidrocarburos
+
+### 5. Periférico, Viaducto y Circuito Interior — Rescate Vehicular Urbano
+
+CDMX registra más de **20 accidentes vehiculares con extricación diarios**. Los puntos críticos: **Periférico (zonas Naucalpan, San Jerónimo, San Antonio)**, **Viaducto Río de la Piedad**, **Circuito Interior** y **Calzada Ignacio Zaragoza**.
+
+**Equipo prioritario:**
+- [Herramientas Holmatro/Hurst NFPA 1936](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- EPP NFPA 1971
+- Equipo HAZMAT (transporte de combustibles)
+- Camilla y dispositivos de inmovilización
+
+---
+
+## Equipo NFPA Esencial para Bomberos en CDMX
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🧥</span>
+    <h4 class="feature__title">Trajes NFPA 1971</h4>
+    <p class="feature__text">Edición 2024 con TPP ≥35 cal/cm². Base para combate en mercados, edificios y residencial.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💨</span>
+    <h4 class="feature__title">SCBA 60 min composite</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro y Dräger PSS para operación vertical en Reforma y Santa Fe.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🪜</span>
+    <h4 class="feature__title">Rescate Vertical NFPA 1983</h4>
+    <p class="feature__text">Arneses, cuerdas estáticas, descensores y poleas para torres y rescate técnico.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🌲</span>
+    <h4 class="feature__title">EPP Forestal NFPA 1977</h4>
+    <p class="feature__text">Tlalpan, Ajusco, Milpa Alta. Liviano, transpirable, con bandas reflectivas.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⚗️</span>
+    <h4 class="feature__title">HAZMAT Nivel A/B</h4>
+    <p class="feature__text">Para Iztapalapa, Vallejo, Azcapotzalco y corredor industrial oriente.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Herramientas Holmatro</h4>
+    <p class="feature__text">NFPA 1936 — Periférico, Viaducto, Circuito y autopistas urbanas.</p>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">ℹ️</span>
+  <div class="callout__body">
+    <span class="callout__title">Licitaciones del Gobierno CDMX</span>
+    <p>Las licitaciones del HCBCDMX y alcaldías exigen <strong>certificación NFPA vigente, fichas técnicas auditables y trazabilidad de lote</strong>. Revisa la <a href="/blog/nfpa-licitaciones-bomberos-municipios-mexico/">guía completa de licitaciones NFPA</a> para preparar tu propuesta.</p>
+  </div>
+</div>
+
+---
+
+## BOMBERO MX en CDMX: Ventaja Logística Local
+
+**BOMBERO MX** está **basado en Ciudad de México**. Esta es nuestra ventaja operativa más fuerte para clientes capitalinos:
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">⚡</span>
+    <h4 class="feature__title">Entrega mismo día</h4>
+    <p class="feature__text">Para productos en stock entregamos el mismo día en cualquier alcaldía de CDMX y ZMVM.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🏢</span>
+    <h4 class="feature__title">Atención presencial</h4>
+    <p class="feature__text">Recibimos visitas en nuestra oficina central. Podemos mostrar producto físico antes de cotizar.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🤝</span>
+    <h4 class="feature__title">Demostración en sitio</h4>
+    <p class="feature__text">Para pedidos grandes (SCBA, EPP completo) hacemos demostración en tus instalaciones.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📑</span>
+    <h4 class="feature__title">Facturación gobierno</h4>
+    <p class="feature__text">Atendemos al HCBCDMX, las 16 alcaldías, dependencias federales y protección civil con CFDI.</p>
+  </div>
+</div>
+
+### Qué brigadas equipamos en CDMX
+
+- **Heroico Cuerpo de Bomberos de la Ciudad de México (HCBCDMX)**
+- **Protección Civil** de las 16 alcaldías
+- **Brigadas industriales** en Vallejo, Iztapalapa, Azcapotzalco
+- **Brigadas corporativas** en Reforma, Santa Fe, Polanco
+- **Brigadas hoteleras** y de centros comerciales (Antara, Perisur, Mítikah)
+- **Brigadas universitarias** (UNAM, IPN, Anáhuac, Iberoamericana)
+
+<div class="fact">
+  <span class="fact__num">Mismo día</span>
+  <p class="fact__text">Entrega en CDMX para productos en stock. Catálogo NFPA disponible con asesoría técnica sin costo.</p>
+</div>
+
+<div class="cta-box">
+  <h3>¿Equipas una estación o brigada en CDMX?</h3>
+  <p>Atención presencial, demostración en sitio y entrega mismo día disponibles para CDMX.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
+
+---
+
+## Estaciones del HCBCDMX por Alcaldía
+
+| Alcaldía | Estaciones | Tipo de Riesgo Principal |
+|----------|-----------|--------------------------|
+| **Cuauhtémoc** | Central + 3 | Estructural / Comercial / Mercados |
+| **Miguel Hidalgo** | 3 | Edificios altos / Corporativos |
+| **Iztapalapa** | 4 | Residencial / Industrial / HAZMAT |
+| **Azcapotzalco** | 2 | Industrial / HAZMAT |
+| **Tlalpan** | 2 | Forestal / Interface |
+| **Gustavo A. Madero** | 3 | Residencial / Mercados |
+| **Álvaro Obregón** | 2 | Estructural / Santa Fe vertical |
+| **Cuajimalpa** | 1 | Forestal / Santa Fe |
+| **Coyoacán** | 2 | Residencial / Patrimonio |
+| **Magdalena Contreras** | 1 | Forestal |
+| **Milpa Alta** | 1 | Forestal / Rural |
+
+---
+
+## Productos Recomendados para Brigadas en CDMX
+
+<div class="img-grid">
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+</div>
+
+- [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
+- [**Cascos NFPA**](/productos/cascos-para-bomberos/) — Bullard, Cairns, MSA
+- [**SCBA 60 min composite**](/productos/scba/) — Para edificios altos
+- [**Equipo de rescate vertical NFPA 1983**](/productos/rescate-vertical/)
+- [**Botas estructurales de cuero**](/productos/botas-para-bomberos/)
+- [**Capuchas NFPA**](/productos/capuchas-para-bomberos/)
+
+---
+
+## Preguntas Frecuentes — Bomberos en CDMX
+
+### ¿Qué equipo necesitan los bomberos para combatir incendios en edificios altos de CDMX?
+
+Para operaciones en torres de Reforma, Santa Fe e Insurgentes se requiere: **SCBA NFPA 1981 con cilindros composite de 60 minutos**, **equipo de rescate vertical NFPA 1983** (arneses, cuerdas, descensores), **radios con repetidor** y **EPP NFPA 1971** con alta resistencia térmica. La autonomía es crítica: la subida puede consumir más del 40% del cilindro.
+
+### ¿BOMBERO MX puede entregar equipo el mismo día en CDMX?
+
+Sí. Para productos en stock entregamos **el mismo día hábil** en cualquier alcaldía de CDMX y municipios de la ZMVM (Naucalpan, Tlalnepantla, Ecatepec, Nezahualcóyotl, Coacalco, etc.). También puedes recoger directamente en nuestras oficinas con cita previa.
+
+### ¿Atienden a Protección Civil de las 16 alcaldías?
+
+Sí. Trabajamos con **Protección Civil de las 16 alcaldías** y dependencias del Gobierno de la CDMX. Emitimos **CFDI, certificados, fichas técnicas** y atendemos procesos de **licitación pública, invitación restringida y adjudicación directa** según el monto.
+
+### ¿Qué marcas de SCBA distribuyen para HCBCDMX?
+
+Distribuimos las **tres marcas principales certificadas NFPA 1981**: **MSA Safety (G1)**, **Honeywell/Scott (Air-Pak X3 Pro)** y **Dräger (PSS series)**. Todas con cilindros de **fibra de carbono composite** en presentaciones de 30, 45 y 60 minutos.
+
+### ¿Pueden hacer demostración de equipo en mi estación?
+
+Sí. Para pedidos institucionales coordinamos **demostración presencial** en tu estación o instalaciones. Cubrimos SCBA, EPP completo, herramientas hidráulicas y equipo de rescate vertical. Solo agenda con anticipación.
+
+### ¿Tienen catálogo específico para brigadas industriales en CDMX?
+
+Sí. Atendemos brigadas en **Vallejo, Iztapalapa, Azcapotzalco, Polanco (corporativas), Santa Fe, Refinería 18 de Marzo** y otras zonas. Cada propuesta se ajusta al perfil de riesgo: HAZMAT industrial, estructural corporativo, o mixto.
+
+---
+
+## Conclusión
+
+CDMX combina los escenarios operativos más complejos del país: torres de 60+ niveles, mercados patrimoniales, corredores industriales y bosques de conservación. La capital también es donde **BOMBERO MX** opera y desde donde abastecemos al resto del país.
+
+Para brigadas capitalinas eso significa: **catálogo NFPA con entrega mismo día, atención presencial, demostración en sitio y soporte continuo**. No tienes que esperar logística de larga distancia ni intermediarios.
+
+<div class="cta-box">
+  <h3>Hablemos sobre tu estación o brigada en CDMX</h3>
+  <p>Atención presencial · Entrega mismo día · Demostración en sitio para pedidos institucionales</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Cotizar equipo →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
 ### Artículos Relacionados
 
-- [**NFPA 1971: Guía Completa →**](/blog/nfpa-1971-guia-completa/)
-- [**Rescate Vertical NFPA 1983 →**](/productos/rescate-vertical/)
-- [**Catálogo completo →**](/productos/)
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Equipo NFPA México: Guía Completa →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**Extricación Vehicular Jaws of Life →**](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [**Detector de Gases Multigas →**](/blog/detector-gases-multigas-monitor/)
+- [**Licitaciones NFPA para Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Cómo Cotizar Equipo Municipal →**](/blog/equipo-bomberos-municipal-como-cotizar/)
+
+### Directorio
+
+- [**Directorio de Bomberos en CDMX →**](/directorio/ciudad-de-mexico/)
+- [**Directorio Nacional →**](/directorio/)
     `,
   },
 

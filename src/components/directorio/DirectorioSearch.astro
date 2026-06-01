@@ -51,16 +51,26 @@ const { compact = false, placeholder = "Buscar estación, ciudad o estado…" } 
     async function loadPagefind() {
       if (pagefindReady) return;
       try {
-        // @ts-ignore — Pagefind sirve este módulo desde /pagefind/pagefind.js en producción
-        pf = await import(/* @vite-ignore */ "/pagefind/pagefind.js");
+        // Pagefind se genera en build. En dev no existe — saltar silenciosamente.
+        // Construimos la URL en runtime para evitar que Vite intente resolverla.
+        const pagefindUrl = "/" + "pagefind/" + "pagefind.js";
+        // Verificar disponibilidad antes de importar (evita errores 404 ruidosos en dev)
+        const head = await fetch(pagefindUrl, { method: "HEAD" }).catch(() => null);
+        if (!head || !head.ok) {
+          if (resultsEl) {
+            resultsEl.innerHTML = '<div class="dir-search__empty">Búsqueda disponible en producción</div>';
+          }
+          return;
+        }
+        // @ts-ignore — runtime dynamic import
+        pf = await import(/* @vite-ignore */ pagefindUrl);
         await pf.options({
           baseUrl: "/",
-          // Solo mostrar resultados del directorio
           excerptLength: 30,
         });
         pagefindReady = true;
       } catch (e) {
-        console.warn("[DirectorioSearch] Pagefind no disponible (dev?):", e);
+        console.warn("[DirectorioSearch] Pagefind no disponible:", e);
       }
     }
 

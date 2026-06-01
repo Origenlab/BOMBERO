@@ -1,0 +1,200 @@
+---
+/**
+ * /directorio/{estado}/telefonos/
+ * Página GEO/SEO de teléfonos puros — pensada para que ChatGPT,
+ * Gemini, Perplexity y AI Overviews extraigan datos limpios.
+ *
+ * Sin paja, sin slider: solo tabla, microdata FireStation y FAQ.
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
+import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
+import MunicipiosPhonesTable from "@components/directorio/MunicipiosPhonesTable.astro";
+import CTABanner from "@components/CTABanner.astro";
+import {
+  getEstadoInfo,
+  getEstacionesEstado,
+  ESTACIONES_POR_ESTADO_SLUG,
+} from "@utils/directorio-index";
+import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
+import { truncateMetaDescription } from "@utils/seo";
+
+export function getStaticPaths() {
+  return Object.keys(ESTACIONES_POR_ESTADO_SLUG).map((slug) => ({
+    params: { estado: slug },
+    props: { estadoSlug: slug },
+  }));
+}
+
+const { estadoSlug } = Astro.props as { estadoSlug: string };
+const estadoInfo = getEstadoInfo(estadoSlug);
+if (!estadoInfo) return Astro.redirect("/404");
+
+const estaciones = getEstacionesEstado(estadoSlug);
+const totalEst = estaciones.length;
+const totalTel = estaciones.filter((e) => e.telefono).length;
+
+const canonical = `https://bombero.mx/directorio/${estadoSlug}/telefonos/`;
+const titleHead = `Teléfonos de bomberos en ${estadoInfo.nombre} — ${totalTel} líneas directas verificadas | BOMBERO.MX`;
+const description = truncateMetaDescription(
+  `Todos los teléfonos de bomberos en ${estadoInfo.nombre}: ${totalTel} líneas directas verificadas a ${totalEst} estaciones, organizadas por municipio. 911 para emergencias inmediatas.`,
+  155,
+);
+
+// JSON-LD Service + FAQPage embebido por el componente FAQDirectorio
+const phoneListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  name: `Teléfonos de bomberos en ${estadoInfo.nombre}`,
+  url: canonical,
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+  mainEntity: {
+    "@type": "ItemList",
+    name: `Líneas directas a bomberos en ${estadoInfo.nombre}`,
+    numberOfItems: totalTel,
+  },
+};
+---
+
+<PageLayout
+  title={titleHead}
+  description={description}
+  canonical={canonical}
+  modifiedTime={DIRECTORIO_VERIFICADO_ISO}
+  keywords={[
+    `teléfono bomberos ${estadoInfo.nombre.toLowerCase()}`,
+    `teléfonos bomberos ${estadoInfo.nombre.toLowerCase()}`,
+    `numeros bomberos ${estadoInfo.nombre.toLowerCase()}`,
+    `bomberos ${estadoInfo.capital.toLowerCase()} telefono`,
+    `emergencias ${estadoInfo.nombre.toLowerCase()}`,
+  ]}
+  jsonLd={[phoneListSchema]}
+>
+  <Breadcrumb items={[
+    { label: "Directorio", href: "/directorio/" },
+    { label: estadoInfo.nombre, href: `/directorio/${estadoSlug}/` },
+    { label: "Teléfonos" },
+  ]} />
+
+  <section class="tel-hero">
+    <div class="container">
+      <span class="tel-hero__badge">{estadoInfo.codigo} · Líneas verificadas {DIRECTORIO_VERIFICADO_LEGIBLE}</span>
+      <h1 class="tel-hero__title">Teléfonos de bomberos en {estadoInfo.nombre}</h1>
+      <p class="tel-hero__desc">
+        <strong>{totalTel}</strong> líneas directas a estaciones de bomberos en {estadoInfo.nombre},
+        verificadas con cada comandancia. Para emergencias inmediatas marca el <strong>911</strong>.
+      </p>
+
+      <div class="tel-hero__emergency">
+        <div class="tel-hero__em-block">
+          <span class="tel-hero__em-num">911</span>
+          <span class="tel-hero__em-lab">Emergencias nacional · 24/7</span>
+        </div>
+        <p class="tel-hero__em-note">
+          El 911 enruta automáticamente a bomberos, policía o servicios médicos en {estadoInfo.nombre}.
+          Identifica la dirección exacta del incidente y describe el tipo de emergencia.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <MunicipiosPhonesTable
+    estado={estadoInfo.nombre}
+    estaciones={estaciones as any}
+  />
+
+  <FAQDirectorio
+    scope="estado"
+    estado={estadoInfo.nombre}
+    capital={estadoInfo.capital}
+    totalEstaciones={totalEst}
+  />
+
+  <VerifiedBadge
+    estado={estadoInfo.nombre}
+    fecha={DIRECTORIO_VERIFICADO_LEGIBLE}
+    totalEstaciones={totalEst}
+  />
+
+  <CTABanner
+    title={`¿Eres bombero en ${estadoInfo.nombre}?`}
+    desc={`Si tu cuerpo necesita renovar equipo NFPA, cotizamos al instante. BOMBERO.MX equipa a estaciones en ${estadoInfo.nombre} desde 2010.`}
+    btnText="Solicitar Cotización"
+    btnHref={`/cotizar/?utm_source=directorio&utm_medium=telefonos&utm_campaign=${estadoSlug}`}
+    whatsapp={true}
+  />
+</PageLayout>
+
+<style>
+  .tel-hero {
+    background: linear-gradient(135deg, #0a0a0a, #1a0606);
+    color: white;
+    padding: var(--space-12,3rem) 0;
+  }
+  .tel-hero__badge {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    background: rgba(74,222,128,0.18);
+    color: #4ade80;
+    border: 1px solid rgba(74,222,128,0.3);
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.85rem;
+  }
+  .tel-hero__title {
+    font-size: clamp(1.7rem,3.5vw,2.6rem);
+    font-weight: 800;
+    margin: 0 0 0.7rem;
+    color: white;
+    letter-spacing: -0.02em;
+  }
+  .tel-hero__desc {
+    color: rgba(255,255,255,0.78);
+    max-width: 720px;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+  }
+  .tel-hero__desc strong { color: white; }
+
+  .tel-hero__emergency {
+    background: linear-gradient(135deg, #dc2626, #f97316);
+    border-radius: 1rem;
+    padding: 1.1rem 1.4rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    max-width: 720px;
+  }
+  .tel-hero__em-block { text-align: center; }
+  .tel-hero__em-num {
+    display: block;
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1;
+    color: white;
+    font-variant-numeric: tabular-nums;
+  }
+  .tel-hero__em-lab {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.85);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-top: 0.25rem;
+  }
+  .tel-hero__em-note {
+    color: rgba(255,255,255,0.92);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 600px) {
+    .tel-hero__emergency { grid-template-columns: 1fr; text-align: center; }
+  }
+</style>

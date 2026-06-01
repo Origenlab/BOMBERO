@@ -1,0 +1,171 @@
+---
+/**
+ * StationDeepLinks.astro
+ * ──────────────────────────────────────────────────────────────────
+ * Bloque de interlinking automático para fichas de estación:
+ *   - Municipio (landing programática `/municipios/{municipio}/`)
+ *   - Cada especialidad de la estación → landing por especialidad
+ *   - Estado completo
+ *   - Página de teléfonos del estado
+ *   - Producto NFPA relacionado
+ *
+ * Refuerza topical authority + crawl depth + UX (3 niveles de
+ * exploración desde una sola ficha).
+ * ──────────────────────────────────────────────────────────────────
+ */
+import { toSlug, ESPECIALIDADES_CANONICAS } from "@utils/directorio-index";
+
+interface Props {
+  estadoSlug: string;
+  estadoNombre: string;
+  municipio: string;
+  especialidades?: string[];
+}
+
+const { estadoSlug, estadoNombre, municipio, especialidades = [] } = Astro.props;
+const municipioSlug = toSlug(municipio);
+
+// Mapear especialidades de la estación → especialidades canónicas
+function mapToCanonical(esp: string) {
+  if (/hazmat/i.test(esp)) return ESPECIALIDADES_CANONICAS.HAZMAT;
+  if (/arff/i.test(esp)) return ESPECIALIDADES_CANONICAS.ARFF;
+  if (/acuat/i.test(esp)) return ESPECIALIDADES_CANONICAS["Rescate Acuático"];
+  if (/vertical|alturas/i.test(esp)) return ESPECIALIDADES_CANONICAS["Rescate Vertical"];
+  if (/vehicular|excarcel/i.test(esp)) return ESPECIALIDADES_CANONICAS["Rescate Vehicular"];
+  if (/urbano|usar/i.test(esp)) return ESPECIALIDADES_CANONICAS["Rescate Urbano"];
+  if (/forestal/i.test(esp)) return ESPECIALIDADES_CANONICAS["Incendios Forestales"];
+  if (/industri/i.test(esp)) return ESPECIALIDADES_CANONICAS["Incendios Industriales"];
+  if (/buceo/i.test(esp)) return ESPECIALIDADES_CANONICAS["Buceo"];
+  if (/^k9|canino/i.test(esp)) return ESPECIALIDADES_CANONICAS["K9"];
+  if (/masiv|evento/i.test(esp)) return ESPECIALIDADES_CANONICAS["Eventos Masivos"];
+  if (/volc[áa]n/i.test(esp)) return ESPECIALIDADES_CANONICAS["Emergencias Volcánicas"];
+  if (/s[íi]smic|sismo|terremoto/i.test(esp)) return ESPECIALIDADES_CANONICAS["Emergencias Sísmicas"];
+  return null;
+}
+
+const canonEsps = Array.from(
+  new Set(
+    especialidades
+      .map((e) => mapToCanonical(e))
+      .filter((x): x is NonNullable<ReturnType<typeof mapToCanonical>> => Boolean(x))
+      .map((c) => JSON.stringify(c)),
+  ),
+).map((s) => JSON.parse(s) as ReturnType<typeof mapToCanonical>);
+---
+
+<section class="sdl" aria-label="Explora más del directorio">
+  <div class="container">
+    <h2 class="sdl__title">Explora más del directorio</h2>
+
+    <div class="sdl__grid">
+      <a class="sdl__card sdl__card--muni" href={`/directorio/${estadoSlug}/municipios/${municipioSlug}/`}>
+        <span class="sdl__tag">Municipio</span>
+        <strong>Bomberos en {municipio}</strong>
+        <span class="sdl__meta">Todas las estaciones de {municipio} con teléfono directo</span>
+      </a>
+
+      <a class="sdl__card sdl__card--state" href={`/directorio/${estadoSlug}/`}>
+        <span class="sdl__tag">Estado</span>
+        <strong>Directorio completo {estadoNombre}</strong>
+        <span class="sdl__meta">Todas las estaciones del estado</span>
+      </a>
+
+      <a class="sdl__card sdl__card--phones" href={`/directorio/${estadoSlug}/telefonos/`}>
+        <span class="sdl__tag">Teléfonos</span>
+        <strong>Teléfonos verificados {estadoNombre}</strong>
+        <span class="sdl__meta">Tabla limpia por municipio · ideal voz/AI</span>
+      </a>
+
+      {canonEsps.slice(0, 3).map((c) => (
+        c && (
+          <a class="sdl__card sdl__card--esp" href={`/directorio/${estadoSlug}/especialidades/${c.slug}/`}>
+            <span class="sdl__tag">Especialidad</span>
+            <strong>{c.label}</strong>
+            <span class="sdl__meta">Estaciones de {estadoNombre} con esta capacidad</span>
+          </a>
+        )
+      ))}
+
+      {canonEsps[0] && (
+        <a class="sdl__card sdl__card--product" href={canonEsps[0].productoHref}>
+          <span class="sdl__tag">Equipo NFPA</span>
+          <strong>Equipo recomendado</strong>
+          <span class="sdl__meta">Para {canonEsps[0].label.split("—")[0].trim()}</span>
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sdl {
+    padding: var(--space-10, 2.5rem) 0;
+    background: var(--color-smoke-100, #f3f3f3);
+  }
+  .sdl__title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-smoke-900, #111);
+    margin: 0 0 1.1rem;
+    letter-spacing: -0.01em;
+  }
+  .sdl__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.75rem;
+  }
+  .sdl__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem 1.1rem;
+    background: white;
+    border: 1px solid var(--color-smoke-200, #e5e5e5);
+    border-radius: 0.85rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .sdl__card:hover {
+    border-color: var(--color-fire-500, #dc2626);
+    transform: translateY(-1px);
+  }
+  .sdl__tag {
+    display: inline-block;
+    padding: 0.18rem 0.55rem;
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--color-fire-700, #b91c1c);
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    align-self: flex-start;
+  }
+  .sdl__card strong {
+    font-size: 0.98rem;
+    color: var(--color-smoke-900, #111);
+    line-height: 1.3;
+  }
+  .sdl__card .sdl__meta {
+    font-size: 0.82rem;
+    color: var(--color-smoke-500, #777);
+    line-height: 1.45;
+  }
+  .sdl__card--muni .sdl__tag {
+    background: rgba(34, 197, 94, 0.12);
+    color: #15803d;
+  }
+  .sdl__card--state .sdl__tag {
+    background: rgba(59, 130, 246, 0.12);
+    color: #1d4ed8;
+  }
+  .sdl__card--phones .sdl__tag {
+    background: rgba(245, 158, 11, 0.12);
+    color: #b45309;
+  }
+  .sdl__card--product .sdl__tag {
+    background: rgba(147, 51, 234, 0.12);
+    color: #6b21a8;
+  }
+</style>

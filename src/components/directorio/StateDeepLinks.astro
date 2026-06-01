@@ -1,0 +1,122 @@
+---
+/**
+ * StateDeepLinks.astro
+ * Tarjetas de exploración para páginas de estado:
+ *   - Hub municipios
+ *   - Hub especialidades
+ *   - Página teléfonos
+ *   - Directorio nacional
+ *   - Estados vecinos (primeros 3)
+ */
+
+interface EstadoVecino {
+  nombre: string;
+  slug: string;
+}
+
+interface Props {
+  estadoSlug: string;
+  estadoNombre: string;
+  capital: string;
+  estadosVecinos?: EstadoVecino[];
+}
+
+const { estadoSlug, estadoNombre, capital, estadosVecinos = [] } = Astro.props;
+---
+
+<section class="state-dl" aria-label={`Más recursos del directorio ${estadoNombre}`}>
+  <div class="container">
+    <h2 class="state-dl__title">Más recursos del directorio en {estadoNombre}</h2>
+    <div class="state-dl__grid">
+      <a class="state-dl__card" href={`/directorio/${estadoSlug}/municipios/`}>
+        <span class="state-dl__tag">Municipios</span>
+        <strong>Bomberos por municipio</strong>
+        <span class="state-dl__meta">Vista agrupada por municipio · ideal SEO local</span>
+      </a>
+      <a class="state-dl__card" href={`/directorio/${estadoSlug}/telefonos/`}>
+        <span class="state-dl__tag">Teléfonos</span>
+        <strong>Líneas directas verificadas</strong>
+        <span class="state-dl__meta">Tabla limpia · pensada para AI/voz</span>
+      </a>
+      <a class="state-dl__card" href={`/directorio/${estadoSlug}/especialidades/`}>
+        <span class="state-dl__tag">Especialidades</span>
+        <strong>Capacidades operativas</strong>
+        <span class="state-dl__meta">HAZMAT, ARFF, rescate acuático, vertical…</span>
+      </a>
+      <a class="state-dl__card" href="/directorio/">
+        <span class="state-dl__tag">Nacional</span>
+        <strong>Directorio nacional</strong>
+        <span class="state-dl__meta">32 estados de México</span>
+      </a>
+      {estadosVecinos.slice(0, 3).map((v) => (
+        <a class="state-dl__card state-dl__card--neighbor" href={`/directorio/${v.slug}/`}>
+          <span class="state-dl__tag">Estado vecino</span>
+          <strong>{v.nombre}</strong>
+          <span class="state-dl__meta">Cobertura fronteriza</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .state-dl {
+    padding: var(--space-10,2.5rem) 0;
+    background: white;
+    border-top: 1px solid var(--color-smoke-100,#f3f3f3);
+  }
+  .state-dl__title {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--color-smoke-900,#111);
+    margin: 0 0 1.1rem;
+    letter-spacing: -0.01em;
+  }
+  .state-dl__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+    gap: 0.75rem;
+  }
+  .state-dl__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1rem 1.15rem;
+    background: var(--color-smoke-50,#fafafa);
+    border: 1px solid var(--color-smoke-200,#e5e5e5);
+    border-radius: 0.85rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .state-dl__card:hover {
+    border-color: var(--color-fire-500,#dc2626);
+    transform: translateY(-1px);
+  }
+  .state-dl__tag {
+    display: inline-block;
+    padding: 0.18rem 0.55rem;
+    background: rgba(220,38,38,0.08);
+    color: var(--color-fire-700,#b91c1c);
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    align-self: flex-start;
+  }
+  .state-dl__card strong {
+    font-size: 0.98rem;
+    color: var(--color-smoke-900,#111);
+    line-height: 1.3;
+  }
+  .state-dl__card .state-dl__meta {
+    font-size: 0.82rem;
+    color: var(--color-smoke-500,#777);
+    line-height: 1.45;
+  }
+  .state-dl__card--neighbor .state-dl__tag {
+    background: rgba(59,130,246,0.12);
+    color: #1d4ed8;
+  }
+</style>

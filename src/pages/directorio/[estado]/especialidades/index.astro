@@ -1,0 +1,132 @@
+---
+/**
+ * /directorio/{estado}/especialidades/
+ * Hub: lista las especialidades disponibles en el estado con conteo.
+ */
+import PageLayout from "@layouts/PageLayout.astro";
+import Breadcrumb from "@components/Breadcrumb.astro";
+import CTABanner from "@components/CTABanner.astro";
+import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
+import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
+import {
+  getAllEspecialidades,
+  getEspecialidadesEstado,
+  getEstadoInfo,
+  ESPECIALIDADES_CANONICAS,
+} from "@utils/directorio-index";
+import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
+import { truncateMetaDescription } from "@utils/seo";
+
+export function getStaticPaths() {
+  const estados = new Set(getAllEspecialidades().map((e) => e.estadoSlug));
+  return Array.from(estados).map((estadoSlug) => ({
+    params: { estado: estadoSlug },
+    props: { estadoSlug },
+  }));
+}
+
+const { estadoSlug } = Astro.props as { estadoSlug: string };
+const estadoInfo = getEstadoInfo(estadoSlug);
+if (!estadoInfo) return Astro.redirect("/404");
+
+const rows = getEspecialidadesEstado(estadoSlug)
+  .slice()
+  .sort((a, b) => b.totalEstaciones - a.totalEstaciones);
+const total = rows.length;
+
+const canonical = `https://bombero.mx/directorio/${estadoSlug}/especialidades/`;
+const titleHead = `Especialidades de bomberos en ${estadoInfo.nombre} — ${total} capacidades operativas | BOMBERO.MX`;
+const description = truncateMetaDescription(
+  `Capacidades especializadas de bomberos en ${estadoInfo.nombre}: HAZMAT, ARFF, rescate acuático, vertical, vehicular y más. ${total} ${total === 1 ? "especialidad publicada" : "especialidades publicadas"} con sus estaciones operativas.`,
+  155,
+);
+
+const list = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Especialidades de bomberos en ${estadoInfo.nombre}`,
+  numberOfItems: total,
+  itemListElement: rows.map((r, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: `https://bombero.mx/directorio/${estadoSlug}/especialidades/${r.especialidadSlug}/`,
+    name: r.especialidad,
+  })),
+};
+---
+
+<PageLayout
+  title={titleHead}
+  description={description}
+  canonical={canonical}
+  modifiedTime={DIRECTORIO_VERIFICADO_ISO}
+  jsonLd={[list]}
+>
+  <Breadcrumb items={[
+    { label: "Directorio", href: "/directorio/" },
+    { label: estadoInfo.nombre, href: `/directorio/${estadoSlug}/` },
+    { label: "Especialidades" },
+  ]} />
+
+  <section class="esph-hero">
+    <div class="container">
+      <span class="esph-hero__badge">{estadoInfo.codigo} · Capacidades operativas</span>
+      <h1 class="esph-hero__title">Especialidades de bomberos en {estadoInfo.nombre}</h1>
+      <p class="esph-hero__desc">
+        Los cuerpos de bomberos de {estadoInfo.nombre} cuentan con <strong>{total}</strong> capacidades
+        especializadas. Selecciona una para ver las estaciones que la operan y el equipo NFPA recomendado.
+      </p>
+    </div>
+  </section>
+
+  <section class="esph-main">
+    <div class="container">
+      <ul class="esph-grid">
+        {rows.map((r) => {
+          const info = ESPECIALIDADES_CANONICAS[Object.keys(ESPECIALIDADES_CANONICAS).find(k => ESPECIALIDADES_CANONICAS[k].slug === r.especialidadSlug) ?? ''];
+          return (
+            <li>
+              <a href={`/directorio/${estadoSlug}/especialidades/${r.especialidadSlug}/`} class="esph-card">
+                <div class="esph-card__head">
+                  <h2 class="esph-card__title">{r.especialidad}</h2>
+                  <span class="esph-card__count">{r.totalEstaciones}</span>
+                </div>
+                {info && <p class="esph-card__desc">{info.descripcion}</p>}
+                <span class="esph-card__more">Ver {r.totalEstaciones} {r.totalEstaciones === 1 ? "estación" : "estaciones"} →</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+
+  <FAQDirectorio scope="estado" estado={estadoInfo.nombre} capital={estadoInfo.capital} totalEstaciones={total} />
+  <VerifiedBadge estado={estadoInfo.nombre} fecha={DIRECTORIO_VERIFICADO_LEGIBLE} />
+
+  <CTABanner
+    title={`Equipo NFPA para bomberos de ${estadoInfo.nombre}`}
+    desc="Distribuimos equipo certificado NFPA para cada especialidad. Cotización para procurement municipal."
+    btnText="Solicitar Cotización"
+    btnHref={`/cotizar/?utm_source=directorio&utm_medium=especialidades_hub&utm_campaign=${estadoSlug}`}
+    whatsapp={true}
+  />
+</PageLayout>
+
+<style>
+  .esph-hero { background: linear-gradient(135deg, #0a0a0a, #1a0606); color: white; padding: var(--space-12,3rem) 0; }
+  .esph-hero__badge { display: inline-block; padding: 0.3rem 0.85rem; background: rgba(220,38,38,0.18); color: #f97316; border: 1px solid rgba(220,38,38,0.3); border-radius: 9999px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.85rem; }
+  .esph-hero__title { font-size: clamp(1.7rem,3.5vw,2.6rem); font-weight: 800; margin: 0 0 0.7rem; color: white; letter-spacing: -0.02em; }
+  .esph-hero__desc { color: rgba(255,255,255,0.78); max-width: 760px; line-height: 1.7; margin: 0; }
+  .esph-hero__desc strong { color: white; }
+
+  .esph-main { padding: var(--space-12,3rem) 0; background: var(--color-smoke-50,#fafafa); }
+  .esph-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 1rem; }
+  .esph-card { display: block; padding: 1.15rem 1.2rem; background: white; border: 1px solid var(--color-smoke-200,#e5e5e5); border-radius: 0.95rem; text-decoration: none; color: inherit; transition: border-color 0.15s ease, transform 0.15s ease; }
+  .esph-card:hover { border-color: var(--color-fire-500,#dc2626); transform: translateY(-2px); box-shadow: 0 8px 22px -10px rgba(220,38,38,0.18); }
+  .esph-card__head { display: flex; justify-content: space-between; gap: 0.8rem; align-items: center; margin-bottom: 0.5rem; }
+  .esph-card__title { font-size: 1.05rem; font-weight: 800; color: var(--color-smoke-900,#111); margin: 0; line-height: 1.25; }
+  .esph-card__count { font-size: 0.85rem; font-weight: 800; color: white; background: var(--color-fire-600,#dc2626); padding: 0.2rem 0.7rem; border-radius: 9999px; font-variant-numeric: tabular-nums; }
+  .esph-card__desc { font-size: 0.88rem; color: var(--color-smoke-600,#555); line-height: 1.55; margin: 0 0 0.65rem; }
+  .esph-card__more { display: inline-block; font-size: 0.83rem; font-weight: 700; color: var(--color-fire-700,#b91c1c); }
+</style>
