@@ -4910,20 +4910,54 @@ El casco es parte del **sistema de protección personal para rescate técnico**:
 
 
   "guantes-estructurales-nfpa-1971": {
-    titulo: "Guantes Estructurales NFPA 1971: Guía Completa",
-    excerpt: "Guía técnica completa del guante estructural certificado NFPA 1971. Anatomía del guante (shell, liner, barrera), materiales (Kevlar®, cuero, PBI®), pruebas de certificación, marcas líderes (Shelby, Pro-Tech 8, Honeywell) y protocolo de tallaje profesional.",
+    titulo: "Guantes Estructurales NFPA 1971: Análisis Técnico de Anatomía, Materiales, Marcas y Protocolo de Tallaje",
+    excerpt: "Manual técnico del guante estructural NFPA 1971: sistema de 3 capas (shell, liner, barrera), materiales Kevlar/PBI/cuero, ensayos TPP/corte/conductividad, marcas referencia (Shelby Big Bull, Pro-Tech 8 Titan, Honeywell Pro-Series), protocolo de tallaje individual y compatibilidad con manguito de chaqueta.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-estructural-nfpa-1971-01.avif",
     categoria: "Equipo",
-    tags: ["Guantes Estructurales", "NFPA 1971", "Shelby Gloves", "Pro-Tech 8", "Kevlar", "Protección Manos Bombero"],
+    tags: ["Guantes Estructurales", "NFPA 1971", "Shelby", "Pro-Tech 8", "Honeywell", "Kevlar", "PBI"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP Estructural",
+    autorRol: "Equipo Técnico — EPP Estructural",
     anchorKeyword: "Guantes estructurales NFPA 1971 bomberos profesional México",
     contenido: `
-## El Guante Estructural: Protección Crítica para las Manos del Bombero
+## Guantes Estructurales NFPA 1971: Marco Técnico de Protección de Manos del Bombero
 
-Las manos del bombero están constantemente expuestas a los peligros más extremos: calor radiante y convectivo, llamas directas, objetos punzocortantes, superficies abrasivas, agua hirviente, y contacto con estructuras comprometidas. El **guante estructural certificado NFPA 1971** es la barrera que protege esta parte vital del cuerpo mientras permite la destreza necesaria para operar válvulas, mangueras, herramientas y realizar rescates.
+Las **manos del bombero** son simultáneamente **el componente más expuesto del operador y el más dependiente de su EPP para mantener función operativa**. Sin destreza táctil residual, el bombero no opera válvulas SCBA, no extrae herramientas hidráulicas, no manipula víctimas en triage. Sin protección térmica adecuada, las manos sufren quemaduras de segundo o tercer grado en contacto con superficies a 280 °C —temperatura típica de manijas metálicas en estructura activa. El guante estructural NFPA 1971 resuelve esta tensión: protección máxima compatible con destreza operativa ejecutable.
 
-En **BOMBERO.MX** hemos equipado a cientos de departamentos de bomberos con guantes estructurales de las mejores marcas mundiales. Esta guía proporciona el conocimiento técnico necesario para seleccionar, tallar y mantener el guante adecuado para tu operación.
+La norma **NFPA 1971** evalúa el guante bajo siete parámetros simultáneos —protección térmica (TPP ≥35 cal/cm²), resistencia al corte (ASTM F1790 Nivel A2+), resistencia al calor conductivo (280 °C por 5 s), agarre en húmedo, impermeabilidad líquida, retención (no separación bajo tirón) y destreza táctil mínima ejecutable—. Cada parámetro se mide en laboratorio acreditado y se certifica como ensemble integral con el resto del EPP estructural. Adicionalmente, la **zona de superposición con el manguito de la chaqueta** se evalúa como punto crítico de integración sistémica: una zona mal diseñada produce quemaduras de muñeca incluso con guante y traje correctamente certificados por separado.
+
+Este manual técnico estructura los componentes operativos: **anatomía del sistema de 3 capas** (shell Kevlar/cuero + liner térmico Nomex/PBI + barrera de humedad Crosstech/Stedair), **materiales constructivos** con sus perfiles de rendimiento, **marcas y modelos referencia disponibles en México** (Shelby Big Bull, Pro-Tech 8 Titan/G2, Honeywell Pro-Series, Innotex Titan), **protocolo de tallaje individual** con plantilla de mano por bombero y **programa de inspección y reemplazo** bajo NFPA 1851.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1971</span>
+    <span class="stat__label">Norma específica guante estructural</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">≥35 cal/cm²</span>
+    <span class="stat__label">TPP mínimo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">280 °C</span>
+    <span class="stat__label">Calor conductivo / 5 s</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$2,500-6,500</span>
+    <span class="stat__label">Rango MXN par estructural</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/guantes-para-bomberos/guante-bombero-estructural-nfpa-1971-01.avif" alt="Guante estructural NFPA 1971 con construcción multicapa Kevlar/cuero, liner térmico y barrera de humedad" loading="lazy" width="900" height="600" />
+  <figcaption>Guante estructural NFPA 1971 — sistema de 3 capas con manguito reforzado para superposición con la manga del chaquetón. El sello en la zona de muñeca es crítico para evitar quemaduras.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Talla incorrecta = quemadura asegurada</span>
+    <p>Un guante talla L cuando el bombero requiere M crea <strong>espacio en la zona de superposición</strong> con el manguito de la chaqueta. Por ese espacio entra agua hirviente, productos de combustión y calor convectivo directo. La causa documentada de la mayoría de las quemaduras de muñeca en bomberos profesionales no es falla del guante: es <strong>talla incorrecta por compra a granel sin medición individual</strong>.</p>
+  </div>
+</div>
 
 ### ¿Por Qué los Guantes Estructurales Requieren Certificación NFPA 1971?
 
@@ -5192,40 +5226,121 @@ El guante estructural es parte del **sistema de protección de extremidades**:
 
 ---
 
-## Conclusión: La Inversión en Protección de Manos
+## Equipamiento BOMBERO MX — Guantes Estructurales NFPA 1971 con Tallaje Individual
 
-Los guantes estructurales certificados NFPA 1971 son una inversión crítica en la seguridad de tus bomberos. Un guante de calidad, correctamente tallado y mantenido, proporciona la protección térmica y mecánica necesaria mientras permite la destreza para operar en las condiciones más demandantes.
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Shelby Big Bull</h4>
+    <p class="feature__text">Referencia americana de larga duración. Construcción Kevlar/cuero con manguito reforzado y palma anti-deslizante. Tallas 7-13 con ajuste por bombero.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Pro-Tech 8 Titan / G2</h4>
+    <p class="feature__text">Diseño moderno con destreza táctil mejorada. Liner térmico PBI o Nomex con barrera Crosstech. Para alta frecuencia operativa.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Honeywell Pro-Series</h4>
+    <p class="feature__text">Línea industrial con configuraciones específicas para brigadas internas de planta y bomberos municipales. Buena disponibilidad de tallas.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Innotex Titan</h4>
+    <p class="feature__text">Alternativa europea-canadiense para departamentos que buscan diferenciación frente a marcas estadounidenses estándar.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Plantilla de tallaje individual</h4>
+    <p class="feature__text">Plantilla de medición de mano (longitud + circunferencia) por bombero. Cada operador con su talla específica documentada.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Programa de reemplazo NFPA 1851</h4>
+    <p class="feature__text">Coordinación de inspección y reemplazo programado de guantes en función de horas operativas y exposición acumulada.</p>
+  </div>
+</div>
 
-En **BOMBERO.MX** trabajamos con todas las marcas líderes (Shelby, Pro-Tech 8, Honeywell, Firecraft) y ofrecemos asesoría de tallaje sin costo para asegurar el ajuste perfecto para cada bombero.
-
-### ¿Equipando a tu Departamento con Guantes Profesionales?
-
-- [**Ver catálogo de guantes estructurales →**](/productos/guantes-para-bomberos/estructurales/)
-- [**Solicitar cotización con tallaje →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="cta-box">
+  <h3>Guantes estructurales NFPA 1971 con tallaje individual</h3>
+  <p>Shelby, Pro-Tech 8, Honeywell, Innotex · Plantilla de medición por bombero · Documentación NFPA · Programa de reemplazo NFPA 1851</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/guantes-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1971 Standard on Protective Ensembles for Structural Fire Fighting (2018 Edition), NFPA 1851 Standard on Selection, Care, and Maintenance of Protective Ensembles, y más de 15 años de experiencia equipando departamentos de bomberos en México.*
+## Referencias Normativas
+
+- **NFPA 1971** — Standard on Protective Ensembles for Structural Fire Fighting (sección específica de guantes)
+- **NFPA 1851** — Selection, Care, and Maintenance of Protective Ensembles (vida útil, inspección, lavado)
+- **ASTM F1790** — Standard Test Method for Measuring Cut Resistance of Materials Used in Protective Clothing
+- **ASTM F2675** — Standard Test Method for Determining Arc Ratings of Hand Protective Products
+- **EN 659** — Protective Gloves for Firefighters (estándar europeo equivalente)
+- **EN 388** — Protective gloves against mechanical risks
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Guantes para Bombero — Guía Técnica Completa](/blog/guantes-para-bombero-guia-completa/)
+- [Guantes de Rescate/Extricación](/blog/guantes-rescate-extricacion/)
+- [Guantes Forestales NFPA 1977](/blog/guantes-forestales-nfpa-1977/)
+- [Guantes HAZMAT Protección Química](/blog/guantes-hazmat-proteccion-quimica/)
+- [NFPA 1971: Guía Completa del Estándar](/blog/nfpa-1971-guia-completa/)
+- [Traje Estructural NFPA 1971 — Sistema 3 Capas](/blog/traje-estructural-nfpa-1971/)
+- [Mantenimiento NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Catálogo de guantes](/productos/guantes-para-bomberos/)
     `,
   },
 
   "guantes-rescate-extricacion": {
-    titulo: "Guantes de Rescate: Guía TRT y Extricación",
-    excerpt: "Guía profesional de guantes de rescate técnico y extricación vehicular. Diferencias con guantes estructurales, certificación NFPA 1951, materiales (cuero sintético, Kevlar®, TPR), marcas especializadas (Ringers, Mechanix, HexArmor) y selección por tipo de operación.",
+    titulo: "Guantes de Rescate Técnico NFPA 1951: Análisis de Destreza, Resistencia al Corte (ANSI A4–A9) y Selección por Disciplina USAR/TRT/Extricación",
+    excerpt: "Manual técnico de guantes de rescate bajo NFPA 1951, ANSI/ISEA 105-2016 y EN 388:2016. Niveles de corte A4-A9, materiales (cuero sintético, Kevlar, HPPE, TPR), marcas referencia Ringers/Mechanix/HexArmor, configuraciones específicas por disciplina (extricación vehicular, USAR, TRT, rescate vertical) y aplicación operativa.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-rescate-nfpa-1951-01.avif",
     categoria: "Equipo",
-    tags: ["Guantes Rescate", "Extricación Vehicular", "NFPA 1951", "Ringers Gloves", "TRT", "USAR"],
+    tags: ["Guantes Rescate", "NFPA 1951", "ANSI/ISEA 105", "EN 388", "Ringers", "Mechanix", "HexArmor", "TRT", "USAR"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Rescate Técnico",
+    autorRol: "Equipo Técnico — Rescate Especializado",
     anchorKeyword: "Guantes rescate extricación vehicular TRT USAR bomberos México",
     contenido: `
-## Guantes de Rescate: Destreza y Protección para Operaciones Técnicas
+## Guantes de Rescate NFPA 1951: Marco Técnico de Destreza, Resistencia y Selección por Disciplina
 
-Las operaciones de **rescate técnico** y **extricación vehicular** demandan un guante fundamentalmente diferente al estructural. Mientras el guante de combate de incendios prioriza la protección térmica, el **guante de rescate** debe proporcionar **máxima destreza**, **sensibilidad táctil**, y **protección mecánica** contra cortes, abrasión y punción, todo mientras permite manipular herramientas hidráulicas, cuerdas, y realizar maniobras de precisión.
+Las operaciones de **rescate técnico** —extricación vehicular, USAR (Urban Search and Rescue), TRT (Technical Rescue Team), rescate vertical, rescate acuático, espacios confinados— exigen del guante un **perfil de protección estructuralmente distinto** al combate de incendio estructural. La amenaza dominante no es térmica sino **mecánica**: cortes por vidrio templado y acero laminado en vehículos modernos, abrasión continua de cuerdas dinámicas y estáticas en sistemas verticales, punción por escombros y varilla expuesta en derrumbe, manipulación prolongada de herramientas hidráulicas con vibración y carga.
 
-En **BOMBERO.MX** equipamos a equipos de rescate técnico, grupos USAR, y unidades de extricación vehicular con guantes especializados de las mejores marcas mundiales. Esta guía te proporciona el conocimiento para seleccionar el guante correcto según tu especialidad de rescate.
+La norma **NFPA 1951** (*Standard on Protective Ensembles for Technical Rescue Incidents*) certifica los guantes de rescate como ensemble integrado con el resto del EPP de rescate técnico, pero el rendimiento operativo se evalúa adicionalmente bajo **ANSI/ISEA 105-2016** (niveles de corte **A1-A9**), **EN 388:2016** (resistencia mecánica europea) y, para arc flash, **ASTM F2675**. La diferencia entre un guante de corte ANSI **A4** (1,500-2,199 g de fuerza) y un guante ANSI **A9** (>6,000 g) no es marginal: es el factor que determina si un rescatista puede operar cizalla hidráulica con cubierta de cristal templado del parabrisas sin sufrir corte profundo en palma o dedos.
+
+Este manual estructura los **niveles de protección mecánica** (ANSI A4-A9, EN 388 cut score), los **materiales constructivos referencia** (cuero sintético tipo Hipora, Kevlar/Nomex, HPPE Spectra/Dyneema, TPR overlays), las **marcas y modelos** disponibles en México (Ringers R-10/R-23, Mechanix M-Pact/Original, HexArmor 4023/4026, Petzl Cordex/Cordex Plus) y la **configuración por disciplina operativa** específica.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1951</span>
+    <span class="stat__label">Norma rescate técnico</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">A4-A9</span>
+    <span class="stat__label">ANSI/ISEA 105-2016 cut</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">EN 388</span>
+    <span class="stat__label">Mechanical hazards EU</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">1-2 mm</span>
+    <span class="stat__label">Grosor típico (vs 3-4 mm estructural)</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/guantes-para-bomberos/guante-bombero-rescate-nfpa-1951-01.avif" alt="Guante de rescate técnico NFPA 1951 con palma reforzada anti-corte y TPR sobre dorso" loading="lazy" width="900" height="600" />
+  <figcaption>Guante de rescate NFPA 1951 — palma reforzada con Kevlar/HPPE para corte, TPR overlays sobre dorso para impacto, manguito ajustable para integración con uniforme.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Destreza táctil = velocidad operativa</span>
+    <p>En rescate técnico, <strong>cada minuto adicional de extricación es un minuto adicional de exposición de la víctima</strong>. Un guante demasiado grueso reduce destreza táctil y aumenta tiempo de operación de herramientas hidráulicas, sistemas de cuerda y dispositivos médicos. El criterio de selección NO es "el más grueso es el más seguro" — es el equilibrio óptimo entre <strong>protección mecánica ANSI A4-A9</strong> y <strong>destreza táctil ejecutable</strong> para la disciplina específica.</p>
+  </div>
+</div>
 
 ### ¿Por Qué el Rescate Requiere Guantes Diferentes?
 
@@ -5499,40 +5614,123 @@ Los guantes son parte del **sistema de protección para rescate técnico**:
 
 ---
 
-## Conclusión: El Guante Correcto para Cada Misión de Rescate
+## Equipamiento BOMBERO MX — Guantes de Rescate por Disciplina
 
-El guante de rescate es una herramienta especializada que debe seleccionarse según el tipo de operación predominante. Un equipo de extricación vehicular necesita protección contra corte y agarre; un equipo TRT necesita destreza y sensibilidad; un equipo USAR necesita la máxima resistencia mecánica.
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Ringers R-10 / R-23</h4>
+    <p class="feature__text">Referencia americana para extricación vehicular. Palma Kevlar/HPPE con TPR sobre dorso, ANSI A5+. Destreza táctil alta.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Mechanix M-Pact / Original</h4>
+    <p class="feature__text">Línea táctica con TPR overlays y construcción TrekDry. Para TRT y rescate vertical con manipulación frecuente de cuerdas.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">HexArmor 4023 / 4026</h4>
+    <p class="feature__text">Máxima resistencia al corte (ANSI A8-A9) para USAR y operaciones con vidrio templado/varilla expuesta. Mayor grosor, menor destreza.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Petzl Cordex / Cordex Plus</h4>
+    <p class="feature__text">Específico para rescate vertical con sistema de cuerdas NFPA 1983. Palma de cuero ajustable + dorso transpirable.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Configuración por disciplina</h4>
+    <p class="feature__text">Recomendación individualizada según operación predominante: extricación, USAR, vertical, espacios confinados, acuático.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Tallaje individual + reemplazo</h4>
+    <p class="feature__text">Plantilla de medición por rescatista. Programa de reemplazo en función de horas operativas (guantes rescate desgastan más rápido que estructural).</p>
+  </div>
+</div>
 
-En **BOMBERO.MX** ofrecemos asesoría especializada para configurar el inventario de guantes adecuado para cada unidad de rescate, desde equipos de extricación hasta grupos USAR.
-
-### ¿Equipando tu Unidad de Rescate?
-
-- [**Ver catálogo de guantes de rescate →**](/productos/guantes-para-bomberos/rescate/)
-- [**Solicitar cotización para equipos TRT →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="cta-box">
+  <h3>Guantes de rescate NFPA 1951 con configuración por disciplina</h3>
+  <p>Ringers, Mechanix, HexArmor, Petzl. Recomendación por operación predominante · Documentación NFPA + ANSI · Tallaje individual</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/guantes-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1951 Standard on Protective Ensembles for Technical Rescue Incidents, ANSI/ISEA 105-2016, EN 388:2016, y experiencia equipando equipos de rescate técnico en México.*
+## Referencias Normativas
+
+- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents
+- **NFPA 1983** — Life Safety Rope and Equipment for Emergency Services (interfaz con guantes)
+- **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications
+- **NFPA 1670** — Operations and Training for Technical Search and Rescue Incidents
+- **ANSI/ISEA 105-2016** — American National Standard for Hand Protection Classification (niveles A1-A9)
+- **EN 388:2016** — Protective gloves against mechanical risks (referencia europea)
+- **ASTM F1790** — Standard Test Method for Measuring Cut Resistance of Materials
+- **ASTM F2675** — Determining Arc Ratings of Hand Protective Products
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Guantes para Bombero — Guía Técnica Completa](/blog/guantes-para-bombero-guia-completa/)
+- [Guantes Estructurales NFPA 1971](/blog/guantes-estructurales-nfpa-1971/)
+- [Guantes Forestales NFPA 1977](/blog/guantes-forestales-nfpa-1977/)
+- [Equipo Rescate Técnico NFPA 1006/1670/1983](/blog/equipo-rescate-tecnico-componentes-normas/)
+- [Rescate en Altura NFPA 1983](/blog/rescate-en-altura-cuerdas-nfpa-1983/)
+- [Rescate Vehicular Moderno UHSS / EV](/blog/rescate-vehicular-tecnicas/)
+- [Extricación Vehicular Jaws of Life](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [Casco Rescate Técnico NFPA 1951](/blog/casco-rescate-nfpa-1951/)
+- [Catálogo de guantes](/productos/guantes-para-bomberos/)
     `,
   },
 
   "guantes-hazmat-proteccion-quimica": {
-    titulo: "Guantes HAZMAT: Selección por Químico y Material",
-    excerpt: "Guía técnica profesional de guantes de protección química para operaciones HAZMAT. Materiales (butilo, Viton®, nitrilo, neopreno), compatibilidad química, permeación y degradación, normas NFPA 1991/1992/1994, y selección según tipo de sustancia peligrosa.",
+    titulo: "Guantes HAZMAT NFPA 1991/1992/1994: Análisis de Compatibilidad Química, Permeación ASTM F739 y Selección por Familia de Agente",
+    excerpt: "Manual técnico de guantes de protección química bajo NFPA 1991 (Nivel A vapor encapsulado), NFPA 1992 (Nivel B salpicadura líquida), NFPA 1994 (CBRN). Matriz de compatibilidad química por material (butilo, Viton, neopreno, nitrilo, Tychem 10000), ensayos de permeación ASTM F739, marcas Ansell/North Safety/MAPA y selección por familia química.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-hazmat-nfpa-1991-01.avif",
     categoria: "Equipo",
-    tags: ["Guantes HAZMAT", "Protección Química", "Butilo", "Viton", "NFPA 1991", "Materiales Peligrosos"],
+    tags: ["Guantes HAZMAT", "NFPA 1991", "NFPA 1992", "NFPA 1994", "Viton", "Butilo", "ASTM F739", "Permeación"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en HAZMAT",
+    autorRol: "Equipo Técnico — Protección Química",
     anchorKeyword: "Guantes HAZMAT protección química butilo Viton bomberos México",
     contenido: `
-## Guantes HAZMAT: La Barrera Crítica Contra Sustancias Peligrosas
+## Guantes HAZMAT NFPA 1991/1992/1994: Marco Técnico de Compatibilidad Química
 
-En operaciones con **materiales peligrosos (HAZMAT)**, los guantes son frecuentemente el punto más vulnerable del sistema de protección. Las manos están en contacto directo con contenedores, válvulas, suelos contaminados y víctimas expuestas. Un guante inadecuado o incompatible con el químico presente puede resultar en exposición dérmica con consecuencias desde irritación hasta efectos sistémicos fatales.
+En operaciones con **materiales peligrosos (HAZMAT)**, los guantes son el **componente del EPP con mayor probabilidad documentada de falla por incompatibilidad química mal evaluada**. Las manos están en contacto directo y continuo con válvulas, contenedores, equipos contaminados y, en operaciones de rescate, con víctimas expuestas al agente. La falla del guante no se produce típicamente por rotura visible —se produce por **permeación molecular**: el agente atraviesa el material del guante sin generar daño aparente, contaminando la piel del rescatista durante minutos u horas antes de que el operador advierta la exposición.
 
-En **BOMBERO.MX** equipamos a equipos HAZMAT, brigadas industriales PEMEX/CFE, y unidades de respuesta a emergencias químicas con guantes especializados de los materiales correctos para cada tipo de sustancia. Esta guía proporciona el conocimiento técnico necesario para seleccionar el guante adecuado según el químico presente.
+La selección correcta de guante HAZMAT exige cumplir simultáneamente tres requisitos: **certificación NFPA** apropiada al nivel de protección (1991 para Nivel A encapsulado, 1992 para Nivel B salpicadura líquida, 1994 para CBRN); **compatibilidad química documentada del material constructivo** con el agente específico mediante ensayo **ASTM F739** (permeación normalizada en condiciones de laboratorio); y **tiempo de permeación normalizado superior al ciclo operativo planificado** —típicamente >480 min para operación con SCBA de 45-60 min más descontaminación. Un guante NFPA 1991 con butilo es excelente contra cetonas pero **permeable a hidrocarburos clorados en minutos**. Un guante con Viton es óptimo contra hidrocarburos pero **falla rápidamente contra metanol**. La matriz de compatibilidad química del fabricante —no la categoría de nivel— es lo que determina la selección.
+
+Este manual estructura los **cinco materiales constructivos referencia** (butilo, Viton, neopreno, nitrilo, Tychem 10000) con sus perfiles de resistencia química, los **ensayos ASTM F739** (tiempo de permeación, tasa, degradación), las **marcas referencia disponibles en México** (Ansell, North Safety, MAPA, Trelleborg, Showa) y la **selección operativa por familia de agente** y aplicación en el corredor químico industrial mexicano.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1991</span>
+    <span class="stat__label">Nivel A vapor encapsulado</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1992</span>
+    <span class="stat__label">Nivel B salpicadura líquida</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">ASTM F739</span>
+    <span class="stat__label">Ensayo de permeación</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">>480 min</span>
+    <span class="stat__label">Permeación objetivo operativa</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/guantes-para-bomberos/guante-bombero-hazmat-nfpa-1991-01.avif" alt="Guante HAZMAT NFPA 1991 con material butilo y manguito largo sellado" loading="lazy" width="900" height="600" />
+  <figcaption>Guante HAZMAT NFPA 1991 — material constructivo seleccionado por compatibilidad química con el agente específico del incidente, no por categoría genérica.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">El nivel A no es universal — el material lo es todo</span>
+    <p>Operar con guante "Nivel A" sin verificar que el material constructivo (butilo / Viton / neopreno / Tychem) es <strong>compatible con el agente específico</strong> del incidente es operativamente equivalente a no tener guante. La <strong>matriz de compatibilidad química</strong> del fabricante, consultada antes del despliegue, es el documento técnico que valida la selección. Sin esa consulta, la categoría NFPA es etiqueta sin protección efectiva.</p>
+  </div>
+</div>
 
 ### El Principio Fundamental: No Existe el Guante Universal
 
@@ -5907,42 +6105,125 @@ Los guantes son parte del **sistema de protección química completo**:
 
 ---
 
-## Conclusión: La Química Correcta para Cada Químico
+## Equipamiento BOMBERO MX — Guantes HAZMAT por Familia Química
 
-La selección de guantes HAZMAT no es una decisión genérica. Cada familia química requiere un material específico con resistencia probada. Usar el guante correcto puede significar la diferencia entre una operación exitosa y una exposición con consecuencias graves.
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Butilo Ansell ChemTek</h4>
+    <p class="feature__text">Óptimo contra cetonas, aldehídos, gases ácidos y ácidos diluidos. Aplicación: procesos químicos no-petroleros, plantas farmacéuticas.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Viton Trelleborg HPS</h4>
+    <p class="feature__text">Excelente contra hidrocarburos alifáticos, aromáticos y ácidos fuertes. Aplicación: refinería, petroquímica, transporte combustibles.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Neopreno North Safety</h4>
+    <p class="feature__text">Uso general industrial: aceites, ácidos diluidos, alcoholes. Buena destreza táctil y costo accesible para alta rotación.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Nitrilo MAPA / Showa</h4>
+    <p class="feature__text">Resistencia a hidrocarburos refinados y desinfectantes. Para descontaminación primaria y manipulación de víctimas expuestas.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Tychem 10000</h4>
+    <p class="feature__text">Amplio espectro químico, configuración multicapa para respuesta general HAZMAT cuando el agente no está identificado con precisión.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Matriz compatibilidad documentada</h4>
+    <p class="feature__text">Cada lote entregado con tabla de permeación del fabricante por familia química, tiempo normalizado y tasa de degradación.</p>
+  </div>
+</div>
 
-En **BOMBERO.MX** somos especialistas en equipar equipos HAZMAT con los guantes correctos para cada aplicación, desde brigadas industriales PEMEX hasta equipos de respuesta a emergencias químicas.
-
-### ¿Equipando tu Equipo HAZMAT?
-
-- [**Ver catálogo de guantes HAZMAT →**](/productos/guantes-para-bomberos/hazmat/)
-- [**Solicitar asesoría de compatibilidad química →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="cta-box">
+  <h3>Guantes HAZMAT con matriz de compatibilidad química por planta</h3>
+  <p>Análisis del matriz de sustancias de tu instalación · Configuración por familia química · Documentación ASTM F739 · Trazabilidad de lote</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar evaluación técnica</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1991, 1992 y 1994, tablas de permeación de fabricantes (Ansell, North Safety, MAPA), y experiencia equipando equipos HAZMAT industriales y de primera respuesta en México.*
+## Referencias Normativas
+
+- **NFPA 1991** — Standard on Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A — incluye guantes)
+- **NFPA 1992** — Standard on Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
+- **NFPA 1994** — Protective Ensembles for First Responders to CBRN Terrorism Incidents
+- **NFPA 472 / 1072** — Competencias del personal HAZMAT
+- **ASTM F739** — Standard Test Method for Permeation of Liquids and Gases through Protective Clothing Materials under Continuous Contact
+- **ASTM F903** — Standard Test Method for Resistance of Materials Used in Protective Clothing to Penetration by Liquids
+- **EN 374** — Protective gloves against dangerous chemicals and micro-organisms
+- **NOM-005-STPS-1998** — Manejo de sustancias químicas peligrosas
+- **NOM-018-STPS-2015** — Sistema Armonizado HDS
+- **SETIQ** — 800-00-214-00
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Guantes para Bombero — Guía Técnica Completa](/blog/guantes-para-bombero-guia-completa/)
+- [Guantes Estructurales NFPA 1971](/blog/guantes-estructurales-nfpa-1971/)
+- [Trajes HAZMAT — Compatibilidad Química NFPA 1991/1992](/blog/traje-hazmat-proteccion-quimica/)
+- [HAZMAT Niveles de Protección](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Bomberos Monterrey — Apodaca/Pesquería](/blog/bomberos-monterrey-equipo-nfpa/)
+- [Bomberos Pachuca — Refinería Tula](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
+- [Bomberos Tijuana — Maquiladoras](/blog/bomberos-tijuana-equipo-nfpa/)
+- [SCBA NFPA 1981 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
+- [Catálogo de guantes](/productos/guantes-para-bomberos/)
     `,
   },
 
   "guantes-forestales-nfpa-1977": {
-    titulo: "Guantes Forestales NFPA 1977: Guía Técnica",
-    excerpt: "Guía técnica completa del guante forestal certificado NFPA 1977. Diferencias con guantes estructurales, materiales (cuero de res, Nomex®), construcción para trabajo con herramienta manual, marcas especializadas y cuidado para temporada de incendios.",
+    titulo: "Guantes Forestales NFPA 1977: Análisis Técnico para Operación Wildland con Herramienta Manual y Jornadas Prolongadas",
+    excerpt: "Manual técnico del guante forestal NFPA 1977: diferencias frente al estructural NFPA 1971, materiales (cuero res full-grain, Nomex IIIA, Kevlar reforzado), construcción para uso intensivo con Pulaski/McLeod/pala, marcas referencia (Wells Lamont Wildland, Shelby Wildland) y aplicación operativa CONAFOR / PROCOREF en temporada 2026.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-forestal-nfpa-1977-01.avif",
     categoria: "Equipo",
-    tags: ["Guantes Forestales", "NFPA 1977", "Incendios Forestales", "Wildland", "Cuero Bombero", "CONAFOR"],
+    tags: ["Guantes Forestales", "NFPA 1977", "CONAFOR", "PROCOREF", "Wells Lamont", "Cuero Full-Grain", "Wildland"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP Forestal",
+    autorRol: "Equipo Técnico — Línea Forestal",
     anchorKeyword: "Guantes forestales NFPA 1977 incendios vegetación bomberos México",
     contenido: `
-## El Guante Forestal: Protección y Destreza para Jornadas en Línea de Fuego
+## Guantes Forestales NFPA 1977: Marco Técnico para Operación Wildland Prolongada
 
-El combate de **incendios forestales** demanda un guante fundamentalmente diferente al estructural. Mientras las operaciones estructurales son intensas pero relativamente breves (minutos a pocas horas), las operaciones forestales pueden extenderse por **12, 16 o más horas continuas**, con uso intensivo de **herramientas manuales** (pulaski, mcleod, pala), exposición a terreno abrasivo, y necesidad de **destreza** para operaciones de precisión.
+El **combate de incendio forestal** opera bajo un perfil de exigencia para el guante **estructuralmente distinto al estructural**: la amenaza dominante no es calor convectivo súbito de compartimento cerrado sino la **combinación sostenida de calor radiante moderado + abrasión continua + uso intensivo de herramienta manual + jornada prolongada de 8 a 16 horas**. Esta combinación condiciona el diseño: el guante forestal **prioriza durabilidad mecánica y destreza táctil** sobre máxima protección térmica, porque el operador necesita manipular **Pulaski, McLeod, pala forestal, mochila bomba de 20 L, herramientas manuales de línea de fuego y radio portátil** durante la totalidad del turno sin fatiga prematura ni pérdida de control.
 
-El **guante forestal certificado NFPA 1977** está diseñado específicamente para estas condiciones únicas: proporciona protección contra calor radiante, resistencia a la abrasión, durabilidad para trabajo de herramienta, y comodidad para uso prolongado.
+La norma **NFPA 1977** (*Standard on Protective Clothing and Equipment for Wildland Fire Fighting*, edición 2022) certifica el guante forestal como ensemble integrado con el resto del EPP wildland, evaluando resistencia a llama (no ignición ni goteo bajo exposición controlada), resistencia mecánica al desgarro y abrasión, destreza táctil mínima ejecutable, y compatibilidad con manguito de chaqueta forestal. El material constructivo predominante es **cuero de res full-grain** —referencia operativa por durabilidad superior frente a sintéticos en uso prolongado con herramienta— complementado con **Nomex IIIA o Kevlar** en puntos de refuerzo (palma, dedo índice y pulgar) y manguito de **algodón FR** o cuero para superposición con chaqueta.
 
-En **BOMBERO.MX** equipamos a brigadas forestales de **CONAFOR**, protección civil estatal, y brigadas voluntarias con guantes forestales de calidad profesional. Esta guía proporciona el conocimiento para seleccionar el guante correcto para operaciones de vegetación.
+Este manual estructura los **materiales constructivos y configuraciones**, las **marcas y modelos referencia disponibles en México** (Wells Lamont Wildland, Shelby Wildland, Ringers Heavyweight Cuero), el **protocolo operativo CONAFOR / PROCOREF** para brigadas estatales y federales, y el **programa de reemplazo de temporada** (los guantes forestales se reemplazan más frecuentemente que los estructurales por mayor desgaste mecánico).
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1977</span>
+    <span class="stat__label">Edición 2022 vigente</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">8-16 h</span>
+    <span class="stat__label">Jornada típica wildland</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">Cuero res</span>
+    <span class="stat__label">Material constructivo referencia</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">1-2 temporadas</span>
+    <span class="stat__label">Vida útil típica uso intensivo</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/guantes-para-bomberos/guante-bombero-forestal-nfpa-1977-01.avif" alt="Guante forestal NFPA 1977 cuero full-grain con manguito largo y refuerzo Kevlar" loading="lazy" width="900" height="600" />
+  <figcaption>Guante forestal NFPA 1977 — cuero full-grain con manguito largo de algodón FR para superposición con chaqueta. Diseñado para herramienta manual prolongada bajo exposición radiante moderada.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Reposición previa a temporada, no durante</span>
+    <p>Los guantes forestales se degradan rápidamente bajo uso intensivo con herramienta. La <strong>reposición debe planificarse en enero-febrero</strong> previo a la temporada principal (febrero-junio), no durante el pico operativo. Una brigada CONAFOR que opera con guantes desgastados sufre <strong>ampollas, callosidades y disminución de productividad</strong> medibles en metros de línea de fuego construidos por hora.</p>
+  </div>
+</div>
 
 ### ¿Por Qué el Guante Forestal es Diferente del Estructural?
 
@@ -6276,22 +6557,69 @@ Los guantes son parte del **sistema de EPP forestal completo**:
 
 ---
 
-## Conclusión: Protección Duradera para la Línea de Fuego
+## Equipamiento BOMBERO MX — Guantes Forestales NFPA 1977 para Brigadas CONAFOR
 
-El guante forestal es una herramienta de trabajo que debe soportar jornadas largas de uso intensivo. Seleccionar un guante de calidad, del tipo correcto para la función, y mantenerlo adecuadamente, asegura que el brigadista tenga la protección y destreza necesarias durante toda la temporada de incendios.
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Wells Lamont Wildland</h4>
+    <p class="feature__text">Referencia americana wildland. Cuero res full-grain con manguito largo, refuerzo Kevlar palma. Estándar US Forest Service.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Shelby Wildland</h4>
+    <p class="feature__text">Construcción robusta para uso intensivo de herramienta. Cuero engrasado para resistir abrasión de Pulaski/McLeod.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Ringers Heavyweight Cuero</h4>
+    <p class="feature__text">Alternativa con mejor destreza táctil para brigadas que también operan radio, GPS y herramientas de precisión.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Configuración por nivel</h4>
+    <p class="feature__text">Recomendación por tipo de brigada: ataque inicial (mayor destreza), construcción línea (máxima durabilidad), remate (resistencia química básica).</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Tallaje individual</h4>
+    <p class="feature__text">Plantilla de medición por brigadista. El ajuste correcto previene callosidades y ampollas que reducen productividad operativa.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Reposición pre-temporada</h4>
+    <p class="feature__text">Programa de entrega anticipada para enero-febrero. Inventario para reposición durante la temporada (junio).</p>
+  </div>
+</div>
 
-En **BOMBERO.MX** somos proveedores de brigadas CONAFOR y protección civil estatal, con inventario listo para equipar brigadas completas antes de cada temporada.
-
-### ¿Preparando tu Brigada para la Temporada?
-
-- [**Ver catálogo de guantes forestales →**](/productos/guantes-para-bomberos/forestales/)
-- [**Solicitar cotización para brigadas →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="cta-box">
+  <h3>Guantes forestales NFPA 1977 para brigadas CONAFOR y estatales</h3>
+  <p>Wells Lamont, Shelby, Ringers · Reposición pre-temporada · Tallaje individual · Documentación NFPA + CONAFOR</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/guantes-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1977 Standard on Protective Clothing and Equipment for Wildland Fire Fighting, especificaciones CONAFOR, y experiencia equipando brigadas forestales en México.*
+## Referencias Normativas
+
+- **NFPA 1977** — Standard on Protective Clothing and Equipment for Wildland Fire Fighting (edición 2022)
+- **NFPA 1140** — Standard for Wildland Fire Protection
+- **NWCG PMS 410-1** — Wildland Fire Incident Management Field Guide
+- **EN 388** — Protective gloves against mechanical risks (referencia complementaria)
+- **EN 407** — Protective gloves against thermal risks (heat and/or fire)
+- **CONAFOR / PROCOREF** — Programa de Combate de Incendios Forestales (marco operativo mexicano)
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Guantes para Bombero — Guía Técnica Completa](/blog/guantes-para-bombero-guia-completa/)
+- [Guantes Estructurales NFPA 1971](/blog/guantes-estructurales-nfpa-1971/)
+- [Casco Forestal NFPA 1977](/blog/casco-forestal-nfpa-1977/)
+- [Botas para Bomberos NFPA](/blog/botas-para-bomberos-guia-nfpa/)
+- [Incendios Forestales en México — Temporada 2026](/blog/incendios-forestales-mexico-temporada-2026/)
+- [Bomberos Guadalajara — Bosque La Primavera](/blog/bomberos-guadalajara-equipo-nfpa/)
+- [Bomberos Puebla — Faldas del Popocatépetl](/blog/bomberos-puebla-equipo-nfpa/)
+- [Bomberos Tijuana — Vientos Santa Ana](/blog/bomberos-tijuana-equipo-nfpa/)
+- [Catálogo de guantes](/productos/guantes-para-bomberos/)
     `,
   },
   "gama-de-mexico-equipos-contra-incendio": {
@@ -19015,15 +19343,55 @@ R: **El patrón**. Según NOM-004-STPS (Capacitación en brigadas), el patrón t
   },
 
   "ropa-proteccion-calor-industrial-categorias": {
-    titulo: "Ropa de Protección contra Calor Industrial: Categorías y Normas Aplicables",
-    excerpt: "Categorías de ropa de protección contra calor y flama: NFPA 2112, EN ISO 11612, CAT 1-4. Cómo elegir según el riesgo real de tu industria.",
+    titulo: "Ropa de Protección Contra Calor Industrial: NFPA 2112, NFPA 70E y EN ISO 11612 — Categorías HRC, ATPV y Selección por Energía Incidente",
+    excerpt: "Manual técnico de ropa FR (flame-resistant) bajo NFPA 2112 (flash fire), NFPA 70E (arco eléctrico), EN ISO 11612 (calor industrial). Categorías HRC 1-4 con ATPV mínimo (cal/cm²), análisis de energía incidente, selección por industria (petroquímica, eléctrica, soldadura) y aplicación en México.",
     imagen: "/images/trajes-para-bombero/traje-proteccion-calor-industrial.avif",
     categoria: "EPP Industrial",
-    tags: ["Ropa Protección Calor", "NFPA 2112", "EN ISO 11612", "Flash Fire", "Arco Eléctrico", "EPP Industrial"],
+    tags: ["Ropa FR", "NFPA 2112", "NFPA 70E", "EN ISO 11612", "HRC", "ATPV", "Flash Fire", "Arco Eléctrico"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP",
+    autorRol: "Equipo Técnico — EPP Industrial",
     anchorKeyword: "Ropa protección calor industrial NFPA 2112 categorías",
     contenido: `
+## Ropa de Protección Contra Calor Industrial: Marco Técnico NFPA 2112, NFPA 70E e ISO 11612
+
+La **ropa FR** (*Flame-Resistant*) es el componente del EPP que separa al trabajador industrial de una **lesión catastrófica de segundo o tercer grado** ante eventos térmicos súbitos: *flash fire* de hidrocarburos en plataforma o refinería, arco eléctrico de tablero de media tensión, salpicaduras incandescentes de soldadura por arco, exposición a calor radiante de horno o fundición. La diferencia entre un uniforme de algodón industrial estándar y una prenda FR certificada no es de comodidad ni estética: es de **mecanismo físico de respuesta al evento térmico**. El algodón normal arde, se contrae y se funde sobre la piel transfiriendo calor por conducción durante minutos críticos; la fibra FR (Nomex, modacrílico, FR cotton tratado) **autoextingue en <4 segundos** y no se funde, reduciendo el área de quemadura.
+
+El marco normativo aplicable en México combina **tres referencias internacionales convergentes**: **NFPA 2112** (*Standard on Flame-Resistant Garments for Protection of Industrial Personnel Against Short-Duration Thermal Exposures from Fire*) para *flash fire* en hidrocarburos; **NFPA 70E** (*Standard for Electrical Safety in the Workplace*) que define las **categorías HRC 1-4 con ATPV mínimo** (Arc Thermal Performance Value, en cal/cm²) para protección contra arco eléctrico; y **EN ISO 11612** (estándar europeo equivalente para calor industrial general). La selección correcta de prenda FR exige el **análisis previo de energía incidente** del puesto de trabajo —no se elige por catálogo, se elige por cálculo de **cal/cm²** que el escenario operativo puede producir.
+
+Este manual estructura las **categorías HRC con su ATPV mínimo**, el **diferencial técnico flash fire vs arco eléctrico** (eventos físicamente distintos que requieren prendas con perfiles distintos), los **materiales constructivos referencia** (Nomex IIIA, modacrílico/cotton FR, PBI blend, Tecasafe), y la **aplicación sectorial mexicana** (PEMEX refinería, CFE generación/distribución, plantas químicas, soldadura industrial, fundición y siderurgia).
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 2112</span>
+    <span class="stat__label">Flash fire industrial</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 70E</span>
+    <span class="stat__label">Arco eléctrico (HRC 1-4)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">4-40+</span>
+    <span class="stat__label">ATPV cal/cm² por HRC</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num"><4 seg</span>
+    <span class="stat__label">Autoextinción FR NFPA 2112</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/trajes-para-bombero/traje-proteccion-calor-industrial.avif" alt="Ropa FR de protección contra calor industrial — uniforme técnico con fibras Nomex/modacrílico" loading="lazy" width="900" height="600" />
+  <figcaption>Ropa FR industrial — Nomex IIIA, modacrílico/cotton, PBI blend o Tecasafe. La fibra autoextingue en menos de 4 segundos y no se funde sobre la piel del trabajador.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Flash fire ≠ Arco eléctrico — eventos distintos, prendas distintas</span>
+    <p>Una prenda NFPA 2112 cubre <strong>flash fire de 3 segundos</strong> a temperatura uniforme (hidrocarburos). Una prenda NFPA 70E HRC 2 con ATPV de 8 cal/cm² cubre <strong>arco eléctrico instantáneo</strong> con energía concentrada en milisegundos. <strong>Una prenda NFPA 2112 sin HRC certificado no protege adecuadamente contra arco</strong>, y viceversa. El análisis previo de energía incidente del puesto determina cuál norma aplica.</p>
+  </div>
+</div>
+
 ## Qué diferencia la ropa de trabajo de la ropa de protección
 
 Este es el error conceptual más grave que hemos visto en industria mexicana: **confundir uniforme con protección**.
@@ -19277,21 +19645,73 @@ R: Una prenda FR bien cuidada dura **2-3 años** de uso diario. Cada lavado (inc
 
 ---
 
-## CTA: Especificar equipo de protección correcto para tu instalación
+## Equipamiento BOMBERO MX — Ropa FR Certificada NFPA 2112 / NFPA 70E
 
-¿Tu empresa necesita armar un programa de EPP contra calor e arco eléctrico?
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Nomex IIIA NFPA 2112</h4>
+    <p class="feature__text">Coveralls, chamarras y pantalones FR para flash fire en hidrocarburos. Configuraciones para refinería, plataformas petroleras y plantas químicas.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Arc Flash HRC 2-4 (NFPA 70E)</h4>
+    <p class="feature__text">Equipo completo (chaqueta + pantalón + capucha + guantes) con ATPV documentado para distintos niveles de energía incidente (8/25/40/55 cal/cm²).</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Modacrílico/cotton + PBI blend</h4>
+    <p class="feature__text">Alternativas confortables para uso diario en industrias con riesgo bajo a medio. Mayor transpirabilidad y costo más accesible que Nomex IIIA premium.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Tecasafe Plus</h4>
+    <p class="feature__text">Tecnología FR de Milliken para *flash fire* y arco eléctrico simultáneos. Durabilidad superior a Nomex en industrias con alto desgaste mecánico.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Auditoría de energía incidente</h4>
+    <p class="feature__text">Coordinación de estudio NFPA 70E previo a la especificación: análisis de cortocircuito, tiempo de despeje y cal/cm² esperado por puesto.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Documentación para STPS</h4>
+    <p class="feature__text">Cada lote con certificación NFPA 2112 + UL Arc Flash, ficha técnica del fabricante y declaración de conformidad con NOM-017-STPS-2008.</p>
+  </div>
+</div>
 
-Ayudamos con:
-- **Auditoría de riesgo:** Evaluamos voltaje, corriente disponible, energía incidente esperada
-- **Especificación técnica:** Determinamos CAT/ATPV mínimo y prendas necesarias
-- **Capacitación:** Entrenamos brigadas en selección, uso y cuidado de EPP FR
+<div class="cta-box">
+  <h3>Ropa FR certificada NFPA 2112 / NFPA 70E para industria mexicana</h3>
+  <p>Auditoría de energía incidente · Selección por puesto y categoría HRC · Documentación STPS · Capacitación en uso y cuidado de prendas FR</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar evaluación técnica</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
-**[Solicita evaluación técnica →](https://wa.me/52xxxxxxxxx?text=Evaluaci%C3%B3n%20EPP%20calor%20industrial)**
+---
 
-Explora más:
-- [Trajes de protección industrial →](/trajes-para-bombero/)
-- [Guantes de protección →](/guantes-para-bomberos/)
-- [Normativas NFPA →](/normas-nfpa/)
+## Referencias Normativas
+
+- **NFPA 2112** — Standard on Flame-Resistant Garments for Protection of Industrial Personnel Against Short-Duration Thermal Exposures from Fire
+- **NFPA 2113** — Standard on Selection, Care, Use, and Maintenance of Flame-Resistant Garments
+- **NFPA 70E** — Standard for Electrical Safety in the Workplace (categorías HRC 1-4, ATPV)
+- **NFPA 1971** — Protective Ensembles for Structural Fire Fighting (referencia para EPP bombero estructural)
+- **EN ISO 11612** — Protective clothing – Clothing to protect against heat and flame
+- **EN ISO 11611** — Protective clothing for use in welding and allied processes
+- **EN 61482-1-1** — Live working – Protective clothing against the thermal hazards of an electric arc
+- **ASTM F1959** — Standard Test Method for Determining the Arc Rating of Materials for Clothing
+- **ASTM F1930** — Standard Test Method for Evaluation of Flame Resistant Clothing for Protection Against Fire Simulations Using an Instrumented Manikin
+- **NOM-017-STPS-2008** — EPP en centros de trabajo (México)
+- **NOM-029-STPS-2011** — Mantenimiento de instalaciones eléctricas en los centros de trabajo
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Brigadas Industriales — EPP por Sector](/blog/brigadas-industriales-epp/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Trajes HAZMAT — Compatibilidad Química](/blog/traje-hazmat-proteccion-quimica/)
+- [Traje de Aproximación NFPA 1971 Cap.8](/blog/traje-aproximacion-calor-radiante/)
+- [Guantes para Bombero — 5 Normas NFPA](/blog/guantes-para-bombero-guia-completa/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [Bomberos Monterrey — Apodaca/Pesquería Industrial](/blog/bomberos-monterrey-equipo-nfpa/)
+- [Bomberos Pachuca — Refinería Tula](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
     `,
   },
 
@@ -19657,21 +20077,66 @@ R: Daño por agua. Pero NFPA 13 estima el daño por agua accidental (1-2 cabezal
 
 ---
 
-## CTA: Diseño e instalación NFPA 13
+## Ecosistema BOMBERO MX y Aliados — Proyecto Sprinkler Integral
 
-¿Tu instalación necesita sistema sprinkler?
+Un proyecto sprinkler NFPA 13 requiere coordinación entre **distribuidor de componentes UL/FM, instalador certificado, brigada operativa interna y proveedor de EPP NFPA personal**. El ecosistema mexicano cuenta con actores especializados en cada función:
 
-Realizamos:
-- **Auditoría de protección actual**
-- **Diseño hidráulico NFPA 13** (cálculo de caudal, presión, cabezales)
-- **Instalación y certificación**
-- **Mantenimiento y inspección anual**
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Componentes UL/FM</h4>
+    <p class="feature__text">Cabezales sprinkler, válvulas OS&Y, conexiones siamesas FDC, mangueras Blindex — disponibles vía Gama de México (distribuidor autorizado Elkhart Brass).</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Instalación e ingeniería</h4>
+    <p class="feature__text">MESECI opera el modelo Servicio Integral 360° con diseño hidráulico NFPA 13, instalación certificada y mantenimiento NFPA 25.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">EPP NFPA brigada interna</h4>
+    <p class="feature__text">BOMBERO MX: trajes NFPA 1971, SCBA NFPA 1981, cascos, herramientas para la brigada que responde tras activación del sistema.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Mantenimiento NFPA 25</h4>
+    <p class="feature__text">Programa de inspección semanal, mensual, trimestral, semestral y anual conforme NFPA 25 con documentación archivable.</p>
+  </div>
+</div>
 
-**[Solicita propuesta técnica →](https://wa.me/52xxxxxxxxx?text=Dise%C3%B1o%20sistema%20sprinkler%20NFPA%2013)**
+<div class="cta-box">
+  <h3>EPP NFPA para brigada operativa — complemento al sistema sprinkler</h3>
+  <p>Trajes NFPA 1971, SCBA NFPA 1981, herramientas y capacitación para la brigada interna que actúa tras la activación del sprinkler.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
-Ver más:
-- [Equipos contra incendio →](/equipos-bomberos/)
-- [Normativas NFPA →](/normas-nfpa/)
+---
+
+## Referencias Normativas
+
+- **NFPA 13** — Standard for the Installation of Sprinkler Systems
+- **NFPA 13D** — Installation of Sprinkler Systems in One- and Two-Family Dwellings
+- **NFPA 13R** — Installation of Sprinkler Systems in Low-Rise Residential Occupancies
+- **NFPA 14** — Installation of Standpipe and Hose Systems
+- **NFPA 20** — Installation of Stationary Pumps for Fire Protection
+- **NFPA 24** — Installation of Private Fire Service Mains and Their Appurtenances
+- **NFPA 25** — Inspection, Testing, and Maintenance of Water-Based Fire Protection Systems
+- **NFPA 72** — National Fire Alarm and Signaling Code (interconexión con detección)
+- **UL 199** — Automatic Sprinklers for Fire-Protection Service
+- **FM Approval Standards** — Clase 2000, 2008, 2030 (componentes sprinkler)
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Detección Temprana de Incendio NFPA 72](/blog/deteccion-temprana-incendio-tipos-detectores/)
+- [Distribución Elkhart Brass (Gama de México)](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
+- [MESECI — Servicio Integral 360°](/blog/meseci-equipos-contra-incendio-mexico/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [Extintores por Clase de Fuego NOM](/blog/extintores-tipos-clases-fuego-mexico/)
+- [Brigadas Industriales — EPP por Sector](/blog/brigadas-industriales-epp/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
     `,
   },
 

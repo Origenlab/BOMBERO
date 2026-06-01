@@ -1,0 +1,48 @@
+---
+// Layout para artículos de blog escritos como .mdx sueltos en src/pages/blog/.
+// Sin este layout, Astro renderiza la MDX SIN <html>/<head> (página rota,
+// no indexable). Aquí envolvemos el contenido en PageLayout (que sí emite el
+// documento HTML completo con Header/Footer) y reutilizamos las clases de
+// estilo del blog (.blog-article / .prose) para consistencia visual con los
+// artículos servidos por [slug].astro.
+import PageLayout from "./PageLayout.astro";
+
+const { frontmatter } = Astro.props;
+const {
+  title,
+  description,
+  slug,
+  image,
+  keywords,
+  author,
+  pubDate,
+  updatedDate,
+} = frontmatter ?? {};
+
+const canonical = slug ? `/blog/${slug}/` : undefined;
+const seoImage = typeof image === "string" ? image : image?.url;
+const toISO = (d) => {
+  if (!d) return undefined;
+  const date = d instanceof Date ? d : new Date(d);
+  return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
+};
+---
+
+<PageLayout
+  title={title ? `${title} | Blog BOMBERO.MX` : "Blog BOMBERO.MX"}
+  description={description}
+  canonical={canonical}
+  image={seoImage}
+  type="article"
+  keywords={keywords}
+  author={author}
+  publishedTime={toISO(pubDate)}
+  modifiedTime={toISO(updatedDate)}
+>
+  <article class="blog-article">
+    <div class="blog-article__content prose">
+      {title && <h1>{title}</h1>}
+      <slot />
+    </div>
+  </article>
+</PageLayout>
