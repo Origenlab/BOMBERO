@@ -4,15 +4,37 @@ import BaseLayout from "./BaseLayout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import PreFooterNav from "@components/PreFooterNav.astro";
+import QuickNav from "@components/QuickNav.astro";
 import type { SEOProps } from "@data/site";
 
 type Props = SEOProps & {
   jsonLd?: Record<string, unknown>[];
   /** Pasa false para ocultar la sección de discovery pre-footer en páginas específicas */
   showPreFooterNav?: boolean;
+  /** Pasa false para ocultar el QuickNav (p.ej. páginas que ya lo renderizan inline o 404/500) */
+  quickNav?: boolean;
+  /** Fuerza un pool concreto; si se omite se auto-detecta por la URL */
+  quickNavPool?: string;
 };
 
-const { jsonLd, showPreFooterNav = true, ...seoProps } = Astro.props;
+const {
+  jsonLd,
+  showPreFooterNav = true,
+  quickNav = true,
+  quickNavPool,
+  ...seoProps
+} = Astro.props;
+
+/* Auto-detección de pool según la sección del sitio.
+   Cada página recibe un subconjunto contextual distinto (pickPills usa la URL como seed). */
+const path = Astro.url.pathname;
+function detectPool(p: string): string {
+  if (p.startsWith("/productos")) return "categoria";
+  if (p.startsWith("/blog")) return "blogPost";
+  if (p.startsWith("/directorio")) return "estado";
+  return "info";
+}
+const pool = quickNavPool ?? detectPool(path);
 ---
 
 <BaseLayout {...seoProps} jsonLd={jsonLd}>
@@ -20,6 +42,7 @@ const { jsonLd, showPreFooterNav = true, ...seoProps } = Astro.props;
   <main id="main-content">
     <slot />
   </main>
+  {quickNav && <QuickNav pool={pool} count={7} />}
   {showPreFooterNav && <PreFooterNav />}
   <Footer />
 </BaseLayout>
