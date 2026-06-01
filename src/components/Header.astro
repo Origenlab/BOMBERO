@@ -226,17 +226,23 @@ const allCategories = [...productCategories, ...secondaryCategories];
       }
     });
 
-    // Header scroll effect
-    var lastScroll = 0;
-    window.addEventListener("scroll", function() {
-      var currentScroll = window.pageYOffset;
-      if (currentScroll > 100) {
-        if (header) header.classList.add("header--scrolled");
-      } else {
-        if (header) header.classList.remove("header--scrolled");
-      }
-      lastScroll = currentScroll;
-    });
+    // Header scroll effect — throttled con requestAnimationFrame + passive
+    // para evitar forced reflow y trabajo redundante en cada evento scroll.
+    var ticking = false;
+    var isScrolled = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function() {
+        var shouldScroll = window.pageYOffset > 100;
+        if (shouldScroll !== isScrolled && header) {
+          header.classList.toggle("header--scrolled", shouldScroll);
+          isScrolled = shouldScroll;
+        }
+        ticking = false;
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
   });
 </script>
 

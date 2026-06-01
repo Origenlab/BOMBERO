@@ -35,14 +35,21 @@ const buttonClasses = [
     if (backToTop) {
       var threshold = parseInt(backToTop.dataset.threshold || '400', 10);
 
-      // Show/hide based on scroll position
+      // Show/hide based on scroll position — throttled con rAF + passive
+      var ticking = false;
+      var isVisible = false;
       window.addEventListener('scroll', function() {
-        if (window.scrollY > threshold) {
-          backToTop.classList.add('back-to-top--visible');
-        } else {
-          backToTop.classList.remove('back-to-top--visible');
-        }
-      });
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(function() {
+          var shouldShow = window.scrollY > threshold;
+          if (shouldShow !== isVisible) {
+            backToTop.classList.toggle('back-to-top--visible', shouldShow);
+            isVisible = shouldShow;
+          }
+          ticking = false;
+        });
+      }, { passive: true });
 
       // Scroll to top on click
       backToTop.addEventListener('click', function() {

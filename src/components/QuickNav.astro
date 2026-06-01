@@ -1,0 +1,227 @@
+---
+import { pickPills, CTA_DEFAULT, type Pill } from "@data/quick-nav-pools";
+
+interface Props {
+  /** Pool a usar: home, productos, categoria, blog, blogPost, directorio, estado, estacion, info */
+  pool?: string;
+  /** Override manual de pills */
+  pills?: Pill[];
+  /** Cantidad de pills antes del CTA (default 7 → grid de 8 con CTA) */
+  count?: number;
+  /** Cambiar el CTA final */
+  cta?: Pill | null;
+  /** Eyebrow opcional sobre el row (label minúsculo arriba) */
+  eyebrow?: string;
+}
+
+const {
+  pool = "default",
+  pills: pillsOverride,
+  count = 7,
+  cta = CTA_DEFAULT,
+  eyebrow,
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const selected: Pill[] = pillsOverride && pillsOverride.length > 0
+  ? pillsOverride.slice(0, count)
+  : pickPills(pool, currentPath, count);
+
+// Construir lista final: pills seleccionadas + CTA al final
+const finalPills: Array<Pill & { isCta?: boolean }> = [
+  ...selected.map(p => ({ ...p, isCta: false })),
+  ...(cta ? [{ ...cta, isCta: true }] : []),
+];
+
+const totalCols = finalPills.length;
+---
+
+<section class="qnav-x" aria-label="Acceso rápido">
+  <div class="container container--wide">
+    {eyebrow && <span class="qnav-x__eyebrow">{eyebrow}</span>}
+
+    <div class={`qnav-x__row qnav-x__row--cols-${totalCols}`} role="list">
+      {finalPills.map((p) => (
+        <a
+          href={p.href}
+          class={`qnav-x__pill ${p.isCta ? "qnav-x__pill--cta" : ""}`}
+          role="listitem"
+          {...(p.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
+        >
+          <span class="qnav-x__label">{p.label}</span>
+          {p.norm && <span class="qnav-x__norm">{p.norm}</span>}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .qnav-x {
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-smoke-50) 100%);
+    border-top: 1px solid var(--color-smoke-100);
+    border-bottom: 1px solid var(--color-smoke-100);
+    padding: 1.25rem 0;
+    position: relative;
+  }
+
+  .qnav-x__eyebrow {
+    display: block;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-smoke-500);
+    margin-bottom: 0.875rem;
+  }
+
+  .qnav-x__row {
+    display: grid;
+    gap: 0.625rem;
+    width: 100%;
+  }
+
+  /* Grid dinámico según número total de pills */
+  .qnav-x__row--cols-5  { grid-template-columns: repeat(5, 1fr); }
+  .qnav-x__row--cols-6  { grid-template-columns: repeat(6, 1fr); }
+  .qnav-x__row--cols-7  { grid-template-columns: repeat(7, 1fr); }
+  .qnav-x__row--cols-8  { grid-template-columns: repeat(8, 1fr); }
+  .qnav-x__row--cols-9  { grid-template-columns: repeat(9, 1fr); }
+  .qnav-x__row--cols-10 { grid-template-columns: repeat(10, 1fr); }
+
+  .qnav-x__pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.875rem 0.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-smoke-200);
+    border-radius: 14px;
+    color: var(--color-smoke-900);
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    min-height: 88px;
+  }
+
+  /* Línea técnica roja superior que aparece al hover */
+  .qnav-x__pill::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-ember-600), var(--color-fire-500));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+    z-index: 2;
+  }
+
+  .qnav-x__label {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: var(--color-smoke-900);
+  }
+
+  .qnav-x__norm {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-smoke-500);
+    line-height: 1.2;
+  }
+
+  .qnav-x__pill:hover {
+    transform: translateY(-3px);
+    border-color: transparent;
+    box-shadow: 0 12px 28px -10px rgba(220, 38, 38, 0.25), 0 0 0 1px rgba(220, 38, 38, 0.35);
+  }
+
+  .qnav-x__pill:hover::before {
+    transform: scaleX(1);
+  }
+
+  .qnav-x__pill:hover .qnav-x__norm {
+    color: var(--color-ember-600);
+  }
+
+  /* CTA pill llamativa */
+  .qnav-x__pill--cta {
+    background: linear-gradient(135deg, var(--color-ember-600) 0%, var(--color-fire-600) 100%);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 8px 24px -8px rgba(220, 38, 38, 0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+
+  .qnav-x__pill--cta::before {
+    background: rgba(255,255,255,0.3);
+  }
+
+  .qnav-x__pill--cta .qnav-x__label {
+    color: #ffffff;
+  }
+
+  .qnav-x__pill--cta .qnav-x__norm {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .qnav-x__pill--cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px -8px rgba(220, 38, 38, 0.65), inset 0 1px 0 rgba(255,255,255,0.25);
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--color-ember-700) 0%, var(--color-fire-700) 100%);
+  }
+
+  .qnav-x__pill--cta:hover .qnav-x__norm {
+    color: #ffffff;
+  }
+
+  /* Responsive: degrada el grid en menos columnas */
+  @media (max-width: 1200px) {
+    .qnav-x__row {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+    .qnav-x__pill {
+      min-height: 84px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .qnav-x {
+      padding: 1rem 0;
+    }
+    .qnav-x__row {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 0.5rem;
+    }
+    .qnav-x__pill {
+      min-height: 72px;
+      padding: 0.75rem 0.5rem;
+      border-radius: 12px;
+    }
+    .qnav-x__label {
+      font-size: 0.875rem;
+    }
+    .qnav-x__norm {
+      font-size: 0.625rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .qnav-x__pill--cta {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

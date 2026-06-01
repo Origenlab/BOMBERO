@@ -1,0 +1,367 @@
+---
+/**
+ * PreFooterNav — Sitemap-style discovery section
+ * Diseño distinto al QuickNav superior: 4 columnas temáticas con
+ * lista de links + CTA por columna. Pensado para vivir justo antes
+ * del Footer y reforzar interlinking sin duplicar el set del hero.
+ */
+
+interface ColumnLink {
+  label: string;
+  href: string;
+}
+
+interface NavColumn {
+  tag: string;          // eyebrow corto (ej. "Catálogo")
+  title: string;        // título principal (ej. "Equipo Certificado")
+  description?: string; // bajada opcional 1-2 líneas
+  links: ColumnLink[];
+  cta: { label: string; href: string };
+}
+
+interface Props {
+  /** Heading principal de la sección */
+  heading?: string;
+  /** Bajada del heading */
+  subheading?: string;
+  /** Columnas de links (override) */
+  columns?: NavColumn[];
+}
+
+const DEFAULT_HEADING = "Continúa explorando BOMBERO.MX";
+const DEFAULT_SUBHEADING = "Cuatro rutas para encontrar lo que tu operación necesita.";
+
+const DEFAULT_COLUMNS: NavColumn[] = [
+  {
+    tag: "01 · Guías técnicas",
+    title: "Aprende antes de comprar",
+    description: "Artículos redactados por especialistas para que tu próxima decisión esté respaldada por normativa.",
+    links: [
+      { label: "NFPA 1971 — Guía completa del estándar estructural",     href: "/blog/nfpa-1971-guia-completa/" },
+      { label: "Mantenimiento SCBA — Protocolo completo",                  href: "/blog/mantenimiento-scba/" },
+      { label: "Cámara térmica TIC — NFPA 1801",                           href: "/blog/camara-termica-tic-bomberos-nfpa-1801/" },
+      { label: "Extricación vehicular — Jaws of Life México",              href: "/blog/extricacion-vehicular-jaws-of-life-mexico/" },
+      { label: "Brigadas industriales — EPP esencial",                     href: "/blog/brigadas-industriales-epp/" },
+    ],
+    cta: { label: "Ver todo el blog", href: "/blog/" },
+  },
+  {
+    tag: "02 · Directorio nacional",
+    title: "Bomberos en tu estado",
+    description: "Listado de estaciones, números de emergencia y contactos verificados en las 32 entidades.",
+    links: [
+      { label: "Ciudad de México — 16 alcaldías",                          href: "/directorio/ciudad-de-mexico/" },
+      { label: "Jalisco — Guadalajara y ZMG",                              href: "/directorio/jalisco/" },
+      { label: "Nuevo León — Monterrey y municipios",                      href: "/directorio/nuevo-leon/" },
+      { label: "Estado de México — 125 municipios",                        href: "/directorio/edomex/" },
+      { label: "Querétaro — Corredor industrial Bajío",                    href: "/directorio/queretaro/" },
+    ],
+    cta: { label: "Ver directorio completo", href: "/directorio/" },
+  },
+  {
+    tag: "03 · Sectores",
+    title: "A quién equipamos",
+    description: "Brigadas industriales, cuerpos de bomberos municipales, refinerías, hospitales y constructoras.",
+    links: [
+      { label: "Brigadas industriales certificadas NFPA",                  href: "/productos/equipo-contra-incendios/" },
+      { label: "Equipo HAZMAT — Niveles A, B, C, D",                       href: "/productos/hazmat/" },
+      { label: "Forestales — NFPA 1977 + CONAFOR",                         href: "/productos/forestales/" },
+      { label: "Herramientas hidráulicas de rescate",                      href: "/productos/herramientas-rescate/" },
+      { label: "Tecnología TIC, drones y detección",                       href: "/productos/tecnologia/" },
+    ],
+    cta: { label: "Ver catálogo completo", href: "/productos/" },
+  },
+  {
+    tag: "04 · Tu próximo paso",
+    title: "Hablemos del proyecto",
+    description: "Cotización, asesoría técnica gratuita y soporte directo en menos de 24 horas.",
+    links: [
+      { label: "Solicitar cotización profesional",                         href: "/cotizar/" },
+      { label: "Contactar al equipo BOMBERO.MX",                           href: "/contacto/" },
+      { label: "Quiénes somos — Más de 15 años",                           href: "/nosotros/" },
+      { label: "Política de devoluciones y garantía",                      href: "/devoluciones/" },
+      { label: "Términos y privacidad",                                    href: "/terminos/" },
+    ],
+    cta: { label: "Iniciar cotización", href: "/cotizar/" },
+  },
+];
+
+const {
+  heading = DEFAULT_HEADING,
+  subheading = DEFAULT_SUBHEADING,
+  columns = DEFAULT_COLUMNS,
+} = Astro.props;
+---
+
+<section class="prefooter-nav" aria-labelledby="prefooter-heading">
+  <div class="container container--wide">
+
+    <div class="prefooter-nav__head">
+      <span class="prefooter-nav__eyebrow">Sigue navegando</span>
+      <h2 id="prefooter-heading" class="prefooter-nav__heading">{heading}</h2>
+      <p class="prefooter-nav__subheading">{subheading}</p>
+    </div>
+
+    <div class="prefooter-nav__grid">
+      {columns.map((col) => (
+        <article class="prefooter-nav__col">
+          <span class="prefooter-nav__col-tag">{col.tag}</span>
+          <h3 class="prefooter-nav__col-title">{col.title}</h3>
+          {col.description && <p class="prefooter-nav__col-desc">{col.description}</p>}
+          <ul class="prefooter-nav__list">
+            {col.links.map((link) => (
+              <li>
+                <a href={link.href} class="prefooter-nav__link">
+                  <span class="prefooter-nav__link-dot" aria-hidden="true"></span>
+                  <span>{link.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href={col.cta.href} class="prefooter-nav__cta">
+            {col.cta.label}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .prefooter-nav {
+    background: linear-gradient(180deg, #ffffff 0%, var(--color-smoke-50) 100%);
+    border-top: 1px solid var(--color-smoke-100);
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    position: relative;
+  }
+
+  /* Línea técnica roja superior */
+  .prefooter-nav::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(120px, 20vw, 200px);
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--color-ember-600) 50%, transparent 100%);
+  }
+
+  .prefooter-nav__head {
+    text-align: center;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .prefooter-nav__eyebrow {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ember-600);
+    margin-bottom: 0.875rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--color-ember-50);
+    border: 1px solid var(--color-ember-200);
+    border-radius: 999px;
+  }
+
+  .prefooter-nav__heading {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--color-smoke-900);
+    margin: 0 0 0.625rem;
+    text-wrap: balance;
+  }
+
+  .prefooter-nav__subheading {
+    font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+    color: var(--color-smoke-600);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .prefooter-nav__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .prefooter-nav__col {
+    background: #ffffff;
+    border: 1px solid var(--color-smoke-200);
+    border-radius: 18px;
+    padding: clamp(1.25rem, 2vw, 1.75rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    position: relative;
+    isolation: isolate;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .prefooter-nav__col::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-ember-600), var(--color-fire-500));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    border-radius: 18px 18px 0 0;
+    z-index: 2;
+  }
+
+  .prefooter-nav__col:hover {
+    transform: translateY(-3px);
+    border-color: transparent;
+    box-shadow: 0 16px 36px -16px rgba(15, 23, 42, 0.15), 0 0 0 1px rgba(220, 38, 38, 0.25);
+  }
+
+  .prefooter-nav__col:hover::before {
+    transform: scaleX(1);
+  }
+
+  .prefooter-nav__col-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ember-600);
+  }
+
+  .prefooter-nav__col-title {
+    font-size: 1.1875rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    color: var(--color-smoke-900);
+    margin: 0;
+  }
+
+  .prefooter-nav__col-desc {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--color-smoke-600);
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--color-smoke-200);
+  }
+
+  .prefooter-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    flex: 1;
+  }
+
+  .prefooter-nav__link {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    padding: 0.5rem 0;
+    color: var(--color-smoke-700);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: color 0.15s ease, transform 0.15s ease;
+  }
+
+  .prefooter-nav__link-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-smoke-300);
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .prefooter-nav__link:hover {
+    color: var(--color-ember-700);
+    transform: translateX(2px);
+  }
+
+  .prefooter-nav__link:hover .prefooter-nav__link-dot {
+    background: var(--color-ember-600);
+    transform: scale(1.4);
+  }
+
+  .prefooter-nav__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding: 0.625rem 0;
+    color: var(--color-smoke-900);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-top: 1px solid var(--color-smoke-100);
+    padding-top: 0.875rem;
+    transition: color 0.15s ease, gap 0.15s ease;
+  }
+
+  .prefooter-nav__cta svg {
+    transition: transform 0.2s ease;
+  }
+
+  .prefooter-nav__cta:hover {
+    color: var(--color-ember-600);
+    gap: 0.75rem;
+  }
+
+  .prefooter-nav__cta:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .prefooter-nav__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .prefooter-nav__grid {
+      gap: 0.875rem;
+    }
+    .prefooter-nav__col {
+      padding: 1.25rem;
+      gap: 0.75rem;
+    }
+    .prefooter-nav__col-title {
+      font-size: 1.0625rem;
+    }
+    .prefooter-nav__col-desc {
+      font-size: 0.8125rem;
+    }
+    .prefooter-nav__link {
+      font-size: 0.8125rem;
+      padding: 0.4375rem 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .prefooter-nav__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

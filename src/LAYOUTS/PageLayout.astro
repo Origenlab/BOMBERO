@@ -3,13 +3,16 @@
 import BaseLayout from "./BaseLayout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import PreFooterNav from "@components/PreFooterNav.astro";
 import type { SEOProps } from "@data/site";
 
 type Props = SEOProps & {
   jsonLd?: Record<string, unknown>[];
+  /** Pasa false para ocultar la sección de discovery pre-footer en páginas específicas */
+  showPreFooterNav?: boolean;
 };
 
-const { jsonLd, ...seoProps } = Astro.props;
+const { jsonLd, showPreFooterNav = true, ...seoProps } = Astro.props;
 ---
 
 <BaseLayout {...seoProps} jsonLd={jsonLd}>
@@ -17,5 +20,6 @@ const { jsonLd, ...seoProps } = Astro.props;
   <main id="main-content">
     <slot />
   </main>
+  {showPreFooterNav && <PreFooterNav />}
   <Footer />
 </BaseLayout>

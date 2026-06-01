@@ -15,20 +15,52 @@ export interface ArticuloData {
 
 export const articulosData: Record<string, ArticuloData> = {
   "nfpa-1971-guia-completa": {
-    titulo: "Guía NFPA 1971: EPP Estructural para Bomberos",
-    excerpt: "Guía definitiva sobre la norma NFPA 1971 para EPP de bomberos estructurales. Requisitos de certificación, componentes cubiertos, pruebas de laboratorio y cómo verificar que tu equipo cumple el estándar más exigente del mundo.",
+    titulo: "NFPA 1971: Guía Técnica del Estándar para EPP Estructural de Bomberos — Edición 2024",
+    excerpt: "Manual técnico de la norma NFPA 1971 (edición 2024): requisitos del conjunto de protección estructural y de proximidad, sistema de 3 capas, ensayos TPP/THL, certificación UL/Intertek/SEI y aplicación operativa en cuerpos de bomberos y brigadas industriales en México.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Normativas",
-    tags: ["NFPA 1971", "Certificación EPP", "Trajes Estructurales", "Normativa Bomberos", "TPP THL", "UL Intertek"],
+    tags: ["NFPA 1971", "Certificación EPP", "Trajes Estructurales", "TPP", "THL", "UL", "Intertek", "SEI"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Normativas NFPA",
+    autorRol: "Equipo Técnico — Normativa NFPA",
     anchorKeyword: "Requisitos NFPA 1971 EPP estructural bomberos México",
     contenido: `
-## ¿Qué es la Norma NFPA 1971 y Por Qué es el Estándar Mundial?
+## NFPA 1971: Marco Técnico del Estándar para EPP Estructural
 
-La **NFPA 1971** (Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting) es la norma más importante del mundo para **equipo de protección personal de bomberos estructurales**. Publicada por la **National Fire Protection Association**, esta norma establece los requisitos mínimos de diseño, materiales, fabricación y certificación que debe cumplir todo el EPP utilizado en combate de incendios en edificaciones.
+La **NFPA 1971** —*Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting*— es la norma de referencia internacional para el **conjunto de protección personal** del bombero estructural. Publicada y mantenida por la **National Fire Protection Association**, define los requisitos mínimos de diseño, materiales, fabricación, ensayo y certificación que todo componente del EPP estructural debe cumplir para ser admitido en operación profesional de combate interior. La edición vigente es **NFPA 1971-2024**.
 
-En **BOMBERO.MX** consideramos que conocer esta norma es fundamental para cualquier profesional del sector. Por eso hemos preparado esta **guía completa de NFPA 1971** que te ayudará a entender qué significa cada requisito y cómo verificar que tu equipo cumple.
+La norma se aplica al **ensamble completo** —chaquetón, pantalón, casco, capucha, guantes y botas— y no a componentes aislados. Esto es operativamente determinante: certificar el traje pero usar guantes no certificados deja al sistema en estado de incumplimiento y, más importante, en estado de exposición real en zona de contacto. La filosofía de NFPA 1971 es **protección sistémica**, no compartimentada.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1971</span>
+    <span class="stat__label">Edición 2024 vigente</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">≥35 cal/cm²</span>
+    <span class="stat__label">TPP mínimo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">≥205 W/m²</span>
+    <span class="stat__label">THL recomendado</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10 años</span>
+    <span class="stat__label">Vida útil máxima (NFPA 1851)</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif" alt="Traje estructural NFPA 1971 — vista frontal del ensemble completo certificado" loading="lazy" width="900" height="600" />
+  <figcaption>Conjunto estructural NFPA 1971 — la norma evalúa el sistema completo: traje, casco, capucha, guantes, botas. Componentes aislados no constituyen cumplimiento.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Aplicabilidad en México</span>
+    <p>México no cuenta con una norma oficial mexicana equivalente a NFPA 1971. Sin embargo, NFPA 1971 es la <strong>referencia técnica adoptada por los cuerpos profesionales y las brigadas industriales</strong> serias del país, exigida tanto en licitaciones públicas (FORTASEG, FASP, presupuestos municipales) como en operaciones bajo estándar corporativo internacional. La NOM-017-STPS-2008 reconoce normativas internacionales como aceptables para EPP.</p>
+  </div>
+</div>
 
 ### ¿Por Qué NFPA 1971 es el Estándar de Referencia?
 
@@ -245,57 +277,111 @@ Solo reparaciones menores (costuras externas, reflectante) pueden hacerse. Las r
 
 ---
 
-## Conclusión: La Certificación NFPA 1971 Salva Vidas
+## Conclusión Técnica
 
-El EPP certificado NFPA 1971 no es un gasto — es una **inversión en la vida de tu personal**. Cada requisito de la norma existe porque un bombero sufrió una lesión que pudo prevenirse.
+NFPA 1971 es **la base normativa universalmente reconocida para protección estructural** de bomberos profesionales. Sus requisitos no son arbitrarios: cada parámetro —TPP, THL, resistencia al desgarro, repelencia de líquidos, retroreflectancia— responde a un mecanismo de lesión documentado en operación real. Cumplir la norma no garantiza ausencia de riesgo —ningún equipo lo hace—, pero su incumplimiento garantiza exposición evitable a riesgo conocido.
 
-En **BOMBERO.MX** nos especializamos en equipar departamentos de bomberos con EPP que cumple los más altos estándares. Nuestros especialistas están listos para asesorarte sin compromiso.
+Para cuerpos municipales, brigadas industriales y empresas de protección civil en México, NFPA 1971 es el **estándar operativo mínimo defendible** ante auditoría de aseguradora, licitación pública o casa matriz corporativa. **BOMBERO MX** opera el catálogo completo de EPP NFPA 1971 con documentación auditable y asesoría técnica de especificación.
 
-### ¿Listo para Equipar a tu Departamento con EPP Certificado?
-
-- [**Ver catálogo de trajes estructurales NFPA 1971 →**](/productos/trajes-para-bomberos/)
-- [**Solicitar cotización personalizada →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
-
-
-### Artículos Relacionados
-
-- [**Traje Estructural NFPA 1971: Sistema de 3 Capas →**](/blog/traje-estructural-nfpa-1971/)
-- [**Cascos para Bombero: Tipos y Selección NFPA →**](/blog/cascos-bombero-tipos/)
-- [**Mantenimiento de Equipos SCBA: Protocolo NFPA 1852 →**](/blog/mantenimiento-scba/)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
+<div class="cta-box">
+  <h3>EPP NFPA 1971 con documentación auditable</h3>
+  <p>Conjunto completo certificado (traje, casco, capucha, guantes, botas) con ficha técnica, certificado UL/Intertek/SEI y carta de distribuidor autorizado. Asesoría técnica de especificación.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1971 Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting, ediciones 2013 y 2018.*
+## Referencias Normativas
+
+- **NFPA 1971** — Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting (edición 2024)
+- **NFPA 1851** — Standard on Selection, Care, and Maintenance of Protective Ensembles for Structural and Proximity Fire Fighting (vida útil, inspección ISP)
+- **NFPA 1975** — Standard on Emergency Services Work Apparel (uniformes de estación)
+- **NFPA 1981** — Standard on Open-Circuit SCBA for Emergency Services
+- **NFPA 1500** — Standard on Fire Department Occupational Safety, Health, and Wellness Program
+- **NOM-017-STPS-2008** — EPP en centros de trabajo (México)
+- **UL 1971 / Intertek / SEI** — Laboratorios acreditados de certificación
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Cómo Elegir Traje NFPA 1971 — Guía para Jefes de Cuerpo](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [Mantenimiento de Equipo NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Cascos Bullard vs Cairns — Comparativa](/blog/casco-bombero-bullard-vs-cairns/)
+- [Capuchas Monjas NFPA — Nomex vs PBI Gold](/blog/capuchas-monjas-bombero-nfpa-guia/)
+- [Botas para Bomberos NFPA](/blog/botas-para-bomberos-guia-nfpa/)
+- [SCBA MSA G1 vs Scott Air-Pak](/blog/scba-msag1-vs-scott-airpak/)
+- [Flashover y Backdraft — Guía de Supervivencia](/blog/flashover-backdraft-bomberos-guia-supervision/)
+- [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [Catálogo de trajes estructurales](/productos/trajes-para-bomberos/)
     `,
   },
   "mantenimiento-scba": {
-    titulo: "Mantenimiento SCBA: Protocolo NFPA 1852",
-    excerpt: "Guía profesional de inspección, limpieza y mantenimiento de equipos de respiración autónoma SCBA. Protocolos NFPA 1852, pruebas hidrostáticas, calibración de reguladores y programa de mantenimiento preventivo para bomberos.",
+    titulo: "Mantenimiento SCBA: Protocolo NFPA 1852 — Inspección Diaria, Servicio Anual y Programa Preventivo Completo",
+    excerpt: "Manual técnico de mantenimiento de SCBA bajo NFPA 1852: inspección visual diaria, pruebas posteriores a cada uso, servicio anual del regulador, fit test cuantitativo OSHA 29 CFR 1910.134, prueba hidrostática de cilindros (3/5 años), CGA G-7.1 calidad de aire respirable y documentación operativa.",
     imagen: "/images/trajes-para-bombero/traje-bombero-retrato-scba-capucha-proteccion-01.avif",
     categoria: "Mantenimiento",
-    tags: ["SCBA Bomberos", "NFPA 1852", "NFPA 1981", "Mantenimiento SCBA", "Prueba Hidrostática", "Regulador SCBA"],
+    tags: ["SCBA", "NFPA 1852", "NFPA 1981", "Fit Test", "Prueba Hidrostática", "CGA G-7.1", "OSHA 1910.134"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipos de Respiración",
+    autorRol: "Equipo Técnico — Protección Respiratoria",
     anchorKeyword: "Protocolo mantenimiento SCBA NFPA 1852 bomberos",
     contenido: `
-## ¿Por Qué el Mantenimiento del SCBA es Crítico para la Seguridad?
+## Mantenimiento de SCBA: Marco Operativo NFPA 1852 para Continuidad de Función
 
-El **Equipo de Respiración Autónoma (SCBA)** es literalmente el sistema que mantiene vivo al bombero en ambientes IDLH (Immediately Dangerous to Life or Health). Una falla en el SCBA durante una operación no da segundos de advertencia — simplemente **deja de funcionar**.
+El **Equipo de Respiración Autónoma (SCBA)** es el único componente del EPP cuya **falla en operación es inmediatamente letal**. Un traje estructural NFPA 1971 dañado degrada protección térmica gradualmente; un casco con suspensión vencida reduce absorción de impacto pero el operador puede continuar; un SCBA que falla en atmósfera IDLH (*Immediately Dangerous to Life or Health*) deja al bombero **sin aire respirable en segundos**, sin ventana de advertencia operativa más allá de la alarma low-pressure del propio equipo. Esta criticidad funcional justifica que el SCBA tenga su propia norma específica de mantenimiento —la **NFPA 1852**— independiente del marco general NFPA 1851 que cubre el resto del ensemble estructural.
 
-Según datos de **NIOSH (National Institute for Occupational Safety and Health)**, las fallas de SCBA han contribuido a múltiples muertes de bomberos en servicio, siendo las causas más comunes:
+Adicionalmente, el SCBA es el único componente del EPP cuya **integridad funcional depende de tres variables independientes** que deben mantenerse simultáneamente: **integridad mecánica del equipo** (carcasa, regulador, válvulas), **calidad del aire respirable** (CGA G-7.1 Grado D o E), y **sellado facial del usuario** (fit test cuantitativo OSHA 29 CFR 1910.134). Un equipo perfecto con aire contaminado o con máscara mal ajustada presenta el mismo resultado operativo que un equipo dañado: exposición a atmósfera tóxica.
 
-| Causa de Falla | Porcentaje | Prevención |
-|----------------|------------|------------|
-| **Falta de aire (agotamiento)** | 42% | Verificación de presión pre-entrada |
-| **Falla de regulador** | 23% | Mantenimiento preventivo regular |
-| **Daño en máscara** | 18% | Inspección visual diaria |
-| **Problema en válvulas** | 12% | Pruebas de flujo periódicas |
-| **Otros** | 5% | Capacitación y procedimientos |
+Este manual técnico estructura el **programa completo de mantenimiento NFPA 1852**: inspección visual diaria, verificación post-uso, servicio anual del regulador, fit test cuantitativo por usuario, prueba hidrostática de cilindros y protocolo de retiro del servicio. Cada actividad incluye frecuencia normativa, responsable técnico, criterios de aceptación y documentación requerida para auditoría.
 
-En **BOMBERO.MX** sabemos que el mantenimiento correcto del SCBA no es opcional — es **obligatorio** según las normas NFPA y es la diferencia entre la vida y la muerte.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1852</span>
+    <span class="stat__label">Norma específica de mantenimiento</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">Anual</span>
+    <span class="stat__label">Servicio regulador + fit test</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">3 / 5 años</span>
+    <span class="stat__label">Prueba hidrostática (acero / composite)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">15 años</span>
+    <span class="stat__label">Vida máx. cilindro composite/carbono</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/trajes-para-bombero/traje-bombero-retrato-scba-capucha-proteccion-01.avif" alt="Bombero con SCBA NFPA 1981, máscara facial y capucha en configuración operativa" loading="lazy" width="900" height="600" />
+  <figcaption>SCBA en configuración operativa — la integridad funcional depende de tres variables simultáneas: equipo, aire respirable y sellado facial del usuario.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">El fit test no es opcional</span>
+    <p>Un SCBA correctamente mantenido + cilindro lleno de aire CGA G-7.1 Grado D <strong>no protege</strong> si la máscara no sella correctamente contra la cara del usuario. OSHA 29 CFR 1910.134 exige <strong>fit test cuantitativo anual por usuario</strong> (no general por modelo, no por estación). Cada bombero debe tener su evaluación documentada, archivada y vigente. La barba en zona de sellado <strong>invalida</strong> el fit test y excluye al operador del uso de SCBA hasta corrección.</p>
+  </div>
+</div>
+
+## Causas Documentadas de Falla en SCBA durante Operación
+
+| Causa de falla | Frecuencia | Prevención correspondiente |
+|----------------|------------|-----------------------------|
+| **Agotamiento de aire (sin retiro a tiempo)** | Principal | Verificación de presión pre-entrada + monitoreo HUD + alarma low-pressure |
+| **Falla de regulador** | Significativa | Servicio anual del regulador (cambio de diafragma + asientos válvula) |
+| **Daño en máscara o sellado** | Significativa | Inspección visual diaria + fit test cuantitativo anual |
+| **Falla de válvulas (cilindro o by-pass)** | Moderada | Prueba de flujo periódica + servicio anual |
+| **Falla en arnés (correas, hebillas)** | Baja | Inspección visual + reemplazo programado de componentes |
+| **Aire contaminado en recarga** | Baja en operación profesional | Compresor certificado CGA G-7.1 + análisis de aire trimestral |
+
+Cada causa corresponde a una actividad específica del programa NFPA 1852. La ejecución disciplinada del programa **elimina la mayor parte de las fallas evitables** documentadas en reportes NIOSH FACE.
 
 ---
 
@@ -566,43 +652,122 @@ Los cilindros de fibra de carbono tienen una **vida útil de 15 años desde la f
 
 Un SCBA bien mantenido es la diferencia entre completar una misión exitosa o sufrir una tragedia. En **BOMBERO.MX** entendemos que el mantenimiento no es solo técnico — es una **cultura de seguridad** que debe permear todo el departamento.
 
-Desde el bombero que hace su inspección diaria hasta el técnico que realiza el servicio anual, cada persona en la cadena de mantenimiento tiene un rol crítico.
+## Equipamiento BOMBERO MX — Programa NFPA 1852 Completo
 
-### ¿Necesitas Equipos, Refacciones o Servicio SCBA?
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Equipos SCBA NFPA 1981</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro, Dräger PSS. Configurables con cilindros 30/45/60 min en acero, composite o fibra de carbono.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Refacciones originales</h4>
+    <p class="feature__text">Diafragmas, asientos de válvula, máscaras, baterías PASS, arneses. Cadena de suministro autorizada por fabricante.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Coordinación de servicio anual</h4>
+    <p class="feature__text">Conexión con técnicos certificados MSA, Honeywell/Scott y Dräger en México para servicio del regulador y pruebas de flujo.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Fit test cuantitativo</h4>
+    <p class="feature__text">Coordinación de evaluación OSHA 1910.134 con generador de partículas para cada usuario, con documentación archivable.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Prueba hidrostática de cilindros</h4>
+    <p class="feature__text">Coordinación con talleres autorizados DOT/TC para prueba hidrostática programada cada 3 años (acero) o 5 años (composite/carbono).</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Plantillas de inspección NFPA 1852</h4>
+    <p class="feature__text">Formatos de inspección diaria, mensual y post-uso listos para implementación en bitácora operativa de la estación.</p>
+  </div>
+</div>
 
-- [**Ver catálogo de equipos SCBA →**](/productos/scba/)
-- [**Solicitar cotización de refacciones →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
-
-
-### Artículos Relacionados
-
-- [**NFPA 1971: Guía Completa del Estándar para EPP →**](/blog/nfpa-1971-guia-completa/)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
-- [**Traje Estructural NFPA 1971: Guía Definitiva →**](/blog/traje-estructural-nfpa-1971/)
-- [**Cascos para Bombero: Tipos y Certificaciones →**](/blog/cascos-bombero-tipos/)
+<div class="cta-box">
+  <h3>Programa de mantenimiento SCBA NFPA 1852 — desde inspección diaria hasta servicio anual</h3>
+  <p>Refacciones originales · Coordinación de servicio anual con fabricante · Plantillas de inspección · Fit test cuantitativo programado</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar asesoría técnica</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1852 Standard on Selection, Care, and Maintenance of Open-Circuit SCBA y NFPA 1981 Standard on Open-Circuit SCBA for Emergency Services.*
+## Referencias Normativas
+
+- **NFPA 1852** — Standard on Selection, Care, and Maintenance of Open-Circuit Self-Contained Breathing Apparatus
+- **NFPA 1981** — Standard on Open-Circuit Self-Contained Breathing Apparatus (SCBA) for Emergency Services
+- **NFPA 1982** — Standard on Personal Alert Safety Systems (PASS)
+- **NFPA 1404** — Standard for Fire Service Respiratory Protection Training
+- **NFPA 1500** — Standard on Fire Department Occupational Safety, Health, and Wellness Program
+- **OSHA 29 CFR 1910.134** — Respiratory Protection (fit test cuantitativo obligatorio anual)
+- **CGA G-7.1** — Commodity Specification for Air (calidad del aire respirable Grado D / E)
+- **DOT 49 CFR 178** — Specifications for Pressure Cylinders (prueba hidrostática)
+- **NOM-115-STPS-2009** — Condiciones de seguridad en el trabajo con respiradores (México)
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [SCBA NFPA 1981 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
+- [SCBA MSA G1 vs Scott Air-Pak — Comparativa](/blog/scba-msag1-vs-scott-airpak/)
+- [Mantenimiento Equipo NFPA 1851 (ensemble)](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [NFPA 1971 — Guía Completa](/blog/nfpa-1971-guia-completa/)
+- [HAZMAT Niveles de Protección](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Trajes HAZMAT — Compatibilidad Química](/blog/traje-hazmat-proteccion-quimica/)
+- [Catálogo SCBA](/productos/scba/)
     `,
   },
   "rescate-vehicular-tecnicas": {
-    titulo: "Rescate Vehicular: Técnicas de Extricación",
-    excerpt: "Guía profesional de rescate vehicular y extricación para bomberos. Técnicas actualizadas para vehículos eléctricos, híbridos y con aceros UHSS. Protocolos de seguridad, herramientas hidráulicas y capacitación especializada.",
+    titulo: "Rescate Vehicular Moderno: Técnicas de Extricación con UHSS, Vehículos Eléctricos y Sistemas de Airbag de Nueva Generación",
+    excerpt: "Análisis técnico de rescate vehicular moderno bajo NFPA 1670/1006. Aceros UHSS de >1,500 MPa, vehículos eléctricos 400-800V, sistemas de airbag de 10-14 unidades, protocolos de aislamiento eléctrico, identificación de baterías de litio y herramientas hidráulicas de 3ª generación (Holmatro, LUKAS, Hurst).",
     imagen: "/images/trajes-para-bombero/traje-bombero-operacion-rescate-equipo-accion-01.avif",
     categoria: "Técnicas",
-    tags: ["Rescate Vehicular", "Extricación", "Herramientas Hidráulicas", "Vehículos Eléctricos", "UHSS", "Airbags"],
+    tags: ["Rescate Vehicular", "Extricación", "UHSS", "Vehículos Eléctricos", "Airbags", "NFPA 1670", "Holmatro", "LUKAS"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Rescate Técnico",
+    autorRol: "Equipo Técnico — Rescate Vehicular",
     anchorKeyword: "Técnicas rescate vehicular extricación bomberos México",
     contenido: `
-## La Evolución del Rescate Vehicular: Por Qué las Técnicas de Ayer Ya No Funcionan
+## Rescate Vehicular Moderno: La Transformación que Obsoletó Técnicas de Hace 15 Años
 
-El **rescate vehicular** ha cambiado más en los últimos 15 años que en los 50 anteriores. Los vehículos modernos son **más seguros para los ocupantes** gracias a nuevos materiales y tecnologías, pero paradójicamente son **más peligrosos y difíciles** para los equipos de rescate.
+El **rescate vehicular** ha experimentado en los últimos quince años una transformación estructural que dejó obsoletas las técnicas y herramientas predominantes en cuerpos de bomberos mexicanos. Tres cambios convergentes lo explican: la **adopción masiva de aceros UHSS** (*Ultra High Strength Steel*) de **>1,500 MPa** en celdas de supervivencia y pilares para cumplir regulaciones Euro NCAP / IIHS; la **proliferación de vehículos eléctricos e híbridos** con sistemas de **400 a 800 voltios** que presentan riesgo de electrocución y *thermal runaway* de baterías de litio; y la **multiplicación de airbags** de 2-4 unidades en vehículos de 2005 a **10-14 unidades** en modelos actuales (frontales, laterales, cortina, rodilla, centro, cinturón).
 
-En **BOMBERO.MX** equipamos a cuerpos de bomberos de todo México con las herramientas necesarias para enfrentar estos nuevos desafíos. Esta guía te ayudará a entender los retos actuales y las técnicas que tu equipo necesita dominar.
+El resultado operativo es paradójico: los vehículos modernos son **más seguros para sus ocupantes pero más complejos para los equipos de rescate**. Una cizalla hidráulica de primera o segunda generación, comprada antes de 2010, **literalmente no corta el acero UHSS** de un pilar B de un sedán moderno. Un protocolo de extricación que ignora el aislamiento eléctrico de un vehículo híbrido expone al equipo a electrocución. Una herramienta que activa accidentalmente un airbag inflado puede causar lesiones graves al rescatista y al ocupante.
+
+Este análisis describe los **tres ejes técnicos** del rescate vehicular moderno (UHSS, sistemas eléctricos de alta tensión, airbags de nueva generación), los **protocolos NFPA 1670 / NFPA 1006** aplicables, la **generación correcta de herramientas hidráulicas** según vehículo objetivo, y la **dotación de EPP** complementaria.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">>1,500 MPa</span>
+    <span class="stat__label">UHSS en celdas de supervivencia</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">400-800 V</span>
+    <span class="stat__label">Sistemas eléctricos HV</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10-14</span>
+    <span class="stat__label">Airbags vehículo moderno</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">600 kN</span>
+    <span class="stat__label">Fuerza cizalla 3ª generación</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/trajes-para-bombero/traje-bombero-operacion-rescate-equipo-accion-01.avif" alt="Bombero en operación de extricación vehicular con EPP NFPA y herramienta hidráulica" loading="lazy" width="900" height="600" />
+  <figcaption>Extricación vehicular moderna — combinación de EPP NFPA 1971 + herramienta hidráulica de 3ª generación + protocolo de aislamiento eléctrico.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Cizalla obsoleta = vidas en riesgo</span>
+    <p>Una cizalla hidráulica de generaciones anteriores (pre-2010, &lt;300 kN de fuerza de corte) <strong>no corta el pilar B</strong> de un vehículo moderno con UHSS. Cada minuto perdido intentando cortar es un minuto que la víctima atrapada no tiene. La actualización del equipo de extricación no es opcional — es una decisión operativa de seguridad pública.</p>
+  </div>
+</div>
 
 ### Los Nuevos Desafíos del Rescate Vehicular
 
@@ -911,43 +1076,121 @@ El rescate vehicular ya no es una disciplina estática. Los vehículos evolucion
 - **Protocolos específicos** para vehículos eléctricos e híbridos
 - **Equipo de protección** adecuado para nuevos riesgos
 
-En **BOMBERO.MX** somos tu aliado para mantener a tu equipo preparado. Desde herramientas de última generación hasta capacitación especializada, tenemos todo lo que necesitas.
+## Equipamiento BOMBERO MX — Sistema Completo de Rescate Vehicular
 
-### ¿Listo para Actualizar tu Capacidad de Rescate?
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Herramientas hidráulicas 3ª gen.</h4>
+    <p class="feature__text">Holmatro CORE Technology, LUKAS eFORCE, Hurst eDRAULIC. Cizallas, expansores, arietes y herramientas combinadas con fuerza ≥600 kN para UHSS.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Sistemas electrobatería</h4>
+    <p class="feature__text">Líneas cordless para despliegue rápido sin unidad de poder. Compatibles con backup de batería extendida para operaciones largas.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">EPP NFPA 1971 + 1951</h4>
+    <p class="feature__text">Trajes estructurales (riesgo incendio post-impacto) + cascos rescate técnico para versatilidad operativa.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Detectores de tensión HV</h4>
+    <p class="feature__text">Equipo dedicado para identificar vehículos eléctricos energizados antes de iniciar extricación. Voltímetros sin contacto certificados.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Mantas antiproyección</h4>
+    <p class="feature__text">Mantas térmicas para contención de baterías de litio en *thermal runaway* y protección de víctimas durante corte.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Guías de identificación vehicular</h4>
+    <p class="feature__text">Aplicaciones digitales (Moditech CRS, NFPA Emergency Response Guide) con esquemas de ubicación de baterías, airbags y UHSS por modelo.</p>
+  </div>
+</div>
 
-- [**Ver catálogo de herramientas de rescate →**](/productos)
-- [**Solicitar demostración de equipos →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
-
-
-### Artículos Relacionados
-
-- [**Casco de Rescate Técnico NFPA 1951: Guía Completa →**](/blog/casco-rescate-nfpa-1951/)
-- [**Guantes de Rescate y Extricación: Guía Técnica →**](/blog/guantes-rescate-extricacion/)
-- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp/)
-- [**Cascos para Bombero: Tipos y Selección →**](/blog/cascos-bombero-tipos/)
+<div class="cta-box">
+  <h3>Equipo de extricación vehicular para rescate moderno</h3>
+  <p>Herramientas Holmatro / LUKAS / Hurst de 3ª generación · EPP NFPA 1971/1951 · Protocolo de aislamiento eléctrico · Capacitación coordinada con fabricante</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en protocolos de Holmatro, Hurst, y estándares NFPA 1006 para rescate técnico.*
+## Referencias Normativas
+
+- **NFPA 1670** — Standard on Operations and Training for Technical Search and Rescue Incidents
+- **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications
+- **NFPA 1936** — Standard on Powered Rescue Tools
+- **NFPA 1971** — EPP estructural (riesgo incendio post-impacto)
+- **NFPA 1951** — EPP rescate técnico
+- **NFPA 1006** — Vehicle Rescue Operations
+- **SAE J3026** — Identification of Battery Locations for First Responders (vehículos eléctricos)
+- **ISO/TR 17427-1** — Cooperative Intelligent Transport Systems (referencia para vehículos conectados)
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Extricación Vehicular Jaws of Life — Guía Holmatro/LUKAS/Hurst](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [Casco Rescate Técnico NFPA 1951](/blog/casco-rescate-nfpa-1951/)
+- [Cascos para Bombero — Tipos NFPA](/blog/cascos-bombero-tipos/)
+- [Guantes para Bombero — Rescate Técnico NFPA 1951](/blog/guantes-para-bombero-guia-completa/)
+- [Bomberos CDMX — Periférico, Viaducto](/blog/bomberos-cdmx-equipo-nfpa/)
+- [Bomberos Querétaro — Autopista 57D](/blog/bomberos-queretaro-equipo-nfpa/)
+- [Bomberos Monterrey — Saltillo/Periférico](/blog/bomberos-monterrey-equipo-nfpa/)
+- [NFPA 1971 — Guía Completa](/blog/nfpa-1971-guia-completa/)
     `,
   },
   "brigadas-industriales-epp": {
-    titulo: "EPP para Brigadas Industriales: Guía de Selección",
-    excerpt: "Guía profesional para seleccionar EPP de brigadas industriales según sector: petroquímica, manufactura, minería, alimentos. Certificaciones NFPA, niveles de protección química y cumplimiento NOM-017-STPS.",
+    titulo: "EPP para Brigadas Industriales en México: Selección por Sector bajo NFPA 600, NOM-002-STPS y NOM-017-STPS",
+    excerpt: "Análisis técnico de EPP para brigadas industriales mexicanas: marco normativo NFPA 600 + NOM-002-STPS + NOM-017-STPS, evaluación de riesgo por sector (petroquímica, automotriz, siderurgia, alimenticia, farmacéutica), matriz de selección de EPP estructural/HAZMAT/ARFF y aplicación operativa en plantas mexicanas.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-brigada-industrial-01.avif",
     categoria: "Industrial",
-    tags: ["Brigadas Industriales", "EPP Industrial", "NFPA 1994", "NOM-017-STPS", "Protección Química", "HAZMAT"],
+    tags: ["Brigadas Industriales", "EPP Industrial", "NFPA 600", "NFPA 1994", "NOM-002-STPS", "NOM-017-STPS", "HAZMAT"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP Industrial",
+    autorRol: "Equipo Técnico — EPP Industrial",
     anchorKeyword: "EPP brigadas industriales México selección certificación",
     contenido: `
-## ¿Por Qué las Brigadas Industriales Necesitan EPP Especializado?
+## EPP para Brigadas Industriales: Marco Normativo y Operativo en México
 
-Las **brigadas industriales** son la primera línea de defensa cuando ocurre una emergencia en una planta o instalación. A diferencia de los bomberos municipales, el personal de brigada enfrenta **riesgos específicos del proceso industrial** que requieren equipo de protección diseñado para esas condiciones particulares.
+Las **brigadas industriales internas** son el componente humano más crítico del sistema de protección contra incendio de una instalación industrial. Cuando ocurre un evento real, son el primer recurso técnico capacitado en escena: tiempo de respuesta medido en minutos vs los **15-40 minutos** típicos del cuerpo de bomberos municipal externo. Esta posición operativa hace que su EPP no sea un componente complementario sino **el equipamiento más crítico de toda la matriz de protección** de la planta.
 
-En **BOMBERO.MX** hemos equipado brigadas en refinerías, plantas petroquímicas, minas, plantas de alimentos y centros de manufactura en todo México. Esta guía comparte nuestro conocimiento para ayudarte a seleccionar el EPP correcto.
+El marco normativo mexicano para brigadas industriales combina **tres regulaciones convergentes**: la **NFPA 600** (*Standard on Facility Fire Brigades*) como referencia técnica internacional de organización, capacitación y equipamiento; la **NOM-002-STPS-2010** que establece las condiciones de seguridad y prevención de incendio para centros de trabajo (incluida la obligación de brigada cuando aplica por riesgo); y la **NOM-017-STPS-2008** que regula la selección, uso y mantenimiento del EPP. La aplicación correcta de estas tres normas no es opcional: la falla en cualquiera genera exposición regulatoria ante STPS y exposición legal civil ante la responsabilidad por lesión documentable del personal.
+
+Este análisis describe la **metodología de evaluación de riesgo por sector industrial** (petroquímica, automotriz, siderurgia, alimenticia, farmacéutica, logística), la **matriz de selección de EPP** correspondiente (estructural NFPA 1971, HAZMAT NFPA 1991/1992, ARFF NFPA 1976, forestal NFPA 1977 según aplique), las **referencias del corredor industrial mexicano** y la dotación mínima exigible bajo marco normativo combinado.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 600</span>
+    <span class="stat__label">Facility Fire Brigades</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NOM-002-STPS</span>
+    <span class="stat__label">Obligación brigadas industriales</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NOM-017-STPS</span>
+    <span class="stat__label">Marco EPP en centros de trabajo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">5K UMA</span>
+    <span class="stat__label">Multa por trabajador afectado</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-01.avif" alt="Casco para brigada industrial certificado NFPA en uso operativo en planta" loading="lazy" width="900" height="600" />
+  <figcaption>Casco para brigada industrial NFPA 1971 — configuración con visor integrado y compatibilidad con SCBA. El EPP de brigada industrial es complementario al sistema fijo, no sustituto.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Brigada interna vs cuerpo municipal externo</span>
+    <p>La brigada interna actúa en los <strong>primeros 0-15 minutos del evento</strong> —ventana crítica para contención. El cuerpo municipal llega típicamente en 15-40 minutos según ubicación. Las dos funciones son complementarias, no sustituibles. Una planta con riesgo industrial significativo <strong>no puede depender exclusivamente del cuerpo municipal externo</strong>; debe operar con brigada interna capacitada y equipada bajo marco NFPA 600 / NOM-002-STPS.</p>
+  </div>
+</div>
 
 ### El Costo de Elegir el EPP Incorrecto
 
@@ -1268,22 +1511,76 @@ Un traje estructural de $50,000 MXN es insignificante comparado con una demanda 
 
 ---
 
-## Conclusión: Invierte en la Seguridad de tu Brigada
+## Equipamiento BOMBERO MX — Programa Completo para Brigadas Industriales
 
-El EPP correcto no es un gasto — es una **inversión en protección humana y continuidad operativa**. Una brigada bien equipada puede contener emergencias antes de que escalen, protegiendo vidas, instalaciones y la operación de tu empresa.
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">EPP NFPA 1971 estructural</h4>
+    <p class="feature__text">Trajes, cascos, capuchas, guantes, botas certificados para brigadas con respuesta a incendio estructural en planta.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">EPP HAZMAT NFPA 1991/1992</h4>
+    <p class="feature__text">Trajes encapsulados y splash para brigadas químicas. Matriz de compatibilidad química documentada por planta.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981 + multigas</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak, Dräger PSS + detectores RAE/MSA/Dräger calibrados para los agentes específicos de la planta.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">EPP de aproximación NFPA 1976</h4>
+    <p class="feature__text">Para brigadas con exposición a calor radiante (siderurgia, refinería, fundición). Trajes aluminizados con SCBA compatible.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Capacitación NFPA 600</h4>
+    <p class="feature__text">Coordinación de programa de capacitación inicial y recurrente para brigadistas conforme NFPA 600 y DC-3 de la STPS.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Documentación para auditoría</h4>
+    <p class="feature__text">Ficha técnica, certificado NFPA, declaración de conformidad NOM-017-STPS y trazabilidad de lote para cada componente.</p>
+  </div>
+</div>
 
-En **BOMBERO.MX** somos expertos en equipar brigadas industriales de todos los sectores. Nuestros especialistas pueden ayudarte a diseñar el programa de EPP perfecto para tu operación.
-
-### ¿Listo para Equipar tu Brigada Industrial?
-
-- [**Ver catálogo completo de EPP →**](/productos)
-- [**Solicitar evaluación de necesidades →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="cta-box">
+  <h3>EPP para brigadas industriales — evaluación de riesgo por sector</h3>
+  <p>Análisis de matriz de riesgo de tu planta · Configuración EPP por NFPA aplicable · Documentación auditable · Capacitación coordinada</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar evaluación técnica</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en normas NFPA, OSHA, ANSI y NOM-STPS aplicables a brigadas industriales en México.*
+## Referencias Normativas
+
+- **NFPA 600** — Standard on Facility Fire Brigades
+- **NFPA 1081** — Standard for Industrial Fire Brigade Member Professional Qualifications
+- **NFPA 1971** — Protective Ensembles for Structural Fire Fighting
+- **NFPA 1976** — Protective Ensembles for Proximity Fire Fighting (siderurgia, refinería)
+- **NFPA 1981** — Open-Circuit SCBA
+- **NFPA 1991** — Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A)
+- **NFPA 1992** — Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
+- **NFPA 1994** — Protective Ensembles for First Responders to CBRN Terrorism Incidents
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+- **NOM-018-STPS-2015** — Sistema Armonizado para la Identificación y Comunicación de Peligros (HDS)
+- **NOM-005-STPS-1998** — Manejo de sustancias químicas peligrosas
+- **DC-3 STPS** — Constancia de habilidades laborales para capacitación
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Trajes HAZMAT — Compatibilidad Química](/blog/traje-hazmat-proteccion-quimica/)
+- [Traje de Aproximación NFPA 1971 Cap.8](/blog/traje-aproximacion-calor-radiante/)
+- [SCBA NFPA 1981 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
+- [NFPA 1971 — Guía Completa](/blog/nfpa-1971-guia-completa/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [Bomberos Monterrey — Apodaca/Pesquería](/blog/bomberos-monterrey-equipo-nfpa/)
+- [Bomberos Pachuca — Refinería Tula](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
+- [Bomberos Querétaro — Corredor Aeroespacial](/blog/bomberos-queretaro-equipo-nfpa/)
     `,
   },
   "incendios-forestales-mexico": {
@@ -1682,15 +1979,53 @@ En **BOMBERO.MX** estamos comprometidos con equipar a quienes protegen nuestros 
     `,
   },
   "cascos-bombero-tipos": {
-    titulo: "Cascos para Bombero: Tipos y Certificaciones NFPA",
-    excerpt: "Guía profesional para seleccionar cascos de bombero certificados NFPA 1971, 1977 y 1951. Comparativa estructural vs forestal, marcas líderes y criterios de compra para cuerpos de bomberos en México.",
+    titulo: "Cascos para Bombero: Guía Técnica NFPA 1971, 1977 y 1951 — Comparativa de Categorías Operativas",
+    excerpt: "Guía técnica sobre tipos de cascos para bombero certificados NFPA: estructural (NFPA 1971), forestal (NFPA 1977), rescate técnico (NFPA 1951), ARFF (NFPA 1976). Comparativa de materiales, marcas (Bullard, Cairns/MSA), criterios de selección y aplicación operativa en México.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-estructural-nfpa-1971-01.avif",
     categoria: "Equipo",
-    tags: ["Cascos Bombero", "NFPA 1971", "NFPA 1977", "Casco Estructural", "Casco Forestal", "EPP Bomberos"],
+    tags: ["Cascos Bombero", "NFPA 1971", "NFPA 1977", "NFPA 1951", "Bullard", "Cairns", "MSA"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP Certificado",
+    autorRol: "Equipo Técnico — EPP NFPA",
     anchorKeyword: "Guía completa cascos NFPA para bomberos México",
     contenido: `
+## Cascos para Bombero: Categorías Normativas y Criterios de Selección
+
+El casco es el componente del EPP que **protege el órgano más vulnerable del operador** —la cabeza— frente a una matriz combinada de amenazas: impacto mecánico de escombros, calor radiante hasta 260 °C, penetración por objetos cortantes, agua hirviente que escurre del techo en combate interior, y exposición eléctrica accidental. La elección del casco no es estética ni opcional: cada categoría normativa NFPA está diseñada para un perfil de amenaza distinto y los casos no son intercambiables sin pérdida de protección efectiva.
+
+Esta guía describe las **cuatro categorías normativas NFPA principales** para cascos de bombero (1971 estructural, 1977 forestal, 1951 rescate técnico, 1976 ARFF), los criterios técnicos de selección y los modelos disponibles en México de las marcas referencia: **Bullard** y **Cairns (MSA Safety)**.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">260 °C</span>
+    <span class="stat__label">Resistencia térmica NFPA 1971</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">2,500 N</span>
+    <span class="stat__label">Resistencia al impacto</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">4</span>
+    <span class="stat__label">Categorías NFPA principales</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10 años</span>
+    <span class="stat__label">Vida útil máxima NFPA 1851</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/cascos-para-bomberos/casco-bombero-estructural-nfpa-1971-01.avif" alt="Casco estructural NFPA 1971 con visor integrado y sistema de retención de cuatro puntos" loading="lazy" width="900" height="600" />
+  <figcaption>Casco estructural NFPA 1971 — protección contra impacto, calor radiante y penetración con sistema de retención certificado.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">No-intercambiabilidad operativa</span>
+    <p>Un casco NFPA 1977 forestal <strong>no protege adecuadamente en combate estructural</strong> (insuficiente resistencia térmica e impacto). Inversamente, un casco NFPA 1971 estructural causa <strong>fatiga térmica innecesaria</strong> en operación forestal prolongada por su peso (~1.3-1.5 kg) y baja ventilación. Cuerpos que atienden ambos perfiles necesitan ambos tipos en dotación.</p>
+  </div>
+</div>
+
 ## ¿Por Qué el Casco es el EPP Más Crítico para un Bombero?
 
 El **casco para bombero** no es solo un símbolo de la profesión — es la primera línea de defensa contra traumatismos craneales, quemaduras en cabeza y cuello, y exposición a temperaturas extremas. Según estadísticas de la **NFPA (National Fire Protection Association)**, los traumatismos en cabeza representan el **22% de las lesiones graves** en operaciones de combate de incendios.
@@ -1927,47 +2262,93 @@ Busca la **etiqueta de certificación** cosida en el interior. Debe indicar: nor
 
 ---
 
-## Conclusión: Invierte en Protección Certificada
+## Conclusión Técnica
 
-El casco es una inversión en la vida de tu personal. No comprometas la seguridad por ahorro a corto plazo — un casco certificado de calidad protege durante **10 años de servicio**.
+La selección de casco para bombero **no se resuelve por marca ni por precio**: se resuelve por **categoría normativa aplicada a perfil operativo**. Un cuerpo municipal que combina respuesta estructural, forestal y rescate técnico necesita inventario diferenciado de las tres categorías —no puede optimizar comprando un único modelo "multiuso", porque ese modelo no existe en certificación NFPA real.
 
-En **BOMBERO.MX** tenemos el casco perfecto para cada operación de tu departamento. Nuestros especialistas están listos para asesorarte sin compromiso.
+**BOMBERO MX** opera el catálogo completo de cascos NFPA con asesoría imparcial entre **Bullard, Cairns (MSA Safety)** y modelos europeos, según operación, presupuesto y compatibilidad con el resto del EPP existente.
 
-### ¿Listo para Equipar a tu Departamento?
-
-- [**Ver catálogo completo de cascos →**](/productos/cascos-para-bomberos/)
-- [**Solicitar cotización personalizada →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
-
-
-### Artículos Relacionados
-
-- [**Casco Estructural NFPA 1971: Anatomía y Selección →**](/blog/casco-estructural-nfpa-1971/)
-- [**Casco Forestal NFPA 1977: Guía Técnica →**](/blog/casco-forestal-nfpa-1977/)
-- [**Casco de Rescate NFPA 1951: Multipropósito →**](/blog/casco-rescate-nfpa-1951/)
-- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa/)
+<div class="cta-box">
+  <h3>Cascos NFPA certificados con asesoría técnica imparcial</h3>
+  <p>Bullard UST/FXE/TrakLite, Cairns 1044/1010/XF1, MSA F1. Documentación lista para licitación y soporte de refacciones en México.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/cascos-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo actualizado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en normas NFPA vigentes y experiencia en equipamiento de más de 500 estaciones de bomberos en México.*
+## Referencias Normativas
+
+- **NFPA 1971** — Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting (sección 6.4 — casco)
+- **NFPA 1977** — Standard on Protective Clothing and Equipment for Wildland Fire Fighting
+- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents
+- **NFPA 1976** — Standard on Protective Ensembles for Proximity Fire Fighting (ARFF)
+- **NFPA 1851** — Selection, Care, and Maintenance of Protective Ensembles (vida útil 10 años)
+- **ANSI Z89.1** — Industrial Head Protection (referencia complementaria)
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [NFPA 1971: Guía Completa del Estándar](/blog/nfpa-1971-guia-completa/)
+- [Cascos Bullard vs Cairns — Comparativa](/blog/casco-bombero-bullard-vs-cairns/)
+- [Capuchas Monjas NFPA — Nomex vs PBI Gold](/blog/capuchas-monjas-bombero-nfpa-guia/)
+- [Protección Visual — Goggles y Pantallas NFPA](/blog/gafas-proteccion-visual-bomberos-nfpa/)
+- [ARFF Bomberos Aeroportuarios](/blog/arff-bomberos-aeroportuarios-mexico/)
+- [Mantenimiento NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Catálogo completo de cascos](/productos/cascos-para-bomberos/)
     `,
   },
   "traje-estructural-nfpa-1971": {
-    titulo: "Traje Estructural NFPA 1971: Sistema de 3 Capas",
-    excerpt: "Guía completa del traje estructural NFPA 1971 para bomberos. Sistema de 3 capas, valores TPP y THL, marcas líderes, selección de tallas, mantenimiento y certificaciones. Todo lo que necesitas saber antes de comprar.",
+    titulo: "Traje Estructural NFPA 1971: Análisis Técnico del Sistema de 3 Capas (Outer Shell, Moisture Barrier, Thermal Liner)",
+    excerpt: "Análisis técnico del traje estructural NFPA 1971 (turnout gear): sistema de 3 capas Nomex/PBI Gold + Gore-Tex Crosstech + aramida acolchada, valores TPP/THL, comparativa Globe vs Lion vs Honeywell, selección de tallas, mantenimiento NFPA 1851 y disponibilidad en México.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-03.avif",
     categoria: "Equipo",
-    tags: ["Traje Estructural", "NFPA 1971", "Sistema 3 Capas", "TPP THL", "Turnout Gear", "EPP Bomberos"],
+    tags: ["Traje Estructural", "NFPA 1971", "Sistema 3 Capas", "TPP", "THL", "Turnout Gear", "Globe", "Lion", "PBI Gold"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Trajes Estructurales",
+    autorRol: "Equipo Técnico — Trajes Estructurales",
     anchorKeyword: "Traje estructural NFPA 1971 bomberos México comprar",
     contenido: `
-## ¿Qué es un Traje Estructural NFPA 1971 y Por Qué es Diferente a Otros EPP?
+## Traje Estructural NFPA 1971: Marco Técnico del Componente Más Crítico del EPP
 
-El **traje estructural NFPA 1971** (también conocido como *turnout gear*, *bunker gear* o *traje de bombero*) es el equipo de protección personal más avanzado disponible para **combate de incendios en edificaciones**. A diferencia de otros tipos de EPP, el traje estructural está diseñado para proteger al bombero en las condiciones más extremas: entrada a estructuras en llamas, exposición directa a fuego, calor radiante intenso y colapso estructural.
+El **traje estructural NFPA 1971** —en denominación operativa estadounidense: *turnout gear* o *bunker gear*— es el componente del EPP que soporta la **exposición simultánea a calor convectivo, calor radiante, contacto líquido y agresión mecánica** en el ambiente más severo del combate de incendio: el interior de una estructura activa. Su diseño y construcción están codificados con precisión por la **NFPA 1971-2024**, que define no solo materiales y dimensiones sino también los ensayos de laboratorio que validan cada propiedad de protección.
 
-En **BOMBERO.MX** somos especialistas en trajes estructurales certificados. Esta guía te ayudará a entender cada componente del sistema, cómo seleccionar el traje correcto para tu departamento y qué buscar al momento de comprar.
+Este análisis describe técnicamente el **sistema de 3 capas** (outer shell, moisture barrier, thermal liner), los **parámetros de ensayo TPP y THL** que determinan el rendimiento del ensemble, la **comparativa de las marcas referencia** disponibles en México (Globe MSA, Lion Apparel, Honeywell Morning Pride) y el marco operativo de selección y mantenimiento bajo NFPA 1851. Es la decisión de equipamiento más costosa y de mayor implicación operativa que un jefe de cuerpo toma en el ciclo de adquisición.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">3 capas</span>
+    <span class="stat__label">Sistema certificado</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">≥35 cal/cm²</span>
+    <span class="stat__label">TPP mínimo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">≥205 W/m²</span>
+    <span class="stat__label">THL recomendado</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10 años</span>
+    <span class="stat__label">Vida útil máxima (NFPA 1851)</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-03.avif" alt="Traje estructural NFPA 1971 — vista frontal del sistema de 3 capas con bandas reflectivas" loading="lazy" width="900" height="600" />
+  <figcaption>Traje estructural NFPA 1971 — sistema de 3 capas con bandas reflectivas SOLAS clase E. Cada capa se ensaya y certifica por separado, pero opera como ensemble integrado.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Único traje admitido en combate interior</span>
+    <p>NFPA 1971 es la <strong>única categoría normativa que autoriza la entrada a estructura activa</strong>. Trajes NFPA 1977 (forestal) o NFPA 1951 (rescate técnico) <strong>no son sustitutos</strong>: no resisten el calor convectivo ni el calor radiante prolongado del combate interior. Operar con la categoría incorrecta es exposición documentada a riesgo evitable.</p>
+  </div>
+</div>
 
 ### El Traje Estructural vs Otros Tipos de Protección
 
@@ -2296,42 +2677,111 @@ Usa solo **máquinas extractoras** especializadas con productos aprobados por el
 
 ---
 
-## Conclusión: El Traje Estructural es una Inversión en Vidas
+## Conclusión Técnica
 
-El traje estructural NFPA 1971 es la diferencia entre regresar a casa o sufrir lesiones graves. En **BOMBERO.MX** entendemos esta responsabilidad y nos comprometemos a proporcionar solo equipos certificados de la más alta calidad.
+El traje estructural NFPA 1971 es **el componente del EPP de mayor inversión por bombero y de mayor implicación operativa de largo plazo**. Una decisión correcta —que combina materiales adecuados al perfil de operación, ajuste personalizado por talla, distribuidor con soporte de refacciones y programa de mantenimiento NFPA 1851 ejecutado— produce protección efectiva por una década. Una decisión incorrecta produce un activo costoso que falla precisamente en el momento en que más se necesita.
 
-Nuestros especialistas están listos para asesorarte en la selección del traje perfecto para tu departamento. Desde la medición hasta la entrega, te acompañamos en todo el proceso.
+**BOMBERO MX** opera el catálogo completo de trajes estructurales **Globe (MSA), Lion Apparel y Honeywell Morning Pride** con asesoría técnica imparcial, plantilla de medición individualizada y documentación normativa completa para licitación pública o adquisición corporativa.
 
-### ¿Listo para Equipar a tu Departamento?
-
-- [**Ver catálogo de trajes estructurales →**](/productos/trajes-para-bomberos/)
-- [**Conocer el sistema de 3 capas →**](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/sistema-3-capas/)
-- [**Solicitar cotización y medición →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="cta-box">
+  <h3>Trajes NFPA 1971 con asesoría de especificación</h3>
+  <p>Globe G-Xtreme, Lion V-Force PBI Matrix, Honeywell Morning Pride. Plantilla de medición por personal, documentación auditable y entrega 24-72h para producto en stock.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/trajes-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1971 Standard on Protective Ensembles for Structural Fire Fighting, edición 2018, y experiencia en equipamiento de más de 500 estaciones de bomberos en México.*
+## Referencias Normativas
+
+- **NFPA 1971** — Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting (edición 2024)
+- **NFPA 1851** — Selection, Care, and Maintenance of Protective Ensembles (vida útil, inspección ISP, lavado avanzado)
+- **NFPA 1981** — Standard on Open-Circuit SCBA (componente complementario obligatorio)
+- **ASTM F2700** — Standard Test Method for Unsteady-State Heat Transfer Evaluation of Flame Resistant Materials (referencia técnica TPP)
+- **ASTM F1868** — Standard Test Method for Thermal and Evaporative Resistance of Clothing Materials (THL)
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [NFPA 1971: Guía Completa del Estándar](/blog/nfpa-1971-guia-completa/)
+- [Cómo Elegir Traje NFPA 1971 — Guía Operativa](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [Mantenimiento de Equipo NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Cascos Bullard vs Cairns](/blog/casco-bombero-bullard-vs-cairns/)
+- [Capuchas Monjas NFPA](/blog/capuchas-monjas-bombero-nfpa-guia/)
+- [SCBA NFPA 1981 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
+- [Flashover y Backdraft — Supervivencia](/blog/flashover-backdraft-bomberos-guia-supervision/)
+- [Catálogo de trajes estructurales](/productos/trajes-para-bomberos/)
     `,
   },
   "traje-hazmat-proteccion-quimica": {
-    titulo: "Trajes HAZMAT: Niveles de Protección A, B, C, D",
-    excerpt: "Guía profesional de trajes HAZMAT para bomberos y brigadas industriales. Niveles de protección A, B, C, D según EPA/OSHA, normas NFPA 1991, 1992 y 1994, selección por tipo de químico y aplicaciones en México.",
+    titulo: "Trajes HAZMAT: Análisis Técnico de Niveles A/B/C/D, Compatibilidad Química y Selección NFPA 1991/1992/1994",
+    excerpt: "Análisis técnico de trajes HAZMAT bajo niveles EPA/OSHA A/B/C/D y normas NFPA 1991 (vapor encapsulado), 1992 (salpicadura líquida), 1994 (CBRN). Matriz de compatibilidad química por familia de agente (Viton, butilo, Tychem, Trellchem), ensayos de permeación ASTM F739 y aplicación operativa en industria mexicana.",
     imagen: "/images/directorio/traje-hazmat-nivel-a-01.avif",
     categoria: "Equipo",
-    tags: ["Traje HAZMAT", "Protección Química", "NFPA 1991", "NFPA 1994", "Nivel A", "Materiales Peligrosos"],
+    tags: ["Traje HAZMAT", "NFPA 1991", "NFPA 1992", "NFPA 1994", "Nivel A", "Tychem", "Trellchem", "ASTM F739"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Protección Química",
+    autorRol: "Equipo Técnico — Protección Química",
     anchorKeyword: "Traje HAZMAT niveles protección química bomberos México",
     contenido: `
-## ¿Qué es un Traje HAZMAT y Cuándo se Necesita?
+## Trajes HAZMAT: Marco Técnico de Protección Química bajo NFPA 1991/1992/1994
 
-Un **traje HAZMAT** (Hazardous Materials) es equipo de protección personal especializado diseñado para proteger al usuario contra la exposición a **materiales peligrosos**: químicos tóxicos, corrosivos, inflamables, radiológicos y biológicos.
+Un traje **HAZMAT** (*Hazardous Materials*) es un componente del EPP cuya función es **impedir el contacto directo y la permeación química** entre el agente involucrado en un incidente y la piel del operador. A diferencia del traje estructural NFPA 1971 —que protege contra calor convectivo y radiante—, el traje HAZMAT enfrenta un perfil de amenaza **molecular**: las moléculas del agente intentan **atravesar el material del traje por permeación, penetración o degradación** del sustrato. La eficacia del traje depende menos de su apariencia y mucho más de la **compatibilidad química documentada del material constructivo con el agente específico** del incidente.
 
-A diferencia del [traje estructural NFPA 1971](/blog/traje-estructural-nfpa-1971/) que protege contra el calor del fuego, los trajes HAZMAT protegen contra la **penetración y permeación de sustancias químicas**. Usar el equipo incorrecto ante un derrame químico puede resultar en lesiones graves o muerte.
+Esta diferencia es decisiva: un traje HAZMAT "genérico" sin certificación NFPA para la familia química del agente involucrado **no protege** —y, peor, genera una falsa sensación de seguridad que aumenta el tiempo de exposición del operador. La selección correcta requiere consultar la **matriz de compatibilidad química del fabricante** (no del distribuidor) contra la **identificación positiva del agente** mediante hoja de datos de seguridad (HDS) o detector multigas calibrado.
 
-En **BOMBERO.MX** equipamos a equipos HAZMAT de bomberos, brigadas industriales y protección civil con trajes certificados para cada nivel de riesgo. Esta guía te ayudará a entender qué tipo de protección necesitas.
+Este análisis describe el **marco normativo HAZMAT** (NFPA 1991/1992/1994, EPA/OSHA niveles A-D), los **materiales constructivos referencia** (Viton, butilo, neopreno, Tychem, Trellchem HPS), los **ensayos de permeación ASTM F739** que cuantifican la resistencia química, y los **criterios operativos de selección** aplicables a brigadas industriales del corredor químico mexicano (Coatzacoalcos, Tula, Apodaca, El Salto) y a cuerpos municipales con responsabilidad HAZMAT.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1991</span>
+    <span class="stat__label">Nivel A — vapor encapsulado</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1992</span>
+    <span class="stat__label">Nivel B — salpicadura líquida</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1994</span>
+    <span class="stat__label">CBRN (eventos terroristas)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">ASTM F739</span>
+    <span class="stat__label">Ensayo permeación química</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/directorio/traje-hazmat-nivel-a-01.avif" alt="Traje HAZMAT Nivel A encapsulado para vapor — configuración con SCBA interior y visor panorámico" loading="lazy" width="900" height="600" />
+  <figcaption>Traje HAZMAT Nivel A encapsulado bajo NFPA 1991 — el SCBA opera dentro del ensemble. La operación tiene ciclo limitado por carga térmica interna y autonomía del cilindro.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">El material del traje importa más que el nivel</span>
+    <p>Un Nivel A NFPA 1991 hecho de butilo <strong>no protege contra todos los químicos</strong>: el butilo es excelente contra cetonas y aldehídos pero <strong>permeable a hidrocarburos clorados</strong>. Un Nivel A de Viton es óptimo contra hidrocarburos pero <strong>fallará rápidamente contra metanol</strong>. La <strong>matriz de compatibilidad química del fabricante</strong> (no la categoría de nivel) es lo que determina si el traje protege contra el agente específico del incidente.</p>
+  </div>
+</div>
+
+## Matriz de Compatibilidad Química: La Variable Crítica
+
+Cada material constructivo de traje HAZMAT presenta un perfil de resistencia distinto frente a familias químicas. La selección debe partir del agente identificado, no del traje disponible:
+
+| Material | Excelente contra | Pobre contra | Aplicación típica |
+|----------|--------------------|----------------|----------------------|
+| **Butilo** | Cetonas, aldehídos, ácidos diluidos, gases ácidos | Hidrocarburos alifáticos y clorados | Procesos químicos no-petroleros |
+| **Viton** | Hidrocarburos alifáticos, aromáticos, ácidos fuertes | Cetonas, ésteres, aminas, metanol | Refinería, petroquímica |
+| **Neopreno** | Aceites, ácidos diluidos, alcoholes | Solventes clorados, aromáticos | Uso general industrial |
+| **Tychem TK / 10000** | Amplio espectro químicos industriales | Algunos solventes clorados específicos | Respuesta general HAZMAT |
+| **Trellchem HPS / VPS** | Espectro muy amplio incluido CBRN | Costoso, sobre-especificado para uso general | Brigadas profesionales CBRN |
+| **PVC** | Ácidos diluidos, bases, sales | Solventes orgánicos en general | Decontaminación primaria |
+
+Las matrices completas del fabricante incluyen tres parámetros por agente: **tiempo de permeación normalizado** (en minutos antes de detección a través del material), **tasa de permeación** (μg/cm²/min) y **degradación visible** (sí/no en 60 min). Un traje certificado NFPA 1991 con tiempo de permeación >480 min contra el agente del incidente es operativamente seguro para el ciclo completo del SCBA.
 
 ### Escenarios que Requieren Protección HAZMAT
 
@@ -2669,39 +3119,137 @@ El SCBA protege las **vías respiratorias**. Muchos químicos pueden absorberse 
 
 ---
 
-## Conclusión: La Protección Correcta para Cada Riesgo Químico
+## Aplicación en el Corredor Químico Industrial Mexicano
 
-Los materiales peligrosos no perdonan errores. Usar el nivel incorrecto de protección puede resultar en **lesiones graves o muerte**, ya sea por exposición directa o por crear una falsa sensación de seguridad.
+México concentra zonas de exposición HAZMAT recurrente que justifican dotación HAZMAT permanente de brigadas internas:
 
-En **BOMBERO.MX** te ayudamos a identificar exactamente qué nivel de protección necesitas para los riesgos específicos de tu operación.
+| Región | Riesgo dominante | Configuración recomendada |
+|--------|-------------------|------------------------------|
+| **Coatzacoalcos – Minatitlán** | Petroquímica integrada (Pajaritos, Cangrejera) | Nivel A Viton + SCBA 60 min + detección H₂S/HC |
+| **Refinería Tula (Hidalgo)** | Hidrocarburos en proceso | Nivel A Viton + aproximación aluminizada |
+| **Apodaca – Pesquería (NL)** | Química industrial diversa | Nivel A/B Tychem TK + multigas LEL/CO/H₂S |
+| **El Salto – Ocotlán (Jal)** | Solventes, papeleras, alimentaria | Nivel B Tychem 10000 + multigas COV |
+| **Maquiladoras Tijuana – CdJuárez** | Electrónica con litio + química especializada | Nivel B/C + multigas + extintor litio específico |
 
-### ¿Listo para Equipar tu Equipo HAZMAT?
+## Equipamiento BOMBERO MX — Línea HAZMAT
 
-- [**Ver catálogo de trajes HAZMAT →**](/productos/hazmat/)
-- [**Solicitar asesoría por tipo de químico →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Nivel A — NFPA 1991</h4>
+    <p class="feature__text">Trajes encapsulados Trellchem HPS, DuPont Tychem TK/10000, configurables por matriz de compatibilidad química del cliente.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Nivel B — NFPA 1992</h4>
+    <p class="feature__text">Trajes no encapsulados resistentes a salpicadura ASTM F903, para operación tras estabilización del foco emisor.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">CBRN — NFPA 1994</h4>
+    <p class="feature__text">Para escenarios con armas químicas/biológicas/radiológicas/nucleares. Configuración Trellchem VPS.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro, Dräger PSS con cilindros composite 60 min para ciclos HAZMAT prolongados.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Detección multigas</h4>
+    <p class="feature__text">RAE, MSA Altair, Dräger X-am calibrados para LEL, O₂, CO, H₂S, NH₃, COV y agentes específicos del cliente.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Descontaminación móvil</h4>
+    <p class="feature__text">Pileta inflable, ducha portátil, kits químicos específicos por agente, consumibles según protocolo NFPA 472.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>Trajes HAZMAT con matriz de compatibilidad química documentada</h3>
+  <p>Análisis de la matriz de sustancias de tu planta · Configuración por nivel y material certificado NFPA · Capacitación coordinada con fabricante</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar evaluación técnica</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1991, 1992, 1994, guías EPA/OSHA, y experiencia en equipamiento de equipos HAZMAT en industria y servicios de emergencia en México.*
+## Referencias Normativas
+
+- **NFPA 472** — Standard for Competence of Responders to Hazardous Materials/Weapons of Mass Destruction Incidents
+- **NFPA 1072** — Hazardous Materials/WMD Emergency Response Personnel Professional Qualifications
+- **NFPA 1991** — Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A)
+- **NFPA 1992** — Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
+- **NFPA 1994** — Protective Ensembles for First Responders to CBRN Terrorism Incidents
+- **NFPA 1981** — Open-Circuit SCBA for Emergency Services (componente integrado)
+- **29 CFR 1910.120 (HAZWOPER)** — OSHA Hazardous Waste Operations and Emergency Response
+- **ASTM F739** — Standard Test Method for Permeation of Liquids and Gases through Protective Clothing Materials under Continuous Contact
+- **ASTM F903** — Standard Test Method for Resistance of Materials Used in Protective Clothing to Penetration by Liquids
+- **NOM-005-STPS-1998** — Manejo de sustancias químicas peligrosas
+- **NOM-018-STPS-2015** — Sistema Armonizado para Identificación y Comunicación de Peligros (HDS)
+- **SETIQ** — 800-00-214-00, 24/7
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [HAZMAT Niveles de Protección — Marco Operativo](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [SCBA NFPA 1981 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
+- [SCBA MSA G1 vs Scott Air-Pak — Comparativa](/blog/scba-msag1-vs-scott-airpak/)
+- [Bomberos Monterrey — Apodaca/Santa Catarina HAZMAT](/blog/bomberos-monterrey-equipo-nfpa/)
+- [Bomberos Pachuca — Refinería Tula](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
+- [Bomberos Querétaro — Corredor Aeroespacial](/blog/bomberos-queretaro-equipo-nfpa/)
+- [Bomberos Tijuana — Maquiladoras](/blog/bomberos-tijuana-equipo-nfpa/)
+- [Extintores por Clase de Fuego](/blog/extintores-tipos-clases-fuego-mexico/)
     `,
   },
   "traje-aproximacion-calor-radiante": {
-    titulo: "Traje de Aproximación: EPP Calor Radiante ARFF",
-    excerpt: "Guía completa del traje de aproximación (proximity suit) para bomberos ARFF y operaciones con calor radiante extremo. Tecnología aluminizada, norma NFPA 1971 Chapter 8, aplicaciones aeroportuarias e industriales.",
+    titulo: "Traje de Aproximación NFPA 1971 (Proximity Suit): Tecnología Aluminizada para ARFF, Siderurgia y Calor Radiante Extremo",
+    excerpt: "Análisis técnico del traje de aproximación (proximity suit) certificado NFPA 1971 Chapter 8: tecnología aluminizada con reflexión >95% de calor radiante, aplicación en ARFF aeroportuario, plantas siderúrgicas, fundiciones y operaciones con calor radiante extremo. Diferencias con traje estructural y selección por sector.",
     imagen: "/images/trajes-para-bombero/traje-bombero-incendio-estructural-accion-01.avif",
     categoria: "Equipo",
-    tags: ["Traje de Aproximación", "ARFF", "Calor Radiante", "Proximity Suit", "Bomberos Aeroportuarios", "NFPA 1971"],
+    tags: ["Traje Aproximación", "Proximity Suit", "ARFF", "NFPA 1971", "NFPA 1976", "Siderurgia", "Aluminizado", "Calor Radiante"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Protección Térmica Avanzada",
+    autorRol: "Equipo Técnico — Protección Térmica Avanzada",
     anchorKeyword: "Traje aproximación proximity suit ARFF bomberos México",
     contenido: `
-## ¿Qué es un Traje de Aproximación y Cuándo se Necesita?
+## Traje de Aproximación (Proximity Suit): Tecnología para Calor Radiante Extremo
 
-El **traje de aproximación** (proximity suit o approach suit) es equipo de protección personal diseñado para operaciones donde el bombero debe acercarse a fuentes de **calor radiante extremo**: incendios de combustible de aviación, metales fundidos, hornos industriales y similares.
+El **traje de aproximación** —denominación operativa estadounidense: *proximity suit* o *approach suit*— es un componente especializado del EPP diseñado para operaciones donde el bombero debe **acercarse a una fuente de calor radiante extremo** sin entrar al núcleo del incendio: incendios de combustible aeronáutico Jet A, derrames de hidrocarburos refinados en patios de almacenamiento, coladas siderúrgicas, fundiciones de aluminio, magnesio y aceros especiales, y operaciones en hornos industriales. La amenaza dominante es **radiación térmica direccional** —desde 84 hasta más de 200 kW/m² en operación cercana— que el traje estructural NFPA 1971 estándar **no puede manejar** por más de segundos.
 
-A diferencia del [traje estructural NFPA 1971](/blog/traje-estructural-nfpa-1971/) que protege principalmente contra **calor convectivo** (llamas y aire caliente), el traje de aproximación incorpora una **capa exterior aluminizada** que refleja hasta el **95% del calor radiante**.
+La solución técnica es la **capa exterior aluminizada de alta reflectividad**, capaz de reflejar más del **95% de la radiación infrarroja incidente** sobre el sistema multicapa interior. La norma aplicable es **NFPA 1971 Chapter 8** (Proximity Fire Fighting) o, para aplicación específicamente aeroportuaria, **NFPA 1976** (Proximity Fire Fighting). Ambas certifican el ensemble completo —traje, capucha, guantes, botas— como sistema integrado, no componente por componente.
+
+Este análisis describe el **marco normativo NFPA 1971 Cap.8 / 1976**, la **tecnología de aluminización** (reflectividad, capas constructivas), la **comparativa frente al traje estructural** convencional, los **sectores operativos** (ARFF aeroportuario, siderurgia, petroquímica, fundición), modelos referencia disponibles en México y el **marco operativo de selección** para brigadas industriales con exposición a calor radiante.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">>95%</span>
+    <span class="stat__label">Reflexión calor radiante</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1971 Ch.8</span>
+    <span class="stat__label">Norma Proximity Fire Fighting</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">1,000–1,200 °C</span>
+    <span class="stat__label">Temperatura llama Jet A</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$80K–150K</span>
+    <span class="stat__label">Rango MXN ensemble</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/trajes-para-bombero/traje-bombero-incendio-estructural-accion-01.avif" alt="Bombero ARFF en operación con traje de aproximación aluminizado" loading="lazy" width="900" height="600" />
+  <figcaption>Traje de aproximación NFPA 1971 Cap.8 — capa exterior aluminizada con reflexión &gt;95% de radiación infrarroja. Diseñado para acercarse al foco, no para entrar a su núcleo.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Aproximación ≠ Entrada</span>
+    <p>El traje de aproximación <strong>NO está certificado para entrar al núcleo del fuego</strong>. Su función es proteger durante el ataque desde proximidad mediante monitor, lanza o aplicación de espuma. La entrada a estructura activa requiere traje NFPA 1971 estándar; la operación HAZMAT con riesgo químico requiere NFPA 1991/1992 (las funciones no son sustituibles).</p>
+  </div>
+</div>
 
 ### Traje Estructural vs Traje de Aproximación
 
@@ -3035,42 +3583,113 @@ Los trajes de aproximación son más costosos que los estructurales debido a los
 
 ---
 
-## Conclusión: Protección Especializada para Condiciones Extremas
+## Equipamiento BOMBERO MX — Trajes de Aproximación NFPA 1971 Cap.8 / NFPA 1976
 
-El traje de aproximación es equipo especializado para condiciones que exceden las capacidades del traje estructural convencional. Si tu operación involucra ARFF, metalurgia o exposición a calor radiante extremo, necesitas esta protección adicional.
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Ensemble ARFF aeroportuario</h4>
+    <p class="feature__text">Conjunto completo certificado NFPA 1976 con capa aluminizada exterior, capucha aluminizada, guantes y botas integradas.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Versión siderúrgica reforzada</h4>
+    <p class="feature__text">Configuración para coladas de acero y aluminio fundido con resistencia adicional a salpicaduras metálicas y proyección de chispa.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA compatible</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak, Dräger PSS con cilindros 45-60 min y máscara compatible con capucha aluminizada.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Documentación NFPA y aseguradora</h4>
+    <p class="feature__text">Ficha técnica del fabricante, certificación de laboratorio, declaración de conformidad y datos de reflectividad medidos.</p>
+  </div>
+</div>
 
-En **BOMBERO.MX** somos especialistas en equipar servicios ARFF y brigadas industriales con trajes de aproximación certificados.
-
-### ¿Listo para Equipar tu Operación ARFF o Industrial?
-
-- [**Ver catálogo de trajes de aproximación →**](/productos/trajes-para-bomberos/)
-- [**Solicitar cotización especializada →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="cta-box">
+  <h3>Trajes de aproximación NFPA 1971 Cap.8 para ARFF y siderurgia</h3>
+  <p>Configuraciones específicas para aeropuertos AICM/AIFA/AIQ/MTY y plantas siderúrgicas Ternium/DeAcero. Documentación auditable.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1971 Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting, Chapter 7-8, y experiencia en equipamiento de servicios ARFF en aeropuertos de México.*
+## Referencias Normativas
+
+- **NFPA 1971** — Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting (Chapter 7-8: Proximity)
+- **NFPA 1976** — Standard on Protective Ensembles for Proximity Fire Fighting
+- **NFPA 412** — Standard for Evaluating Aircraft Rescue and Fire-Fighting Foam Equipment
+- **NFPA 1003** — Standard for Airport Fire Fighter Professional Qualifications
+- **NFPA 600** — Standard on Facility Fire Brigades (aplicación industrial)
+- **ASTM F2700** — Unsteady-State Heat Transfer Evaluation of Flame Resistant Materials
+- **ICAO Annex 14** — Aerodromes (Volume I, Chapter 9, Rescue and Fire Fighting)
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [ARFF Bomberos Aeroportuarios México](/blog/arff-bomberos-aeroportuarios-mexico/)
+- [NFPA 1971: Guía Completa del Estándar](/blog/nfpa-1971-guia-completa/)
+- [Traje Estructural NFPA 1971 — Sistema 3 Capas](/blog/traje-estructural-nfpa-1971/)
+- [Bomberos Monterrey — Siderúrgico Santa Catarina](/blog/bomberos-monterrey-equipo-nfpa/)
+- [Bomberos Pachuca — Refinería Tula](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
+- [Bomberos Querétaro — Clúster Aeroespacial AIQ](/blog/bomberos-queretaro-equipo-nfpa/)
+- [SCBA NFPA 1981 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
     `,
   },
 
 
 
   "casco-estructural-nfpa-1971": {
-    titulo: "Casco Estructural NFPA 1971: Anatomía y Selección",
-    excerpt: "Guía técnica completa del casco estructural certificado NFPA 1971. Anatomía del casco (shell, suspensión, liner), comparativa de materiales termoplásticos vs composite, marcas líderes (Bullard, MSA, Cairns), y protocolo de inspección según NFPA 1851.",
+    titulo: "Casco Estructural NFPA 1971: Análisis Técnico de Anatomía, Materiales y Marcas (Bullard, Cairns/MSA)",
+    excerpt: "Análisis técnico del casco estructural NFPA 1971: anatomía (carcasa, suspensión, liner, visor, barbiquejo), comparativa termoplástico (Ultem, ABS) vs composite (fiberglass), marcas referencia Bullard UST/FXE y Cairns 1044/1010/XF1, ensayos NFPA y protocolo de inspección NFPA 1851.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-estudio-dramatico-perfil-01.avif",
     categoria: "Equipo",
-    tags: ["Casco Estructural", "NFPA 1971", "Bullard", "MSA Safety", "Cairns Helmets", "Protección Cabeza Bombero"],
+    tags: ["Casco Estructural", "NFPA 1971", "Bullard", "MSA Safety", "Cairns", "Ultem", "Fiberglass", "NFPA 1851"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP Estructural",
+    autorRol: "Equipo Técnico — EPP Estructural",
     anchorKeyword: "Casco estructural NFPA 1971 bomberos profesional México",
     contenido: `
-## El Casco Estructural: Primera Línea de Defensa del Bombero
+## Casco Estructural NFPA 1971: Anatomía Técnica y Marco de Selección
 
-El **casco estructural certificado NFPA 1971** es la pieza más icónica y crítica del equipo de protección personal de un bombero. Diseñado para proteger contra impactos de escombros, penetración de objetos punzocortantes, calor radiante extremo, agua caliente, y descarga eléctrica, el casco estructural moderno es una obra maestra de ingeniería que puede significar la diferencia entre la vida y la muerte.
+El **casco estructural NFPA 1971** es el componente del EPP que protege contra la matriz combinada de amenazas físicas y térmicas del combate interior: **impacto mecánico** (4.4 kg desde 1.83 m), **penetración por objeto punzante** (1 kg con fuerza concentrada), **calor radiante** (10 kW/m² por 60 s), **inmersión térmica** (260 °C por tiempo definido) y **descarga eléctrica accidental** (resistencia dieléctrica). La norma evalúa cada parámetro en laboratorio acreditado (UL, Intertek, SEI) y la certificación se otorga al casco completo —carcasa, suspensión, visor, barbiquejo— como ensemble.
 
-En **BOMBERO.MX** hemos equipado a cientos de departamentos de bomberos en México y conocemos en profundidad cada componente, cada marca y cada requisito que debe cumplir un casco profesional. Esta guía te proporciona todo el conocimiento técnico necesario para seleccionar, inspeccionar y mantener el casco adecuado para tu operación.
+Este análisis describe la **anatomía técnica del casco estructural**, la **comparativa de materiales** (termoplásticos de ingeniería vs compuestos de fibra de vidrio), las **marcas referencia disponibles en México** (Bullard, Cairns/MSA Safety) y el protocolo operativo de selección, inspección y retiro de servicio bajo NFPA 1851.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">4.4 kg / 1.83 m</span>
+    <span class="stat__label">Ensayo de impacto NFPA 1971</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10 kW/m²</span>
+    <span class="stat__label">Calor radiante por 60 s</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">1.15-1.47 kg</span>
+    <span class="stat__label">Rango de peso operativo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10 años</span>
+    <span class="stat__label">Vida útil máxima (NFPA 1851)</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/cascos-para-bomberos/casco-bombero-estudio-dramatico-perfil-01.avif" alt="Casco estructural NFPA 1971 — vista de perfil con visor y barbiquejo" loading="lazy" width="900" height="600" />
+  <figcaption>Casco estructural — la elección entre estilo tradicional americano (ala posterior pronunciada) y europeo (perfil bajo) tiene implicaciones operativas concretas, no solo estéticas.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Sin barbiquejo abrochado, sin casco efectivo</span>
+    <p>Un casco NFPA 1971 sin <strong>barbiquejo abrochado correctamente</strong> en operación pierde la mayor parte de su protección efectiva al desprenderse en el primer impacto significativo. El sistema de retención de cuatro puntos con ratchet es parte de la certificación, no accesorio.</p>
+  </div>
+</div>
 
 ### ¿Por Qué el Casco Estructural Requiere Certificación NFPA 1971?
 
@@ -3311,40 +3930,123 @@ El casco estructural es parte del **sistema de protección integral** que incluy
 
 ---
 
-## Conclusión: El Casco Como Inversión en Seguridad
+## Conclusión Técnica
 
-El casco estructural certificado NFPA 1971 no es un accesorio, es la pieza central de la protección del bombero. Invertir en un casco de calidad, de una marca reconocida, y mantenerlo según los protocolos NFPA 1851, es invertir directamente en la seguridad de tu personal.
+El casco estructural NFPA 1971 es **un sistema integrado, no un componente individual**. Su rendimiento depende de la combinación adecuada de carcasa (material y geometría), suspensión (ajuste y absorción de impacto), visor (alcance y resistencia), barbiquejo (sistema de retención) y compatibilidad con capucha y máscara SCBA. La selección por precio aislado ignora variables que se manifiestan en operación real.
 
-En **BOMBERO.MX** trabajamos con todas las marcas líderes (Bullard, MSA Cairns, Lion) y ofrecemos asesoría técnica sin costo para ayudarte a seleccionar el casco correcto según tu operación, presupuesto y requisitos.
+**BOMBERO MX** distribuye **Bullard (UST, FXE, TrakLite), Cairns/MSA (1044, 1010, XF1)** y modelos europeos, con asesoría imparcial según operación, presupuesto y compatibilidad con el resto del EPP existente. Refacciones originales disponibles para extender vida útil al máximo permitido por NFPA 1851.
 
-### ¿Listo para Equipar a tu Departamento?
-
-- [**Ver catálogo de cascos estructurales →**](/productos/cascos-para-bomberos/)
-- [**Solicitar cotización personalizada →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="cta-box">
+  <h3>Cascos NFPA 1971 con refacciones originales</h3>
+  <p>Bullard, Cairns/MSA, modelos europeos. Suspensiones, visores, bandas y accesorios disponibles. Documentación auditable y plantilla de tallas individual.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/cascos-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1971 Standard on Protective Ensembles for Structural Fire Fighting (2018 Edition), NFPA 1851 Standard on Selection, Care, and Maintenance of Protective Ensembles, y más de 15 años de experiencia equipando departamentos de bomberos en México.*
+## Referencias Normativas
+
+- **NFPA 1971** — Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting (sección 6.4)
+- **NFPA 1851** — Selection, Care, and Maintenance of Protective Ensembles
+- **ANSI Z89.1** — Industrial Head Protection (referencia complementaria de impacto)
+- **ASTM F2412 / F2413** — Resistencia eléctrica y aislamiento
+- **EN 443** — Helmets for Fire Fighting (estándar europeo equivalente)
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Cascos para Bombero — Tipos NFPA](/blog/cascos-bombero-tipos/)
+- [Bullard vs Cairns — Comparativa Detallada](/blog/casco-bombero-bullard-vs-cairns/)
+- [NFPA 1971: Guía Completa del Estándar](/blog/nfpa-1971-guia-completa/)
+- [Capuchas Monjas NFPA](/blog/capuchas-monjas-bombero-nfpa-guia/)
+- [Protección Visual / Goggles](/blog/gafas-proteccion-visual-bomberos-nfpa/)
+- [Mantenimiento NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Catálogo de cascos](/productos/cascos-para-bomberos/)
     `,
   },
 
   "casco-forestal-nfpa-1977": {
-    titulo: "Casco Forestal NFPA 1977: Guía Técnica Completa",
-    excerpt: "Guía profesional del casco forestal certificado NFPA 1977. Diferencias vs casco estructural, requisitos de certificación, materiales (policarbonato, composite), marcas especializadas (Bullard, MSA, Kask), y uso correcto en operaciones forestales.",
+    titulo: "Casco Forestal NFPA 1977: Análisis Técnico de Materiales, Ergonomía y Aplicación en Brigadas CONAFOR",
+    excerpt: "Análisis técnico del casco forestal NFPA 1977 (edición 2022): comparativa frente al casco estructural NFPA 1971, ensayos de rendimiento, materiales termoplásticos vs composite, modelos Bullard Wildfire, Cairns N5A, Kask Zenith Air, ergonomía para jornadas prolongadas y aplicación operativa en brigadas CONAFOR y estatales mexicanas.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-forestal-nfpa-1977-02.avif",
     categoria: "Equipo",
-    tags: ["Casco Forestal", "NFPA 1977", "Incendios Forestales", "Wildland Firefighting", "Protección Bombero Forestal", "CONAFOR"],
+    tags: ["Casco Forestal", "NFPA 1977", "CONAFOR", "Wildland Firefighting", "Bullard Wildfire", "Cairns N5A", "Kask Zenith"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP Forestal",
+    autorRol: "Equipo Técnico — Línea Forestal",
     anchorKeyword: "Casco forestal NFPA 1977 bomberos incendios vegetación México",
     contenido: `
-## El Casco Forestal: Protección Especializada para Terreno Abierto
+## Casco Forestal NFPA 1977: Marco Técnico para Operación Wildland
 
-El **casco forestal certificado NFPA 1977** es un equipo de protección especializado, diseñado específicamente para las condiciones únicas del combate de incendios de vegetación, wildland firefighting y operaciones en línea de fuego. A diferencia del casco estructural, el casco forestal prioriza la **ligereza**, **ventilación** y **campo de visión** para operaciones prolongadas en terreno irregular bajo condiciones de calor extremo pero sin exposición directa a flashover.
+El combate de incendio forestal opera bajo un **perfil termodinámico fundamentalmente distinto** al combate estructural. La amenaza dominante no es el calor convectivo de aire caliente en compartimento cerrado, sino el **calor radiante del frente de fuego activo** combinado con el **estrés fisiológico de jornadas prolongadas** (8 a 16 horas, ocasionalmente más en operaciones extendidas) en terreno irregular bajo carga física constante. Estas variables condicionan integralmente el diseño del EPP: la **NFPA 1977** (*Standard on Protective Clothing and Equipment for Wildland Fire Fighting*, edición 2022) codifica los requisitos específicos del ensemble forestal, incluido el casco.
 
-En **BOMBERO.MX** equipamos a brigadas forestales de CONAFOR, protección civil estatal, y equipos especializados con cascos forestales certificados de las mejores marcas. Esta guía te proporciona el conocimiento técnico necesario para seleccionar el casco correcto para operaciones forestales.
+Un casco forestal NFPA 1977 **pesa típicamente la mitad** de su contraparte estructural (400-700 g vs 1,000-1,400 g), proporciona **mayor ventilación** mediante orificios y separaciones diseñadas para disipar calor corporal, ofrece **mayor campo visual** sin sacrificar protección frontal, y **no incluye** los componentes que añaden masa y aislamiento al casco estructural —barreras térmicas reforzadas, sellados convectivos, faceshield de policarbonato de alta temperatura— porque esas mismas características incrementarían el riesgo de golpe de calor en operación prolongada al aire libre.
+
+Este análisis describe el **marco normativo NFPA 1977**, los **ensayos de rendimiento** que validan cada parámetro, los **materiales constructivos** (termoplástico ABS vs compuestos), los **modelos referencia disponibles en México** (Bullard Wildfire, Cairns N5A, Kask Zenith Air) y las **directrices operativas de selección, mantenimiento y vida útil** aplicables a brigadas CONAFOR, comisiones forestales estatales y empresas privadas con riesgo wildland.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">400-700 g</span>
+    <span class="stat__label">Rango de peso operativo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">4.5 kW/m²</span>
+    <span class="stat__label">Calor radiante (60 s)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">8-16 h</span>
+    <span class="stat__label">Jornada típica forestal</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1977</span>
+    <span class="stat__label">Edición 2022 vigente</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/cascos-para-bomberos/casco-bombero-forestal-nfpa-1977-02.avif" alt="Casco forestal NFPA 1977 con barbiquejo y orificios de ventilación" loading="lazy" width="900" height="600" />
+  <figcaption>Casco forestal NFPA 1977 — perfil aerodinámico, ventilación activa y peso reducido. Diseñado para jornadas prolongadas en terreno expuesto bajo carga física constante.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">No-intercambiabilidad estructural ↔ forestal</span>
+    <p>Un casco NFPA 1977 <strong>no protege adecuadamente en combate estructural</strong>: la resistencia térmica y al impacto es menor que la requerida por NFPA 1971. Inversamente, un casco estructural NFPA 1971 utilizado en operación forestal prolongada genera <strong>fatiga térmica acumulada</strong> que es causa documentada de golpe de calor (NIOSH Wildland Fire Fighter Fatalities Reports). Una brigada que atiende ambos perfiles necesita inventario diferenciado de ambas categorías; no existe "casco multipropósito" certificado para los dos.</p>
+  </div>
+</div>
+
+## Perfil Termodinámico del Incendio Forestal vs Estructural
+
+La elección del casco se justifica por la **diferencia operativa entre ambos perfiles térmicos**:
+
+| Variable | Combate Estructural (NFPA 1971) | Combate Forestal (NFPA 1977) |
+|----------|----------------------------------|-------------------------------|
+| **Mecanismo térmico dominante** | Calor convectivo (aire caliente en compartimento cerrado) | Calor radiante (frente de fuego, sin compartimento) |
+| **Temperatura ambiente típica** | 200-1,000+ °C con flashover potencial | 30-50 °C ambiente + radiación direccional del fuego |
+| **Duración de exposición** | Minutos por ciclo (rotación frecuente) | Horas continuas en línea de fuego |
+| **Esfuerzo físico** | Alto, intermitente | Alto, sostenido (caminar, herramientas manuales) |
+| **Variable limitante** | Quemadura térmica | Golpe de calor / deshidratación |
+| **Riesgo de impacto** | Escombros, colapso estructural | Ramas, rocas, caídas en terreno |
+| **Accesibilidad** | Vehículo a metros | A pie, kilómetros caminados |
+
+Este contraste explica por qué **NFPA 1977 reduce intencionalmente la protección térmica máxima** (4.5 kW/m² por 60 s contra 10+ kW/m² del NFPA 1971) para permitir la **disipación de calor corporal** que la jornada prolongada exige. Reducir TPP no es debilitar el casco: es optimizar el diseño para el riesgo dominante real del operador.
+
+## ¿Por Qué el Casco Forestal es Diferente del Estructural?
+
+| Característica | Casco Estructural NFPA 1971 | Casco Forestal NFPA 1977 |
+|----------------|----------------------------|--------------------------|
+| **Peso típico** | 1,000-1,400 g | 400-700 g |
+| **Ventilación** | Mínima (sellado térmico) | Máxima (múltiples vents) |
+| **Resistencia térmica** | 10+ kW/m² por 60 seg | 4.5 kW/m² por 60 seg |
+| **Duración de uso** | Turnos cortos (< 2 hrs) | Jornadas largas (8-16 hrs) |
+| **Entorno** | Interior de edificaciones | Exterior, terreno abierto |
+| **Ear protection** | Nomex® con barrera térmica | Cubre-nuca ligero opcional |
+| **Faceshield** | Policarbonato de alta temp. | Malla metálica o policarbonato |
 
 ### ¿Por Qué el Casco Forestal es Diferente del Estructural?
 
@@ -3617,42 +4319,165 @@ El casco es parte del **sistema de protección personal forestal** que incluye:
 
 ---
 
-## Conclusión: Ligereza y Protección para Jornadas Largas
+## Modelos Referencia Disponibles en México
 
-El casco forestal certificado NFPA 1977 está diseñado para las demandas únicas del combate de incendios de vegetación: jornadas largas, terreno difícil, calor ambiental extremo, y necesidad de máxima movilidad. Un casco bien seleccionado, de marca reconocida, y correctamente mantenido, permite al brigadista operar de forma segura durante las horas críticas de la temporada de estiaje.
+### Bullard Wildfire — Estándar Americano Wildland
 
-En **BOMBERO.MX** somos distribuidores autorizados de las principales marcas de cascos forestales y ofrecemos asesoría técnica especializada para brigadas CONAFOR, protección civil y empresas con riesgo de incendio forestal.
+- **Carcasa**: termoplástico ABS de alta resistencia
+- **Peso**: ~510 g sin accesorios
+- **Suspensión**: 4 puntos con ratchet
+- **Barbiquejo**: certificado retención NFPA 1977
+- **Aplicación primaria**: brigadas CONAFOR, comisiones forestales estatales
+- **Ventaja**: refacciones disponibles vía red Bullard México (compartida con UST)
+- **Disponibilidad MX**: alta, vía distribuidores autorizados
 
-### ¿Equipando tu Brigada para la Temporada de Incendios?
+### Cairns N5A — Modelo MSA para Wildland
 
-- [**Ver catálogo de cascos forestales →**](/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/)
-- [**Solicitar cotización para brigadas →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+- **Carcasa**: termoplástico de ingeniería
+- **Peso**: ~590 g
+- **Suspensión**: 4 puntos
+- **Característica diferencial**: faceshield de malla metálica integrado (clásico forestal americano)
+- **Aplicación primaria**: cuerpos municipales con operación mixta estructural/forestal que ya operan Cairns
+- **Disponibilidad MX**: media, vía MSA México
+
+### Kask Zenith Air — Estándar Europeo de Trabajo en Altura Adaptado
+
+- **Carcasa**: ABS con ventilación activa
+- **Peso**: ~390 g
+- **Suspensión**: ajustable con perilla de rotación
+- **Característica diferencial**: certificación dual NFPA 1977 + EN 12492 (trabajo en altura)
+- **Aplicación primaria**: brigadas que combinan rescate técnico vertical con operación forestal
+- **Disponibilidad MX**: media, vía distribuidores especializados
+
+## Marco Operativo Mexicano: Aplicación con CONAFOR y Comisiones Estatales
+
+### Programa PROCOREF de CONAFOR
+
+Las **brigadas PROCOREF** (Programa de Combate de Incendios Forestales) de la **Comisión Nacional Forestal** operan con dotación de EPP NFPA 1977 financiada vía presupuesto federal o convenios estatales. Para licitaciones de adquisición o renovación de inventario, la documentación debe incluir certificación NFPA 1977 vigente, ficha técnica del fabricante, carta de distribuidor autorizado y reporte de laboratorio acreditado (UL, Intertek, SEI).
+
+### Estados con Mayor Incidencia Forestal
+
+Los estados que históricamente concentran más del 60% de la superficie quemada anual —**Estado de México, Michoacán, Jalisco, Chihuahua y Oaxaca**— mantienen dotaciones permanentes de EPP NFPA 1977. Para temporadas con proyección climática severa, la **reposición debe anticiparse a enero**, no marzo, dado los tiempos de fabricación y entrega de pedidos especiales (típicamente 6-12 semanas para tallas específicas).
+
+## Mantenimiento y Vida Útil
+
+NFPA 1977 establece **5 años de vida útil máxima desde fabricación** para el casco forestal (más corta que los 10 años del NFPA 1971 estructural, por la mayor exposición UV y abrasión del entorno wildland). La inspección visual debe ser previa a cada despliegue operativo, con criterios de retiro inmediato ante:
+
+- **Fisuras visibles** en la carcasa
+- **Decoloración por UV** que evidencia degradación del polímero
+- **Suspensión con bandas elongadas** o ratchet sin retención
+- **Faceshield rayado** que comprometa visibilidad
+- **Barbiquejo con costuras abiertas** o herrajes corroídos
+- **Cualquier impacto significativo documentado** (sustitución sin importar antigüedad)
+
+## Equipamiento BOMBERO MX — Línea Forestal NFPA 1977
+
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Cascos NFPA 1977 certificados</h4>
+    <p class="feature__text">Bullard Wildfire, Cairns N5A, Kask Zenith Air con disponibilidad en CDMX y documentación NFPA vigente.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">EPP forestal completo</h4>
+    <p class="feature__text">Trajes (chaqueta + pantalón), guantes Nomex, botas con suela Vibram y gafas balísticas Z87.1+ — sistema integrado bajo NFPA 1977.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Fire shelter NWCG PMS 461</h4>
+    <p class="feature__text">Cobertor de emergencia M-2002 para brigadas CONAFOR — obligatorio en operación PROCOREF.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Documentación para licitación</h4>
+    <p class="feature__text">Ficha técnica, certificación NFPA, carta de distribuidor autorizado y declaración de conformidad listos para CONAFOR y dependencias estatales.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>Cascos forestales NFPA 1977 para brigadas CONAFOR y estatales</h3>
+  <p>Bullard Wildfire, Cairns N5A, Kask Zenith Air. Documentación lista para licitación · Inventario para temporada · Entrega 24-72h</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/cascos-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1977 Standard on Protective Clothing and Equipment for Wildland Fire Fighting (2022 Edition), protocolos CONAFOR, y experiencia equipando brigadas forestales en México.*
+## Referencias Normativas
+
+- **NFPA 1977** — Standard on Protective Clothing and Equipment for Wildland Fire Fighting (edición 2022)
+- **NFPA 1140** — Standard for Wildland Fire Protection (administración de programas)
+- **NWCG PMS 410-1** — Wildland Fire Incident Management Field Guide
+- **NWCG PMS 461** — Standards for Fire Shelters (cobertor M-2002)
+- **EN 12492** — Mountaineering Helmets (referencia para modelos con certificación dual)
+- **ANSI Z89.1** — Industrial Head Protection (referencia complementaria de impacto)
+- **CONAFOR / PROCOREF** — Programa de Combate de Incendios Forestales (marco operativo mexicano)
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Incendios Forestales en México — Temporada 2026](/blog/incendios-forestales-mexico-temporada-2026/)
+- [Cascos para Bombero — Tipos NFPA](/blog/cascos-bombero-tipos/)
+- [Cascos Bullard vs Cairns — Comparativa](/blog/casco-bombero-bullard-vs-cairns/)
+- [Bomberos Guadalajara — Bosque La Primavera](/blog/bomberos-guadalajara-equipo-nfpa/)
+- [Bomberos Puebla — Faldas del Popocatépetl](/blog/bomberos-puebla-equipo-nfpa/)
+- [Bomberos Tijuana — Vientos Santa Ana](/blog/bomberos-tijuana-equipo-nfpa/)
+- [Botas para Bomberos NFPA](/blog/botas-para-bomberos-guia-nfpa/)
+- [Protección Visual / Goggles balísticas](/blog/gafas-proteccion-visual-bomberos-nfpa/)
+- [Catálogo de cascos](/productos/cascos-para-bomberos/)
     `,
   },
 
   "casco-rescate-nfpa-1951": {
-    titulo: "Casco Rescate NFPA 1951: Guía TRT y USAR",
-    excerpt: "Guía técnica completa del casco de rescate certificado NFPA 1951 para operaciones TRT, USAR, rescate en alturas, vehicular y colapso estructural. Comparativa con cascos estructurales, marcas especializadas (Petzl, Team Wendy, CMC), y certificaciones complementarias.",
+    titulo: "Casco Rescate Técnico NFPA 1951: Especialización para USAR, TRT, Rescate Vertical y Operaciones Especiales",
+    excerpt: "Análisis técnico del casco de rescate NFPA 1951 (edición 2020): aplicación en USAR (Urban Search and Rescue), TRT (Technical Rescue Team), rescate vertical, vehicular, espacios confinados. Comparativa Petzl Vertex Vent, Team Wendy EXFIL Rescue, CMC Cascade, Kask Plasma — certificaciones complementarias EN 12492 y aplicación con protocolos INSARAG.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-rescate-tecnico-01.avif",
     categoria: "Equipo",
-    tags: ["Casco Rescate", "NFPA 1951", "Rescate Técnico", "USAR", "TRT", "Petzl", "Team Wendy", "Rescate Alturas"],
+    tags: ["Casco Rescate", "NFPA 1951", "USAR", "TRT", "Petzl Vertex", "Team Wendy", "CMC", "INSARAG"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Rescate Técnico",
+    autorRol: "Equipo Técnico — Rescate Especializado",
     anchorKeyword: "Casco rescate técnico NFPA 1951 USAR TRT bomberos México",
     contenido: `
-## El Casco de Rescate Técnico: Versatilidad para Operaciones Especiales
+## Casco de Rescate Técnico NFPA 1951: Marco Operativo Especializado
 
-El **casco de rescate técnico certificado NFPA 1951** (Standard on Protective Ensembles for Technical Rescue Incidents) representa un equilibrio especializado entre protección, ligereza, y compatibilidad con los equipos utilizados en operaciones de rescate técnico: alturas, espacios confinados, rescate vehicular, USAR (Urban Search and Rescue), rescate acuático, y operaciones especiales.
+El **casco de rescate técnico certificado NFPA 1951** (*Standard on Protective Ensembles for Technical Rescue Incidents*, edición 2020) cubre un perfil operativo **estructuralmente distinto al combate de incendios**: operaciones de USAR (Urban Search and Rescue), TRT (Technical Rescue Team), rescate vertical en estructura o terreno natural, rescate vehicular complejo, espacios confinados y operaciones especiales en ambientes sin exposición directa a llama. La amenaza dominante no es térmica —es **mecánica e ergonómica**: impacto por escombro o herramienta, jornada extendida en posición forzada, compatibilidad con sistemas de ascenso/descenso, comunicaciones constantes con sistemas radio bajo casco.
 
-A diferencia del casco estructural (diseñado para entornos de fuego activo) o el casco forestal (optimizado para terreno abierto), el casco de rescate técnico prioriza la **compatibilidad con sistemas de ascenso/descenso**, **visión periférica**, **comunicaciones**, y **uso prolongado** en condiciones que no involucran exposición directa a llamas.
+Esta especialización se traduce en un diseño que **diverge intencionalmente** del casco estructural NFPA 1971: perfil compacto y aerodinámico para espacios confinados, sistema de retención reforzado para resistir tirones laterales durante descenso, compatibilidad con auriculares de comunicación, ventilación activa para jornadas prolongadas, y peso reducido (típicamente **450-650 g** vs 1,000-1,500 g del estructural). La contrapartida normativa: **NFPA 1951 no certifica protección contra calor de incendio activo**; un equipo que combina rescate técnico con respuesta de incendio requiere **dos cascos independientes** o un modelo con **certificación dual** documentada.
 
-En **BOMBERO.MX** equipamos equipos de rescate técnico en toda la República con cascos especializados de las mejores marcas mundiales. Esta guía proporciona el conocimiento necesario para seleccionar el casco correcto según tu tipo de operación.
+Este análisis describe el **marco normativo NFPA 1951**, los **escenarios operativos típicos** (USAR / TRT / vertical / vehicular / acuático), los **modelos referencia internacionales** (Petzl Vertex Vent, Team Wendy EXFIL Rescue, CMC Cascade, Kask Plasma), las **certificaciones complementarias** (EN 12492 trabajo en altura, EN 397 industrial) y la **aplicación con protocolos INSARAG** para equipos USAR mexicanos.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1951</span>
+    <span class="stat__label">Edición 2020 vigente</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">450-650 g</span>
+    <span class="stat__label">Peso operativo típico</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">EN 12492</span>
+    <span class="stat__label">Certificación complementaria altura</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">INSARAG</span>
+    <span class="stat__label">Protocolo internacional USAR</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/cascos-para-bomberos/casco-bombero-rescate-tecnico-01.avif" alt="Casco de rescate técnico NFPA 1951 con perfil compacto y sistema de retención reforzado" loading="lazy" width="900" height="600" />
+  <figcaption>Casco rescate técnico NFPA 1951 — perfil compacto, retención reforzada y compatibilidad con sistemas de comunicación. No sustituye al estructural en operación de incendio activo.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Sin certificación NFPA 1971, no apto para incendio</span>
+    <p>Un casco NFPA 1951 <strong>no protege contra flashover, calor radiante prolongado o exposición convectiva</strong> propios del combate de incendio estructural. Si tu cuerpo combina rescate técnico con respuesta a incendio, necesitas <strong>dos cascos independientes</strong> o un modelo con certificación dual NFPA 1971/1951 documentada en etiqueta interior.</p>
+  </div>
+</div>
 
 ### ¿Por Qué el Rescate Técnico Requiere un Casco Especializado?
 
@@ -4014,22 +4839,71 @@ El casco es parte del **sistema de protección personal para rescate técnico**:
 
 ---
 
-## Conclusión: El Casco Adecuado para Cada Misión
+## Equipamiento BOMBERO MX — Cascos NFPA 1951 y Sistema Vertical Completo
 
-El casco de rescate técnico NFPA 1951 es una herramienta especializada para operaciones que van más allá del combate de incendios tradicional. Seleccionar el casco correcto según tu tipo de rescate, ambiente de operación, y compatibilidad con equipo existente, es fundamental para la seguridad y eficacia de tu equipo.
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Petzl Vertex Vent</h4>
+    <p class="feature__text">Referencia europea en rescate vertical. Certificación dual EN 12492 + NFPA 1951. Ventilación regulable y compatibilidad con lámpara frontal.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Team Wendy EXFIL Rescue</h4>
+    <p class="feature__text">Diseño táctico americano. Compatible con accesorios modulares (faceshield, lámpara, comunicaciones) y sistema de retención EXFIL.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">CMC Cascade</h4>
+    <p class="feature__text">Especialización USAR / TRT. Carcasa ABS reforzada, sistema de retención de 6 puntos, certificación NFPA 1951 vigente.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Kask Plasma AQ</h4>
+    <p class="feature__text">Versatilidad vertical + estructural ligero. Certificación EN 12492 y compatibilidad con protección auditiva integrada.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Equipo NFPA 1983 vertical</h4>
+    <p class="feature__text">Arneses, cuerdas estáticas, descensores y poleas para sistema completo de rescate vertical bajo NFPA 1983.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Capacitación INSARAG</h4>
+    <p class="feature__text">Coordinación con instructores certificados para equipos USAR que buscan calificación INSARAG (Light/Medium/Heavy).</p>
+  </div>
+</div>
 
-En **BOMBERO.MX** somos especialistas en equipar equipos de rescate técnico con cascos de las mejores marcas mundiales (Petzl, Team Wendy, CMC, Kask) y ofrecemos asesoría técnica sin costo para configurar el sistema de protección adecuado para tu especialidad.
-
-### ¿Equipando tu Equipo de Rescate Técnico?
-
-- [**Ver catálogo de cascos de rescate →**](/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/)
-- [**Solicitar cotización para equipos TRT →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+<div class="cta-box">
+  <h3>Cascos NFPA 1951 y sistema de rescate vertical completo</h3>
+  <p>Petzl, Team Wendy, CMC, Kask. Asesoría técnica imparcial · Refacciones y accesorios · Coordinación con capacitación INSARAG</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/cascos-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1951 Standard on Protective Ensembles for Technical Rescue Incidents (2020 Edition), protocolos INSARAG, y experiencia equipando equipos USAR y TRT en México.*
+## Referencias Normativas
+
+- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents (edición 2020)
+- **NFPA 1983** — Standard on Life Safety Rope and Equipment for Emergency Services
+- **NFPA 1670** — Standard on Operations and Training for Technical Search and Rescue Incidents
+- **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications
+- **EN 12492** — Mountaineering Helmets (certificación complementaria para trabajo en altura)
+- **EN 397** — Industrial Safety Helmets (referencia industrial)
+- **INSARAG Guidelines** — International Search and Rescue Advisory Group (clasificación Light/Medium/Heavy)
+- **ANSI Z89.1** — Industrial Head Protection
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Cascos para Bombero — Tipos NFPA](/blog/cascos-bombero-tipos/)
+- [Cascos Bullard vs Cairns — Comparativa Estructural](/blog/casco-bombero-bullard-vs-cairns/)
+- [Casco Estructural NFPA 1971](/blog/casco-estructural-nfpa-1971/)
+- [Casco Forestal NFPA 1977](/blog/casco-forestal-nfpa-1977/)
+- [Extricación Vehicular Jaws of Life](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [Bomberos CDMX — Edificios Altos](/blog/bomberos-cdmx-equipo-nfpa/)
+- [Bomberos Guadalajara — Operación Vertical](/blog/bomberos-guadalajara-equipo-nfpa/)
+- [Mantenimiento NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Catálogo de cascos](/productos/cascos-para-bomberos/)
     `,
   },
 
@@ -5976,18 +6850,47 @@ Este artículo técnico ha sido preparado por el **Departamento de Ingeniería d
     `,
   },
   "meseci-equipos-contra-incendio-mexico": {
-    titulo: "MESECI: Sistemas Contra Incendio en México",
-    excerpt: "MESECI, fundada en 2008, ofrece Servicio Integral 360° con sucursales en CDMX y Edomex: extintores, rociadores ESFR, detectores y EPP NFPA.",
+    titulo: "MESECI: Sistemas Contra Incendio en México — Análisis del Modelo Servicio Integral 360°",
+    excerpt: "Análisis del modelo Servicio Integral 360° de MESECI: análisis de riesgo, ingeniería de diseño, instalación y mantenimiento NOM-002-STPS / NFPA. Trayectoria de 16+ años en CDMX y Edomex, líneas de producto y complementariedad con EPP NFPA personal de BOMBERO MX.",
     imagen: "/images/directorio/estacion-bomberos-moderna-01.avif",
     categoria: "Industrial",
-    tags: ["MESECI México", "Extintores CDMX", "Sistemas Rociadores ESFR", "Traje Bombero SKÖLD HERÖ", "NOM-002-STPS", "Servicio Integral 360"],
+    tags: ["MESECI", "Servicio Integral 360", "Sistemas Rociadores ESFR", "NOM-002-STPS", "NFPA 13", "NFPA 25", "Tlalnepantla", "CDMX"],
     autor: "Redacción BOMBERO.MX",
-    autorRol: "Análisis del Sector de Protección Contra Incendio",
+    autorRol: "Análisis Editorial — Mercado Mexicano",
     anchorKeyword: "MESECI empresa mexicana sistemas contra incendio extintores rociadores",
     contenido: `
-## MESECI: La Referencia Mexicana en Protección Contra Incendio
+## MESECI: Modelo Operativo de Servicio Integral en Protección Contra Incendio
 
-Desde **2008**, MESECI ha construido una trayectoria de **más de 16 años** en el sector de protección contra incendio en México. Lo que comenzó como un equipo pequeño identificando carencias en la industria, se ha convertido en una de las empresas más confiables del país, con presencia en la **Ciudad de México** y el **Estado de México**.
+**MESECI** opera en el sector mexicano de protección contra incendio desde **2008**, con **trayectoria de 16+ años** y dos sucursales operativas en **Ciudad de México** y **Tlalnepantla (Estado de México)**. Su modelo de negocio —denominado **Servicio Integral 360°**— estructura la relación con el cliente en cuatro etapas secuenciales: análisis de riesgo, ingeniería de diseño, instalación profesional y mantenimiento proactivo bajo NOM-002-STPS y NFPA aplicable.
+
+Este análisis describe el modelo MESECI como caso operativo del segmento de **instaladores certificados con catálogo propio**, complementario tanto a distribuidores especializados (Gama de México, PROYECTO RED) como al suministro de EPP NFPA personal que BOMBERO MX provee a las brigadas internas resultantes del proyecto.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">2008</span>
+    <span class="stat__label">Año de fundación</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">16+</span>
+    <span class="stat__label">Años de trayectoria</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">2</span>
+    <span class="stat__label">Sucursales (CDMX + Edomex)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">360°</span>
+    <span class="stat__label">Modelo Servicio Integral</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Modelo complementario, no competidor</span>
+    <p><strong>MESECI</strong> opera como instalador-integrador con catálogo propio para sistemas fijos. <strong>BOMBERO MX</strong> opera como distribuidor especializado de <strong>EPP NFPA personal</strong> (trajes, SCBA, cascos, capuchas, herramientas) para las brigadas operativas internas. Un proyecto integral típicamente requiere ambas líneas.</p>
+  </div>
+</div>
 
 > *"Apaga el peligro, enciende la seguridad."* — Lema MESECI
 
@@ -6419,31 +7322,88 @@ Para equipamiento de protección personal con certificación NFPA:
 | **Catálogo completo** | [Ver productos →](/productos) |
 
 
-### Artículos Relacionados
+## Conclusión
 
-- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio/)
-- [**MANEXT: 80 Años de Excelencia en Extintores →**](/blog/manext-mantenimiento-extintores-cdmx/)
-- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
-- [**Traje Estructural NFPA 1971: Guía Definitiva →**](/blog/traje-estructural-nfpa-1971/)
+El modelo de **Servicio Integral 360°** que opera MESECI responde a una necesidad operativa real del mercado mexicano: integrar bajo un mismo proveedor el ciclo de análisis-diseño-instalación-mantenimiento de sistemas fijos contra incendio, con responsabilidad técnica compartida y documentación continua. Esto reduce la fricción administrativa y elimina las zonas grises de responsabilidad típicas de proyectos con múltiples proveedores fragmentados.
+
+Para el componente complementario —**EPP NFPA personal de las brigadas operativas internas** que el sistema fijo presupone como capa de respuesta humana—, **BOMBERO MX** opera el catálogo equivalente con documentación auditable.
+
+<div class="cta-box">
+  <h3>EPP NFPA para brigadas internas — complemento al sistema fijo</h3>
+  <p>Trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas, herramientas. Documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Este publireportaje fue elaborado por la Redacción de BOMBERO.MX con información verificada del sitio oficial meseci.com.mx (febrero 2026). MESECI es una empresa mexicana fundada en 2008 con más de 16 años de experiencia en el sector de protección contra incendio. Para cotizaciones de sistemas contra incendio, contactar directamente a MESECI. Para EPP certificado NFPA, contactar a BOMBERO.MX.*
+## Referencias Normativas
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+- **NOM-154-SCFI-2005** — Extintores contra incendio – Servicio de mantenimiento y recarga
+- **NFPA 10** — Standard for Portable Fire Extinguishers
+- **NFPA 13** — Standard for the Installation of Sprinkler Systems
+- **NFPA 25** — Inspection, Testing, and Maintenance of Water-Based Fire Protection Systems
+- **NFPA 72** — National Fire Alarm and Signaling Code
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Gama de México — Aliado Industrial](/blog/gama-de-mexico-aliado-industria-mexicana/)
+- [PROYECTO RED — Plataforma de Proveedores](/blog/proyecto-red-plataforma-equipos-contra-incendio/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [Extintores por Clase de Fuego](/blog/extintores-tipos-clases-fuego-mexico/)
+- [HAZMAT NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Bomberos CDMX — Equipo NFPA](/blog/bomberos-cdmx-equipo-nfpa/)
     `,
   },
   "manext-mantenimiento-extintores-cdmx": {
-    titulo: "MANEXT: Extintores y Mantenimiento en CDMX",
-    excerpt: "MANEXT protege CDMX desde 1943 con venta, mantenimiento, recarga y prueba hidrostática de extintores, además de capacitación DC-3 y NOM-154-SCFI.",
+    titulo: "MANEXT: Mantenimiento de Extintores en CDMX — Análisis de 80+ Años de Operación bajo NOM-154-SCFI",
+    excerpt: "Análisis del modelo operativo de MANEXT como unidad de verificación autorizada NOM-154-SCFI en CDMX. Trayectoria de 80+ años (fundada 1943), tercera generación familiar, 15,000+ clientes, capacitación DC-3, prueba hidrostática y complementariedad con EPP NFPA personal de BOMBERO MX.",
     imagen: "/images/directorio/bombero-mexicano-retrato-incendio-01.avif",
     categoria: "Industrial",
-    tags: ["MANEXT Extintores", "Mantenimiento Extintores CDMX", "Recarga Extintores México", "NOM-154-SCFI", "Capacitación Brigadas DC-3", "Prueba Hidrostática"],
+    tags: ["MANEXT", "NOM-154-SCFI", "Mantenimiento Extintores", "Capacitación DC-3", "Prueba Hidrostática", "Unidad de Verificación", "CDMX"],
     autor: "Redacción BOMBERO.MX",
-    autorRol: "Análisis del Sector de Protección Contra Incendio",
+    autorRol: "Análisis Editorial — Mercado Mexicano",
     anchorKeyword: "MANEXT mantenimiento extintores CDMX recarga venta certificación NOM",
     contenido: `
-## MANEXT: Ocho Décadas Protegiendo México
+## MANEXT: Modelo Operativo de Unidad de Verificación NOM-154-SCFI en CDMX
 
-En el competitivo sector de la protección contra incendio en México, pocas empresas pueden presumir una trayectoria de **más de 80 años** de servicio ininterrumpido. **MANEXT** (Mantenimiento de Extintores) es una de ellas: fundada en **1943** por **Esteban García Martínez**, esta empresa familiar ha evolucionado a través de tres generaciones para convertirse en uno de los referentes más confiables de la Ciudad de México y área metropolitana.
+El mantenimiento de extintores en México está sujeto a un marco normativo específico —**NOM-154-SCFI-2005**— que exige que el servicio de mantenimiento, recarga y prueba hidrostática sea realizado por **unidades de verificación acreditadas y autorizadas**, no por talleres genéricos. Esta distinción regulatoria condiciona la validez de la documentación que protección civil, STPS y aseguradoras revisan en auditoría.
+
+**MANEXT** (Mantenimiento de Extintores) opera en este segmento desde **1943**, con **trayectoria de 80+ años**, tres generaciones familiares activas y reconocimiento como **unidad de verificación autorizada bajo NOM-154-SCFI**. Su base operativa cubre Ciudad de México y la Zona Metropolitana del Valle de México con catálogo completo de extintores certificados, capacitación de brigadas conforme **DC-3 de la STPS** y servicios complementarios de prueba hidrostática.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">1943</span>
+    <span class="stat__label">Año de fundación</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">80+</span>
+    <span class="stat__label">Años de trayectoria</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">15,000+</span>
+    <span class="stat__label">Clientes atendidos</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NOM-154-SCFI</span>
+    <span class="stat__label">Unidad de verificación</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Cobertura complementaria</span>
+    <p><strong>MANEXT</strong> opera la línea de <strong>extintores portátiles y rodantes</strong> con servicio de mantenimiento NOM-154-SCFI y capacitación STC DC-3. <strong>BOMBERO MX</strong> opera la línea complementaria de <strong>EPP NFPA personal</strong> para bomberos y brigadistas (trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas, herramientas). Una instalación industrial completa típicamente integra ambas líneas bajo NOM-002-STPS-2010.</p>
+  </div>
+</div>
 
 > *"No solo vendemos extintores, protegemos lo que más importa: vidas y patrimonio."*
 
@@ -6838,16 +7798,59 @@ Para equipamiento de protección personal con certificación NFPA:
 | **Catálogo completo** | [Ver productos →](/productos) |
 
 
-### Artículos Relacionados
+## EPP NFPA para Brigadas Internas — Complemento a Extintores MANEXT
 
-- [**Venta de Extintores Certificados NOM en CDMX →**](/blog/manext-venta-extintores-certificados-cdmx/)
-- [**MESECI: Servicio Integral 360° →**](/blog/meseci-equipos-contra-incendio-mexico/)
-- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio/)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Trajes NFPA 1971</h4>
+    <p class="feature__text">Sistema multicapa Nomex/PBI Gold con barrera Gore-Tex Crosstech. TPP ≥35 cal/cm² y THL ≥205 W/m². Globe, Lion, Honeywell.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro, Dräger PSS con cilindros composite y PASS device integrado.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cascos y capuchas NFPA</h4>
+    <p class="feature__text">Bullard UST/FXE, Cairns 1044/XF1; capuchas Nomex y PBI Gold con variantes particuladas PM2.5.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Documentación auditable</h4>
+    <p class="feature__text">Cada lote con certificado NFPA vigente, ficha técnica y declaración de conformidad con NOM-017-STPS-2008.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>EPP NFPA personal para brigadas internas en CDMX</h3>
+  <p>Complemento operativo al servicio de extintores MANEXT — entrega 24h en CDMX y ZMVM. Documentación lista para auditoría.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Este publireportaje fue elaborado por la Redacción de BOMBERO.MX con información verificada del sitio oficial mantenimientodeextintores.mx (febrero 2026). MANEXT es una empresa mexicana fundada en 1943 por Esteban García Martínez, con más de 80 años de experiencia y 15,000+ clientes atendidos en el sector de protección contra incendio. Para servicios de extintores (venta, mantenimiento, recarga, capacitación), contactar directamente a MANEXT. Para EPP certificado NFPA, contactar a BOMBERO.MX.*
+## Referencias Normativas
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-154-SCFI-2005** — Extintores contra incendio – Servicio de mantenimiento y recarga
+- **NOM-100-SCFI-1994** — Extintores contra incendio – Requisitos de fabricación
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+- **DC-3 STPS** — Constancia de habilidades laborales para capacitación de brigadas
+- **NFPA 10** — Standard for Portable Fire Extinguishers
+- **UL 711** — Rating and Fire Testing of Fire Extinguishers
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Extintores por Clase de Fuego — Guía NOM](/blog/extintores-tipos-clases-fuego-mexico/)
+- [MESECI — Servicio Integral 360°](/blog/meseci-equipos-contra-incendio-mexico/)
+- [Gama de México — Aliado Industrial](/blog/gama-de-mexico-aliado-industria-mexicana/)
+- [PROYECTO RED — Plataforma de Proveedores](/blog/proyecto-red-plataforma-equipos-contra-incendio/)
+- [Bomberos CDMX — Equipo NFPA](/blog/bomberos-cdmx-equipo-nfpa/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
     `,
   },
   "manext-venta-extintores-certificados-cdmx": {
@@ -7353,26 +8356,55 @@ Los extintores protegen tu patrimonio, pero **las personas que los operan tambi�
     `,
   },
   "mejores-empresas-equipos-contra-incendio-mexico": {
-    titulo: "3 Mejores Empresas de Equipos Contra Incendio",
-    excerpt: "Comparativo de GAMA DE MÉXICO, MESECI y MANEXT: fortalezas, certificaciones y oferta de equipos contra incendio para elegir mejor proveedor en México.",
+    titulo: "Empresas de Equipo Contra Incendio en México: Análisis Comparativo Gama de México, MESECI y MANEXT",
+    excerpt: "Análisis comparativo de tres referentes del mercado mexicano: Gama de México (distribución industrial), MESECI (Servicio Integral 360°) y MANEXT (unidad de verificación NOM-154-SCFI). Especialidad, cobertura, modelo operativo y complementariedad con EPP NFPA personal de BOMBERO MX.",
     imagen: "/images/directorio/estacion-bomberos-equipada-01.avif",
     categoria: "Industrial",
-    tags: ["Empresas Equipos Contra Incendio México", "GAMA DE MÉXICO", "MESECI", "MANEXT", "Proveedores Extintores CDMX", "Sistemas Contra Incendio México"],
+    tags: ["Empresas Equipo Contra Incendio", "Gama de México", "MESECI", "MANEXT", "Comparativa", "Mercado Mexicano"],
     autor: "Redacción BOMBERO.MX",
-    autorRol: "Análisis del Sector de Protección Contra Incendio",
+    autorRol: "Análisis Editorial — Comparativa de Mercado",
     anchorKeyword: "mejores empresas equipos contra incendio México GAMA MESECI MANEXT",
     contenido: `
-## Las Empresas que Protegen a México: Un Análisis del Sector
+## Tres Modelos Operativos del Mercado Mexicano de Equipo Contra Incendio
 
-El mercado de protección contra incendio en México ha evolucionado significativamente en las últimas décadas. Hoy existen empresas con trayectorias que van desde los **80 años de experiencia** hasta operaciones más recientes pero igualmente profesionales, todas comprometidas con un objetivo común: **proteger vidas y patrimonio**.
+El mercado mexicano de equipo contra incendio no es homogéneo: presenta **distintos modelos operativos** que responden a perfiles de cliente diferentes. Un comprador industrial que requiere especificación técnica de monitores Elkhart Brass para una refinería tiene necesidades distintas a las del responsable de mantenimiento de un edificio corporativo que solo necesita recarga anual de extintores. Comprender estos modelos —y los actores que mejor los representan— evita la falsa equivalencia entre proveedores con propuestas estructuralmente distintas.
 
-En este análisis comparativo, examinamos a **tres de las empresas más destacadas** del sector en la Ciudad de México y zona metropolitana:
+Este análisis compara tres referentes operativos del sector mexicano: **Gama de México** (distribución industrial autorizada con catálogo Elkhart Brass), **MESECI** (instalador-integrador con Servicio Integral 360°) y **MANEXT** (unidad de verificación NOM-154-SCFI con foco en extintores y mantenimiento). El objetivo no es jerarquizar, sino caracterizar **qué problema operativo resuelve cada uno con mayor eficiencia** y cómo se complementan entre sí y con el EPP NFPA personal que BOMBERO MX provee a las brigadas operativas finales.
 
-| Empresa | Fundación | Especialidad Principal | Cobertura |
-|---------|-----------|------------------------|-----------|
-| **GAMA DE MÉXICO** | — | Distribuidor Elkhart Brass, equipos industriales | República Mexicana |
-| **MESECI** | 2008 | Servicio Integral 360°, sistemas completos | CDMX y Estado de México |
-| **MANEXT** | 1943 | Venta, mantenimiento y capacitación | CDMX y Zona Metropolitana |
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">80+</span>
+    <span class="stat__label">Años MANEXT (1943)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">16+</span>
+    <span class="stat__label">Años MESECI (2008)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">15+</span>
+    <span class="stat__label">Años Gama de México</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">3</span>
+    <span class="stat__label">Modelos operativos distintos</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Los tres no son sustitutos directos</span>
+    <p>Gama de México, MESECI y MANEXT <strong>no compiten en el mismo segmento estricto</strong>. Cubren funciones complementarias del ecosistema de protección contra incendio. Un proyecto industrial bien estructurado puede contratar a los tres simultáneamente para diferentes necesidades, complementados con EPP NFPA personal de BOMBERO MX para las brigadas operativas internas.</p>
+  </div>
+</div>
+
+### Posicionamiento Comparativo
+
+| Empresa | Fundación | Modelo operativo | Cobertura | Cliente típico |
+|---------|-----------|-------------------|-----------|------------------|
+| **Gama de México** | 2010s | Distribuidor industrial autorizado | Nacional (hubs CDMX + QRO) | Industria, refinería, manufactura |
+| **MESECI** | 2008 | Instalador-integrador 360° | CDMX + Edomex | Proyectos llave en mano |
+| **MANEXT** | 1943 | Unidad verificación NOM-154-SCFI | CDMX y ZMVM | Mantenimiento de extintores recurrente |
 
 ---
 
@@ -7761,33 +8793,118 @@ Las instalaciones protegidas necesitan **brigadas equipadas profesionalmente**. 
 | **Web** | [mantenimientodeextintores.mx](https://mantenimientodeextintores.mx) |
 
 
-### Artículos Relacionados
+## EPP NFPA para Brigadas — Complemento a Cualquiera de los Tres
 
-- [**Gama de México: Análisis Técnico Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio/)
-- [**MESECI: 16 Años Protegiendo México →**](/blog/meseci-equipos-contra-incendio-mexico/)
-- [**MANEXT: 80 Años de Excelencia en Extintores →**](/blog/manext-mantenimiento-extintores-cdmx/)
-- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
+Independientemente del proveedor seleccionado para sistema fijo, mantenimiento o servicio integrado, las **brigadas operativas internas** requieren su propio EPP NFPA certificado para actuar durante el incidente real. **BOMBERO MX** opera este catálogo desde CDMX con cobertura nacional:
+
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Trajes NFPA 1971</h4>
+    <p class="feature__text">Globe, Lion, Honeywell con TPP ≥35 cal/cm² y THL ≥205 W/m².</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro, Dräger PSS con cilindros composite 30–60 min.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cascos, capuchas, botas</h4>
+    <p class="feature__text">Bullard, Cairns, Haix con documentación NFPA auditable.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Herramientas de rescate</h4>
+    <p class="feature__text">Holmatro, LUKAS, Hurst certificados NFPA 1936.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>EPP NFPA personal para brigadas internas</h3>
+  <p>Complemento al sistema fijo o mantenimiento contratado con cualquiera de los tres proveedores. Cotización en 24h con documentación lista para auditoría.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Este análisis comparativo fue elaborado por la Redacción de BOMBERO.MX con información verificada de los sitios oficiales de cada empresa (febrero 2026). La información presentada es de carácter informativo y las empresas pueden actualizar sus servicios y productos. Para información actualizada, contactar directamente a cada proveedor. Para EPP certificado NFPA, contactar a BOMBERO.MX.*
+## Referencias Normativas
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+- **NOM-154-SCFI-2005** — Extintores contra incendio – Mantenimiento y recarga
+- **NFPA 1, 10, 13, 14, 24, 25** — Estándares aplicables a sistemas fijos
+- **NFPA 1971, 1981, 1991/1992** — EPP por categoría operativa
+- **UL / FM Approval Standards** — Listado y aprobación internacional
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Gama de México — Aliado Industrial](/blog/gama-de-mexico-aliado-industria-mexicana/)
+- [MESECI — Servicio Integral 360°](/blog/meseci-equipos-contra-incendio-mexico/)
+- [MANEXT — Mantenimiento NOM-154-SCFI](/blog/manext-mantenimiento-extintores-cdmx/)
+- [PROYECTO RED — Plataforma de Proveedores](/blog/proyecto-red-plataforma-equipos-contra-incendio/)
+- [LGA Contra Incendios — Querétaro Bajío](/blog/lga-contra-incendios-queretaro-equipos-certificados/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
     `,
   },
   "industria-proteccion-contra-incendio-mexico-analisis": {
-    titulo: "Empresas de Protección Contra Incendio en México",
-    excerpt: "Análisis del mercado mexicano de protección contra incendio (USD $110.87M, 2024) con estudio de GAMA, MESECI y MANEXT y recomendaciones por proyecto.",
+    titulo: "Industria de Protección Contra Incendio en México: Análisis Sectorial 2026 (Mercado, Siniestralidad, Proveedores)",
+    excerpt: "Análisis sectorial 2026 del mercado mexicano de protección contra incendio. Tamaño del mercado USD $110.87M, siniestralidad AMIS +157%, regulación NOM-002-STPS-2010, posicionamiento de Gama de México, MESECI y MANEXT, y complementariedad con EPP NFPA personal de BOMBERO MX.",
     imagen: "/images/directorio/estacion-bomberos-profesional-01.avif",
     categoria: "Industrial",
-    tags: ["Industria Protección Contra Incendio México", "Mercado Extintores México", "GAMA DE MÉXICO Análisis", "MESECI Análisis", "MANEXT Análisis", "NOM-002-STPS Cumplimiento"],
+    tags: ["Análisis Sectorial", "Mercado Mexicano", "AMIS", "NOM-002-STPS", "Siniestralidad", "Gama de México", "MESECI", "MANEXT"],
     autor: "Departamento de Investigación BOMBERO.MX",
-    autorRol: "Análisis de Mercado y Tendencias del Sector",
+    autorRol: "Análisis de Mercado y Tendencias",
     anchorKeyword: "industria protección contra incendio México empresas líderes análisis mercado",
     contenido: `
-## Resumen Ejecutivo
+## Industria de Protección Contra Incendio en México: Panorama 2026
 
-El mercado de protección contra incendio en México atraviesa un momento crítico de crecimiento y transformación. Con un valor de **USD $110.87 millones en 2024** y una proyección de crecimiento del **4.80% anual hasta 2034**, el sector responde a una realidad alarmante: la siniestralidad por incendios ha aumentado **157% en los últimos dos años**, con pagos de aseguradoras que alcanzaron los **$12,061 millones de pesos** solo en el primer semestre de 2025.
+El mercado mexicano de protección contra incendio atraviesa una **fase de presión estructural simultánea sobre oferta y demanda**. La demanda crece por dos vectores convergentes: el aumento documentado de **157% en siniestralidad por incendio** entre 2023 y 2025 reportado por **AMIS (Asociación Mexicana de Instituciones de Seguros)**, y la entrada de inversión extranjera que exige cumplimiento simultáneo de NOM mexicana y certificación internacional (UL, FM, NFPA). La oferta, fragmentada en cientos de proveedores con perfil heterogéneo, responde con velocidades distintas a esta exigencia.
 
-En este contexto, tres empresas han consolidado posiciones de liderazgo en el mercado de la Ciudad de México y zona metropolitana, cada una con un modelo de negocio distintivo que responde a necesidades específicas del mercado:
+Este análisis sectorial caracteriza el **estado del mercado en 2026**: tamaño económico (**USD $110.87 millones en extintores**, proyección 4.80% anual hasta 2034), normativa aplicable (**NOM-002-STPS-2010** como base + cuerpo NFPA como referencia técnica), perfil de siniestralidad, y posicionamiento operativo de los tres referentes consolidados del segmento CDMX/ZMVM: **Gama de México**, **MESECI** y **MANEXT** — complementados con el EPP NFPA personal que **BOMBERO MX** provee a las brigadas operativas en todo el país.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">USD 110.87M</span>
+    <span class="stat__label">Mercado extintores 2024</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">+157%</span>
+    <span class="stat__label">Siniestralidad 2023-2025 (AMIS)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">4.80%</span>
+    <span class="stat__label">Crecimiento anual proyectado</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$12,061M MXN</span>
+    <span class="stat__label">Pagos aseguradoras H1 2025</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/directorio/estacion-bomberos-profesional-01.avif" alt="Estación de bomberos profesional en operación urbana en México" loading="lazy" width="900" height="600" />
+  <figcaption>La consolidación operativa del sector contra incendio mexicano depende tanto de proveedores con catálogo certificado como de brigadas internas con EPP NFPA auditable.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Tres modelos operativos no equivalentes</span>
+    <p>Las tres empresas analizadas no son sustitutos directos. <strong>Gama de México</strong> es distribuidor industrial autorizado (Elkhart Brass). <strong>MESECI</strong> es instalador-integrador con Servicio Integral 360°. <strong>MANEXT</strong> es unidad de verificación NOM-154-SCFI con 80+ años en mantenimiento de extintores. <strong>BOMBERO MX</strong> opera la línea complementaria de EPP NFPA personal para las brigadas operativas internas que cierran el ciclo.</p>
+  </div>
+</div>
+
+### Posicionamiento Operativo Comparado
+
+| Empresa | Modelo de negocio | Ventaja competitiva principal |
+|---------|--------------------|-------------------------------|
+| **Gama de México** | Distribución industrial autorizada | Distribuidor Elkhart Brass con cobertura nacional CDMX+QRO |
+| **MESECI** | Integrador 360° | Responsabilidad única desde diagnóstico hasta mantenimiento |
+| **MANEXT** | Servicio + capacitación | 80+ años, unidad de verificación NOM-154-SCFI |
+| **BOMBERO MX** | Distribuidor EPP NFPA personal | Catálogo NFPA 1971/1981 con cobertura nacional desde CDMX |
 
 | Empresa | Modelo de Negocio | Ventaja Competitiva Principal |
 |---------|-------------------|-------------------------------|
@@ -8403,33 +9520,90 @@ Este análisis fue elaborado por el **Departamento de Investigación de BOMBERO.
 | Elkhart Brass | Historia y certificaciones |
 
 
-### Artículos Relacionados
+## EPP NFPA para Brigadas — Capa Operativa Final del Sistema
 
-- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
-- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026/)
-- [**Informe Ejecutivo 2026: Ecosistema de Proveedores →**](/blog/informe-ejecutivo-proveedores-proteccion-incendio-mexico-2026/)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
+El análisis sectorial converge en una conclusión operativa: **el sistema fijo es necesario pero no suficiente**. La capa humana —la brigada operativa interna— requiere su propio EPP NFPA personal para actuar durante el incidente real. **BOMBERO MX** opera el catálogo equivalente al estándar internacional con cobertura nacional:
+
+<div class="cta-box">
+  <h3>EPP NFPA personal para brigadas operativas</h3>
+  <p>Trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas, botas y herramientas con documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Este análisis fue elaborado por el Departamento de Investigación de BOMBERO.MX (febrero 2026). La información presentada se basa en fuentes públicas y sitios oficiales de cada empresa. Los datos de mercado provienen de AMIS, Expert Market Research e IMARC Group. Las empresas analizadas pueden actualizar sus servicios, productos y precios sin previo aviso. Para información actualizada, contactar directamente a cada proveedor. Para EPP certificado NFPA, contactar a BOMBERO.MX.*
+## Referencias Normativas y Fuentes
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+- **NOM-154-SCFI-2005** — Extintores contra incendio – Servicio de mantenimiento y recarga
+- **AMIS** — Asociación Mexicana de Instituciones de Seguros, estadísticas de siniestralidad 2023-2025
+- **Expert Market Research** — Mexico Fire Extinguishers Market Outlook 2024-2034
+- **IMARC Group** — Mexico Fire Protection Chemicals Market
+- **Elkhart Brass / Safe Fleet** — Información de producto y certificaciones internacionales
+- **NFPA 1, 10, 13, 14, 24, 25** — Estándares aplicables a sistemas fijos
+- **NFPA 1971, 1981, 1991/1992** — EPP por categoría operativa
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Comparativa: Gama, MESECI y MANEXT](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [Guía 2026: 5 Empresas Líderes](/blog/guia-empresas-equipos-contra-incendio-mexico-2026/)
+- [Gama de México — Aliado Industrial](/blog/gama-de-mexico-aliado-industria-mexicana/)
+- [MESECI — Servicio Integral 360°](/blog/meseci-equipos-contra-incendio-mexico/)
+- [MANEXT — Mantenimiento NOM-154-SCFI](/blog/manext-mantenimiento-extintores-cdmx/)
+- [PROYECTO RED — Plataforma de Proveedores](/blog/proyecto-red-plataforma-equipos-contra-incendio/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
   },
   "proyecto-red-plataforma-equipos-contra-incendio": {
-    titulo: "PROYECTO RED: Plataforma Equipos Contra Incendio",
-    excerpt: "PROYECTO RED conecta empresas con proveedores verificados de equipos contra incendio en México, con enfoque en cumplimiento normativo y calidad certificada.",
+    titulo: "PROYECTO RED: Plataforma de Proveedores Verificados de Equipo Contra Incendio en México",
+    excerpt: "Análisis del modelo de plataforma de proveedores verificados de PROYECTO RED en México. Proceso de validación, directorio curado, cobertura geográfica, complementariedad con líneas de EPP NFPA personal de BOMBERO MX y aplicación al mercado industrial mexicano.",
     imagen: "/images/directorio/estacion-bomberos-mexico-fachada-01.avif",
     categoria: "Industrial",
-    tags: ["PROYECTO RED México", "Plataforma Equipos Contra Incendio", "Proveedores Verificados Seguridad", "Elkhart Brass México", "Sistemas Detección Incendio CDMX"],
+    tags: ["PROYECTO RED", "Plataforma B2B", "Proveedores Verificados", "Elkhart Brass", "NOM-002-STPS", "CDMX"],
     autor: "Redacción BOMBERO.MX",
-    autorRol: "Análisis del Sector de Protección Contra Incendio",
+    autorRol: "Análisis Editorial — Mercado Mexicano",
     anchorKeyword: "PROYECTO RED plataforma equipos contra incendio México proveedores verificados",
     contenido: `
-## Una Nueva Visión de la Protección Contra Incendio en México
+## PROYECTO RED: Modelo de Plataforma con Proveedores Verificados
 
-En un mercado tradicionalmente fragmentado, donde encontrar proveedores confiables de equipos contra incendio podía significar semanas de búsqueda, llamadas a múltiples empresas y la incertidumbre constante sobre la calidad y el cumplimiento normativo de los productos, **PROYECTO RED** emerge como una solución innovadora que está redefiniendo las reglas del juego. Esta plataforma, ubicada estratégicamente en el corazón financiero y empresarial de la Ciudad de México —específicamente en Paseo de la Reforma 26, Colonia Juárez, Delegación Cuauhtémoc—, ha construido un modelo de negocio que prioriza algo que muchas empresas del sector han descuidado: la **verificación exhaustiva de cada proveedor y producto** que forma parte de su ecosistema.
+El mercado mexicano de equipo contra incendio presenta una **fragmentación estructural** que dificulta a compradores institucionales identificar proveedores con certificación verificable. La práctica habitual —solicitar cotizaciones a múltiples proveedores, validar individualmente cada certificación, contrastar especificaciones técnicas y asumir el riesgo residual de incumplimiento— consume semanas y deja al comprador en posición vulnerable ante auditoría posterior.
 
-La propuesta de PROYECTO RED no se limita a ser un catálogo más de equipos contra incendio. La empresa ha desarrollado lo que ellos denominan un **"directorio curado por expertos"**, un concepto que implica que cada fabricante, cada distribuidor y cada producto que aparece en su plataforma ha pasado por un riguroso proceso de validación que garantiza el cumplimiento de las normativas mexicanas más exigentes: la NOM-002-STPS para prevención de incendios en centros de trabajo, las regulaciones de Protección Civil, y los estándares internacionales de la NFPA. Este enfoque resuelve una de las preocupaciones más frecuentes de los responsables de seguridad industrial y los encargados de protección civil en empresas de todos los tamaños: **la certeza de que el equipo que adquieren realmente funcionará cuando más se necesite**.
+**PROYECTO RED** opera como **plataforma de directorio verificado** que centraliza la función de validación de proveedores. Su modelo evalúa previamente a cada fabricante y distribuidor incluido en el directorio según criterios de certificación NOM/NFPA, trayectoria operativa y capacidad de servicio post-venta. El cliente accede a un universo de opciones donde la conformidad técnica ya fue evaluada antes de la cotización.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">CDMX</span>
+    <span class="stat__label">Paseo de la Reforma 26</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">656+</span>
+    <span class="stat__label">Productos verificados</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">8</span>
+    <span class="stat__label">Estados con cobertura</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">UL / FM</span>
+    <span class="stat__label">Certificaciones internacionales</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Ecosistema complementario</span>
+    <p><strong>PROYECTO RED</strong> opera la línea de <strong>equipo fijo y consumibles</strong> (extintores, gabinetes, sistemas de detección, conexiones, mangueras). <strong>BOMBERO MX</strong> opera la línea complementaria de <strong>EPP NFPA personal</strong> (trajes, SCBA, cascos, capuchas, herramientas de rescate) para brigadas operativas. Un proyecto industrial completo típicamente especifica ambas líneas.</p>
+  </div>
+</div>
 
 ---
 
@@ -8533,66 +9707,108 @@ Esta propuesta de valor es particularmente atractiva para empresas medianas y gr
 
 ---
 
-## Complemento Esencial: Equipos de Protección Personal
+## EPP NFPA para Brigadas Operativas — Catálogo Complementario BOMBERO MX
 
-Los sistemas contra incendio protegen las instalaciones, pero las personas que responden a las emergencias necesitan su propia protección. En **BOMBERO.MX** complementamos la oferta de empresas como PROYECTO RED con equipos de protección personal certificados bajo las normas más exigentes de la NFPA (National Fire Protection Association).
+Los sistemas fijos validados por PROYECTO RED protegen la instalación. El **personal que opera ese sistema durante el incidente real** requiere su propio equipamiento certificado. **BOMBERO MX** complementa la línea con EPP NFPA personal bajo las mismas exigencias documentales:
 
-Nuestro catálogo incluye trajes estructurales NFPA 1971 diseñados para el combate de incendios en interiores, cascos de protección que cumplen con los estándares más rigurosos de impacto y protección térmica, guantes estructurales que combinan destreza táctil con resistencia al calor, botas certificadas para ambientes de alto riesgo, equipos de respiración autónoma NFPA 1981, y capuchas protectoras que completan el conjunto de protección del bombero o brigadista.
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Trajes NFPA 1971</h4>
+    <p class="feature__text">Sistema multicapa Nomex/PBI Gold con barrera Gore-Tex Crosstech. TPP ≥35 cal/cm², THL ≥205 W/m². Globe, Lion, Honeywell.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro, Dräger PSS con cilindros composite y PASS device integrado.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cascos NFPA 1971</h4>
+    <p class="feature__text">Bullard UST/FXE, Cairns 1044/XF1, MSA F1 con visor integrado o compatible con goggles ESS.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Herramientas NFPA 1936</h4>
+    <p class="feature__text">Holmatro, LUKAS, Hurst para extricación vehicular en autopistas y operación urbana.</p>
+  </div>
+</div>
 
-Para las organizaciones que buscan una solución integral de protección contra incendio, la combinación de los sistemas y equipos disponibles a través de PROYECTO RED con el equipamiento personal certificado de BOMBERO.MX representa la opción más completa del mercado mexicano.
+<div class="cta-box">
+  <h3>EPP NFPA personal para complemento de sistemas fijos</h3>
+  <p>Trajes, SCBA, cascos, capuchas, botas y herramientas para brigadas industriales con documentación auditable.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-## Contacto BOMBERO.MX
+## Referencias Normativas
 
-| Canal | Información |
-|-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
-| **Cotización** | [Solicitar cotización →](/cotizar) |
-| **Catálogo completo** | [Ver productos →](/productos) |
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-154-SCFI-2005** — Extintores contra incendio – Servicio de mantenimiento y recarga
+- **NOM-026-STPS-2008** — Colores y señales de seguridad e higiene
+- **NFPA 10** — Standard for Portable Fire Extinguishers
+- **NFPA 13** — Standard for the Installation of Sprinkler Systems
+- **NFPA 14** — Standard for the Installation of Standpipe and Hose Systems
+- **NFPA 72** — National Fire Alarm and Signaling Code
+- **NFPA 25** — Inspection, Testing, and Maintenance of Water-Based Fire Protection Systems
+- **UL / FM Approval Standards** — Listado y aprobación internacional
 
 ---
-
-## Contacto PROYECTO RED
-
-| Canal | Información |
-|-------|-------------|
-| **WhatsApp** | [+52 562 759 6245](https://wa.me/525627596245) |
-| **Correo** | hola@proyectored.com.mx |
-| **Sitio web** | [proyectored.com.mx](https://proyectored.com.mx) |
-| **Dirección** | Paseo de la Reforma 26, Col. Juárez, Del. Cuauhtémoc, CDMX 06600 |
-| **Horario** | Lunes a Domingo, 6:00 - 18:00 hrs |
-
 
 ### Artículos Relacionados
 
-- [**PROYECTO RED: Catálogo de 656+ Productos →**](/blog/proyecto-red-venta-equipos-contra-incendio-mexico/)
-- [**Gama de México: Distribuidor Elkhart Brass →**](/blog/gama-de-mexico-equipos-contra-incendio/)
-- [**LGA Contra Incendios Querétaro: 25 Años →**](/blog/lga-contra-incendios-queretaro-equipos-certificados/)
-- [**Traje Estructural NFPA 1971: Guía Definitiva →**](/blog/traje-estructural-nfpa-1971/)
-
----
-
-*Este artículo fue elaborado por la Redacción de BOMBERO.MX con información verificada del sitio oficial proyectored.com.mx (febrero 2026). PROYECTO RED es una plataforma mexicana especializada en la conexión entre clientes y proveedores verificados de equipos contra incendio, con presencia en Paseo de la Reforma, Ciudad de México. La información presentada refleja los servicios y productos disponibles al momento de la publicación. Para información actualizada sobre disponibilidad y precios, contactar directamente a PROYECTO RED. Para equipos de protección personal certificados NFPA, contactar a BOMBERO.MX.*
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [PROYECTO RED — Catálogo 656+ Productos](/blog/proyecto-red-venta-equipos-contra-incendio-mexico/)
+- [Distribución Autorizada Elkhart Brass (Gama de México)](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [Extintores por Clase de Fuego — Guía NOM](/blog/extintores-tipos-clases-fuego-mexico/)
+- [HAZMAT NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
   },
 
   "proyecto-red-venta-equipos-contra-incendio-mexico": {
-    titulo: "PROYECTO RED: 656+ Productos Contra Incendio",
-    excerpt: "PROYECTO RED ofrece 656+ productos contra incendio certificados, distribución autorizada de Elkhart Brass y cobertura nacional para industria y comercio.",
+    titulo: "PROYECTO RED: Plataforma de Venta de Equipos Contra Incendio Certificados en México — Análisis 2026",
+    excerpt: "Análisis técnico de PROYECTO RED como plataforma de distribución de equipos contra incendio certificados en México. Catálogo de 656+ productos verificados, distribución autorizada Elkhart Brass, cobertura nacional, cumplimiento NOM-002-STPS / NOM-154-SCFI y complementariedad con EPP NFPA personal de BOMBERO MX.",
     imagen: "/images/directorio/estacion-bomberos-emergencias-01.avif",
     categoria: "Equipo",
-    tags: ["extintores", "equipos contra incendio", "venta", "certificación NOM", "Elkhart Brass", "CDMX"],
+    tags: ["Equipos Contra Incendio", "PROYECTO RED", "Elkhart Brass", "NOM-002-STPS", "NOM-154-SCFI", "UL Listed", "FM Approved"],
     autor: "Redacción BOMBERO.MX",
-    autorRol: "Equipo Editorial",
+    autorRol: "Análisis Editorial — Mercado Mexicano",
     anchorKeyword: "venta equipos contra incendio México",
     contenido: `
-# PROYECTO RED: La Referencia Nacional en Venta de Equipos Contra Incendio
+## PROYECTO RED: Plataforma de Distribución para el Mercado Mexicano de Equipos Contra Incendio
 
-El mercado mexicano de protección contra incendios enfrenta un desafío estructural que pocas empresas han logrado resolver de manera efectiva. La fragmentación del sector, la proliferación de equipos sin certificación adecuada, y la dificultad para verificar la autenticidad de los proveedores han creado un ambiente donde las empresas responsables luchan por encontrar equipos de calidad con la confianza necesaria para proteger vidas y activos. En este contexto complejo, **PROYECTO RED** ha emergido como una solución integral que está transformando la manera en que las organizaciones mexicanas adquieren sus sistemas de protección contra incendio.
+El mercado mexicano de protección contra incendios presenta una fragmentación estructural que dificulta a compradores institucionales identificar **proveedores con cadena de certificación verificable**. La proliferación de equipos sin documentación NOM/NFPA auditable, la opacidad sobre el estatus de "distribuidor autorizado" frente a "revendedor ocasional" y la asimetría de información entre fabricante y comprador final son problemas operativos que afectan tanto la **integridad técnica del sistema instalado** como la **validez de las pólizas de seguro** asociadas.
 
-Desde su establecimiento en la Ciudad de México, PROYECTO RED ha construido una operación comercial que combina la amplitud de un marketplace digital con la profundidad técnica de un distribuidor especializado. Con un catálogo que supera los **656 productos** verificados y certificados, la empresa ha logrado posicionarse como el punto de referencia para empresas que exigen equipos de la más alta calidad sin comprometer el cumplimiento normativo ni la relación costo-beneficio.
+**PROYECTO RED** opera como plataforma de distribución que combina el alcance digital de un marketplace con la disciplina técnica de un distribuidor especializado, con catálogo verificado superior a **656 productos** y condición de **distribuidor autorizado Elkhart Brass** en México. Este análisis describe su modelo operativo, líneas de producto, marco normativo aplicable y su complementariedad con el EPP NFPA personal que BOMBERO MX provee a brigadas operativas.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">656+</span>
+    <span class="stat__label">Productos certificados</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">120+</span>
+    <span class="stat__label">Años trayectoria Elkhart Brass</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">UL / FM</span>
+    <span class="stat__label">Certificaciones internacionales</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">32</span>
+    <span class="stat__label">Estados con cobertura</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Líneas complementarias</span>
+    <p><strong>PROYECTO RED</strong> abastece equipo <strong>fijo y consumibles</strong> contra incendio (extintores, gabinetes, señalización, monitores, válvulas, mangueras, detección, rociadores). <strong>BOMBERO MX</strong> abastece el <strong>EPP NFPA personal</strong> que las brigadas necesitan para operar ese sistema (trajes, SCBA, cascos, capuchas, herramientas). Un proyecto industrial completo típicamente especifica ambas líneas en paralelo.</p>
+  </div>
+</div>
 
 ---
 
@@ -8714,73 +9930,115 @@ Para las empresas mexicanas que entienden que la protección contra incendio no 
 
 ---
 
-## Complementa tu Sistema con Equipos de Protección Personal
+## Complemento Operativo: EPP NFPA Personal de BOMBERO MX
 
-Los sistemas de detección, alarma y extinción protegen las instalaciones, pero las personas que responden a las emergencias necesitan su propia protección. En **BOMBERO.MX** complementamos la oferta de PROYECTO RED con equipos de protección personal certificados bajo las normas NFPA más exigentes:
+Un sistema fijo de protección contra incendio (detección, alarma, supresión) **protege la instalación**. La brigada que responde al evento real necesita su propia capa de protección certificada. El EPP NFPA personal —que **BOMBERO MX** abastece desde su almacén central en CDMX— es complementario al inventario de PROYECTO RED y se especifica con el mismo rigor documental.
 
-| Categoría | Producto | Certificación |
-|-----------|----------|---------------|
-| **Trajes estructurales** | Sistema completo chaquetón + pantalón | NFPA 1971 |
-| **Cascos de protección** | Diseño americano con visor integrado | NFPA 1971 |
-| **Guantes estructurales** | Cuero con forro térmico y barrera impermeable | NFPA 1971 |
-| **Botas certificadas** | Puntera de acero, suela dieléctrica | NFPA 1971 |
-| **Equipos SCBA** | Respiración autónoma de presión positiva | NFPA 1981 |
-| **Capuchas protectoras** | Nomex/PBI con protección particulada | NFPA 1971 |
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Trajes estructurales NFPA 1971</h4>
+    <p class="feature__text">Sistema multicapa Nomex/PBI Gold + barrera Gore-Tex Crosstech con TPP ≥35 cal/cm² y THL ≥205 W/m². Globe, Lion, Honeywell.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro, Dräger PSS con cilindros composite de 30–60 minutos y PASS device integrado.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cascos NFPA 1971</h4>
+    <p class="feature__text">Bullard UST/FXE, Cairns 1044/XF1, MSA F1. Visor integrado o compatible con goggles ESS Profile.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Capuchas Nomex / PBI Gold</h4>
+    <p class="feature__text">Versiones estándar y particuladas (PM2.5) — protección frente a productos de combustión cancerígenos Grupo 1 IARC.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Botas estructurales y forestales</h4>
+    <p class="feature__text">Haix Fire Eagle, Lion Boots, Danner Wildland — caña 10" estructural, 8" forestal con suela Vibram.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Herramientas de rescate NFPA 1936</h4>
+    <p class="feature__text">Holmatro, LUKAS, Hurst — cizallas, expansores, arietes para extricación vehicular en autopistas y carreteras.</p>
+  </div>
+</div>
 
-La combinación de los equipos contra incendio de PROYECTO RED con la protección personal certificada de BOMBERO.MX ofrece la solución más completa del mercado mexicano.
+<div class="cta-box">
+  <h3>Especificación combinada: equipo fijo + EPP de brigada</h3>
+  <p>Para proyectos industriales con dotación dual (sistema fijo PROYECTO RED + EPP NFPA personal BOMBERO MX). Cotización formal CFDI con documentación completa.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-## Información de Contacto
+## Referencias Normativas
 
-### PROYECTO RED
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-154-SCFI-2005** — Extintores contra incendio – Servicio de mantenimiento y recarga
+- **NOM-026-STPS-2008** — Colores y señales de seguridad e higiene
+- **NFPA 10** — Standard for Portable Fire Extinguishers
+- **NFPA 13** — Standard for the Installation of Sprinkler Systems
+- **NFPA 14** — Standard for the Installation of Standpipe and Hose Systems
+- **NFPA 25** — Inspection, Testing, and Maintenance of Water-Based Fire Protection Systems
+- **UL 711** — Rating and Fire Testing of Fire Extinguishers (referencia internacional)
+- **FM Approval Standards** — clases 5500/5520 y relacionadas
 
-| Canal | Información |
-|-------|-------------|
-| **WhatsApp** | [+52 562 759 6245](https://wa.me/525627596245) |
-| **Correo** | hola@proyectored.com.mx |
-| **Sitio web** | [proyectored.com.mx](https://proyectored.com.mx) |
-| **Dirección** | Paseo de la Reforma 26, Col. Juárez, Cuauhtémoc, CDMX 06600 |
-| **Horario** | Lunes a Domingo, 6:00 - 18:00 hrs |
-
-### BOMBERO.MX
-
-| Canal | Información |
-|-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
-| **Cotización** | [Solicitar cotización →](/cotizar) |
-| **Catálogo EPP** | [Ver productos →](/productos) |
-
+---
 
 ### Artículos Relacionados
 
-- [**PROYECTO RED: La Plataforma que Transforma el Acceso →**](/blog/proyecto-red-plataforma-equipos-contra-incendio/)
-- [**MESECI: Servicio Integral 360° →**](/blog/meseci-equipos-contra-incendio-mexico/)
-- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026/)
-- [**Trajes HAZMAT: Niveles de Protección Química →**](/blog/traje-hazmat-proteccion-quimica/)
-
----
-
-*Artículo elaborado por la Redacción de BOMBERO.MX con información verificada del sitio oficial proyectored.com.mx y fuentes complementarias de la industria (febrero 2026). PROYECTO RED es una plataforma mexicana especializada en la venta de equipos contra incendio con más de 656 productos certificados y distribución autorizada de Elkhart Brass. Los precios, disponibilidad y especificaciones están sujetos a cambio sin previo aviso. Para cotizaciones actualizadas, contactar directamente a PROYECTO RED. Para equipos de protección personal certificados NFPA para bomberos y brigadistas, contactar a BOMBERO.MX.*
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Extintores por Clase de Fuego — Guía NOM](/blog/extintores-tipos-clases-fuego-mexico/)
+- [Distribución Autorizada Elkhart Brass (Gama de México)](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
+- [SCBA MSA G1 vs Scott Air-Pak](/blog/scba-msag1-vs-scott-airpak/)
+- [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
   },
 
   "lga-contra-incendios-queretaro-equipos-certificados": {
-    titulo: "LGA Contra Incendios Querétaro: 25 Años",
-    excerpt: "LGA Contra Incendios, con 25+ años en Querétaro, ofrece venta, mantenimiento y recarga de equipos certificados NOM, NFPA e ISO para el Bajío.",
+    titulo: "LGA Contra Incendios Querétaro: Análisis del Modelo de Distribución Industrial del Bajío",
+    excerpt: "Análisis del modelo operativo de LGA Contra Incendios como distribuidor regional Bajío. 25+ años de trayectoria en Querétaro, autorización Elkhart Brass, cumplimiento NOM-002-STPS / NFPA, aplicación en corredor automotriz y aeroespacial, y complementariedad con EPP NFPA personal de BOMBERO MX.",
     imagen: "/images/directorio/estacion-bomberos-queretaro-01.avif",
     categoria: "Equipo",
-    tags: ["extintores", "Querétaro", "LGA Contra Incendios", "Elkhart Brass", "monitores contra incendio", "equipo bomberos"],
+    tags: ["LGA Contra Incendios", "Querétaro", "Bajío", "Elkhart Brass", "NOM-154-SCFI", "NFPA 10", "Distribuidor Regional"],
     autor: "Redacción BOMBERO.MX",
-    autorRol: "Equipo Editorial",
+    autorRol: "Análisis Editorial — Mercado Regional",
     anchorKeyword: "equipos contra incendio Querétaro",
     contenido: `
-# LGA Contra Incendios: La Referencia en Protección Contra Incendio del Bajío Mexicano
+## LGA Contra Incendios: Modelo Operativo de Distribuidor Regional en el Bajío
 
-En el dinámico corredor industrial del Bajío mexicano, donde convergen algunas de las plantas manufactureras más importantes del país y donde el crecimiento económico ha transformado a Querétaro en uno de los polos de desarrollo más relevantes de México, la protección contra incendios no puede ser tratada como un requisito burocrático más. Requiere empresas con la experiencia, las certificaciones y el compromiso necesarios para proteger efectivamente las vidas y los activos de las organizaciones. **LGA Contra Incendios** ha ocupado ese espacio desde el año 2000, construyendo durante más de **25 años** una reputación de profesionalismo, calidad y servicio que la ha convertido en el referente indiscutible de la protección contra incendio en el estado de Querétaro.
+El **corredor industrial del Bajío** —Querétaro, Guanajuato, San Luis Potosí, Aguascalientes— concentra una de las mayores densidades de manufactura automotriz, aeroespacial y de electrónica del país. Esta concentración genera exigencia técnica continua sobre los proveedores locales de equipo contra incendio: certificaciones internacionales (UL, FM), documentación auditable por aseguradoras y casas matrices extranjeras, capacidad logística para tiempos de respuesta cortos y soporte post-venta sostenido.
 
-La historia de LGA Contra Incendios es la historia de una empresa que nació con un propósito claro: ofrecer al mercado queretano servicios confiables y profesionales de prevención de incendios. Ese propósito fundacional, sostenido con esfuerzo, disciplina y un compromiso inquebrantable a lo largo de más de dos décadas, ha permitido a la empresa crecer desde sus humildes orígenes hasta convertirse en un distribuidor autorizado de las marcas más prestigiosas del sector, incluyendo la legendaria **Elkhart Brass**, referente mundial en equipos de combate de incendios con más de 120 años de historia.
+**LGA Contra Incendios** opera en este segmento desde el año **2000**, con **trayectoria de 25+ años** en el estado de Querétaro y autorización oficial de **Elkhart Brass**. Su modelo combina distribución de equipo de combate, mantenimiento de extintores bajo NOM-154-SCFI y suministro de EPP para brigadas industriales internas. Este análisis describe ese modelo como caso operativo del segmento de distribuidores regionales con catálogo certificado, complementario al EPP NFPA personal que BOMBERO MX provee a brigadas operativas en todo el país.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">2000</span>
+    <span class="stat__label">Año de fundación</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">25+</span>
+    <span class="stat__label">Años en Querétaro</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">Elkhart Brass</span>
+    <span class="stat__label">Distribución autorizada</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">UL / FM</span>
+    <span class="stat__label">Certificación catálogo</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Cobertura regional vs nacional</span>
+    <p><strong>LGA Contra Incendios</strong> opera con enfoque regional Bajío (Querétaro y estados conurbados) con énfasis en equipo fijo y consumibles. <strong>BOMBERO MX</strong> opera con cobertura nacional desde CDMX para EPP NFPA personal (trajes, SCBA, cascos, capuchas, herramientas) destinado a las brigadas operativas internas del cliente final. Para proyectos integrales, ambas líneas se especifican en paralelo.</p>
+  </div>
+</div>
 
 ---
 
@@ -8998,20 +10256,47 @@ La combinación de los sistemas y equipos de LGA Contra Incendios con la protecc
   },
 
   "guia-empresas-equipos-contra-incendio-mexico-2026": {
-    titulo: "5 Mejores Empresas Equipos Contra Incendio 2026",
-    excerpt: "Guía 2026 de 5 empresas líderes en equipos contra incendio en México. Compara trayectoria, certificaciones, cobertura y servicios para elegir proveedor.",
+    titulo: "Empresas Líderes en Equipo Contra Incendio en México 2026: Análisis Comparativo de 5 Referentes",
+    excerpt: "Guía 2026 de cinco empresas líderes del sector mexicano de equipo contra incendio: Gama de México, MESECI, MANEXT, PROYECTO RED y LGA Contra Incendios. Trayectoria, certificaciones, cobertura, modelo operativo y complementariedad con EPP NFPA personal de BOMBERO MX.",
     imagen: "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
     categoria: "Equipo",
-    tags: ["equipos contra incendio", "empresas México", "comparativo", "extintores", "Elkhart Brass", "NFPA", "NOM"],
+    tags: ["Empresas Equipo Contra Incendio", "Comparativa", "Gama de México", "MESECI", "MANEXT", "PROYECTO RED", "LGA"],
     autor: "Redacción BOMBERO.MX",
-    autorRol: "Equipo Editorial",
+    autorRol: "Análisis Editorial — Mercado Mexicano",
     anchorKeyword: "empresas equipos contra incendio México",
     contenido: `
-# Guía Definitiva 2026: Las 5 Mejores Empresas de Equipos Contra Incendio en México
+## Cinco Empresas Líderes del Sector Mexicano de Equipo Contra Incendio en 2026
 
-El mercado mexicano de protección contra incendios ha experimentado una transformación significativa en los últimos años. El incremento de **157% en la siniestralidad por incendios** reportado por la Asociación Mexicana de Instituciones de Seguros (AMIS), combinado con regulaciones cada vez más estrictas y la llegada de inversión extranjera que exige estándares internacionales, ha elevado dramáticamente las expectativas sobre los proveedores de equipos de seguridad. Ya no basta con ofrecer extintores básicos; las empresas que lideran el mercado actual combinan productos certificados, servicios integrales, experiencia técnica profunda y compromiso genuino con la protección de vidas.
+El mercado mexicano de protección contra incendio ha experimentado una **transformación estructural** en los últimos cinco años. El incremento del **157% en la siniestralidad por incendios** reportado por la **Asociación Mexicana de Instituciones de Seguros (AMIS)**, combinado con la entrada en vigor de regulaciones más estrictas y la presión de inversión extranjera que exige estándares internacionales (UL, FM, NFPA), ha elevado las expectativas sobre los proveedores nacionales. La oferta de extintores genéricos ya no satisface a un mercado que requiere productos certificados, servicios integrales, expertise técnico profundo y documentación auditable.
 
-En este análisis exhaustivo, examinamos las **cinco empresas más destacadas** del sector de protección contra incendio en México: **GAMA DE MÉXICO**, **MESECI**, **MANEXT**, **PROYECTO RED** y **LGA CONTRA INCENDIOS**. Cada una ha construido una propuesta de valor diferenciada que responde a necesidades específicas del mercado. Nuestro objetivo es proporcionar la información necesaria para que empresas, instituciones y profesionales de seguridad puedan identificar al proveedor que mejor se ajusta a sus requerimientos particulares.
+Este análisis examina **cinco referentes operativos del sector**: **Gama de México**, **MESECI**, **MANEXT**, **PROYECTO RED** y **LGA Contra Incendios**. Cada uno ocupa una posición diferenciada en el ecosistema. El objetivo no es producir una jerarquía absoluta —no la hay—, sino caracterizar **qué problema operativo resuelve cada uno** y cómo se complementan con el EPP NFPA personal que BOMBERO MX provee a las brigadas operativas internas en todo el país.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">157%</span>
+    <span class="stat__label">Aumento siniestralidad (AMIS)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">USD 110.87M</span>
+    <span class="stat__label">Valor mercado MX (2024)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">5</span>
+    <span class="stat__label">Referentes analizados</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NOM-002-STPS</span>
+    <span class="stat__label">Base normativa común</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Posicionamiento de los actores</span>
+    <p>Los cinco proveedores cubren funciones complementarias del ciclo de protección contra incendio: <strong>distribución industrial autorizada</strong> (Gama de México, LGA Contra Incendios), <strong>integración llave en mano</strong> (MESECI), <strong>mantenimiento bajo NOM-154-SCFI</strong> (MANEXT) y <strong>plataforma de directorio verificado</strong> (PROYECTO RED). Para el EPP NFPA personal que las brigadas operativas requieren, BOMBERO MX opera la línea complementaria con cobertura nacional desde CDMX.</p>
+  </div>
+</div>
 
 ---
 
@@ -9437,30 +10722,119 @@ La combinación de los sistemas y equipos de las empresas analizadas con la prot
 | **Directorio Bomberos** | [Ver estaciones →](/directorio) |
 
 
-### Artículos Relacionados
+## EPP NFPA para Brigadas — Catálogo Complementario BOMBERO MX
 
-- [**Informe Ejecutivo 2026: Ecosistema de Proveedores →**](/blog/informe-ejecutivo-proveedores-proteccion-incendio-mexico-2026/)
-- [**Las 3 Mejores Empresas: GAMA, MESECI y MANEXT →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
-- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
-- [**NFPA 1971: Guía Completa del Estándar para EPP →**](/blog/nfpa-1971-guia-completa/)
+Independientemente del proveedor seleccionado para sistemas fijos, mantenimiento, integración o catálogo digital, las **brigadas operativas internas** requieren su propio EPP NFPA certificado. **BOMBERO MX** opera este catálogo desde su almacén central en CDMX con cobertura a los 32 estados:
+
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Trajes NFPA 1971</h4>
+    <p class="feature__text">Sistema multicapa Nomex/PBI Gold + Gore-Tex Crosstech. TPP ≥35 cal/cm², THL ≥205 W/m². Globe, Lion, Honeywell.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro, Dräger PSS con cilindros composite 30–60 min y PASS device.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cascos NFPA 1971</h4>
+    <p class="feature__text">Bullard UST/FXE, Cairns 1044/XF1, MSA F1 con visor integrado o compatibilidad ESS.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Capuchas Nomex / PBI Gold</h4>
+    <p class="feature__text">Versiones estándar y particuladas PM2.5 — protección frente a productos de combustión Grupo 1 IARC.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Botas estructurales y forestales</h4>
+    <p class="feature__text">Haix Fire Eagle, Lion Boots, Danner Wildland — caña 10" estructural, 8" forestal con suela Vibram.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Herramientas NFPA 1936</h4>
+    <p class="feature__text">Holmatro, LUKAS, Hurst — cizallas, expansores, arietes para extricación vehicular.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>EPP NFPA personal — complemento a cualquier proveedor de sistema fijo</h3>
+  <p>Cotización formal CFDI en 24h con documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo elaborado por la Redacción de BOMBERO.MX con información verificada de los sitios oficiales de cada empresa (febrero 2026). Esta guía comparativa tiene fines informativos y no constituye una recomendación comercial específica. Los precios, disponibilidad y especificaciones están sujetos a cambio sin previo aviso. Para cotizaciones actualizadas, contactar directamente a cada empresa. Para equipos de protección personal certificados NFPA para bomberos y brigadistas, contactar a BOMBERO.MX.*
+## Referencias Normativas
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+- **NOM-154-SCFI-2005** — Extintores contra incendio – Servicio de mantenimiento y recarga
+- **NFPA 1, 10, 13, 14, 24, 25** — Estándares de sistemas fijos
+- **NFPA 1971, 1976, 1977, 1981, 1991/1992** — EPP por categoría operativa
+- **UL Listing / FM Approval Standards** — Certificación internacional
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Comparativa: Gama, MESECI y MANEXT](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [Análisis Sectorial del Mercado Mexicano](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
+- [Gama de México — Aliado Industrial](/blog/gama-de-mexico-aliado-industria-mexicana/)
+- [MESECI — Servicio Integral 360°](/blog/meseci-equipos-contra-incendio-mexico/)
+- [MANEXT — Mantenimiento NOM-154-SCFI](/blog/manext-mantenimiento-extintores-cdmx/)
+- [LGA Contra Incendios — Querétaro](/blog/lga-contra-incendios-queretaro-equipos-certificados/)
+- [PROYECTO RED — Plataforma de Proveedores](/blog/proyecto-red-plataforma-equipos-contra-incendio/)
     `,
   },
 
   "informe-ejecutivo-proveedores-proteccion-incendio-mexico-2026": {
-    titulo: "Informe 2026: Proveedores Protección Incendio",
-    excerpt: "Informe ejecutivo del mercado de protección contra incendio en México (USD $110.87M), con regulación, siniestralidad AMIS y análisis de 5 proveedores líderes.",
+    titulo: "Informe Ejecutivo 2026: Ecosistema de Proveedores de Protección Contra Incendio en México — Análisis Sectorial, Marco Regulatorio y Posicionamiento Operativo",
+    excerpt: "Informe ejecutivo 2026 del mercado mexicano de protección contra incendio: tamaño USD $110.87M con proyección a $177.18M para 2034, siniestralidad AMIS +157%, marco regulatorio NOM-002-STPS / NOM-100 / NOM-154 / NFPA 10, posicionamiento operativo de Gama de México, MESECI, MANEXT, PROYECTO RED, LGA Contra Incendios y complementariedad con EPP NFPA personal de BOMBERO MX.",
     imagen: "/images/directorio/bomberos-trabajo-equipo-01.avif",
     categoria: "Industrial",
-    tags: ["análisis de mercado", "protección contra incendio", "México", "NOM-002-STPS", "proveedores certificados", "Elkhart Brass", "AMIS"],
+    tags: ["Informe Ejecutivo", "Análisis Sectorial", "AMIS", "NOM-002-STPS", "Mercado México", "Gama de México", "MESECI", "MANEXT", "PROYECTO RED"],
     autor: "Redacción BOMBERO.MX",
-    autorRol: "Equipo de Análisis Industrial",
+    autorRol: "Equipo Editorial — Análisis Sectorial",
     anchorKeyword: "proveedores protección contra incendio México",
     contenido: `
-# Informe Ejecutivo: El Ecosistema de Protección Contra Incendio en México
+## Informe Ejecutivo 2026: Estado del Mercado Mexicano de Protección Contra Incendio
+
+El mercado mexicano de protección contra incendio atraviesa una **inflexión estructural sostenida**. Tres fuerzas convergentes —**incremento documentado del 157% en siniestralidad** reportado por AMIS (2023-2025), endurecimiento de auditoría regulatoria y entrada de inversión extranjera con estándares internacionales (UL/FM/NFPA)— han elevado las expectativas técnicas sobre toda la cadena: fabricantes, distribuidores, instaladores y compradores institucionales. El sector ya no admite proveedores generalistas con catálogo difuso; el mercado se está reorganizando alrededor de operadores que combinan **especialización funcional + documentación auditable + cobertura operativa real**.
+
+Este informe ejecutivo presenta el **análisis del estado sectorial 2026** con tres objetivos: caracterizar el **tamaño y dinámica del mercado** mediante datos verificables (AMIS, Expert Market Research, IMARC Group, DOF); describir el **marco regulatorio operativo** (NOM-002-STPS, NOM-100-STPS, NOM-154-SCFI, NFPA 10/13/14/24/25, NOM-017-STPS); y mapear el **posicionamiento operativo de los cinco proveedores referencia** del segmento mexicano: **Gama de México** (distribución industrial autorizada), **MESECI** (integrador 360°), **MANEXT** (unidad de verificación NOM-154-SCFI), **PROYECTO RED** (plataforma de directorio verificado) y **LGA Contra Incendios** (distribuidor regional Bajío). El análisis incluye la complementariedad sistémica con el **EPP NFPA personal** que **BOMBERO MX** opera para las brigadas operativas internas.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">USD 110.87M</span>
+    <span class="stat__label">Mercado extintores 2024</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">USD 177.18M</span>
+    <span class="stat__label">Proyección 2034 (4.80% CAGR)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">+157%</span>
+    <span class="stat__label">Siniestralidad 2023-2025 (AMIS)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$24,212M MXN</span>
+    <span class="stat__label">Pagos aseguradoras H1 2025</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/directorio/bomberos-trabajo-equipo-01.avif" alt="Equipo de bomberos en operación coordinada — el sistema completo requiere proveedor de sistema fijo + EPP NFPA personal de brigada" loading="lazy" width="900" height="600" />
+  <figcaption>Sistema completo de protección contra incendio — el ecosistema operativo combina sistema fijo (proveedores analizados), EPP NFPA personal (BOMBERO MX) y brigada interna capacitada.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Cinco proveedores, una arquitectura complementaria</span>
+    <p>Los cinco proveedores analizados <strong>no compiten en el mismo segmento estricto</strong>: cubren funciones distintas del ecosistema (distribución industrial, integración llave en mano, mantenimiento NOM-154, plataforma de directorio, distribución regional). Un proyecto industrial maduro típicamente contrata múltiples actores en paralelo, complementados con <strong>BOMBERO MX</strong> para el EPP NFPA personal de las brigadas operativas finales.</p>
+  </div>
+</div>
 
 ## Resumen Ejecutivo
 
@@ -9735,14 +11109,18 @@ La información presentada tiene fines informativos y no constituye una recomend
 
 ### Artículos Relacionados
 
-- [**Guía Definitiva 2026: 5 Mejores Empresas →**](/blog/guia-empresas-equipos-contra-incendio-mexico-2026/)
-- [**Radiografía del Sector Protección Contra Incendio →**](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
-- [**Las 3 Mejores Empresas: GAMA, MESECI y MANEXT →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
-- [**EPP para Brigadas Industriales: Selección por Sector →**](/blog/brigadas-industriales-epp/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Bomberos Querétaro — Clúster Aeroespacial AIQ](/blog/bomberos-queretaro-equipo-nfpa/)
+- [Gama de México — Aliado Industrial](/blog/gama-de-mexico-aliado-industria-mexicana/)
+- [Distribución Autorizada Elkhart Brass](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
+- [Logística Nacional Gama de México (CDMX + Querétaro)](/blog/gama-de-mexico-logistica-nacional-cdmx-queretaro/)
+- [Extintores por Clase de Fuego — NOM](/blog/extintores-tipos-clases-fuego-mexico/)
+- [ARFF Bomberos Aeroportuarios México](/blog/arff-bomberos-aeroportuarios-mexico/)
+- [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
 
 ---
 
-*© 2026 BOMBERO.MX — Informe Ejecutivo: Proveedores de Protección Contra Incendio en México. Prohibida la reproducción total o parcial sin autorización expresa. Para consultas sobre licenciamiento de este contenido, contactar a redaccion@bombero.mx*
+*© 2026 BOMBERO.MX — Análisis editorial del mercado mexicano de protección contra incendio.*
     `,
   },
   // ══════════════════════════════════════════════════
@@ -9750,20 +11128,52 @@ La información presentada tiene fines informativos y no constituye una recomend
   // ══════════════════════════════════════════════════
 
   "scba-guia-completa-bomberos-mexico": {
-    titulo: "SCBA para Bomberos: Guía Completa NFPA 1981 en México",
-    excerpt: "Todo lo que necesitas saber sobre el Equipo de Respiración Autónomo (SCBA) para bomberos. NFPA 1981, tipos de cilindro, cómo elegir entre 30/45/60 minutos, el PASS y cuánto cuesta en México.",
-    imagen: "/images/directorio/mascara-scba-bombero-01.avif",
+    titulo: "SCBA para Bomberos: Guía Completa NFPA 1981, 1982 y 1852 — Manual Técnico 2026",
+    excerpt: "Manual técnico 2026 sobre Equipo de Respiración Autónomo (SCBA) bajo NFPA 1981/1982/1852. Componentes (máscara, regulador presión positiva, cilindro, PASS, arnés), tipos de cilindro acero/composite/carbono 30-60 min, fit test cuantitativo y costos reales en México.",
+    imagen: "/images/directorio/bomberos-guardia-nocturna-scba-equipo-02.avif",
     categoria: "Equipo",
-    tags: ["SCBA", "NFPA 1981", "Cilindro SCBA", "PASS", "Equipo de Respiración Autónomo", "ERA"],
+    tags: ["SCBA", "NFPA 1981", "NFPA 1982", "NFPA 1852", "PASS", "ERA", "Cilindro Composite", "Fit Test"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo para Bomberos",
+    autorRol: "Equipo Técnico — Protección Respiratoria",
     anchorKeyword: "SCBA equipo de respiración autónomo bomberos México NFPA 1981",
     contenido: `
-## ¿Qué es el SCBA y Por Qué es el Equipo Más Crítico del Bombero?
+## SCBA para Bomberos: Marco Técnico, Normativo y Operativo
 
-El **SCBA** (Self-Contained Breathing Apparatus), conocido en español como **Equipo de Respiración Autónomo (ERA)**, es el dispositivo que permite al bombero respirar aire limpio en cualquier atmósfera peligrosa para la vida. Sin SCBA, un bombero no puede entrar a un incendio estructural. Es así de simple.
+El **SCBA (Self-Contained Breathing Apparatus)** —denominado en español **Equipo de Respiración Autónomo (ERA)**— es el componente del EPP que separa la operación profesional de combate estructural de la exposición letal. Sin SCBA en presión positiva certificado NFPA 1981, **un bombero no puede entrar a una atmósfera con humo activo**. La afirmación no admite matices operativos: los productos de combustión moderna —monóxido de carbono, cianuro de hidrógeno, acroleína, partículas finas con carga cancerígena del Grupo 1 IARC— incapacitan en minutos y matan en menos de cinco.
 
-En **BOMBERO.MX** entendemos que elegir el SCBA correcto es la decisión de equipamiento más importante que hará un jefe de cuerpo o responsable de seguridad industrial. Esta guía responde todas las preguntas técnicas con rigor profesional.
+Esta guía concentra el marco técnico (componentes, normas, especificaciones), normativo (NFPA 1981 / 1982 / 1852, NOM-002-STPS y NOM-017-STPS) y operativo (selección de cilindro, mantenimiento, fit test) que un jefe de cuerpo o responsable de brigada industrial necesita para tomar la decisión más cara y más crítica del año.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1981</span>
+    <span class="stat__label">Norma específica SCBA</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">4,500 psi</span>
+    <span class="stat__label">Presión trabajo cilindros</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num"><2 min</span>
+    <span class="stat__label">Incapacitación sin SCBA</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">30/45/60</span>
+    <span class="stat__label">Duraciones estándar (min)</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/directorio/bomberos-guardia-nocturna-scba-equipo-02.avif" alt="Bomberos en guardia con SCBA NFPA 1981 montado y listo para operación" loading="lazy" width="900" height="600" />
+  <figcaption>SCBA en disposición operativa — la presión positiva y el PASS integrado son obligatorios bajo NFPA 1981 para servicio de emergencia.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Por qué el humo mata más que el fuego</span>
+    <p>Los productos de combustión moderna son la <strong>causa documentada de la mayoría de las fatalidades en incendio estructural</strong> tanto de civiles como de bomberos. <strong>Cianuro de hidrógeno (HCN)</strong> de combustión de poliuretano y nylon es más letal que el CO. <strong>Acroleína</strong> de polipropileno causa daño pulmonar irreversible. El SCBA en presión positiva NFPA 1981 es la única barrera efectiva.</p>
+  </div>
+</div>
 
 ### ¿Por Qué el Humo Mata Más que el Fuego?
 
@@ -9945,40 +11355,121 @@ La decisión correcta depende de 3 factores:
 2. **Frecuencia de uso**: Uso diario justifica inversión en cilindro de carbono (menor peso, mayor comodidad); uso ocasional puede justificar cilindro de acero
 3. **Presupuesto y proceso de adquisición**: Los cilindros de acero son la puerta de entrada para municipios con presupuesto limitado que necesitan cumplir NFPA 1981
 
-En **BOMBERO.MX** ofrecemos asesoría técnica sin costo para ayudarte a elegir la configuración correcta para tu cuerpo de bomberos o brigada industrial. Contáctanos con tus requerimientos y te entregamos una cotización con especificaciones NFPA listas para licitación.
+## Equipamiento BOMBERO MX: Catálogo SCBA Certificado NFPA 1981
+
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">MSA G1 (con opción LUNAR)</h4>
+    <p class="feature__text">Referencia de servicio para municipios y operaciones nuevas. PASS motionSCOUT, HUD integrado, opción LUNAR con termografía en máscara.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Scott Air-Pak X3 Pro</h4>
+    <p class="feature__text">Estándar para departamentos con parque Scott existente. PAK-Alert SE PASS, regulador E-Z Flo II, máscara AV-3000 HT.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Dräger PSS 7000</h4>
+    <p class="feature__text">Alternativa europea con disponibilidad de refacciones en México vía distribuidores autorizados. Configurable para HAZMAT.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cilindros 30/45/60 min</h4>
+    <p class="feature__text">Acero (presupuesto inicial), composite (estándar municipal) y fibra de carbono (alta frecuencia, edificios altos).</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Plan de mantenimiento NFPA 1852</h4>
+    <p class="feature__text">Coordinación de prueba hidrostática, servicio anual del regulador y fit test cuantitativo del personal.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Capacitación de fábrica</h4>
+    <p class="feature__text">Para pedidos institucionales coordinamos capacitación con técnicos del fabricante en tu estación.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>SCBA NFPA 1981 con asesoría imparcial entre MSA, Scott y Dräger</h3>
+  <p>Configuración recomendada según operación, presupuesto y parque existente · Documentación lista para licitación · Cobertura nacional</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización SCBA</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*¿Necesitas equipar tu cuerpo de bomberos o brigada con SCBA certificado? [Solicita cotización aquí →](/cotizar/) o escríbenos por [WhatsApp →](https://wa.me/525520780102)*
+## Referencias Normativas
+
+- **NFPA 1981** — Standard on Open-Circuit Self-Contained Breathing Apparatus (SCBA) for Emergency Services
+- **NFPA 1982** — Standard on Personal Alert Safety Systems (PASS)
+- **NFPA 1852** — Standard on Selection, Care, and Maintenance of Open-Circuit Self-Contained Breathing Apparatus
+- **NFPA 1500** — Standard on Fire Department Occupational Safety, Health, and Wellness Program
+- **NFPA 1404** — Standard for Fire Service Respiratory Protection Training
+- **OSHA 29 CFR 1910.134** — Respiratory Protection (fit test cuantitativo)
+- **CGA G-7.1** — Commodity Specification for Air (calidad del aire respirable Grado D/E)
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+- **NOM-115-STPS-2009** — Condiciones de seguridad en el trabajo con respiradores
+
+---
 
 ### Artículos Relacionados
 
-- [**Mantenimiento SCBA: Protocolo NFPA 1852 →**](/blog/mantenimiento-scba/)
-- [**Guía NFPA 1971: EPP Estructural para Bomberos →**](/blog/nfpa-1971-guia-completa/)
-- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp/)
-- [**Catálogo SCBA BOMBERO.MX →**](/productos/scba/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [SCBA MSA G1 vs Scott Air-Pak — Comparativa](/blog/scba-msag1-vs-scott-airpak/)
+- [Mantenimiento de Equipo NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Capuchas Monjas NFPA — Protección Particulada](/blog/capuchas-monjas-bombero-nfpa-guia/)
+- [Cascos Bullard vs Cairns](/blog/casco-bombero-bullard-vs-cairns/)
+- [Cámara Termográfica TIC NFPA 1801](/blog/camara-termica-tic-bomberos-nfpa-1801/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Catálogo SCBA BOMBERO.MX](/productos/scba/)
     `,
   },
 
   "camara-termica-tic-bomberos-nfpa-1801": {
-    titulo: "Cámara Termográfica TIC para Bomberos: NFPA 1801 y FLIR",
-    excerpt: "Guía técnica completa sobre cámaras termográficas (TIC) para bomberos. NFPA 1801, FLIR K2 vs MSA Evolution 6000, cómo detectar víctimas en humo total, y cuánto cuestan en México.",
+    titulo: "Cámara Termográfica (TIC) para Bomberos: NFPA 1801, FLIR K-Series y MSA Evolution — Guía Técnica 2026",
+    excerpt: "Manual técnico 2026 sobre cámaras termográficas para combate de incendios. Requisitos NFPA 1801 (resistencia térmica, IP67, frecuencia mínima 9 Hz), comparativa FLIR K-Series vs MSA Evolution 6000 vs Bullard QXT, protocolos de barrido y selección por tipo de cuerpo.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estacion-equipo-scba-asesoria-01.avif",
     categoria: "Equipo",
-    tags: ["Cámara Termográfica", "TIC", "NFPA 1801", "FLIR", "Tecnología Bomberos", "Búsqueda de Víctimas"],
+    tags: ["Cámara Termográfica", "TIC", "NFPA 1801", "FLIR", "MSA Evolution", "Bullard QXT", "Búsqueda de Víctimas"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Tecnología para Bomberos",
+    autorRol: "Equipo Técnico — Tecnología Operativa",
     anchorKeyword: "cámara termográfica TIC bomberos NFPA 1801 México FLIR",
     contenido: `
-## Cámaras Termográficas para Bomberos: El Equipo que Salva Vidas en Humo Total
+## Cámara Termográfica (TIC) para Bomberos: Función Operativa y Marco Normativo
 
-La **cámara termográfica para bomberos** —conocida en la industria como **TIC (Thermal Imaging Camera)**— es quizás la innovación tecnológica que más vidas ha salvado en el combate de incendios en los últimos 30 años. En un ambiente con visibilidad cero por humo, la TIC permite al bombero:
+La **Thermal Imaging Camera (TIC)** es, junto con el SCBA NFPA 1981, el componente tecnológico que más ha modificado la doctrina operativa del combate estructural en las últimas tres décadas. La capacidad de visualizar la distribución térmica del compartimento en ambiente de humo total transforma la operación de **búsqueda táctil** —desplazamiento lento, en línea, con contacto físico con la pared— en **búsqueda visual dirigida**, reduciendo el tiempo de localización de víctima en estructuras medianas de varios minutos a menos de noventa segundos.
 
-- **Detectar víctimas** (la temperatura corporal destaca sobre fondos más fríos)
-- **Identificar el origen del fuego** detrás de paredes y pisos
-- **Detectar puntos calientes** después del combate para prevenir reigniciones
-- **Orientarse espacialmente** en entornos con visibilidad cero
-- **Evaluar la integridad estructural** del edificio durante el combate
+Su aplicación no se limita a la búsqueda. La TIC también permite **lectura térmica del incendio** antes de la apertura de puerta (detección de superficies posteriores calientes que indican fuego activo), **identificación de propagación oculta** en cavidades estructurales, **verificación post-extinción** de puntos calientes susceptibles de reignición y **orientación espacial** del operador en humo denso, reduciendo significativamente el riesgo de desorientación catastrófica (causa documentada de bomberos perdidos en operación interior).
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1801</span>
+    <span class="stat__label">Norma específica para TIC</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">≥9 Hz</span>
+    <span class="stat__label">Frecuencia mínima de imagen</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">IP67</span>
+    <span class="stat__label">Grado de protección mínimo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">260 °C</span>
+    <span class="stat__label">Resistencia 5 min en operación</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/traje-bombero-estacion-equipo-scba-asesoria-01.avif?lossy=1&strip=all" alt="Bombero con EPP completo y dispositivo termográfico para operación de búsqueda" loading="lazy" width="900" height="600" />
+  <figcaption>La TIC se opera en conjunto con SCBA y EPP completo — su uso correcto requiere doctrina de barrido sistemático, no exploración aleatoria.</figcaption>
+</figure>
+
+### Aplicaciones Operativas Documentadas
+
+- **Búsqueda primaria y secundaria** de víctimas con compromiso de movilidad o consciencia en compartimento con humo
+- **Localización del foco activo** detrás de tabiques, pisos elevados, plenum y entrepisos
+- **Identificación de puntos calientes** post-extinción para prevención de reignición
+- **Lectura de propagación** vertical y horizontal antes de la ventilación táctica
+- **Verificación de integridad estructural** —vigas y elementos portantes presentan firma térmica anormal antes del colapso
+- **Coordinación de rescate de bombero caído** (RIT/RIC) en humo total
 
 ### El Principio de Funcionamiento
 
@@ -10123,37 +11614,122 @@ Los **drones equipados con cámara termográfica** están transformando la respu
 
 Una TIC básica (FLIR K2, ~$55,000 MXN) es la inversión de menor costo/impacto en la dotación de un cuerpo de bomberos. El retorno es directo:
 
-- **Una víctima encontrada y rescatada**: Invaluable (y evita responsabilidad legal del cuerpo)
-- **Un punto caliente detectado** antes de reignición: Previene nuevo incendio y nueva respuesta
-- **Orientación espacial del bombero**: Reduce riesgo de desorientación y MAYDAY dentro del edificio
+- **Localización exitosa de víctima en humo total**: impacto operativo no cuantificable y exposición legal por omisión documentada
+- **Detección temprana de reignición**: evita nueva respuesta operativa con costo logístico y de exposición de personal asociado
+- **Orientación espacial del operador**: reduce probabilidad de declaración MAYDAY por desorientación, situación que activa protocolos RIT/RIC con sobrecarga de recursos del incidente
 
 ---
 
-*¿Necesitas asesoría sobre cámaras termográficas para tu cuerpo de bomberos? [Solicita cotización →](/cotizar/) o escríbenos por [WhatsApp →](https://wa.me/525520780102)*
+## Equipamiento BOMBERO MX: Cámaras Termográficas para Combate de Incendios
+
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">FLIR K-Series (K2, K33, K55, K65)</h4>
+    <p class="feature__text">Línea de referencia para cuerpos municipales y brigadas industriales. Certificación NFPA 1801 vigente, sensor microbolómetro sin refrigeración, batería intercambiable.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">MSA Evolution 6000 / 6000+</h4>
+    <p class="feature__text">Resolución 320×240, paletas múltiples optimizadas para búsqueda de víctima, Bluetooth para transmisión a comandante de incidente, grabación de video.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Bullard QXT y NXT</h4>
+    <p class="feature__text">Alternativa norteamericana con buena disponibilidad de refacciones en México. Configuraciones específicas para HAZMAT y rescate técnico.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">MSA G1 con LUNAR integrado</h4>
+    <p class="feature__text">Termografía integrada en la máscara facial del SCBA — elimina dispositivo separado y mejora orientación continua del operador.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Drones DJI Mavic 3 Thermal / M30T</h4>
+    <p class="feature__text">Para incendios forestales y operación USAR. Mapeo de perímetro, detección de personas y verificación estructural sin exposición de personal.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Programa de capacitación operativa</h4>
+    <p class="feature__text">Una TIC sin protocolo de barrido entrenado equivale a no tenerla. Coordinamos capacitación con técnicos del fabricante y referencias NFPA 1410 / 1500.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>Cámara termográfica certificada NFPA 1801 para tu cuerpo</h3>
+  <p>Asesoría técnica de selección por presupuesto y operación · Capacitación coordinada con el fabricante · Documentación lista para licitación</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+## Referencias Normativas
+
+- **NFPA 1801** — Standard on Thermal Imagers for the Fire Service (edición vigente)
+- **NFPA 1410** — Standard on Training for Initial Emergency Scene Operations
+- **NFPA 1500** — Standard on Fire Department Occupational Safety, Health, and Wellness Program (sección de uso de tecnología)
+- **NFPA 1981** — Standard on Open-Circuit Self-Contained Breathing Apparatus (SCBA) — interacción con TIC integrada
+- **NFPA 1407** — Standard for Training Fire Service Rapid Intervention Crews (uso de TIC en operación RIT/RIC)
+- **IEC 60529** — Grados de protección IP (especificación IP67)
+
+---
 
 ### Artículos Relacionados
 
-- [**SCBA para Bomberos: Guía Completa NFPA 1981 →**](/blog/scba-guia-completa-bomberos-mexico/)
-- [**Cascos para Bombero: Tipos y Certificaciones NFPA →**](/blog/cascos-para-bombero-tipos-certificaciones-nfpa/)
-- [**Tecnología para Bomberos: Catálogo →**](/productos/tecnologia/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [SCBA MSA G1 vs Scott Air-Pak](/blog/scba-msag1-vs-scott-airpak/)
+- [Flashover y Backdraft: Guía de Supervivencia](/blog/flashover-backdraft-bomberos-guia-supervision/)
+- [Cascos Bullard vs Cairns](/blog/casco-bombero-bullard-vs-cairns/)
+- [NFPA 1971: Guía Completa del EPP Estructural](/blog/nfpa-1971-guia-completa/)
+- [Mantenimiento de Equipo NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Catálogo completo de productos](/productos/)
     `,
   },
 
   "extricacion-vehicular-jaws-of-life-mexico": {
-    titulo: "Extricación Vehicular y Jaws of Life: Guía NFPA 1936 para Bomberos",
-    excerpt: "Guía técnica sobre herramientas de extricación vehicular para bomberos. Cizallas hidráulicas (Jaws of Life), expansores, arietes, marcas LUKAS y Holmatro, técnicas de extricación y costo en México.",
-    imagen: "/images/directorio/bomberos-guardia-nocturna-scba-equipo-02.avif",
+    titulo: "Extricación Vehicular y Jaws of Life: Guía NFPA 1936 para Bomberos 2026",
+    excerpt: "Guía 2026 sobre herramientas de extricación vehicular NFPA 1936. Cizallas hidráulicas (Jaws of Life), expansores, arietes, comparativa LUKAS vs Holmatro vs Hurst, generaciones de cizallas y costos reales en México.",
+    imagen: "/images/accion/bomberos-rescate-vehicular.avif",
     categoria: "Técnicas",
-    tags: ["Extricación Vehicular", "Jaws of Life", "Herramientas Hidráulicas", "NFPA 1936", "Rescate Vehicular", "LUKAS Holmatro"],
+    tags: ["Extricación Vehicular", "Jaws of Life", "Holmatro", "LUKAS", "Hurst", "NFPA 1936", "Rescate Vehicular"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Especialistas en Rescate para Bomberos",
     anchorKeyword: "extricación vehicular herramientas hidráulicas bomberos México cizallas Jaws of Life",
     contenido: `
-## Extricación Vehicular: La Operación de Rescate Más Frecuente para Bomberos en México
+## Extricación Vehicular: La Operación de Rescate Más Frecuente en México
 
-La **extricación vehicular** —el proceso de liberar a una o más víctimas atrapadas dentro de un vehículo accidentado— es estadísticamente la operación de rescate más frecuente en los cuerpos de bomberos de México. Las cifras del INEGI indican más de **400,000 accidentes de tránsito anuales** en México, con miles de víctimas atrapadas que requieren la intervención de equipos especializados.
+La **extricación vehicular** —el proceso de liberar a una o más víctimas atrapadas dentro de un vehículo accidentado— es **estadísticamente la operación de rescate más frecuente** en los cuerpos de bomberos de México. Las cifras del **INEGI** indican más de **400,000 accidentes de tránsito anuales** en México, con miles de víctimas atrapadas que requieren la intervención de equipos especializados.
 
-La herramienta estrella del rescate vehicular —las **cizallas hidráulicas**, conocidas popularmente como **"Jaws of Life"**— es el símbolo del bombero moderno. En este artículo explicamos cómo funcionan, qué norma las regula, y cómo seleccionar las herramientas correctas para tu equipo.
+La herramienta estrella del rescate vehicular —las **cizallas hidráulicas**, conocidas popularmente como **"Jaws of Life"**— es el símbolo del bombero moderno. En este artículo explicamos cómo funcionan, qué norma las regula, y cómo **seleccionar las herramientas correctas** para tu equipo.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">400K+</span>
+    <span class="stat__label">Accidentes/año en México</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">600 kN</span>
+    <span class="stat__label">Fuerza cizallas 3ª gen.</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1936</span>
+    <span class="stat__label">Norma aplicable</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$500K-850K</span>
+    <span class="stat__label">Kit básico completo (MXN)</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/accion/bomberos-rescate-vehicular.avif?lossy=1&strip=all" alt="Bomberos en operación de extricación vehicular con herramientas hidráulicas" loading="lazy" width="900" height="600" />
+  <figcaption>Extricación vehicular — operación que requiere herramientas hidráulicas de generación actual para cortar el acero UHSS de vehículos modernos.</figcaption>
+</figure>
+
+<div class="callout callout--warn">
+  <span class="callout__icon">⚠️</span>
+  <div class="callout__body">
+    <span class="callout__title">Alerta crítica para jefes de cuerpo</span>
+    <p>Si tu cuerpo usa cizallas de <strong>más de 10 años</strong>, probablemente <strong>no pueden cortar el acero UHSS de vehículos modernos</strong> (post-2015). Esta es una deficiencia operativa crítica que requiere actualización inmediata — el tiempo perdido intentando cortar puede costar la vida de la víctima.</p>
+  </div>
+</div>
 
 ---
 
@@ -10275,42 +11851,113 @@ La extricación vehicular es una operación en equipo con secuencia establecida:
 | Unidad de poder hidráulica | $120,000 – $200,000 |
 | **Kit básico completo** (cizalla + expansor + ariete + unidad poder) | **$500,000 – $850,000** |
 
-*Para municipios pequeños con presupuesto limitado: la herramienta combinada (cizalla + expansor en una) reduce el costo inicial manteniendo capacidad operativa básica.*
+**Para municipios pequeños con presupuesto limitado**: la **herramienta combinada (cizalla + expansor en una)** reduce el costo inicial manteniendo capacidad operativa básica.
 
 ---
 
-*¿Necesitas cotizar herramientas de extricación para tu cuerpo de bomberos? [Solicita cotización →](/cotizar/) o escríbenos por [WhatsApp →](https://wa.me/525520780102)*
+## BOMBERO MX: Distribuidor de Herramientas Hidráulicas para Bomberos
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Holmatro, LUKAS, Hurst</h4>
+    <p class="feature__text">Distribuidores de las tres marcas referencia NFPA 1936 con servicio técnico en México.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⚡</span>
+    <h4 class="feature__title">3ª generación UHSS</h4>
+    <p class="feature__text">Cizallas capaces de cortar acero de ultra-alta resistencia en vehículos modernos.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔋</span>
+    <h4 class="feature__title">Electrobatería + hidráulico</h4>
+    <p class="feature__text">Soluciones cordless para respuesta rápida + tradicional para operaciones largas.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🎓</span>
+    <h4 class="feature__title">Capacitación incluida</h4>
+    <p class="feature__text">Coordinamos entrenamiento técnico del fabricante en tu estación.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>¿Necesitas actualizar tus herramientas de extricación?</h3>
+  <p>Cotización con asesoría técnica sobre marca, generación y configuración según tu operación.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
 
 ### Artículos Relacionados
 
-- [**Rescate Vehicular: Técnicas de Extricación →**](/blog/rescate-vehicular-tecnicas/)
-- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp/)
-- [**Herramientas de Rescate BOMBERO.MX →**](/productos/herramientas-rescate/)
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**NFPA 1971: Guía Completa →**](/blog/nfpa-1971-guia-completa/)
+- [**Bomberos CDMX: Equipo NFPA →**](/blog/bomberos-cdmx-equipo-nfpa/)
+- [**Bomberos Monterrey: Equipo NFPA →**](/blog/bomberos-monterrey-equipo-nfpa/)
+- [**Bomberos Guadalajara: Equipo NFPA →**](/blog/bomberos-guadalajara-equipo-nfpa/)
+- [**Licitaciones NFPA Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
   },
 
   "incendios-forestales-mexico-temporada-2026": {
-    titulo: "Incendios Forestales México 2026: Temporada, EPP y Protocolo CONAFOR",
-    excerpt: "Todo sobre la temporada de incendios forestales en México 2026. Estadísticas CONAFOR, EPP obligatorio NFPA 1977, equipo de herramientas de suelo, mochila bomba y protocolo de respuesta para brigadas forestales.",
+    titulo: "Incendios Forestales en México: Temporada 2026, EPP NFPA 1977 y Protocolos CONAFOR — Manual Operativo",
+    excerpt: "Manual operativo 2026 para combate de incendios forestales en México. Análisis estadístico CONAFOR, EPP obligatorio NFPA 1977, herramientas de suelo Pulaski/McLeod, mochila bomba, Ten Standard Orders, 18 Watchouts y dotación mínima para brigadas estatales y municipales.",
     imagen: "/images/trajes-para-bombero/traje-bombero-detalle-chaqueton-incendio-campo-01.avif",
     categoria: "Forestales",
-    tags: ["Incendios Forestales", "CONAFOR", "NFPA 1977", "Brigadas Forestales", "Temporada Incendios", "EPP Forestal"],
+    tags: ["Incendios Forestales", "CONAFOR", "NFPA 1977", "Brigadas Forestales", "Ten Standard Orders", "EPP Forestal", "PROCOREF"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo Forestal NFPA 1977",
+    autorRol: "Equipo Técnico — Línea Forestal",
     anchorKeyword: "incendios forestales México temporada 2026 EPP NFPA 1977 CONAFOR brigadas forestales",
     contenido: `
-## Incendios Forestales en México: El Problema que Crece Cada Año
+## Incendios Forestales en México: Panorama Operativo Temporada 2026
 
-México es uno de los países con mayor incidencia de incendios forestales en América Latina. Según datos de **CONAFOR (Comisión Nacional Forestal)**, México registra anualmente entre **6,000 y 12,000 incendios forestales** que afectan entre 200,000 y 800,000 hectáreas dependiendo de las condiciones climáticas de cada año.
+México presenta una de las tasas de incidencia de incendios forestales más altas de América Latina. La serie histórica publicada por **CONAFOR (Comisión Nacional Forestal)** en el *Sistema Nacional de Información Forestal* registra entre **6,000 y 12,000 incendios anuales** que afectan, según el año climático, entre **200,000 y 800,000 hectáreas**. Las temporadas con eventos meteorológicos de El Niño (años secos) duplican consistentemente la superficie afectada respecto a años neutros, y los eventos extremos —2011, 2017, 2021, 2024— elevaron la cifra por encima de **1 millón de hectáreas**.
 
-La temporada de incendios forestales en México tiene dos picos:
+La gestión de esta amenaza recae sobre una arquitectura tripartita: **CONAFOR** como coordinador federal, las **comisiones forestales estatales** con personal operativo permanente, y **brigadas municipales y voluntarias** que actúan como primer respondiente local. La efectividad operativa de cada eslabón depende de tres variables: tiempo de detección, distancia al foco activo y **estado del EPP del personal desplegado**.
 
-| Temporada | Meses | Regiones Más Afectadas |
-|-----------|-------|----------------------|
-| **Temporada seca** (principal) | Febrero – Mayo | Norte: Chihuahua, Sonora, Durango; Centro: Michoacán, Jalisco, Estado de México |
-| **Temporada de lluvias** (menor) | Julio – Agosto | Oaxaca, Chiapas (quemas agrícolas) |
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">6K–12K</span>
+    <span class="stat__label">Incendios por temporada</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1977</span>
+    <span class="stat__label">Norma EPP forestal</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10</span>
+    <span class="stat__label">Standard Fire Fighting Orders</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">18</span>
+    <span class="stat__label">Watchout Situations</span>
+  </div>
+</div>
 
-El **Estado de México, Michoacán, Jalisco, Chihuahua y Oaxaca** concentran históricamente más del 60% de la superficie afectada por incendios forestales en México.
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/accion/bomberos-capacitacion-torre-entrenamiento.avif?lossy=1&strip=all" alt="Capacitación de brigada forestal en torre de entrenamiento" loading="lazy" width="900" height="600" />
+  <figcaption>Capacitación de brigada con énfasis en lectura de terreno y comunicaciones — pilar de seguridad antes del despliegue operativo.</figcaption>
+</figure>
+
+### Temporadas y Distribución Geográfica
+
+| Temporada | Meses | Estados con mayor superficie afectada |
+|-----------|-------|----------------------------------------|
+| **Seca / principal** | Febrero – Mayo | Chihuahua, Sonora, Durango, Michoacán, Jalisco, Estado de México |
+| **Lluvias / quemas agrícolas** | Julio – Agosto | Oaxaca, Chiapas, Veracruz, Yucatán |
+
+Históricamente, **Estado de México, Michoacán, Jalisco, Chihuahua y Oaxaca** concentran más del 60% de la superficie quemada anual a nivel nacional.
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Cambio climático y temporada 2026</span>
+    <p>Los modelos climáticos del SMN proyectan para la temporada 2026 una <strong>temporada seca extendida (febrero a junio)</strong> con condiciones de baja humedad relativa en el centro y occidente. Las brigadas estatales y municipales en Jalisco, Michoacán, Estado de México y Veracruz deben adelantar reposición de EPP, hidrosueros y kits de supervivencia personal a <strong>enero 2026</strong>, no a marzo como en temporadas convencionales.</p>
+  </div>
+</div>
 
 ---
 
@@ -10433,215 +12080,403 @@ Los estados y municipios que reciben presupuesto CONAFOR para combate de incendi
 
 ---
 
-## Lista de Verificación: Equipo Mínimo por Bombero Forestal
+## Dotación Mínima por Bombero Forestal — Lista de Verificación
 
-| Elemento | Norma | Observación |
-|----------|-------|-------------|
-| ✅ Traje (chaqueta + pantalón) | NFPA 1977 | Nomex® o equivalente certificado |
-| ✅ Casco forestal | NFPA 1977 | Con protector facial y pantalla |
-| ✅ Guantes de cuero | NFPA 1977 | Puño largo |
-| ✅ Botas de cuero 8" | NFPA 1977 | Suela Vibram® o equivalente |
-| ✅ Máscara respiratoria | N95 mínimo / P100 recomendado | Para humo de incendio forestal |
-| ✅ Gafas antipolvo | — | Protección ocular en construcción de línea |
-| ✅ Pulaski o McLeod | — | Herramienta de suelo principal |
-| ✅ Mochila bomba 18L | — | Para remate y control |
-| ✅ Radio portátil | — | Comunicación con supervisores |
-| ✅ Kit de supervivencia personal | — | Brújula, espejo señal, silbato, cobertor de emergencia |
-| ✅ Cobertor de emergencia (fire shelter) | NFPA 1977 | En brigadas CONAFOR — obligatorio |
+| Componente | Norma aplicable | Especificación operativa |
+|------------|------------------|-----------------------------|
+| Traje (chaqueta + pantalón) | NFPA 1977 | Nomex IIIA o aramida equivalente certificada |
+| Casco forestal con barbiquejo | NFPA 1977 | Carcasa ABS o termoplástico, sin partes metálicas expuestas |
+| Guantes de cuero o aramida | NFPA 1977 | Puño largo con cierre ajustable, dexteridad para herramienta |
+| Botas de cuero, caña 8" | NFPA 1977 | Suela Vibram o equivalente, sin componentes metálicos exteriores |
+| Protección respiratoria | NIOSH N95 mínimo / P100 recomendado | Filtrado de partículas finas y aromáticos de combustión vegetal |
+| Gafas antipolvo balísticas | ANSI Z87.1+ | Ventilación indirecta para evitar empañamiento |
+| Cobertor de emergencia (fire shelter) | NFPA 1977 | Obligatorio en operación CONAFOR / PROCOREF |
+| Herramienta de suelo | — | Pulaski, McLeod o pala forestal según rol asignado |
+| Mochila bomba 18–25 L | — | Polietileno o caucho de alta resistencia |
+| Radio portátil con canal de campo | — | Verificación pre-despliegue del canal de la brigada |
+| Kit de supervivencia personal | — | Brújula, espejo de señal, silbato, hidrosuero, frutos secos |
 
 ---
 
-*¿Necesitas equipar tu brigada forestal con EPP certificado NFPA 1977? [Solicita cotización →](/cotizar/) o escríbenos por [WhatsApp →](https://wa.me/525520780102)*
+## Equipamiento BOMBERO MX para Brigadas Forestales
+
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Trajes NFPA 1977 certificados</h4>
+    <p class="feature__text">Configuraciones Nomex IIIA y aramida equivalente con bandas reflectivas SOLAS, ajuste para diferentes tallas y bolsillos operativos.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cascos y barbiquejo forestal</h4>
+    <p class="feature__text">Carcasa termoplástica ventilada con sistema de retención de cuatro puntos. Compatible con gafas balísticas y protección auditiva.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Botas de cuero suela Vibram</h4>
+    <p class="feature__text">Caña 8", construcción Goodyear welt para vida útil prolongada en terreno irregular. Modelos Danner Wildland y White's Boots.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Herramientas de suelo</h4>
+    <p class="feature__text">Pulaski, McLeod, palas forestales con mango largo de fresno o fibra de vidrio reforzada.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Mochila bomba 20 L</h4>
+    <p class="feature__text">Caucho de alta resistencia con bomba doble efecto y boquilla ajustable. Repuestos disponibles.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Fire shelter NFPA 1977</h4>
+    <p class="feature__text">Cobertor de emergencia M-2002 con reflectancia certificada — obligatorio en operaciones CONAFOR.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>Equipamiento NFPA 1977 para brigadas forestales y municipios</h3>
+  <p>Asesoría de configuración por región operativa · Documentación lista para licitaciones CONAFOR y estatales · Envío anticipado para temporada 2026</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/" class="alt">Ver catálogo forestal</a>
+  </div>
+</div>
+
+---
+
+## Referencias Normativas
+
+- **NFPA 1977** — Standard on Protective Clothing and Equipment for Wildland Fire Fighting (edición vigente)
+- **NFPA 1140** — Standard for Wildland Fire Protection (administración de programas de protección contra incendio forestal)
+- **NWCG PMS 410-1** — Wildland Fire Incident Management Field Guide (referencia internacional adoptada por CONAFOR)
+- **NWCG PMS 461** — Standards for Fire Shelters (cobertor de emergencia M-2002)
+- **NIOSH 42 CFR Part 84** — Respirator Certification (N95, P100)
+- **Ten Standard Fire Fighting Orders** — US Forest Service / NWCG
+- **18 Watchout Situations** — US Forest Service / NWCG
+- **CONAFOR** — Sistema Nacional de Información Forestal, Programa PROCOREF
+
+---
 
 ### Artículos Relacionados
 
-- [**Incendios Forestales México: Guía EPP NFPA 1977 →**](/blog/incendios-forestales-mexico/)
-- [**Equipo Forestal BOMBERO.MX →**](/productos/forestales/)
-- [**Cascos para Bombero →**](/blog/cascos-para-bombero-tipos-certificaciones-nfpa/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Bomberos Guadalajara — Bosque La Primavera](/blog/bomberos-guadalajara-equipo-nfpa/)
+- [Bomberos Puebla — Faldas del Popocatépetl](/blog/bomberos-puebla-equipo-nfpa/)
+- [Bomberos Tijuana — Vientos Santa Ana](/blog/bomberos-tijuana-equipo-nfpa/)
+- [Botas para Bomberos NFPA](/blog/botas-para-bomberos-guia-nfpa/)
+- [Cascos Bullard vs Cairns](/blog/casco-bombero-bullard-vs-cairns/)
+- [Catálogo de equipo forestal](/productos/)
     `,
   },
 
   "hazmat-niveles-proteccion-bomberos-mexico": {
-    titulo: "HAZMAT en México: Niveles de Protección A, B, C y D para Bomberos",
-    excerpt: "Guía técnica sobre respuesta a materiales peligrosos (HAZMAT) para bomberos. Niveles de protección A, B, C y D, normativa NOM y NFPA 1991/1992, decontaminación y las brigadas HAZMAT en México.",
+    titulo: "HAZMAT en México: Niveles de Protección A/B/C/D según NFPA 1991, 1992 y EPA — Guía Técnica 2026",
+    excerpt: "Manual técnico 2026 para respuesta a materiales peligrosos. Selección de Nivel A/B/C/D según EPA/OSHA/NFPA, criterios de zonificación, decontaminación SOP, brigadas industriales mexicanas y referencias normativas NOM-005-STPS, NOM-018-STPS, SETIQ.",
     imagen: "/images/directorio/bombero-hernandez-capucha-scba-estacion-02.avif",
     categoria: "Técnicas",
-    tags: ["HAZMAT", "Materiales Peligrosos", "Nivel A", "Nivel B", "NFPA 1991", "NOM-005-STPS", "Decontaminación"],
+    tags: ["HAZMAT", "NFPA 1991", "NFPA 1992", "Nivel A", "Nivel B", "EPA", "OSHA", "NOM-005-STPS", "SETIQ", "Descontaminación"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo HAZMAT para Bomberos",
+    autorRol: "Equipo Técnico de EPP HAZMAT",
     anchorKeyword: "HAZMAT niveles protección A B C D bomberos México NFPA 1991 1992",
     contenido: `
-## HAZMAT: La Respuesta de Mayor Riesgo para los Bomberos
+## Respuesta HAZMAT: Marco Operativo y Normativo para Brigadas en México
 
-La respuesta a **materiales peligrosos (HAZMAT)** es estadísticamente la operación con mayor riesgo para la salud a largo plazo de los bomberos —y una de las más frecuentes en México dada la densidad industrial del país.
+La respuesta a incidentes con **materiales peligrosos (HAZMAT)** es la operación con mayor potencial de exposición crónica y aguda para personal de emergencia. La selección incorrecta del nivel de protección —usual cuando el incidente se aborda sin clasificación previa de la sustancia— es la causa raíz documentada de la mayoría de las exposiciones secundarias en operaciones HAZMAT en Norteamérica (US Fire Administration, *Hazardous Materials Incidents Annual Report*).
 
-México tiene más de **700,000 establecimientos** que manejan sustancias químicas peligrosas, incluyendo las zonas petroquímicas de Veracruz y Tamaulipas, la industria automotriz del Bajío, las plantas maquiladoras del norte, y las instalaciones de PEMEX y CFE distribuidas en todo el país.
+México concentra zonas de alta densidad química industrial: el **corredor petroquímico Coatzacoalcos–Minatitlán**, la **refinería Madero (Tamaulipas)**, la **refinería Tula (Hidalgo)**, los **clústeres automotrices del Bajío**, las **maquiladoras de la frontera norte** y las terminales de almacenamiento de hidrocarburos del Pacífico. El **Inventario Nacional de Riesgos** (Cenapred) documenta más de 700,000 establecimientos que manejan sustancias químicas peligrosas con potencial de generación de incidente.
 
-### ¿Qué es una Emergencia HAZMAT?
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">4</span>
+    <span class="stat__label">Niveles de protección (EPA/OSHA)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1991</span>
+    <span class="stat__label">Trajes encapsulados Nivel A</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1992</span>
+    <span class="stat__label">Trajes salpicadura Nivel B</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">19.5%</span>
+    <span class="stat__label">O₂ mínimo para Nivel C</span>
+  </div>
+</div>
 
-Un **incidente HAZMAT** es cualquier situación en la que se libera, derrama o hay riesgo de liberación de una **sustancia peligrosa** para la vida humana, el medio ambiente o los bienes. Las categorías principales incluyen:
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-hernandez-capucha-scba-estacion-02.avif?lossy=1&strip=all" alt="Bombero con SCBA y capucha protectora en estación operativa — configuración base para respuesta HAZMAT Nivel B" loading="lazy" width="900" height="600" />
+  <figcaption>Configuración SCBA + capucha protectora — base de Nivel B según OSHA 29 CFR 1910.120, sobre la que se monta el traje químico no encapsulado.</figcaption>
+</figure>
 
-- **Químicos tóxicos**: Cloro, amoníaco, ácido sulfúrico, pesticidas
-- **Materiales radiactivos**: Fuentes radiológicas industriales, transporte de radiofarmacos
-- **Explosivos**: Detonadores, precursores, materiales pirotécnicos
-- **Agentes biológicos**: Derrames de materiales biológicos en instalaciones médicas o de investigación
-- **Combustibles inflamables**: Derrames de gasolina, diésel, GLP en volúmenes mayores
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Principio operativo fundamental</span>
+    <p>Cuando el material o su concentración son <strong>desconocidos</strong>, la doctrina HAZMAT internacional exige iniciar la respuesta en <strong>Nivel A</strong> y degradar el nivel únicamente tras identificación positiva y medición confirmatoria. Iniciar en Nivel B o C sin identificación es desviación documentada de OSHA 29 CFR 1910.120(q)(3)(iv).</p>
+  </div>
+</div>
 
 ---
 
-## Los 4 Niveles de Protección HAZMAT
+## Definición Técnica de Incidente HAZMAT
 
-El sistema de **4 niveles de protección** (A, B, C, D) establece el equipamiento requerido en función del riesgo de la sustancia involucrada. Este sistema es adoptado por la **EPA, OSHA y NFPA** y es el estándar de referencia mundial:
+Un **incidente HAZMAT** es la liberación —real, potencial o inminente— de una sustancia que cumple uno o más de los criterios de peligrosidad de la **NOM-018-STPS-2015** (Sistema Armonizado para la Identificación y Comunicación de Peligros y Riesgos por Sustancias Químicas Peligrosas en los Centros de Trabajo) o de las **9 clases del Reglamento Modelo ONU** sobre transporte de mercancías peligrosas. Las categorías operativamente relevantes para brigadas mexicanas:
 
-### Nivel A — Máxima Protección (Traje Encapsulado)
+| Clase ONU | Tipo | Ejemplos relevantes en México |
+|-----------|------|--------------------------------|
+| 1 | Explosivos | Detonadores mineros, pirotecnia, precursores |
+| 2.1 / 2.3 | Gases inflamables / tóxicos | GLP, cloro, amoníaco, H₂S |
+| 3 | Líquidos inflamables | Gasolina, diésel, solventes industriales |
+| 4 | Sólidos inflamables | Litio (baterías), magnesio, fósforo |
+| 5 | Comburentes / peróxidos orgánicos | Nitrato de amonio, peróxido de hidrógeno |
+| 6 | Tóxicos / infecciosos | Pesticidas, residuos biológicos hospitalarios |
+| 7 | Material radiactivo | Fuentes de radiografía industrial, radiofármacos |
+| 8 | Corrosivos | Ácido sulfúrico, hidróxido de sodio, HCl |
+| 9 | Misceláneos | Baterías de litio en transporte, materiales magnetizados |
 
-El Nivel A es la protección máxima disponible. Se usa cuando la sustancia es desconocida o cuando representa máxima amenaza a la piel, ojos y sistema respiratorio.
+---
 
-**Equipo requerido:**
-- Traje encapsulado de vapor completamente sellado (NFPA 1991)
-- SCBA de circuito abierto o cerrado de 45–60 min
-- Guantes externos de alto rendimiento (doble capa)
-- Botas de quimicos resistentes
-- Comunicaciones integradas
+## Los 4 Niveles de Protección EPA / OSHA / NFPA
 
-**Aplicaciones:**
-- Sustancia química desconocida con síntomas en personas expuestas
-- Gases tóxicos de alta peligrosidad (cloro libre, fosgeno, sarín)
-- Niveles IDLH confirmados o potenciales
+El sistema de cuatro niveles (A, B, C, D) está codificado en **29 CFR 1910.120 Appendix B** (OSHA, EE.UU.) y adoptado por NFPA en sus normas de equipamiento. La selección del nivel se determina por **tres variables**: identificación de la sustancia, ruta de exposición predominante (dérmica vs inhalatoria) y concentración relativa al IDLH (Immediately Dangerous to Life or Health).
 
-> ⚠️ **El Nivel A es el más restrictivo**: La movilidad se reduce significativamente, la duración de la operación está limitada por el cilindro SCBA, y el calor interno es extremo. Los bomberos en Nivel A requieren rotación cada 15–20 minutos.
+### Nivel A — Máxima protección dérmica e inhalatoria
 
-### Nivel B — Alta Protección Respiratoria, Menor Protección de Piel
+El **Nivel A** es la única configuración que provee protección encapsulada contra vapores, gases y aerosoles químicos en su forma más agresiva. Es obligatorio cuando se cumple cualquiera de los siguientes criterios:
 
-El Nivel B se usa cuando el riesgo respiratorio es alto pero el riesgo dérmico (a través de la piel) no requiere traje completamente encapsulado.
+- La sustancia es **desconocida** y la exposición es activa
+- El IDLH se ha confirmado o se presume excedido
+- La sustancia tiene **alta volatilidad y toxicidad dérmica** (carcinógenos categoría 1A/1B, agentes nerviosos, ácidos volátiles concentrados)
+- La concentración medida excede los límites del Nivel B
 
-**Equipo requerido:**
-- SCBA completo (igual que Nivel A)
-- Traje de protección química no encapsulado (NFPA 1992)
-- Guantes externos e internos dobles
+**Equipamiento estándar (NFPA 1991):**
+- Traje completamente encapsulado para vapor, con costuras selladas y visor integrado
+- SCBA presión positiva (NFPA 1981) o SCBA de línea con escape de emergencia, cilindro composite ≥45 minutos
+- Guantes interior + exterior químicamente compatibles con la sustancia identificada (típicamente Viton, butilo o neopreno)
+- Botas químicas integradas o de sobreponer, selladas al traje
+- Comunicaciones internas con micrófono óseo o de garganta
+- Refrigeración corporal activa o pasiva (vests con cambios de fase)
+
+<div class="callout callout--warn">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Restricciones operativas del Nivel A</span>
+    <p>La carga térmica interior del traje encapsulado, combinada con la masa del SCBA y la limitación visual, restringe el ciclo operativo a <strong>15–20 minutos en clima templado</strong> y <strong>menos de 12 minutos en condiciones ambientales por encima de 30 °C</strong>. La rotación de personal debe planificarse antes del despliegue, no durante. La rehidratación post-ciclo y el monitoreo cardiovascular son protocolo obligatorio bajo NFPA 1582.</p>
+  </div>
+</div>
+
+### Nivel B — Protección respiratoria máxima, protección dérmica de salpicadura
+
+El **Nivel B** se selecciona cuando la **identificación del agente está confirmada**, la concentración respiratoria justifica SCBA, pero la sustancia **no penetra la piel intacta por contacto breve** (riesgo dérmico limitado a salpicadura, no a vapor).
+
+**Equipamiento estándar (NFPA 1992):**
+- Traje químico no encapsulado, resistente a penetración líquida según ASTM F903
+- SCBA presión positiva (NFPA 1981)
+- Guantes interior + exterior (típicamente nitrilo + neopreno)
 - Botas químicas sobre el traje
+- Capucha química o capuz integrado al traje
 
-**Aplicaciones:**
-- Derrames de químicos tóxicos con riesgo respiratorio confirmado pero de menor volatilidad dérmica
-- Zona caliente después de la estabilización inicial en Nivel A
-- Operaciones de decontaminación en zona cálida
+**Aplicaciones típicas en México:**
+- Derrames confirmados de combustibles (gasolina, diésel) en operaciones de contención
+- Fugas controladas de ácidos no volátiles en plantas químicas
+- Transición desde Nivel A tras estabilización del foco emisor
+- Operaciones de descontaminación primaria en zona cálida
 
-### Nivel C — Protección Moderada (Máscara de Media Cara)
+### Nivel C — Protección respiratoria filtrante, mismo nivel dérmico que B
 
-El Nivel C se usa cuando el tipo y concentración de la sustancia son conocidos y la máscara de filtros purificadores (SCBA NO incluido) ofrece protección suficiente.
+El **Nivel C** sustituye el SCBA por un **respirador purificador de aire (APR)** —media máscara o máscara completa— con cartuchos certificados NIOSH específicos para la sustancia. Solo es aceptable cuando se cumplen **todas** las condiciones siguientes:
 
-**Equipo requerido:**
-- Máscara de media cara o cara completa con cartuchos purificadores específicos para el químico
-- Traje de protección química
-- Guantes y botas resistentes al químico
+1. La sustancia está identificada con precisión
+2. La concentración es <10× del límite de exposición permisible (PEL) para máscara completa, o <5× PEL para media máscara
+3. **O₂ atmosférico ≥19.5%** medido y monitoreado continuamente
+4. La sustancia tiene **propiedades de advertencia** (olor, irritación) por debajo del PEL
+5. Existe protocolo de evacuación inmediata si el monitor de O₂ o el detector indican degradación de condiciones
 
-> ⚠️ **Limitación crítica del Nivel C**: Los cartuchos purificadores funcionan solo si hay suficiente oxígeno en el ambiente (> 19.5% O₂). En espacios confinados o cuando hay déficit de oxígeno, el Nivel C NO es apropiado.
+<div class="callout callout--warn">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Falla común en Nivel C</span>
+    <p>El uso de APR en atmósferas potencialmente <strong>IDLH o con O₂ deficiente</strong> es la causa documentada de la mayor parte de los fatalidades en operaciones HAZMAT mal clasificadas (NIOSH FACE Program). El cartucho purificador no genera oxígeno: filtra una atmósfera que ya tiene aire respirable. En espacios confinados o atmósferas con desplazamiento de O₂ (CO₂, N₂, vapor combustible), Nivel C es inaceptable sin excepción.</p>
+  </div>
+</div>
 
-### Nivel D — Protección Mínima (EPP Estándar)
+### Nivel D — EPP de trabajo, sin protección respiratoria específica
 
-El Nivel D es el EPP normal de trabajo sin protección específica contra químicos. Solo aplica cuando no hay riesgo de exposición a sustancias peligrosas.
-
-**Equipo requerido:**
-- EPP estándar de trabajo (uniforme, guantes de trabajo, gafas)
-- No se requiere protección respiratoria específica
-
-**Aplicaciones:**
-- Zona fría (perímetro exterior del incidente HAZMAT)
-- Operaciones logísticas alejadas de la zona de riesgo
-
----
-
-## La Zona de Control HAZMAT: Frío, Cálido y Caliente
-
-Todo incidente HAZMAT se gestiona con tres zonas concéntricas de control:
-
-| Zona | Nombre | Quién puede entrar | EPP requerido |
-|------|--------|-------------------|---------------|
-| **Zona caliente** | "Hot Zone" — zona de exclusión | Solo bomberos HAZMAT certificados | Nivel A o B |
-| **Zona cálida** | "Warm Zone" — zona de reducción de contaminación | Bomberos HAZMAT + paramédicos especializados | Nivel B o C |
-| **Zona fría** | "Cold Zone" — zona de apoyo | Personal de apoyo, coordinación | Nivel D |
-
-La **decontaminación** se realiza en la zona cálida (entre la caliente y la fría) para eliminar la contaminación antes de que el personal salga de la zona de riesgo.
+El **Nivel D** corresponde al uniforme operativo estándar (botas con puntera, casco, lentes ANSI Z87.1, guantes de trabajo). Aplica únicamente en **zona fría** de un incidente HAZMAT y en operaciones donde **no existe atmósfera peligrosa confirmada ni potencial**.
 
 ---
 
-## Marco Normativo HAZMAT en México
+## Zonificación del Incidente: Zonas Caliente / Cálida / Fría
 
-### NFPA 1991 — Trajes de Vapor Completamente Encapsulados
+La doctrina de zonificación de NFPA 472 y NFPA 1072 establece tres zonas concéntricas físicamente delimitadas:
 
-La **NFPA 1991** establece los requisitos para los trajes de Nivel A (encapsulados para vapor). Estos trajes deben demostrar resistencia específica a cada familia de químicos para los que se certifican.
+| Zona | Función operativa | Acceso autorizado | EPP mínimo |
+|------|-------------------|-------------------|------------|
+| **Caliente** (Hot Zone) | Punto de liberación / exposición activa | Equipo HAZMAT certificado únicamente | Nivel A o B según sustancia |
+| **Cálida** (Warm Zone) | Corredor de descontaminación y reducción de contaminación | HAZMAT + soporte EMS especializado | Nivel B o C |
+| **Fría** (Cold Zone) | Mando, logística, área pública controlada | Personal de apoyo, prensa controlada | Nivel D |
 
-### NFPA 1992 — Trajes de Salpicaduras de Líquido
-
-La **NFPA 1992** regula los trajes de Nivel B (resistentes a salpicaduras pero no encapsulados para vapor).
-
-### NOM-005-STPS — Manejo de Sustancias Químicas Peligrosas
-
-La **NOM-005-STPS** establece las condiciones de seguridad para el manejo de sustancias químicas en centros de trabajo en México. Las brigadas de emergencia de establecimientos que manejan sustancias peligrosas deben estar capacitadas según esta norma.
-
-### Sistema de Identificación: Tarjetas de Emergencia (TDG)
-
-En México, el transporte de materiales peligrosos usa el sistema de **Tarjetas de Emergencia SETIQ (Sistema de Emergencia en Transporte)** que indica el número ONU del material, el tipo de riesgo y el protocolo de respuesta. El bombero HAZMAT debe poder leer e interpretar estas tarjetas en el lugar del incidente.
+La **línea de descontaminación** se establece en la frontera Caliente–Cálida y es operada por personal en Nivel B. El **acceso bidireccional** entre zonas requiere paso obligatorio por estación de monitoreo y descontaminación —cruzar zonas sin protocolo es la causa principal de contaminación secundaria a paramédicos, vehículos de emergencia y hospitales receptores.
 
 ---
 
-## Brigadas HAZMAT en México: ¿Quién Responde?
+## Identificación Vehicular y Documental de Materiales Peligrosos en México
 
-La respuesta a emergencias HAZMAT en México está fragmentada entre varios actores:
+### Sistema NFPA 704 (Rombo de Peligros)
 
-| Actor | Cobertura | Capacidad |
-|-------|-----------|-----------|
-| **PEMEX Seguridad Industrial** | Instalaciones PEMEX | Alta — equipos Nivel A propios |
-| **Bomberos CDMX (Especialidad HAZMAT)** | CDMX | Alta — camión HAZMAT dedicado |
-| **Bomberos Monterrey** | Área metropolitana NL | Alta |
-| **Bomberos Guadalajara** | Área metropolitana Jalisco | Media-Alta |
-| **Bomberos municipales** | Municipios medianos | Baja — generalmente Nivel C máximo |
-| **Protección Civil Estatal** | Estado | Variable |
+El **NFPA 704** es el rombo de cuatro colores (azul–salud, rojo–inflamabilidad, amarillo–reactividad, blanco–peligros especiales) instalado en almacenes industriales mexicanos. La escala 0–4 permite priorizar respuesta antes de identificar la sustancia precisa.
 
-La realidad es que la mayoría de los municipios en México **no tienen capacidad de respuesta HAZMAT real** más allá del Nivel C. Las industrias con mayor riesgo (química, petroquímica) deben tener sus propias brigadas HAZMAT certificadas según la **NOM-002-STPS**.
+### NOM-005-SCT/2000 y SETIQ
 
----
+El transporte terrestre de materiales peligrosos en México se rige por la **NOM-005-SCT/2000** y derivadas. Cada unidad de transporte debe portar:
 
-## Decontaminación: El Paso Más Crítico Post-HAZMAT
+- Carteles de identificación ONU clase + número de identificación
+- Hoja de datos de seguridad (HDS) accesible
+- Información de **SETIQ (Sistema de Emergencia en Transporte para la Industria Química)** vía teléfono 800-00-214-00, disponible 24/7
 
-La decontaminación inadecuada es la causa número uno de exposición secundaria en incidentes HAZMAT —incluyendo la contaminación de paramédicos, hospitales y la comunidad.
+El primer respondiente debe poder leer estos carteles **antes de aproximarse a menos de la distancia de aislamiento inicial** indicada en la **Guía de Respuesta en Caso de Emergencia (GRE)** del SCT/PHMSA.
 
-**Secuencia de decontaminación en zona cálida:**
+### Hoja de Datos de Seguridad (HDS) — NOM-018-STPS
 
-1. **Remoción de equipo externo** con mínimo movimiento del traje
-2. **Ducha de agua abundante** (mínimo 20 minutos para la mayoría de químicos)
-3. **Remoción del traje HAZMAT** con asistencia de personal equipado
-4. **Remoción del SCBA**
-5. **Ducha de personal** (piel y cabello)
-6. **Evaluación médica** antes de liberar al personal
+La HDS contiene 16 secciones obligatorias y debe estar disponible **antes del despliegue de personal** en cualquier instalación industrial mexicana. Las brigadas internas tienen obligación legal de mantener el banco de HDS actualizado y de capacitar al personal en su lectura.
 
 ---
 
-*¿Necesitas equipar tu brigada HAZMAT con EPP certificado NFPA 1991/1992? [Solicita cotización →](/cotizar/) o escríbenos por [WhatsApp →](https://wa.me/525520780102)*
+## Capacidad de Respuesta HAZMAT en México: Estado Actual
+
+| Operador | Cobertura geográfica | Capacidad operativa típica |
+|----------|----------------------|------------------------------|
+| **PEMEX Seguridad Industrial** | Instalaciones PEMEX (refinerías, terminales, ductos) | Nivel A + detección, equipos dedicados, capacitación NFPA 472/1072 |
+| **HCBCDMX – Especialidad HAZMAT** | Ciudad de México | Unidad HAZMAT con trajes Nivel A, descontaminación móvil |
+| **Bomberos Nuevo León** | Zona Metropolitana de Monterrey | Equipos Nivel A propios — soporte al corredor industrial Apodaca/Santa Catarina |
+| **Bomberos Jalisco** | ZMG | Capacidad parcial Nivel B, dependencia de PC Estatal para A |
+| **Brigadas industriales privadas** | Plantas químicas, automotrices, aeroespaciales | Variable — desde Nivel D técnico hasta Nivel A completo según riesgo evaluado |
+| **Bomberos municipales medianos** | Resto del país | Mayoritariamente Nivel C como techo operativo |
+
+La conclusión técnica: **la cobertura HAZMAT real fuera de los grandes polos industriales y de las tres metrópolis principales es estructuralmente insuficiente**. Los planes municipales de protección civil que asumen capacidad de respuesta interna sin equipamiento certificado son ficción documental. La alternativa profesional es **brigadas industriales internas certificadas** según NFPA 600 y NOM-002-STPS, complementadas por convenios formales con servicios estatales.
+
+---
+
+## Protocolo de Descontaminación: Procedimiento Estándar (SOP)
+
+La descontaminación es el paso de mayor probabilidad de error en operación HAZMAT. El protocolo de referencia internacional (NFPA 472 §6.6, OSHA 1910.120 Appendix C) establece la **descontaminación técnica en 8 estaciones** para Nivel A, simplificable a **5 estaciones para Nivel B** en operaciones simples:
+
+1. **Estación 1 — Eliminación de residuos sólidos**: brocha o agua a baja presión sobre el traje aún sellado.
+2. **Estación 2 — Enjuague primario**: ducha de agua abundante (mínimo 5 minutos para químicos solubles, 20 minutos para corrosivos).
+3. **Estación 3 — Lavado con solución descontaminante**: agua jabonosa o solución específica al agente (carbonato de sodio para ácidos, ácido cítrico diluido para bases, hipoclorito al 0.5% para biológicos).
+4. **Estación 4 — Enjuague secundario**.
+5. **Estación 5 — Retiro del traje exterior** con asistencia de personal en Nivel C, sin contacto piel–traje.
+6. **Estación 6 — Retiro del SCBA y guantes interiores**.
+7. **Estación 7 — Ducha personal completa** (piel, cabello, cavidades).
+8. **Estación 8 — Evaluación médica y reposición de fluidos** antes de liberar al personal.
+
+El **agua de descontaminación es residuo peligroso** —debe contenerse en pileta inflable o de geomembrana y disponerse según NOM-052-SEMARNAT-2005. Verter directamente al drenaje pluvial es violación ambiental documentable.
+
+---
+
+## Equipamiento BOMBERO MX para Brigadas HAZMAT
+
+Como distribuidor especializado en EPP certificado, **BOMBERO MX** abastece a brigadas industriales internas, cuerpos de bomberos con capacidad HAZMAT establecida y empresas de respuesta a emergencias químicas. La oferta cubre los cuatro niveles con trazabilidad documental completa:
+
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Trajes encapsulados NFPA 1991</h4>
+    <p class="feature__text">Configuraciones con compatibilidad química documentada (Viton, butilo, Tychem TK, Trellchem HPS) según el matriz de sustancias de la planta o región operativa.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Trajes splash NFPA 1992</h4>
+    <p class="feature__text">Para Nivel B con resistencia a salpicadura ASTM F903 verificada. Incluye fichas de compatibilidad química por familia de agente.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981 con cilindros 45–60 min</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro y Dräger PSS configurados para operación HAZMAT con segundo regulador para evacuación de víctimas.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Detección multigas y específicos</h4>
+    <p class="feature__text">Monitores RAE/MSA/Dräger calibrados para LEL, O₂, CO, H₂S, NH₃, COV y agentes específicos del entorno industrial del cliente.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Sistema de descontaminación móvil</h4>
+    <p class="feature__text">Pileta inflable, ducha portátil, kits químicos específicos y consumibles de descontaminación primaria y secundaria.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Documentación normativa</h4>
+    <p class="feature__text">Cada lote entregado incluye certificación NFPA vigente, ficha técnica, matriz de compatibilidad química y registro de trazabilidad.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>Equipamiento HAZMAT para brigadas industriales y cuerpos de bomberos</h3>
+  <p>Asesoría técnica de configuración por matriz de riesgo de tu instalación · Trazabilidad documental completa · Capacitación coordinada con el fabricante</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar evaluación técnica</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+## Referencias Normativas
+
+- **NFPA 472** — Standard for Competence of Responders to Hazardous Materials/Weapons of Mass Destruction Incidents
+- **NFPA 1072** — Standard for Hazardous Materials/Weapons of Mass Destruction Emergency Response Personnel Professional Qualifications
+- **NFPA 1991** — Standard on Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A)
+- **NFPA 1992** — Standard on Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
+- **NFPA 1981** — Standard on Open-Circuit Self-Contained Breathing Apparatus (SCBA) for Emergency Services
+- **29 CFR 1910.120** — Hazardous Waste Operations and Emergency Response (HAZWOPER), OSHA
+- **NOM-005-STPS-1998** — Condiciones de seguridad e higiene para el manejo, transporte y almacenamiento de sustancias químicas peligrosas
+- **NOM-018-STPS-2015** — Sistema Armonizado para la Identificación y Comunicación de Peligros y Riesgos por Sustancias Químicas Peligrosas
+- **NOM-052-SEMARNAT-2005** — Características de los residuos peligrosos
+- **SETIQ** — 800-00-214-00, 24/7
+
+---
 
 ### Artículos Relacionados
 
-- [**Trajes HAZMAT: Niveles de Protección A, B, C, D →**](/blog/trajes-hazmat-niveles-proteccion/)
-- [**SCBA para Bomberos: Guía Completa NFPA 1981 →**](/blog/scba-guia-completa-bomberos-mexico/)
-- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [SCBA MSA G1 vs Scott Air-Pak](/blog/scba-msag1-vs-scott-airpak/)
+- [Detector de Gases Multigas: Guía Monitor](/blog/detector-gases-multigas-monitor/)
+- [Bomberos Monterrey: Equipo NFPA](/blog/bomberos-monterrey-equipo-nfpa/)
+- [Bomberos Tijuana: Equipo NFPA](/blog/bomberos-tijuana-equipo-nfpa/)
+- [Bomberos Pachuca (refinería Tula)](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
+- [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
   },
 
   "botas-para-bomberos-guia-nfpa": {
-    titulo: "Botas para Bomberos: Guía Técnica NFPA — Cuero, Caucho y Forestal",
-    excerpt: "Guía completa sobre botas para bomberos. NFPA 1971 vs 1977, cuero vs caucho, botas forestales, prueba de penetración, punteras de acero y cómo elegir la bota correcta para cada tipo de operación.",
-    imagen: "/images/trajes-para-bombero/traje-bombero-estacion-equipo-scba-asesoria-01.avif",
+    titulo: "Botas para Bomberos NFPA 2026: Guía Completa Cuero vs Caucho vs Forestal",
+    excerpt: "Guía técnica 2026 sobre botas para bombero certificadas NFPA. Cuero vs caucho vs forestal, NFPA 1971 vs 1977, Haix y Lion, prueba de penetración 270N, mantenimiento y precios reales en México.",
+    imagen: "/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif",
     categoria: "Equipo",
-    tags: ["Botas Bombero", "NFPA 1971", "Botas Forestales", "Botas Caucho", "Botas Cuero", "EPP Bomberos"],
+    tags: ["Botas Bombero", "NFPA 1971", "NFPA 1977", "Haix", "Lion Boots", "Botas Cuero", "Botas Caucho"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Especialistas en EPP para Bomberos",
     anchorKeyword: "botas para bomberos NFPA 1971 cuero caucho forestal México",
     contenido: `
 ## Por Qué las Botas Son el EPP Más Subestimado del Bombero
 
-Si le preguntas a un bombero qué equipo es más crítico, probablemente mencione el traje o el SCBA. Pocos mencionan las botas. Sin embargo, las botas son el único contacto constante del bombero con el terreno durante toda la operación —y ese terreno incluye vidrio roto, metal caliente, agua contaminada, escombros cortantes y superficies a 300°C.
+Si le preguntas a un bombero **qué equipo es más crítico**, probablemente mencione el traje o el SCBA. Pocos mencionan las botas. Sin embargo, las botas son el **único contacto constante del bombero con el terreno** durante toda la operación —y ese terreno incluye **vidrio roto, metal caliente, agua contaminada, escombros cortantes y superficies a 300°C**.
 
-Una lesión en el pie o tobillo dentro de un incendio no solo incapacita al bombero —puede convertirlo en una víctima que necesita rescate. La **NFPA 1971** lo sabe: las botas son parte integral del "conjunto de protección" certificado, no un accesorio opcional.
+Una lesión en el pie o tobillo dentro de un incendio no solo incapacita al bombero — **puede convertirlo en una víctima que necesita rescate**. La **NFPA 1971** lo sabe: las botas son parte integral del "conjunto de protección" certificado, **no un accesorio opcional**.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">10"</span>
+    <span class="stat__label">Altura mínima caña NFPA 1971</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">270N</span>
+    <span class="stat__label">Resistencia antiperforación</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">260°C</span>
+    <span class="stat__label">Resistencia térmica suela</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">8-15</span>
+    <span class="stat__label">Años vida útil cuero premium</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif?lossy=1&strip=all" alt="Botas para bombero certificadas NFPA — caucho y cuero" loading="lazy" width="900" height="600" />
+  <figcaption>Botas NFPA 1971 — cuero o caucho según operación. La elección incorrecta es la causa más común de lesiones de pie en operación.</figcaption>
+</figure>
 
 ---
 
@@ -10763,33 +12598,103 @@ El mantenimiento correcto es la diferencia entre una bota que dura 3 años y una
 | Botas forestales NFPA 1977 básicas | $12,000 – $22,000 | 4–6 años |
 | Botas forestales premium (White's, Danner) | $25,000 – $45,000 | 10–20 años |
 
-*La bota premium que dura 15 años tiene un costo anual menor que la bota económica que dura 3 años — además de protección significativamente mayor.*
+**La bota premium que dura 15 años tiene un costo anual menor que la bota económica que dura 3 años** — además de protección significativamente mayor.
 
 ---
 
-*¿Necesitas botas certificadas NFPA para tu cuerpo de bomberos? [Solicita cotización →](/cotizar/) o escríbenos por [WhatsApp →](https://wa.me/525520780102)*
+## BOMBERO MX: Botas NFPA Certificadas para tu Cuerpo
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">👢</span>
+    <h4 class="feature__title">Cuero estructural</h4>
+    <p class="feature__text">Haix Fire Eagle, Lion Boots — referencia mundial para combate estructural intensivo.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💧</span>
+    <h4 class="feature__title">Caucho HAZMAT</h4>
+    <p class="feature__text">Para operaciones con agua, químicos diluidos y descontaminación.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🌲</span>
+    <h4 class="feature__title">Forestal NFPA 1977</h4>
+    <p class="feature__text">White's, Danner Wildland con suela Vibram para terreno irregular.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📏</span>
+    <h4 class="feature__title">Medición personalizada</h4>
+    <p class="feature__text">Plantilla de medidas para cada bombero — sin tallas estandarizadas a ciegas.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>¿Necesitas botas NFPA para tu cuerpo de bomberos?</h3>
+  <p>Asesoría imparcial entre cuero, caucho y forestal según operación. Marcas premium disponibles.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/botas-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
+
+---
 
 ### Artículos Relacionados
 
-- [**Guía NFPA 1971: EPP Estructural para Bomberos →**](/blog/nfpa-1971-guia-completa/)
-- [**Guantes para Bombero: Guía Técnica →**](/blog/guantes-estructurales-nfpa-1971/)
-- [**Catálogo de Botas BOMBERO.MX →**](/productos/botas-para-bomberos/)
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Cómo Elegir Traje NFPA 1971 →**](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [**Cascos Bullard vs Cairns →**](/blog/casco-bombero-bullard-vs-cairns/)
+- [**Capuchas Monjas NFPA →**](/blog/capuchas-monjas-bombero-nfpa-guia/)
+- [**Mantenimiento Equipo NFPA →**](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [**Catálogo de Botas →**](/productos/botas-para-bomberos/)
     `,
   },
 
   "flashover-backdraft-bomberos-guia-supervision": {
-    titulo: "Flashover y Backdraft: Guía de Supervivencia para Bomberos",
-    excerpt: "Guía técnica sobre las dos condiciones de fuego más letales para bomberos: el flashover y el backdraft. Señales de advertencia, tiempo de reacción, posición de seguridad y cómo el EPP NFPA reduce el riesgo.",
-    imagen: "/images/trajes-para-bombero/traje-bombero-retrato-scba-capucha-proteccion-01.avif",
+    titulo: "Flashover y Backdraft: Guía Completa de Supervivencia para Bomberos 2026",
+    excerpt: "Guía técnica 2026 sobre las dos condiciones de fuego más letales: flashover y backdraft. Física del fuego, señales de advertencia, tiempo de reacción, protocolos de evacuación y cómo el EPP NFPA reduce el riesgo letal.",
+    imagen: "/images/accion/bomberos-accion-incendio-estructural.avif",
     categoria: "Técnicas",
-    tags: ["Flashover", "Backdraft", "Seguridad Bomberos", "Lectura del Fuego", "SCBA", "Supervivencia"],
+    tags: ["Flashover", "Backdraft", "Seguridad Bomberos", "Lectura del Fuego", "SCBA", "Supervivencia", "NFPA 1971"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Especialistas en Seguridad y EPP para Bomberos",
     anchorKeyword: "flashover backdraft supervivencia bomberos señales advertencia NFPA",
     contenido: `
-## Las Dos Condiciones de Fuego Más Letales
+## Flashover y Backdraft: Las Dos Condiciones de Fuego Más Letales
 
-En el combate de incendios estructurales, dos fenómenos representan el mayor riesgo de muerte instantánea para el bombero: el **flashover** y el **backdraft**. Ambos son fenómenos bien documentados, predecibles con experiencia y parcialmente mitigables con EPP correcto. En este artículo explicamos la física de cada uno, las señales de advertencia y los protocolos de supervivencia.
+En el combate de incendios estructurales, **dos fenómenos representan el mayor riesgo de muerte instantánea para el bombero**: el **flashover** y el **backdraft**. Ambos son fenómenos bien documentados, predecibles con experiencia y **parcialmente mitigables con EPP correcto**. Este artículo explica la física de cada uno, las señales de advertencia y los protocolos de supervivencia que todo jefe de cuerpo debe enseñar y todo bombero debe interiorizar.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">600°C</span>
+    <span class="stat__label">Temperatura pre-flashover</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">1,200°C</span>
+    <span class="stat__label">Temperatura durante flashover</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">30s–3min</span>
+    <span class="stat__label">Ventana de advertencia</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">35</span>
+    <span class="stat__label">TPP NFPA 1971 (cal/cm²)</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/traje-bombero-retrato-scba-capucha-proteccion-01.avif?lossy=1&strip=all" alt="Bombero con EPP completo NFPA 1971 y SCBA — protección crítica en flashover" loading="lazy" width="900" height="600" />
+  <figcaption>EPP NFPA 1971 + SCBA — la combinación entre conocimiento y equipo certificado es lo que salva vidas en flashover.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">Lectura del fuego antes que el equipo</span>
+    <p>La supervivencia en flashover y backdraft es <strong>90% conocimiento y protocolo, 10% EPP</strong>. El mejor traje del mundo no salva a un bombero que no reconoció las señales de advertencia. Entrenar a tu personal en lectura del fuego es la inversión más alta en seguridad operativa que puedes hacer.</p>
+  </div>
+</div>
 
 ---
 
@@ -10903,31 +12808,95 @@ La habilidad para leer el fuego y reconocer estas señales se desarrolla con ent
 
 ---
 
-*¿Tu cuerpo de bomberos tiene el EPP actualizado para las condiciones más extremas? [Cotiza tu equipo aquí →](/cotizar/) o escríbenos por [WhatsApp →](https://wa.me/525520780102)*
+## BOMBERO MX: EPP NFPA Certificado para las Condiciones Más Extremas
+
+El EPP no previene flashover ni backdraft, pero **es la única barrera entre el bombero y exposición térmica catastrófica accidental**. En BOMBERO MX equipamos a cuerpos profesionales con EPP que cumple — y excede — los mínimos NFPA 1971 y NFPA 1981.
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🧥</span>
+    <h4 class="feature__title">Trajes TPP ≥40 cal/cm²</h4>
+    <p class="feature__text">Por encima del mínimo NFPA — segundos adicionales críticos ante exposición súbita.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💨</span>
+    <h4 class="feature__title">SCBA 45-60 min</h4>
+    <p class="feature__text">Cilindros composite para evacuación de emergencia tras exposición térmica.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🎭</span>
+    <h4 class="feature__title">Capuchas PBI Gold</h4>
+    <p class="feature__text">Mayor protección de cuello y zona facial — área más vulnerable en rollover.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📡</span>
+    <h4 class="feature__title">PASS device integrado</h4>
+    <p class="feature__text">Alarma de inmovilidad para localización de bombero caído tras evento.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>¿Tu cuerpo opera con EPP actualizado para condiciones extremas?</h3>
+  <p>Cotiza equipo NFPA con asesoría técnica especializada en operación de alto riesgo.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
 
 ### Artículos Relacionados
 
-- [**Guía NFPA 1971: EPP Estructural para Bomberos →**](/blog/nfpa-1971-guia-completa/)
-- [**SCBA para Bomberos: Guía Completa NFPA 1981 →**](/blog/scba-guia-completa-bomberos-mexico/)
-- [**Traje Estructural NFPA 1971: Sistema de 3 Capas →**](/blog/traje-estructural-nfpa-1971-sistema-3-capas/)
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Cómo Elegir Traje NFPA 1971 →**](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [**SCBA MSA G1 vs Scott Air-Pak →**](/blog/scba-msag1-vs-scott-airpak/)
+- [**Capuchas Monjas NFPA →**](/blog/capuchas-monjas-bombero-nfpa-guia/)
+- [**Mantenimiento de Equipo NFPA →**](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [**Cascos Bullard vs Cairns →**](/blog/casco-bombero-bullard-vs-cairns/)
     `,
   },
 
   "nfpa-licitaciones-bomberos-municipios-mexico": {
-    titulo: "Cómo Comprar Equipo NFPA para Bomberos Municipales: Licitaciones en México",
-    excerpt: "Guía práctica para jefes de cuerpo y funcionarios públicos sobre cómo adquirir equipo certificado NFPA para bomberos municipales en México. CompraNet, licitaciones simplificadas, requisitos documentales y errores frecuentes.",
+    titulo: "Licitaciones NFPA para Bomberos Municipales en México: Guía Completa 2026",
+    excerpt: "Guía 2026 para jefes de cuerpo y funcionarios públicos: cómo adquirir equipo NFPA para bomberos municipales vía CompraNet, licitaciones simplificadas, especificaciones técnicas correctas, fondos FORTASEG/FASP y cómo BOMBERO MX te acompaña en el proceso.",
     imagen: "/images/directorio/bombero-hernandez-capucha-scba-estacion-01.avif",
-    categoria: "Industrial",
-    tags: ["Licitaciones Bomberos", "CompraNet", "Equipo NFPA Municipal", "Adquisiciones Públicas", "Bomberos Municipales México"],
+    categoria: "Normativas",
+    tags: ["Licitaciones Bomberos", "CompraNet", "FORTASEG", "FASP", "Adquisiciones Públicas", "Bomberos Municipales México"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Especialistas en Equipamiento para Bomberos",
     anchorKeyword: "licitaciones equipo NFPA bomberos municipales México CompraNet adquisiciones públicas",
     contenido: `
 ## El Reto de Equipar a los Bomberos Municipales en México
 
-México tiene más de **2,400 municipios** y se estima que más del 70% de los cuerpos de bomberos municipales operan con **equipo desactualizado, sin certificación NFPA o insuficiente** para el personal activo. Esta brecha no siempre se debe a falta de presupuesto —muchas veces se debe a la complejidad del proceso de adquisición pública.
+México tiene más de **2,400 municipios** y se estima que **más del 70% de los cuerpos de bomberos municipales operan con equipo desactualizado, sin certificación NFPA o insuficiente** para el personal activo. Esta brecha no siempre se debe a falta de presupuesto — muchas veces se debe a la **complejidad del proceso de adquisición pública** y a especificaciones mal redactadas que permiten equipo de baja calidad.
 
 Esta guía está dirigida a **jefes de cuerpo, directores de protección civil municipal y funcionarios de adquisiciones** que necesitan entender cómo comprar equipo certificado NFPA para sus bomberos de manera correcta, eficiente y que resista cualquier auditoría.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">+2,400</span>
+    <span class="stat__label">Municipios en México</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">70%</span>
+    <span class="stat__label">Operan sin EPP certificado</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$1.5M</span>
+    <span class="stat__label">Umbral licitación pública (MXN)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">8-12</span>
+    <span class="stat__label">Semanas proceso completo</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero municipal equipándose con EPP NFPA en estación operativa" loading="lazy" width="900" height="600" />
+  <figcaption>Equipar correctamente a un cuerpo municipal exige especificaciones precisas y proveedor con experiencia en sector público.</figcaption>
+</figure>
 
 ---
 
@@ -11037,44 +13006,118 @@ Esta estrategia garantiza que en el primer año el personal tenga protección de
 
 ---
 
-## ¿Por Qué BOMBERO.MX es el Proveedor Correcto para Licitaciones?
+## BOMBERO MX: Tu Proveedor para Licitaciones Públicas en México
 
-En **BOMBERO.MX** entendemos el proceso de adquisición pública y apoyamos a los cuerpos de bomberos municipales en todo el proceso:
+En **BOMBERO MX** entendemos el proceso de adquisición pública mexicano y acompañamos a los cuerpos de bomberos municipales en todo el ciclo —desde el diseño de las especificaciones técnicas hasta la entrega documentada del equipo.
 
-- **Fichas técnicas con certificación** listas para incluir en bases de licitación
-- **Cotizaciones con precios unitarios y totales** formateadas para requisitos de licitación
-- **Cartas de garantía y documentación de laboratorio** para cada producto
-- **Tiempos de entrega comprometidos** por escrito, con penalizaciones contractuales aceptadas
-- **Capacitación incluida** en la entrega — no solo dejamos el equipo, lo enseñamos
-- **Soporte post-venta** durante toda la vida útil del equipo
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">📑</span>
+    <h4 class="feature__title">Fichas técnicas listas</h4>
+    <p class="feature__text">Documentos formateados para incluir directamente en bases de licitación pública.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💰</span>
+    <h4 class="feature__title">Cotización formal CFDI</h4>
+    <p class="feature__text">Precios unitarios y totales en formato requerido por adquisiciones públicas.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🛡️</span>
+    <h4 class="feature__title">Certificación auditable</h4>
+    <p class="feature__text">Certificado UL/Intertek/SEI + carta del fabricante + trazabilidad de lote.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⏱️</span>
+    <h4 class="feature__title">Plazos comprometidos</h4>
+    <p class="feature__text">Tiempos de entrega por escrito, con penalizaciones contractuales aceptadas.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🎓</span>
+    <h4 class="feature__title">Capacitación incluida</h4>
+    <p class="feature__text">No solo dejamos el equipo — capacitamos al personal en uso correcto y mantenimiento.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Soporte post-venta</h4>
+    <p class="feature__text">Acompañamiento durante toda la vida útil — refacciones, inspecciones NFPA 1851.</p>
+  </div>
+</div>
 
-[**Solicita tu cotización formal para licitación →**](/cotizar/) o escríbenos directamente por [**WhatsApp →**](https://wa.me/525520780102)
+<div class="fact">
+  <span class="fact__num">+500</span>
+  <p class="fact__text">Productos certificados NFPA en catálogo, con documentación lista para licitación pública en los 32 estados.</p>
+</div>
+
+<div class="cta-box">
+  <h3>¿Vas a publicar una licitación de equipo NFPA?</h3>
+  <p>Te ayudamos a redactar especificaciones correctas y preparamos la cotización formal sin compromiso.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
 ### Artículos Relacionados
 
-- [**SCBA para Bomberos: Guía Completa NFPA 1981 →**](/blog/scba-guia-completa-bomberos-mexico/)
-- [**Guía NFPA 1971: EPP Estructural para Bomberos →**](/blog/nfpa-1971-guia-completa/)
-- [**EPP para Brigadas Industriales →**](/blog/brigadas-industriales-epp/)
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**Cómo Cotizar Equipo Municipal →**](/blog/equipo-bomberos-municipal-como-cotizar/)
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Cómo Elegir Traje NFPA 1971 →**](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [**SCBA: MSA G1 vs Scott Air-Pak →**](/blog/scba-msag1-vs-scott-airpak/)
+- [**Cascos: Bullard vs Cairns →**](/blog/casco-bombero-bullard-vs-cairns/)
+- [**Mantenimiento de Equipo NFPA →**](/blog/mantenimiento-equipo-nfpa-bomberos/)
     `,
   },
 
   "capuchas-monjas-bombero-nfpa-guia": {
-    titulo: "Capuchas para Bombero: Nomex, PBI Gold y Protección Particulada — NFPA",
-    excerpt: "Guía técnica sobre capuchas y monjas para bombero. Nomex vs PBI Gold, protección particulada, cómo se usa con SCBA, diferencia con capucha regular y por qué la cabeza y cuello son las zonas más vulnerables.",
+    titulo: "Capuchas (Monjas) para Bombero NFPA: Guía Completa Nomex vs PBI Gold 2026",
+    excerpt: "Guía técnica 2026 sobre capuchas y monjas para bombero. Nomex vs PBI Gold, capucha particulada (PM2.5), uso con SCBA, errores comunes y por qué la cabeza y cuello son las zonas más vulnerables del bombero.",
     imagen: "/images/capucha-para-bombero/monja-pbi-gold-bombera-casco-scba-nfpa-01.avif",
     categoria: "Equipo",
-    tags: ["Capucha Bombero", "Monja Bombero", "Nomex", "PBI Gold", "NFPA 1971", "Protección Particulada"],
+    tags: ["Capucha Bombero", "Monja Bombero", "Nomex", "PBI Gold", "NFPA 1971", "Protección Particulada", "PM2.5"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Especialistas en EPP para Bomberos",
     anchorKeyword: "capucha monja bombero Nomex PBI Gold protección particulada NFPA México",
     contenido: `
-## La Capucha: El EPP Más Subestimado del Bombero
+## La Capucha (Monja): El EPP Más Subestimado del Bombero
 
-En el conjunto de protección del bombero estructural, la capucha (conocida en México como **"monja"** en el argot del gremio) es el componente que más frecuentemente se subestima, se omite o se reemplaza por alternativas no certificadas. Esta es un error con consecuencias reales: la cabeza, el cuello y las orejas son las **zonas con mayor densidad de terminaciones nerviosas y menor tolerancia al calor** en el cuerpo humano.
+En el conjunto de protección del bombero estructural, la capucha (conocida en México como **"monja"** en el argot del gremio) es **el componente que más frecuentemente se subestima**, se omite o se reemplaza por alternativas no certificadas. Es un error con consecuencias reales: la **cabeza, el cuello y las orejas son las zonas con mayor densidad de terminaciones nerviosas y menor tolerancia al calor** en el cuerpo humano.
 
-Una quemadura de segundo grado en el cuello puede resultar en cicatriz permanente y dolor crónico. Una quemadura de tercer grado en la oreja requiere cirugía reconstructiva. La capucha NFPA previene estos escenarios con un componente que pesa menos de 200 gramos.
+Una quemadura de **segundo grado en el cuello** puede resultar en cicatriz permanente y dolor crónico. Una quemadura de **tercer grado en la oreja** requiere cirugía reconstructiva. La capucha NFPA previene estos escenarios con un componente que **pesa menos de 200 gramos**.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num"><200g</span>
+    <span class="stat__label">Peso típico de capucha</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1971</span>
+    <span class="stat__label">Norma aplicable</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">3</span>
+    <span class="stat__label">Tipos: Nomex, PBI, Particulada</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$1,200-3,500</span>
+    <span class="stat__label">Rango precio MXN</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/capucha-para-bombero/monja-pbi-gold-bombera-casco-scba-nfpa-01.avif?lossy=1&strip=all" alt="Capucha PBI Gold (monja) usada bajo casco y SCBA según NFPA 1971" loading="lazy" width="900" height="600" />
+  <figcaption>Capucha PBI Gold bajo casco y SCBA — protege la zona crítica entre traje, casco y máscara facial.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">La zona más vulnerable del bombero</span>
+    <p>Cuando un bombero entra a un incendio estructural, las <strong>únicas zonas de piel expuestas son cuello y cráneo</strong>. Sin capucha NFPA, esas zonas reciben calor radiante directo del fuego —y la temperatura subjetiva del personal sube rápido, forzándolos a retirarse antes de completar la tarea.</p>
+  </div>
+</div>
 
 ---
 
@@ -11192,41 +13235,120 @@ La NFPA 1851 (Standard on Selection, Care and Maintenance of Protective Ensemble
 | Nomex® con protección particulada | $2,000 – $3,500 | 5–7 años |
 | PBI Gold® con particulada | $4,000 – $6,500 | 7–10 años |
 
-La capucha es el componente de menor costo dentro del EPP completo del bombero estructural — y posiblemente la mejor relación inversión/protección de todo el conjunto.
+La capucha es el componente de menor costo dentro del EPP completo del bombero estructural — y **posiblemente la mejor relación inversión/protección** de todo el conjunto.
 
 ---
 
-*¿Necesitas capuchas certificadas NFPA para tu cuerpo de bomberos? [Solicita cotización →](/cotizar/) o escríbenos por [WhatsApp →](https://wa.me/525520780102)*
+## BOMBERO MX: Capuchas Certificadas NFPA para tu Estación
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🎭</span>
+    <h4 class="feature__title">Nomex IIIA</h4>
+    <p class="feature__text">Opción económica certificada NFPA 1971. Para departamentos con presupuesto ajustado.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🥇</span>
+    <h4 class="feature__title">PBI Gold</h4>
+    <p class="feature__text">Premium para alta frecuencia operativa. Mayor TPP y vida útil.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🌫️</span>
+    <h4 class="feature__title">Particulada PM2.5</h4>
+    <p class="feature__text">Versión con barrera contra partículas cancerígenas — recomendada por exposición crónica.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📦</span>
+    <h4 class="feature__title">Stock CDMX</h4>
+    <p class="feature__text">Disponibilidad inmediata con envío 24-72h a todo México.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>¿Necesitas capuchas certificadas NFPA para tu cuerpo?</h3>
+  <p>Cotización con asesoría técnica imparcial: Nomex, PBI Gold o particulada según tu operación.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/capuchas-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
+
+---
 
 ### Artículos Relacionados
 
-- [**Guía NFPA 1971: EPP Estructural para Bomberos →**](/blog/nfpa-1971-guia-completa/)
-- [**SCBA para Bomberos: Guía Completa NFPA 1981 →**](/blog/scba-guia-completa-bomberos-mexico/)
-- [**Catálogo de Capuchas BOMBERO.MX →**](/productos/capuchas-para-bomberos/)
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Cómo Elegir Traje NFPA 1971 →**](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [**Cascos Bullard vs Cairns →**](/blog/casco-bombero-bullard-vs-cairns/)
+- [**SCBA MSA G1 vs Scott Air-Pak →**](/blog/scba-msag1-vs-scott-airpak/)
+- [**Mantenimiento de Equipo NFPA →**](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [**Catálogo de Capuchas →**](/productos/capuchas-para-bomberos/)
     `,
   },
 
   "gafas-proteccion-visual-bomberos-nfpa": {
-    titulo: "Gafas y Protección Visual para Bomberos: Goggles NFPA y Antiimpacto",
-    excerpt: "Guía técnica sobre protección visual para bomberos. Goggles de combate estructural, gafas forestales, protección antipartículas, normas NFPA/ANSI y cómo elegir la protección ocular correcta para cada operación.",
+    titulo: "Protección Visual para Bomberos: Goggles, Pantallas y Lentes según ANSI Z87.1, NFPA 1971 y NFPA 1977 — Guía Técnica 2026",
+    excerpt: "Manual técnico 2026 sobre selección de protección ocular para bomberos. Especificaciones ANSI Z87.1+ alto impacto, goggles compatibles con casco y SCBA, requisitos NFPA 1971 §6.4, recubrimientos anti-fog, criterios por tipo de operación y referencias NOM-006-STPS.",
     imagen: "/images/gafas-para-bomberos/goggle-bombera-scba-equipo-completo-nfpa-01.avif",
     categoria: "Equipo",
-    tags: ["Gafas Bombero", "Goggle Bombero", "Protección Visual", "NFPA 1971", "ANSI Z87.1", "Protección Ocular"],
+    tags: ["Gafas Bombero", "Goggle Bombero", "ANSI Z87.1", "NFPA 1971", "NFPA 1977", "NOM-006-STPS", "ESS Goggles", "Protección Ocular"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP para Bomberos",
+    autorRol: "Equipo Técnico de EPP",
     anchorKeyword: "gafas protección visual bomberos goggle NFPA ANSI México",
     contenido: `
-## Por Qué la Protección Visual es No Negociable en el Combate de Incendios
+## Protección Visual para Bomberos: Marco Técnico y Selección Operativa
 
-Los ojos son el órgano más vulnerable del bombero durante operaciones de emergencia. A diferencia de la piel —que tiene varias capas de protección— la córnea y la conjuntiva son membranas extremadamente delicadas que pueden dañarse permanentemente con una sola exposición a:
+El ojo es el único órgano sensorial sin estructura protectora externa redundante. Una sola exposición a un cuerpo extraño a velocidad >30 m/s, a radiación térmica >260 °C o a una salpicadura química con pH <2 o >12 puede generar **lesión córneal permanente o ceguera unilateral**. La National Eye Institute documenta que más del 70% de las lesiones oculares ocupacionales en operaciones de emergencia se asocian a **uso de protección no certificada, mal ajustada o ausente** —situaciones todas evitables con equipo apropiado y dotación adecuada.
 
-- **Partículas de escombros** viajando a alta velocidad durante demolición o explosiones
-- **Chispas y brasas** proyectadas por el fuego
-- **Salpicaduras de líquidos** calientes o químicos
-- **Radiación UV e infrarroja** en incendios intensos y forestales
-- **Humo y partículas finas** que irritan y dañan el tejido ocular
+Esta guía es el manual técnico para que jefes de cuerpo y responsables de equipamiento seleccionen la protección visual correcta según el tipo de operación, integrándola con el resto del EPP (casco NFPA 1971, SCBA NFPA 1981, capucha NFPA 1971) y cumpliendo simultáneamente con las normativas mexicanas aplicables.
 
-La buena noticia: la protección ocular correcta elimina prácticamente todos estos riesgos. La mala noticia: muchos bomberos en México operan sin protección ocular adecuada o con gafas no certificadas.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">ANSI Z87.1+</span>
+    <span class="stat__label">Alto impacto requerido</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">45 m/s</span>
+    <span class="stat__label">Velocidad de prueba balística</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1971 §6.4</span>
+    <span class="stat__label">Sección aplicable casco/visor</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">99.9%</span>
+    <span class="stat__label">Bloqueo UV requerido</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/gafas-para-bomberos/goggle-bombera-scba-equipo-completo-nfpa-01.avif?lossy=1&strip=all" alt="Bombera con goggle de combate compatible con SCBA y casco NFPA 1971" loading="lazy" width="900" height="600" />
+  <figcaption>Goggle sellado integrado con máscara SCBA y casco NFPA 1971 — la combinación correcta evita la franja expuesta entre componentes del EPP.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Principio de integración del EPP visual</span>
+    <p>La protección ocular no es un componente independiente: forma parte del <strong>sistema de protección de cabeza y vías respiratorias</strong>. Un goggle de alta especificación combinado con una capucha mal posicionada o un casco sin pantalla deja franjas expuestas que anulan la protección. El criterio de compra debe evaluar el sistema completo, no componentes aislados.</p>
+  </div>
+</div>
+
+---
+
+## Modos de Lesión Ocular en Operación de Bomberos
+
+| Mecanismo | Origen típico | Tejido afectado |
+|-----------|---------------|------------------|
+| Impacto mecánico de alta velocidad | Demolición, explosión, herramienta de extricación | Córnea, esclera, globo ocular |
+| Radiación térmica directa | Combate estructural cerca del foco | Córnea (queratitis térmica), párpado |
+| Salpicadura química / hidrocarburo | HAZMAT, derrames vehiculares | Córnea, conjuntiva (quemadura química) |
+| Partículas finas en suspensión | Humo, ceniza, polvo de demolición | Conjuntiva, lagrimal (queratoconjuntivitis) |
+| Radiación UV / IR | Incendios forestales prolongados, arco eléctrico | Retina (fotoqueratitis, daño macular) |
+| Penetración por proyectil | Astillas de vidrio, fragmentos metálicos | Globo ocular (perforación) |
+
+La protección visual correcta debe seleccionarse por **modo de lesión esperado**, no por categoría de equipo.
 
 ---
 
@@ -11357,37 +13479,122 @@ La protección visual es de los componentes EPP más fáciles de mantener pero f
 | Goggle Z87.1+ con anti-fog permanente | $1,500 – $4,000 |
 | Goggle premium con ventilación activa | $3,500 – $8,000 |
 
-La protección ocular es la categoría de EPP con menor costo unitario. No hay justificación económica para operar sin ella.
+La protección ocular es la categoría de EPP con menor costo unitario por bombero. **No existe justificación económica para operar sin ella**, y la responsabilidad legal por lesión ocular evitable —por uso de equipo no certificado o por omisión de dotación— recae sobre el responsable institucional, no sobre el operador.
 
 ---
 
-*¿Necesitas protección visual certificada para tu cuerpo de bomberos? [Solicita cotización →](/cotizar/) o escríbenos por [WhatsApp →](https://wa.me/525520780102)*
+## Equipamiento BOMBERO MX: Protección Visual Certificada
+
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">ESS Profile NVG y FirePro</h4>
+    <p class="feature__text">Referencia internacional en goggles tácticos y de combate estructural. Certificación ANSI Z87.1+ y compatibilidad documentada con cascos Cairns 1044 y MSA F1.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Bollé Safety serie X1000</h4>
+    <p class="feature__text">Goggles con recubrimiento Platinum anti-fog permanente y ventilación indirecta. Aplicación operativa en HAZMAT Nivel C y rescate vehicular.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Gafas balísticas Z87.1+</h4>
+    <p class="feature__text">Para operaciones forestales (NFPA 1977) y de apoyo: 3M Maxim, Bollé Tracker, ESS Crossbow. Lente policarbonato con bloqueo UV 99.9%.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Pantallas de casco de repuesto</h4>
+    <p class="feature__text">Pantallas Bourkes y visores facial de reemplazo para cascos Bullard, Cairns, MSA F1 y XF1 — extiende vida útil del sistema completo.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Compatibilidad con SCBA</h4>
+    <p class="feature__text">Selección priorizada para uso simultáneo con máscaras SCBA NFPA 1981 (MSA G1, Scott AV-3000, Dräger FPS 7000) sin interferir con el sellado facial.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Documentación normativa</h4>
+    <p class="feature__text">Cada lote entregado incluye certificación ANSI vigente, ficha técnica del fabricante y declaración de conformidad con NOM-006-STPS.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>Protección visual certificada para tu cuerpo de bomberos</h3>
+  <p>Asesoría técnica de integración con casco, SCBA y capucha · Compatibilidad documentada · Inventario nacional</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/gafas-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
+
+---
+
+## Referencias Normativas
+
+- **ANSI/ISEA Z87.1-2020** — American National Standard for Occupational and Educational Eye and Face Protection Devices
+- **NFPA 1971** — Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting (sección 6.4 — protección facial integrada al casco)
+- **NFPA 1977** — Standard on Protective Clothing and Equipment for Wildland Fire Fighting
+- **NIOSH 84-2** — Eye Protection Practices
+- **NOM-006-STPS-2017** — Manejo y almacenamiento de materiales – Condiciones de seguridad y salud en el trabajo (sección de EPP)
+- **CSA Z94.3** — Eye and Face Protectors (referencia internacional adicional)
+
+---
 
 ### Artículos Relacionados
 
-- [**Guía NFPA 1971: EPP Estructural para Bomberos →**](/blog/nfpa-1971-guia-completa/)
-- [**Capuchas para Bombero: Nomex y PBI Gold →**](/blog/capuchas-monjas-bombero-nfpa-guia/)
-- [**Catálogo de Gafas BOMBERO.MX →**](/productos/gafas-para-bomberos/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [NFPA 1971: Guía Completa del EPP Estructural](/blog/nfpa-1971-guia-completa/)
+- [Capuchas (Monjas) para Bombero NFPA](/blog/capuchas-monjas-bombero-nfpa-guia/)
+- [Cascos Bullard vs Cairns: Comparativa](/blog/casco-bombero-bullard-vs-cairns/)
+- [SCBA MSA G1 vs Scott Air-Pak](/blog/scba-msag1-vs-scott-airpak/)
+- [HAZMAT Niveles de Protección](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Catálogo de gafas y protección visual](/productos/gafas-para-bomberos/)
     `,
   },
 
   "guantes-para-bombero-guia-completa": {
-    titulo: "Guantes para Bombero: Estructurales, Forestales y HAZMAT — Guía Técnica Completa",
-    excerpt: "Guía técnica definitiva sobre guantes para bomberos en México: tipos estructurales NFPA 1971, forestales NFPA 1977, HAZMAT NFPA 1991 y de rescate NFPA 1951. Comparativas, requisitos, materiales y cómo elegir el guante correcto para cada operación.",
+    titulo: "Guantes para Bombero: Análisis Técnico de NFPA 1971/1977/1991/1951/1999 — Dextreridad, Protección y Compatibilidad de Sistema",
+    excerpt: "Análisis técnico de guantes para bombero bajo NFPA 1971 (estructural), 1977 (forestal), 1991 (HAZMAT), 1951 (rescate técnico) y 1999 (médico). Ensayos de protección térmica (TPP), dextreridad mínima, materiales (Kevlar, Nomex, Vibram), compatibilidad con manguito de chaqueta y selección por tipo de operación en México.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-estructural-nfpa-1971-01.avif",
     categoria: "Equipo",
-    tags: ["Guantes Bombero", "NFPA 1971", "NFPA 1977", "NFPA 1991", "Guantes Nomex", "Guantes Estructurales", "Guantes Forestales", "HAZMAT", "EPP Bomberos México"],
+    tags: ["Guantes Bombero", "NFPA 1971", "NFPA 1977", "NFPA 1991", "NFPA 1951", "Kevlar", "Nomex", "Dextreridad"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo de Protección Personal para Bomberos",
+    autorRol: "Equipo Técnico — Protección de Manos",
     anchorKeyword: "guantes para bomberos NFPA certificados México",
     contenido: `
-## Guantes para Bombero: La Protección de Manos que Salva Vidas
+## Guantes para Bombero: Marco Técnico de Protección de Manos y Compatibilidad de Sistema
 
-Las manos son las herramientas de trabajo de un bombero. Sin protección adecuada, son también la parte del cuerpo más expuesta durante cualquier operación de emergencia. Quemaduras, cortes, perforaciones, contacto con químicos, impactos — las amenazas son múltiples y simultáneas.
+Las manos del bombero son **simultáneamente el componente más expuesto y el más dependiente de su EPP**. Cualquier limitación táctil del guante se traduce inmediatamente en fricción operativa: dificultad para operar válvulas SCBA, para extraer herramientas hidráulicas, para manipular pacientes en triage, para sentir cambios térmicos en superficies como indicador de evolución del incendio. La selección del guante exige equilibrar **protección máxima** y **dextreridad mínima ejecutable** —un equilibrio que la norma NFPA cuantifica con ensayos específicos.
 
-En **BOMBERO.MX** recibimos constantemente una pregunta de cuerpos de bomberos y brigadas industriales: *¿qué guante necesito?* La respuesta correcta depende del tipo de operación, la norma aplicable y las características del riesgo específico. Esta guía técnica cubre todo lo que necesitas saber para elegir el guante correcto.
+Adicionalmente, el guante **no opera aislado**: la zona de superposición entre el guante y el manguito de la chaqueta es una de las zonas de mayor riesgo de quemadura por contacto si la integración falla. El **sistema guante-manga** debe diseñarse como ensemble compatible, no como dos componentes independientes que coinciden geométricamente. Por esta razón, NFPA 1971 evalúa la **prueba de penetración líquida en la zona de transición** como criterio de certificación del guante estructural.
 
-> **Regla fundamental:** No existe un guante universal para todas las operaciones de bombero. Usar el guante incorrecto puede dar una falsa sensación de seguridad mientras la mano sigue expuesta al riesgo real.
+Este análisis describe los **cinco tipos de guantes NFPA aplicables a operación de bomberos y brigadas** (1971 estructural, 1977 forestal, 1991 HAZMAT, 1951 rescate técnico, 1999 médico), los **ensayos técnicos** que validan cada categoría, los **materiales constructivos referencia** (Kevlar, Nomex, PBI, cuero, Vibram) y los **criterios operativos de selección** por tipo de cuerpo en México.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">5</span>
+    <span class="stat__label">Normas NFPA aplicables</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">≥17.5 s</span>
+    <span class="stat__label">TPP equivalente NFPA 1971</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">Manguito</span>
+    <span class="stat__label">Zona crítica de integración</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$2,500-6,500</span>
+    <span class="stat__label">Rango MXN estructural</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/guantes-para-bomberos/guante-bombero-estructural-nfpa-1971-01.avif" alt="Guante estructural NFPA 1971 con barrera de humedad y construcción multicapa" loading="lazy" width="900" height="600" />
+  <figcaption>Guante estructural NFPA 1971 — construcción multicapa con barrera de humedad, palma reforzada y zona de superposición compatible con manguito de chaqueta.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">No existe un guante universal</span>
+    <p>Un guante NFPA 1971 estructural <strong>no protege adecuadamente</strong> contra químicos (NFPA 1991) ni ofrece la dextreridad fina del NFPA 1951 para rescate técnico. Inversamente, un guante NFPA 1977 forestal carece de la barrera térmica necesaria para entrada a estructura activa. Brigadas con operación mixta requieren <strong>inventario diferenciado</strong>, no compromiso con un solo modelo "polivalente" (que no existe en certificación NFPA real).</p>
+  </div>
+</div>
 
 ---
 
@@ -11712,48 +13919,100 @@ Sí. En **BOMBERO.MX** vendemos con factura a cuerpos de bomberos municipales, b
 
 ---
 
-## Conclusión: La Inversión Correcta en Guantes de Bombero
+## Conclusión Técnica
 
-Los guantes son uno de los componentes EPP de menor costo relativo dentro del equipo completo de un bombero, pero uno de los de mayor impacto en la seguridad diaria. Un traje estructural premium vale poco si las manos quedan expuestas por usar guantes no certificados o inadecuados para la operación.
+Los guantes son **el componente del EPP con menor costo unitario y mayor frecuencia de uso operativo**. Esta combinación los convierte en el componente más eficiente por unidad de inversión —y, simultáneamente, en el más expuesto a degradación temprana por uso intensivo. La selección correcta exige tres decisiones independientes: **categoría normativa** (por tipo de operación), **talla individualizada** (por bombero) y **plan de reemplazo programado** (por ciclo de vida útil).
 
-La decisión de compra debe basarse en:
+**BOMBERO MX** opera el catálogo completo de guantes NFPA 1971/1977/1991/1951 con plantilla de medición individual, documentación auditable y soporte de reposición continua.
 
-1. **Tipo de operaciones predominantes** del cuerpo de bomberos o brigada
-2. **Certificación verificable** por laboratorio acreditado
-3. **Talla correcta** para cada elemento del equipo
-4. **Plan de mantenimiento y reemplazo** documentado
+<div class="cta-box">
+  <h3>Guantes NFPA por categoría operativa</h3>
+  <p>Estructural (NFPA 1971), forestal (NFPA 1977), HAZMAT (NFPA 1991), rescate técnico (NFPA 1951). Plantilla de tallas individual, certificación auditable y reposición continua.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="/productos/guantes-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
 
-En BOMBERO.MX contamos con guantes certificados NFPA 1971, NFPA 1977, NFPA 1991 y NFPA 1951 con disponibilidad en México. [**Solicita una cotización personalizada →**](/cotizar/) o consulta nuestro [**catálogo de guantes para bomberos →**](/productos/guantes-para-bomberos/)
+---
+
+## Referencias Normativas
+
+- **NFPA 1971** — Standard on Protective Ensembles for Structural Fire Fighting (sección de guantes)
+- **NFPA 1977** — Standard on Protective Clothing and Equipment for Wildland Fire Fighting
+- **NFPA 1991** — Vapor-Protective Ensembles for Hazardous Materials Emergencies
+- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents
+- **NFPA 1999** — Standard on Protective Clothing for Emergency Medical Operations
+- **NFPA 1851** — Selection, Care, and Maintenance of Protective Ensembles (vida útil)
+- **ASTM F2675** — Standard Test Method for Determining Arc Ratings of Hand Protective Products
+- **EN 659** — Protective Gloves for Firefighters (estándar europeo equivalente)
 
 ---
 
 ### Artículos Relacionados
 
-- [**Guía NFPA 1971: EPP Estructural para Bomberos →**](/blog/nfpa-1971-guia-completa/)
-- [**Trajes para Bombero Estructural: Guía de Selección →**](/blog/traje-bombero-estructural-guia-seleccion/)
-- [**Capuchas para Bombero: Nomex y PBI Gold →**](/blog/capuchas-monjas-bombero-nfpa-guia/)
-- [**Catálogo completo de guantes BOMBERO.MX →**](/productos/guantes-para-bomberos/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [NFPA 1971: Guía Completa del Estándar](/blog/nfpa-1971-guia-completa/)
+- [Traje Estructural NFPA 1971 — Sistema 3 Capas](/blog/traje-estructural-nfpa-1971/)
+- [Trajes HAZMAT — Compatibilidad Química](/blog/traje-hazmat-proteccion-quimica/)
+- [Capuchas Monjas NFPA](/blog/capuchas-monjas-bombero-nfpa-guia/)
+- [Botas para Bomberos NFPA](/blog/botas-para-bomberos-guia-nfpa/)
+- [Cascos para Bombero — Tipos NFPA](/blog/cascos-bombero-tipos/)
+- [Mantenimiento NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Catálogo de guantes](/productos/guantes-para-bomberos/)
     `,
   },
 
 
   "rescate-en-altura-cuerdas-nfpa-1983": {
-    titulo: "Rescate en Altura: Cuerdas, Sistemas y NFPA 1983 — Guía Técnica para Bomberos en México",
-    excerpt: "Guía completa sobre rescate en altura para bomberos: cuerdas de vida, arneses, descensores, poleas y sistemas de anclaje certificados NFPA 1983. Tipos de cuerda, factores de seguridad, protocolo de operación y normativa aplicable en México.",
+    titulo: "Rescate en Altura NFPA 1983: Cuerdas de Vida, Sistemas de Anclaje y Equipo Vertical — Guía Técnica 2026",
+    excerpt: "Manual técnico de rescate vertical bajo NFPA 1983 (edición 2017): cuerdas estáticas General Use vs Technical Use, arneses NFPA, descensores asistidos (Petzl ID, CMC MPD), sistemas de anclaje, factores de seguridad 15:1, protocolo de operación dual-tensioned y aplicación en operaciones USAR/TRT mexicanas.",
     imagen: "/images/directorio/equipo-rescate-vertical-01.avif",
     categoria: "Técnicas",
-    tags: ["Rescate en Altura", "NFPA 1983", "Cuerdas de Vida", "Arnés Bombero", "Rescate Vertical", "Descensores", "Poleas Bombero", "Técnicas de Rescate"],
+    tags: ["Rescate Altura", "NFPA 1983", "Cuerdas de Vida", "Petzl ID", "CMC MPD", "Rescate Vertical", "Anclaje", "NOM-033-STPS"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Rescate Técnico y Equipamiento NFPA",
+    autorRol: "Equipo Técnico — Rescate Vertical",
     anchorKeyword: "rescate en altura bomberos cuerdas NFPA 1983 México",
     contenido: `
-## Rescate en Altura: Una de las Operaciones Más Exigentes para Bomberos
+## Rescate en Altura NFPA 1983: Marco Técnico del Componente Más Crítico del Rescate Especializado
 
-El **rescate en altura** —también llamado rescate vertical— es una de las disciplinas más técnicas, riesgosas y demandantes dentro del servicio de bomberos. Comprende todas las operaciones donde un bombero debe ascender, descender o trasladar a una víctima en un plano vertical o inclinado: edificios, puentes, torres de telecomunicaciones, presas, acantilados, silos industriales, torres de perforación y grúas.
+El **rescate vertical** o **rescate en altura** es la disciplina operativa donde la dependencia del equipo es **absoluta**: cada componente del sistema —cuerda, arnés, conector, anclaje, descensor— soporta cargas que en falla generan caída libre sin posibilidad de recuperación. La norma **NFPA 1983** (*Standard on Life Safety Rope and Equipment for Emergency Services*, edición 2017) codifica los requisitos de diseño, materiales, ensayo y certificación de cada componente del sistema, y define dos clases operativas: **General Use** (para cargas de dos personas en operación con factor de seguridad 15:1) y **Technical Use** (para una persona, factor 10:1, escape personal).
 
-En México, los cuerpos de bomberos de ciudades como CDMX, Guadalajara, Monterrey, Querétaro y Puebla enfrentan rescates en altura con frecuencia creciente debido al auge de la construcción vertical. Los **edificios de más de 20 pisos**, las **torres de telecomunicaciones 5G**, las **plantas industriales de PEMEX y CFE**, y los escenarios naturales como barrancas y cascadas generan una demanda constante de personal capacitado y equipo certificado.
+En México, la verticalización urbana acelerada —**torres de Reforma, Santa Fe e Insurgentes en CDMX**, **Puerta de Hierro y Andares en Guadalajara**, **San Pedro Garza García en Monterrey**, **Distrito Federal corporativo de Mítikah**, infraestructura industrial PEMEX/CFE, torres de telecomunicaciones 5G— genera demanda creciente de capacidad de rescate vertical en cuerpos municipales. La NFPA 1983 es la referencia técnica universal, complementada en operaciones de espacios confinados por la **NOM-033-STPS-2015** mexicana.
 
-La norma que rige el equipo de rescate con cuerdas para bomberos es la **NFPA 1983** (Standard on Life Safety Rope and Equipment for Emergency Services). En esta guía técnica de **BOMBERO.MX**, desglosamos todo lo que un cuerpo de bomberos o brigada de rescate en México necesita saber para operar con seguridad.
+Este manual estructura el **marco técnico del rescate vertical NFPA 1983**: clasificación General Use / Technical Use, **especificaciones de cuerda estática** (diámetro, fuerza mínima de ruptura MBS, alargamiento bajo carga), **arneses certificados**, **descensores asistidos modernos** (Petzl I'D, CMC MPD), **sistemas de anclaje** y **factores de seguridad** aplicables. La aplicación operativa cubre equipos USAR/TRT, brigadas industriales con riesgo vertical y cuerpos municipales metropolitanos.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1983</span>
+    <span class="stat__label">Edición 2017 vigente</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">15:1</span>
+    <span class="stat__label">Factor seguridad General Use</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">≥40 kN</span>
+    <span class="stat__label">MBS cuerda General Use 12.5 mm</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">5 años</span>
+    <span class="stat__label">Vida útil cuerda en servicio activo</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/directorio/equipo-rescate-vertical-01.avif" alt="Equipo de rescate vertical NFPA 1983 con cuerda estática, arnés y descensor asistido" loading="lazy" width="900" height="600" />
+  <figcaption>Sistema de rescate vertical NFPA 1983 — cuerda estática + arnés + descensor asistido + sistema de anclaje. Cada componente certificado individualmente bajo la misma norma.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Sin certificación NFPA 1983, no apto para servicio</span>
+    <p>Una cuerda de escalada deportiva o industrial <strong>no es equivalente</strong> a una cuerda NFPA 1983 General Use. La diferencia no es solo de etiqueta: los ensayos de carga, el comportamiento bajo absorción de energía y la trazabilidad documental son distintos. Operar con equipo deportivo en servicio de rescate profesional <strong>anula seguros y expone responsabilidad civil</strong> del responsable institucional.</p>
+  </div>
+</div>
 
 ---
 
@@ -12159,25 +14418,69 @@ En México, los cursos de rescate vertical de nivel operativo (40-80 horas) cues
 
 ---
 
-## Conclusión: El Rescate en Altura Exige Equipo Certificado y Capacitación Real
+## Equipamiento BOMBERO MX — Sistema Vertical NFPA 1983 Completo
 
-El rescate en altura no admite improvisación. Cada componente del sistema —desde la cuerda hasta el mosquetón— trabaja como eslabón de una cadena donde el más débil define la seguridad de todos. La **NFPA 1983** existe precisamente para garantizar que cada eslabón cumple un estándar mínimo verificable.
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Cuerdas estáticas NFPA 1983</h4>
+    <p class="feature__text">Sterling, PMI, Yale Cordage en diámetros 11 mm (Technical Use) y 12.5 mm (General Use). MBS documentado y trazabilidad de lote.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Arneses de cuerpo completo</h4>
+    <p class="feature__text">Petzl Avao Bod, CMC ProSeries, Yates Voyager. Certificación NFPA 1983 con puntos de anclaje frontal y dorsal.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Descensores asistidos</h4>
+    <p class="feature__text">Petzl I'D (auto-bloqueo), CMC MPD (descenso + ascenso bloqueable), Petzl Stop, CMC Clutch.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Poleas y sistemas mecánicos</h4>
+    <p class="feature__text">CMC Rescue Pulley, Petzl Pro Traxion, sistemas 3:1 y 4:1 para extracción técnica con ventaja mecánica.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Anclajes y conectores</h4>
+    <p class="feature__text">Mosquetones de aluminio aviación y acero forjado, eslingas de cinta certificadas, anclajes desmontables.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cascos rescate técnico NFPA 1951</h4>
+    <p class="feature__text">Petzl Vertex Vent, Team Wendy EXFIL Rescue, CMC Cascade — compatibilidad documentada con sistema vertical.</p>
+  </div>
+</div>
 
-En México, donde la verticalización urbana crece año con año y los escenarios de rescate se diversifican, invertir en **equipo certificado NFPA 1983** y **capacitación profesional** no es un lujo — es la diferencia entre un rescate exitoso y un accidente dentro del accidente.
+<div class="cta-box">
+  <h3>Sistema completo de rescate vertical NFPA 1983</h3>
+  <p>Cuerdas, arneses, descensores, poleas, anclajes, cascos NFPA 1951. Documentación auditable · Coordinación de capacitación · Refacciones</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
-En **BOMBERO.MX** distribuimos equipo de rescate en altura certificado NFPA 1983 con disponibilidad para cuerpos de bomberos municipales, brigadas industriales y dependencias de protección civil en toda la República Mexicana.
+---
 
-[**Solicita tu cotización de equipo de rescate en altura →**](/cotizar/)
+## Referencias Normativas
+
+- **NFPA 1983** — Standard on Life Safety Rope and Equipment for Emergency Services (edición 2017)
+- **NFPA 1670** — Standard on Operations and Training for Technical Search and Rescue Incidents
+- **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications (Rope Rescue)
+- **NFPA 1500** — Standard on Fire Department Occupational Safety, Health, and Wellness Program
+- **NFPA 1407** — Standard for Training Fire Service Rapid Intervention Crews
+- **NOM-033-STPS-2015** — Condiciones de seguridad para realizar trabajos en espacios confinados (México)
+- **EN 1891** — Personal protective equipment for the prevention of falls from a height – Low stretch kernmantel ropes (estándar europeo)
+- **ASTM F1772** — Standard Specification for Harnesses for Rescue Services
 
 ---
 
 ### Artículos Relacionados
 
-- [**Extricación Vehicular: Herramientas Jaws of Life →**](/blog/extricacion-vehicular-jaws-of-life-mexico/)
-- [**HAZMAT: Niveles de Protección para Bomberos →**](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
-- [**NFPA 1971: Guía Completa de EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
-- [**Guantes de Rescate Técnico NFPA 1951 →**](/blog/guantes-rescate-extricacion/)
-- [**Catálogo completo BOMBERO.MX →**](/productos/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Casco Rescate Técnico NFPA 1951](/blog/casco-rescate-nfpa-1951/)
+- [Guantes para Bombero — NFPA 1951](/blog/guantes-para-bombero-guia-completa/)
+- [Bomberos CDMX — Operación Vertical Reforma/Santa Fe](/blog/bomberos-cdmx-equipo-nfpa/)
+- [Bomberos Guadalajara — Puerta de Hierro/Andares](/blog/bomberos-guadalajara-equipo-nfpa/)
+- [Bomberos Monterrey — KOI Tower San Pedro](/blog/bomberos-monterrey-equipo-nfpa/)
+- [Extricación Vehicular Jaws of Life](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [HAZMAT Niveles de Protección](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
     `,
   },
 
@@ -12220,7 +14523,7 @@ Pachuca, "La Bella Airosa", añade un reto operativo único: su **altitud de 2,4
 En **BOMBERO MX** abastecemos al **Heroico Cuerpo de Bomberos de Pachuca**, cuerpos municipales hidalguenses, brigadas industriales del corredor Sahagún y empresas de protección civil. Desde nuestra base en CDMX, Hidalgo está a **90–120 minutos por Arco Norte o México–Pachuca**, lo que permite logística rápida.
 
 <figure>
-  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación operativa de bomberos en Pachuca Hidalgo" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif?lossy=1&strip=all" alt="Estación operativa de bomberos en Pachuca Hidalgo" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa — la red hidalguense combina perfil estructural urbano con presión industrial (Tula, Sahagún) y forestal.</figcaption>
 </figure>
 
@@ -12252,7 +14555,7 @@ La **Refinería Miguel Hidalgo (Tula)** de **PEMEX** procesa más de 315,000 bar
 **Ciudad Sahagún** alberga plantas industriales históricas: **DINA Camiones, Bombardier Sahagún (vagones de tren), Servicio Industriales Peñoles**, entre otras. La manufactura pesada concentra fuegos de aceites, soldadura, almacenes de químicos y metalurgia.
 
 <figure>
-  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en corredor Ciudad Sahagún" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA usado en corredor Ciudad Sahagún" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — exigible en plantas del corredor Sahagún–Tepeapulco.</figcaption>
 </figure>
 
@@ -12408,8 +14711,8 @@ La **México–Pachuca (85D)** y el **Arco Norte** transportan más de 70,000 ve
 ## Productos Recomendados para Brigadas Hidalguenses
 
 <div class="img-grid">
-  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 con aislamiento térmico" loading="lazy" />
-  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 con aislamiento térmico" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
@@ -12518,7 +14821,7 @@ Esta combinación —aeroespacial + automotriz + corredor logístico + ciudad co
 En **BOMBERO MX** abastecemos al **Heroico Cuerpo de Bomberos de Querétaro**, cuerpos municipales, brigadas industriales del corredor aeroespacial y empresas de protección civil. Desde nuestra base en CDMX, Querétaro está a **2.5 horas por la 57D** —una de las regiones donde tenemos mayor velocidad logística.
 
 <figure>
-  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación operativa de bomberos en Querétaro con camión autobomba" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif?lossy=1&strip=all" alt="Estación operativa de bomberos en Querétaro con camión autobomba" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa — la red queretana combina perfil colonial estructural con presión industrial creciente.</figcaption>
 </figure>
 
@@ -12550,7 +14853,7 @@ El **Aeropuerto Intercontinental de Querétaro (AIQ)** opera junto al clúster a
 Los parques **El Marqués I/II/III, Bernardo Quintana, Querétaro Industrial Park, La Cruz, Tres Naciones** y los corredores automotrices alrededor de la 57D concentran cientos de plantas. Riesgos típicos: solventes industriales, pinturas automotrices, gases técnicos y procesos químicos.
 
 <figure>
-  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA en parques industriales de Querétaro" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA en parques industriales de Querétaro" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — exigible en plantas del corredor El Marqués–Bernardo Quintana.</figcaption>
 </figure>
 
@@ -12711,8 +15014,8 @@ La **Reserva de la Biósfera Sierra Gorda** (Jalpan, Landa, Pinal de Amoles) pre
 ## Productos Recomendados para Brigadas Queretanas
 
 <div class="img-grid">
-  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
-  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
@@ -12821,7 +15124,7 @@ Cinco realidades operativas únicas de Jalisco condicionan el equipo que cada es
 En **BOMBERO MX** trabajamos con cuerpos municipales, protección civil estatal y brigadas industriales en todo Jalisco. Esta guía es el resumen de lo que hemos aprendido equipando estaciones en la ZMG y el interior del estado.
 
 <figure>
-  <img src="/images/directorio/estacion-bomberos-guadalajara-01.avif" alt="Estación del Cuerpo de Bomberos de Guadalajara con unidad operativa" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-guadalajara-01.avif?lossy=1&strip=all" alt="Estación del Cuerpo de Bomberos de Guadalajara con unidad operativa" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa en la ZMG — base para operaciones estructurales, forestales y de rescate.</figcaption>
 </figure>
 
@@ -12853,7 +15156,7 @@ En **BOMBERO MX** trabajamos con cuerpos municipales, protección civil estatal 
 El corredor concentra plantas químicas, papeleras, alimentarias y de plásticos. Eventos históricos como el del **22 de abril de 1992** marcan la cultura operativa local: HAZMAT no es opcional.
 
 <figure>
-  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en corredor El Salto Jalisco" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA usado en corredor El Salto Jalisco" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — exigible en plantas del corredor El Salto y zona industrial de Tlaquepaque.</figcaption>
 </figure>
 
@@ -12967,8 +15270,8 @@ Con más de 50,000 vehículos/día, la Guadalajara–Colima es punto recurrente 
 ## Productos Recomendados para Jalisco
 
 <div class="img-grid">
-  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
-  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/)
@@ -13078,7 +15381,7 @@ La ZMM concentra a las industrias más pesadas de México: **acero (Ternium, AHM
 En **BOMBERO MX** abastecemos al **Heroico Cuerpo de Bomberos de Nuevo León**, cuerpos municipales, brigadas industriales privadas y empresas de protección civil. Esta guía concentra el conocimiento operativo acumulado equipando estaciones en la ZMM y el norte del estado.
 
 <figure>
-  <img src="/images/directorio/estacion-bomberos-monterrey-01.avif" alt="Estación del Cuerpo de Bomberos de Monterrey con unidad de respuesta" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-monterrey-01.avif?lossy=1&strip=all" alt="Estación del Cuerpo de Bomberos de Monterrey con unidad de respuesta" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa en Monterrey — preparada para escenarios estructurales, industriales pesados y rescate de altura.</figcaption>
 </figure>
 
@@ -13109,7 +15412,7 @@ Más de **1,500 plantas industriales** entre Apodaca y Pesquería incluyen quím
 Las **plantas de acero de Ternium y DeAcero** operan con coladas a >1,500°C. Los incendios involucran calor radiante extremo, gases tóxicos y riesgo de explosión por contacto con agua. Solo equipo certificado con visor térmico dorado y traje de aproximación protege adecuadamente.
 
 <figure>
-  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial con visor dorado para uso en planta siderúrgica" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial con visor dorado para uso en planta siderúrgica" loading="lazy" width="900" height="600" />
   <figcaption>Casco con visor térmico dorado — protección contra calor radiante en operaciones siderúrgicas Santa Catarina.</figcaption>
 </figure>
 
@@ -13247,8 +15550,8 @@ Más de **70,000 vehículos/día**. La zona de Los Chorros (km 35) es punto recu
 ## Productos Recomendados para Brigadas Regiomontanas
 
 <div class="img-grid">
-  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
-  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
@@ -13356,7 +15659,7 @@ Esta combinación geográfica, demográfica e industrial exige que cada estació
 En **BOMBERO MX** llevamos más de una década abasteciendo de equipo certificado a estaciones de bomberos municipales, brigadas industriales y empresas de protección civil en todo el estado de Puebla. Esta guía concentra el conocimiento operativo que hemos acumulado trabajando codo a codo con bomberos poblanos: qué equipo necesitan, por qué, y cómo conseguirlo bajo normativa vigente.
 
 <figure>
-  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación de bomberos en el Centro Histórico de Puebla con camión autobomba en bahía" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif?lossy=1&strip=all" alt="Estación de bomberos en el Centro Histórico de Puebla con camión autobomba en bahía" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa en Centro Histórico — uno de los escenarios más complejos para combate estructural por densidad arquitectónica patrimonial.</figcaption>
 </figure>
 
@@ -13389,7 +15692,7 @@ El **Centro Histórico** abarca 6.99 km² con más de 2,600 edificios catalogado
 El **clúster Audi México** en San José Chiapa transformó el norte del estado en uno de los polos industriales automotrices más relevantes de Latinoamérica. La planta opera con líneas de pintura (compuestos orgánicos volátiles), almacenes de litio para baterías y procesos de soldadura robótica las 24 horas.
 
 <figure>
-  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en corredor automotriz Puebla" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA usado en corredor automotriz Puebla" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — uso obligatorio dentro de plantas con riesgo HAZMAT como Audi México.</figcaption>
 </figure>
 
@@ -13551,8 +15854,8 @@ A continuación, el **stack mínimo de equipamiento certificado** que toda estac
 ## Productos Recomendados para Brigadas Poblanas
 
 <div class="img-grid">
-  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 BOMBERO MX" loading="lazy" />
-  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA en estación" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 BOMBERO MX" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA en estación" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024 vigente
@@ -13662,7 +15965,7 @@ La operación binacional eleva el estándar: los bomberos tijuanenses frecuentem
 En **BOMBERO MX** equipamos al **Heroico Cuerpo de Bomberos de Tijuana**, cuerpos municipales de Mexicali, Ensenada, Rosarito y Tecate, brigadas industriales en zonas de maquiladoras y empresas de protección civil. Esta guía concentra el conocimiento operativo de equipar la región fronteriza.
 
 <figure>
-  <img src="/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif" alt="Estación de bomberos con flota de unidades operativas" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif?lossy=1&strip=all" alt="Estación de bomberos con flota de unidades operativas" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa preparada para escenarios estructurales y forestales — patrón habitual en Baja California.</figcaption>
 </figure>
 
@@ -13694,7 +15997,7 @@ Los **vientos Santa Ana** (octubre–febrero) son ráfagas secas que descienden 
 **Otay Mesa**, **El Florido**, **La Mesa** y **El Lago** concentran más de 1,000 maquiladoras: electrónica, automotriz (Toyota, Hyundai), aeroespacial, dispositivos médicos y química especializada. La fuga química y el incendio en almacén de litio son escenarios recurrentes.
 
 <figure>
-  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en maquiladoras de Tijuana" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA usado en maquiladoras de Tijuana" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — exigible en maquiladoras de Otay y zonas industriales fronterizas.</figcaption>
 </figure>
 
@@ -13833,8 +16136,8 @@ La **Autopista Federal 1D** (más conocida como la Tijuana–Ensenada o Escénic
 ## Productos Recomendados para Brigadas Fronterizas
 
 <div class="img-grid">
-  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
-  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes forestales NFPA 1977**](/productos/trajes-para-bomberos/) — Para temporada Santa Ana
@@ -13943,7 +16246,7 @@ La CDMX combina los escenarios más diversos del país en una sola jurisdicción
 **BOMBERO MX** opera desde **CDMX** —donde está nuestro almacén central y oficinas. Esto nos permite **entregar el mismo día** equipo en stock a estaciones del HCBCDMX, brigadas industriales, protección civil de alcaldías y empresas privadas en toda la capital. Esta guía concentra el conocimiento operativo de equipar la red de bomberos más exigente del país.
 
 <figure>
-  <img src="/images/directorio/estacion-bomberos-cdmx-01.avif" alt="Estación del Heroico Cuerpo de Bomberos de CDMX con unidad operativa" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-cdmx-01.avif?lossy=1&strip=all" alt="Estación del Heroico Cuerpo de Bomberos de CDMX con unidad operativa" loading="lazy" width="900" height="600" />
   <figcaption>Estación del HCBCDMX — referencia operativa nacional. La red de la capital atiende escenarios estructurales, forestales, industriales y de rescate técnico.</figcaption>
 </figure>
 
@@ -13975,7 +16278,7 @@ CDMX concentra los edificios más altos de México: **Torre Reforma (246 m), Tor
 Los mercados tradicionales concentran densidad comercial extrema, mercancía altamente combustible (textiles, plásticos, semillas, ropa), instalaciones eléctricas envejecidas y accesos angostos para autobombas. El incendio del **Mercado de Sonora 2019** y el **Mercado Hidalgo 2024** demostraron la complejidad operativa.
 
 <figure>
-  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación de bomberos en Centro Histórico de CDMX con autobomba" loading="lazy" width="900" height="600" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif?lossy=1&strip=all" alt="Estación de bomberos en Centro Histórico de CDMX con autobomba" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa en Centro Histórico — los mercados son el escenario estructural más complejo de la capital.</figcaption>
 </figure>
 
@@ -14151,8 +16454,8 @@ CDMX registra más de **20 accidentes vehiculares con extricación diarios**. Lo
 ## Productos Recomendados para Brigadas en CDMX
 
 <div class="img-grid">
-  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
-  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
@@ -14226,318 +16529,979 @@ Para brigadas capitalinas eso significa: **catálogo NFPA con entrega mismo día
   },
 
   "equipo-nfpa-mexico-guia-completa": {
-    titulo: "Equipo NFPA para Bomberos en México: Guía Completa",
-    excerpt: "Guía definitiva sobre el equipo certificado NFPA que necesitan los bomberos en México. Normativas, certificaciones, selección de EPP y cómo adquirir equipo de calidad.",
-    imagen: "/images/directorio/estacion-bomberos-mexico-01.avif",
+    titulo: "Equipo NFPA para Bomberos en México: Guía Completa 2026",
+    excerpt: "Guía pilar 2026 sobre equipo NFPA en México. Normativas, certificación auditable, EPP completo, marcas, costos reales, errores comunes y cómo BOMBERO MX abastece a los 32 estados.",
+    imagen: "/images/accion/bomberos-accion-incendio-estructural.avif",
     categoria: "Equipo",
-    tags: ["NFPA México", "EPP Bomberos", "Equipo Certificado", "Guía Completa"],
+    tags: ["NFPA México", "EPP Bomberos", "Equipo Certificado", "NFPA 1971", "NFPA 1981", "Guía Pilar"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Equipo NFPA",
+    autorRol: "Especialistas en Equipo NFPA para México",
     anchorKeyword: "equipo NFPA para bomberos en México guía completa",
     contenido: `
 ## Equipo NFPA para Bomberos en México: Todo lo que Necesitas Saber
 
-En México, la profesionalización de los cuerpos de bomberos ha avanzado significativamente. Cada vez más estaciones exigen **equipo de protección personal certificado NFPA** como estándar mínimo para sus operaciones. Esta guía cubre todo lo que necesitas saber para equipar correctamente a un cuerpo de bomberos mexicano.
+En **México** la profesionalización de los cuerpos de bomberos ha avanzado significativamente en la última década. Cada vez más estaciones —municipales, estatales, privadas e industriales— exigen **equipo de protección personal certificado NFPA** como estándar operativo mínimo. Esta guía es el **artículo pilar** que reúne todo lo que necesitas saber para equipar correctamente a un cuerpo de bomberos mexicano: normativas, EPP completo, marcas, costos, errores comunes y proceso de adquisición.
 
-### ¿Qué es la NFPA y Por Qué Importa en México?
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">32</span>
+    <span class="stat__label">Estados de México atendidos</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">+500</span>
+    <span class="stat__label">Productos certificados NFPA</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10</span>
+    <span class="stat__label">Años vida útil NFPA 1971</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">24-72h</span>
+    <span class="stat__label">Tiempo de envío nacional</span>
+  </div>
+</div>
 
-La **NFPA (National Fire Protection Association)** es la organización internacional que establece los estándares más rigurosos para equipo de bomberos. Aunque México tiene sus propias normas NOM, la certificación NFPA es reconocida como el estándar superior y es exigida por la mayoría de los departamentos de bomberos profesionales del país.
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipado con EPP NFPA completo en estación operativa de México" loading="lazy" width="900" height="600" />
+  <figcaption>EPP NFPA completo — la dotación estándar que toda estación profesional debe tener.</figcaption>
+</figure>
 
-### Las 5 Normas NFPA Esenciales para Bomberos en México
+---
 
-| Norma | Nombre | Equipo que Cubre |
-|-------|--------|-----------------|
-| **NFPA 1971** | Protective Ensembles for Structural Fire Fighting | Trajes, cascos, guantes, botas y capuchas para incendio estructural |
-| **NFPA 1977** | Protective Clothing for Wildland Fire Fighting | Trajes, cascos y botas para incendio forestal |
-| **NFPA 1981** | Open-Circuit SCBA for Emergency Services | Equipos de respiración autónoma (SCBA) |
-| **NFPA 1936** | Powered Rescue Tools | Herramientas hidráulicas de rescate |
-| **NFPA 1983** | Life Safety Rope and Equipment | Cuerdas, arneses y equipo de rescate vertical |
+## ¿Qué es la NFPA y Por Qué Importa en México?
 
-### Conjunto EPP Completo NFPA 1971 para Bombero Estructural
+La **NFPA (National Fire Protection Association)** es la organización internacional fundada en 1896 que establece los **estándares más rigurosos del mundo** para equipo y protocolos de bomberos. Aunque México tiene sus propias normas NOM, la certificación NFPA es reconocida como el **estándar superior auditable** y es exigida por la mayoría de los cuerpos de bomberos profesionales del país, brigadas industriales y empresas con riesgo elevado.
+
+### Por qué NFPA y no solo NOM mexicana
+
+<div class="compare-grid">
+  <div class="compare-card compare-card--pro">
+    <h4>Equipo certificado NFPA</h4>
+    <ul>
+      <li>Pruebas de laboratorio auditables (UL, Intertek, SEI)</li>
+      <li>Trazabilidad de lote y fabricante</li>
+      <li>Compatible con operaciones binacionales</li>
+      <li>Vida útil definida y verificable</li>
+      <li>Aceptado en licitaciones federales y estatales</li>
+    </ul>
+  </div>
+  <div class="compare-card compare-card--con">
+    <h4>Equipo "genérico" sin NFPA</h4>
+    <ul>
+      <li>Sin certificación auditable</li>
+      <li>Riesgo de falla en operación real</li>
+      <li>Inadmisible en licitaciones serias</li>
+      <li>Vida útil indeterminada</li>
+      <li>Sin trazabilidad post-venta</li>
+    </ul>
+  </div>
+</div>
+
+---
+
+## Las 6 Normas NFPA Esenciales para Bomberos en México
+
+| Norma | Aplicación | Equipo cubierto |
+|-------|------------|-----------------|
+| **NFPA 1971** | Incendio estructural | Trajes, cascos, guantes, botas, capuchas |
+| **NFPA 1977** | Incendio forestal | Trajes, cascos forestales, botas |
+| **NFPA 1981** | Respiración autónoma | SCBA completos + cilindros |
+| **NFPA 1991** | Materiales peligrosos | Trajes HAZMAT Nivel A encapsulados |
+| **NFPA 1936** | Rescate vehicular | Cizallas, expansores, herramientas hidráulicas |
+| **NFPA 1983** | Rescate vertical | Cuerdas estáticas, arneses, descensores |
+
+<div class="callout callout--info">
+  <span class="callout__icon">ℹ️</span>
+  <div class="callout__body">
+    <span class="callout__title">Actualización quinquenal</span>
+    <p>Las normas NFPA se revisan y actualizan <strong>cada 5 años</strong>. Verifica siempre la <strong>edición vigente</strong> al comprar equipo (NFPA 1971 edición 2024, por ejemplo). Equipo certificado bajo edición vencida pierde validez en operaciones formales.</p>
+  </div>
+</div>
+
+---
+
+## Conjunto EPP Completo NFPA 1971 para Bombero Estructural
 
 Un bombero estructural en México necesita el siguiente equipamiento certificado:
 
-1. **Chaquetón y pantalón estructural** — Construcción de 3 capas: capa exterior retardante de llama (Nomex o PBI), barrera de humedad (Gore-Tex) y barrera térmica.
-2. **Casco con visor** — Protección craneal contra impactos, penetración y calor radiante. Sistema de retención de 4 puntos.
-3. **Guantes estructurales** — Kevlar con barrera de humedad para manipulación en calor extremo.
-4. **Botas estructurales** — Cuero de vaqueta con puntera de seguridad y suela resistente a hidrocarburos.
-5. **Capucha protectora** — Nomex o PBI Gold para protección del cuello y zona facial bajo el casco.
-6. **SCBA (aparato de respiración)** — Equipo de circuito abierto con cilindro de aire, máscara panorámica y alarma PASS.
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🧥</span>
+    <h4 class="feature__title">Chaquetón + Pantalón</h4>
+    <p class="feature__text">3 capas: exterior retardante (Nomex/PBI), barrera de humedad (Gore-Tex), barrera térmica acolchonada.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🛡️</span>
+    <h4 class="feature__title">Casco con visor</h4>
+    <p class="feature__text">Resistencia impacto y penetración. Visor desplegable. Sistema de retención 4 puntos.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🧤</span>
+    <h4 class="feature__title">Guantes estructurales</h4>
+    <p class="feature__text">Kevlar con barrera de humedad. Resistencia a calor radiante y cortes.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">👢</span>
+    <h4 class="feature__title">Botas estructurales</h4>
+    <p class="feature__text">Cuero vaqueta o caucho con puntera + plantilla antiperforación + suela antideslizante.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🎭</span>
+    <h4 class="feature__title">Capucha protectora</h4>
+    <p class="feature__text">Nomex o PBI Gold. Protege cuello y zona facial expuesta entre casco y traje.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💨</span>
+    <h4 class="feature__title">SCBA</h4>
+    <p class="feature__text">Circuito abierto, cilindro composite, máscara panorámica, alarma PASS integrada.</p>
+  </div>
+</div>
 
-### ¿Cómo Verificar que el Equipo es Genuinamente NFPA?
+### Especificaciones técnicas mínimas NFPA 1971 (edición 2024)
 
-Para asegurarte de que el equipo que adquieres cumple realmente con NFPA:
+| Parámetro | Valor mínimo |
+|-----------|--------------|
+| **TPP (Thermal Protective Performance)** | ≥35 cal/cm² |
+| **THL (Total Heat Loss)** | ≥205 W/m² |
+| **Resistencia a llama** | Sin ignición, fusión, goteo |
+| **Resistencia al desgarro (capa exterior)** | ≥100 N |
+| **Penetración líquidos (60 min)** | <1 mL |
 
-- **Busca la etiqueta del laboratorio certificador** — UL (Underwriters Laboratories), Intertek o SEI (Safety Equipment Institute)
-- **Verifica la edición de la norma** — Las normas se actualizan cada 5 años. Asegúrate de que el equipo cumple con la edición vigente.
-- **Solicita el certificado de conformidad** — Todo equipo NFPA genuino debe venir acompañado de un certificado del laboratorio.
-- **Compra con distribuidores autorizados** — En **BOMBERO.MX** todos los productos incluyen certificación original y fichas técnicas.
+---
 
-### Marcas Líderes de Equipo NFPA en México
+## Cómo Verificar que el Equipo es Genuinamente NFPA
 
-| Marca | Especialidad | Productos Destacados |
-|-------|-------------|---------------------|
-| **MSA Safety** | SCBA y cascos | G1 SCBA, Cairns 1044, detectores |
-| **Honeywell / Scott** | SCBA y trajes | Air-Pak X3, Morning Pride |
+<div class="callout callout--warn">
+  <span class="callout__icon">⚠️</span>
+  <div class="callout__body">
+    <span class="callout__title">Atención: equipo falsificado o no certificado</span>
+    <p>El mercado mexicano tiene equipo "genérico" que imita la apariencia NFPA pero <strong>no pasó pruebas de laboratorio</strong>. Comprar a un proveedor sin trazabilidad puede exponer a tu personal a equipo que falla en operación real. Verifica siempre estos 4 puntos:</p>
+  </div>
+</div>
+
+1. **Etiqueta del laboratorio certificador** — UL (Underwriters Laboratories), **Intertek** o **SEI** (Safety Equipment Institute). Sin etiqueta visible y verificable, no es NFPA.
+2. **Edición de la norma** — Debe ser la **vigente** (NFPA 1971 ed. 2024, NFPA 1981 ed. 2024, etc.).
+3. **Certificado de conformidad** — Todo equipo NFPA genuino se entrega con **certificado del laboratorio + ficha técnica + número de lote**.
+4. **Distribuidor autorizado** — Pide a tu proveedor la **carta del fabricante** que lo acredita como distribuidor. En **BOMBERO MX** todos los productos incluyen certificación original.
+
+---
+
+## Marcas Líderes de Equipo NFPA Disponibles en México
+
+| Marca | Especialidad | Productos destacados |
+|-------|--------------|----------------------|
+| **MSA Safety** | SCBA y cascos | G1 SCBA, Cairns 1044, detectores Altair |
+| **Honeywell / Scott** | SCBA y trajes | Air-Pak X3 Pro, Morning Pride |
 | **Globe** | Trajes estructurales | GX-7, Athletic, Athletix |
 | **Bullard** | Cascos | UST, FXE, TrakLite |
-| **Holmatro** | Herramientas de rescate | Cizallas, expansores, combos |
-| **Lion Apparel** | Trajes estructurales | Janesville, Super Deluxe |
+| **Dräger** | SCBA + multigas | PSS 7000, X-am 5600 |
+| **Holmatro** | Rescate hidráulico | Cizallas, expansores combos |
+| **Lion Apparel** | Trajes | Janesville, Super Deluxe |
+| **Cairns** | Cascos clásicos | New Yorker, 1010, 1044 |
 
-### Errores Comunes al Comprar Equipo para Bomberos en México
+---
 
-1. **Comprar equipo sin certificación NFPA** — Ahorrarse unos pesos en equipo genérico puede costar una vida.
-2. **Usar equipo vencido** — Los trajes NFPA 1971 tienen vida útil de 10 años desde fabricación. Verifica siempre.
-3. **Mezclar componentes de diferentes normas** — Un casco forestal NFPA 1977 NO protege en un incendio estructural.
-4. **No capacitar en el uso correcto** — El mejor equipo es inútil si no se usa correctamente.
-5. **Omitir el mantenimiento preventivo** — Los SCBA requieren revisiones periódicas y los trajes inspección visual antes de cada uso.
+## Costos Reales del EPP NFPA en México (2026)
 
-### Cotiza Equipo NFPA con BOMBERO.MX
+<div class="callout callout--tip">
+  <span class="callout__icon">💡</span>
+  <div class="callout__body">
+    <span class="callout__title">Rangos orientativos</span>
+    <p>Los precios varían según marca, edición y opciones. Estos son rangos típicos para presupuestar; <a href="/cotizar/">solicita cotización exacta aquí</a>.</p>
+  </div>
+</div>
 
-En **BOMBERO.MX** somos el distribuidor #1 de equipo certificado NFPA para bomberos en todo México:
+| Componente | Rango (MXN) |
+|------------|-------------|
+| **Traje estructural NFPA 1971** | $25,000 – $55,000 |
+| **Casco NFPA 1971** | $5,000 – $12,000 |
+| **Capucha Nomex / PBI** | $1,200 – $3,500 |
+| **Guantes estructurales** | $2,500 – $6,500 |
+| **Botas estructurales cuero** | $4,500 – $9,500 |
+| **SCBA NFPA 1981 + 1 cilindro** | $50,000 – $95,000 |
+| **Cilindro adicional 45 min** | $18,000 – $32,000 |
+| **EPP completo SIN SCBA** | $38,000 – $86,500 |
+| **EPP COMPLETO + SCBA** | $88,000 – $181,500 |
 
-- Más de 500 productos certificados
-- Envío a los 32 estados de la República
-- Asesoría técnica gratuita
-- Atención a licitaciones y gobierno
-- Fichas técnicas y certificados incluidos
+---
 
-> **Equipa a tu cuerpo de bomberos con equipo que salva vidas.** [Solicita cotización →](/cotizar/) o explora el [catálogo completo →](/productos/).
+## Errores Comunes al Comprar Equipo NFPA
+
+1. **Comprar equipo sin certificación NFPA** — Ahorrarse 30% puede costar la vida del personal.
+2. **Usar equipo vencido** — Los trajes NFPA 1971 tienen **vida útil de 10 años desde fabricación**. Verifica fecha en etiqueta interior.
+3. **Mezclar componentes de diferentes normas** — Un casco forestal NFPA 1977 NO protege en estructural. Un guante de rescate técnico no es estructural.
+4. **No capacitar al personal** — El mejor equipo es inútil sin entrenamiento. Donning/doffing, inspección previa y mantenimiento son críticos.
+5. **Omitir mantenimiento preventivo** — SCBA requiere revisión anual + pruebas hidrostáticas de cilindros. Trajes: inspección visual antes de cada turno.
+6. **Comprar al "más barato"** — Sin ficha técnica, sin certificado y sin trazabilidad, no estás comprando NFPA — estás comprando una imitación que comparte color.
+7. **No considerar el ambiente** — Equipo para altitud (Pachuca, Toluca) o frío extremo (sierras) requiere especificaciones diferentes.
+
+---
+
+## BOMBERO MX: Distribuidor NFPA en México
+
+**BOMBERO MX** es la empresa mexicana especializada en **equipo certificado NFPA para bomberos** —cuerpos municipales, estatales, brigadas industriales y empresas de seguridad— en los **32 estados de la República**.
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">📦</span>
+    <h4 class="feature__title">+500 productos</h4>
+    <p class="feature__text">Catálogo certificado NFPA con stock en CDMX. Trajes, cascos, SCBA, herramientas y HAZMAT.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🚚</span>
+    <h4 class="feature__title">Envío 24–72h</h4>
+    <p class="feature__text">CDMX y centro: 24h. Norte y sureste: 48–72h. Mismo día en zonas metropolitanas seleccionadas.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🤝</span>
+    <h4 class="feature__title">Asesoría sin costo</h4>
+    <p class="feature__text">Te ayudamos a definir el equipo correcto según tipo de operación y región.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📑</span>
+    <h4 class="feature__title">Licitaciones</h4>
+    <p class="feature__text">CFDI + certificados NFPA + fichas técnicas + declaraciones de cumplimiento.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🏭</span>
+    <h4 class="feature__title">Brigadas industriales</h4>
+    <p class="feature__text">Equipamiento de plantas químicas, petroleras, automotrices, aeroespaciales.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Soporte post-venta</h4>
+    <p class="feature__text">Capacitación en uso, programa de mantenimiento e inspecciones.</p>
+  </div>
+</div>
+
+<div class="fact">
+  <span class="fact__num">32 estados</span>
+  <p class="fact__text">Cobertura nacional con stock en CDMX, atención local y experiencia documentada en regiones operativamente exigentes.</p>
+</div>
+
+<div class="cta-box">
+  <h3>¿Necesitas cotización de equipo NFPA para tu cuerpo de bomberos?</h3>
+  <p>Asesoría técnica sin compromiso · Cotización en 24h · Envío a todo México</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/" class="alt">Ver catálogo completo</a>
+  </div>
+</div>
+
+---
+
+## Cobertura por Región: Bomberos en Todo México
+
+Hemos publicado guías específicas por ciudad/estado que profundizan en el perfil operativo y el equipo recomendado para cada región:
+
+- [**Bomberos CDMX →**](/blog/bomberos-cdmx-equipo-nfpa/) — Edificios altos, mercados, bosques de conservación
+- [**Bomberos Monterrey →**](/blog/bomberos-monterrey-equipo-nfpa/) — Siderúrgico, HAZMAT, Sierra Madre
+- [**Bomberos Guadalajara →**](/blog/bomberos-guadalajara-equipo-nfpa/) — Bosque La Primavera, El Salto, edificios altos
+- [**Bomberos Querétaro →**](/blog/bomberos-queretaro-equipo-nfpa/) — Clúster aeroespacial, parques industriales
+- [**Bomberos Puebla →**](/blog/bomberos-puebla-equipo-nfpa/) — Patrimonio UNESCO, corredor automotriz, Popocatépetl
+- [**Bomberos Tijuana →**](/blog/bomberos-tijuana-equipo-nfpa/) — Frontera Cal Fire, vientos Santa Ana, maquiladoras
+- [**Bomberos Pachuca / Hidalgo →**](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/) — Altitud, refinería Tula, corredor Sahagún
 
 ---
 
 ## Preguntas Frecuentes — Equipo NFPA en México
 
 ### ¿Es obligatorio usar equipo NFPA en México?
-Aunque no existe una ley federal que lo exija explícitamente, la NOM-002-STPS y los protocolos de protección civil recomiendan equipo certificado internacionalmente. La mayoría de los cuerpos de bomberos profesionales exigen NFPA como estándar mínimo.
+
+No existe una ley federal que lo exija explícitamente, pero **la NOM-002-STPS y los protocolos de protección civil recomiendan equipo certificado internacionalmente**. La mayoría de los cuerpos de bomberos profesionales y brigadas industriales exigen NFPA como **estándar mínimo operativo** y como **requisito en licitaciones**.
 
 ### ¿Cuál es la vida útil del equipo NFPA?
-Los trajes NFPA 1971 tienen vida útil de 10 años desde la fecha de fabricación. Los SCBA requieren revisiones anuales y los cilindros tienen vida útil de 15 años (acero) o conforme a las pruebas hidrostáticas.
 
-### ¿BOMBERO.MX envía a toda la República?
-Sí, realizamos envíos a los 32 estados de México. Los tiempos de entrega varían: 24 hrs para CDMX y zona centro, 48-72 hrs para el resto del país.
+**Trajes NFPA 1971**: **10 años desde la fecha de fabricación** (etiqueta interior). **SCBA**: revisiones anuales certificadas, cilindros con vida útil de 15 años (acero) o según pruebas hidrostáticas (composite). **Cascos**: típicamente 10 años. **Botas y guantes**: según condición visual (inspección antes de cada uso).
+
+### ¿BOMBERO MX envía a toda la República?
+
+Sí. Realizamos envíos a los **32 estados** desde CDMX. Tiempos típicos: **24h CDMX y zona centro**, **48–72h norte y sureste**, mismo día disponible para CDMX y zonas metropolitanas seleccionadas con coordinación previa.
 
 ### ¿Qué garantía tiene el equipo NFPA?
-Todo nuestro equipo incluye la garantía del fabricante original, que varía según la marca y el tipo de producto. Además, incluimos todos los certificados de laboratorio y fichas técnicas.
+
+**Garantía del fabricante original** (varía por marca y producto, típicamente 1–5 años contra defectos) más nuestra **garantía de cumplimiento normativo**: si un producto entregado no cumple la certificación documentada, lo reemplazamos sin costo.
+
+### ¿Atienden licitaciones de gobierno?
+
+Sí. Atendemos licitaciones **federales, estatales y municipales**. Emitimos **CFDI, certificados NFPA vigentes, fichas técnicas, declaraciones de cumplimiento y constancias del fabricante** para soportar tu propuesta técnica. Revisa la [guía completa de licitaciones NFPA](/blog/nfpa-licitaciones-bomberos-municipios-mexico/).
+
+### ¿Cuánto cuesta equipar a un bombero completo en México?
+
+Un kit completo NFPA (traje + casco + capucha + guantes + botas + SCBA) ronda entre **$88,000 y $181,500 MXN por bombero** dependiendo de marcas y opciones. Sin SCBA, entre **$38,000 y $86,500 MXN**. [Solicita cotización exacta](/cotizar/) para tu caso.
+
+### ¿Cuál es la diferencia entre NFPA 1971 y NFPA 1977?
+
+**NFPA 1971** es para **incendio estructural** (edificios, casas, naves industriales): equipo más pesado, alta protección térmica y barrera de humedad. **NFPA 1977** es para **incendio forestal**: equipo más liviano, transpirable, sin barrera de humedad pero con resistencia a llama. **No son intercambiables** — un casco forestal no protege adecuadamente en estructural y un traje estructural causa golpe de calor en operación forestal prolongada.
+
+---
+
+## Conclusión
+
+Equipar correctamente a un cuerpo de bomberos en México no es opcional —es la diferencia entre operar profesionalmente y exponer al personal a riesgo evitable. El estándar NFPA, aunque internacional, es **aplicable, auditable y disponible localmente** a través de distribuidores con trazabilidad real como **BOMBERO MX**.
+
+Esta guía es punto de partida. Para cada decisión específica —marca, especificación, presupuesto, región— estamos disponibles para asesoría técnica sin compromiso.
+
+<div class="cta-box">
+  <h3>Hablemos sobre tu cuerpo de bomberos o brigada</h3>
+  <p>Asesoría técnica sin compromiso · Cotización 24h · Envío a los 32 estados</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Cotizar equipo →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
 ### Artículos Relacionados
 
 - [**NFPA 1971: Guía Completa de EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
-- [**Mantenimiento de SCBA →**](/blog/mantenimiento-scba/)
-- [**Trajes para Bomberos →**](/productos/trajes-para-bomberos/)
-- [**Catálogo completo →**](/productos/)
+- [**Cómo Elegir Traje de Bombero NFPA 1971 →**](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [**Mantenimiento de Equipo NFPA →**](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [**SCBA: MSA G1 vs Scott Air-Pak →**](/blog/scba-msag1-vs-scott-airpak/)
+- [**Cascos: Bullard vs Cairns →**](/blog/casco-bombero-bullard-vs-cairns/)
+- [**Licitaciones NFPA para Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Cómo Cotizar Equipo Municipal →**](/blog/equipo-bomberos-municipal-como-cotizar/)
+
+### Directorio y Catálogo
+
+- [**Catálogo completo de Productos NFPA →**](/productos/)
+- [**Directorio Nacional de Bomberos →**](/directorio/)
     `,
   },
 
   "como-elegir-traje-bombero-nfpa-1971": {
-    titulo: "Como elegir un traje de bombero NFPA 1971: guia para jefes de cuerpo",
-    excerpt: "Sistema de 3 capas, TPP minimo 35 cal/cm², THL minimo 130 W/m², marcas disponibles en Mexico y errores comunes al comprar trajes estructurales.",
+    titulo: "Cómo Elegir un Traje de Bombero NFPA 1971: Guía 2026 para Jefes de Cuerpo",
+    excerpt: "Sistema de 3 capas, TPP mínimo 35 cal/cm², THL ≥130 W/m², comparativa Globe vs Lion vs Honeywell, costos reales en México y errores frecuentes al comprar trajes estructurales certificados.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-    categoria: "Guias Tecnicas",
-    tags: ["NFPA 1971", "Trajes Estructurales", "EPP Bomberos", "Globe", "Lion Apparel", "Honeywell"],
+    categoria: "Equipo",
+    tags: ["NFPA 1971", "Trajes Estructurales", "EPP Bomberos", "Globe", "Lion Apparel", "Honeywell", "TPP THL"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP NFPA",
-    anchorKeyword: "traje de bombero NFPA 1971 Mexico",
+    autorRol: "Especialistas en EPP NFPA para México",
+    anchorKeyword: "cómo elegir traje de bombero NFPA 1971 México",
     contenido: `
-## Qué exige NFPA 1971 y por qué importa al comprar trajes estructurales
+## Cómo Elegir un Traje de Bombero NFPA 1971: La Decisión Más Importante del Año
 
-NFPA 1971 regula el diseño, los materiales y las pruebas que debe pasar cualquier traje de bombero estructural antes de venderse. Si un traje no cumple esta norma, no es apto para combate de incendios interiores. Punto. No importa cuánto ahorre el municipio ni qué tan bien se vea en las fotos de la entrega.
+Comprar trajes estructurales es probablemente **la decisión de equipamiento más cara y más crítica** que toma un jefe de cuerpo en todo el año. Un traje mal elegido afecta la seguridad operativa por la próxima década. Esta guía concentra lo que en **BOMBERO MX** hemos aprendido equipando estaciones en los 32 estados: qué exige la norma, qué decidir, qué cotizar y qué errores evitar.
 
-La norma establece requisitos mínimos de protección térmica (TPP), transferencia de calor total (THL), resistencia al desgarro, repelencia a líquidos y visibilidad. Cada uno de estos valores se prueba en laboratorio con protocolos específicos. A continuación explicamos los que usted necesita verificar antes de firmar una orden de compra.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">35</span>
+    <span class="stat__label">TPP mínimo cal/cm²</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">205</span>
+    <span class="stat__label">THL recomendado W/m²</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10</span>
+    <span class="stat__label">Años vida útil máxima</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">3</span>
+    <span class="stat__label">Capas certificadas</span>
+  </div>
+</div>
 
-## El sistema de 3 capas: qué hace cada una
-
-Un traje NFPA 1971 se compone de tres capas que trabajan en conjunto:
-
-**Capa exterior** — Fabricada en Nomex IIIA, PBI Gold o PBI Matrix. Su función es resistir la abrasión, el contacto directo con llama y la radiación térmica. Un tejido de PBI/Kevlar pesa entre 200 y 230 g/m² y resiste temperaturas de descomposición superiores a 400 °C. Las opciones de Nomex IIIA son más económicas pero ofrecen menor resistencia mecánica.
-
-**Barrera de humedad** — Casi siempre es GORE Crosstech o Stedair 3000. Esta capa impide que agua, sangre, combustibles y otros líquidos penetren al interior, mientras permite que el vapor de sudor salga hacia afuera. Sin esta barrera, el bombero termina empapado por dentro en los primeros cinco minutos de trabajo.
-
-**Forro térmico** — Combina una cara de aramida acolchada con una tela de contacto con la piel. Es la capa que absorbe la mayor parte de la energía térmica y le da al bombero esos segundos críticos para salir de un flashover.
-
-Las tres capas juntas determinan los dos valores que usted debe exigir en la ficha técnica:
-
-| Parámetro | Mínimo NFPA 1971 | Valor recomendado | Qué mide |
-|-----------|-------------------|-------------------|----------|
-| TPP (Thermal Protective Performance) | 35 cal/cm² | 40+ cal/cm² | Tiempo hasta quemadura de segundo grado bajo exposición radiante y convectiva. Un TPP de 35 equivale a ~17.5 segundos de protección. |
-| THL (Total Heat Loss) | 130 W/m² | 205+ W/m² | Capacidad del traje para disipar calor corporal. Abajo de 130, el riesgo de golpe de calor aumenta significativamente. |
-
-Aquí hay un dato que muchos proveedores omiten: el golpe de calor mata más bomberos al año que las quemaduras directas. Un traje con TPP de 50 pero THL de 115 protege contra la llama pero cocina al bombero desde adentro. El equilibrio entre protección y transpirabilidad es la decisión de ingeniería más importante del traje.
-
-## Marcas disponibles en México
-
-Tres fabricantes cubren la mayor parte del mercado mexicano de trajes NFPA 1971:
-
-**Globe (MSA)** — Su línea G-Xtreme ofrece TPP de 42 cal/cm² y THL de 228 W/m² en la configuración con GORE Crosstech. Buena disponibilidad de tallas y refacciones en México a través de distribuidores autorizados. Es el traje que más vendemos a cuerpos municipales por la relación costo-protección.
-
-**Lion Apparel** — El modelo V-Force utiliza PBI Matrix y alcanza TPP de 46 cal/cm² con THL de 195 W/m². Construcción robusta, costuras reforzadas con hilo Kevlar. Su punto débil: los tiempos de entrega a México pueden llegar a 16 semanas cuando se piden tallas especiales.
-
-**Honeywell/Morning Pride** — La línea TAILS tiene buena reputación en Estados Unidos. En México la distribución es más limitada y las refacciones tardan más en conseguirse. Si ya tienen trajes Morning Pride y necesitan uniformidad en el cuerpo, tiene sentido seguir con la marca. Si parten de cero, Globe o Lion suelen ser más prácticos.
-
-## Cómo solicitar una cotización correcta
-
-Cuando nos llama un jefe de cuerpo, necesitamos esta información para cotizar con precisión:
-
-**Tipo de operación** — Estructural, forestal, rescate vehicular o combinación. NFPA 1971 cubre estructural; para forestal aplica NFPA 1977, que es un traje completamente distinto.
-
-**Cantidad de trajes** — Pedidos de 10 o más unidades generalmente permiten negociar mejor precio unitario con el fabricante.
-
-**Medidas individuales** — Pecho, cintura, tiro, largo de pierna, largo de brazo. Cada bombero se mide. No hay atajos aquí.
-
-**Método de adquisición** — Compra directa, licitación pública, convenio con Protección Civil estatal. Cada vía tiene sus tiempos y documentos. Una licitación pública puede agregar 8-12 semanas al proceso.
-
-## Errores que vemos con frecuencia
-
-Hemos vendido trajes estructurales por más de una década y estos errores se repiten año tras año:
-
-**Pedir tallas estándar sin medir a nadie.** Hemos visto departamentos ordenar 20 trajes talla Large porque "la mayoría de los elementos son de complexión media". Al llegar los trajes, seis no le quedan a nadie. Un traje que no ajusta bien deja huecos en las zonas de superposición con guantes y botas, que es exactamente donde ocurren las quemaduras.
-
-**Comprar trajes usados o donados sin verificar la edición NFPA.** Un traje fabricado bajo NFPA 1971 edición 2007 ya rebasó su vida útil de 10 años. No importa que "se vea bien". La degradación de la barrera de humedad y el forro térmico no es visible a simple vista. La norma establece un retiro obligatorio a los 10 años desde la fecha de manufactura, no desde la fecha de compra ni desde que se puso en servicio.
-
-**Ignorar el programa de inspección.** NFPA 1851 exige inspección avanzada anual y limpieza especializada. Un traje contaminado con productos de combustión pierde propiedades y se convierte en riesgo cancerígeno para el usuario.
-
-## Preguntas frecuentes
-
-**¿Cuánto cuesta un traje NFPA 1971 en México?**
-Depende de la configuración. Un traje Globe G-Xtreme completo (chaquetón y pantalón) con GORE Crosstech está en el rango de $45,000 a $65,000 MXN dependiendo del volumen del pedido. Modelos con PBI pueden superar los $80,000 MXN. Desconfíe de cualquier oferta por debajo de $30,000 que diga cumplir NFPA 1971: o es edición antigua, o es usado, o no cumple.
-
-**¿Cada cuánto hay que reemplazar los trajes?**
-NFPA 1851 establece un máximo de 10 años desde la fecha de manufactura. Si el traje sufre exposición severa a productos químicos o un flashover, debe retirarse de inmediato sin importar la antigüedad. La etiqueta interior tiene la fecha de fabricación en formato mes/año.
-
-**¿Puedo mezclar componentes de distintas marcas?**
-Técnicamente sí puede usar chaquetón Globe con pantalón Lion, pero no es recomendable. Los sistemas de cierre, los puntos de superposición y los materiales están diseñados para trabajar como conjunto. Además, complica la gestión de refacciones y la trazabilidad para inspecciones NFPA 1851.
-
-**¿Qué documentos debo exigir al proveedor?**
-Certificado de cumplimiento NFPA 1971 (con número de edición), reporte de laboratorio con valores TPP y THL del ensamble específico, carta de distribuidor autorizado del fabricante, y garantía por escrito. Si el proveedor no puede entregar estos cuatro documentos, busque otro.
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bandas-reflectantes-traje-bombero-detalle-01.avif?lossy=1&strip=all" alt="Bandas reflectantes en traje estructural NFPA 1971 detalle" loading="lazy" width="900" height="600" />
+  <figcaption>Detalle de bandas reflectantes — requeridas por NFPA 1971 para visibilidad nocturna en operación.</figcaption>
+</figure>
 
 ---
 
-[**Cotizar trajes estructurales →**](/cotizar/)
+## Qué Exige NFPA 1971 (y Por Qué No Es Negociable)
 
-[**Ver catálogo de trajes →**](/productos/trajes-para-bomberos/)
+**NFPA 1971** regula el diseño, los materiales y las pruebas que debe pasar cualquier traje de bombero estructural antes de venderse. Si un traje no cumple esta norma, **no es apto para combate de incendios interiores**. Punto. No importa cuánto ahorre el municipio ni qué tan bien se vea en las fotos de la entrega.
+
+La norma establece requisitos mínimos de protección térmica (TPP), transferencia de calor total (THL), resistencia al desgarro, repelencia a líquidos y visibilidad. Cada uno de estos valores se prueba en **laboratorio acreditado** (UL, Intertek, SEI) con protocolos específicos.
+
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">El golpe de calor mata más que las quemaduras</span>
+    <p>Un traje con TPP de 50 pero THL de 115 W/m² protege contra la llama pero <strong>cocina al bombero desde adentro</strong>. El equilibrio entre protección y transpirabilidad es la decisión técnica más importante.</p>
+  </div>
+</div>
+
+---
+
+## El Sistema de 3 Capas: Qué Hace Cada Una
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🛡️</span>
+    <h4 class="feature__title">Capa exterior</h4>
+    <p class="feature__text">Nomex IIIA, PBI Gold o PBI Matrix. Resiste abrasión, llama directa y radiación. PBI/Kevlar pesa 200–230 g/m² y resiste >400°C.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">💧</span>
+    <h4 class="feature__title">Barrera de humedad</h4>
+    <p class="feature__text">GORE Crosstech o Stedair 3000. Bloquea agua, sangre, combustibles. Permite salida de vapor de sudor. Crítica.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔥</span>
+    <h4 class="feature__title">Forro térmico</h4>
+    <p class="feature__text">Aramida acolchada + tela contacto piel. Absorbe la mayor parte de la energía térmica — segundos críticos en flashover.</p>
+  </div>
+</div>
+
+### Los Dos Valores que Debes Exigir en la Ficha Técnica
+
+| Parámetro | Mínimo NFPA 1971 | Recomendado | Qué mide |
+|-----------|-------------------|-------------|----------|
+| **TPP** (Thermal Protective Performance) | 35 cal/cm² | **40+ cal/cm²** | Tiempo hasta quemadura de 2º grado. TPP 35 ≈ 17.5 segundos de protección. |
+| **THL** (Total Heat Loss) | 130 W/m² | **205+ W/m²** | Capacidad de disipar calor corporal. <130 → riesgo de golpe de calor crítico. |
+
+---
+
+## Comparativa de Marcas Disponibles en México
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 en uso operativo" loading="lazy" width="900" height="600" />
+  <figcaption>Traje NFPA 1971 en operación — los tres fabricantes principales tienen variantes adecuadas según presupuesto.</figcaption>
+</figure>
+
+### Globe (MSA) — La opción más vendida en México
+
+- **Modelo recomendado**: G-Xtreme con GORE Crosstech
+- **TPP**: 42 cal/cm² · **THL**: 228 W/m²
+- **Ventaja**: buena disponibilidad de tallas y refacciones vía distribuidores autorizados
+- **Para quién**: cuerpos municipales que priorizan **relación costo-protección**
+
+### Lion Apparel — Construcción premium PBI Matrix
+
+- **Modelo recomendado**: V-Force PBI Matrix
+- **TPP**: 46 cal/cm² · **THL**: 195 W/m²
+- **Ventaja**: construcción robusta, costuras reforzadas con hilo Kevlar
+- **Debilidad**: tiempos de entrega a México de hasta 16 semanas para tallas especiales
+
+### Honeywell / Morning Pride — Reputación EUA, distribución limitada México
+
+- **Modelo recomendado**: TAILS series
+- **Ventaja**: si ya tienen Morning Pride y necesitan uniformidad
+- **Debilidad**: distribución y refacciones más limitadas en México
+- **Recomendación**: si parten de cero, **Globe o Lion son más prácticos**
+
+<div class="callout callout--info">
+  <span class="callout__icon">ℹ️</span>
+  <div class="callout__body">
+    <span class="callout__title">Recomendación BOMBERO MX</span>
+    <p>Para la mayoría de cuerpos municipales que no parten con presupuesto premium: <strong>Globe G-Xtreme con GORE Crosstech</strong>. Para brigadas industriales con presupuesto y operación de alto riesgo: <strong>Lion V-Force PBI Matrix</strong>.</p>
+  </div>
+</div>
+
+---
+
+## Cómo Solicitar una Cotización Correcta
+
+Cuando nos llama un jefe de cuerpo, necesitamos esta información para cotizar con precisión:
+
+1. **Tipo de operación** — Estructural (NFPA 1971), forestal (NFPA 1977), rescate vehicular o combinación. **No son intercambiables**.
+2. **Cantidad de trajes** — Pedidos de **10+ unidades** permiten negociar precio unitario con fabricante.
+3. **Medidas individuales** — Pecho, cintura, tiro, largo de pierna, largo de brazo. **Cada bombero se mide**. No hay atajos.
+4. **Método de adquisición** — Compra directa, licitación pública (agrega 8–12 semanas), convenio con Protección Civil estatal.
+5. **Edición de la norma** — Pide explícitamente **NFPA 1971 edición 2024** (la vigente). Ediciones anteriores ya están descontinuadas.
+
+<div class="cta-box">
+  <h3>¿Listo para cotizar trajes NFPA 1971?</h3>
+  <p>Te ayudamos a definir especificaciones, marcas y presupuesto. Cotización en 24h.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/trajes-para-bomberos/" class="alt">Ver catálogo</a>
+  </div>
+</div>
+
+---
+
+## Errores que Vemos con Frecuencia
+
+<div class="compare-grid">
+  <div class="compare-card compare-card--pro">
+    <h4>Bien hecho</h4>
+    <ul>
+      <li>Cada bombero medido individualmente</li>
+      <li>Verificar etiqueta NFPA 1971 ed. 2024</li>
+      <li>Programa NFPA 1851 desde día 1</li>
+      <li>Inspección visual antes de cada turno</li>
+      <li>Documentación completa archivada</li>
+    </ul>
+  </div>
+  <div class="compare-card compare-card--con">
+    <h4>Errores frecuentes</h4>
+    <ul>
+      <li>Pedir 20 trajes talla L sin medir</li>
+      <li>Aceptar donaciones de trajes >10 años</li>
+      <li>Mezclar chaquetón y pantalón de marcas distintas</li>
+      <li>Saltar inspección NFPA 1851 anual</li>
+      <li>Lavar trajes en máquina doméstica</li>
+    </ul>
+  </div>
+</div>
+
+### Los 3 errores más caros
+
+**1. Pedir tallas estándar sin medir a nadie.** Departamentos ordenan 20 trajes L porque "la mayoría son media". Al llegar, 6 no le quedan a nadie. Un traje que no ajusta deja **huecos en superposición con guantes y botas** — exactamente donde ocurren las quemaduras.
+
+**2. Comprar trajes usados/donados sin verificar la edición.** Un traje NFPA 1971 ed. 2007 **ya rebasó su vida útil de 10 años**. La degradación de la barrera de humedad y el forro térmico **no es visible** a simple vista. La norma establece retiro obligatorio a 10 años desde fabricación, **no desde compra ni desde puesta en servicio**.
+
+**3. Ignorar el programa NFPA 1851.** Exige inspección avanzada anual y limpieza especializada. Un traje contaminado con productos de combustión **pierde propiedades y se convierte en riesgo cancerígeno** para el usuario.
+
+---
+
+## Costos Reales en México (2026)
+
+| Configuración | Rango (MXN) |
+|---------------|-------------|
+| **Globe G-Xtreme + GORE Crosstech** (chaquetón + pantalón) | $45,000 – $65,000 |
+| **Lion V-Force PBI Matrix** | $58,000 – $82,000 |
+| **Honeywell Morning Pride TAILS** | $55,000 – $78,000 |
+| **Cualquier marca con PBI Gold premium** | $70,000 – $95,000 |
+
+<div class="callout callout--warn">
+  <span class="callout__icon">⚠️</span>
+  <div class="callout__body">
+    <span class="callout__title">Alerta de precio</span>
+    <p>Desconfía de <strong>cualquier oferta por debajo de $30,000 MXN</strong> que diga cumplir NFPA 1971: o es edición vencida, o es usado, o no cumple. El costo de los materiales certificados no permite ese precio.</p>
+  </div>
+</div>
+
+---
+
+## BOMBERO MX: Tu Asesor en la Compra de Trajes NFPA
+
+En **BOMBERO MX** llevamos más de una década equipando cuerpos de bomberos en los **32 estados**. La compra de trajes es un proceso que asesoramos paso a paso:
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">📏</span>
+    <h4 class="feature__title">Sesión de medición</h4>
+    <p class="feature__text">Te enviamos plantilla de medidas individuales o coordinamos visita para medir al personal.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📑</span>
+    <h4 class="feature__title">Documentación completa</h4>
+    <p class="feature__text">Certificado NFPA, ficha técnica, reporte TPP/THL, carta de distribuidor autorizado, garantía.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⚡</span>
+    <h4 class="feature__title">Entrega rápida</h4>
+    <p class="feature__text">Stock disponible: 24–72h. Pedidos especiales: 6–12 semanas según fabricante.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🤝</span>
+    <h4 class="feature__title">Soporte post-venta</h4>
+    <p class="feature__text">Capacitación en inspección NFPA 1851, mantenimiento y vida útil.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>Cotiza trajes NFPA 1971 con BOMBERO MX</h3>
+  <p>Asesoría desde la primera llamada · Medición personalizada · Documentación completa</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Cotizar ahora →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+## Preguntas Frecuentes
+
+### ¿Cuánto cuesta un traje NFPA 1971 en México?
+
+Depende de la configuración. **Globe G-Xtreme con GORE Crosstech**: $45,000–$65,000 MXN. Modelos **PBI Matrix premium**: $70,000–$95,000 MXN. **Desconfía de ofertas <$30,000 MXN**: o es edición antigua, o es usado, o no cumple realmente la norma.
+
+### ¿Cada cuánto hay que reemplazar los trajes?
+
+**NFPA 1851 establece máximo 10 años desde fabricación**. Si el traje sufre exposición severa a químicos o un flashover, debe retirarse **de inmediato** sin importar la antigüedad. La etiqueta interior tiene fecha de fabricación en formato mes/año.
+
+### ¿Puedo mezclar componentes de distintas marcas?
+
+Técnicamente sí, pero **no es recomendable**. Los sistemas de cierre, superposición y materiales están diseñados para trabajar como conjunto. Además complica refacciones y trazabilidad NFPA 1851.
+
+### ¿Qué documentos debo exigir al proveedor?
+
+1. **Certificado de cumplimiento NFPA 1971** (con número de edición)
+2. **Reporte de laboratorio** con valores TPP/THL del ensamble específico
+3. **Carta de distribuidor autorizado** del fabricante
+4. **Garantía por escrito**
+
+Si el proveedor no puede entregar estos 4 documentos, **busca otro proveedor**.
+
+### ¿Qué pasa si el traje se contamina con hidrocarburos?
+
+Debe pasar por **limpieza avanzada certificada** según NFPA 1851. Si la contaminación es severa o repetida, puede requerir **retiro del servicio**. Lavar en máquina doméstica destruye la barrera de humedad y anula la certificación.
+
+### ¿BOMBERO MX maneja licitaciones para trajes?
+
+Sí. Atendemos licitaciones federales, estatales y municipales. Emitimos toda la documentación técnica requerida. Revisa la [guía completa de licitaciones NFPA](/blog/nfpa-licitaciones-bomberos-municipios-mexico/).
+
+---
+
+## Conclusión
+
+Elegir un traje NFPA 1971 mal es un error que pagas durante 10 años. Mide a tu personal, exige la documentación correcta, prioriza el equilibrio TPP/THL y trabaja con un distribuidor que te acompañe más allá de la venta.
+
+**BOMBERO MX** está aquí para esa asesoría — desde la primera consulta hasta el programa de inspecciones del año 9.
+
+<div class="cta-box">
+  <h3>Hablemos sobre los trajes que necesita tu cuerpo</h3>
+  <p>Asesoría sin compromiso · Cotización en 24h · Envío a los 32 estados</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Cotizar trajes →</a>
+    <a href="/productos/trajes-para-bomberos/" class="alt">Ver catálogo trajes</a>
+  </div>
+</div>
+
+---
+
+### Artículos Relacionados
+
+- [**NFPA 1971: Guía Completa de EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**Mantenimiento de Equipo NFPA →**](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [**Cómo Cotizar Equipo Municipal →**](/blog/equipo-bomberos-municipal-como-cotizar/)
+- [**Licitaciones NFPA →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Catálogo de trajes →**](/productos/trajes-para-bomberos/)
     `,
   },
 
   "scba-msag1-vs-scott-airpak": {
-    titulo: "MSA G1 vs Scott Air-Pak 50: comparativa para bomberos en Mexico",
-    excerpt: "Peso, presion de trabajo, duracion de cilindros, HUD, costo de mantenimiento y disponibilidad de refacciones en Mexico. Comparativa tecnica real.",
-    imagen: "/images/directorio/mascara-scba-bombero-01.avif",
-    categoria: "Comparativas",
-    tags: ["SCBA", "MSA G1", "Scott Air-Pak", "NFPA 1981", "Cilindros SCBA"],
+    titulo: "MSA G1 vs Scott Air-Pak 50: Comparativa SCBA para Bomberos en México 2026",
+    excerpt: "Comparativa técnica 2026: peso, presión, duración de cilindros, HUD, mantenimiento y disponibilidad de refacciones en México. Análisis honesto sin sesgo de marca para jefes de cuerpo.",
+    imagen: "/images/directorio/bomberos-guardia-nocturna-scba-equipo-01.avif",
+    categoria: "Equipo",
+    tags: ["SCBA", "MSA G1", "Scott Air-Pak", "NFPA 1981", "Cilindros SCBA", "Comparativa"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en SCBA NFPA",
-    anchorKeyword: "MSA G1 vs Scott Air-Pak bomberos Mexico",
+    autorRol: "Especialistas en SCBA NFPA para México",
+    anchorKeyword: "MSA G1 vs Scott Air-Pak bomberos México",
     contenido: `
-## MSA G1 contra Scott Air-Pak 50: qué conviene para su departamento
+## MSA G1 vs Scott Air-Pak 50: La Comparativa Honesta para México
 
-Cuando un jefe de cuerpo nos pregunta "¿cuál SCBA compro?", la respuesta honesta es: depende de su presupuesto, su parque instalado y quién le puede dar servicio en su zona. No existe un equipo universalmente superior. Lo que sí existe son diferencias técnicas concretas que afectan la operación diaria, y eso es lo que vamos a revisar.
+Cuando un jefe de cuerpo nos pregunta "¿cuál SCBA compro?", la respuesta honesta es: **depende de tu presupuesto, tu parque instalado y quién te puede dar servicio en tu zona**. No existe un equipo universalmente superior. Lo que sí existen son diferencias técnicas concretas que afectan la operación diaria, y eso es lo que revisamos aquí.
 
-Ambos equipos cumplen NFPA 1981 en su edición vigente, así que la certificación no es factor diferenciador. La decisión se toma por peso, ergonomía, compatibilidad de cilindros, electrónica integrada y, sobre todo, soporte postventa en México.
+**Ambos equipos cumplen NFPA 1981 en su edición vigente**, así que la certificación no es factor diferenciador. La decisión se toma por **peso, ergonomía, compatibilidad de cilindros, electrónica integrada** y, sobre todo, **soporte post-venta en México**.
 
-## Especificaciones frente a frente
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">4,500</span>
+    <span class="stat__label">PSI presión de trabajo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">~10.5kg</span>
+    <span class="stat__label">Peso MSA G1 (30min C)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">~11.0kg</span>
+    <span class="stat__label">Peso Scott AP50 (30min C)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">60s</span>
+    <span class="stat__label">Donning benchmark NFPA</span>
+  </div>
+</div>
 
-| Característica | MSA G1 | Scott Air-Pak 50 (3M Scott) |
-|---------------|--------|----------------------------|
-| Peso con cilindro 30 min (carbón) | ~10.5 kg | ~11.0 kg |
-| Peso con cilindro 45 min (carbón) | ~11.8 kg | ~12.2 kg |
-| Presión de trabajo | 4,500 psi (310 bar) | 4,500 psi (310 bar) |
-| Regulador | e-Z Flo con bypass manual | E-Z Flo II con purga rápida |
-| Máscara estándar | G1 con conexión de voz integrada | AV-3000 HT con EPIC 3 (amplificador de voz opcional) |
-| PASS integrado | Sí (motionSCOUT) | Sí (Pak-Alert SE) |
-| HUD (pantalla en máscara) | Sí, con opción LUNAR (imagen térmica) | Sí, indicador LED de presión |
-| Alarma de baja presión | Audible + vibración + visual en HUD | Audible + visual en HUD |
-
-La diferencia de 500 gramos entre el G1 y el Air-Pak 50 parece menor en la mesa, pero después de subir tres pisos con manguera cargada y herramienta, medio kilo se nota. Dicho esto, el peso depende mucho de qué cilindro se monte y qué accesorios lleve el equipo.
-
-## Cilindros: el componente que más afecta costo y peso
-
-Los cilindros son donde realmente se juega el presupuesto. Ambas marcas aceptan tres tipos:
-
-**Acero** — El más barato (~$8,000-$12,000 MXN) y el más pesado. Un cilindro de acero de 30 minutos pesa alrededor de 5.5 kg vacío. Funcional para departamentos con presupuesto muy limitado, pero la fatiga del usuario es considerable.
-
-**Composite (fibra de vidrio/aluminio)** — Punto medio. Aproximadamente 40% más ligero que el acero. Precio en el rango de $18,000-$25,000 MXN. Buena opción para la mayoría de los cuerpos municipales.
-
-**Fibra de carbono** — El más ligero (~2.5 kg vacío para 30 min) y el más caro ($35,000-$50,000 MXN). Justificable para departamentos con alta frecuencia de incidentes estructurales. No tiene sentido económico para un cuerpo que atiende tres incendios estructurales al año.
-
-Aquí va un consejo práctico que damos con frecuencia: si su presupuesto solo alcanza para cilindros de 30 minutos, cómprelos y destine la diferencia a contratos de mantenimiento anual. Un cilindro de 45 minutos que no recibe servicio es peor inversión que uno de 30 minutos con pruebas hidrostáticas al día.
-
-## Duración real contra duración nominal
-
-Los fabricantes especifican la duración del cilindro en condiciones controladas: respiración de 40 L/min a ritmo constante. En un incendio real, la tasa respiratoria de un bombero bajo carga física y estrés sube a 60-80 L/min fácilmente.
-
-En la práctica:
-
-- Cilindro de 30 minutos → 15 a 18 minutos de trabajo efectivo
-- Cilindro de 45 minutos → 25 a 30 minutos de trabajo efectivo
-
-Estos números varían según el acondicionamiento físico del usuario, la temperatura ambiente y la intensidad de la actividad. Hemos medido bomberos que agotan un cilindro de 30 minutos en 12 minutos durante búsqueda y rescate en estructura de dos niveles. Planifique sus rotaciones con los números reales, no con los de la etiqueta.
-
-## Mantenimiento y costos recurrentes
-
-Aquí es donde muchos departamentos se llevan sorpresas. El SCBA no es un equipo que se compra y se guarda:
-
-**Prueba hidrostática del cilindro** — Cada 5 años para composite y fibra de carbono, cada 3 años para acero. Costo por cilindro: $1,500-$3,000 MXN dependiendo del tipo. Los cilindros de fibra de carbono tienen vida útil máxima de 15 años sin importar cuántas pruebas pasen.
-
-**Servicio de regulador** — Anual. Incluye cambio de diafragma, revisión de asientos de válvula y prueba de presión. Costo: $3,000-$5,000 MXN por unidad dependiendo de la marca. Saltarse este servicio es la forma más rápida de tener fallas en escena.
-
-**Prueba de ajuste de máscara (fit test)** — Anual para cada usuario. Protocolo cuantitativo con generador de partículas. Sin fit test, no hay garantía de que la máscara selle correctamente y todo lo demás pierde sentido.
-
-**Sensor y electrónica PASS** — Cambio de batería según especificación del fabricante. El MSA G1 usa batería recargable con ~14 horas de autonomía. El Scott Air-Pak 50 varía según la configuración.
-
-## Disponibilidad de refacciones en México
-
-Este punto es determinante y muchos compradores lo ignoran hasta que necesitan una pieza urgente:
-
-**MSA** tiene oficinas y almacén en Ciudad de México y Monterrey. Las refacciones comunes (diafragmas, O-rings, baterías PASS, cintas de arnés) generalmente están en stock. Las piezas especiales como reguladores completos o módulos electrónicos pueden tardar 2-4 semanas.
-
-**3M/Scott** opera en México a través de distribuidores autorizados. La disponibilidad de refacciones depende del inventario del distribuidor local. En ciudades grandes funciona bien; en zonas remotas, puede haber demoras de 4-6 semanas para piezas específicas. Confirme con su distribuidor regional antes de comprar qué piezas mantiene en stock.
-
-## Cuál elegir según el tipo de departamento
-
-Para **cuerpos municipales con presupuesto ajustado**, el MSA G1 generalmente gana. Tiene precio de entrada más competitivo, la red de servicio en México es más directa, y la integración de PASS y HUD en el equipo base reduce accesorios adicionales. Hemos equipado departamentos completos con G1 y cilindros composite de 30 minutos a un costo total por unidad razonable para licitaciones estatales.
-
-Para **brigadas industriales**, la decisión depende del parque existente. Si la planta ya opera con Scott, meter equipos MSA genera problemas de compatibilidad de cilindros, refacciones duplicadas y capacitación adicional. La estandarización pesa más que las diferencias técnicas entre marcas.
-
-Para **departamentos que buscan tecnología avanzada**, la opción LUNAR de MSA (imagen térmica integrada en la máscara) es un diferenciador real. Permite localizar compañeros caídos a través de humo denso. No es barata, pero para departamentos con alto volumen de incidentes estructurales, puede justificar la inversión.
-
-## Preguntas frecuentes
-
-**¿Puedo usar cilindros MSA en un arnés Scott o viceversa?**
-No. Las roscas de conexión y los mecanismos de retención son propietarios de cada marca. Un cilindro MSA no se monta en un arnés Scott sin un adaptador que, además de no estar certificado, compromete la seguridad. Estandarice por marca.
-
-**¿Cuánto cuesta un SCBA completo en México?**
-Un MSA G1 con cilindro composite de 30 minutos y máscara se ubica entre $85,000 y $110,000 MXN según volumen. Un Scott Air-Pak 50 en configuración similar está entre $95,000 y $120,000 MXN. Estos rangos cambian con tipo de cambio y condiciones de licitación. Pida cotización formal con precios vigentes.
-
-**¿Cada cuánto debo reemplazar un SCBA completo?**
-NFPA 1981 no establece un retiro obligatorio por edad como lo hace NFPA 1851 con trajes. Sin embargo, el fabricante especifica vida útil de componentes individuales. En la práctica, un SCBA bien mantenido con reemplazos periódicos de cilindro y regulador puede operar 15-20 años. El cilindro de fibra de carbono sí tiene límite duro de 15 años.
-
-**¿Qué capacitación necesita mi personal para operar SCBA?**
-Cada usuario debe completar capacitación del fabricante o de un centro autorizado. Incluye armado, colocación en menos de 60 segundos (benchmark NFPA), operación del regulador y bypass, interpretación del HUD, y procedimientos de emergencia (RIT/RIC). La capacitación no es opcional: un bombero que no domina su SCBA bajo estrés es un riesgo para todo el equipo.
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/cilindro-scba-bomberos-01.avif?lossy=1&strip=all" alt="Cilindro SCBA NFPA 1981 — el componente que más afecta peso y presupuesto" loading="lazy" width="900" height="600" />
+  <figcaption>Cilindro SCBA — el componente individual con mayor impacto en peso operativo y costo total del sistema.</figcaption>
+</figure>
 
 ---
 
-[**Cotizar SCBA →**](/cotizar/)
+## Especificaciones Frente a Frente
 
-[**Ver equipos SCBA →**](/productos/scba/)
+| Característica | MSA G1 | Scott Air-Pak 50 (3M Scott) |
+|----------------|--------|------------------------------|
+| **Peso con cilindro 30 min carbón** | ~10.5 kg | ~11.0 kg |
+| **Peso con cilindro 45 min carbón** | ~11.8 kg | ~12.2 kg |
+| **Presión de trabajo** | 4,500 psi (310 bar) | 4,500 psi (310 bar) |
+| **Regulador** | e-Z Flo con bypass manual | E-Z Flo II con purga rápida |
+| **Máscara estándar** | G1 con voz integrada | AV-3000 HT (EPIC 3 opcional) |
+| **PASS integrado** | Sí (motionSCOUT) | Sí (Pak-Alert SE) |
+| **HUD en máscara** | Sí + opción LUNAR (térmica) | Sí, LED indicador |
+| **Alarma baja presión** | Audible + vibración + HUD | Audible + HUD |
+
+<div class="callout callout--info">
+  <span class="callout__icon">ℹ️</span>
+  <div class="callout__body">
+    <span class="callout__title">Sobre el peso</span>
+    <p>La diferencia de 500 g entre G1 y Air-Pak 50 parece menor en la mesa. Después de <strong>subir tres pisos con manguera y herramienta</strong>, medio kilo se nota. Pero el peso depende mucho del cilindro y accesorios que monte el equipo.</p>
+  </div>
+</div>
+
+---
+
+## Cilindros: El Componente que Más Afecta Costo y Peso
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🔩</span>
+    <h4 class="feature__title">Acero</h4>
+    <p class="feature__text">Más barato (~$8K–12K MXN) y más pesado (5.5 kg vacío). Para presupuestos muy ajustados — fatiga considerable.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🧪</span>
+    <h4 class="feature__title">Composite (fibra vidrio/aluminio)</h4>
+    <p class="feature__text">Punto medio. ~40% más ligero que acero. $18K–25K MXN. La opción para la mayoría de cuerpos municipales.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🏆</span>
+    <h4 class="feature__title">Fibra de carbono</h4>
+    <p class="feature__text">Más ligero (~2.5 kg) y más caro ($35K–50K MXN). Para alta frecuencia operativa. Vida útil 15 años máximo.</p>
+  </div>
+</div>
+
+<div class="callout callout--tip">
+  <span class="callout__icon">💡</span>
+  <div class="callout__body">
+    <span class="callout__title">Consejo BOMBERO MX</span>
+    <p>Si tu presupuesto solo alcanza para cilindros de 30 min, <strong>cómpralos</strong> y destina la diferencia a <strong>contratos de mantenimiento anual</strong>. Un cilindro de 45 min sin servicio es peor inversión que uno de 30 min con pruebas hidrostáticas al día.</p>
+  </div>
+</div>
+
+---
+
+## Duración Real vs Duración Nominal
+
+Los fabricantes especifican la duración del cilindro en condiciones controladas: respiración de 40 L/min constante. En un incendio real, la tasa respiratoria sube a **60–80 L/min** bajo carga física y estrés.
+
+| Cilindro nominal | Trabajo efectivo real |
+|------------------|----------------------|
+| **30 minutos** | 15–18 minutos |
+| **45 minutos** | 25–30 minutos |
+| **60 minutos** | 35–42 minutos |
+
+<div class="callout callout--warn">
+  <span class="callout__icon">⚠️</span>
+  <div class="callout__body">
+    <span class="callout__title">Caso real medido en operación</span>
+    <p>Hemos medido bomberos que <strong>agotan un cilindro de 30 min en 12 minutos</strong> durante búsqueda y rescate en estructura de dos niveles. <strong>Planifica rotaciones con números reales, no con etiqueta</strong>.</p>
+  </div>
+</div>
+
+---
+
+## Mantenimiento y Costos Recurrentes
+
+El SCBA **no es un equipo que se compra y se guarda**. Estos son los costos recurrentes que muchos departamentos subestiman:
+
+| Mantenimiento | Frecuencia | Costo (MXN) |
+|---------------|-----------|-------------|
+| **Prueba hidrostática cilindro composite/carbón** | 5 años | $2,000–$3,000 |
+| **Prueba hidrostática cilindro acero** | 3 años | $1,500–$2,500 |
+| **Servicio regulador (cambio diafragma)** | Anual | $3,000–$5,000 |
+| **Fit test cuantitativo** (por usuario) | Anual | $500–$1,500 |
+| **Batería PASS (G1: 14h recargable)** | Según uso | Incluido |
+
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">Sin fit test, todo lo demás pierde sentido</span>
+    <p>Sin <strong>fit test cuantitativo anual</strong> por usuario, no hay garantía de que la máscara selle correctamente. Un SCBA mal ajustado expone al bombero a productos de combustión cancerígenos.</p>
+  </div>
+</div>
+
+---
+
+## Disponibilidad de Refacciones en México
+
+Este punto es **determinante** y muchos compradores lo ignoran hasta que necesitan una pieza urgente:
+
+<div class="compare-grid">
+  <div class="compare-card compare-card--pro">
+    <h4>MSA en México</h4>
+    <ul>
+      <li>Oficinas y almacén en CDMX y Monterrey</li>
+      <li>Refacciones comunes en stock (diafragmas, O-rings, baterías PASS)</li>
+      <li>Reguladores y módulos electrónicos: 2–4 semanas</li>
+      <li>Red de capacitadores certificados nacional</li>
+    </ul>
+  </div>
+  <div class="compare-card compare-card--con">
+    <h4>Scott/3M en México</h4>
+    <ul>
+      <li>Vía distribuidores autorizados regionales</li>
+      <li>Inventario depende del distribuidor local</li>
+      <li>Ciudades grandes: bien; zonas remotas: 4–6 semanas</li>
+      <li>Confirma con tu distribuidor regional el stock</li>
+    </ul>
+  </div>
+</div>
+
+---
+
+## Cuál Elegir Según el Tipo de Departamento
+
+### Cuerpos municipales con presupuesto ajustado → **MSA G1**
+
+Precio de entrada más competitivo, red de servicio en México más directa, PASS y HUD integrados de fábrica reducen accesorios. Hemos equipado departamentos completos con G1 + composite 30 min a costo total razonable para licitaciones estatales.
+
+### Brigadas industriales → **Depende del parque instalado**
+
+Si la planta ya opera Scott, meter MSA genera problemas de compatibilidad de cilindros, refacciones duplicadas y capacitación. La **estandarización pesa más** que las diferencias técnicas. Si parten de cero, MSA G1.
+
+### Departamentos con alta frecuencia estructural → **MSA G1 + LUNAR**
+
+La opción **LUNAR de MSA** (imagen térmica integrada en máscara) es un diferenciador real. Permite localizar compañeros caídos a través de humo denso. Caro, pero justificable para departamentos urbanos con volumen.
+
+<div class="cta-box">
+  <h3>¿Listo para cotizar SCBA?</h3>
+  <p>Te ayudamos a elegir entre MSA, Scott o Dräger según tu operación y presupuesto.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/scba/" class="alt">Ver SCBA</a>
+  </div>
+</div>
+
+---
+
+## Costos Aproximados en México (2026)
+
+| Configuración | Rango (MXN) |
+|---------------|-------------|
+| **MSA G1 + cilindro composite 30 min + máscara** | $85,000 – $110,000 |
+| **MSA G1 + cilindro carbón 45 min + máscara** | $115,000 – $145,000 |
+| **Scott Air-Pak 50 + cilindro composite 30 min + máscara** | $95,000 – $120,000 |
+| **Scott Air-Pak 50 + carbón 45 min + máscara** | $125,000 – $155,000 |
+| **MSA G1 con LUNAR (imagen térmica)** | $160,000 – $200,000 |
+
+---
+
+## BOMBERO MX: Tu Distribuidor SCBA en México
+
+En **BOMBERO MX** distribuimos las **tres marcas principales certificadas NFPA 1981**: MSA G1, Scott Air-Pak 50 y Dräger PSS series. Te ayudamos a decidir sin sesgo de marca.
+
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🤝</span>
+    <h4 class="feature__title">Asesoría imparcial</h4>
+    <p class="feature__text">Recomendamos según tu operación, presupuesto y parque existente. No empujamos una marca sobre otra.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🎓</span>
+    <h4 class="feature__title">Capacitación incluida</h4>
+    <p class="feature__text">Coordinamos capacitación inicial con técnicos del fabricante en tu estación.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Plan mantenimiento</h4>
+    <p class="feature__text">Diseñamos calendario de fit test, pruebas hidrostáticas y servicio de regulador.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📑</span>
+    <h4 class="feature__title">Licitaciones</h4>
+    <p class="feature__text">CFDI + certificados NFPA + fichas técnicas + carta de distribuidor autorizado.</p>
+  </div>
+</div>
+
+---
+
+## Preguntas Frecuentes
+
+### ¿Puedo usar cilindros MSA en arnés Scott o viceversa?
+
+**No**. Las roscas de conexión y los mecanismos de retención son **propietarios de cada marca**. Un cilindro MSA no se monta en arnés Scott sin un adaptador que, además de no estar certificado, **compromete la seguridad**. Estandariza por marca.
+
+### ¿Cuánto cuesta un SCBA completo en México?
+
+**MSA G1** con cilindro composite 30 min + máscara: **$85,000–$110,000 MXN** según volumen. **Scott Air-Pak 50** en configuración similar: **$95,000–$120,000 MXN**. Rangos cambian con tipo de cambio y licitación.
+
+### ¿Cada cuánto debo reemplazar un SCBA completo?
+
+**NFPA 1981 no establece retiro obligatorio por edad** como NFPA 1851 con trajes. Pero los componentes individuales sí tienen vida útil. Un SCBA bien mantenido puede operar **15–20 años**. **Cilindro fibra carbono: 15 años máximo**.
+
+### ¿Qué capacitación necesita mi personal?
+
+Capacitación del fabricante o centro autorizado: armado, **colocación en <60 segundos (benchmark NFPA)**, operación de regulador y bypass, interpretación HUD, procedimientos RIT/RIC. **No opcional**.
+
+### ¿BOMBERO MX coordina capacitación con MSA/Scott?
+
+Sí. Para pedidos institucionales (3+ SCBA) coordinamos capacitación presencial con técnicos del fabricante en tu estación.
+
+### ¿Atienden licitaciones para SCBA?
+
+Sí. Emitimos toda la documentación: **certificado NFPA 1981 vigente, ficha técnica, carta de distribuidor autorizado, garantía**, además de CFDI. Revisa la [guía de licitaciones NFPA](/blog/nfpa-licitaciones-bomberos-municipios-mexico/).
+
+---
+
+## Conclusión
+
+No hay un SCBA universalmente superior — hay el SCBA correcto para tu operación. **MSA G1** suele ser la mejor opción para municipios y operaciones nuevas en México por servicio local. **Scott Air-Pak 50** mantiene tu parque si ya operas Scott. La decisión final debe considerar **mantenimiento real, capacitación y refacciones**, no solo el precio de compra.
+
+**BOMBERO MX** está aquí para ayudarte a tomar esa decisión sin sesgo y con datos honestos.
+
+<div class="cta-box">
+  <h3>Hablemos sobre tus necesidades SCBA</h3>
+  <p>Asesoría imparcial entre MSA, Scott y Dräger · Capacitación incluida · Plan de mantenimiento</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Cotizar SCBA →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+### Artículos Relacionados
+
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**NFPA 1971: Guía Completa →**](/blog/nfpa-1971-guia-completa/)
+- [**Mantenimiento de Equipo NFPA →**](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [**Cómo Elegir Traje NFPA 1971 →**](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [**Cascos: Bullard vs Cairns →**](/blog/casco-bombero-bullard-vs-cairns/)
+- [**Licitaciones NFPA →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Catálogo SCBA →**](/productos/scba/)
     `,
   },
 
 
   "mantenimiento-equipo-nfpa-bomberos": {
-    titulo: "Mantenimiento del EPP NFPA: qué revisar y con qué frecuencia",
-    excerpt: "Inspección visual diaria, revisión mensual, retiro de servicio y cuándo reemplazar el traje vs reparar. Lo que exige NFPA 1851.",
+    titulo: "Mantenimiento del EPP NFPA: Guía Completa NFPA 1851 para Bomberos en México",
+    excerpt: "Guía 2026 sobre mantenimiento NFPA 1851: inspección visual diaria, mensual y anual ISP, lavado avanzado, retiro de servicio, documentación y cuándo reparar vs reemplazar. Cómo implementar un programa real en tu estación.",
     imagen: "/images/trajes-para-bombero/chaqueton-bombero-goretex-sistema-3-capas-detalle-01.avif",
     categoria: "Mantenimiento",
-    tags: ["NFPA 1851", "Mantenimiento EPP", "Inspección Trajes", "Retiro Servicio", "Lavado EPP"],
+    tags: ["NFPA 1851", "Mantenimiento EPP", "Inspección Trajes", "Retiro Servicio", "Lavado EPP", "Programa Inspección"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP NFPA",
+    autorRol: "Especialistas en EPP NFPA para México",
     anchorKeyword: "mantenimiento EPP NFPA bomberos México",
     contenido: `
-## Mantenimiento del EPP NFPA: qué revisar y con qué frecuencia
+## Mantenimiento del EPP NFPA: La Norma 1851 que Pocos Cumplen en México
 
-La norma **NFPA 1851** (Standard on Selection, Care, and Maintenance of Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting) establece los requisitos mínimos para inspección, limpieza, reparación y retiro de servicio del equipo de protección personal. En México, la mayoría de los departamentos no siguen esta norma. El resultado: trajes con barreras de humedad comprometidas, cascos con suspensiones vencidas y guantes que ya no protegen. Este artículo detalla cada nivel de inspección que NFPA 1851 exige y cómo implementarlo en tu estación.
+La norma **NFPA 1851** (Standard on Selection, Care, and Maintenance of Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting) establece los requisitos mínimos para **inspección, limpieza, reparación y retiro de servicio** del equipo de protección personal. En México, **la mayoría de los departamentos no siguen esta norma**. El resultado: trajes con barreras de humedad comprometidas, cascos con suspensiones vencidas y guantes que ya no protegen.
+
+Este artículo detalla cada nivel de inspección que NFPA 1851 exige y **cómo implementarlo en tu estación** con recursos reales.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">4</span>
+    <span class="stat__label">Niveles de inspección NFPA 1851</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10</span>
+    <span class="stat__label">Años vida útil máxima</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">40°C</span>
+    <span class="stat__label">Temperatura máx. lavado</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num"><10%</span>
+    <span class="stat__label">Estaciones MX con registro</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero inspeccionando su EPP antes de entrar a operación según NFPA 1851" loading="lazy" width="900" height="600" />
+  <figcaption>Inspección visual rutinaria — 2 minutos antes de cada turno previenen fallas críticas en operación.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">🔥</span>
+  <div class="callout__body">
+    <span class="callout__title">Por qué NFPA 1851 es no-negociable</span>
+    <p>Sin inspección sistemática, un traje puede parecer funcional por fuera mientras la <strong>barrera de humedad tiene microfisuras</strong> que permiten el paso de carcinógenos disueltos en agua. El benzo(a)pireno y otros productos de combustión son <strong>Grupo 1 IARC</strong> — se absorben por la piel.</p>
+  </div>
+</div>
 
 ### Por qué NFPA 1851 existe
 
@@ -14637,30 +17601,92 @@ NFPA 1851 exige su retiro permanente del servicio de emergencia. No se puede don
 
 ---
 
-### Protege a tu personal con mantenimiento adecuado
+## BOMBERO MX: Programa de Mantenimiento NFPA 1851 para tu Estación
 
-Si necesitas trajes nuevos para reemplazar equipo vencido, o asesoría para implementar un programa de mantenimiento NFPA 1851 en tu estación:
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">📋</span>
+    <h4 class="feature__title">Plantillas de inspección</h4>
+    <p class="feature__text">Te entregamos formatos NFPA 1851 listos para usar — diaria, mensual, post-exposición.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🎓</span>
+    <h4 class="feature__title">Capacitación en sitio</h4>
+    <p class="feature__text">Entrenamos a tu personal en inspección visual avanzada y criterios de retiro.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔬</span>
+    <h4 class="feature__title">Coordinación ISP anual</h4>
+    <p class="feature__text">Te conectamos con proveedores de inspección certificada en México.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🧥</span>
+    <h4 class="feature__title">Reemplazo programado</h4>
+    <p class="feature__text">Planificación de reemplazo de equipo próximo a vencer — sin sobresaltos presupuestales.</p>
+  </div>
+</div>
 
-- [**Solicita cotización →**](/cotizar/)
-- [**Trajes para Bomberos →**](/productos/trajes-para-bomberos/)
-- [**Catálogo completo →**](/productos/)
+<div class="cta-box">
+  <h3>¿Listo para implementar NFPA 1851 en tu estación?</h3>
+  <p>Te ayudamos a empezar — desde inventario inicial hasta plan de inspecciones anuales.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar asesoría →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+### Artículos Relacionados
+
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**Cómo Elegir Traje NFPA 1971 →**](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [**SCBA MSA G1 vs Scott Air-Pak →**](/blog/scba-msag1-vs-scott-airpak/)
+- [**Cascos Bullard vs Cairns →**](/blog/casco-bombero-bullard-vs-cairns/)
+- [**Licitaciones NFPA Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Cómo Cotizar Equipo Municipal →**](/blog/equipo-bomberos-municipal-como-cotizar/)
+- [**Catálogo de Trajes →**](/productos/trajes-para-bomberos/)
     `,
   },
 
 
   "casco-bombero-bullard-vs-cairns": {
-    titulo: "Casco Bullard vs Cairns para bomberos: cuál elegir según la operación",
-    excerpt: "Diferencias técnicas entre cascos Bullard y Cairns (MSA). Visor integrado vs separado, peso, NFPA 1971 vs 1977 y qué usa la mayoría en México.",
-    imagen: "/images/cascos-para-bomberos/casco-bombero-profesional-01.avif",
-    categoria: "Comparativas",
-    tags: ["Cascos Bombero", "Bullard", "Cairns", "MSA", "NFPA 1971", "NFPA 1977"],
+    titulo: "Casco Bullard vs Cairns para Bomberos: Comparativa 2026 — Cuál Elegir",
+    excerpt: "Comparativa técnica 2026 entre cascos Bullard (UST, FXE, TrakLite) y Cairns/MSA (1044, 1010, XF1). Visor integrado, peso, materiales, NFPA 1971 vs 1977 y qué usa la mayoría en México.",
+    imagen: "/images/cascos-para-bomberos/casco-bombero-equipado-estacion-profesional-01.avif",
+    categoria: "Equipo",
+    tags: ["Cascos Bombero", "Bullard", "Cairns", "MSA", "NFPA 1971", "NFPA 1977", "Comparativa"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP NFPA",
+    autorRol: "Especialistas en EPP NFPA para México",
     anchorKeyword: "casco Bullard vs Cairns bomberos México",
     contenido: `
-## Casco Bullard vs Cairns: cuál elegir según la operación
+## Casco Bullard vs Cairns: La Comparativa Honesta para Bomberos en México
 
-La elección de casco para bombero no es cosmética. El casco absorbe impactos, resiste calor radiante hasta 260 °C, protege de agua hirviente que escurre del techo y sostiene el visor o goggles que protegen la cara. En México, dos marcas dominan el mercado: **Bullard** y **Cairns** (propiedad de MSA Safety desde 2018). Ambas fabrican cascos certificados NFPA 1971 para trabajo estructural, pero con diferencias de diseño, materiales y precio que afectan la operación diaria. Este artículo compara los modelos más vendidos en México con datos técnicos específicos.
+La elección de casco para bombero **no es cosmética**. El casco absorbe impactos, resiste calor radiante **hasta 260 °C**, protege de agua hirviente que escurre del techo y sostiene el visor o goggles que protegen la cara. En México, **dos marcas dominan el mercado**: **Bullard** y **Cairns** (propiedad de **MSA Safety** desde 2018). Ambas fabrican cascos certificados **NFPA 1971** para trabajo estructural, pero con diferencias de diseño, materiales y precio que afectan la operación diaria.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">260°C</span>
+    <span class="stat__label">Calor radiante NFPA 1971</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">2,500N</span>
+    <span class="stat__label">Resistencia a impacto</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10</span>
+    <span class="stat__label">Años vida útil máx.</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">1.15-1.47kg</span>
+    <span class="stat__label">Rango de peso</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-equipado-estacion-profesional-03.avif?lossy=1&strip=all" alt="Casco para bombero certificado NFPA 1971 con visor integrado" loading="lazy" width="900" height="600" />
+  <figcaption>Casco NFPA 1971 — la decisión entre Bullard y Cairns afecta peso operativo, costo y disponibilidad de refacciones.</figcaption>
+</figure>
 
 ### Bullard: quién son y qué ofrecen
 
@@ -14753,30 +17779,102 @@ El Bullard UST ofrece la mejor relación entre precio y cumplimiento normativo N
 
 ---
 
-### Cotiza el casco adecuado para tu departamento
+## BOMBERO MX: Distribuidor Bullard y Cairns/MSA en México
 
-En BOMBERO.MX trabajamos con ambas marcas y podemos asesorarte según el tipo de operación, cantidad de elementos y presupuesto de tu departamento:
+En **BOMBERO MX** trabajamos con **ambas marcas** y te asesoramos según tu operación, cantidad de elementos y presupuesto. Sin sesgo de marca — recomendamos lo que conviene a tu cuerpo.
 
-- [**Solicita cotización →**](/cotizar/)
-- [**Cascos para Bomberos →**](/productos/cascos-para-bomberos/)
-- [**Catálogo completo →**](/productos/)
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">🤝</span>
+    <h4 class="feature__title">Asesoría imparcial</h4>
+    <p class="feature__text">Bullard, Cairns/MSA, Dräger XF — recomendamos según tu operación real.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📦</span>
+    <h4 class="feature__title">Refacciones México</h4>
+    <p class="feature__text">Suspensiones, visores, bandas y accesorios disponibles para ambas marcas.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📑</span>
+    <h4 class="feature__title">Licitaciones</h4>
+    <p class="feature__text">Certificado NFPA 1971, ficha técnica, carta de distribuidor y garantía.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">⚡</span>
+    <h4 class="feature__title">Entrega 24-72h</h4>
+    <p class="feature__text">Stock CDMX. Pedidos especiales 4-8 semanas según modelo.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>¿Listo para cotizar cascos para tu cuerpo de bomberos?</h3>
+  <p>Te ayudamos a elegir entre Bullard, Cairns/MSA o estilo europeo según tu operación.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="/productos/cascos-para-bomberos/" class="alt">Ver catálogo de cascos</a>
+  </div>
+</div>
+
+---
+
+### Artículos Relacionados
+
+- [**NFPA 1971: Guía Completa del EPP Estructural →**](/blog/nfpa-1971-guia-completa/)
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**Cómo Elegir Traje NFPA 1971 →**](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [**SCBA: MSA G1 vs Scott Air-Pak →**](/blog/scba-msag1-vs-scott-airpak/)
+- [**Mantenimiento de Equipo NFPA →**](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [**Licitaciones NFPA →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Catálogo de cascos →**](/productos/cascos-para-bomberos/)
     `,
   },
 
 
   "extintores-tipos-clases-fuego-mexico": {
-    titulo: "Tipos de extintor por clase de fuego: guía NOM para México",
-    excerpt: "Clases A, B, C, D y K: qué extintor usar en cada caso, distancia máxima de colocación, revisión anual NOM-154 y errores frecuentes en la selección.",
+    titulo: "Tipos de Extintor por Clase de Fuego en México: Guía NOM 2026",
+    excerpt: "Guía 2026 sobre clases de fuego A, B, C, D y K: qué extintor usar, distancia máxima NOM-002-STPS, revisión NOM-154-SCFI, errores frecuentes y selección para tu planta, bodega o edificio.",
     imagen: "/images/extintores/extintor-pqs-polvo-quimico-seco-01.avif",
-    categoria: "Guias Tecnicas",
-    tags: ["Extintores", "NOM-154-SCFI", "Clases de Fuego", "PQS", "CO2", "Clase K"],
+    categoria: "Equipo",
+    tags: ["Extintores", "NOM-002-STPS", "NOM-154-SCFI", "Clases de Fuego", "PQS", "CO2", "Clase K", "NFPA 10"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Especialistas en Protección contra Incendios",
-    anchorKeyword: "tipos de extintor clases de fuego Mexico NOM",
+    anchorKeyword: "tipos de extintor clases de fuego México NOM",
     contenido: `
-## Clasificación de fuegos en México: el mismo sistema que EE.UU., diferente marco normativo
+## Clases de Fuego A/B/C/D/K en México: La Clasificación que Determina Qué Extintor Comprar
 
-México adopta la clasificación de fuegos A, B, C, D y K, alineada con la NFPA 10 y respaldada localmente por la **NOM-002-STPS-2010** (Condiciones de seguridad, prevención y protección contra incendios en centros de trabajo). Cada clase describe el combustible involucrado, y cada combustible exige un agente extintor específico. Usar el equivocado no solo es inútil: puede agravar el incendio o poner en riesgo al operador.
+México adopta la clasificación de fuegos **A, B, C, D y K**, alineada con la **NFPA 10** y respaldada localmente por la **NOM-002-STPS-2010** (Condiciones de seguridad, prevención y protección contra incendios en centros de trabajo). Cada clase describe el combustible involucrado, y cada combustible exige un **agente extintor específico**. Usar el equivocado no solo es inútil: **puede agravar el incendio o poner en riesgo al operador**.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">5</span>
+    <span class="stat__label">Clases de fuego A/B/C/D/K</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">15-23m</span>
+    <span class="stat__label">Distancia máx. recorrido</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">Anual</span>
+    <span class="stat__label">Mantenimiento NOM-154</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$80K+</span>
+    <span class="stat__label">Multa típica acceso bloqueado</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/extintores/extintor-pqs-polvo-quimico-seco-01.avif?lossy=1&strip=all" alt="Extintor PQS ABC certificado NOM-100 para combate de fuegos Clase A B y C" loading="lazy" width="900" height="600" />
+  <figcaption>Extintor PQS ABC — el más común en México, pero NO sirve para Clase D ni K. La elección incorrecta es la causa #1 de extinción fallida.</figcaption>
+</figure>
+
+<div class="callout callout--warn">
+  <span class="callout__icon">⚠️</span>
+  <div class="callout__body">
+    <span class="callout__title">Error crítico común</span>
+    <p>Más del 60% de las cocinas comerciales en México operan <strong>sin extintor Clase K</strong>, dependiendo de PQS ABC que <strong>no penetra la superficie del aceite caliente</strong>. Resultado: el fuego se reaviva en segundos y termina en pérdida total. La NOM-002-STPS lo prohíbe explícitamente.</p>
+  </div>
+</div>
 
 ---
 
@@ -14895,29 +17993,101 @@ Depende de la clasificación de riesgo. En riesgo ordinario (la mayoría de bode
 
 ---
 
-Si necesitas una cotización formal con especificaciones técnicas por clase de fuego y distribución para tu planta, bodega o edificio:
+## BOMBERO MX: Cotización de Extintores NOM-100 para Tu Inmueble
 
-- [**Solicita cotización →**](/cotizar/)
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">📐</span>
+    <h4 class="feature__title">Estudio de distribución</h4>
+    <p class="feature__text">Visita técnica para definir clase, capacidad y ubicación según NOM-002-STPS.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🏭</span>
+    <h4 class="feature__title">Catálogo completo</h4>
+    <p class="feature__text">PQS ABC, CO2, agua, Clase K y agente limpio FE-36/Halotron. Certificado NOM-100.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🔧</span>
+    <h4 class="feature__title">Mantenimiento NOM-154</h4>
+    <p class="feature__text">Coordinamos servicio anual certificado y prueba hidrostática a 5/12 años.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📑</span>
+    <h4 class="feature__title">Listo para Protección Civil</h4>
+    <p class="feature__text">Etiquetado, señalización y bitácora preparados para inspección de PC.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>¿Necesitas distribuir extintores en tu planta, bodega o edificio?</h3>
+  <p>Cotización formal con clase, capacidad, ubicación y mantenimiento — listo para auditoría NOM-002.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+### Artículos Relacionados
+
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**Extintores NOM-100: Guía Completa →**](/blog/extintores-nom-100-guia-mexico/)
+- [**HAZMAT: Niveles de Protección →**](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [**Licitaciones NFPA Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Cómo Cotizar Equipo Municipal →**](/blog/equipo-bomberos-municipal-como-cotizar/)
 - [**Catálogo de extintores →**](/productos/extintores/)
     `,
   },
 
 
   "equipo-bomberos-municipal-como-cotizar": {
-    titulo: "Cómo cotizar equipo NFPA para un cuerpo de bomberos municipal",
-    excerpt: "Documentación para compras públicas, inventario de necesidades, diferencia entre licitación y adjudicación directa, y qué incluir en el escrito técnico.",
-    imagen: "/images/directorio/estacion-bomberos-mexico-01.avif",
-    categoria: "Guias Tecnicas",
-    tags: ["Licitacion Bomberos", "Cotizacion EPP", "Compras Publicas", "NFPA", "Equipo Municipal"],
+    titulo: "Cómo Cotizar Equipo NFPA para un Cuerpo de Bomberos Municipal: Guía 2026",
+    excerpt: "Guía 2026 para jefes de cuerpo municipales: inventario por posición, redacción de especificaciones técnicas, métodos de compra pública en México y cómo BOMBERO MX te entrega cotización formal en 24-48h.",
+    imagen: "/images/accion/bomberos-rescate-vehicular.avif",
+    categoria: "Equipo",
+    tags: ["Licitación Bomberos", "Cotización EPP", "Compras Públicas", "NFPA", "Equipo Municipal", "CompraNet"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP NFPA",
-    anchorKeyword: "cotizar equipo NFPA bomberos municipal Mexico",
+    autorRol: "Especialistas en EPP NFPA para Sector Público",
+    anchorKeyword: "cotizar equipo NFPA bomberos municipal México",
     contenido: `
-## El problema real: bomberos que saben operar pero no tramitar
+## El Problema Real: Bomberos que Saben Operar pero No Tramitar
 
-La mayoría de los jefes de estación en México llegaron al puesto por experiencia operativa, no por habilidad administrativa. Y sin embargo, el proceso de adquisición de equipo NFPA pasa por compras públicas, con reglas que cambian entre municipios, formatos que nadie enseña en la academia, y plazos que se cierran antes de que el expediente esté completo.
+La mayoría de los jefes de estación en México **llegaron al puesto por experiencia operativa**, no por habilidad administrativa. Y sin embargo, el proceso de adquisición de equipo NFPA pasa por **compras públicas**, con reglas que cambian entre municipios, formatos que nadie enseña en la academia, y plazos que se cierran antes de que el expediente esté completo.
 
-Lo que sigue es el proceso que hemos visto funcionar en más de 80 cuerpos de bomberos municipales y estatales. No es teoría de manual de adquisiciones: es lo que efectivamente mueve el equipo del almacén del proveedor a la estación.
+Lo que sigue es **el proceso que hemos visto funcionar en más de 80 cuerpos de bomberos** municipales y estatales en México. No es teoría de manual de adquisiciones: es lo que efectivamente mueve el equipo del almacén del proveedor a la estación.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">3</span>
+    <span class="stat__label">Métodos de compra pública</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">24-48h</span>
+    <span class="stat__label">Cotización formal BOMBERO MX</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">$120K-280K</span>
+    <span class="stat__label">EPP completo por bombero (MXN)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">Oct-Nov</span>
+    <span class="stat__label">Mejor momento para inventariar</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero municipal equipándose con EPP NFPA completo" loading="lazy" width="900" height="600" />
+  <figcaption>El proceso de cotización empieza por entender exactamente qué falta — puesto por puesto, posición por posición.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">ℹ️</span>
+  <div class="callout__body">
+    <span class="callout__title">Lectura complementaria</span>
+    <p>Esta guía cubre el flujo operativo del jefe de cuerpo. Para el detalle legal de las modalidades de contratación (CompraNet, LAASSP, montos), revisa la <a href="/blog/nfpa-licitaciones-bomberos-municipios-mexico/">guía completa de licitaciones NFPA en México</a>.</p>
+  </div>
+</div>
 
 ---
 
@@ -15033,28 +18203,107 @@ Sí. Trabajamos con órdenes de compra de municipios, estados y dependencias fed
 
 ---
 
-Si eres jefe de estación, oficial de protección civil o responsable de compras de un municipio:
+## BOMBERO MX: Tu Proveedor para Cotizaciones Municipales
 
-- [**Solicita cotización formal →**](/cotizar/)
+<div class="feature-grid">
+  <div class="feature">
+    <span class="feature__icon">⚡</span>
+    <h4 class="feature__title">Cotización 24-48h</h4>
+    <p class="feature__text">Formato formal con ficha técnica, certificado y precio CFDI listo para anexar a tu expediente.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📑</span>
+    <h4 class="feature__title">Documentación completa</h4>
+    <p class="feature__text">Certificado UL/Intertek + carta del fabricante + garantía por escrito en cada propuesta.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">📅</span>
+    <h4 class="feature__title">Pagos 30-60 días</h4>
+    <p class="feature__text">Aceptamos plazos estándar de gobierno municipal, estatal y federal con orden de compra firmada.</p>
+  </div>
+  <div class="feature">
+    <span class="feature__icon">🎓</span>
+    <h4 class="feature__title">Capacitación incluida</h4>
+    <p class="feature__text">Capacitamos al personal en uso correcto del EPP entregado — sin costo adicional.</p>
+  </div>
+</div>
+
+<div class="cta-box">
+  <h3>¿Eres jefe de estación o responsable de compras municipal?</h3>
+  <p>Cotización formal en 24-48h con ficha técnica y certificado de laboratorio listos para tu expediente.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización formal →</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+### Artículos Relacionados
+
+- [**Licitaciones NFPA para Municipios →**](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
+- [**Equipo NFPA México: Guía Pilar →**](/blog/equipo-nfpa-mexico-guia-completa/)
+- [**Cómo Elegir Traje NFPA 1971 →**](/blog/como-elegir-traje-bombero-nfpa-1971/)
+- [**SCBA MSA G1 vs Scott Air-Pak →**](/blog/scba-msag1-vs-scott-airpak/)
+- [**Cascos Bullard vs Cairns →**](/blog/casco-bombero-bullard-vs-cairns/)
+- [**Mantenimiento de Equipo NFPA →**](/blog/mantenimiento-equipo-nfpa-bomberos/)
 - [**Catálogo completo de EPP →**](/productos/)
     `,
   },
 
   "extintores-nom-100-guia-mexico": {
-    titulo: "Extintores Certificados NOM-100: Guía de Selección para Bomberos y Brigadas en México",
-    excerpt: "Guía técnica completa sobre extintores certificados NOM-100-STPS y NFPA 10 en México. Tipos de extintor, clases de fuego, capacidades, agentes extintores (PQS, CO2, agua, espuma AFFF), requisitos de instalación y mantenimiento para cuerpos de bomberos, brigadas industriales y protección civil.",
+    titulo: "Extintores Certificados NOM-100 y NFPA 10 en México: Manual Técnico de Selección, Capacidad, Distribución y Mantenimiento",
+    excerpt: "Manual técnico de extintores portátiles bajo NOM-100-STPS, NOM-154-SCFI y NFPA 10. Clases de fuego A/B/C/D/K, agentes extintores (PQS, CO₂, agua, AFFF, agente limpio, Clase K), cálculo de rating mínimo, distancias máximas de recorrido, requisitos de instalación, programa de mantenimiento NOM-154 y aplicación sectorial en México.",
     imagen: "/images/directorio/sistema-espuma-incendios-01.avif",
     categoria: "Equipo",
-    tags: ["NOM-100-STPS", "NFPA 10", "Extintores México", "PQS", "CO2", "Espuma AFFF", "Brigadas Contra Incendio", "Clases de Fuego"],
+    tags: ["NOM-100-STPS", "NOM-154-SCFI", "NFPA 10", "Extintores México", "PQS ABC", "AFFF", "Clase K", "Agente Limpio"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Protección Contra Incendios NFPA y NOM",
+    autorRol: "Equipo Técnico — Protección Contra Incendio",
     anchorKeyword: "extintores NOM-100 México selección bomberos brigadas",
     contenido: `
-## Extintores en México: Entre la NOM-100-STPS y la NFPA 10
+## Extintores Portátiles en México: Marco Normativo y Operativo bajo NOM-100, NOM-154 y NFPA 10
 
-Elegir el extintor correcto no es trivial. En México, un extintor mal seleccionado —o instalado fuera de la norma— no solo puede ser inefectivo: puede empeorar el incendio, generar responsabilidad legal y costar vidas. Para los **cuerpos de bomberos, brigadas industriales y equipos de protección civil** que asesoran a organizaciones sobre prevención de incendios, conocer a fondo la normatividad aplicable es una responsabilidad técnica irrenunciable.
+La selección, instalación y mantenimiento de extintores portátiles en México está sujeta a **tres marcos normativos convergentes** cuya interacción muchas veces se desconoce o se aplica fragmentariamente, generando incumplimiento técnico ante auditoría STPS, Protección Civil o aseguradora. El responsable de seguridad industrial que no maneja con precisión esta arquitectura normativa expone a su organización a tres riesgos simultáneos: **operativo** (el extintor incorrecto no controla el fuego), **regulatorio** (multas por trabajador afectado) y **civil** (responsabilidad por lesiones documentables).
 
-En México, los extintores están regulados por **dos marcos normativos complementarios**:
+La elección incorrecta de un extintor no es una falla menor de inventario: es la causa raíz documentada de la mayor parte de los incidentes en cocina comercial donde un PQS ABC se descarga sobre una freidora activa —el polvo **no penetra la película de aceite caliente** y la reignición ocurre en segundos. Es también la causa raíz típica del fuego de servidor donde un PQS se descarga sobre electrónica energizada —el polvo **corrosivo destruye el equipo** mucho más que el fuego mismo lo hubiera hecho. En ambos casos, el extintor certificado *existía*; el problema fue la selección, no la disponibilidad.
+
+Este manual estructura la selección técnica completa: **marco normativo convergente** (NOM-100, NOM-154, NFPA 10, NOM-002-STPS), **clasificación de fuegos** A/B/C/D/K con perfil de combustible mexicano, **agentes extintores** con propiedades de aplicación, **cálculo de capacidad y distribución** según riesgo, **programa de mantenimiento anual** bajo NOM-154-SCFI y **aplicación sectorial** (cocinas comerciales, data centers, plantas petroquímicas, hangares aeronáuticos, bodegas con racks).
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NOM-100-STPS</span>
+    <span class="stat__label">Uso en centros de trabajo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NOM-154-SCFI</span>
+    <span class="stat__label">Mantenimiento y recarga</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 10</span>
+    <span class="stat__label">Referencia técnica internacional</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">5</span>
+    <span class="stat__label">Clases de fuego A/B/C/D/K</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/directorio/sistema-espuma-incendios-01.avif" alt="Sistema de extinción con espuma AFFF en operación industrial" loading="lazy" width="900" height="600" />
+  <figcaption>La selección correcta del agente extintor es la primera variable operativa: PQS, CO₂, agua, AFFF, agente limpio o Clase K — no son intercambiables.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">Tres convergencias normativas, una sola responsabilidad técnica</span>
+    <p>Cumplir <strong>solo NOM-100</strong> ignora los requisitos de mantenimiento de la NOM-154. Cumplir <strong>solo NFPA 10</strong> ignora obligaciones legales mexicanas. Cumplir <strong>solo NOM-002-STPS</strong> deja sin marco específico la selección de extintores. La integridad del programa de extinción exige <strong>cumplimiento simultáneo</strong> de las tres normas, no elección entre ellas.</p>
+  </div>
+</div>
+
+### Marco Normativo Convergente
+
+En México, los extintores están regulados por **cuatro marcos normativos** que se aplican en paralelo:
 
 | Marco | Aplicación en México |
 |-------|---------------------|
@@ -15367,38 +18616,130 @@ Los incendios de baterías de litio (Clase D si es litio metálico, o "incendio 
 
 ---
 
-## Conclusión: La Selección Correcta Es una Responsabilidad Técnica
+## Equipamiento BOMBERO MX — Programa Completo de Extintores y EPP de Brigada
 
-En **BOMBERO.MX** entendemos que la selección de extintores no es una decisión de compra trivial. Es una decisión técnica con implicaciones de seguridad, legales y operativas. Un extintor incorrecto no protege — puede empeorar el incendio.
+La selección, distribución y mantenimiento de extintores requiere coordinación con un proveedor que opere bajo los tres marcos normativos simultáneamente y que pueda complementar el sistema fijo con el EPP NFPA personal de la brigada operativa interna.
 
-Nuestro equipo de especialistas puede ayudarte a:
-- **Auditar tu instalación** actual e identificar incumplimientos NOM
-- **Diseñar el programa** completo de extintores según NFPA 10 y NOM-100
-- **Suministrar equipos** certificados UL de marcas reconocidas
-- **Implementar el programa de mantenimiento** anual con documentación para la STPS
-- **Capacitar a tu brigada** en el uso correcto de cada tipo de extintor
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Extintores certificados UL</h4>
+    <p class="feature__text">PQS ABC, CO₂, agua, AFFF, agente limpio FE-36/Halotron, Clase K. Marcas referencia: Ansul, Amerex, Kidde, Badger.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Auditoría técnica de distribución</h4>
+    <p class="feature__text">Cálculo de rating mínimo por área, distancias máximas de recorrido y ubicación según NOM-002-STPS y NFPA 10.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Mantenimiento NOM-154-SCFI</h4>
+    <p class="feature__text">Coordinación con unidad de verificación autorizada (MANEXT en CDMX, distribuidores regionales) para servicio anual y prueba hidrostática.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">EPP NFPA para brigada</h4>
+    <p class="feature__text">Trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas, herramientas — complemento operativo al sistema fijo de extinción.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Capacitación DC-3 STPS</h4>
+    <p class="feature__text">Coordinación de capacitación de brigada conforme DC-3 STPS para uso correcto de cada tipo de extintor.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Documentación auditable</h4>
+    <p class="feature__text">Bitácoras de inspección NFPA 10, certificación NOM-100, comprobantes de mantenimiento NOM-154 listos para STPS y aseguradora.</p>
+  </div>
+</div>
 
-[**Solicita tu evaluación técnica gratuita →**](/cotizar/)
+<div class="cta-box">
+  <h3>Programa completo extintores + EPP NFPA de brigada</h3>
+  <p>Auditoría técnica de tu instalación · Distribución correcta según NOM/NFPA · Coordinación de mantenimiento · EPP NFPA personal complementario</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar evaluación técnica</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
-Equipar bien no es gastar más — es gastar donde importa.
+---
+
+## Referencias Normativas
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-100-STPS-1994** — Seguridad – Extintores contra incendio a base de polvo químico seco con presión contenida – Especificaciones
+- **NOM-154-SCFI-2005** — Equipos contra incendio – Extintores – Servicio de mantenimiento y recarga
+- **NOM-104-STPS-2001** — Agentes extinguidores – Polvo químico seco tipo ABC, a base de fosfato mono-amónico
+- **NOM-101-STPS-1994** — Seguridad – Extintores a base de espuma química
+- **NOM-103-STPS-1994** — Seguridad – Extintores contra incendio a base de bióxido de carbono
+- **NOM-106-SCFI-2000** — Agentes extinguidores – Polvo químico seco tipo BC, a base de bicarbonato de sodio
+- **NFPA 10** — Standard for Portable Fire Extinguishers (edición vigente)
+- **NFPA 17** — Standard for Dry Chemical Extinguishing Systems
+- **NFPA 96** — Standard for Ventilation Control and Fire Protection of Commercial Cooking Operations (Clase K)
+- **UL 711** — Rating and Fire Testing of Fire Extinguishers
+- **UL 154** — Carbon-Dioxide Fire Extinguishers
+- **DC-3 STPS** — Constancia de habilidades laborales para capacitación de brigada
+- **NOM-026-STPS-2008** — Colores y señales de seguridad e higiene
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Extintores por Clase de Fuego — Guía NOM 2026](/blog/extintores-tipos-clases-fuego-mexico/)
+- [Extintores: Selección bajo NOM-100 y NFPA 10](/blog/extintores-seleccion-norma-nom-100/)
+- [MANEXT — Mantenimiento NOM-154-SCFI](/blog/manext-mantenimiento-extintores-cdmx/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Brigadas Industriales: EPP por Sector](/blog/brigadas-industriales-epp/)
+- [Bomberos CDMX — Equipo NFPA](/blog/bomberos-cdmx-equipo-nfpa/)
+- [Bomberos Monterrey — Corredor Industrial](/blog/bomberos-monterrey-equipo-nfpa/)
     `,
   },
 
   "extintores-seleccion-norma-nom-100": {
-    titulo: "Extintores Portátiles en México: Selección según NOM-100 y NFPA 10",
-    excerpt: "Cómo seleccionar extintores portátiles según NOM-100-STPS-2019 y NFPA 10. Tipos A, B, C, D, K, carga por área y cuándo aplica cada uno.",
+    titulo: "Selección Técnica de Extintores Portátiles bajo NOM-100, NOM-002-STPS y NFPA 10: Cálculo de Carga, Distribución y Cumplimiento Auditable",
+    excerpt: "Manual operativo de selección de extintores portátiles en México: marco convergente NOM-100/NOM-002-STPS/NFPA 10, clases de fuego A/B/C/D/K, agentes extintores con compatibilidad eléctrica y química, cálculo de rating por área, distancias máximas de recorrido y programa de inspección NFPA 10 + NOM-154-SCFI.",
     imagen: "/images/extintores/extintor-portatil-co2-estructura.avif",
     categoria: "Normativas",
-    tags: ["Extintores", "NOM-100", "NFPA 10", "Extintor ABC", "Selección Extintores", "Brigadas Contra Incendio"],
+    tags: ["Extintores", "NOM-100", "NOM-002-STPS", "NFPA 10", "NOM-154-SCFI", "Selección Técnica", "Auditoría STPS"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en EPP",
+    autorRol: "Equipo Técnico — Protección Contra Incendio",
     anchorKeyword: "Selección extintores portátiles NOM-100 NFPA 10 México",
     contenido: `
-## ¿Qué dice la NOM-100-STPS-2019 sobre extintores portátiles?
+## Selección de Extintores Portátiles: Marco Técnico y Operativo de Cumplimiento
 
-La **NOM-100-STPS-2019** (Requisitos mínimos de seguridad y salud en el trabajo sobre sistemas contra incendio) es la norma oficial mexicana que obliga a toda empresa a contar con extintores portátiles en cantidad y tipo adecuados según el riesgo. Esta norma se alinea con **NFPA 10** (Standard for Portable Fire Extinguishers) pero tiene requisitos específicos para el contexto laboral mexicano.
+La selección de extintores portátiles es un ejercicio de **convergencia normativa** que combina **tres requisitos simultáneos**: cantidad mínima por riesgo (NOM-002-STPS-2010), especificación del equipo (NOM-100-STPS y NOM-154-SCFI) y referencia técnica internacional para criterios de aplicación, ubicación y mantenimiento (NFPA 10). Una organización que cumple solo uno de los tres marcos está, por definición, en incumplimiento técnico ante auditoría de STPS, Protección Civil o aseguradora.
 
-En **BOMBERO.MX** trabajamos constantemente con coordinadores de brigadas y responsables de seguridad que cometen el mismo error: compran extintores por precio o apariencia sin verificar si son los correctos para el riesgo real. El resultado es una protección inefectiva que no cumple con las sanciones de la STPS.
+El error operativo más común no es la falta de extintores —la mayoría de los centros de trabajo mexicanos cuenta con ellos como reflejo administrativo— sino la **selección incorrecta del agente para el riesgo predominante**, la **subdotación por área** (extintor existe pero la distancia máxima de recorrido excede lo permitido por NFPA 10) y la **omisión del programa de mantenimiento NOM-154-SCFI**. Cada uno de estos errores convierte un activo regulatoriamente aceptable en un activo operativamente inefectivo.
+
+Este manual estructura la **metodología técnica de selección**: identificación de clases de fuego presentes por área, **cálculo de rating mínimo** (4-A, 10-B, 20-B, etc.) según ocupación y carga combustible, **agente extintor compatible** con la combinación de riesgo, **cálculo de número y distribución** según NFPA 10 §6, programa de **inspección mensual y mantenimiento anual** bajo NOM-154-SCFI, y **dotación complementaria** para riesgos especiales (Clase K en cocina, agente limpio en data center, agente Clase D en industria de litio).
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NOM-002-STPS</span>
+    <span class="stat__label">Cantidad y distribución obligatoria</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 10 §6</span>
+    <span class="stat__label">Cálculo técnico de carga</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">23/15/15 m</span>
+    <span class="stat__label">Distancia máx. ligero/ord./alto</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">Mensual</span>
+    <span class="stat__label">Inspección interna obligatoria</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/extintores/extintor-portatil-co2-estructura.avif" alt="Extintor portátil CO2 con estructura de soporte y señalización conforme NOM-026-STPS" loading="lazy" width="900" height="600" />
+  <figcaption>Extintor portátil CO₂ — agente no conductivo y sin residuo, óptimo para equipos eléctricos energizados y áreas con instrumentación sensible.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">El extintor correcto, en la cantidad correcta, en la ubicación correcta</span>
+    <p>La integridad del programa de extintores exige <strong>tres variables alineadas simultáneamente</strong>. Tener PQS ABC en cocina (agente incorrecto), tener extintor Clase K a 30 m del punto de uso (ubicación incorrecta) o tener un extintor sin mantenimiento NOM-154 desde hace tres años (servicio incorrecto) generan el mismo resultado operativo: <strong>el extintor no funciona en el evento real</strong>. El cumplimiento documental sin operatividad real es ficción regulatoria.</p>
+  </div>
+</div>
 
 ### Diferencia entre NOM-100 y NFPA 10
 
@@ -15601,20 +18942,75 @@ R: **El patrón**. Según NOM-004-STPS (Capacitación en brigadas), el patrón t
 
 ---
 
-## CTA: Cotizar evaluación técnica y programa anual
+## Equipamiento BOMBERO MX — Programa Técnico Completo
 
-¿Necesitas armar el programa correcto de extintores para tu instalación? Nuestro equipo realiza:
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Auditoría técnica de riesgo</h4>
+    <p class="feature__text">Identificación de clases de fuego presentes por área, evaluación de carga combustible y verificación de cumplimiento NOM-002-STPS / NFPA 10 actual.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Diseño de programa</h4>
+    <p class="feature__text">Especificación de cantidad, tipo, capacidad, rating UL/UL México y distribución conforme NFPA 10 §6 (distancia máx. de recorrido por nivel de riesgo).</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Suministro de extintores certificados</h4>
+    <p class="feature__text">PQS ABC, CO₂, AFFF, Clase K, agente limpio FE-36/Halotron. Marcas Ansul, Amerex, Kidde, Badger con certificación UL vigente.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Coordinación de mantenimiento NOM-154</h4>
+    <p class="feature__text">Inspección mensual interna documentada, mantenimiento anual por unidad de verificación autorizada, prueba hidrostática programada (5/12 años).</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Capacitación NOM-004-STPS / DC-3</h4>
+    <p class="feature__text">Capacitación de brigada en uso correcto de cada tipo de extintor con DC-3 STPS archivable.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">EPP NFPA para brigada operativa</h4>
+    <p class="feature__text">Trajes NFPA 1971, SCBA, cascos y herramientas para complementar el sistema de extintores con la capa humana operativa.</p>
+  </div>
+</div>
 
-- **Auditoría técnica de riesgo:** Evaluamos clases de fuego presentes, carga actual, cumplimiento NOM-100
-- **Diseño del programa:** Especificamos cantidad, tipo, capacidad y distribución según NFPA 10 + NOM-100
-- **Gestión anual:** Coordinamos inspecciones mensuales, mantenimiento anual, pruebas hidrostáticas
+<div class="cta-box">
+  <h3>Programa de extintores y EPP de brigada con cumplimiento auditable</h3>
+  <p>Auditoría técnica · Diseño según NFPA 10 §6 · Suministro UL · Mantenimiento NOM-154 · Capacitación DC-3 · EPP NFPA personal</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar evaluación técnica</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
-**[Solicita cotización por WhatsApp →](https://wa.me/52xxxxxxxxx?text=Cotizaci%C3%B3n%20programa%20extintores%20NOM-100)**
+---
 
-Visita también:
-- [Catálogo de extintores →](/extintores/)
-- [Normativas NFPA →](/normas-nfpa/)
-- [Brigadas contra incendio →](/brigadas-industriales/)
+## Referencias Normativas
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-100-STPS-1994** — Seguridad – Extintores contra incendio a base de polvo químico seco con presión contenida – Especificaciones
+- **NOM-101-STPS-1994** — Seguridad – Extintores a base de espuma química
+- **NOM-103-STPS-1994** — Seguridad – Extintores contra incendio a base de bióxido de carbono
+- **NOM-104-STPS-2001** — Agentes extinguidores – Polvo químico seco ABC
+- **NOM-106-SCFI-2000** — Agentes extinguidores – Polvo químico seco BC
+- **NOM-154-SCFI-2005** — Equipos contra incendio – Extintores – Servicio de mantenimiento y recarga
+- **NOM-004-STPS-1999** — Capacitación y adiestramiento de los trabajadores
+- **NOM-026-STPS-2008** — Colores y señales de seguridad e higiene
+- **NFPA 10** — Standard for Portable Fire Extinguishers
+- **NFPA 96** — Standard for Ventilation Control and Fire Protection of Commercial Cooking Operations (Clase K)
+- **UL 711** — Rating and Fire Testing of Fire Extinguishers
+- **DC-3 STPS** — Constancia de habilidades laborales
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Extintores NOM-100 — Guía Completa](/blog/extintores-nom-100-guia-mexico/)
+- [Extintores por Clase de Fuego — Guía NOM 2026](/blog/extintores-tipos-clases-fuego-mexico/)
+- [MANEXT — Mantenimiento NOM-154-SCFI](/blog/manext-mantenimiento-extintores-cdmx/)
+- [MESECI — Servicio Integral 360°](/blog/meseci-equipos-contra-incendio-mexico/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [Brigadas Industriales: EPP por Sector](/blog/brigadas-industriales-epp/)
+- [HAZMAT NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Bomberos CDMX — Equipo NFPA](/blog/bomberos-cdmx-equipo-nfpa/)
     `,
   },
 
@@ -15900,20 +19296,54 @@ Explora más:
   },
 
   "sistemas-sprinkler-nfpa-13-guia-instalacion": {
-    titulo: "Sistemas Sprinkler NFPA 13: Guía para Diseño e Instalación en México",
-    excerpt: "Guía práctica de sistemas sprinkler según NFPA 13. Tipos de cabezales, densidades de descarga, ocupaciones y errores de diseño más comunes.",
+    titulo: "Sistemas Sprinkler NFPA 13: Manual Técnico de Diseño, Instalación e Inspección NFPA 25 en México",
+    excerpt: "Manual técnico de sistemas automáticos de rociadores bajo NFPA 13: clasificación por tipo de sistema (húmedo, seco, diluvio, preacción), cabezales por respuesta y temperatura, densidades de descarga por clasificación de ocupación (Light/Ordinary/Extra Hazard), diseño hidráulico, instalación NFPA 13 y mantenimiento NFPA 25 en México.",
     imagen: "/images/equipos-bomberos/sistema-sprinkler-instalacion.avif",
     categoria: "Sistemas Contra Incendio",
-    tags: ["Sistemas Sprinkler", "NFPA 13", "Cabezales Sprinkler", "Protección Incendio", "Diseño Hidráulico", "Ocupaciones"],
+    tags: ["Sistemas Sprinkler", "NFPA 13", "NFPA 13D", "NFPA 13R", "NFPA 25", "Cabezales ESFR", "Diseño Hidráulico", "UL FM"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Sistemas",
+    autorRol: "Equipo Técnico — Sistemas Fijos",
     anchorKeyword: "Sistemas sprinkler NFPA 13 instalación México",
     contenido: `
-## ¿Qué es NFPA 13 y cuándo aplica?
+## Sistemas Sprinkler NFPA 13: Marco Técnico de Diseño, Instalación y Mantenimiento
 
-La **NFPA 13** (Standard for the Installation of Sprinkler Systems) es el estándar internacional que especifica **cómo diseñar, instalar, probar y mantener sistemas automáticos de rociadores de agua para protección contra incendios**.
+Los **sistemas automáticos de rociadores** son el componente del sistema fijo contra incendio con **mayor eficacia operativa documentada por unidad de inversión**. La estadística internacional NFPA muestra que las instalaciones con sistema sprinkler correctamente diseñado e inspeccionado bajo NFPA 25 **controlan el fuego en su área de origen** en la gran mayoría de los eventos, reduciendo significativamente las pérdidas materiales y eliminando casi totalmente las fatalidades en zonas protegidas. Esta eficacia condiciona la posición del sprinkler como sistema preferente en bodegas de alta densidad de almacenamiento, edificios de gran altura, hospitales, centros comerciales y plantas industriales con carga combustible ordinaria o alta.
 
-En México, aunque no existe una NOM equivalente, los códigos de construcción (especialmente en CDMX, Jalisco y Nuevo León) adoptan o referencian NFPA 13 directamente. Además, **seguros de incendio, licitaciones públicas y estándares de multinacionales exigen cumplimiento NFPA 13**.
+El marco normativo aplicable en México combina tres referencias: **NFPA 13** (*Standard for the Installation of Sprinkler Systems*) para sistemas comerciales e industriales, complementada con **NFPA 13R** para residencial multifamiliar de hasta cuatro pisos y **NFPA 13D** para residencial unifamiliar; **NFPA 25** (*Inspection, Testing, and Maintenance of Water-Based Fire Protection Systems*) para la operación continua del sistema instalado; y los **códigos de construcción municipales** (CDMX, Jalisco, Nuevo León) que adoptan NFPA 13 como referencia técnica obligatoria por encima de un umbral de altura, área u ocupación.
+
+Este manual estructura los cuatro pilares operativos: **clasificación de sistemas** (húmedo, seco, diluvio, preacción, ESFR) según ambiente y ocupación; **selección de cabezales** por respuesta térmica (Standard / Quick / Special), temperatura nominal (57/74/100/141/182/204 °C) y aplicación (estándar, ESFR, residencial); **diseño hidráulico** con densidades de descarga según clasificación de ocupación (Light/Ordinary/Extra Hazard); y **mantenimiento NFPA 25** con frecuencias específicas por componente.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 13</span>
+    <span class="stat__label">Instalación sistemas sprinkler</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 25</span>
+    <span class="stat__label">Inspección, prueba y mantenimiento</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">4</span>
+    <span class="stat__label">Tipos básicos (húmedo/seco/diluvio/preacción)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">UL / FM</span>
+    <span class="stat__label">Certificación cabezales y componentes</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/equipos-bomberos/sistema-sprinkler-instalacion.avif" alt="Sistema sprinkler en instalación con cabezales pendientes y tubería certificada UL" loading="lazy" width="900" height="600" />
+  <figcaption>Instalación de sistema sprinkler — cada componente (cabezal, tubería, válvula, bomba) debe contar con certificación UL o FM Approved verificable y trazabilidad de lote.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">El sprinkler no sustituye al EPP de brigada</span>
+    <p>Un sistema sprinkler controla el fuego en su área de origen, pero <strong>la respuesta humana posterior</strong> (evaluación, verificación, contención de daños por agua, reposición del sistema) requiere brigada interna con EPP NFPA personal. <strong>BOMBERO MX</strong> opera el catálogo complementario de EPP NFPA 1971 + SCBA NFPA 1981 para la brigada operativa interna que debe actuar después de la activación del sprinkler.</p>
+  </div>
+</div>
 
 ### ¿Cuándo es obligatorio un sistema sprinkler?
 
@@ -16246,22 +19676,47 @@ Ver más:
   },
 
   "deteccion-temprana-incendio-tipos-detectores": {
-    titulo: "Detección Temprana de Incendio: Tipos de Detectores y Cuándo Usar Cada Uno",
-    excerpt: "Guía de detectores de incendio: iónicos, fotoeléctricos, térmicos y multisensor. Cuándo usar cada tipo según la ocupación y norma NFPA 72.",
+    titulo: "Sistemas de Detección Temprana de Incendio: Tipos de Detectores según NFPA 72 — Guía Técnica",
+    excerpt: "Guía técnica sobre tipos de detectores de incendio bajo NFPA 72: iónicos, fotoeléctricos, térmicos, multisensor y por aspiración. Principios de funcionamiento, selección por tipo de ocupación, integración con sistemas de alarma y rociadores, y cumplimiento NOM-002-STPS-2010.",
     imagen: "/images/equipos-bomberos/detector-humo-incendio.avif",
-    categoria: "Detección",
-    tags: ["Detectores Incendio", "NFPA 72", "Detector Humo", "Detector Térmico", "Alarma Incendio", "Sistema Detección"],
+    categoria: "Equipo",
+    tags: ["Detectores Incendio", "NFPA 72", "Detector Fotoeléctrico", "Detector Iónico", "Detector Térmico", "NOM-002-STPS", "Sistema Alarma"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Detección",
+    autorRol: "Equipo Técnico — Detección y Alarma",
     anchorKeyword: "Detectores incendio tipos NFPA 72 cuándo usar",
     contenido: `
-## Por qué la detección temprana salva más vidas que cualquier extintor
+## Detección Temprana de Incendio: Marco Técnico bajo NFPA 72
 
-**Dato estadístico clave:** Según reportes del NFPA e INEGI, la mayoría de muertes en incendios ocurren por **inhalación de humo y gases**, no por contacto directo con llama. Un incendio que se detecta en los primeros 3-5 minutos tiene **90%+ de probabilidad de ser controlado sin muertes**. Sin detección temprana, el humo alcanza áreas de evacuación y causa pánico.
+La **detección temprana** es el componente del sistema de protección contra incendio con **mayor coeficiente de impacto por unidad de inversión**. La estadística operativa internacional documenta que un incendio detectado en los primeros tres a cinco minutos tras ignición tiene probabilidad muy alta de control sin víctimas y con daños materiales contenidos; el mismo evento detectado después de quince minutos típicamente requiere respuesta de cuerpo de bomberos, evacuación completa y, en estructuras comerciales, generación de pérdida total o pérdida significativa.
 
-Un extintor es importante, pero solo funciona si alguien está presente y reacciona en segundos. Un **detector de incendio** actúa automáticamente, 24/7, incluso de noche o cuando no hay presencia.
+La **NFPA 72** (*National Fire Alarm and Signaling Code*) codifica los requisitos de diseño, instalación, prueba y mantenimiento de sistemas de detección y alarma. Esta guía describe los **cinco tipos principales de detectores** disponibles, sus principios de funcionamiento, criterios de selección por tipo de ocupación y la integración operativa con sistemas de alarma y supresión bajo el marco mexicano NOM-002-STPS-2010 / NFPA 72.
 
-En **BOMBERO.MX** hemos visto empresas que gastan dinero en extintores de última generación pero no invierten en detectores básicos. Es como tener un extintor pero no una alarma — tardas en enterarte de que hay fuego.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 72</span>
+    <span class="stat__label">Norma de referencia</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">3-5 min</span>
+    <span class="stat__label">Ventana óptima de detección</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">5</span>
+    <span class="stat__label">Tipos principales de detector</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">24/7</span>
+    <span class="stat__label">Operación automática</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Detección vs. supresión vs. EPP de brigada</span>
+    <p>La detección activa la respuesta. La supresión (extintores, rociadores) ataca el foco. El EPP NFPA personal de la brigada operativa cierra el ciclo. <strong>Los tres componentes son necesarios y ninguno sustituye a los otros</strong>. Para EPP NFPA personal certificado, <strong>BOMBERO MX</strong> opera el catálogo complementario al sistema de detección y alarma.</p>
+  </div>
+</div>
 
 ---
 
@@ -16499,35 +19954,114 @@ R: **Detector** = sensor que detecta humo/calor. **Alarma** = sonido + luz que a
 
 ---
 
-## CTA: Diseño e instalación de sistemas de detección
+## EPP NFPA para Brigadas Operativas — Complemento al Sistema de Detección
 
-¿Tu empresa necesita sistema de detección de incendio?
+Un sistema de detección y alarma activa la respuesta operativa. La brigada interna que responde requiere su propio EPP NFPA personal certificado para actuar durante el evento. **BOMBERO MX** opera el catálogo complementario:
 
-Ayudamos con:
-- **Auditoría de riesgos:** Identificamos ocupación, tipos de fuego potenciales
-- **Diseño:** Tipo y número de detectores según NFPA 72
-- **Instalación y certificación:** Cumplimiento normativo
-- **Mantenimiento:** Programa anual documentado
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Trajes NFPA 1971</h4>
+    <p class="feature__text">Sistema multicapa Nomex/PBI Gold + Gore-Tex Crosstech para combate estructural.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981</h4>
+    <p class="feature__text">MSA G1, Scott Air-Pak X3 Pro, Dräger PSS con cilindros 30-60 min y PASS device.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cascos y capuchas NFPA</h4>
+    <p class="feature__text">Bullard, Cairns/MSA; capuchas Nomex y PBI Gold (variantes particuladas PM2.5).</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Extintores NOM-100</h4>
+    <p class="feature__text">PQS, CO₂, agente limpio, Clase K. Distribución verificable con MANEXT y otros proveedores aliados.</p>
+  </div>
+</div>
 
-**[Solicita evaluación técnica →](https://wa.me/52xxxxxxxxx?text=Dise%C3%B1o%20sistema%20detección%20incendio)**
+<div class="cta-box">
+  <h3>EPP NFPA personal para brigadas internas</h3>
+  <p>Complementa tu sistema de detección con EPP certificado para la brigada que responde. Cotización en 24h con documentación auditable.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
-Descubre más:
-- [Equipos contra incendio →](/equipos-bomberos/)
-- [Sistemas sprinkler →](/sistemas-contra-incendio/)
-- [Normativas NFPA →](/normas-nfpa/)
+---
+
+## Referencias Normativas
+
+- **NFPA 72** — National Fire Alarm and Signaling Code (edición vigente)
+- **NFPA 720** — Standard for the Installation of Carbon Monoxide Detection and Warning Equipment
+- **NFPA 90A** — Installation of Air-Conditioning and Ventilating Systems (detección en ductos)
+- **NFPA 76** — Standard for the Fire Protection of Telecommunications Facilities (detección sensible para TI)
+- **UL 268** — Standard for Smoke Detectors for Fire Alarm Systems
+- **UL 521** — Standard for Heat Detectors for Fire Protective Signaling Systems
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Extintores por Clase de Fuego — Guía NOM](/blog/extintores-tipos-clases-fuego-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Detector de Gases Multigas (LEL, CO, H2S)](/blog/detector-gases-multigas-monitor/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [MANEXT — Mantenimiento NOM-154-SCFI](/blog/manext-mantenimiento-extintores-cdmx/)
+- [MESECI — Servicio Integral 360°](/blog/meseci-equipos-contra-incendio-mexico/)
     `,
   },
 
   "equipo-rescate-tecnico-componentes-normas": {
-    titulo: "Equipo de Rescate Técnico: Componentes Esenciales y Normas NFPA 1006",
-    excerpt: "Equipo esencial para rescate técnico según NFPA 1006: cuerdas, arneses, polipastos, herramientas de excarcelación y certificaciones requeridas.",
+    titulo: "Equipo de Rescate Técnico bajo NFPA 1006, 1670 y 1983: Componentes Operativos para Disciplinas USAR, Vertical, Vehicular y Acuático",
+    excerpt: "Manual técnico del equipo de rescate especializado bajo NFPA 1006 (competencias), NFPA 1670 (operaciones), NFPA 1983 (cuerdas y EPP), NFPA 1936 (rescate vehicular). Sistemas de cuerda, arneses, herramientas hidráulicas, equipo de aire y comunicaciones para disciplinas USAR, vertical, vehicular, acuático, espacios confinados y derrumbe.",
     imagen: "/images/equipo-bomberos/equipo-rescate-tecnico-nfpa-1006.avif",
     categoria: "Rescate",
-    tags: ["Rescate Técnico", "NFPA 1006", "Equipo Rescate", "Arneses", "Cuerdas Rescate", "USAR"],
+    tags: ["Rescate Técnico", "NFPA 1006", "NFPA 1670", "NFPA 1983", "NFPA 1936", "USAR", "TRT", "INSARAG"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Rescate",
+    autorRol: "Equipo Técnico — Rescate Especializado",
     anchorKeyword: "Equipo rescate técnico NFPA 1006 componentes esenciales",
     contenido: `
+## Equipo de Rescate Técnico: Marco Operativo NFPA y Configuración por Disciplina
+
+El **rescate técnico** designa un conjunto de disciplinas operativas que comparten un denominador común: la **ausencia total de margen para improvisación**. A diferencia del combate de incendio estructural —donde el operador combate contra un ambiente hostil pero con cierta flexibilidad táctica—, el rescate técnico exige **precisión absoluta** en cálculo de cargas, instalación de sistemas, anclaje de equipos y secuencia operativa. Un error de cálculo en un sistema de cuerda con ventaja mecánica 4:1 desliza directamente a la caída libre de víctima y rescatistas. Un acceso mal asegurado a espacio confinado expone a atmósfera IDLH sin posibilidad de retiro. Una mala identificación de batería de litio en vehículo eléctrico genera *thermal runaway* y electrocución.
+
+Esta exigencia operativa se traduce en un **marco normativo NFPA específico** y multinivel: **NFPA 1006** (*Standard for Technical Rescue Personnel Professional Qualifications*) define las competencias del personal por disciplina y nivel (Awareness / Operations / Technician); **NFPA 1670** (*Operations and Training for Technical Search and Rescue Incidents*) define los protocolos operativos por disciplina; **NFPA 1983** certifica el equipo de cuerda y EPP vertical; **NFPA 1936** certifica las herramientas hidráulicas de rescate vehicular; **NFPA 1951** certifica el EPP estructural del rescatista. La aplicación coordinada de estas cinco normas constituye la base técnica de un equipo de rescate profesional.
+
+Este manual estructura los **componentes operativos del rescate técnico por disciplina**: USAR (Urban Search and Rescue), rescate vertical, rescate vehicular, rescate acuático, espacios confinados, derrumbe estructural. Cada disciplina con su matriz de equipamiento certificado, marcas referencia (Petzl, CMC, Yates, Sterling, Holmatro, LUKAS, Hurst), capacitación NFPA 1006 requerida y aplicación con protocolos INSARAG para clasificación internacional de equipos USAR mexicanos.
+
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NFPA 1006</span>
+    <span class="stat__label">Competencias del rescatista</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1670</span>
+    <span class="stat__label">Operaciones de rescate técnico</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">3 niveles</span>
+    <span class="stat__label">Awareness / Operations / Technician</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">6+</span>
+    <span class="stat__label">Disciplinas operativas</span>
+  </div>
+</div>
+
+<figure>
+  <img src="/images/equipo-bomberos/equipo-rescate-tecnico-nfpa-1006.avif" alt="Equipo de rescate técnico desplegado con sistema de cuerdas, arneses y EPP NFPA" loading="lazy" width="900" height="600" />
+  <figcaption>Sistema integrado de rescate técnico — equipo de cuerda NFPA 1983, EPP NFPA 1951, herramientas hidráulicas NFPA 1936 y comunicaciones. La integración es tan crítica como cada componente individual.</figcaption>
+</figure>
+
+<div class="callout callout--fire">
+  <span class="callout__icon">!</span>
+  <div class="callout__body">
+    <span class="callout__title">El rescate técnico no perdona improvisación</span>
+    <p>La diferencia entre rescate técnico y combate estructural es operacional: en estructural el operador puede retirarse y reorganizar. En rescate técnico, una vez iniciado el descenso, la carga está aplicada o la herramienta hidráulica está en operación, <strong>no hay segunda oportunidad</strong>. Esta realidad justifica que toda la cadena —personal, equipo, protocolo— exija certificación NFPA verificable.</p>
+  </div>
+</div>
+
 ## ¿Qué es el rescate técnico y qué lo diferencia del combate de incendios?
 
 **Combate de incendios** = apagar el fuego, evacuar residentes, proteger la estructura.
@@ -16828,42 +20362,126 @@ R: Sí, frecuentemente. Casos de derrumbes, atrapamientos profundos o complejos 
 
 ---
 
-## CTA: Auditoría y equipamiento de rescate técnico
+## Equipamiento BOMBERO MX — Línea Completa de Rescate Técnico
 
-¿Tu corporación necesita armar o actualizar un equipo de rescate técnico?
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">Equipo de cuerda NFPA 1983</h4>
+    <p class="feature__text">Cuerdas estáticas Sterling/PMI/Yale, arneses Petzl Avao Bod/CMC ProSeries, descensores Petzl I'D / CMC MPD, poleas, anclajes.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Herramientas hidráulicas NFPA 1936</h4>
+    <p class="feature__text">Holmatro CORE, LUKAS eFORCE, Hurst eDRAULIC. Cizallas, expansores, arietes y combos con ≥600 kN para UHSS.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">EPP de rescate NFPA 1951</h4>
+    <p class="feature__text">Cascos Petzl Vertex Vent, Team Wendy EXFIL Rescue, CMC Cascade. Guantes y trajes para perfil de rescate técnico.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA + detección multigas</h4>
+    <p class="feature__text">MSA G1 / Scott Air-Pak para espacios confinados, complementado con detectores RAE/MSA Altair para O₂, CO, H₂S, LEL.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Equipo USAR INSARAG</h4>
+    <p class="feature__text">Configuración para equipos USAR Light/Medium/Heavy según clasificación INSARAG, con cobertura completa de búsqueda y rescate.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Coordinación de capacitación NFPA 1006</h4>
+    <p class="feature__text">Capacitación Awareness/Operations/Technician por disciplina con instructores certificados y documentación archivable.</p>
+  </div>
+</div>
 
-Realizamos:
-- **Auditoría de equipo existente** — identificamos déficits, antiguedad, necesidad de reemplazo
-- **Capacitación NFPA 1006** — Awareness, Operations, Technician
-- **Suministro de equipo certificado** — todo con documentación de pruebas de laboratorio
-- **Programa de mantenimiento** — inspección regular, recertificación
+<div class="cta-box">
+  <h3>Equipo de rescate técnico completo con certificación NFPA</h3>
+  <p>Auditoría de equipo existente · Configuración por disciplina · Suministro certificado · Capacitación NFPA 1006 · Coordinación INSARAG</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar auditoría técnica</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
-**[Solicita evaluación de tu equipo →](https://wa.me/52xxxxxxxxx?text=Auditor%C3%ADa%20equipo%20rescate%20t%C3%A9cnico%20NFPA%201006)**
+---
 
-Explora más:
-- [Equipo de bomberos →](/equipo-bomberos/)
-- [Trajes y protección →](/trajes-para-bombero/)
-- [Normativas NFPA →](/normas-nfpa/)
+## Referencias Normativas
+
+- **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications
+- **NFPA 1670** — Standard on Operations and Training for Technical Search and Rescue Incidents
+- **NFPA 1983** — Standard on Life Safety Rope and Equipment for Emergency Services
+- **NFPA 1936** — Standard on Powered Rescue Tools (extricación vehicular)
+- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents
+- **NFPA 1407** — Standard for Training Fire Service Rapid Intervention Crews
+- **NFPA 1500** — Standard on Fire Department Occupational Safety, Health, and Wellness Program
+- **NFPA 1006** — Vehicle Rescue Operations
+- **INSARAG Guidelines** — International Search and Rescue Advisory Group (Light/Medium/Heavy)
+- **EN 12492** — Mountaineering Helmets (referencia complementaria)
+- **EN 1891** — Personal protective equipment for prevention of falls from a height
+- **ASTM F1772** — Standard Specification for Harnesses for Rescue Services
+- **NOM-033-STPS-2015** — Condiciones de seguridad para realizar trabajos en espacios confinados
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Rescate en Altura NFPA 1983](/blog/rescate-en-altura-cuerdas-nfpa-1983/)
+- [Rescate Vehicular Moderno UHSS / EV](/blog/rescate-vehicular-tecnicas/)
+- [Extricación Vehicular Jaws of Life](/blog/extricacion-vehicular-jaws-of-life-mexico/)
+- [Casco Rescate Técnico NFPA 1951](/blog/casco-rescate-nfpa-1951/)
+- [Guantes para Bombero — NFPA 1951](/blog/guantes-para-bombero-guia-completa/)
+- [SCBA NFPA 1981 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
+- [HAZMAT Niveles de Protección](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Bomberos CDMX — Edificios Altos](/blog/bomberos-cdmx-equipo-nfpa/)
+- [Bomberos Guadalajara — Operación Vertical](/blog/bomberos-guadalajara-equipo-nfpa/)
     `,
   },
 
   "arff-bomberos-aeroportuarios-mexico": {
-    titulo: "Bomberos ARFF: Equipo y Protocolo en Aeropuertos Mexicanos",
-    excerpt: "Guía técnica de bomberos ARFF (Aircraft Rescue and Fire Fighting). Especialidad en respuesta de emergencias aeroportuarias, equipo certificado NFPA 1003, vehículos de combate, protocolo de rescate aéreo y capacitación en México.",
+    titulo: "Bomberos ARFF en México: NFPA 1003, 402, 403 y 405 — Marco Operativo Aeroportuario 2026",
+    excerpt: "Manual técnico 2026 sobre ARFF (Aircraft Rescue and Fire Fighting) en México. Requisitos NFPA 1003/1976/402/403/405, categorías OACI Anexo 14, vehículos Oshkosh Striker / Rosenbauer Panther, EPP de proximidad, espuma AR-AFFF y aplicación en AICM, AIFA, CUN, GDL, MTY, AIQ.",
     imagen: "/images/directorio/arff-bomberos-aeroportuarios-01.avif",
     categoria: "Técnicas",
-    tags: ["ARFF Bomberos", "Emergencias Aeroportuarias", "NFPA 1003", "Bomberos Aeropuerto", "Rescate Aeronaves", "Protección Civil Aeroportuaria"],
+    tags: ["ARFF", "NFPA 1003", "NFPA 1976", "NFPA 402", "NFPA 403", "OACI Anexo 14", "AFAC", "Rosenbauer Panther", "Oshkosh Striker"],
     autor: "Equipo BOMBERO.MX",
-    autorRol: "Especialistas en Bomberos Aeroportuarios",
+    autorRol: "Equipo Técnico — Línea ARFF",
     anchorKeyword: "Bomberos ARFF aeroportuarios México equipo y protocolo",
     contenido: `
-## Qué son los Bomberos ARFF y Por Qué los Aeropuertos Mexicanos los Necesitan
+## ARFF en México: Marco Normativo y Operativo de la Especialidad Aeroportuaria
 
-**ARFF** (Aircraft Rescue and Fire Fighting) es la especialidad de bomberos dedicada exclusivamente a emergencias en aeropuertos: incendios de aeronaves, accidentes de pista, derrames de combustible y evacuaciones masivas. No son bomberos municipales adaptados — son una categoría técnica independiente con estándares internacionales propios.
+**ARFF (Aircraft Rescue and Fire Fighting)** designa la especialidad de bomberos dedicada exclusivamente a emergencias en aeropuertos: incendios de aeronaves, accidentes de pista, derrames de combustible Jet A, evacuaciones masivas y rescate post-impacto. **No es una variante adaptada del cuerpo estructural municipal**: es una categoría técnica independiente con estándares internacionales propios (NFPA, OACI, FAA Part 139, ICAO Annex 14) y una doctrina operativa centrada en una variable crítica: el tiempo de respuesta desde alerta a aplicación de espuma.
 
-En México, la aviación comercial mueve más de **90 millones de pasajeros anuales**. El AICM, CUN, GDL y MTY concentran el 70% del tráfico. Según datos de la AFAC (Agencia Federal de Aviación Civil), entre 2018 y 2023 se registraron más de 40 incidentes aeroportuarios significativos — desde abortos de despegue hasta incendios de tren de aterrizaje. La respuesta promedio exigida por la OACI: **3 minutos para llegar al punto de impacto**.
+La aviación comercial mexicana movió más de **90 millones de pasajeros en 2024**, concentrados en seis aeropuertos principales: **AICM (Ciudad de México), AIFA (Felipe Ángeles), CUN (Cancún), GDL (Guadalajara), MTY (Monterrey) y AIQ (Querétaro)**. La normativa nacional aplicable se ejerce a través de la **Agencia Federal de Aviación Civil (AFAC)** y se alinea con el **Anexo 14 del Convenio sobre Aviación Civil Internacional (OACI)**.
 
-Los bomberos ARFF aeroportuarios en México están regulados por la NFPA, la OACI (Anexo 14) y la normativa nacional de la SCT/AFAC.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">3 min</span>
+    <span class="stat__label">Tiempo respuesta OACI Anexo 14</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1003</span>
+    <span class="stat__label">Cualificación profesional</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 1976</span>
+    <span class="stat__label">EPP de proximidad ARFF</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10</span>
+    <span class="stat__label">Categorías OACI por aeronave</span>
+  </div>
+</div>
+
+<figure>
+  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif?lossy=1&strip=all" alt="Casco ARFF aeroportuario para operación de rescate de aeronaves" loading="lazy" width="900" height="600" />
+  <figcaption>Casco ARFF aeroportuario — diseño con visera tintada y protección de nuca extendida para operación en proximidad de fuegos de combustible Jet A.</figcaption>
+</figure>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Diferencia operativa fundamental</span>
+    <p>Un bombero estructural NFPA 1971 NO está cualificado para operar como ARFF sin la <strong>certificación NFPA 1003 + capacitación específica de vehículo y EPP NFPA 1976</strong>. La inversa también aplica: un bombero ARFF no está cualificado para combate estructural sin recertificación. Esta es una distinción regulatoria, no jerárquica.</p>
+  </div>
+</div>
 
 ---
 
@@ -17027,46 +20645,117 @@ El AICM opera brigada propia bajo supervisión de la AFAC, con personal certific
 
 ---
 
-## Conclusión
+## Equipamiento BOMBERO MX para Brigadas ARFF
 
-La especialidad ARFF requiere entrenamiento continuo, equipo especializado y coordinación perfecta con autoridades aeroportuarias. En BOMBERO.MX equipamos a brigadas ARFF de todo México con protección personal, sistemas de detección y agentes extintores certificados NFPA.
+La operación ARFF tiene una matriz de equipamiento específica que no comparte mucho con las brigadas estructurales municipales. La selección debe considerar la categoría OACI del aeropuerto, el espectro de aeronaves operadas, el tipo de combustible predominante (Jet A en líneas comerciales, Avgas en aviación general) y los protocolos de coordinación con la torre de control local.
 
-### ¿Listo para Equipar tu Brigada ARFF?
+<div class="feature-grid">
+  <div class="feature">
+    <h4 class="feature__title">EPP de proximidad NFPA 1976</h4>
+    <p class="feature__text">Trajes con recubrimiento aluminizado reflectivo para calor radiante de combustible aeronáutico. Configuración con cascos ARFF y guantes de proximidad de alta dexteridad.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">SCBA NFPA 1981 compatible</h4>
+    <p class="feature__text">Configuraciones MSA G1, Scott Air-Pak y Dräger PSS con máscaras compatibles con casco ARFF y cilindros composite de 30–45 minutos para ciclos operativos cortos.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Espumógenos AR-AFFF</h4>
+    <p class="feature__text">Concentrados al 3% y 6% certificados ICAO Nivel B / NFPA 412 para extinción de Jet A. Compatibilidad documentada con monitores y boquillas Elkhart Brass.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Monitores y boquillas</h4>
+    <p class="feature__text">Elkhart Brass Spitfire, RAM, Cobra y Sidewinder para aplicación de espuma y agua a alto caudal en operaciones de cobertura de fuselaje.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Cámaras termográficas NFPA 1801</h4>
+    <p class="feature__text">FLIR K-Series y MSA Evolution para localización de víctimas en humo de cabina y verificación de puntos calientes post-aplicación de espuma.</p>
+  </div>
+  <div class="feature">
+    <h4 class="feature__title">Documentación regulatoria</h4>
+    <p class="feature__text">Cada lote incluye certificación NFPA vigente, declaración de conformidad ICAO/OACI cuando aplica, y ficha técnica auditable por AFAC.</p>
+  </div>
+</div>
 
-- [**Ver catálogo de equipo ARFF →**](/productos/)
-- [**Solicitar cotización de equipo aeroportuario →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
-
-### Artículos Relacionados
-
-- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa/)
-- [**Traje de Aproximación: Calor Radiante ARFF →**](/blog/traje-aproximacion-calor-radiante/)
-- [**Cascos para Bombero: Tipos y Selección →**](/blog/cascos-bombero-tipos/)
+<div class="cta-box">
+  <h3>Equipamiento ARFF para aeropuertos mexicanos</h3>
+  <p>Configuraciones específicas para categorías OACI 6–10 · Asesoría técnica de espumógenos y boquillería · Documentación AFAC</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
 
 ---
 
-*Artículo preparado por el equipo de especialistas de BOMBERO.MX. Contenido técnico basado en NFPA 1003 Standard for Airport Fire Fighter Professional Qualifications, regulaciones OACI Anexo 14, y experiencia en equipamiento de brigadas ARFF en aeropuertos mexicanos.*
+## Referencias Normativas
+
+- **NFPA 1003** — Standard for Airport Fire Fighter Professional Qualifications
+- **NFPA 1976** — Standard on Protective Ensembles for Proximity Fire Fighting
+- **NFPA 402** — Guide for Aircraft Rescue and Fire-Fighting Operations
+- **NFPA 403** — Standard for Aircraft Rescue and Fire-Fighting Services at Airports
+- **NFPA 405** — Standard for the Recurring Proficiency of Airport Fire Fighters
+- **NFPA 412** — Standard for Evaluating Aircraft Rescue and Fire-Fighting Foam Equipment
+- **NFPA 414** — Standard for Aircraft Rescue and Fire-Fighting Vehicles
+- **ICAO Annex 14** — Aerodromes (Volume I, Chapter 9, Rescue and Fire Fighting)
+- **ICAO Document 9137** — Airport Services Manual, Part 1: Rescue and Fire Fighting
+- **FAA 14 CFR Part 139** — Certification of Airports (referencia operativa internacional)
+- **NOM-027-SCT3-2012** — Lineamientos para el rescate y extinción de incendios en aeronaves (México)
+
+---
+
+### Artículos Relacionados
+
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Bomberos Querétaro — Clúster Aeroespacial AIQ](/blog/bomberos-queretaro-equipo-nfpa/)
+- [SCBA MSA G1 vs Scott Air-Pak](/blog/scba-msag1-vs-scott-airpak/)
+- [Cámara Termográfica TIC NFPA 1801](/blog/camara-termica-tic-bomberos-nfpa-1801/)
+- [HAZMAT Niveles de Protección](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [NFPA 1971: Guía Completa del EPP Estructural](/blog/nfpa-1971-guia-completa/)
     `,
   },
 
   "gama-de-mexico-aliado-industria-mexicana": {
-    titulo: "Gama de México: El Aliado que la Industria Mexicana Eligió para Protegerse del Fuego",
-    excerpt: "Cómo Gama de México se ganó la confianza de plantas, refinerías, hospitales y centros logísticos del país: distribución Elkhart Brass autorizada, asesoría técnica que sí entiende NFPA y entregas que llegan cuando importan.",
+    titulo: "Gama de México: Distribuidor de Equipo Contra Incendio Industrial — Análisis Operativo 2026",
+    excerpt: "Análisis del modelo operativo de Gama de México como distribuidor industrial de equipo contra incendio en México: trayectoria de 15+ años, hubs CDMX/Querétaro, autorización Elkhart Brass, asesoría NFPA/NOM y aplicación en manufactura, refinería, hospital, hotelería y logística.",
     imagen: "/images/directorio/estacion-bomberos-industrial-01.avif",
     categoria: "Industrial",
-    tags: ["Gama de México", "Elkhart Brass México", "Distribuidor Equipo Contra Incendio", "NFPA 13 14 24", "Seguridad Industrial México", "CDMX Querétaro Bajío"],
+    tags: ["Gama de México", "Elkhart Brass", "Distribuidor Industrial", "NFPA 13", "NFPA 14", "NFPA 24", "CDMX", "Querétaro"],
     autor: "Equipo Editorial BOMBERO.MX",
-    autorRol: "Análisis de Proveedores Especializados en Protección Contra Incendio",
+    autorRol: "Análisis Editorial — Mercado Mexicano",
     anchorKeyword: "Gama de México proveedor equipo contra incendio industria mexicana NFPA",
     contenido: `
-## La pregunta que se escucha en cada arranque de planta
+## Gama de México: Modelo Operativo como Distribuidor Industrial de Equipo Contra Incendio
 
-Cada vez que un nuevo gerente de seguridad industrial se sienta frente a su lista de proveedores, termina formulando una versión de la misma duda: "¿con quién me conviene casarme para todo lo de fuego?". No es una pregunta menor. Apostar mal significa redes a medio cumplir, válvulas que la aseguradora rechaza, refacciones imposibles de encontrar y, eventualmente, una llamada incómoda a las cuatro de la mañana.
+La selección de un proveedor de equipo contra incendio para una operación industrial es una decisión con implicaciones de largo plazo. Una mala elección se traduce en redes parcialmente conformes, componentes rechazados en auditoría de aseguradora, refacciones de difícil acceso y exposición operativa durante la ventana de no-cumplimiento. El criterio decisivo no es el precio de lista, sino la **integridad de la cadena técnica completa**: autorización del fabricante, inventario verificable, documentación auditable y soporte post-venta sostenido en el tiempo.
 
-En esa conversación, **Gama de México** aparece con una frecuencia que llama la atención. Y no por publicidad: cuando se contactan plantas industriales que ya pasaron varios ciclos de auditoría, la empresa termina mencionada como el proveedor "que sí entiende". Vale la pena entender por qué.
+**Gama de México** opera en este segmento desde hace **más de 15 años** como distribuidor especializado en equipo contra incendio industrial. Su modelo combina la **autorización oficial de Elkhart Brass** —referencia mundial en monitores, boquillas y accesorios de combate— con dos hubs operativos estratégicos en **Ciudad de México (Santa Fe)** y **Querétaro**, cubriendo el corredor industrial que concentra la mayor parte de la manufactura, refinería, logística y construcción del país.
 
-Si tu operación necesita complementar la red fija con [venta de equipos contra incendios](https://bombero.mx/) certificados para brigadas y bomberos profesionales, la oferta nacional especializada permite cerrar el círculo de la protección desde la tubería hasta el cuerpo del operador.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">15+</span>
+    <span class="stat__label">Años de trayectoria</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">2 hubs</span>
+    <span class="stat__label">CDMX (Santa Fe) + Querétaro</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">Elkhart Brass</span>
+    <span class="stat__label">Distribución autorizada</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">UL / FM</span>
+    <span class="stat__label">Certificación catálogo</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Sistema combinado: equipo fijo + EPP de brigada</span>
+    <p>Gama de México suministra <strong>equipo fijo y sistemas</strong> (monitores, boquillas, válvulas, hidrantes, mangueras). <strong>BOMBERO MX</strong> suministra el <strong>EPP NFPA personal</strong> (trajes, SCBA, cascos, capuchas, herramientas de rescate) que la brigada operativa requiere. Para proyectos industriales completos —típicamente plantas químicas, refinerías y centros aeroportuarios— ambas líneas se especifican en paralelo bajo el mismo marco NFPA / NOM-002-STPS.</p>
+  </div>
+</div>
 
 ---
 
@@ -17196,37 +20885,89 @@ Su enfoque es suministro técnico. Trabajan en alianza con instaladores certific
 
 ---
 
-## Cierre: una empresa que se ganó su lugar a la antigua
+## Conclusión
 
-Pocas cosas son tan honestas como una recomendación entre operadores de planta. Si Gama de México ha aparecido tantas veces en esas conversaciones no es por publicidad: es porque ha entregado consistencia, asesoría y producto cuando ha tocado entregarlo. En un sector donde el error tiene cara de tragedia, esa consistencia es el activo más valioso que un proveedor puede acumular.
+El mercado mexicano de equipo contra incendio industrial premia la consistencia técnica acumulada a lo largo de ciclos completos de auditoría. Un proveedor que ya pasó esos ciclos con clientes industriales relevantes ofrece una garantía implícita más confiable que cualquier promesa comercial: **historial documentable de cumplimiento**.
 
-Para responsables de seguridad, compras y operaciones de la industria mexicana, eso convierte a Gama de México en lo que pocos proveedores logran ser: **un aliado, no solo una factura**.
+**Gama de México** se ha consolidado en ese segmento por la combinación específica de **autorización Elkhart Brass + dos hubs operativos + asesoría técnica con dominio NFPA/NOM**. Para responsables de seguridad industrial, compras y mantenimiento esto se traduce en una relación de proveedor que reduce riesgo de incumplimiento y costo total de propiedad del sistema.
+
+Para la línea complementaria de **EPP NFPA personal** que las brigadas operativas requieren, **BOMBERO MX** mantiene el mismo estándar documental y opera desde CDMX con cobertura nacional.
+
+<div class="cta-box">
+  <h3>EPP NFPA para brigadas industriales</h3>
+  <p>Trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas y herramientas de rescate con documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+## Referencias Normativas
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NFPA 13, 14, 24, 25** — Estándares de instalación e inspección de sistemas fijos
+- **NFPA 1962** — Care, Use, Inspection, Service Testing of Fire Hose
+- **UL Listing / FM Approval Standards** — Certificación internacional de componentes
+- **NOM-017-STPS-2008** — EPP en centros de trabajo
+
+---
 
 ### Artículos Relacionados
 
-- [**MESECI: 16 Años Protegiendo México →**](/blog/meseci-equipos-contra-incendio-mexico/)
-- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
-- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Distribución Autorizada Elkhart Brass](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
+- [Logística Nacional Gama de México](/blog/gama-de-mexico-logistica-nacional-cdmx-queretaro/)
+- [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Bomberos Monterrey — corredor industrial](/blog/bomberos-monterrey-equipo-nfpa/)
+- [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
   },
 
   "gama-de-mexico-elkhart-brass-distribuidor-autorizado": {
-    titulo: "Por qué un Distribuidor Autorizado Elkhart Brass como Gama de México Cambia el Juego",
-    excerpt: "Distribuir Elkhart Brass no es solo poner un logo en la tarjeta. Te contamos qué implica la autorización de fábrica, qué cambia para tu proyecto y por qué Gama de México lo lleva en serio en México.",
+    titulo: "Distribución Autorizada Elkhart Brass en México: Marco Operativo, Certificación UL/FM y Casos de Aplicación Industrial",
+    excerpt: "Análisis técnico sobre el modelo de distribución autorizada de Elkhart Brass en México a través de Gama de México. Implicaciones operativas para refinerías, manufactura, aeropuertos y centros de distribución; certificaciones UL/FM, trazabilidad y cumplimiento NFPA 13/14/24.",
     imagen: "/images/directorio/estacion-bomberos-industrial-01.avif",
     categoria: "Industrial",
-    tags: ["Elkhart Brass México", "Gama de México", "Monitores Contra Incendio", "Boquillas Elkhart", "Válvulas UL FM", "Distribuidor Autorizado"],
+    tags: ["Elkhart Brass", "Gama de México", "Monitores Contra Incendio", "UL/FM", "NFPA 13", "NFPA 14", "Distribución Autorizada"],
     autor: "Equipo Editorial BOMBERO.MX",
-    autorRol: "Análisis de Marcas Premium en Protección Contra Incendio",
+    autorRol: "Análisis Técnico — Marcas Premium",
     anchorKeyword: "Gama de México distribuidor autorizado Elkhart Brass equipos UL FM México",
     contenido: `
-## La diferencia entre "vender" y "estar autorizado a vender"
+## Distribución Autorizada: Por Qué la Cadena de Custodia Importa en Equipo Contra Incendio Fijo
 
-Hay un detalle del mercado mexicano que pocos compradores ponen sobre la mesa hasta que llega un problema: **no todo el que vende una marca está autorizado por la marca**. Suena obvio escrito, pero en la práctica es la causa raíz de la mitad de los conflictos de garantía, refacciones y cumplimiento que se viven en proyectos de protección contra incendio.
+El mercado mexicano de equipo contra incendio presenta una asimetría estructural poco discutida: **no todo distribuidor que ofrece una marca está autorizado por el fabricante**. Esta distinción —administrativamente menor, operativamente decisiva— es la causa raíz documentada de la mayoría de los conflictos de garantía, suministro de refacciones y cumplimiento normativo en proyectos de sistemas fijos contra incendio sujetos a auditoría de aseguradora o autoridad federal.
 
-Por eso vale la pena hablar específicamente de la relación entre **Gama de México y Elkhart Brass**. No como una nota publicitaria, sino como un caso de estudio sobre por qué la distribución autorizada importa más de lo que parece.
+Este análisis aborda específicamente la relación entre **Gama de México** y **Elkhart Brass** como caso operativo. No es contenido promocional: es un examen técnico de por qué la **trazabilidad de canal de distribución** condiciona la validez de las certificaciones UL/FM y el cumplimiento NFPA 13 / 14 / 24 en sistemas fijos de protección contra incendio instalados en territorio nacional.
 
-Y si tu siguiente proyecto requiere reforzar el lado fijo con [equipo contra incendios certificado NFPA](https://bombero.mx/) para uso del personal en brigadas industriales, conviene saber que el mercado nacional ofrece soluciones complementarias bajo el mismo estándar de exigencia técnica.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">UL / FM</span>
+    <span class="stat__label">Certificación internacional referencia</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">2,000 GPM</span>
+    <span class="stat__label">Caudal máx. monitor Stinger</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 13/14/24</span>
+    <span class="stat__label">Normas sistemas fijos</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">15–25 años</span>
+    <span class="stat__label">Vida útil esperada</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Separación de líneas de producto</span>
+    <p><strong>Gama de México</strong> es distribuidor autorizado de equipo <strong>fijo</strong> Elkhart Brass (monitores, boquillas, válvulas, conexiones). <strong>BOMBERO MX</strong> opera la línea complementaria de <strong>EPP NFPA personal</strong> (trajes, SCBA, cascos, herramientas). Para proyectos integrales —típicamente refinerías, plantas químicas, aeropuertos— ambas líneas se especifican en paralelo bajo el mismo marco normativo.</p>
+  </div>
+</div>
 
 ---
 
@@ -17369,39 +21110,88 @@ Funciona, pero pierdes garantía de fábrica, posiblemente certificación docume
 
 ---
 
-## Cierre: la autorización es lo que sostiene la promesa
+## Conclusión Técnica
 
-Comprar equipo contra incendio no es una transacción más; es construir una cadena de confianza que se activa cuando todo lo demás falla. Esa cadena empieza en la línea de producción de Elkhart Brass y termina en la mano del brigadista que abre una válvula a las tres de la mañana. **El distribuidor autorizado es lo que mantiene esa cadena intacta**.
+La adquisición de equipo contra incendio fijo no es una operación comercial aislada: construye la **cadena de custodia técnica** que valida la operación del sistema cuando el incidente real ocurre. Esta cadena inicia en la línea de producción de Elkhart Brass, transita por la documentación de un distribuidor autorizado y finaliza en la mano del operador que ejecuta la válvula. **La autorización de fábrica es el eslabón que evita ruptura documental en cualquier punto del proceso**, particularmente ante auditorías de aseguradora, AFAC, Protección Civil o STPS.
 
-En México, ese papel lo ha tomado Gama de México con una seriedad que no abunda. Por eso, cuando alguien pregunta dónde conseguir Elkhart Brass con respaldo real, la respuesta no admite muchas variantes.
+En el caso mexicano, **Gama de México** ha consolidado el rol de distribuidor autorizado Elkhart Brass con la disciplina documental y técnica que la marca exige. Para proyectos donde el equipo fijo se integra con dotación de EPP NFPA para brigadas operativas, **BOMBERO MX** complementa la oferta con la línea de protección personal certificada.
+
+<div class="cta-box">
+  <h3>Especificación combinada de equipo fijo + EPP NFPA</h3>
+  <p>Proyectos integrales: Elkhart Brass vía Gama de México (sistemas fijos) + BOMBERO MX (EPP de brigada). Asesoría técnica conjunta para refinerías, plantas químicas, aeropuertos y centros de distribución.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+## Referencias Normativas
+
+- **NFPA 13** — Standard for the Installation of Sprinkler Systems
+- **NFPA 14** — Standard for the Installation of Standpipe and Hose Systems
+- **NFPA 24** — Standard for the Installation of Private Fire Service Mains and Their Appurtenances
+- **NFPA 1962** — Standard for the Care, Use, Inspection, Service Testing, and Replacement of Fire Hose, Couplings, Nozzles, and Fire Hose Appliances
+- **UL 162 / UL 199** — Estándares de listado para componentes de sistemas contra incendio
+- **FM Approval Standards** — clases 5500, 5520 y relacionadas
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+
+---
 
 ### Artículos Relacionados
 
-- [**MESECI: 16 Años Protegiendo México →**](/blog/meseci-equipos-contra-incendio-mexico/)
-- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa/)
-- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [HAZMAT: Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Bomberos Monterrey — corredor industrial Apodaca](/blog/bomberos-monterrey-equipo-nfpa/)
+- [Bomberos Pachuca — refinería Tula](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
+- [Extintores por Clase de Fuego NOM-002-STPS](/blog/extintores-tipos-clases-fuego-mexico/)
+- [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
   },
 
   "gama-de-mexico-cumplimiento-normativo-nfpa-mexico": {
-    titulo: "Sobrevivir una Auditoría de Protección Civil: Cómo Gama de México Ayuda a no Quedar Mal Parado",
-    excerpt: "El día que llega la inspección, los papeles importan tanto como el equipo. Te contamos cómo el catálogo y la documentación de Gama de México facilitan el cumplimiento NFPA 13, 14, 24 y NOM-002-STPS-2010.",
+    titulo: "Cumplimiento NFPA y NOM-002-STPS-2010 en México: Marco de Auditoría y Documentación de Sistemas Contra Incendio",
+    excerpt: "Marco técnico de cumplimiento contra incendio para industria mexicana: aplicación combinada NFPA 10/13/14/20/24/25 y NOM-002-STPS-2010, evidencia documental para auditoría STPS / Protección Civil / aseguradoras, y cómo Gama de México estructura su catálogo para satisfacer estos requisitos.",
     imagen: "/images/directorio/estacion-bomberos-industrial-01.avif",
     categoria: "Normativas",
-    tags: ["NOM-002-STPS-2010", "NFPA 13", "NFPA 14", "NFPA 24", "Auditoría Protección Civil", "Cumplimiento Industria", "Gama de México"],
+    tags: ["NOM-002-STPS-2010", "NFPA 10", "NFPA 13", "NFPA 14", "NFPA 25", "Auditoría", "Cumplimiento Industrial"],
     autor: "Equipo Editorial BOMBERO.MX",
-    autorRol: "Especialistas en Normativa de Protección Contra Incendio",
+    autorRol: "Análisis Editorial — Normativa Industrial",
     anchorKeyword: "Cumplimiento NFPA NOM-002-STPS-2010 protección contra incendio México con Gama de México",
     contenido: `
-## El día que llega la inspección
+## Cumplimiento Contra Incendio en México: La Combinación Equipo + Documentación
 
-Todo responsable de seguridad industrial tiene una versión de la misma historia. Una mañana cualquiera entra un correo, suena un teléfono, o aparece alguien con gafete: protección civil. STPS. Auditor de la aseguradora. Auditor interno corporativo. La rutina es siempre la misma: revisar carpetas, recorrer pasillos, abrir gabinetes, fotografiar válvulas, pedir certificados.
+Toda auditoría de protección contra incendio en centro de trabajo mexicano —ya sea originada por **STPS**, **Protección Civil estatal/municipal**, **aseguradora** o **auditoría corporativa interna**— evalúa simultáneamente **dos dimensiones inseparables**: la conformidad técnica del equipo instalado y la evidencia documental que respalda esa conformidad. Un componente físicamente excelente sin documentación auditable se trata, para efectos de hallazgo, como un componente no conforme. Inversamente, un sistema correctamente documentado simplifica la auditoría y previene observaciones que pueden derivar en suspensión de operaciones o rechazo de pólizas.
 
-Quien ha pasado por esto sabe que **lo que decide la auditoría no es el equipo físico, sino la combinación de equipo + papel**. Un componente excelente sin documentación que lo respalde es, para efectos prácticos, un componente medio aprobado. Y un componente promedio bien documentado puede salvar el día.
+Este análisis aborda el **marco normativo aplicable a sistemas contra incendio en México** —combinación de la NOM-002-STPS-2010 como base obligatoria y de las normas NFPA como referencia técnica internacional aceptada— y describe cómo el modelo operativo de **Gama de México** como distribuidor autorizado Elkhart Brass facilita la conformidad documental que las auditorías exigen.
 
-Aquí es donde **Gama de México** se vuelve aliado clave de los responsables de seguridad: su modelo de negocio está construido sobre equipos que cumplen NFPA y NOM con documentación verificable. Eso no es un detalle, es la columna vertebral del cumplimiento.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">NOM-002-STPS-2010</span>
+    <span class="stat__label">Norma base obligatoria</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">7+</span>
+    <span class="stat__label">NFPA aplicables a industria</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">UL / FM</span>
+    <span class="stat__label">Listado / aprobación aseguradora</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">NFPA 25</span>
+    <span class="stat__label">Inspección y mantenimiento</span>
+  </div>
+</div>
 
-Cuando además se necesita reforzar el cumplimiento con [venta de equipos contra incendios](https://bombero.mx/) certificados para el uso del personal de brigada y bomberos profesionales, el mercado mexicano ofrece complementos especializados que mantienen el mismo estándar de evidencia técnica.
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Cobertura de líneas</span>
+    <p><strong>Gama de México</strong> cubre el equipo fijo (monitores, boquillas, válvulas, mangueras) bajo Elkhart Brass. <strong>BOMBERO MX</strong> cubre el EPP NFPA personal (trajes, SCBA, cascos) que las brigadas operativas requieren conforme NOM-017-STPS-2008 y NFPA 1971/1981. Una auditoría completa evalúa ambas dimensiones.</p>
+  </div>
+</div>
 
 ---
 
@@ -17564,37 +21354,89 @@ Depende del estado y municipio. Por lo general, una combinación de protección 
 
 ---
 
-## Cierre: cumplir no es trámite, es operar
+## Conclusión Técnica
 
-Lo aprendido por muchos responsables de seguridad después de años en el sector cabe en una frase: cumplir la normativa contra incendios no es un gasto, es la cuota de entrada para seguir operando. Gama de México ha construido un negocio alrededor de esa idea, y por eso aparece tantas veces en proyectos donde la auditoría no es una amenaza, sino un trámite que se pasa con tranquilidad.
+El cumplimiento de la normativa contra incendio en México **no es un trámite administrativo sino una condición operativa permanente**. El modelo más eficiente —y el más económico en horizonte de cinco a diez años— combina equipo certificado UL/FM/NFPA con documentación auditable continua, programa de inspección NFPA 25 ejecutado y bitácora actualizada. Cualquier eslabón ausente convierte el sistema en vulnerable ante auditoría, hallazgo de aseguradora o, en el peor escenario, ante el incidente real.
 
-Para responsables de seguridad industrial que toman en serio sus obligaciones, Gama de México es el tipo de aliado con el que se construye una operación segura, auditable y sostenible en el tiempo.
+Para responsables de seguridad industrial mexicanos, **Gama de México** ofrece la línea de equipo fijo bajo este marco, y **BOMBERO MX** complementa con el EPP NFPA personal que la brigada operativa requiere para responder al evento sin generar exposición adicional.
+
+<div class="cta-box">
+  <h3>EPP NFPA para brigadas industriales certificadas</h3>
+  <p>Trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas y herramientas con documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+## Referencias Normativas
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-017-STPS-2008** — Equipo de protección personal – Selección, uso y manejo en los centros de trabajo
+- **NOM-018-STPS-2015** — Sistema Armonizado para la Identificación y Comunicación de Peligros y Riesgos por Sustancias Químicas Peligrosas
+- **NOM-154-SCFI-2005** — Extintores contra incendio – Servicio de mantenimiento y recarga
+- **NFPA 10, 13, 14, 20, 24, 25, 1962** — Estándares aplicables a sistemas fijos y consumibles
+- **NFPA 1971, 1976, 1977, 1981, 1991, 1992** — EPP por categoría operativa
+- **UL 162 / 199 / 711** y **FM Approval Standards** — listado y aprobación internacional
+
+---
 
 ### Artículos Relacionados
 
-- [**NFPA 1971: Guía Completa del Estándar →**](/blog/nfpa-1971-guia-completa/)
-- [**Brigadas Industriales: Equipo Esencial →**](/blog/brigadas-industriales-epp/)
-- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Extintores por Clase de Fuego NOM-002-STPS](/blog/extintores-tipos-clases-fuego-mexico/)
+- [Mantenimiento de Equipo NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Distribución Autorizada Elkhart Brass](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
+- [Logística Nacional Gama de México](/blog/gama-de-mexico-logistica-nacional-cdmx-queretaro/)
+- [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
   },
 
   "gama-de-mexico-logistica-nacional-cdmx-queretaro": {
-    titulo: "El Día que la Manguera no Llegó a Tiempo: Logística Industrial Vista por Gama de México",
-    excerpt: "En seguridad industrial, una entrega tardía puede costar líneas de producción enteras. Cómo Gama de México estructura su logística desde CDMX y Querétaro para que el equipo llegue cuando importa.",
+    titulo: "Logística Nacional de Equipo Contra Incendio en México: Modelo Operativo Gama de México (CDMX + Querétaro)",
+    excerpt: "Análisis técnico del modelo logístico de Gama de México: hubs CDMX y Querétaro, inventario verificable, tiempos por tipo de pedido, documentación al embarque y aplicación en manufactura just-in-time, refinerías, centros de distribución y construcción industrial.",
     imagen: "/images/directorio/estacion-bomberos-industrial-01.avif",
     categoria: "Industrial",
-    tags: ["Logística Industrial México", "Envíos Equipo Contra Incendio", "Gama de México", "CDMX Querétaro", "Cadena de Suministro NFPA", "Tiempos de Entrega"],
+    tags: ["Logística Industrial", "Cadena de Suministro NFPA", "Gama de México", "CDMX", "Querétaro", "Just-in-Time", "NFPA 25"],
     autor: "Equipo Editorial BOMBERO.MX",
-    autorRol: "Análisis de Cadena de Suministro en Protección Contra Incendio",
+    autorRol: "Análisis Operativo — Cadena de Suministro",
     anchorKeyword: "Gama de México logística envíos nacionales equipo contra incendio México",
     contenido: `
-## Lo que no se cuenta de la logística en este sector
+## Logística de Equipo Contra Incendio Fijo: Variable Operativa Subestimada
 
-Hay una conversación incómoda que pocos proveedores quieren tener: **en protección contra incendios, llegar tarde es una forma de fallar**. Una válvula vencida por reemplazar. Una manguera reventada en una prueba NFPA 25. Una boquilla que ya no aprueba inspección. Cada uno de esos eventos abre una ventana de no-cumplimiento que la operación necesita cerrar rápido.
+En operación industrial, **el tiempo entre solicitud y entrega de componentes de protección contra incendio condiciona directamente la ventana de no-cumplimiento**. Una válvula reemplazada con retraso prolonga el período en que un tramo del sistema opera fuera de NFPA 25. Una manguera fallada en prueba hidrostática que tarda dos semanas en reponerse es dos semanas de exposición documentada en bitácora. Aseguradoras y autoridades AHJ no aceptan "espera del proveedor" como justificación.
 
-Quienes trabajan en plantas saben que el cierre depende menos del precio del componente y más de algo aparentemente trivial: **cuánto tarda en llegar a la mano del brigadista**. Por eso vale la pena hablar de la operación logística de **Gama de México**, no como dato comercial, sino como parte de su propuesta de valor real.
+Este análisis examina el modelo logístico de **Gama de México** como caso operativo: arquitectura de dos hubs (CDMX y Querétaro), inventario verificable, tiempos de entrega tipificados por categoría de pedido y entrega documental al embarque. El objetivo es establecer un marco de comparación útil para responsables de compras, mantenimiento y seguridad industrial al evaluar proveedores de sistemas fijos contra incendio.
 
-Si en paralelo necesitas asegurar el suministro de [equipo contra incendios certificado NFPA](https://bombero.mx/) para el personal operativo, conviene saber que el mercado mexicano ofrece proveedores especializados que también respetan los tiempos críticos de la industria.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">2</span>
+    <span class="stat__label">Hubs operativos (CDMX + QRO)</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">1–3 días</span>
+    <span class="stat__label">Inventario en stock</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">2–6 sem.</span>
+    <span class="stat__label">Pedidos especiales fábrica</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">32</span>
+    <span class="stat__label">Estados de cobertura</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Líneas complementarias para proyectos integrales</span>
+    <p>Gama de México cubre <strong>equipo fijo</strong> (boquillas, monitores, válvulas, mangueras). Para la línea complementaria de <strong>EPP NFPA personal</strong> (trajes, SCBA, cascos, capuchas) destinada a brigadas operativas, BOMBERO MX opera el inventario equivalente con tiempos comparables desde CDMX.</p>
+  </div>
+</div>
 
 ---
 
@@ -17746,37 +21588,88 @@ Para clientes recurrentes y corporativos se evalúan condiciones de crédito seg
 
 ---
 
-## Cierre: la logística es parte del producto
+## Conclusión Operativa
 
-Cuando alguien compra una válvula a Gama de México, no compra solo la válvula: compra el **tiempo** que esa válvula tarda en estar lista para entrar en operación. Esa diferencia, que se ve pequeña sobre el papel, es enorme cuando se traduce a una planta que tiene que parar, una auditoría que se acerca o una brigada que necesita reemplazo de equipo.
+En sistemas de protección contra incendio, **el componente y su tiempo de entrega son inseparables como unidad funcional**. Una válvula UL/FM de catálogo premium que tarda seis semanas en llegar a planta tiene, durante esas seis semanas, **el mismo valor operativo que una válvula no certificada**: cero. La logística no es valor agregado al producto — es parte del producto.
 
-Por eso la logística de Gama de México no es un departamento administrativo: es parte central de la propuesta de valor. Y por eso la industria mexicana sigue regresando.
+El modelo de dos hubs estratégicos (CDMX + Querétaro) con inventario verificable y documentación al embarque que opera **Gama de México** resuelve la variable tiempo para la mayoría de los escenarios industriales mexicanos. Para proyectos donde la brigada operativa también requiere reposición rápida de EPP NFPA personal, **BOMBERO MX** mantiene un modelo paralelo desde CDMX para los 32 estados.
+
+<div class="cta-box">
+  <h3>Suministro coordinado: equipo fijo + EPP de brigada</h3>
+  <p>Proyectos industriales con dotación combinada de Gama de México (sistemas fijos) y BOMBERO MX (EPP NFPA). Tiempos comprometidos, documentación lista para auditoría.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+## Referencias Normativas
+
+- **NFPA 25** — Standard for the Inspection, Testing, and Maintenance of Water-Based Fire Protection Systems
+- **NFPA 13** — Standard for the Installation of Sprinkler Systems
+- **NFPA 14** — Standard for the Installation of Standpipe and Hose Systems
+- **NFPA 1962** — Standard for the Care, Use, Inspection, Service Testing, and Replacement of Fire Hose
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NOM-003-SEGOB-2011** — Señales y avisos para protección civil
+- **NOM-006-STPS-2014** — Manejo y almacenamiento de materiales
+
+---
 
 ### Artículos Relacionados
 
-- [**MESECI: 16 Años Protegiendo México →**](/blog/meseci-equipos-contra-incendio-mexico/)
-- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
-- [**Industria Protección Contra Incendio en México →**](/blog/industria-proteccion-contra-incendio-mexico-analisis/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Bomberos Querétaro — Logística Bajío](/blog/bomberos-queretaro-equipo-nfpa/)
+- [Cómo Cotizar Equipo Municipal](/blog/equipo-bomberos-municipal-como-cotizar/)
+- [Mantenimiento de Equipo NFPA 1851](/blog/mantenimiento-equipo-nfpa-bomberos/)
+- [Cascos Bullard vs Cairns](/blog/casco-bombero-bullard-vs-cairns/)
     `,
   },
 
   "gama-de-mexico-sectores-industriales-mexico": {
-    titulo: "De Refinerías a Hospitales: Cómo Gama de México se Adapta al ADN de Cada Sector",
-    excerpt: "Cada sector industrial tiene su propio mapa de riesgos. Te contamos cómo Gama de México adapta su oferta a refinerías, manufactura, logística, hospitales, hoteles y corporativos sin perder consistencia técnica.",
+    titulo: "Equipo Contra Incendio por Sector Industrial en México: Refinería, Manufactura, Logística, Hospital, Hotel — Análisis Técnico",
+    excerpt: "Análisis de aplicación de equipo contra incendio por sector industrial mexicano. Perfiles de riesgo específicos, normas NFPA aplicables (10/11/13/14/24/30/101) y configuraciones de catálogo Gama de México (Elkhart Brass) para refinería, manufactura, logística, hospital, hotel y corporativos.",
     imagen: "/images/directorio/estacion-bomberos-industrial-01.avif",
     categoria: "Industrial",
-    tags: ["Sectores Industriales", "Refinerías Equipo Contra Incendio", "Hospitales NFPA", "Centros de Distribución", "Hotelería Seguridad", "Gama de México"],
+    tags: ["Sectores Industriales", "Refinerías", "NFPA 11", "NFPA 13", "NFPA 14", "NFPA 101", "Hospitales", "Centros de Distribución", "Hotelería"],
     autor: "Equipo Editorial BOMBERO.MX",
-    autorRol: "Análisis Sectorial de Protección Contra Incendio",
+    autorRol: "Análisis Editorial — Aplicación Sectorial",
     anchorKeyword: "Gama de México sectores industriales protección contra incendio México refinerías hospitales",
     contenido: `
-## El error de hablar de "la industria" como si fuera una sola cosa
+## Selección de Equipo Contra Incendio por Sector: Marco Operativo Aplicado al Mercado Mexicano
 
-Cada vez que alguien habla de "equipo contra incendio para la industria" sin especificar sector, hay un problema escondido. La industria mexicana no es una; son muchas, y cada una tiene su propio mapa de riesgos, su propia normativa de referencia y su propio modo de operar. Lo que para una refinería es esencial, para un hospital es secundario, y viceversa.
+La especificación de equipo contra incendio para una instalación industrial **no admite plantillas genéricas**. Cada sector económico presenta una combinación particular de carga combustible, continuidad operativa requerida, normativa aplicable y perfil de personal expuesto. Una configuración apropiada para refinería —donde el riesgo dominante es combustión rápida de hidrocarburos en patios de almacenamiento— resulta inadecuada para un hospital, donde el desafío es la evacuación protegida de pacientes con movilidad limitada. Una solución validada para centro de distribución de e-commerce no se traslada automáticamente a una armadora automotriz.
 
-Una empresa que entiende este matiz es una empresa que adapta su oferta sin perder consistencia técnica. **Gama de México** ha construido su propuesta justamente sobre esa adaptabilidad sectorial: el mismo distribuidor, la misma calidad UL/FM, la misma seriedad documental, pero ajustando el catálogo y el discurso al ADN de cada cliente.
+Este análisis estructura la **selección de equipo contra incendio por sector industrial** en México con referencia explícita a las normas NFPA y NOM aplicables, describiendo las configuraciones que **Gama de México** ofrece para cada perfil sectorial bajo su autorización Elkhart Brass. Para la línea complementaria de EPP NFPA personal destinado a las brigadas internas de cada sector, **BOMBERO MX** opera el catálogo equivalente bajo la misma disciplina documental.
 
-Cuando una operación además necesita extender su cobertura hacia el [equipo de protección contra incendios](https://bombero.mx/) que las brigadas y bomberos usan en operaciones de combate, el ecosistema nacional permite mantener la consistencia técnica del proyecto.
+<div class="stats-grid">
+  <div class="stat">
+    <span class="stat__num">6</span>
+    <span class="stat__label">Sectores con perfil distinto</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">10+</span>
+    <span class="stat__label">NFPA aplicables por sector</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">UL / FM</span>
+    <span class="stat__label">Certificación catálogo</span>
+  </div>
+  <div class="stat">
+    <span class="stat__num">CDMX + QRO</span>
+    <span class="stat__label">Hubs operativos</span>
+  </div>
+</div>
+
+<div class="callout callout--info">
+  <span class="callout__icon">i</span>
+  <div class="callout__body">
+    <span class="callout__title">Sistema completo por sector</span>
+    <p>Cada sector requiere especificación dual: <strong>sistema fijo</strong> (rociadores, hidrantes, monitores, válvulas) provisto por Gama de México, y <strong>EPP NFPA personal</strong> (trajes, SCBA, cascos, herramientas) para la brigada interna —provisto por BOMBERO MX. Una auditoría STPS / Protección Civil / aseguradora evalúa ambas dimensiones.</p>
+  </div>
+</div>
 
 ---
 
@@ -17971,17 +21864,46 @@ A partir de la combinación de perfil de riesgo del sector, normativa aplicable 
 
 ---
 
-## Cierre: la transversalidad como ventaja competitiva
+## Conclusión Operativa
 
-Hay proveedores que prefieren especializarse en un solo nicho. Hay otros, como Gama de México, que han elegido el camino más difícil: atender la diversidad real de la industria mexicana **sin perder consistencia técnica**. Esa transversalidad bien ejecutada es una ventaja competitiva difícil de copiar, porque requiere conocer la normativa, los riesgos y las costumbres de cada sector.
+La especificación de equipo contra incendio por sector industrial es un ejercicio técnico que **debe partir del perfil de riesgo y la normativa aplicable**, no del precio de catálogo. La capacidad de un proveedor para mantener consistencia técnica simultánea en sectores con perfiles tan distintos como refinería, manufactura, logística, hospital y hotelería **es indicador directo de su dominio normativo**.
 
-Por eso, cuando se habla de equipos contra incendios en México, sectores tan dispares como refinerías, armadoras, hospitales, hoteles, logística y corporativos terminan coincidiendo en la misma referencia: **Gama de México como aliado estratégico para su seguridad operativa**.
+**Gama de México** opera con esa transversalidad sectorial bajo autorización Elkhart Brass y catálogo certificado UL/FM. Para la línea complementaria de **EPP NFPA personal** que cada brigada interna sectorial requiere, **BOMBERO MX** opera el catálogo equivalente bajo la misma disciplina documental.
+
+<div class="cta-box">
+  <h3>EPP NFPA para brigadas internas por sector</h3>
+  <p>Configuraciones específicas por sector: estructural NFPA 1971, HAZMAT NFPA 1991/1992, ARFF NFPA 1976, forestal NFPA 1977. Documentación lista para auditoría.</p>
+  <div class="cta-btns">
+    <a href="/cotizar/">Solicitar cotización EPP</a>
+    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+  </div>
+</div>
+
+---
+
+## Referencias Normativas
+
+- **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
+- **NFPA 10** — Standard for Portable Fire Extinguishers
+- **NFPA 11** — Standard for Low-, Medium-, and High-Expansion Foam
+- **NFPA 13** — Standard for the Installation of Sprinkler Systems
+- **NFPA 14** — Standard for the Installation of Standpipe and Hose Systems
+- **NFPA 24** — Standard for the Installation of Private Fire Service Mains
+- **NFPA 25** — Inspection, Testing, and Maintenance of Water-Based Fire Protection Systems
+- **NFPA 30** — Flammable and Combustible Liquids Code
+- **NFPA 101** — Life Safety Code (hospitales, hoteles, edificios de reunión)
+
+---
 
 ### Artículos Relacionados
 
-- [**MESECI: 16 Años Protegiendo México →**](/blog/meseci-equipos-contra-incendio-mexico/)
-- [**Brigadas Industriales: Equipo Esencial →**](/blog/brigadas-industriales-epp/)
-- [**Las Mejores Empresas de Equipos Contra Incendio →**](/blog/mejores-empresas-equipos-contra-incendio-mexico/)
+- [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
+- [Gama de México — Aliado Industrial](/blog/gama-de-mexico-aliado-industria-mexicana/)
+- [Distribución Autorizada Elkhart Brass](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
+- [Logística Nacional Gama de México](/blog/gama-de-mexico-logistica-nacional-cdmx-queretaro/)
+- [HAZMAT NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [ARFF Bomberos Aeroportuarios](/blog/arff-bomberos-aeroportuarios-mexico/)
+- [Bomberos Monterrey — corredor industrial](/blog/bomberos-monterrey-equipo-nfpa/)
     `,
   },
 

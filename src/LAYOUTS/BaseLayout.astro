@@ -73,14 +73,21 @@ const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(),
         rybbit.defer = true;
         document.head.appendChild(rybbit);
 
-        // TruConversion (heatmap + session replay) — solo en producción
+        // TruConversion (heatmap + session replay) — solo en producción.
+        // Envuelto en try/catch + onerror para que un fallo de red/WebSocket
+        // del script de terceros no contamine la consola (Best Practices).
         if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
-          window._tip = window._tip || [];
-          const tc = document.createElement("script");
-          tc.async = true;
-          tc.id = "ti-js";
-          tc.src = location.protocol + "//app.truconversion.com/ti-js/62699/64664.js";
-          document.head.appendChild(tc);
+          try {
+            window._tip = window._tip || [];
+            const tc = document.createElement("script");
+            tc.async = true;
+            tc.id = "ti-js";
+            tc.src = location.protocol + "//app.truconversion.com/ti-js/62699/64664.js";
+            tc.onerror = () => {};
+            document.head.appendChild(tc);
+          } catch (e) {
+            /* TruConversion no esencial: fallo silencioso */
+          }
         }
       };
 
@@ -91,55 +98,14 @@ const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(),
       }
     </script>
     <!--
-      ExactDN runtime fallback.
-      cdnW() ya resuelve la URL en build para casi todas las imágenes,
-      pero quedan algunas plantillas del sitio (homepage, productos
-      legacy, blog) con <img src="/images/..."> sin transformar. Este
-      MutationObserver las redirige al CDN antes del primer paint y
-      reemplaza el setSrc-en-DOMContentLoaded original (que causaba CLS
-      y doble fetch).
+      Nota: el MutationObserver runtime de reescritura ExactDN se eliminó
+      (31/May/2026). Todas las <img> ya emiten su URL del CDN en build
+      (cdnW/cdn() en componentes; URLs CDN absolutas en blog-articulos.ts),
+      por lo que el observer era código muerto que solo añadía JS/TBT y
+      provocaba doble fetch. Si se reintroduce alguna plantilla con
+      <img src="/images/..."> crudo, pasarla por cdn() en lugar de re-añadir
+      el observer.
     -->
-    <script is:inline>
-      (function () {
-        if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
-        var CDN = "https://emwn2f4rcov.exactdn.com";
-        function rewrite(img) {
-          if (!img || img.dataset.cdnDone === "1") return;
-          var src = img.getAttribute("src");
-          if (src && src.charAt(0) === "/" && src.indexOf("/images/") === 0) {
-            img.setAttribute("src", CDN + src);
-          }
-          img.dataset.cdnDone = "1";
-        }
-        // Observador para imágenes añadidas antes del primer paint
-        try {
-          var mo = new MutationObserver(function (muts) {
-            for (var i = 0; i < muts.length; i++) {
-              var m = muts[i];
-              for (var j = 0; j < m.addedNodes.length; j++) {
-                var n = m.addedNodes[j];
-                if (n && n.nodeType === 1) {
-                  if (n.tagName === "IMG") rewrite(n);
-                  else if (n.querySelectorAll) {
-                    var qs = n.querySelectorAll("img");
-                    for (var k = 0; k < qs.length; k++) rewrite(qs[k]);
-                  }
-                }
-              }
-            }
-          });
-          mo.observe(document.documentElement, { childList: true, subtree: true });
-          // Detener observación cuando DOM esté listo
-          document.addEventListener("DOMContentLoaded", function () {
-            var imgs = document.querySelectorAll("img");
-            for (var i = 0; i < imgs.length; i++) rewrite(imgs[i]);
-            mo.disconnect();
-          });
-        } catch (e) {
-          // Fallback silencioso
-        }
-      })();
-    </script>
   </head>
 
   <body>
