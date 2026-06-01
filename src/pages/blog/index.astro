@@ -10,13 +10,19 @@ import { cdnW } from "@utils/cdn";
 import { getAllArticulos } from "@data/blog-articulos";
 
 
-const ARTICLES_PER_PAGE = 6;
+const ARTICLES_PER_PAGE = 9;
 const currentPage = 1;
 
 
 const allArticulos = getAllArticulos();
 const totalPages = Math.ceil(allArticulos.length / ARTICLES_PER_PAGE);
 const articulos = allArticulos.slice(0, ARTICLES_PER_PAGE);
+
+// Calcular tiempo de lectura aproximado (200 palabras/min)
+function readingTime(content: string): number {
+  const words = content.trim().split(/\s+/).length;
+  return Math.max(3, Math.ceil(words / 200));
+}
 
 
 const catsList = [
@@ -37,7 +43,11 @@ const breadcrumb = [
   { label: "Blog" },
 ];
 
-const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }));
+const articulosCdn = articulos.map(a => ({
+  ...a,
+  imagen: cdnW(a.imagen, 600),
+  readMin: readingTime(a.contenido),
+}));
 ---
 
 <PageLayout
@@ -125,22 +135,49 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
         </SectionHeader>
 
         <div class="blog-grid" id="articulos">
-          {articulosCdn.map((articulo) => (
-            <article class="blog-card">
-              <a href={`/blog/${articulo.slug}/`} class="blog-card__link">
+          {articulosCdn.map((articulo, idx) => (
+            <article class={`blog-card ${idx === 0 ? "blog-card--featured" : ""}`}>
+              <a href={`/blog/${articulo.slug}/`} class="blog-card__link" aria-label={articulo.titulo}>
                 <div class="blog-card__img-wrap">
                   <img
                     src={articulo.imagen}
                     alt={articulo.titulo}
-                    loading="lazy"
+                    loading={idx < 3 ? "eager" : "lazy"}
                     decoding="async"
-                    width="500"
-                    height="280"
+                    width="600"
+                    height="338"
                     class="blog-card__img"
                   />
-                  <span class="blog-card__badge">{articulo.categoria}</span>
+                  <div class="blog-card__overlay"></div>
+                  <span class="blog-card__badge">
+                    <span class="blog-card__badge-dot"></span>
+                    {articulo.categoria}
+                  </span>
+                  {idx === 0 && (
+                    <span class="blog-card__feat">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M12 2l2.39 7.36H22l-6.18 4.49L18.21 21 12 16.49 5.79 21l2.39-7.15L2 9.36h7.61z"/>
+                      </svg>
+                      Destacado
+                    </span>
+                  )}
                 </div>
                 <div class="blog-card__body">
+                  <div class="blog-card__meta">
+                    <span class="blog-card__meta-item">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                      </svg>
+                      {articulo.readMin} min lectura
+                    </span>
+                    <span class="blog-card__meta-sep" aria-hidden="true">·</span>
+                    <span class="blog-card__meta-item">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                        <path d="M20 7h-7M14 17H4M17 3l4 4-4 4M7 13l-4 4 4 4"/>
+                      </svg>
+                      {articulo.tags.length} temas
+                    </span>
+                  </div>
                   <h2 class="blog-card__title">{articulo.titulo}</h2>
                   <p class="blog-card__excerpt">{articulo.excerpt}</p>
                   <div class="blog-card__tags">
@@ -148,12 +185,23 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
                       <span class="blog-card__tag">{tag}</span>
                     ))}
                   </div>
-                  <span class="blog-card__anchor">
-                    {articulo.anchorKeyword}
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </span>
+                  <div class="blog-card__footer">
+                    <div class="blog-card__author">
+                      <span class="blog-card__avatar" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                          <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                      </span>
+                      <span class="blog-card__author-name">{articulo.autor}</span>
+                    </div>
+                    <span class="blog-card__cta">
+                      Leer
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </a>
             </article>
@@ -301,7 +349,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
         <article class="epp-card">
           <div class="epp-card__img-wrap">
-            <img src={cdnW("/images/hero/hero-cascos-bombero-coleccion.avif", 400)} alt="Colección de cascos certificados para bomberos NFPA" width="400" height="225" loading="lazy" class="epp-card__img" />
+            <img src={cdnW("/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif", 400)} alt="Casco para bombero certificado NFPA" width="400" height="225" loading="lazy" class="epp-card__img" />
           </div>
           <div class="epp-card__body">
             <h3 class="epp-card__title">Cascos para Bombero</h3>
@@ -318,7 +366,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
         <article class="epp-card">
           <div class="epp-card__img-wrap">
-            <img src={cdnW("/images/hero/hero-guantes-bombero-profesional.avif", 400)} alt="Guantes profesionales para bomberos certificados NFPA" width="400" height="225" loading="lazy" class="epp-card__img" />
+            <img src={cdnW("/images/guantes-para-bomberos/guante-bombero-estructural-nfpa-1971-01.avif", 400)} alt="Guantes profesionales para bomberos certificados NFPA" width="400" height="225" loading="lazy" class="epp-card__img" />
           </div>
           <div class="epp-card__body">
             <h3 class="epp-card__title">Guantes para Bombero</h3>
@@ -335,7 +383,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
         <article class="epp-card">
           <div class="epp-card__img-wrap">
-            <img src={cdnW("/images/hero/hero-botas-bombero-premium.avif", 400)} alt="Botas premium para bomberos certificadas NFPA" width="400" height="225" loading="lazy" class="epp-card__img" />
+            <img src={cdnW("/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif", 400)} alt="Botas premium para bomberos certificadas NFPA" width="400" height="225" loading="lazy" class="epp-card__img" />
           </div>
           <div class="epp-card__body">
             <h3 class="epp-card__title">Botas para Bombero</h3>
@@ -351,7 +399,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
         <article class="epp-card">
           <div class="epp-card__img-wrap">
-            <img src={cdnW("/images/directorio/capucha-bombero-nomex-01.avif", 400)} alt="Capuchas para Bombero" width="400" height="225" loading="lazy" class="epp-card__img" />
+            <img src={cdnW("/images/capucha-para-bombero/capucha-bombero-producto-pbi-gold-estudio-frontal-01.avif", 400)} alt="Capuchas para Bombero" width="400" height="225" loading="lazy" class="epp-card__img" />
           </div>
           <div class="epp-card__body">
             <h3 class="epp-card__title">Capuchas para Bombero</h3>
@@ -515,13 +563,24 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
 
   .blog-index-layout {
-    background: var(--color-smoke-50);
-    padding: var(--space-12) 0 var(--space-16);
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(220, 38, 38, 0.04), transparent 60%),
+      var(--color-smoke-50);
+    padding: var(--space-16) 0 var(--space-20);
+    position: relative;
+  }
+
+  .blog-index-layout::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-smoke-200), transparent);
   }
 
   .blog-index-layout__inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 340px;
+    grid-template-columns: minmax(0, 1fr) 300px;
     gap: var(--space-10);
     align-items: start;
   }
@@ -529,13 +588,14 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
   .blog-index-main {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--space-10);
+    min-width: 0;
   }
 
 
   .blog-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-6);
   }
 
@@ -544,101 +604,271 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     border-radius: var(--radius-2xl);
     overflow: hidden;
     border: 1px solid var(--color-smoke-100);
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 2px 4px rgba(15, 23, 42, 0.02);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s ease,
+                border-color 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
+  .blog-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, transparent 60%, rgba(220, 38, 38, 0.25));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 20px 40px -12px rgba(15, 23, 42, 0.12),
+      0 8px 16px -4px rgba(220, 38, 38, 0.08);
+    border-color: rgba(220, 38, 38, 0.18);
+  }
+
+  .blog-card:hover::before { opacity: 1; }
+
   .blog-card__link {
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
+    height: 100%;
   }
 
   .blog-card__img-wrap {
     position: relative;
-    aspect-ratio: 16/9;
+    aspect-ratio: 16/10;
     overflow: hidden;
+    background: var(--color-smoke-100);
   }
 
   .blog-card__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .blog-card:hover .blog-card__img {
+    transform: scale(1.06);
+  }
+
+  .blog-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15,23,42,0) 50%, rgba(15,23,42,0.45) 100%);
+    pointer-events: none;
   }
 
   .blog-card__badge {
     position: absolute;
     top: var(--space-3);
     left: var(--space-3);
-    background: var(--color-fire-600);
-    color: white;
-    font-size: var(--text-xs);
-    font-weight: 700;
-    padding: 4px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+    color: var(--color-fire-700);
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 11px;
     border-radius: var(--radius-full);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+  }
+
+  .blog-card__badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-fire-600);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+  }
+
+  .blog-card__feat {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, var(--color-fire-600), var(--color-ember-600));
+    color: white;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: var(--radius-full);
+    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.35);
   }
 
   .blog-card__body {
-    padding: var(--space-5);
+    padding: var(--space-5) var(--space-5) var(--space-4);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: var(--space-3);
+  }
+
+  .blog-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 11px;
+    color: var(--color-smoke-500);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .blog-card__meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .blog-card__meta-sep {
+    color: var(--color-smoke-300);
   }
 
   .blog-card__title {
-    font-size: var(--text-lg);
+    font-size: 1.0625rem;
     font-weight: 800;
     color: var(--color-smoke-900);
-    margin: 0 0 var(--space-2);
-    line-height: 1.3;
+    margin: 0;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    transition: color 0.25s ease;
+  }
+
+  .blog-card:hover .blog-card__title {
+    color: var(--color-fire-700);
   }
 
   .blog-card__excerpt {
     font-size: var(--text-sm);
     color: var(--color-smoke-600);
-    margin: 0 0 var(--space-3);
+    margin: 0;
     line-height: 1.6;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
   .blog-card__tags {
     display: flex;
-    gap: var(--space-2);
+    gap: 6px;
     flex-wrap: wrap;
-    margin-bottom: var(--space-3);
+    margin-top: auto;
   }
 
   .blog-card__tag {
     background: var(--color-smoke-100);
-    color: var(--color-smoke-600);
+    color: var(--color-smoke-700);
     font-size: 10px;
-    font-weight: 600;
-    padding: 3px 8px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 4px 9px;
     border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
   }
 
-  .blog-card__anchor {
+  .blog-card:hover .blog-card__tag {
+    background: var(--color-fire-50, #fef2f2);
+    color: var(--color-fire-700);
+    border-color: rgba(220, 38, 38, 0.15);
+  }
+
+  .blog-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-3);
+    margin-top: var(--space-1);
+    border-top: 1px solid var(--color-smoke-100);
+  }
+
+  .blog-card__author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .blog-card__avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-fire-100, #fee2e2), var(--color-fire-50, #fef2f2));
+    color: var(--color-fire-600);
     display: inline-flex;
     align-items: center;
-    gap: var(--space-1);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--color-fire-600);
-    border-bottom: 1px solid var(--color-fire-300);
-    padding-bottom: 2px;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid var(--color-fire-200, #fecaca);
   }
 
-  .blog-card__anchor svg {
+  .blog-card__author-name {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--color-smoke-700);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .blog-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-fire-600);
+    transition: transform 0.25s ease, color 0.25s ease;
     flex-shrink: 0;
+  }
+
+  .blog-card__cta svg {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .blog-card:hover .blog-card__cta {
+    color: var(--color-fire-700);
+  }
+
+  .blog-card:hover .blog-card__cta svg {
+    transform: translateX(4px);
   }
 
 
   .blog-index-sidebar {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-5);
     position: sticky;
     top: 90px;
   }
@@ -648,12 +878,35 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     border: 1px solid var(--color-smoke-100);
     border-radius: var(--radius-2xl);
     padding: var(--space-5);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 4px 12px rgba(15, 23, 42, 0.03);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .sb-card:hover {
+    box-shadow:
+      0 2px 4px rgba(15, 23, 42, 0.05),
+      0 12px 24px rgba(15, 23, 42, 0.06);
   }
 
   .sb-card--cta {
-    background: linear-gradient(135deg, var(--color-fire-600) 0%, var(--color-ember-600) 100%);
+    background:
+      radial-gradient(ellipse at top right, rgba(255,255,255,0.15), transparent 60%),
+      linear-gradient(135deg, var(--color-fire-600) 0%, var(--color-ember-600) 100%);
     border-color: transparent;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sb-card--cta::after {
+    content: "";
+    position: absolute;
+    top: -50%; right: -30%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
+    pointer-events: none;
   }
 
   .sb-card__title {
@@ -688,9 +941,19 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     color: var(--color-fire-700);
     font-size: var(--text-sm);
     font-weight: 800;
+    letter-spacing: 0.02em;
     text-decoration: none;
     border-radius: var(--radius-lg);
     margin-bottom: var(--space-4);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .sb-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
   }
 
   .sb-card__contacts {
@@ -726,21 +989,38 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--space-2) var(--space-2);
+    padding: 10px var(--space-3);
     font-size: var(--text-sm);
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-smoke-700);
     text-decoration: none;
     border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+  }
+
+  .sb-cat__link:hover {
+    background: var(--color-smoke-50);
+    border-color: var(--color-smoke-100);
+    color: var(--color-fire-700);
+    transform: translateX(2px);
   }
 
   .sb-cat__count {
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: var(--color-smoke-400);
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--color-smoke-500);
     background: var(--color-smoke-100);
-    padding: 2px 8px;
+    padding: 3px 9px;
     border-radius: var(--radius-full);
+    min-width: 28px;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  .sb-cat__link:hover .sb-cat__count {
+    background: var(--color-fire-600);
+    color: white;
   }
 
   .sb-links {
@@ -756,26 +1036,40 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-size: var(--text-xs);
-    font-weight: 500;
+    font-size: var(--text-sm);
+    font-weight: 600;
     color: var(--color-smoke-700);
     text-decoration: none;
-    padding: var(--space-1) var(--space-2);
+    padding: 8px var(--space-2);
     border-radius: var(--radius-md);
+    transition: all 0.2s ease;
   }
 
-  .sb-link svg { color: var(--color-smoke-400); flex-shrink: 0; }
+  .sb-link:hover {
+    background: var(--color-smoke-50);
+    color: var(--color-fire-700);
+    transform: translateX(3px);
+  }
+
+  .sb-link svg { color: var(--color-smoke-400); flex-shrink: 0; transition: color 0.2s ease; }
+  .sb-link:hover svg { color: var(--color-fire-600); }
 
   .sb-see-all {
     display: block;
-    font-size: var(--text-xs);
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--color-fire-600);
     text-decoration: none;
     text-align: right;
-    padding-top: var(--space-1);
+    padding-top: var(--space-3);
+    margin-top: var(--space-3);
     border-top: 1px solid var(--color-smoke-100);
+    transition: color 0.2s ease;
   }
+
+  .sb-see-all:hover { color: var(--color-fire-700); }
 
   .sb-card--search {
     display: flex;
@@ -815,22 +1109,39 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
   }
 
   .epp-card {
-    background: var(--color-smoke-50);
+    background: white;
     border-radius: var(--radius-2xl);
     overflow: hidden;
     border: 1px solid var(--color-smoke-100);
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 4px 12px rgba(15, 23, 42, 0.03);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .epp-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 16px 32px -8px rgba(15, 23, 42, 0.12),
+      0 4px 12px -2px rgba(220, 38, 38, 0.06);
   }
 
   .epp-card__img-wrap {
-    aspect-ratio: 16/9;
+    aspect-ratio: 16/10;
     overflow: hidden;
+    background: var(--color-smoke-100);
   }
 
   .epp-card__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
+
+  .epp-card:hover .epp-card__img { transform: scale(1.05); }
 
   .epp-card__body {
     padding: var(--space-5);
@@ -858,19 +1169,56 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
     text-decoration: none;
     display: block;
     padding: var(--space-1) 0;
+    transition: color 0.2s ease, padding 0.2s ease;
+  }
+
+  .epp-card__list li a:hover {
+    color: var(--color-fire-600);
+    padding-left: 4px;
   }
 
   .epp-card__link {
     display: inline-flex;
     align-items: center;
+    gap: 6px;
     font-size: var(--text-sm);
-    font-weight: 700;
+    font-weight: 800;
+    letter-spacing: 0.02em;
     color: var(--color-fire-600);
     text-decoration: none;
-    border-bottom: 1px solid var(--color-fire-300);
-    padding-bottom: 2px;
+    border-bottom: 2px solid var(--color-fire-300);
+    padding-bottom: 3px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    margin-top: auto;
   }
 
+  .epp-card__link::after {
+    content: "→";
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+
+  .epp-card:hover .epp-card__link {
+    color: var(--color-fire-700);
+    border-color: var(--color-fire-600);
+  }
+
+  .epp-card:hover .epp-card__link::after {
+    transform: translateX(4px);
+  }
+
+  .epp-card__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+
+  @media (max-width: 1180px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
 
   @media (max-width: 1024px) {
     .hero__container {
@@ -893,8 +1241,18 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
       grid-column: span 2;
     }
 
+    .blog-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
     .epp-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
@@ -918,6 +1276,7 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
     .blog-grid {
       grid-template-columns: 1fr;
+      gap: var(--space-5);
     }
 
     .blog-index-sidebar {
@@ -930,6 +1289,10 @@ const articulosCdn = articulos.map(a => ({ ...a, imagen: cdnW(a.imagen, 500) }))
 
     .epp-grid {
       grid-template-columns: 1fr;
+    }
+
+    .blog-card__title {
+      font-size: 1.125rem;
     }
   }
 </style>

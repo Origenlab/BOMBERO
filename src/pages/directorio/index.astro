@@ -4,9 +4,18 @@ import PageLayout from "@layouts/PageLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import CTABanner from "@components/CTABanner.astro";
+import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
+import DirectorioSearch from "@components/directorio/DirectorioSearch.astro";
 import { cdnW } from "@utils/cdn";
+import {
+  ESTACIONES_POR_ESTADO,
+  TOTAL_ESTACIONES_NACIONAL,
+  TOTAL_ESTADOS,
+  DIRECTORIO_VERIFICADO_LEGIBLE,
+  DIRECTORIO_VERIFICADO_ISO,
+} from "@data/directorio-stats";
 
-// Datos de los 32 estados con información relevante
+// Datos de los 32 estados con información relevante (sin contadores hardcodeados)
 interface Estado {
   name: string;
   slug: string;
@@ -16,43 +25,82 @@ interface Estado {
   featured?: boolean;
 }
 
-const estados: Estado[] = [
-  { name: "Aguascalientes", slug: "aguascalientes", abbr: "AGS", capital: "Aguascalientes", stations: 13 },
-  { name: "Baja California", slug: "baja-california", abbr: "BC", capital: "Mexicali", stations: 22, featured: true },
-  { name: "Baja California Sur", slug: "baja-california-sur", abbr: "BCS", capital: "La Paz", stations: 6 },
-  { name: "Campeche", slug: "campeche", abbr: "CAM", capital: "Campeche", stations: 7 },
-  { name: "Chiapas", slug: "chiapas", abbr: "CHIS", capital: "Tuxtla Gutiérrez", stations: 18 },
-  { name: "Chihuahua", slug: "chihuahua", abbr: "CHIH", capital: "Chihuahua", stations: 28, featured: true },
-  { name: "Ciudad de México", slug: "ciudad-de-mexico", abbr: "CDMX", capital: "Ciudad de México", stations: 16, featured: true },
-  { name: "Coahuila", slug: "coahuila", abbr: "COAH", capital: "Saltillo", stations: 24 },
-  { name: "Colima", slug: "colima", abbr: "COL", capital: "Colima", stations: 5 },
-  { name: "Durango", slug: "durango", abbr: "DGO", capital: "Durango", stations: 12 },
-  { name: "Estado de México", slug: "estado-de-mexico", abbr: "EDOMEX", capital: "Toluca", stations: 20, featured: true },
-  { name: "Guanajuato", slug: "guanajuato", abbr: "GTO", capital: "Guanajuato", stations: 32, featured: true },
-  { name: "Guerrero", slug: "guerrero", abbr: "GRO", capital: "Chilpancingo", stations: 15 },
-  { name: "Hidalgo", slug: "hidalgo", abbr: "HGO", capital: "Pachuca", stations: 14 },
-  { name: "Jalisco", slug: "jalisco", abbr: "JAL", capital: "Guadalajara", stations: 38, featured: true },
-  { name: "Michoacán", slug: "michoacan", abbr: "MICH", capital: "Morelia", stations: 22 },
-  { name: "Morelos", slug: "morelos", abbr: "MOR", capital: "Cuernavaca", stations: 16 },
-  { name: "Nayarit", slug: "nayarit", abbr: "NAY", capital: "Tepic", stations: 14 },
-  { name: "Nuevo León", slug: "nuevo-leon", abbr: "NL", capital: "Monterrey", stations: 18, featured: true },
-  { name: "Oaxaca", slug: "oaxaca", abbr: "OAX", capital: "Oaxaca", stations: 16, featured: true },
-  { name: "Puebla", slug: "puebla", abbr: "PUE", capital: "Puebla", stations: 18, featured: true },
-  { name: "Querétaro", slug: "queretaro", abbr: "QRO", capital: "Querétaro", stations: 15, featured: true },
-  { name: "Quintana Roo", slug: "quintana-roo", abbr: "QROO", capital: "Chetumal", stations: 17, featured: true },
-  { name: "San Luis Potosí", slug: "san-luis-potosi", abbr: "SLP", capital: "San Luis Potosí", stations: 16, featured: true },
-  { name: "Sinaloa", slug: "sinaloa", abbr: "SIN", capital: "Culiacán", stations: 18 },
-  { name: "Sonora", slug: "sonora", abbr: "SON", capital: "Hermosillo", stations: 22 },
-  { name: "Tabasco", slug: "tabasco", abbr: "TAB", capital: "Villahermosa", stations: 12 },
-  { name: "Tamaulipas", slug: "tamaulipas", abbr: "TAMPS", capital: "Ciudad Victoria", stations: 20 },
-  { name: "Tlaxcala", slug: "tlaxcala", abbr: "TLAX", capital: "Tlaxcala", stations: 6 },
-  { name: "Veracruz", slug: "veracruz", abbr: "VER", capital: "Xalapa", stations: 28, featured: true },
-  { name: "Yucatán", slug: "yucatan", abbr: "YUC", capital: "Mérida", stations: 14 },
-  { name: "Zacatecas", slug: "zacatecas", abbr: "ZAC", capital: "Zacatecas", stations: 10 },
+// Tabla maestra de estados — los conteos vienen de directorio-stats.ts (siempre reales)
+const estadosBase: Omit<Estado, "stations">[] = [
+  { name: "Aguascalientes", slug: "aguascalientes", abbr: "AGS", capital: "Aguascalientes" },
+  { name: "Baja California", slug: "baja-california", abbr: "BC", capital: "Mexicali", featured: true },
+  { name: "Baja California Sur", slug: "baja-california-sur", abbr: "BCS", capital: "La Paz" },
+  { name: "Campeche", slug: "campeche", abbr: "CAM", capital: "Campeche" },
+  { name: "Chiapas", slug: "chiapas", abbr: "CHIS", capital: "Tuxtla Gutiérrez" },
+  { name: "Chihuahua", slug: "chihuahua", abbr: "CHIH", capital: "Chihuahua", featured: true },
+  { name: "Ciudad de México", slug: "ciudad-de-mexico", abbr: "CDMX", capital: "Ciudad de México", featured: true },
+  { name: "Coahuila", slug: "coahuila", abbr: "COAH", capital: "Saltillo" },
+  { name: "Colima", slug: "colima", abbr: "COL", capital: "Colima" },
+  { name: "Durango", slug: "durango", abbr: "DGO", capital: "Durango" },
+  { name: "Estado de México", slug: "estado-de-mexico", abbr: "EDOMEX", capital: "Toluca", featured: true },
+  { name: "Guanajuato", slug: "guanajuato", abbr: "GTO", capital: "Guanajuato", featured: true },
+  { name: "Guerrero", slug: "guerrero", abbr: "GRO", capital: "Chilpancingo" },
+  { name: "Hidalgo", slug: "hidalgo", abbr: "HGO", capital: "Pachuca" },
+  { name: "Jalisco", slug: "jalisco", abbr: "JAL", capital: "Guadalajara", featured: true },
+  { name: "Michoacán", slug: "michoacan", abbr: "MICH", capital: "Morelia" },
+  { name: "Morelos", slug: "morelos", abbr: "MOR", capital: "Cuernavaca" },
+  { name: "Nayarit", slug: "nayarit", abbr: "NAY", capital: "Tepic" },
+  { name: "Nuevo León", slug: "nuevo-leon", abbr: "NL", capital: "Monterrey", featured: true },
+  { name: "Oaxaca", slug: "oaxaca", abbr: "OAX", capital: "Oaxaca", featured: true },
+  { name: "Puebla", slug: "puebla", abbr: "PUE", capital: "Puebla", featured: true },
+  { name: "Querétaro", slug: "queretaro", abbr: "QRO", capital: "Querétaro", featured: true },
+  { name: "Quintana Roo", slug: "quintana-roo", abbr: "QROO", capital: "Chetumal", featured: true },
+  { name: "San Luis Potosí", slug: "san-luis-potosi", abbr: "SLP", capital: "San Luis Potosí", featured: true },
+  { name: "Sinaloa", slug: "sinaloa", abbr: "SIN", capital: "Culiacán" },
+  { name: "Sonora", slug: "sonora", abbr: "SON", capital: "Hermosillo" },
+  { name: "Tabasco", slug: "tabasco", abbr: "TAB", capital: "Villahermosa" },
+  { name: "Tamaulipas", slug: "tamaulipas", abbr: "TAMPS", capital: "Ciudad Victoria" },
+  { name: "Tlaxcala", slug: "tlaxcala", abbr: "TLAX", capital: "Tlaxcala" },
+  { name: "Veracruz", slug: "veracruz", abbr: "VER", capital: "Xalapa", featured: true },
+  { name: "Yucatán", slug: "yucatan", abbr: "YUC", capital: "Mérida" },
+  { name: "Zacatecas", slug: "zacatecas", abbr: "ZAC", capital: "Zacatecas" },
 ];
 
-const totalEstaciones = estados.reduce((sum, e) => sum + e.stations, 0);
-const estadosDestacados = estados.filter(e => e.featured);
+// Inyectar conteos reales desde el módulo central
+const estados: Estado[] = estadosBase.map((e) => ({
+  ...e,
+  stations: ESTACIONES_POR_ESTADO[e.slug] ?? 0,
+}));
+
+const totalEstaciones = TOTAL_ESTACIONES_NACIONAL;
+const totalEstados = TOTAL_ESTADOS;
+const estadosDestacados = estados.filter((e) => e.featured);
+
+// JSON-LD CollectionPage con dateModified + speakable + mainEntity → GEO/AI
+const directorioJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Directorio de Estaciones de Bomberos en México",
+  description: `Directorio oficial con ${totalEstaciones}+ estaciones de bomberos verificadas en los 32 estados de México. Teléfonos de emergencia, direcciones y servicios actualizados.`,
+  url: "https://bombero.mx/directorio/",
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+  inLanguage: "es-MX",
+  isPartOf: { "@type": "WebSite", url: "https://bombero.mx/" },
+  about: {
+    "@type": "Thing",
+    name: "Estaciones de Bomberos en México",
+    sameAs: "https://es.wikipedia.org/wiki/Bombero",
+  },
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: [".dir-hero__title", ".dir-hero__desc"],
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: totalEstados,
+    itemListElement: estados.map((e, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `https://bombero.mx/directorio/${e.slug}/`,
+      name: `Bomberos en ${e.name}`,
+    })),
+  },
+};
 
 // Regiones para interlinking
 const regiones = [
@@ -64,8 +112,11 @@ const regiones = [
 ---
 
 <PageLayout
-  title="Directorio de Estaciones de Bomberos en México | BOMBERO.MX"
-  description="Directorio de estaciones de bomberos en los 32 estados de México con teléfonos de emergencia, direcciones y contacto de cada cuerpo local."
+  title={`Directorio de Estaciones de Bomberos en México — ${totalEstaciones}+ Estaciones Verificadas | BOMBERO.MX`}
+  description={`Directorio oficial con ${totalEstaciones}+ estaciones de bomberos verificadas en los 32 estados de México. Teléfonos de emergencia, direcciones, servicios y contacto directo. Actualizado ${DIRECTORIO_VERIFICADO_LEGIBLE}.`}
+  canonical="https://bombero.mx/directorio/"
+  modifiedTime={DIRECTORIO_VERIFICADO_ISO}
+  jsonLd={[directorioJsonLd]}
 >
   <Breadcrumb items={[
     { label: "Directorio" },
@@ -83,20 +134,24 @@ const regiones = [
         <div class="dir-hero__content">
           <span class="dir-hero__badge">
             <span class="dir-hero__badge-dot"></span>
-            Directorio Nacional
+            Directorio Nacional — Verificado {DIRECTORIO_VERIFICADO_LEGIBLE}
           </span>
           <h1 class="dir-hero__title">
             Estaciones de Bomberos en
             <span class="dir-hero__highlight">México</span>
           </h1>
           <p class="dir-hero__desc">
-            El directorio más completo de <strong>estaciones de bomberos</strong> en la República Mexicana.
-            Encuentra información de contacto, teléfonos de emergencia y ubicación de los
-            <strong>H. Cuerpos de Bomberos</strong> en los 32 estados.
+            El directorio más completo de <strong>estaciones de bomberos</strong> en la República Mexicana:
+            <strong>{totalEstaciones}+ estaciones verificadas</strong> en los <strong>32 estados</strong>,
+            con <strong>teléfonos de emergencia, direcciones y servicios</strong> de cada
+            <strong>H. Cuerpo de Bomberos</strong> local.
           </p>
+
+          <DirectorioSearch />
+
           <div class="dir-hero__stats">
             <div class="dir-hero__stat">
-              <span class="dir-hero__stat-number">32</span>
+              <span class="dir-hero__stat-number">{totalEstados}</span>
               <span class="dir-hero__stat-label">Estados</span>
             </div>
             <div class="dir-hero__stat">
@@ -322,8 +377,8 @@ const regiones = [
         </div>
         <div class="dir-gallery__item">
           <img
-            src={cdnW("/images/directorio/camion-bomberos-autobomba-urbana-01.avif", 400)}
-            alt="Camión de bomberos autobomba urbana - vehículo de emergencias"
+            src={cdnW("/images/why-choose/experiencia-comprobada-bombero-mx.avif", 400)}
+            alt="Flota vehicular de bomberos - autobombas y vehículos especializados"
             width="400" height="280"
             loading="lazy"
             decoding="async"
@@ -335,7 +390,7 @@ const regiones = [
         </div>
         <div class="dir-gallery__item">
           <img
-            src={cdnW("/images/productos/producto-traje-hazmat-nivel-a.avif", 400)}
+            src={cdnW("/images/directorio/descontaminacion-hazmat-01.avif", 400)}
             alt="Equipo HAZMAT materiales peligrosos bomberos - protección especializada"
             width="400" height="280"
             loading="lazy"
@@ -348,7 +403,7 @@ const regiones = [
         </div>
         <div class="dir-gallery__item">
           <img
-            src={cdnW("/images/productos/producto-equipo-rescate-acuatico.avif", 400)}
+            src={cdnW("/images/directorio/traje-inmersion-rescate-01.avif", 400)}
             alt="Rescate acuático bomberos - operaciones de rescate en agua"
             width="400" height="280"
             loading="lazy"
@@ -388,6 +443,8 @@ const regiones = [
       </div>
     </div>
   </section>
+
+  <FAQDirectorio scope="nacional" totalEstaciones={totalEstaciones} totalEstados={totalEstados} />
 
   <CTABanner
     title="¿Necesitas equipar tu estación de bomberos?"

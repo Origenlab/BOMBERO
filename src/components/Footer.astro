@@ -149,18 +149,50 @@ const year = new Date().getFullYear();
 <style>
 
   .bmx-ft {
-    background: #0a0a0a;
-    color: #888;
-    font-family: system-ui, -apple-system, sans-serif;
+    background: linear-gradient(180deg, #050810 0%, #0a0f1a 100%);
+    color: var(--ink-muted);
+    font-family: var(--font-sans);
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.6;
     padding-bottom: var(--safe-bottom, 0px);
+    width: 100%;
+    position: relative;
+    border-top: 1px solid var(--hairline);
+  }
+
+  /* Línea técnica roja superior del footer */
+  .bmx-ft::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--color-ember-600) 25%, var(--color-ember-600) 75%, transparent 100%);
+    opacity: 0.5;
+  }
+
+  /* Grid técnico sutil de fondo */
+  .bmx-ft::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px;
+    pointer-events: none;
+  }
+
+  .bmx-ft > * {
+    position: relative;
+    z-index: 1;
   }
 
   .bmx-ft-inner {
-    max-width: 1400px;
+    max-width: var(--container-wide);
     margin: 0 auto;
-    padding: 0 var(--container-padding);
+    padding: 0 var(--container-padding-wide);
   }
 
 
@@ -246,30 +278,47 @@ const year = new Date().getFullYear();
   }
 
   .bmx-ft-nav h4 {
-    font-size: 11px;
+    font-family: var(--font-mono);
+    font-size: 10px;
     font-weight: 700;
     color: #fff;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin: 0 0 4px;
+    letter-spacing: 0.15em;
+    margin: 0 0 8px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #dc2626;
+    position: relative;
     display: inline-block;
   }
 
+  .bmx-ft-nav h4::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background: var(--color-ember-600);
+  }
+
   .bmx-ft-nav a {
-    font-size: 12px;
-    color: #777;
+    font-size: 12.5px;
+    color: var(--ink-subtle);
     text-decoration: none;
     padding: 4px 0;
     min-height: var(--touch-target-min);
     display: flex;
     align-items: center;
     touch-action: manipulation;
-    transition: color 0.15s ease;
+    transition: color 0.15s ease, transform 0.15s ease;
+    position: relative;
   }
 
-  .bmx-ft-nav a:active { color: #dc2626; }
+  .bmx-ft-nav a:hover {
+    color: var(--ink-strong);
+    transform: translateX(2px);
+  }
+
+  .bmx-ft-nav a:active { color: var(--color-ember-500); }
 
   .bmx-ft-address {
     font-size: 11px;

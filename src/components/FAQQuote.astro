@@ -1,0 +1,656 @@
+---
+
+import SectionHeader from "./SectionHeader.astro";
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items?: FAQItem[];
+  title?: string;
+  description?: string;
+}
+
+const { items, title, description } = Astro.props;
+
+const defaultFaqs: FAQItem[] = [
+  {
+    question: "¿Cómo solicito una cotización de equipo para bomberos?",
+    answer: "Tres vías: 1) Formulario en esta página — recibes respuesta por WhatsApp en menos de 24 hrs. 2) WhatsApp directo al 55 2078 0102 con tu lista de equipo. 3) Correo a ventas@bombero.mx. Toda cotización incluye precio, disponibilidad y tiempo de entrega.",
+  },
+  {
+    question: "¿Qué equipo para bomberos venden?",
+    answer: "Catálogo completo de EPP: trajes estructurales NFPA 1971, forestales NFPA 1977, ARFF y HAZMAT; cascos, botas, guantes y capuchas certificados; equipos SCBA NFPA 1981; herramientas hidráulicas de rescate NFPA 1936; cámaras termográficas, detectores multigas y tecnología táctica.",
+  },
+  {
+    question: "¿Envían a todo México?",
+    answer: "Sí, a los 32 estados. CDMX y área metropolitana: entrega express 24-48 hrs. Resto del país: 3 a 5 días hábiles vía paquetería con cobertura nacional y seguro de envío incluido.",
+  },
+  {
+    question: "¿Brindan asesoría técnica?",
+    answer: "Sí, sin costo y sin compromiso. Nuestros asesores te orientan según el tipo de riesgo, normativa aplicable (NFPA, NOM), presupuesto y características operativas de tu estación o brigada.",
+  },
+  {
+    question: "¿El equipo cuenta con certificaciones?",
+    answer: "Todo nuestro catálogo está certificado: NFPA 1971 (estructural), 1977 (forestal), 1981 (SCBA), 1936 (rescate). Distribuimos directo de MSA, Honeywell, Globe, Bullard, Cairns y Holmatro — incluimos ficha técnica y certificado de laboratorio en cada pedido.",
+  },
+  {
+    question: "¿Hay equipo para entrega inmediata?",
+    answer: "Mantenemos inventario en CDMX de los productos de mayor rotación: trajes estructurales en tallas estándar, cascos, guantes, botas, capuchas y linternas. Equipos especializados (SCBA, hidráulica de extricación): 2 a 4 semanas según configuración.",
+  },
+  {
+    question: "¿A qué sectores atienden?",
+    answer: "H. Cuerpos de Bomberos municipales y estatales, Protección Civil, brigadas industriales (PEMEX, CFE, refinerías), aeropuertos (ARFF), hospitales, hoteles, centros comerciales, constructoras y dependencias federales.",
+  },
+  {
+    question: "¿Manejan precios institucionales y licitaciones?",
+    answer: "Sí. Ofrecemos precios preferenciales a cuerpos de bomberos, Protección Civil y dependencias gubernamentales. Preparamos cotizaciones formales con fichas técnicas, partidas presupuestales y documentación completa para procesos de licitación pública.",
+  },
+];
+
+const faqs = items && items.length > 0 ? items : defaultFaqs;
+---
+
+<section class="faqq" id="preguntas-cotizar">
+  <div class="container">
+
+    <SectionHeader
+      label="Preguntas Frecuentes · Cotización"
+      title={title ?? "Resuelve dudas y cotiza en el mismo lugar"}
+      description={description ?? "Las consultas más comunes sobre equipo NFPA para bomberos, junto con el formulario directo para recibir tu cotización por WhatsApp en menos de 24 horas."}
+    />
+
+    <div class="faqq__grid">
+
+      <!-- ═══ COL 1 — FAQ ═══ -->
+      <div class="faqq__col faqq__col--faq">
+
+        <header class="faqq__col-head">
+          <span class="faqq__eyebrow">01 · Preguntas Frecuentes</span>
+          <h3 class="faqq__col-title">Lo que más nos consultan</h3>
+          <p class="faqq__col-sub">
+            Información técnica y operativa sobre adquisición, certificaciones,
+            tiempos de entrega y atención a cuerpos de bomberos en México.
+          </p>
+        </header>
+
+        <div class="faqq__faqs">
+          {faqs.map((faq, i) => (
+            <details class="faqq__item" name="faqq-accordion" open={i === 0}>
+              <summary class="faqq__q">
+                <span class="faqq__q-num">{String(i + 1).padStart(2, "0")}</span>
+                <span class="faqq__q-text">{faq.question}</span>
+                <span class="faqq__q-toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="faqq__a">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <div class="faqq__support">
+          <div class="faqq__support-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="faqq__support-body">
+            <strong>¿Tu duda no está aquí?</strong>
+            <span>Escríbenos por WhatsApp o llama al 55 2078 0102. Atención de lunes a viernes 9:00 - 18:00 hrs.</span>
+          </div>
+          <a href="https://wa.me/525520780102?text=Hola%2C%20tengo%20una%20duda%20sobre%20equipo%20para%20bomberos"
+             target="_blank" rel="noopener"
+             class="faqq__support-cta">
+            Escribir
+          </a>
+        </div>
+
+      </div>
+
+
+      <!-- ═══ COL 2 — COTIZADOR ═══ -->
+      <div class="faqq__col faqq__col--form">
+
+        <header class="faqq__col-head">
+          <span class="faqq__eyebrow faqq__eyebrow--accent">02 · Solicita tu Cotización</span>
+          <h3 class="faqq__col-title faqq__col-title--invert">Recibe tu cotización por WhatsApp</h3>
+          <p class="faqq__col-sub faqq__col-sub--invert">
+            Completa el formulario y nuestro equipo te responderá con precios,
+            disponibilidad y tiempos de entrega en menos de 24 horas.
+          </p>
+        </header>
+
+        <form class="faqq__form" id="faqq-form" onsubmit="return false;">
+
+          <div class="faqq__row">
+            <div class="faqq__field">
+              <label for="faqq-nombre">Nombre completo <span aria-hidden="true">*</span></label>
+              <input type="text" id="faqq-nombre" name="nombre" placeholder="Ej. Cmte. Roberto Hernández" required />
+            </div>
+            <div class="faqq__field">
+              <label for="faqq-telefono">Teléfono <span aria-hidden="true">*</span></label>
+              <input type="tel" id="faqq-telefono" name="telefono" placeholder="55 2078 0102" inputmode="tel" required />
+            </div>
+          </div>
+
+          <div class="faqq__row">
+            <div class="faqq__field">
+              <label for="faqq-email">Email</label>
+              <input type="email" id="faqq-email" name="email" placeholder="ventas@institucion.mx" />
+            </div>
+            <div class="faqq__field">
+              <label for="faqq-institucion">Institución / Empresa <span aria-hidden="true">*</span></label>
+              <input type="text" id="faqq-institucion" name="institucion" placeholder="H. Cuerpo de Bomberos de…" required />
+            </div>
+          </div>
+
+          <div class="faqq__row">
+            <div class="faqq__field">
+              <label for="faqq-equipo">Tipo de equipo <span aria-hidden="true">*</span></label>
+              <select id="faqq-equipo" name="equipo" required>
+                <option value="">Selecciona el equipo</option>
+                <option value="Trajes estructurales NFPA 1971">Trajes estructurales NFPA 1971</option>
+                <option value="Trajes forestales NFPA 1977">Trajes forestales NFPA 1977</option>
+                <option value="Trajes ARFF / HAZMAT">Trajes ARFF / HAZMAT</option>
+                <option value="Cascos para bomberos">Cascos para bomberos</option>
+                <option value="Botas para bomberos">Botas para bomberos</option>
+                <option value="Guantes para bomberos">Guantes para bomberos</option>
+                <option value="Capuchas Nomex / PBI">Capuchas Nomex / PBI</option>
+                <option value="Equipos SCBA NFPA 1981">Equipos SCBA NFPA 1981</option>
+                <option value="Herramientas de Rescate / Extricación">Herramientas de Rescate / Extricación</option>
+                <option value="Tecnología (TIC, detectores, drones)">Tecnología (TIC, detectores, drones)</option>
+                <option value="Equipamiento completo de estación">Equipamiento completo de estación</option>
+                <option value="Otro / Varios">Otro / Varios</option>
+              </select>
+            </div>
+            <div class="faqq__field">
+              <label for="faqq-cantidad">Cantidad estimada</label>
+              <input type="text" id="faqq-cantidad" name="cantidad" placeholder="Ej. 25 trajes, 1 lote" inputmode="numeric" />
+            </div>
+          </div>
+
+          <div class="faqq__field faqq__field--full">
+            <label for="faqq-detalles">Detalles del requerimiento</label>
+            <textarea id="faqq-detalles" name="detalles" rows="3" placeholder="Tallas, modelos preferidos, fecha objetivo de entrega, requisitos de licitación, presupuesto disponible…"></textarea>
+          </div>
+
+          <div class="faqq__legal">
+            <input type="checkbox" id="faqq-aviso" name="aviso" required />
+            <label for="faqq-aviso">
+              Acepto ser contactado por BOMBERO.MX y conozco el <a href="/aviso-privacidad/" target="_blank" rel="noopener">aviso de privacidad</a>.
+            </label>
+          </div>
+
+          <div class="faqq__actions">
+            <button type="submit" id="faqq-submit" class="faqq__submit">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              Enviar cotización por WhatsApp
+            </button>
+            <p class="faqq__note">
+              Al enviar abrimos WhatsApp con tu solicitud prellenada. Respuesta en &lt; 24 hrs.
+            </p>
+          </div>
+
+        </form>
+
+        <ul class="faqq__benefits">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Respuesta &lt; 24 hrs</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Asesoría técnica sin costo</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Envío a los 32 estados</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Facturación CFDI 4.0 / gobierno</li>
+        </ul>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById("faqq-form");
+    if (!form) return;
+    const phone = "525520780102";
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const f = (id) => (document.getElementById(id) || {}).value || "";
+      const nombre      = f("faqq-nombre").trim();
+      const telefono    = f("faqq-telefono").trim();
+      const email       = f("faqq-email").trim();
+      const institucion = f("faqq-institucion").trim();
+      const equipo      = f("faqq-equipo").trim();
+      const cantidad    = f("faqq-cantidad").trim();
+      const detalles    = f("faqq-detalles").trim();
+      const aviso       = document.getElementById("faqq-aviso");
+
+      if (!nombre || !telefono || !institucion || !equipo) {
+        alert("Por favor completa los campos marcados con *.");
+        return;
+      }
+      if (aviso && !aviso.checked) {
+        alert("Acepta el aviso de privacidad para continuar.");
+        return;
+      }
+
+      const lines = [
+        "*Solicitud de cotización — BOMBERO.MX*",
+        "",
+        "*Nombre:* " + nombre,
+        "*Institución:* " + institucion,
+        "*Teléfono:* " + telefono,
+        email ? "*Email:* " + email : null,
+        "",
+        "*Equipo:* " + equipo,
+        cantidad ? "*Cantidad estimada:* " + cantidad : null,
+        detalles ? "*Detalles:* " + detalles : null,
+      ].filter(Boolean);
+
+      const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(lines.join("\n"));
+      window.open(url, "_blank", "noopener");
+    });
+  })();
+</script>
+
+
+<style>
+  /* ─────────────────────────────────────────────────────────────────────
+     FAQ + COTIZACIÓN — UNIFIED MODULE
+  ───────────────────────────────────────────────────────────────────── */
+  .faqq {
+    padding: var(--space-16) 0;
+    background:
+      linear-gradient(180deg, var(--color-smoke-50) 0%, #fff 100%);
+    position: relative;
+  }
+
+  .faqq__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    margin-top: var(--space-10);
+    align-items: stretch;
+  }
+
+  .faqq__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+  }
+
+  .faqq__col--faq {
+    background: #fff;
+    border: 1px solid var(--color-smoke-200);
+  }
+
+  .faqq__col--form {
+    background:
+      radial-gradient(ellipse 80% 60% at 100% 0%, rgba(249,115,22,.18), transparent 55%),
+      radial-gradient(ellipse 80% 60% at 0% 100%, rgba(220,38,38,.16), transparent 55%),
+      linear-gradient(160deg, var(--color-smoke-950) 0%, #1a1a1f 100%);
+    color: var(--color-text-on-dark);
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,.35);
+  }
+
+  /* ── Heading per column ── */
+  .faqq__col-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .faqq__eyebrow {
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--color-fire-600);
+  }
+  .faqq__eyebrow--accent {
+    color: var(--color-ember-400);
+  }
+
+  .faqq__col-title {
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -.01em;
+    color: var(--color-smoke-900);
+    margin: 0;
+  }
+  .faqq__col-title--invert { color: #fff; }
+
+  .faqq__col-sub {
+    font-size: var(--text-sm);
+    line-height: 1.65;
+    color: var(--color-smoke-600);
+    margin: 0;
+    max-width: 56ch;
+  }
+  .faqq__col-sub--invert { color: var(--color-smoke-300); }
+
+
+  /* ─── FAQ accordion ─── */
+  .faqq__faqs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .faqq__item {
+    background: var(--color-smoke-50);
+    border: 1px solid var(--color-smoke-200);
+    border-radius: var(--radius-lg);
+    transition: border-color .2s, background .2s;
+  }
+  .faqq__item[open] {
+    background: #fff;
+    border-color: var(--color-fire-300, rgba(220,38,38,.35));
+    box-shadow: 0 2px 12px rgba(220,38,38,.06);
+  }
+
+  .faqq__q {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    cursor: pointer;
+    list-style: none;
+    min-height: 60px;
+  }
+  .faqq__q::-webkit-details-marker { display: none; }
+
+  .faqq__q-num {
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    color: var(--color-fire-600);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .faqq__q-text {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-800);
+    line-height: 1.4;
+  }
+  .faqq__item[open] .faqq__q-text { color: var(--color-smoke-900); }
+
+  .faqq__q-toggle {
+    width: 26px; height: 26px; min-width: 26px;
+    background: var(--color-smoke-100);
+    border-radius: 50%;
+    position: relative;
+    transition: transform .25s, background .25s;
+  }
+  .faqq__q-toggle::before,
+  .faqq__q-toggle::after {
+    content: '';
+    position: absolute;
+    background: var(--color-smoke-600);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .faqq__q-toggle::before { width: 10px; height: 2px; }
+  .faqq__q-toggle::after  { width: 2px;  height: 10px; }
+
+  .faqq__item[open] .faqq__q-toggle {
+    background: var(--color-fire-600);
+    transform: rotate(45deg);
+  }
+  .faqq__item[open] .faqq__q-toggle::before,
+  .faqq__item[open] .faqq__q-toggle::after {
+    background: #fff;
+  }
+
+  .faqq__a {
+    padding: 0 var(--space-4) var(--space-4) calc(var(--space-4) + 1.8rem);
+  }
+  .faqq__a p {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-600);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+
+  /* ─── FAQ support footer ─── */
+  .faqq__support {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: auto;
+    padding: var(--space-4);
+    background: linear-gradient(135deg, rgba(220,38,38,.06), rgba(249,115,22,.06));
+    border: 1px solid rgba(220,38,38,.18);
+    border-radius: var(--radius-lg);
+  }
+  .faqq__support-icon {
+    width: 42px; height: 42px;
+    display: grid; place-items: center;
+    background: var(--color-fire-600);
+    color: #fff;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+  }
+  .faqq__support-body {
+    display: flex; flex-direction: column;
+    font-size: var(--text-xs);
+    line-height: 1.5;
+  }
+  .faqq__support-body strong {
+    font-size: var(--text-sm);
+    color: var(--color-smoke-900);
+  }
+  .faqq__support-body span { color: var(--color-smoke-600); }
+  .faqq__support-cta {
+    padding: var(--space-2) var(--space-4);
+    background: #25D366;
+    color: #fff;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .2s, transform .2s;
+  }
+  .faqq__support-cta:hover {
+    background: #1fba58;
+    transform: translateY(-1px);
+  }
+
+
+  /* ─── Form ─── */
+  .faqq__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .faqq__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .faqq__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1-5, .375rem);
+  }
+  .faqq__field--full { grid-column: 1 / -1; }
+
+  .faqq__field label {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    color: var(--color-smoke-200);
+    text-transform: uppercase;
+  }
+  .faqq__field label span {
+    color: var(--color-ember-400);
+    margin-left: 2px;
+  }
+
+  .faqq__field input,
+  .faqq__field select,
+  .faqq__field textarea {
+    padding: .85rem 1rem;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--radius-md);
+    font-size: var(--text-base);
+    color: #fff;
+    font-family: inherit;
+    transition: border-color .2s, background .2s, box-shadow .2s;
+  }
+  .faqq__field input::placeholder,
+  .faqq__field textarea::placeholder { color: rgba(255,255,255,.4); }
+
+  .faqq__field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='rgba(255,255,255,0.6)' d='M6 8L0 0h12z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+  .faqq__field select option {
+    background: #1a1a1f;
+    color: #fff;
+  }
+
+  .faqq__field textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.55;
+  }
+
+  .faqq__field input:focus,
+  .faqq__field select:focus,
+  .faqq__field textarea:focus {
+    outline: none;
+    border-color: var(--color-ember-500);
+    background: rgba(255,255,255,.08);
+    box-shadow: 0 0 0 3px rgba(249,115,22,.18);
+  }
+
+  /* Legal */
+  .faqq__legal {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: rgba(255,255,255,.04);
+    border-radius: var(--radius-md);
+  }
+  .faqq__legal input[type="checkbox"] {
+    width: 18px; height: 18px;
+    margin-top: 2px;
+    accent-color: var(--color-fire-600);
+    flex-shrink: 0;
+  }
+  .faqq__legal label {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-300);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .faqq__legal a {
+    color: var(--color-ember-400);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Submit */
+  .faqq__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+  }
+
+  .faqq__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #25D366 0%, #1aa84a 100%);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: var(--text-base);
+    font-weight: 800;
+    letter-spacing: .01em;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s, filter .2s;
+    min-height: 52px;
+    box-shadow: 0 6px 20px -8px rgba(37,211,102,.55);
+  }
+  .faqq__submit:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow: 0 10px 28px -8px rgba(37,211,102,.65);
+  }
+  .faqq__submit:active { transform: translateY(0); }
+
+  .faqq__note {
+    text-align: center;
+    font-size: .78rem;
+    color: var(--color-smoke-400);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+
+  /* Benefits row */
+  .faqq__benefits {
+    list-style: none;
+    padding: var(--space-4) 0 0;
+    margin: 0;
+    border-top: 1px solid rgba(255,255,255,.08);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2) var(--space-4);
+  }
+  .faqq__benefits li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: .78rem;
+    color: var(--color-smoke-200);
+    font-weight: 600;
+  }
+  .faqq__benefits svg {
+    color: var(--color-ember-400);
+    flex-shrink: 0;
+  }
+
+
+  /* ─── Responsive ─── */
+  @media (min-width: 640px) {
+    .faqq { padding: var(--space-20) 0; }
+    .faqq__col { padding: var(--space-8); gap: var(--space-7); }
+    .faqq__q   { padding: var(--space-5); }
+    .faqq__a   { padding: 0 var(--space-5) var(--space-5) calc(var(--space-5) + 1.8rem); }
+    .faqq__row { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (min-width: 1024px) {
+    .faqq__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
+    }
+    .faqq__col { padding: var(--space-10); }
+  }
+
+  @media (min-width: 1280px) {
+    .faqq__grid { gap: var(--space-10); }
+  }
+</style>

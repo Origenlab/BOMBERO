@@ -42,7 +42,8 @@ const allCategories = [...productCategories, ...secondaryCategories];
 
 
 <header class={headerClasses} role="banner">
-  <div class="container header__inner">
+  <div class="header__bar full-bleed">
+    <div class="container container--wide header__inner">
 
     <Logo />
 
@@ -86,6 +87,7 @@ const allCategories = [...productCategories, ...secondaryCategories];
         <span class="header__toggle-bar" aria-hidden="true"></span>
         <span class="header__toggle-bar" aria-hidden="true"></span>
       </button>
+    </div>
     </div>
   </div>
 
@@ -241,11 +243,35 @@ const allCategories = [...productCategories, ...secondaryCategories];
 <style>
 
 
+  /* ── Header limpio con fondo blanco ── */
   .header {
     position: relative;
+    width: 100%;
     background: #ffffff;
-    padding: var(--space-3) 0;
     border-bottom: 1px solid var(--color-smoke-100);
+    color: var(--color-smoke-800);
+  }
+
+  .header__bar {
+    position: relative;
+    padding: var(--space-3) 0;
+  }
+
+  /* Línea acento roja visible al hacer scroll */
+  .header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--color-ember-600) 25%, var(--color-ember-600) 75%, transparent 100%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .header--scrolled::after {
+    opacity: 0.7;
   }
 
   .header--sticky {
@@ -255,8 +281,11 @@ const allCategories = [...productCategories, ...secondaryCategories];
   }
 
   .header--scrolled {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px -8px rgba(15, 23, 42, 0.12);
     border-bottom-color: transparent;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
   }
 
   .header--transparent {
@@ -269,14 +298,14 @@ const allCategories = [...productCategories, ...secondaryCategories];
   }
 
   .header--dark {
-    background: var(--color-smoke-900);
+    background: var(--surface-0);
   }
 
   .header__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-6);
+    gap: var(--space-8);
   }
 
 
@@ -314,20 +343,37 @@ const allCategories = [...productCategories, ...secondaryCategories];
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: var(--gradient-fire);
+    padding: 0.625rem 1.125rem;
+    background: var(--gradient-cta);
     color: white;
-    font-weight: 600;
+    font-weight: 700;
     font-size: var(--text-sm);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
     text-decoration: none;
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+    box-shadow: 0 4px 16px -4px rgba(220, 38, 38, 0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header__cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
   }
 
   .header__cta:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+    box-shadow: 0 8px 24px -6px rgba(220, 38, 38, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+
+  .header__cta:hover::before {
+    opacity: 1;
   }
 
   .header__cta svg {

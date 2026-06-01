@@ -122,28 +122,44 @@ const icons: Record<string, string> = {
 </article>
 
 <style>
-/* ── Card contenedor ───────────────────────────────────────────── */
+/* ── Card contenedor industrial pro ───────────────────────────── */
 .cat-card {
   display: flex;
   flex-direction: column;
   background: #fff;
   border: 1px solid var(--color-smoke-200);
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px -8px rgba(15,23,42,0.08);
   height: 100%;
+  position: relative;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  isolation: isolate;
 }
 
-@media (hover: hover) {
-  .cat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-    border-color: var(--color-fire-300);
-  }
-  .cat-card:hover .cat-card__img {
-    transform: scale(1.04);
-  }
+/* Marca técnica roja: línea superior fina visible al hover */
+.cat-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-ember-600), var(--color-fire-500));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+  z-index: 2;
+}
+
+.cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -8px rgba(15,23,42,0.18), 0 0 0 1px var(--hairline-accent);
+  border-color: transparent;
+}
+
+.cat-card:hover::before {
+  transform: scaleX(1);
 }
 
 /* ── Media (imagen) ────────────────────────────────────────────── */
@@ -162,7 +178,6 @@ const icons: Record<string, string> = {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.35s ease;
 }
 
 /* Ícono placeholder cuando no hay imagen */
@@ -245,10 +260,6 @@ const icons: Record<string, string> = {
 .cat-card__title a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.15s;
-}
-@media (hover: hover) {
-  .cat-card__title a:hover { color: var(--color-fire-600); }
 }
 
 .cat-card__desc {
@@ -285,7 +296,6 @@ const icons: Record<string, string> = {
   color: var(--color-smoke-600);
   text-decoration: none;
   line-height: 1.3;
-  transition: color 0.15s, gap 0.15s;
   border-radius: 4px;
 }
 
@@ -293,17 +303,14 @@ const icons: Record<string, string> = {
   flex-shrink: 0;
   color: var(--color-fire-500);
   opacity: 0.6;
-  transition: opacity 0.15s, transform 0.15s;
 }
 
 @media (hover: hover) {
   .cat-card__list-link:hover {
     color: var(--color-fire-700);
-    gap: 9px;
   }
   .cat-card__list-link:hover .cat-card__list-arrow {
     opacity: 1;
-    transform: translateX(2px);
   }
 }
 

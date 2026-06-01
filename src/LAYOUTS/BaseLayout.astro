@@ -22,7 +22,7 @@ const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(),
 <html lang={SITE.language} dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
 
 
@@ -33,6 +33,17 @@ const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(),
     <meta name="theme-color" content="#dc2626" />
     <meta name="msapplication-TileColor" content="#dc2626" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
+
+    <!-- Preconnect a CDN de imágenes (LCP -100ms) -->
+    <link rel="preconnect" href="https://emwn2f4rcov.exactdn.com" crossorigin />
+    <link rel="dns-prefetch" href="https://emwn2f4rcov.exactdn.com" />
+
+    <!-- Preconnect a analytics no críticos (sin crossorigin para reducir handshakes) -->
+    <link rel="dns-prefetch" href="https://app.rybbit.io" />
+    <link rel="dns-prefetch" href="https://app.truconversion.com" />
+
+    <!-- Hint para enlace LLM emergente (consumido por crawlers GEO) -->
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM index" />
 
     <!-- Preload critical fonts (400=body, 700=headings) -->
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
@@ -47,37 +58,88 @@ const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(),
 
 
 
-    <script
-      src="https://app.rybbit.io/api/script.js"
-      data-site-id="1353eff32e78"
-      defer
-    ></script>
+    <!-- Analytics & heatmaps cargados tras hidratación para no bloquear LCP -->
+    <script type="module">
+      // Esperar a que el navegador esté libre para cargar analítica + heatmap.
+      // Cae a setTimeout(2000) en navegadores sin requestIdleCallback.
+      const loadAnalytics = () => {
+        if (window.__bomberoAnalyticsLoaded) return;
+        window.__bomberoAnalyticsLoaded = true;
 
-    <!-- TruConversion for bombero.mx -->
-    <script is:inline>
-      var _tip = _tip || [];
-      (function(d,s,id){
-        var js, tjs = d.getElementsByTagName(s)[0];
-        if(d.getElementById(id)) { return; }
-        js = d.createElement(s); js.id = id;
-        js.async = true;
-        js.src = d.location.protocol + '//app.truconversion.com/ti-js/62699/64664.js';
-        tjs.parentNode.insertBefore(js, tjs);
-      }(document, 'script', 'ti-js'));
-    </script>
-  <!-- ExactDN CDN -->
-  <script is:inline>
-    (function(){
-      var cdn = "https://emwn2f4rcov.exactdn.com";
-      if (window.location.hostname === "localhost") return;
-      document.addEventListener("DOMContentLoaded", function(){
-        var imgs = document.querySelectorAll("img[src^=\"/images/\"]");
-        for (var i = 0; i < imgs.length; i++) {
-          imgs[i].src = cdn + imgs[i].getAttribute("src");
+        // Rybbit (web analytics)
+        const rybbit = document.createElement("script");
+        rybbit.src = "https://app.rybbit.io/api/script.js";
+        rybbit.dataset.siteId = "1353eff32e78";
+        rybbit.defer = true;
+        document.head.appendChild(rybbit);
+
+        // TruConversion (heatmap + session replay) — solo en producción
+        if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+          window._tip = window._tip || [];
+          const tc = document.createElement("script");
+          tc.async = true;
+          tc.id = "ti-js";
+          tc.src = location.protocol + "//app.truconversion.com/ti-js/62699/64664.js";
+          document.head.appendChild(tc);
         }
-      });
-    })();
-  </script>
+      };
+
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(loadAnalytics, { timeout: 3000 });
+      } else {
+        setTimeout(loadAnalytics, 2000);
+      }
+    </script>
+    <!--
+      ExactDN runtime fallback.
+      cdnW() ya resuelve la URL en build para casi todas las imágenes,
+      pero quedan algunas plantillas del sitio (homepage, productos
+      legacy, blog) con <img src="/images/..."> sin transformar. Este
+      MutationObserver las redirige al CDN antes del primer paint y
+      reemplaza el setSrc-en-DOMContentLoaded original (que causaba CLS
+      y doble fetch).
+    -->
+    <script is:inline>
+      (function () {
+        if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;
+        var CDN = "https://emwn2f4rcov.exactdn.com";
+        function rewrite(img) {
+          if (!img || img.dataset.cdnDone === "1") return;
+          var src = img.getAttribute("src");
+          if (src && src.charAt(0) === "/" && src.indexOf("/images/") === 0) {
+            img.setAttribute("src", CDN + src);
+          }
+          img.dataset.cdnDone = "1";
+        }
+        // Observador para imágenes añadidas antes del primer paint
+        try {
+          var mo = new MutationObserver(function (muts) {
+            for (var i = 0; i < muts.length; i++) {
+              var m = muts[i];
+              for (var j = 0; j < m.addedNodes.length; j++) {
+                var n = m.addedNodes[j];
+                if (n && n.nodeType === 1) {
+                  if (n.tagName === "IMG") rewrite(n);
+                  else if (n.querySelectorAll) {
+                    var qs = n.querySelectorAll("img");
+                    for (var k = 0; k < qs.length; k++) rewrite(qs[k]);
+                  }
+                }
+              }
+            }
+          });
+          mo.observe(document.documentElement, { childList: true, subtree: true });
+          // Detener observación cuando DOM esté listo
+          document.addEventListener("DOMContentLoaded", function () {
+            var imgs = document.querySelectorAll("img");
+            for (var i = 0; i < imgs.length; i++) rewrite(imgs[i]);
+            mo.disconnect();
+          });
+        } catch (e) {
+          // Fallback silencioso
+        }
+      })();
+    </script>
   </head>
 
   <body>

@@ -1,0 +1,250 @@
+---
+/**
+ * MunicipiosPhonesTable.astro
+ * ──────────────────────────────────────────────────────────────────
+ * Tabla HTML semántica con teléfonos de bomberos por municipio.
+ *
+ * Diseñada para extracción por motores generativos (ChatGPT,
+ * Gemini, Perplexity, AI Overviews): tabla simple sin flex/grid,
+ * encabezados explícitos, datos atomizados, microdata schema.org.
+ *
+ * Acepta el array de estaciones del estado y agrupa por municipio.
+ * ──────────────────────────────────────────────────────────────────
+ */
+
+interface EstacionData {
+  nombreCorto: string;
+  slug: string;
+  direccion: string;
+  colonia?: string;
+  municipio?: string;
+  ciudad?: string;
+  telefono?: string;
+}
+
+interface Props {
+  estado: string;
+  estaciones: EstacionData[];
+}
+
+const { estado, estaciones } = Astro.props;
+
+// Agrupar por municipio (o ciudad como fallback)
+type Row = { municipio: string; estaciones: EstacionData[] };
+const grupos: Record<string, EstacionData[]> = {};
+for (const est of estaciones) {
+  const key = est.municipio || est.ciudad || "Sin municipio";
+  if (!grupos[key]) grupos[key] = [];
+  grupos[key].push(est);
+}
+
+const rows: Row[] = Object.entries(grupos)
+  .map(([municipio, estaciones]) => ({ municipio, estaciones }))
+  .sort((a, b) => a.municipio.localeCompare(b.municipio, "es"));
+---
+
+<section class="muni-phones" aria-labelledby="muni-phones-title">
+  <div class="container">
+    <header class="muni-phones__head">
+      <span class="muni-phones__badge">Teléfonos por municipio</span>
+      <h2 id="muni-phones-title" class="muni-phones__title">
+        Bomberos en {estado}: teléfonos por municipio
+      </h2>
+      <p class="muni-phones__desc">
+        Llama al <strong>911</strong> para emergencias inmediatas. Estos teléfonos
+        directos son útiles para trámites administrativos, reportes no urgentes,
+        capacitación y solicitudes de cartas o dictámenes.
+      </p>
+    </header>
+
+    <div class="muni-phones__wrap" role="region" aria-label="Tabla de teléfonos de bomberos por municipio">
+      <table class="muni-phones__table">
+        <caption class="sr-only">
+          Teléfonos directos de las estaciones de bomberos en {estado}, ordenados por municipio.
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Municipio</th>
+            <th scope="col">Estación</th>
+            <th scope="col">Teléfono directo</th>
+            <th scope="col">Dirección</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => row.estaciones.map((est, idx) => (
+            <tr itemscope itemtype="https://schema.org/FireStation">
+              {idx === 0 ? (
+                <th scope="row" rowspan={row.estaciones.length} class="muni-phones__muni">
+                  {row.municipio}
+                </th>
+              ) : null}
+              <td itemprop="name">
+                <a href={`/directorio/${estado.toLowerCase().replace(/\s+/g, '-').replace(/á/g,'a').replace(/é/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ñ/g,'n')}/${est.slug}/`}>
+                  {est.nombreCorto}
+                </a>
+              </td>
+              <td class="muni-phones__tel">
+                {est.telefono ? (
+                  <a href={`tel:${est.telefono.replace(/\s/g, '')}`} itemprop="telephone">
+                    {est.telefono}
+                  </a>
+                ) : (
+                  <span class="muni-phones__tel--none">—</span>
+                )}
+              </td>
+              <td itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                <span itemprop="streetAddress">{est.direccion}</span>
+                {est.colonia ? <span itemprop="addressLocality">, {est.colonia}</span> : null}
+              </td>
+            </tr>
+          )))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="muni-phones__note">
+      Última verificación editorial: <strong>30 de mayo de 2026</strong>.
+      ¿Encontraste un dato desactualizado? Repórtalo a
+      <a href="mailto:directorio@bombero.mx">directorio@bombero.mx</a>.
+    </p>
+  </div>
+</section>
+
+<style>
+  .muni-phones {
+    padding: var(--space-16, 4rem) 0;
+    background: white;
+    border-top: 1px solid var(--color-smoke-200, #e5e5e5);
+  }
+
+  .muni-phones__head {
+    max-width: 760px;
+    margin: 0 auto var(--space-8, 2rem);
+    text-align: center;
+  }
+
+  .muni-phones__badge {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    background: rgba(220, 38, 38, 0.1);
+    color: var(--color-fire-700, #b91c1c);
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .muni-phones__title {
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    font-weight: 800;
+    color: var(--color-smoke-900, #111);
+    margin: 0 0 0.6rem;
+    letter-spacing: -0.02em;
+  }
+
+  .muni-phones__desc {
+    color: var(--color-smoke-600, #555);
+    font-size: 1rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .muni-phones__desc strong {
+    color: var(--color-fire-600, #dc2626);
+  }
+
+  .muni-phones__wrap {
+    overflow-x: auto;
+    border: 1px solid var(--color-smoke-200, #e5e5e5);
+    border-radius: var(--radius-xl, 1rem);
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  }
+
+  .muni-phones__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .muni-phones__table thead {
+    background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+    color: white;
+  }
+
+  .muni-phones__table th,
+  .muni-phones__table td {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-smoke-100, #f3f3f3);
+  }
+
+  .muni-phones__table th {
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .muni-phones__muni {
+    background: var(--color-smoke-50, #fafafa);
+    color: var(--color-smoke-900, #111);
+    font-weight: 700;
+    border-right: 2px solid var(--color-fire-500, #dc2626);
+    white-space: nowrap;
+  }
+
+  .muni-phones__table td a {
+    color: var(--color-fire-700, #b91c1c);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .muni-phones__table td a:hover {
+    text-decoration: underline;
+  }
+
+  .muni-phones__tel {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .muni-phones__tel--none {
+    color: var(--color-smoke-400, #999);
+  }
+
+  .muni-phones__table tbody tr:nth-child(even):not(:has(.muni-phones__muni)) td {
+    background: rgba(0, 0, 0, 0.015);
+  }
+
+  .muni-phones__note {
+    margin: 1.25rem auto 0;
+    max-width: 720px;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--color-smoke-500, #777);
+  }
+
+  .muni-phones__note a {
+    color: var(--color-fire-700, #b91c1c);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0; border: 0;
+    overflow: hidden; clip: rect(0, 0, 0, 0);
+  }
+
+  @media (max-width: 640px) {
+    .muni-phones__table th,
+    .muni-phones__table td {
+      padding: 0.7rem 0.8rem;
+      font-size: 0.86rem;
+    }
+  }
+</style>

@@ -1,0 +1,286 @@
+---
+/**
+ * FAQDirectorio.astro
+ * ──────────────────────────────────────────────────────────────────
+ * Bloque FAQ + Schema FAQPage para directorio.
+ *
+ * scope:
+ *   - "nacional" → preguntas sobre el directorio nacional
+ *   - "estado"   → preguntas específicas de un estado (requiere props)
+ *   - "estacion" → preguntas para una estación concreta
+ *
+ * El componente emite tanto HTML semántico (<details> accesible)
+ * como JSON-LD FAQPage para Google Rich Results y GEO (ChatGPT,
+ * Gemini, Perplexity).
+ * ──────────────────────────────────────────────────────────────────
+ */
+
+interface Props {
+  scope?: "nacional" | "estado" | "estacion";
+  estado?: string;
+  capital?: string;
+  totalEstaciones?: number;
+  totalEstados?: number;
+  telefonoEstacion?: string;
+  ciudadEstacion?: string;
+  nombreEstacion?: string;
+}
+
+const {
+  scope = "nacional",
+  estado,
+  capital,
+  totalEstaciones = 666,
+  totalEstados = 32,
+  telefonoEstacion,
+  ciudadEstacion,
+  nombreEstacion,
+} = Astro.props;
+
+type QA = { q: string; a: string };
+
+function nacional(): QA[] {
+  return [
+    {
+      q: "¿Cuál es el número de emergencias para llamar a bomberos en México?",
+      a: `El número único de emergencias en toda la República Mexicana es el <strong>911</strong>. Funciona las 24 horas del día, los 365 días del año, y conecta de forma automática con la central de bomberos, policía y servicios médicos del lugar desde donde se llama. En algunas ciudades de México todavía opera el <strong>068</strong> como número directo de bomberos, pero el 911 es la línea recomendada en toda la República.`,
+    },
+    {
+      q: "¿Cuántas estaciones de bomberos hay en México?",
+      a: `BOMBERO.MX mantiene un directorio verificado con más de <strong>${totalEstaciones} estaciones de bomberos</strong> distribuidas en los <strong>${totalEstados} estados</strong> de la República Mexicana. La mayoría son cuerpos municipales (H. Cuerpo de Bomberos de cada municipio o ciudad), complementados por patronatos, bomberos voluntarios, brigadas industriales y bomberos aeroportuarios (ARFF).`,
+    },
+    {
+      q: "¿Cómo encontrar la estación de bomberos más cercana a mi domicilio?",
+      a: `En BOMBERO.MX selecciona tu <strong>estado</strong> y luego tu <strong>municipio o ciudad</strong>. Cada ficha de estación incluye dirección, código postal, teléfono directo, horarios y servicios disponibles. Para emergencias inmediatas, llama siempre primero al <strong>911</strong>; el sistema te conectará con la estación más cercana automáticamente.`,
+    },
+    {
+      q: "¿Los servicios de bomberos en México son gratuitos?",
+      a: `En México, la atención de emergencias por parte de los cuerpos municipales de bomberos es <strong>gratuita</strong> para incendios, rescates, fugas de gas y emergencias relacionadas con la vida o integridad de las personas. Algunos servicios secundarios (retiro de enjambres, apertura de cerraduras, llenado de cisternas) pueden tener cuota voluntaria de recuperación que apoya al patronato o al cuerpo municipal correspondiente.`,
+    },
+    {
+      q: "¿Cómo puede mi cuerpo de bomberos aparecer en este directorio?",
+      a: `Si eres responsable de comunicación de un cuerpo de bomberos municipal, patronato o brigada y deseas que tu estación aparezca o actualizar los datos publicados, escríbenos a <a href="mailto:directorio@bombero.mx">directorio@bombero.mx</a> con copia del oficio de la comandancia. La verificación editorial es gratuita.`,
+    },
+    {
+      q: "¿BOMBERO.MX vende equipo a estaciones de bomberos?",
+      a: `Sí. BOMBERO.MX es <strong>distribuidor autorizado de equipo certificado NFPA</strong> para cuerpos de bomberos en los 32 estados: trajes estructurales NFPA 1971, cascos, guantes, botas, SCBA, herramientas de rescate y extintores. Las cotizaciones para municipios, patronatos y licitaciones gubernamentales se atienden en <a href="/cotizar/">/cotizar/</a> o al WhatsApp 55 2078 0102.`,
+    },
+  ];
+}
+
+function porEstado(): QA[] {
+  const estadoNombre = estado ?? "tu estado";
+  const cap = capital ?? "la capital";
+  return [
+    {
+      q: `¿Cuál es el teléfono de bomberos en ${estadoNombre}?`,
+      a: `Para emergencias en ${estadoNombre} marca el <strong>911</strong>, número único nacional. También puedes contactar directamente a cualquier estación de este directorio: cada ficha incluye el teléfono local de la comandancia y de la estación más cercana en tu municipio. La capital, ${cap}, suele tener la línea de comandancia con respuesta más rápida del estado.`,
+    },
+    {
+      q: `¿Cuántas estaciones de bomberos hay en ${estadoNombre}?`,
+      a: `El H. Cuerpo de Bomberos de ${estadoNombre} cuenta con una red distribuida entre los principales municipios del estado. En la página de cada estado puedes ver el número exacto de estaciones registradas, sus ubicaciones y servicios. Este directorio se actualiza con verificación editorial de cada comandancia.`,
+    },
+    {
+      q: `¿Cómo solicitar el servicio de bomberos en ${estadoNombre}?`,
+      a: `En caso de emergencia (incendio, rescate, fuga de gas, accidente) marca el <strong>911</strong>. Para servicios no urgentes (inspección, capacitación, retiro de enjambres) llama directo al teléfono de la estación más cercana publicado en este directorio. Identifica la dirección exacta del incidente, número de personas involucradas y tipo de emergencia.`,
+    },
+    {
+      q: `¿Los bomberos de ${estadoNombre} cobran por sus servicios?`,
+      a: `Las emergencias que comprometen vidas o integridad se atienden <strong>de forma gratuita</strong>. Algunas comandancias mantienen cuotas de recuperación simbólicas para servicios secundarios o donativos voluntarios al patronato del cuerpo municipal. Las brigadas industriales y privadas se rigen por contrato comercial.`,
+    },
+    {
+      q: `¿Dónde está la estación de bomberos más cercana en ${estadoNombre}?`,
+      a: `Consulta el listado de municipios al inicio de esta página y selecciona el tuyo: verás todas las estaciones de bomberos con dirección, código postal y teléfono. Las estaciones marcadas como "Cuartel Central" son típicamente las que coordinan respuesta y refuerzo regional dentro del estado.`,
+    },
+    {
+      q: `¿Cómo apoyar a los bomberos de ${estadoNombre}?`,
+      a: `Los cuerpos de bomberos en México suelen operar con presupuestos limitados. Puedes apoyar mediante donativos al patronato local, voluntariado, donación de equipo certificado o difusión del directorio para que más personas conozcan los servicios disponibles en su municipio.`,
+    },
+  ];
+}
+
+function porEstacion(): QA[] {
+  const nombre = nombreEstacion ?? "esta estación";
+  const ciudad = ciudadEstacion ?? "la ciudad";
+  const tel = telefonoEstacion ?? "911";
+  return [
+    {
+      q: `¿Cuál es el teléfono de ${nombre}?`,
+      a: `El teléfono directo de <strong>${nombre}</strong> es <a href="tel:${tel.replace(/\s/g, "")}">${tel}</a>. Para emergencias inmediatas en ${ciudad}, marca primero el <strong>911</strong>: el sistema enruta automáticamente la llamada a la estación con tiempo de respuesta más corto desde tu ubicación.`,
+    },
+    {
+      q: `¿Qué servicios ofrece ${nombre}?`,
+      a: `${nombre} brinda servicios de emergencia las 24 horas: combate de incendios estructurales, rescate vehicular, atención prehospitalaria, control de fugas de gas, retiro de enjambres y los servicios especializados que se listan en la sección de servicios de esta página. Personal con capacitación NFPA y protocolos de Protección Civil.`,
+    },
+    {
+      q: `¿Cuál es el horario de atención de ${nombre}?`,
+      a: `${nombre} opera <strong>24 horas, los 365 días del año</strong>. Las llamadas de emergencia se atienden en cualquier momento. Trámites administrativos (cartas, dictámenes, capacitación) se realizan en horario de oficina; consulta el dato publicado en esta ficha.`,
+    },
+    {
+      q: `¿Cómo llegar a ${nombre}?`,
+      a: `La dirección completa y mapa de ubicación están en la parte superior de esta página, incluyendo botón directo a Google Maps. Si vienes por una emergencia, <strong>NO te traslades a la estación</strong>: marca el 911 y permite que la unidad llegue a ti.`,
+    },
+  ];
+}
+
+const items: QA[] =
+  scope === "estado" ? porEstado() : scope === "estacion" ? porEstacion() : nacional();
+
+// JSON-LD FAQPage (sanea HTML simple: convierte <strong>/<a> a texto plano para el schema)
+function stripHtml(html: string): string {
+  return html
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((it) => ({
+    "@type": "Question",
+    name: it.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: stripHtml(it.a),
+    },
+  })),
+};
+---
+
+<section class="faq-dir" aria-labelledby="faq-dir-title">
+  <div class="container">
+    <header class="faq-dir__head">
+      <span class="faq-dir__badge">Preguntas frecuentes</span>
+      <h2 id="faq-dir-title" class="faq-dir__title">
+        {scope === "estado"
+          ? `Preguntas sobre bomberos en ${estado}`
+          : scope === "estacion"
+          ? `Preguntas sobre ${nombreEstacion ?? "esta estación"}`
+          : `Preguntas frecuentes del directorio nacional`}
+      </h2>
+      <p class="faq-dir__desc">
+        Respuestas verificadas para las preguntas más comunes sobre los servicios de bomberos en México.
+      </p>
+    </header>
+
+    <div class="faq-dir__list">
+      {items.map((item, i) => (
+        <details class="faq-dir__item" open={i === 0}>
+          <summary class="faq-dir__q">
+            <span>{item.q}</span>
+            <svg class="faq-dir__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </summary>
+          <div class="faq-dir__a" set:html={item.a} />
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
+<style>
+  .faq-dir {
+    padding: var(--space-16, 4rem) 0;
+    background: var(--color-smoke-50, #fafafa);
+    border-top: 1px solid var(--color-smoke-200, #e5e5e5);
+  }
+
+  .faq-dir__head {
+    max-width: 720px;
+    margin: 0 auto var(--space-10, 2.5rem);
+    text-align: center;
+  }
+
+  .faq-dir__badge {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    background: rgba(220, 38, 38, 0.1);
+    border-radius: 9999px;
+    color: var(--color-fire-600, #dc2626);
+    font-size: var(--text-xs, 0.75rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+  }
+
+  .faq-dir__title {
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    font-weight: 800;
+    color: var(--color-smoke-900, #111);
+    margin: 0 0 0.65rem;
+    letter-spacing: -0.02em;
+  }
+
+  .faq-dir__desc {
+    color: var(--color-smoke-600, #555);
+    font-size: var(--text-base, 1rem);
+    margin: 0;
+  }
+
+  .faq-dir__list {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .faq-dir__item {
+    background: white;
+    border: 1px solid var(--color-smoke-200, #e5e5e5);
+    border-radius: var(--radius-xl, 1rem);
+    overflow: hidden;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .faq-dir__item[open] {
+    border-color: var(--color-fire-500, #dc2626);
+    box-shadow: 0 6px 18px rgba(220, 38, 38, 0.08);
+  }
+
+  .faq-dir__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.25rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: var(--color-smoke-900, #111);
+    list-style: none;
+  }
+
+  .faq-dir__q::-webkit-details-marker { display: none; }
+
+  .faq-dir__chevron {
+    color: var(--color-fire-500, #dc2626);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .faq-dir__item[open] .faq-dir__chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-dir__a {
+    padding: 0 1.25rem 1.25rem;
+    color: var(--color-smoke-700, #444);
+    line-height: 1.7;
+    font-size: 0.97rem;
+  }
+
+  .faq-dir__a a {
+    color: var(--color-fire-600, #dc2626);
+    text-decoration: underline;
+  }
+
+  .faq-dir__a strong {
+    color: var(--color-smoke-900, #111);
+  }
+</style>

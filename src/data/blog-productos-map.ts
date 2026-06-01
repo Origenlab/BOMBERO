@@ -418,6 +418,101 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
     },
   ],
 
+  // Gama de México - Aliado industria mexicana
+  "gama-de-mexico-aliado-industria-mexicana": [
+    {
+      label: "Equipo Contra Incendios",
+      href: "/productos/equipo-contra-incendios/",
+      ctaText: "Ver equipo industrial",
+    },
+    {
+      label: "Solicitar Cotización Industrial",
+      href: "/cotizar/",
+      ctaText: "Cotizar proyecto industrial",
+    },
+    {
+      label: "Catálogo Completo",
+      href: "/productos/",
+      ctaText: "Explorar catálogo NFPA",
+    },
+  ],
+
+  // Gama de México - Elkhart Brass
+  "gama-de-mexico-elkhart-brass-distribuidor-autorizado": [
+    {
+      label: "Hidrantes y Gabinetes NFPA 14",
+      href: "/productos/equipo-contra-incendios/hidrantes-gabinetes/",
+      ctaText: "Ver hidrantes certificados",
+    },
+    {
+      label: "Equipo Contra Incendios",
+      href: "/productos/equipo-contra-incendios/",
+      ctaText: "Catálogo Elkhart Brass equivalente",
+    },
+    {
+      label: "Cotizar Proyecto",
+      href: "/cotizar/",
+      ctaText: "Solicitar cotización técnica",
+    },
+  ],
+
+  // Gama de México - Cumplimiento normativo
+  "gama-de-mexico-cumplimiento-normativo-nfpa-mexico": [
+    {
+      label: "Equipo Certificado NFPA",
+      href: "/productos/",
+      ctaText: "Ver equipo certificado NFPA",
+    },
+    {
+      label: "Brigadas Industriales EPP",
+      href: "/productos/trajes-para-bomberos/",
+      ctaText: "Ver EPP para brigadas",
+    },
+    {
+      label: "Cotizar Auditoría",
+      href: "/cotizar/",
+      ctaText: "Cotizar cumplimiento",
+    },
+  ],
+
+  // Gama de México - Logística nacional
+  "gama-de-mexico-logistica-nacional-cdmx-queretaro": [
+    {
+      label: "Catálogo Nacional",
+      href: "/productos/",
+      ctaText: "Ver catálogo de envío inmediato",
+    },
+    {
+      label: "Equipo Contra Incendios",
+      href: "/productos/equipo-contra-incendios/",
+      ctaText: "Ver equipo en stock",
+    },
+    {
+      label: "Cotizar Envío Industrial",
+      href: "/cotizar/",
+      ctaText: "Solicitar cotización logística",
+    },
+  ],
+
+  // Gama de México - Sectores industriales
+  "gama-de-mexico-sectores-industriales-mexico": [
+    {
+      label: "Equipo Industrial Sectorial",
+      href: "/productos/equipo-contra-incendios/",
+      ctaText: "Ver soluciones por sector",
+    },
+    {
+      label: "Brigadas Industriales",
+      href: "/productos/trajes-para-bomberos/",
+      ctaText: "EPP para brigadas",
+    },
+    {
+      label: "Cotizar por Sector",
+      href: "/cotizar/",
+      ctaText: "Cotizar proyecto sectorial",
+    },
+  ],
+
   // Empresas/Proveedores - Sistemas Contra Incendio
   "meseci-equipos-contra-incendio-mexico": [
     {

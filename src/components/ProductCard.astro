@@ -90,10 +90,46 @@ const normalizedSlug = slug.startsWith("http")
     display: flex;
     flex-direction: column;
     background: white;
-    border-radius: var(--radius-xl);
+    border-radius: 14px;
     overflow: hidden;
-    border: 1px solid var(--color-smoke-100);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    border: 1px solid var(--color-smoke-200);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px -8px rgba(15,23,42,0.08);
+    position: relative;
+    isolation: isolate;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  /* Línea técnica roja superior visible al hover */
+  .producto-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-ember-600), var(--color-fire-500));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+    z-index: 2;
+  }
+
+  .producto-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -10px rgba(15,23,42,0.18), 0 0 0 1px var(--hairline-accent);
+    border-color: transparent;
+  }
+
+  .producto-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .producto-card:hover .producto-card__image img {
+    transform: scale(1.04);
+  }
+
+  .producto-card__image img {
+    transition: transform var(--transition-slow);
   }
 
 

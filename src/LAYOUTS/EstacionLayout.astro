@@ -3,9 +3,13 @@
 import PageLayout from "@layouts/PageLayout.astro";
 import CTABanner from "@components/CTABanner.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
+import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
+import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
+import StationCTA from "@components/directorio/StationCTA.astro";
 import { cdnW } from "@utils/cdn";
 import { truncateMetaDescription } from "@utils/seo";
 import { getProductosRelacionadosEstacion } from "@data/directorio-productos-map";
+import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
 
 // Interfaz de la estación (campos opcionales tienen fallbacks en el layout)
 interface Estacion {
@@ -111,16 +115,24 @@ const seoDescription = truncateMetaDescription(
   155,
 );
 
-// Schema.org JSON-LD
+// Schema.org JSON-LD — FireStation + EmergencyService (mejor cobertura semántica)
 const stationJsonLd = {
   "@context": "https://schema.org",
-  "@type": "FireStation",
+  "@type": ["FireStation", "EmergencyService"],
   name: estacion.nombre,
+  alternateName: nombreCortoDisplay,
   description: estacion.descripcion,
   url: canonical,
   telephone: estacion.telefono,
   email: estacion.email,
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
   openingHours: "Mo-Su 00:00-23:59",
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    opens: "00:00",
+    closes: "23:59",
+  },
   address: {
     "@type": "PostalAddress",
     streetAddress: [estacion.direccion, estacion.colonia].filter(Boolean).join(", "),
@@ -129,24 +141,40 @@ const stationJsonLd = {
     postalCode: estacion.codigoPostal,
     addressCountry: "MX",
   },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: estacion.coordenadas.lat,
-    longitude: estacion.coordenadas.lng,
-  },
+  geo: estacion.coordenadas
+    ? {
+        "@type": "GeoCoordinates",
+        latitude: estacion.coordenadas.lat,
+        longitude: estacion.coordenadas.lng,
+      }
+    : undefined,
   areaServed: {
     "@type": "City",
     name: ubicacion,
+    containedInPlace: { "@type": "AdministrativeArea", name: estado.nombre },
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: estacion.telefono,
+    contactType: "Emergency",
+    availableLanguage: ["es-MX", "es"],
+    areaServed: ubicacion,
+  },
+  knowsAbout: estacion.servicios,
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: [".est-hero__title", ".est-hero__desc", ".est-hero__card-body"],
   },
 };
 
 ---
 
 <PageLayout
-  title={`${nombreCortoDisplay} | ${ubicacionCorta} | BOMBERO.MX`}
+  title={`${estacion.nombre} — Teléfono y Dirección Bomberos ${ubicacionCorta}, ${estado.nombre} | BOMBERO.MX`}
   description={seoDescription}
   keywords={seoKeywords}
   canonical={canonical}
+  modifiedTime={DIRECTORIO_VERIFICADO_ISO}
   jsonLd={[stationJsonLd]}
 >
 
@@ -632,6 +660,27 @@ const stationJsonLd = {
     </div>
   </section>
 
+
+  <StationCTA
+    estacionNombre={nombreCortoDisplay}
+    estado={estado.nombre}
+    municipio={ubicacion}
+    estadoSlug={estado.slug}
+    estacionSlug={estacion.slug}
+  />
+
+  <FAQDirectorio
+    scope="estacion"
+    estado={estado.nombre}
+    nombreEstacion={nombreCortoDisplay}
+    ciudadEstacion={ubicacion}
+    telefonoEstacion={estacion.telefono}
+  />
+
+  <VerifiedBadge
+    estado={`${ubicacion}, ${estado.nombre}`}
+    fecha={DIRECTORIO_VERIFICADO_LEGIBLE}
+  />
 
   <CTABanner
     title={`¿Equipas a los Bomberos de ${ubicacion}?`}

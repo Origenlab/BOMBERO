@@ -32,11 +32,14 @@ function getPageNumbers(current: number, total: number): (number | "...")[] {
 
 const pageNumbers = getPageNumbers(currentPage, totalPages);
 
+// Normalizar baseUrl: garantizar exactamente un "/" al inicio y al final
+const normalizedBase = ("/" + baseUrl + "/").replace(/\/+/g, "/");
+
 function getPageUrl(page: number): string {
   if (page === 1) {
-    return baseUrl;
+    return normalizedBase;
   }
-  return `${baseUrl}/pagina/${page}`;
+  return `${normalizedBase}pagina/${page}/`;
 }
 ---
 

@@ -185,9 +185,14 @@
   --container-5xl: 64rem;
   --container-6xl: 72rem;
   --container-7xl: 80rem;
-  --container-max: 1400px;
+  /* Full-bleed system: hero/header/footer ocupan 100% del viewport,
+     contenido interno se contiene en --container-max para legibilidad. */
+  --container-max: 1680px;
+  --container-wide: 1920px;
+  --container-prose: 72ch;
   --container-narrow: 768px;
-  --container-padding: clamp(1rem, 4vw, 2rem);
+  --container-padding: clamp(1.25rem, 3vw, 2.5rem);
+  --container-padding-wide: clamp(1.5rem, 4vw, 4rem);
 
   /* ── Borders & Radius ── */
   --radius-none: 0;
@@ -255,14 +260,44 @@
   --blur-3xl: 64px;
 }
 
-/* ── Dark mode support ── */
+/* ── Industrial Pro: tokens semánticos para look dark denso ── */
+:root {
+  /* Bandas / superficies */
+  --surface-0: var(--color-smoke-950);          /* fondo base extremo */
+  --surface-1: var(--color-smoke-900);          /* fondo principal */
+  --surface-2: #131c2e;                          /* bloque elevado */
+  --surface-3: #1a2436;                          /* bloque hover / card */
+  --surface-accent: rgba(220, 38, 38, 0.08);
+
+  /* Texto sobre superficies oscuras */
+  --ink-strong: #f1f5f9;
+  --ink-base: #cbd5e1;
+  --ink-muted: #94a3b8;
+  --ink-subtle: #64748b;
+
+  /* Bordes industriales */
+  --hairline: rgba(148, 163, 184, 0.12);
+  --hairline-strong: rgba(148, 163, 184, 0.22);
+  --hairline-accent: rgba(220, 38, 38, 0.45);
+
+  /* Gradientes premium */
+  --gradient-industrial: linear-gradient(180deg, var(--color-smoke-950) 0%, #0b1320 100%);
+  --gradient-band: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(220,38,38,0.04) 100%);
+  --gradient-cta: linear-gradient(135deg, var(--color-ember-600) 0%, var(--color-fire-600) 100%);
+
+  /* Sombras industriales */
+  --shadow-card-dark: 0 10px 30px -12px rgba(0,0,0,0.6), 0 0 0 1px var(--hairline);
+  --shadow-card-glow: 0 20px 40px -15px rgba(220,38,38,0.35), 0 0 0 1px var(--hairline-accent);
+}
+
+/* ── Dark mode automático (respeta preferencia del SO) ── */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: var(--color-smoke-900);
-    --color-bg-alt: var(--color-smoke-800);
-    --color-text: var(--color-smoke-100);
-    --color-text-light: var(--color-smoke-400);
-    --color-border: var(--color-smoke-700);
-    --color-border-light: var(--color-smoke-800);
+    --color-bg: var(--surface-1);
+    --color-bg-alt: var(--surface-2);
+    --color-text: var(--ink-base);
+    --color-text-light: var(--ink-muted);
+    --color-border: var(--hairline);
+    --color-border-light: var(--hairline);
   }
 }

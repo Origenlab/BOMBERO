@@ -111,5 +111,12 @@ export default defineConfig({
     "/catalogo": "/productos/",
     // Fix 404: Kanasín slug con acento → sin acento (04/Mar/2026)
     "/directorio/yucatan/yuc-kanasín/": "/directorio/yucatan/yuc-kanasin/",
+
+    // Gama de México: legacy .mdx slugs → versiones humanizadas en registry (31/May/2026)
+    "/blog/gama-de-mexico-lider-equipo-contra-incendios/": "/blog/gama-de-mexico-aliado-industria-mexicana/",
+    "/blog/gama-de-mexico-distribuidor-elkhart-brass/": "/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/",
+    "/blog/gama-de-mexico-cumplimiento-nfpa-nom-002-stps/": "/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/",
+    "/blog/gama-de-mexico-logistica-nacional-equipos/": "/blog/gama-de-mexico-logistica-nacional-cdmx-queretaro/",
+    "/blog/gama-de-mexico-sectores-industriales-atendidos/": "/blog/gama-de-mexico-sectores-industriales-mexico/",
   },
 });

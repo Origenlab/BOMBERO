@@ -1,0 +1,233 @@
+---
+/**
+ * DirectorioSearch.astro
+ * ──────────────────────────────────────────────────────────────────
+ * Buscador del directorio impulsado por Pagefind (sin JS de servidor).
+ * Indexa /directorio/** durante el build (ver package.json).
+ *
+ * Uso:
+ *   <DirectorioSearch />            ← hero del hub
+ *   <DirectorioSearch compact />    ← sidebar
+ *
+ * Pagefind UI se carga sólo cuando el usuario hace foco en el input,
+ * evitando 100KB+ de JS en el LCP inicial.
+ * ──────────────────────────────────────────────────────────────────
+ */
+
+interface Props {
+  compact?: boolean;
+  placeholder?: string;
+}
+
+const { compact = false, placeholder = "Buscar estación, ciudad o estado…" } = Astro.props;
+---
+
+<div class={`dir-search ${compact ? "dir-search--compact" : ""}`} data-pagefind-ignore>
+  <label class="dir-search__label" for="dir-search-input">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+    <span class="sr-only">Buscar en el directorio</span>
+  </label>
+  <input
+    id="dir-search-input"
+    type="search"
+    placeholder={placeholder}
+    autocomplete="off"
+    aria-label="Buscar estación, ciudad o estado"
+  />
+  <div id="dir-search-results" class="dir-search__results" aria-live="polite"></div>
+</div>
+
+<script>
+  // Lazy-load Pagefind UI sólo cuando el usuario interactúa
+  const input = document.getElementById("dir-search-input") as HTMLInputElement | null;
+  const resultsEl = document.getElementById("dir-search-results") as HTMLElement | null;
+  if (input && resultsEl) {
+    let pagefindReady = false;
+    let pf: any = null;
+
+    async function loadPagefind() {
+      if (pagefindReady) return;
+      try {
+        // @ts-ignore — Pagefind sirve este módulo desde /pagefind/pagefind.js en producción
+        pf = await import(/* @vite-ignore */ "/pagefind/pagefind.js");
+        await pf.options({
+          baseUrl: "/",
+          // Solo mostrar resultados del directorio
+          excerptLength: 30,
+        });
+        pagefindReady = true;
+      } catch (e) {
+        console.warn("[DirectorioSearch] Pagefind no disponible (dev?):", e);
+      }
+    }
+
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    input.addEventListener("focus", loadPagefind, { once: true });
+
+    input.addEventListener("input", () => {
+      if (timer) clearTimeout(timer);
+      const q = input.value.trim();
+      if (q.length < 2) {
+        resultsEl.innerHTML = "";
+        resultsEl.classList.remove("dir-search__results--open");
+        return;
+      }
+      timer = setTimeout(async () => {
+        await loadPagefind();
+        if (!pagefindReady || !pf) return;
+        try {
+          const search = await pf.search(q, { filters: { url: { contains: "/directorio/" } } });
+          const top = await Promise.all(search.results.slice(0, 6).map((r: any) => r.data()));
+          const onlyDir = top.filter((d: any) => typeof d.url === "string" && d.url.includes("/directorio/"));
+          if (onlyDir.length === 0) {
+            resultsEl.innerHTML = `<div class="dir-search__empty">Sin resultados para "${q.replace(/[<>]/g, "")}"</div>`;
+          } else {
+            resultsEl.innerHTML = onlyDir
+              .map(
+                (d: any) => `
+                <a class="dir-search__result" href="${d.url}">
+                  <strong>${d.meta?.title ?? d.url}</strong>
+                  <span>${(d.excerpt ?? "").slice(0, 120)}</span>
+                </a>`,
+              )
+              .join("");
+          }
+          resultsEl.classList.add("dir-search__results--open");
+        } catch (e) {
+          console.warn("[DirectorioSearch] búsqueda falló:", e);
+        }
+      }, 180);
+    });
+
+    // Cerrar al hacer click fuera
+    document.addEventListener("click", (ev) => {
+      if (!resultsEl.contains(ev.target as Node) && ev.target !== input) {
+        resultsEl.classList.remove("dir-search__results--open");
+      }
+    });
+  }
+</script>
+
+<style>
+  .dir-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 560px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 9999px;
+    padding: 0.65rem 1.1rem;
+    margin: 1.5rem 0 1rem;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .dir-search:focus-within {
+    border-color: var(--color-fire-500, #dc2626);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+  }
+
+  .dir-search__label {
+    color: rgba(255, 255, 255, 0.65);
+    display: inline-flex;
+  }
+
+  .dir-search input {
+    flex: 1;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: white;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .dir-search input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .dir-search--compact {
+    background: #fff;
+    border-color: #e2e2e2;
+    max-width: 100%;
+    margin: 0 0 1rem;
+  }
+
+  .dir-search--compact input {
+    color: #111;
+  }
+
+  .dir-search--compact input::placeholder {
+    color: #999;
+  }
+
+  .dir-search--compact .dir-search__label {
+    color: #999;
+  }
+
+  .dir-search__results {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    background: white;
+    color: #111;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    max-height: 0;
+    overflow-y: auto;
+    transition: max-height 0.2s ease;
+    z-index: 60;
+  }
+
+  .dir-search__results--open {
+    max-height: 360px;
+  }
+
+  .dir-search__result {
+    display: block;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid #f1f1f1;
+    text-decoration: none;
+    color: #111;
+    line-height: 1.45;
+  }
+
+  .dir-search__result:hover {
+    background: #fff7f5;
+  }
+
+  .dir-search__result strong {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--color-fire-700, #b91c1c);
+    margin-bottom: 0.15rem;
+  }
+
+  .dir-search__result span {
+    font-size: 0.85rem;
+    color: #555;
+  }
+
+  .dir-search__empty {
+    padding: 1rem 1.1rem;
+    font-size: 0.9rem;
+    color: #777;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0; border: 0;
+    overflow: hidden; clip: rect(0, 0, 0, 0);
+  }
+</style>

@@ -5,6 +5,12 @@ import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
 import StationCard from "@components/StationCard.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
+import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
+import DirectorioSearch from "@components/directorio/DirectorioSearch.astro";
+import MunicipiosPhonesTable from "@components/directorio/MunicipiosPhonesTable.astro";
+import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
+import EmergencyNumbersBar from "@components/directorio/EmergencyNumbersBar.astro";
+import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
 import { cdnW } from "@utils/cdn";
 
 
@@ -131,7 +137,28 @@ const toAnchor = (s: string) =>
     .replace(/í/g, 'i').replace(/ó/g, 'o')
     .replace(/ú/g, 'u').replace(/ñ/g, 'n');
 
-const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.MX`;
+const title = `Bomberos en ${estado} — ${totalEstaciones} Estaciones Verificadas | BOMBERO.MX`;
+
+// Schema Place + AdministrativeArea para refuerzo GEO/Local
+const placeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AdministrativeArea",
+  name: estado,
+  url: canonical,
+  containedInPlace: {
+    "@type": "Country",
+    name: "México",
+    sameAs: "https://es.wikipedia.org/wiki/M%C3%A9xico",
+  },
+  containsPlace: {
+    "@type": "ItemList",
+    name: `Estaciones de Bomberos en ${estado}`,
+    numberOfItems: totalEstaciones,
+  },
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+};
+
+const allJsonLd = [...(jsonLd ?? []), placeJsonLd];
 ---
 
 <PageLayout
@@ -139,7 +166,8 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
   description={description}
   keywords={keywords}
   canonical={canonical}
-  jsonLd={jsonLd}
+  modifiedTime={DIRECTORIO_VERIFICADO_ISO}
+  jsonLd={allJsonLd}
 >
 
 
@@ -161,13 +189,16 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
         <div class="de-hero__content">
           <span class="de-hero__badge">
             <span class="de-hero__badge-dot"></span>
-            {sigla}
+            {sigla} · Verificado {DIRECTORIO_VERIFICADO_LEGIBLE}
           </span>
           <h1 class="de-hero__title">
             Estaciones de Bomberos en
             <span class="de-hero__highlight">{estado}</span>
           </h1>
           <p class="de-hero__desc" set:html={heroDesc} />
+
+          <DirectorioSearch placeholder={`Buscar estación o municipio en ${estado}…`} />
+
           <div class="de-hero__stats">
             <div class="de-hero__stat">
               <span class="de-hero__stat-number">{totalEstaciones}</span>
@@ -219,24 +250,12 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
   </section>
 
 
-  <section class="de-emergency">
-    <div class="container">
-      <div class="de-emergency__content">
-        <div class="de-emergency__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.86a16 16 0 0 0 6.07 6.07l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-        </div>
-        <div class="de-emergency__text">
-          <span class="de-emergency__label">Emergencias en {estado}</span>
-          <span class="de-emergency__number">911</span>
-        </div>
-        <p class="de-emergency__desc">
-          Número único de emergencias en todo {estado}. Disponible las 24 horas, los 365 días del año.
-        </p>
-      </div>
-    </div>
-  </section>
+  <EmergencyNumbersBar
+    estado={estado}
+    numbers={emergencyNumbers}
+    ctaHref="#listado-estaciones"
+    ctaLabel="Ver todas las estaciones"
+  />
 
 
   <section class="de-gallery">
@@ -260,7 +279,7 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
   </section>
 
 
-  <section class="de-main">
+  <section id="listado-estaciones" class="de-main">
     <div class="container">
       <div class="de-main__grid">
 
@@ -443,6 +462,20 @@ const title = `Bomberos en ${estado} | ${totalEstaciones} Estaciones | BOMBERO.M
     </div>
   </section>
 
+
+  <MunicipiosPhonesTable estado={estado} estaciones={estaciones} />
+
+  <FAQDirectorio
+    scope="estado"
+    estado={estado}
+    totalEstaciones={totalEstaciones}
+  />
+
+  <VerifiedBadge
+    estado={estado}
+    fecha={DIRECTORIO_VERIFICADO_LEGIBLE}
+    totalEstaciones={totalEstaciones}
+  />
 
   <CTABanner
     title={ctaTitle}
