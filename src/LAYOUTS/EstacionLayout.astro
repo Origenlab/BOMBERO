@@ -10,6 +10,7 @@ import StationDeepLinks from "@components/directorio/StationDeepLinks.astro";
 import QuickNav from "@components/QuickNav.astro";
 import { cdnW } from "@utils/cdn";
 import { truncateMetaDescription } from "@utils/seo";
+import { enrichEstacion } from "@utils/estacion-enrich";
 import { getProductosRelacionadosEstacion } from "@data/directorio-productos-map";
 import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
 
@@ -80,7 +81,12 @@ interface Props {
   eppCards: EPPCard[];
 }
 
-const { estacion, estado, estadosVecinos, estacionesCercanas, eppCards } = Astro.props;
+const { estacion: estacionRaw, estado, estadosVecinos, estacionesCercanas, eppCards } = Astro.props;
+
+// Enriquecimiento no destructivo: rellena campos derivados faltantes
+// (descripción, especialidades, horario, codigoPostal) sin inventar datos duros.
+// Aplica a las 722 estaciones del directorio desde un solo punto.
+const estacion = enrichEstacion(estacionRaw, estado.nombre);
 
 // CDN: transformar URLs de imágenes
 const eppCardsCdn = eppCards.map(c => ({ ...c, image: cdnW(c.image, 400) }));
