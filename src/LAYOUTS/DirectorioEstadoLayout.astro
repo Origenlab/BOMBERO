@@ -141,6 +141,19 @@ const toAnchor = (s: string) =>
 
 const title = `Bomberos en ${estado} — ${totalEstaciones} Estaciones Verificadas | BOMBERO.MX`;
 
+// ItemList real de estaciones (GEO): cada estación como FireStation enlazada
+const estacionesItemList = estaciones.map((e, i) => ({
+  "@type": "ListItem",
+  position: i + 1,
+  item: {
+    "@type": "FireStation",
+    name: e.nombreCorto,
+    ...(e.telefono ? { telephone: e.telefono } : {}),
+    url: `https://bombero.mx/directorio/${slug}/${e.slug}/`,
+    areaServed: e.municipio ?? e.ciudad ?? estado,
+  },
+}));
+
 // Schema Place + AdministrativeArea para refuerzo GEO/Local
 const placeJsonLd = {
   "@context": "https://schema.org",
@@ -156,11 +169,33 @@ const placeJsonLd = {
     "@type": "ItemList",
     name: `Estaciones de Bomberos en ${estado}`,
     numberOfItems: totalEstaciones,
+    itemListElement: estacionesItemList,
   },
   dateModified: DIRECTORIO_VERIFICADO_ISO,
 };
 
-const allJsonLd = [...(jsonLd ?? []), placeJsonLd];
+// Organización del cuerpo estatal (GEO/E-E-A-T)
+const govJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "GovernmentOrganization",
+  name: `H. Cuerpo de Bomberos de ${estado}`,
+  url: canonical,
+  areaServed: { "@type": "AdministrativeArea", name: estado },
+  numberOfEmployees: undefined,
+  knowsAbout: [
+    "Combate de incendios",
+    "Rescate urbano",
+    "Atención prehospitalaria",
+    "Materiales peligrosos (HAZMAT)",
+  ],
+  publisher: {
+    "@type": "Organization",
+    name: "BOMBERO.MX",
+    url: "https://bombero.mx/",
+  },
+};
+
+const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
 ---
 
 <PageLayout
@@ -291,6 +326,17 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd];
 
 
         <div class="de-main__content">
+          <nav class="de-toc" aria-label="Índice de la página">
+            <span class="de-toc__label">En esta página</span>
+            <ul class="de-toc__list">
+              <li><a href="#listado-estaciones">Estaciones</a></li>
+              <li><a href="#tabla-estaciones">Tabla comparativa</a></li>
+              <li><a href="#municipios-telefonos">Municipios</a></li>
+              <li><a href="#equipo-epp">Equipo EPP</a></li>
+              <li><a href="#preguntas-estado">Preguntas</a></li>
+            </ul>
+          </nav>
+
           <SectionHeader
             label="Directorio Completo"
             title={`Estaciones de Bomberos en ${estado}`}
@@ -313,6 +359,41 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd];
             ))}
           </div>
 
+
+          <article class="de-table-section" id="tabla-estaciones">
+            <h2 class="de-table-section__title">Tabla Comparativa de Estaciones de Bomberos en {estado}</h2>
+            <p class="de-table-section__intro">
+              Resumen de las <strong>{totalEstaciones} estaciones</strong> del directorio en {estado}: municipio,
+              teléfono directo y servicios destacados. En cualquier emergencia, el <strong>911</strong> coordina
+              el despacho de la unidad más cercana.
+            </p>
+            <div class="de-table-wrap">
+              <table class="de-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Estación</th>
+                    <th scope="col">Municipio / Ciudad</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Servicios destacados</th>
+                    <th scope="col">Ficha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {estaciones.map((e) => (
+                    <tr>
+                      <td data-label="Estación">{e.nombreCorto}</td>
+                      <td data-label="Municipio">{e.municipio ?? e.ciudad ?? estado}</td>
+                      <td data-label="Teléfono">
+                        {e.telefono ? <a href={`tel:${e.telefono.replace(/\s/g, '')}`}>{e.telefono}</a> : '—'}
+                      </td>
+                      <td data-label="Servicios">{(e.servicios ?? []).slice(0, 2).join(', ') || 'Emergencias 24/7'}</td>
+                      <td data-label="Ficha"><a href={`/directorio/${slug}/${e.slug}/`}>Ver</a></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </article>
 
           <div class="de-seo">
             <slot name="seo" />
@@ -430,7 +511,7 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd];
   </section>
 
 
-  <section class="de-epp">
+  <section class="de-epp" id="equipo-epp">
     <div class="container">
       <SectionHeader
         label="EPP Certificado NFPA"
@@ -476,13 +557,17 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd];
     estadosVecinos={estadosVecinos}
   />
 
-  <MunicipiosPhonesTable estado={estado} estaciones={estaciones} />
+  <div id="municipios-telefonos">
+    <MunicipiosPhonesTable estado={estado} estaciones={estaciones} />
+  </div>
 
-  <FAQDirectorio
-    scope="estado"
-    estado={estado}
-    totalEstaciones={totalEstaciones}
-  />
+  <div id="preguntas-estado">
+    <FAQDirectorio
+      scope="estado"
+      estado={estado}
+      totalEstaciones={totalEstaciones}
+    />
+  </div>
 
   <VerifiedBadge
     estado={estado}
@@ -1239,5 +1324,141 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd];
     .de-hero__visual-row { gap: var(--space-1); }
     .de-gallery__grid { gap: var(--space-2); }
     .de-epp__grid { grid-template-columns: 1fr 1fr; }
+  }
+
+
+  /* ── Índice de contenidos (estado) ── */
+  .de-toc {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: white;
+    border: 1px solid var(--color-smoke-200);
+    border-radius: var(--radius-xl);
+    margin-bottom: var(--space-6);
+  }
+
+  .de-toc__label {
+    font-size: var(--text-xs);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-smoke-500);
+  }
+
+  .de-toc__list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    margin: 0;
+  }
+
+  .de-toc__list a {
+    display: inline-block;
+    padding: var(--space-1) var(--space-3);
+    background: var(--color-smoke-50);
+    border: 1px solid var(--color-smoke-200);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-smoke-700);
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+
+  .de-toc__list a:hover {
+    background: var(--color-fire-50);
+    border-color: var(--color-fire-300, #fca5a5);
+    color: var(--color-fire-700);
+  }
+
+
+  /* ── Tabla comparativa de estaciones (estado) ── */
+  .de-table-section {
+    margin-top: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-smoke-200);
+  }
+
+  .de-table-section__title {
+    font-size: var(--text-xl);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    margin: 0 0 var(--space-3);
+  }
+
+  .de-table-section__intro {
+    font-size: var(--text-base);
+    color: var(--color-smoke-600);
+    line-height: 1.7;
+    margin: 0 0 var(--space-5);
+  }
+
+  .de-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--color-smoke-200);
+    border-radius: var(--radius-lg);
+  }
+
+  .de-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .de-table thead th {
+    background: var(--color-smoke-900);
+    color: white;
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+  }
+
+  .de-table td {
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--color-smoke-200);
+    color: var(--color-smoke-700);
+    vertical-align: top;
+  }
+
+  .de-table tbody tr:nth-child(even) { background: var(--color-smoke-50); }
+  .de-table tbody tr:hover { background: var(--color-fire-50); }
+
+  .de-table a {
+    color: var(--color-fire-600);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .de-table a:hover { text-decoration: underline; }
+
+  @media (max-width: 768px) {
+    .de-table thead { display: none; }
+    .de-table, .de-table tbody, .de-table tr, .de-table td { display: block; width: 100%; }
+    .de-table tr { border-top: 1px solid var(--color-smoke-200); padding: var(--space-2) 0; }
+    .de-table td {
+      border: none;
+      padding: var(--space-1) var(--space-4);
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+    .de-table td::before {
+      content: attr(data-label);
+      font-weight: 700;
+      color: var(--color-smoke-500);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
   }
 </style>
