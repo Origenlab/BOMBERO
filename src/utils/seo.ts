@@ -171,10 +171,6 @@ export function organizationJsonLd() {
     image: canonicalURL(SITE.organization.logo),
     description: SITE.seo.description,
     foundingDate: SITE.organization.foundingDate,
-    founder: SITE.organization.founders.map(name => ({
-      "@type": "Person",
-      name,
-    })),
     numberOfEmployees: {
       "@type": "QuantitativeValue",
       value: SITE.organization.numberOfEmployees,
@@ -298,13 +294,6 @@ export function localBusinessJsonLd() {
       ],
     },
     sameAs: SITE.organization.sameAs,
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "127",
-      bestRating: "5",
-      worstRating: "1",
-    },
   };
 }
 
@@ -320,14 +309,6 @@ export function websiteJsonLd() {
     inLanguage: SITE.locale,
     publisher: {
       "@id": `${SITE.url}/#organization`,
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE.url}/buscar?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
     },
   };
 }
@@ -446,60 +427,18 @@ export function productSchemaComplete(product: {
     ...(product.certifications && product.certifications.length > 0 && {
       keywords: product.certifications.join(", "),
     }),
-    // Aggregate Rating - 4.9 stars
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      bestRating: "5",
-      worstRating: "1",
-      ratingCount: "67",
-      reviewCount: "34",
-    },
-    // Reviews
-    review: [
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5",
-        },
-        author: {
-          "@type": "Person",
-          name: "Comandante Raúl Mendoza",
-        },
-        reviewBody: `Equipamos a nuestra estación con ${product.name} de BOMBERO.MX. La calidad es excelente, llegaron en tiempo y los certificados NFPA están al día. Recomiendo ampliamente a cualquier cuerpo de bomberos.`,
-      },
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5",
-        },
-        author: {
-          "@type": "Person",
-          name: "Jefe de Guardia Arturo Salinas",
-        },
-        reviewBody: `Compramos ${product.name} para nuestra brigada. El proceso de cotización fue ágil y el equipo llegó correctamente empacado con toda la documentación NFPA. Volveremos a pedir.`,
-      },
-    ],
     // Offers
     offers: {
-      "@type": "AggregateOffer",
+      "@type": "Offer",
       url: productUrl,
       priceCurrency: "MXN",
-      lowPrice: "1",
-      highPrice: "99999",
-      offerCount: "1",
       availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
       seller: {
         "@type": "Organization",
         name: SITE.organization.name,
         url: SITE.url,
       },
-      priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
-      itemCondition: "https://schema.org/NewCondition",
       shippingDetails: {
         "@type": "OfferShippingDetails",
         shippingRate: {

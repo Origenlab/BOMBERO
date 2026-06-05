@@ -5,6 +5,7 @@ import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import CTABanner from "@components/CTABanner.astro";
+import HeroSection from "@components/HeroSection.astro";
 import { SITE } from "@data/site";
 import QuickNav from "@components/QuickNav.astro";
 
@@ -102,44 +103,12 @@ const contactJsonLd = {
 
 
 
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__gradient"></div>
-      <div class="hero__grid"></div>
-    </div>
-
-    <div class="container hero__container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          Respuesta en menos de 24 horas
-        </div>
-
-        <h1 class="hero__title">
-          ¿Necesitas <span class="hero__title-highlight">Equipar</span> tu Estación?
-        </h1>
-
-        <p class="hero__subtitle">
-          Nuestro equipo de especialistas está listo para ayudarte a seleccionar el equipo de protección adecuado para tu cuerpo de bomberos, brigada industrial o unidad de protección civil.
-        </p>
-
-        <div class="hero__stats">
-          <div class="hero__stat">
-            <span class="hero__stat-number">+500</span>
-            <span class="hero__stat-label">Estaciones atendidas</span>
-          </div>
-          <div class="hero__stat">
-            <span class="hero__stat-number">32</span>
-            <span class="hero__stat-label">Estados cubiertos</span>
-          </div>
-          <div class="hero__stat">
-            <span class="hero__stat-number">15+</span>
-            <span class="hero__stat-label">Años de experiencia</span>
-          </div>
-        </div>
-      </div>
-
-
+  <HeroSection
+    badge="Respuesta en menos de 24 horas"
+    title={`¿Necesitas <span class="hero__title-highlight">Equipar</span> tu Estación?`}
+    subtitle="Nuestro equipo de especialistas está listo para ayudarte a seleccionar el equipo de protección adecuado para tu cuerpo de bomberos, brigada industrial o unidad de protección civil."
+  >
+    <div slot="right">
       <div class="hero__cards">
         {contactChannels.map((channel) => (
           <div class={`contact-card ${channel.highlight ? 'contact-card--highlight' : ''}`}>
@@ -160,7 +129,7 @@ const contactJsonLd = {
         ))}
       </div>
     </div>
-  </section>
+  </HeroSection>
 
   <QuickNav pool="info" count={7} />
 
@@ -324,128 +293,6 @@ const contactJsonLd = {
 </PageLayout>
 
 <style>
-
-  .hero {
-    position: relative;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-    padding: var(--space-8) 0 var(--space-12);
-  }
-
-  .hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 40px 40px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .hero__container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-  }
-
-  .hero__content {
-    text-align: center;
-  }
-
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-  }
-
-  .hero__badge-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  .hero__title {
-    font-size: clamp(1.75rem, 6vw, 2.5rem);
-    font-weight: 800;
-    line-height: 1.15;
-    color: #ffffff;
-    margin-bottom: var(--space-4);
-  }
-
-  .hero__title-highlight {
-    background: var(--gradient-fire);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero__subtitle {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: 1.6;
-    margin-bottom: var(--space-6);
-    max-width: 540px;
-    margin-inline: auto;
-  }
-
-  .hero__stats {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-6);
-    margin-bottom: var(--space-6);
-  }
-
-  .hero__stat {
-    text-align: center;
-  }
-
-  .hero__stat-number {
-    display: block;
-    font-size: var(--text-2xl);
-    font-weight: 800;
-    color: var(--color-fire-400);
-    line-height: 1;
-  }
-
-  .hero__stat-label {
-    display: block;
-    font-size: 10px;
-    color: var(--color-smoke-400);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-top: var(--space-1);
-  }
-
 
   .hero__cards {
     display: flex;
@@ -816,22 +663,6 @@ const contactJsonLd = {
 
 
   @media (min-width: 640px) {
-    .hero {
-      padding: var(--space-12) 0 var(--space-16);
-    }
-
-    .hero__title {
-      font-size: clamp(2rem, 5vw, 3rem);
-    }
-
-    .hero__stats {
-      gap: var(--space-10);
-    }
-
-    .hero__stat-number {
-      font-size: var(--text-3xl);
-    }
-
     .hero__cards {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -866,29 +697,6 @@ const contactJsonLd = {
 
 
   @media (min-width: 968px) {
-    .hero {
-      padding: var(--space-16) 0 var(--space-20);
-    }
-
-    .hero__container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-12);
-      align-items: center;
-    }
-
-    .hero__content {
-      text-align: left;
-    }
-
-    .hero__subtitle {
-      margin-inline: 0;
-    }
-
-    .hero__stats {
-      justify-content: flex-start;
-    }
-
     .hero__cards {
       grid-template-columns: 1fr;
       gap: var(--space-3);
@@ -912,15 +720,6 @@ const contactJsonLd = {
   }
 
 
-  @media (min-width: 1200px) {
-    .hero__title {
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
-    }
-
-    .hero__stat-number {
-      font-size: var(--text-4xl);
-    }
-  }
 </style>
 
 <script define:vars={{ whatsappNumber: "5570081816" }}>
