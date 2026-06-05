@@ -288,7 +288,7 @@ Para cuerpos municipales, brigadas industriales y empresas de protección civil 
   <p>Conjunto completo certificado (traje, casco, capucha, guantes, botas) con ficha técnica, certificado UL/Intertek/SEI y carta de distribuidor autorizado. Asesoría técnica de especificación.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -686,7 +686,7 @@ Un SCBA bien mantenido es la diferencia entre completar una misión exitosa o su
   <p>Refacciones originales · Coordinación de servicio anual con fabricante · Plantillas de inspección · Fit test cuantitativo programado</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar asesoría técnica</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -1110,7 +1110,7 @@ El rescate vehicular ya no es una disciplina estática. Los vehículos evolucion
   <p>Herramientas Holmatro / LUKAS / Hurst de 3ª generación · EPP NFPA 1971/1951 · Protocolo de aislamiento eléctrico · Capacitación coordinada con fabricante</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -1545,7 +1545,7 @@ Un traje estructural de $50,000 MXN es insignificante comparado con una demanda 
   <p>Análisis de matriz de riesgo de tu planta · Configuración EPP por NFPA aplicable · Documentación auditable · Capacitación coordinada</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar evaluación técnica</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -1962,8 +1962,8 @@ En **BOMBERO.MX** estamos comprometidos con equipar a quienes protegen nuestros 
 
 - [**Ver catálogo de equipo forestal →**](/productos)
 - [**Solicitar cotización para brigada →**](/cotizar)
-- **Llamar ahora:** [55 2078 0102](tel:+525520780102)
-- **WhatsApp:** [Enviar mensaje](https://wa.me/525520780102)
+- **Llamar ahora:** [55 7008 1816](tel:+525570081816)
+- **WhatsApp:** [Enviar mensaje](https://wa.me/525570081816)
 
 
 ### Artículos Relacionados
@@ -3165,7 +3165,7 @@ México concentra zonas de exposición HAZMAT recurrente que justifican dotació
   <p>Análisis de la matriz de sustancias de tu planta · Configuración por nivel y material certificado NFPA · Capacitación coordinada con fabricante</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar evaluación técnica</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -3609,7 +3609,7 @@ Los trajes de aproximación son más costosos que los estructurales debido a los
   <p>Configuraciones específicas para aeropuertos AICM/AIFA/AIQ/MTY y plantas siderúrgicas Ternium/DeAcero. Documentación auditable.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -6139,7 +6139,7 @@ Los guantes son parte del **sistema de protección química completo**:
   <p>Análisis del matriz de sustancias de tu instalación · Configuración por familia química · Documentación ASTM F739 · Trazabilidad de lote</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar evaluación técnica</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -7129,8 +7129,8 @@ Para equipamiento de protección personal que complemente los sistemas de protec
 
 | Canal | Información |
 |-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
+| **Teléfono** | [55 7008 1816](tel:+525570081816) |
+| **WhatsApp** | [Enviar mensaje](https://wa.me/525570081816) |
 | **Cotización** | [Solicitar cotización →](/cotizar) |
 | **Catálogo** | [Ver productos →](/productos) |
 
@@ -7644,8 +7644,8 @@ Para equipamiento de protección personal con certificación NFPA:
 
 | Canal | Información |
 |-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
+| **Teléfono** | [55 7008 1816](tel:+525570081816) |
+| **WhatsApp** | [Enviar mensaje](https://wa.me/525570081816) |
 | **Cotización** | [Solicitar cotización →](/cotizar) |
 | **Catálogo completo** | [Ver productos →](/productos) |
 
@@ -7661,7 +7661,7 @@ Para el componente complementario —**EPP NFPA personal de las brigadas operati
   <p>Trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas, herramientas. Documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -8120,8 +8120,8 @@ Para equipamiento de protección personal con certificación NFPA:
 
 | Canal | Información |
 |-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
+| **Teléfono** | [55 7008 1816](tel:+525570081816) |
+| **WhatsApp** | [Enviar mensaje](https://wa.me/525570081816) |
 | **Cotización** | [Solicitar cotización →](/cotizar) |
 | **Catálogo completo** | [Ver productos →](/productos) |
 
@@ -8152,7 +8152,7 @@ Para equipamiento de protección personal con certificación NFPA:
   <p>Complemento operativo al servicio de extintores MANEXT — entrega 24h en CDMX y ZMVM. Documentación lista para auditoría.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -8666,8 +8666,8 @@ Los extintores protegen tu patrimonio, pero **las personas que los operan tambi�
 
 | Canal | Información |
 |-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
+| **Teléfono** | [55 7008 1816](tel:+525570081816) |
+| **WhatsApp** | [Enviar mensaje](https://wa.me/525570081816) |
 | **Cotización** | [Solicitar cotización →](/cotizar) |
 
 
@@ -9087,8 +9087,8 @@ Las instalaciones protegidas necesitan **brigadas equipadas profesionalmente**. 
 
 | Canal | Información |
 |-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
+| **Teléfono** | [55 7008 1816](tel:+525570081816) |
+| **WhatsApp** | [Enviar mensaje](https://wa.me/525570081816) |
 | **Cotización** | [Solicitar cotización →](/cotizar) |
 | **Catálogo** | [Ver productos →](/productos) |
 
@@ -9149,7 +9149,7 @@ Independientemente del proveedor seleccionado para sistema fijo, mantenimiento o
   <p>Complemento al sistema fijo o mantenimiento contratado con cualquiera de los tres proveedores. Cotización en 24h con documentación lista para auditoría.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -9796,8 +9796,8 @@ Las instalaciones protegidas necesitan **brigadas equipadas profesionalmente**. 
 
 | Canal | Información |
 |-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
+| **Teléfono** | [55 7008 1816](tel:+525570081816) |
+| **WhatsApp** | [Enviar mensaje](https://wa.me/525570081816) |
 | **Cotización** | [Solicitar cotización →](/cotizar) |
 | **Catálogo** | [Ver productos →](/productos) |
 
@@ -9857,7 +9857,7 @@ El análisis sectorial converge en una conclusión operativa: **el sistema fijo 
   <p>Trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas, botas y herramientas con documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -10063,7 +10063,7 @@ Los sistemas fijos validados por PROYECTO RED protegen la instalación. El **per
   <p>Trajes, SCBA, cascos, capuchas, botas y herramientas para brigadas industriales con documentación auditable.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -10294,7 +10294,7 @@ Un sistema fijo de protección contra incendio (detección, alarma, supresión) 
   <p>Para proyectos industriales con dotación dual (sistema fijo PROYECTO RED + EPP NFPA personal BOMBERO MX). Cotización formal CFDI con documentación completa.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -10563,8 +10563,8 @@ La combinación de los sistemas y equipos de LGA Contra Incendios con la protecc
 
 | Canal | Información |
 |-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
+| **Teléfono** | [55 7008 1816](tel:+525570081816) |
+| **WhatsApp** | [Enviar mensaje](https://wa.me/525570081816) |
 | **Cotización** | [Solicitar cotización →](/cotizar) |
 | **Catálogo EPP** | [Ver productos →](/productos) |
 | **Directorio Querétaro** | [Ver estaciones →](/directorio/queretaro/) |
@@ -11043,8 +11043,8 @@ La combinación de los sistemas y equipos de las empresas analizadas con la prot
 
 | Canal | Información |
 |-------|-------------|
-| **Teléfono** | [55 2078 0102](tel:+525520780102) |
-| **WhatsApp** | [Enviar mensaje](https://wa.me/525520780102) |
+| **Teléfono** | [55 7008 1816](tel:+525570081816) |
+| **WhatsApp** | [Enviar mensaje](https://wa.me/525570081816) |
 | **Cotización** | [Solicitar cotización →](/cotizar) |
 | **Catálogo EPP** | [Ver productos →](/productos) |
 | **Directorio Bomberos** | [Ver estaciones →](/directorio) |
@@ -11086,7 +11086,7 @@ Independientemente del proveedor seleccionado para sistemas fijos, mantenimiento
   <p>Cotización formal CFDI en 24h con documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -11414,8 +11414,8 @@ Los sistemas contra incendio protegen las instalaciones, pero las personas que r
 
 ### BOMBERO.MX — Equipos de Protección Personal
 
-- Teléfono: [55 2078 0102](tel:+525520780102)
-- WhatsApp: [Enviar mensaje](https://wa.me/525520780102)
+- Teléfono: [55 7008 1816](tel:+525570081816)
+- WhatsApp: [Enviar mensaje](https://wa.me/525570081816)
 - Cotización: [Solicitar cotización →](/cotizar)
 - Catálogo: [Ver productos →](/productos)
 - Directorio de Bomberos: [Ver estaciones →](/directorio)
@@ -11717,7 +11717,7 @@ La decisión correcta depende de 3 factores:
   <p>Configuración recomendada según operación, presupuesto y parque existente · Documentación lista para licitación · Cobertura nacional</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización SCBA</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -11982,7 +11982,7 @@ Una TIC básica (FLIR K2, ~$55,000 MXN) es la inversión de menor costo/impacto 
   <p>Asesoría técnica de selección por presupuesto y operación · Capacitación coordinada con el fabricante · Documentación lista para licitación</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -12213,7 +12213,7 @@ La extricación vehicular es una operación en equipo con secuencia establecida:
   <p>Cotización con asesoría técnica sobre marca, generación y configuración según tu operación.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -12733,7 +12733,7 @@ Como distribuidor especializado en EPP certificado, **BOMBERO MX** abastece a br
   <p>Asesoría técnica de configuración por matriz de riesgo de tu instalación · Trazabilidad documental completa · Capacitación coordinada con el fabricante</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar evaluación técnica</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -13168,7 +13168,7 @@ El EPP no previene flashover ni backdraft, pero **es la única barrera entre el 
   <p>Cotiza equipo NFPA con asesoría técnica especializada en operación de alto riesgo.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -13381,7 +13381,7 @@ En **BOMBERO MX** entendemos el proceso de adquisición pública mexicano y acom
   <p>Te ayudamos a redactar especificaciones correctas y preparamos la cotización formal sin compromiso.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -14780,7 +14780,7 @@ En México, los cursos de rescate vertical de nivel operativo (40-80 horas) cues
   <p>Cuerdas, arneses, descensores, poleas, anclajes, cascos NFPA 1951. Documentación auditable · Coordinación de capacitación · Refacciones</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -15090,7 +15090,7 @@ Hidalgo concentra los retos más diversos del centro-norte del país: refinería
   <p>Entrega 24h vía 85D · Asesoría técnica en altitud · Atención a licitaciones</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar equipo →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -15393,7 +15393,7 @@ Querétaro combina el escenario operativo más diverso del Bajío: clúster aero
   <p>Entrega 24h vía 57D · Asesoría técnica incluida · Demos SCBA en sitio</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar equipo →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -15649,7 +15649,7 @@ Jalisco —y particularmente la ZMG— combina los retos operativos más diverso
   <p>Cotización sin compromiso · Asesoría técnica incluida · Envío 24–48h a toda la ZMG</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar equipo →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -15927,7 +15927,7 @@ Nuevo León concentra los riesgos industriales más severos del país. Equipar a
   <p>Cotización sin compromiso · Asesoría técnica incluida · Envío 24–48h a toda la ZMM</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar equipo →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -16233,7 +16233,7 @@ En **BOMBERO MX** entendemos ese contexto. Nuestro catálogo, asesoría y logís
   <p>Cotización sin compromiso · Asesoría técnica incluida · Envío 24–48h a todo el estado</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar equipo →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -16515,7 +16515,7 @@ Baja California opera en uno de los escenarios más exigentes del país: tempora
   <p>Cotización sin compromiso · Asesoría técnica incluida · Envío 48–72h a toda la región fronteriza</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar equipo →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -16834,7 +16834,7 @@ Para brigadas capitalinas eso significa: **catálogo NFPA con entrega mismo día
   <p>Atención presencial · Entrega mismo día · Demostración en sitio para pedidos institucionales</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar equipo →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -17175,7 +17175,7 @@ Esta guía es punto de partida. Para cada decisión específica —marca, especi
   <p>Asesoría técnica sin compromiso · Cotización 24h · Envío a los 32 estados</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar equipo →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -17428,7 +17428,7 @@ En **BOMBERO MX** llevamos más de una década equipando cuerpos de bomberos en 
   <p>Asesoría desde la primera llamada · Medición personalizada · Documentación completa</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar ahora →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -17764,7 +17764,7 @@ No hay un SCBA universalmente superior — hay el SCBA correcto para tu operaci�
   <p>Asesoría imparcial entre MSA, Scott y Dräger · Capacitación incluida · Plan de mantenimiento</p>
   <div class="cta-btns">
     <a href="/cotizar/">Cotizar SCBA →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -17959,7 +17959,7 @@ NFPA 1851 exige su retiro permanente del servicio de emergencia. No se puede don
   <p>Te ayudamos a empezar — desde inventario inicial hasta plan de inspecciones anuales.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar asesoría →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -18351,7 +18351,7 @@ Depende de la clasificación de riesgo. En riesgo ordinario (la mayoría de bode
   <p>Cotización formal con clase, capacidad, ubicación y mantenimiento — listo para auditoría NOM-002.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -18561,7 +18561,7 @@ Sí. Trabajamos con órdenes de compra de municipios, estados y dependencias fed
   <p>Cotización formal en 24-48h con ficha técnica y certificado de laboratorio listos para tu expediente.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización formal →</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -18980,7 +18980,7 @@ La selección, distribución y mantenimiento de extintores requiere coordinació
   <p>Auditoría técnica de tu instalación · Distribución correcta según NOM/NFPA · Coordinación de mantenimiento · EPP NFPA personal complementario</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar evaluación técnica</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -19304,7 +19304,7 @@ R: **El patrón**. Según NOM-004-STPS (Capacitación en brigadas), el patrón t
   <p>Auditoría técnica · Diseño según NFPA 10 §6 · Suministro UL · Mantenimiento NOM-154 · Capacitación DC-3 · EPP NFPA personal</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar evaluación técnica</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -19679,7 +19679,7 @@ R: Una prenda FR bien cuidada dura **2-3 años** de uso diario. Cada lavado (inc
   <p>Auditoría de energía incidente · Selección por puesto y categoría HRC · Documentación STPS · Capacitación en uso y cuidado de prendas FR</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar evaluación técnica</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -20105,7 +20105,7 @@ Un proyecto sprinkler NFPA 13 requiere coordinación entre **distribuidor de com
   <p>Trajes NFPA 1971, SCBA NFPA 1981, herramientas y capacitación para la brigada interna que actúa tras la activación del sprinkler.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -20447,7 +20447,7 @@ Un sistema de detección y alarma activa la respuesta operativa. La brigada inte
   <p>Complementa tu sistema de detección con EPP certificado para la brigada que responde. Cotización en 24h con documentación auditable.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -20861,7 +20861,7 @@ R: Sí, frecuentemente. Casos de derrumbes, atrapamientos profundos o complejos 
   <p>Auditoría de equipo existente · Configuración por disciplina · Suministro certificado · Capacitación NFPA 1006 · Coordinación INSARAG</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar auditoría técnica</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -21146,7 +21146,7 @@ La operación ARFF tiene una matriz de equipamiento específica que no comparte 
   <p>Configuraciones específicas para categorías OACI 6–10 · Asesoría técnica de espumógenos y boquillería · Documentación AFAC</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -21363,7 +21363,7 @@ Para la línea complementaria de **EPP NFPA personal** que las brigadas operativ
   <p>Trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas y herramientas de rescate con documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -21586,7 +21586,7 @@ En el caso mexicano, **Gama de México** ha consolidado el rol de distribuidor a
   <p>Proyectos integrales: Elkhart Brass vía Gama de México (sistemas fijos) + BOMBERO MX (EPP de brigada). Asesoría técnica conjunta para refinerías, plantas químicas, aeropuertos y centros de distribución.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -21830,7 +21830,7 @@ Para responsables de seguridad industrial mexicanos, **Gama de México** ofrece 
   <p>Trajes NFPA 1971, SCBA NFPA 1981, cascos, capuchas y herramientas con documentación lista para auditoría STPS / Protección Civil / aseguradora.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -22064,7 +22064,7 @@ El modelo de dos hubs estratégicos (CDMX + Querétaro) con inventario verificab
   <p>Proyectos industriales con dotación combinada de Gama de México (sistemas fijos) y BOMBERO MX (EPP NFPA). Tiempos comprometidos, documentación lista para auditoría.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 
@@ -22340,7 +22340,7 @@ La especificación de equipo contra incendio por sector industrial es un ejercic
   <p>Configuraciones específicas por sector: estructural NFPA 1971, HAZMAT NFPA 1991/1992, ARFF NFPA 1976, forestal NFPA 1977. Documentación lista para auditoría.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
-    <a href="https://wa.me/525520780102" class="alt">WhatsApp directo</a>
+    <a href="https://wa.me/525570081816" class="alt">WhatsApp directo</a>
   </div>
 </div>
 

@@ -8,8 +8,8 @@ hero:
 
 ## Datos de contacto
 
-- **Teléfono:** +52 55 2078 0102
-- **WhatsApp:** +52 55 2078 0102
+- **Teléfono:** +52 55 7008 1816
+- **WhatsApp:** +52 55 7008 1816
 - **Correo:** ventas@bombero.mx
 - **Horario:** Lunes a Viernes, 09:00 a 18:00
 

@@ -22,4 +22,4 @@ hero:
 
 ## Contacto rápido
 
-Escríbenos a **ventas@bombero.mx** o por **WhatsApp: +52 55 2078 0102**.
+Escríbenos a **ventas@bombero.mx** o por **WhatsApp: +52 55 7008 1816**.
