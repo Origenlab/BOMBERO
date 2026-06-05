@@ -5,6 +5,7 @@ import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
 import { cdnW } from "@utils/cdn";
+import HeroSection from "@components/HeroSection.astro";
 import QuickNav from "@components/QuickNav.astro";
 
 
@@ -79,7 +80,7 @@ const {
   relacionados = [],
 } = Astro.props;
 
-const heroImageCdn = heroImage ? cdnW(heroImage, 800) : undefined;
+const heroImageCdn = heroImage ? cdnW(heroImage, 640) : undefined;
 const relacionadosCdn = relacionados.map(r => ({ ...r, image: cdnW(r.image, 400) }));
 
 
@@ -124,56 +125,34 @@ const schemaOrg = {
   <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
 
 
-
-
   <Breadcrumb items={breadcrumb} />
 
 
-
-
-  <section class="blog-hero">
-    <div class="blog-hero__bg">
-      <div class="blog-hero__gradient"></div>
-      <div class="blog-hero__grid"></div>
-      <div class="blog-hero__glow blog-hero__glow--1"></div>
-      <div class="blog-hero__glow blog-hero__glow--2"></div>
-    </div>
-
-    <div class="container blog-hero__container">
-      <div class="blog-hero__content">
-        <div class="blog-hero__badge">
-          <span class="blog-hero__badge-dot"></span>
-          {heroBadge}
-        </div>
-        <h1 class="blog-hero__title">{heroTitle}</h1>
-        <p class="blog-hero__excerpt">{heroExcerpt}</p>
-        {tags.length > 0 && (
-          <div class="blog-hero__tags">
-            {tags.map((tag) => (
-              <span class="blog-hero__tag">{tag}</span>
-            ))}
-          </div>
-        )}
+  <HeroSection badge={heroBadge} title={heroTitle} subtitle={heroExcerpt}>
+    {heroImageCdn ? (
+      <div slot="right" class="blog-hero__img-wrap">
+        <img src={heroImageCdn} alt={heroTitle} width="640" height="400" loading="eager" decoding="async" fetchpriority="high" class="blog-hero__img" />
       </div>
-
-      {heroImageCdn && (
-        <div class="blog-hero__image-wrap">
-          <img
-            src={heroImageCdn}
-            alt={heroTitle}
-            class="blog-hero__image"
-            width="800"
-            height="450"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          />
+    ) : (
+      <div slot="right">
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">{heroBadge}</h2>
+          <p class="hero__seo-text">{heroExcerpt}</p>
         </div>
-      )}
-    </div>
-  </section>
-
-
+        <div class="hero__seo-block">
+          <h2 class="hero__seo-title">BOMBERO.MX — Conocimiento técnico para bomberos</h2>
+          <p class="hero__seo-text">Guías, análisis de normativa NFPA y recursos para cuerpos de bomberos en México. Contenido elaborado con asesores técnicos certificados.</p>
+        </div>
+      </div>
+    )}
+    {tags.length > 0 && (
+      <div slot="left-extra" class="blog-hero__tags">
+        {tags.map((tag) => (
+          <span class="blog-hero__tag">{tag}</span>
+        ))}
+      </div>
+    )}
+  </HeroSection>
 
 
   <div class="blog-layout">
@@ -351,8 +330,6 @@ const schemaOrg = {
   </div>
 
 
-
-
   {relacionadosCdn.length > 0 && (
     <section class="blog-relacionados">
       <div class="container">
@@ -403,95 +380,6 @@ const schemaOrg = {
 
 <style>
 
-  .blog-hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-    padding: var(--space-16) 0;
-  }
-
-  .blog-hero__bg { position: absolute; inset: 0; pointer-events: none; }
-
-  .blog-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0%   50%, rgba(249, 115, 22, 0.10), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .blog-hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .blog-hero__glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.4;
-  }
-
-  .blog-hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
-  .blog-hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
-
-  .blog-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-    padding-block: var(--space-8);
-  }
-
-  .blog-hero__content { color: var(--color-text-on-dark); }
-
-  .blog-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-6);
-  }
-
-  .blog-hero__badge-dot {
-    width: 8px; height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-
-  .blog-hero__title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-6);
-    letter-spacing: var(--tracking-tight);
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .blog-hero__excerpt {
-    font-size: var(--text-lg);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-    max-width: 540px;
-    margin-bottom: var(--space-6);
-  }
 
   .blog-hero__tags {
     display: flex;
@@ -507,20 +395,6 @@ const schemaOrg = {
     font-weight: 600;
     color: var(--color-smoke-200);
     padding: 4px 12px;
-  }
-
-  .blog-hero__image-wrap {
-    border-radius: var(--radius-2xl);
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  }
-
-  .blog-hero__image {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-    aspect-ratio: 16/9;
   }
 
 
@@ -1399,14 +1273,7 @@ const schemaOrg = {
 
 
   @media (max-width: 1024px) {
-    .blog-hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
 
-    .blog-hero__image-wrap {
-      max-width: 600px;
-    }
 
     .blog-layout__inner {
       grid-template-columns: 1fr;
@@ -1430,17 +1297,7 @@ const schemaOrg = {
   }
 
   @media (max-width: 768px) {
-    .blog-hero {
-      padding: var(--space-10) 0;
-    }
 
-    .blog-hero__title {
-      font-size: clamp(1.75rem, 5vw, 2.5rem);
-    }
-
-    .blog-hero__excerpt {
-      font-size: var(--text-base);
-    }
 
     .blog-article__content {
       padding: var(--space-6);
@@ -1483,4 +1340,7 @@ const schemaOrg = {
       font-size: var(--text-lg);
     }
   }
+
+  .blog-hero__img-wrap { width: 100%; border-radius: var(--radius-xl); overflow: hidden; }
+  .blog-hero__img { width: 100%; height: auto; object-fit: cover; }
 </style>

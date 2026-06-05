@@ -14,6 +14,7 @@ import EmergencyNumbersBar from "@components/directorio/EmergencyNumbersBar.astr
 import StateDeepLinks from "@components/directorio/StateDeepLinks.astro";
 import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
 import { cdnW } from "@utils/cdn";
+import HeroSection from "@components/HeroSection.astro";
 
 
 interface EstacionData {
@@ -215,77 +216,57 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
   ]} />
 
 
-  <section class="de-hero">
-    <div class="de-hero__bg">
-      <div class="de-hero__gradient"></div>
-      <div class="de-hero__pattern"></div>
-    </div>
-    <div class="container">
-      <div class="de-hero__container">
-
-
-        <div class="de-hero__content">
-          <span class="de-hero__badge">
-            <span class="de-hero__badge-dot"></span>
-            {sigla} · Verificado {DIRECTORIO_VERIFICADO_LEGIBLE}
-          </span>
-          <h1 class="de-hero__title">
-            Estaciones de Bomberos en
-            <span class="de-hero__highlight">{estado}</span>
-          </h1>
-          <p class="de-hero__desc" set:html={heroDesc} />
-
-          <DirectorioSearch placeholder={`Buscar estación o municipio en ${estado}…`} />
-
-          <div class="de-hero__stats">
-            <div class="de-hero__stat">
-              <span class="de-hero__stat-number">{totalEstaciones}</span>
-              <span class="de-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="de-hero__stat">
-              <span class="de-hero__stat-number">{totalMunicipios}</span>
-              <span class="de-hero__stat-label">Municipios</span>
-            </div>
-            <div class="de-hero__stat">
-              <span class="de-hero__stat-number">24/7</span>
-              <span class="de-hero__stat-label">Servicio</span>
-            </div>
-            <div class="de-hero__stat">
-              <span class="de-hero__stat-number">{habitantes}</span>
-              <span class="de-hero__stat-label">Habitantes</span>
-            </div>
-          </div>
+  <HeroSection
+    badge={`${sigla} · Directorio de Bomberos`}
+    title={`Estaciones de Bomberos en <span class="hero__title-highlight">${estado}</span>`}
+    subtitle="Directorio verificado de estaciones activas, teléfonos directos y cobertura municipal."
+  >
+    <div slot="left-extra">
+      <DirectorioSearch placeholder={`Buscar estación o municipio en ${estado}…`} />
+      <div class="de-hero__stats">
+        <div class="de-hero__stat">
+          <span class="de-hero__stat-number">{totalEstaciones}</span>
+          <span class="de-hero__stat-label">Estaciones</span>
         </div>
-
-
-        <div class="de-hero__visual">
-          <div class="de-hero__visual-main">
-            <img
-              src={heroImageCdn}
-              alt={heroImageAlt}
-              width="800" height="450"
-              loading="eager" decoding="async"
-            />
-            <span class="de-hero__visual-caption">{heroCaption}</span>
-          </div>
-          <div class="de-hero__visual-row">
-            {heroThumbsCdn.map((thumb) => (
-              <div class="de-hero__visual-thumb">
-                <img
-                  src={thumb.src}
-                  alt={thumb.alt}
-                  width="400" height="225"
-                  loading="eager" decoding="async"
-                />
-                <span>{thumb.label}</span>
-              </div>
-            ))}
-          </div>
+        <div class="de-hero__stat">
+          <span class="de-hero__stat-number">{totalMunicipios}</span>
+          <span class="de-hero__stat-label">Municipios</span>
         </div>
-
+        <div class="de-hero__stat">
+          <span class="de-hero__stat-number">24/7</span>
+          <span class="de-hero__stat-label">Servicio</span>
+        </div>
+        <div class="de-hero__stat">
+          <span class="de-hero__stat-number">{habitantes}</span>
+          <span class="de-hero__stat-label">Habitantes</span>
+        </div>
       </div>
     </div>
-  </section>
+    <div slot="right" class="de-hero__visual">
+      <div class="de-hero__visual-main">
+        <img
+          src={heroImageCdn}
+          alt={heroImageAlt}
+          width="800" height="450"
+          loading="eager" decoding="async"
+        />
+        <span class="de-hero__visual-caption">{heroCaption}</span>
+      </div>
+      <div class="de-hero__visual-row">
+        {heroThumbsCdn.map((thumb) => (
+          <div class="de-hero__visual-thumb">
+            <img
+              src={thumb.src}
+              alt={thumb.alt}
+              width="400" height="225"
+              loading="eager" decoding="async"
+            />
+            <span>{thumb.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </HeroSection>
 
 
   <QuickNav pool="estado" count={7} />
@@ -586,92 +567,6 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
 
 <style>
 
-
-
-  .de-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-  }
-
-  .de-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .de-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .de-hero__pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .de-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .de-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-  }
-
-  .de-hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-
-  .de-hero__title {
-    font-size: clamp(2rem, 4vw, 2.75rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-5);
-  }
-
-  .de-hero__highlight {
-    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .de-hero__desc {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-6);
-  }
-
-  .de-hero__desc :global(strong) { color: white; }
 
   .de-hero__stats {
     display: flex;
@@ -1290,7 +1185,6 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
   }
 
   @media (max-width: 1024px) {
-    .de-hero__container { grid-template-columns: 1fr; gap: var(--space-8); }
     .de-hero__visual-row { grid-template-columns: repeat(3, 1fr); }
     .de-gallery__grid { grid-template-columns: repeat(2, 1fr); }
     .de-main__grid { grid-template-columns: 1fr; }
@@ -1317,7 +1211,6 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
   }
 
   @media (max-width: 480px) {
-    .de-hero__title { font-size: 1.5rem; }
     .de-hero__stats { flex-wrap: wrap; }
     .de-hero__visual-row { gap: var(--space-1); }
     .de-gallery__grid { gap: var(--space-2); }

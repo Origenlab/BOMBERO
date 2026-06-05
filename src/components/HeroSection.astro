@@ -1,0 +1,108 @@
+---
+/**
+ * HeroSection.astro — Template oficial del hero de bombero.mx
+ * ─────────────────────────────────────────────────────────────
+ * Estructura: dos columnas en ≥900px, una en móvil.
+ *   Col izquierda : badge · h1 · subtítulo · [slot left-extra]
+ *   Col derecha   : dos bloques h2+párrafo  · [slot right]
+ *
+ * El CSS vive en global.css (.hero, .hero__*) para evitar
+ * scoping y ser compartido por todos los heroes del sitio.
+ *
+ * USO BÁSICO (bloques de texto):
+ * ────────────────────────────────
+ *   <HeroSection
+ *     badge="Catálogo NFPA · México"
+ *     title='Equipo para <span class="hero__title-highlight">Bomberos</span>'
+ *     subtitle="Distribuidor líder…"
+ *     blocks={[
+ *       { title: "Título bloque 1", text: "Párrafo con <strong>HTML</strong> permitido." },
+ *       { title: "Título bloque 2", text: "Segundo párrafo." },
+ *     ]}
+ *   />
+ *
+ * CON CONTENIDO PERSONALIZADO EN LA DERECHA (slot "right"):
+ * ────────────────────────────────────────────────────────────
+ *   <HeroSection badge="…" title="…" subtitle="…">
+ *     <div slot="right"> … formulario, tarjetas, etc. … </div>
+ *   </HeroSection>
+ *
+ * CON CONTENIDO EXTRA BAJO EL SUBTÍTULO (slot "left-extra"):
+ * ────────────────────────────────────────────────────────────
+ *   <HeroSection badge="…" title="…" subtitle="…" blocks={[…]}>
+ *     <DirectorioSearch slot="left-extra" />
+ *   </HeroSection>
+ */
+
+interface SeoBlock {
+  /** h2 del bloque */
+  title: string;
+  /** Párrafo — acepta HTML (<strong>, <a>, etc.) */
+  text: string;
+}
+
+interface Props {
+  /** Texto del badge rojo superior (cambia por sección) */
+  badge: string;
+  /**
+   * Contenido del h1 — acepta HTML inline.
+   * Envuelve la palabra destacada en:
+   *   <span class="hero__title-highlight">palabra</span>
+   */
+  title: string;
+  /** Párrafo subtítulo (texto plano) */
+  subtitle: string;
+  /**
+   * Par de bloques para la columna derecha.
+   * Opcional si usas el slot "right".
+   */
+  blocks?: [SeoBlock, SeoBlock];
+}
+
+const { badge, title, subtitle, blocks } = Astro.props;
+const hasRight     = Astro.slots.has('right');
+const hasLeftExtra = Astro.slots.has('left-extra');
+---
+
+<section class="hero">
+
+  <!-- ── Fondo decorativo ── -->
+  <div class="hero__bg">
+    <div class="hero__gradient"></div>
+    <div class="hero__grid-lines"></div>
+    <div class="hero__glow hero__glow--1"></div>
+    <div class="hero__glow hero__glow--2"></div>
+  </div>
+
+  <div class="container hero__container">
+
+    <!-- Col 1 — Badge · Título · Subtítulo -->
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__badge-dot"></span>
+        {badge}
+      </div>
+
+      <h1 class="hero__title" set:html={title} />
+
+      <p class="hero__subtitle">{subtitle}</p>
+
+      {hasLeftExtra && <slot name="left-extra" />}
+    </div>
+
+    <!-- Col 2 — Dos párrafos o contenido personalizado -->
+    <div class="hero__seo">
+      {hasRight ? (
+        <slot name="right" />
+      ) : blocks ? (
+        blocks.map((block) => (
+          <div class="hero__seo-block">
+            <h2 class="hero__seo-title">{block.title}</h2>
+            <p class="hero__seo-text" set:html={block.text} />
+          </div>
+        ))
+      ) : null}
+    </div>
+
+  </div>
+</section>

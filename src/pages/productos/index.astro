@@ -8,6 +8,7 @@ import CTABanner from "@components/CTABanner.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import CTABar from "@components/CTABar.astro";
 import FAQ from "@components/FAQ.astro";
+import HeroSection from "@components/HeroSection.astro";
 import { breadcrumbJsonLd } from "@utils/seo";
 import QuickNav from "@components/QuickNav.astro";
 
@@ -74,60 +75,15 @@ const productosJsonLd = [
 
 
 
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__gradient"></div>
-      <div class="hero__grid"></div>
-      <div class="hero__glow hero__glow--1"></div>
-      <div class="hero__glow hero__glow--2"></div>
-    </div>
-
-    <div class="container hero__container">
-      <div class="hero__content">
-
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          Distribuidores Autorizados · Certificaciones NFPA Vigentes
-        </div>
-
-        <h1 class="hero__title">
-          Equipo para Bomberos
-          <span class="hero__title-highlight">Certificado NFPA</span>
-          en México
-        </h1>
-
-        <p class="hero__subtitle">
-          El catálogo más completo de equipo de protección personal y herramientas
-          para bomberos en México. Más de 500 productos certificados con asesoría
-          técnica especializada y envío a los 32 estados.
-        </p>
-
-      </div>
-
-      <div class="hero__seo">
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Distribuidor Autorizado de Equipo para Bomberos #1 en México</h2>
-          <p class="hero__seo-text">
-            En <strong>BOMBERO.MX</strong> somos el distribuidor autorizado líder de
-            <strong>equipo de protección personal para bomberos</strong> en toda la República
-            Mexicana. Proveemos a cuerpos de bomberos municipales, brigadas industriales,
-            aeropuertos, petroquímicas y protección civil con <strong>equipo certificado NFPA</strong>,
-            fichas técnicas completas y soporte post-venta permanente.
-          </p>
-        </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">13 Categorías de EPP para Cada Tipo de Operación</h2>
-          <p class="hero__seo-text">
-            Nuestro catálogo abarca las <strong>13 categorías de EPP</strong> que un cuerpo de
-            bomberos necesita: desde <strong>trajes estructurales NFPA 1971</strong> y
-            <strong>equipos SCBA certificados</strong>, hasta herramientas hidráulicas de rescate,
-            cámaras térmicas y sistemas de extinción. Todo disponible en México con
-            <strong>entrega express a los 32 estados</strong>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HeroSection
+    badge="Distribuidores Autorizados · Certificaciones NFPA Vigentes"
+    title={`Equipo para Bomberos <span class="hero__title-highlight">Certificado NFPA</span> en México`}
+    subtitle="El catálogo más completo de equipo de protección personal y herramientas para bomberos en México. Más de 500 productos certificados con asesoría técnica especializada y envío a los 32 estados."
+    blocks={[
+      { title: "Distribuidor Autorizado de Equipo para Bomberos #1 en México", text: "En <strong>BOMBERO.MX</strong> somos el distribuidor autorizado líder de <strong>equipo de protección personal para bomberos</strong> en toda la República Mexicana. Proveemos a cuerpos de bomberos municipales, brigadas industriales, aeropuertos, petroquímicas y protección civil con <strong>equipo certificado NFPA</strong>, fichas técnicas completas y soporte post-venta permanente." },
+      { title: "13 Categorías de EPP para Cada Tipo de Operación", text: "Nuestro catálogo abarca las <strong>13 categorías de EPP</strong> que un cuerpo de bomberos necesita: desde <strong>trajes estructurales NFPA 1971</strong> y <strong>equipos SCBA certificados</strong>, hasta herramientas hidráulicas de rescate, cámaras térmicas y sistemas de extinción. Todo disponible en México con <strong>entrega express a los 32 estados</strong>." }
+    ]}
+  />
 
   <QuickNav pool="productos" count={7} />
 
@@ -426,159 +382,6 @@ const productosJsonLd = [
 
 <style>
 
-  .hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-    padding: var(--space-16) 0;
-  }
-
-  .hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .hero__glow {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.4;
-  }
-  .hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
-  .hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
-
-  .hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-    padding-block: var(--space-8);
-  }
-
-  .hero__content {
-    color: var(--color-text-on-dark);
-  }
-
-
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-6);
-  }
-
-  .hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-  .hero__title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-6);
-    letter-spacing: var(--tracking-tight);
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .hero__title-highlight {
-    background: var(--gradient-fire);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
-  }
-
-  .hero__subtitle {
-    font-size: var(--text-xl);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-    max-width: 540px;
-    margin-bottom: var(--space-8);
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-    margin-bottom: var(--space-12);
-  }
-
-  .hero__stats {
-    display: flex;
-    align-items: center;
-    gap: var(--space-6);
-    flex-wrap: wrap;
-  }
-  .hero__stat { display: flex; flex-direction: column; gap: 2px; }
-  .hero__stat-number { font-size: var(--text-2xl); font-weight: 800; color: white; line-height: 1; }
-  .hero__stat-label { font-size: var(--text-xs); color: var(--color-smoke-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
-  .hero__stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
-
-  .hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-  }
-
-  .hero__seo-block {
-    padding: var(--space-4) 0;
-  }
-
-  .hero__seo-title {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-    line-height: var(--leading-tight);
-  }
-
-  .hero__seo-text {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-  }
-
-  .hero__seo-text strong {
-    color: #ffffff;
-    font-weight: 600;
-  }
-
-
   :global(.section-header__right p) {
     font-size: var(--text-base);
     color: var(--color-smoke-700);
@@ -630,23 +433,6 @@ const productosJsonLd = [
   }
 
   @media (max-width: 968px) {
-    .hero {
-      padding: var(--space-10) 0;
-    }
-
-    .hero__container {
-      grid-template-columns: 1fr;
-      padding-block: var(--space-4);
-    }
-
-    .hero__subtitle {
-      margin-inline: auto;
-    }
-
-    .hero__seo {
-      display: none;
-    }
-
     .catalogo__grid--3 {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -657,18 +443,6 @@ const productosJsonLd = [
     .catalogo__grid--2,
     .catalogo__grid--3 {
       grid-template-columns: 1fr;
-    }
-
-    .hero__title {
-      font-size: 2.25rem;
-    }
-
-    .hero__subtitle {
-      font-size: var(--text-base);
-    }
-
-    .hero__stats {
-      gap: var(--space-4);
     }
   }
 </style>
