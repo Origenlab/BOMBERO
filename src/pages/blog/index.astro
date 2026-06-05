@@ -6,6 +6,7 @@ import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
 import Pagination from "@components/Pagination.astro";
 import BlogSearch from "@components/BlogSearch.astro";
+import HeroSection from "@components/HeroSection.astro";
 import { cdnW } from "@utils/cdn";
 import { getAllArticulos } from "@data/blog-articulos";
 import QuickNav from "@components/QuickNav.astro";
@@ -64,59 +65,15 @@ const articulosCdn = articulos.map(a => ({
 
 
 
-  <section class="blog-index-hero">
-    <div class="blog-index-hero__bg">
-      <div class="blog-index-hero__gradient"></div>
-      <div class="blog-index-hero__grid"></div>
-      <div class="blog-index-hero__glow blog-index-hero__glow--1"></div>
-      <div class="blog-index-hero__glow blog-index-hero__glow--2"></div>
-    </div>
-
-    <div class="container hero__container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          Blog · Artículos · Guías Técnicas
-        </div>
-        <h1 class="hero__title">
-          Blog
-          <span class="hero__title-highlight">BOMBERO.MX</span>
-        </h1>
-        <p class="hero__subtitle">
-          Artículos técnicos, guías de normativas, técnicas de rescate y todo lo que necesitas saber sobre equipo para bomberos y brigadas industriales.
-        </p>
-        <div class="hero__actions">
-          <a href="#articulos" class="btn btn--primary btn--lg">
-            <span>Ver artículos</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="/cotizar/" class="btn btn--ghost btn--lg">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
-            </svg>
-            <span>Solicitar cotización</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="hero__seo">
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Contenido Técnico para Bomberos Profesionales</h2>
-          <p class="hero__seo-text">
-            En el <strong>Blog de BOMBERO.MX</strong> publicamos artículos técnicos sobre <strong>normativas NFPA</strong>, guías de mantenimiento de <strong>equipos SCBA</strong>, técnicas modernas de <strong>rescate vehicular</strong> y forestales. Contenido creado por especialistas para cuerpos de bomberos, protección civil y <strong>brigadas industriales</strong> en México.
-          </p>
-        </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Guías de Selección y Uso de EPP</h2>
-          <p class="hero__seo-text">
-            Aprende a seleccionar el <strong>equipo de protección personal</strong> correcto según tu tipo de operación. Desde <strong>cascos estructurales NFPA 1971</strong> hasta <strong>trajes forestales NFPA 1977</strong>, nuestros artículos te ayudan a entender las certificaciones, requisitos de mantenimiento y mejores prácticas para cada pieza de tu equipamiento.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HeroSection
+    badge="Blog · Artículos · Guías Técnicas"
+    title={`Blog <span class="hero__title-highlight">BOMBERO.MX</span>`}
+    subtitle="Artículos técnicos, guías de normativas, técnicas de rescate y todo lo que necesitas saber sobre equipo para bomberos y brigadas industriales."
+    blocks={[
+      { title: "Contenido Técnico para Bomberos Profesionales", text: "En el <strong>Blog de BOMBERO.MX</strong> publicamos artículos técnicos sobre <strong>normativas NFPA</strong>, guías de mantenimiento de <strong>equipos SCBA</strong>, técnicas modernas de <strong>rescate vehicular</strong> y forestales. Contenido creado por especialistas para cuerpos de bomberos, protección civil y <strong>brigadas industriales</strong> en México." },
+      { title: "Guías de Selección y Uso de EPP", text: "Aprende a seleccionar el <strong>equipo de protección personal</strong> correcto según tu tipo de operación. Desde <strong>cascos estructurales NFPA 1971</strong> hasta <strong>trajes forestales NFPA 1977</strong>, nuestros artículos te ayudan a entender las certificaciones, requisitos de mantenimiento y mejores prácticas para cada pieza de tu equipamiento." }
+    ]}
+  />
 
   <QuickNav pool="blog" count={7} />
 
@@ -431,141 +388,6 @@ const articulosCdn = articulos.map(a => ({
 </PageLayout>
 
 <style>
-
-  .blog-index-hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-    padding: var(--space-16) 0;
-  }
-
-  .blog-index-hero__bg { position: absolute; inset: 0; pointer-events: none; }
-
-  .blog-index-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0%   50%, rgba(249, 115, 22, 0.10), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .blog-index-hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .blog-index-hero__glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.4;
-  }
-
-  .blog-index-hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
-  .blog-index-hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
-
-
-  .hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-    padding-block: var(--space-8);
-  }
-
-  .hero__content { color: var(--color-text-on-dark); }
-
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-6);
-  }
-
-  .hero__badge-dot {
-    width: 8px; height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-  .hero__title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-6);
-    letter-spacing: var(--tracking-tight);
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .hero__title-highlight {
-    background: var(--gradient-fire);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero__subtitle {
-    font-size: var(--text-xl);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-    max-width: 540px;
-    margin-bottom: var(--space-8);
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-    margin-bottom: var(--space-12);
-  }
-
-
-  .hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-  }
-
-  .hero__seo-block {
-    padding: var(--space-4) 0;
-  }
-
-  .hero__seo-title {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-    line-height: var(--leading-tight);
-  }
-
-  .hero__seo-text {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-  }
-
-  .hero__seo-text strong {
-    color: #ffffff;
-    font-weight: 600;
-  }
-
 
   .blog-index-layout {
     background:
@@ -1226,11 +1048,6 @@ const articulosCdn = articulos.map(a => ({
   }
 
   @media (max-width: 1024px) {
-    .hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-
     .blog-index-layout__inner {
       grid-template-columns: 1fr;
     }
@@ -1262,23 +1079,6 @@ const articulosCdn = articulos.map(a => ({
   }
 
   @media (max-width: 768px) {
-    .blog-index-hero {
-      padding: var(--space-10) 0;
-    }
-
-    .hero__title {
-      font-size: clamp(2rem, 6vw, 3rem);
-    }
-
-    .hero__subtitle {
-      font-size: var(--text-base);
-    }
-
-    .hero__actions {
-      flex-direction: column;
-      gap: var(--space-3);
-    }
-
     .blog-grid {
       grid-template-columns: 1fr;
       gap: var(--space-5);

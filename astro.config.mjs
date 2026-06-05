@@ -74,7 +74,7 @@ export default defineConfig({
 
   // ─── Build Configuration ───
   build: {
-    inlineStylesheets: "always",
+    inlineStylesheets: "auto",
     // Generate clean URLs
     format: "directory",
   },

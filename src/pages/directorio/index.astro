@@ -6,6 +6,7 @@ import Breadcrumb from "@components/Breadcrumb.astro";
 import CTABanner from "@components/CTABanner.astro";
 import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
 import DirectorioSearch from "@components/directorio/DirectorioSearch.astro";
+import HeroSection from "@components/HeroSection.astro";
 import { cdnW } from "@utils/cdn";
 import QuickNav from "@components/QuickNav.astro";
 import {
@@ -161,74 +162,33 @@ const regiones = [
   ]} />
 
 
-  <section class="dir-hero">
-    <div class="dir-hero__bg">
-      <div class="dir-hero__gradient"></div>
-      <div class="dir-hero__grid-pattern"></div>
-    </div>
-    <div class="container">
-      <div class="dir-hero__container">
-
-        <div class="dir-hero__content">
-          <span class="dir-hero__badge">
-            <span class="dir-hero__badge-dot"></span>
-            Directorio Nacional — Verificado {DIRECTORIO_VERIFICADO_LEGIBLE}
-          </span>
-          <h1 class="dir-hero__title">
-            Estaciones de Bomberos en
-            <span class="dir-hero__highlight">México</span>
-          </h1>
-          <p class="dir-hero__desc">
-            El directorio más completo de <strong>estaciones de bomberos</strong> en la República Mexicana:
-            <strong>{totalEstaciones}+ estaciones verificadas</strong> en los <strong>32 estados</strong>,
-            con <strong>teléfonos de emergencia, direcciones y servicios</strong> de cada
-            <strong>H. Cuerpo de Bomberos</strong> local.
-          </p>
-
-          <DirectorioSearch />
-
-          <div class="dir-hero__stats">
-            <div class="dir-hero__stat">
-              <span class="dir-hero__stat-number">{totalEstados}</span>
-              <span class="dir-hero__stat-label">Estados</span>
-            </div>
-            <div class="dir-hero__stat">
-              <span class="dir-hero__stat-number">{totalEstaciones}+</span>
-              <span class="dir-hero__stat-label">Estaciones</span>
-            </div>
-            <div class="dir-hero__stat">
-              <span class="dir-hero__stat-number">24/7</span>
-              <span class="dir-hero__stat-label">Emergencias</span>
-            </div>
-          </div>
+  <HeroSection
+    badge={`Directorio Nacional — Verificado ${DIRECTORIO_VERIFICADO_LEGIBLE}`}
+    title={`Estaciones de Bomberos en <span class="hero__title-highlight">México</span>`}
+    subtitle="Directorio verificado con teléfonos directos, direcciones y cobertura de los 32 estados."
+    blocks={[
+      { title: "El Directorio de Bomberos Más Completo de México", text: "En <strong>BOMBERO.MX</strong> hemos desarrollado la base de datos más completa y actualizada de <strong>estaciones de bomberos en México</strong>. Nuestro directorio incluye información verificada de los <strong>H. Cuerpos de Bomberos</strong> en cada uno de los 32 estados: <strong>Ciudad de México, Monterrey, Guadalajara, Puebla, Tijuana, León, Cancún, Mérida, Querétaro</strong> y todas las entidades federativas del país." },
+      { title: "Información de Emergencia al Alcance de Todos", text: "Cada ficha incluye <strong>teléfonos de emergencia locales</strong>, dirección física, horarios de atención y servicios especializados: rescate vehicular, atención de incendios estructurales, <strong>materiales peligrosos (HAZMAT)</strong>, rescate acuático y servicios pre-hospitalarios. Un <strong>servicio gratuito</strong> para facilitar el acceso a los servicios de emergencia en todo el territorio nacional." }
+    ]}
+  >
+    <div slot="left-extra">
+      <DirectorioSearch />
+      <div class="dir-hero__stats">
+        <div class="dir-hero__stat">
+          <span class="dir-hero__stat-number">{totalEstados}</span>
+          <span class="dir-hero__stat-label">Estados</span>
         </div>
-
-
-        <div class="dir-hero__seo">
-          <div class="dir-hero__seo-block">
-            <h2 class="dir-hero__seo-title">El Directorio de Bomberos Más Completo de México</h2>
-            <p class="dir-hero__seo-text">
-              En <strong>BOMBERO.MX</strong> hemos desarrollado la base de datos más completa y actualizada de
-              <strong>estaciones de bomberos en México</strong>. Nuestro directorio incluye información verificada
-              de los <strong>H. Cuerpos de Bomberos</strong> en cada uno de los 32 estados: <strong>Ciudad de México,
-              Monterrey, Guadalajara, Puebla, Tijuana, León, Cancún, Mérida, Querétaro</strong> y todas las
-              entidades federativas del país.
-            </p>
-          </div>
-          <div class="dir-hero__seo-block">
-            <h2 class="dir-hero__seo-title">Información de Emergencia al Alcance de Todos</h2>
-            <p class="dir-hero__seo-text">
-              Cada ficha incluye <strong>teléfonos de emergencia locales</strong>, dirección física, horarios de
-              atención y servicios especializados: rescate vehicular, atención de incendios estructurales,
-              <strong>materiales peligrosos (HAZMAT)</strong>, rescate acuático y servicios pre-hospitalarios.
-              Un <strong>servicio gratuito</strong> para facilitar el acceso a los servicios de emergencia en
-              todo el territorio nacional.
-            </p>
-          </div>
+        <div class="dir-hero__stat">
+          <span class="dir-hero__stat-number">{totalEstaciones}+</span>
+          <span class="dir-hero__stat-label">Estaciones</span>
+        </div>
+        <div class="dir-hero__stat">
+          <span class="dir-hero__stat-number">24/7</span>
+          <span class="dir-hero__stat-label">Emergencias</span>
         </div>
       </div>
     </div>
-  </section>
+  </HeroSection>
 
   <QuickNav pool="directorio" count={7} />
 
@@ -498,100 +458,6 @@ const regiones = [
 
 <style>
 
-
-
-  .dir-hero {
-    position: relative;
-    padding: var(--space-16) 0;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-  }
-
-  .dir-hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .dir-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .dir-hero__grid-pattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .dir-hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-  }
-
-  .dir-hero__content {
-    color: white;
-  }
-
-  .dir-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-6);
-  }
-
-  .dir-hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-
-  .dir-hero__title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-    margin: 0 0 var(--space-6);
-    letter-spacing: -0.02em;
-  }
-
-  .dir-hero__highlight {
-    background: linear-gradient(135deg, var(--color-fire-500), var(--color-ember-500));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .dir-hero__desc {
-    font-size: var(--text-lg);
-    color: var(--color-smoke-300);
-    line-height: 1.7;
-    margin: 0 0 var(--space-8);
-  }
-
-  .dir-hero__desc strong {
-    color: white;
-  }
-
   .dir-hero__stats {
     display: flex;
     gap: var(--space-8);
@@ -616,41 +482,6 @@ const regiones = [
     color: var(--color-smoke-400);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    font-weight: 600;
-  }
-
-
-  .dir-hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-
-  .dir-hero__seo-block {
-    padding: var(--space-6);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: var(--radius-xl);
-    backdrop-filter: blur(10px);
-  }
-
-  .dir-hero__seo-title {
-    font-size: var(--text-base);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin: 0 0 var(--space-3);
-    line-height: 1.4;
-  }
-
-  .dir-hero__seo-text {
-    font-size: var(--text-sm);
-    color: var(--color-smoke-300);
-    line-height: 1.8;
-    margin: 0;
-  }
-
-  .dir-hero__seo-text strong {
-    color: white;
     font-weight: 600;
   }
 
@@ -1065,24 +896,9 @@ const regiones = [
     .dir-states {
       grid-template-columns: 1fr;
     }
-
-    .dir-hero__container {
-      gap: var(--space-8);
-    }
   }
 
   @media (max-width: 1024px) {
-    .dir-hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-10);
-    }
-
-    .dir-hero__seo {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-4);
-    }
-
     .dir-main__grid {
       grid-template-columns: 1fr;
     }
@@ -1105,14 +921,6 @@ const regiones = [
   }
 
   @media (max-width: 768px) {
-    .dir-hero {
-      padding: var(--space-12) 0;
-    }
-
-    .dir-hero__seo {
-      grid-template-columns: 1fr;
-    }
-
     .dir-hero__stats {
       flex-wrap: wrap;
       gap: var(--space-6);
@@ -1137,16 +945,8 @@ const regiones = [
   }
 
   @media (max-width: 480px) {
-    .dir-hero__title {
-      font-size: 1.75rem;
-    }
-
     .dir-hero__stat-number {
       font-size: var(--text-2xl);
-    }
-
-    .dir-hero__seo-block {
-      padding: var(--space-5);
     }
 
     .dir-sidebar__emergency {

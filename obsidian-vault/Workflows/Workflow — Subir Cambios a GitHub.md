@@ -2,6 +2,7 @@
 
 **Proyecto:** BOMBERO
 **Fecha:** 2026-05-31
+**Actualizado:** 2026-06-05
 **Estado:** Activo — aplica a todas las sesiones de trabajo
 
 ---
@@ -20,18 +21,30 @@ https://github.com/Origenlab/BOMBERO.git
 
 ## Cómo subir cambios (flujo directo)
 
-Cuando Frank diga **"sube los cambios"**, Claude ejecuta esto sin preguntar nada:
+Cuando Frank diga **"sube los cambios"** o **"genera commit y push"**, Claude ejecuta esto sin preguntar nada:
 
 ```bash
-# 1. Eliminar lock si existe
+# 1. Eliminar locks si existen
 rm -f /Users/frankoropeza/Documents/Claude/Projects/BOMBERO/.git/index.lock
+rm -f /Users/frankoropeza/Documents/Claude/Projects/BOMBERO/.git/HEAD.lock
+rm -f /Users/frankoropeza/Documents/Claude/Projects/BOMBERO/.git/refs/heads/main.lock
 
-# 2. Hacer commit y push con los archivos modificados
+# 2. Hacer commit y push
 cd /Users/frankoropeza/Documents/Claude/Projects/BOMBERO
-git add [archivos modificados]
+git add -A
 git commit -m "descripción del cambio"
-git push
+git push origin main
 ```
+
+## Herramientas disponibles para git (en orden de preferencia)
+
+| Herramienta | Funciona | Notas |
+|-------------|----------|-------|
+| `mcp__Macos__Shell` | ✅ Sí | Primera opción documentada |
+| `mcp__Desktop_Commander__start_process` | ✅ Sí | Alternativa equivalente, también corre en el Mac real |
+| `mcp__workspace__bash` (sandbox Linux) | ❌ No | No puede eliminar `.git/*.lock` por permisos |
+
+**Regla:** SIEMPRE usar una herramienta que corra en el Mac real, nunca el sandbox de Linux para operaciones git.
 
 ## Credenciales git del proyecto
 
@@ -41,10 +54,10 @@ git push
 
 ## Notas importantes
 
-- La herramienta para ejecutar comandos en el Mac es `mcp__Macos__Shell`
-- NO usar el sandbox de Linux para git (los permisos del lock fallan ahí)
-- Siempre usar la ruta real del Mac, no la ruta del mount de Cowork
-- Si hay un `index.lock`, borrarlo primero con `rm -f`
+- Si hay locks (`.git/index.lock`, `.git/HEAD.lock`, `.git/refs/heads/main.lock`), borrarlos primero
+- Usar siempre la ruta real del Mac: `/Users/frankoropeza/Documents/Claude/Projects/BOMBERO`
+- NO usar rutas de mount de Cowork (`/sessions/...`) para git
+- El push siempre va a `origin main`
 
 ---
 
