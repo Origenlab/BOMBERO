@@ -10,6 +10,7 @@ import Breadcrumb from "@components/Breadcrumb.astro";
 import CTABanner from "@components/CTABanner.astro";
 import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
 import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
+import HeroSection from "@components/HeroSection.astro";
 import {
   getAllEspecialidades,
   findEspecialidad,
@@ -93,23 +94,20 @@ const itemList = {
     { label: espCanonica.label },
   ]} />
 
-  <section class="esp-hero">
-    <div class="container">
-      <span class="esp-hero__badge">{estadoInfo.codigo} · Capacidad especializada</span>
-      <h1 class="esp-hero__title">{espCanonica.label} en {estadoInfo.nombre}</h1>
-      <p class="esp-hero__desc">{espCanonica.descripcion}</p>
-      <p class="esp-hero__count">
-        <strong>{row.totalEstaciones}</strong> {row.totalEstaciones === 1 ? "estación cuenta" : "estaciones cuentan"} con esta capacidad en {estadoInfo.nombre}.
-      </p>
-
-      <div class="esp-hero__cta">
-        <a class="esp-hero__btn esp-hero__btn--primary" href={espCanonica.productoHref}>
-          Ver equipo NFPA para {espCanonica.label.split("—")[0].trim()}
-        </a>
-        <a class="esp-hero__btn esp-hero__btn--ghost" href="tel:911">Llamar al 911</a>
-      </div>
+  <HeroSection
+    badge={`${estadoInfo.codigo} · Capacidad especializada`}
+    title={`${espCanonica.label} en <span class="hero__title-highlight">${estadoInfo.nombre}</span>`}
+    subtitle={espCanonica.descripcion}
+    blocks={[
+      { title: `${row.totalEstaciones} ${row.totalEstaciones === 1 ? "estación" : "estaciones"} con esta capacidad en ${estadoInfo.nombre}`, text: "Listado completo de estaciones operativas con esta especialidad, incluyendo datos de contacto y cobertura municipal." },
+      { title: "Equipo NFPA certificado para esta especialidad", text: `Encuentra el equipo adecuado para <strong>${espCanonica.label}</strong> en nuestro catálogo de distribuidores autorizados.` },
+    ]}
+  >
+    <div slot="left-extra" class="esp-hero__cta">
+      <a class="btn btn--primary" href={espCanonica.productoHref}>Ver equipo NFPA para {espCanonica.label}</a>
+      <a class="btn btn--ghost" href="tel:911">Llamar al 911</a>
     </div>
-  </section>
+  </HeroSection>
   <QuickNav pool="estado" count={7} />
 
   <section class="esp-main">
@@ -172,17 +170,7 @@ const itemList = {
 </PageLayout>
 
 <style>
-  .esp-hero { background: linear-gradient(135deg, #0a0a0a, #1a0606); color: white; padding: var(--space-12,3rem) 0; }
-  .esp-hero__badge { display: inline-block; padding: 0.3rem 0.85rem; background: rgba(220,38,38,0.18); color: #f97316; border: 1px solid rgba(220,38,38,0.3); border-radius: 9999px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.85rem; }
-  .esp-hero__title { font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.65rem; color: white; }
-  .esp-hero__desc { color: rgba(255,255,255,0.78); max-width: 760px; line-height: 1.7; margin: 0 0 0.85rem; }
-  .esp-hero__count { color: white; font-size: 0.95rem; margin: 0 0 1.5rem; }
-  .esp-hero__count strong { color: #fbbf24; font-size: 1.3rem; }
-  .esp-hero__cta { display: flex; gap: 0.65rem; flex-wrap: wrap; }
-  .esp-hero__btn { display: inline-flex; align-items: center; padding: 0.85rem 1.4rem; border-radius: 9999px; font-size: 0.95rem; font-weight: 700; text-decoration: none; transition: transform 0.15s ease; }
-  .esp-hero__btn:hover { transform: translateY(-2px); }
-  .esp-hero__btn--primary { background: linear-gradient(135deg, #dc2626, #f97316); color: white; }
-  .esp-hero__btn--ghost { background: rgba(255,255,255,0.08); color: white; border: 1px solid rgba(255,255,255,0.18); }
+  .esp-hero__cta { display: flex; gap: 0.65rem; flex-wrap: wrap; margin-top: var(--space-4, 1rem); }
 
   .esp-main { padding: var(--space-12,3rem) 0; background: var(--color-smoke-50,#fafafa); }
   .esp-section__title { font-size: clamp(1.4rem, 2.8vw, 1.9rem); font-weight: 800; color: var(--color-smoke-900,#111); margin: 0 0 1rem; letter-spacing: -0.02em; }

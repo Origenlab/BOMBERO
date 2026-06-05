@@ -5,6 +5,7 @@ import QuickNav from "@components/QuickNav.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
+import HeroSection from "@components/HeroSection.astro";
 import { cdnW } from "@utils/cdn";
 import { getAllArticulos } from "@data/blog-articulos";
 
@@ -90,59 +91,15 @@ const breadcrumb = [
 
 
 
-  <section class="blog-index-hero">
-    <div class="blog-index-hero__bg">
-      <div class="blog-index-hero__gradient"></div>
-      <div class="blog-index-hero__grid"></div>
-      <div class="blog-index-hero__glow blog-index-hero__glow--1"></div>
-      <div class="blog-index-hero__glow blog-index-hero__glow--2"></div>
-    </div>
-
-    <div class="container hero__container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          Blog · {catData.nombre}
-        </div>
-        <h1 class="hero__title">
-          {catData.nombre}
-          <span class="hero__title-highlight">BOMBERO.MX</span>
-        </h1>
-        <p class="hero__subtitle">
-          {catData.descripcion}
-        </p>
-        <div class="hero__actions">
-          <a href="#articulos" class="btn btn--primary btn--lg">
-            <span>Ver artículos ({articulosCategoria.length})</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-          <a href="/blog/" class="btn btn--ghost btn--lg">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            <span>Todos los artículos</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="hero__seo">
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Artículos de {catData.nombre}</h2>
-          <p class="hero__seo-text">
-            Explora nuestra colección de artículos sobre <strong>{catData.nombre.toLowerCase()}</strong>. Contenido técnico creado por especialistas para <strong>cuerpos de bomberos</strong>, protección civil y <strong>brigadas industriales</strong> en México.
-          </p>
-        </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Contenido Profesional</h2>
-          <p class="hero__seo-text">
-            En <strong>BOMBERO.MX</strong> publicamos guías técnicas actualizadas sobre <strong>normativas NFPA</strong>, selección de equipo y mejores prácticas. Todo el contenido es revisado por expertos con experiencia en el sector.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HeroSection
+    badge={`Blog · ${catData.nombre}`}
+    title={`${catData.nombre} — <span class="hero__title-highlight">BOMBERO.MX</span>`}
+    subtitle={catData.descripcion}
+    blocks={[
+      { title: `Artículos de ${catData.nombre}`, text: `Explora nuestra colección de artículos sobre <strong>${catData.nombre.toLowerCase()}</strong>. Hay <strong>${articulosCategoria.length}</strong> ${articulosCategoria.length === 1 ? "artículo publicado" : "artículos publicados"} en esta categoría. Contenido técnico creado por especialistas para <strong>cuerpos de bomberos</strong>, protección civil y <strong>brigadas industriales</strong> en México.` },
+      { title: "Contenido Profesional — BOMBERO.MX", text: "En <strong>BOMBERO.MX</strong> publicamos guías técnicas actualizadas sobre <strong>normativas NFPA</strong>, selección de equipo y mejores prácticas. Todo el contenido es revisado por expertos con experiencia en el sector." },
+    ]}
+  />
   <QuickNav pool="blogPost" count={7} />
 
 
@@ -293,139 +250,6 @@ const breadcrumb = [
 </PageLayout>
 
 <style>
-
-  .blog-index-hero {
-    position: relative;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-    padding: var(--space-6) 0 var(--space-12);
-  }
-
-  .blog-index-hero__bg { position: absolute; inset: 0; pointer-events: none; }
-
-  .blog-index-hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0%   50%, rgba(249, 115, 22, 0.10), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .blog-index-hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .blog-index-hero__glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.4;
-  }
-
-  .blog-index-hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
-  .blog-index-hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
-
-
-  .hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-    padding-block: var(--space-8);
-  }
-
-  .hero__content { color: var(--color-text-on-dark); }
-
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-6);
-  }
-
-  .hero__badge-dot {
-    width: 8px; height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-  .hero__title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-6);
-    letter-spacing: var(--tracking-tight);
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .hero__title-highlight {
-    background: var(--gradient-fire);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero__subtitle {
-    font-size: var(--text-xl);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-    max-width: 540px;
-    margin-bottom: var(--space-8);
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-    margin-bottom: var(--space-12);
-  }
-
-
-  .hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-  }
-
-  .hero__seo-block {
-    padding: var(--space-4) 0;
-  }
-
-  .hero__seo-title {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-    line-height: var(--leading-tight);
-  }
-
-  .hero__seo-text {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-  }
-
-  .hero__seo-text strong {
-    color: #ffffff;
-    font-weight: 600;
-  }
-
 
   .blog-layout {
     padding: var(--space-16) 0;
@@ -678,17 +502,6 @@ const breadcrumb = [
 
 
   @media (max-width: 1024px) {
-    .hero__container {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
-    }
-
-    .hero__seo {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-6);
-    }
-
     .blog-layout__grid {
       grid-template-columns: 1fr;
     }
@@ -701,18 +514,6 @@ const breadcrumb = [
   }
 
   @media (max-width: 768px) {
-    .blog-index-hero {
-      padding: var(--space-4) 0 var(--space-10);
-    }
-
-    .hero__seo {
-      grid-template-columns: 1fr;
-    }
-
-    .hero__actions {
-      margin-bottom: var(--space-8);
-    }
-
     .articles-grid {
       grid-template-columns: 1fr;
     }

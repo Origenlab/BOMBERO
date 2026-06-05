@@ -9,6 +9,7 @@ import Breadcrumb from "@components/Breadcrumb.astro";
 import CTABanner from "@components/CTABanner.astro";
 import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
 import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
+import HeroSection from "@components/HeroSection.astro";
 import {
   getAllEspecialidades,
   getEspecialidadesEstado,
@@ -70,16 +71,15 @@ const list = {
     { label: "Especialidades" },
   ]} />
 
-  <section class="esph-hero">
-    <div class="container">
-      <span class="esph-hero__badge">{estadoInfo.codigo} · Capacidades operativas</span>
-      <h1 class="esph-hero__title">Especialidades de bomberos en {estadoInfo.nombre}</h1>
-      <p class="esph-hero__desc">
-        Los cuerpos de bomberos de {estadoInfo.nombre} cuentan con <strong>{total}</strong> capacidades
-        especializadas. Selecciona una para ver las estaciones que la operan y el equipo NFPA recomendado.
-      </p>
-    </div>
-  </section>
+  <HeroSection
+    badge={`${estadoInfo.codigo} · Capacidades operativas`}
+    title={`Especialidades de bomberos en <span class="hero__title-highlight">${estadoInfo.nombre}</span>`}
+    subtitle={`Los cuerpos de bomberos de ${estadoInfo.nombre} cuentan con ${total} capacidades especializadas.`}
+    blocks={[
+      { title: "Capacidades operativas verificadas", text: `Cada especialidad listada corresponde a capacidades reales confirmadas en las estaciones. Selecciona una para ver qué estaciones la operan en ${estadoInfo.nombre}.` },
+      { title: "Directorio de bomberos BOMBERO.MX", text: "Información actualizada de estaciones, teléfonos directos y coberturas para los <strong>32 estados</strong> de México." },
+    ]}
+  />
   <QuickNav pool="estado" count={7} />
 
   <section class="esph-main">
@@ -117,12 +117,6 @@ const list = {
 </PageLayout>
 
 <style>
-  .esph-hero { background: linear-gradient(135deg, #0a0a0a, #1a0606); color: white; padding: var(--space-12,3rem) 0; }
-  .esph-hero__badge { display: inline-block; padding: 0.3rem 0.85rem; background: rgba(220,38,38,0.18); color: #f97316; border: 1px solid rgba(220,38,38,0.3); border-radius: 9999px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.85rem; }
-  .esph-hero__title { font-size: clamp(1.7rem,3.5vw,2.6rem); font-weight: 800; margin: 0 0 0.7rem; color: white; letter-spacing: -0.02em; }
-  .esph-hero__desc { color: rgba(255,255,255,0.78); max-width: 760px; line-height: 1.7; margin: 0; }
-  .esph-hero__desc strong { color: white; }
-
   .esph-main { padding: var(--space-12,3rem) 0; background: var(--color-smoke-50,#fafafa); }
   .esph-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap: 1rem; }
   .esph-card { display: block; padding: 1.15rem 1.2rem; background: white; border: 1px solid var(--color-smoke-200,#e5e5e5); border-radius: 0.95rem; text-decoration: none; color: inherit; transition: border-color 0.15s ease, transform 0.15s ease; }

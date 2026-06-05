@@ -13,6 +13,7 @@ import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
 import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
 import MunicipiosPhonesTable from "@components/directorio/MunicipiosPhonesTable.astro";
 import CTABanner from "@components/CTABanner.astro";
+import HeroSection from "@components/HeroSection.astro";
 import {
   getEstadoInfo,
   getEstacionesEstado,
@@ -79,27 +80,22 @@ const phoneListSchema = {
     { label: "Teléfonos" },
   ]} />
 
-  <section class="tel-hero">
-    <div class="container">
-      <span class="tel-hero__badge">{estadoInfo.codigo} · Líneas verificadas {DIRECTORIO_VERIFICADO_LEGIBLE}</span>
-      <h1 class="tel-hero__title">Teléfonos de bomberos en {estadoInfo.nombre}</h1>
-      <p class="tel-hero__desc">
-        <strong>{totalTel}</strong> líneas directas a estaciones de bomberos en {estadoInfo.nombre},
-        verificadas con cada comandancia. Para emergencias inmediatas marca el <strong>911</strong>.
-      </p>
-
-      <div class="tel-hero__emergency">
-        <div class="tel-hero__em-block">
-          <span class="tel-hero__em-num">911</span>
-          <span class="tel-hero__em-lab">Emergencias nacional · 24/7</span>
-        </div>
-        <p class="tel-hero__em-note">
-          El 911 enruta automáticamente a bomberos, policía o servicios médicos en {estadoInfo.nombre}.
-          Identifica la dirección exacta del incidente y describe el tipo de emergencia.
-        </p>
+  <HeroSection
+    badge={`${estadoInfo.codigo} · Líneas verificadas`}
+    title={`Teléfonos de bomberos en <span class="hero__title-highlight">${estadoInfo.nombre}</span>`}
+    subtitle={`${totalTel} líneas directas a estaciones de bomberos en ${estadoInfo.nombre}.`}
+    blocks={[
+      { title: `${totalTel} números directos verificados en ${estadoInfo.nombre}`, text: `Líneas directas verificadas con cada comandancia. Organizadas por municipio para facilitar el contacto con la estación más cercana a tu ubicación en ${estadoInfo.nombre}.` },
+      { title: "¿Cuándo llamar al 911 y cuándo al número directo?", text: "El <strong>911</strong> es el número nacional de emergencias 24/7 — úsalo en situaciones de riesgo inmediato. Los teléfonos directos de estaciones son útiles para <strong>reportes no urgentes</strong>, coordinación de eventos y consultas administrativas." },
+    ]}
+  >
+    <div slot="left-extra" class="tel-hero__emergency">
+      <div class="tel-hero__em-block">
+        <span class="tel-hero__em-num">911</span>
+        <span class="tel-hero__em-lab">Emergencias nacional · 24/7</span>
       </div>
     </div>
-  </section>
+  </HeroSection>
   <QuickNav pool="estado" count={7} />
 
   <MunicipiosPhonesTable
@@ -130,48 +126,14 @@ const phoneListSchema = {
 </PageLayout>
 
 <style>
-  .tel-hero {
-    background: linear-gradient(135deg, #0a0a0a, #1a0606);
-    color: white;
-    padding: var(--space-12,3rem) 0;
-  }
-  .tel-hero__badge {
-    display: inline-block;
-    padding: 0.3rem 0.85rem;
-    background: rgba(74,222,128,0.18);
-    color: #4ade80;
-    border: 1px solid rgba(74,222,128,0.3);
-    border-radius: 9999px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.85rem;
-  }
-  .tel-hero__title {
-    font-size: clamp(1.7rem,3.5vw,2.6rem);
-    font-weight: 800;
-    margin: 0 0 0.7rem;
-    color: white;
-    letter-spacing: -0.02em;
-  }
-  .tel-hero__desc {
-    color: rgba(255,255,255,0.78);
-    max-width: 720px;
-    line-height: 1.7;
-    margin: 0 0 1.5rem;
-  }
-  .tel-hero__desc strong { color: white; }
-
   .tel-hero__emergency {
     background: linear-gradient(135deg, #dc2626, #f97316);
     border-radius: 1rem;
     padding: 1.1rem 1.4rem;
-    display: grid;
-    grid-template-columns: auto 1fr;
+    display: inline-flex;
     gap: 1.5rem;
     align-items: center;
-    max-width: 720px;
+    margin-top: var(--space-4, 1rem);
   }
   .tel-hero__em-block { text-align: center; }
   .tel-hero__em-num {
@@ -190,14 +152,7 @@ const phoneListSchema = {
     letter-spacing: 0.07em;
     margin-top: 0.25rem;
   }
-  .tel-hero__em-note {
-    color: rgba(255,255,255,0.92);
-    line-height: 1.6;
-    margin: 0;
-    font-size: 0.92rem;
-  }
-
   @media (max-width: 600px) {
-    .tel-hero__emergency { grid-template-columns: 1fr; text-align: center; }
+    .tel-hero__emergency { flex-direction: column; text-align: center; }
   }
 </style>

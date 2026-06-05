@@ -10,6 +10,7 @@ import Breadcrumb from "@components/Breadcrumb.astro";
 import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
 import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
 import CTABanner from "@components/CTABanner.astro";
+import HeroSection from "@components/HeroSection.astro";
 import {
   getMunicipiosByEstado,
   getAllMunicipios,
@@ -77,18 +78,15 @@ const itemList = {
     { label: "Municipios" },
   ]} />
 
-  <section class="muh-hero">
-    <div class="container">
-      <span class="muh-hero__badge">{estadoInfo.codigo} · Verificado {DIRECTORIO_VERIFICADO_LEGIBLE}</span>
-      <h1 class="muh-hero__title">Municipios con bomberos en {estadoInfo.nombre}</h1>
-      <p class="muh-hero__desc">
-        Selecciona el <strong>municipio</strong> donde necesitas información de bomberos. {estadoInfo.nombre}
-        cuenta con <strong>{totalMunicipios}</strong> {totalMunicipios === 1 ? "municipio" : "municipios"} con
-        cobertura del <strong>H. Cuerpo de Bomberos</strong>, sumando <strong>{totalEstaciones}</strong>
-        estaciones operativas. Para emergencias inmediatas marca el <strong>911</strong>.
-      </p>
-    </div>
-  </section>
+  <HeroSection
+    badge={`${estadoInfo.codigo} · Directorio Municipal`}
+    title={`Municipios con bomberos en <span class="hero__title-highlight">${estadoInfo.nombre}</span>`}
+    subtitle={`${totalMunicipios} municipios con cobertura de bomberos. ${totalEstaciones} estaciones activas en ${estadoInfo.nombre}.`}
+    blocks={[
+      { title: `${totalMunicipios} municipios con cobertura del H. Cuerpo de Bomberos`, text: `Selecciona el <strong>municipio</strong> donde necesitas información de bomberos en ${estadoInfo.nombre}. La capital, <strong>${estadoInfo.capital}</strong>, suele concentrar la coordinación regional y el mayor número de elementos operativos.` },
+      { title: "Directorio verificado — BOMBERO.MX", text: `Información actualizada con <strong>${totalEstaciones}</strong> estaciones operativas en ${estadoInfo.nombre}. Teléfonos directos, direcciones y especialidades verificadas. Para emergencias inmediatas marca el <strong>911</strong>.` },
+    ]}
+  />
   <QuickNav pool="estado" count={7} />
 
   <section class="muh-main">
@@ -140,39 +138,6 @@ const itemList = {
 </PageLayout>
 
 <style>
-  .muh-hero {
-    background: linear-gradient(135deg, #0a0a0a, #1a0606);
-    color: white;
-    padding: var(--space-12, 3rem) 0;
-  }
-  .muh-hero__badge {
-    display: inline-block;
-    padding: 0.3rem 0.85rem;
-    background: rgba(220,38,38,0.18);
-    color: #f97316;
-    border: 1px solid rgba(220,38,38,0.3);
-    border-radius: 9999px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.85rem;
-  }
-  .muh-hero__title {
-    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: white;
-    margin: 0 0 0.7rem;
-  }
-  .muh-hero__desc {
-    color: rgba(255,255,255,0.78);
-    max-width: 760px;
-    line-height: 1.7;
-    margin: 0;
-  }
-  .muh-hero__desc strong { color: white; }
-
   .muh-main { padding: var(--space-12,3rem) 0; background: var(--color-smoke-50,#fafafa); }
   .muh-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.85rem; }
   .muh-card {

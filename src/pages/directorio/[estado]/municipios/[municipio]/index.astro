@@ -15,6 +15,7 @@ import CTABanner from "@components/CTABanner.astro";
 import FAQDirectorio from "@components/directorio/FAQDirectorio.astro";
 import VerifiedBadge from "@components/directorio/VerifiedBadge.astro";
 import MunicipiosPhonesTable from "@components/directorio/MunicipiosPhonesTable.astro";
+import HeroSection from "@components/HeroSection.astro";
 import {
   getAllMunicipios,
   findMunicipio,
@@ -136,50 +137,21 @@ const breadcrumb = {
     { label: row.municipio },
   ]} />
 
-  <section class="muni-hero">
-    <div class="container">
-      <span class="muni-hero__badge">{row.estadoNombre} · Verificado {DIRECTORIO_VERIFICADO_LEGIBLE}</span>
-      <h1 class="muni-hero__title">
-        {titleH1}
-        {esCapital && <span class="muni-hero__chip">Capital</span>}
-      </h1>
-      <p class="muni-hero__desc">
-        {totalEst} {totalEst === 1 ? "estación operativa" : "estaciones operativas"} del
-        <strong>H. Cuerpo de Bomberos</strong> en {row.municipio}. Atienden las 24 horas del día,
-        los 365 días del año. Para emergencias inmediatas marca el <strong>911</strong>.
-      </p>
-
-      <div class="muni-hero__stats">
-        <div class="muni-hero__stat">
-          <span class="muni-hero__stat-num">{totalEst}</span>
-          <span class="muni-hero__stat-lab">{totalEst === 1 ? "Estación" : "Estaciones"}</span>
-        </div>
-        <div class="muni-hero__stat">
-          <span class="muni-hero__stat-num">{row.telefonos.length}</span>
-          <span class="muni-hero__stat-lab">Teléfonos directos</span>
-        </div>
-        <div class="muni-hero__stat">
-          <span class="muni-hero__stat-num">{row.especialidadesUnicas.length || row.serviciosUnicos.length}</span>
-          <span class="muni-hero__stat-lab">
-            {row.especialidadesUnicas.length ? "Especialidades" : "Servicios"}
-          </span>
-        </div>
-        <div class="muni-hero__stat">
-          <span class="muni-hero__stat-num">24/7</span>
-          <span class="muni-hero__stat-lab">Servicio</span>
-        </div>
-      </div>
-
-      <div class="muni-hero__cta">
-        <a class="muni-hero__btn muni-hero__btn--primary" href="tel:911">
-          Llamar al 911
-        </a>
-        <a class="muni-hero__btn muni-hero__btn--ghost" href="#estaciones">
-          Ver {totalEst} {totalEst === 1 ? "estación" : "estaciones"}
-        </a>
-      </div>
+  <HeroSection
+    badge={`${row.estadoNombre} · Directorio Municipal`}
+    title={esCapital ? `${titleH1} <span class="hero__title-highlight">Capital</span>` : titleH1}
+    subtitle={`${totalEst} ${totalEst === 1 ? "estación operativa" : "estaciones operativas"} del H. Cuerpo de Bomberos en ${row.municipio}.`}
+    blocks={[
+      { title: `${totalEst} ${totalEst === 1 ? "estación" : "estaciones"} en ${row.municipio}`, text: `Listado oficial de estaciones del <strong>H. Cuerpo de Bomberos</strong> en ${row.municipio}, con teléfono directo, dirección completa y horarios verificados. Para emergencias inmediatas marca el <strong>911</strong>.` },
+      { title: `Directorio de bomberos en ${row.estadoNombre}`, text: `Consulta también el <a href="/directorio/${estadoSlug}/">directorio completo de bomberos en ${row.estadoNombre}</a> para ver todas las estaciones del estado, regiones y números de emergencia adicionales.` },
+    ]}
+  >
+    <div slot="left-extra" class="muni-hero__stats">
+      <div class="muni-hero__stat"><span class="muni-hero__stat-num">{totalEst}</span><span class="muni-hero__stat-lab">{totalEst === 1 ? "Estación" : "Estaciones"}</span></div>
+      <div class="muni-hero__stat"><span class="muni-hero__stat-num">{row.telefonos.length}</span><span class="muni-hero__stat-lab">Teléfonos</span></div>
+      <div class="muni-hero__stat"><span class="muni-hero__stat-num">{row.especialidadesUnicas.length || row.serviciosUnicos.length}</span><span class="muni-hero__stat-lab">Especialidades</span></div>
     </div>
-  </section>
+  </HeroSection>
   <QuickNav pool="estado" count={7} />
 
   <section id="estaciones" class="muni-main">
@@ -307,62 +279,6 @@ const breadcrumb = {
 </PageLayout>
 
 <style>
-  .muni-hero {
-    padding: var(--space-12, 3rem) 0 var(--space-10, 2.5rem);
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a0606 100%);
-    color: white;
-  }
-
-  .muni-hero__badge {
-    display: inline-block;
-    padding: 0.3rem 0.85rem;
-    background: rgba(220, 38, 38, 0.18);
-    color: #f97316;
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: 9999px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.85rem;
-  }
-
-  .muni-hero__title {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-    margin: 0 0 0.65rem;
-    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: white;
-  }
-
-  .muni-hero__chip {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.2rem 0.7rem;
-    background: #dc2626;
-    color: white;
-    border-radius: 9999px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .muni-hero__desc {
-    color: rgba(255,255,255,0.78);
-    max-width: 760px;
-    line-height: 1.7;
-    margin: 0 0 1.5rem;
-  }
-
-  .muni-hero__desc strong {
-    color: white;
-  }
-
   .muni-hero__stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -392,36 +308,6 @@ const breadcrumb = {
     text-transform: uppercase;
     letter-spacing: 0.07em;
     color: rgba(255,255,255,0.6);
-  }
-
-  .muni-hero__cta {
-    display: flex;
-    gap: 0.65rem;
-    flex-wrap: wrap;
-  }
-
-  .muni-hero__btn {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.85rem 1.4rem;
-    border-radius: 9999px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-decoration: none;
-    transition: transform 0.15s ease;
-  }
-
-  .muni-hero__btn:hover { transform: translateY(-2px); }
-
-  .muni-hero__btn--primary {
-    background: linear-gradient(135deg, #dc2626, #f97316);
-    color: white;
-  }
-
-  .muni-hero__btn--ghost {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.18);
-    color: white;
   }
 
   .muni-main {
