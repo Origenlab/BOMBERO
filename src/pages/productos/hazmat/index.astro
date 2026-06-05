@@ -147,6 +147,42 @@ const breadcrumbSchema = breadcrumbJsonLd([
 
 const jsonLdSchemas = [productSchema, breadcrumbSchema];
 
+const hazmatFaqs = [
+  {
+    question: "¿Cuál es la diferencia técnica entre los niveles A, B, C y D de protección HAZMAT?",
+    answer: "Nivel A (NFPA 1991): encapsulamiento total hermético con SCBA presurizado interno — para atmósferas IDLH con agentes desconocidos o de máxima toxicidad/penetración dérmica. Nivel B (NFPA 1992): traje no encapsulado con SCBA externo de cara completa — para químicos conocidos con riesgo respiratorio pero sin penetración dérmica significativa. Nivel C (NFPA 1994): traje descontaminable con respirador purificador de aire — para contaminantes conocidos en concentraciones definidas. Nivel D: overol básico sin protección respiratoria especial — solo para operaciones de limpieza sin riesgo respiratorio.",
+  },
+  {
+    question: "¿Cómo se determina qué nivel HAZMAT aplicar en una escena de emergencia?",
+    answer: "La selección del nivel HAZMAT se inicia con la identificación del agente mediante el detector multigas y la hoja de datos de seguridad (SDS) del producto. El Nivel A aplica cuando el agente es desconocido o cuando el SDS indica penetración dérmica peligrosa. El Nivel B aplica cuando el agente es conocido, con riesgo inhalatorio pero no dérmico severo. El Nivel C aplica cuando la concentración del agente está dentro del rango de eficacia del respirador purificador disponible. El detector multigas NFPA 472 es el primer equipo que se usa antes de acercarse a cualquier escena HAZMAT.",
+  },
+  {
+    question: "¿Cuánto cuesta un traje HAZMAT Nivel A certificado NFPA 1991 en México?",
+    answer: "Un traje HAZMAT Nivel A completo certificado NFPA 1991 (traje + guantes internos + guantes externos + botas integradas) oscila entre $85,000 y $220,000 MXN según fabricante y especificaciones de resistencia química. Los modelos de referencia incluyen el DuPont Tychem TK, el Lakeland ChemMax y el Kappler Zytron — cada uno con perfiles de resistencia química distintos según los agentes más frecuentes en la región. El kit HAZMAT completo (Nivel A + SCBA de 60 min + detector de 6 gases) puede llegar a $500,000–$700,000 MXN por persona.",
+  },
+  {
+    question: "¿Qué materiales resisten los trajes HAZMAT Nivel A y cómo se verifica la compatibilidad química?",
+    answer: "Los trajes Nivel A se fabrican en materiales como Tychem TK (DuPont), ChemMax 4 (Lakeland) o Zytron 500 (Kappler), todos polímeros multicapa que resisten más de 200 productos químicos. La compatibilidad se verifica con las tablas PERMEATION del fabricante según el agente específico: el tiempo de breakthrough (tiempo hasta que el químico penetra la barrera) debe ser superior al tiempo de operación previsto. Para agentes desconocidos siempre se aplica Nivel A como medida preventiva.",
+  },
+  {
+    question: "¿El SCBA cabe dentro de un traje HAZMAT Nivel A encapsulado?",
+    answer: "Sí, pero requiere que el traje sea compatible con el tamaño del SCBA que usa el cuerpo de bomberos. Los trajes Nivel A para SCBA interno se fabrican con mayor volumen de torso para acomodar el cilindro. Al cotizar un traje Nivel A, debe especificarse la marca y modelo del SCBA (MSA G1, Scott Air-Pak, Dräger) para confirmar compatibilidad. Antes de cada operación, la prueba de integridad del sistema (prueba de inflado del traje) debe realizarse con el SCBA puesto para validar que el sello no queda comprometido.",
+  },
+  {
+    question: "¿Cuántas personas puede descontaminar una estación modular en 3 zonas?",
+    answer: "Una estación de descontaminación de 3 zonas (zona sucia, zona de lavado, zona limpia) puede procesar entre 4 y 8 personas por hora dependiendo del tipo de contaminante y el protocolo de descontaminación establecido. Para derrames con agentes de alta toxicidad, el tiempo de descontaminación por persona puede extenderse a 15–20 minutos. Para incidentes con múltiples víctimas, se recomienda instalar dos líneas paralelas de descontaminación. La estación debe incluir tanques de retención del agua de lavado contaminada para disposición posterior.",
+  },
+  {
+    question: "¿Con qué frecuencia se calibra el detector multigas y qué implica la calibración?",
+    answer: "Los detectores multigas requieren: bump test (verificación de respuesta) antes de cada uso con gas patrón de concentración conocida para confirmar que los sensores responden; calibración completa mensual con gases patrón certificados para ajustar los valores; y sustitución de sensores según vida útil del fabricante (los sensores electroquímicos de CO y H2S tienen vida útil de 2–3 años). Un detector no calibrado puede dar falsos negativos — indicar que la atmósfera es segura cuando representa un riesgo IDLH real.",
+  },
+  {
+    question: "¿Qué documentación requieren las brigadas HAZMAT en México para operar legalmente?",
+    answer: "Las brigadas HAZMAT en México deben contar con: certificación de los integrantes conforme a NFPA 472 (Competencia para Respondedores a Incidentes con Materiales Peligrosos) en el nivel operativo o técnico; plan de respuesta a emergencias con materiales peligrosos aprobado por Protección Civil estatal; fichas técnicas y certificados de laboratorio del EPP HAZMAT (trajes, detectores, SCBA); y procedimientos operativos estándar (POEs) documentados. BOMBERO.MX provee la documentación técnica del equipo necesaria para estos expedientes.",
+  },
+];
+
+
 ---
 
 <PageLayout
@@ -385,77 +421,6 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema];
 
 
 
-  <section class="section faq-section">
-    <div class="container">
-      <SectionHeader
-        label="Preguntas Frecuentes"
-        title="Dudas Comunes sobre Equipos HAZMAT"
-        description="Resolvemos tus dudas sobre niveles NFPA, selección de equipos, descontaminación y certificaciones en México."
-      />
-
-      <div class="faq__grid">
-        <div class="faq__item">
-          <h3 class="faq__title">¿Cuál es la diferencia entre Nivel A, B, C y D?</h3>
-          <p class="faq__answer">
-            El <strong>Nivel A (NFPA 1991)</strong> es máxima protección: traje completamente encapsulado para atmósferas desconocidas extremadamente peligrosas con SCBA presurizado. <strong>Nivel B (NFPA 1992)</strong> es alta protección sin encapsular para vapores químicos conocidos con SCBA. <strong>Nivel C (NFPA 1994)</strong> es protección moderada con respirador purificador para contaminantes conocidos. <strong>Nivel D (NFPA 1994)</strong> es protección básica de salpicaduras para descontaminación y limpieza sin riesgo respiratorio.
-          </p>
-        </div>
-
-        <div class="faq__item">
-          <h3 class="faq__title">¿Qué normativas deben cumplir los equipos HAZMAT en México?</h3>
-          <p class="faq__answer">
-            En México los <strong>equipos HAZMAT</strong> deben cumplir <strong>NFPA 1991</strong> (Nivel A), <strong>NFPA 1992</strong> (Nivel B), <strong>NFPA 1994</strong> (Nivel C y D) y <strong>NFPA 472</strong> (competencias HAZMAT y detectores). Estos estándares son reconocidos por la Secretaría de Gobernación y obligatorios en licitaciones públicas. En BOMBERO.MX todos los equipos incluyen certificados de laboratorio acreditado y manuales en español.
-          </p>
-        </div>
-
-        <div class="faq__item">
-          <h3 class="faq__title">¿Necesito SCBA para un traje HAZMAT Nivel C o D?</h3>
-          <p class="faq__answer">
-            <strong>No</strong>. El <strong>Nivel C (NFPA 1994)</strong> usa <strong>respirador purificador de aire</strong> que filtra químicos específicos. El <strong>Nivel D</strong> permite trabajo en <strong>aire ambiente</strong> sin equipo respiratorio. Sin embargo, <strong>Nivel A (NFPA 1991) requiere obligatoriamente SCBA presurizado</strong> y <strong>Nivel B (NFPA 1992) requiere SCBA cara completa</strong>. Nunca improvises: sigue siempre las especificaciones por nivel de riesgo.
-          </p>
-        </div>
-
-        <div class="faq__item">
-          <h3 class="faq__title">¿Qué es el detector multigas NFPA 472 y por qué es obligatorio?</h3>
-          <p class="faq__answer">
-            El <strong>detector multigas</strong> mide en tiempo real 4 gases peligrosos: oxígeno (asfixia), combustibles (explosión), monóxido de carbono (CO) e hidrógeno sulfurado (H₂S). Es <strong>obligatorio NFPA 472</strong> para toda evaluación de atmósfera HAZMAT antes de entrada personal. Detecta atmósferas IDLH (Inmediatamente Peligrosa para la Vida o Salud) y define qué nivel de equipo necesitas. Sin detector no hay entrada segura.
-          </p>
-        </div>
-
-        <div class="faq__item">
-          <h3 class="faq__title">¿Cuáles son los materiales más comunes en trajes HAZMAT Nivel A?</h3>
-          <p class="faq__answer">
-            Los <strong>trajes HAZMAT Nivel A NFPA 1991</strong> se fabrican en materiales multicapa altamente especializados: <strong>Butilo</strong> para resistencia general a químicos inorgánicos y solventes polares; <strong>Chlorobutyl</strong> para vapor de ácidos y bases fuertes; <strong>Tychem® TK</strong> (DuPont) para una amplia gama de productos químicos industriales; y <strong>Barriersafe® CPF5</strong> para vapores de plaguicidas y agentes tóxicos de combate (CBRN). La selección del material correcto depende de la Guía de Respuesta a Emergencias (GRE) y la hoja de datos de seguridad (SDS/MSDS) del agente involucrado. BOMBERO.MX proporciona asesoría de selección sin costo.
-          </p>
-        </div>
-
-        <div class="faq__item">
-          <h3 class="faq__title">¿Cada cuánto tiempo se debe probar la integridad de un traje HAZMAT Nivel A?</h3>
-          <p class="faq__answer">
-            La <strong>NFPA 1991</strong> y los fabricantes recomiendan realizar una <strong>prueba de inflado (inflation test)</strong> antes de cada entrada en zona caliente, después de cualquier evento de contaminación y cada vez que se sospeche de daño en la integridad del traje. La prueba se realiza inflando el traje a 1–2 pulgadas de agua de presión y verificando que mantenga presión por 3 minutos. La inspección visual completa (costuras, cremallera, ventana de visión, guantes) debe realizarse mensualmente. En México, el programa de mantenimiento debe documentarse conforme a la <strong>NOM-002-STPS-2010</strong>.
-          </p>
-        </div>
-
-        <div class="faq__item">
-          <h3 class="faq__title">¿Las brigadas industriales en México están obligadas a tener equipo HAZMAT?</h3>
-          <p class="faq__answer">
-            Sí. Las instalaciones que manejan <strong>sustancias químicas peligrosas</strong> en cantidades superiores a los umbrales establecidos en la <strong>NOM-028-STPS-2012</strong> (Organización del trabajo) y los listados de riesgo de la <strong>SEMARNAT</strong> están obligadas a contar con brigadas entrenadas con el <strong>nivel de equipo correspondiente al tipo de riesgo</strong>. Las refinerías, plantas petroquímicas, depósitos de gas LP, plantas de cloro y laboratorios farmacéuticos son los sectores más regulados. La <strong>NFPA 472</strong> define las competencias mínimas del personal de brigada HAZMAT conforme a 3 niveles de operación: primer respondedor, técnico en operaciones y especialista.
-          </p>
-        </div>
-
-        <div class="faq__item">
-          <h3 class="faq__title">¿Dónde compro equipo HAZMAT certificado NFPA en México?</h3>
-          <p class="faq__answer">
-            En <strong>BOMBERO.MX</strong> distribuimos equipos HAZMAT certificados NFPA en los <strong>32 estados de México</strong>. Contamos con <strong>trajes Nivel A (NFPA 1991)</strong>, <strong>Nivel B (NFPA 1992)</strong>, <strong>Nivel C y D (NFPA 1994)</strong>, detectores multigas portátiles y estaciones de descontaminación modular. Entregamos certificados de laboratorio acreditado, manuales en español y fichas técnicas listas para <strong>licitaciones públicas</strong>. Cotiza sin costo en <a href="/cotizar/">BOMBERO.MX/cotizar</a> o llama a nuestro equipo especializado.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-
   <section class="section relacionados">
     <div class="container">
       <SectionHeader
@@ -529,6 +494,12 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema];
 
 
 
+
+  <FAQQuote
+    items={hazmatFaqs}
+    title="Preguntas Frecuentes — Equipos HAZMAT"
+    description="Resolvemos las dudas técnicas más frecuentes sobre niveles de protección NFPA, selección de trajes, detectores y descontaminación en México."
+  />
 
   <CTABanner />
 
@@ -760,49 +731,6 @@ const jsonLdSchemas = [productSchema, breadcrumbSchema];
   .cert-chip--fire  { background: rgba(249, 115, 22, 0.1); color: var(--color-fire-700); }
   .cert-chip--smoke { background: var(--color-smoke-100); color: var(--color-smoke-700); }
 
-
-  .faq-section { background: var(--color-smoke-50); }
-
-  .faq__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-  }
-
-  .faq__item {
-    background: white;
-    padding: var(--space-6);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--color-smoke-200);
-  }
-
-  .faq__title {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-smoke-900);
-    margin-bottom: var(--space-3);
-  }
-
-  .faq__answer {
-    font-size: var(--text-base);
-    color: var(--color-smoke-700);
-    line-height: var(--leading-relaxed);
-  }
-
-  .faq__answer strong {
-    color: var(--color-smoke-900);
-    font-weight: 600;
-  }
-
-  .faq__answer a {
-    color: var(--color-fire-700);
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .faq__answer a:hover {
-    text-decoration: underline;
-  }
 
 
   .relacionados { background: var(--color-smoke-50); }

@@ -27,6 +27,9 @@ tags:
 - [[Estado/Auditoría del Directorio]] — informe completo P0/P1/P2 (versión sintética del .md externo)
 - [[Estado/Mejoras Directorio — Sprint 1-10]] — registro de cambios aplicados
 
+### Plantillas
+- [[Plantillas/Template — Página L3 Categoría de Producto]] — ✅ Master aprobado · sidebar 11 widgets · two-column layout · checklist de homologación
+
 ### Arquitectura
 - [[Arquitectura/Arquitectura del Sitio]] — mapa URLs, schemas, alias, sitemap
 

@@ -5,13 +5,12 @@ import QuickNav from "@components/QuickNav.astro";
 import SectionHeader from "@components/SectionHeader.astro";
 import CTABanner from "@components/CTABanner.astro";
 import WhyChooseUs from "@components/WhyChooseUs.astro";
-import FAQQuote from "@components/FAQQuote.astro";
+import FAQ from "@components/FAQ.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import CTABar from "@components/CTABar.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
-import { SITE } from "@data/site";
-import { canonicalURL, productSchemaComplete, breadcrumbJsonLd, faqJsonLd } from "@utils/seo";
+import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
 
 const productos = [
   {
@@ -22,15 +21,15 @@ const productos = [
     badgeColor: "ember",
     imagen: "/images/cascos-para-bomberos/casco-bombero-estructural-premium-nfpa-1971.avif",
     descripcion:
-      "Protección craneal máxima para combate de incendios estructurales. Cumple NFPA 1971 con resistencia a impactos, penetración y calor radiante. Construcción en termoplástico de alta resistencia o material compuesto.",
+      "Protección craneal máxima para combate de incendios estructurales. Shell termoplástico de alto impacto o material compuesto. Resistencia térmica sostenida hasta 500°F (260°C) con sistema de retención de 4–6 puntos.",
     caracteristicas: [
-      "Casco termoplástico certificado NFPA 1971",
-      "Resistencia a impacto lateral y vertical",
-      "Protección térmica hasta 500°F (260°C)",
-      "Sistema de retención ajustable de 4 puntos",
+      "Shell termoplástico ABS o material compuesto certificado",
+      "Protección térmica hasta 500°F (260°C) sostenida",
+      "Sistema de retención ajustable de 4 o 6 puntos",
+      "Compatible con SCBA de cara completa NFPA 1981",
       "Certificado NFPA 1971 (edición vigente)",
     ],
-    aplicacion: "Incendio estructural · Rescate urbano · Operaciones interiores",
+    aplicacion: "Incendio estructural · Rescate urbano · Operaciones interiores · Flash-over",
   },
   {
     id: "forestal",
@@ -40,15 +39,15 @@ const productos = [
     badgeColor: "fire",
     imagen: "/images/cascos-para-bomberos/casco-bombero-forestal-profesional-nfpa-1977.avif",
     descripcion:
-      "Diseñado específicamente para combate de incendios forestales. Ultraligero y ventilado para operaciones prolongadas en campo abierto. Cumple NFPA 1977 con protección facial integrada opcional.",
+      "Ultraligero y ventilado para jornadas prolongadas en campo abierto. Peso inferior a 450 g con ventilación activa y protección facial mesh anti-chispas. Compatible con protección auditiva y visor facial.",
     caracteristicas: [
-      "Peso ultraligero < 450 g",
-      "Ventilación superior para clima cálido",
-      "Protección facial mesh anti-chispas",
-      "Compatible con protección auditiva",
+      "Peso ultraligero < 450 g para uso prolongado",
+      "Ventilación activa superior para clima cálido",
+      "Protección facial mesh anti-chispas integrada",
+      "Compatible con protección auditiva y comunicaciones",
       "Certificado NFPA 1977 (edición vigente)",
     ],
-    aplicacion: "Incendio forestal · Quemas controladas · Interface urbano-rural",
+    aplicacion: "Incendio forestal · Quemas controladas · Interface urbano-rural · Brigadas",
   },
   {
     id: "arff",
@@ -58,15 +57,15 @@ const productos = [
     badgeColor: "ember",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     descripcion:
-      "Casco de protección para bomberos aeroportuarios (ARFF). Diseñado para soportar radiación extrema y impactos en emergencias aeronáuticas. Cumple NFPA 1971 y normas europeas EN 443.",
+      "Diseñado para soportar radiación extrema de combustibles de aviación (jet fuel). Visor dorado metalizado anti-radiación, protección auditiva reforzada y compatibilidad con sistemas de comunicación aeronáuticos.",
     caracteristicas: [
-      "Visor de policarbonato anti-radiación dorado",
-      "Resistencia térmica mejorada para jet fuel",
+      "Visor de policarbonato dorado anti-radiación térmica extrema",
+      "Protección superior frente a jet fuel y combustibles de aviación",
       "Cumple NFPA 1971 / EN 443 / ICAO Annex 14",
-      "Sistema de comunicación integrado compatible",
+      "Compatible con sistema de comunicación en frecuencias ICAO",
       "Reflectividad mejorada para operaciones nocturnas",
     ],
-    aplicacion: "Aeropuertos · Emergencias aeronáuticas · Rescate en pistas",
+    aplicacion: "Aeropuertos · Pistas de aterrizaje · Emergencias aeronáuticas · ARFF",
   },
   {
     id: "rescate",
@@ -76,15 +75,15 @@ const productos = [
     badgeColor: "smoke",
     imagen: "/images/cascos-para-bomberos/casco-bombero-rescate-tecnico-nfpa-1951.avif",
     descripcion:
-      "Casco especializado para operaciones de rescate técnico y USAR (Urban Search and Rescue). Protección superior contra impactos laterales y penetración. Cumple NFPA 1951 para rescate estructural.",
+      "Protección superior contra impactos laterales, penetración y aplastamiento para operaciones de rescate técnico y USAR. Compatible con arneses de altura, lámparas y cámaras de inspección.",
     caracteristicas: [
-      "Protección de impacto lateral certificada",
-      "Resistencia a penetración superior",
-      "Compatible con arnés de escalada y rapel",
-      "Ranuras para lámparas y cámaras",
+      "Protección de impacto lateral y vertical certificada NFPA 1951",
+      "Resistencia a penetración de escombros superior",
+      "Ranuras de cuatro puntos para lámpara, cámara y accesorios",
+      "Compatible con arnés de escalada, rapel y rescate vertical",
       "Certificado NFPA 1951 (edición vigente)",
     ],
-    aplicacion: "Rescate técnico · USAR · Espacios confinados · Rescate vertical",
+    aplicacion: "Rescate técnico · USAR · Espacios confinados · Rescate vertical · Extricación",
   },
   {
     id: "hazmat",
@@ -94,15 +93,15 @@ const productos = [
     badgeColor: "smoke",
     imagen: "/images/cascos-para-bomberos/casco-bombero-hazmat-quimico-01.avif",
     descripcion:
-      "Casco de protección para operaciones con materiales peligrosos. Compatible con trajes HAZMAT encapsulados Nivel A y B. Resistente a vapores químicos y salpicaduras de productos peligrosos.",
+      "Protección integral para operaciones con materiales peligrosos. Compatible con trajes HAZMAT encapsulados Nivel A y B. Resistente a vapores químicos, ácidos y salpicaduras de productos peligrosos.",
     caracteristicas: [
-      "Compatible con traje HAZMAT encapsulado",
-      "Resistente a vapores químicos y ácidos",
-      "Visor panorámico de visibilidad 180°",
-      "Sistema de ventilación para SCBA interno",
-      "Certificado NFPA 1991 / NFPA 1992",
+      "Compatible con traje HAZMAT encapsulado Nivel A y B",
+      "Shell resistente a vapores químicos, ácidos y álcalis",
+      "Visor panorámico de policarbonato con visibilidad 180°",
+      "Sistema de ventilación de presión positiva para SCBA interno",
+      "Certificado NFPA 1991 / NFPA 1992 / EN 943",
     ],
-    aplicacion: "HAZMAT · Derrames químicos · Atmósferas IDLH · Nivel A/B",
+    aplicacion: "HAZMAT · Derrames químicos · Atmósferas IDLH · Nivel A/B · CBRN",
   },
   {
     id: "industrial",
@@ -112,13 +111,13 @@ const productos = [
     badgeColor: "fire",
     imagen: "/images/cascos-para-bomberos/casco-bombero-brigada-industrial-01.avif",
     descripcion:
-      "Casco versátil para brigadas industriales y corporativos. Cumple múltiples normas NFPA según aplicación. Ideal para plantas petroquímicas, refinerías y complejos industriales con riesgo de incendio.",
+      "Versatilidad de uso para brigadas industriales en petroquímica, refinerías y complejos de manufactura con riesgo de incendio. Diseño modular con accesorios intercambiables y sistema de identificación de brigada.",
     caracteristicas: [
-      "Compatible NFPA 1971 y NFPA 1977",
-      "Diseño modular con accesorios intercambiables",
-      "Protección facial y auditiva opcional",
-      "Sistema de identificación de brigada",
-      "Certificación dual para uso múltiple",
+      "Diseño modular con accesorios y visores intercambiables",
+      "Certificación dual compatible con NFPA 1971 y NFPA 1977",
+      "Sistema de identificación de brigada por color y etiquetado",
+      "Compatible con protección facial y auditiva integrada",
+      "Ideal para adquisiciones de volumen en sector industrial",
     ],
     aplicacion: "Brigadas industriales · Petroquímica · Refinerías · Corporativos",
   },
@@ -126,59 +125,54 @@ const productos = [
 
 
 const CANONICAL = "/productos/cascos-para-bomberos/";
-const TITLE = "Cascos para Bomberos NFPA";
-const DESCRIPTION = "Cascos de bombero certificados NFPA 1971, 1977 y 1951. Casco Estructural, Forestal, ARFF Aeroportuario, Rescate Técnico y HAZMAT con envío a los 32 estados de México.";
-
 const productSchema = productSchemaComplete({
-  name: TITLE,
-  description: DESCRIPTION,
+  name: "Cascos para Bomberos NFPA",
+  description: "Cascos de bombero certificados NFPA 1971, 1977 y 1951. Casco Estructural, Forestal, ARFF Aeroportuario, Rescate Técnico, HAZMAT y Brigada Industrial con envío a los 32 estados de México.",
   image: productos[0].imagen ?? "/images/directorio/estacion-bomberos-mexico-01.avif",
   url: CANONICAL,
   category: "Cascos de Bombero",
   features: ["NFPA 1971", "NFPA 1977", "NFPA 1951", "HAZMAT", "ARFF"],
   certifications: ["NFPA 1971", "NFPA 1977", "NFPA 1951", "EN 443"],
 });
-
 const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Inicio", url: "/" },
   { name: "Productos", url: "/productos/" },
   { name: "Cascos para Bomberos", url: CANONICAL },
 ]);
-
 const jsonLdSchemas = [productSchema, breadcrumbSchema];
 
 const cascosFaqs = [
   {
-    question: "¿Cuál es la diferencia entre el casco NFPA 1971 y el NFPA 1977?",
-    answer: "El casco NFPA 1971 está certificado para incendio estructural (edificios): resiste 500°F (260°C) continuos, impactos laterales y verticales severos, y se usa con máscara SCBA. El casco NFPA 1977 está diseñado para bomberos forestales: es más ligero (<550 g), tiene mayor ventilación activa para jornadas prolongadas en campo y puede incluir protección facial mesh anti-chispas. Un casco forestal NO puede usarse en incendio estructural y viceversa — la norma aplicable depende del tipo de operación.",
+    question: "¿Cuál es la diferencia técnica entre el casco NFPA 1971 estructural y el NFPA 1977 forestal?",
+    answer: "El casco NFPA 1971 estructural resiste 500°F (260°C) de calor radiante sostenido, impactos laterales y verticales severos, y está diseñado para usarse con máscara SCBA de cara completa. El casco NFPA 1977 forestal pesa menos de 450 g, tiene ventilación activa para jornadas prolongadas en campo y puede incluir protección facial de malla anti-chispas. Son normas distintas para entornos distintos: un casco forestal nunca puede usarse en un incendio estructural ni viceversa.",
   },
   {
-    question: "¿Qué es el sistema de suspensión de 4 o 6 puntos y por qué importa?",
-    answer: "El sistema de suspensión es la estructura interior del casco que distribuye el impacto y mantiene el casco estable en la cabeza. Un sistema de 4 puntos ofrece estabilidad básica; el de 6 puntos distribuye mejor la energía de impacto y reduce el riesgo de desplazamiento durante operaciones agresivas. La NFPA 1971 exige que el sistema de retención resista fuerzas de tracción superiores a 50 lbs. Los sistemas de ajuste rápido (dial fit) permiten ajuste fino bajo guantes con una sola mano.",
+    question: "¿Qué es el sistema de suspensión y cuántos puntos debe tener un casco de combate?",
+    answer: "El sistema de suspensión distribuye la energía del impacto y mantiene el casco estable bajo los guantes estructurales. La NFPA 1971 exige resistencia de tracción superior a 50 lbs. Los sistemas de 4 puntos ofrecen la protección mínima requerida; los de 6 puntos distribuyen mejor la energía de impacto y reducen el desplazamiento en operaciones agresivas. Los sistemas de dial fit permiten ajuste fino con una sola mano bajo guantes — requisito operativo crítico en el interior de un edificio en llamas.",
   },
   {
-    question: "¿Cuándo se debe reemplazar un casco de bombero?",
-    answer: "La NFPA 1851 establece el ciclo de vida máximo de los cascos estructurales: 10 años de fabricación o 5 años de uso activo, lo que ocurra primero. Los criterios de retiro inmediato incluyen: cualquier deformación visible, grietas en el shell, sistema de suspensión deteriorado, o si el casco ha recibido un impacto severo (aunque no tenga daño visible). La fecha de fabricación está moldeada en el interior del shell. En México, la NOM-002-STPS-2010 exige registro del ciclo de vida del EPP.",
+    question: "¿Cuándo se debe retirar del servicio un casco de bombero según la NFPA 1851?",
+    answer: "La NFPA 1851 establece el ciclo de vida máximo: 10 años desde la fecha de fabricación moldeada en el interior del shell, o 5 años de uso activo en operaciones frecuentes, lo que ocurra primero. Retiro inmediato obligatorio ante: cualquier deformación visible, grietas en el shell, sistema de suspensión deteriorado o deterioro de la capa reflectiva. Un impacto severo obliga al retiro aunque no haya daño visible — la energía absorbida degrada la capacidad de protección interna.",
   },
   {
-    question: "¿Los cascos ARFF aeroportuarios cumplen alguna norma especial?",
-    answer: "Sí. Los cascos para bomberos ARFF (Aircraft Rescue and Firefighting) cumplen simultáneamente NFPA 1971 para incendio estructural y tienen características específicas para el entorno aeroportuario: visor dorado metalizado que refleja el calor radiante del jet fuel en llamas, protección auricular reforzada contra el ruido extremo de motores y sistemas de comunicación integrados compatibles con frecuencias aeronáuticas. Algunos modelos también cumplen EN 443 para mercados europeos.",
+    question: "¿Cuál es la diferencia entre shell de termoplástico y de material compuesto en un casco estructural?",
+    answer: "El shell de termoplástico (ABS o polietileno de alta densidad) es resistente, económico y el más común en cuerpos de bomberos municipales. El shell de material compuesto (fibra de vidrio o Kevlar® + resina) es 15–25% más ligero, más resistente a impactos y soporta temperaturas superiores, con mayor costo inicial. Para uso diario intensivo y operaciones de alto riesgo, el compuesto es la inversión más adecuada a largo plazo; para adquisiciones de volumen con presupuesto limitado, el termoplástico cubre los requisitos NFPA 1971.",
   },
   {
-    question: "¿El casco de rescate técnico NFPA 1951 sirve para incendio?",
-    answer: "No. El casco NFPA 1951 está diseñado para operaciones de rescate técnico (excarcelación vehicular, colapso de estructuras, rescate en altura), no para combate de incendios. Ofrece protección contra impactos y penetración de escombros, pero no tiene la resistencia térmica del casco NFPA 1971. En operaciones donde hay riesgo de incendio, siempre debe usarse el casco estructural NFPA 1971.",
+    question: "¿Qué diferencia hay entre Bullard y Cairns, las dos marcas de referencia para cascos estructurales?",
+    answer: "Bullard (fundada 1898, EUA) y Cairns (MSA Safety) son las dos marcas más distribuidas en México para cascos estructurales NFPA 1971. Bullard se distingue por el modelo 660C de material compuesto y el clásico RealFire de termoplástico. Cairns es conocido por el modelo N5A (perfil bajo, moderno) y el tradicional 1010. La selección debe basarse en el sistema de suspensión disponible, compatibilidad con los SCBA del cuerpo y las preferencias del personal — en BOMBERO.MX realizamos la evaluación técnica comparativa sin costo.",
   },
   {
-    question: "¿Cuál es la diferencia entre casco de termoplástico y de material compuesto?",
-    answer: "El shell de termoplástico (polímero ABS/polietileno de alta densidad) es resistente, económico y el más común en cuerpos de bomberos municipales. El shell de material compuesto (fibra de vidrio, Kevlar® o carbono) es más ligero (15–25 % menos peso), más resistente a impactos y soporta temperaturas más altas, pero tiene un costo significativamente mayor. Para operaciones de alto riesgo y uso intensivo, los modelos de material compuesto son la inversión más adecuada a largo plazo.",
+    question: "¿El casco de rescate técnico NFPA 1951 puede usarse en combate de incendios?",
+    answer: "No. El casco NFPA 1951 está diseñado para rescate técnico (extricación vehicular, colapso, rescate en altura) y ofrece protección superior contra impactos y penetración de escombros, pero no tiene la resistencia térmica del NFPA 1971. En cualquier operación con riesgo de llama, calor radiante o flash-over debe usarse el casco estructural NFPA 1971. Ambos tipos son complementarios en el inventario de un cuerpo moderno — no intercambiables.",
   },
   {
-    question: "¿Los cascos de BOMBERO.MX incluyen visor facial?",
-    answer: "Depende del modelo. Los cascos estructurales NFPA 1971 incluyen en algunos modelos un visor facial integrado retráctil (para uso sin máscara SCBA) y tienen sistema de montaje para viseras adicionales. Los cascos forestales NFPA 1977 incluyen típicamente protección facial tipo pantalla mesh anti-chispas. Los cascos HAZMAT incluyen visor de cara completa con sello periférico. Al cotizar, especifica si necesitas el casco con o sin visor y el tipo de visor requerido.",
+    question: "¿Los cascos ARFF tienen requisitos adicionales al NFPA 1971?",
+    answer: "Sí. Los cascos ARFF cumplen NFPA 1971 estructural y además: visor dorado metalizado que refleja el calor radiante extremo del jet fuel; protección auditiva reforzada contra el ruido de motores de aeronave; y compatibilidad con sistemas de comunicación en frecuencias ICAO. Algunos modelos cumplen también EN 443. El Bullard FH Series y el Cairns 1010 ARFF son los modelos de referencia más distribuidos en aeropuertos mexicanos.",
   },
   {
-    question: "¿Cuánto tiempo tarda la entrega de cascos en México?",
-    answer: "BOMBERO.MX mantiene inventario de los modelos más solicitados (casco estructural en los colores más comunes y casco forestal) para entrega en 2–5 días hábiles en CDMX y área metropolitana, y 5–10 días al resto de la República. Para órdenes de más de 10 cascos o modelos especiales (ARFF, HAZMAT, rescate técnico), el tiempo de entrega puede ser de 2–4 semanas. Cotiza directamente para confirmar disponibilidad inmediata.",
+    question: "¿Qué información mínima debe incluir la especificación técnica para licitación de cascos?",
+    answer: "Una especificación rigurosa debe incluir: norma y edición aplicable (ej. NFPA 1971-2018 o edición vigente); tipo de shell requerido (termoplástico o compuesto); número mínimo de puntos de retención; tipo de visor (sin visor, retráctil, integrado); colores aceptables; certificado de laboratorio acreditado NVLAP o equivalente; y garantía mínima del fabricante. Especificar marca y modelo exacto puede impugnar la licitación — siempre especificar por características técnicas. BOMBERO.MX elabora estas fichas técnicas sin costo.",
   },
 ];
 
@@ -186,25 +180,25 @@ const cascosFaqs = [
 
 <PageLayout
   quickNav={false}
-  title="Cascos para Bomberos NFPA | BOMBERO.MX"
-  description="Cascos de bombero certificados NFPA 1971, 1977 y 1951. Casco Estructural, Forestal, ARFF Aeroportuario, Rescate Técnico y HAZMAT con envío a los 32 estados de México. Asesoría técnica sin costo. ¡Cotiza ahora!"
+  title="Cascos para Bomberos NFPA | Bullard · MSA · Cairns — BOMBERO.MX"
+  description="Cascos de bombero certificados NFPA 1971, NFPA 1977 y NFPA 1951. Casco Estructural, Forestal, ARFF, Rescate Técnico, HAZMAT y Brigada Industrial. Bullard, MSA y Cairns con envío a los 32 estados de México."
+  canonical={CANONICAL}
+  jsonLd={jsonLdSchemas}
   keywords={[
     "cascos de bombero",
     "casco estructural NFPA 1971",
     "casco forestal NFPA 1977",
-    "casco rescate NFPA 1951",
+    "casco rescate técnico NFPA 1951",
     "casco HAZMAT bombero",
     "casco ARFF aeroportuario",
+    "casco Bullard bombero México",
+    "casco Cairns MSA bombero",
+    "casco bombero certificado NFPA",
     "equipo de protección personal bomberos",
-    "EPP bomberos México",
-    "casco bombero certificado",
     "comprar casco bombero México",
     "casco termoplástico bombero",
-    "casco bombero NFPA",
   ]}
   type="website"
-  canonical={CANONICAL}
-  jsonLd={jsonLdSchemas}
 >
 
   <Breadcrumb items={[
@@ -212,9 +206,7 @@ const cascosFaqs = [
     { label: "Cascos de Bombero" },
   ]} />
 
-
-
-
+  <!-- ═══════════════════════════════════════════════════════ HERO -->
   <section class="hero">
     <div class="hero__bg">
       <div class="hero__gradient"></div>
@@ -227,7 +219,7 @@ const cascosFaqs = [
       <div class="hero__content">
         <div class="hero__badge">
           <span class="hero__badge-dot"></span>
-          6 Tipos de Cascos · Certificados NFPA
+          6 Tipos de Casco · Certificados NFPA
         </div>
         <h1 class="hero__title">
           Cascos para
@@ -235,176 +227,532 @@ const cascosFaqs = [
           Certificados NFPA
         </h1>
         <p class="hero__subtitle">
-          Cascos estructurales <strong>NFPA 1971</strong>, forestales <strong>NFPA 1977</strong> y ARFF para aeropuertos. Bullard, MSA y Cairns. Incluye ficha técnica y certificado de laboratorio.
+          Cascos estructurales NFPA 1971, forestales NFPA 1977, ARFF, Rescate Técnico NFPA 1951 y HAZMAT. Bullard · MSA · Cairns · Ficha técnica incluida · Envío a 32 estados.
         </p>
+        <div class="hero__actions">
+          <a href="#catalogo" class="hero__btn hero__btn--primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1" ry="1"/></svg>
+            Ver catálogo
+          </a>
+          <a href="/cotizar/" class="hero__btn hero__btn--secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Cotizar ahora
+          </a>
+        </div>
       </div>
 
       <div class="hero__seo">
         <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Cascos para bomberos NFPA 1971 — Bullard, Cairns y MSA en México</h2>
+          <h2 class="hero__seo-title">Cascos NFPA 1971 y 1977 — Bullard, Cairns y MSA en México</h2>
           <p class="hero__seo-text">
-            Distribuimos las tres marcas más usadas por cuerpos de bomberos en México: <strong>Bullard</strong>, <strong>Cairns</strong> y <strong>MSA</strong>. Cada casco en nuestro catálogo cumple <strong>NFPA 1971, 1977 o 1951</strong> según su aplicación. Stock disponible para entrega inmediata a los <strong>32 estados</strong> con certificado de laboratorio incluido.
+            Distribuimos las tres marcas de referencia en México: <strong>Bullard</strong>, <strong>Cairns</strong> y <strong>MSA</strong>. Cada casco en nuestro catálogo supera los requisitos mínimos de <strong>NFPA 1971, 1977 o 1951</strong> según su aplicación. Stock disponible para entrega inmediata a los <strong>32 estados</strong> con certificado de laboratorio acreditado incluido y ficha técnica lista para <strong>licitaciones públicas</strong>.
           </p>
         </div>
         <div class="hero__seo-block">
-          <h2 class="hero__seo-title">El casco correcto define la supervivencia en un incendio estructural</h2>
+          <h2 class="hero__seo-title">El casco correcto define la supervivencia en flash-over — asesoría técnica sin costo</h2>
           <p class="hero__seo-text">
-            Un <strong>casco de bombero certificado NFPA 1971</strong> no es opcional: es el único equipo que protege la cabeza en flash-over. En BOMBERO.MX especificamos el casco adecuado para cada tipo de operación — estructural, forestal, rescate técnico o <strong>HAZMAT</strong> — y entregamos con certificado de laboratorio y ficha técnica lista para <strong>licitaciones públicas</strong>.
+            Un <strong>casco estructural NFPA 1971</strong> no es equipo opcional: es el único elemento que protege la cabeza del bombero ante un flash-over. En BOMBERO.MX especificamos el casco adecuado para cada tipo de operación — estructural, forestal, rescate técnico, HAZMAT o aeroportuario — y lo entregamos con <strong>documentación completa para licitaciones</strong> en los <strong>32 estados de México</strong>.
           </p>
         </div>
       </div>
     </div>
   </section>
-  <QuickNav pool="categoria" count={7} />
 
+  <QuickNav pool="categoria" count={7} />
   <CTABar quote="Cotizar Cascos de Bombero" />
 
+  <!-- ═══════════════════════════════════════════════════════ LAYOUT SIDEBAR -->
+  <div class="page-layout">
+    <div class="page-layout__inner">
 
+      <!-- ─── MAIN CONTENT ─── -->
+      <main class="page-main">
 
+        <!-- Catálogo -->
+        <section class="content-panel" id="catalogo">
+          <SectionHeader
+            label="Catálogo de Cascos para Bomberos"
+            title="6 Tipos de Casco de Bombero"
+            description="Desde combate estructural hasta operaciones de rescate técnico y materiales peligrosos. Cada casco está diseñado y certificado para el entorno operativo más exigente."
+          >
+            <p>
+              El <strong>casco de bombero</strong> es el primer elemento crítico del EPP: protege contra impactos, penetración, calor radiante y electricidad. En BOMBERO.MX seleccionamos únicamente <strong>cascos certificados NFPA</strong> que superan los requerimientos mínimos de cada norma y son compatibles con nuestros <a href="/productos/trajes-para-bomberos/">trajes para bombero</a> y <a href="/productos/botas-para-bomberos/">botas certificadas NFPA</a>.
+            </p>
+            <p>
+              Todos nuestros <strong>cascos estructurales NFPA 1971</strong>, forestales, ARFF, de rescate técnico y HAZMAT incluyen fichas técnicas completas y certificados de laboratorio acreditado. Para un <strong>sistema de protección integral</strong>, combina el casco con <a href="/productos/trajes-para-bomberos/">traje NFPA certificado</a>, <a href="/productos/guantes-para-bomberos/">guantes</a> y <a href="/productos/botas-para-bomberos/">botas de bombero</a> del mismo estándar.
+            </p>
+          </SectionHeader>
 
-  <section class="section productos" id="catalogo">
-    <div class="container">
-      <SectionHeader
-        label="Catálogo de Cascos para Bomberos"
-        title="6 Tipos de Cascos de Bombero"
-        description="Desde combate estructural hasta operaciones de rescate técnico y HAZMAT. Cada casco está diseñado para el entorno operativo más exigente."
-      >
-        <p>
-          Un <strong>casco de bombero</strong> es el primer elemento crítico del EPP: protege contra impactos, penetración, calor radiante y electricidad. En BOMBERO.MX seleccionamos únicamente <strong>cascos certificados NFPA</strong> que superan los requerimientos mínimos de cada norma aplicable y son compatibles con nuestros <a href="/productos/trajes-para-bomberos/">trajes para bombero</a> y <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
-        </p>
-        <p>
-          Todos nuestros <strong>cascos estructurales NFPA 1971</strong>, forestales, ARFF, de rescate y HAZMAT incluyen fichas técnicas completas y certificados de laboratorio. Para un <strong>sistema de protección integral</strong>, combina el casco con <a href="/productos/trajes-para-bomberos/">traje NFPA certificado</a>, guantes y <a href="/productos/botas-para-bomberos/">botas de bombero</a> del mismo estándar.
-        </p>
-      </SectionHeader>
+          <div class="productos__grid">
+            {productos.map((producto) => (
+              <ProductCard {...producto} altSuffix="Casco de bombero certificado NFPA" />
+            ))}
+          </div>
+        </section>
 
-      <div class="productos__grid">
-        {productos.map((producto) => (
-          <ProductCard {...producto} altSuffix="Casco de bombero certificado" />
-        ))}
-      </div>
-    </div>
-  </section>
+        <!-- Tecnología / Specs (dark panel) -->
+        <section class="content-panel content-panel--dark" id="tecnologia">
+          <SectionHeader
+            label="Tecnología y Materiales"
+            title="Materiales, Certificaciones y Aplicaciones"
+            description="Los mejores cascos de bombero del mundo combinan materiales termoplásticos de alto impacto con sistemas de suspensión de ingeniería que distribuyen la energía de golpe y mantienen la estabilidad en operaciones de alta exigencia."
+          >
+            <p>
+              Los <strong>cascos estructurales NFPA 1971</strong> combinan un shell de termoplástico ABS o material compuesto (fibra de vidrio/Kevlar®), sistema de suspensión de 4 o 6 puntos y visor retráctil de policarbonato que protege frente a llamas, calor radiante y esquirlas. Para protección integral, el casco estructural debe usarse con <a href="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" class="dark-link">traje estructural NFPA 1971</a>, <a href="/productos/capuchas-para-bomberos/" class="dark-link">capucha de protección</a> y <a href="/productos/botas-para-bomberos/estructural/" class="dark-link">botas estructurales de cuero</a>.
+            </p>
+            <p>
+              Los <strong>cascos forestales NFPA 1977</strong> priorizan el peso inferior a 450 g y la ventilación activa para jornadas prolongadas en campo. Se complementan con <a href="/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/" class="dark-link">traje forestal NFPA 1977</a> y <a href="/productos/botas-para-bomberos/forestal/" class="dark-link">botas forestales ligeras</a>. Todos nuestros cascos incluyen certificados de laboratorio acreditado y fichas técnicas para <strong>licitaciones gubernamentales</strong> en los <strong>32 estados de México</strong>.
+            </p>
+          </SectionHeader>
+          <div class="specs__grid">
+            <CategoryCard
+              title="Materiales de Alta Resistencia"
+              icon="shield"
+              image="/images/cascos-para-bomberos/detalle-casco-arff-visor-dorado.avif"
+              description="Termoplástico ABS y policarbonato para resistencia superior al impacto y temperatura. Material compuesto de fibra de vidrio y Kevlar® en modelos estructurales premium y de rescate técnico. Sistemas de suspensión de 4 y 6 puntos con dial fit para ajuste bajo guantes."
+            />
+            <CategoryCard
+              title="Certificaciones Internacionales"
+              icon="certificate"
+              image="/images/cascos-para-bomberos/casco-bombero-estudio-dramatico-perfil-02.avif"
+              description="NFPA 1971 para cascos estructurales, NFPA 1977 para forestales, NFPA 1951 para rescate técnico y NFPA 1991/1992 para HAZMAT. Normas europeas EN 443 y EN 16473. Documentación de laboratorio acreditado NVLAP lista para licitaciones en los 32 estados de México."
+            />
+            <CategoryCard
+              title="Aplicaciones y Operaciones"
+              icon="users"
+              image="/images/cascos-para-bomberos/casco-bombero-combate-incendio-proteccion-03.avif"
+              description="Cuerpos de bomberos municipales y estatales, brigadas industriales y petroquímicas, bomberos aeroportuarios ARFF, equipos USAR de rescate técnico, protección civil estatal y federal en toda la República Mexicana."
+            />
+          </div>
+        </section>
 
+        <!-- Tabla Comparativa -->
+        <section class="content-panel" id="comparativa">
+          <SectionHeader
+            label="Tabla Comparativa"
+            title="¿Qué Casco de Bombero Necesitas?"
+            description="Compara los 6 tipos de cascos según norma, aplicación, peso y material para seleccionar el equipo correcto para tu tipo de operación."
+          >
+            <p>
+              La selección del <strong>casco de bombero</strong> correcto depende del tipo de riesgo: el <strong>casco estructural NFPA 1971</strong> es el estándar para incendios en edificios y se usa con <a href="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/">traje estructural</a>, <a href="/productos/capuchas-para-bomberos/">capucha NFPA</a> y <a href="/productos/botas-para-bomberos/estructural/">botas de cuero</a>. El <strong>casco forestal NFPA 1977</strong> se complementa con <a href="/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/">traje forestal</a> y <a href="/productos/botas-para-bomberos/forestal/">botas forestales ligeras</a>. El <strong>casco HAZMAT</strong> se integra con <a href="/productos/trajes-para-bomberos/traje-hazmat/">traje encapsulado NFPA 1991</a> y <a href="/productos/botas-para-bomberos/caucho/">botas de caucho químico</a>.
+            </p>
+            <p>
+              En <strong>BOMBERO.MX</strong> elaboramos especificaciones técnicas de <strong>sistemas EPP completos</strong> — casco, traje, guantes, capucha y botas — para <strong>licitaciones públicas</strong> en toda la República Mexicana, sin costo para tu corporación.
+            </p>
+          </SectionHeader>
+          <div class="comparativa__wrapper">
+            <table class="comparativa__table">
+              <thead>
+                <tr>
+                  <th>Casco</th>
+                  <th>Norma Principal</th>
+                  <th>Aplicación</th>
+                  <th>Peso</th>
+                  <th>Material Shell</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Estructural</strong></td>
+                  <td><span class="cert-chip cert-chip--ember">NFPA 1971</span></td>
+                  <td>Incendio estructural, rescate urbano, operaciones interiores</td>
+                  <td>700 – 900 g</td>
+                  <td>Termoplástico ABS / Compuesto</td>
+                </tr>
+                <tr>
+                  <td><strong>Forestal</strong></td>
+                  <td><span class="cert-chip cert-chip--fire">NFPA 1977</span></td>
+                  <td>Incendio forestal, interface, quemas controladas</td>
+                  <td>&lt; 450 g</td>
+                  <td>Termoplástico ligero ventilado</td>
+                </tr>
+                <tr>
+                  <td><strong>ARFF Aeroportuario</strong></td>
+                  <td><span class="cert-chip cert-chip--ember">NFPA 1971 / EN 443</span></td>
+                  <td>Emergencias aeronáuticas, rescate en pistas</td>
+                  <td>800 – 1,000 g</td>
+                  <td>Termoplástico + visor dorado anti-rad.</td>
+                </tr>
+                <tr>
+                  <td><strong>Rescate Técnico</strong></td>
+                  <td><span class="cert-chip cert-chip--smoke">NFPA 1951</span></td>
+                  <td>Rescate técnico, USAR, espacios confinados</td>
+                  <td>600 – 800 g</td>
+                  <td>Material compuesto reforzado</td>
+                </tr>
+                <tr>
+                  <td><strong>HAZMAT</strong></td>
+                  <td><span class="cert-chip cert-chip--smoke">NFPA 1991 / 1992</span></td>
+                  <td>Materiales peligrosos, derrames, IDLH</td>
+                  <td>900 – 1,200 g</td>
+                  <td>Polímero resistente a químicos</td>
+                </tr>
+                <tr>
+                  <td><strong>Brigada Industrial</strong></td>
+                  <td><span class="cert-chip cert-chip--fire">Multi-norma</span></td>
+                  <td>Brigadas industriales, petroquímica, refinerías</td>
+                  <td>650 – 850 g</td>
+                  <td>Termoplástico modular dual-uso</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
+        <!-- FAQ -->
+        <section class="content-panel content-panel--faq" id="faq">
+          <FAQ
+            items={cascosFaqs}
+            title="Preguntas Frecuentes — Cascos para Bomberos"
+            description="Resolvemos las dudas más frecuentes sobre selección, normas NFPA, materiales y mantenimiento de cascos para bomberos en México."
+          />
+        </section>
 
+        <!-- Relacionados -->
+        <section class="content-panel" id="complementario">
+          <SectionHeader
+            label="Equipo Complementario"
+            title="Completa tu EPP de Bombero"
+            description="El casco es el primer elemento del sistema de protección. Para una cobertura integral, cada pieza del EPP debe cumplir la misma edición de norma NFPA."
+          >
+            <p>
+              Un <strong>sistema EPP completo</strong> requiere que casco, traje, capucha, guantes y botas sean normativamente compatibles. El <strong>casco estructural NFPA 1971</strong> debe usarse con <a href="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/">traje estructural</a>, <a href="/productos/capuchas-para-bomberos/">capucha de protección NFPA</a>, guantes estructurales, <a href="/productos/botas-para-bomberos/estructural/">botas de cuero certificadas</a> y <strong>SCBA autónomo NFPA 1981</strong> para garantizar protección integral ante flash-over.
+            </p>
+            <p>
+              En <strong>BOMBERO.MX</strong> equipamos a tu personal con todo el sistema de protección personal de una sola fuente: <a href="/productos/trajes-para-bomberos/">trajes para bombero</a>, <a href="/productos/guantes-para-bomberos/">guantes certificados</a>, <a href="/productos/botas-para-bomberos/">botas NFPA</a>, <a href="/productos/capuchas-para-bomberos/">capuchas Nomex y PBI</a>, SCBA y más — con asesoría técnica sin costo para los <strong>32 estados de México</strong>.
+            </p>
+          </SectionHeader>
+          <div class="rel__grid">
+            <CategoryCard
+              title="Trajes para Bombero"
+              icon="shield"
+              image="/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif"
+              href="/productos/trajes-para-bomberos/"
+              buttonText="Trajes para Bombero"
+              items={[
+                { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" },
+                { label: "Traje Forestal NFPA 1977", href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/" },
+                { label: "Traje HAZMAT Nivel A/B", href: "/productos/trajes-para-bomberos/traje-hazmat/" },
+                { label: "Traje ARFF Aeroportuario", href: "/productos/trajes-para-bomberos/traje-arff-aeroportuario/" },
+              ]}
+            />
+            <CategoryCard
+              title="Capuchas para Bombero"
+              icon="shield"
+              image="/images/capucha-para-bombero/capucha-bombero-producto-pbi-gold-estudio-frontal-01.avif"
+              href="/productos/capuchas-para-bomberos/"
+              buttonText="Capuchas para Bombero"
+              items={[
+                { label: "Capucha Nomex® Estructural", href: "/productos/capuchas-para-bomberos/nomex/" },
+                { label: "Capucha PBI Gold® Premium", href: "/productos/capuchas-para-bomberos/pbi/" },
+                { label: "Capucha Particulada PM2.5", href: "/productos/capuchas-para-bomberos/particulada/" },
+                { label: "Gafas y Goggle de Bombero", href: "/productos/gafas-para-bomberos/" },
+              ]}
+            />
+            <CategoryCard
+              title="Botas para Bombero"
+              icon="boot"
+              image="/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif"
+              href="/productos/botas-para-bomberos/"
+              buttonText="Botas para Bombero"
+              items={[
+                { label: "Bota Estructural (Cuero)", href: "/productos/botas-para-bomberos/estructural/" },
+                { label: "Bota de Caucho (HAZMAT)", href: "/productos/botas-para-bomberos/caucho/" },
+                { label: "Bota Forestal", href: "/productos/botas-para-bomberos/forestal/" },
+              ]}
+            />
+            <CategoryCard
+              title="Guantes para Bombero"
+              icon="glove"
+              image="/images/guantes-para-bomberos/guante-bombero-producto-par-cuero-kevlar-01.avif"
+              href="/productos/guantes-para-bomberos/"
+              buttonText="Guantes para Bombero"
+              items={[
+                { label: "Guantes Estructurales", href: "/productos/guantes-para-bomberos/estructurales/" },
+                { label: "Guantes de Rescate / Extricación", href: "/productos/guantes-para-bomberos/rescate/" },
+                { label: "Guantes HAZMAT", href: "/productos/guantes-para-bomberos/hazmat/" },
+                { label: "Guantes Forestales", href: "/productos/guantes-para-bomberos/forestales/" },
+              ]}
+            />
+          </div>
+        </section>
 
-  <section class="section section--dark specs">
-    <div class="container">
-      <SectionHeader
-        label="Tecnología y Materiales"
-        title="Materiales, Certificaciones y Aplicaciones"
-        description="Los mejores cascos de bombero del mundo se fabrican con materiales termoplásticos de alta resistencia y compuestos avanzados que ofrecen protección superior sin comprometer el confort."
-      >
-        <p>
-          Los <strong>cascos estructurales NFPA 1971</strong> combinan casco termoplástico resistente a impactos, sistema de suspensión de 4 puntos y visor de policarbonato que protege frente a llamas directas y calor radiante. Para protección completa, el casco estructural debe usarse con <a href="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" style="color: white; text-decoration: underline;">traje estructural NFPA 1971</a> y <a href="/productos/botas-para-bomberos/estructural/" style="color: white; text-decoration: underline;">botas estructurales de cuero</a>. Los <strong>cascos forestales NFPA 1977</strong> priorizan el peso ultraligero y se combinan con <a href="/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/" style="color: white; text-decoration: underline;">traje forestal</a> y <a href="/productos/botas-para-bomberos/forestal/" style="color: white; text-decoration: underline;">botas forestales ligeras</a>.
-        </p>
-        <p>
-          Todos nuestros <strong>cascos de bombero</strong> incluyen certificados de laboratorio acreditado y fichas técnicas completas listas para <strong>licitaciones gubernamentales</strong>. Compatibles con <a href="/productos/trajes-para-bomberos/" style="color: white; text-decoration: underline;">trajes certificados NFPA</a> y <a href="/productos/botas-para-bomberos/" style="color: white; text-decoration: underline;">botas de bombero</a> de nuestro catálogo para equipar tu cuerpo de bomberos con un solo proveedor en los <strong>32 estados de México</strong>.
-        </p>
-      </SectionHeader>
-      <div class="specs__grid">
-        <CategoryCard
-          title="Materiales de Alta Resistencia"
-          icon="shield"
-          image="/images/cascos-para-bomberos/detalle-casco-arff-visor-dorado.avif"
-          description="Termoplástico de alto impacto (ABS, policarbonato) para resistencia superior. Fibra de vidrio y Kevlar® en modelos de rescate técnico. Sistemas de suspensión ajustables de 4 y 6 puntos. Visores de policarbonato anti-impacto y anti-radiación."
-        />
-        <CategoryCard
-          title="Certificaciones Internacionales"
-          icon="certificate"
-          image="/images/cascos-para-bomberos/casco-bombero-estudio-dramatico-perfil-02.avif"
-          description="NFPA 1971 para cascos estructurales, NFPA 1977 para forestales, NFPA 1951 para rescate técnico. Normas europeas EN 443 y EN 16473. Documentación completa de laboratorio lista para licitaciones en los 32 estados de México."
-        />
-        <CategoryCard
-          title="Aplicaciones y Operaciones"
-          icon="users"
-          image="/images/cascos-para-bomberos/casco-bombero-combate-incendio-proteccion-03.avif"
-          description="Cuerpos de bomberos municipales y estatales, brigadas industriales y petroquímicas, bomberos aeroportuarios ARFF, equipos de rescate técnico USAR, protección civil estatal y federal en toda la República Mexicana."
-        />
-      </div>
-    </div>
-  </section>
+      </main><!-- /page-main -->
 
+      <!-- ─── SIDEBAR ─── -->
+      <aside class="page-sidebar" aria-label="Navegación de cascos de bombero">
+        <div class="sidebar-sticky">
 
+          <!-- ══ W1: Tipos de Casco ══ -->
+          <div class="sb-widget">
+            <div class="sb-widget__header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon"><path d="M12 2C6.48 2 2 6.48 2 12h2c0-4.42 3.58-8 8-8s8 3.58 8 8h2c0-5.52-4.48-10-10-10z"/><rect x="2" y="12" width="20" height="4" rx="1"/></svg>
+              <span class="sb-widget__title">Tipos de Casco</span>
+            </div>
+            <nav class="sb-widget__body" aria-label="Subcategorías de cascos">
+              <a href="/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/" class="sb-link sb-link--active">
+                <span class="sb-link__dot sb-link__dot--ember"></span>
+                <span class="sb-link__text">Casco Estructural<span class="sb-link__badge">NFPA 1971</span></span>
+                <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </a>
+              <a href="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/" class="sb-link">
+                <span class="sb-link__dot sb-link__dot--fire"></span>
+                <span class="sb-link__text">Casco Forestal<span class="sb-link__badge sb-link__badge--fire">NFPA 1977</span></span>
+                <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </a>
+              <a href="/productos/cascos-para-bomberos/casco-arff-aeroportuario/" class="sb-link">
+                <span class="sb-link__dot sb-link__dot--ember"></span>
+                <span class="sb-link__text">Casco ARFF Aeroportuario<span class="sb-link__badge">EN 443</span></span>
+                <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </a>
+              <a href="/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/" class="sb-link">
+                <span class="sb-link__dot sb-link__dot--smoke"></span>
+                <span class="sb-link__text">Casco Rescate Técnico<span class="sb-link__badge sb-link__badge--smoke">NFPA 1951</span></span>
+                <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </a>
+              <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/" class="sb-link">
+                <span class="sb-link__dot sb-link__dot--smoke"></span>
+                <span class="sb-link__text">Casco HAZMAT Químico<span class="sb-link__badge sb-link__badge--smoke">NFPA 1991</span></span>
+                <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </a>
+              <a href="/productos/cascos-para-bomberos/casco-brigada-industrial/" class="sb-link">
+                <span class="sb-link__dot sb-link__dot--fire"></span>
+                <span class="sb-link__text">Casco Brigada Industrial<span class="sb-link__badge sb-link__badge--fire">Multi</span></span>
+                <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </a>
+            </nav>
+          </div>
 
+          <!-- ══ W2: Especificaciones Clave ══ -->
+          <div class="sb-widget sb-widget--specs">
+            <div class="sb-widget__header sb-widget__header--light">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon sb-widget__icon--dark"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
+              <span class="sb-widget__title sb-widget__title--dark">Especificaciones Clave</span>
+            </div>
+            <div class="sb-specs-grid">
+              <div class="sb-spec">
+                <span class="sb-spec__value">500°F</span>
+                <span class="sb-spec__unit">260°C</span>
+                <span class="sb-spec__label">Resistencia térmica NFPA 1971</span>
+              </div>
+              <div class="sb-spec">
+                <span class="sb-spec__value">&lt; 450</span>
+                <span class="sb-spec__unit">gramos</span>
+                <span class="sb-spec__label">Peso máx. casco forestal</span>
+              </div>
+              <div class="sb-spec">
+                <span class="sb-spec__value">10</span>
+                <span class="sb-spec__unit">años</span>
+                <span class="sb-spec__label">Vida útil máx. NFPA 1851</span>
+              </div>
+              <div class="sb-spec">
+                <span class="sb-spec__value">4–6</span>
+                <span class="sb-spec__unit">puntos</span>
+                <span class="sb-spec__label">Suspensión certificada</span>
+              </div>
+            </div>
+          </div>
 
-  <section class="section comparativa">
-    <div class="container">
-      <SectionHeader
-        label="Tabla Comparativa"
-        title="¿Qué Casco de Bombero Necesitas?"
-        description="Compara los 6 tipos de cascos según su norma, aplicación y nivel de protección para elegir el equipo correcto."
-      >
-        <p>
-          La elección del <strong>casco de bombero</strong> correcto depende del riesgo predominante: el <strong>casco estructural NFPA 1971</strong> es el estándar para incendios de edificios y debe usarse con <a href="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/">traje estructural</a> y <a href="/productos/botas-para-bomberos/estructural/">botas de cuero NFPA 1971</a>. El <strong>forestal NFPA 1977</strong> para trabajo en campo se complementa con <a href="/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/">traje forestal ligero</a> y <a href="/productos/botas-para-bomberos/forestal/">botas forestales</a>. El <strong>casco HAZMAT</strong> requiere <a href="/productos/trajes-para-bomberos/traje-hazmat/">traje encapsulado NFPA 1991</a> y <a href="/productos/botas-para-bomberos/caucho/">botas de caucho químico</a>.
-        </p>
-        <p>
-          En <strong>BOMBERO.MX</strong> asesoramos sin costo a tu corporación para seleccionar el casco, traje y botas adecuados según el tipo de riesgo. Elaboramos especificaciones técnicas de <strong>sistemas EPP completos</strong> para <strong>licitaciones públicas</strong> en toda la República Mexicana.
-        </p>
-      </SectionHeader>
-      <div class="comparativa__wrapper">
-        <table class="comparativa__table">
-          <thead>
-            <tr>
-              <th>Casco</th>
-              <th>Norma Principal</th>
-              <th>Aplicación</th>
-              <th>Peso</th>
-              <th>Material</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Estructural</strong></td>
-              <td><span class="cert-chip cert-chip--ember">NFPA 1971</span></td>
-              <td>Incendio estructural, rescate urbano, operaciones interiores</td>
-              <td>700 – 900 g</td>
-              <td>Termoplástico / Compuesto</td>
-            </tr>
-            <tr>
-              <td><strong>Forestal</strong></td>
-              <td><span class="cert-chip cert-chip--fire">NFPA 1977</span></td>
-              <td>Incendio forestal, interface, quemas controladas</td>
-              <td>&lt; 450 g</td>
-              <td>Termoplástico ligero</td>
-            </tr>
-            <tr>
-              <td><strong>ARFF Aeroportuario</strong></td>
-              <td><span class="cert-chip cert-chip--ember">NFPA 1971 / EN 443</span></td>
-              <td>Emergencias aeronáuticas, rescate en pistas</td>
-              <td>800 – 1,000 g</td>
-              <td>Termoplástico + visor anti-radiación</td>
-            </tr>
-            <tr>
-              <td><strong>Rescate Técnico</strong></td>
-              <td><span class="cert-chip cert-chip--smoke">NFPA 1951</span></td>
-              <td>Rescate técnico, USAR, espacios confinados</td>
-              <td>600 – 800 g</td>
-              <td>Compuesto reforzado</td>
-            </tr>
-            <tr>
-              <td><strong>HAZMAT</strong></td>
-              <td><span class="cert-chip cert-chip--smoke">NFPA 1991 / 1992</span></td>
-              <td>Materiales peligrosos, derrames químicos, IDLH</td>
-              <td>900 – 1,200 g</td>
-              <td>Polímero resistente a químicos</td>
-            </tr>
-            <tr>
-              <td><strong>Brigada Industrial</strong></td>
-              <td><span class="cert-chip cert-chip--fire">Multi-norma</span></td>
-              <td>Brigadas industriales, petroquímica, refinerías</td>
-              <td>650 – 850 g</td>
-              <td>Termoplástico dual-uso</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+          <!-- ══ W3: Normas NFPA Aplicables ══ -->
+          <div class="sb-widget">
+            <div class="sb-widget__header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              <span class="sb-widget__title">Normas NFPA Aplicables</span>
+            </div>
+            <div class="sb-widget__body sb-norms">
+              <div class="sb-norm">
+                <span class="sb-norm__code sb-norm__code--ember">NFPA 1971</span>
+                <span class="sb-norm__desc">Casco estructural — combate de incendios</span>
+              </div>
+              <div class="sb-norm">
+                <span class="sb-norm__code sb-norm__code--fire">NFPA 1977</span>
+                <span class="sb-norm__desc">Casco forestal — incendios en campo abierto</span>
+              </div>
+              <div class="sb-norm">
+                <span class="sb-norm__code sb-norm__code--smoke">NFPA 1951</span>
+                <span class="sb-norm__desc">Casco rescate técnico — USAR y extricación</span>
+              </div>
+              <div class="sb-norm">
+                <span class="sb-norm__code sb-norm__code--smoke">NFPA 1991</span>
+                <span class="sb-norm__desc">Casco HAZMAT — materiales peligrosos</span>
+              </div>
+              <div class="sb-norm">
+                <span class="sb-norm__code sb-norm__code--neutral">EN 443</span>
+                <span class="sb-norm__desc">Norma europea — casco de bombero</span>
+              </div>
+              <div class="sb-norm">
+                <span class="sb-norm__code sb-norm__code--neutral">NFPA 1851</span>
+                <span class="sb-norm__desc">Selección y mantenimiento de EPP</span>
+              </div>
+            </div>
+          </div>
 
+          <!-- ══ W4: CTA Principal ══ -->
+          <div class="sb-cta">
+            <div class="sb-cta__icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3 class="sb-cta__title">¿Necesitas Asesoría?</h3>
+            <p class="sb-cta__text">Especificamos el casco correcto para tu tipo de operación. Sin costo ni compromiso.</p>
+            <a href="/cotizar/" class="sb-cta__btn">Cotizar sin costo</a>
+            <a href="https://wa.me/525570081816?text=Hola%2C%20necesito%20información%20sobre%20cascos%20de%20bombero" target="_blank" rel="noopener noreferrer" class="sb-cta__whatsapp">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+              WhatsApp directo
+            </a>
+          </div>
 
+          <!-- ══ W5: Materiales Certificados ══ -->
+          <div class="sb-widget">
+            <div class="sb-widget__header sb-widget__header--light">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon sb-widget__icon--dark"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+              <span class="sb-widget__title sb-widget__title--dark">Materiales Certificados</span>
+            </div>
+            <div class="sb-widget__body sb-materials">
+              <div class="sb-material">
+                <span class="sb-material__name">Termoplástico ABS</span>
+                <span class="sb-material__desc">Shell estándar NFPA 1971 · Resistencia a impacto y temperatura superior</span>
+              </div>
+              <div class="sb-material">
+                <span class="sb-material__name">Material Compuesto</span>
+                <span class="sb-material__desc">Fibra de vidrio + Kevlar® · 15–25% más ligero, mayor resistencia térmica</span>
+              </div>
+              <div class="sb-material">
+                <span class="sb-material__name">Policarbonato</span>
+                <span class="sb-material__desc">Visores anti-impacto y anti-radiación · Alta transparencia óptica</span>
+              </div>
+              <div class="sb-material">
+                <span class="sb-material__name">Kevlar® Reforzado</span>
+                <span class="sb-material__desc">Modelos de rescate técnico · Resistencia a penetración de escombros</span>
+              </div>
+              <div class="sb-material">
+                <span class="sb-material__name">Polímero Químico-Inerte</span>
+                <span class="sb-material__desc">Modelos HAZMAT · Resistente a ácidos, álcalis y vapores químicos</span>
+              </div>
+            </div>
+          </div>
 
+          <!-- ══ W6: Marcas Distribuidas ══ -->
+          <div class="sb-widget">
+            <div class="sb-widget__header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              <span class="sb-widget__title">Marcas Distribuidas</span>
+            </div>
+            <div class="sb-widget__body sb-brands">
+              <div class="sb-brand"><span class="sb-brand__dot"></span><div><span class="sb-brand__name">Bullard</span><span class="sb-brand__sub">Modelo 660C compuesto y RealFire termoplástico NFPA 1971</span></div></div>
+              <div class="sb-brand"><span class="sb-brand__dot"></span><div><span class="sb-brand__name">Cairns / MSA Safety</span><span class="sb-brand__sub">Modelo N5A perfil bajo y clásico 1010 NFPA 1971</span></div></div>
+              <div class="sb-brand"><span class="sb-brand__dot"></span><div><span class="sb-brand__name">Pacific Helmets</span><span class="sb-brand__sub">Cascos forestales NFPA 1977 de alto desempeño</span></div></div>
+              <div class="sb-brand"><span class="sb-brand__dot"></span><div><span class="sb-brand__name">Rosenbauer</span><span class="sb-brand__sub">Cascos ARFF aeroportuarios y cascos HAZMAT especializados</span></div></div>
+              <div class="sb-brand"><span class="sb-brand__dot"></span><div><span class="sb-brand__name">Petzl</span><span class="sb-brand__sub">Cascos de rescate técnico, USAR y trabajo en altura</span></div></div>
+            </div>
+          </div>
 
+          <!-- ══ W7: EPP Complementario ══ -->
+          <div class="sb-widget">
+            <div class="sb-widget__header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span class="sb-widget__title">EPP Complementario</span>
+            </div>
+            <nav class="sb-widget__body" aria-label="Equipo complementario">
+              <a href="/productos/trajes-para-bomberos/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Trajes para Bombero<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/capuchas-para-bomberos/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg></span>Capuchas para Bombero<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/botas-para-bomberos/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 14h7V6h4l3 4v4H3v0z"/><path d="M3 14v4h14v-4"/></svg></span>Botas para Bombero<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/guantes-para-bomberos/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></span>Guantes para Bombero<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/gafas-para-bomberos/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2h8c1.6 0 2.3.7 3 2l2.5 6"/></svg></span>Gafas y Goggles<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/scba/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v6H7V7a5 5 0 0 1 5-5z"/><rect x="3" y="13" width="18" height="8" rx="2"/></svg></span>SCBA / ERA Autónomo<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+            </nav>
+          </div>
+
+          <!-- ══ W8: ¿Por qué BOMBERO.MX? ══ -->
+          <div class="sb-widget sb-widget--why">
+            <div class="sb-widget__header sb-widget__header--light">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon sb-widget__icon--dark"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span class="sb-widget__title sb-widget__title--dark">¿Por qué BOMBERO.MX?</span>
+            </div>
+            <div class="sb-widget__body sb-why">
+              <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>+15 años de experiencia en EPP bomberos</span></div>
+              <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Envío a los <strong>32 estados</strong> de México</span></div>
+              <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Asesoría técnica sin costo</span></div>
+              <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Certificados NFPA con laboratorio acreditado</span></div>
+              <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Documentación para licitaciones públicas</span></div>
+              <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Especificaciones técnicas EPP completo</span></div>
+              <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Respuesta a cotización en menos de 24 h</span></div>
+            </div>
+          </div>
+
+          <!-- ══ W9: Más Categorías ══ -->
+          <div class="sb-widget">
+            <div class="sb-widget__header">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+              <span class="sb-widget__title">Más Categorías</span>
+            </div>
+            <nav class="sb-widget__body" aria-label="Otras categorías">
+              <a href="/productos/trajes-para-bomberos/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Trajes para Bombero<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/botas-para-bomberos/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 14h7V6h4l3 4v4H3v0z"/><path d="M3 14v4h14v-4"/></svg></span>Botas para Bombero<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/equipo-contra-incendios/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg></span>Equipo Contra Incendios<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/herramientas-rescate/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>Herramientas de Rescate<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/hazmat/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Equipos HAZMAT<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/scba/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v6H7V7a5 5 0 0 1 5-5z"/><rect x="3" y="13" width="18" height="8" rx="2"/></svg></span>SCBA / ERA<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/rescate-vertical/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></span>Rescate Vertical<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/extintores/" class="sb-link"><span class="sb-link__icon-wrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9a6 6 0 1 1 12 0c0 4-4 7-6 11C10 16 6 13 6 9z"/><circle cx="12" cy="9" r="2"/></svg></span>Extintores<svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg></a>
+              <a href="/productos/" class="sb-link sb-link--all">Ver todos los productos →</a>
+            </nav>
+          </div>
+
+          <!-- ══ W10: Contacto Directo ══ -->
+          <div class="sb-widget sb-widget--contact">
+            <div class="sb-widget__header sb-widget__header--light">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon sb-widget__icon--dark"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.42 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.7 16z"/></svg>
+              <span class="sb-widget__title sb-widget__title--dark">Contacto Directo</span>
+            </div>
+            <div class="sb-widget__body sb-contact">
+              <a href="tel:5570081816" class="sb-contact__item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.42 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.7 16z"/></svg>
+                <div><span class="sb-contact__label">Teléfono</span><span class="sb-contact__value">55 7008 1816</span></div>
+              </a>
+              <a href="mailto:ventas@bombero.mx" class="sb-contact__item">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <div><span class="sb-contact__label">Correo</span><span class="sb-contact__value">ventas@bombero.mx</span></div>
+              </a>
+              <a href="https://wa.me/525570081816" target="_blank" rel="noopener noreferrer" class="sb-contact__item sb-contact__item--wa">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+                <div><span class="sb-contact__label">WhatsApp</span><span class="sb-contact__value">Respuesta inmediata</span></div>
+              </a>
+              <div class="sb-contact__hours">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Lun–Vie 9:00–18:00 · Sáb 9:00–13:00
+              </div>
+            </div>
+          </div>
+
+          <!-- ══ W11: Guías y Recursos ══ -->
+          <div class="sb-widget sb-widget--resources">
+            <div class="sb-widget__header sb-widget__header--light">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon sb-widget__icon--dark"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <span class="sb-widget__title sb-widget__title--dark">Guías y Recursos</span>
+            </div>
+            <div class="sb-widget__body">
+              <a href="/blog/" class="sb-resource">
+                <span class="sb-resource__label">Blog</span>
+                <span class="sb-resource__text">Blog Técnico BOMBERO.MX</span>
+              </a>
+              <a href="/productos/" class="sb-resource">
+                <span class="sb-resource__label">Cat.</span>
+                <span class="sb-resource__text">Catálogo completo de productos</span>
+              </a>
+              <a href="/cotizar/" class="sb-resource">
+                <span class="sb-resource__label">Form</span>
+                <span class="sb-resource__text">Solicitar cotización en línea</span>
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /sidebar-sticky -->
+      </aside><!-- /page-sidebar -->
+
+    </div><!-- /page-layout__inner -->
+  </div><!-- /page-layout -->
+
+  <!-- ═══════════════════════════════════════════════════════ FULL WIDTH -->
   <WhyChooseUs images={[
     "/images/cascos-para-bomberos/casco-bombero-estructural-nfpa-1971-03.avif",
     "/images/cascos-para-bomberos/casco-bombero-profesional-05.avif",
@@ -414,97 +762,14 @@ const cascosFaqs = [
     "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-02.avif",
   ]} />
 
-
-
-
-  <FAQQuote
-    items={cascosFaqs}
-    title="Preguntas Frecuentes — Cascos para Bomberos"
-    description="Resolvemos las dudas más frecuentes sobre selección, normas NFPA y mantenimiento de cascos para bomberos en México."
-  />
-
-
-
-
-  <section class="section relacionados">
-    <div class="container">
-      <SectionHeader
-        label="Equipo Complementario"
-        title="Completa tu EPP de Bombero"
-        description="El casco es el primer elemento del sistema de protección. Equipa a tu personal con el EPP completo."
-      >
-        <p>
-          Un <strong>sistema de EPP completo</strong> requiere que casco, traje, guantes y botas sean compatibles y cumplan la misma edición de norma NFPA. El <strong>casco estructural NFPA 1971</strong> debe usarse con <a href="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/">traje estructural NFPA 1971</a>, guantes estructurales, <a href="/productos/botas-para-bomberos/estructural/">botas de cuero certificadas</a> y <strong>SCBA autónomo</strong> para garantizar protección integral en cada operación.
-        </p>
-        <p>
-          En <strong>BOMBERO.MX</strong> equipamos a tu personal con todo el sistema de protección personal de una sola fuente: <a href="/productos/trajes-para-bomberos/">trajes para bombero</a>, guantes, <a href="/productos/botas-para-bomberos/">botas certificadas NFPA</a> y SCBA, con asesoría técnica sin costo y disponibilidad inmediata para los <strong>32 estados de México</strong>.
-        </p>
-      </SectionHeader>
-      <div class="rel__grid">
-        <CategoryCard
-          title="Trajes para Bombero"
-          icon="shield"
-          image="/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif"
-          href="/productos/trajes-para-bomberos/"
-          buttonText="Trajes para Bombero"
-          items={[
-            { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" },
-            { label: "Traje Forestal NFPA 1977", href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/" },
-            { label: "Traje HAZMAT Nivel A/B", href: "/productos/trajes-para-bomberos/traje-hazmat/" },
-            { label: "Traje ARFF Aeroportuario", href: "/productos/trajes-para-bomberos/traje-arff-aeroportuario/" },
-          ]}
-        />
-        <CategoryCard
-          title="Guantes para Bombero"
-          icon="glove"
-          image="/images/guantes-para-bomberos/guante-bombero-producto-par-cuero-kevlar-01.avif"
-          href="/productos/guantes-para-bomberos/"
-          buttonText="Guantes para Bombero"
-          items={[
-            { label: "Guantes Estructurales", href: "/productos/guantes-para-bomberos/estructurales/" },
-            { label: "Guantes de Rescate / Extricación", href: "/productos/guantes-para-bomberos/rescate/" },
-            { label: "Guantes HAZMAT", href: "/productos/guantes-para-bomberos/hazmat/" },
-            { label: "Guantes Forestales", href: "/productos/guantes-para-bomberos/forestales/" },
-          ]}
-        />
-        <CategoryCard
-          title="Botas para Bombero"
-          icon="boot"
-          image="/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif"
-          href="/productos/botas-para-bomberos/"
-          buttonText="Botas para Bombero"
-          items={[
-            { label: "Bota Estructural (Cuero)", href: "/productos/botas-para-bomberos/estructural/" },
-            { label: "Bota de Caucho (HAZMAT)", href: "/productos/botas-para-bomberos/caucho/" },
-            { label: "Bota Forestal", href: "/productos/botas-para-bomberos/forestal/" },
-          ]}
-        />
-        <CategoryCard
-          title="Capuchas y Gafas"
-          icon="hood"
-          image="/images/capucha-para-bombero/capucha-bombero-producto-pbi-gold-estudio-frontal-01.avif"
-          href="/productos/capuchas-para-bomberos/"
-          buttonText="Capuchas y Gafas"
-          items={[
-            { label: "Capucha Nomex® NFPA 1971", href: "/productos/capuchas-para-bomberos/nomex/" },
-            { label: "Capucha PBI Gold® Premium", href: "/productos/capuchas-para-bomberos/pbi/" },
-            { label: "Capucha Particulada PM2.5", href: "/productos/capuchas-para-bomberos/particulada/" },
-            { label: "Goggle de Bombero", href: "/productos/gafas-para-bomberos/goggle/" },
-          ]}
-        />
-      </div>
-    </div>
-  </section>
-
-
-
-
   <CTABanner />
 
 </PageLayout>
 
 <style>
-
+  /* ══════════════════════════════════════════════════════════
+     HERO
+  ══════════════════════════════════════════════════════════ */
   .hero {
     position: relative;
     display: flex;
@@ -513,13 +778,7 @@ const cascosFaqs = [
     overflow: hidden;
     padding: var(--space-16) 0;
   }
-
-  .hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
+  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
   .hero__gradient {
     position: absolute;
     inset: 0;
@@ -528,7 +787,6 @@ const cascosFaqs = [
       radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
       radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
   }
-
   .hero__grid {
     position: absolute;
     inset: 0;
@@ -538,7 +796,6 @@ const cascosFaqs = [
     background-size: 60px 60px;
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
   }
-
   .hero__glow {
     position: absolute;
     width: 600px;
@@ -547,10 +804,8 @@ const cascosFaqs = [
     filter: blur(120px);
     opacity: 0.4;
   }
-
   .hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
   .hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
-
   .hero__container {
     position: relative;
     display: grid;
@@ -559,11 +814,7 @@ const cascosFaqs = [
     align-items: center;
     padding-block: var(--space-8);
   }
-
-  .hero__content {
-    color: var(--color-text-on-dark);
-  }
-
+  .hero__content { color: var(--color-text-on-dark); }
   .hero__badge {
     display: inline-flex;
     align-items: center;
@@ -577,12 +828,16 @@ const cascosFaqs = [
     color: var(--color-fire-400);
     margin-bottom: var(--space-6);
   }
-
   .hero__badge-dot {
     width: 8px;
     height: 8px;
     background: var(--color-ember-500);
     border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.3); }
   }
   .hero__title {
     font-size: clamp(2.5rem, 5vw, 4rem);
@@ -593,7 +848,6 @@ const cascosFaqs = [
     color: #ffffff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
-
   .hero__title-highlight {
     background: var(--gradient-fire);
     -webkit-background-clip: text;
@@ -601,7 +855,6 @@ const cascosFaqs = [
     background-clip: text;
     display: block;
   }
-
   .hero__subtitle {
     font-size: var(--text-xl);
     color: var(--color-smoke-300);
@@ -609,18 +862,40 @@ const cascosFaqs = [
     max-width: 540px;
     margin-bottom: var(--space-8);
   }
-
-  .hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .hero__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
   }
-
-
-  .hero__seo-block {
-    padding: var(--space-4) 0;
+  .hero__btn--primary {
+    background: var(--color-ember-600);
+    color: white;
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
   }
-
+  .hero__btn--primary:hover {
+    background: var(--color-ember-500);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
+  }
+  .hero__btn--secondary {
+    background: rgba(255,255,255,0.08);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+  }
+  .hero__btn--secondary:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .hero__seo { display: flex; flex-direction: column; gap: var(--space-8); }
+  .hero__seo-block { padding: var(--space-4) 0; }
   .hero__seo-title {
     font-size: var(--text-lg);
     font-weight: 700;
@@ -628,63 +903,93 @@ const cascosFaqs = [
     margin-bottom: var(--space-4);
     line-height: var(--leading-tight);
   }
-
   .hero__seo-text {
     font-size: var(--text-base);
     color: var(--color-smoke-300);
     line-height: var(--leading-relaxed);
   }
+  .hero__seo-text strong { color: #ffffff; font-weight: 600; }
 
-  .hero__seo-text strong {
-    color: #ffffff;
-    font-weight: 600;
-  }
-
-
-  .productos {
+  /* ══════════════════════════════════════════════════════════
+     PAGE LAYOUT (two-column)
+  ══════════════════════════════════════════════════════════ */
+  .page-layout {
     background: var(--color-smoke-50);
+    padding-block: var(--space-8);
+  }
+  .page-layout__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 288px;
+    gap: var(--space-8);
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-inline: var(--container-padding);
+    align-items: start;
+  }
+  .page-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    min-width: 0;
   }
 
+  /* ══════════════════════════════════════════════════════════
+     CONTENT PANELS
+  ══════════════════════════════════════════════════════════ */
+  .content-panel {
+    background: #ffffff;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--color-smoke-200);
+    padding: var(--space-8);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+  }
+  .content-panel--dark {
+    background: var(--color-smoke-900);
+    border-color: var(--color-smoke-800);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  }
+  .content-panel--dark :global(.section-header__label) { color: var(--color-fire-400); }
+  .content-panel--dark :global(.section-header__title) { color: white; }
+  .content-panel--dark :global(.section-header__desc)  { color: var(--color-smoke-300); }
+  .content-panel--dark :global(.section-header__right p) { color: var(--color-smoke-300); }
+  .content-panel--dark :global(.section-header__right strong) { color: white; font-weight: 600; }
+  .dark-link { color: rgba(255,255,255,0.7); text-decoration: underline; }
+  .dark-link:hover { color: white; }
+  .content-panel--faq {
+    background: var(--color-smoke-50);
+    border-color: var(--color-smoke-100);
+  }
+
+  /* Products grid — 3 columnas */
   .productos__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
   }
 
-
-  .specs { background: var(--gradient-dark); }
-
-
-  .specs :global(.section-header__label) { color: var(--color-fire-400); }
-  .specs :global(.section-header__title) { color: white; }
-  .specs :global(.section-header__desc)  { color: var(--color-smoke-300); }
-  .specs :global(.section-header__right p) { color: var(--color-smoke-300); }
-  .specs :global(.section-header__right strong) { color: white; font-weight: 600; }
-
+  /* Specs grid */
   .specs__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
   }
 
-
-  .comparativa { background: #ffffff; }
-
+  /* Comparativa */
   .comparativa__wrapper {
     overflow-x: auto;
-    border-radius: var(--radius-2xl);
+    border-radius: var(--radius-xl);
     border: 1px solid var(--color-smoke-200);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    margin-top: var(--space-6);
+    -webkit-overflow-scrolling: touch;
   }
-
   .comparativa__table {
     width: 100%;
     border-collapse: collapse;
     font-size: var(--text-sm);
   }
-
   .comparativa__table thead { background: var(--color-smoke-900); }
-
   .comparativa__table th {
     padding: var(--space-4) var(--space-5);
     text-align: left;
@@ -695,27 +1000,16 @@ const cascosFaqs = [
     letter-spacing: 0.08em;
     white-space: nowrap;
   }
-
-  .comparativa__table tbody tr {
-    border-bottom: 1px solid var(--color-smoke-100);
-    background: white;
-  }
-
+  .comparativa__table tbody tr { border-bottom: 1px solid var(--color-smoke-100); }
   .comparativa__table tbody tr:last-child { border-bottom: none; }
   .comparativa__table tbody tr:hover { background: var(--color-smoke-50); }
-
   .comparativa__table td {
     padding: var(--space-4) var(--space-5);
     color: var(--color-smoke-700);
     line-height: 1.5;
     vertical-align: middle;
   }
-
-  .comparativa__table td:first-child {
-    color: var(--color-smoke-900);
-    white-space: nowrap;
-  }
-
+  .comparativa__table td:first-child { color: var(--color-smoke-900); white-space: nowrap; }
   .cert-chip {
     display: inline-block;
     padding: 2px var(--space-2);
@@ -724,63 +1018,191 @@ const cascosFaqs = [
     font-weight: 700;
     white-space: nowrap;
   }
-
-  .cert-chip--ember { background: rgba(220, 38, 38, 0.1); color: var(--color-ember-700); }
-  .cert-chip--fire  { background: rgba(249, 115, 22, 0.1); color: var(--color-fire-700); }
+  .cert-chip--ember { background: rgba(220,38,38,0.1); color: var(--color-ember-700); }
+  .cert-chip--fire  { background: rgba(249,115,22,0.1); color: var(--color-fire-700); }
   .cert-chip--smoke { background: var(--color-smoke-100); color: var(--color-smoke-700); }
 
-
-  .relacionados { background: var(--color-smoke-50); }
-
+  /* Relacionados grid */
   .rel__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
   }
 
-  @media (max-width: 1200px) { .rel__grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 640px)  { .rel__grid { grid-template-columns: 1fr; } }
-
-
-  @media (max-width: 1200px) {
-    .productos__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  /* ══════════════════════════════════════════════════════════
+     SIDEBAR
+  ══════════════════════════════════════════════════════════ */
+  .page-sidebar { min-width: 0; }
+  .sidebar-sticky {
+    position: sticky;
+    top: 88px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
   }
-
-  @media (max-width: 1024px) {
-    .specs__grid {
-      grid-template-columns: 1fr;
-      max-width: 600px;
-      margin: 0 auto;
-    }
+  .sb-widget {
+    background: #ffffff;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-smoke-200);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
+  .sb-widget__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-smoke-900);
+  }
+  .sb-widget__header--light {
+    background: var(--color-smoke-50);
+    border-bottom: 1px solid var(--color-smoke-200);
+  }
+  .sb-widget__icon { color: var(--color-fire-400); flex-shrink: 0; }
+  .sb-widget__icon--dark { color: var(--color-smoke-500); }
+  .sb-widget__title { font-size: 11px; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.08em; }
+  .sb-widget__title--dark { color: var(--color-smoke-700); }
+  .sb-widget__body { padding: var(--space-2) 0; }
 
-  @media (max-width: 968px) {
-    .hero { padding: var(--space-10) 0; }
+  .sb-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.625rem var(--space-4);
+    color: var(--color-smoke-600);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    line-height: 1.4;
+  }
+  .sb-link:hover { color: var(--color-ember-700); background: rgba(220,38,38,0.04); border-left-color: var(--color-ember-400); }
+  .sb-link--active { color: var(--color-ember-700); background: rgba(220,38,38,0.06); border-left-color: var(--color-ember-500); font-weight: 600; }
+  .sb-link--all { color: var(--color-smoke-500); font-size: var(--text-xs); font-style: italic; margin-top: var(--space-1); border-top: 1px solid var(--color-smoke-100); padding-top: var(--space-3); }
+  .sb-link--all:hover { color: var(--color-ember-600); background: rgba(220,38,38,0.04); border-top: 1px solid var(--color-smoke-100); border-left-color: var(--color-ember-400); }
+  .sb-link__dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .sb-link__dot--ember { background: var(--color-ember-500); }
+  .sb-link__dot--fire  { background: var(--color-fire-500); }
+  .sb-link__dot--smoke { background: var(--color-smoke-400); }
+  .sb-link__text { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .sb-link__badge { font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: var(--radius-sm); background: rgba(220,38,38,0.1); color: var(--color-ember-700); display: inline-block; width: fit-content; }
+  .sb-link__badge--fire { background: rgba(249,115,22,0.1); color: var(--color-fire-700); }
+  .sb-link__badge--smoke { background: var(--color-smoke-100); color: var(--color-smoke-600); }
+  .sb-link__arrow { flex-shrink: 0; color: var(--color-smoke-300); opacity: 0; transition: opacity 0.15s, transform 0.15s; margin-left: auto; }
+  .sb-link:hover .sb-link__arrow, .sb-link--active .sb-link__arrow { opacity: 1; transform: translateX(2px); }
+  .sb-link__icon-wrap { width: 26px; height: 26px; border-radius: var(--radius-md); background: var(--color-smoke-50); border: 1px solid var(--color-smoke-200); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--color-smoke-500); transition: all 0.15s; }
+  .sb-link:hover .sb-link__icon-wrap { background: rgba(220,38,38,0.06); border-color: rgba(220,38,38,0.2); color: var(--color-ember-600); }
 
-    .hero__container {
-      grid-template-columns: 1fr;
-      padding-block: var(--space-4);
-    }
+  /* Specs widget */
+  .sb-specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--color-smoke-100); border-bottom: 1px solid var(--color-smoke-100); }
+  .sb-spec { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--space-4) var(--space-3); background: white; text-align: center; gap: 2px; }
+  .sb-spec__value { font-size: 1.1rem; font-weight: 800; color: var(--color-ember-700); line-height: 1; }
+  .sb-spec__unit { font-size: 10px; font-weight: 700; color: var(--color-smoke-500); text-transform: uppercase; letter-spacing: 0.04em; }
+  .sb-spec__label { font-size: 10px; color: var(--color-smoke-500); line-height: 1.3; margin-top: 2px; }
 
-    .hero__subtitle { max-width: 100%; }
-    .hero__seo { display: none; }
+  /* Normas widget */
+  .sb-norms { padding: var(--space-2) 0; }
+  .sb-norm { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-2) var(--space-4); border-bottom: 1px solid var(--color-smoke-50); }
+  .sb-norm:last-child { border-bottom: none; }
+  .sb-norm__code { flex-shrink: 0; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: var(--radius-sm); min-width: 72px; text-align: center; letter-spacing: 0.02em; }
+  .sb-norm__code--ember { background: rgba(220,38,38,0.1); color: var(--color-ember-700); }
+  .sb-norm__code--fire  { background: rgba(249,115,22,0.1); color: var(--color-fire-700); }
+  .sb-norm__code--smoke { background: var(--color-smoke-100); color: var(--color-smoke-600); }
+  .sb-norm__code--neutral { background: var(--color-smoke-50); color: var(--color-smoke-500); border: 1px solid var(--color-smoke-200); }
+  .sb-norm__desc { font-size: var(--text-xs); color: var(--color-smoke-600); line-height: 1.4; padding-top: 1px; }
+
+  /* Materials widget */
+  .sb-materials { padding: var(--space-2) 0; }
+  .sb-material { display: flex; flex-direction: column; gap: 2px; padding: var(--space-2) var(--space-4); border-bottom: 1px solid var(--color-smoke-50); transition: background 0.12s; }
+  .sb-material:last-child { border-bottom: none; }
+  .sb-material:hover { background: var(--color-smoke-50); }
+  .sb-material__name { font-size: var(--text-sm); font-weight: 700; color: var(--color-smoke-800); }
+  .sb-material__desc { font-size: var(--text-xs); color: var(--color-smoke-500); line-height: 1.4; }
+
+  /* Brands widget */
+  .sb-brands { padding: var(--space-2) 0; }
+  .sb-brand { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-2) var(--space-4); border-bottom: 1px solid var(--color-smoke-50); transition: background 0.12s; }
+  .sb-brand:last-child { border-bottom: none; }
+  .sb-brand:hover { background: var(--color-smoke-50); }
+  .sb-brand__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-ember-500); flex-shrink: 0; margin-top: 5px; }
+  .sb-brand__name { display: block; font-size: var(--text-sm); font-weight: 700; color: var(--color-smoke-800); line-height: 1.3; }
+  .sb-brand__sub { display: block; font-size: var(--text-xs); color: var(--color-smoke-500); line-height: 1.4; margin-top: 1px; }
+
+  /* Why widget */
+  .sb-why { padding: var(--space-3) var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); }
+  .sb-why__item { display: flex; align-items: flex-start; gap: var(--space-2); font-size: var(--text-xs); color: var(--color-smoke-700); line-height: 1.5; }
+  .sb-why__item strong { color: var(--color-smoke-900); font-weight: 700; }
+  .sb-why__check { flex-shrink: 0; color: #16a34a; margin-top: 1px; }
+
+  /* CTA block */
+  .sb-cta { background: linear-gradient(135deg, var(--color-ember-700), var(--color-ember-600)); border-radius: var(--radius-xl); padding: var(--space-5); text-align: center; box-shadow: 0 4px 20px rgba(220,38,38,0.3); }
+  .sb-cta__icon { width: 52px; height: 52px; background: rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-3); color: white; }
+  .sb-cta__title { font-size: var(--text-base); font-weight: 700; color: white; margin-bottom: var(--space-2); }
+  .sb-cta__text { font-size: var(--text-sm); color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: var(--space-4); }
+  .sb-cta__btn { display: block; width: 100%; padding: var(--space-3) var(--space-4); background: white; color: var(--color-ember-700); font-size: var(--text-sm); font-weight: 700; border-radius: var(--radius-lg); text-decoration: none; text-align: center; transition: all 0.2s; margin-bottom: var(--space-2); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .sb-cta__btn:hover { background: var(--color-smoke-50); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+  .sb-cta__whatsapp { display: flex; align-items: center; justify-content: center; gap: var(--space-2); padding: 0.625rem var(--space-4); background: rgba(255,255,255,0.12); color: white; font-size: var(--text-sm); font-weight: 600; border-radius: var(--radius-lg); text-decoration: none; transition: background 0.2s; border: 1px solid rgba(255,255,255,0.2); }
+  .sb-cta__whatsapp:hover { background: rgba(255,255,255,0.2); }
+
+  /* Contact widget */
+  .sb-contact { padding: var(--space-2) 0; }
+  .sb-contact__item { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); text-decoration: none; border-bottom: 1px solid var(--color-smoke-50); transition: background 0.12s; color: inherit; }
+  .sb-contact__item:hover { background: var(--color-smoke-50); }
+  .sb-contact__item svg { color: var(--color-smoke-400); flex-shrink: 0; }
+  .sb-contact__item--wa svg { color: #25D366; }
+  .sb-contact__label { display: block; font-size: 10px; font-weight: 600; color: var(--color-smoke-400); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1; }
+  .sb-contact__value { display: block; font-size: var(--text-sm); font-weight: 600; color: var(--color-smoke-800); margin-top: 1px; }
+  .sb-contact__item--wa .sb-contact__value { color: #16a34a; }
+  .sb-contact__hours { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); font-size: 11px; color: var(--color-smoke-400); border-top: 1px solid var(--color-smoke-100); }
+  .sb-contact__hours svg { flex-shrink: 0; }
+
+  /* Resources widget */
+  .sb-widget--resources .sb-widget__body { padding: var(--space-2); }
+  .sb-resource { display: flex; align-items: flex-start; gap: var(--space-3); padding: var(--space-3); border-radius: var(--radius-lg); text-decoration: none; transition: background 0.15s; }
+  .sb-resource:hover { background: var(--color-smoke-50); }
+  .sb-resource__label { flex-shrink: 0; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: var(--radius-sm); background: rgba(220,38,38,0.1); color: var(--color-ember-700); text-transform: uppercase; letter-spacing: 0.04em; }
+  .sb-resource__text { font-size: var(--text-sm); color: var(--color-smoke-700); font-weight: 500; line-height: 1.4; }
+  .sb-resource:hover .sb-resource__text { color: var(--color-ember-700); }
+
+  /* ══════════════════════════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════════════════════════ */
+  @media (max-width: 1180px) {
+    .page-layout__inner { grid-template-columns: minmax(0, 1fr) 260px; gap: var(--space-6); }
     .specs__grid { grid-template-columns: 1fr; }
   }
-
-  @media (max-width: 768px) {
-    .productos__grid { grid-template-columns: 1fr; }
-
-    .comparativa__table th,
-    .comparativa__table td {
-      padding: var(--space-3) var(--space-4);
-      font-size: var(--text-xs);
-    }
+  @media (max-width: 1024px) {
+    .page-layout__inner { grid-template-columns: 1fr; }
+    .page-sidebar { display: none; }
+    .productos__grid { grid-template-columns: repeat(3, 1fr); }
+    .specs__grid { grid-template-columns: repeat(3, 1fr); }
+    .rel__grid { grid-template-columns: repeat(4, 1fr); }
   }
-
+  @media (max-width: 968px) {
+    .hero { padding: var(--space-10) 0; }
+    .hero__container { grid-template-columns: 1fr; padding-block: var(--space-4); }
+    .hero__subtitle { max-width: 100%; }
+    .hero__seo { display: none; }
+    .specs__grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+  }
+  @media (max-width: 768px) {
+    .content-panel { padding: var(--space-6); }
+    .productos__grid { grid-template-columns: repeat(2, 1fr); }
+    .specs__grid { grid-template-columns: 1fr; }
+    .rel__grid { grid-template-columns: repeat(2, 1fr); }
+    .comparativa__table th, .comparativa__table td { padding: var(--space-3) var(--space-4); font-size: var(--text-xs); }
+  }
   @media (max-width: 640px) {
     .hero__title { font-size: 2rem; }
     .hero__subtitle { font-size: var(--text-base); }
+    .hero__actions { flex-direction: column; }
+    .hero__btn { justify-content: center; }
+    .productos__grid { grid-template-columns: 1fr; }
+    .rel__grid { grid-template-columns: 1fr; }
+    .content-panel { padding: var(--space-5); border-radius: var(--radius-xl); }
+    .page-layout { padding-block: var(--space-6); }
+    .page-main { gap: var(--space-4); }
   }
 </style>
