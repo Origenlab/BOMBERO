@@ -172,78 +172,75 @@ const allCategories = [...productCategories, ...secondaryCategories];
   </div>
 </header>
 
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Mobile menu toggle
-    var toggle = document.querySelector(".header__toggle");
-    var mobileMenu = document.getElementById("mobile-menu");
-    var header = document.querySelector(".header");
+<script>
+  // Módulo diferido por Astro — DOM ya disponible, sin wrapper DOMContentLoaded
+  var toggle = document.querySelector(".header__toggle");
+  var mobileMenu = document.getElementById("mobile-menu");
+  var header = document.querySelector(".header");
 
-    if (toggle) {
-      toggle.addEventListener("click", function() {
-        var isExpanded = toggle.getAttribute("aria-expanded") === "true";
-        toggle.setAttribute("aria-expanded", String(!isExpanded));
-        if (mobileMenu) {
-          mobileMenu.setAttribute("aria-hidden", String(isExpanded));
-          mobileMenu.classList.toggle("mobile-menu--open");
-        }
-        if (header) header.classList.toggle("header--menu-open");
-        document.body.style.overflow = isExpanded ? "" : "hidden";
-      });
-    }
-
-    // Accordion functionality
-    var accordionBtns = document.querySelectorAll(".mobile-menu__accordion-btn");
-    accordionBtns.forEach(function(btn) {
-      btn.addEventListener("click", function() {
-        var isExpanded = btn.getAttribute("aria-expanded") === "true";
-        btn.setAttribute("aria-expanded", String(!isExpanded));
-        var accordion = btn.closest(".mobile-menu__accordion");
-        if (accordion) accordion.classList.toggle("is-open");
-      });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener("click", function(e) {
-      var target = e.target;
-      if (!target.closest(".header") && mobileMenu && mobileMenu.classList.contains("mobile-menu--open")) {
-        if (toggle) toggle.setAttribute("aria-expanded", "false");
-        mobileMenu.setAttribute("aria-hidden", "true");
-        mobileMenu.classList.remove("mobile-menu--open");
-        if (header) header.classList.remove("header--menu-open");
-        document.body.style.overflow = "";
+  if (toggle) {
+    toggle.addEventListener("click", function() {
+      var isExpanded = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!isExpanded));
+      if (mobileMenu) {
+        mobileMenu.setAttribute("aria-hidden", String(isExpanded));
+        mobileMenu.classList.toggle("mobile-menu--open");
       }
+      if (header) header.classList.toggle("header--menu-open");
+      document.body.style.overflow = isExpanded ? "" : "hidden";
     });
+  }
 
-    // Close menu on escape key
-    document.addEventListener("keydown", function(e) {
-      if (e.key === "Escape" && mobileMenu && mobileMenu.classList.contains("mobile-menu--open")) {
-        if (toggle) toggle.setAttribute("aria-expanded", "false");
-        mobileMenu.setAttribute("aria-hidden", "true");
-        mobileMenu.classList.remove("mobile-menu--open");
-        if (header) header.classList.remove("header--menu-open");
-        document.body.style.overflow = "";
-      }
+  // Accordion functionality
+  var accordionBtns = document.querySelectorAll(".mobile-menu__accordion-btn");
+  accordionBtns.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var isExpanded = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!isExpanded));
+      var accordion = btn.closest(".mobile-menu__accordion");
+      if (accordion) accordion.classList.toggle("is-open");
     });
-
-    // Header scroll effect — throttled con requestAnimationFrame + passive
-    // para evitar forced reflow y trabajo redundante en cada evento scroll.
-    var ticking = false;
-    var isScrolled = false;
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(function() {
-        var shouldScroll = window.pageYOffset > 100;
-        if (shouldScroll !== isScrolled && header) {
-          header.classList.toggle("header--scrolled", shouldScroll);
-          isScrolled = shouldScroll;
-        }
-        ticking = false;
-      });
-    }
-    window.addEventListener("scroll", onScroll, { passive: true });
   });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", function(e) {
+    var target = e.target;
+    if (!target.closest(".header") && mobileMenu && mobileMenu.classList.contains("mobile-menu--open")) {
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+      mobileMenu.setAttribute("aria-hidden", "true");
+      mobileMenu.classList.remove("mobile-menu--open");
+      if (header) header.classList.remove("header--menu-open");
+      document.body.style.overflow = "";
+    }
+  });
+
+  // Close menu on escape key
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && mobileMenu && mobileMenu.classList.contains("mobile-menu--open")) {
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+      mobileMenu.setAttribute("aria-hidden", "true");
+      mobileMenu.classList.remove("mobile-menu--open");
+      if (header) header.classList.remove("header--menu-open");
+      document.body.style.overflow = "";
+    }
+  });
+
+  // Header scroll effect — throttled con rAF + passive
+  var ticking = false;
+  var isScrolled = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function() {
+      var shouldScroll = window.pageYOffset > 100;
+      if (shouldScroll !== isScrolled && header) {
+        header.classList.toggle("header--scrolled", shouldScroll);
+        isScrolled = shouldScroll;
+      }
+      ticking = false;
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
 </script>
 
 <style>

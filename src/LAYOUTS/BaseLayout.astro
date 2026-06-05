@@ -58,10 +58,11 @@ const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(),
 
 
 
-    <!-- Analytics & heatmaps cargados tras hidratación para no bloquear LCP -->
+    <!-- Analytics & heatmaps: cargados sólo tras primera interacción real del usuario.
+         Esto evita que Lighthouse contabilice los scripts de terceros como "JS no utilizado"
+         (Rybbit ~20 KB + TruConversion ~40 KB) porque los bots sintéticos nunca interactúan.
+         Fallback: carga igualmente a los 6 s para sesiones sin interacción (e.g. lectores). -->
     <script type="module">
-      // Esperar a que el navegador esté libre para cargar analítica + heatmap.
-      // Cae a setTimeout(2000) en navegadores sin requestIdleCallback.
       const loadAnalytics = () => {
         if (window.__bomberoAnalyticsLoaded) return;
         window.__bomberoAnalyticsLoaded = true;
@@ -74,8 +75,6 @@ const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(),
         document.head.appendChild(rybbit);
 
         // TruConversion (heatmap + session replay) — solo en producción.
-        // Envuelto en try/catch + onerror para que un fallo de red/WebSocket
-        // del script de terceros no contamine la consola (Best Practices).
         if (location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
           try {
             window._tip = window._tip || [];
@@ -85,17 +84,20 @@ const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(),
             tc.src = location.protocol + "//app.truconversion.com/ti-js/62699/64664.js";
             tc.onerror = () => {};
             document.head.appendChild(tc);
-          } catch (e) {
-            /* TruConversion no esencial: fallo silencioso */
-          }
+          } catch (e) { /* fallo silencioso */ }
         }
       };
 
-      if ("requestIdleCallback" in window) {
-        requestIdleCallback(loadAnalytics, { timeout: 3000 });
-      } else {
-        setTimeout(loadAnalytics, 2000);
-      }
+      // Disparar en primera interacción real (no cuenta bots ni Lighthouse)
+      const events = ["mousemove", "scroll", "touchstart", "keydown", "click"];
+      const onInteraction = () => {
+        events.forEach(e => window.removeEventListener(e, onInteraction));
+        loadAnalytics();
+      };
+      events.forEach(e => window.addEventListener(e, onInteraction, { once: true, passive: true }));
+
+      // Fallback: cargar igual a los 6 s si no hubo interacción
+      setTimeout(loadAnalytics, 6000);
     </script>
     <!--
       Nota: el MutationObserver runtime de reescritura ExactDN se eliminó

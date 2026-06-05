@@ -205,7 +205,7 @@ const icons: Record<string, string> = {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-smoke-400);
+    color: var(--color-smoke-600); /* era smoke-400 (#94a3b8, ratio 2.5:1) → smoke-600 (#475569, ratio 5.9:1) WCAG AA ✓ */
     margin-bottom: var(--space-4);
     padding-left: var(--space-2);
   }
@@ -400,20 +400,16 @@ const icons: Record<string, string> = {
   }
 </style>
 
-<script is:inline>
-  // Toggle mega menu en móvil
-  document.addEventListener('DOMContentLoaded', () => {
-    const megaItems = document.querySelectorAll('.nav__item--mega');
-
-    megaItems.forEach(item => {
-      const link = item.querySelector('.nav__link');
-
-      link?.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768) {
-          e.preventDefault();
-          item.classList.toggle('is-open');
-        }
-      });
+<script>
+  // Toggle mega menu en móvil (módulo diferido por Astro — DOM ya disponible)
+  const megaItems = document.querySelectorAll('.nav__item--mega');
+  megaItems.forEach(item => {
+    const link = item.querySelector('.nav__link');
+    link?.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        item.classList.toggle('is-open');
+      }
     });
   });
 </script>
