@@ -1,5 +1,6 @@
 
 import { articulosEstacionesData } from "./blog-articulos-estaciones";
+import { articulosResenasData } from "./blog-articulos-resenas";
 import { articulosAqueonData } from "./blog-articulos-aqueon";
 import { articulosMonitoresV2Data } from "./blog-articulos-monitores-v2";
 
@@ -22379,6 +22380,7 @@ La especificación de equipo contra incendio por sector industrial es un ejercic
 };
 
 Object.assign(articulosData, articulosEstacionesData);
+Object.assign(articulosData, articulosResenasData);
 
 export function getArticuloSlugs(): string[] {
   return Object.keys(articulosData);
