@@ -155,7 +155,7 @@ function cityTable(cityName: string): string {
 function extractFaq(md: string): { question: string; answer: string }[] {
   const lines = md.split("\n");
   const faqs: { question: string; answer: string }[] = [];
-  let inFaq = false;
+  let faqDepth = 0; // profundidad del heading "Preguntas Frecuentes" (2 o 3)
   let q: string | null = null;
   let buf: string[] = [];
   const push = () => {
@@ -163,19 +163,26 @@ function extractFaq(md: string): { question: string; answer: string }[] {
       faqs.push({ question: stripMd(q), answer: stripMd(buf.join(" ").replace(/\s+/g, " ")).slice(0, 600) });
     }
     buf = [];
+    q = null;
   };
   for (const line of lines) {
-    if (/^##\s+/.test(line) && !/^###/.test(line)) {
-      if (inFaq) { push(); inFaq = false; }
-      if (/preguntas\s+frecuentes/i.test(line)) inFaq = true;
+    const h = line.match(/^(#{2,4})\s+(.+)/);
+    if (h) {
+      const depth = h[1].length;
+      if (!faqDepth) {
+        if (/preguntas\s+frecuentes/i.test(h[2])) faqDepth = depth;
+        continue;
+      }
+      if (depth <= faqDepth) { push(); faqDepth = 0; continue; } // fin de la sección FAQ
+      if (depth === faqDepth + 1) { push(); q = h[2]; continue; } // nueva pregunta
       continue;
     }
-    if (!inFaq) continue;
-    const m = line.match(/^###\s+(.+)/);
-    if (m) { push(); q = m[1]; continue; }
-    if (q && line.trim() && !line.startsWith("|") && !line.startsWith(">")) buf.push(line.trim());
+    // Formato alterno: pregunta en negritas como párrafo ("**¿...?**")
+    const bq = line.match(/^\*\*(¿[^*]+\?)\*\*\s*$/);
+    if (faqDepth && bq) { push(); q = bq[1]; continue; }
+    if (faqDepth && q && line.trim() && !line.startsWith("|") && !line.startsWith(">")) buf.push(line.trim());
   }
-  if (inFaq) push();
+  if (faqDepth) push();
   return faqs;
 }
 
@@ -200,7 +207,7 @@ export function prepararArticulo(slug: string, articulo: ArticuloData, ctaInline
   const faqBlock = !hasFaq && faqExtra[slug] ? faqExtra[slug] : "";
 
   // Insertar extras antes de la sección de artículos relacionados (si existe) o al final
-  const relIdx = md.search(/^##\s+Art[ií]culos (de esta serie|relacionados)/im);
+  const relIdx = md.search(/^#{2,3}\s+Art[ií]culos (de esta serie|relacionados)/im);
   const insertion = extraBlock + faqBlock;
   if (insertion) {
     md = relIdx >= 0 ? md.slice(0, relIdx) + insertion + "\n\n" + md.slice(relIdx) : md + insertion;
