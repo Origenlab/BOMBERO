@@ -667,6 +667,93 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
       ctaText: "Contactar experto",
     },
   ],
+
+  // Serie Monitores Contra Incendios (AQUEON)
+  "monitores-contra-incendios-guia-seleccion": [
+    {
+      label: "Cotizar Monitores Contra Incendios (AQUEON)",
+      href: "https://monitorescontraincendios.com/#cotizar",
+      ctaText: "Cotización gratuita en 24 h",
+    },
+    {
+      label: "Catálogo de Monitores Certificados FM/UL",
+      href: "https://monitorescontraincendios.com/#productos",
+      ctaText: "Ver catálogo completo",
+    },
+    {
+      label: "Equipos Contra Incendio en BOMBERO.MX",
+      href: "/productos/",
+      ctaText: "Explorar catálogo",
+    },
+  ],
+  "monitores-contra-incendios-refinerias-pemex": [
+    {
+      label: "Soluciones para Petróleo y Gas (AQUEON)",
+      href: "https://monitorescontraincendios.com/#petroleo-gas",
+      ctaText: "Ver soluciones sectoriales",
+    },
+    {
+      label: "Cotizar Proyecto Industrial",
+      href: "https://monitorescontraincendios.com/#cotizar",
+      ctaText: "Solicitar cotización",
+    },
+    {
+      label: "EPP para Brigadas Industriales",
+      href: "/productos/",
+      ctaText: "Ver equipo para brigadas",
+    },
+  ],
+  "monitores-contra-incendios-certificaciones-fm-ul": [
+    {
+      label: "Monitores Certificados FM Approved y UL Listed",
+      href: "https://monitorescontraincendios.com/#productos",
+      ctaText: "Ver equipos certificados",
+    },
+    {
+      label: "Cotización con Verificación de Certificados",
+      href: "https://monitorescontraincendios.com/#cotizar",
+      ctaText: "Cotizar ahora",
+    },
+    {
+      label: "Equipo Certificado NFPA en BOMBERO.MX",
+      href: "/productos/",
+      ctaText: "Explorar catálogo",
+    },
+  ],
+  "mantenimiento-monitores-contra-incendios-nfpa-25": [
+    {
+      label: "Planes de Mantenimiento AQUEON (Basic/Plus/Premium)",
+      href: "https://monitorescontraincendios.com/#servicios",
+      ctaText: "Conocer planes de servicio",
+    },
+    {
+      label: "Cotizar Mantenimiento NFPA 25",
+      href: "https://monitorescontraincendios.com/#cotizar",
+      ctaText: "Solicitar diagnóstico",
+    },
+    {
+      label: "Equipos y Repuestos en BOMBERO.MX",
+      href: "/productos/",
+      ctaText: "Ver catálogo",
+    },
+  ],
+  "monitores-contra-incendios-automaticos-ia": [
+    {
+      label: "Monitores Automáticos e Inteligentes (AQUEON)",
+      href: "https://monitorescontraincendios.com/#monitores-automaticos",
+      ctaText: "Ver línea inteligente",
+    },
+    {
+      label: "Agendar Demostración Técnica",
+      href: "https://monitorescontraincendios.com/#cotizar",
+      ctaText: "Solicitar demostración",
+    },
+    {
+      label: "Equipos Contra Incendio en BOMBERO.MX",
+      href: "/productos/",
+      ctaText: "Explorar catálogo",
+    },
+  ],
 };
 
 /**
