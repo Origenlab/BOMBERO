@@ -431,7 +431,14 @@ export function productSchemaComplete(product: {
     offers: {
       "@type": "Offer",
       url: productUrl,
+      price: "0",
       priceCurrency: "MXN",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "0",
+        priceCurrency: "MXN",
+        description: "Precio bajo cotización — contáctenos para tarifa personalizada",
+      },
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
       seller: {
@@ -481,7 +488,7 @@ export function productSchemaComplete(product: {
       name: "Equipo de Protección Personal NFPA",
     },
     audience: {
-      "@type": "Audience",
+      "@type": "BusinessAudience",
       audienceType: "Bomberos Profesionales, Brigadas Industriales, Protección Civil",
     },
   };
