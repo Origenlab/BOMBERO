@@ -102,8 +102,8 @@ export default defineConfig({
   redirects: {
     // Common misspellings and variations
     "/equipo-bomberos": "/productos/",
-    "/trajes-bombero": "/productos/epp-bomberos/",
-    "/cascos-bombero": "/productos/cascos/",
+    "/trajes-bombero": "/productos/trajes-para-bomberos/",
+    "/cascos-bombero": "/productos/cascos-para-bomberos/",
     "/extintores-mexico": "/productos/extintores/",
     "/equipo-scba": "/productos/scba/",
     // Old URLs (if any)

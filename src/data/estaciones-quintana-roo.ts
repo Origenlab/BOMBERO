@@ -226,7 +226,7 @@ export const QUINTANA_ROO_SEO = {
     alternateLocale: "en_US",
     siteName: "BOMBERO.MX",
     image: {
-      url: "/images/og-quintana-roo-bomberos.jpg",
+      url: "/images/directorio/estacion-bomberos-moderna-01.avif",
       width: 1200,
       height: 630,
       alt: "Bomberos Quintana Roo - Cancún, Riviera Maya"

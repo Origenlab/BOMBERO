@@ -25,7 +25,7 @@ export async function GET(context: APIContext) {
       <managingEditor>contacto@bombero.mx (BOMBERO.MX)</managingEditor>
       <webMaster>contacto@bombero.mx (BOMBERO.MX)</webMaster>
       <image>
-        <url>https://bombero.mx/images/logo-bombero-mx.png</url>
+        <url>https://bombero.mx/images/logo-equipo-para-bomberos.avif</url>
         <title>Blog BOMBERO.MX</title>
         <link>https://bombero.mx/blog</link>
       </image>

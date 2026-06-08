@@ -14,6 +14,7 @@ export interface ArticuloData {
   autorRol: string;
   contenido: string;
   anchorKeyword: string; // Palabra clave para anchor text SEO
+  pubDate?: string;      // ISO 8601: "2025-06-01T00:00:00-06:00" — usado en datePublished
 }
 
 export const articulosData: Record<string, ArticuloData> = {
@@ -21349,9 +21350,6 @@ Sí, desde sus hubs en CDMX y Querétaro coordinan envíos a los 32 estados.
 
 Su enfoque es suministro técnico. Trabajan en alianza con instaladores certificados para proyectos integrales.
 
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Gama de México atiende proyectos chicos o solo industria pesada?","acceptedAnswer":{"@type":"Answer","text":"Su zona ideal es industria media y grande, pero también atienden instaladores certificados, despachos de ingeniería y brigadas internas que requieren componentes específicos certificados UL/FM."}},{"@type":"Question","name":"¿Gama de México trabaja con aseguradoras directamente?","acceptedAnswer":{"@type":"Answer","text":"No son broker, pero sus equipos cumplen las exigencias típicas de FM Global y aseguradoras nacionales, lo que facilita el alta de activos y la cobertura de pólizas."}},{"@type":"Question","name":"¿Cuánto tarda una cotización típica con Gama de México?","acceptedAnswer":{"@type":"Answer","text":"Para componentes en inventario, horas. Para pedidos especiales bajo fabricación Elkhart Brass, días según el calendario del fabricante."}},{"@type":"Question","name":"¿Gama de México cubre todo México?","acceptedAnswer":{"@type":"Answer","text":"Sí, opera con dos hubs estratégicos en CDMX y Querétaro y coordina envíos a los 32 estados de la República."}},{"@type":"Question","name":"¿Gama de México ofrece instalación de los equipos?","acceptedAnswer":{"@type":"Answer","text":"Su enfoque principal es suministro técnico. Para proyectos llave en mano trabajan en alianza con instaladores certificados especializados en NFPA."}}]}
-</script>
 
 ---
 
@@ -21574,9 +21572,6 @@ Técnicamente sí, pero no es recomendable: pierdes consistencia de refacciones,
 
 Funciona, pero pierdes garantía de fábrica, posiblemente certificación documentada y, sobre todo, el respaldo técnico que justifica el sobreprecio de la marca.
 
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿La autorización Elkhart Brass de Gama de México se verifica directamente con el fabricante?","acceptedAnswer":{"@type":"Answer","text":"Sí. Es buena práctica solicitar a Gama de México la confirmación documental y contrastarla con la lista oficial de distribuidores autorizados Elkhart Brass."}},{"@type":"Question","name":"¿Las refacciones que distribuye Gama de México son originales Elkhart Brass?","acceptedAnswer":{"@type":"Answer","text":"Sí, son originales del fabricante. Es una de las condiciones obligatorias del estatus de distribuidor autorizado."}},{"@type":"Question","name":"¿Aplica garantía internacional Elkhart Brass en México?","acceptedAnswer":{"@type":"Answer","text":"La garantía Elkhart Brass se honra a través del distribuidor autorizado en cada país. En México eso significa Gama de México."}},{"@type":"Question","name":"¿Se puede mezclar equipo Elkhart Brass con componentes de otras marcas?","acceptedAnswer":{"@type":"Answer","text":"Técnicamente es posible, pero no se recomienda: se pierde consistencia de refacciones, se complican los paquetes de soporte y se reduce la trazabilidad del sistema."}},{"@type":"Question","name":"¿Qué pasa si compro Elkhart Brass por un canal no autorizado?","acceptedAnswer":{"@type":"Answer","text":"El equipo puede funcionar, pero se pierde la garantía de fábrica, posiblemente la certificación documentada y el respaldo técnico que justifica la inversión en una marca premium."}}]}
-</script>
 
 ---
 
@@ -21818,9 +21813,6 @@ Hay frecuencias semanales, mensuales, trimestrales, semestrales y anuales según
 
 Depende del estado y municipio. Por lo general, una combinación de protección civil estatal y municipal, además de la STPS federal.
 
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿La NFPA es obligatoria en México?","acceptedAnswer":{"@type":"Answer","text":"No es obligatoria por ley federal, pero es la referencia técnica que aseguradoras, autoridades AHJ y la industria aceptan como estándar de cumplimiento. En la práctica, no cumplirla equivale a no cumplir."}},{"@type":"Question","name":"¿Las certificaciones UL y FM son equivalentes?","acceptedAnswer":{"@type":"Answer","text":"Son complementarias. UL valida seguridad y desempeño técnico; FM valida desempeño bajo escenarios de siniestro relevantes para aseguradoras. Lo ideal es contar con ambas certificaciones en los equipos críticos."}},{"@type":"Question","name":"¿Qué hacer con equipo viejo sin documentación?","acceptedAnswer":{"@type":"Answer","text":"Conviene reemplazarlo paulatinamente. Mientras tanto, documentar su estado actual mediante inspecciones NFPA 25 y mantener bitácora de mantenimiento como evidencia para auditorías."}},{"@type":"Question","name":"¿Cada cuánto debo hacer pruebas NFPA 25?","acceptedAnswer":{"@type":"Answer","text":"Existen frecuencias semanales, mensuales, trimestrales, semestrales y anuales según el componente. La norma NFPA 25 especifica cada caso de manera detallada."}},{"@type":"Question","name":"¿Quién es el AHJ (Authority Having Jurisdiction) en mi planta?","acceptedAnswer":{"@type":"Answer","text":"Depende del estado y municipio. Por lo general es una combinación de protección civil estatal y municipal, además de la STPS a nivel federal."}}]}
-</script>
 
 ---
 
@@ -22052,9 +22044,6 @@ Cuentan con esquema de facturación corporativa con todos los datos para alta en
 
 Para clientes recurrentes y corporativos se evalúan condiciones de crédito según historial y volumen.
 
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Gama de México hace envíos a estados sin cobertura industrial?","acceptedAnswer":{"@type":"Answer","text":"Sí, atienden los 32 estados de la República. Lo que cambia es el tiempo de entrega, no la disponibilidad del servicio."}},{"@type":"Question","name":"¿Gama de México tiene entrega exprés para urgencias?","acceptedAnswer":{"@type":"Answer","text":"Para componentes en inventario, los plazos son cortos por defecto. Para urgencias específicas se coordinan opciones de mensajería expresa o flete dedicado."}},{"@type":"Question","name":"¿Pueden consolidar pedidos de varios componentes?","acceptedAnswer":{"@type":"Answer","text":"Sí, es una práctica habitual para clientes corporativos: se agrupan varios componentes en un solo embarque para reducir costos logísticos y simplificar la recepción."}},{"@type":"Question","name":"¿Cómo se gestiona la facturación a empresas grandes?","acceptedAnswer":{"@type":"Answer","text":"Cuentan con esquema de facturación corporativa con desglose técnico completo y los datos necesarios para alta de activos en sistemas ERP del cliente."}},{"@type":"Question","name":"¿Gama de México maneja condiciones de crédito?","acceptedAnswer":{"@type":"Answer","text":"Para clientes recurrentes y corporativos se evalúan condiciones de crédito según historial comercial y volumen de operación."}}]}
-</script>
 
 ---
 
@@ -22328,9 +22317,6 @@ Su foco principal son brigadas industriales. Brigadas comunitarias generalmente 
 
 A partir de la combinación de perfil de riesgo del sector, normativa aplicable y compatibilidad con la red ya instalada del cliente.
 
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Gama de México atiende industria petrolera privada y Pemex por igual?","acceptedAnswer":{"@type":"Answer","text":"Atiende proyectos industriales privados y, a través de instaladores especializados, también proyectos vinculados a la cadena de proveedores de operadores estatales del sector energético."}},{"@type":"Question","name":"¿Gama de México trabaja con franquicias hoteleras internacionales?","acceptedAnswer":{"@type":"Answer","text":"Sí. Las cadenas hoteleras globales suelen exigir cumplimiento NFPA en sus propiedades, lo que se alinea naturalmente con el catálogo certificado UL/FM de la empresa."}},{"@type":"Question","name":"¿Gama de México puede equipar un nuevo centro de distribución desde cero?","acceptedAnswer":{"@type":"Answer","text":"Sí, normalmente trabajan en coordinación con un instalador certificado para el diseño e instalación integral del sistema, mientras Gama de México aporta el suministro técnico y la documentación normativa."}},{"@type":"Question","name":"¿Gama de México atiende brigadas voluntarias o solo industriales?","acceptedAnswer":{"@type":"Answer","text":"Su foco principal son brigadas industriales internas. Las brigadas comunitarias y municipales generalmente operan con proveedores enfocados en EPP y herramientas para bomberos profesionales."}},{"@type":"Question","name":"¿Cómo selecciona Gama de México el equipo para un sector específico?","acceptedAnswer":{"@type":"Answer","text":"A partir de la combinación de perfil de riesgo del sector, normativa aplicable (NFPA y NOM) y compatibilidad técnica con la red hidráulica ya instalada del cliente."}}]}
-</script>
 
 ---
 

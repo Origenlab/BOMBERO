@@ -9,7 +9,7 @@ import CTABanner from "@components/CTABanner.astro";
 import FAQQuote from "@components/FAQQuote.astro";
 import QuickNav from "@components/QuickNav.astro";
 import { cdnW } from "@utils/cdn";
-import { productSchemaComplete, breadcrumbJsonLd, faqJsonLd, canonicalURL } from "@utils/seo";
+import { productSchemaComplete, faqJsonLd, canonicalURL } from "@utils/seo";
 import HeroSection from "@components/HeroSection.astro";
 
 
@@ -234,21 +234,14 @@ const productSchema = productSchemaComplete({
   certifications: productoBadges.map(b => b.text),
 });
 
-// Breadcrumb Schema
-const breadcrumbSchema = breadcrumbJsonLd(
-  breadcrumb.map(item => ({
-    name: item.label,
-    url: item.href ?? canonical,
-  }))
-);
-
 // FAQ Schema (if FAQs exist)
 const faqSchema = faqs.length > 0
   ? faqJsonLd(faqs.map(faq => ({ question: faq.q, answer: faq.a })))
   : null;
 
-// Combine all schemas
-const jsonLdSchemas = [productSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
+// Nota: BreadcrumbList ya es emitido por el componente <Breadcrumb> como JSON-LD propio.
+// No se incluye aquí para evitar duplicado.
+const jsonLdSchemas = [productSchema, ...(faqSchema ? [faqSchema] : [])];
 ---
 
 <PageLayout

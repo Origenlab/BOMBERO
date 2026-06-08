@@ -41,6 +41,7 @@ interface Props {
   keywords?: string[];
   canonical: string;
   image?: string;
+  pubDate?: string;
 
 
   breadcrumb: BreadcrumbItem[];
@@ -70,6 +71,7 @@ interface Props {
 
 const {
   title, description, keywords, canonical, image,
+  pubDate,
   breadcrumb,
   heroBadge, heroTitle, heroExcerpt, heroImage,
   autor, autorRol,
@@ -81,19 +83,29 @@ const {
   relacionados = [],
 } = Astro.props;
 
+// Fecha de publicación: usa pubDate si está, o fallback seguro
+const publishedDate = pubDate ?? "2025-01-01T00:00:00-06:00";
+
 const heroImageCdn = heroImage ? cdnW(heroImage, 640) : undefined;
 const relacionadosCdn = relacionados.map(r => ({ ...r, image: cdnW(r.image, 400) }));
 
+
+const FALLBACK_IMAGE = "https://bombero.mx/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif";
+const LOGO_URL = "https://bombero.mx/images/logo-equipo-para-bomberos.avif";
 
 const schemaOrg = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": heroTitle,
   "description": description,
-  "image": heroImage ? `https://bombero.mx${heroImage}` : "https://bombero.mx/images/og-default.jpg",
+  "image": heroImage
+    ? (heroImage.startsWith("http") ? heroImage : `https://bombero.mx${heroImage}`)
+    : FALLBACK_IMAGE,
+  "datePublished": publishedDate,
+  "dateModified": publishedDate,
   "author": {
-    "@type": "Organization",
-    "name": autor || "BOMBERO.MX",
+    "@type": "Person",
+    "name": autor || "Equipo Editorial BOMBERO.MX",
     "url": "https://bombero.mx"
   },
   "publisher": {
@@ -101,13 +113,16 @@ const schemaOrg = {
     "name": "BOMBERO.MX",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://bombero.mx/images/logo-bombero-mx.png"
+      "url": LOGO_URL,
+      "width": 200,
+      "height": 60
     }
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": `https://bombero.mx${canonical}`
   },
+  "url": `https://bombero.mx${canonical}`,
   "keywords": keywords?.join(", ") || "",
   "articleSection": heroBadge.replace("Blog · ", ""),
   "inLanguage": "es-MX"
@@ -120,6 +135,10 @@ const schemaOrg = {
   keywords={keywords}
   canonical={canonical}
   image={image}
+  type="article"
+  publishedTime={publishedDate}
+  modifiedTime={publishedDate}
+  author={autor || "Equipo Editorial BOMBERO.MX"}
 >
 
 
