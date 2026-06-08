@@ -754,6 +754,126 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
       ctaText: "Explorar catálogo",
     },
   ],
+
+  // Monitores Vol.2 — Industria Química
+  "monitores-contra-incendios-industria-quimica-petroquimica": [
+    {
+      label: "Monitores Industriales AQUEON",
+      href: "https://monitorescontraincendios.com/",
+      ctaText: "Ver monitores ATEX y HAZMAT",
+    },
+    {
+      label: "Cotizar sistema para planta química",
+      href: "/cotizar/",
+      ctaText: "Solicitar cotización técnica",
+    },
+    {
+      label: "Trajes HAZMAT NFPA 1991",
+      href: "/productos/trajes-para-bomberos/traje-hazmat/",
+      ctaText: "Ver trajes encapsulados",
+    },
+    {
+      label: "Equipos contra incendios industriales",
+      href: "/productos/equipo-contra-incendios/",
+      ctaText: "Ver catálogo industrial",
+    },
+  ],
+
+  // Monitores Vol.2 — Espuma AFFF
+  "espuma-afff-ar-afff-libre-fluor-monitores": [
+    {
+      label: "Sistemas de espuma AQUEON",
+      href: "https://monitorescontraincendios.com/",
+      ctaText: "Ver sistemas de espuma",
+    },
+    {
+      label: "Cotizar concentrado de espuma",
+      href: "/cotizar/",
+      ctaText: "Solicitar cotización",
+    },
+    {
+      label: "Monitores industriales con espuma",
+      href: "https://monitorescontraincendios.com/",
+      ctaText: "Ver monitores compatibles",
+    },
+    {
+      label: "Equipo contra incendios industriales",
+      href: "/productos/equipo-contra-incendios/",
+      ctaText: "Ver catálogo completo",
+    },
+  ],
+
+  // Monitores Vol.2 — Redes hidráulicas NFPA 24
+  "redes-hidraulicas-sistemas-monitores-nfpa-24": [
+    {
+      label: "Diseño de redes AQUEON",
+      href: "https://monitorescontraincendios.com/",
+      ctaText: "Consultar ingeniería de red",
+    },
+    {
+      label: "Cotizar auditoría hidráulica",
+      href: "/cotizar/",
+      ctaText: "Solicitar auditoría sin costo",
+    },
+    {
+      label: "Monitores industriales AQUEON",
+      href: "https://monitorescontraincendios.com/",
+      ctaText: "Ver catálogo de monitores",
+    },
+    {
+      label: "Equipo contra incendios",
+      href: "/productos/equipo-contra-incendios/",
+      ctaText: "Ver productos relacionados",
+    },
+  ],
+
+  // Monitores Vol.2 — Aeropuertos ARFF
+  "monitores-contra-incendios-aeropuertos-arff-nfpa-403": [
+    {
+      label: "Sistemas ARFF de AQUEON",
+      href: "https://monitorescontraincendios.com/",
+      ctaText: "Ver soluciones ARFF",
+    },
+    {
+      label: "Cotizar sistema aeroportuario",
+      href: "/cotizar/",
+      ctaText: "Solicitar cotización ARFF",
+    },
+    {
+      label: "Trajes de bombero certificados",
+      href: "/productos/trajes-para-bomberos/",
+      ctaText: "Ver trajes para bomberos",
+    },
+    {
+      label: "Cascos para combate de incendios",
+      href: "/productos/cascos-para-bomberos/",
+      ctaText: "Ver cascos NFPA",
+    },
+  ],
+
+  // Monitores Vol.2 — Especificación técnica / licitación
+  "especificacion-tecnica-monitores-licitacion-mexico": [
+    {
+      label: "Especificación técnica gratuita AQUEON",
+      href: "https://monitorescontraincendios.com/#cotizar",
+      ctaText: "Solicitar especificación sin costo",
+    },
+    {
+      label: "Cotizar monitores para licitación",
+      href: "/cotizar/",
+      ctaText: "Obtener cotización técnica",
+    },
+    {
+      label: "Monitores FM Approved AQUEON",
+      href: "https://monitorescontraincendios.com/",
+      ctaText: "Ver monitores certificados",
+    },
+    {
+      label: "Equipo contra incendios industriales",
+      href: "/productos/equipo-contra-incendios/",
+      ctaText: "Ver catálogo completo",
+    },
+  ],
 };
 
 /**
