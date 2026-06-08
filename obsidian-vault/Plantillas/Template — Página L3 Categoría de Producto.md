@@ -211,7 +211,7 @@ breadcrumbJsonLd([Inicio, Productos, {Categoría}])
 |---|---|---|
 | Trajes para Bomberos | `/productos/trajes-para-bomberos/` | ✅ Master / Completada |
 | Cascos para Bomberos | `/productos/cascos-para-bomberos/` | ✅ Completada |
-| Botas para Bomberos | `/productos/botas-para-bomberos/` | ⏳ Pendiente |
+| Botas para Bomberos | `/productos/botas-para-bomberos/` | ✅ Completada |
 | Guantes para Bomberos | `/productos/guantes-para-bomberos/` | ✅ Completada |
 | Capuchas para Bomberos | `/productos/capuchas-para-bomberos/` | ⏳ Pendiente |
 | Gafas para Bomberos | `/productos/gafas-para-bomberos/` | ⏳ Pendiente |
