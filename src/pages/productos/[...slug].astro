@@ -1,4 +1,17 @@
 ---
+/**
+ * [...slug].astro — Ruta dinámica de /productos/ (2 fuentes)
+ * ──────────────────────────────────────────────────────────────────
+ * 1. COLECCIÓN `productos` (2026-06-10): páginas de variante L5 desde
+ *    src/content/productos/<cat>/<sub>/<variante>.json, renderizadas
+ *    con ProductoLayout. El id de la entrada es el slug de la URL.
+ *    Migración: node scripts/extract-producto-data.mjs <categoria>
+ * 2. PLACEHOLDERS legacy (noindex): slugs antiguos en actualización.
+ *
+ * Las páginas .astro estáticas siempre tienen precedencia sobre esta ruta.
+ */
+import { getCollection } from "astro:content";
+import ProductoLayout from "@layouts/ProductoLayout.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import Breadcrumb from "@components/Breadcrumb.astro";
 import CTABar from "@components/CTABar.astro";
@@ -11,7 +24,18 @@ type ProductoRuta = {
   nombre: string;
 };
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  // 1. Variantes de producto desde la colección
+  const productos = await getCollection("productos");
+  const rutasProducto = productos.map((p) => ({
+    params: { slug: p.id },
+    props: { producto: p.data },
+  }));
+  return [...rutasProducto, ...legacyPaths()];
+}
+
+// Exportada porque Astro extrae getStaticPaths a un scope separado del frontmatter
+export function legacyPaths() {
   const rutas: ProductoRuta[] = [
     { slug: "epp-bomberos", nombre: "EPP Bomberos" },
     { slug: "trajes", nombre: "Trajes" },
@@ -52,9 +76,15 @@ export function getStaticPaths() {
   }));
 }
 
-const { item } = Astro.props as { item: ProductoRuta };
+const { item, producto } = Astro.props as {
+  item?: ProductoRuta;
+  producto?: Record<string, unknown>;
+};
 ---
 
+{producto && <ProductoLayout {...producto} />}
+
+{item && (
 <PageLayout
   title={`${item.nombre} | Catálogo en Actualización`}
   description={`Estamos preparando la ficha técnica de ${item.nombre} con especificaciones, comparativos y opciones de cotización.`}
@@ -120,26 +150,29 @@ const { item } = Astro.props as { item: ProductoRuta };
     ]}
   />
   <CTABanner />
+
+  {/* is:inline dentro de la rama placeholder: así estas reglas NO se
+      inyectan en las páginas de producto de la colección (HTML idéntico). */}
+  <style is:inline>
+    .products-placeholder h1 {
+      margin: 0 0 var(--space-4);
+    }
+
+    .products-placeholder p {
+      margin: 0 0 var(--space-4);
+      color: var(--color-smoke-700);
+      line-height: 1.7;
+    }
+
+    .products-link {
+      color: var(--color-fire-700);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .products-link:hover {
+      text-decoration: underline;
+    }
+  </style>
 </PageLayout>
-
-<style>
-  .products-placeholder h1 {
-    margin: 0 0 var(--space-4);
-  }
-
-  .products-placeholder p {
-    margin: 0 0 var(--space-4);
-    color: var(--color-smoke-700);
-    line-height: 1.7;
-  }
-
-  .products-link {
-    color: var(--color-fire-700);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .products-link:hover {
-    text-decoration: underline;
-  }
-</style>
+)}
