@@ -11,6 +11,7 @@
  */
 
 import { marked } from "marked";
+import DOMPurify from "isomorphic-dompurify";
 import { faqExtra, tablasExtra } from "../data/blog-enriquecimiento";
 import type { ArticuloData } from "../data/blog-articulos";
 
@@ -250,7 +251,13 @@ export function prepararArticulo(slug: string, articulo: ArticuloData, ctaInline
   };
   void origHeading;
 
-  const html = marked(md, { renderer }) as string;
+  /* Sanitización en build (2026-06-10): hoy el Markdown es admin-controlled,
+     pero si algún día viene de CMS/colaborador externo, esto previene XSS.
+     Coste cero en runtime — todo ocurre en build. ADD_ATTR conserva los id
+     de headings (TOC) y target de enlaces externos. */
+  const html = DOMPurify.sanitize(marked(md, { renderer }) as string, {
+    ADD_ATTR: ["target", "id"],
+  });
 
   // 5. FAQPage JSON-LD
   const faqs = extractFaq(md);
