@@ -10,9 +10,6 @@ const canonicalCandidate = (resolved.canonical ?? Astro.url.pathname).trim();
 const canonical = canonicalCandidate.match(/^https?:\/\//i)
   ? (/\.\w+$/.test(canonicalCandidate) || canonicalCandidate.endsWith("/") ? canonicalCandidate : `${canonicalCandidate}/`)
   : canonicalURL(canonicalCandidate);
-const currentPageUrl = canonicalURL(Astro.url.pathname);
-const isSelfCanonical = canonical === currentPageUrl;
-const shouldRenderHreflang = !resolved.noindex && isSelfCanonical;
 const imageURL = resolved.image?.startsWith("http")
   ? resolved.image
   : canonicalURL(resolved.image);
@@ -40,13 +37,8 @@ const allKeywords = [...new Set([...pageKeywords, ...SITE.seo.keywords])].join("
 
 
 <meta name="language" content={SITE.language} />
-{shouldRenderHreflang && (
-  <>
-    <link rel="alternate" hreflang="es-MX" href={canonical} />
-    <link rel="alternate" hreflang="es" href={canonical} />
-    <link rel="alternate" hreflang="x-default" href={canonical} />
-  </>
-)}
+{/* hreflang eliminado (2026-06-10): autorreferente en sitio monolingüe es-MX = ruido.
+    Reintroducir solo cuando exista un segundo idioma con URLs distintas. */}
 
 
 <meta name="geo.region" content={SITE.geo.region} />

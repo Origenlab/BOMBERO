@@ -25,9 +25,9 @@ export default defineConfig({
         if (item.url.includes("/productos/")) {
           return { ...item, priority: 0.9, changefreq: "weekly" };
         }
-        // Category pages - high priority
-        if (item.url.includes("/categoria/")) {
-          return { ...item, priority: 0.85, changefreq: "weekly" };
+        // Blog category listings - below posts (son páginas de listado, no contenido)
+        if (item.url.includes("/blog/categoria/")) {
+          return { ...item, priority: 0.6, changefreq: "weekly" };
         }
         // Services pages - medium-high priority
         if (item.url.includes("/servicios") || item.url.includes("/capacitacion")) {

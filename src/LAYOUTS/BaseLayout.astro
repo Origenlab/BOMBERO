@@ -14,8 +14,18 @@ type Props = SEOProps & {
 
 const { jsonLd = [], ...seoProps } = Astro.props;
 
-// Always include Organization + WebSite + LocalBusiness structured data
-const allJsonLd = [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd(), ...jsonLd];
+/* JSON-LD global condicionado por ruta (2026-06-10):
+   Organization + WebSite + LocalBusiness solo en home; LocalBusiness también en /contacto/.
+   Antes se emitían los 3 schemas en TODAS las páginas (~2-4 KB extra × ~1,400 páginas).
+   Google consolida entidades por @id desde la home; el resto de páginas emiten solo su schema propio. */
+const path = Astro.url.pathname;
+const globalJsonLd =
+  path === "/"
+    ? [organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd()]
+    : path === "/contacto/"
+      ? [localBusinessJsonLd()]
+      : [];
+const allJsonLd = [...globalJsonLd, ...jsonLd];
 ---
 
 <!doctype html>
