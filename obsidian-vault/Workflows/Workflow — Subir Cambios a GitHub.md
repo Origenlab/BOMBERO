@@ -2,7 +2,7 @@
 
 **Proyecto:** BOMBERO
 **Fecha:** 2026-05-31
-**Actualizado:** 2026-06-05
+**Actualizado:** 2026-06-10
 **Estado:** Activo — aplica a todas las sesiones de trabajo
 
 ---
@@ -31,10 +31,24 @@ rm -f /Users/frankoropeza/Documents/Claude/Projects/BOMBERO/.git/refs/heads/main
 
 # 2. Hacer commit y push
 cd /Users/frankoropeza/Documents/Claude/Projects/BOMBERO
-git add -A
+git add -A          # ⚠️ ver nota abajo: si hay .docx/.pdf sueltos en la raíz, usar rutas explícitas
 git commit -m "descripción del cambio"
 git push origin main
 ```
+
+## Si el push falla con 403 "Permission denied to Frankoropeza"
+
+Hay dos cuentas de GitHub en `gh` (keyring): `Frankoropeza` y `Origenlab`. El repo pertenece a **Origenlab**; si la cuenta activa es Frankoropeza, el push da 403. Solución (verificada 2026-06-10):
+
+```bash
+gh auth switch -u Origenlab
+git push origin main
+gh auth switch -u Frankoropeza   # restaurar cuenta activa
+```
+
+## Cuidado con `git add -A`
+
+La raíz del proyecto suele tener `.docx`/`.pdf` de trabajo sin trackear (ej. art1–art10, historia_bomberos_mexico.docx). `git add -A` los metería al repo. Si hay archivos sueltos en la raíz, preferir `git add` con rutas explícitas, o limpiar la raíz primero (ver AUDITORIA-TECNICA-ASTRO-2026.md §3 A7: moverlos a `docs/` o fuera del repo y ampliar `.gitignore`).
 
 ## Herramientas disponibles para git (en orden de preferencia)
 
