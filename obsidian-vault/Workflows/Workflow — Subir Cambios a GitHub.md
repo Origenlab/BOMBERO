@@ -48,7 +48,7 @@ gh auth switch -u Frankoropeza   # restaurar cuenta activa
 
 ## Cuidado con `git add -A`
 
-La raíz del proyecto suele tener `.docx`/`.pdf` de trabajo sin trackear (ej. art1–art10, historia_bomberos_mexico.docx). `git add -A` los metería al repo. Si hay archivos sueltos en la raíz, preferir `git add` con rutas explícitas, o limpiar la raíz primero (ver AUDITORIA-TECNICA-ASTRO-2026.md §3 A7: moverlos a `docs/` o fuera del repo y ampliar `.gitignore`).
+Resuelto 2026-06-10: la raíz quedó limpia. Los `.docx`/`.pdf` de trabajo viven en `material-trabajo/` (ignorado por git), los reportes en `docs/`. El `.gitignore` ignora `material-trabajo/`, `/*.docx` y `/*.pdf`, así que `git add -A` vuelve a ser seguro — aun así, preferir rutas explícitas. Informe técnico: `docs/AUDITORIA-TECNICA-ASTRO-2026.md`.
 
 ## Herramientas disponibles para git (en orden de preferencia)
 

@@ -7,10 +7,16 @@ import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages");
-  return pages.map((page) => ({
-    params: { slug: page.slug },
-    props: page,
-  }));
+  /* Estas rutas tienen página .astro dedicada (src/pages/<slug>/index.astro)
+     que toma precedencia; generar también la versión .md duplicaba el build
+     de cada una (la estática gana, pero se construían dos veces). 2026-06-10 */
+  const STATIC_OVERRIDES = new Set(["contacto", "cotizar", "nosotros"]);
+  return pages
+    .filter((page) => !STATIC_OVERRIDES.has(page.slug))
+    .map((page) => ({
+      params: { slug: page.slug },
+      props: page,
+    }));
 }
 
 const page = Astro.props;
