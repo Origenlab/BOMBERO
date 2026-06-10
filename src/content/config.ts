@@ -46,11 +46,11 @@ const productos = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/productos" }),
   schema: z.object({
     // SEO
-    // NOTA: 20/24 descriptions heredadas miden 171–221 chars (Google trunca ~160).
-    // Límite laxo a propósito para migrar HTML idéntico; reescribirlas es tarea
-    // editorial pendiente — al terminar, bajar a .max(170).
+    // NOTA: ~80 descriptions heredadas miden 171–256 chars (Google trunca ~160;
+    // la peor: capuchas/particulada con 256). Límite laxo a propósito para migrar
+    // HTML idéntico; reescribirlas es tarea editorial — al terminar, bajar a .max(170).
     title: z.string().max(75),
-    description: z.string().max(230),
+    description: z.string().max(260),
     keywords: z.array(z.string()).optional(),
     canonical: z.string().startsWith("/productos/").endsWith("/"),
     image: z.string().optional(),
@@ -146,7 +146,7 @@ const productos = defineCollection({
     ),
 
     whyChooseImages: z.array(z.string()).optional(),
-  }),
+  }).strict(), // error explícito si una página trae props fuera del contrato de ProductoLayout
 });
 
 export const collections = { pages, productos };

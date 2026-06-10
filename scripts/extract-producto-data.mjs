@@ -77,8 +77,9 @@ function attrsToObjectLiteral(template) {
     if (attrSrc[j] !== "=") { entries.push(`${name}: true`); continue; }
     j++; // saltar =
     while (j < attrSrc.length && /\s/.test(attrSrc[j])) j++;
-    if (attrSrc[j] === '"') {
-      const close = attrSrc.indexOf('"', j + 1);
+    if (attrSrc[j] === '"' || attrSrc[j] === "'") {
+      const quote = attrSrc[j];
+      const close = attrSrc.indexOf(quote, j + 1);
       entries.push(`${name}: ${JSON.stringify(attrSrc.slice(j + 1, close))}`);
       j = close + 1;
     } else if (attrSrc[j] === "{") {
@@ -115,6 +116,15 @@ for (const file of files) {
     const dataCode = fm.replace(/^\s*import\s.*$/gm, "");
     const objLiteral = attrsToObjectLiteral(template);
     if (!objLiteral) throw new Error("Sin <ProductoLayout>");
+
+    // GUARD: el template debe ser ÚNICAMENTE <ProductoLayout .../> (+ comentarios).
+    // Si hay markup adicional, abortar — migrarlo a JSON perdería ese contenido.
+    const residue = template
+      .replace(/<ProductoLayout[\s\S]*?\/>/, "")
+      .replace(/<!--[\s\S]*?-->/g, "")
+      .replace(/\{\/\*[\s\S]*?\*\/\}/g, "")
+      .trim();
+    if (residue) throw new Error(`Template con contenido extra además de ProductoLayout: ${residue.slice(0, 80)}`);
 
     const moduleTs = `${dataCode}\nexport default {\n${objLiteral}\n};\n`;
     const js = transformSync(moduleTs, { loader: "ts", format: "esm" }).code;
