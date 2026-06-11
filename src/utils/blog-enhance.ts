@@ -263,9 +263,17 @@ export function prepararArticulo(slug: string, articulo: ArticuloData, ctaInline
      pero si algún día viene de CMS/colaborador externo, esto previene XSS.
      Coste cero en runtime — todo ocurre en build. ADD_ATTR conserva los id
      de headings (TOC) y target de enlaces externos. */
-  const html = DOMPurify.sanitize(marked(md, { renderer }) as string, {
+  const htmlRaw = DOMPurify.sanitize(marked(md, { renderer }) as string, {
     ADD_ATTR: ["target", "id"],
   });
+
+  // Perf: toda <img> de contenido sin loading/decoding → lazy + async.
+  // Las imágenes incrustadas en blog-articulos.ts no traían estos atributos
+  // (las inyectadas por figureHtml ya sí); evita descargas anticipadas y
+  // libera el hilo principal. No altera nada visual.
+  const html = htmlRaw
+    .replace(/<img(?![^>]*\sloading=)/gi, '<img loading="lazy"')
+    .replace(/<img(?![^>]*\sdecoding=)/gi, '<img decoding="async"');
 
   // 5. FAQPage JSON-LD
   const faqs = extractFaq(md);
