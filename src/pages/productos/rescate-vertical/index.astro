@@ -1,14 +1,10 @@
 ---
-import PageLayout    from "@layouts/PageLayout.astro";
-import QuickNav from "@components/QuickNav.astro";
+import ProductCategoryLayout from "@layouts/ProductCategoryLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
-import CTABanner     from "@components/CTABanner.astro";
-import CTABar        from "@components/CTABar.astro";
-import CategoryCard  from "@components/CategoryCard.astro";
-import ProductCard   from "@components/ProductCard.astro";
-import FAQ           from "@components/FAQ.astro";
-import FAQQuote      from "@components/FAQQuote.astro";
-import Breadcrumb    from "@components/Breadcrumb.astro";
+import FAQQuote from "@components/FAQQuote.astro";
+import CategoryCard from "@components/CategoryCard.astro";
+import ProductCard from "@components/ProductCard.astro";
+import ComparativaTable from "@components/ComparativaTable.astro";
 import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
 
 // ─── Catálogo Rescate Vertical y Arneses ─────────────────────────────────────
@@ -135,42 +131,6 @@ const productos = [
   },
 ];
 
-// ─── Tabla comparativa ───────────────────────────────────────────────────────
-const comparativa = [
-  {
-    equipo: "Arnés NFPA 1983 Clase III",
-    norma: "NFPA 1983",
-    carga: "18 kN (1,800 kg)",
-    uso: "Protección rescatista y víctima",
-    precio: "Desde $8,500 MXN",
-    para: "Todo rescate vertical",
-  },
-  {
-    equipo: "Cuerda Técnica 12.5 mm",
-    norma: "NFPA 1983",
-    carga: "40 kN (4,000 kg)",
-    uso: "Sistema de rescate principal",
-    precio: "Desde $4,200 MXN / 50 m",
-    para: "Descenso y polipasto",
-  },
-  {
-    equipo: "Stop Autobloqueante",
-    norma: "EN 341 / NFPA 1983",
-    carga: "200 kg operación",
-    uso: "Descenso controlado",
-    precio: "Desde $3,800 MXN",
-    para: "Rapel y descenso víctimas",
-  },
-  {
-    equipo: "Polipasto 3:1 / 6:1",
-    norma: "NFPA 1983",
-    carga: "36 kN por polea",
-    uso: "Izaje de víctimas",
-    precio: "Kit desde $9,500 MXN",
-    para: "Izaje desde pozos / barrancas",
-  },
-];
-
 // ─── FAQs ────────────────────────────────────────────────────────────────────
 const faqs = [
   {
@@ -224,10 +184,68 @@ const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Rescate Vertical y Arneses", url: CANONICAL },
 ]);
 const jsonLdSchemas = [productSchema];
+
+// ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
+const sidebar = {
+  ariaLabel: "Navegación de equipo de rescate vertical",
+  tiposTitle: "Tipos de Equipo",
+  tipos: [
+    { href: "/productos/rescate-vertical/", label: "Arnés de Rescate Integral", badge: "NFPA 1983", badgeColor: "fire", dot: "fire", active: true },
+    { href: "/productos/rescate-vertical/", label: "Cuerda de Rescate Técnico", badge: "NFPA 1983", badgeColor: "fire", dot: "fire" },
+    { href: "/productos/rescate-vertical/", label: "Descenso Autobloqueante", badge: "EN 341", badgeColor: "ember", dot: "ember" },
+    { href: "/productos/rescate-vertical/", label: "Polipasto 3:1 / 6:1", badge: "NFPA 1983", badgeColor: "ember", dot: "ember" },
+    { href: "/productos/rescate-vertical/", label: "Mosquetones de Rescate", badge: "EN 362", badgeColor: "smoke", dot: "smoke" },
+    { href: "/productos/rescate-vertical/", label: "Línea de Vida Horizontal", badge: "OSHA", badgeColor: "smoke", dot: "smoke" },
+  ],
+  specs: [
+    { value: "40", unit: "kN", label: "Cuerda técnica NFPA 1983" },
+    { value: "18", unit: "kN", label: "Arnés Clase III dorsal" },
+    { value: "36", unit: "kN", label: "Carga por polea" },
+    { value: "6:1", unit: "ratio", label: "Ventaja mecánica máx." },
+  ],
+  normas: [
+    { code: "NFPA 1983", color: "fire", desc: "Cuerdas y equipo de rescate en altura" },
+    { code: "NFPA 1006", color: "ember", desc: "Cualificación del rescatista técnico" },
+    { code: "NFPA 1670", color: "smoke", desc: "Operaciones de rescate técnico" },
+    { code: "NFPA 1951", color: "neutral", desc: "EPP para rescate técnico y USAR" },
+    { code: "CE EN 361 / 362", color: "neutral", desc: "Arneses y conectores anticaída" },
+    { code: "CE EN 341", color: "neutral", desc: "Dispositivos de descenso controlado" },
+  ],
+  materiales: [
+    { name: "Poliamida (cuerda kernmantle)", desc: "Cuerda NFPA 1983 · resistencia mínima 40 kN" },
+    { name: "Poliéster de alta tenacidad", desc: "Webbing de arnés · resistente a UV y químicos" },
+    { name: "Aluminio 7075-T6", desc: "Mosquetones y descensores · ligero y resistente" },
+    { name: "Acero inoxidable", desc: "Mosquetones de máxima resistencia y línea de vida" },
+    { name: "Neopreno / aleación", desc: "Poleas de bajo fricción para sistemas de izaje" },
+  ],
+  marcas: [
+    { name: "Petzl", sub: "Francia · arneses, descensores y poleas de rescate NFPA" },
+    { name: "CMC Rescue", sub: "EUA · sistemas de rescate técnico y polipasto" },
+    { name: "Sterling Rope", sub: "EUA · cuerdas estáticas de rescate NFPA 1983" },
+    { name: "PMI", sub: "EUA · cuerda técnica kernmantle y hardware de rescate" },
+    { name: "Beal", sub: "Francia · cuerdas semiestáticas y dinámicas certificadas" },
+  ],
+  recursos: [
+    { label: "Guía", text: "Guía de selección de equipo de rescate vertical NFPA 1983", href: "/blog/" },
+    { label: "Blog", text: "Blog Técnico BOMBERO.MX", href: "/blog/" },
+    { label: "Cat.", text: "Catálogo completo de productos", href: "/productos/" },
+    { label: "Form", text: "Solicitar cotización en línea", href: "/cotizar/" },
+  ],
+  ctaText: "Especificamos el sistema de rescate vertical correcto para tu cuerpo de bomberos o brigada de rescate técnico. Sin costo ni compromiso.",
+  waMsg: "Hola BOMBERO.MX, necesito cotizar equipo de rescate vertical NFPA 1983 para mi cuerpo de bomberos / brigada de rescate técnico.",
+};
+
+const whyImages = [
+  "/images/directorio/equipo-rescate-vertical-01.avif",
+  "/images/directorio/cuerdas-rappel-bomberos-01.avif",
+  "/images/directorio/rescate-montana-bomberos-01.avif",
+  "/images/directorio/equipo-rescate-tecnico-01.avif",
+  "/images/directorio/rescate-espeleologico-cuevas-01.avif",
+  "/images/directorio/equipo-rescate-completo-01.avif",
+];
 ---
 
-<PageLayout
-  quickNav={false}
+<ProductCategoryLayout
   title="Rescate Vertical para Bomberos México | Arneses NFPA 1983 | Cuerdas | Polipasto | BOMBERO.MX"
   description="Equipo de rescate vertical certificado NFPA 1983 para bomberos en México. Arneses integrales, cuerdas técnicas 12.5 mm, descendedores autobloqueantes y polipastos de rescate. Petzl, CMC Rescue, Beal. Cotización para licitación. Envío a 32 estados."
   canonical={CANONICAL}
@@ -251,312 +269,191 @@ const jsonLdSchemas = [productSchema];
     "rescate barrancas bomberos",
   ]}
   type="website"
->
-
-  <Breadcrumb items={[
+  breadcrumb={[
     { label: "Productos", href: "/productos/" },
     { label: "Rescate Vertical y Arneses" },
-  ]} />
+  ]}
+  heroBadge="NFPA 1983 · NFPA 1951 · NFPA 1006 · Rescate Técnico en Altura"
+  heroTitle={`<span class="hero__title-highlight">Rescate Vertical</span> y Arneses para Bomberos en México`}
+  heroSubtitle="Arneses integrales NFPA 1983, cuerdas técnicas de 40 kN, descendedores autobloqueantes y sistemas de polipasto para rescate en altura. El equipo que salva vidas en barrancas, edificios, silos industriales y espacios confinados. Asesoría técnica especializada para cuerpos de bomberos y protección civil en los 32 estados."
+  heroSeoBlocks={[
+    {
+      title: "Distribuidores de Equipo de Rescate Vertical NFPA 1983 en México",
+      html: `<strong>BOMBERO.MX</strong> distribuye <strong>equipo de rescate vertical certificado NFPA 1983</strong> para cuerpos de bomberos, protección civil y brigadas de rescate técnico en los 32 estados de México. Comercializamos las marcas líderes: <strong>Petzl (Francia)</strong>, <strong>CMC Rescue (EUA)</strong> y <strong>Beal (Francia)</strong>. El equipo de rescate vertical siempre se usa en conjunto con <a href="/productos/trajes-para-bomberos/" class="hero__link">traje de rescate técnico NFPA 1951</a>, <a href="/productos/cascos-para-bomberos/" class="hero__link">casco de rescate</a> y <a href="/productos/guantes-para-bomberos/" class="hero__link">guantes de rescate</a>.`,
+    },
+    {
+      title: "¿Por Qué el Equipo de Rescate Vertical Debe Cumplir NFPA 1983?",
+      html: `México cuenta con cañones, barrancas, zonas montañosas y una creciente industria vertical (torres eólicas, plataformas, silos) que generan incidentes de rescate en altura frecuentes. Usar cuerdas o arneses no certificados en una operación de rescate vertical es un riesgo inaceptable: un arnés sin certificar puede fallar bajo la carga combinada del rescatista y la víctima. La NFPA 1983 garantiza que el equipo ha superado las pruebas de carga estática y dinámica requeridas para servicio de emergencia real. Complementa con <a href="/productos/herramientas-rescate/" class="hero__link">herramientas de rescate NFPA 1936</a>.`,
+    },
+  ]}
+  ctaBarQuote="Cotizar Kit de Rescate Vertical para mi Cuerpo de Bomberos"
+  sidebar={sidebar}
+  whyImages={whyImages}
+>
 
-  <!-- ════════════════════ HERO ════════════════════ -->
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__gradient"></div>
-      <div class="hero__grid"></div>
-      <div class="hero__glow hero__glow--1"></div>
-      <div class="hero__glow hero__glow--2"></div>
-    </div>
+        <!-- CATÁLOGO -->
+        <section class="content-panel" id="catalogo">
+          <SectionHeader
+            label="Catálogo — Equipo de Rescate Vertical Certificado NFPA"
+            title="6 Componentes Esenciales para el Rescate Vertical Profesional"
+            description="Desde el arnés integral hasta el sistema de polipasto de izaje. Cada componente está certificado NFPA 1983 y seleccionado para operar en las condiciones más exigentes de rescate en altura."
+          >
+            <p>
+              Un sistema de <strong>rescate vertical profesional</strong> es una cadena de seguridad donde cada eslabón importa. El <strong>arnés NFPA 1983 Clase III</strong> protege al rescatista y puede sujetar a la víctima en el descenso. La <strong>cuerda técnica de 12.5 mm</strong> soporta la carga combinada. El <strong>descendedor autobloqueante</strong> controla la velocidad. El <strong>polipasto</strong> permite subir cargas que de otro modo sería imposible izar. Los <strong>mosquetones</strong> conectan todo el sistema de forma segura. La <strong>línea de vida horizontal</strong> protege en desplazamientos laterales.
+            </p>
+            <p>
+              En México, los escenarios de rescate vertical más frecuentes son: barrancas y cañones en estados como Oaxaca, Chiapas y el Bajío; rescate en edificios durante sismos; extricación de trabajadores en altura en industria de la construcción y manufactura; y rescate en espacios confinados verticales (silos, tanques, pozos). <strong>BOMBERO.MX</strong> asesora sin costo sobre la configuración correcta para cada tipo de operación.
+            </p>
+          </SectionHeader>
 
-    <div class="container hero__container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          NFPA 1983 · NFPA 1951 · NFPA 1006 · Rescate Técnico en Altura
-        </div>
-        <h1 class="hero__title">
-          <span class="hero__title-highlight">Rescate Vertical</span>
-          y Arneses para<br />Bomberos en México
-        </h1>
-        <p class="hero__subtitle">
-          Arneses integrales NFPA 1983, cuerdas técnicas de 40 kN, descendedores autobloqueantes
-          y sistemas de polipasto para rescate en altura. El equipo que salva vidas en barrancas,
-          edificios, silos industriales y espacios confinados. Asesoría técnica especializada para
-          cuerpos de bomberos y protección civil en los 32 estados.
-        </p>
-
-      </div>
-
-      <div class="hero__seo">
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Distribuidores de Equipo de Rescate Vertical NFPA 1983 en México</h2>
-          <p class="hero__seo-text">
-            <strong>BOMBERO.MX</strong> distribuye <strong>equipo de rescate vertical certificado NFPA 1983</strong> para cuerpos de bomberos, protección civil y brigadas de rescate técnico en los 32 estados de México. Comercializamos las marcas líderes: <strong>Petzl (Francia)</strong>, <strong>CMC Rescue (EUA)</strong> y <strong>Beal (Francia)</strong>. El equipo de rescate vertical siempre se usa en conjunto con <a href="/productos/trajes-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">traje de rescate técnico NFPA 1951</a>, <a href="/productos/cascos-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">casco de rescate</a> y <a href="/productos/guantes-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">guantes de rescate</a>.
-          </p>
-        </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">¿Por Qué el Equipo de Rescate Vertical Debe Cumplir NFPA 1983?</h2>
-          <p class="hero__seo-text">
-            México cuenta con cañones, barrancas, zonas montañosas y una creciente industria vertical (torres eólicas, plataformas, silos) que generan incidentes de rescate en altura frecuentes. Usar cuerdas o arneses no certificados en una operación de rescate vertical es un riesgo inaceptable: un arnés sin certificar puede fallar bajo la carga combinada del rescatista y la víctima. La NFPA 1983 garantiza que el equipo ha superado las pruebas de carga estática y dinámica requeridas para servicio de emergencia real. Complementa con <a href="/productos/herramientas-rescate/" style="color: var(--color-fire-400); text-decoration: underline;">herramientas de rescate NFPA 1936</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <QuickNav pool="categoria" count={7} />
-
-  <CTABar quote="Cotizar Kit de Rescate Vertical para mi Cuerpo de Bomberos" />
-
-  <!-- ════════════════════ CATÁLOGO ════════════════════ -->
-  <section class="section productos" id="catalogo">
-    <div class="container">
-      <SectionHeader
-        label="Catálogo — Equipo de Rescate Vertical Certificado NFPA"
-        title="6 Componentes Esenciales para el Rescate Vertical Profesional"
-        description="Desde el arnés integral hasta el sistema de polipasto de izaje. Cada componente está certificado NFPA 1983 y seleccionado para operar en las condiciones más exigentes de rescate en altura."
-      >
-        <p>
-          Un sistema de <strong>rescate vertical profesional</strong> es una cadena de seguridad donde cada eslabón importa. El <strong>arnés NFPA 1983 Clase III</strong> protege al rescatista y puede sujetar a la víctima en el descenso. La <strong>cuerda técnica de 12.5 mm</strong> soporta la carga combinada. El <strong>descendedor autobloqueante</strong> controla la velocidad. El <strong>polipasto</strong> permite subir cargas que de otro modo sería imposible izar. Los <strong>mosquetones</strong> conectan todo el sistema de forma segura. La <strong>línea de vida horizontal</strong> protege en desplazamientos laterales.
-        </p>
-        <p>
-          En México, los escenarios de rescate vertical más frecuentes son: barrancas y cañones en estados como Oaxaca, Chiapas y el Bajío; rescate en edificios durante sismos; extricación de trabajadores en altura en industria de la construcción y manufactura; y rescate en espacios confinados verticales (silos, tanques, pozos). <strong>BOMBERO.MX</strong> asesora sin costo sobre la configuración correcta para cada tipo de operación.
-        </p>
-      </SectionHeader>
-
-      <div class="productos__grid">
-        {productos.map((producto) => (
-          <ProductCard {...producto} altSuffix="rescate vertical bomberos México NFPA 1983" />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════ COMPARATIVA ════════════════════ -->
-  <section class="section section--dark comparativa">
-    <div class="container">
-      <SectionHeader
-        label="Guía de Selección"
-        title="Los 4 Componentes Fundamentales de un Sistema de Rescate Vertical"
-        description="El sistema de rescate vertical es una cadena. Cada componente debe estar certificado NFPA 1983 y ser compatible con los demás."
-      >
-        <p>
-          La norma <strong>NFPA 1983</strong> no regula un solo producto, sino todo el sistema de rescate vertical como conjunto. Esto significa que el arnés, la cuerda, el descendedor y el mosquetón deben ser compatibles entre sí y cada uno debe cumplir con los requisitos de la norma por separado. Al adquirir el kit completo en BOMBERO.MX, garantizamos la compatibilidad total del sistema.
-        </p>
-      </SectionHeader>
-
-      <div class="comparativa__table-wrap">
-        <table class="comparativa__table">
-          <thead>
-            <tr>
-              <th>Componente</th>
-              <th>Norma</th>
-              <th>Carga de diseño</th>
-              <th>Función principal</th>
-              <th>Precio aprox. (MXN)</th>
-              <th>Perfil recomendado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparativa.map((c) => (
-              <tr>
-                <td><strong>{c.equipo}</strong></td>
-                <td>{c.norma}</td>
-                <td>{c.carga}</td>
-                <td>{c.uso}</td>
-                <td>{c.precio}</td>
-                <td>{c.para}</td>
-              </tr>
+          <div class="productos__grid">
+            {productos.map((producto) => (
+              <ProductCard {...producto} altSuffix="rescate vertical bomberos México NFPA 1983" />
             ))}
-          </tbody>
-        </table>
-        <p class="comparativa__nota">* Precios orientativos. Solicita cotización con especificaciones NFPA para proceso de licitación municipal o estatal.</p>
-      </div>
-    </div>
-  </section>
+          </div>
+        </section>
 
-  <!-- ════════════════════ COMPONENTES ════════════════════ -->
-  <section class="section specs">
-    <div class="container">
-      <SectionHeader
-        label="Sistema Completo de Rescate Vertical"
-        title="El Kit Profesional de Rescate Vertical para Bomberos"
-        description="Un sistema de rescate vertical completo va más allá de cuerda y arnés. Estos son los componentes que definen la capacidad operativa real de un equipo de rescate en altura."
-      >
-        <p>
-          El <strong>rescate vertical técnico</strong> moderno exige sistemas de doble cuerda (trabajo + belay), puntos de anclaje certificados, y rescatistas entrenados según <strong>NFPA 1006</strong>. Un bombero que baja a rescatar a una víctima en una barranca necesita el sistema completo funcionando como un conjunto integrado — no solo una cuerda y un arnés.
-        </p>
-      </SectionHeader>
+        <!-- TECNOLOGÍA / COMPONENTES (dark panel) -->
+        <section class="content-panel content-panel--dark" id="tecnologia">
+          <SectionHeader
+            label="Sistema Completo de Rescate Vertical"
+            title="El Kit Profesional de Rescate Vertical para Bomberos"
+            description="Un sistema de rescate vertical completo va más allá de cuerda y arnés. Estos son los componentes que definen la capacidad operativa real de un equipo de rescate en altura."
+          >
+            <p>
+              El <strong>rescate vertical técnico</strong> moderno exige sistemas de doble cuerda (trabajo + belay), puntos de anclaje certificados, y rescatistas entrenados según <strong>NFPA 1006</strong>. Un bombero que baja a rescatar a una víctima en una barranca necesita el sistema completo funcionando como un conjunto integrado — no solo una cuerda y un arnés. El equipo de rescate vertical se complementa con <a href="/productos/herramientas-rescate/" class="dark-link">herramientas de rescate NFPA 1936</a> y <a href="/productos/scba/" class="dark-link">SCBA NFPA 1981</a> en operaciones de espacio confinado.
+            </p>
+          </SectionHeader>
+          <div class="specs__grid">
+            <CategoryCard
+              title="Sistema de Anclaje Multipunto"
+              icon="shield"
+              image="/images/directorio/equipo-rescate-vertical-01.avif"
+              description="Anclajes redundantes con mástiles, placas distribuidoras y sistemas de anclaje natural (árboles, rocas) con cintas de anclaje equalizadoras. La redundancia del anclaje es la primera regla del rescate vertical: si un punto falla, el sistema no cae."
+            />
+            <CategoryCard
+              title="Camilla de Rescate Vertical"
+              icon="shield"
+              image="/images/directorio/pick-up-bomberos-forestal-01.avif"
+              description="Camilla Sked (flexible) y camilla rígida tipo SKED para transporte vertical y horizontal de víctimas inconscientes. La camilla rígida permite mantener la columna alineada durante el descenso vertical. Certificada para uso con sistemas NFPA 1983."
+            />
+            <CategoryCard
+              title="Sistemas de Comunicación de Rescate"
+              icon="certificate"
+              image="/images/directorio/equipo-rescate-tecnico-01.avif"
+              description="Radio intrinsecamente seguro para comunicación entre el rescatista en la escena y el equipo de apoyo en cima. Esencial cuando el rescatista está en rappel y no puede usar señas visuales. Protección IP67 para entornos húmedos y polvorosos."
+            />
+            <CategoryCard
+              title="Iluminación de Cabeza para Rescate"
+              icon="shield"
+              image="/images/directorio/equipo-rescate-completo-01.avif"
+              description="Linterna frontal de alta potencia (1000+ lúmenes) compatible con casco de rescate NFPA 1951. Para operaciones en barrancas sin luz natural, rescate nocturno en altura y rescate en espacios confinados. Batería recargable de hasta 12 horas de autonomía."
+            />
+            <CategoryCard
+              title="Bolsas y Organización del Sistema"
+              icon="certificate"
+              image="/images/directorio/equipo-rescate-completo-01.avif"
+              description="Bolsas de cuerda de descarga rápida, porta-mosquetones y kit bag para organización del sistema completo. La organización del equipo antes de la operación determina la velocidad de despliegue. Un rescatista entrenado puede montar el sistema en menos de 3 minutos."
+            />
+            <CategoryCard
+              title="EPI Complementario del Rescatista"
+              icon="shield"
+              image="/images/directorio/equipo-rescate-tecnico-01.avif"
+              description="El rescatista técnico completa su equipo con traje de rescate NFPA 1951, casco de rescate NFPA 1951, guantes de rescate y protección ocular. La sinergia entre el EPI y el sistema de cuerdas es crítica: un casco incompatible puede enganchar con el descendedor."
+            />
+          </div>
+        </section>
 
-      <div class="specs__grid">
-        <CategoryCard
-          title="Sistema de Anclaje Multipunto"
-          icon="shield"
-          image="/images/directorio/equipo-rescate-vertical-01.avif"
-          description="Anclajes redundantes con mástiles, placas distribuidoras y sistemas de anclaje natural (árboles, rocas) con cintas de anclaje equalizadoras. La redundancia del anclaje es la primera regla del rescate vertical: si un punto falla, el sistema no cae."
-        />
-        <CategoryCard
-          title="Camilla de Rescate Vertical"
-          icon="shield"
-          image="/images/directorio/pick-up-bomberos-forestal-01.avif"
-          description="Camilla Sked (flexible) y camilla rígida tipo SKED para transporte vertical y horizontal de víctimas inconscientes. La camilla rígida permite mantener la columna alineada durante el descenso vertical. Certificada para uso con sistemas NFPA 1983."
-        />
-        <CategoryCard
-          title="Sistemas de Comunicación de Rescate"
-          icon="certificate"
-          image="/images/directorio/equipo-rescate-tecnico-01.avif"
-          description="Radio intrinsecamente seguro para comunicación entre el rescatista en la escena y el equipo de apoyo en cima. Esencial cuando el rescatista está en rappel y no puede usar señas visuales. Protección IP67 para entornos húmedos y polvorosos."
-        />
-        <CategoryCard
-          title="Iluminación de Cabeza para Rescate"
-          icon="shield"
-          image="/images/directorio/equipo-rescate-completo-01.avif"
-          description="Linterna frontal de alta potencia (1000+ lúmenes) compatible con casco de rescate NFPA 1951. Para operaciones en barrancas sin luz natural, rescate nocturno en altura y rescate en espacios confinados. Batería recargable de hasta 12 horas de autonomía."
-        />
-        <CategoryCard
-          title="Bolsas y Organización del Sistema"
-          icon="certificate"
-          image="/images/directorio/equipo-rescate-completo-01.avif"
-          description="Bolsas de cuerda de descarga rápida, porta-mosquetones y kit bag para organización del sistema completo. La organización del equipo antes de la operación determina la velocidad de despliegue. Un rescatista entrenado puede montar el sistema en menos de 3 minutos."
-        />
-        <CategoryCard
-          title="EPI Complementario del Rescatista"
-          icon="shield"
-          image="/images/directorio/equipo-rescate-tecnico-01.avif"
-          description="El rescatista técnico completa su equipo con traje de rescate NFPA 1951, casco de rescate NFPA 1951, guantes de rescate y protección ocular. La sinergia entre el EPI y el sistema de cuerdas es crítica: un casco incompatible puede enganchar con el descendedor."
-        />
-      </div>
-    </div>
-  </section>
+        <!-- COMPARATIVA -->
+        <section class="content-panel" id="comparativa">
+          <SectionHeader
+            label="Guía de Selección"
+            title="Los 4 Componentes Fundamentales de un Sistema de Rescate Vertical"
+            description="El sistema de rescate vertical es una cadena. Cada componente debe estar certificado NFPA 1983 y ser compatible con los demás."
+          >
+            <p>
+              La norma <strong>NFPA 1983</strong> no regula un solo producto, sino todo el sistema de rescate vertical como conjunto. Esto significa que el arnés, la cuerda, el descendedor y el mosquetón deben ser compatibles entre sí y cada uno debe cumplir con los requisitos de la norma por separado. Al adquirir el kit completo en BOMBERO.MX, garantizamos la compatibilidad total del sistema.
+            </p>
+          </SectionHeader>
+          <ComparativaTable
+            headers={["Componente", "Norma", "Carga de diseño", "Función principal", "Precio aprox. (MXN)", "Perfil recomendado"]}
+            rows={[
+              [{ strong: "Arnés NFPA 1983 Clase III" }, { chip: "NFPA 1983", color: "fire" }, "18 kN (1,800 kg)", "Protección rescatista y víctima", "Desde $8,500 MXN", "Todo rescate vertical"],
+              [{ strong: "Cuerda Técnica 12.5 mm" }, { chip: "NFPA 1983", color: "fire" }, "40 kN (4,000 kg)", "Sistema de rescate principal", "Desde $4,200 MXN / 50 m", "Descenso y polipasto"],
+              [{ strong: "Stop Autobloqueante" }, { chip: "EN 341 / NFPA 1983", color: "ember" }, "200 kg operación", "Descenso controlado", "Desde $3,800 MXN", "Rapel y descenso víctimas"],
+              [{ strong: "Polipasto 3:1 / 6:1" }, { chip: "NFPA 1983", color: "smoke" }, "36 kN por polea", "Izaje de víctimas", "Kit desde $9,500 MXN", "Izaje desde pozos / barrancas"],
+            ]}
+          />
+          <p class="comparativa__note">
+            * Precios orientativos. <a href="/cotizar/">Solicita cotización</a> con especificaciones NFPA para proceso de licitación municipal o estatal.
+          </p>
+        </section>
 
-  <!-- ════════════════════ SECTORES ════════════════════ -->
-  <section class="section section--dark sectores">
-    <div class="container">
-      <SectionHeader
-        label="¿Quién Necesita Equipo de Rescate Vertical Certificado NFPA?"
-        title="Sectores que Equipamos con Sistemas de Rescate en Altura en México"
-        description="El rescate vertical ocurre en múltiples entornos. Estos son los perfiles operativos que más frecuentemente requieren equipo certificado NFPA 1983."
-      />
-      <div class="sectores__grid">
-        <div class="sector-card">
-          <div class="sector-card__icon">🚒</div>
-          <h3>Cuerpos de Bomberos con Cobertura en Barrancas y Cañones</h3>
-          <p>Estados como Oaxaca, Chiapas, Guerrero, Veracruz, Jalisco y Sonora tienen geografía escarpada que genera incidentes de rescate en altura frecuentes. El equipo de rescate vertical NFPA 1983 es indispensable para cuerpos de bomberos en estos estados.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🏗️</div>
-          <h3>Brigadas de Seguridad Industrial — Construcción y Manufactura</h3>
-          <p>Las plantas manufactureras con estructuras verticales, silos, torres, chimeneas y espacios confinados necesitan brigadas de emergencia equipadas con rescate vertical certificado. La NOM-009-STPS regula el trabajo en altura en México y exige equipo de protección certificado.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🌋</div>
-          <h3>Protección Civil — Rescate Post-Sismo en Altura</h3>
-          <p>Después de un sismo, las víctimas pueden quedar atrapadas en plantas superiores de edificios sin escaleras accesibles. Las brigadas de USAR y protección civil necesitan sistemas de rescate vertical para acceder a víctimas en pisos altos con estructura comprometida.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">⛰️</div>
-          <h3>Rescate de Montaña y Espeleológico</h3>
-          <p>México tiene cordilleras activas y cuevas de clase mundial (Cueva del Borbollón, Sótano del Barro). Los cuerpos de bomberos y equipos de rescate de montaña necesitan el mismo equipo NFPA 1983 para operaciones en terreno vertical natural y subterráneo.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🛢️</div>
-          <h3>Industria Petrolera y Energética — PEMEX y CFE</h3>
-          <p>Las plataformas, torres de perforación, chimeneas de centrales y aerogeneradores generan escenarios únicos de rescate vertical industrial. Las brigadas de emergencia de PEMEX, CFE y parques eólicos deben contar con equipo de rescate en altura certificado NFPA.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🚨</div>
-          <h3>Unidades de Rescate Técnico de Policía</h3>
-          <p>Las unidades especiales de rescate de la Guardia Nacional y policías estatales que operan en entornos urbanos con edificios altos y zonas con desnivel necesitan el mismo estándar de equipo de rescate vertical que los cuerpos de bomberos profesionales.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        <!-- FAQ -->
+        <section class="content-panel content-panel--faq" id="faq">
+          <FAQQuote
+            title="Rescate Vertical NFPA 1983 — Cuerdas, sistemas y certificación de rescatistas"
+            description="Cuerda de vida vs cuerda de rescate, ventaja mecánica 3:1 vs 6:1, vida útil y retiro, NFPA 1006 certificación, precios reales y especificaciones técnicas para licitación en México."
+            items={faqs}
+          />
+        </section>
 
-  <!-- ════════════════════ FAQ ════════════════════ -->
-  <FAQQuote
-    title="Rescate Vertical NFPA 1983 — Cuerdas, sistemas y certificación de rescatistas"
-    description="Cuerda de vida vs cuerda de rescate, ventaja mecánica 3:1 vs 6:1, vida útil y retiro, NFPA 1006 certificación, precios reales y especificaciones técnicas para licitación en México."
-    items={faqs}
-  />
+        <!-- SECTORES (sección extra preservada) -->
+        <section class="content-panel" id="sectores">
+          <SectionHeader
+            label="¿Quién Necesita Equipo de Rescate Vertical Certificado NFPA?"
+            title="Sectores que Equipamos con Sistemas de Rescate en Altura en México"
+            description="El rescate vertical ocurre en múltiples entornos. Estos son los perfiles operativos que más frecuentemente requieren equipo certificado NFPA 1983."
+          />
+          <div class="sectores__grid">
+            <div class="sector-card">
+              <div class="sector-card__icon">🚒</div>
+              <h3>Cuerpos de Bomberos con Cobertura en Barrancas y Cañones</h3>
+              <p>Estados como Oaxaca, Chiapas, Guerrero, Veracruz, Jalisco y Sonora tienen geografía escarpada que genera incidentes de rescate en altura frecuentes. El equipo de rescate vertical NFPA 1983 es indispensable para cuerpos de bomberos en estos estados.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🏗️</div>
+              <h3>Brigadas de Seguridad Industrial — Construcción y Manufactura</h3>
+              <p>Las plantas manufactureras con estructuras verticales, silos, torres, chimeneas y espacios confinados necesitan brigadas de emergencia equipadas con rescate vertical certificado. La NOM-009-STPS regula el trabajo en altura en México y exige equipo de protección certificado.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🌋</div>
+              <h3>Protección Civil — Rescate Post-Sismo en Altura</h3>
+              <p>Después de un sismo, las víctimas pueden quedar atrapadas en plantas superiores de edificios sin escaleras accesibles. Las brigadas de USAR y protección civil necesitan sistemas de rescate vertical para acceder a víctimas en pisos altos con estructura comprometida.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">⛰️</div>
+              <h3>Rescate de Montaña y Espeleológico</h3>
+              <p>México tiene cordilleras activas y cuevas de clase mundial (Cueva del Borbollón, Sótano del Barro). Los cuerpos de bomberos y equipos de rescate de montaña necesitan el mismo equipo NFPA 1983 para operaciones en terreno vertical natural y subterráneo.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🛢️</div>
+              <h3>Industria Petrolera y Energética — PEMEX y CFE</h3>
+              <p>Las plataformas, torres de perforación, chimeneas de centrales y aerogeneradores generan escenarios únicos de rescate vertical industrial. Las brigadas de emergencia de PEMEX, CFE y parques eólicos deben contar con equipo de rescate en altura certificado NFPA.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🚨</div>
+              <h3>Unidades de Rescate Técnico de Policía</h3>
+              <p>Las unidades especiales de rescate de la Guardia Nacional y policías estatales que operan en entornos urbanos con edificios altos y zonas con desnivel necesitan el mismo estándar de equipo de rescate vertical que los cuerpos de bomberos profesionales.</p>
+            </div>
+          </div>
+        </section>
 
-  <!-- ════════════════════ CTA ════════════════════ -->
-  <CTABanner
-    title="¿Necesitas Cotizar Equipo de Rescate Vertical para tu Cuerpo de Bomberos?"
-    description="Asesoría técnica sin costo. Cotización con especificaciones NFPA 1983 lista para licitación. Kit completo de 4 rescatistas desde $85,000 MXN. Enviamos a los 32 estados."
-    primaryCta={{ label: "Solicitar Cotización de Equipo de Rescate Vertical", href: "/cotizar/" }}
-    secondaryCTA={{ label: "Consultar por WhatsApp", href: `https://wa.me/525570081816?text=${encodeURIComponent('Hola BOMBERO.MX, necesito cotizar equipo de rescate vertical NFPA 1983 para mi cuerpo de bomberos / brigada de rescate técnico.')}` }}
-  />
-
-</PageLayout>
+</ProductCategoryLayout>
 
 <style>
-  .hero {
-    position: relative; padding: 5rem 0 4rem;
-    overflow: hidden; background: var(--color-bg-dark, #0a0a0f);
-  }
-  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
-  .hero__gradient {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,20,20,0.2) 0%, transparent 70%);
-  }
-  .hero__grid {
-    position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  .hero__glow {
-    position: absolute; border-radius: 50%;
-    filter: blur(120px); pointer-events: none;
-  }
-  .hero__glow--1 { width: 600px; height: 400px; top: -150px; right: -100px; background: rgba(220,20,20,0.15); }
-  .hero__glow--2 { width: 350px; height: 350px; bottom: -100px; left: -80px; background: rgba(180,60,20,0.1); }
-  .hero__container { position: relative; z-index: 1; }
-  .hero__badge {
-    display: inline-flex; align-items: center; gap: .5rem;
-    background: rgba(220,20,20,.15); border: 1px solid rgba(220,20,20,.35);
-    border-radius: 999px; padding: .375rem 1rem;
-    font-size: .8125rem; font-weight: 600;
-    color: var(--color-fire-400, #f87171); margin-bottom: 1.5rem;
-  }
-  .hero__badge-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--color-fire-400, #f87171);
-    animation: pulse 1.5s infinite;
-  }
-  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(1.3); } }
-  .hero__title { font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 1.25rem; }
-  .hero__title-highlight {
-    background: linear-gradient(135deg, #f87171, #dc2626);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; display: block; font-size: 1.2em;
-  }
-  .hero__subtitle { font-size: 1.125rem; line-height: 1.75; color: rgba(255,255,255,.65); max-width: 680px; margin-bottom: 2.5rem; }
-  .hero__urgencia { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
-  .hero__urgencia-item { background: rgba(220,20,20,.1); border: 1px solid rgba(220,20,20,.25); border-radius: 10px; padding: 1rem 1.25rem; text-align: center; }
-  .hero__urgencia-num { display: block; font-size: 1.375rem; font-weight: 900; color: #f87171; margin-bottom: .25rem; }
-  .hero__urgencia-label { font-size: .75rem; color: rgba(255,255,255,.5); line-height: 1.4; }
-  @media (max-width: 640px) { .hero__urgencia { grid-template-columns: 1fr; } }
-  .hero__seo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
-  .hero__seo-block { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 1.5rem; }
-  .hero__seo-title { font-size: .9375rem; font-weight: 700; color: #fff; margin-bottom: .75rem; }
-  .hero__seo-text  { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
-  @media (max-width: 768px) { .hero__seo { grid-template-columns: 1fr; } }
-
-  .section { padding: 5rem 0; }
-  .section--dark { background: var(--color-bg-dark, #0a0a0f); border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06); }
-  .productos__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-  .specs__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-
-  .comparativa__table-wrap { margin-top: 2.5rem; overflow-x: auto; }
-  .comparativa__table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  .comparativa__table th { background: rgba(220,20,20,.15); color: #f87171; font-weight: 700; font-size: .8125rem; text-transform: uppercase; letter-spacing: .05em; padding: .875rem 1rem; text-align: left; border-bottom: 1px solid rgba(220,20,20,.3); }
-  .comparativa__table td { padding: .875rem 1rem; border-bottom: 1px solid rgba(255,255,255,.06); color: rgba(255,255,255,.75); vertical-align: top; }
-  .comparativa__table tr:hover td { background: rgba(255,255,255,.03); }
-  .comparativa__nota { font-size: .8125rem; color: rgba(255,255,255,.35); margin-top: 1rem; font-style: italic; }
-
-  .sectores__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-  .sector-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 1.75rem; transition: border-color .2s, transform .2s; }
-  .sector-card:hover { border-color: rgba(220,20,20,.4); transform: translateY(-2px); }
-  .sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
-  .sector-card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .625rem; }
-  .sector-card p { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+/* Estilos propios de esta categoría (no compartidos en product-l3.css) */
+.sectores__grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem; margin-top: 1.5rem;
+}
+.sector-card {
+  background: var(--color-smoke-50); border: 1px solid var(--color-smoke-200);
+  border-radius: 12px; padding: 1.75rem;
+  transition: border-color .2s, transform .2s;
+}
+.sector-card:hover { border-color: rgba(220,38,38,.4); transform: translateY(-2px); }
+.sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+.sector-card h3 { font-size: 1rem; font-weight: 700; color: var(--color-smoke-900); margin-bottom: .625rem; }
+.sector-card p { font-size: .875rem; line-height: 1.7; color: var(--color-smoke-600); margin: 0; }
 </style>
