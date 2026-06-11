@@ -1,0 +1,43 @@
+---
+/**
+ * ComparativaTable.astro — Tabla comparativa para páginas L3.
+ * Estilos en src/styles/product-l3.css (.comparativa__*, .cert-chip).
+ *
+ * Cada celda puede ser:
+ *   "texto"                              → texto plano
+ *   { strong: "texto" }                  → <strong> (1ª columna)
+ *   { chip: "NFPA 1971", color: "ember" } → <span class="cert-chip">
+ */
+type Color = "ember" | "fire" | "smoke";
+type Cell = string | { strong: string } | { chip: string; color?: Color };
+
+interface Props {
+  headers: string[];
+  rows: Cell[][];
+}
+const { headers, rows } = Astro.props;
+
+function isStrong(c: Cell): c is { strong: string } { return typeof c === "object" && "strong" in c; }
+function isChip(c: Cell): c is { chip: string; color?: Color } { return typeof c === "object" && "chip" in c; }
+---
+
+<div class="comparativa__wrapper">
+  <table class="comparativa__table">
+    <thead>
+      <tr>{headers.map((h) => <th>{h}</th>)}</tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          {row.map((cell) => (
+            <td>
+              {isStrong(cell) ? <strong>{cell.strong}</strong>
+                : isChip(cell) ? <span class={`cert-chip cert-chip--${cell.color ?? "ember"}`}>{cell.chip}</span>
+                : cell}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
