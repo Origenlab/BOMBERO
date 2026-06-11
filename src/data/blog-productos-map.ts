@@ -15,6 +15,38 @@ export interface ProductLink {
  * Organized by content type and product category
  */
 export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
+  // ─── Serie Trajes para Bomberos (impulso del servicio de venta de trajes) ───
+  "traje-bombero-nomex-vs-pbi-materiales": [
+    { label: "Trajes para Bomberos NFPA", href: "/productos/trajes-para-bomberos/", ctaText: "Ver catálogo de trajes" },
+    { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", ctaText: "Ver traje estructural" },
+    { label: "Capuchas Nomex® / PBI Gold®", href: "/productos/capuchas-para-bomberos/", ctaText: "Ver capuchas" },
+    { label: "Cotizar trajes certificados", href: "/cotizar/", ctaText: "Solicitar cotización" },
+  ],
+  "cuanto-cuesta-traje-bombero-mexico": [
+    { label: "Trajes para Bomberos NFPA", href: "/productos/trajes-para-bomberos/", ctaText: "Ver catálogo y precios" },
+    { label: "EPP completo para el bombero", href: "/productos/", ctaText: "Ver todo el EPP" },
+    { label: "SCBA / ERA Autónomo", href: "/productos/scba/", ctaText: "Ver SCBA" },
+    { label: "Cotizar sin costo", href: "/cotizar/", ctaText: "Solicitar cotización" },
+  ],
+  "mantenimiento-vida-util-traje-bombero": [
+    { label: "Trajes para Bomberos NFPA", href: "/productos/trajes-para-bomberos/", ctaText: "Renovar trajes vencidos" },
+    { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", ctaText: "Ver traje estructural" },
+    { label: "Capuchas de repuesto", href: "/productos/capuchas-para-bomberos/", ctaText: "Ver capuchas" },
+    { label: "Cotizar reposición", href: "/cotizar/", ctaText: "Solicitar cotización" },
+  ],
+  "traje-forestal-nfpa-1977-guia": [
+    { label: "Traje Forestal NFPA 1977", href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/", ctaText: "Ver traje forestal" },
+    { label: "Equipo Forestal", href: "/productos/forestales/", ctaText: "Ver equipo forestal" },
+    { label: "Casco Forestal NFPA 1977", href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/", ctaText: "Ver casco forestal" },
+    { label: "Cotizar equipo forestal", href: "/cotizar/", ctaText: "Solicitar cotización" },
+  ],
+  "especificacion-tecnica-trajes-bombero-licitacion": [
+    { label: "Trajes para Bomberos NFPA", href: "/productos/trajes-para-bomberos/", ctaText: "Ver catálogo certificado" },
+    { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", ctaText: "Ver ficha técnica" },
+    { label: "EPP completo para licitación", href: "/productos/", ctaText: "Ver catálogo completo" },
+    { label: "Apoyo a especificación sin costo", href: "/cotizar/", ctaText: "Solicitar asesoría" },
+  ],
+
   // NFPA 1971 - Normativa General (EPP Estructural Completo)
   "nfpa-1971-guia-completa": [
     {
