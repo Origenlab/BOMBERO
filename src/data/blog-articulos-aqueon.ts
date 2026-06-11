@@ -16,6 +16,16 @@ export const articulosAqueonData: Record<string, ArticuloData> = {
     autor: "Departamento de Ingeniería BOMBERO.MX",
     autorRol: "Especialistas en Protección Contra Incendio Industrial",
     anchorKeyword: "Guía técnica selección monitores contra incendios industriales FM UL NFPA 15 México",
+    heroSeoBlocks: [
+      {
+        title: "Del cañón fijo al monitor automático — qué descarga cada tipo",
+        text: "Un <strong>monitor contra incendios</strong> proyecta de <strong>500 a más de 4,000 GPM</strong> de agua o espuma a distancias que ninguna manguera alcanza. Esta guía detalla los tres tipos —fijos, portátiles y automáticos—, cómo dimensionar el caudal según el riesgo y por qué <strong>NFPA 15, NFPA 11 y NFPA 30</strong> los exigen en tanques, racks de proceso y zonas de carga de alto riesgo.",
+      },
+      {
+        title: "Por qué la especificación correcta define la protección real",
+        text: "Caudal insuficiente, material inadecuado o certificación faltante convierten una inversión importante en una falsa sensación de seguridad. Comparamos materiales —bronce marino frente a <strong>acero inoxidable 316L</strong>—, explicamos la diferencia entre <strong>FM Approved y UL Listed</strong> y reunimos los criterios que aplican los ingenieros de <strong>AQUEON México</strong>, con más de 500 sistemas instalados en refinerías y petroquímicas.",
+      },
+    ],
     contenido: `
 ## Resumen Ejecutivo
 

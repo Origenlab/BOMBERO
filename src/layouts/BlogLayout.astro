@@ -51,6 +51,10 @@ interface Props {
   heroTitle: string;
   heroExcerpt: string;
   heroImage?: string;
+  heroSeoBlocks?: [
+    { title: string; text: string },
+    { title: string; text: string },
+  ];
 
 
   autor?: string;
@@ -73,7 +77,7 @@ const {
   title, description, keywords, canonical, image,
   pubDate,
   breadcrumb,
-  heroBadge, heroTitle, heroExcerpt, heroImage,
+  heroBadge, heroTitle, heroExcerpt, heroImage, heroSeoBlocks,
   autor, autorRol,
   tags = [],
   categorias = [],
@@ -86,7 +90,17 @@ const {
 // Fecha de publicación: usa pubDate si está, o fallback seguro
 const publishedDate = pubDate ?? "2025-01-01T00:00:00-06:00";
 
-const heroImageCdn = heroImage ? cdnW(heroImage, 640) : undefined;
+// Columna derecha del hero (homologado al index): siempre dos tarjetas SEO.
+// Usa heroSeoBlocks del artículo; si no, genera un par a partir del badge/excerpt.
+const heroBlocks: [{ title: string; text: string }, { title: string; text: string }] =
+  heroSeoBlocks ?? [
+    { title: heroBadge, text: heroExcerpt },
+    {
+      title: "BOMBERO.MX — Conocimiento técnico para bomberos",
+      text: "Guías, análisis de normativa NFPA y recursos para cuerpos de bomberos en México. Contenido elaborado con asesores técnicos certificados.",
+    },
+  ];
+
 const relacionadosCdn = relacionados.map(r => ({ ...r, image: cdnW(r.image, 400) }));
 
 
@@ -149,22 +163,14 @@ const schemaOrg = {
 
 
   <HeroSection badge={heroBadge} title={heroTitle} subtitle={heroExcerpt}>
-    {heroImageCdn ? (
-      <div slot="right" class="blog-hero__img-wrap">
-        <img src={heroImageCdn} alt={heroTitle} width="640" height="400" loading="eager" decoding="async" fetchpriority="high" class="blog-hero__img" />
-      </div>
-    ) : (
-      <div slot="right">
+    <div slot="right">
+      {heroBlocks.map((block) => (
         <div class="hero__seo-block">
-          <h2 class="hero__seo-title">{heroBadge}</h2>
-          <p class="hero__seo-text">{heroExcerpt}</p>
+          <h2 class="hero__seo-title">{block.title}</h2>
+          <p class="hero__seo-text" set:html={block.text} />
         </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">BOMBERO.MX — Conocimiento técnico para bomberos</h2>
-          <p class="hero__seo-text">Guías, análisis de normativa NFPA y recursos para cuerpos de bomberos en México. Contenido elaborado con asesores técnicos certificados.</p>
-        </div>
-      </div>
-    )}
+      ))}
+    </div>
     {tags.length > 0 && (
       <div slot="left-extra" class="blog-hero__tags">
         {tags.map((tag) => (

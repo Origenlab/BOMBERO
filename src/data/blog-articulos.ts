@@ -15,6 +15,15 @@ export interface ArticuloData {
   contenido: string;
   anchorKeyword: string; // Palabra clave para anchor text SEO
   pubDate?: string;      // ISO 8601: "2025-06-01T00:00:00-06:00" — usado en datePublished
+  /**
+   * Par de bloques SEO de la columna derecha del hero (homologado al index).
+   * Si se omite, el hero usa un fallback genérico (excerpt + boilerplate de marca).
+   * El campo `text` acepta HTML inline (<strong>, <a>, etc.).
+   */
+  heroSeoBlocks?: [
+    { title: string; text: string },
+    { title: string; text: string },
+  ];
 }
 
 export const articulosData: Record<string, ArticuloData> = {
