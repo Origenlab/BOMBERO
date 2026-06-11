@@ -6,8 +6,9 @@
 @import "./fonts.css";
 @import "./tokens.css";
 @import "./typography.css";
-/* mobile.css se importa al final del archivo para ganar la cascada
-   sobre cualquier hoja scoped de componente. */
+/* mobile.css se importa vía JS en BaseLayout.astro (después de global.css),
+   no aquí — el @import al final violaba la regla "@import debe preceder" y
+   Vite fragmentaba las reglas mobile entre bundles de página. */
 
 /* ── Reset ── */
 *, *::before, *::after {
@@ -892,5 +893,4 @@ a {
   .hero { padding: var(--space-20) 0 var(--space-24); }
 }
 
-/* ── Mobile overhaul (debe ir al final del cascade) ── */
-@import "./mobile.css";
+/* ── Mobile overhaul: importado vía JS en BaseLayout.astro (ver nota arriba) ── */

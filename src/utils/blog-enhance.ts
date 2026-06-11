@@ -143,6 +143,18 @@ function figureHtml(img: ImgCandidate, caption: string): string {
   return `\n\n<figure class="articulo-figure">\n  <img src="${img.src}" alt="${img.alt}" loading="lazy" width="900" height="600" />\n  <figcaption>${caption}</figcaption>\n</figure>\n\n`;
 }
 
+/* Fila de 2 imágenes (grid) — evita que las imágenes inyectadas se vean a ancho completo */
+function figureGridHtml(imgs: ImgCandidate[], caption: string): string {
+  const figs = imgs
+    .slice(0, 2)
+    .map(
+      (img) =>
+        `  <figure class="articulo-figure">\n    <img src="${img.src}" alt="${img.alt}" loading="lazy" width="900" height="600" />\n  </figure>`
+    )
+    .join("\n");
+  return `\n\n<div class="articulo-figuras">\n${figs}\n  <figcaption class="articulo-figuras__cap">${caption}</figcaption>\n</div>\n\n`;
+}
+
 /* ─── Tabla homologada para artículos de ciudades ──────────────────────── */
 
 const CITY_RE = /^bomberos-([a-z-]+)-equipo-nfpa$/;
@@ -218,21 +230,17 @@ export function prepararArticulo(slug: string, articulo: ArticuloData, ctaInline
   const imgCount = (md.match(/<img|<figure|!\[/g) || []).length;
   if (imgCount < 2) {
     const imgs = pickImages(slug, articulo, 2 - imgCount);
-    const h2Positions: number[] = [];
-    const re = /^##\s+(.+)$/gm;
-    let mm: RegExpExecArray | null;
-    while ((mm = re.exec(md)) !== null) h2Positions.push(mm.index);
-    // Insertar después del 2º y 4º H2 (antes del siguiente heading)
-    const targets = [2, 4].slice(0, imgs.length);
-    let offset = 0;
-    targets.forEach((t, i) => {
-      const pos = h2Positions[Math.min(t, Math.max(h2Positions.length - 1, 0))];
-      if (pos === undefined) return;
-      const insertAt = pos + offset;
-      const fig = figureHtml(imgs[i], `${stripMd(articulo.titulo)} — equipamiento y práctica profesional en México.`);
-      md = md.slice(0, insertAt) + fig + md.slice(insertAt);
-      offset += fig.length;
-    });
+    if (imgs.length) {
+      const h2Positions: number[] = [];
+      const re = /^##\s+(.+)$/gm;
+      let mm: RegExpExecArray | null;
+      while ((mm = re.exec(md)) !== null) h2Positions.push(mm.index);
+      const caption = `${stripMd(articulo.titulo)} — equipamiento y práctica profesional en México.`;
+      // Dos imágenes → una sola fila (grid de 2); una imagen → figura simple
+      const block = imgs.length >= 2 ? figureGridHtml(imgs, caption) : figureHtml(imgs[0], caption);
+      const pos = h2Positions[Math.min(2, Math.max(h2Positions.length - 1, 0))];
+      if (pos !== undefined) md = md.slice(0, pos) + block + md.slice(pos);
+    }
   }
 
   // 4. TOC + ids en headings

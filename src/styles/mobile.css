@@ -133,6 +133,17 @@
     -webkit-tap-highlight-color: rgba(220, 38, 38, 0.15);
   }
 
+  /* Texto y enlaces largos (URLs sin espacios) deben partir, no desbordar */
+  .blog-article__content,
+  .prose,
+  .blog-article__content p,
+  .blog-article__content li,
+  .blog-article__content a,
+  .toc-box a {
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+
   img, video, iframe, svg, table {
     max-width: 100% !important;
     height: auto;
@@ -145,6 +156,38 @@
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
     max-width: 100%;
+  }
+
+  /* Contenedores de tabla con scroll horizontal — la tabla comparativa
+     (productos L3/L5) no tenía wrap con overflow y desbordaba a ~780px. */
+  .comparativa__table-wrap,
+  .est-table-wrap,
+  .de-table-wrap,
+  .specs__table-wrap,
+  .muni-phones__table-wrap {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Clip de los blobs/glows decorativos (hero y footer) que desbordaban */
+  .hero,
+  .hero__bg,
+  .bmx-ft {
+    overflow: hidden !important;
+  }
+
+  /* Permite que las columnas grid/flex encojan por debajo del ancho de su
+     contenido. Sin esto, los tracks `1fr` (= minmax(auto,1fr)) no bajan del
+     min-content del hijo y provocan overflow horizontal (blog 587px, faqq 396px). */
+  .blog-layout__inner > *,
+  .blog-main,
+  .blog-sidebar,
+  .faqq__grid > *,
+  .faqq__col {
+    min-width: 0 !important;
   }
 }
 
@@ -765,7 +808,7 @@
 
 @media (max-width: 1024px) {
   .faqq__grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     gap: 2.5rem !important;
   }
 
@@ -1016,7 +1059,7 @@
 
 @media (max-width: 1024px) {
   .blog-layout__inner {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
     gap: 2.5rem !important;
   }
 

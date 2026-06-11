@@ -7,6 +7,11 @@ import BackToTop from "@components/BackToTop.astro";
 import { SITE, type SEOProps } from "@data/site";
 import { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@utils/seo";
 import "@styles/global.css";
+// mobile.css se importa DESPUÉS de global.css para ganar la cascada en móvil.
+// Va como import JS (no @import CSS) para que Vite lo agrupe de forma fiable
+// en el bundle global de TODAS las páginas — el @import al final de global.css
+// violaba la regla "@import debe preceder" y fragmentaba las reglas por página.
+import "@styles/mobile.css";
 
 type Props = SEOProps & {
   jsonLd?: Record<string, unknown>[];
