@@ -1,17 +1,12 @@
 ---
 
-import PageLayout from "@layouts/PageLayout.astro";
-import QuickNav from "@components/QuickNav.astro";
+import ProductCategoryLayout from "@layouts/ProductCategoryLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
-import CTABanner from "@components/CTABanner.astro";
-import WhyChooseUs from "@components/WhyChooseUs.astro";
 import FAQQuote from "@components/FAQQuote.astro";
-import Breadcrumb from "@components/Breadcrumb.astro";
-import CTABar from "@components/CTABar.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
-import { SITE } from "@data/site";
-import { canonicalURL, productSchemaComplete, breadcrumbJsonLd, faqJsonLd } from "@utils/seo";
+import ComparativaTable from "@components/ComparativaTable.astro";
+import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
 
 const productos = [
   {
@@ -182,13 +177,72 @@ const hazmatFaqs = [
   },
 ];
 
+// ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
+const sidebar = {
+  ariaLabel: "Navegación de equipos HAZMAT",
+  tiposTitle: "Tipos de Equipo HAZMAT",
+  tipos: [
+    { href: "/productos/trajes-para-bomberos/traje-hazmat/nivel-a/", label: "Traje Nivel A Encapsulado", badge: "NFPA 1991", badgeColor: "ember", dot: "ember", active: true },
+    { href: "/productos/trajes-para-bomberos/traje-hazmat/nivel-b/", label: "Traje Nivel B No Encapsulado", badge: "NFPA 1992", badgeColor: "fire", dot: "fire" },
+    { href: "/productos/trajes-para-bomberos/traje-hazmat/", label: "Traje Nivel C con Respirador", badge: "NFPA 1994", badgeColor: "smoke", dot: "smoke" },
+    { href: "/productos/trajes-para-bomberos/traje-hazmat/encapsulamiento/", label: "Traje Nivel D Ligero", badge: "NFPA 1994", badgeColor: "smoke", dot: "smoke" },
+    { href: "/productos/tecnologia/", label: "Detector Multigas Portátil", badge: "NFPA 472", badgeColor: "ember", dot: "ember" },
+    { href: "/productos/hazmat/", label: "Estación de Descontaminación", badge: "NFPA 472", badgeColor: "fire", dot: "fire" },
+  ],
+  specs: [
+    { value: "< 1", unit: "µg/cm²/min", label: "Permeación máx. NFPA 1991" },
+    { value: "4", unit: "gases", label: "Detector O₂ · LEL · CO · H₂S" },
+    { value: "3", unit: "zonas", label: "Estación de descontaminación" },
+    { value: "15–20", unit: "min", label: "Operación segura Nivel A" },
+  ],
+  normas: [
+    { code: "NFPA 1991", color: "ember", desc: "Trajes Nivel A encapsulados — vapores y gases" },
+    { code: "NFPA 1992", color: "fire", desc: "Trajes Nivel B — líquidos y salpicaduras" },
+    { code: "NFPA 1994", color: "smoke", desc: "Trajes Nivel C/D — contaminación superficial" },
+    { code: "NFPA 472", color: "smoke", desc: "Competencias HAZMAT y detección de gases" },
+    { code: "EN 943", color: "neutral", desc: "Norma europea — trajes contra químicos" },
+    { code: "ASTM F739", color: "neutral", desc: "Prueba de permeación química" },
+  ],
+  materiales: [
+    { name: "Butilo", desc: "Excelente vs ácidos, álcalis y cetonas · Nivel A" },
+    { name: "Laminado multicapa", desc: "Tychem 10000, Trellchem · Máximo espectro químico" },
+    { name: "PVC resistente", desc: "Económico · Resistencia química limitada" },
+    { name: "Neopreno", desc: "Versátil vs aceites y solventes · Guantes y botas" },
+    { name: "Tyvek® / Saranex®", desc: "Descontaminable ligero · Nivel C y D" },
+  ],
+  marcas: [
+    { name: "DuPont™ Tychem®", sub: "Trajes encapsulados Nivel A de alto espectro" },
+    { name: "Trellchem®", sub: "Trajes HAZMAT HPS premium NFPA 1991" },
+    { name: "MSA Safety", sub: "Detectores multigas y EPP HAZMAT integral" },
+    { name: "Dräger", sub: "Detección de gases y equipo de respiración" },
+    { name: "Lakeland", sub: "Trajes de protección química certificados" },
+  ],
+  recursos: [
+    { label: "Guía", text: "Guía de Selección de Nivel HAZMAT A/B/C/D", href: "/blog/" },
+    { label: "Blog", text: "Blog Técnico BOMBERO.MX", href: "/blog/" },
+    { label: "Cat.", text: "Catálogo completo de productos", href: "/productos/" },
+    { label: "Form", text: "Solicitar cotización en línea", href: "/cotizar/" },
+  ],
+  ctaText: "Especificamos el nivel HAZMAT correcto según el perfil de agentes de tu instalación. Sin costo ni compromiso.",
+  waMsg: "Hola, necesito información sobre equipos HAZMAT",
+};
+
+const whyImages = [
+  "/images/hazmat/equipo-hazmat-nivel-a-encapsulado-01.avif",
+  "/images/hazmat/equipo-hazmat-operacion-01.avif",
+  "/images/hazmat/equipo-hazmat-detector-multigas-02.avif",
+  "/images/hazmat/equipo-hazmat-descontaminacion-03.avif",
+  "/images/hazmat/equipo-hazmat-nivel-b-02.avif",
+  "/images/hazmat/equipo-hazmat-almacenamiento-04.avif",
+];
 
 ---
 
-<PageLayout
-  quickNav={false}
+<ProductCategoryLayout
   title="Equipos HAZMAT Nivel A, B, C, D | Trajes y Detectores | BOMBERO.MX"
   description="Equipos HAZMAT certificados NFPA 1991, 1992, 1994 y 472. Trajes Nivel A, B, C, D, detectores multigas y estaciones de descontaminación con envío a los 32 estados de México. Asesoría técnica sin costo. ¡Cotiza ahora!"
+  canonical={CANONICAL}
+  jsonLd={jsonLdSchemas}
   keywords={[
     "equipo HAZMAT",
     "traje HAZMAT nivel A",
@@ -207,583 +261,189 @@ const hazmatFaqs = [
     "SCBA HAZMAT",
   ]}
   type="website"
-  canonical={CANONICAL}
-  jsonLd={jsonLdSchemas}
->
-
-  <Breadcrumb items={[
+  breadcrumb={[
     { label: "Productos", href: "/productos/" },
     { label: "Equipos HAZMAT" },
-  ]} />
-
-
-
-
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__gradient"></div>
-      <div class="hero__grid"></div>
-      <div class="hero__glow hero__glow--1"></div>
-      <div class="hero__glow hero__glow--2"></div>
-    </div>
-
-    <div class="container hero__container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          6 Categorías · Certificados NFPA
-        </div>
-        <h1 class="hero__title">
-          Equipos
-          <span class="hero__title-highlight">HAZMAT</span>
-          Nivel A a D
-        </h1>
-        <p class="hero__subtitle">
-          Protección integral contra materiales peligrosos. Trajes HAZMAT encapsulados y no encapsulados, detectores multigas y estaciones de descontaminación certificados NFPA para operaciones de máximo riesgo. Asesoría técnica sin costo.
-        </p>
-      </div>
-
-      <div class="hero__seo">
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Traje HAZMAT Nivel A NFPA 1991 vs Nivel B NFPA 1992 vs Nivel C/D NFPA 1994: cómo seleccionar el nivel correcto para tu operación</h2>
-          <p class="hero__seo-text">
-            La selección del nivel HAZMAT es la decisión más crítica antes de entrar a una escena de materiales peligrosos. <strong>Nivel A (NFPA 1991)</strong>: encapsulamiento total hermético con SCBA interno. Para atmósferas IDLH con agentes químicos desconocidos o de máxima toxicidad (vapores que penetran piel). El traje completo cuesta entre $85,000 y $220,000 MXN. <strong>Nivel B (NFPA 1992)</strong>: protección splash-proof con SCBA externo. Para químicos conocidos con riesgo respiratorio pero sin penetración dérmica significativa. Más flexible y económico que Nivel A. <strong>Nivel C (NFPA 1994)</strong>: traje descontaminable con respirador purificador de aire. Para químicos conocidos con contaminación superficial. <strong>Nivel D</strong>: overol básico para operaciones de limpieza sin riesgo respiratorio. El <strong>detector multigas NFPA 472</strong> es el primer paso antes de decidir el nivel: identifica el agente y define el EPP necesario. BOMBERO.MX asesora sin costo la selección correcta.
-          </p>
-        </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">El sistema HAZMAT completo: traje encapsulado, casco, guantes químicos, botas de caucho y SCBA integrado</h2>
-          <p class="hero__seo-text">
-            Un <strong>sistema HAZMAT Nivel A</strong> requiere que todos los componentes sean compatibles: el <a href="/productos/trajes-para-bomberos/traje-hazmat/" style="color: var(--color-fire-400); text-decoration: underline;">traje encapsulado NFPA 1991</a> debe ser compatible con el <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/" style="color: var(--color-fire-400); text-decoration: underline;">casco HAZMAT</a>, el <strong>SCBA</strong> debe caber dentro del encapsulamiento, los <a href="/productos/guantes-para-bomberos/hazmat/" style="color: var(--color-fire-400); text-decoration: underline;">guantes de butilo o neopreno</a> deben solapar con las mangas del traje y las <a href="/productos/botas-para-bomberos/caucho/" style="color: var(--color-fire-400); text-decoration: underline;">botas de caucho non-sparking</a> deben integrarse en las botinas del traje. La prueba de integridad del sistema completo (prueba de inflado) debe realizarse antes de cada operación. Un fallo en un solo componente invalida la protección de todo el sistema — por eso BOMBERO.MX entrega los sistemas HAZMAT integrados con ficha técnica de compatibilidad verificada, documentación completa para <strong>licitaciones públicas</strong> en los <strong>32 estados de México</strong>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <QuickNav pool="categoria" count={7} />
-
-  <CTABar quote="Cotizar Equipo HAZMAT" />
-
-
-
-
-  <section class="section productos" id="catalogo">
-    <div class="container">
-      <SectionHeader
-        label="Catálogo de Equipos HAZMAT"
-        title="6 Categorías de Protección HAZMAT"
-        description="Desde trajes Nivel A encapsulados hasta detectores multigas. Cada equipo está diseñado para proteger contra atmósferas peligrosas y materiales químicos extremos."
-      >
-        <p>
-          El <strong>equipo HAZMAT</strong> es fundamental para operaciones con materiales peligrosos: protege contra vapores químicos, salpicaduras de productos tóxicos y atmósferas IDLH. En BOMBERO.MX seleccionamos únicamente <strong>equipos certificados NFPA 1991, 1992, 1994 y 472</strong> que superan los requerimientos mínimos de cada nivel de protección y son compatibles con nuestros <a href="/productos/cascos-para-bomberos/">cascos especializados</a> y <a href="/productos/guantes-para-bomberos/">guantes de protección química</a>.
-        </p>
-        <p>
-          Todos nuestros <strong>trajes HAZMAT Nivel A, B, C y D</strong> incluyen fichas técnicas completas, certificados de laboratorio acreditado y manuales de uso en español. Para un <strong>sistema de protección integral</strong>, combina el traje con <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/">casco HAZMAT certificado</a>, guantes de protección, <a href="/productos/botas-para-bomberos/caucho/">botas de caucho químico</a>, SCBA autónomo y detector multigas de la misma generación normativa.
-        </p>
-      </SectionHeader>
-
-      <div class="productos__grid">
-        {productos.map((producto) => (
-          <ProductCard {...producto} altSuffix="Equipo HAZMAT certificado NFPA" />
-        ))}
-      </div>
-    </div>
-  </section>
-
-
-
-
-  <section class="section section--dark specs">
-    <div class="container">
-      <SectionHeader
-        label="Tecnología y Protección"
-        title="Materiales, Niveles NFPA y Aplicaciones"
-        description="Los mejores equipos HAZMAT del mundo se fabrican con materiales multicapa resistentes a vapores químicos que ofrecen protección máxima sin comprometer la movilidad del operador."
-      >
-        <p>
-          Los <strong>trajes HAZMAT Nivel A NFPA 1991</strong> combinan cuerpo completamente encapsulado, cierre hermético a presión y compatibilidad con SCBA presurizado para atmósferas desconocidas extremadamente peligrosas. Para máxima protección, el traje Nivel A debe usarse con <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/" style="color: white; text-decoration: underline;">casco HAZMAT especializado</a> y <a href="/productos/botas-para-bomberos/caucho/" style="color: white; text-decoration: underline;">botas de caucho certificadas</a>. Los <strong>trajes HAZMAT Nivel B NFPA 1992</strong> priorizan acceso seguro con cabeza removible para atmósferas conocidas. Los <strong>trajes Nivel C y D NFPA 1994</strong> permiten operaciones de descontaminación y limpieza con protección moderada a básica.
-        </p>
-        <p>
-          Todos nuestros <strong>equipos HAZMAT</strong> incluyen certificados de laboratorio acreditado por organismos internacionales y fichas técnicas completas listas para <strong>licitaciones gubernamentales</strong>. Compatibles con <a href="/productos/cascos-para-bomberos/" style="color: white; text-decoration: underline;">cascos especializados</a>, <a href="/productos/guantes-para-bomberos/hazmat/" style="color: white; text-decoration: underline;">guantes HAZMAT</a> y <a href="/productos/botas-para-bomberos/caucho/" style="color: white; text-decoration: underline;">botas de caucho</a> de nuestro catálogo para equipar tu cuerpo de bomberos con un solo proveedor en los <strong>32 estados de México</strong>.
-        </p>
-      </SectionHeader>
-      <div class="specs__grid">
-        <CategoryCard
-          title="Materiales Multicapa Resistentes"
-          icon="shield"
-          image="/images/hazmat/equipo-hazmat-detalle-material-multicapa-01.avif"
-          description="Polímeros multicapa resistentes a vapores químicos y salpicaduras tóxicas. Cierre hermético con cremallera de doble confección para Nivel A. Costuras selladas a vapor. Diseño modular para compatibilidad con SCBA y detectores."
-        />
-        <CategoryCard
-          title="Certificaciones NFPA Completas"
-          icon="certificate"
-          image="/images/hazmat/equipo-hazmat-certificacion-nfpa-02.avif"
-          description="NFPA 1991 para trajes Nivel A encapsulados, NFPA 1992 para Nivel B no encapsulados, NFPA 1994 para Nivel C y D. NFPA 472 para competencias de personal y detectores multigas. Documentación completa de laboratorio acreditado."
-        />
-        <CategoryCard
-          title="Operaciones HAZMAT Extremas"
-          icon="users"
-          image="/images/hazmat/equipo-hazmat-operacion-derrames-quimicos-03.avif"
-          description="Cuerpos de bomberos municipales y estatales, brigadas HAZMAT especializadas, equipos de derrames químicos, operaciones en refinerías y plantas petroquímicas, protección civil estatal y federal en 32 estados."
-        />
-      </div>
-    </div>
-  </section>
-
-
-
-
-  <section class="section comparativa">
-    <div class="container">
-      <SectionHeader
-        label="Tabla Comparativa"
-        title="¿Qué Nivel HAZMAT Necesitas?"
-        description="Compara los 6 tipos de equipos HAZMAT según su nivel NFPA, aplicación y grado de protección para elegir el sistema correcto."
-      >
-        <p>
-          La elección del <strong>equipo HAZMAT</strong> correcto depende del tipo y grado de contaminación: el <strong>traje HAZMAT Nivel A NFPA 1991</strong> es el estándar para atmósferas IDLH con químicos desconocidos extremadamente peligrosos y debe usarse con <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/">casco HAZMAT especializado</a> y SCBA presurizado. El <strong>Nivel B NFPA 1992</strong> para vapores conocidos se complementa con <a href="/productos/cascos-para-bomberos/">casco de protección</a> y SCBA. Los <strong>Nivel C y D NFPA 1994</strong> para descontaminación y limpieza permiten operaciones de menor riesgo con protección moderada a básica. El <strong>detector multigas NFPA 472</strong> es obligatorio para evaluar atmósfera antes de cualquier entrada HAZMAT.
-        </p>
-        <p>
-          En <strong>BOMBERO.MX</strong> asesoramos sin costo a tu corporación para seleccionar el equipo HAZMAT correcto según el tipo de riesgo y grado de contaminación. Elaboramos especificaciones técnicas de <strong>sistemas de protección HAZMAT completos</strong> para <strong>licitaciones públicas</strong> en toda la República Mexicana.
-        </p>
-      </SectionHeader>
-      <div class="comparativa__wrapper">
-        <table class="comparativa__table">
-          <thead>
-            <tr>
-              <th>Nivel HAZMAT</th>
-              <th>Norma Principal</th>
-              <th>Aplicación</th>
-              <th>Respiración</th>
-              <th>Tipo de Traje</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Nivel A</strong></td>
-              <td><span class="cert-chip cert-chip--ember">NFPA 1991</span></td>
-              <td>Atmósferas IDLH, químicos desconocidos, máximo riesgo</td>
-              <td>SCBA presurizado</td>
-              <td>Completamente encapsulado</td>
-            </tr>
-            <tr>
-              <td><strong>Nivel B</strong></td>
-              <td><span class="cert-chip cert-chip--fire">NFPA 1992</span></td>
-              <td>Vapores conocidos, contaminación aérea, riesgo alto</td>
-              <td>SCBA cara completa</td>
-              <td>No encapsulado con abertura</td>
-            </tr>
-            <tr>
-              <td><strong>Nivel C</strong></td>
-              <td><span class="cert-chip cert-chip--smoke">NFPA 1994</span></td>
-              <td>Contaminantes conocidos, salpicaduras, riesgo moderado</td>
-              <td>Respirador purificador</td>
-              <td>Descontaminable ligero</td>
-            </tr>
-            <tr>
-              <td><strong>Nivel D</strong></td>
-              <td><span class="cert-chip cert-chip--smoke">NFPA 1994</span></td>
-              <td>Contaminación superficial, limpieza, riesgo básico</td>
-              <td>Aire ambiente</td>
-              <td>Algodón recubierto ligero</td>
-            </tr>
-            <tr>
-              <td><strong>Detector Multigas</strong></td>
-              <td><span class="cert-chip cert-chip--ember">NFPA 472</span></td>
-              <td>Evaluación de atmósfera, 4 gases, detección real-time</td>
-              <td>Evaluación previa</td>
-              <td>Equipo portátil autónomo</td>
-            </tr>
-            <tr>
-              <td><strong>Descontaminación</strong></td>
-              <td><span class="cert-chip cert-chip--fire">NFPA 472</span></td>
-              <td>Descontaminación personal, equipo y vehículos</td>
-              <td>N/A</td>
-              <td>Sistema modular en 3 zonas</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-
-
-
-  <WhyChooseUs images={[
-    "/images/hazmat/equipo-hazmat-nivel-a-encapsulado-01.avif",
-    "/images/hazmat/equipo-hazmat-operacion-01.avif",
-    "/images/hazmat/equipo-hazmat-detector-multigas-02.avif",
-    "/images/hazmat/equipo-hazmat-descontaminacion-03.avif",
-    "/images/hazmat/equipo-hazmat-nivel-b-02.avif",
-    "/images/hazmat/equipo-hazmat-almacenamiento-04.avif",
-  ]} />
-
-
-
-
-  <section class="section relacionados">
-    <div class="container">
-      <SectionHeader
-        label="Equipo Complementario"
-        title="Completa tu Protección HAZMAT"
-        description="El traje HAZMAT es el corazón del sistema. Equipa a tu personal con todo lo necesario para operaciones seguras."
-      >
-        <p>
-          Un <strong>sistema de protección HAZMAT completo</strong> requiere que traje, casco, guantes, botas y detector sean compatibles y cumplan la misma edición de norma NFPA. El <strong>traje HAZMAT Nivel A NFPA 1991</strong> debe usarse con <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/">casco HAZMAT especializado</a>, guantes de protección química, <a href="/productos/botas-para-bomberos/caucho/">botas de caucho certificadas</a>, SCBA presurizado y <strong>detector multigas NFPA 472</strong> para garantizar protección integral en cada operación.
-        </p>
-        <p>
-          En <strong>BOMBERO.MX</strong> equipamos a tu personal con todo el sistema de protección HAZMAT de una sola fuente: <a href="/productos/cascos-para-bomberos/">cascos especializados</a>, <a href="/productos/guantes-para-bomberos/hazmat/">guantes de protección química</a>, <a href="/productos/botas-para-bomberos/caucho/">botas de caucho certificadas NFPA</a>, detectores multigas y estaciones de descontaminación, con asesoría técnica sin costo y disponibilidad inmediata para los <strong>32 estados de México</strong>.
-        </p>
-      </SectionHeader>
-      <div class="rel__grid">
-        <CategoryCard
-          title="Cascos para Bombero"
-          icon="shield"
-          image="/images/cascos-para-bomberos/casco-bombero-hazmat-quimico-01.avif"
-          href="/productos/cascos-para-bomberos/"
-          buttonText="Cascos para Bombero"
-          items={[
-            { label: "Casco HAZMAT Químico", href: "/productos/cascos-para-bomberos/casco-hazmat-quimico/" },
-            { label: "Casco Estructural NFPA 1971", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/" },
-            { label: "Casco Rescate NFPA 1951", href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/" },
-            { label: "Visor de Policarbonato", href: "/productos/cascos-para-bomberos/" },
-          ]}
-        />
-        <CategoryCard
-          title="Guantes para Bombero"
-          icon="glove"
-          image="/images/guantes-para-bomberos/guante-bombero-hazmat-quimico-01.avif"
-          href="/productos/guantes-para-bomberos/"
-          buttonText="Guantes para Bombero"
-          items={[
-            { label: "Guantes HAZMAT Químicos", href: "/productos/guantes-para-bomberos/hazmat/" },
-            { label: "Guantes Estructurales", href: "/productos/guantes-para-bomberos/estructurales/" },
-            { label: "Guantes de Rescate", href: "/productos/guantes-para-bomberos/rescate/" },
-            { label: "Guantes Forestales", href: "/productos/guantes-para-bomberos/forestales/" },
-          ]}
-        />
-        <CategoryCard
-          title="Botas para Bombero"
-          icon="boot"
-          image="/images/botas-para-bomberos/bota-bombero-caucho-hazmat-01.avif"
-          href="/productos/botas-para-bomberos/"
-          buttonText="Botas para Bombero"
-          items={[
-            { label: "Bota de Caucho (HAZMAT)", href: "/productos/botas-para-bomberos/caucho/" },
-            { label: "Bota Estructural (Cuero)", href: "/productos/botas-para-bomberos/estructural/" },
-            { label: "Bota Forestal", href: "/productos/botas-para-bomberos/forestal/" },
-            { label: "Protección Química", href: "/productos/botas-para-bomberos/" },
-          ]}
-        />
-        <CategoryCard
-          title="Capuchas y Gafas"
-          icon="hood"
-          image="/images/capucha-para-bombero/capucha-bombero-nomex-hazmat-01.avif"
-          href="/productos/capuchas-para-bomberos/"
-          buttonText="Capuchas y Gafas"
-          items={[
-            { label: "Capucha Nomex® NFPA 1971", href: "/productos/capuchas-para-bomberos/nomex/" },
-            { label: "Capucha PBI Gold® Premium", href: "/productos/capuchas-para-bomberos/pbi/" },
-            { label: "Capucha Particulada PM2.5", href: "/productos/capuchas-para-bomberos/particulada/" },
-            { label: "Goggle de Bombero", href: "/productos/gafas-para-bomberos/goggle/" },
-          ]}
-        />
-      </div>
-    </div>
-  </section>
-
-
-
-
-  <FAQQuote
-    items={hazmatFaqs}
-    title="Equipo HAZMAT — Niveles de protección, materiales y operación segura en México"
-    description="Niveles A/B/C/D HAZMAT, tablas de compatibilidad química, traje encapsulado con SCBA, corredor de descontaminación, NFPA 1991 en México, precios reales y especificaciones para licitación."
-  />
-
-  <CTABanner />
-
-</PageLayout>
-
-<style>
-
-  .hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-    padding: var(--space-16) 0;
-  }
-
-  .hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .hero__glow {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.4;
-  }
-
-  .hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
-  .hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
-
-  .hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-    padding-block: var(--space-8);
-  }
-
-  .hero__content {
-    color: var(--color-text-on-dark);
-  }
-
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-6);
-  }
-
-  .hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-  .hero__title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-6);
-    letter-spacing: var(--tracking-tight);
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .hero__title-highlight {
-    background: var(--gradient-fire);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
-  }
-
-  .hero__subtitle {
-    font-size: var(--text-xl);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-    max-width: 540px;
-    margin-bottom: var(--space-8);
-  }
-
-  .hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-  }
-
-
-  .hero__seo-block {
-    padding: var(--space-4) 0;
-  }
-
-  .hero__seo-title {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-    line-height: var(--leading-tight);
-  }
-
-  .hero__seo-text {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-  }
-
-  .hero__seo-text strong {
-    color: #ffffff;
-    font-weight: 600;
-  }
-
-
-  .productos {
-    background: var(--color-smoke-50);
-  }
-
-  .productos__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-
-  .specs { background: var(--gradient-dark); }
-
-
-  .specs :global(.section-header__label) { color: var(--color-fire-400); }
-  .specs :global(.section-header__title) { color: white; }
-  .specs :global(.section-header__desc)  { color: var(--color-smoke-300); }
-  .specs :global(.section-header__right p) { color: var(--color-smoke-300); }
-  .specs :global(.section-header__right strong) { color: white; font-weight: 600; }
-
-  .specs__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-
-  .comparativa { background: #ffffff; }
-
-  .comparativa__wrapper {
-    overflow-x: auto;
-    border-radius: var(--radius-2xl);
-    border: 1px solid var(--color-smoke-200);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  }
-
-  .comparativa__table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-  }
-
-  .comparativa__table thead { background: var(--color-smoke-900); }
-
-  .comparativa__table th {
-    padding: var(--space-4) var(--space-5);
-    text-align: left;
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: var(--color-smoke-300);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-  }
-
-  .comparativa__table tbody tr {
-    border-bottom: 1px solid var(--color-smoke-100);
-    background: white;
-  }
-
-  .comparativa__table tbody tr:last-child { border-bottom: none; }
-  .comparativa__table tbody tr:hover { background: var(--color-smoke-50); }
-
-  .comparativa__table td {
-    padding: var(--space-4) var(--space-5);
-    color: var(--color-smoke-700);
-    line-height: 1.5;
-    vertical-align: middle;
-  }
-
-  .comparativa__table td:first-child {
-    color: var(--color-smoke-900);
-    white-space: nowrap;
-  }
-
-  .cert-chip {
-    display: inline-block;
-    padding: 2px var(--space-2);
-    border-radius: var(--radius-md);
-    font-size: 11px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .cert-chip--ember { background: rgba(220, 38, 38, 0.1); color: var(--color-ember-700); }
-  .cert-chip--fire  { background: rgba(249, 115, 22, 0.1); color: var(--color-fire-700); }
-  .cert-chip--smoke { background: var(--color-smoke-100); color: var(--color-smoke-700); }
-
-
-
-  .relacionados { background: var(--color-smoke-50); }
-
-  .rel__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  @media (max-width: 1200px) { .rel__grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 640px)  { .rel__grid { grid-template-columns: 1fr; } }
-
-
-  @media (max-width: 1200px) {
-    .productos__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .specs__grid {
-      grid-template-columns: 1fr;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-  }
-
-  @media (max-width: 968px) {
-    .hero { padding: var(--space-10) 0; }
-
-    .hero__container {
-      grid-template-columns: 1fr;
-      padding-block: var(--space-4);
-    }
-
-    .hero__subtitle { max-width: 100%; }
-    .hero__seo { display: none; }
-    .specs__grid { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 768px) {
-    .productos__grid { grid-template-columns: 1fr; }
-
-    .comparativa__table th,
-    .comparativa__table td {
-      padding: var(--space-3) var(--space-4);
-      font-size: var(--text-xs);
-    }
-  }
-
-  @media (max-width: 640px) {
-    .hero__title { font-size: 2rem; }
-    .hero__subtitle { font-size: var(--text-base); }
-  }
-</style>
+  ]}
+  heroBadge="6 Categorías · Certificados NFPA"
+  heroTitle={`Equipos <span class="hero__title-highlight">HAZMAT</span> Nivel A a D`}
+  heroSubtitle="Protección integral contra materiales peligrosos. Trajes HAZMAT encapsulados y no encapsulados, detectores multigas y estaciones de descontaminación certificados NFPA para operaciones de máximo riesgo. Asesoría técnica sin costo."
+  heroSeoBlocks={[
+    {
+      title: "Traje HAZMAT Nivel A NFPA 1991 vs Nivel B NFPA 1992 vs Nivel C/D NFPA 1994: cómo seleccionar el nivel correcto para tu operación",
+      html: `La selección del nivel HAZMAT es la decisión más crítica antes de entrar a una escena de materiales peligrosos. <strong>Nivel A (NFPA 1991)</strong>: encapsulamiento total hermético con SCBA interno. Para atmósferas IDLH con agentes químicos desconocidos o de máxima toxicidad (vapores que penetran piel). El traje completo cuesta entre $85,000 y $220,000 MXN. <strong>Nivel B (NFPA 1992)</strong>: protección splash-proof con SCBA externo. Para químicos conocidos con riesgo respiratorio pero sin penetración dérmica significativa. Más flexible y económico que Nivel A. <strong>Nivel C (NFPA 1994)</strong>: traje descontaminable con respirador purificador de aire. Para químicos conocidos con contaminación superficial. <strong>Nivel D</strong>: overol básico para operaciones de limpieza sin riesgo respiratorio. El <strong>detector multigas NFPA 472</strong> es el primer paso antes de decidir el nivel: identifica el agente y define el EPP necesario. BOMBERO.MX asesora sin costo la selección correcta.`,
+    },
+    {
+      title: "El sistema HAZMAT completo: traje encapsulado, casco, guantes químicos, botas de caucho y SCBA integrado",
+      html: `Un <strong>sistema HAZMAT Nivel A</strong> requiere que todos los componentes sean compatibles: el <a href="/productos/trajes-para-bomberos/traje-hazmat/" class="hero__link">traje encapsulado NFPA 1991</a> debe ser compatible con el <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/" class="hero__link">casco HAZMAT</a>, el <strong>SCBA</strong> debe caber dentro del encapsulamiento, los <a href="/productos/guantes-para-bomberos/hazmat/" class="hero__link">guantes de butilo o neopreno</a> deben solapar con las mangas del traje y las <a href="/productos/botas-para-bomberos/caucho/" class="hero__link">botas de caucho non-sparking</a> deben integrarse en las botinas del traje. La prueba de integridad del sistema completo (prueba de inflado) debe realizarse antes de cada operación. Un fallo en un solo componente invalida la protección de todo el sistema — por eso BOMBERO.MX entrega los sistemas HAZMAT integrados con ficha técnica de compatibilidad verificada, documentación completa para <strong>licitaciones públicas</strong> en los <strong>32 estados de México</strong>.`,
+    },
+  ]}
+  ctaBarQuote="Cotizar Equipo HAZMAT"
+  sidebar={sidebar}
+  whyImages={whyImages}
+>
+        <section class="content-panel" id="catalogo">
+          <SectionHeader
+            label="Catálogo de Equipos HAZMAT"
+            title="6 Categorías de Protección HAZMAT"
+            description="Desde trajes Nivel A encapsulados hasta detectores multigas. Cada equipo está diseñado para proteger contra atmósferas peligrosas y materiales químicos extremos."
+          >
+            <p>
+              El <strong>equipo HAZMAT</strong> es fundamental para operaciones con materiales peligrosos: protege contra vapores químicos, salpicaduras de productos tóxicos y atmósferas IDLH. En BOMBERO.MX seleccionamos únicamente <strong>equipos certificados NFPA 1991, 1992, 1994 y 472</strong> que superan los requerimientos mínimos de cada nivel de protección y son compatibles con nuestros <a href="/productos/cascos-para-bomberos/">cascos especializados</a> y <a href="/productos/guantes-para-bomberos/">guantes de protección química</a>.
+            </p>
+            <p>
+              Todos nuestros <strong>trajes HAZMAT Nivel A, B, C y D</strong> incluyen fichas técnicas completas, certificados de laboratorio acreditado y manuales de uso en español. Para un <strong>sistema de protección integral</strong>, combina el traje con <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/">casco HAZMAT certificado</a>, guantes de protección, <a href="/productos/botas-para-bomberos/caucho/">botas de caucho químico</a>, SCBA autónomo y detector multigas de la misma generación normativa.
+            </p>
+          </SectionHeader>
+
+          <div class="productos__grid">
+            {productos.map((producto) => (
+              <ProductCard {...producto} altSuffix="Equipo HAZMAT certificado NFPA" />
+            ))}
+          </div>
+        </section>
+
+        <!-- Tecnología / Specs (dark panel) -->
+        <section class="content-panel content-panel--dark" id="tecnologia">
+          <SectionHeader
+            label="Tecnología y Protección"
+            title="Materiales, Niveles NFPA y Aplicaciones"
+            description="Los mejores equipos HAZMAT del mundo se fabrican con materiales multicapa resistentes a vapores químicos que ofrecen protección máxima sin comprometer la movilidad del operador."
+          >
+            <p>
+              Los <strong>trajes HAZMAT Nivel A NFPA 1991</strong> combinan cuerpo completamente encapsulado, cierre hermético a presión y compatibilidad con SCBA presurizado para atmósferas desconocidas extremadamente peligrosas. Para máxima protección, el traje Nivel A debe usarse con <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/" class="dark-link">casco HAZMAT especializado</a> y <a href="/productos/botas-para-bomberos/caucho/" class="dark-link">botas de caucho certificadas</a>. Los <strong>trajes HAZMAT Nivel B NFPA 1992</strong> priorizan acceso seguro con cabeza removible para atmósferas conocidas. Los <strong>trajes Nivel C y D NFPA 1994</strong> permiten operaciones de descontaminación y limpieza con protección moderada a básica.
+            </p>
+            <p>
+              Todos nuestros <strong>equipos HAZMAT</strong> incluyen certificados de laboratorio acreditado por organismos internacionales y fichas técnicas completas listas para <strong>licitaciones gubernamentales</strong>. Compatibles con <a href="/productos/cascos-para-bomberos/" class="dark-link">cascos especializados</a>, <a href="/productos/guantes-para-bomberos/hazmat/" class="dark-link">guantes HAZMAT</a> y <a href="/productos/botas-para-bomberos/caucho/" class="dark-link">botas de caucho</a> de nuestro catálogo para equipar tu cuerpo de bomberos con un solo proveedor en los <strong>32 estados de México</strong>.
+            </p>
+          </SectionHeader>
+          <div class="specs__grid">
+            <CategoryCard
+              title="Materiales Multicapa Resistentes"
+              icon="shield"
+              image="/images/hazmat/equipo-hazmat-detalle-material-multicapa-01.avif"
+              description="Polímeros multicapa resistentes a vapores químicos y salpicaduras tóxicas. Cierre hermético con cremallera de doble confección para Nivel A. Costuras selladas a vapor. Diseño modular para compatibilidad con SCBA y detectores."
+            />
+            <CategoryCard
+              title="Certificaciones NFPA Completas"
+              icon="certificate"
+              image="/images/hazmat/equipo-hazmat-certificacion-nfpa-02.avif"
+              description="NFPA 1991 para trajes Nivel A encapsulados, NFPA 1992 para Nivel B no encapsulados, NFPA 1994 para Nivel C y D. NFPA 472 para competencias de personal y detectores multigas. Documentación completa de laboratorio acreditado."
+            />
+            <CategoryCard
+              title="Operaciones HAZMAT Extremas"
+              icon="users"
+              image="/images/hazmat/equipo-hazmat-operacion-derrames-quimicos-03.avif"
+              description="Cuerpos de bomberos municipales y estatales, brigadas HAZMAT especializadas, equipos de derrames químicos, operaciones en refinerías y plantas petroquímicas, protección civil estatal y federal en 32 estados."
+            />
+          </div>
+        </section>
+
+        <!-- Tabla Comparativa -->
+        <section class="content-panel" id="comparativa">
+          <SectionHeader
+            label="Tabla Comparativa"
+            title="¿Qué Nivel HAZMAT Necesitas?"
+            description="Compara los 6 tipos de equipos HAZMAT según su nivel NFPA, aplicación y grado de protección para elegir el sistema correcto."
+          >
+            <p>
+              La elección del <strong>equipo HAZMAT</strong> correcto depende del tipo y grado de contaminación: el <strong>traje HAZMAT Nivel A NFPA 1991</strong> es el estándar para atmósferas IDLH con químicos desconocidos extremadamente peligrosos y debe usarse con <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/">casco HAZMAT especializado</a> y SCBA presurizado. El <strong>Nivel B NFPA 1992</strong> para vapores conocidos se complementa con <a href="/productos/cascos-para-bomberos/">casco de protección</a> y SCBA. Los <strong>Nivel C y D NFPA 1994</strong> para descontaminación y limpieza permiten operaciones de menor riesgo con protección moderada a básica. El <strong>detector multigas NFPA 472</strong> es obligatorio para evaluar atmósfera antes de cualquier entrada HAZMAT.
+            </p>
+            <p>
+              En <strong>BOMBERO.MX</strong> asesoramos sin costo a tu corporación para seleccionar el equipo HAZMAT correcto según el tipo de riesgo y grado de contaminación. Elaboramos especificaciones técnicas de <strong>sistemas de protección HAZMAT completos</strong> para <strong>licitaciones públicas</strong> en toda la República Mexicana.
+            </p>
+          </SectionHeader>
+          <ComparativaTable
+            headers={["Nivel HAZMAT", "Norma Principal", "Aplicación", "Respiración", "Tipo de Traje"]}
+            rows={[
+              [{ strong: "Nivel A" }, { chip: "NFPA 1991", color: "ember" }, "Atmósferas IDLH, químicos desconocidos, máximo riesgo", "SCBA presurizado", "Completamente encapsulado"],
+              [{ strong: "Nivel B" }, { chip: "NFPA 1992", color: "fire" }, "Vapores conocidos, contaminación aérea, riesgo alto", "SCBA cara completa", "No encapsulado con abertura"],
+              [{ strong: "Nivel C" }, { chip: "NFPA 1994", color: "smoke" }, "Contaminantes conocidos, salpicaduras, riesgo moderado", "Respirador purificador", "Descontaminable ligero"],
+              [{ strong: "Nivel D" }, { chip: "NFPA 1994", color: "smoke" }, "Contaminación superficial, limpieza, riesgo básico", "Aire ambiente", "Algodón recubierto ligero"],
+              [{ strong: "Detector Multigas" }, { chip: "NFPA 472", color: "ember" }, "Evaluación de atmósfera, 4 gases, detección real-time", "Evaluación previa", "Equipo portátil autónomo"],
+              [{ strong: "Descontaminación" }, { chip: "NFPA 472", color: "fire" }, "Descontaminación personal, equipo y vehículos", "N/A", "Sistema modular en 3 zonas"],
+            ]}
+          />
+        </section>
+
+        <!-- FAQ -->
+        <section class="content-panel content-panel--faq" id="faq">
+          <FAQQuote
+            items={hazmatFaqs}
+            title="Equipo HAZMAT — Niveles de protección, materiales y operación segura en México"
+            description="Niveles A/B/C/D HAZMAT, tablas de compatibilidad química, traje encapsulado con SCBA, corredor de descontaminación, NFPA 1991 en México, precios reales y especificaciones para licitación."
+          />
+        </section>
+
+        <!-- Relacionados -->
+        <section class="content-panel" id="complementario">
+          <SectionHeader
+            label="Equipo Complementario"
+            title="Completa tu Protección HAZMAT"
+            description="El traje HAZMAT es el corazón del sistema. Equipa a tu personal con todo lo necesario para operaciones seguras."
+          >
+            <p>
+              Un <strong>sistema de protección HAZMAT completo</strong> requiere que traje, casco, guantes, botas y detector sean compatibles y cumplan la misma edición de norma NFPA. El <strong>traje HAZMAT Nivel A NFPA 1991</strong> debe usarse con <a href="/productos/cascos-para-bomberos/casco-hazmat-quimico/">casco HAZMAT especializado</a>, guantes de protección química, <a href="/productos/botas-para-bomberos/caucho/">botas de caucho certificadas</a>, SCBA presurizado y <strong>detector multigas NFPA 472</strong> para garantizar protección integral en cada operación.
+            </p>
+            <p>
+              En <strong>BOMBERO.MX</strong> equipamos a tu personal con todo el sistema de protección HAZMAT de una sola fuente: <a href="/productos/cascos-para-bomberos/">cascos especializados</a>, <a href="/productos/guantes-para-bomberos/hazmat/">guantes de protección química</a>, <a href="/productos/botas-para-bomberos/caucho/">botas de caucho certificadas NFPA</a>, detectores multigas y estaciones de descontaminación, con asesoría técnica sin costo y disponibilidad inmediata para los <strong>32 estados de México</strong>.
+            </p>
+          </SectionHeader>
+          <div class="rel__grid">
+            <CategoryCard
+              title="Cascos para Bombero"
+              icon="shield"
+              image="/images/cascos-para-bomberos/casco-bombero-hazmat-quimico-01.avif"
+              href="/productos/cascos-para-bomberos/"
+              buttonText="Cascos para Bombero"
+              items={[
+                { label: "Casco HAZMAT Químico", href: "/productos/cascos-para-bomberos/casco-hazmat-quimico/" },
+                { label: "Casco Estructural NFPA 1971", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/" },
+                { label: "Casco Rescate NFPA 1951", href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/" },
+                { label: "Visor de Policarbonato", href: "/productos/cascos-para-bomberos/" },
+              ]}
+            />
+            <CategoryCard
+              title="Guantes para Bombero"
+              icon="glove"
+              image="/images/guantes-para-bomberos/guante-bombero-hazmat-quimico-01.avif"
+              href="/productos/guantes-para-bomberos/"
+              buttonText="Guantes para Bombero"
+              items={[
+                { label: "Guantes HAZMAT Químicos", href: "/productos/guantes-para-bomberos/hazmat/" },
+                { label: "Guantes Estructurales", href: "/productos/guantes-para-bomberos/estructurales/" },
+                { label: "Guantes de Rescate", href: "/productos/guantes-para-bomberos/rescate/" },
+                { label: "Guantes Forestales", href: "/productos/guantes-para-bomberos/forestales/" },
+              ]}
+            />
+            <CategoryCard
+              title="Botas para Bombero"
+              icon="boot"
+              image="/images/botas-para-bomberos/bota-bombero-caucho-hazmat-01.avif"
+              href="/productos/botas-para-bomberos/"
+              buttonText="Botas para Bombero"
+              items={[
+                { label: "Bota de Caucho (HAZMAT)", href: "/productos/botas-para-bomberos/caucho/" },
+                { label: "Bota Estructural (Cuero)", href: "/productos/botas-para-bomberos/estructural/" },
+                { label: "Bota Forestal", href: "/productos/botas-para-bomberos/forestal/" },
+                { label: "Protección Química", href: "/productos/botas-para-bomberos/" },
+              ]}
+            />
+            <CategoryCard
+              title="Capuchas y Gafas"
+              icon="hood"
+              image="/images/capucha-para-bombero/capucha-bombero-nomex-hazmat-01.avif"
+              href="/productos/capuchas-para-bomberos/"
+              buttonText="Capuchas y Gafas"
+              items={[
+                { label: "Capucha Nomex® NFPA 1971", href: "/productos/capuchas-para-bomberos/nomex/" },
+                { label: "Capucha PBI Gold® Premium", href: "/productos/capuchas-para-bomberos/pbi/" },
+                { label: "Capucha Particulada PM2.5", href: "/productos/capuchas-para-bomberos/particulada/" },
+                { label: "Goggle de Bombero", href: "/productos/gafas-para-bomberos/goggle/" },
+              ]}
+            />
+          </div>
+        </section>
+
+
+</ProductCategoryLayout>

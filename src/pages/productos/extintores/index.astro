@@ -1,17 +1,12 @@
 ---
 
-import PageLayout from "@layouts/PageLayout.astro";
-import QuickNav from "@components/QuickNav.astro";
+import ProductCategoryLayout from "@layouts/ProductCategoryLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
-import CTABanner from "@components/CTABanner.astro";
-import WhyChooseUs from "@components/WhyChooseUs.astro";
 import FAQQuote from "@components/FAQQuote.astro";
-import Breadcrumb from "@components/Breadcrumb.astro";
-import CTABar from "@components/CTABar.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
-import { SITE } from "@data/site";
-import { canonicalURL, productSchemaComplete, breadcrumbJsonLd, faqJsonLd } from "@utils/seo";
+import ComparativaTable from "@components/ComparativaTable.astro";
+import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
 
 const productos = [
   {
@@ -124,7 +119,6 @@ const productos = [
   },
 ];
 
-
 const CANONICAL = "/productos/extintores/";
 const TITLE = "Extintores México NOM-100-STPS";
 const DESCRIPTION = "Extintores certificados NOM-100-STPS México: PQS, CO2, agua, Halotron, Clase K y gabinetes. Venta y distribución a los 32 estados. Asesoría técnica sin costo. ¡Cotiza ahora!";
@@ -181,12 +175,77 @@ const extinotresFaqs = [
     answer: "Sí. El mantenimiento de extintores que realizamos incluye: informe técnico firmado por técnico certificado con número de unidad, tipo, agente, presión, resultado de inspección, fecha de próximo servicio y próxima prueba hidrostática. Este informe es el documento que exige Protección Civil municipal y estatal en las visitas de verificación. El sello y la calcomanía de mantenimiento vigente en el extintor es requisito para obtener el Visto Bueno de Protección Civil en México. Para instalaciones con múltiples extintores, emitimos un inventario consolidado en formato aceptado por las dependencias de Protección Civil de los estados donde operamos.",
   },
 ];
+
+// ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
+const sidebar = {
+  ariaLabel: "Navegación de extintores contra incendio",
+  tiposTitle: "Tipos de Extintor",
+  tipos: [
+    { href: "/productos/extintores/extintores-pqs-polvo-quimico-seco/", label: "PQS Polvo Químico Seco", badge: "Clase A·B·C", badgeColor: "ember", dot: "ember", active: true },
+    { href: "/productos/extintores/extintores-co2-dioxido-carbono/", label: "CO2 Dióxido de Carbono", badge: "Clase B·C", badgeColor: "fire", dot: "fire" },
+    { href: "/productos/extintores/extintores-agua-presurizada/", label: "Agua Presurizada", badge: "Clase A", badgeColor: "smoke", dot: "smoke" },
+    { href: "/productos/extintores/extintores-halotron-i-halon-alternativo/", label: "Halotron-I (Halón Alt.)", badge: "Clase A·B·C", badgeColor: "ember", dot: "ember" },
+    { href: "/productos/extintores/extintores-clase-k-cocinas-comerciales/", label: "Clase K Cocinas", badge: "Clase K", badgeColor: "fire", dot: "fire" },
+    { href: "/productos/extintores/gabinetes-contra-incendio-montados/", label: "Gabinetes Montados", badge: "NOM-100", badgeColor: "smoke", dot: "smoke" },
+  ],
+  specsTitle: "Especificaciones Clave",
+  specs: [
+    { value: "A–K", unit: "clases", label: "Fuegos cubiertos" },
+    { value: "1–27", unit: "kg", label: "Capacidades" },
+    { value: "1", unit: "año", label: "Recarga / revisión" },
+    { value: "32", unit: "MX", label: "Estados de envío" },
+  ],
+  normasTitle: "Normas Aplicables",
+  normas: [
+    { code: "NOM-100", color: "ember", desc: "NOM-100-STPS-1994 — extintores de polvo químico seco" },
+    { code: "NOM-106", color: "fire", desc: "NOM-106-SCFI — extintores clase K para cocinas" },
+    { code: "NFPA 10", color: "smoke", desc: "Instalación, espaciado, mantenimiento y recarga" },
+    { code: "NOM-154", color: "neutral", desc: "NOM-154-SCFI — servicio y mantenimiento de extintores" },
+    { code: "UL Listed", color: "neutral", desc: "Certificación internacional para Halotron-I y Clase K" },
+  ],
+  materialesTitle: "Agentes y Materiales",
+  materiales: [
+    { name: "Polvo químico seco (PQS)", desc: "Fosfato monoamónico / bicarbonato sódico presurizado con nitrógeno, Clase A·B·C" },
+    { name: "Dióxido de carbono (CO₂)", desc: "Agente limpio sin residuos, no conductivo, ideal para electrónica Clase B·C" },
+    { name: "Agente saponificante (Clase K)", desc: "Acetato de potasio que emulsiona grasas y previene reencendido" },
+    { name: "Halotron-I / AFFF", desc: "Sustituto ecológico de halón y espuma AFFF para combustibles líquidos" },
+    { name: "Cilindro de acero laminado", desc: "Acero laminado en frío, manómetro calibrado y válvula de seguridad" },
+  ],
+  marcasTitle: "Marcas Distribuidas",
+  marcas: [
+    { name: "Amerex", sub: "Extintores PQS, CO₂ y Clase K — referencia NFPA" },
+    { name: "Badger", sub: "Polvo ABC y CO₂ certificados UL Listed" },
+    { name: "Ansul", sub: "Clase K y sistemas para cocina comercial" },
+    { name: "Kidde", sub: "Portátiles ABC y de rueda industriales" },
+    { name: "Buckeye", sub: "Halotron-I y agentes limpios para electrónica" },
+  ],
+  recursosTitle: "Guías y Recursos",
+  recursos: [
+    { label: "Guía", text: "Qué extintor usar según la clase de fuego A/B/C/D/K", href: "/guias/clases-de-fuego-extintor/" },
+    { label: "NFPA 10", text: "Cuántos extintores necesita tu instalación y espaciado", href: "/guias/cuantos-extintores-nfpa-10/" },
+    { label: "Mantenimiento", text: "Recarga, inspección anual y prueba hidrostática", href: "/guias/mantenimiento-extintores-nom/" },
+    { label: "Cotizar", text: "Levantamiento gratuito y distribución para tu edificio", href: "/cotizar/" },
+  ],
+  ctaText: "Realizamos levantamiento gratuito y cotizamos la distribución de extintores para tu instalación.",
+  waMsg: "Hola, necesito cotizar extintores contra incendio",
+};
+
+const whyImages = [
+  "/images/extintores/extintor-pqs-polvo-quimico-seco-02.avif",
+  "/images/extintores/extintor-co2-dioxido-carbono-02.avif",
+  "/images/extintores/extintor-agua-presurizada-02.avif",
+  "/images/extintores/extintor-halotron-i-02.avif",
+  "/images/extintores/extintor-clase-k-cocina-comercial-02.avif",
+  "/images/extintores/gabinete-contra-incendio-extintor-02.avif",
+];
+
 ---
 
-<PageLayout
-  quickNav={false}
+<ProductCategoryLayout
   title="Extintores Certificados NOM-100 | BOMBERO.MX"
   description="Extintores certificados NOM-100-STPS-1994: PQS multiuso, CO2, agua, Halotron-I, Clase K para cocinas y gabinetes. Distribución a 32 estados. Asesoría técnica. ¡Cotiza!"
+  canonical={CANONICAL}
+  jsonLd={jsonLdSchemas}
   keywords={[
     "extintores México",
     "extintor PQS polvo químico",
@@ -202,584 +261,188 @@ const extinotresFaqs = [
     "distribuidor extintores",
   ]}
   type="website"
-  canonical={CANONICAL}
-  jsonLd={jsonLdSchemas}
->
-
-  <Breadcrumb items={[
+  breadcrumb={[
     { label: "Productos", href: "/productos/" },
     { label: "Extintores" },
-  ]} />
-
-
-
-
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__gradient"></div>
-      <div class="hero__grid"></div>
-      <div class="hero__glow hero__glow--1"></div>
-      <div class="hero__glow hero__glow--2"></div>
-    </div>
-
-    <div class="container hero__container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          6 Tipos de Extintores · Certificados NOM-100-STPS
-        </div>
-        <h1 class="hero__title">
-          Extintores contra
-          <span class="hero__title-highlight">Incendio</span>
-          Certificados NOM-100
-        </h1>
-        <p class="hero__subtitle">
-          Extintores portátiles y de rueda NOM-154-SCFI: agua, CO₂, polvo químico seco ABC y AFFF para combustibles líquidos. Para estaciones, industria y uso institucional.
-        </p>
-      </div>
-
-      <div class="hero__seo">
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Qué tipo de extintor usar según la clase de fuego</h2>
-          <p class="hero__seo-text">
-            Clase A (sólidos como madera y papel): agua o <strong>PQS</strong>. Clase B (líquidos inflamables): <strong>CO₂ o polvo ABC</strong>. Clase C (equipos eléctricos energizados): <strong>CO₂</strong>, nunca agua. Clase D (metales combustibles como magnesio): agente especial de polvo seco. Clase K (aceites y grasas de cocina): <strong>extintor saponificante</strong> obligatorio en cocinas comerciales por NOM. El error más caro es comprar extintores PQS para un cuarto de servidores: el polvo daña los equipos electrónicos más de lo que el fuego habría dañado. Para servidores y telecomunicaciones, el CO₂ o Halotron no deja residuos.
-          </p>
-        </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Revisión y recarga: lo que exige la NOM</h2>
-          <p class="hero__seo-text">
-            La <strong>NOM-154-SCFI</strong> exige inspección visual mensual (que el manómetro marque zona verde, que el sello de seguridad esté intacto, que no haya corrosión visible) y mantenimiento anual por personal certificado. Cada extintor tiene una vida útil de 5 a 20 años según tipo y fabricante, pero sin la revisión anual documentada, el seguro puede rechazar una reclamación. Nosotros entregamos el extintor con etiqueta de inspección inicial y podemos programar la recarga anual. Distancia máxima entre extintores según NOM: 15 metros en riesgo ordinario, 23 metros en riesgo ligero.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <QuickNav pool="categoria" count={7} />
-
-  <CTABar quote="Cotizar Extintores" />
-
-
-
-
-  <section class="section productos" id="catalogo">
-    <div class="container">
-      <SectionHeader
-        label="Catálogo de Extintores Contra Incendio"
-        title="6 Tipos de Extintores"
-        description="Desde polvo químico seco multiuso hasta extintores Clase K para cocinas comerciales. Cada extintor está certificado para su aplicación operativa específica."
-      >
-        <p>
-          Un <strong>extintor contra incendio</strong> es el primer sistema de protección inmediata frente a amago de incendio. En BOMBERO.MX seleccionamos únicamente <strong>extintores certificados NOM-100-STPS</strong> que superan los requerimientos mínimos y son compatibles con sistemas de protección integral en <a href="/productos/cascos-para-bomberos/">cascos de bombero</a>, <a href="/productos/trajes-para-bomberos/">trajes</a> y <strong>equipo contra incendios</strong> para evacuación segura.
-        </p>
-        <p>
-          Todos nuestros <strong>extintores PQS, CO2, agua, Halotron-I y Clase K</strong> incluyen fichas técnicas completas, certificados de laboratorio acreditado y señalización obligatoria. Para máxima efectividad, el <strong>extintor</strong> debe estar acesible, inspeccionado anualmente según NOM-100-STPS, y complementado con <a href="/productos/gabinetes-contra-incendio/">gabinetes de montaje</a>, rutas de evacuación claras y <a href="/productos/cascos-para-bomberos/">cascos certificados NFPA</a> para respuesta rápida en emergencias.
-        </p>
-      </SectionHeader>
-
-      <div class="productos__grid">
-        {productos.map((producto) => (
-          <ProductCard {...producto} altSuffix="Extintor certificado NOM-100-STPS" />
-        ))}
-      </div>
-    </div>
-  </section>
-
-
-
-
-  <section class="section section--dark specs">
-    <div class="container">
-      <SectionHeader
-        label="Tecnología y Materiales"
-        title="Agentes Extintos, Cilindros y Sistemas de Presurización"
-        description="Los extintores modernos utilizan agentes específicos para cada clase de incendio. Cilindros de acero de alta resistencia con sistemas de presurización segura garantizan efectividad y durabilidad."
-      >
-        <p>
-          Los <strong>extintores PQS (polvo químico seco)</strong> contienen polvo de fosfato de amonio o bicarbonato sódico presurizado con nitrógeno para máxima efectividad en Clase A, B, C. Los <strong>extintores CO2</strong> descarga dióxido de carbono limpio sin residuos, ideal para <a href="/productos/cascos-para-bomberos/" style="color: white; text-decoration: underline;">protección de equipos sensibles</a>. Los <strong>extintores Clase K</strong> contienen agente saponificante que emulsiona grasas calientes y previene reencendido en cocinas comerciales. Los <strong>gabinetes contra incendio</strong> facilitan montaje en pared con acceso rápido durante emergencias según protocolos de <a href="/productos/trajes-para-bomberos/" style="color: white; text-decoration: underline;">respuesta de bomberos</a>.
-        </p>
-        <p>
-          Todos nuestros <strong>extintores NOM-100-STPS</strong> incluyen cilindros de acero laminado en frío, manómetro de presión calibrado, válvula de seguridad, manguera flexible y distribuidor. Certificados por laboratorios acreditados con papelería completa para <strong>licitaciones gubernamentales</strong> en toda la República Mexicana. Inspección y recarga anual obligatoria según norma NOM-100-STPS-1994.
-        </p>
-      </SectionHeader>
-      <div class="specs__grid">
-        <CategoryCard
-          title="Agentes Extintores Específicos"
-          icon="shield"
-          image="/images/extintores/extintor-polvo-quimico-detalle-agente-01.avif"
-          description="Polvo químico seco (PQS) para Clase A, B, C. Dióxido de carbono (CO2) sin residuos. Agua presurizada para Clase A. Halotron-I sustituto ecológico de halón. Agente saponificante Clase K para grasas calientes. Nitrógeno de presurización certificado."
-        />
-        <CategoryCard
-          title="Certificaciones y Normativas"
-          icon="certificate"
-          image="/images/extintores/extintor-certificacion-nom-estudio-02.avif"
-          description="NOM-100-STPS-1994 (México) obligatoria para todos los extintores. NFPA 10 (Estados Unidos) para estándares internacionales. UL Listed para modelos Halotron-I y Clase K. Inspección anual y recarga obligatoria. Documentación para licitaciones públicas."
-        />
-        <CategoryCard
-          title="Aplicaciones Operativas"
-          icon="users"
-          image="/images/extintores/extintor-uso-combate-fuego-proteccion-03.avif"
-          description="Edificios comerciales e industriales, vehículos, depósitos, cocinas comerciales, laboratorios, cuartos de servidores, centros de datos. Protección civil estatal y federal. Cuerpos de bomberos municipales y estatales en toda la República Mexicana."
-        />
-      </div>
-    </div>
-  </section>
-
-
-
-
-  <section class="section comparativa">
-    <div class="container">
-      <SectionHeader
-        label="Tabla Comparativa"
-        title="¿Qué Extintor Necesitas?"
-        description="Compara los 6 tipos de extintores según su agente, aplicación, clases de incendio y normativa para seleccionar el equipo correcto."
-      >
-        <p>
-          La elección del <strong>extintor contra incendio</strong> correcto depende del tipo de incendio predominante: el <strong>extintor PQS multiuso</strong> es el estándar para edificios comerciales e industriales (Clase A, B, C); el <strong>CO2</strong> para protección de equipos electrónicos sin residuos; el <strong>agua presurizada</strong> para estructuras de madera y combustibles sólidos (Clase A); el <strong>Halotron-I</strong> para aviónica y telecomunicaciones; el <strong>Clase K</strong> es obligatorio en cocinas comerciales (grasas y aceites calientes). Los <strong>gabinetes contra incendio</strong> garantizan acceso inmediato y visibilidad clara en emergencias.
-        </p>
-        <p>
-          En <strong>BOMBERO.MX</strong> asesoramos sin costo a tu corporación para seleccionar los <strong>extintores certificados NOM-100-STPS</strong> adecuados según riesgo operativo y normativa local. Elaboramos especificaciones técnicas para <strong>sistemas de protección contra incendios completos</strong> en <strong>licitaciones públicas</strong> de los 32 estados de México.
-        </p>
-      </SectionHeader>
-      <div class="comparativa__wrapper">
-        <table class="comparativa__table">
-          <thead>
-            <tr>
-              <th>Extintor</th>
-              <th>Agente / Norma</th>
-              <th>Clases de Incendio</th>
-              <th>Aplicación</th>
-              <th>Capacidades</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>PQS Multiuso</strong></td>
-              <td><span class="cert-chip cert-chip--ember">Polvo / NOM-100</span></td>
-              <td>Clase A, B, C</td>
-              <td>Edificios, vehículos, comercios, industrias</td>
-              <td>1, 5, 10, 23 kg</td>
-            </tr>
-            <tr>
-              <td><strong>CO2</strong></td>
-              <td><span class="cert-chip cert-chip--fire">Dióxido / NFPA 10</span></td>
-              <td>Clase B, C</td>
-              <td>Servidores, laboratorios, electrónica sensitiva</td>
-              <td>2, 5, 10, 20 kg</td>
-            </tr>
-            <tr>
-              <td><strong>Agua Presurizada</strong></td>
-              <td><span class="cert-chip cert-chip--smoke">Agua / NOM-100</span></td>
-              <td>Clase A</td>
-              <td>Madera, papel, textiles, combustibles sólidos</td>
-              <td>9, 18, 27 kg</td>
-            </tr>
-            <tr>
-              <td><strong>Halotron-I</strong></td>
-              <td><span class="cert-chip cert-chip--ember">Halotron / UL Listed</span></td>
-              <td>Clase A, B, C</td>
-              <td>Aviónica, telecomunicaciones, equipos sensibles</td>
-              <td>2.5, 5.7 kg</td>
-            </tr>
-            <tr>
-              <td><strong>Clase K</strong></td>
-              <td><span class="cert-chip cert-chip--fire">Saponificante / UL Listed</span></td>
-              <td>Clase K (Grasas)</td>
-              <td>Cocinas comerciales, restaurantes, hoteles</td>
-              <td>2, 6 kg</td>
-            </tr>
-            <tr>
-              <td><strong>Gabinetes</strong></td>
-              <td><span class="cert-chip cert-chip--smoke">Acero/Aluminio / NOM-100</span></td>
-              <td>Montaje de cualquier tipo</td>
-              <td>Pared, interior, acceso rápido, señalización</td>
-              <td>5, 10, 23 kg</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-
-
-
-  <WhyChooseUs images={[
-    "/images/extintores/extintor-pqs-polvo-quimico-seco-02.avif",
-    "/images/extintores/extintor-co2-dioxido-carbono-02.avif",
-    "/images/extintores/extintor-agua-presurizada-02.avif",
-    "/images/extintores/extintor-halotron-i-02.avif",
-    "/images/extintores/extintor-clase-k-cocina-comercial-02.avif",
-    "/images/extintores/gabinete-contra-incendio-extintor-02.avif",
-  ]} />
-
-
-
-
-  <FAQQuote
-    items={extinotresFaqs}
-    title="Extintores Certificados NOM — Selección, mantenimiento y cumplimiento normativo"
-    description="Clases A/B/C/K, NOM-100-SCFI vs NOM-106-SCFI, mantenimiento anual, prueba hidrostática, espaciado NFPA 10, precios y constancias para Protección Civil en México."
-  />
-
-
-
-
-  <section class="section relacionados">
-    <div class="container">
-      <SectionHeader
-        label="Equipo Complementario"
-        title="Sistema de Protección Contra Incendios Integral"
-        description="El extintor es el primer sistema de control. Complementa con equipo de respuesta, evacuación y protección personal certificado."
-      >
-        <p>
-          Un <strong>sistema de protección contra incendios completo</strong> requiere <strong>extintores estratégicamente ubicados</strong>, <a href="/productos/cascos-para-bomberos/">cascos certificados NFPA</a> para respuesta segura, <a href="/productos/trajes-para-bomberos/">trajes de bombero</a> con resistencia térmica, <strong>gabinetes de montaje visible</strong>, rutas de evacuación claras, señalización obligatoria y personal entrenado en NOM-100-STPS. El <strong>extintor PQS multiuso</strong> es el estándar inicial; complementa con <strong>CO2 en cuartos de servidores</strong> y <strong>Clase K en cocinas comerciales</strong>.
-        </p>
-        <p>
-          En <strong>BOMBERO.MX</strong> equipamos tu infraestructura con todo el sistema de <strong>protección contra incendios de una sola fuente</strong>: <strong>extintores certificados NOM-100-STPS</strong>, <a href="/productos/cascos-para-bomberos/">cascos NFPA</a>, <a href="/productos/trajes-para-bomberos/">trajes de emergencia</a>, <strong>gabinetes contra incendio</strong> y asesoría técnica sin costo. Disponibilidad inmediata para los 32 estados de México.
-        </p>
-      </SectionHeader>
-      <div class="rel__grid">
-        <CategoryCard
-          title="Cascos para Bombero"
-          icon="shield"
-          image="/images/cascos-para-bomberos/casco-bombero-estructural-nfpa-1971-modelo-frontal-01.avif"
-          href="/productos/cascos-para-bomberos/"
-          buttonText="Cascos para Bombero"
-          items={[
-            { label: "Casco Estructural NFPA 1971", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/" },
-            { label: "Casco Forestal NFPA 1977", href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/" },
-            { label: "Casco ARFF Aeroportuario", href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/" },
-            { label: "Casco Rescate Técnico NFPA 1951", href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/" },
-          ]}
-        />
-        <CategoryCard
-          title="Trajes para Bombero"
-          icon="uniform"
-          image="/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif"
-          href="/productos/trajes-para-bomberos/"
-          buttonText="Trajes para Bombero"
-          items={[
-            { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" },
-            { label: "Traje Forestal NFPA 1977", href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/" },
-            { label: "Traje HAZMAT Nivel A/B", href: "/productos/trajes-para-bomberos/traje-hazmat/" },
-            { label: "Traje ARFF Aeroportuario", href: "/productos/trajes-para-bomberos/traje-arff-aeroportuario/" },
-          ]}
-        />
-        <CategoryCard
-          title="Equipo Contra Incendios"
-          icon="flame"
-          image="/images/equipo-contra-incendios/manguera-bombero-carrete-enrollada-01.avif"
-          href="/productos/equipo-contra-incendios/"
-          buttonText="Equipo Contra Incendios"
-          items={[
-            { label: "Mangueras Contra Incendio", href: "/productos/equipo-contra-incendios/mangueras/" },
-            { label: "Acoples y Boquillas", href: "/productos/equipo-contra-incendios/acoples-boquillas/" },
-            { label: "Escaleras Extensibles", href: "/productos/equipo-contra-incendios/escaleras/" },
-            { label: "Herramientas de Rescate", href: "/productos/equipo-contra-incendios/herramientas/" },
-          ]}
-        />
-        <CategoryCard
-          title="Botas para Bombero"
-          icon="boot"
-          image="/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif"
-          href="/productos/botas-para-bomberos/"
-          buttonText="Botas para Bombero"
-          items={[
-            { label: "Bota Estructural (Cuero)", href: "/productos/botas-para-bomberos/estructural/" },
-            { label: "Bota de Caucho (HAZMAT)", href: "/productos/botas-para-bomberos/caucho/" },
-            { label: "Bota Forestal", href: "/productos/botas-para-bomberos/forestal/" },
-          ]}
-        />
-      </div>
-    </div>
-  </section>
-
-
-
-
-  <CTABanner />
-
-</PageLayout>
-
-<style>
-
-  .hero {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: var(--color-smoke-950);
-    overflow: hidden;
-    padding: var(--space-16) 0;
-  }
-
-  .hero__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .hero__gradient {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
-      radial-gradient(ellipse 60% 50% at 0% 50%, rgba(249, 115, 22, 0.1), transparent),
-      radial-gradient(ellipse 60% 50% at 100% 80%, rgba(220, 38, 38, 0.08), transparent);
-  }
-
-  .hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-  }
-
-  .hero__glow {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.4;
-  }
-
-  .hero__glow--1 { top: -200px; right: -100px; background: var(--color-ember-600); }
-  .hero__glow--2 { bottom: -200px; left: -100px; background: var(--color-fire-600); }
-
-  .hero__container {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
-    padding-block: var(--space-8);
-  }
-
-  .hero__content {
-    color: var(--color-text-on-dark);
-  }
-
-  .hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(220, 38, 38, 0.15);
-    border: 1px solid rgba(220, 38, 38, 0.3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-6);
-  }
-
-  .hero__badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--color-ember-500);
-    border-radius: 50%;
-  }
-  .hero__title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-6);
-    letter-spacing: var(--tracking-tight);
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .hero__title-highlight {
-    background: var(--gradient-fire);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
-  }
-
-  .hero__subtitle {
-    font-size: var(--text-xl);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-    max-width: 540px;
-    margin-bottom: var(--space-8);
-  }
-
-  .hero__seo {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-  }
-
-
-  .hero__seo-block {
-    padding: var(--space-4) 0;
-  }
-
-  .hero__seo-title {
-    font-size: var(--text-lg);
-    font-weight: 700;
-    color: var(--color-fire-400);
-    margin-bottom: var(--space-4);
-    line-height: var(--leading-tight);
-  }
-
-  .hero__seo-text {
-    font-size: var(--text-base);
-    color: var(--color-smoke-300);
-    line-height: var(--leading-relaxed);
-  }
-
-  .hero__seo-text strong {
-    color: #ffffff;
-    font-weight: 600;
-  }
-
-
-  .productos {
-    background: var(--color-smoke-50);
-  }
-
-  .productos__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-
-  .specs { background: var(--gradient-dark); }
-
-
-  .specs :global(.section-header__label) { color: var(--color-fire-400); }
-  .specs :global(.section-header__title) { color: white; }
-  .specs :global(.section-header__desc)  { color: var(--color-smoke-300); }
-  .specs :global(.section-header__right p) { color: var(--color-smoke-300); }
-  .specs :global(.section-header__right strong) { color: white; font-weight: 600; }
-
-  .specs__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-
-  .comparativa { background: #ffffff; }
-
-  .comparativa__wrapper {
-    overflow-x: auto;
-    border-radius: var(--radius-2xl);
-    border: 1px solid var(--color-smoke-200);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-  }
-
-  .comparativa__table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: var(--text-sm);
-  }
-
-  .comparativa__table thead { background: var(--color-smoke-900); }
-
-  .comparativa__table th {
-    padding: var(--space-4) var(--space-5);
-    text-align: left;
-    font-size: var(--text-xs);
-    font-weight: 700;
-    color: var(--color-smoke-300);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-  }
-
-  .comparativa__table tbody tr {
-    border-bottom: 1px solid var(--color-smoke-100);
-    background: white;
-  }
-
-  .comparativa__table tbody tr:last-child { border-bottom: none; }
-  .comparativa__table tbody tr:hover { background: var(--color-smoke-50); }
-
-  .comparativa__table td {
-    padding: var(--space-4) var(--space-5);
-    color: var(--color-smoke-700);
-    line-height: 1.5;
-    vertical-align: middle;
-  }
-
-  .comparativa__table td:first-child {
-    color: var(--color-smoke-900);
-    white-space: nowrap;
-  }
-
-  .cert-chip {
-    display: inline-block;
-    padding: 2px var(--space-2);
-    border-radius: var(--radius-md);
-    font-size: 11px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .cert-chip--ember { background: rgba(220, 38, 38, 0.1); color: var(--color-ember-700); }
-  .cert-chip--fire  { background: rgba(249, 115, 22, 0.1); color: var(--color-fire-700); }
-  .cert-chip--smoke { background: var(--color-smoke-100); color: var(--color-smoke-700); }
-
-
-  .relacionados { background: var(--color-smoke-50); }
-
-  .rel__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-6);
-  }
-
-  @media (max-width: 1200px) { .rel__grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 640px)  { .rel__grid { grid-template-columns: 1fr; } }
-
-
-  @media (max-width: 1200px) {
-    .productos__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .specs__grid {
-      grid-template-columns: 1fr;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-  }
-
-  @media (max-width: 968px) {
-    .hero { padding: var(--space-10) 0; }
-
-    .hero__container {
-      grid-template-columns: 1fr;
-      padding-block: var(--space-4);
-    }
-
-    .hero__subtitle { max-width: 100%; }
-    .hero__seo { display: none; }
-    .specs__grid { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 768px) {
-    .productos__grid { grid-template-columns: 1fr; }
-
-    .comparativa__table th,
-    .comparativa__table td {
-      padding: var(--space-3) var(--space-4);
-      font-size: var(--text-xs);
-    }
-  }
-
-  @media (max-width: 640px) {
-    .hero__title { font-size: 2rem; }
-    .hero__subtitle { font-size: var(--text-base); }
-  }
-</style>
+  ]}
+  heroBadge="6 Tipos de Extintores · Certificados NOM-100-STPS"
+  heroTitle={`Extintores contra <span class="hero__title-highlight">Incendio</span> Certificados NOM-100`}
+  heroSubtitle="Extintores portátiles y de rueda NOM-154-SCFI: agua, CO₂, polvo químico seco ABC y AFFF para combustibles líquidos. Para estaciones, industria y uso institucional."
+  heroSeoBlocks={[
+    {
+      title: "Qué tipo de extintor usar según la clase de fuego",
+      html: `Clase A (sólidos como madera y papel): agua o <strong>PQS</strong>. Clase B (líquidos inflamables): <strong>CO₂ o polvo ABC</strong>. Clase C (equipos eléctricos energizados): <strong>CO₂</strong>, nunca agua. Clase D (metales combustibles como magnesio): agente especial de polvo seco. Clase K (aceites y grasas de cocina): <strong>extintor saponificante</strong> obligatorio en cocinas comerciales por NOM. El error más caro es comprar extintores PQS para un cuarto de servidores: el polvo daña los equipos electrónicos más de lo que el fuego habría dañado. Para servidores y telecomunicaciones, el CO₂ o Halotron no deja residuos.`,
+    },
+    {
+      title: "Revisión y recarga: lo que exige la NOM",
+      html: `La <strong>NOM-154-SCFI</strong> exige inspección visual mensual (que el manómetro marque zona verde, que el sello de seguridad esté intacto, que no haya corrosión visible) y mantenimiento anual por personal certificado. Cada extintor tiene una vida útil de 5 a 20 años según tipo y fabricante, pero sin la revisión anual documentada, el seguro puede rechazar una reclamación. Nosotros entregamos el extintor con etiqueta de inspección inicial y podemos programar la recarga anual. Distancia máxima entre extintores según NOM: 15 metros en riesgo ordinario, 23 metros en riesgo ligero.`,
+    },
+  ]}
+  ctaBarQuote="Cotizar Extintores"
+  sidebar={sidebar}
+  whyImages={whyImages}
+>
+
+        <!-- CATÁLOGO -->
+        <section class="content-panel" id="catalogo">
+          <SectionHeader
+            label="Catálogo de Extintores Contra Incendio"
+            title="6 Tipos de Extintores"
+            description="Desde polvo químico seco multiuso hasta extintores Clase K para cocinas comerciales. Cada extintor está certificado para su aplicación operativa específica."
+          >
+            <p>
+              Un <strong>extintor contra incendio</strong> es el primer sistema de protección inmediata frente a amago de incendio. En BOMBERO.MX seleccionamos únicamente <strong>extintores certificados NOM-100-STPS</strong> que superan los requerimientos mínimos y son compatibles con sistemas de protección integral en <a href="/productos/cascos-para-bomberos/">cascos de bombero</a>, <a href="/productos/trajes-para-bomberos/">trajes</a> y <strong>equipo contra incendios</strong> para evacuación segura.
+            </p>
+            <p>
+              Todos nuestros <strong>extintores PQS, CO2, agua, Halotron-I y Clase K</strong> incluyen fichas técnicas completas, certificados de laboratorio acreditado y señalización obligatoria. Para máxima efectividad, el <strong>extintor</strong> debe estar acesible, inspeccionado anualmente según NOM-100-STPS, y complementado con <a href="/productos/gabinetes-contra-incendio/">gabinetes de montaje</a>, rutas de evacuación claras y <a href="/productos/cascos-para-bomberos/">cascos certificados NFPA</a> para respuesta rápida en emergencias.
+            </p>
+          </SectionHeader>
+          <div class="productos__grid">
+            {productos.map((producto) => (
+              <ProductCard {...producto} altSuffix="Extintor certificado NOM-100-STPS" />
+            ))}
+          </div>
+        </section>
+
+        <!-- TECNOLOGÍA Y MATERIALES -->
+        <section class="content-panel content-panel--dark" id="tecnologia">
+          <SectionHeader
+            label="Tecnología y Materiales"
+            title="Agentes Extintos, Cilindros y Sistemas de Presurización"
+            description="Los extintores modernos utilizan agentes específicos para cada clase de incendio. Cilindros de acero de alta resistencia con sistemas de presurización segura garantizan efectividad y durabilidad."
+          >
+            <p>
+              Los <strong>extintores PQS (polvo químico seco)</strong> contienen polvo de fosfato de amonio o bicarbonato sódico presurizado con nitrógeno para máxima efectividad en Clase A, B, C. Los <strong>extintores CO2</strong> descarga dióxido de carbono limpio sin residuos, ideal para <a class="dark-link" href="/productos/cascos-para-bomberos/">protección de equipos sensibles</a>. Los <strong>extintores Clase K</strong> contienen agente saponificante que emulsiona grasas calientes y previene reencendido en cocinas comerciales. Los <strong>gabinetes contra incendio</strong> facilitan montaje en pared con acceso rápido durante emergencias según protocolos de <a class="dark-link" href="/productos/trajes-para-bomberos/">respuesta de bomberos</a>.
+            </p>
+            <p>
+              Todos nuestros <strong>extintores NOM-100-STPS</strong> incluyen cilindros de acero laminado en frío, manómetro de presión calibrado, válvula de seguridad, manguera flexible y distribuidor. Certificados por laboratorios acreditados con papelería completa para <strong>licitaciones gubernamentales</strong> en toda la República Mexicana. Inspección y recarga anual obligatoria según norma NOM-100-STPS-1994.
+            </p>
+          </SectionHeader>
+          <div class="specs__grid">
+            <CategoryCard
+              title="Agentes Extintores Específicos"
+              icon="shield"
+              image="/images/extintores/extintor-polvo-quimico-detalle-agente-01.avif"
+              description="Polvo químico seco (PQS) para Clase A, B, C. Dióxido de carbono (CO2) sin residuos. Agua presurizada para Clase A. Halotron-I sustituto ecológico de halón. Agente saponificante Clase K para grasas calientes. Nitrógeno de presurización certificado."
+            />
+            <CategoryCard
+              title="Certificaciones y Normativas"
+              icon="certificate"
+              image="/images/extintores/extintor-certificacion-nom-estudio-02.avif"
+              description="NOM-100-STPS-1994 (México) obligatoria para todos los extintores. NFPA 10 (Estados Unidos) para estándares internacionales. UL Listed para modelos Halotron-I y Clase K. Inspección anual y recarga obligatoria. Documentación para licitaciones públicas."
+            />
+            <CategoryCard
+              title="Aplicaciones Operativas"
+              icon="users"
+              image="/images/extintores/extintor-uso-combate-fuego-proteccion-03.avif"
+              description="Edificios comerciales e industriales, vehículos, depósitos, cocinas comerciales, laboratorios, cuartos de servidores, centros de datos. Protección civil estatal y federal. Cuerpos de bomberos municipales y estatales en toda la República Mexicana."
+            />
+          </div>
+        </section>
+
+        <!-- COMPARATIVA -->
+        <section class="content-panel" id="comparativa">
+          <SectionHeader
+            label="Tabla Comparativa"
+            title="¿Qué Extintor Necesitas?"
+            description="Compara los 6 tipos de extintores según su agente, aplicación, clases de incendio y normativa para seleccionar el equipo correcto."
+          >
+            <p>
+              La elección del <strong>extintor contra incendio</strong> correcto depende del tipo de incendio predominante: el <strong>extintor PQS multiuso</strong> es el estándar para edificios comerciales e industriales (Clase A, B, C); el <strong>CO2</strong> para protección de equipos electrónicos sin residuos; el <strong>agua presurizada</strong> para estructuras de madera y combustibles sólidos (Clase A); el <strong>Halotron-I</strong> para aviónica y telecomunicaciones; el <strong>Clase K</strong> es obligatorio en cocinas comerciales (grasas y aceites calientes). Los <strong>gabinetes contra incendio</strong> garantizan acceso inmediato y visibilidad clara en emergencias.
+            </p>
+            <p>
+              En <strong>BOMBERO.MX</strong> asesoramos sin costo a tu corporación para seleccionar los <strong>extintores certificados NOM-100-STPS</strong> adecuados según riesgo operativo y normativa local. Elaboramos especificaciones técnicas para <strong>sistemas de protección contra incendios completos</strong> en <strong>licitaciones públicas</strong> de los 32 estados de México.
+            </p>
+          </SectionHeader>
+          <ComparativaTable
+            headers={["Extintor", "Agente / Norma", "Clases de Incendio", "Aplicación", "Capacidades"]}
+            rows={[
+              [{ strong: "PQS Multiuso" }, { chip: "Polvo / NOM-100", color: "ember" }, "Clase A, B, C", "Edificios, vehículos, comercios, industrias", "1, 5, 10, 23 kg"],
+              [{ strong: "CO2" }, { chip: "Dióxido / NFPA 10", color: "fire" }, "Clase B, C", "Servidores, laboratorios, electrónica sensitiva", "2, 5, 10, 20 kg"],
+              [{ strong: "Agua Presurizada" }, { chip: "Agua / NOM-100", color: "smoke" }, "Clase A", "Madera, papel, textiles, combustibles sólidos", "9, 18, 27 kg"],
+              [{ strong: "Halotron-I" }, { chip: "Halotron / UL Listed", color: "ember" }, "Clase A, B, C", "Aviónica, telecomunicaciones, equipos sensibles", "2.5, 5.7 kg"],
+              [{ strong: "Clase K" }, { chip: "Saponificante / UL Listed", color: "fire" }, "Clase K (Grasas)", "Cocinas comerciales, restaurantes, hoteles", "2, 6 kg"],
+              [{ strong: "Gabinetes" }, { chip: "Acero/Aluminio / NOM-100", color: "smoke" }, "Montaje de cualquier tipo", "Pared, interior, acceso rápido, señalización", "5, 10, 23 kg"],
+            ]}
+          />
+        </section>
+
+        <!-- FAQ -->
+        <section class="content-panel content-panel--faq" id="faq">
+          <FAQQuote
+            items={extinotresFaqs}
+            title="Extintores Certificados NOM — Selección, mantenimiento y cumplimiento normativo"
+            description="Clases A/B/C/K, NOM-100-SCFI vs NOM-106-SCFI, mantenimiento anual, prueba hidrostática, espaciado NFPA 10, precios y constancias para Protección Civil en México."
+          />
+        </section>
+
+        <!-- EQUIPO COMPLEMENTARIO -->
+        <section class="content-panel" id="complementario">
+          <SectionHeader
+            label="Equipo Complementario"
+            title="Sistema de Protección Contra Incendios Integral"
+            description="El extintor es el primer sistema de control. Complementa con equipo de respuesta, evacuación y protección personal certificado."
+          >
+            <p>
+              Un <strong>sistema de protección contra incendios completo</strong> requiere <strong>extintores estratégicamente ubicados</strong>, <a href="/productos/cascos-para-bomberos/">cascos certificados NFPA</a> para respuesta segura, <a href="/productos/trajes-para-bomberos/">trajes de bombero</a> con resistencia térmica, <strong>gabinetes de montaje visible</strong>, rutas de evacuación claras, señalización obligatoria y personal entrenado en NOM-100-STPS. El <strong>extintor PQS multiuso</strong> es el estándar inicial; complementa con <strong>CO2 en cuartos de servidores</strong> y <strong>Clase K en cocinas comerciales</strong>.
+            </p>
+            <p>
+              En <strong>BOMBERO.MX</strong> equipamos tu infraestructura con todo el sistema de <strong>protección contra incendios de una sola fuente</strong>: <strong>extintores certificados NOM-100-STPS</strong>, <a href="/productos/cascos-para-bomberos/">cascos NFPA</a>, <a href="/productos/trajes-para-bomberos/">trajes de emergencia</a>, <strong>gabinetes contra incendio</strong> y asesoría técnica sin costo. Disponibilidad inmediata para los 32 estados de México.
+            </p>
+          </SectionHeader>
+          <div class="rel__grid">
+            <CategoryCard
+              title="Cascos para Bombero"
+              icon="shield"
+              image="/images/cascos-para-bomberos/casco-bombero-estructural-nfpa-1971-modelo-frontal-01.avif"
+              href="/productos/cascos-para-bomberos/"
+              buttonText="Cascos para Bombero"
+              items={[
+                { label: "Casco Estructural NFPA 1971", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/" },
+                { label: "Casco Forestal NFPA 1977", href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/" },
+                { label: "Casco ARFF Aeroportuario", href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/" },
+                { label: "Casco Rescate Técnico NFPA 1951", href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/" },
+              ]}
+            />
+            <CategoryCard
+              title="Trajes para Bombero"
+              icon="uniform"
+              image="/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif"
+              href="/productos/trajes-para-bomberos/"
+              buttonText="Trajes para Bombero"
+              items={[
+                { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" },
+                { label: "Traje Forestal NFPA 1977", href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/" },
+                { label: "Traje HAZMAT Nivel A/B", href: "/productos/trajes-para-bomberos/traje-hazmat/" },
+                { label: "Traje ARFF Aeroportuario", href: "/productos/trajes-para-bomberos/traje-arff-aeroportuario/" },
+              ]}
+            />
+            <CategoryCard
+              title="Equipo Contra Incendios"
+              icon="flame"
+              image="/images/equipo-contra-incendios/manguera-bombero-carrete-enrollada-01.avif"
+              href="/productos/equipo-contra-incendios/"
+              buttonText="Equipo Contra Incendios"
+              items={[
+                { label: "Mangueras Contra Incendio", href: "/productos/equipo-contra-incendios/mangueras/" },
+                { label: "Acoples y Boquillas", href: "/productos/equipo-contra-incendios/acoples-boquillas/" },
+                { label: "Escaleras Extensibles", href: "/productos/equipo-contra-incendios/escaleras/" },
+                { label: "Herramientas de Rescate", href: "/productos/equipo-contra-incendios/herramientas/" },
+              ]}
+            />
+            <CategoryCard
+              title="Botas para Bombero"
+              icon="boot"
+              image="/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif"
+              href="/productos/botas-para-bomberos/"
+              buttonText="Botas para Bombero"
+              items={[
+                { label: "Bota Estructural (Cuero)", href: "/productos/botas-para-bomberos/estructural/" },
+                { label: "Bota de Caucho (HAZMAT)", href: "/productos/botas-para-bomberos/caucho/" },
+                { label: "Bota Forestal", href: "/productos/botas-para-bomberos/forestal/" },
+              ]}
+            />
+          </div>
+        </section>
+
+</ProductCategoryLayout>
