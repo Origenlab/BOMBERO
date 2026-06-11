@@ -1,14 +1,9 @@
 ---
-import PageLayout    from "@layouts/PageLayout.astro";
-import QuickNav from "@components/QuickNav.astro";
+import ProductCategoryLayout from "@layouts/ProductCategoryLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
-import CTABanner     from "@components/CTABanner.astro";
-import CTABar        from "@components/CTABar.astro";
-import CategoryCard  from "@components/CategoryCard.astro";
-import ProductCard   from "@components/ProductCard.astro";
-import FAQ           from "@components/FAQ.astro";
-import FAQQuote      from "@components/FAQQuote.astro";
-import Breadcrumb    from "@components/Breadcrumb.astro";
+import FAQQuote from "@components/FAQQuote.astro";
+import CategoryCard from "@components/CategoryCard.astro";
+import ProductCard from "@components/ProductCard.astro";
 import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
 
 // ─── Productos de la categoría Forestales ───────────────────────────────────
@@ -182,10 +177,66 @@ const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Equipo Forestal para Bomberos", url: CANONICAL },
 ]);
 const jsonLdSchemas = [productSchema];
+
+// ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
+const sidebar = {
+  ariaLabel: "Navegación de equipo forestal",
+  tiposTitle: "Equipo Forestal",
+  tipos: [
+    { href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/", label: "Traje Forestal NFPA 1977", badge: "NFPA 1977", badgeColor: "fire", dot: "fire", active: true },
+    { href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/", label: "Casco Forestal NFPA 1977", badge: "NFPA 1977", badgeColor: "fire", dot: "fire" },
+    { href: "/productos/botas-para-bomberos/forestal/", label: "Botas Forestales NFPA 1977", badge: "NFPA 1977", badgeColor: "smoke", dot: "smoke" },
+    { href: "/productos/guantes-para-bomberos/forestales/", label: "Guantes Forestales NFPA 1977", badge: "NFPA 1977", badgeColor: "smoke", dot: "smoke" },
+    { href: "/productos/forestales/", label: "Mochila Bomba Forestal", badge: "Ataque", badgeColor: "ember", dot: "ember" },
+    { href: "/productos/forestales/", label: "Herramientas de Suelo (Kit)", badge: "Pulaski / McLeod", badgeColor: "smoke", dot: "smoke" },
+  ],
+  specs: [
+    { value: "< 400", unit: "g/m²", label: "Tejido Nomex® IIIA" },
+    { value: "< 1.5", unit: "kg", label: "Traje forestal completo" },
+    { value: "18–25", unit: "L", label: "Mochila bomba forestal" },
+    { value: "300", unit: "°C", label: "Suela Vibram® botas" },
+  ],
+  normas: [
+    { code: "NFPA 1977", color: "fire", desc: "EPP para combate de incendios forestales" },
+    { code: "NFPA 1851", color: "ember", desc: "Inspección, cuidado y retiro del EPP" },
+    { code: "NOM-017-STPS", color: "smoke", desc: "EPP para trabajadores en México" },
+    { code: "CONAFOR", color: "neutral", desc: "Requisitos de brigadas forestales federales" },
+  ],
+  materiales: [
+    { name: "Nomex® IIIA", desc: "Tejido FR inherente ultraligero — no se degrada con el lavado" },
+    { name: "Suela Vibram®", desc: "Agarre extremo en terreno irregular · resiste 300°C" },
+    { name: "Cuero FR + GORE-TEX®", desc: "Botas forestales — impermeabilidad transpirable" },
+    { name: "Fibra de vidrio", desc: "Mangos de herramientas — inastillables, sin transmisión de calor" },
+    { name: "TPU de alta resistencia", desc: "Depósito de mochila bomba — resiste impactos y temperatura" },
+  ],
+  marcas: [
+    { name: "DuPont™ Nomex®", sub: "Fibra aramida estándar para trajes forestales NFPA 1977" },
+    { name: "Vibram®", sub: "Suelas de alto agarre y resistencia térmica para botas de campo" },
+    { name: "Pulaski / Council Tool", sub: "Herramientas de suelo forestal — hacha-azadón y McLeod" },
+    { name: "GORE-TEX®", sub: "Membrana impermeable transpirable para botas forestales" },
+    { name: "Fire-Dex / Lakeland", sub: "Conjuntos de EPP forestal certificado NFPA 1977" },
+  ],
+  recursos: [
+    { label: "Guía", text: "Guía de equipamiento de brigadas forestales NFPA 1977", href: "/blog/" },
+    { label: "Blog", text: "Blog Técnico BOMBERO.MX", href: "/blog/" },
+    { label: "Cat.", text: "Catálogo completo de productos", href: "/productos/" },
+    { label: "Form", text: "Solicitar cotización en línea", href: "/cotizar/" },
+  ],
+  ctaText: "Especificamos el equipo forestal NFPA 1977 completo para tu brigada CONAFOR, protección civil o cuerpo de bomberos municipal. Sin costo ni compromiso.",
+  waMsg: "Hola BOMBERO.MX, necesito cotizar equipo forestal NFPA 1977 para una brigada.",
+};
+
+const whyImages = [
+  "/images/trajes-para-bombero/traje-bombero-detalle-chaqueton-incendio-campo-01.avif",
+  "/images/trajes-para-bombero/bombera-profesional-traje-estructural-estacion-04.avif",
+  "/images/trajes-para-bombero/bombera-profesional-traje-estructural-estacion-01.avif",
+  "/images/trajes-para-bombero/traje-bombero-detalle-material-nomex-resistencia-01.avif",
+  "/images/trajes-para-bombero/traje-bombero-operacion-rescate-equipo-accion-01.avif",
+  "/images/trajes-para-bombero/traje-bombero-operacion-rescate-direccion-equipo-01.avif",
+];
 ---
 
-<PageLayout
-  quickNav={false}
+<ProductCategoryLayout
   title="Equipo para Bomberos Forestales | NFPA 1977 | CONAFOR | BOMBERO.MX"
   description="Equipo certificado NFPA 1977 para bomberos forestales en México. Trajes Nomex®, cascos, guantes, botas, mochilas bomba y herramientas de suelo (Pulaski, Mcleod). Brigadas CONAFOR y protección civil. Envío a 32 estados. Cotiza sin compromiso."
   canonical={CANONICAL}
@@ -207,295 +258,152 @@ const jsonLdSchemas = [productSchema];
     "EPP bomberos forestales México",
   ]}
   type="website"
->
-
-  <Breadcrumb items={[
+  breadcrumb={[
     { label: "Productos", href: "/productos/" },
     { label: "Equipo Forestal" },
-  ]} />
+  ]}
+  heroBadge="NFPA 1977 · Certificado CONAFOR · 32 Estados"
+  heroTitle={`Equipo para <span class="hero__title-highlight">Bomberos Forestales</span> Certificado NFPA 1977`}
+  heroSubtitle="EPP completo para brigadas de combate forestal: trajes Nomex®, cascos, guantes, botas, mochilas bomba y herramientas de suelo. Todo certificado NFPA 1977 con documentación lista para licitaciones CONAFOR, municipios y protección civil."
+  heroSeoBlocks={[
+    {
+      title: "Distribuidores de Equipo Forestal para Bomberos en México",
+      html: `En <strong>BOMBERO.MX</strong> somos el proveedor especializado de <strong>equipo para bomberos forestales</strong> en toda la República Mexicana. Desde el <strong>traje Nomex® NFPA 1977</strong> hasta las herramientas de suelo (Pulaski, Mcleod, pala) y mochilas bomba de 18–25 L, equipamos brigadas de protección civil, CONAFOR, municipios y cuerpos de bomberos en los 32 estados. Complementa el equipo forestal con <a href="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/" class="hero__link">cascos forestales NFPA 1977</a> y <a href="/productos/botas-para-bomberos/forestal/" class="hero__link">botas forestales certificadas</a>.`,
+    },
+    {
+      title: "NFPA 1977: El Estándar para Protección Forestal en México",
+      html: `La norma <strong>NFPA 1977</strong> establece los requisitos mínimos de protección para bomberos que combaten <strong>incendios forestales, quemas controladas e incendios de interface urbano-rural</strong>. A diferencia del traje estructural <a href="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" class="hero__link">NFPA 1971</a>, el equipo forestal prioriza ligereza, transpirabilidad y movilidad para operaciones de 8 a 24 horas en terreno accidentado. Todos nuestros productos incluyen certificados de laboratorio acreditado para procesos de <strong>licitación pública (CompraNet)</strong>.`,
+    },
+  ]}
+  ctaBarQuote="Cotizar Equipo Forestal"
+  sidebar={sidebar}
+  whyImages={whyImages}
+>
 
-  <!-- ════════════════════ HERO ════════════════════ -->
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__gradient"></div>
-      <div class="hero__grid"></div>
-      <div class="hero__glow hero__glow--1"></div>
-      <div class="hero__glow hero__glow--2"></div>
-    </div>
+        <!-- CATÁLOGO -->
+        <section class="content-panel" id="catalogo">
+          <SectionHeader
+            label="Catálogo — Equipo Forestal NFPA 1977"
+            title="EPP Completo para Brigadas Forestales"
+            description="Desde el traje hasta las herramientas de suelo. Todo lo que necesita una brigada de combate forestal certificada, en un solo proveedor."
+          >
+            <p>
+              El <strong>combate de incendios forestales</strong> exige equipo diseñado para condiciones radicalmente distintas al incendio estructural: mayor movilidad, menor peso, máxima transpirabilidad y capacidad de uso prolongado en campo sin acceso a infraestructura. El <strong>traje forestal NFPA 1977</strong> es la piedra angular del EPP, pero la protección real es sistémica: casco, guantes, botas y herramientas deben cumplir el mismo estándar.
+            </p>
+            <p>
+              En <strong>BOMBERO.MX</strong> suministramos el kit completo para brigadas de cualquier tamaño — desde cuadrillas de 5 personas hasta brigadas de 40 integrantes para la <strong>CONAFOR, protección civil estatal o cuerpos de bomberos municipales</strong>. Emitimos ficha técnica y certificados listos para <strong>licitación pública</strong>.
+            </p>
+          </SectionHeader>
 
-    <div class="container hero__container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          NFPA 1977 · Certificado CONAFOR · 32 Estados
-        </div>
-        <h1 class="hero__title">
-          Equipo para
-          <span class="hero__title-highlight">Bomberos Forestales</span>
-          Certificado NFPA 1977
-        </h1>
-        <p class="hero__subtitle">
-          EPP completo para brigadas de combate forestal: trajes Nomex®, cascos, guantes, botas,
-          mochilas bomba y herramientas de suelo. Todo certificado NFPA 1977 con documentación
-          lista para licitaciones CONAFOR, municipios y protección civil.
-        </p>
-      </div>
+          <div class="productos__grid">
+            {productos.map((producto) => (
+              <ProductCard {...producto} altSuffix="Equipo forestal para bomberos certificado NFPA 1977" />
+            ))}
+          </div>
+        </section>
 
-      <div class="hero__seo">
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Distribuidores de Equipo Forestal para Bomberos en México</h2>
-          <p class="hero__seo-text">
-            En <strong>BOMBERO.MX</strong> somos el proveedor especializado de <strong>equipo para bomberos forestales</strong> en toda la República Mexicana. Desde el <strong>traje Nomex® NFPA 1977</strong> hasta las herramientas de suelo (Pulaski, Mcleod, pala) y mochilas bomba de 18–25 L, equipamos brigadas de protección civil, CONAFOR, municipios y cuerpos de bomberos en los 32 estados. Complementa el equipo forestal con <a href="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/" style="color: var(--color-fire-400); text-decoration: underline;">cascos forestales NFPA 1977</a> y <a href="/productos/botas-para-bomberos/forestal/" style="color: var(--color-fire-400); text-decoration: underline;">botas forestales certificadas</a>.
-          </p>
-        </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">NFPA 1977: El Estándar para Protección Forestal en México</h2>
-          <p class="hero__seo-text">
-            La norma <strong>NFPA 1977</strong> establece los requisitos mínimos de protección para bomberos que combaten <strong>incendios forestales, quemas controladas e incendios de interface urbano-rural</strong>. A diferencia del traje estructural <a href="/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/" style="color: var(--color-fire-400); text-decoration: underline;">NFPA 1971</a>, el equipo forestal prioriza ligereza, transpirabilidad y movilidad para operaciones de 8 a 24 horas en terreno accidentado. Todos nuestros productos incluyen certificados de laboratorio acreditado para procesos de <strong>licitación pública (CompraNet)</strong>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <QuickNav pool="categoria" count={7} />
+        <!-- TECNOLOGÍA / MATERIALES (dark panel) -->
+        <section class="content-panel content-panel--dark" id="tecnologia">
+          <SectionHeader
+            label="Materiales y Certificaciones"
+            title="Nomex®, NFPA 1977 y Herramientas de Campo"
+            description="El equipo forestal de alta calidad combina materiales ignífugos de peso ultra bajo con diseño ergonómico para jornadas de combate de 12 a 24 horas."
+          >
+            <p>
+              El <strong>tejido Nomex® IIIA</strong> es el material estándar de la industria para trajes forestales. Su resistencia inherente al fuego no depende de tratamientos químicos — no se desgasta con el lavado ni pierde sus propiedades FR con el uso. Para operaciones en <strong>interfaz urbano-forestal (IUF)</strong>, el traje <a href="/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/" class="dark-link">forestal NFPA 1977</a> debe complementarse con un <a href="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/" class="dark-link">casco forestal certificado</a> y <a href="/productos/botas-para-bomberos/forestal/" class="dark-link">botas con suela Vibram®</a> resistente a brasas y calor.
+            </p>
+            <p>
+              Las <strong>herramientas de suelo</strong> —Pulaski, Mcleod y pala cuadrada— son el equipo más crítico para la construcción de <strong>líneas cortafuego</strong>. Sus mangos de fibra de vidrio son irrompibles, no transmiten calor y no se astillan. Para brigadas que trabajan sin acceso vehicular, la <strong>mochila bomba de 20–25 L</strong> con bomba de doble émbolo es indispensable para el ataque directo a la llama.
+            </p>
+          </SectionHeader>
 
-  <CTABar quote="Cotizar Equipo Forestal" />
+          <div class="specs__grid">
+            <CategoryCard
+              title="Nomex® — Protección Inherente"
+              icon="shield"
+              image="/images/trajes-para-bombero/certificacion-nfpa-1971-tejido-nomex-goretex-01.avif"
+              description="El tejido Nomex® IIIA ofrece resistencia a la llama inherente — sin tratamientos químicos que se degraden. Peso < 400 g/m² para máxima movilidad en campo. La norma NFPA 1977 exige protección ignífuga inherente (no tratada) en toda la indumentaria de bombero forestal."
+            />
+            <CategoryCard
+              title="Herramientas de Línea Cortafuego"
+              icon="axe"
+              image="/images/trajes-para-bombero/traje-bombero-operacion-rescate-equipo-accion-01.avif"
+              description="Pulaski, Mcleod y pala cuadrada con mangos de fibra de vidrio certificada. La línea cortafuego es la técnica más efectiva de control en incendio forestal. Las herramientas correctas determinan la velocidad de construcción y la seguridad de la brigada."
+            />
+            <CategoryCard
+              title="Certificaciones y Licitaciones"
+              icon="certificate"
+              image="/images/trajes-para-bombero/traje-bombero-estacion-exterior-cuerpo-completo-01.avif"
+              description="Todo el equipo forestal de BOMBERO.MX incluye certificados NFPA 1977 de laboratorio acreditado, fichas técnicas completas y cartas de garantía. Documentación aceptada en procesos de licitación CompraNet para CONAFOR, protección civil estatal y municipios en los 32 estados de México."
+            />
+          </div>
+        </section>
 
-  <!-- ════════════════════ CATÁLOGO ════════════════════ -->
-  <section class="section productos" id="catalogo">
-    <div class="container">
-      <SectionHeader
-        label="Catálogo — Equipo Forestal NFPA 1977"
-        title="EPP Completo para Brigadas Forestales"
-        description="Desde el traje hasta las herramientas de suelo. Todo lo que necesita una brigada de combate forestal certificada, en un solo proveedor."
-      >
-        <p>
-          El <strong>combate de incendios forestales</strong> exige equipo diseñado para condiciones radicalmente distintas al incendio estructural: mayor movilidad, menor peso, máxima transpirabilidad y capacidad de uso prolongado en campo sin acceso a infraestructura. El <strong>traje forestal NFPA 1977</strong> es la piedra angular del EPP, pero la protección real es sistémica: casco, guantes, botas y herramientas deben cumplir el mismo estándar.
-        </p>
-        <p>
-          En <strong>BOMBERO.MX</strong> suministramos el kit completo para brigadas de cualquier tamaño — desde cuadrillas de 5 personas hasta brigadas de 40 integrantes para la <strong>CONAFOR, protección civil estatal o cuerpos de bomberos municipales</strong>. Emitimos ficha técnica y certificados listos para <strong>licitación pública</strong>.
-        </p>
-      </SectionHeader>
+        <!-- FAQ -->
+        <section class="content-panel content-panel--faq" id="faq">
+          <FAQQuote
+            title="Equipo Forestal NFPA 1977 — Lo que necesita saber antes de equipar su brigada"
+            description="Diferencia con equipo estructural, herramientas forestales, cumplimiento CONAFOR, vida útil, precios reales y especificaciones técnicas para licitación en México."
+            items={faqs}
+          />
+        </section>
 
-      <div class="productos__grid">
-        {productos.map((producto) => (
-          <ProductCard {...producto} altSuffix="Equipo forestal para bomberos certificado NFPA 1977" />
-        ))}
-      </div>
-    </div>
-  </section>
+        <!-- SECTORES (complementario) -->
+        <section class="content-panel" id="sectores">
+          <SectionHeader
+            label="¿Quién Usa Este Equipo?"
+            title="Brigadas Forestales que Equipamos en México"
+            description="Proveemos equipo forestal certificado a todos los tipos de brigadas que operan en México, desde protección civil municipal hasta brigadas aéreas federales."
+          />
+          <div class="sectores__grid">
+            <div class="sector-card">
+              <div class="sector-card__icon">🌲</div>
+              <h3>CONAFOR — Brigadas Federales</h3>
+              <p>Equipamiento completo para brigadas de la Comisión Nacional Forestal. Trajes NFPA 1977, herramientas de suelo y mochilas bomba con documentación lista para adquisición pública.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🏛️</div>
+              <h3>Protección Civil Estatal</h3>
+              <p>Equipamiento para brigadas forestales estatales en los 32 estados. Cotizaciones con especificaciones técnicas NFPA para licitaciones CompraNet.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🏙️</div>
+              <h3>Bomberos Municipales con Riesgo Forestal</h3>
+              <p>Cuerpos de bomberos en ciudades colindantes con bosques y monte (Monterrey, Guadalajara, Tlaxcala, Oaxaca, Chihuahua) que necesitan EPP forestal certificado para la interfaz urbano-rural.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🏭</div>
+              <h3>Brigadas Industriales en Áreas Boscosas</h3>
+              <p>Empresas con instalaciones en zonas forestales (minería, hidroeléctricas, parques industriales en sierra) que deben contar con brigadas equipadas para incendio forestal según NOM-002-STPS.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🚁</div>
+              <h3>Brigadas Aéreas — Helitransportadas</h3>
+              <p>Cuadrillas que operan con helicóptero requieren equipo de peso mínimo. Trajes ultraligeros Nomex®, cascos con arnés de vuelo y mochilas bomba compactas compatibles con operación aérea.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🎓</div>
+              <h3>Centros de Capacitación</h3>
+              <p>Academias de bomberos, centros de formación de protección civil y universidades con programas de manejo de fuego. Equipamos instalaciones de entrenamiento en todo el país.</p>
+            </div>
+          </div>
+        </section>
 
-  <!-- ════════════════════ ESPECIFICACIONES ════════════════════ -->
-  <section class="section section--dark specs">
-    <div class="container">
-      <SectionHeader
-        label="Materiales y Certificaciones"
-        title="Nomex®, NFPA 1977 y Herramientas de Campo"
-        description="El equipo forestal de alta calidad combina materiales ignífugos de peso ultra bajo con diseño ergonómico para jornadas de combate de 12 a 24 horas."
-      >
-        <p>
-          El <strong>tejido Nomex® IIIA</strong> es el material estándar de la industria para trajes forestales. Su resistencia inherente al fuego no depende de tratamientos químicos — no se desgasta con el lavado ni pierde sus propiedades FR con el uso. Para operaciones en <strong>interfaz urbano-forestal (IUF)</strong>, el traje <a href="/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/" style="color: white; text-decoration: underline;">forestal NFPA 1977</a> debe complementarse con un <a href="/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/" style="color: white; text-decoration: underline;">casco forestal certificado</a> y <a href="/productos/botas-para-bomberos/forestal/" style="color: white; text-decoration: underline;">botas con suela Vibram®</a> resistente a brasas y calor.
-        </p>
-        <p>
-          Las <strong>herramientas de suelo</strong> —Pulaski, Mcleod y pala cuadrada— son el equipo más crítico para la construcción de <strong>líneas cortafuego</strong>. Sus mangos de fibra de vidrio son irrompibles, no transmiten calor y no se astillan. Para brigadas que trabajan sin acceso vehicular, la <strong>mochila bomba de 20–25 L</strong> con bomba de doble émbolo es indispensable para el ataque directo a la llama.
-        </p>
-      </SectionHeader>
-
-      <div class="specs__grid">
-        <CategoryCard
-          title="Nomex® — Protección Inherente"
-          icon="shield"
-          image="/images/trajes-para-bombero/certificacion-nfpa-1971-tejido-nomex-goretex-01.avif"
-          description="El tejido Nomex® IIIA ofrece resistencia a la llama inherente — sin tratamientos químicos que se degraden. Peso < 400 g/m² para máxima movilidad en campo. La norma NFPA 1977 exige protección ignífuga inherente (no tratada) en toda la indumentaria de bombero forestal."
-        />
-        <CategoryCard
-          title="Herramientas de Línea Cortafuego"
-          icon="axe"
-          image="/images/trajes-para-bombero/traje-bombero-operacion-rescate-equipo-accion-01.avif"
-          description="Pulaski, Mcleod y pala cuadrada con mangos de fibra de vidrio certificada. La línea cortafuego es la técnica más efectiva de control en incendio forestal. Las herramientas correctas determinan la velocidad de construcción y la seguridad de la brigada."
-        />
-        <CategoryCard
-          title="Certificaciones y Licitaciones"
-          icon="certificate"
-          image="/images/trajes-para-bombero/traje-bombero-estacion-exterior-cuerpo-completo-01.avif"
-          description="Todo el equipo forestal de BOMBERO.MX incluye certificados NFPA 1977 de laboratorio acreditado, fichas técnicas completas y cartas de garantía. Documentación aceptada en procesos de licitación CompraNet para CONAFOR, protección civil estatal y municipios en los 32 estados de México."
-        />
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════ SECTORES ════════════════════ -->
-  <section class="section sectores">
-    <div class="container">
-      <SectionHeader
-        label="¿Quién Usa Este Equipo?"
-        title="Brigadas Forestales que Equipamos en México"
-        description="Proveemos equipo forestal certificado a todos los tipos de brigadas que operan en México, desde protección civil municipal hasta brigadas aéreas federales."
-      />
-      <div class="sectores__grid">
-        <div class="sector-card">
-          <div class="sector-card__icon">🌲</div>
-          <h3>CONAFOR — Brigadas Federales</h3>
-          <p>Equipamiento completo para brigadas de la Comisión Nacional Forestal. Trajes NFPA 1977, herramientas de suelo y mochilas bomba con documentación lista para adquisición pública.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🏛️</div>
-          <h3>Protección Civil Estatal</h3>
-          <p>Equipamiento para brigadas forestales estatales en los 32 estados. Cotizaciones con especificaciones técnicas NFPA para licitaciones CompraNet.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🏙️</div>
-          <h3>Bomberos Municipales con Riesgo Forestal</h3>
-          <p>Cuerpos de bomberos en ciudades colindantes con bosques y monte (Monterrey, Guadalajara, Tlaxcala, Oaxaca, Chihuahua) que necesitan EPP forestal certificado para la interfaz urbano-rural.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🏭</div>
-          <h3>Brigadas Industriales en Áreas Boscosas</h3>
-          <p>Empresas con instalaciones en zonas forestales (minería, hidroeléctricas, parques industriales en sierra) que deben contar con brigadas equipadas para incendio forestal según NOM-002-STPS.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🚁</div>
-          <h3>Brigadas Aéreas — Helitransportadas</h3>
-          <p>Cuadrillas que operan con helicóptero requieren equipo de peso mínimo. Trajes ultraligeros Nomex®, cascos con arnés de vuelo y mochilas bomba compactas compatibles con operación aérea.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🎓</div>
-          <h3>Centros de Capacitación</h3>
-          <p>Academias de bomberos, centros de formación de protección civil y universidades con programas de manejo de fuego. Equipamos instalaciones de entrenamiento en todo el país.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════ FAQ ════════════════════ -->
-  <FAQQuote
-    title="Equipo Forestal NFPA 1977 — Lo que necesita saber antes de equipar su brigada"
-    description="Diferencia con equipo estructural, herramientas forestales, cumplimiento CONAFOR, vida útil, precios reales y especificaciones técnicas para licitación en México."
-    items={faqs}
-  />
-
-  <!-- ════════════════════ CTA ════════════════════ -->
-  <CTABanner
-    title="¿Necesitas Equipar una Brigada Forestal?"
-    description="Cotización sin compromiso con especificaciones técnicas NFPA 1977 listas para licitación. Respuesta garantizada en menos de 24 horas. Enviamos a los 32 estados de México."
-    primaryCta={{ label: "Cotizar Equipo Forestal", href: "/cotizar/" }}
-    secondaryCTA={{ label: "Hablar por WhatsApp", href: `https://wa.me/525570081816?text=${encodeURIComponent('Hola BOMBERO.MX, necesito cotizar equipo forestal NFPA 1977 para una brigada.')}` }}
-  />
-
-</PageLayout>
+</ProductCategoryLayout>
 
 <style>
-  /* ─── Hero ─────────────────────────────────────── */
-  .hero {
-    position: relative;
-    padding: 5rem 0 4rem;
-    overflow: hidden;
-    background: var(--color-bg-dark, #0a0a0f);
-  }
-  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
-  .hero__gradient {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,60,20,0.18) 0%, transparent 70%);
-  }
-  .hero__grid {
-    position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  .hero__glow {
-    position: absolute; border-radius: 50%;
-    filter: blur(100px); pointer-events: none;
-  }
-  .hero__glow--1 {
-    width: 500px; height: 500px; top: -150px; right: -100px;
-    background: rgba(220,60,20,0.12);
-  }
-  .hero__glow--2 {
-    width: 300px; height: 300px; bottom: -100px; left: -50px;
-    background: rgba(180,80,20,0.08);
-  }
-  .hero__container { position: relative; z-index: 1; }
-  .hero__badge {
-    display: inline-flex; align-items: center; gap: .5rem;
-    background: rgba(220,60,20,.12); border: 1px solid rgba(220,60,20,.3);
-    border-radius: 999px; padding: .375rem 1rem;
-    font-size: .8125rem; font-weight: 600; color: var(--color-fire-400, #fb923c);
-    margin-bottom: 1.5rem;
-  }
-  .hero__badge-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--color-fire-400, #fb923c);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 1; } 50% { opacity: .4; }
-  }
-  .hero__title {
-    font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 900;
-    line-height: 1.1; color: #fff; margin-bottom: 1.25rem;
-  }
-  .hero__title-highlight {
-    background: linear-gradient(135deg, #fb923c, #ef4444);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero__subtitle {
-    font-size: 1.125rem; line-height: 1.7;
-    color: rgba(255,255,255,.65); max-width: 680px; margin-bottom: 2rem;
-  }
-  .hero__seo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
-  .hero__seo-block {
-    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-    border-radius: 12px; padding: 1.5rem;
-  }
-  .hero__seo-title { font-size: .9375rem; font-weight: 700; color: #fff; margin-bottom: .75rem; }
-  .hero__seo-text  { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
-  @media (max-width: 768px) {
-    .hero__seo { grid-template-columns: 1fr; }
-  }
-
-  /* ─── Productos ─────────────────────────────────── */
-  .section { padding: 5rem 0; }
-  .section--dark {
-    background: var(--color-bg-dark, #0a0a0f);
-    border-top: 1px solid rgba(255,255,255,.06);
-    border-bottom: 1px solid rgba(255,255,255,.06);
-  }
-  .productos__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1.5rem; margin-top: 3rem;
-  }
-  .specs__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem; margin-top: 3rem;
-  }
-
-  /* ─── Sectores ──────────────────────────────────── */
-  .sectores__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem; margin-top: 3rem;
-  }
-  .sector-card {
-    background: var(--color-bg-surface, #111118);
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 12px; padding: 1.75rem;
-    transition: border-color .2s, transform .2s;
-  }
-  .sector-card:hover {
-    border-color: rgba(220,60,20,.4);
-    transform: translateY(-2px);
-  }
-  .sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
-  .sector-card h3 {
-    font-size: 1rem; font-weight: 700;
-    color: #fff; margin-bottom: .625rem;
-  }
-  .sector-card p {
-    font-size: .875rem; line-height: 1.7;
-    color: rgba(255,255,255,.55); margin: 0;
-  }
+/* Estilos propios de esta categoría (no compartidos en product-l3.css) */
+.sectores__grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem; margin-top: 1.5rem;
+}
+.sector-card {
+  background: var(--color-smoke-50); border: 1px solid var(--color-smoke-200);
+  border-radius: 12px; padding: 1.75rem;
+  transition: border-color .2s, transform .2s;
+}
+.sector-card:hover { border-color: rgba(220,38,38,.4); transform: translateY(-2px); }
+.sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+.sector-card h3 { font-size: 1rem; font-weight: 700; color: var(--color-smoke-900); margin-bottom: .625rem; }
+.sector-card p { font-size: .875rem; line-height: 1.7; color: var(--color-smoke-600); margin: 0; }
 </style>

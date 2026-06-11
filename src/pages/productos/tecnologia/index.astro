@@ -1,14 +1,9 @@
 ---
-import PageLayout    from "@layouts/PageLayout.astro";
-import QuickNav from "@components/QuickNav.astro";
+import ProductCategoryLayout from "@layouts/ProductCategoryLayout.astro";
 import SectionHeader from "@components/SectionHeader.astro";
-import CTABanner     from "@components/CTABanner.astro";
-import CTABar        from "@components/CTABar.astro";
-import CategoryCard  from "@components/CategoryCard.astro";
-import ProductCard   from "@components/ProductCard.astro";
-import FAQ           from "@components/FAQ.astro";
-import FAQQuote      from "@components/FAQQuote.astro";
-import Breadcrumb    from "@components/Breadcrumb.astro";
+import FAQQuote from "@components/FAQQuote.astro";
+import CategoryCard from "@components/CategoryCard.astro";
+import ProductCard from "@components/ProductCard.astro";
 import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
 
 // ─── Catálogo Tecnología para Bomberos ───────────────────────────────────────
@@ -224,10 +219,68 @@ const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Tecnología para Bomberos", url: CANONICAL },
 ]);
 const jsonLdSchemas = [productSchema];
+
+// ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
+const sidebar = {
+  ariaLabel: "Navegación de tecnología para bomberos",
+  tiposTitle: "Tipos de Tecnología",
+  tipos: [
+    { href: "/productos/tecnologia/", label: "Cámara Termográfica TIC", badge: "NFPA 1801", badgeColor: "fire", dot: "fire", active: true },
+    { href: "/productos/tecnologia/", label: "Drones para Emergencias", badge: "AFAC", badgeColor: "fire", dot: "fire" },
+    { href: "/productos/tecnologia/", label: "Radio Digital P25 / DMR", badge: "NFPA 1221", badgeColor: "ember", dot: "ember" },
+    { href: "/productos/tecnologia/", label: "Detector Multi-Gas", badge: "ATEX / UL", badgeColor: "ember", dot: "ember" },
+    { href: "/productos/tecnologia/", label: "Compresor Aire Respirable", badge: "NFPA 1852", badgeColor: "smoke", dot: "smoke" },
+    { href: "/productos/tecnologia/", label: "Localización Indoor (IPS)", badge: "Seguridad", badgeColor: "smoke", dot: "smoke" },
+  ],
+  specs: [
+    { value: "640×480", unit: "px", label: "Resolución TIC premium" },
+    { value: "< 40", unit: "mK", label: "NETD cámara térmica" },
+    { value: "4–6", unit: "gases", label: "Sensores multi-gas" },
+    { value: "AES 256", unit: "bit", label: "Encriptación radio P25" },
+  ],
+  normas: [
+    { code: "NFPA 1801", color: "fire", desc: "Cámaras de imágenes térmicas (TIC)" },
+    { code: "NFPA 1221", color: "ember", desc: "Sistemas de comunicación de emergencia" },
+    { code: "NFPA 1982", color: "ember", desc: "Dispositivos de alerta personal (PASS)" },
+    { code: "NFPA 1852", color: "smoke", desc: "Compresores y aire respirable SCBA" },
+    { code: "APCO P25", color: "neutral", desc: "Interoperabilidad de radio digital" },
+    { code: "ATEX / UL", color: "neutral", desc: "Equipos para atmósferas explosivas" },
+  ],
+  materiales: [
+    { name: "Detector infrarrojo (microbolómetro)", desc: "Núcleo de la cámara TIC · resolución 320×240 a 640×480" },
+    { name: "Sensores electroquímicos", desc: "CO, H₂S, O₂ · detector multi-gas · vida útil 2–3 años" },
+    { name: "Sensor catalítico / IR (LEL)", desc: "Gases combustibles · prevención de explosión" },
+    { name: "UWB / BLE", desc: "Localización indoor de bomberos · precisión ±1–3 m" },
+    { name: "Carcasa IP67 + MIL-STD-810", desc: "Resistencia a agua, polvo, impacto y caída" },
+  ],
+  marcas: [
+    { name: "FLIR", sub: "Cámaras térmicas TIC NFPA 1801 · serie K" },
+    { name: "MSA Safety", sub: "TIC Evolution · detector Altair 5X multi-gas" },
+    { name: "Dräger", sub: "Detección de gas y monitoreo de atmósfera" },
+    { name: "Bullard", sub: "Cámaras de imágenes térmicas para bomberos" },
+    { name: "Motorola / Kenwood", sub: "Radios digitales APCO P25 y DMR" },
+  ],
+  recursos: [
+    { label: "Guía", text: "Guía de selección de cámaras TIC NFPA 1801", href: "/blog/" },
+    { label: "Blog", text: "Blog Técnico BOMBERO.MX", href: "/blog/" },
+    { label: "Cat.", text: "Catálogo completo de productos", href: "/productos/" },
+    { label: "Form", text: "Solicitar cotización en línea", href: "/cotizar/" },
+  ],
+  ctaText: "Especificamos la tecnología correcta (TIC, drones, radios P25, multi-gas) para tu cuerpo de bomberos. Sin costo ni compromiso.",
+  waMsg: "Hola BOMBERO.MX, necesito cotizar tecnología para bomberos (cámara TIC / drones / radios P25 / detector de gases) para mi cuerpo de bomberos / brigada.",
+};
+
+const whyImages = [
+  "/images/directorio/bombero-equipo-completo-guardia-01.avif",
+  "/images/directorio/radio-comunicacion-bomberos-01.avif",
+  "/images/directorio/pick-up-bomberos-forestal-01.avif",
+  "/images/directorio/unidad-hazmat-emergencias-01.avif",
+  "/images/directorio/cilindro-scba-bomberos-01.avif",
+  "/images/directorio/puesto-comando-incidente-01.avif",
+];
 ---
 
-<PageLayout
-  quickNav={false}
+<ProductCategoryLayout
   title="Tecnología para Bomberos México | TIC NFPA 1801 | FLIR | Drones | Radio P25 | BOMBERO.MX"
   description="Tecnología profesional para bomberos en México. Cámaras TIC FLIR NFPA 1801, drones de emergencia, radios digitales P25 NFPA 1221, detectores multi-gas MSA Altair, compresores SCBA NFPA 1852. Asesoría técnica. Envío a 32 estados. Cotiza para licitación."
   canonical={CANONICAL}
@@ -251,379 +304,213 @@ const jsonLdSchemas = [productSchema];
     "drones DJI emergencias México",
   ]}
   type="website"
->
-
-  <Breadcrumb items={[
+  breadcrumb={[
     { label: "Productos", href: "/productos/" },
     { label: "Tecnología para Bomberos" },
-  ]} />
+  ]}
+  heroBadge="NFPA 1801 · NFPA 1221 · NFPA 1852 · APCO P25 · FLIR · MSA"
+  heroTitle={`<span class="hero__title-highlight">Tecnología</span> para Bomberos en México`}
+  heroSubtitle="Cámaras termográficas TIC que ven donde el humo impide la vista. Drones que dan ojos al Comandante en incendios forestales. Radios P25 con comunicaciones encriptadas. Detectores multi-gas para entradas seguras. Certificaciones NFPA 1801, 1221 y 1852. Asesoría técnica para los 32 estados."
+  heroSeoBlocks={[
+    {
+      title: "Distribuidores de Tecnología para Bomberos Certificada NFPA en México",
+      html: `<strong>BOMBERO.MX</strong> distribuye <strong>tecnología certificada NFPA</strong> para cuerpos de bomberos en los 32 estados de México. Comercializamos cámaras TIC <strong>FLIR</strong> y <strong>MSA</strong> (NFPA 1801), radios digitales <strong>Motorola APX</strong> y <strong>Kenwood TK</strong> (NFPA 1221), detectores de gas <strong>MSA Altair</strong> y compresores de aire respirable (NFPA 1852). Para EPP completo, complementa con <a href="/productos/scba/" class="hero__link">SCBA NFPA 1981</a>, <a href="/productos/trajes-para-bomberos/" class="hero__link">traje estructural</a> y <a href="/productos/cascos-para-bomberos/" class="hero__link">casco certificado</a>.`,
+    },
+    {
+      title: "¿Por Qué la Tecnología Salva Vidas en el Servicio de Bomberos?",
+      html: `En incendios modernos con materiales sintéticos, el humo es 10 veces más tóxico y denso que hace 30 años. La visibilidad cero es la norma, no la excepción. Sin una <strong>cámara TIC NFPA 1801</strong>, el bombero navega a ciegas en un ambiente letal. Sin <strong>radio P25</strong>, las comunicaciones se degradan precisamente cuando más se necesitan. Sin <strong>detector multi-gas</strong>, una entrada a espacio confinado puede ser mortal. Complementa con <a href="/productos/forestales/" class="hero__link">equipo para incendios forestales</a>.`,
+    },
+  ]}
+  ctaBarQuote="Cotizar Tecnología para mi Cuerpo de Bomberos"
+  sidebar={sidebar}
+  whyImages={whyImages}
+>
 
-  <!-- ════════════════════ HERO ════════════════════ -->
-  <section class="hero">
-    <div class="hero__bg">
-      <div class="hero__gradient"></div>
-      <div class="hero__grid"></div>
-      <div class="hero__glow hero__glow--1"></div>
-      <div class="hero__glow hero__glow--2"></div>
-    </div>
+        <!-- CATÁLOGO -->
+        <section class="content-panel" id="catalogo">
+          <SectionHeader
+            label="Catálogo — Tecnología Certificada para Bomberos"
+            title="6 Tecnologías que Multiplican la Capacidad Operativa de tu Equipo"
+            description="Desde la cámara TIC que permite ver en humo total hasta el sistema de localización indoor que sabe dónde está cada bombero. Tecnología que salva vidas."
+          >
+            <p>
+              La <strong>tecnología para bomberos</strong> ya no es un lujo — es una necesidad operativa. Los incendios modernos en edificios con materiales sintéticos generan humo que hace inoperante al bombero sin <strong>cámara termográfica TIC</strong>. Las operaciones USAR en colapsos de estructuras son inviables sin equipos de detección de víctimas. Los <strong>incendios forestales</strong> —en aumento sostenido en México— requieren drones para gestión táctica efectiva del comandante. La inversión en tecnología certificada NFPA no es gasto — es la diferencia entre operaciones seguras y accidentes fatales.
+            </p>
+            <p>
+              <strong>BOMBERO.MX</strong> asesora a cuerpos de bomberos municipales y estatales en la selección de tecnología adecuada para su perfil operativo y presupuesto. Emitimos fichas técnicas con especificaciones NFPA para procesos de licitación sin costo adicional.
+            </p>
+          </SectionHeader>
 
-    <div class="container hero__container">
-      <div class="hero__content">
-        <div class="hero__badge">
-          <span class="hero__badge-dot"></span>
-          NFPA 1801 · NFPA 1221 · NFPA 1852 · APCO P25 · FLIR · MSA
-        </div>
-        <h1 class="hero__title">
-          <span class="hero__title-highlight">Tecnología</span>
-          para Bomberos<br />en México
-        </h1>
-        <p class="hero__subtitle">
-          Cámaras termográficas TIC que ven donde el humo impide la vista. Drones que dan ojos al
-          Comandante en incendios forestales. Radios P25 con comunicaciones encriptadas. Detectores
-          multi-gas para entradas seguras. La tecnología que multiplica la capacidad operativa de
-          cada bombero. Certificaciones NFPA 1801, 1221 y 1852. Asesoría técnica para los 32 estados.
-        </p>
-
-      </div>
-
-      <div class="hero__seo">
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">Distribuidores de Tecnología para Bomberos Certificada NFPA en México</h2>
-          <p class="hero__seo-text">
-            <strong>BOMBERO.MX</strong> distribuye <strong>tecnología certificada NFPA</strong> para cuerpos de bomberos en los 32 estados de México. Comercializamos cámaras TIC <strong>FLIR</strong> y <strong>MSA</strong> (NFPA 1801), radios digitales <strong>Motorola APX</strong> y <strong>Kenwood TK</strong> (NFPA 1221), detectores de gas <strong>MSA Altair</strong> y compresores de aire respirable (NFPA 1852). Para EPP completo, complementa con <a href="/productos/scba/" style="color: var(--color-fire-400); text-decoration: underline;">SCBA NFPA 1981</a>, <a href="/productos/trajes-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">traje estructural</a> y <a href="/productos/cascos-para-bomberos/" style="color: var(--color-fire-400); text-decoration: underline;">casco certificado</a>.
-          </p>
-        </div>
-        <div class="hero__seo-block">
-          <h2 class="hero__seo-title">¿Por Qué la Tecnología Salva Vidas en el Servicio de Bomberos?</h2>
-          <p class="hero__seo-text">
-            En incendios modernos con materiales sintéticos, el humo es 10 veces más tóxico y denso que hace 30 años. La visibilidad cero es la norma, no la excepción. Sin una <strong>cámara TIC NFPA 1801</strong>, el bombero navega a ciegas en un ambiente letal. Sin <strong>radio P25</strong>, las comunicaciones se degradan precisamente cuando más se necesitan. Sin <strong>detector multi-gas</strong>, una entrada a espacio confinado puede ser mortal. Complementa con <a href="/productos/forestales/" style="color: var(--color-fire-400); text-decoration: underline;">equipo para incendios forestales</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <QuickNav pool="categoria" count={7} />
-
-  <CTABar quote="Cotizar Tecnología para mi Cuerpo de Bomberos" />
-
-  <!-- ════════════════════ CATÁLOGO ════════════════════ -->
-  <section class="section productos" id="catalogo">
-    <div class="container">
-      <SectionHeader
-        label="Catálogo — Tecnología Certificada para Bomberos"
-        title="6 Tecnologías que Multiplican la Capacidad Operativa de tu Equipo"
-        description="Desde la cámara TIC que permite ver en humo total hasta el sistema de localización indoor que sabe dónde está cada bombero. Tecnología que salva vidas."
-      >
-        <p>
-          La <strong>tecnología para bomberos</strong> ya no es un lujo — es una necesidad operativa. Los incendios modernos en edificios con materiales sintéticos generan humo que hace inoperante al bombero sin <strong>cámara termográfica TIC</strong>. Las operaciones USAR en colapsos de estructuras son inviables sin equipos de detección de víctimas. Los <strong>incendios forestales</strong> —en aumento sostenido en México— requieren drones para gestión táctica efectiva del comandante. La inversión en tecnología certificada NFPA no es gasto — es la diferencia entre operaciones seguras y accidentes fatales.
-        </p>
-        <p>
-          <strong>BOMBERO.MX</strong> asesora a cuerpos de bomberos municipales y estatales en la selección de tecnología adecuada para su perfil operativo y presupuesto. Emitimos fichas técnicas con especificaciones NFPA para procesos de licitación sin costo adicional.
-        </p>
-      </SectionHeader>
-
-      <div class="productos__grid">
-        {productos.map((producto) => (
-          <ProductCard {...producto} altSuffix="tecnología bomberos México NFPA certificado" />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════════════ COMPARATIVA ════════════════════ -->
-  <section class="section section--dark comparativa">
-    <div class="container">
-      <SectionHeader
-        label="Guía de Selección de Tecnología"
-        title="¿Qué Tecnología Necesita tu Cuerpo de Bomberos Primero?"
-        description="Cuatro tecnologías críticas con normas distintas y prioridades de adquisición diferentes según el perfil operativo de tu cuerpo de bomberos."
-      >
-        <p>
-          Para un cuerpo de bomberos que responde principalmente a incendios estructurales, la <strong>cámara TIC NFPA 1801</strong> es la primera prioridad tecnológica. Para equipos con cobertura de carreteras y espacios confinados industriales, el <strong>detector multi-gas</strong> es imprescindible antes de cada entrada. Para incendios forestales y operaciones USAR, el <strong>drone con térmica</strong> transforma la capacidad del comandante. El <strong>radio P25</strong> es la base de comunicaciones para cualquier operación multiagencia moderna.
-        </p>
-      </SectionHeader>
-
-      <div class="comparativa__table-wrap">
-        <table class="comparativa__table">
-          <thead>
-            <tr>
-              <th>Tecnología</th>
-              <th>Norma</th>
-              <th>Función Principal</th>
-              <th>Precio aprox. (MXN)</th>
-              <th>Prioridad para</th>
-            </tr>
-          </thead>
-          <tbody>
-            {comparativa.map((c) => (
-              <tr>
-                <td><strong>{c.tecnologia}</strong><br /><span class="comparativa__badge">{c.badge}</span></td>
-                <td>{c.norma}</td>
-                <td>{c.función}</td>
-                <td>{c.precio}</td>
-                <td>{c.para}</td>
-              </tr>
+          <div class="productos__grid">
+            {productos.map((producto) => (
+              <ProductCard {...producto} altSuffix="tecnología bomberos México NFPA certificado" />
             ))}
-          </tbody>
-        </table>
-        <p class="comparativa__nota">* Precios orientativos sujetos a modelo, marca y configuración. Solicita cotización con especificaciones NFPA para tu proceso de licitación.</p>
-      </div>
-    </div>
-  </section>
+          </div>
+        </section>
 
-  <!-- ════════════════════ SPECS / COMPONENTES ════════════════════ -->
-  <section class="section specs">
-    <div class="container">
-      <SectionHeader
-        label="Tecnología Avanzada para Bomberos"
-        title="Los 6 Pilares Tecnológicos de un Cuerpo de Bomberos Moderno"
-        description="Cada tecnología resuelve un problema operativo específico. Juntas, conforman el arsenal tecnológico de un cuerpo de bomberos de primer nivel."
-      >
-        <p>
-          Un <strong>cuerpo de bomberos tecnológicamente equipado</strong> puede hacer en 15 minutos lo que un cuerpo sin tecnología haría en 45, con menor riesgo para sus elementos. La <strong>cámara TIC</strong> localiza víctimas. El <strong>drone</strong> evalúa la escena. El <strong>radio P25</strong> coordina las unidades. El <strong>multi-gas</strong> confirma cuándo usar el <a href="/productos/scba/" style="color: inherit; text-decoration: underline; opacity:.7">SCBA</a>. El <strong>compresor</strong> garantiza que los cilindros estén cargados. El <strong>IPS</strong> sabe dónde está cada bombero. Estos no son gadgets — son sistemas de supervivencia.
-        </p>
-      </SectionHeader>
+        <!-- TECNOLOGÍA / COMPONENTES (dark panel) -->
+        <section class="content-panel content-panel--dark" id="tecnologia">
+          <SectionHeader
+            label="Tecnología Avanzada para Bomberos"
+            title="Los 6 Pilares Tecnológicos de un Cuerpo de Bomberos Moderno"
+            description="Cada tecnología resuelve un problema operativo específico. Juntas, conforman el arsenal tecnológico de un cuerpo de bomberos de primer nivel."
+          >
+            <p>
+              Un <strong>cuerpo de bomberos tecnológicamente equipado</strong> puede hacer en 15 minutos lo que un cuerpo sin tecnología haría en 45, con menor riesgo para sus elementos. La <strong>cámara TIC</strong> localiza víctimas. El <strong>drone</strong> evalúa la escena. El <strong>radio P25</strong> coordina las unidades. El <strong>multi-gas</strong> confirma cuándo usar el <a href="/productos/scba/" class="dark-link">SCBA</a>. El <strong>compresor</strong> garantiza que los cilindros estén cargados. El <strong>IPS</strong> sabe dónde está cada bombero. Estos no son gadgets — son sistemas de supervivencia.
+            </p>
+          </SectionHeader>
+          <div class="specs__grid">
+            <CategoryCard
+              title="Visión Térmica — TIC NFPA 1801"
+              icon="shield"
+              image="/images/directorio/bombero-equipo-completo-guardia-01.avif"
+              description="La cámara TIC es la herramienta de mayor impacto para la búsqueda de víctimas y la seguridad del bombero. FLIR K2, K55, K65 y MSA Evolution 6000. Certificación NFPA 1801. Resolución hasta 640×480. Resistente a temperatura de incendio, impacto y agua IP67."
+            />
+            <CategoryCard
+              title="Comunicaciones Digitales P25"
+              icon="certificate"
+              image="/images/directorio/radio-comunicacion-bomberos-01.avif"
+              description="Radios APCO P25 Fase 2 con encriptación AES 256-bit, GPS integrado y función de emergencia. Motorola APX series y Kenwood TK. Interoperables entre bomberos, protección civil y policía. Norma NFPA 1221. MIL-STD-810 + IP67."
+            />
+            <CategoryCard
+              title="Reconocimiento Aéreo — Drones"
+              icon="axe"
+              image="/images/directorio/pick-up-bomberos-forestal-01.avif"
+              description="DJI Mavic 3 Enterprise y Autel Evo II con cámara dual visual + térmica. Tiempo de vuelo 40-46 minutos, alcance 15 km, resistencia al viento 54 km/h. Para incendios forestales, USAR y evaluación estructural. Requiere certificación AFAC."
+            />
+            <CategoryCard
+              title="Detección de Gases — Multi-Gas Monitor"
+              icon="shield"
+              image="/images/directorio/unidad-hazmat-emergencias-01.avif"
+              description="MSA Altair 5X y BW MicroClip XL. Detecta O2, CO, H2S, LEL y VOCs simultáneamente. Alarma audible, visual y vibratoria. Bomba de muestreo remoto hasta 30 m. 24 horas de batería. Certificación ATEX para atmósferas explosivas."
+            />
+            <CategoryCard
+              title="Recarga de Cilindros SCBA"
+              icon="certificate"
+              image="/images/directorio/cilindro-scba-bomberos-01.avif"
+              description="Compresores de aire respirable Grado E (CGA G-7.1) de 100 a 500 L/min para recarga de cilindros SCBA en estación o campo. Monitor de CO integrado. Purificador de 4 etapas. Cumplimiento NFPA 1852. Modelos portátiles para recarga en campo."
+            />
+            <CategoryCard
+              title="Gestión de Incidente — IPS Indoor"
+              icon="users"
+              image="/images/directorio/puesto-comando-incidente-01.avif"
+              description="Sistemas de posicionamiento indoor UWB para localización en tiempo real de bomberos dentro de edificios. Precisión ±1-3 m. Compatible con radios P25. Alarma instantánea en MAYDAY. Visualización en tablet del comandante. Tecnología de seguridad operativa."
+            />
+          </div>
+        </section>
 
-      <div class="specs__grid">
-        <CategoryCard
-          title="Visión Térmica — TIC NFPA 1801"
-          icon="shield"
-          image="/images/directorio/bombero-equipo-completo-guardia-01.avif"
-          description="La cámara TIC es la herramienta de mayor impacto para la búsqueda de víctimas y la seguridad del bombero. FLIR K2, K55, K65 y MSA Evolution 6000. Certificación NFPA 1801. Resolución hasta 640×480. Resistente a temperatura de incendio, impacto y agua IP67."
-        />
-        <CategoryCard
-          title="Comunicaciones Digitales P25"
-          icon="certificate"
-          image="/images/directorio/radio-comunicacion-bomberos-01.avif"
-          description="Radios APCO P25 Fase 2 con encriptación AES 256-bit, GPS integrado y función de emergencia. Motorola APX series y Kenwood TK. Interoperables entre bomberos, protección civil y policía. Norma NFPA 1221. MIL-STD-810 + IP67."
-        />
-        <CategoryCard
-          title="Reconocimiento Aéreo — Drones"
-          icon="axe"
-          image="/images/directorio/pick-up-bomberos-forestal-01.avif"
-          description="DJI Mavic 3 Enterprise y Autel Evo II con cámara dual visual + térmica. Tiempo de vuelo 40-46 minutos, alcance 15 km, resistencia al viento 54 km/h. Para incendios forestales, USAR y evaluación estructural. Requiere certificación AFAC."
-        />
-        <CategoryCard
-          title="Detección de Gases — Multi-Gas Monitor"
-          icon="shield"
-          image="/images/directorio/unidad-hazmat-emergencias-01.avif"
-          description="MSA Altair 5X y BW MicroClip XL. Detecta O2, CO, H2S, LEL y VOCs simultáneamente. Alarma audible, visual y vibratoria. Bomba de muestreo remoto hasta 30 m. 24 horas de batería. Certificación ATEX para atmósferas explosivas."
-        />
-        <CategoryCard
-          title="Recarga de Cilindros SCBA"
-          icon="certificate"
-          image="/images/directorio/cilindro-scba-bomberos-01.avif"
-          description="Compresores de aire respirable Grado E (CGA G-7.1) de 100 a 500 L/min para recarga de cilindros SCBA en estación o campo. Monitor de CO integrado. Purificador de 4 etapas. Cumplimiento NFPA 1852. Modelos portátiles para recarga en campo."
-        />
-        <CategoryCard
-          title="Gestión de Incidente — IPS Indoor"
-          icon="users"
-          image="/images/directorio/puesto-comando-incidente-01.avif"
-          description="Sistemas de posicionamiento indoor UWB para localización en tiempo real de bomberos dentro de edificios. Precisión ±1-3 m. Compatible con radios P25. Alarma instantánea en MAYDAY. Visualización en tablet del comandante. Tecnología de seguridad operativa."
-        />
-      </div>
-    </div>
-  </section>
+        <!-- COMPARATIVA -->
+        <section class="content-panel" id="comparativa">
+          <SectionHeader
+            label="Guía de Selección de Tecnología"
+            title="¿Qué Tecnología Necesita tu Cuerpo de Bomberos Primero?"
+            description="Cuatro tecnologías críticas con normas distintas y prioridades de adquisición diferentes según el perfil operativo de tu cuerpo de bomberos."
+          >
+            <p>
+              Para un cuerpo de bomberos que responde principalmente a incendios estructurales, la <strong>cámara TIC NFPA 1801</strong> es la primera prioridad tecnológica. Para equipos con cobertura de carreteras y espacios confinados industriales, el <strong>detector multi-gas</strong> es imprescindible antes de cada entrada. Para incendios forestales y operaciones USAR, el <strong>drone con térmica</strong> transforma la capacidad del comandante. El <strong>radio P25</strong> es la base de comunicaciones para cualquier operación multiagencia moderna.
+            </p>
+          </SectionHeader>
 
-  <!-- ════════════════════ SECTORES ════════════════════ -->
-  <section class="section section--dark sectores">
-    <div class="container">
-      <SectionHeader
-        label="¿Quién Necesita Tecnología Certificada para Bomberos?"
-        title="Sectores que Equipamos con Tecnología NFPA en México"
-        description="La tecnología de bomberos tiene aplicación en múltiples sectores más allá de los cuerpos municipales. Estos son los perfiles que atendemos."
-      />
-      <div class="sectores__grid">
-        <div class="sector-card">
-          <div class="sector-card__icon">🚒</div>
-          <h3>Cuerpos de Bomberos Municipales y Estatales</h3>
-          <p>Los 32 estados de México. Desde la cámara TIC como primera tecnología prioritaria para incendios estructurales hasta el sistema IPS para cuerpos metropolitanos con operaciones complejas. BOMBERO.MX emite fichas técnicas NFPA para licitación sin costo adicional.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🛢️</div>
-          <h3>Brigadas PEMEX / CFE / Petroquímica</h3>
-          <p>Las brigadas industriales en plantas de proceso, refinerías y terminales de almacenamiento requieren tecnología de mayor exigencia: detectores multi-gas con sensores específicos (H2S, NH3, Cl2), compresores de aire respirable de alta capacidad y cámaras TIC de alta temperatura para entornos de proceso.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🌲</div>
-          <h3>Brigadas de Incendios Forestales — CONAFOR</h3>
-          <p>Los drones con cámara térmica son una herramienta transformadora para la gestión de incendios forestales en México. Permiten al comandante de incidente evaluar el frente de fuego, identificar columnas de humo ocultas y planificar rutas de evacuación seguras para los brigadistas en tierra.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">🏗️</div>
-          <h3>Protección Civil y Brigadas USAR</h3>
-          <p>Las brigadas de protección civil y rescate urbano que responden a sismos y colapsos estructurales necesitan cámaras TIC para búsqueda de víctimas en escombros, drones para evaluación aérea de la zona de colapso y detectores de gas para evaluar fugas post-sismo antes de enviar rescatistas.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">✈️</div>
-          <h3>ARFF — Bomberos Aeroportuarios</h3>
-          <p>Los equipos de rescate aeroportuario requieren cámaras TIC de alta temperatura para incendios de combustible de aviación (jet fuel quema a mayor temperatura que gasolina) y sistemas de comunicación compatibles con frecuencias ICAO. La tecnología TIC es equipo estándar en aeropuertos internacionales.</p>
-        </div>
-        <div class="sector-card">
-          <div class="sector-card__icon">⚗️</div>
-          <h3>Equipos HAZMAT — Materiales Peligrosos</h3>
-          <p>Las brigadas HAZMAT dependen del detector multi-gas para evaluación de atmósfera antes y durante cualquier intervención en derrames o fugas químicas. El MSA Altair 5X con sensor PID es el estándar para equipos HAZMAT que manejan sustancias CBRN y compuestos orgánicos volátiles.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+          <div class="comparativa__wrapper">
+            <table class="comparativa__table">
+              <thead>
+                <tr>
+                  <th>Tecnología</th>
+                  <th>Norma</th>
+                  <th>Función Principal</th>
+                  <th>Precio aprox. (MXN)</th>
+                  <th>Prioridad para</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparativa.map((c) => (
+                  <tr>
+                    <td><strong>{c.tecnologia}</strong><br /><span class="tec-comparativa__badge">{c.badge}</span></td>
+                    <td>{c.norma}</td>
+                    <td>{c.función}</td>
+                    <td>{c.precio}</td>
+                    <td>{c.para}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="comparativa__note">* Precios orientativos sujetos a modelo, marca y configuración. <a href="/cotizar/">Solicita cotización</a> con especificaciones NFPA para tu proceso de licitación.</p>
+        </section>
 
-  <!-- ════════════════════ FAQ ════════════════════ -->
-  <FAQQuote
-    title="Tecnología para Bomberos — TIC, detectores y drones: selección técnica real"
-    description="Qué es una TIC y cómo elegirla, detector de 4 vs 6 gases, calibración, drones para rescate, precios reales y especificaciones para licitación en México."
-    items={faqs}
-  />
+        <!-- FAQ -->
+        <section class="content-panel content-panel--faq" id="faq">
+          <FAQQuote
+            title="Tecnología para Bomberos — TIC, detectores y drones: selección técnica real"
+            description="Qué es una TIC y cómo elegirla, detector de 4 vs 6 gases, calibración, drones para rescate, precios reales y especificaciones para licitación en México."
+            items={faqs}
+          />
+        </section>
 
-  <!-- ════════════════════ CTA ════════════════════ -->
-  <CTABanner
-    title="¿Necesitas Cotizar Tecnología para tu Cuerpo de Bomberos?"
-    description="Asesoría técnica sin costo. Cotización con especificaciones NFPA 1801 / 1221 lista para licitación. Respuesta en menos de 24 horas. Enviamos a los 32 estados de México."
-    primaryCta={{ label: "Solicitar Cotización de Tecnología", href: "/cotizar/" }}
-    secondaryCTA={{ label: "Consultar por WhatsApp", href: `https://wa.me/525570081816?text=${encodeURIComponent('Hola BOMBERO.MX, necesito cotizar tecnología para bomberos (cámara TIC / drones / radios P25 / detector de gases) para mi cuerpo de bomberos / brigada.')}` }}
-  />
+        <!-- SECTORES -->
+        <section class="content-panel" id="sectores">
+          <SectionHeader
+            label="¿Quién Necesita Tecnología Certificada para Bomberos?"
+            title="Sectores que Equipamos con Tecnología NFPA en México"
+            description="La tecnología de bomberos tiene aplicación en múltiples sectores más allá de los cuerpos municipales. Estos son los perfiles que atendemos."
+          />
+          <div class="sectores__grid">
+            <div class="sector-card">
+              <div class="sector-card__icon">🚒</div>
+              <h3>Cuerpos de Bomberos Municipales y Estatales</h3>
+              <p>Los 32 estados de México. Desde la cámara TIC como primera tecnología prioritaria para incendios estructurales hasta el sistema IPS para cuerpos metropolitanos con operaciones complejas. BOMBERO.MX emite fichas técnicas NFPA para licitación sin costo adicional.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🛢️</div>
+              <h3>Brigadas PEMEX / CFE / Petroquímica</h3>
+              <p>Las brigadas industriales en plantas de proceso, refinerías y terminales de almacenamiento requieren tecnología de mayor exigencia: detectores multi-gas con sensores específicos (H2S, NH3, Cl2), compresores de aire respirable de alta capacidad y cámaras TIC de alta temperatura para entornos de proceso.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🌲</div>
+              <h3>Brigadas de Incendios Forestales — CONAFOR</h3>
+              <p>Los drones con cámara térmica son una herramienta transformadora para la gestión de incendios forestales en México. Permiten al comandante de incidente evaluar el frente de fuego, identificar columnas de humo ocultas y planificar rutas de evacuación seguras para los brigadistas en tierra.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">🏗️</div>
+              <h3>Protección Civil y Brigadas USAR</h3>
+              <p>Las brigadas de protección civil y rescate urbano que responden a sismos y colapsos estructurales necesitan cámaras TIC para búsqueda de víctimas en escombros, drones para evaluación aérea de la zona de colapso y detectores de gas para evaluar fugas post-sismo antes de enviar rescatistas.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">✈️</div>
+              <h3>ARFF — Bomberos Aeroportuarios</h3>
+              <p>Los equipos de rescate aeroportuario requieren cámaras TIC de alta temperatura para incendios de combustible de aviación (jet fuel quema a mayor temperatura que gasolina) y sistemas de comunicación compatibles con frecuencias ICAO. La tecnología TIC es equipo estándar en aeropuertos internacionales.</p>
+            </div>
+            <div class="sector-card">
+              <div class="sector-card__icon">⚗️</div>
+              <h3>Equipos HAZMAT — Materiales Peligrosos</h3>
+              <p>Las brigadas HAZMAT dependen del detector multi-gas para evaluación de atmósfera antes y durante cualquier intervención en derrames o fugas químicas. El MSA Altair 5X con sensor PID es el estándar para equipos HAZMAT que manejan sustancias CBRN y compuestos orgánicos volátiles.</p>
+            </div>
+          </div>
+        </section>
 
-</PageLayout>
+</ProductCategoryLayout>
 
 <style>
-  /* ─── Hero ─────────────────────────────────── */
-  .hero {
-    position: relative; padding: 5rem 0 4rem;
-    overflow: hidden; background: var(--color-bg-dark, #0a0a0f);
-  }
-  .hero__bg { position: absolute; inset: 0; pointer-events: none; }
-  .hero__gradient {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(220,20,20,0.2) 0%, transparent 70%);
-  }
-  .hero__grid {
-    position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  .hero__glow {
-    position: absolute; border-radius: 50%;
-    filter: blur(120px); pointer-events: none;
-  }
-  .hero__glow--1 {
-    width: 600px; height: 400px; top: -150px; right: -100px;
-    background: rgba(220,20,20,0.15);
-  }
-  .hero__glow--2 {
-    width: 350px; height: 350px; bottom: -100px; left: -80px;
-    background: rgba(180,60,20,0.1);
-  }
-  .hero__container { position: relative; z-index: 1; }
-  .hero__badge {
-    display: inline-flex; align-items: center; gap: .5rem;
-    background: rgba(220,20,20,.15); border: 1px solid rgba(220,20,20,.35);
-    border-radius: 999px; padding: .375rem 1rem;
-    font-size: .8125rem; font-weight: 600;
-    color: var(--color-fire-400, #f87171); margin-bottom: 1.5rem;
-  }
-  .hero__badge-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--color-fire-400, #f87171);
-    animation: pulse 1.5s infinite;
-  }
-  @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .4; transform: scale(1.3); } }
-  .hero__title {
-    font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 900;
-    line-height: 1.1; color: #fff; margin-bottom: 1.25rem;
-  }
-  .hero__title-highlight {
-    background: linear-gradient(135deg, #f87171, #dc2626);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; display: block; font-size: 1.2em;
-  }
-  .hero__subtitle {
-    font-size: 1.125rem; line-height: 1.75;
-    color: rgba(255,255,255,.65); max-width: 680px; margin-bottom: 2.5rem;
-  }
-  .hero__urgencia {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1rem; margin-bottom: 2.5rem;
-  }
-  .hero__urgencia-item {
-    background: rgba(220,20,20,.1); border: 1px solid rgba(220,20,20,.25);
-    border-radius: 10px; padding: 1rem 1.25rem; text-align: center;
-  }
-  .hero__urgencia-num {
-    display: block; font-size: 1.375rem; font-weight: 900;
-    color: #f87171; margin-bottom: .25rem;
-  }
-  .hero__urgencia-label {
-    font-size: .75rem; color: rgba(255,255,255,.5); line-height: 1.4;
-  }
-  @media (max-width: 640px) {
-    .hero__urgencia { grid-template-columns: 1fr; }
-  }
-  .hero__seo { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
-  .hero__seo-block {
-    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-    border-radius: 12px; padding: 1.5rem;
-  }
-  .hero__seo-title { font-size: .9375rem; font-weight: 700; color: #fff; margin-bottom: .75rem; }
-  .hero__seo-text  { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
-  @media (max-width: 768px) { .hero__seo { grid-template-columns: 1fr; } }
+/* Estilos propios de esta categoría (no compartidos en product-l3.css) */
+.sectores__grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem; margin-top: 1.5rem;
+}
+.sector-card {
+  background: var(--color-smoke-50); border: 1px solid var(--color-smoke-200);
+  border-radius: 12px; padding: 1.75rem;
+  transition: border-color .2s, transform .2s;
+}
+.sector-card:hover { border-color: rgba(220,38,38,.4); transform: translateY(-2px); }
+.sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+.sector-card h3 { font-size: 1rem; font-weight: 700; color: var(--color-smoke-900); margin-bottom: .625rem; }
+.sector-card p { font-size: .875rem; line-height: 1.7; color: var(--color-smoke-600); margin: 0; }
 
-  /* ─── Secciones ──────────────────────────────── */
-  .section { padding: 5rem 0; }
-  .section--dark {
-    background: var(--color-bg-dark, #0a0a0f);
-    border-top: 1px solid rgba(255,255,255,.06);
-    border-bottom: 1px solid rgba(255,255,255,.06);
-  }
-  .productos__grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1.5rem; margin-top: 3rem;
-  }
-  .specs__grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem; margin-top: 3rem;
-  }
-
-  /* ─── Tabla comparativa ──────────────────────── */
-  .comparativa__table-wrap { margin-top: 2.5rem; overflow-x: auto; }
-  .comparativa__table {
-    width: 100%; border-collapse: collapse;
-    font-size: .9rem;
-  }
-  .comparativa__table th {
-    background: rgba(220,20,20,.15); color: #f87171;
-    font-weight: 700; font-size: .8125rem; text-transform: uppercase;
-    letter-spacing: .05em; padding: .875rem 1rem; text-align: left;
-    border-bottom: 1px solid rgba(220,20,20,.3);
-  }
-  .comparativa__table td {
-    padding: .875rem 1rem; border-bottom: 1px solid rgba(255,255,255,.06);
-    color: rgba(255,255,255,.75); vertical-align: top;
-  }
-  .comparativa__table tr:hover td { background: rgba(255,255,255,.03); }
-  .comparativa__badge {
-    display: inline-block; margin-top: .25rem;
-    font-size: .7rem; font-weight: 600; color: #f87171;
-    background: rgba(220,20,20,.15); border: 1px solid rgba(220,20,20,.3);
-    border-radius: 999px; padding: .15rem .5rem;
-  }
-  .comparativa__nota {
-    font-size: .8125rem; color: rgba(255,255,255,.35);
-    margin-top: 1rem; font-style: italic;
-  }
-
-  /* ─── Sectores ───────────────────────────────── */
-  .sectores__grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem; margin-top: 3rem;
-  }
-  .sector-card {
-    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
-    border-radius: 12px; padding: 1.75rem;
-    transition: border-color .2s, transform .2s;
-  }
-  .sector-card:hover { border-color: rgba(220,20,20,.4); transform: translateY(-2px); }
-  .sector-card__icon { font-size: 2rem; margin-bottom: 1rem; }
-  .sector-card h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .625rem; }
-  .sector-card p { font-size: .875rem; line-height: 1.7; color: rgba(255,255,255,.55); margin: 0; }
+/* Badge propio dentro de la celda de la tabla comparativa (nombre + chip de prioridad) */
+.tec-comparativa__badge {
+  display: inline-block; margin-top: .25rem;
+  font-size: .7rem; font-weight: 600; color: var(--color-ember-600);
+  background: var(--color-ember-50); border: 1px solid var(--color-ember-200);
+  border-radius: 999px; padding: .15rem .5rem;
+}
 </style>
