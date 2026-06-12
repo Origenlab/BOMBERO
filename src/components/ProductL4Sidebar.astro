@@ -6,9 +6,12 @@
  *   W1  Secciones de esta página (anchor links)
  *   W2  Otros productos de la categoría (hermanos L4)
  *   W3  CTA principal
- *   W4  EPP Complementario (compartido)
- *   W5  ¿Por qué BOMBERO.MX? (compartido)
- *   W6  Contacto Directo (compartido)
+ *   W4  Artículos del Blog (opcional)
+ *   W5  Normas y Certificaciones NFPA (opcional)
+ *   W6  EPP Complementario (extendido)
+ *   W7  Marcas Certificadas
+ *   W8  ¿Por qué BOMBERO.MX? (extendido)
+ *   W9  Contacto Directo
  *
  * Estilos: reutiliza las clases .sb-* de product-l3.css
  */
@@ -16,8 +19,8 @@
 type Color = "ember" | "fire" | "smoke" | "neutral";
 
 interface PageSection {
-  anchor: string;   // e.g. "#catalogo"
-  label: string;    // e.g. "6 Perspectivas del Traje"
+  anchor: string;
+  label: string;
   badge?: string;
 }
 
@@ -29,20 +32,36 @@ interface SiblingItem {
   active?: boolean;
 }
 
+interface ArticleLink {
+  href: string;
+  label: string;
+  date?: string;  // e.g. "Jun 2025"
+}
+
+interface NormLink {
+  href: string;
+  label: string;
+  badge?: string; // e.g. "NFPA 1971"
+}
+
+interface EppItem {
+  href: string;
+  label: string;
+  sublabel?: string;
+}
+
 interface Props {
-  /** Label de la categoría padre, p.ej. "Trajes para Bombero" */
   categoryLabel: string;
-  /** URL del L3 padre, p.ej. "/productos/trajes-para-bomberos/" */
   categoryHref: string;
-  /** Otros productos L4 de la misma categoría */
   siblings: SiblingItem[];
-  /** Secciones âncla dentro de esta página (opcionales) */
   sections?: PageSection[];
-  /** Texto del widget CTA */
   ctaText: string;
-  /** Mensaje de WhatsApp pre-rellenado */
   waMsg: string;
   ariaLabel?: string;
+  /** Artículos del blog relacionados (opcional, ≥1 para mostrar el widget) */
+  articleLinks?: ArticleLink[];
+  /** Normas NFPA relevantes (opcional, ≥1 para mostrar el widget) */
+  normLinks?: NormLink[];
 }
 
 const {
@@ -53,9 +72,23 @@ const {
   ctaText,
   waMsg,
   ariaLabel = "Navegación de productos relacionados",
+  articleLinks = [],
+  normLinks = [],
 } = Astro.props;
 
 const waHref = `https://wa.me/525570081816?text=${encodeURIComponent(waMsg)}`;
+
+const eppItems: EppItem[] = [
+  { href: "/productos/cascos-para-bomberos/",                       label: "Cascos para Bombero",          sublabel: "NFPA 1971 / 1977 / 1951" },
+  { href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/", label: "Casco Estructural NFPA 1971" },
+  { href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/",    label: "Casco Forestal NFPA 1977" },
+  { href: "/productos/botas-para-bomberos/",                        label: "Botas para Bombero",           sublabel: "Estructural · Forestal · HAZMAT" },
+  { href: "/productos/guantes-para-bomberos/",                      label: "Guantes para Bombero",         sublabel: "NFPA 1971 / 1977 / Rescate" },
+  { href: "/productos/guantes-para-bomberos/estructurales/",        label: "Guantes Estructurales NFPA 1971" },
+  { href: "/productos/capuchas-para-bomberos/",                     label: "Capuchas y Protección Visual", sublabel: "Nomex® · Particulada · Goggle" },
+  { href: "/productos/gafas-para-bomberos/",                        label: "Gafas y Goggles",              sublabel: "NFPA 1971 certificado" },
+  { href: "/productos/scba/",                                        label: "SCBA / ERA Autónomo",          sublabel: "NFPA 1981 certificado" },
+];
 ---
 
 <aside class="page-sidebar" aria-label={ariaLabel}>
@@ -140,7 +173,65 @@ const waHref = `https://wa.me/525570081816?text=${encodeURIComponent(waMsg)}`;
       </a>
     </div>
 
-    <!-- ══ W4: EPP Complementario (compartido) ══ -->
+    <!-- ══ W4: Artículos del Blog (prop-driven) ══ -->
+    {articleLinks.length > 0 && (
+      <div class="sb-widget">
+        <div class="sb-widget__header">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <polyline points="10 9 9 9 8 9"/>
+          </svg>
+          <span class="sb-widget__title">Artículos del Blog</span>
+        </div>
+        <nav class="sb-widget__body" aria-label="Artículos relacionados">
+          {articleLinks.map((a) => (
+            <a href={a.href} class="sb-link sb-link--article">
+              <span class="sb-link__dot sb-link__dot--smoke"></span>
+              <span class="sb-link__text">
+                {a.label}
+                {a.date && <span class="sb-link__meta">{a.date}</span>}
+              </span>
+              <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </a>
+          ))}
+          <a href="/blog/" class="sb-link--more">Ver todos los artículos →</a>
+        </nav>
+      </div>
+    )}
+
+    <!-- ══ W5: Normas y Certificaciones NFPA (prop-driven) ══ -->
+    {normLinks.length > 0 && (
+      <div class="sb-widget">
+        <div class="sb-widget__header">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon">
+            <circle cx="12" cy="8" r="6"/>
+            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+          </svg>
+          <span class="sb-widget__title">Normas y Certificaciones</span>
+        </div>
+        <nav class="sb-widget__body" aria-label="Normas NFPA">
+          {normLinks.map((n) => (
+            <a href={n.href} class="sb-link">
+              <span class="sb-link__dot sb-link__dot--ember"></span>
+              <span class="sb-link__text">
+                {n.label}
+                {n.badge && <span class="sb-link__badge">{n.badge}</span>}
+              </span>
+              <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </a>
+          ))}
+        </nav>
+      </div>
+    )}
+
+    <!-- ══ W6: EPP Complementario (extendido) ══ -->
     <div class="sb-widget">
       <div class="sb-widget__header">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon">
@@ -152,52 +243,53 @@ const waHref = `https://wa.me/525570081816?text=${encodeURIComponent(waMsg)}`;
         <span class="sb-widget__title">EPP Complementario</span>
       </div>
       <nav class="sb-widget__body" aria-label="Equipo complementario">
-        <a href="/productos/cascos-para-bomberos/" class="sb-link">
-          <span class="sb-link__icon-wrap">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12h2c0-4.42 3.58-8 8-8s8 3.58 8 8h2c0-5.52-4.48-10-10-10z"/><rect x="2" y="12" width="20" height="4" rx="1"/></svg>
-          </span>
-          Cascos para Bombero
-          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-        <a href="/productos/botas-para-bomberos/" class="sb-link">
-          <span class="sb-link__icon-wrap">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 14h7V6h4l3 4v4H3v0z"/><path d="M3 14v4h14v-4"/></svg>
-          </span>
-          Botas para Bombero
-          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-        <a href="/productos/guantes-para-bomberos/" class="sb-link">
-          <span class="sb-link__icon-wrap">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
-          </span>
-          Guantes para Bombero
-          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-        <a href="/productos/capuchas-para-bomberos/" class="sb-link">
-          <span class="sb-link__icon-wrap">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg>
-          </span>
-          Capuchas para Bombero
-          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-        <a href="/productos/gafas-para-bomberos/" class="sb-link">
-          <span class="sb-link__icon-wrap">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2h8c1.6 0 2.3.7 3 2l2.5 6"/></svg>
-          </span>
-          Gafas y Goggles
-          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-        <a href="/productos/scba/" class="sb-link">
-          <span class="sb-link__icon-wrap">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v6H7V7a5 5 0 0 1 5-5z"/><rect x="3" y="13" width="18" height="8" rx="2"/></svg>
-          </span>
-          SCBA / ERA Autónomo
-          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
+        {eppItems.map((item) => (
+          <a href={item.href} class={`sb-link${item.sublabel ? " sb-link--section" : " sb-link--sub"}`}>
+            {item.sublabel ? (
+              <>
+                <span class="sb-link__dot sb-link__dot--ember"></span>
+                <span class="sb-link__text">
+                  {item.label}
+                  <span class="sb-link__meta">{item.sublabel}</span>
+                </span>
+                <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </>
+            ) : (
+              <>
+                <span class="sb-link__dot sb-link__dot--smoke sb-link__dot--sm"></span>
+                <span class="sb-link__text">{item.label}</span>
+                <svg class="sb-link__arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+              </>
+            )}
+          </a>
+        ))}
       </nav>
     </div>
 
-    <!-- ══ W5: ¿Por qué BOMBERO.MX? (compartido) ══ -->
+    <!-- ══ W7: Marcas Certificadas ══ -->
+    <div class="sb-widget">
+      <div class="sb-widget__header">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span class="sb-widget__title">Marcas que Distribuimos</span>
+      </div>
+      <div class="sb-widget__body">
+        <div class="sb-brands">
+          <span class="sb-brand">Globe®</span>
+          <span class="sb-brand">Honeywell</span>
+          <span class="sb-brand">MSA®</span>
+          <span class="sb-brand">DuPont™</span>
+          <span class="sb-brand">Lakeland</span>
+          <span class="sb-brand">PBI®</span>
+          <span class="sb-brand">Rosenbauer</span>
+          <span class="sb-brand">3M™</span>
+        </div>
+        <p class="sb-brands__note">Distribución autorizada · Garantía de fabricante</p>
+      </div>
+    </div>
+
+    <!-- ══ W8: ¿Por qué BOMBERO.MX? (extendido) ══ -->
     <div class="sb-widget sb-widget--why">
       <div class="sb-widget__header sb-widget__header--light">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon sb-widget__icon--dark">
@@ -207,16 +299,18 @@ const waHref = `https://wa.me/525570081816?text=${encodeURIComponent(waMsg)}`;
         <span class="sb-widget__title sb-widget__title--dark">¿Por qué BOMBERO.MX?</span>
       </div>
       <div class="sb-widget__body sb-why">
-        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>+15 años de experiencia en EPP bomberos</span></div>
-        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Envío a los <strong>32 estados</strong> de México</span></div>
-        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Asesoría técnica sin costo</span></div>
-        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Certificados NFPA con laboratorio acreditado</span></div>
-        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Documentación para licitaciones públicas</span></div>
-        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Respuesta a cotización en menos de 24 h</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>+15 años distribuyendo EPP para bomberos</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Envío inmediato a los <strong>32 estados</strong></span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Asesoría técnica sin costo · sin compromiso</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Certificados NFPA con laboratorio ISO 17025</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Documentación completa para licitaciones</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Cotización en menos de <strong>24 horas</strong></span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Especificación técnica sin costo para tu brigada</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Stock disponible · entrega en 2–5 días hábiles</span></div>
       </div>
     </div>
 
-    <!-- ══ W6: Contacto Directo (compartido) ══ -->
+    <!-- ══ W9: Contacto Directo ══ -->
     <div class="sb-widget sb-widget--contact">
       <div class="sb-widget__header sb-widget__header--light">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon sb-widget__icon--dark">
@@ -248,9 +342,8 @@ const waHref = `https://wa.me/525570081816?text=${encodeURIComponent(waMsg)}`;
 </aside>
 
 <style>
-  /* Estilos adicionales para variantes L4 — el grueso está en product-l3.css */
+  /* Estilos adicionales L4 — el grueso está en product-l3.css */
 
-  /* Enlace "volver" en widget de hermanos */
   .sb-link--back {
     display: flex;
     align-items: center;
@@ -266,14 +359,76 @@ const waHref = `https://wa.me/525570081816?text=${encodeURIComponent(waMsg)}`;
   .sb-link--back:hover { color: var(--color-ember-600); }
   .sb-link--back svg { flex-shrink: 0; }
 
-  /* Dot smoke para secciones de página */
-  .sb-link__dot--smoke {
-    background: var(--color-smoke-400);
-  }
+  .sb-link__dot--smoke { background: var(--color-smoke-400); }
+  .sb-link__dot--ember { background: var(--color-ember-500); }
+  .sb-link__dot--sm    { width: 5px; height: 5px; margin-left: 4px; }
 
-  /* Badge smoke */
   .sb-link__badge--smoke {
     background: var(--color-smoke-100);
     color: var(--color-smoke-600);
+  }
+
+  /* Sub-link (inden level 2) */
+  .sb-link--sub {
+    padding-left: calc(var(--space-4) + 18px);
+    font-size: 11px;
+    color: var(--color-smoke-500);
+  }
+  .sb-link--sub:hover { color: var(--color-ember-600); }
+
+  /* Meta line dentro del link */
+  .sb-link__meta {
+    display: block;
+    font-size: 10px;
+    color: var(--color-smoke-400);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-top: 1px;
+  }
+
+  /* "Ver todos" link al pie del widget */
+  .sb-link--more {
+    display: block;
+    padding: var(--space-2) var(--space-4);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-ember-600);
+    text-decoration: none;
+    border-top: 1px solid var(--color-smoke-100);
+    margin-top: var(--space-1);
+    transition: color 0.15s;
+  }
+  .sb-link--more:hover { color: var(--color-ember-700); }
+
+  /* Blog article link */
+  .sb-link--article .sb-link__text { font-size: 11.5px; }
+
+  /* Marcas widget */
+  .sb-brands {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: var(--space-1) 0 var(--space-2);
+  }
+
+  .sb-brand {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    background: var(--color-smoke-100);
+    border: 1px solid var(--color-smoke-200);
+    border-radius: 100px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--color-smoke-700);
+    letter-spacing: 0.02em;
+  }
+
+  .sb-brands__note {
+    font-size: 10px;
+    color: var(--color-smoke-400);
+    margin: 0;
+    padding: 0 var(--space-1);
+    line-height: 1.4;
   }
 </style>
