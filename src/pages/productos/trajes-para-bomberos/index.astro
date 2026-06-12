@@ -6,7 +6,7 @@ import FAQQuote from "@components/FAQQuote.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
 import ComparativaTable from "@components/ComparativaTable.astro";
-import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+import { productSchemaComplete, breadcrumbJsonLd, faqJsonLd } from "@utils/seo";
 
 const productos = [
   {
@@ -117,8 +117,6 @@ const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Productos", url: "/productos/" },
   { name: "Trajes para Bomberos", url: CANONICAL },
 ]);
-const jsonLdSchemas = [productSchema];
-
 const trajesFaqs = [
   {
     question: "¿La norma NFPA 1971 es obligatoria en México para comprar trajes de bombero?",
@@ -153,6 +151,8 @@ const trajesFaqs = [
     answer: "Sí, es uno de nuestros servicios más solicitados. Entregamos: especificaciones técnicas por partida redactadas en términos de norma (ej: \"conjunto de protección estructural certificado NFPA 1971 edición 2018 o posterior, con capa exterior de fibra Nomex® o PBI Gold® de mínimo 7.5 oz/yd², barrera de humedad certificada NFPA 1971, TPP mínimo 35 cal/cm², THL mínimo 205 W/m², certificado de laboratorio acreditado UL/Intertek/SEI por número de lote\"). Esta redacción, a diferencia de especificaciones genéricas, impide que proveedores sin certificación real resulten ganadores. Sin costo para procesos en curso.",
   },
 ];
+const faqSchema = faqJsonLd(trajesFaqs);
+const jsonLdSchemas = [productSchema, faqSchema];
 
 // ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
 const sidebar = {
@@ -281,7 +281,7 @@ const whyImages = [
         <section class="content-panel content-panel--dark" id="tecnologia">
           <SectionHeader
             label="Tecnología y Materiales"
-            title="Materiales y Certificaciones: Nomex®, PBI Gold® y Gore-Tex®"
+            title="Nomex®, PBI Gold® y Gore-Tex® en el Traje NFPA 1971: Tecnología de Protección Térmica"
             description="Los trajes de bombero de alta performance combinan materiales de protección inherente con sistemas de barrera certificados. Las diferencias entre Nomex® y PBI Gold®, y entre TPP y THL, definen qué traje es el correcto para cada operación."
           >
             <p>

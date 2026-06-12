@@ -6,7 +6,7 @@ import FAQQuote from "@components/FAQQuote.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
 import ComparativaTable from "@components/ComparativaTable.astro";
-import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+import { productSchemaComplete, breadcrumbJsonLd, faqJsonLd } from "@utils/seo";
 
 const productos = [
   {
@@ -92,8 +92,6 @@ const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Productos", url: "/productos/" },
   { name: "Botas para Bomberos", url: CANONICAL },
 ]);
-const jsonLdSchemas = [productSchema];
-
 const botasFaqs = [
   {
     question: "¿Bota de cuero o bota de caucho para bomberos — cuál comprar?",
@@ -136,6 +134,8 @@ const botasFaqs = [
       "Sí, sin costo. La especificación correcta para CompraNet debe incluir: 'bota de cuero de vacuno de grano completo, certificada NFPA 1971 edición 2018 o posterior, puntera composite no metálica protección 200J/1500 lb, plantilla antiperforación clase P5 según EN 12568, suela de hule resistente a calor mínimo 300 °C en contacto y a hidrocarburos, caña mínima 20 cm, membrana impermeable interna transpirable, cierre cremallera lateral o pull-on con trabilla, certificado de laboratorio acreditado UL o Intertek por número de lote de producción, distribución de tallas conforme listado de personal adjunto en numeración US o EU'. Una especificación genérica de 'bota de seguridad para bombero' permite el ingreso de calzado industrial que no cumple NFPA 1971. Entregamos el texto completo listo para pegar en el anexo técnico.",
   },
 ];
+const faqSchema = faqJsonLd(botasFaqs);
+const jsonLdSchemas = [productSchema, faqSchema];
 
 // ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
 const sidebar = {

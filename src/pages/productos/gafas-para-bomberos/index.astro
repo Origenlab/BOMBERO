@@ -6,7 +6,7 @@ import FAQQuote from "@components/FAQQuote.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
 import ComparativaTable from "@components/ComparativaTable.astro";
-import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+import { productSchemaComplete, breadcrumbJsonLd, faqJsonLd } from "@utils/seo";
 
 const productos = [
   {
@@ -63,8 +63,6 @@ const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Productos", url: "/productos/" },
   { name: "Gafas para Bomberos", url: CANONICAL },
 ]);
-const jsonLdSchemas = [productSchema];
-
 const gafasFaqs = [
   {
     question: "¿Para qué sirven las gafas de bombero si el casco ya tiene visor?",
@@ -99,6 +97,8 @@ const gafasFaqs = [
     answer: "Sí, de hecho es lo recomendado. Al cotizar el EPP completo para un cuerpo de bomberos, incluimos: gafas de seguridad ANSI Z87.1+ para uso general + goggles de sellado para overhaul por cada bombero operativo. Esto permite presentar una sola licitación con partida de EPP completo en lugar de procesos separados. Para la especificación técnica correcta: \"gafas de protección ocular certificadas ANSI/ISEA Z87.1-2020, lente de policarbonato resistente a impacto de alta velocidad (marcación +), con protección lateral integrada, para uso en operaciones de overhaul y rescate técnico, incluyendo variante OTG para usuarios con prescripción.\" Entregamos el texto sin costo.",
   },
 ];
+const faqSchema = faqJsonLd(gafasFaqs);
+const jsonLdSchemas = [productSchema, faqSchema];
 
 // ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
 const sidebar = {

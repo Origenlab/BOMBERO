@@ -6,7 +6,7 @@ import FAQQuote from "@components/FAQQuote.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
 import ComparativaTable from "@components/ComparativaTable.astro";
-import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+import { productSchemaComplete, breadcrumbJsonLd, faqJsonLd } from "@utils/seo";
 
 const productos = [
   {
@@ -99,8 +99,6 @@ const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Productos", url: "/productos/" },
   { name: "Guantes para Bomberos", url: CANONICAL },
 ]);
-const jsonLdSchemas = [productSchema];
-
 const guantesFaqs = [
   {
     question: "¿Qué diferencia hay entre guantes estructurales NFPA 1971 y guantes de rescate NFPA 1951?",
@@ -135,6 +133,8 @@ const guantesFaqs = [
     answer: "La NFPA 1851 requiere limpieza rutinaria después de cada servicio con exposición al humo (contaminación por carcinógenos). Limpieza manual con agua tibia y cepillo suave con jabón neutro, especialmente en el interior. NO usar lavadora — el movimiento mecánico daña el forro interior y las costuras críticas. NO usar cloro ni solventes — destruyen las propiedades ignífugas. Después del lavado, dejar secar al aire en lugar ventilado alejado de luz solar directa — el calor directo degrada las fibras Nomex y Kevlar. Si los guantes estuvieron expuestos a agentes químicos desconocidos o a contaminantes potencialmente tóxicos, deben procesarse por un ISP certificado NFPA antes de reintegrarse al servicio.",
   },
 ];
+const faqSchema = faqJsonLd(guantesFaqs);
+const jsonLdSchemas = [productSchema, faqSchema];
 
 // ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
 const sidebar = {

@@ -6,7 +6,7 @@ import FAQQuote from "@components/FAQQuote.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
 import ComparativaTable from "@components/ComparativaTable.astro";
-import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+import { productSchemaComplete, breadcrumbJsonLd, faqJsonLd } from "@utils/seo";
 
 const productos = [
   {
@@ -99,8 +99,6 @@ const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Productos", url: "/productos/" },
   { name: "Capuchas para Bomberos", url: CANONICAL },
 ]);
-const jsonLdSchemas = [productSchema];
-
 const capuchasFaqs = [
   {
     question: "¿Por qué la capucha es parte obligatoria del EPP si ya uso casco y máscara SCBA?",
@@ -135,6 +133,8 @@ const capuchasFaqs = [
     answer: "Sí. La especificación técnica correcta para capuchas en licitación: \"capucha de protección facial y de cuello certificada NFPA 1971 edición 2018 o posterior, fabricada en tela Nomex® o PBI Gold® de mínimo 5 oz/yd², con o sin capa de bloqueo de partículas submicrónicas, certificado de laboratorio acreditado (UL/Intertek/SEI) por número de lote, compatible con sistemas SCBA [especificar modelo].\" Especificar el material por nombre registrado (Nomex®, PBI Gold®) en lugar de términos genéricos como \"fibra aramídica\" o \"material ignífugo\" previene que proveedores sin escrúpulos entreguen materiales tratados químicamente que no cumplen NFPA después de los primeros lavados.",
   },
 ];
+const faqSchema = faqJsonLd(capuchasFaqs);
+const jsonLdSchemas = [productSchema, faqSchema];
 
 // ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
 const sidebar = {

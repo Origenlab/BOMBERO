@@ -5,7 +5,7 @@ import SectionHeader from "@components/SectionHeader.astro";
 import FAQQuote from "@components/FAQQuote.astro";
 import CategoryCard from "@components/CategoryCard.astro";
 import ProductCard from "@components/ProductCard.astro";
-import { productSchemaComplete, breadcrumbJsonLd } from "@utils/seo";
+import { productSchemaComplete, breadcrumbJsonLd, faqJsonLd } from "@utils/seo";
 
 const productos = [
   {
@@ -134,8 +134,6 @@ const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Productos", url: "/productos/" },
   { name: "Cascos para Bomberos", url: CANONICAL },
 ]);
-const jsonLdSchemas = [productSchema];
-
 const cascosFaqs = [
   {
     question: "¿Cuál es la diferencia entre un casco NFPA 1971 y uno NFPA 1977?",
@@ -170,6 +168,8 @@ const cascosFaqs = [
     answer: "La compatibilidad entre casco y SCBA es crítica: la máscara de cara completa del SCBA debe sellar correctamente sin interferencia con el sistema de retención del casco. Los modelos más usados en México (MSA G1, Scott Air-Pak, Honeywell) son compatibles con la mayoría de cascos NFPA 1971 de Bullard y Cairns en configuración estándar — pero siempre debe verificarse con el fit test específico de máscara (NFPA 1981 y OSHA 29 CFR 1910.134). Para sistemas de comunicación integrados, los cascos Bullard y Cairns tienen rieles frontales compatibles con la mayoría de linternas y cámaras TIC. Al cotizar, especifica si necesitas compatibilidad con modelo específico de SCBA.",
   },
 ];
+const faqSchema = faqJsonLd(cascosFaqs);
+const jsonLdSchemas = [productSchema, faqSchema];
 
 // ─── Datos del sidebar (W1/W2/W3/W5/W6/W11 — los demás son compartidos) ───
 const sidebar = {
@@ -302,7 +302,7 @@ const whyImages = [
         <section class="content-panel content-panel--dark" id="tecnologia">
           <SectionHeader
             label="Tecnología y Materiales"
-            title="Materiales y Certificaciones: Termoplástico, Compuesto y Visor Anti-radiación"
+            title="Termoplástico, Compuesto y Fibra de Carbono en el Casco NFPA 1971: 260 °C y Resistencia a Impacto"
             description="Los cascos de bombero de alto desempeño resuelven el balance entre protección térmica, resistencia a impacto, peso y compatibilidad con SCBA. La elección entre termoplástico ABS y material compuesto define el perfil de riesgo que el casco puede manejar."
           >
             <p>
