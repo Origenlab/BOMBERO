@@ -7,6 +7,22 @@
 
 ---
 
+## 0-bis. Pasada final de QA (2026-06-12)
+
+Barrido técnico completo tras todos los fixes. Estado: **limpio, sin errores.**
+
+- **Build:** `npm run build` sin warnings ni errores (1354 páginas, CSP re-hasheado).
+- **Errores de consola JS:** ninguno en las 11 plantillas.
+- **Recursos 404:** ninguno real (el `HEAD` a `pagefind.js` está manejado con `catch`; el `import` responde 200 en producción).
+- **Scroll horizontal:** **eliminado** — verificado `scrollX=0` y `scrollWidth==clientWidth` en 11 plantillas a 320/390/768. Solo scroll vertical.
+- **Semántica/a11y:** `<h1>` único por página, todas las `<img>` con `alt`, botones con `aria-label`, drawer con `role=dialog`+`aria-modal`+focus-trap.
+- **Robustez navegador:** `html/body` usan `overflow-x: clip` (no bloquea touch-scroll iOS); las secciones (`.hero`, `.bmx-ft`) usan `overflow: hidden` (recorta glows incluso en Safari <16).
+- **Limpieza:** eliminados duplicados de CSS (`-webkit-text-size-adjust`, bloques `body` repetidos), `--z-fixed` definido.
+
+Causa raíz del último arrastre horizontal: el drawer (`position:fixed` + `translateX(100%)`) sobresalía del viewport a la derecha; `html { overflow-x: clip }` lo recorta a nivel viewport sin crear contenedor de scroll, y el drawer cerrado pasa a `visibility:hidden`.
+
+---
+
 ## 0. Veredicto general
 
 La base responsive del sitio es **sólida**, mejor de lo que sugería el reporte inicial. La medición automatizada en 11 plantillas × 6 breakpoints arrojó:
