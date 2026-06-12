@@ -933,7 +933,8 @@
    21 · Formularios — iOS no-zoom + touch friendly
    ════════════════════════════════════════════════════════════════ */
 
-@media (max-width: 768px) {
+/* ≤1024 cubre también iPad/tablet: Safari hace zoom al enfocar inputs <16px */
+@media (max-width: 1024px) {
   input[type="text"],
   input[type="email"],
   input[type="tel"],
@@ -1326,6 +1327,51 @@ select:focus-visible {
 /* ── Section alt: sombra sutil entre secciones ── */
 .section--alt {
   position: relative;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   32 · Auditoría móvil 2026 — touch targets ≥44px + legibilidad labels
+        (hallazgos medidos con puppeteer iPhone 390px)
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Enlaces de lista/nav secundarios a ≥44px de alto táctil (eran 26–40px) */
+  .prefooter-nav__link,
+  .cat-card__list-link,
+  .sb-link,
+  .sb-cat__link,
+  .sb-see-all,
+  .sb-contact,
+  .ctabar__contact-link {
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center;
+  }
+
+  /* CTA dentro de cards: mantienen su forma pero garantizan 44px tocables */
+  .review-card__link,
+  .blog-rel-card__btn,
+  .faqq__support-cta {
+    min-height: 44px !important;
+    display: inline-flex !important;
+    align-items: center;
+  }
+
+  /* Legibilidad: labels/badges medidos a 9–11px suben a 11px mínimo */
+  .section-header__label,
+  .faqq__eyebrow,
+  .prefooter-nav__eyebrow,
+  .prefooter-nav__col-tag,
+  .sb-widget__title,
+  .qnav-x__norm,
+  .cat-card__badge-count,
+  .producto-card__badge,
+  .bmx-ft-certs-label,
+  .ctabar__stat-label,
+  .sb-spec__label,
+  .station-card__alcaldia {
+    font-size: 0.6875rem !important; /* 11px */
+    letter-spacing: 0.04em;
+  }
 }
 
 /* ── Overflow: nunca desbordes horizontales ── */
