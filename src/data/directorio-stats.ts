@@ -88,7 +88,7 @@ export const TOTAL_ESTACIONES_NACIONAL: number = Object.values(
 export const TOTAL_ESTADOS: number = Object.keys(ESTACIONES_POR_ESTADO).length;
 
 /** Fecha de la última verificación editorial del directorio (ISO). */
-export const DIRECTORIO_VERIFICADO_ISO = "2026-05-30";
+export const DIRECTORIO_VERIFICADO_ISO = "2026-06-12";
 
 /** Fecha legible para mostrar al usuario. */
-export const DIRECTORIO_VERIFICADO_LEGIBLE = "30 de mayo de 2026";
+export const DIRECTORIO_VERIFICADO_LEGIBLE = "12 de junio de 2026";
