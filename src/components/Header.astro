@@ -492,6 +492,9 @@ const allCategories = [...productCategories, ...secondaryCategories];
     backdrop-filter: blur(2px);
     opacity: 0;
     visibility: hidden;
+    /* CRÍTICO: sin esto el overlay (inset:0, z 98) puede capturar toques
+       sobre el WhatsApp/back-to-top aunque esté invisible. */
+    pointer-events: none;
     transition: opacity 0.3s var(--ease-out), visibility 0.3s;
     z-index: calc(var(--z-header) - 2);
   }
@@ -499,6 +502,7 @@ const allCategories = [...productCategories, ...secondaryCategories];
   .mobile-menu__overlay.is-active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 
   /* ── Drawer lateral (entra desde la derecha) ── */
@@ -514,7 +518,8 @@ const allCategories = [...productCategories, ...secondaryCategories];
     z-index: calc(var(--z-header) - 1);
     padding-top: calc(80px + var(--safe-top, 0px));
     transform: translateX(100%);
-    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.32s;
     box-shadow: -8px 0 40px -10px rgba(15, 23, 42, 0.35);
     overscroll-behavior: contain;
     will-change: transform;
@@ -522,6 +527,7 @@ const allCategories = [...productCategories, ...secondaryCategories];
 
   .mobile-menu--open {
     transform: translateX(0);
+    visibility: visible;
   }
 
   .mobile-menu__inner {
