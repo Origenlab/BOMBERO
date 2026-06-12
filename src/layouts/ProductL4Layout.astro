@@ -293,48 +293,6 @@ const specFallbacks = [
           </div>
         </section>
 
-        <!-- Panel: Relacionados -->
-        <section class="content-panel" id="relacionados" aria-labelledby="relacionados-title">
-          <SectionHeader
-            label={relacionadosLabel}
-            title={relacionadosTitle}
-            description={relacionadosDesc}
-          >
-            <Fragment set:html={relacionadosContent} />
-          </SectionHeader>
-          <div class="rel__grid l4-rel__grid" data-count={relacionadoCards.length}>
-            {relacionadoCards.map((card) => (
-              <CategoryCard
-                title={card.title}
-                icon={card.icon}
-                image={card.image}
-                href={card.href}
-                buttonText={card.buttonText}
-                description={card.description}
-                items={card.items}
-              />
-            ))}
-          </div>
-        </section>
-
-        <!-- FAQ -->
-        <div class="content-panel content-panel--faq" id="faq">
-          <FAQQuote
-            title={faqs.length > 0
-              ? `Preguntas frecuentes — ${heroTitle}`
-              : "Preguntas frecuentes sobre equipo NFPA"}
-            description="Respuestas técnicas para bomberos, jefes de brigada y responsables de compras."
-            items={faqs.length > 0
-              ? faqs.map((f) => ({ question: f.q, answer: f.a }))
-              : [
-                  { question: "¿Este equipo cuenta con certificación NFPA vigente?", answer: "Sí. Todo el equipo incluye certificado de laboratorio acreditado ISO/IEC 17025." },
-                  { question: "¿Cómo solicito una cotización?", answer: "Usa el formulario de esta página o escríbenos por WhatsApp al 55 7008 1816. Respondemos en menos de 24 hrs." },
-                  { question: "¿Realizan envíos a toda la República Mexicana?", answer: "Sí, a los 32 estados con seguro de envío incluido. CDMX: 24-48 hrs. Resto del país: 3-5 días hábiles." },
-                ]
-            }
-          />
-        </div>
-
       </main>
 
       <!-- ── SIDEBAR ── -->
@@ -349,8 +307,56 @@ const specFallbacks = [
         normLinks={sidebarNormLinks}
       />
 
-    </div>
-  </div>
+    </div><!-- /.l4-layout__inner -->
+
+    <!-- ═══ SECCIONES FULL-WIDTH (sin sidebar) ═══ -->
+    <div class="l4-fullwidth">
+
+      <!-- Relacionados -->
+      <section class="content-panel" id="relacionados" aria-labelledby="relacionados-title">
+        <SectionHeader
+          label={relacionadosLabel}
+          title={relacionadosTitle}
+          description={relacionadosDesc}
+        >
+          <Fragment set:html={relacionadosContent} />
+        </SectionHeader>
+        <div class="rel__grid" data-count={relacionadoCards.length}>
+          {relacionadoCards.map((card) => (
+            <CategoryCard
+              title={card.title}
+              icon={card.icon}
+              image={card.image}
+              href={card.href}
+              buttonText={card.buttonText}
+              description={card.description}
+              items={card.items}
+            />
+          ))}
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <div class="content-panel content-panel--faq" id="faq">
+        <FAQQuote
+          title={faqs.length > 0
+            ? `Preguntas frecuentes — ${heroTitle}`
+            : "Preguntas frecuentes sobre equipo NFPA"}
+          description="Respuestas técnicas para bomberos, jefes de brigada y responsables de compras."
+          items={faqs.length > 0
+            ? faqs.map((f) => ({ question: f.q, answer: f.a }))
+            : [
+                { question: "¿Este equipo cuenta con certificación NFPA vigente?", answer: "Sí. Todo el equipo incluye certificado de laboratorio acreditado ISO/IEC 17025." },
+                { question: "¿Cómo solicito una cotización?", answer: "Usa el formulario de esta página o escríbenos por WhatsApp al 55 7008 1816. Respondemos en menos de 24 hrs." },
+                { question: "¿Realizan envíos a toda la República Mexicana?", answer: "Sí, a los 32 estados con seguro de envío incluido. CDMX: 24-48 hrs. Resto del país: 3-5 días hábiles." },
+              ]
+          }
+        />
+      </div>
+
+    </div><!-- /.l4-fullwidth -->
+
+  </div><!-- /.l4-layout -->
 
   <!-- Full-width (fuera del grid de dos columnas) -->
   <WhyChooseUs images={whyChooseImages} />
@@ -373,6 +379,13 @@ const specFallbacks = [
     margin: 0 auto;
     padding-inline: var(--container-padding);
     align-items: start;
+  }
+
+  /* ══ SECCIONES FULL-WIDTH fuera del grid sidebar ══ */
+  .l4-fullwidth {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-inline: var(--container-padding);
   }
 
   /* ══ PANELES EN PAGE-MAIN ══ */
@@ -399,14 +412,6 @@ const specFallbacks = [
 
   /* Con 6 cards en 3 cols: 2 filas perfectas — sin ajuste necesario */
 
-  /* ══ RELACIONADOS GRID en L4 — 3 columnas ══ */
-  .l4-rel__grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-  .l4-rel__grid[data-count="4"] {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-
   /* ══ RESPONSIVE ══ */
 
   /* 1280px → sidebar más estrecho */
@@ -419,11 +424,6 @@ const specFallbacks = [
     .productos__grid--4col {
       grid-template-columns: repeat(2, 1fr) !important;
       gap: var(--space-4);
-    }
-
-    .l4-rel__grid,
-    .l4-rel__grid[data-count="4"] {
-      grid-template-columns: repeat(2, 1fr) !important;
     }
   }
 
@@ -440,11 +440,6 @@ const specFallbacks = [
     .productos__grid--4col {
       grid-template-columns: repeat(3, 1fr) !important;
     }
-
-    .l4-rel__grid,
-    .l4-rel__grid[data-count="4"] {
-      grid-template-columns: repeat(3, 1fr) !important;
-    }
   }
 
   /* 768px */
@@ -454,21 +449,11 @@ const specFallbacks = [
     .productos__grid--4col {
       grid-template-columns: repeat(2, 1fr) !important;
     }
-
-    .l4-rel__grid,
-    .l4-rel__grid[data-count="4"] {
-      grid-template-columns: repeat(2, 1fr) !important;
-    }
   }
 
   /* 480px */
   @media (max-width: 480px) {
     .productos__grid--4col {
-      grid-template-columns: 1fr !important;
-    }
-
-    .l4-rel__grid,
-    .l4-rel__grid[data-count="4"] {
       grid-template-columns: 1fr !important;
     }
   }
