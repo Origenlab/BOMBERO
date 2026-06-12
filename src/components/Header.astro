@@ -178,16 +178,39 @@ const allCategories = [...productCategories, ...secondaryCategories];
   var mobileMenu = document.getElementById("mobile-menu");
   var header = document.querySelector(".header");
 
+  // Bloqueo de scroll robusto: html + body + clase en body (para ocultar floats).
+  function setScrollLock(locked) {
+    document.documentElement.style.overflow = locked ? "hidden" : "";
+    document.body.style.overflow = locked ? "hidden" : "";
+    document.body.classList.toggle("menu-open", locked);
+  }
+
+  function isOpen() {
+    return !!(mobileMenu && mobileMenu.classList.contains("mobile-menu--open"));
+  }
+
+  function openMenu() {
+    if (!mobileMenu) return;
+    if (toggle) toggle.setAttribute("aria-expanded", "true");
+    mobileMenu.setAttribute("aria-hidden", "false");
+    mobileMenu.classList.add("mobile-menu--open");
+    if (header) header.classList.add("header--menu-open");
+    setScrollLock(true);
+  }
+
+  function closeMenu() {
+    if (toggle) toggle.setAttribute("aria-expanded", "false");
+    if (mobileMenu) {
+      mobileMenu.setAttribute("aria-hidden", "true");
+      mobileMenu.classList.remove("mobile-menu--open");
+    }
+    if (header) header.classList.remove("header--menu-open");
+    setScrollLock(false);
+  }
+
   if (toggle) {
     toggle.addEventListener("click", function() {
-      var isExpanded = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!isExpanded));
-      if (mobileMenu) {
-        mobileMenu.setAttribute("aria-hidden", String(isExpanded));
-        mobileMenu.classList.toggle("mobile-menu--open");
-      }
-      if (header) header.classList.toggle("header--menu-open");
-      document.body.style.overflow = isExpanded ? "" : "hidden";
+      isOpen() ? closeMenu() : openMenu();
     });
   }
 
@@ -202,27 +225,33 @@ const allCategories = [...productCategories, ...secondaryCategories];
     });
   });
 
-  // Close menu when clicking outside
+  // Cerrar el menú al tocar cualquier enlace de navegación dentro de él
+  if (mobileMenu) {
+    mobileMenu.querySelectorAll("a[href]").forEach(function(a) {
+      a.addEventListener("click", function() { closeMenu(); });
+    });
+  }
+
+  // Cerrar al hacer clic fuera del header
   document.addEventListener("click", function(e) {
     var target = e.target;
-    if (!target.closest(".header") && mobileMenu && mobileMenu.classList.contains("mobile-menu--open")) {
-      if (toggle) toggle.setAttribute("aria-expanded", "false");
-      mobileMenu.setAttribute("aria-hidden", "true");
-      mobileMenu.classList.remove("mobile-menu--open");
-      if (header) header.classList.remove("header--menu-open");
-      document.body.style.overflow = "";
-    }
+    if (isOpen() && target && target.closest && !target.closest(".header")) closeMenu();
   });
 
-  // Close menu on escape key
+  // Cerrar con Escape
   document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape" && mobileMenu && mobileMenu.classList.contains("mobile-menu--open")) {
-      if (toggle) toggle.setAttribute("aria-expanded", "false");
-      mobileMenu.setAttribute("aria-hidden", "true");
-      mobileMenu.classList.remove("mobile-menu--open");
-      if (header) header.classList.remove("header--menu-open");
-      document.body.style.overflow = "";
-    }
+    if (e.key === "Escape" && isOpen()) closeMenu();
+  });
+
+  // CRÍTICO: resetear estado obsoleto al cargar y al restaurar desde bfcache.
+  // En iOS Safari, al volver atrás la página se restaura con body.overflow=hidden
+  // pegado y el menú "abierto" -> el usuario no puede hacer scroll. pageshow
+  // (incluido el restore persistido) fuerza el cierre y libera el scroll.
+  window.addEventListener("pageshow", function() { closeMenu(); });
+
+  // Si se redimensiona a ancho desktop con el menú abierto, restaurar scroll
+  window.addEventListener("resize", function() {
+    if (window.innerWidth > 768 && isOpen()) closeMenu();
   });
 
   // Header scroll effect — throttled con rAF + passive
