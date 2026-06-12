@@ -900,17 +900,19 @@ const cotizarJsonLd = {
     const estado = document.getElementById('estado').value.trim();
     const productos = document.getElementById('productos').value.trim();
 
-    let textoWhatsApp = `*SOLICITUD DE COTIZACIÓN*%0A%0A`;
-    textoWhatsApp += `*Nombre:* ${nombre}%0A`;
-    if (empresa) {
-      textoWhatsApp += `*Empresa/Estación:* ${empresa}%0A`;
-    }
-    if (estado) {
-      textoWhatsApp += `*Estado:* ${estado}%0A`;
-    }
-    textoWhatsApp += `%0A*Productos requeridos:*%0A${productos}`;
+    // Construir texto plano y codificar TODO el mensaje:
+    // los campos del usuario pueden tener acentos (ó,é,á,ñ), &, +, #, etc.
+    // que corrompen la URL de WhatsApp si se insertan sin encodeURIComponent.
+    let mensaje = `*SOLICITUD DE COTIZACIÓN*\n\n`;
+    mensaje += `*Nombre:* ${nombre}\n`;
+    if (empresa) mensaje += `*Empresa/Estación:* ${empresa}\n`;
+    if (estado) mensaje += `*Estado:* ${estado}\n`;
+    mensaje += `\n*Productos requeridos:*\n${productos}`;
 
-    const url = `https://wa.me/${whatsappNumber}?text=${textoWhatsApp}`;
-    window.open(url, '_blank');
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
+
+    // Abrir en nueva pestaña; si el popup-blocker lo impide, navegar en la misma.
+    const opened = window.open(url, '_blank');
+    if (!opened) window.location.href = url;
   });
 </script>
