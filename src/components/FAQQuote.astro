@@ -121,27 +121,30 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
           </p>
         </header>
 
-        <form class="faqq__form" id="faqq-form">
+        <form class="faqq__form" id="faqq-form" novalidate>
+
+          <!-- Mensaje de error global -->
+          <div id="faqq-error" class="faqq__error" role="alert" aria-live="polite" hidden></div>
 
           <div class="faqq__row">
             <div class="faqq__field">
               <label for="faqq-nombre">Nombre completo <span aria-hidden="true">*</span></label>
-              <input type="text" id="faqq-nombre" name="nombre" placeholder="Ej. Cmte. Roberto Hernández" required />
+              <input type="text" id="faqq-nombre" name="nombre" placeholder="Ej. Cmte. Roberto Hernández" required autocomplete="name" />
             </div>
             <div class="faqq__field">
               <label for="faqq-telefono">Teléfono <span aria-hidden="true">*</span></label>
-              <input type="tel" id="faqq-telefono" name="telefono" placeholder="55 7008 1816" inputmode="tel" required />
+              <input type="tel" id="faqq-telefono" name="telefono" placeholder="55 7008 1816" inputmode="tel" required autocomplete="tel" />
             </div>
           </div>
 
           <div class="faqq__row">
             <div class="faqq__field">
               <label for="faqq-email">Email</label>
-              <input type="email" id="faqq-email" name="email" placeholder="ventas@institucion.mx" />
+              <input type="email" id="faqq-email" name="email" placeholder="ventas@institucion.mx" autocomplete="email" />
             </div>
             <div class="faqq__field">
               <label for="faqq-institucion">Institución / Empresa <span aria-hidden="true">*</span></label>
-              <input type="text" id="faqq-institucion" name="institucion" placeholder="H. Cuerpo de Bomberos de…" required />
+              <input type="text" id="faqq-institucion" name="institucion" placeholder="H. Cuerpo de Bomberos de…" required autocomplete="organization" />
             </div>
           </div>
 
@@ -184,8 +187,8 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
 
           <div class="faqq__actions">
             <button type="submit" id="faqq-submit" class="faqq__submit">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-              Enviar cotización por WhatsApp
+              <svg id="faqq-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              <span id="faqq-text">Enviar cotización por WhatsApp</span>
             </button>
             <p class="faqq__note">
               Al enviar abrimos WhatsApp con tu solicitud prellenada. Respuesta en &lt; 24 hrs.
@@ -213,10 +216,27 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
   (function () {
     const form = document.getElementById("faqq-form");
     if (!form) return;
-    const phone = "525570081816";
+    const phone   = "525570081816";
+    const errBox  = document.getElementById("faqq-error");
+    const btn     = document.getElementById("faqq-submit");
+    const btnText = document.getElementById("faqq-text");
+    const btnIcon = document.getElementById("faqq-icon");
+
+    /** Muestra un mensaje de error inline y hace scroll hasta él. */
+    function showError(msg) {
+      errBox.textContent = msg;
+      errBox.hidden = false;
+      errBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    function clearError() {
+      errBox.hidden = true;
+      errBox.textContent = "";
+    }
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      clearError();
+
       const f = (id) => (document.getElementById(id) || {}).value || "";
       const nombre      = f("faqq-nombre").trim();
       const telefono    = f("faqq-telefono").trim();
@@ -227,14 +247,26 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
       const detalles    = f("faqq-detalles").trim();
       const aviso       = document.getElementById("faqq-aviso");
 
-      if (!nombre || !telefono || !institucion || !equipo) {
-        alert("Por favor completa los campos marcados con *.");
+      // Validación con mensajes específicos por campo faltante
+      const missing = [];
+      if (!nombre)      missing.push("Nombre completo");
+      if (!telefono)    missing.push("Teléfono");
+      if (!institucion) missing.push("Institución / Empresa");
+      if (!equipo)      missing.push("Tipo de equipo");
+
+      if (missing.length) {
+        showError("Por favor completa los siguientes campos obligatorios: " + missing.join(", ") + ".");
         return;
       }
       if (aviso && !aviso.checked) {
-        alert("Acepta el aviso de privacidad para continuar.");
+        showError("Acepta el aviso de privacidad para continuar.");
         return;
       }
+
+      // Estado loading
+      btn.disabled = true;
+      btnIcon.style.opacity = "0.5";
+      btnText.textContent = "Abriendo WhatsApp…";
 
       const lines = [
         "*Solicitud de cotización — BOMBERO.MX*",
@@ -250,7 +282,15 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
       ].filter(Boolean);
 
       const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(lines.join("\n"));
-      window.open(url, "_blank", "noopener");
+      const opened = window.open(url, "_blank", "noopener,noreferrer");
+      if (!opened) window.location.href = url;
+
+      // Restaurar botón después de 3 s
+      setTimeout(function () {
+        btn.disabled = false;
+        btnIcon.style.opacity = "";
+        btnText.textContent = "Enviar cotización por WhatsApp";
+      }, 3000);
     });
   })();
 </script>
@@ -259,7 +299,24 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
 <style>
   /* ─────────────────────────────────────────────────────────────────────
      FAQ + COTIZACIÓN — UNIFIED MODULE
-  ───────────────────────────────────────────────────────────────────── */
+  ─────────────────────────────────────────────────────────────────────
+     Error inline — reemplaza alert() del sistema (no accesible)        */
+  .faqq__error {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background: rgba(220, 38, 38, 0.08);
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    color: #dc2626;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: var(--space-4);
+  }
+  .faqq__error[hidden] { display: none; }
+  /* ─────────────────────────────────────────────────────────────────────
   .faqq {
     padding: var(--space-16) 0;
     background:

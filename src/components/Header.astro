@@ -35,6 +35,11 @@ const icons: Record<string, string> = {
 };
 
 const allCategories = [...productCategories, ...secondaryCategories];
+
+// Pre-encoded WA message — encodeURIComponent en build time para evitar
+// que acentos/espacios lleguen crudos a la URL (ej: "ó" → "%C3%B3").
+const waTextDesktop = encodeURIComponent("Hola, me interesa información sobre equipo para bomberos");
+const waTextMobile  = encodeURIComponent("Hola, necesito cotizar equipo para bomberos certificado NFPA. ¿Pueden asesorarme?");
 ---
 
 
@@ -56,7 +61,7 @@ const allCategories = [...productCategories, ...secondaryCategories];
     <div class="header__actions">
 
       <a
-        href={`https://wa.me/${SITE.contact.whatsapp}?text=Hola, me interesa información sobre equipo para bomberos`}
+        href={`https://wa.me/${SITE.contact.whatsapp}?text=${waTextDesktop}`}
         class="header__whatsapp"
         aria-label="Contactar por WhatsApp"
         target="_blank"
@@ -142,7 +147,7 @@ const allCategories = [...productCategories, ...secondaryCategories];
           Solicitar Cotización
         </a>
         <a
-          href={`https://wa.me/${SITE.contact.whatsapp}`}
+          href={`https://wa.me/${SITE.contact.whatsapp}?text=${waTextMobile}`}
           class="mobile-menu__cta-btn mobile-menu__cta-btn--secondary"
           target="_blank"
           rel="noopener noreferrer"
