@@ -1,0 +1,146 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-aguascalientes";
+import { cdnW } from "@utils/cdn";
+
+const slug = "estacion-central-aguascalientes";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Aguascalientes",
+  slug: "aguascalientes",
+  siglas: "AGS",
+  poblacion: "1.5 millones",
+  municipios: 11,
+};
+
+const estadosVecinos = [
+  { nombre: "Zacatecas", slug: "zacatecas" },
+  { nombre: "San Luis Potosí", slug: "san-luis-potosi" },
+  { nombre: "Jalisco", slug: "jalisco" },
+  { nombre: "Guanajuato", slug: "guanajuato" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para la Estación Central de Aguascalientes",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación obligatoria para los <strong>85 elementos activos</strong> de la Estación Central ante incendios en el Centro Histórico de cantera rosa y en los parques industriales automotrices a 15 km de la sede.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para bomberos de Aguascalientes",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia térmica certificada para incendios en edificios patrimoniales de 4 a 10 pisos en el centro histórico de Aguascalientes. Compatible con el sistema integral exigido en operaciones de las plantas <strong>Nissan y JATCO</strong>.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para rescate vehicular en Aguascalientes",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Prensión certificada para rescate vehicular en la Autopista México–Aguascalientes y resistencia química para operaciones HAZMAT en la zona industrial de <strong>Aguascalientes</strong>.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para la Estación Central de Aguascalientes",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Puntera de acero y suela antiderrapante para operaciones en pisos industriales de fábrica, pavimentos del Centro Histórico y accesos a la <strong>Presa Calles</strong> en Calvillo.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+
+  <Fragment slot="seo-content">
+    <h2>Estación Central de Aguascalientes — Centro de Mando para 11 Municipios, 85 Elementos y Escalera Telescópica de 32 Metros</h2>
+    <p>
+      La <strong>Estación Central de Bomberos de Aguascalientes</strong>, ubicada en Av. Adolfo López
+      Mateos Oriente 1801, Lomas del Campestre, es la sede principal del H. Cuerpo de Bomberos del estado
+      desde 1943. Con 85 elementos activos, 9 unidades operativas —incluyendo una escalera telescópica de
+      32 metros y una unidad HAZMAT— y tiempo de respuesta de 5 a 8 minutos, esta estación funciona como
+      nodo de coordinación de emergencias para los 11 municipios de Aguascalientes. Cuando un incidente
+      supera la capacidad de las 12 estaciones delegadas, el despacho de refuerzos se coordina desde aquí.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación Central de Bomberos de Aguascalientes?</h3>
+    <p>
+      En cualquier emergencia en Aguascalientes, marca el <strong>911</strong>: el sistema de despacho
+      operado desde esta sede centraliza la respuesta en toda la zona metropolitana y dirige la unidad con
+      menor tiempo de respuesta a tu ubicación. Para contacto directo no urgente: 449 910 2030.
+      Las zonas de cobertura primaria —Centro Histórico, Lomas del Campestre, Jardines de la Asunción,
+      Colinas del Río y Las Américas— tienen tiempo de respuesta de 5 a 8 minutos.
+    </p>
+
+    <h3>Centro de Mando Estatal: Coordinación de las 13 Estaciones de Aguascalientes</h3>
+    <p>
+      Esta es la única estación en el estado con la especialidad de centro de mando estatal y
+      coordinación de emergencias metropolitanas. Cuando ocurre un incendio forestal en la Sierra Fría
+      de Calvillo, una emergencia industrial en Rincón de Romos o un accidente en la autopista
+      Aguascalientes–San Luis Potosí, el despacho de refuerzos y la coordinación de recursos
+      adicionales se organizan desde esta sede. Los 85 elementos activos trabajan en guardias rotativas
+      de 24 horas que mantienen operativas las 9 unidades en todo momento. La Estación Central también
+      es el centro de capacitación regional del H. Cuerpo de Bomberos, formando a los elementos de las
+      12 estaciones delegadas en el estado.
+    </p>
+
+    <h3>Escalera Telescópica de 32 Metros: Cobertura Vertical del Centro Histórico</h3>
+    <p>
+      El Centro Histórico de Aguascalientes concentra edificios de cantera rosa de 4 a 10 pisos bajo
+      protección INAH, con calles del siglo XVIII que limitan el acceso de autobombas convencionales.
+      La escalera telescópica de 32 metros de esta estación alcanza el piso 10 aproximadamente y permite
+      trabajar en altura en fachadas patrimoniales, rescatar ocupantes y abrir ventilación en incendios
+      contenidos. Esta capacidad cubre también los edificios residenciales y de oficinas del corredor
+      de Av. López Mateos, a metros de la propia sede de la estación.
+    </p>
+
+    <h3>Unidad HAZMAT para el Corredor Industrial Nissan–JATCO</h3>
+    <p>
+      A menos de 15 km de la Estación Central se ubican las plantas de Nissan Mexicana, JATCO y
+      más de 300 proveedores Tier 1 que utilizan isocianatos en líneas de pintura, solventes aromáticos
+      y fluidos de corte con riesgo de fuga o derrame. La unidad HAZMAT del equipamiento de esta sede
+      permite primera respuesta a incidentes con materiales peligrosos en el corredor automotriz,
+      complementando la cobertura de las estaciones de San Francisco de los Romo y Jesús María
+      en los límites con los parques industriales del estado.
+    </p>
+
+    <h3>Equipo NFPA Certificado para los 8 Servicios de la Estación Central</h3>
+    <p>
+      Incendio estructural, rescate vehicular, HAZMAT, rescate en alturas, servicio prehospitalario,
+      control de fugas de gas, rescate de atrapados y retiro de enjambres: cada uno de estos servicios
+      exige equipo de protección personal con certificación específica. En
+      <a href="/">BOMBERO.MX</a> distribuimos <a href="/productos/trajes-para-bomberos/">trajes
+      estructurales NFPA 1971</a>, <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a> directamente a estaciones
+      de bomberos en los 11 municipios de Aguascalientes.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica y certificado de laboratorio
+      incluidos, sin costo.
+    </p>
+  </Fragment>
+
+</EstacionLayout>
