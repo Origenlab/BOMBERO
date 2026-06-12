@@ -1,5 +1,4 @@
 ---
-
 import { cdnW, cdnSrcset } from "@utils/cdn";
 
 interface Props {
@@ -11,9 +10,7 @@ interface Props {
   descripcion: string;
   caracteristicas: readonly string[];
   aplicacion: string;
-
   altSuffix?: string;
-
   placeholderPaths?: string[];
 }
 
@@ -38,289 +35,360 @@ const normalizedSlug = slug.startsWith("http")
   : (slug.startsWith("/") ? slug : `/${slug}`).replace(/\/{2,}/g, "/");
 ---
 
-<article class="producto-card">
-  <div class="producto-card__image">
+<article class={`pc pc--${badgeColor}`}>
+
+  <!-- ── Imagen + badge overlay ── -->
+  <a href={normalizedSlug} class="pc__img-wrap" tabindex="-1" aria-hidden="true">
     {imagen ? (
       <img
-        src={cdnW(imagen, 600)}
-        srcset={cdnSrcset(imagen, [300, 450, 600])}
-        sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
+        src={cdnW(imagen, 700)}
+        srcset={cdnSrcset(imagen, [350, 550, 700])}
+        sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 33vw"
         alt={`${nombre} - ${altSuffix}`}
         loading="lazy"
         decoding="async"
-        width="600"
-        height="375"
+        width="700"
+        height="438"
+        class="pc__img"
       />
     ) : (
-      <div class="producto-card__placeholder">
+      <div class="pc__placeholder">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
           {placeholderPaths.map((d) => <path d={d} />)}
         </svg>
       </div>
     )}
-    <span class={`producto-card__badge producto-card__badge--${badgeColor}`}>
-      {badge}
-    </span>
-  </div>
+    <div class="pc__img-overlay"></div>
+    <span class={`pc__badge pc__badge--${badgeColor}`}>{badge}</span>
+  </a>
 
-  <div class="producto-card__content">
-    <h3 class="producto-card__title">{nombre}</h3>
-    <p class="producto-card__desc">{descripcion}</p>
-    <ul class="producto-card__features">
+  <!-- ── Cuerpo ── -->
+  <div class="pc__body">
+
+    <!-- Acento de color (línea superior del body) -->
+    <div class="pc__accent"></div>
+
+    <!-- Título -->
+    <h3 class="pc__title">
+      <a href={normalizedSlug} class="pc__title-link">{nombre}</a>
+    </h3>
+
+    <!-- Descripción recortada -->
+    <p class="pc__desc">{descripcion}</p>
+
+    <!-- Features como chips compactos -->
+    <ul class="pc__chips" aria-label="Características principales">
       {caracteristicas.map((c) => (
-        <li>{c}</li>
+        <li class="pc__chip">
+          <svg aria-hidden="true" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          {c}
+        </li>
       ))}
     </ul>
-    <p class="producto-card__app">
-      <span class="producto-card__app-label">Aplicación:</span>
-      {aplicacion}
-    </p>
-    <a href={normalizedSlug} class="producto-card__btn">
-      <span>Ver Especificaciones</span>
-      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path d="M5 12h14M12 5l7 7-7 7" />
+
+    <!-- Aplicación -->
+    <div class="pc__app">
+      <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </svg>
+      <span>{aplicacion}</span>
+    </div>
+
+    <!-- CTA -->
+    <a href={normalizedSlug} class="pc__btn">
+      Ver Especificaciones
+      <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </a>
+
   </div>
 </article>
 
 <style>
+  /* All .pc* styles live in product-l3.css — do NOT add scoped styles here,
+     Astro's scoped CSS injection was not reliable for this component. */
 
-  .producto-card {
+  .pc {
     display: flex;
     flex-direction: column;
-    background: white;
-    border-radius: 14px;
+    background: #fff;
+    border-radius: 16px;
     overflow: hidden;
     border: 1px solid var(--color-smoke-200);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 24px -8px rgba(15,23,42,0.08);
+    box-shadow:
+      0 1px 2px rgba(0,0,0,0.04),
+      0 4px 20px -6px rgba(15,23,42,0.09);
     position: relative;
     isolation: isolate;
+    transition:
+      transform 0.22s cubic-bezier(.4,0,.2,1),
+      box-shadow 0.22s cubic-bezier(.4,0,.2,1),
+      border-color 0.22s;
   }
 
-  .producto-card__image {
+  @media (hover: hover) {
+    .pc:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.04),
+        0 16px 40px -10px rgba(15,23,42,0.15);
+      border-color: var(--color-ember-200);
+    }
+  }
+
+  /* ── Imagen ── */
+  .pc__img-wrap {
     position: relative;
+    display: block;
     aspect-ratio: 16 / 10;
-    background: linear-gradient(135deg, var(--color-smoke-100) 0%, var(--color-smoke-200) 100%);
     overflow: hidden;
+    background: var(--color-smoke-900);
+    flex-shrink: 0;
   }
 
-  .producto-card__image img {
+  .pc__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
   }
 
-  .producto-card__placeholder {
+  @media (hover: hover) {
+    .pc:hover .pc__img { transform: scale(1.04); }
+  }
+
+  .pc__placeholder {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-smoke-900) 0%, var(--color-smoke-800) 100%);
+    background: linear-gradient(135deg, var(--color-smoke-900), var(--color-smoke-800));
   }
-
-  .producto-card__placeholder svg {
-    width: 48px;
-    height: 48px;
+  .pc__placeholder svg {
+    width: 52px; height: 52px;
     stroke: var(--color-fire-500);
-    opacity: 0.6;
+    opacity: 0.45;
   }
 
-
-  .producto-card__badge {
+  /* Gradient overlay inferior — contraste para el badge */
+  .pc__img-overlay {
     position: absolute;
-    top: var(--space-2);
-    left: var(--space-2);
-    font-size: 9px;
-    font-weight: 700;
-    padding: 3px var(--space-2);
-    border-radius: var(--radius-full);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    line-height: 1.6;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 45%,
+      rgba(8, 10, 16, 0.65) 100%
+    );
+    pointer-events: none;
   }
 
-  .producto-card__badge--ember { background: var(--color-ember-600); color: white; }
-  .producto-card__badge--fire  { background: var(--color-fire-500);  color: white; }
-  .producto-card__badge--smoke { background: var(--color-smoke-700); color: white; }
+  /* ── Badge sobre imagen ── */
+  .pc__badge {
+    position: absolute;
+    bottom: var(--space-3);
+    left: var(--space-3);
+    display: inline-flex;
+    align-items: center;
+    padding: 4px var(--space-3);
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    white-space: nowrap;
+  }
 
+  .pc__badge--ember {
+    background: rgba(220, 38, 38, 0.88);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(220,38,38,0.45);
+  }
+  .pc__badge--fire {
+    background: rgba(234, 88, 12, 0.88);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(234,88,12,0.45);
+  }
+  .pc__badge--smoke {
+    background: rgba(20, 25, 35, 0.82);
+    color: #d1d8e4;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  }
 
-  .producto-card__content {
+  /* ── Body ── */
+  .pc__body {
     display: flex;
     flex-direction: column;
-    padding: var(--space-4);
-    flex-grow: 1;
+    padding: var(--space-4) var(--space-5) var(--space-5);
     gap: var(--space-3);
+    flex-grow: 1;
   }
 
-  .producto-card__title {
+  /* Acento de color — línea de 2px arriba del body */
+  .pc__accent {
+    height: 2px;
+    border-radius: 1px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+  .pc--ember .pc__accent { background: linear-gradient(90deg, var(--color-ember-500), var(--color-fire-400)); }
+  .pc--fire  .pc__accent { background: linear-gradient(90deg, var(--color-fire-500), var(--color-ember-400)); }
+  .pc--smoke .pc__accent { background: var(--color-smoke-300); }
+
+  /* ── Título ── */
+  .pc__title {
+    margin: 0;
     font-size: var(--text-base);
     font-weight: 800;
-    color: var(--color-smoke-900);
-    margin: 0;
-    line-height: 1.25;
+    line-height: 1.22;
+    color: var(--color-smoke-950, #09090b);
+    letter-spacing: -0.015em;
   }
 
-  .producto-card__desc {
-    font-size: var(--text-xs);
-    color: var(--color-smoke-600);
-    line-height: 1.6;
+  .pc__title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  @media (hover: hover) {
+    .pc__title-link:hover { color: var(--color-ember-600); }
+  }
+
+  /* ── Descripción ── */
+  .pc__desc {
     margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-smoke-500);
+    line-height: 1.65;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  .producto-card__features {
+  /* ── Chips de características ── */
+  .pc__chips {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
+    flex-wrap: wrap;
+    gap: var(--space-1) 6px;
     flex-grow: 1;
   }
 
-  .producto-card__features li {
-    display: flex;
+  .pc__chip {
+    display: inline-flex;
     align-items: flex-start;
-    gap: var(--space-2);
-    font-size: 11px;
-    color: var(--color-smoke-600);
+    gap: 4px;
+    padding: 4px 9px 4px 7px;
+    background: var(--color-smoke-50);
+    border: 1px solid var(--color-smoke-200);
+    border-radius: 6px;
+    font-size: 10.5px;
+    font-weight: 500;
+    color: var(--color-smoke-700);
     line-height: 1.4;
   }
 
-  .producto-card__features li::before {
-    content: '';
-    width: 4px;
-    height: 4px;
-    background: var(--color-fire-500);
-    border-radius: 50%;
+  .pc__chip svg {
     flex-shrink: 0;
-    margin-top: 5px;
+    stroke: var(--color-ember-500);
+    margin-top: 2px;
   }
 
-  .producto-card__app {
-    font-size: 11px;
-    color: var(--color-smoke-500);
-    margin: 0;
+  /* ── Aplicación ── */
+  .pc__app {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
     padding: var(--space-2) var(--space-3);
-    background: var(--color-smoke-50);
-    border-radius: var(--radius-md);
+    background: var(--color-smoke-900);
+    border-radius: 8px;
+    font-size: 11px;
     line-height: 1.5;
   }
 
-  .producto-card__app-label {
-    font-weight: 700;
-    color: var(--color-smoke-700);
-    display: block;
-    margin-bottom: 2px;
+  .pc__app svg {
+    flex-shrink: 0;
+    stroke: var(--color-fire-400);
+    margin-top: 1px;
   }
 
+  .pc__app span {
+    color: var(--color-smoke-300);
+    font-weight: 500;
+  }
 
-  .producto-card__btn {
-    display: inline-flex;
+  /* ── Botón CTA ── */
+  .pc__btn {
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
+    gap: 8px;
     padding: var(--space-3) var(--space-4);
-    background: var(--color-fire-600);
-    color: white;
+    background: var(--color-smoke-950, #09090b);
+    border: 1.5px solid var(--color-smoke-800);
+    color: #fff;
     text-decoration: none;
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     font-weight: 600;
-    border-radius: var(--radius-lg);
+    border-radius: 10px;
     margin-top: auto;
     min-height: 44px;
-    transition: background var(--transition-fast), transform var(--transition-fast);
+    letter-spacing: 0.01em;
+    transition:
+      background 0.18s,
+      border-color 0.18s,
+      transform 0.12s;
   }
 
-  .producto-card__btn:active {
-    background: var(--color-fire-700);
-    transform: scale(0.98);
+  .pc__btn svg {
+    flex-shrink: 0;
+    transition: transform 0.18s;
   }
 
   @media (hover: hover) {
-    .producto-card__btn:hover {
-      background: var(--color-fire-700);
+    .pc__btn:hover {
+      background: var(--color-ember-600);
+      border-color: var(--color-ember-500);
     }
-
-    .producto-card__btn:hover svg {
-      transform: translateX(3px);
-    }
+    .pc__btn:hover svg { transform: translateX(3px); }
   }
 
-  .producto-card__btn svg {
-    flex-shrink: 0;
-    transition: transform var(--transition-fast);
+  .pc__btn:active {
+    transform: scale(0.98);
+    background: var(--color-ember-700);
   }
 
-
+  /* ══ RESPONSIVE ══ */
   @media (min-width: 640px) {
-    .producto-card {
-      border-radius: var(--radius-2xl);
-    }
+    .pc { border-radius: 18px; }
 
-    .producto-card__image {
-      aspect-ratio: 16 / 9;
-    }
-
-    .producto-card__placeholder svg {
-      width: 64px;
-      height: 64px;
-    }
-
-    .producto-card__badge {
-      top: var(--space-3);
-      left: var(--space-3);
-      font-size: 11px;
-      padding: 3px var(--space-3);
-    }
-
-    .producto-card__content {
-      padding: var(--space-5);
+    .pc__body {
+      padding: var(--space-5) var(--space-6) var(--space-5);
       gap: var(--space-4);
     }
 
-    .producto-card__title {
-      font-size: var(--text-lg);
-    }
+    .pc__title { font-size: var(--text-lg); }
 
-    .producto-card__desc {
+    .pc__desc {
       font-size: var(--text-sm);
       -webkit-line-clamp: 4;
     }
 
-    .producto-card__features {
-      gap: var(--space-2);
-    }
-
-    .producto-card__features li {
-      font-size: var(--text-xs);
-    }
-
-    .producto-card__features li::before {
-      width: 5px;
-      height: 5px;
-    }
-
-    .producto-card__app {
-      font-size: var(--text-xs);
-      padding: var(--space-3);
-    }
-
-    .producto-card__btn {
-      padding: var(--space-3) var(--space-5);
-      font-size: var(--text-sm);
-    }
+    .pc__chip { font-size: 11px; padding: 4px 10px 4px 8px; }
   }
 
-
   @media (min-width: 1024px) {
-    .producto-card__content {
-      padding: var(--space-6);
+    .pc__body {
+      padding: var(--space-6) var(--space-6) var(--space-5);
     }
   }
 </style>

@@ -1,0 +1,465 @@
+---
+/**
+ * ProductL4Layout.astro — Master de páginas L4 de producto.
+ * ──────────────────────────────────────────────────────────
+ * Layout de dos columnas (main + sidebar) para páginas de producto específico.
+ * El contenido principal se organiza en content-panels dentro de page-main.
+ * Las tarjetas de producto se muestran en grid de 4 columnas.
+ *
+ * Diferencias vs CategoriaLayout:
+ *   - 2 columnas: page-main (contenido) + ProductL4Sidebar
+ *   - productos__grid → 4 columnas (modificador --4col)
+ *   - Secciones como content-panel dentro del flujo de scroll junto al sidebar
+ *   - WhyChooseUs y CTABanner siguen full-width (fuera del page-layout)
+ */
+
+import PageLayout       from "@layouts/PageLayout.astro";
+import Breadcrumb       from "@components/Breadcrumb.astro";
+import CTABar           from "@components/CTABar.astro";
+import SectionHeader    from "@components/SectionHeader.astro";
+import CategoryCard     from "@components/CategoryCard.astro";
+import ProductCard      from "@components/ProductCard.astro";
+import WhyChooseUs      from "@components/WhyChooseUs.astro";
+import CTABanner        from "@components/CTABanner.astro";
+import QuickNav         from "@components/QuickNav.astro";
+import FAQQuote         from "@components/FAQQuote.astro";
+import HeroSection      from "@components/HeroSection.astro";
+import ProductL4Sidebar from "@components/ProductL4Sidebar.astro";
+import { SITE }         from "@data/site";
+import { canonicalURL } from "@utils/seo";
+import "@styles/product-l3.css";
+
+/* ─── Tipos reutilizados de CategoriaLayout ─── */
+interface BreadcrumbItem { label: string; href?: string }
+interface HeroSeoBlock   { title: string; text: string }
+interface ProductCardItem {
+  nombre: string; slug: string;
+  badge: string; badgeColor: "ember" | "fire" | "smoke";
+  imagen: string | null;
+  descripcion: string; caracteristicas: string[]; aplicacion: string;
+}
+interface SpecCard { title: string; icon: string; image?: string; description: string }
+interface TablaCell { text: string; chip?: "ember" | "fire" | "smoke"; strong?: boolean }
+interface TablaRow  { cells: TablaCell[] }
+interface RelacionadoCard {
+  title: string; icon?: string; image?: string;
+  href: string; buttonText: string; description?: string;
+  items?: { label: string; href: string }[];
+}
+interface FaqItem { q: string; a: string }
+
+/* ─── Tipos específicos del sidebar L4 ─── */
+interface SidebarSibling {
+  href: string; label: string;
+  badge?: string; badgeColor?: "ember" | "fire" | "smoke" | "neutral";
+  active?: boolean;
+}
+interface SidebarSection { anchor: string; label: string; badge?: string }
+
+interface Props {
+  /* SEO */
+  title: string; description: string; keywords: string[];
+  canonical: string; type?: "website" | "product"; image?: string;
+
+  /* Navegación */
+  breadcrumb: BreadcrumbItem[];
+
+  /* Hero */
+  heroBadge: string; heroTitle: string; heroTitleHighlight: string;
+  heroSubtitle: string; heroSeoBlocks: HeroSeoBlock[];
+
+  /* CTABar */
+  ctaBarQuote: string;
+
+  /* Sección Productos (catálogo / perspectivas) */
+  productosLabel: string; productosTitle: string;
+  productosDesc: string; productosContent: string;
+  productoCards: ProductCardItem[]; productosAltSuffix?: string;
+
+  /* Sección Specs */
+  specsLabel?: string; specsTitle: string;
+  specsDesc: string; specsContent: string; specsCards: SpecCard[];
+
+  /* Sección Comparativa */
+  comparativaLabel?: string; comparativaTitle: string;
+  comparativaDesc: string; comparativaContent: string;
+  tablaHeaders: string[]; tablaRows: TablaRow[];
+
+  /* Sección Relacionados */
+  relacionadosLabel?: string; relacionadosTitle: string;
+  relacionadosDesc: string; relacionadosContent: string;
+  relacionadoCards: RelacionadoCard[];
+
+  /* FAQ */
+  faqs?: FaqItem[];
+
+  /* WhyChooseUs */
+  whyChooseImages?: string[];
+
+  /* Sidebar L4 */
+  sidebarCategoryLabel: string;
+  sidebarCategoryHref: string;
+  sidebarSiblings: SidebarSibling[];
+  sidebarSections?: SidebarSection[];
+  sidebarCtaText: string;
+  sidebarWaMsg: string;
+}
+
+const {
+  title, description, keywords, canonical, type = "product", image,
+  breadcrumb,
+  heroBadge, heroTitle, heroTitleHighlight, heroSubtitle, heroSeoBlocks,
+  ctaBarQuote,
+  productosLabel, productosTitle, productosDesc, productosContent,
+  productoCards, productosAltSuffix = "equipo de bombero certificado",
+  specsLabel = "Tecnología y Certificaciones", specsTitle, specsDesc, specsContent, specsCards,
+  comparativaLabel = "Tabla Comparativa", comparativaTitle, comparativaDesc, comparativaContent,
+  tablaHeaders, tablaRows,
+  relacionadosLabel = "Catálogo Relacionado", relacionadosTitle, relacionadosDesc, relacionadosContent,
+  relacionadoCards,
+  faqs = [],
+  whyChooseImages,
+  sidebarCategoryLabel, sidebarCategoryHref, sidebarSiblings,
+  sidebarSections = [], sidebarCtaText, sidebarWaMsg,
+} = Astro.props;
+
+const heroTitleHtml = heroTitleHighlight
+  ? `${heroTitle} <span class="hero__title-highlight">${heroTitleHighlight}</span>`
+  : heroTitle;
+
+const normalize = (v: string) =>
+  v.startsWith("http") ? v : (v.startsWith("/") ? v : `/${v}`).replace(/\/{2,}/g, "/");
+
+const normalizedProductoCards = productoCards.map((c) => ({ ...c, slug: normalize(c.slug) }));
+
+/* ─── Schema.org ─── */
+const productUrl   = canonicalURL(canonical);
+const productImage = image
+  ? canonicalURL(image)
+  : productoCards[0]?.imagen ? canonicalURL(productoCards[0].imagen)
+  : canonicalURL("/images/directorio/estacion-bomberos-mexico-01.avif");
+
+const jsonLdSchemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${productUrl}#product`,
+    name: heroTitle,
+    description,
+    image: productImage,
+    url: productUrl,
+    brand: { "@type": "Brand", name: SITE.name, logo: canonicalURL(SITE.organization.logo) },
+    offers: {
+      "@type": "AggregateOffer",
+      url: productUrl,
+      priceCurrency: "MXN",
+      lowPrice: "1",
+      highPrice: "99999",
+      offerCount: String(normalizedProductoCards.length),
+      availability: "https://schema.org/InStock",
+      seller: { "@type": "Organization", name: SITE.organization.name, url: SITE.url },
+      priceValidUntil: "2027-02-24",
+      itemCondition: "https://schema.org/NewCondition",
+    },
+  },
+  ...(faqs.length > 0
+    ? [{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }]
+    : []),
+];
+
+const defaultSpecImage = image ?? productoCards[0]?.imagen ?? "/images/directorio/estacion-bomberos-mexico-01.avif";
+const specFallbacks = [
+  productoCards[3]?.imagen ?? productoCards[0]?.imagen ?? defaultSpecImage,
+  productoCards[4]?.imagen ?? productoCards[1]?.imagen ?? defaultSpecImage,
+  productoCards[5]?.imagen ?? productoCards[2]?.imagen ?? defaultSpecImage,
+];
+---
+
+<PageLayout {title} {description} {keywords} {type} {canonical}
+  image={image ?? "/images/directorio/estacion-bomberos-mexico-01.avif"}
+  jsonLd={jsonLdSchemas}
+>
+
+  <Breadcrumb items={breadcrumb} />
+
+  <HeroSection
+    badge={heroBadge}
+    title={heroTitleHtml}
+    subtitle={heroSubtitle}
+    blocks={heroSeoBlocks as [any,any]}
+  />
+
+  <QuickNav pool="categoria" count={7} />
+
+  <CTABar quote={ctaBarQuote} />
+
+  <!-- ═══ LAYOUT DOS COLUMNAS ═══ -->
+  <div class="l4-layout">
+    <div class="l4-layout__inner">
+
+      <!-- ── MAIN ── -->
+      <main class="page-main" id="catalogo">
+
+        <!-- Panel: Productos (catálogo / perspectivas) — grid 4 columnas -->
+        <section class="content-panel l4-panel--productos" aria-labelledby="productos-title">
+          <SectionHeader
+            label={productosLabel}
+            title={productosTitle}
+            description={productosDesc}
+          >
+            <Fragment set:html={productosContent} />
+          </SectionHeader>
+
+          <div class="productos__grid productos__grid--4col" data-count={productoCards.length}>
+            {normalizedProductoCards.map((card) => (
+              <ProductCard
+                nombre={card.nombre}
+                slug={card.slug}
+                badge={card.badge}
+                badgeColor={card.badgeColor}
+                imagen={card.imagen}
+                descripcion={card.descripcion}
+                caracteristicas={card.caracteristicas}
+                aplicacion={card.aplicacion}
+                altSuffix={productosAltSuffix}
+              />
+            ))}
+          </div>
+        </section>
+
+        <!-- Panel: Specs (fondo oscuro) -->
+        <section class="content-panel content-panel--dark" id="specs" aria-labelledby="specs-title">
+          <SectionHeader
+            label={specsLabel}
+            title={specsTitle}
+            description={specsDesc}
+          >
+            <Fragment set:html={specsContent} />
+          </SectionHeader>
+          <div class="specs__grid">
+            {specsCards.map((card, i) => (
+              <CategoryCard
+                title={card.title}
+                icon={card.icon}
+                image={card.image ?? specFallbacks[i]}
+                description={card.description}
+              />
+            ))}
+          </div>
+        </section>
+
+        <!-- Panel: Tabla Comparativa -->
+        <section class="content-panel" id="comparativa" aria-labelledby="comparativa-title">
+          <SectionHeader
+            label={comparativaLabel}
+            title={comparativaTitle}
+            description={comparativaDesc}
+          >
+            <Fragment set:html={comparativaContent} />
+          </SectionHeader>
+          <div class="comparativa__wrapper">
+            <table class="comparativa__table">
+              <thead>
+                <tr>{tablaHeaders.map((h) => <th>{h}</th>)}</tr>
+              </thead>
+              <tbody>
+                {tablaRows.map((row) => (
+                  <tr>
+                    {row.cells.map((cell, ci) => (
+                      <td>
+                        {cell.chip
+                          ? <span class={`cert-chip cert-chip--${cell.chip}`}>{cell.text}</span>
+                          : cell.strong || ci === 0
+                            ? <strong>{cell.text}</strong>
+                            : cell.text
+                        }
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Panel: Relacionados -->
+        <section class="content-panel" id="relacionados" aria-labelledby="relacionados-title">
+          <SectionHeader
+            label={relacionadosLabel}
+            title={relacionadosTitle}
+            description={relacionadosDesc}
+          >
+            <Fragment set:html={relacionadosContent} />
+          </SectionHeader>
+          <div class="rel__grid l4-rel__grid" data-count={relacionadoCards.length}>
+            {relacionadoCards.map((card) => (
+              <CategoryCard
+                title={card.title}
+                icon={card.icon}
+                image={card.image}
+                href={card.href}
+                buttonText={card.buttonText}
+                description={card.description}
+                items={card.items}
+              />
+            ))}
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <div class="content-panel content-panel--faq" id="faq">
+          <FAQQuote
+            title={faqs.length > 0
+              ? `Preguntas frecuentes — ${heroTitle}`
+              : "Preguntas frecuentes sobre equipo NFPA"}
+            description="Respuestas técnicas para bomberos, jefes de brigada y responsables de compras."
+            items={faqs.length > 0
+              ? faqs.map((f) => ({ question: f.q, answer: f.a }))
+              : [
+                  { question: "¿Este equipo cuenta con certificación NFPA vigente?", answer: "Sí. Todo el equipo incluye certificado de laboratorio acreditado ISO/IEC 17025." },
+                  { question: "¿Cómo solicito una cotización?", answer: "Usa el formulario de esta página o escríbenos por WhatsApp al 55 7008 1816. Respondemos en menos de 24 hrs." },
+                  { question: "¿Realizan envíos a toda la República Mexicana?", answer: "Sí, a los 32 estados con seguro de envío incluido. CDMX: 24-48 hrs. Resto del país: 3-5 días hábiles." },
+                ]
+            }
+          />
+        </div>
+
+      </main>
+
+      <!-- ── SIDEBAR ── -->
+      <ProductL4Sidebar
+        categoryLabel={sidebarCategoryLabel}
+        categoryHref={sidebarCategoryHref}
+        siblings={sidebarSiblings}
+        sections={sidebarSections}
+        ctaText={sidebarCtaText}
+        waMsg={sidebarWaMsg}
+      />
+
+    </div>
+  </div>
+
+  <!-- Full-width (fuera del grid de dos columnas) -->
+  <WhyChooseUs images={whyChooseImages} />
+  <CTABanner />
+
+</PageLayout>
+
+<style>
+  /* ══ L4 PAGE LAYOUT ══ */
+  .l4-layout {
+    background: var(--color-smoke-50);
+    padding-block: var(--space-8);
+  }
+
+  .l4-layout__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 288px;
+    gap: var(--space-8);
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding-inline: var(--container-padding);
+    align-items: start;
+  }
+
+  /* ══ PANELES EN PAGE-MAIN ══ */
+
+  /* Fondo del content-panel--faq necesita nesting fix */
+  .content-panel--faq :global(.faq-quote),
+  .content-panel--faq :global(.faq-quote__section) {
+    background: transparent;
+    padding: 0;
+  }
+
+  /* Specs dark panel: ajuste de color de texto via cascade */
+  .content-panel--dark :global(.section-header__label) { color: var(--color-fire-400); }
+  .content-panel--dark :global(.section-header__title) { color: white; }
+  .content-panel--dark :global(.section-header__desc)  { color: var(--color-smoke-300); }
+  .content-panel--dark :global(.section-header__right p)      { color: var(--color-smoke-300); }
+  .content-panel--dark :global(.section-header__right strong) { color: white; font-weight: 600; }
+
+  /* ══ PRODUCTOS GRID — 3 COLUMNAS ══ */
+  .productos__grid--4col {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: var(--space-5);
+  }
+
+  /* Con 6 cards en 3 cols: 2 filas perfectas — sin ajuste necesario */
+
+  /* ══ RELACIONADOS GRID en L4 — 2 columnas (main más estrecho) ══ */
+  .l4-rel__grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .l4-rel__grid[data-count="4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ══ RESPONSIVE ══ */
+
+  /* 1280px → sidebar más estrecho, 3 cols se mantienen */
+  @media (max-width: 1280px) {
+    .l4-layout__inner {
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: var(--space-6);
+    }
+
+    .productos__grid--4col {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: var(--space-4);
+    }
+  }
+
+  /* 1024px → sidebar desaparece, 3 cols full-width */
+  @media (max-width: 1024px) {
+    .l4-layout__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .l4-layout__inner :global(.page-sidebar) {
+      display: none;
+    }
+
+    .productos__grid--4col {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .l4-rel__grid,
+    .l4-rel__grid[data-count="4"] {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+  }
+
+  /* 768px */
+  @media (max-width: 768px) {
+    .l4-layout { padding-block: var(--space-6); }
+
+    .productos__grid--4col {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .l4-rel__grid,
+    .l4-rel__grid[data-count="4"] {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+
+  /* 480px */
+  @media (max-width: 480px) {
+    .productos__grid--4col {
+      grid-template-columns: 1fr !important;
+    }
+
+    .l4-rel__grid,
+    .l4-rel__grid[data-count="4"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>

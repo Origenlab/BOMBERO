@@ -1,0 +1,279 @@
+---
+/**
+ * ProductL4Sidebar.astro — Sidebar de interlinking para páginas L4.
+ * ──────────────────────────────────────────────────────────────────
+ * Widgets:
+ *   W1  Secciones de esta página (anchor links)
+ *   W2  Otros productos de la categoría (hermanos L4)
+ *   W3  CTA principal
+ *   W4  EPP Complementario (compartido)
+ *   W5  ¿Por qué BOMBERO.MX? (compartido)
+ *   W6  Contacto Directo (compartido)
+ *
+ * Estilos: reutiliza las clases .sb-* de product-l3.css
+ */
+
+type Color = "ember" | "fire" | "smoke" | "neutral";
+
+interface PageSection {
+  anchor: string;   // e.g. "#catalogo"
+  label: string;    // e.g. "6 Perspectivas del Traje"
+  badge?: string;
+}
+
+interface SiblingItem {
+  href: string;
+  label: string;
+  badge?: string;
+  badgeColor?: Color;
+  active?: boolean;
+}
+
+interface Props {
+  /** Label de la categoría padre, p.ej. "Trajes para Bombero" */
+  categoryLabel: string;
+  /** URL del L3 padre, p.ej. "/productos/trajes-para-bomberos/" */
+  categoryHref: string;
+  /** Otros productos L4 de la misma categoría */
+  siblings: SiblingItem[];
+  /** Secciones âncla dentro de esta página (opcionales) */
+  sections?: PageSection[];
+  /** Texto del widget CTA */
+  ctaText: string;
+  /** Mensaje de WhatsApp pre-rellenado */
+  waMsg: string;
+  ariaLabel?: string;
+}
+
+const {
+  categoryLabel,
+  categoryHref,
+  siblings,
+  sections = [],
+  ctaText,
+  waMsg,
+  ariaLabel = "Navegación de productos relacionados",
+} = Astro.props;
+
+const waHref = `https://wa.me/525570081816?text=${encodeURIComponent(waMsg)}`;
+---
+
+<aside class="page-sidebar" aria-label={ariaLabel}>
+  <div class="sidebar-sticky">
+
+    <!-- ══ W1: Secciones de esta página ══ -->
+    {sections.length > 0 && (
+      <div class="sb-widget">
+        <div class="sb-widget__header">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon">
+            <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+            <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+          </svg>
+          <span class="sb-widget__title">En esta página</span>
+        </div>
+        <nav class="sb-widget__body" aria-label="Secciones de la página">
+          {sections.map((s) => (
+            <a href={s.anchor} class="sb-link">
+              <span class="sb-link__dot sb-link__dot--smoke"></span>
+              <span class="sb-link__text">
+                {s.label}
+                {s.badge && <span class="sb-link__badge sb-link__badge--smoke">{s.badge}</span>}
+              </span>
+              <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </a>
+          ))}
+        </nav>
+      </div>
+    )}
+
+    <!-- ══ W2: Otros productos L4 de la misma categoría ══ -->
+    <div class="sb-widget">
+      <div class="sb-widget__header">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span class="sb-widget__title">{categoryLabel}</span>
+      </div>
+      <nav class="sb-widget__body" aria-label={categoryLabel}>
+        <a href={categoryHref} class="sb-link sb-link--back">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          <span class="sb-link__text">Ver todos los tipos</span>
+        </a>
+        {siblings.map((s) => (
+          <a href={s.href} class={`sb-link${s.active ? " sb-link--active" : ""}`} aria-current={s.active ? "page" : undefined}>
+            <span class={`sb-link__dot sb-link__dot--${s.active ? "fire" : "ember"}`}></span>
+            <span class="sb-link__text">
+              {s.label}
+              {s.badge && (
+                <span class={`sb-link__badge${s.badgeColor && s.badgeColor !== "ember" ? ` sb-link__badge--${s.badgeColor}` : ""}`}>
+                  {s.badge}
+                </span>
+              )}
+            </span>
+            <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="m9 18 6-6-6-6"/>
+            </svg>
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <!-- ══ W3: CTA Principal ══ -->
+    <div class="sb-cta">
+      <div class="sb-cta__icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <h3 class="sb-cta__title">¿Necesitas Asesoría?</h3>
+      <p class="sb-cta__text">{ctaText}</p>
+      <a href="/cotizar/" class="sb-cta__btn">Cotizar sin costo</a>
+      <a href={waHref} target="_blank" rel="noopener noreferrer" class="sb-cta__whatsapp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+        </svg>
+        WhatsApp directo
+      </a>
+    </div>
+
+    <!-- ══ W4: EPP Complementario (compartido) ══ -->
+    <div class="sb-widget">
+      <div class="sb-widget__header">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span class="sb-widget__title">EPP Complementario</span>
+      </div>
+      <nav class="sb-widget__body" aria-label="Equipo complementario">
+        <a href="/productos/cascos-para-bomberos/" class="sb-link">
+          <span class="sb-link__icon-wrap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12h2c0-4.42 3.58-8 8-8s8 3.58 8 8h2c0-5.52-4.48-10-10-10z"/><rect x="2" y="12" width="20" height="4" rx="1"/></svg>
+          </span>
+          Cascos para Bombero
+          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <a href="/productos/botas-para-bomberos/" class="sb-link">
+          <span class="sb-link__icon-wrap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 14h7V6h4l3 4v4H3v0z"/><path d="M3 14v4h14v-4"/></svg>
+          </span>
+          Botas para Bombero
+          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <a href="/productos/guantes-para-bomberos/" class="sb-link">
+          <span class="sb-link__icon-wrap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>
+          </span>
+          Guantes para Bombero
+          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <a href="/productos/capuchas-para-bomberos/" class="sb-link">
+          <span class="sb-link__icon-wrap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="10" r="3"/><path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/></svg>
+          </span>
+          Capuchas para Bombero
+          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <a href="/productos/gafas-para-bomberos/" class="sb-link">
+          <span class="sb-link__icon-wrap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2h8c1.6 0 2.3.7 3 2l2.5 6"/></svg>
+          </span>
+          Gafas y Goggles
+          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <a href="/productos/scba/" class="sb-link">
+          <span class="sb-link__icon-wrap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5v6H7V7a5 5 0 0 1 5-5z"/><rect x="3" y="13" width="18" height="8" rx="2"/></svg>
+          </span>
+          SCBA / ERA Autónomo
+          <svg class="sb-link__arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      </nav>
+    </div>
+
+    <!-- ══ W5: ¿Por qué BOMBERO.MX? (compartido) ══ -->
+    <div class="sb-widget sb-widget--why">
+      <div class="sb-widget__header sb-widget__header--light">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon sb-widget__icon--dark">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <span class="sb-widget__title sb-widget__title--dark">¿Por qué BOMBERO.MX?</span>
+      </div>
+      <div class="sb-widget__body sb-why">
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>+15 años de experiencia en EPP bomberos</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Envío a los <strong>32 estados</strong> de México</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Asesoría técnica sin costo</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Certificados NFPA con laboratorio acreditado</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Documentación para licitaciones públicas</span></div>
+        <div class="sb-why__item"><svg class="sb-why__check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span>Respuesta a cotización en menos de 24 h</span></div>
+      </div>
+    </div>
+
+    <!-- ══ W6: Contacto Directo (compartido) ══ -->
+    <div class="sb-widget sb-widget--contact">
+      <div class="sb-widget__header sb-widget__header--light">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="sb-widget__icon sb-widget__icon--dark">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.42 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.7 16z"/>
+        </svg>
+        <span class="sb-widget__title sb-widget__title--dark">Contacto Directo</span>
+      </div>
+      <div class="sb-widget__body sb-contact">
+        <a href="tel:5570081816" class="sb-contact__item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.42 2 2 0 0 1 3.57 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6 6l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.7 16z"/></svg>
+          <div><span class="sb-contact__label">Teléfono</span><span class="sb-contact__value">55 7008 1816</span></div>
+        </a>
+        <a href="mailto:ventas@bombero.mx" class="sb-contact__item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div><span class="sb-contact__label">Correo</span><span class="sb-contact__value">ventas@bombero.mx</span></div>
+        </a>
+        <a href={waHref} target="_blank" rel="noopener noreferrer" class="sb-contact__item sb-contact__item--wa">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          <div><span class="sb-contact__label">WhatsApp</span><span class="sb-contact__value">Respuesta inmediata</span></div>
+        </a>
+        <div class="sb-contact__hours">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Lun–Vie 9:00–18:00 · Sáb 9:00–13:00
+        </div>
+      </div>
+    </div>
+
+  </div>
+</aside>
+
+<style>
+  /* Estilos adicionales para variantes L4 — el grueso está en product-l3.css */
+
+  /* Enlace "volver" en widget de hermanos */
+  .sb-link--back {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-smoke-500);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-smoke-100);
+    transition: color 0.15s;
+  }
+  .sb-link--back:hover { color: var(--color-ember-600); }
+  .sb-link--back svg { flex-shrink: 0; }
+
+  /* Dot smoke para secciones de página */
+  .sb-link__dot--smoke {
+    background: var(--color-smoke-400);
+  }
+
+  /* Badge smoke */
+  .sb-link__badge--smoke {
+    background: var(--color-smoke-100);
+    color: var(--color-smoke-600);
+  }
+</style>
