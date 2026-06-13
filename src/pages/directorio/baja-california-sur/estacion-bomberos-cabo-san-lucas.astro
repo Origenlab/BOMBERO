@@ -1,0 +1,130 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california-sur";
+
+const slug = "estacion-bomberos-cabo-san-lucas";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California Sur",
+  slug: "baja-california-sur",
+  siglas: "BCS",
+  poblacion: "800 mil",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California", slug: "baja-california" },
+  { nombre: "Sonora", slug: "sonora" },
+  { nombre: "Sinaloa", slug: "sinaloa" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para rescate acuático y marina de Cabo San Lucas",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 72 elementos del epicentro turístico del Pacífico mexicano: incendios en embarcaciones de la marina más grande del Pacífico mexicano, rescate en Divorce Beach con corrientes del Océano Pacífico de nivel extremo y emergencias en yates de 30-50 metros de eslora.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para rescate en El Arco de Cabo San Lucas",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia certificada para rescate en la formación rocosa de El Arco, donde la roca granito batolítica con cavernas y arcos naturales genera zonas de atrapamiento de embarcaciones y personas con acceso restringido para equipos de rescate.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para operaciones marítimas en la Marina de Cabo San Lucas",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia al calor para incendios en motores de embarcaciones y al mar para operaciones desde motos acuáticas Sea-Doo y lancha de rescate de 30 pies en aguas del encuentro del Mar de Cortés con el Océano Pacífico, con corrientes complejas.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para operaciones en marina y zona de entretenimiento nocturno de Cabo",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela antiderrapante para tablones de madera de marina, deck de yate mojado y pavimentos del centro de entretenimiento nocturno con alta densidad de personas. Certificadas NFPA 1971 para el rango de emergencias del destino turístico más visitado de Baja California Sur.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>3 Millones de Visitantes, la Marina más Grande del Pacífico Mexicano y Divorce Beach: 72 Elementos para Rescate en El Arco, Yates de 50 Metros y la Zona Nocturna más Dinámica de México</h2>
+    <p>
+      La <strong>Estación de Bomberos de Cabo San Lucas</strong>, ubicada en Calle 20 de Noviembre s/n,
+      Centro, protege el epicentro del turismo de playa y diversión del Pacífico mexicano. Con más de
+      3 millones de visitantes anuales, la marina de yates más grande del Pacífico —con más de 400
+      atraques— y una vida nocturna internacional que atrae a turistas de todo el mundo, Cabo San Lucas
+      es el escenario de emergencias más complejo de Baja California Sur. Con 72 elementos activos,
+      6 unidades —incluyendo lancha de rescate de 30 pies, 2 motos acuáticas Sea-Doo y escalera
+      telescópica de 25 metros— y tiempo de respuesta de 4 a 8 minutos, esta estación opera en un
+      entorno que no descansa.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación de Bomberos de Cabo San Lucas?</h3>
+    <p>
+      Para emergencias en el Centro, Marina, Playa El Médano, Divorce Beach, El Arco o la Zona Hotelera,
+      marca el <strong>911</strong>. El despacho coordina esta estación con la de San José del Cabo para
+      incidentes en el Corredor Turístico. Contacto directo: 624 143 3577. El personal habla español,
+      inglés y puede coordinar en otros idiomas para la atención a turistas internacionales.
+    </p>
+
+    <h3>Divorce Beach y Playa del Amor: Las Playas más Peligrosas del Pacífico Norte</h3>
+    <p>
+      Divorce Beach —llamada así por el contraste con la tranquila Playa del Amor a metros de distancia—
+      recibe las corrientes directas del Océano Pacífico sin protección de arrecife ni bahía. Las olas de
+      3 a 5 metros en días de swell norte y las corrientes de rompiente de hasta 8 nudos han causado
+      decenas de ahogamientos. Los turistas que no conocen la diferencia entre las dos playas —accesibles
+      solo por lancha— son el público más vulnerable. Las 2 motos acuáticas Sea-Doo permiten respuesta
+      en 2 a 3 minutos desde la playa El Médano.
+    </p>
+
+    <h3>Marina Cabo San Lucas: Incendios en Yates de 50 Metros y Embarcaciones Turísticas</h3>
+    <p>
+      La Marina Cabo San Lucas tiene más de 400 atraques que albergan desde lanchas de pesca deportiva
+      hasta superyates de 50 metros de eslora con combustible diesel de alto volumen. Un incendio en la
+      sala de máquinas de un yate puede propagarse a embarcaciones adyacentes en minutos en condiciones
+      de viento marino. La lancha de rescate de 30 pies permite operar dentro de la marina sin afectar
+      las maniobras de otras embarcaciones.
+    </p>
+
+    <h3>El Arco de Cabo San Lucas: El Rescate más Icónico y más Complejo</h3>
+    <p>
+      La formación rocosa de El Arco —el ícono fotográfico de México en el mundo— tiene cavernas, arcos
+      naturales y zonas de rompiente en la base de la roca que atrapan con frecuencia a embarcaciones
+      de fondo plano y a turistas que saltan desde lanchas. El rescate en esta formación exige
+      coordinación entre la lancha de rescate y buzos de la estación con profundo conocimiento de
+      las corrientes locales. En <a href="/">BOMBERO.MX</a> distribuimos
+      <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

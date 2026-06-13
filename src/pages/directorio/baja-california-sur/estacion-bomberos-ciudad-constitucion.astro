@@ -1,0 +1,130 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california-sur";
+
+const slug = "estacion-bomberos-ciudad-constitucion";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California Sur",
+  slug: "baja-california-sur",
+  siglas: "BCS",
+  poblacion: "800 mil",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California", slug: "baja-california" },
+  { nombre: "Sonora", slug: "sonora" },
+  { nombre: "Sinaloa", slug: "sinaloa" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para emergencias agrícolas en Ciudad Constitución BCS",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 28 elementos que operan en la capital agrícola de BCS: incendios en empacadoras y bodegas de agroinsumos del Valle de Santo Domingo, emergencias en el Puerto de San Carlos durante la temporada de ballena gris y rescate vehicular en la Carretera Transpeninsular.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para incendios en galerones agrícolas del Valle de Santo Domingo",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia certificada para operaciones en techos de lámina metálica de galerones agrícolas —con alta velocidad de colapso en incendio— y para rescate vehicular en la Carretera Federal 1 con alta densidad de camiones de carga pesada entre Ciudad Constitución y La Paz.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para manejo de agroquímicos en el Valle de Santo Domingo",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia química para manejo de agroquímicos y fertilizantes de alta concentración en bodegas del Valle de Santo Domingo. Compatibles con guantes de nitrilo de mayor resistencia química en derrames de herbicidas de contacto o insecticidas organofosforados.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno agrícola en el Valle de Santo Domingo",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela antiderrapante para suelo arcilloso del Valle de Santo Domingo con sistemas de riego por inundación, arenas de playa del Puerto de San Carlos y pavimentos de la Carretera Transpeninsular. Certificadas NFPA 1971 para el rango de emergencias del municipio más extenso de BCS.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Capital Agrícola del Estado más Extenso de México y Santuario de la Ballena Gris: 28 Elementos para el Valle de Santo Domingo, Agroquímicos a Presión y el Puerto San Carlos</h2>
+    <p>
+      La <strong>Estación de Bomberos de Ciudad Constitución</strong>, ubicada en Calle Agustín
+      Olachea s/n, Centro, es el centro operativo de emergencias del municipio más extenso de Baja
+      California Sur: Comondú, con 24,000 km² de superficie que incluyen desde desierto de cardón
+      hasta costas en el Pacífico y el Mar de Cortés. Ciudad Constitución, fundada en 1953 como parte
+      de la colonización del Valle de Santo Domingo, tiene 45,000 habitantes y es el corazón de la zona
+      agrícola más productiva del estado. Con 28 elementos activos, 5 unidades y tiempo de respuesta
+      de 8 a 15 minutos en zona urbana, esta estación opera con autosuficiencia en un territorio sin
+      una segunda estación a menos de 200 km.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación de Bomberos de Ciudad Constitución?</h3>
+    <p>
+      Para emergencias en Ciudad Constitución, Valle de Santo Domingo, Ciudad Insurgentes, Puerto
+      San Carlos o la Carretera Transpeninsular entre La Paz y Loreto, marca el <strong>911</strong>.
+      Contacto directo: 613 132 0303. Para incidentes en Puerto San Carlos —a 57 km de la cabecera—
+      los tiempos de respuesta son de 40 a 60 minutos.
+    </p>
+
+    <h3>Valle de Santo Domingo: La Zona Agrícola más Productiva de BCS</h3>
+    <p>
+      El Valle de Santo Domingo fue transformado de desierto en tierra fértil a partir de los años 50
+      mediante pozos profundos que extraen agua de un acuífero subterráneo de origen glaciar. Hoy produce
+      algodón, trigo, garbanzo, espárrago, cebolla y cítricos que se exportan principalmente a Estados
+      Unidos. Las bodegas de agroquímicos y fertilizantes —amoniaco anhidro, herbicidas y fungicidas—
+      son el mayor riesgo HAZMAT de la zona rural. Un derrame de amoniaco en la zona de riego puede
+      contaminar el acuífero del que depende toda la agricultura del valle.
+    </p>
+
+    <h3>Puerto San Carlos: Santuario de la Ballena Gris en la Laguna San Ignacio</h3>
+    <p>
+      Cada invierno, de enero a marzo, miles de ballenas grises llegan a la Laguna San Ignacio —a 180 km
+      al norte de Ciudad Constitución— para reproducirse y criar a sus ballenatos. Puerto San Carlos es
+      la base de operaciones de los barcos de avistamiento que llevan a turistas de todo el mundo.
+      Un accidente en embarcación turística durante la temporada de ballenas, con turistas internacionales
+      a bordo, es el incidente de mayor visibilidad mediática al que puede responder esta estación.
+    </p>
+
+    <h3>Carretera Transpeninsular: El Cordón Umbilical del Sur de la Península</h3>
+    <p>
+      La Carretera Federal 1 entre La Paz y Loreto atraviesa Ciudad Constitución como la única vía
+      terrestre que conecta el sur de la península. El tráfico de camiones con carga general, vehículos
+      de mudanza del continente y turistas en autocaravana que cruzan la península hace de esta carretera
+      un escenario frecuente de accidentes vehiculares de alta energía. En
+      <a href="/">BOMBERO.MX</a> distribuimos
+      <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

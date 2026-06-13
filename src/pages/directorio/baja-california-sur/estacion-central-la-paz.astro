@@ -1,0 +1,131 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california-sur";
+
+const slug = "estacion-central-la-paz";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California Sur",
+  slug: "baja-california-sur",
+  siglas: "BCS",
+  poblacion: "800 mil",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California", slug: "baja-california" },
+  { nombre: "Sonora", slug: "sonora" },
+  { nombre: "Sinaloa", slug: "sinaloa" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para huracanes y rescate marino en La Paz BCS",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 85 elementos de la capital del estado más peninsular de México: incendios estructurales en el Centro Histórico, coordinación durante huracanes categoría 4-5 y rescate acuático en las aguas del Mar de Cortés. La versatilidad del traje es esencial en una ciudad que combina desierto, mar abierto y turismo internacional.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para operaciones de huracán en La Paz Baja California Sur",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia certificada para operaciones en condiciones de huracán: viento sostenido de 200+ km/h, proyectiles aéreos durante rescates en estructuras dañadas y riesgo de colapso. La estación realizó más de 500 rescates en 72 horas durante el huracán Odile categoría 4 en 2014.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para rescate acuático en la Bahía de La Paz",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Compatibilidad con trajes de neopreno para rescate acuático en el Mar de Cortés y resistencia química para emergencias HAZMAT en la zona portuaria. La lancha de rescate de 25 pies y los equipos de buceo PADI certificados exigen guantes de alta versatilidad operativa.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para operaciones costeras en La Paz BCS",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela antiderrapante para superficies húmedas de muelle, arena de playa del Malecón y pavimentos del Centro Histórico. La presencia permanente del mar hace de la resistencia a la humedad marina una exigencia operativa para los 85 elementos de la estación capital.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Centro de Mando Estatal en el Acuario del Mundo: 85 Elementos, Unidad HAZMAT, Lancha de Rescate y 500 Operaciones en 72 Horas durante el Huracán Odile Categoría 4</h2>
+    <p>
+      La <strong>Estación Central de Bomberos de La Paz</strong>, fundada el 22 de febrero de 1944 en
+      Calle Ignacio Altamirano 2790, Centro, es el eje operativo del Heroico Cuerpo de Bomberos de la
+      capital del estado más peninsular de México. Con 85 elementos activos, 7 unidades —incluyendo
+      escalera telescópica de 30 metros, unidad HAZMAT con trajes encapsulados Nivel A, lancha de rescate
+      de 25 pies y unidad de mando móvil con comunicaciones satelitales— y tiempo de respuesta de 4 a 8
+      minutos en zona central, esta estación es la base de operaciones para todos los eventos de emergencia
+      mayor en Baja California Sur.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación Central de Bomberos de La Paz?</h3>
+    <p>
+      Para emergencias en el Centro Histórico, Malecón, Zona Portuaria, Costa Baja o la Bahía de La Paz,
+      marca el <strong>911</strong>. El despacho de esta estación coordina la respuesta en toda la zona
+      metropolitana y activa los protocolos de emergencia estatal en eventos de huracán. Contacto directo:
+      612 122 0054. El tiempo de respuesta de 4 a 8 minutos cubre el área central y el malecón.
+    </p>
+
+    <h3>Huracanes Categoría 4-5: Base de Operaciones para el Fenómeno más Destructivo de BCS</h3>
+    <p>
+      Baja California Sur es la entidad mexicana con mayor probabilidad histórica de impacto de huracán
+      intenso en el Pacífico. En septiembre de 2014, el huracán Odile —categoría 4 en el momento del
+      impacto, con vientos de 205 km/h— tocó tierra en Los Cabos y recorrió toda la península dejando
+      un rastro de destrucción sin precedente. El personal de esta estación realizó más de 500 rescates
+      en 72 horas continuas: personas atrapadas bajo escombros, heridos en hospitales sin energía y
+      evacuaciones de zonas inundadas. Esta experiencia operativa define los protocolos de preparación
+      que la estación implementa cada temporada de ciclones de junio a noviembre.
+    </p>
+
+    <h3>Rescate Acuático en el "Acuario del Mundo": Mar de Cortés y Bahía de La Paz</h3>
+    <p>
+      El oceanógrafo Jacques Cousteau llamó al Mar de Cortés "el acuario del mundo" por su biodiversidad
+      única, y las aguas de La Paz son su epicentro. La lancha de rescate de 25 pies y los buzos PADI
+      certificados de esta estación atienden emergencias en toda la bahía: kayakistas en corrientes de
+      marea, accidentes en embarcaciones turísticas de avistamiento de ballenas, buceo autónomo y
+      kitesurf en El Mogote. El equipo especializado en fauna marina también interviene en
+      varamientos de ballenas, lobos marinos y tortugas en la bahía.
+    </p>
+
+    <h3>HAZMAT Portuario: Puerto de La Paz y Materiales en Tránsito</h3>
+    <p>
+      El Puerto de La Paz es la principal terminal de carga de Baja California Sur y punto de ferries
+      hacia Mazatlán, Topolobampo y Pichilingue. Los materiales peligrosos en tránsito —combustibles,
+      gases industriales y químicos agrícolas— representan el mayor riesgo HAZMAT de la capital. La
+      unidad con trajes encapsulados Nivel A es la única en el estado con capacidad de respuesta a
+      derrames de sustancias de mayor peligrosidad. En <a href="/">BOMBERO.MX</a> distribuimos
+      <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>
