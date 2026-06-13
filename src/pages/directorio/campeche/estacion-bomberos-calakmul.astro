@@ -1,0 +1,161 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-campeche";
+
+const slug = "estacion-bomberos-calakmul";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Campeche",
+  slug: "campeche",
+  siglas: "CAM",
+  poblacion: "1 millón",
+  municipios: 13,
+};
+
+const estadosVecinos = [
+  { nombre: "Yucatán", slug: "yucatan" },
+  { nombre: "Quintana Roo", slug: "quintana-roo" },
+  { nombre: "Tabasco", slug: "tabasco" },
+  { nombre: "Chiapas", slug: "chiapas" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para incendios forestales en la Reserva de la Biósfera Calakmul UNESCO",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 42 elementos que protegen el mayor Patrimonio UNESCO Mixto —natural y cultural— del territorio mexicano: 723,185 hectáreas de bosque tropical con la mayor ciudad maya de México y la mayor población de jaguares del país. El traje resiste la radiación térmica de frentes de fuego de 15 metros en selva alta perennifolia.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para combate de incendios forestales en terreno arqueológico de Calakmul",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia certificada para operaciones en el entorno más exigente de la emergencia forestal mexicana: monte bajo espinoso que cede de manera abrupta, árboles de ramón y chicozapote incendiados con troncos huecos que colapsan sin aviso y pendientes de acrópolis maya con roca caliza que cede bajo fuego.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para trabajo manual de cortafuego en la Reserva Biósfera Calakmul",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia mecánica para trabajo prolongado con herramientas manuales de cortafuego —machetón, hacha Pulaski y rozadora— en vegetación de alta densidad. En zonas sin acceso vehicular de la reserva, el trabajo manual de apertura de cortafuego es la única herramienta disponible hasta la llegada de maquinaria de CONAFOR.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno arqueológico y selva de la Reserva de la Biósfera Calakmul",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela de máximo agarre para roca caliza porosa de acrópolis maya, suelo de selva con raíces tabulares de ceiba y ramón a nivel del suelo, y brechas de selva con piedra suelta. Certificadas NFPA 1971 para el entorno más exigente topográficamente de las emergencias forestales de Campeche.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>La Única Estación de México en un Patrimonio UNESCO Mixto de 723,185 Hectáreas: 42 Elementos para la Mayor Ciudad Maya del Continente, la Población de Jaguares más Grande del País y Frentes de Fuego sin Acceso Vehicular</h2>
+    <p>
+      La <strong>Estación de Bomberos de Calakmul</strong>, ubicada en la Carretera Escárcega-Chetumal
+      km 95, Xpujil, es la instalación de bomberos más singular de México: opera en el corazón
+      de la Reserva de la Biósfera Calakmul, el único Patrimonio de la Humanidad UNESCO de
+      carácter mixto —natural y cultural— del territorio mexicano. Con 723,185 hectáreas,
+      es la mayor área protegida de bosque tropical del país. Dentro de sus límites se
+      encuentran la Antigua Ciudad Maya de Calakmul —la megalópolis maya más grande del
+      período Clásico (250-900 d.C.), rival directa de Tikal con 6,750 estructuras
+      catalogadas— y la mayor población continental de jaguar en México. Con 42 elementos
+      activos, drones con cámara térmica, radios satelitales y tiempos de respuesta de
+      hasta 3 horas en zonas remotas, esta estación opera en la brecha entre lo que
+      la tecnología puede hacer y lo que la distancia permite.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación de Bomberos de Calakmul?</h3>
+    <p>
+      Para emergencias en Xpujil, Zoh-Laguna, Conhuas, la Zona Arqueológica de Calakmul
+      o la Carretera 186, marca el <strong>911</strong>. En zonas sin cobertura celular
+      de la reserva, los guardaparques de CONANP son el primer canal de comunicación:
+      su red de radios VHF cubre sectores donde ningún operador móvil tiene señal.
+      Contacto directo: 983 871 6036. El tiempo de respuesta de 1 a 3 horas en zonas
+      remotas no es un indicador de insuficiencia: es la realidad física de 723,185
+      hectáreas sin red vial interior.
+    </p>
+
+    <h3>La Antigua Ciudad Maya de Calakmul: 6,750 Estructuras bajo la Selva, Algunas sin Excavar</h3>
+    <p>
+      Calakmul fue durante el período Clásico la ciudad más poderosa del mundo maya: en
+      el siglo VII d.C. gobernaba un territorio mayor que muchos estados europeos de la
+      época. La Estructura II —su pirámide principal— tiene 45 metros de altura y fue
+      construida sobre al menos 5 pirámides anteriores superpuestas durante siglos.
+      De las 6,750 estructuras arqueológicas identificadas en el sitio, menos del 5%
+      han sido excavadas y consolidadas por el INAH. El 95% restante son montículos
+      de escombro cubiertos por la selva, invisibles desde cualquier camino. Un incendio
+      forestal que alcance la zona central del sitio arqueológico destruiría vegetación
+      de décadas que protege estas estructuras de la erosión, exponiendo roca caliza
+      a intemperie tropical.
+    </p>
+
+    <h3>El Jaguar de Calakmul: La Mayor Población Felina Fuera del Amazonas en México</h3>
+    <p>
+      La Reserva de la Biósfera Calakmul alberga la mayor densidad de jaguares (Panthera
+      onca) del territorio mexicano, con estimaciones de entre 350 y 500 individuos en
+      la zona núcleo. El jaguar es el indicador biológico más sensible de la salud
+      del ecosistema: su presencia confirma que la cadena trófica completa —desde
+      el tapir y el pecarí de labios blancos hasta el cocodrilo— está funcionando.
+      Un incendio forestal mayor en la reserva no solo destruye vegetación: colapsa
+      el hábitat de estas poblaciones durante décadas. El combate de incendios en
+      la reserva tiene una dimensión ecológica que el personal asume conscientemente:
+      cada hectárea que se salva es hábitat que permanece.
+    </p>
+
+    <h3>Drones con Cámara Térmica: Detección Temprana en 723,185 Hectáreas sin Carretera</h3>
+    <p>
+      Los drones con cámara térmica FLIR de esta estación son el único instrumento capaz
+      de detectar focos de calor en la selva antes de que el fuego emerja sobre el dosel.
+      En la reserva, donde el dosel de 20-25 metros oculta completamente el suelo de
+      la selva, un incendio puede desarrollarse durante horas sin ser visible desde
+      las torres de vigilancia de CONANP. Los drones permiten cartografiar el frente
+      de fuego, identificar zonas de mayor intensidad calórica y orientar al personal
+      hacia los puntos de acceso más eficientes. Los vuelos se coordinan con los
+      guardaparques, que conocen las brechas y caminos transitables de cada sector.
+    </p>
+
+    <h3>CONANP y CONAFOR: La Respuesta que Ninguna Estación puede dar Sola</h3>
+    <p>
+      Los incendios de gran escala en la Reserva de la Biósfera Calakmul exigen la activación
+      de recursos que esta estación sola no puede movilizar: brigadas de CONAFOR con
+      maquinaria pesada, helicópteros de carga con bambi buckets de la Secretaría de
+      la Defensa o helicópteros helitanque, y brigadas de refuerzo de otros estados.
+      En 2019, un incendio que afectó más de 3,000 hectáreas de la reserva requirió
+      15 días de operaciones coordinadas entre el cuerpo de bomberos de Calakmul,
+      CONAFOR, CONANP y brigadas comunitarias de los ejidos dentro de la zona de
+      amortiguamiento. Esta estación fue el nodo de coordinación operativa durante
+      todo el período. En <a href="/">BOMBERO.MX</a> distribuimos
+      <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>
