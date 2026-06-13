@@ -332,397 +332,390 @@
    07 · Mobile menu — sistema premium completo
    ════════════════════════════════════════════════════════════════ */
 
-/* ─── Drawer base ─────────────────────────────────────────────── */
-.mobile-menu {
-  display: flex !important;
-  flex-direction: column !important;
-  overflow: hidden !important;
-}
+/* CRÍTICO: todo scoped a ≤768px — sin esto display:flex rompe
+   la visibilidad del drawer en viewport desktop.               */
+@media (max-width: 768px) {
 
-/* ─── Brand header del drawer ─────────────────────────────────── */
-.mobile-menu__brand {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0.125rem !important;
-  padding: 1rem 1.25rem 0.875rem !important;
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
-  flex-shrink: 0 !important;
-}
+  /* ─── Drawer contenedor ──────────────────────────────────────── */
+  .mobile-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    padding-top: 0 !important; /* el brand header maneja el offset */
+  }
 
-.mobile-menu__brand-logo {
-  font-size: 1.25rem !important;
-  font-weight: 800 !important;
-  letter-spacing: -0.03em !important;
-  color: #ffffff !important;
-  text-decoration: none !important;
-  line-height: 1.2 !important;
-}
+  /* ─── Brand header: fondo oscuro desde top:0, texto bajo el header ─ */
+  .mobile-menu__brand {
+    flex-shrink: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    /* padding-top despeja el header sticky */
+    padding: calc(68px + env(safe-area-inset-top, 0px)) 1.25rem 1rem !important;
+    background: linear-gradient(160deg, #111 0%, #1c1c1e 100%) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+  }
 
-.mobile-menu__brand-logo span {
-  color: var(--color-ember-500, #ef4444) !important;
-}
+  .mobile-menu__brand-logo {
+    display: block !important;
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    line-height: 1.2 !important;
+  }
 
-.mobile-menu__brand-tag {
-  font-size: 0.6875rem !important;
-  font-weight: 500 !important;
-  color: rgba(255,255,255,0.4) !important;
-  letter-spacing: 0.04em !important;
-  text-transform: uppercase !important;
-}
+  .mobile-menu__brand-logo span {
+    color: #ef4444 !important;
+  }
 
-/* ─── Inner scrollable ────────────────────────────────────────── */
-.mobile-menu__inner {
-  flex: 1 !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  -webkit-overflow-scrolling: touch !important;
-  padding: 0.5rem 0 calc(1.5rem + var(--safe-bottom, 0px)) !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0 !important;
-}
+  .mobile-menu__brand-tag {
+    display: block !important;
+    font-size: 0.625rem !important;
+    font-weight: 500 !important;
+    color: rgba(255,255,255,0.38) !important;
+    letter-spacing: 0.07em !important;
+    text-transform: uppercase !important;
+  }
 
-/* ─── Nav links principales ───────────────────────────────────── */
-.mobile-menu__nav {
-  display: flex !important;
-  flex-direction: column !important;
-  padding: 0.25rem 0 0 !important;
-}
+  /* ─── Inner scrollable ────────────────────────────────────────── */
+  .mobile-menu__inner {
+    flex: 1 1 0% !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0 !important;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
 
-.mobile-menu__link {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  min-height: 52px !important;
-  padding: 0 1.25rem !important;
-  font-size: 0.9375rem !important;
-  font-weight: 600 !important;
-  color: var(--color-smoke-800, #1f1f1f) !important;
-  border: none !important;
-  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
-  text-decoration: none !important;
-  background: transparent !important;
-  transition: background 0.12s ease, color 0.12s ease !important;
-}
+  /* ─── Nav links (Inicio, Directorio…) ────────────────────────── */
+  .mobile-menu__nav {
+    display: flex !important;
+    flex-direction: column !important;
+    padding-top: 0.25rem !important;
+  }
 
-.mobile-menu__link:active,
-.mobile-menu__link:hover {
-  background: rgba(239,68,68,0.04) !important;
-  color: var(--color-ember-600, #dc2626) !important;
-}
+  .mobile-menu__link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 52px !important;
+    padding: 0 1.25rem !important;
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    transition: background 0.12s, color 0.12s !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
 
-.mobile-menu__link svg {
-  opacity: 0.3 !important;
-  flex-shrink: 0 !important;
-}
+  .mobile-menu__link:active {
+    background: rgba(239,68,68,0.05) !important;
+    color: #dc2626 !important;
+  }
 
-/* ─── Accordion (Productos) ───────────────────────────────────── */
-.mobile-menu__accordion {
-  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
-}
+  .mobile-menu__link svg {
+    opacity: 0.22 !important;
+    flex-shrink: 0 !important;
+    transition: opacity 0.12s, transform 0.15s !important;
+  }
 
-.mobile-menu__accordion-btn {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  width: 100% !important;
-  min-height: 52px !important;
-  padding: 0 1.25rem !important;
-  background: transparent !important;
-  border: none !important;
-  cursor: pointer !important;
-  font-size: 0.9375rem !important;
-  font-weight: 600 !important;
-  color: var(--color-smoke-800, #1f1f1f) !important;
-  text-align: left !important;
-  -webkit-tap-highlight-color: transparent !important;
-  transition: background 0.12s ease !important;
-}
+  .mobile-menu__link:active svg {
+    opacity: 0.5 !important;
+    transform: translateX(2px) !important;
+  }
 
-.mobile-menu__accordion-btn:active {
-  background: rgba(239,68,68,0.04) !important;
-}
+  /* ─── Accordion Productos ─────────────────────────────────────── */
+  .mobile-menu__accordion {
+    border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+  }
 
-.mobile-menu__accordion-label {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-}
+  .mobile-menu__accordion-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    min-height: 52px !important;
+    padding: 0 1.25rem !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-size: 0.9375rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    text-align: left !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: background 0.12s !important;
+  }
 
-.mobile-menu__accordion-label svg {
-  opacity: 0.5 !important;
-  flex-shrink: 0 !important;
-}
+  .mobile-menu__accordion-btn:active {
+    background: rgba(239,68,68,0.05) !important;
+  }
 
-.mobile-menu__accordion-count {
-  font-size: 0.6875rem !important;
-  font-weight: 600 !important;
-  color: #fff !important;
-  background: var(--color-ember-500, #ef4444) !important;
-  padding: 0.125rem 0.4375rem !important;
-  border-radius: 20px !important;
-  line-height: 1.4 !important;
-  letter-spacing: 0.01em !important;
-}
+  .mobile-menu__accordion-label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
 
-.mobile-menu__accordion-chevron {
-  flex-shrink: 0 !important;
-  opacity: 0.4 !important;
-  transition: transform 0.22s ease !important;
-}
+  .mobile-menu__accordion-label svg {
+    opacity: 0.45 !important;
+    flex-shrink: 0 !important;
+  }
 
-.mobile-menu__accordion-btn[aria-expanded="true"] .mobile-menu__accordion-chevron {
-  transform: rotate(180deg) !important;
-}
+  .mobile-menu__accordion-count {
+    font-size: 0.625rem !important;
+    font-weight: 700 !important;
+    color: #fff !important;
+    background: #ef4444 !important;
+    padding: 0.125rem 0.4375rem !important;
+    border-radius: 20px !important;
+    line-height: 1.5 !important;
+  }
 
-/* ─── Accordion content ───────────────────────────────────────── */
-.mobile-menu__accordion-content {
-  overflow: hidden !important;
-  display: none !important;
-  background: #fafafa !important;
-  border-top: 1px solid rgba(0,0,0,0.05) !important;
-}
+  /* Chevron — la clase .is-open la pone el JS en .mobile-menu__accordion */
+  .mobile-menu__accordion-chevron {
+    flex-shrink: 0 !important;
+    opacity: 0.35 !important;
+    transition: transform 0.22s cubic-bezier(0.4,0,0.2,1), opacity 0.22s !important;
+  }
 
-.mobile-menu__accordion-content.is-open {
-  display: block !important;
-  animation: accordionSlide 0.22s ease forwards !important;
-}
+  .mobile-menu__accordion.is-open .mobile-menu__accordion-chevron {
+    transform: rotate(180deg) !important;
+    opacity: 0.65 !important;
+  }
 
-@keyframes accordionSlide {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+  /* ─── Accordion content ───────────────────────────────────────── */
+  /* display:none/block lo maneja el CSS del componente; aquí la animación */
+  .mobile-menu__accordion-content {
+    background: #f9fafb !important;
+    border-top: 1px solid rgba(0,0,0,0.04) !important;
+  }
 
-/* ─── Section labels dentro del accordion ────────────────────── */
-.mobile-menu__section-label {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-  font-size: 0.6875rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.08em !important;
-  text-transform: uppercase !important;
-  color: var(--color-smoke-500, #6b7280) !important;
-  padding: 1rem 1.25rem 0.5rem !important;
-  margin: 0 !important;
-}
+  /* Selector correcto: .is-open en el PADRE, no en el content mismo */
+  .mobile-menu__accordion.is-open .mobile-menu__accordion-content {
+    animation: mm-slide-in 0.22s cubic-bezier(0.4,0,0.2,1) both !important;
+  }
 
-.mobile-menu__section-dot {
-  width: 6px !important;
-  height: 6px !important;
-  border-radius: 50% !important;
-  background: var(--color-ember-500, #ef4444) !important;
-  flex-shrink: 0 !important;
-}
+  @keyframes mm-slide-in {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
-.mobile-menu__section-dot--blue {
-  background: #3b82f6 !important;
-}
+  /* ─── Section labels ──────────────────────────────────────────── */
+  .mobile-menu__section-label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-size: 0.625rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.09em !important;
+    text-transform: uppercase !important;
+    color: #6b7280 !important;
+    padding: 1rem 1.25rem 0.375rem !important;
+    margin: 0 !important;
+  }
 
-/* ─── Grid de categorías ──────────────────────────────────────── */
-.mobile-menu__categories {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 0.375rem !important;
-  padding: 0 1rem 0.75rem !important;
-}
+  .mobile-menu__section-dot {
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
+    background: #ef4444 !important;
+    flex-shrink: 0 !important;
+  }
 
-/* ─── Category card ───────────────────────────────────────────── */
-.mobile-menu__category {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 0.4375rem !important;
-  min-height: 72px !important;
-  padding: 0.625rem 0.375rem !important;
-  background: #fff !important;
-  border: 1px solid rgba(0,0,0,0.07) !important;
-  border-radius: 10px !important;
-  text-decoration: none !important;
-  text-align: center !important;
-  transition: background 0.12s ease, border-color 0.12s ease, transform 0.1s ease !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
+  .mobile-menu__section-dot--blue {
+    background: #3b82f6 !important;
+  }
 
-.mobile-menu__category:active {
-  background: var(--color-ember-50, #fef2f2) !important;
-  border-color: var(--color-ember-200, #fecaca) !important;
-  transform: scale(0.97) !important;
-}
-
-.mobile-menu__category-icon {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 32px !important;
-  height: 32px !important;
-  background: rgba(239,68,68,0.08) !important;
-  border-radius: 8px !important;
-  color: var(--color-ember-600, #dc2626) !important;
-  flex-shrink: 0 !important;
-}
-
-.mobile-menu__category-icon--blue {
-  background: rgba(59,130,246,0.08) !important;
-  color: #2563eb !important;
-}
-
-.mobile-menu__category-icon svg {
-  width: 16px !important;
-  height: 16px !important;
-}
-
-.mobile-menu__category-name {
-  font-size: 0.6875rem !important;
-  font-weight: 600 !important;
-  color: var(--color-smoke-700, #374151) !important;
-  line-height: 1.3 !important;
-  max-width: 100% !important;
-  word-break: break-word !important;
-  hyphens: auto !important;
-}
-
-/* ─── "Ver catálogo completo" ─────────────────────────────────── */
-.mobile-menu__all-products {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 0.5rem !important;
-  margin: 0.25rem 1rem 1rem !important;
-  padding: 0.75rem 1rem !important;
-  min-height: 48px !important;
-  background: transparent !important;
-  border: 1.5px solid rgba(0,0,0,0.1) !important;
-  border-radius: 10px !important;
-  font-size: 0.8125rem !important;
-  font-weight: 700 !important;
-  color: var(--color-smoke-700, #374151) !important;
-  text-decoration: none !important;
-  letter-spacing: 0.01em !important;
-  transition: background 0.12s ease, border-color 0.12s ease !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
-.mobile-menu__all-products:active {
-  background: rgba(239,68,68,0.04) !important;
-  border-color: var(--color-ember-300, #fca5a5) !important;
-  color: var(--color-ember-600, #dc2626) !important;
-}
-
-/* ─── CTA buttons ─────────────────────────────────────────────── */
-.mobile-menu__cta {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0.625rem !important;
-  padding: 1rem 1.25rem !important;
-  border-top: 1px solid rgba(0,0,0,0.06) !important;
-}
-
-.mobile-menu__cta-btn {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 0.5rem !important;
-  min-height: 52px !important;
-  padding: 0 1.25rem !important;
-  border-radius: 12px !important;
-  font-size: 0.9375rem !important;
-  font-weight: 700 !important;
-  text-decoration: none !important;
-  border: none !important;
-  cursor: pointer !important;
-  letter-spacing: -0.01em !important;
-  transition: opacity 0.15s ease, transform 0.1s ease !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-
-.mobile-menu__cta-btn:active {
-  opacity: 0.88 !important;
-  transform: scale(0.98) !important;
-}
-
-.mobile-menu__cta-btn--primary {
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
-  color: #fff !important;
-  box-shadow: 0 6px 20px -6px rgba(220,38,38,0.45) !important;
-}
-
-.mobile-menu__cta-btn--wa {
-  background: #25d366 !important;
-  color: #fff !important;
-  box-shadow: 0 6px 20px -6px rgba(37,211,102,0.4) !important;
-}
-
-/* ─── Contacto rápido ─────────────────────────────────────────── */
-.mobile-menu__contact {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0 !important;
-  padding: 0 1.25rem 0.5rem !important;
-  border-top: 1px solid rgba(0,0,0,0.06) !important;
-}
-
-.mobile-menu__contact-item {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.625rem !important;
-  min-height: 48px !important;
-  padding: 0 !important;
-  font-size: 0.8125rem !important;
-  font-weight: 500 !important;
-  color: var(--color-smoke-500, #6b7280) !important;
-  text-decoration: none !important;
-  border-bottom: 1px solid rgba(0,0,0,0.05) !important;
-  -webkit-tap-highlight-color: transparent !important;
-  transition: color 0.12s ease !important;
-}
-
-.mobile-menu__contact-item:last-child {
-  border-bottom: none !important;
-}
-
-.mobile-menu__contact-item:active {
-  color: var(--color-ember-600, #dc2626) !important;
-}
-
-.mobile-menu__contact-icon {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 28px !important;
-  height: 28px !important;
-  background: rgba(0,0,0,0.04) !important;
-  border-radius: 7px !important;
-  flex-shrink: 0 !important;
-}
-
-/* ─── Adaptaciones por breakpoint ────────────────────────────── */
-@media (max-width: 480px) {
+  /* ─── Category grid — 3 col en móvil normal ──────────────────── */
   .mobile-menu__categories {
+    display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 0.3125rem !important;
     padding: 0 0.875rem 0.625rem !important;
   }
 
+  /* ─── Category card ───────────────────────────────────────────── */
   .mobile-menu__category {
-    min-height: 66px !important;
-    padding: 0.5rem 0.25rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.375rem !important;
+    min-height: 68px !important;
+    padding: 0.625rem 0.25rem !important;
+    background: #fff !important;
+    border: 1px solid rgba(0,0,0,0.07) !important;
+    border-radius: 10px !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    transition: background 0.1s, border-color 0.1s !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .mobile-menu__category:active {
+    background: #fef2f2 !important;
+    border-color: #fca5a5 !important;
+    transform: scale(0.96) !important;
   }
 
   .mobile-menu__category-icon {
-    width: 28px !important;
-    height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    background: rgba(239,68,68,0.09) !important;
+    border-radius: 8px !important;
+    color: #dc2626 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .mobile-menu__category-icon--blue {
+    background: rgba(59,130,246,0.09) !important;
+    color: #2563eb !important;
   }
 
   .mobile-menu__category-icon svg {
-    width: 14px !important;
-    height: 14px !important;
+    width: 15px !important;
+    height: 15px !important;
   }
 
   .mobile-menu__category-name {
     font-size: 0.625rem !important;
+    font-weight: 600 !important;
+    color: #374151 !important;
+    line-height: 1.25 !important;
+    hyphens: auto !important;
+  }
+
+  /* ─── Ver catálogo ────────────────────────────────────────────── */
+  .mobile-menu__all-products {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    margin: 0.125rem 0.875rem 0.875rem !important;
+    padding: 0.75rem !important;
+    min-height: 46px !important;
+    background: transparent !important;
+    border: 1.5px solid rgba(0,0,0,0.1) !important;
+    border-radius: 10px !important;
+    font-size: 0.8125rem !important;
+    font-weight: 700 !important;
+    color: #374151 !important;
+    text-decoration: none !important;
+    transition: background 0.1s, border-color 0.1s, color 0.1s !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .mobile-menu__all-products:active {
+    background: rgba(239,68,68,0.04) !important;
+    border-color: #fca5a5 !important;
+    color: #dc2626 !important;
+  }
+
+  /* ─── CTA buttons ─────────────────────────────────────────────── */
+  .mobile-menu__cta {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.625rem !important;
+    padding: 0.875rem 1.25rem !important;
+    border-top: 1px solid rgba(0,0,0,0.06) !important;
+  }
+
+  .mobile-menu__cta-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    min-height: 52px !important;
+    padding: 0 1rem !important;
+    border-radius: 12px !important;
+    font-size: 0.9375rem !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: opacity 0.12s, transform 0.1s !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  .mobile-menu__cta-btn:active {
+    opacity: 0.85 !important;
+    transform: scale(0.98) !important;
+  }
+
+  .mobile-menu__cta-btn--primary {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 16px -4px rgba(220,38,38,0.4) !important;
+  }
+
+  .mobile-menu__cta-btn--wa {
+    background: #25d366 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 16px -4px rgba(37,211,102,0.35) !important;
+  }
+
+  /* ─── Contacto rápido ─────────────────────────────────────────── */
+  .mobile-menu__contact {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 0 1.25rem 0.875rem !important;
+    border-top: 1px solid rgba(0,0,0,0.06) !important;
+  }
+
+  .mobile-menu__contact-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.625rem !important;
+    min-height: 48px !important;
+    padding: 0 !important;
+    font-size: 0.8125rem !important;
+    font-weight: 500 !important;
+    color: #6b7280 !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+    -webkit-tap-highlight-color: transparent !important;
+    transition: color 0.1s !important;
+  }
+
+  .mobile-menu__contact-item:last-child {
+    border-bottom: none !important;
+  }
+
+  .mobile-menu__contact-item:active {
+    color: #dc2626 !important;
+  }
+
+  .mobile-menu__contact-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    background: rgba(0,0,0,0.04) !important;
+    border-radius: 7px !important;
+    flex-shrink: 0 !important;
+  }
+
+} /* end @media (max-width: 768px) */
+
+/* ─── Fine-tuning por breakpoint ──────────────────────────────── */
+@media (max-width: 480px) {
+  .mobile-menu__categories {
+    gap: 0.25rem !important;
+    padding: 0 0.75rem 0.5rem !important;
   }
 }
 
@@ -732,16 +725,13 @@
   }
 
   .mobile-menu__category {
-    min-height: 60px !important;
     flex-direction: row !important;
+    align-items: center !important;
     justify-content: flex-start !important;
     text-align: left !important;
     gap: 0.5rem !important;
-    padding: 0.625rem 0.5rem !important;
-  }
-
-  .mobile-menu__category-name {
-    font-size: 0.6875rem !important;
+    min-height: 50px !important;
+    padding: 0.5rem !important;
   }
 }
 
