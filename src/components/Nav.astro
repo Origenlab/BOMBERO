@@ -1,6 +1,6 @@
 ---
 
-import { mainNav, productCategories } from "@data/navigation";
+import { mainNav, productCategories, secondaryCategories } from "@data/navigation";
 
 const currentPath = Astro.url.pathname;
 
@@ -17,6 +17,11 @@ const icons: Record<string, string> = {
   tools: `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
   camera: `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
   extinguisher: `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2v2"/><path d="M14 2v2"/><rect x="7" y="4" width="10" height="16" rx="2"/><path d="M12 4v4"/><path d="M7 12h10"/></svg>`,
+  forest: `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L4 12h4v8h8v-8h4L12 2z"/></svg>`,
+  hazmat: `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  rope: `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20"/><path d="M8 6c0 0 2-2 4-2s4 2 4 2"/><path d="M8 10c0 0 2-2 4-2s4 2 4 2"/><path d="M8 14c0 0 2-2 4-2s4 2 4 2"/><circle cx="12" cy="20" r="2"/></svg>`,
+  water: `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+  medical: `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>`,
 };
 ---
 
@@ -47,7 +52,8 @@ const icons: Record<string, string> = {
           {isProducts && (
             <div class="mega" role="dialog" aria-label="Menú de productos">
               <div class="mega__container">
-                {}
+
+                {/* Panel izquierdo: EPP */}
                 <div class="mega__main">
                   <div class="mega__section-title">Equipo de Protección Personal</div>
                   <div class="mega__grid">
@@ -82,6 +88,25 @@ const icons: Record<string, string> = {
                       </div>
                     ))}
                   </div>
+                </div>
+
+                {/* Panel derecho: Equipos Especializados */}
+                <div class="mega__aside">
+                  <div class="mega__section-title">Equipos Especializados</div>
+                  <ul class="mega__aside-list">
+                    {secondaryCategories.map((cat) => (
+                      <li>
+                        <a href={cat.href} class="mega__aside-link">
+                          <span class="mega__aside-icon" set:html={icons[cat.icon ?? "tools"]} />
+                          <span class="mega__aside-info">
+                            <span class="mega__aside-name">{cat.label}</span>
+                            <span class="mega__aside-desc">{cat.description}</span>
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <a href="/productos/" class="mega__aside-all">Ver catálogo completo →</a>
                 </div>
 
               </div>
@@ -192,12 +217,112 @@ const icons: Record<string, string> = {
   }
 
   .mega__container {
-    display: block;
+    display: flex;
+    align-items: stretch;
   }
 
 
   .mega__main {
+    flex: 1 1 0;
+    min-width: 0;
     padding: var(--space-6);
+    border-right: 1px solid var(--color-smoke-100);
+  }
+
+  /* Panel derecho: Equipos Especializados */
+  .mega__aside {
+    width: 240px;
+    flex-shrink: 0;
+    padding: var(--space-6) var(--space-5);
+    background: var(--color-smoke-50);
+    border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mega__aside-list {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+
+  .mega__aside-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-2);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .mega__aside-link:hover {
+    background: var(--color-smoke-100);
+  }
+
+  .mega__aside-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: var(--radius-sm);
+    color: var(--color-fire-600);
+    border: 1px solid var(--color-smoke-200);
+  }
+
+  .mega__aside-icon :global(svg) {
+    width: 14px;
+    height: 14px;
+  }
+
+  .mega__aside-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .mega__aside-name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--color-smoke-800);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mega__aside-desc {
+    font-size: 11px;
+    color: var(--color-smoke-500);
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mega__aside-all {
+    display: block;
+    padding: var(--space-2) var(--space-2);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-fire-600);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    text-align: center;
+    background: var(--color-fire-50);
+    border: 1px solid var(--color-fire-100);
+    margin-top: auto;
+  }
+
+  .mega__aside-all:hover {
+    background: var(--color-fire-100);
   }
 
   .mega__section-title {
@@ -325,6 +450,21 @@ const icons: Record<string, string> = {
     .mega__grid {
       grid-template-columns: repeat(2, 1fr);
     }
+    .mega__aside {
+      width: 210px;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .mega__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .mega__aside {
+      width: 190px;
+    }
+    .mega__aside-desc {
+      display: none;
+    }
   }
 
   @media (max-width: 768px) {
@@ -372,13 +512,13 @@ const icons: Record<string, string> = {
     }
 
     .mega__container {
-      display: flex;
       flex-direction: column;
-      gap: 0;
     }
 
     .mega__main {
       padding: var(--space-4);
+      border-right: none;
+      border-bottom: 1px solid var(--color-smoke-200);
     }
 
     .mega__grid {
@@ -396,6 +536,28 @@ const icons: Record<string, string> = {
 
     .nav__chevron {
       display: block;
+    }
+
+    /* Aside en móvil: lista horizontal compacta */
+    .mega__aside {
+      width: 100%;
+      border-radius: 0;
+      padding: var(--space-4);
+      background: var(--color-smoke-100);
+    }
+
+    .mega__aside-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-1);
+    }
+
+    .mega__aside-desc {
+      display: none;
+    }
+
+    .mega__aside-name {
+      font-size: 12px;
     }
   }
 </style>

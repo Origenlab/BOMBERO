@@ -105,37 +105,67 @@ export const productCategories: NavItem[] = [
   },
 ];
 
-// Categorías secundarias (mostradas en columna aparte del mega menu)
+// Categorías secundarias (panel derecho del mega menu — Equipos Especializados)
 export const secondaryCategories: NavItem[] = [
   {
-    label: "Equipos SCBA",
+    label: "SCBA — Respiración",
     href: "/productos/scba/",
     icon: "lungs",
-    description: "Respiración autónoma",
+    description: "Aparatos NFPA 1981",
   },
   {
-    label: "Equipo Contra Incendios",
-    href: "/productos/equipo-contra-incendios/",
-    icon: "fire",
-    description: "Mangueras y boquillas",
+    label: "Equipo Forestal",
+    href: "/productos/forestales/",
+    icon: "forest",
+    description: "NFPA 1977 y CONAFOR",
+  },
+  {
+    label: "HAZMAT y CBRN",
+    href: "/productos/hazmat/",
+    icon: "hazmat",
+    description: "Trajes Nivel A/B",
+  },
+  {
+    label: "Rescate Vertical",
+    href: "/productos/rescate-vertical/",
+    icon: "rope",
+    description: "Arneses NFPA 1983",
+  },
+  {
+    label: "Rescate Acuático",
+    href: "/productos/rescate-acuatico/",
+    icon: "water",
+    description: "Swift water e inmersión",
   },
   {
     label: "Herramientas de Rescate",
     href: "/productos/herramientas-rescate/",
     icon: "tools",
-    description: "Rescate vehicular",
+    description: "Jaws of Life® y USAR",
   },
   {
-    label: "Cámaras Térmicas",
+    label: "Tecnología y Detección",
     href: "/productos/tecnologia/",
     icon: "camera",
-    description: "Tecnología y detección",
+    description: "TIC, detectores y drones",
   },
   {
     label: "Extintores",
     href: "/productos/extintores/",
     icon: "extinguisher",
-    description: "Portátiles y rodantes",
+    description: "PQS, CO₂, AFFF y Halotron",
+  },
+  {
+    label: "Equipo Contra Incendios",
+    href: "/productos/equipo-contra-incendios/",
+    icon: "fire",
+    description: "Mangueras y gabinetes",
+  },
+  {
+    label: "Equipo Médico / EMS",
+    href: "/productos/equipo-medico/",
+    icon: "medical",
+    description: "DEA, camillas y trauma",
   },
 ];
 
@@ -152,7 +182,15 @@ export const footerNav: Record<string, NavItem[]> = {
     { label: "Capuchas y Monjas", href: "/productos/capuchas-para-bomberos/" },
     { label: "Gafas y Protección Visual", href: "/productos/gafas-para-bomberos/" },
     { label: "SCBA Respiración", href: "/productos/scba/" },
+    { label: "Equipo Forestal", href: "/productos/forestales/" },
+    { label: "HAZMAT y CBRN", href: "/productos/hazmat/" },
     { label: "Herramientas de Rescate", href: "/productos/herramientas-rescate/" },
+    { label: "Rescate Vertical", href: "/productos/rescate-vertical/" },
+    { label: "Rescate Acuático", href: "/productos/rescate-acuatico/" },
+    { label: "Tecnología y Detección", href: "/productos/tecnologia/" },
+    { label: "Extintores", href: "/productos/extintores/" },
+    { label: "Equipo Contra Incendios", href: "/productos/equipo-contra-incendios/" },
+    { label: "Equipo Médico / EMS", href: "/productos/equipo-medico/" },
     { label: "Ver todos", href: "/productos/" },
   ],
   servicios: [
