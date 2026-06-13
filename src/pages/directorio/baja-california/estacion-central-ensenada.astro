@@ -1,0 +1,127 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-central-ensenada";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para emergencias portuarias en Ensenada",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 65 elementos que operan en el puerto de altura más importante del Pacífico mexicano: incendios en bodegas portuarias con carga general y materiales peligrosos, emergencias en cruceros de hasta 3,000 pasajeros y coordinación con la Armada de México.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para emergencias en el Puerto de Ensenada",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia certificada para operaciones en instalaciones portuarias con riesgo de caída de carga en grúas y estructuras de acero de muelle. Compatible con equipos de comunicación para coordinación simultánea con Capitanía de Puerto y Armada en incidentes marítimos complejos.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para rescate marítimo en Ensenada",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia térmica y mecánica para operaciones en lancha de rescate de alta velocidad, abordaje de embarcaciones en emergencia y manejo de mangueras en incendios de instalaciones portuarias con viento marino. Compatibles con guantes de neopreno en rescate acuático de bahía.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para la Estación Central de Ensenada",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela antiderrapante en superficies húmedas de muelle, cubierta de barco y superficies metálicas de instalaciones portuarias. La presencia constante de humedad marina hace de la certificación NFPA 1971 y el cuero de alta calidad una exigencia operativa en Ensenada.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Puerto de Altura, 500,000 Turistas en Cruceros y Capital del Vino Mexicano: 65 Elementos para Emergencias Portuarias, HAZMAT de Carga y Coordinación con la Armada de México</h2>
+    <p>
+      La <strong>Estación Central de Bomberos de Ensenada</strong>, fundada en 1918 y ubicada en Calle
+      Novena 650, Zona Centro, protege el puerto de altura más importante del Pacífico mexicano y una
+      ciudad con una doble identidad que define su perfil de riesgo: destino de cruceros internacionales
+      —más de 500,000 turistas anuales— y capital vitivinícola de México con el Valle de Guadalupe a
+      20 km. Con 65 elementos activos, 8 unidades —incluyendo lancha de rescate de alta velocidad, unidad
+      HAZMAT y escalera de 25 metros— y tiempo de respuesta de 5 a 8 minutos en zona central, esta
+      estación tiene una de las capacidades operativas más diversificadas del estado.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación Central de Bomberos de Ensenada?</h3>
+    <p>
+      Para emergencias en el Centro Histórico, Zona Portuaria, Terminal de Cruceros o Bahía de Todos Santos,
+      marca el <strong>911</strong>. El despacho coordina esta estación con las delegaciones de Ensenada
+      y, en incidentes marítimos, con la Capitanía de Puerto y la Armada de México. Contacto directo:
+      646 178 2388. El tiempo de respuesta de 5 a 8 minutos cubre el área portuaria y el centro histórico.
+    </p>
+
+    <h3>Puerto de Ensenada: Terminal de Cruceros y Emergencias con 3,000 Pasajeros</h3>
+    <p>
+      El Puerto de Ensenada es el cuarto destino de cruceros en México, con barcos de hasta 3,000 pasajeros
+      que atracan en la Terminal de Cruceros durante la temporada alta. Una emergencia a bordo —incendio
+      de sala de máquinas, brote médico masivo o accidente durante maniobra de atraque— requiere la
+      intervención coordinada de esta estación, la Armada de México, la Guardia Costera y el personal
+      de la naviera. El personal de la Estación Central conoce los planos de emergencia de las embarcaciones
+      más frecuentes en el puerto.
+    </p>
+
+    <h3>HAZMAT Portuario: Carga con Materiales Peligrosos en Tránsito</h3>
+    <p>
+      El Puerto de Ensenada maneja carga general, a granel y contenedores con materiales peligrosos
+      regulados por los convenios internacionales IMDG. Un contenedor con sustancias de Clase 3
+      (inflamables) o Clase 6 (tóxicos) en situación de emergencia exige respuesta HAZMAT coordinada
+      con la Administración Portuaria Integral. La unidad HAZMAT de esta estación es la primera respuesta
+      en el muelle hasta que sea necesario escalar a recursos estatales.
+    </p>
+
+    <h3>Capital del Vino Mexicano: Coordinación con el Valle de Guadalupe</h3>
+    <p>
+      La Estación Central de Ensenada es el nodo de apoyo para la Estación del Valle de Guadalupe en
+      incendios de gran magnitud que amenazan la región vitivinícola. Un incendio forestal que se propague
+      desde el chaparral hacia las vinícolas puede alcanzar las zonas más densas del valle en horas, y
+      la coordinación desde esta sede permite desplazar recursos adicionales con rapidez. En
+      <a href="/">BOMBERO.MX</a> distribuimos <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica y certificado de laboratorio incluidos.
+    </p>
+  </Fragment>
+</EstacionLayout>

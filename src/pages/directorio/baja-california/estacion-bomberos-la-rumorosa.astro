@@ -1,0 +1,127 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-la-rumorosa";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para incendios forestales en La Rumorosa a 1,275 metros",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 25 elementos que operan a 1,275 metros sobre el nivel del mar en condiciones de temperatura extrema: desde los 40°C del desierto al pie de la sierra hasta los -5°C con nieve en invierno. La versatilidad térmica del traje es determinante en La Rumorosa.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para rescate técnico en barrancas de La Rumorosa",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Protección a impacto certificada para rescate en barrancas de granito de La Rumorosa, donde los proyectiles de roca durante el rapel y los fragmentos de vehículo en accidentes carreteros de alta energía hacen del casco NFPA 1971 equipo de supervivencia.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para rescate vehicular en la Carretera Federal 2",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia mecánica y térmica para rescate vehicular en accidentes de alta energía en la Carretera Federal 2: vehículos volcados, atrapados en barranca o incendiados en curvas cerradas a más de 1,000 metros de altitud con viento de hasta 80 km/h.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno de roca granítica en La Rumorosa",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela de máximo agarre para roca granítica mojada con lluvia o nieve en barrancas de La Rumorosa. El terreno de esta estación es el más técnicamente exigente de Baja California: pendientes de 60-80° con bloques de granito sin sendero de acceso establecido.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>25 Elementos en la Carretera más Peligrosa de Baja California: 80+ Curvas Cerradas a 1,275 Metros, Nieve Invernal y el Bosque de Pino-Encino del Parque Nacional Constitución de 1857</h2>
+    <p>
+      La <strong>Estación de Bomberos de La Rumorosa</strong>, establecida en 1985 en la Carretera
+      Tecate-Mexicali km 50, opera en el punto más crítico de Baja California: el paso de montaña de La
+      Rumorosa a 1,275 metros de altitud, donde la Carretera Federal 2 desciende del altiplano al desierto
+      de Sonora en 80+ curvas cerradas en 30 kilómetros. Con 25 elementos activos, 5 unidades —incluyendo
+      ambulancia 4x4 y autobombas forestales todoterreno— y tiempo de respuesta de 10 a 20 minutos según
+      condiciones climáticas, esta es la estación con el entorno operativo más extremo del estado.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación La Rumorosa?</h3>
+    <p>
+      Para emergencias en La Rumorosa, El Cóndor, la Carretera Federal 2 o el Parque Nacional Constitución
+      de 1857, marca el <strong>911</strong>. En condiciones de neblina densa, la visibilidad puede ser
+      inferior a 50 metros, lo que complica el acceso incluso para las unidades de la estación. Contacto
+      directo: 686 567 0101. Los tiempos de respuesta varían significativamente según la condición de la
+      carretera en el momento del incidente.
+    </p>
+
+    <h3>80+ Curvas Cerradas a 1,275 Metros: La Carretera Federal 2 como Escenario Permanente</h3>
+    <p>
+      La bajada de La Rumorosa es una sucesión de 80+ curvas con radio de giro de 30 a 50 metros, pendientes
+      de hasta el 12% y flancos de barranca sin guardarrail en múltiples tramos. El viento en el paso de
+      montaña puede superar los 100 km/h en eventos de Sundowner, desestabilizando camiones de carga y
+      remolques. Los accidentes aquí frecuentemente involucran vehículos que vuelan por el borde y caen
+      20 a 80 metros al fondo de la barranca, requiriendo rescate técnico con cuerdas y sistemas de
+      recuperación que ninguna otra estación de BC necesita de forma rutinaria.
+    </p>
+
+    <h3>Nieve, Neblina y Hielo: Condiciones Climáticas sin Precedente en la Región</h3>
+    <p>
+      La Rumorosa recibe nieve en invierno con suficiente regularidad como para que la Carretera Federal 2
+      cierre varias veces al año por acumulación o por hielo en el pavimento. Cuando la carretera cierra,
+      esta estación queda momentáneamente aislada de los refuerzos de Tecate o Mexicali. El personal
+      está entrenado para operar en condiciones de nieve y hielo, con protocolos de extracción de
+      vehículos atascados y atención a hipotermia en conductores que no llevan ropa adecuada para la altitud.
+    </p>
+
+    <h3>Parque Nacional Constitución de 1857 y Laguna Hanson: Incendios Forestales</h3>
+    <p>
+      El Parque Nacional Constitución de 1857, con su bosque de pino-cedro-encino y la Laguna Hanson,
+      está bajo la jurisdicción de protección de esta estación. Los incendios forestales en el parque
+      se coordinan con CONAFOR, que aporta brigadistas y equipos de combate forestal cuando el incendio
+      supera la capacidad local. En <a href="/">BOMBERO.MX</a> distribuimos
+      <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

@@ -1,0 +1,129 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-san-quintin";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para bomberos de San Quintín",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 22 elementos de la estación más austral de Baja California: incendios en empacadoras de fresa y frambuesa con infraestructura de refrigeración con amoníaco —gas de alta toxicidad— y emergencias en campos agrícolas extensos sin acceso de hidrantes.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para bomberos en zona remota de San Quintín",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia certificada para operaciones en techos de lámina metálica de galerones agroindustriales en San Quintín, donde los colapsos por incendio son más rápidos que en estructura de concreto y los refuerzos externos tardan más de 2 horas en llegar.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para rescate vehicular en la Carretera Transpeninsular km 178",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Prensión certificada para rescate vehicular en la Carretera Federal 1 a la altura de San Quintín, donde los accidentes con camiones de carga que transportan hortalizas de exportación son los incidentes de mayor complejidad mecánica para esta estación.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno agrícola en el Valle de San Quintín",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela para suelo agrícola de la costa del Pacífico: arena de origen volcánico y limo arcilloso que se vuelve resbaladizo con la humedad. Certificadas NFPA 1971 para los tipos de emergencia más frecuentes en el principal valle agrícola del sur de Baja California.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>La Estación más Austral de Baja California a 300 km de Ensenada: 22 Elementos para el Principal Productor de Fresa de México, Jornaleros Migrantes y Emergencias sin Refuerzo a Menos de Hora y Media</h2>
+    <p>
+      La <strong>Estación de Bomberos de San Quintín</strong>, ubicada en la Carretera Transpeninsular
+      km 178, es la instalación de bomberos más alejada de la capital de Ensenada en todo el estado: 300
+      kilómetros de distancia que significan más de una hora y media de espera para recibir refuerzos.
+      Con 22 elementos activos, 4 unidades y tiempo de respuesta de 15 a 30 minutos en zonas rurales
+      dispersas, esta estación opera con una autosuficiencia operativa que pocos cuerpos de bomberos
+      municipales de México necesitan: aquí, si el incidente supera la capacidad de las 4 unidades,
+      no hay refuerzos disponibles antes de que el daño esté hecho.
+    </p>
+
+    <h3>¿Cómo Llamar a los Bomberos de San Quintín?</h3>
+    <p>
+      Para emergencias en San Quintín, Vicente Guerrero, Camalú, Colonet o el Valle agrícola, marca
+      el <strong>911</strong>. El despacho coordina esta estación con la de Ensenada Sur para incidentes
+      que requieren refuerzos, con la advertencia de que los tiempos de llegada son de más de 60 minutos.
+      Contacto directo: 616 165 2020. La autosuficiencia operativa de esta estación es su característica
+      más relevante para cualquier incidente.
+    </p>
+
+    <h3>Valle de San Quintín: Principal Productor de Fresa, Frambuesa y Tomate de México</h3>
+    <p>
+      El Valle de San Quintín produce más del 60% de la fresa mexicana de exportación, junto con
+      frambuesa, zarzamora y tomate bola que llegan a supermercados de Estados Unidos y Canadá bajo
+      certificaciones GlobalGAP y SQF. Las empacadoras que procesan estas frutas tienen sistemas de
+      refrigeración industrial con amoníaco —gas tóxico que en una fuga exige evacuación inmediata de
+      radios de 300 metros— y almacenes de producto terminado con alta carga combustible. Un incendio
+      en temporada de cosecha puede destruir en horas la producción de una temporada completa.
+    </p>
+
+    <h3>Población Jornalera Migrante: Atención a las Comunidades más Vulnerables del Valle</h3>
+    <p>
+      El Valle de San Quintín concentra la mayor población jornalera migrante de Baja California:
+      decenas de miles de trabajadores provenientes de Oaxaca, Guerrero y Chiapas que llegan cada
+      temporada para la cosecha. Los campamentos jornaleros —con viviendas de material ligero y alta
+      densidad— son especialmente vulnerables a incendios nocturnos de propagación rápida. La estación
+      coordina con las organizaciones de jornaleros y con el servicio médico del IMSS en la zona para
+      atención de emergencias en estos asentamientos.
+    </p>
+
+    <h3>Carretera Transpeninsular: 300 km sin Otra Estación hacia el Sur</h3>
+    <p>
+      Al sur de San Quintín, la Carretera Federal 1 sigue 700 km más hasta Cabo San Lucas sin otra
+      estación de bomberos municipal hasta llegar a Baja California Sur. Esto significa que los accidentes
+      vehiculares al sur de San Quintín dependen exclusivamente de esta estación hasta que el estado
+      pueda coordinar otra respuesta. En <a href="/">BOMBERO.MX</a> distribuimos
+      <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

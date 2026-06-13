@@ -1,0 +1,128 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-central-tecate";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para incendios en la Cervecería Tecate y Sierra de Juárez",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 38 elementos que operan en el doble reto de Tecate: incendios industriales en la planta de la Cervecería Tecate-Heineken con amoniaco y CO2 a presión, e incendios forestales en la Sierra de Juárez con bosque de pino-encino y viento de montaña.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para incendios forestales en la Sierra de Juárez",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia certificada para combate de incendios forestales en terreno montañoso de la Sierra de Juárez, donde los proyectiles de roca rodante en pendiente y las ramas en llamas caídas son riesgos constantes durante el ataque al fuego.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para la Cervecería Tecate y rescate en La Rumorosa",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia química para operaciones con amoniaco de los sistemas de refrigeración de la Cervecería Tecate y resistencia mecánica para rescate vehicular en la Carretera Federal 2 entre Tecate y La Rumorosa, con accidentes de alta energía por velocidad y pendiente.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno montañoso en Tecate",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela de agarre para terreno montañoso de la Sierra de Juárez, pendientes con agujas de pino y roca granítica, y pisos industriales de la Cervecería Tecate. Certificadas NFPA 1971 para el rango completo de emergencias del municipio más boscoso de Baja California.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Guardián de la Cervecería Tecate-Heineken y la Sierra de Juárez: 38 Elementos para Incendios Forestales en Bosque de Pino-Encino, Industria Cervecera y la Carretera Peligrosa hacia La Rumorosa</h2>
+    <p>
+      La <strong>Estación Central de Bomberos de Tecate</strong>, fundada en 1892 en la pintoresca ciudad
+      fronteriza de Av. Juárez 500, protege una ciudad con una identidad industrial y natural que no
+      tiene equivalente en México: sede de la Cervecería Tecate —marca global del grupo Heineken desde
+      1944— y puerta de acceso a la Sierra de Juárez y su bosque de pino-encino. Con 38 elementos activos,
+      6 unidades —incluyendo 2 autobombas forestales todoterreno y unidad de rescate para carretera— y
+      tiempo de respuesta de 5 a 10 minutos en zona urbana, esta estación opera bajo dos perfiles de
+      riesgo radicalmente distintos que exigen especialización simultánea.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación Central de Bomberos de Tecate?</h3>
+    <p>
+      En emergencias en Tecate, El Descanso, La Puerta o la zona fronteriza, marca el <strong>911</strong>.
+      El despacho coordina esta estación con la de La Rumorosa para incidentes en la carretera de montaña.
+      Contacto directo: 665 654 1313. El tiempo de respuesta de 5 a 10 minutos cubre el área urbana; las
+      zonas de sierra pueden tener tiempos de 20 a 40 minutos según accesibilidad.
+    </p>
+
+    <h3>Cervecería Tecate (Heineken México): Amoniaco, CO2 y Fluidos de Proceso</h3>
+    <p>
+      La planta de Cervecería Tecate opera con sistemas de refrigeración industrial con amoniaco —gas de
+      alta toxicidad que en fuga exige evacuación inmediata del área— y generadores de CO2 para el proceso
+      de fermentación. Un incidente en la sala de máquinas o en los tanques de almacenamiento de amoniaco
+      es el escenario de mayor complejidad industrial para esta estación, que coordina con las brigadas
+      privadas de la planta y activa protocolos de HAZMAT para gases tóxicos incoloros. La planta produce
+      más de 5 millones de hectolitros anuales y opera 24 horas al día.
+    </p>
+
+    <h3>Sierra de Juárez: Incendios Forestales en el Bosque de Mayor Biodiversidad de BC</h3>
+    <p>
+      La Sierra de Juárez, que se eleva a más de 1,800 metros sobre el nivel del mar al norte de Tecate,
+      es el ecosistema boscoso más importante del norte de la península. El bosque de pino-encino de esta
+      sierra alberga especies endémicas y es la principal fuente de recarga del acuífero regional. Los
+      incendios forestales aquí —alimentados por viento de montaña y pendientes pronunciadas— tienen
+      potencial de propagarse desde la sierra hacia zonas habitadas del municipio, y la coordinación con
+      CONAFOR es protocolo estándar en incendios de más de 5 hectáreas.
+    </p>
+
+    <h3>Paso Fronterizo Tecate-California: Emergencias en Cruce Binacional</h3>
+    <p>
+      El paso fronterizo de Tecate, uno de los más pintorescos de la frontera México-Estados Unidos, tiene
+      tráfico de vehículos particulares y peatones que cruzan diariamente. Los incidentes en la zona
+      inmediata al cruce —incluyendo el parque municipal adyacente— requieren coordinación con las
+      autoridades migratorias de ambos países y protocolos de respuesta en zona federal. En
+      <a href="/">BOMBERO.MX</a> distribuimos <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

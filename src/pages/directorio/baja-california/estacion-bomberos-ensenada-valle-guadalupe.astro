@@ -1,0 +1,129 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-ensenada-valle-guadalupe";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para incendios en viñedos del Valle de Guadalupe",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 28 elementos que protegen la región vitivinícola más valiosa de México: incendios en bodegas de madera y acero, almacenes de barricas de roble con vino en fermentación y estructuras campestres en zona de chaparral con alta carga combustible en temporada seca.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para incendios forestales en el Valle de Guadalupe",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Protección certificada para combate de incendios en chaparral seco del Valle, donde los proyectiles de roca volcánica rodante en pendiente y las estructuras de cactus gigante en llamas representan riesgos no convencionales para el personal.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para incendios en bodegas de vino del Valle de Guadalupe",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia al calor y mecánica para operaciones con herramientas de línea cortafuegos en vegetación densa y para acceso a bodegas de vino donde el alcohol en fermentación actúa como acelerador del fuego en incendio estructural.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para incendios forestales en el Valle de Guadalupe",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela de agarre máximo para terreno de viñedo con filas de vid, suelo pedregoso volcánico y pendientes de chaparral en combate forestal. El cuero reforzado resiste el calor radiante de la quema de vid y la abrasión del terreno accidentado del Valle.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>150+ Vinícolas y la Ruta del Vino de América Latina: 28 Elementos para Incendios en Viñedos Valuados en Millones, Chaparral Seco y Turismo Enológico Internacional</h2>
+    <p>
+      La <strong>Estación del Valle de Guadalupe</strong>, ubicada en la Carretera Tecate-Ensenada km 75,
+      Francisco Zarco, protege la región vitivinícola más importante de México y una de las más reconocidas
+      de América Latina. Con 28 elementos activos, 6 unidades —incluyendo 2 autobombas rurales de alta
+      capacidad, 2 unidades forestales todoterreno y tanques nodrizas de 10,000 litros— y tiempo de
+      respuesta de 10 a 20 minutos en los puntos más alejados del valle, esta estación es la primera y
+      única barrera contra incendios que pueden destruir en horas lo que tomó décadas construir.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación del Valle de Guadalupe?</h3>
+    <p>
+      Para emergencias en el Valle de Guadalupe, San Antonio de las Minas, El Porvenir, Francisco Zarco
+      o cualquier punto de la Ruta del Vino, marca el <strong>911</strong>. El despacho coordina esta
+      estación con la Estación Central de Ensenada para incidentes que requieren refuerzos. Contacto
+      directo: 646 155 3030. Los tiempos de 10 a 20 minutos reflejan las distancias entre vinícolas
+      dispersas en el valle.
+    </p>
+
+    <h3>150+ Vinícolas: Un Patrimonio Vitivinícola que Tiene Tres Siglos de Historia</h3>
+    <p>
+      La historia vitivinícola del Valle de Guadalupe arranca con la misión de Nuestra Señora de Guadalupe
+      fundada por los dominicos en 1834, que introdujo la vid como parte de la práctica misional. Hoy,
+      más de 150 vinícolas artesanales e industriales producen el 90% del vino mexicano en este valle.
+      Un incendio forestal que alcance los viñedos más productivos puede destruir plantas de vid con 30
+      a 50 años de antigüedad —el tiempo que tarda una vid en alcanzar su máximo potencial— con pérdidas
+      económicas que pueden superar varios millones de dólares en una sola propiedad.
+    </p>
+
+    <h3>Chaparral Seco y el Riesgo de Incendio en Temporada sin Lluvias</h3>
+    <p>
+      El Valle de Guadalupe tiene clima mediterráneo seco: veranos sin lluvia de mayo a octubre con
+      humedad relativa que puede caer al 10-15% en días de viento del interior. El chaparral que rodea
+      las vinícolas —matorral de chamizo, cactáceas y zarzamora silvestre— es de los combustibles
+      naturales más inflamables de la región. Los tanques nodrizas de 10,000 litros de esta estación
+      compensan la escasez de hidrantes en zona rural, permitiendo operaciones de más de 60 minutos
+      sin reabastecimiento.
+    </p>
+
+    <h3>Ruta del Vino: Turismo Enológico y Emergencias en Restaurantes Campestres</h3>
+    <p>
+      Los restaurantes campestres del Valle de Guadalupe —algunos clasificados entre los 50 mejores de
+      América Latina— reciben miles de comensales cada fin de semana en instalaciones con cocinas de leña,
+      mesas al aire libre adyacentes a viñedos y bodegas de degustación con velas. Los incendios en
+      cocinas de leña con grasa animal y el riesgo de propagación a estructuras de madera y paja hacen
+      de este sector una prioridad de inspección preventiva para esta estación. En
+      <a href="/">BOMBERO.MX</a> distribuimos <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

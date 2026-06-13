@@ -1,0 +1,126 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-tijuana-san-antonio";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para incendios forestales en el corredor costero Tijuana-Ensenada",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 28 elementos de la estación más sur de Tijuana: incendios en vegetación costera de chaparral y matorral mediterráneo, que en condiciones de viento de Santa Ana se propagan desde el acantilado hacia desarrollos residenciales en minutos.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para rescate en acantilados costeros de Tijuana",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Protección a impacto para operaciones de rapel en acantilados de 40-80 metros del corredor costero sur de Tijuana. Los proyectiles de roca en acantilados de arenisca —materialmente frágiles— son el principal riesgo físico en rescate de personas atrapadas en zona litoral.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para rescate vehicular en la carretera escénica Tijuana-Ensenada",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia térmica y mecánica para rescate vehicular en la Carretera Escénica Tijuana-Ensenada, donde los accidentes frecuentemente involucran vehículos que ruedan hacia el acantilado o colisionan en curvas con visibilidad reducida por niebla marina.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno costero en San Antonio de los Buenos",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela de máximo agarre para roca sedimentaria de litoral, pendientes de chaparral y suelo arenoso de dunas costeras. La variedad de terrenos en este corredor —del asfalto al acantilado en metros— exige la versatilidad de una bota estructural certificada.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Carretera Escénica Tijuana-Ensenada y Acantilados del Pacífico: 28 Elementos para Incendios Forestales Costeros, Rescate Vehicular y Desarrollos Turísticos de Difícil Acceso</h2>
+    <p>
+      La <strong>Estación San Antonio de los Buenos</strong>, ubicada en Blvd. 2000 km 18, protege el
+      corredor costero sur de Tijuana: acantilados espectaculares del Pacífico, la Carretera Escénica
+      Tijuana-Ensenada y una serie de desarrollos turísticos y residenciales de playa que se extienden
+      hacia Rosarito. Con 28 elementos activos, 5 unidades —incluyendo unidad forestal todoterreno y
+      unidad de rescate para carretera— y tiempo de respuesta de 10 a 18 minutos en zonas remotas, esta
+      estación opera en uno de los corredores de mayor belleza y mayor riesgo topográfico de Baja California.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación San Antonio de los Buenos?</h3>
+    <p>
+      Para emergencias en San Antonio de los Buenos, Real del Mar, Popotla, Puerto Nuevo o la Carretera
+      Escénica, marca el <strong>911</strong>. El despacho coordina esta estación con la Central de
+      Tijuana para incidentes que requieren recursos adicionales. Contacto directo: 664 625 7878.
+      Los tiempos de 10 a 18 minutos reflejan la extensión del corredor costero bajo responsabilidad
+      de esta estación.
+    </p>
+
+    <h3>Carretera Escénica Tijuana-Ensenada: Accidentes en Curvas con Acantilado</h3>
+    <p>
+      La Carretera Escénica —que corre paralela al océano con acantilados a un lado y el Pacífico al otro—
+      tiene curvas cerradas donde la niebla marina puede reducir la visibilidad a menos de 20 metros.
+      Los accidentes en esta vía frecuentemente involucran vehículos que ruedan hacia el acantilado o
+      se proyectan hacia el océano, generando rescates técnicos de alta complejidad que requieren
+      coordinación con la Guardia Costera cuando el vehículo cae al agua.
+    </p>
+
+    <h3>Incendios Forestales en Chaparral y Vegetación de Viento de Santa Ana</h3>
+    <p>
+      La vegetación costera de este corredor —chaparral mediterráneo con matorral costero— es de las
+      más inflamables de la región. Los vientos de Santa Ana, que soplan del interior hacia el Pacífico
+      a velocidades de 60 a 100 km/h en otoño, crean condiciones para incendios de propagación
+      extremadamente rápida desde el acantilado hacia los desarrollos residenciales. El personal de
+      esta estación está entrenado en tácticas de incendio forestal en interfaz costera.
+    </p>
+
+    <h3>Real del Mar y Puerto Nuevo: Desarrollos de Lujo con Acceso Restringido</h3>
+    <p>
+      Los fraccionamientos de lujo del corredor —Real del Mar con su campo de golf, Puerto Nuevo con
+      sus restaurantes de langosta, Popotla con sus residencias frente al mar— tienen accesos privados
+      con casetas que pueden retrasar la llegada de unidades en emergencia. El personal de esta estación
+      conoce los accesos y los protocolos de entrada de cada desarrollo. En
+      <a href="/">BOMBERO.MX</a> distribuimos <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

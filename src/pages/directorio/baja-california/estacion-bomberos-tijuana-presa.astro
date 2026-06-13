@@ -1,0 +1,127 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-tijuana-presa";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para la Estación La Presa de Tijuana",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 32 elementos que operan en la interfaz entre zona urbana en expansión e incendios forestales periurbanos del sureste de Tijuana. Los incendios de pastizal en esta área pasan a estructural con rapidez por la densificación habitacional sin franja de seguridad.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para rescate acuático en la Presa Abelardo L. Rodríguez",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia a impacto para operaciones en el litoral de la Presa Abelardo L. Rodríguez, donde los bancos de roca irregular y la vegetación de ribera crean riesgos de caída en rescates acuáticos. Compatible con el uso de equipo de flotación en rescate de agua fría.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para incendios forestales periurbanos en Tijuana",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia térmica y mecánica para operaciones de líneas cortafuegos con herramientas manuales en incendios forestales periurbanos del sureste. La combinación de herramienta de corte y temperatura radiante en incendios de pastizal exige guantes de nivel estructural.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para la Estación La Presa de Tijuana",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela de agarre para ribera de presa con roca y lodo, terreno de pastizal seco y pavimento de colonias en desarrollo con calles sin terminar. Certificadas NFPA 1971 para los 8 tipos de emergencia de la zona de expansión sureste de Tijuana.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Rescate Acuático en la Principal Reserva de Agua de Tijuana: 32 Elementos para la Presa Abelardo L. Rodríguez, Incendios Forestales Periurbanos y Zonas de Expansión del Sureste</h2>
+    <p>
+      La <strong>Estación La Presa de Tijuana</strong>, ubicada en Blvd. Cucapah 26000, La Presa, cubre
+      la zona aledaña a la Presa Abelardo L. Rodríguez —el principal embalse de agua potable de Tijuana—
+      así como los desarrollos habitacionales de rápido crecimiento en el sureste de la ciudad. Con 32
+      elementos activos, 5 unidades —incluyendo unidad de rescate acuático y unidad forestal— y tiempo
+      de respuesta de 8 a 15 minutos en zonas de expansión urbana, esta estación opera en un territorio
+      que combina naturaleza, infraestructura hídrica crítica y crecimiento urbano acelerado.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación La Presa de Tijuana?</h3>
+    <p>
+      Para emergencias en La Presa, Ejido Francisco Villa, Villa del Campo, Los Valles o la zona de la
+      Presa Abelardo L. Rodríguez, marca el <strong>911</strong>. El despacho coordina esta estación
+      con la Central para incidentes que superan su capacidad. Contacto directo: 664 901 2323. Los tiempos
+      de 8 a 15 minutos reflejan las distancias en una zona de expansión con infraestructura vial aún
+      en desarrollo.
+    </p>
+
+    <h3>Presa Abelardo L. Rodríguez: Rescate Acuático en Agua Fría de Alta Profundidad</h3>
+    <p>
+      La Presa Abelardo L. Rodríguez es el embalse que abastece de agua potable a una fracción
+      significativa de Tijuana. El perímetro de la presa es frecuentado por pescadores y familias que
+      buscan esparcimiento, generando rescates acuáticos por caídas accidentales o personas que entran
+      al agua sin conocer las corrientes de fondo. La profundidad y temperatura del agua —más fría que
+      el mar— hacen de estos rescates operaciones de alta urgencia para prevenir el síncope por
+      inmersión en agua fría.
+    </p>
+
+    <h3>Incendios Forestales Periurbanos: La Interfaz entre Ciudad Nueva y Vegetación Natural</h3>
+    <p>
+      Los desarrollos habitacionales del sureste de Tijuana se están construyendo sobre terrenos que hasta
+      hace pocos años eran pastizales y matorral nativo. Esta expansión crea una zona de interfaz
+      urbano-forestal extensa donde un incendio de pastizal puede convertirse en incendio de viviendas
+      en minutos. La unidad forestal de esta estación es la primera respuesta en estos incidentes,
+      trabajando con cortafuegos manuales mientras la autobomba ataca las estructuras amenazadas.
+    </p>
+
+    <h3>Desarrollos Habitacionales Emergentes: Emergencias en Zonas con Infraestructura Incompleta</h3>
+    <p>
+      Las colonias de nueva creación del sureste de Tijuana tienen características que complican la
+      respuesta de emergencia: calles sin pavimentar, hidrantes de agua no conectados a la red, numeración
+      de domicilios inconsistente y accesos sin señalización. El personal de esta estación actualiza
+      periódicamente sus mapas operativos de la zona para reducir los tiempos de localización. En
+      <a href="/">BOMBERO.MX</a> distribuimos <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

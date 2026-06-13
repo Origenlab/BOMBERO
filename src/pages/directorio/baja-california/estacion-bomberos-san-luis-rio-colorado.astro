@@ -1,0 +1,127 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-san-luis-rio-colorado";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para operaciones a 52°C en San Luis Río Colorado",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 35 elementos que operan en uno de los climas más extremos del continente americano, donde las temperaturas alcanzan 52°C en julio. El sistema de gestión térmica del traje es determinante para la seguridad operativa en incendios al aire libre en el desierto.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para bomberos de San Luis Río Colorado",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Diseño ergonómico certificado para operaciones prolongadas en calor extremo. La ventilación interna del casco es crítica en incendios de campo y operaciones de rescate que pueden durar horas en condiciones desérticas de baja humedad.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para rescate en desierto y zona fronteriza",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia térmica certificada para rescate en vehículos y estructuras expuestos al sol desértico durante horas, donde las superficies metálicas alcanzan 80-90°C. Compatibles con operaciones de búsqueda y rescate en terreno árido.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno desértico en San Luis Río Colorado",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela resistente a temperatura en suelo de arena y pavimento desértico a más de 60°C de superficie. Certificadas NFPA 1971 para operaciones en el Desierto de Sonora, donde el calor desde el suelo es un factor de riesgo adicional al del incendio.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Convergencia de Baja California, Sonora y Arizona: 35 Elementos para 52°C de Calor Extremo, Rescate de Migrantes en el Desierto de Sonora y Corredor Agrícola Fronterizo</h2>
+    <p>
+      La <strong>Estación de Bomberos de San Luis Río Colorado</strong>, ubicada en Av. Kino 450, Centro,
+      opera en un punto geográfico único en México: la convergencia de Baja California, Sonora y el estado
+      de Arizona, Estados Unidos. Con 35 elementos activos, 5 unidades —incluyendo unidad todoterreno para
+      zonas desérticas— y tiempo de respuesta de 6 a 12 minutos, esta estación enfrenta retos que ninguna
+      otra en el estado comparte: temperaturas que superan los 52°C en verano, coordinación binacional
+      activa con el Fire Department del condado de Yuma (Arizona) y operaciones de rescate de migrantes
+      en el Desierto de Sonora.
+    </p>
+
+    <h3>¿Cómo Llamar a los Bomberos de San Luis Río Colorado?</h3>
+    <p>
+      En emergencias en San Luis Río Colorado, marca el <strong>911</strong>: el sistema de despacho
+      activa esta estación y puede coordinar respuesta mutua con el Fire Department de San Luis, Arizona,
+      a través de los protocolos binacionales establecidos. Contacto directo: 653 534 2525. La cobertura
+      primaria incluye el centro urbano, el puerto fronterizo y la zona agrícola del valle.
+    </p>
+
+    <h3>Frontera Triple: Coordinación con el Fire Department del Condado de Yuma, Arizona</h3>
+    <p>
+      San Luis Río Colorado colinda al norte con San Luis, Arizona, a través del cruce fronterizo más
+      cercano entre los dos países en este sector del desierto. El acuerdo binacional de respuesta mutua
+      permite que unidades del Fire Department del condado de Yuma entren a territorio mexicano en
+      incendios de gran magnitud, y viceversa. Esta coordinación es especialmente relevante en incendios
+      forestales que cruzan la frontera y en accidentes vehiculares graves en las carreteras de acceso
+      al cruce internacional.
+    </p>
+
+    <h3>52°C y Protocolo de Emergencias por Golpe de Calor</h3>
+    <p>
+      San Luis Río Colorado registra regularmente las temperaturas más altas de México y del continente
+      americano durante julio y agosto. Las emergencias por golpe de calor —tanto en trabajadores agrícolas
+      como en personas sin vivienda— representan un tipo de llamado exclusivo de esta estación. El personal
+      cuenta con protocolos de atención prehospitalaria para golpe de calor clásico y por esfuerzo,
+      coordinando con servicios de salud municipales para traslado a unidades de cuidados intensivos.
+    </p>
+
+    <h3>Rescate de Migrantes en el Desierto de Sonora</h3>
+    <p>
+      El desierto que rodea San Luis Río Colorado es una de las rutas de cruce más peligrosas de la
+      frontera. En temporada de verano, con temperaturas superiores a los 50°C, el riesgo de deshidratación
+      severa y muerte por golpe de calor es extremo. El personal de esta estación participa en operaciones
+      de búsqueda y rescate coordinadas con Grupo Beta de SEGOB y el Border Patrol de Arizona. En
+      <a href="/">BOMBERO.MX</a> distribuimos <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

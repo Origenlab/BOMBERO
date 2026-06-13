@@ -1,0 +1,128 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-ensenada-sur";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para emergencias en invernaderos de Maneadero",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 25 elementos que operan en la zona agroindustrial de Maneadero: incendios en invernaderos de plástico de alta tecnología —el polietileno en combustión genera humos tóxicos de alta densidad— y emergencias en empacadoras con productos químicos de limpieza y fumigación.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para emergencias en invernaderos de alta tecnología",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia certificada para operaciones en estructuras de invernadero —perfiles de aluminio y plástico que se deforman rápidamente en incendio— con riesgo de colapso de estructura ligera sobre el personal durante las primeras etapas del combate.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para manejo de agroquímicos en Maneadero",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia química para manejo de contenedores de agroquímicos —fungicidas, insecticidas y herbicidas— en derrames durante emergencias en bodegas de insumos. Compatibles con guantes de nitrilo de mayor resistencia química en derrames de alta concentración.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno agrícola en Maneadero",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela antiderrapante para pisos de suelo agrícola húmedo, suelos de invernadero con sistemas de riego por goteo y pavimento de la Carretera Transpeninsular en zona de alta densidad de camiones de carga pesada. Certificadas NFPA 1971 para los tipos de emergencia de la agroindustria de exportación.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Invernaderos de Alta Tecnología y la Carretera Transpeninsular: 25 Elementos para Agroquímicos, Empacadoras Exportadoras y el Corredor Agrícola de Maneadero hacia San Quintín</h2>
+    <p>
+      La <strong>Estación Sur de Ensenada</strong>, ubicada en Av. Reforma 3500, Maneadero, protege la
+      zona agrícola de mayor intensidad tecnológica de Baja California. Maneadero concentra cientos de
+      invernaderos de alta tecnología —sistemas de cultivo hidropónico, control climático automatizado y
+      riego computarizado— que producen tomate, fresa, pimiento y pepino de exportación para mercados
+      de Estados Unidos y Canadá. Con 25 elementos activos, 4 unidades y tiempo de respuesta de 8 a 15
+      minutos, esta estación opera en un territorio donde los riesgos industriales se combinan con los
+      de una carretera federal de alta densidad de tráfico pesado.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación Sur de Ensenada?</h3>
+    <p>
+      Para emergencias en Maneadero, Ejido Chapultepec, Rodolfo Sánchez Taboada, Santo Tomás o la
+      Carretera Transpeninsular hacia San Quintín, marca el <strong>911</strong>. El despacho coordina
+      esta estación con la Central de Ensenada para incidentes que requieren refuerzos. Contacto directo:
+      646 177 4545. Los tiempos de 8 a 15 minutos cubren el corredor agrícola desde Maneadero hasta
+      Santo Tomás.
+    </p>
+
+    <h3>Invernaderos de Alta Tecnología: Plástico en Combustión y Riesgo de Colapso</h3>
+    <p>
+      Los invernaderos modernos de Maneadero están construidos con estructura metálica liviana y cubierta
+      de polietileno de alta densidad. En incendio, el polietileno genera humo negro denso con compuestos
+      orgánicos volátiles de alta toxicidad, y la estructura metálica se deforma y colapsa en minutos
+      por pérdida de resistencia térmica. El protocolo de esta estación ante un incendio de invernadero
+      es combate perimetral externo desde el inicio —nunca interior hasta verificar que no hay trabajadores
+      atrapados— por la velocidad de colapso de la estructura ligera.
+    </p>
+
+    <h3>Agroquímicos: Derrames en Bodegas con Riesgo de Contaminación de Suelo y Agua</h3>
+    <p>
+      Las bodegas de insumos agrícolas de Maneadero almacenan en temporada alta cientos de litros de
+      fungicidas, insecticidas sistémicos y herbicidas de alta potencia. Un derrame o incendio en estas
+      instalaciones tiene el riesgo adicional de contaminación de suelos y del acuífero del Valle de
+      Maneadero, que alimenta los sistemas de riego de toda la zona. El personal conoce los procedimientos
+      de contención de derrames agrícolas y coordina con PROFEPA en incidentes con potencial de daño ambiental.
+    </p>
+
+    <h3>Carretera Transpeninsular: Primer Eslabón de la Cadena de Rescate hacia San Quintín</h3>
+    <p>
+      La Carretera Federal 1 —Transpeninsular— que atraviesa Maneadero es la única vía de comunicación
+      terrestre entre Ensenada y los municipios del sur de Baja California. El tráfico de camiones de
+      carga que transportan hortalizas de exportación a temperatura controlada hace que los accidentes
+      vehiculares en esta zona tengan una frecuencia y complejidad superior al promedio. En
+      <a href="/">BOMBERO.MX</a> distribuimos <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

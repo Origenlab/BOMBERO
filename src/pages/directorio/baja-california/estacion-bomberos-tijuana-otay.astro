@@ -1,0 +1,128 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-tijuana-otay";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para incendios industriales en Otay Tijuana",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 65 elementos que operan en la mayor concentración industrial de Tijuana: 500+ plantas maquiladoras de aeroespacial, electrónica, dispositivos médicos y automotriz en Parque Industrial Otay, Ciudad Industrial Nueva Tijuana y El Florido Industrial.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para bomberos de la Zona Industrial Otay en Tijuana",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia certificada para operaciones en naves industriales de techo metálico —las más susceptibles a colapso por fuego— en los parques industriales de Otay. Compatible con equipos de detección de gases que el personal HAZMAT usa en primera intervención.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para HAZMAT en la Zona Industrial Otay",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia química y térmica para operaciones con solventes clorados, isocianatos de líneas de pintura aeroespacial y fluidos hidráulicos Skydrol en las plantas del corredor aeroespacial de Otay, el más concentrado de Tijuana.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para pisos de maquiladora en Otay Tijuana",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Puntera de acero y suela resistente a hidrocarburos para pisos de naves con aceites, derrames de solventes y superficies de almacén del Puerto Fronterizo Otay Mesa. Certificadas NFPA 1971 para evacuaciones industriales de alta complejidad.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>HAZMAT en el Cruce Comercial más Transitado del Mundo: 65 Elementos para 500+ Plantas Maquiladoras de Aeroespacial, Electrónica y el Puerto Fronterizo Otay Mesa</h2>
+    <p>
+      La <strong>Estación de Bomberos Tijuana Otay</strong>, ubicada en Blvd. Industrial Otay 500, Ciudad
+      Industrial Nueva Tijuana, está posicionada en el corazón del complejo industrial más importante del
+      noroeste de México. Con 65 elementos activos, 7 unidades —incluyendo unidad HAZMAT completamente
+      equipada y 3 autobombas industriales con sistema de espuma— y tiempo de respuesta de 5 a 10 minutos
+      en zona industrial, esta estación atiende una concentración de riesgo industrial sin precedente en
+      México: 500+ plantas maquiladoras en menos de 20 km cuadrados y el Puerto Fronterizo de Otay Mesa,
+      el cruce comercial más transitado del mundo.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación Otay de Tijuana?</h3>
+    <p>
+      Para emergencias en los parques industriales de Otay, El Florido o en el Puerto Fronterizo, marca
+      el <strong>911</strong>. El despacho centralizado coordina esta estación con la Estación Central de
+      Tijuana para incidentes de gran magnitud. Contacto directo: 664 623 8585. El tiempo de respuesta de
+      5 a 10 minutos cubre todos los parques industriales de la zona.
+    </p>
+
+    <h3>500+ Plantas Maquiladoras: Aeroespacial, Electrónica y Dispositivos Médicos</h3>
+    <p>
+      La zona de Otay alberga plantas de sectores con perfiles de riesgo radicalmente distintos: una planta
+      aeroespacial como Honeywell o Collins Aerospace trabaja con compuestos de titanio, fibra de carbono
+      y fluidos hidráulicos sintéticos; una planta de dispositivos médicos puede tener óxido de etileno
+      para esterilización; una planta electrónica maneja solventes de limpieza en ultrasonido. El personal
+      HAZMAT de esta estación tiene fichas técnicas actualizadas de las principales plantas en su zona
+      para reducir los tiempos de evaluación en primera respuesta.
+    </p>
+
+    <h3>Puerto Fronterizo Otay Mesa: El Mayor Cruce Comercial del Mundo</h3>
+    <p>
+      El Puerto Fronterizo de Otay Mesa es el cruce más transitado del mundo por valor de mercancías:
+      más de 50,000 camiones de carga cruzan mensualmente transportando productos que van de manufactura
+      electrónica a alimentos frescos. Un incidente en la zona de inspección o en los almacenes temporales
+      puede involucrar materiales peligrosos desconocidos en tránsito, lo que exige la capacidad HAZMAT
+      de identificación in situ que tiene esta estación.
+    </p>
+
+    <h3>Espuma AFFF y Contención de Derrames en Líneas de Producción</h3>
+    <p>
+      Los incendios en líneas de producción con solventes inflamables y los derrames de líquidos con
+      punto de inflamación bajo son los incidentes de mayor complejidad en los parques industriales de
+      Otay. Las autobombas industriales de esta estación —equipadas con sistemas de espuma AFFF integrados—
+      permiten supresión de vapores inflamables en naves de gran superficie antes de proceder al ataque
+      directo al fuego. En <a href="/">BOMBERO.MX</a> distribuimos
+      <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica y certificado de laboratorio incluidos.
+    </p>
+  </Fragment>
+</EstacionLayout>

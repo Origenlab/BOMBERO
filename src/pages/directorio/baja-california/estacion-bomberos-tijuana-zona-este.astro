@@ -1,0 +1,127 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-tijuana-zona-este";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para incendios forestales urbanos en cañones de Tijuana",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Certificación NFPA 1971 para los 38 elementos que operan en las zonas de mayor riesgo topográfico de Tijuana: incendios en vegetación de cañones con pendientes de 30-60°, incendios forestales urbanos y emergencias en asentamientos de ladera sin acceso para autobombas convencionales.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para rescate en cañones de Tijuana",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Protección a impacto certificada para descenso y rescate en cañones con vegetación densa y terreno irregular. Los deslaves en temporada de lluvias generan proyectiles de roca y escombros que hacen del casco NFPA 1971 equipo no negociable en esta zona.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para operaciones en terreno difícil en Tijuana Este",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia térmica y mecánica para operaciones de líneas cortafuegos, remoción de vegetación en llamas y rescate en vehículos accidentados en el Blvd. Insurgentes, con terreno de cañón a ambos lados de la vialidad.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno de cañón en Tijuana Zona Este",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela de agarre extremo para laderas de tierra húmeda, vegetación en pendiente y escombros de deslave. Certificadas NFPA 1971 para operaciones en el terreno más exigente de Tijuana: cañones con pendiente pronunciada y suelo inestable post-lluvia.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Primera Respuesta en los Cañones: 38 Elementos para Incendios Forestales Urbanos, Deslaves en Temporada de Lluvias y Asentamientos en Laderas de Alto Riesgo</h2>
+    <p>
+      La <strong>Estación Zona Este de Tijuana</strong>, ubicada en Blvd. Insurgentes 15000, La Presa Este,
+      atiende la zona de mayor complejidad topográfica de la ciudad: una combinación de cañones profundos,
+      laderas pronunciadas y asentamientos irregulares que crecieron décadas sin planificación urbana
+      formal. Con 38 elementos activos, 5 unidades —incluyendo autobombas, unidad todoterreno y unidad de
+      rescate— y tiempo de respuesta de 8 a 15 minutos en zonas de difícil acceso, esta estación es
+      especialista en emergencias de terreno que las otras estaciones de Tijuana no pueden atender.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación Zona Este de Tijuana?</h3>
+    <p>
+      Para emergencias en La Presa Este, Valle Redondo, Cañón del Padre, Terrazas del Valle o Lomas del
+      Valle, marca el <strong>911</strong>. El despacho coordina esta estación con la Central para
+      incidentes que requieren escalera telescópica o USAR. Contacto directo: 664 900 3434. Los tiempos
+      de respuesta varían significativamente según la accesibilidad del punto exacto del incidente en
+      zonas de cañón.
+    </p>
+
+    <h3>Cañones de Tijuana: Topografía que Determina la Táctica de Combate</h3>
+    <p>
+      Los cañones del este de Tijuana son incisiones topográficas de 20 a 60 metros de profundidad con
+      pendientes de hasta 70 grados. Los incendios en vegetación de estos cañones se comportan de forma
+      impredecible: el calor sube por la pendiente acelerando el fuego hacia arriba, y el viento de
+      cañón puede cambiar de dirección en minutos. La unidad todoterreno de esta estación permite llegar
+      a puntos donde una autobomba convencional quedaría atascada, y el personal está entrenado en
+      tácticas de incendio de interface urbano-forestal.
+    </p>
+
+    <h3>Temporada de Lluvias (Diciembre-Marzo): Deslaves e Inundaciones</h3>
+    <p>
+      Tijuana recibe la mayor parte de sus lluvias entre diciembre y marzo, cuando los suelos de arcilla
+      de los cañones saturan rápidamente y generan deslizamientos de lodo. Los deslaves en asentamientos
+      de ladera pueden sepultar viviendas completas en minutos y cortar el acceso por horas. El pico de
+      llamados de esta estación ocurre precisamente en estos meses, cuando el número de incidentes
+      simultáneos puede superar la capacidad operativa individual y requiere apoyo de otras estaciones.
+    </p>
+
+    <h3>Incendios Forestales Urbanos en la Interface Ciudad-Cañón</h3>
+    <p>
+      La interface entre los asentamientos de ladera y la vegetación de los cañones crea un riesgo de
+      incendio forestal urbano que en California del Norte ha destruido miles de viviendas. En Tijuana,
+      las viviendas de block y lámina adosadas a la vegetación del cañón hacen que un incendio de
+      pastizal se convierta en incendio estructural en menos de 10 minutos. En
+      <a href="/">BOMBERO.MX</a> distribuimos <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a>.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica incluida.
+    </p>
+  </Fragment>
+</EstacionLayout>

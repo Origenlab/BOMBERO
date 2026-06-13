@@ -1,0 +1,128 @@
+---
+
+import EstacionLayout from "@layouts/EstacionLayout.astro";
+import { getEstacionBySlug, getEstacionesCercanas } from "@data/estaciones-baja-california";
+
+const slug = "estacion-bomberos-mexicali-zona-este";
+const estacion = getEstacionBySlug(slug);
+
+if (!estacion) {
+  return Astro.redirect("/404");
+}
+
+const estacionesCercanas = getEstacionesCercanas(slug, 3);
+
+const estado = {
+  nombre: "Baja California",
+  slug: "baja-california",
+  siglas: "BC",
+  poblacion: "3.8 millones",
+  municipios: 5,
+};
+
+const estadosVecinos = [
+  { nombre: "Baja California Sur", slug: "baja-california-sur" },
+  { nombre: "Sonora", slug: "sonora" },
+];
+
+const eppCards = [
+  {
+    image: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+    imageAlt: "Traje Estructural NFPA 1971 para incendios agrícolas en el Valle de Mexicali",
+    badge: "NFPA 1971",
+    title: "Traje Estructural NFPA 1971",
+    text: `Protección térmica certificada para combatir incendios en campos de trigo y alfalfa del Valle de Mexicali a temperaturas ambiente de 45-50°C. El traje de tres capas mantiene la estabilidad térmica en incendios de rastrojo de propagación rápida en superficies extensas.`,
+    href: "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Trajes para Bombero",
+  },
+  {
+    image: "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
+    imageAlt: "Casco NFPA 1971 para emergencias agroindustriales en Mexicali",
+    badge: "NFPA 1971",
+    title: "Casco Estructural NFPA 1971",
+    text: `Resistencia a impactos certificada para operaciones en galerones agroindustriales y empacadoras del Valle de Mexicali, donde derrumbes de techos metálicos son el principal riesgo secundario en incendios de bodegas.`,
+    href: "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Cascos para Bombero",
+  },
+  {
+    image: "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt: "Guantes NFPA 1971 para manejo de agroquímicos en el Valle de Mexicali",
+    badge: "NFPA 1971",
+    title: "Guantes Estructurales NFPA 1971",
+    text: `Resistencia química certificada para el manejo de envases y derrames de agroquímicos organofosforados en el Distrito de Riego 014. Permite prensión segura con guantes de trabajo agrícola superpuestos en incidentes de contaminación.`,
+    href: "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+  {
+    image: "/images/directorio/botas-bombero-proteccion-01.avif",
+    imageAlt: "Botas NFPA 1971 para terreno agrícola en el Valle de Mexicali",
+    badge: "NFPA 1971",
+    title: "Botas Estructurales de Cuero",
+    text: `Suela antiderrapante para operaciones en terreno de tierra, canales de irrigación y bodegas agroindustriales. Puntera de acero certificada NFPA 1971 para rescate en maquinaria agrícola con riesgo de atrapamiento.`,
+    href: "/productos/botas-para-bomberos/",
+    linkLabel: "Ver Botas para Bombero",
+  },
+];
+---
+
+<EstacionLayout
+  estacion={estacion}
+  estado={estado}
+  estadosVecinos={estadosVecinos}
+  estacionesCercanas={estacionesCercanas}
+  eppCards={eppCards}
+>
+  <Fragment slot="seo-content">
+    <h2>Primera Respuesta en el Valle Agrícola más Productivo del Noroeste: 42 Elementos para Incendios en Rastrojos, Canales del Río Colorado y Corredor Agroindustrial del Este</h2>
+    <p>
+      La <strong>Estación de Bomberos Mexicali Zona Este</strong>, ubicada en Blvd. Lázaro Cárdenas 2100,
+      Ex-Ejido Coahuila, protege el Valle de Mexicali: una de las regiones agrícolas más productivas de
+      México, irrigada por el sistema de canales del Distrito de Riego 014 derivados del Río Colorado.
+      Con 42 elementos activos, 5 unidades —incluyendo autobombas de 3,000 galones y unidad todoterreno—
+      y tiempo de respuesta de 8 a 15 minutos en zonas rurales extensas, esta estación enfrenta riesgos
+      que ninguna otra en el estado enfrenta: incendios en campos de cultivo de propagación lateral rápida,
+      emergencias con maquinaria agrícola pesada y derrames de agroquímicos en Zona de difícil acceso.
+    </p>
+
+    <h3>¿Cómo Llamar a la Estación Zona Este de Mexicali?</h3>
+    <p>
+      En emergencias al este de la ciudad, marca el <strong>911</strong>: el despacho central identifica
+      el incidente y activa esta estación o refuerzos de la Estación Central según la magnitud. Contacto
+      directo: 686 564 2323. La estación cubre el Ex-Ejido Coahuila, Colonia Progreso, Ejido Nuevo León
+      y la zona agrícola oriental del valle, con tiempos de respuesta variables según accesibilidad de
+      caminos de terracería.
+    </p>
+
+    <h3>Valle de Mexicali: Incendios en Campos de Trigo, Alfalfa y Remolacha</h3>
+    <p>
+      El Valle de Mexicali produce anualmente millones de toneladas de trigo, alfalfa, algodón y remolacha
+      azucarera en condiciones de calor extremo y baja humedad. Los incendios de rastrojo —quema accidental
+      de residuos de cosecha— son la emergencia más frecuente: el fuego avanza lateralmente a velocidades
+      de 5 a 20 km/h según la dirección del viento desértico, requiriendo cortafuegos y coordinación con
+      propietarios agrícolas. Las autobombas de alta capacidad de esta estación están dimensionadas
+      específicamente para estos incendios de superficie extensa.
+    </p>
+
+    <h3>Canales del Distrito 014: Rescate en Accesos de Difícil Salida</h3>
+    <p>
+      La red de canales del Distrito de Riego 014 recorre cientos de kilómetros a través del valle,
+      con taludes de 2 a 4 metros y agua de corriente rápida en temporada de riego. Los rescates en
+      canales —personas que caen desde maquinaria agrícola o vehículos— exigen equipamiento y personal
+      capacitado en rescate acuático de corriente. La unidad todoterreno de esta estación permite acceso
+      a márgenes de canal donde un camión convencional no puede maniobrar.
+    </p>
+
+    <h3>Agroquímicos y Agroindustria: Control de Derrames en Zona Rural</h3>
+    <p>
+      Las bodegas de insumos agrícolas del este de Mexicali almacenan herbicidas, insecticidas organofosforados
+      y fertilizantes nitrogenados en volúmenes significativos. Un derrame o incendio en estos almacenes
+      exige protocolos de HAZMAT básico que el personal de esta estación conoce para evitar intoxicaciones
+      y contaminación de canales de riego. En <a href="/">BOMBERO.MX</a> distribuimos
+      <a href="/productos/trajes-para-bomberos/">trajes NFPA 1971</a>,
+      <a href="/productos/cascos-para-bomberos/">cascos</a>,
+      <a href="/productos/guantes-para-bomberos/">guantes</a> y
+      <a href="/productos/botas-para-bomberos/">botas certificadas</a> a estaciones del Valle.
+      <a href="/cotizar/">Solicita cotización</a> con ficha técnica y certificado de laboratorio incluidos.
+    </p>
+  </Fragment>
+</EstacionLayout>
