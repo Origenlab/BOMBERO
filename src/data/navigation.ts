@@ -105,67 +105,123 @@ export const productCategories: NavItem[] = [
   },
 ];
 
-// Categorías secundarias (panel derecho del mega menu — Equipos Especializados)
+// Categorías secundarias (grid unificado — Equipos Especializados)
 export const secondaryCategories: NavItem[] = [
   {
     label: "SCBA — Respiración",
     href: "/productos/scba/",
     icon: "lungs",
-    description: "Aparatos NFPA 1981",
+    description: "Aparatos autónomos NFPA 1981. MSA y Honeywell.",
+    children: [
+      { label: "SCBA 30 min NFPA 1981", href: "/productos/scba/" },
+      { label: "SCBA 45 min NFPA 1981", href: "/productos/scba/" },
+      { label: "Máscara Panorámica + Cilindro", href: "/productos/scba/" },
+    ],
   },
   {
     label: "Equipo Forestal",
     href: "/productos/forestales/",
     icon: "forest",
-    description: "NFPA 1977 y CONAFOR",
+    description: "Certificado NFPA 1977 y CONAFOR.",
+    children: [
+      { label: "Traje Forestal NFPA 1977", href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/" },
+      { label: "Casco Forestal NFPA 1977", href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/" },
+      { label: "Guantes Forestales Nomex®", href: "/productos/guantes-para-bomberos/forestales/" },
+      { label: "Bota Forestal Vibram®", href: "/productos/botas-para-bomberos/forestal/" },
+    ],
   },
   {
     label: "HAZMAT y CBRN",
     href: "/productos/hazmat/",
     icon: "hazmat",
-    description: "Trajes Nivel A/B",
+    description: "Trajes encapsulados Nivel A y B.",
+    children: [
+      { label: "Traje HAZMAT Nivel A Encapsulado", href: "/productos/trajes-para-bomberos/traje-hazmat/nivel-a/" },
+      { label: "Traje HAZMAT Nivel B", href: "/productos/trajes-para-bomberos/traje-hazmat/nivel-b/" },
+      { label: "Kit Descontaminación Rápida", href: "/productos/hazmat/" },
+    ],
   },
   {
     label: "Rescate Vertical",
     href: "/productos/rescate-vertical/",
     icon: "rope",
-    description: "Arneses NFPA 1983",
+    description: "Arneses y sistemas NFPA 1983. Petzl y CMC.",
+    children: [
+      { label: "Arnés de Rescate NFPA 1983", href: "/productos/rescate-vertical/" },
+      { label: "Sistema Descenso Controlado", href: "/productos/rescate-vertical/" },
+      { label: "Polipasto y Sistemas de Izaje", href: "/productos/rescate-vertical/" },
+      { label: "Cuerdas y Accesorios", href: "/productos/rescate-vertical/" },
+    ],
   },
   {
     label: "Rescate Acuático",
     href: "/productos/rescate-acuatico/",
     icon: "water",
-    description: "Swift water e inmersión",
+    description: "Swift water, inmersión y salvamento.",
+    children: [
+      { label: "Traje de Inmersión / Neopreno", href: "/productos/rescate-acuatico/" },
+      { label: "Chaleco Salvavidas NFPA", href: "/productos/rescate-acuatico/" },
+      { label: "Tabla y Equipo Swift Water", href: "/productos/rescate-acuatico/" },
+      { label: "Lancha y Motor de Rescate", href: "/productos/rescate-acuatico/" },
+    ],
   },
   {
     label: "Herramientas de Rescate",
     href: "/productos/herramientas-rescate/",
     icon: "tools",
-    description: "Jaws of Life® y USAR",
+    description: "Jaws of Life® y USAR certificado NFPA 1936.",
+    children: [
+      { label: "Cizalla Hidráulica de Rescate", href: "/productos/herramientas-rescate/" },
+      { label: "Expansor / Separador USAR", href: "/productos/herramientas-rescate/" },
+      { label: "Combo Cizalla + Expansor", href: "/productos/herramientas-rescate/" },
+      { label: "Herramientas Manuales Rescate", href: "/productos/herramientas-rescate/" },
+    ],
   },
   {
     label: "Tecnología y Detección",
     href: "/productos/tecnologia/",
     icon: "camera",
-    description: "TIC, detectores y drones",
+    description: "Cámaras TIC, detectores multigas y drones.",
+    children: [
+      { label: "Cámara Termográfica TIC", href: "/productos/tecnologia/" },
+      { label: "Detector de Gas Multigas", href: "/productos/tecnologia/" },
+      { label: "Dron de Reconocimiento", href: "/productos/tecnologia/" },
+    ],
   },
   {
     label: "Extintores",
     href: "/productos/extintores/",
     icon: "extinguisher",
-    description: "PQS, CO₂, AFFF y Halotron",
+    description: "PQS, CO₂, AFFF y Halotron. Certificados NOM-100.",
+    children: [
+      { label: "Extintor PQS — Polvo Químico", href: "/productos/extintores/" },
+      { label: "Extintor CO₂", href: "/productos/extintores/" },
+      { label: "Extintor Espuma AFFF", href: "/productos/extintores/" },
+      { label: "Extintor Halotron — Limpio", href: "/productos/extintores/" },
+    ],
   },
   {
     label: "Equipo Contra Incendios",
     href: "/productos/equipo-contra-incendios/",
     icon: "fire",
-    description: "Mangueras y gabinetes",
+    description: "Mangueras, lanzas y gabinetes NOM/NFPA.",
+    children: [
+      { label: "Manguera contra Incendio NFPA", href: "/productos/equipo-contra-incendios/" },
+      { label: "Lanza de Ataque Ajustable", href: "/productos/equipo-contra-incendios/" },
+      { label: "Gabinete contra Incendio NOM", href: "/productos/equipo-contra-incendios/" },
+      { label: "Hidrante y Accesorios", href: "/productos/equipo-contra-incendios/" },
+    ],
   },
   {
     label: "Equipo Médico / EMS",
     href: "/productos/equipo-medico/",
     icon: "medical",
-    description: "DEA, camillas y trauma",
+    description: "DEA, camillas y kits de trauma prehospitalario.",
+    children: [
+      { label: "Camilla de Rescate Plegable", href: "/productos/equipo-medico/" },
+      { label: "Desfibrilador DEA Semiautomático", href: "/productos/equipo-medico/" },
+      { label: "Kit de Trauma / Bolsa de Emergencia", href: "/productos/equipo-medico/" },
+    ],
   },
 ];
 

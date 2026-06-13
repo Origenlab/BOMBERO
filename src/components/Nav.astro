@@ -52,10 +52,10 @@ const icons: Record<string, string> = {
           {isProducts && (
             <div class="mega" role="dialog" aria-label="Menú de productos">
               <div class="mega__container">
-
-                {/* Panel izquierdo: EPP */}
                 <div class="mega__main">
-                  <div class="mega__section-title">Equipo de Protección Personal</div>
+
+                  {/* Sección 1: EPP */}
+                  <p class="mega__section-title">Equipo de Protección Personal</p>
                   <div class="mega__grid">
                     {productCategories.map((cat) => (
                       <div class="mega__category">
@@ -72,15 +72,11 @@ const icons: Record<string, string> = {
                         {cat.children && cat.children.length > 0 && (
                           <ul class="mega__sublist">
                             {cat.children.slice(0, 4).map((sub) => (
-                              <li>
-                                <a href={sub.href} class="mega__sublink">{sub.label}</a>
-                              </li>
+                              <li><a href={sub.href} class="mega__sublink">{sub.label}</a></li>
                             ))}
                             {cat.children.length > 4 && (
                               <li>
-                                <a href={cat.href} class="mega__sublink mega__sublink--more">
-                                  Ver todos →
-                                </a>
+                                <a href={cat.href} class="mega__sublink mega__sublink--more">Ver todos →</a>
                               </li>
                             )}
                           </ul>
@@ -88,27 +84,46 @@ const icons: Record<string, string> = {
                       </div>
                     ))}
                   </div>
-                </div>
 
-                {/* Panel derecho: Equipos Especializados */}
-                <div class="mega__aside">
-                  <div class="mega__section-title">Equipos Especializados</div>
-                  <ul class="mega__aside-list">
+                  {/* Divisor */}
+                  <div class="mega__divider" />
+
+                  {/* Sección 2: Especializados */}
+                  <p class="mega__section-title">Equipos Especializados</p>
+                  <div class="mega__grid">
                     {secondaryCategories.map((cat) => (
-                      <li>
-                        <a href={cat.href} class="mega__aside-link">
-                          <span class="mega__aside-icon" set:html={icons[cat.icon ?? "tools"]} />
-                          <span class="mega__aside-info">
-                            <span class="mega__aside-name">{cat.label}</span>
-                            <span class="mega__aside-desc">{cat.description}</span>
-                          </span>
+                      <div class="mega__category">
+                        <a href={cat.href} class="mega__category-header">
+                          <span class="mega__icon" set:html={icons[cat.icon ?? "tools"]} />
+                          <div class="mega__category-info">
+                            <span class="mega__category-name">{cat.label}</span>
+                            <span class="mega__category-desc">{cat.description}</span>
+                          </div>
                         </a>
-                      </li>
+                        {cat.children && cat.children.length > 0 && (
+                          <ul class="mega__sublist">
+                            {cat.children.slice(0, 4).map((sub) => (
+                              <li><a href={sub.href} class="mega__sublink">{sub.label}</a></li>
+                            ))}
+                            {cat.children.length > 4 && (
+                              <li>
+                                <a href={cat.href} class="mega__sublink mega__sublink--more">Ver todos →</a>
+                              </li>
+                            )}
+                          </ul>
+                        )}
+                      </div>
                     ))}
-                  </ul>
-                  <a href="/productos/" class="mega__aside-all">Ver catálogo completo →</a>
-                </div>
+                  </div>
 
+                  {/* Footer del mega menu */}
+                  <div class="mega__footer">
+                    <a href="/productos/" class="mega__footer-link">
+                      Ver catálogo completo — 16 categorías →
+                    </a>
+                  </div>
+
+                </div>
               </div>
             </div>
           )}
@@ -181,7 +196,7 @@ const icons: Record<string, string> = {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    width: min(1100px, 95vw);
+    width: min(1200px, 96vw);
     background: #ffffff;
     border-radius: var(--radius-xl);
     box-shadow:
@@ -217,111 +232,42 @@ const icons: Record<string, string> = {
   }
 
   .mega__container {
-    display: flex;
-    align-items: stretch;
+    display: block;
   }
-
 
   .mega__main {
-    flex: 1 1 0;
-    min-width: 0;
     padding: var(--space-6);
-    border-right: 1px solid var(--color-smoke-100);
   }
 
-  /* Panel derecho: Equipos Especializados */
-  .mega__aside {
-    width: 240px;
-    flex-shrink: 0;
-    padding: var(--space-6) var(--space-5);
-    background: var(--color-smoke-50);
-    border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
-    display: flex;
-    flex-direction: column;
+  .mega__divider {
+    height: 1px;
+    background: var(--color-smoke-100);
+    margin: var(--space-5) 0 var(--space-4);
   }
 
-  .mega__aside-list {
-    list-style: none;
-    margin: 0 0 var(--space-4);
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    flex: 1;
+  .mega__footer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-smoke-100);
+    text-align: center;
   }
 
-  .mega__aside-link {
-    display: flex;
+  .mega__footer-link {
+    display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--space-2) var(--space-2);
-    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-fire-600);
     text-decoration: none;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-lg);
+    background: var(--color-fire-50);
+    border: 1px solid var(--color-fire-100);
     transition: background 0.15s;
   }
 
-  .mega__aside-link:hover {
-    background: var(--color-smoke-100);
-  }
-
-  .mega__aside-icon {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fff;
-    border-radius: var(--radius-sm);
-    color: var(--color-fire-600);
-    border: 1px solid var(--color-smoke-200);
-  }
-
-  .mega__aside-icon :global(svg) {
-    width: 14px;
-    height: 14px;
-  }
-
-  .mega__aside-info {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  .mega__aside-name {
-    font-size: 12.5px;
-    font-weight: 600;
-    color: var(--color-smoke-800);
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .mega__aside-desc {
-    font-size: 11px;
-    color: var(--color-smoke-500);
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .mega__aside-all {
-    display: block;
-    padding: var(--space-2) var(--space-2);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-fire-600);
-    text-decoration: none;
-    border-radius: var(--radius-md);
-    text-align: center;
-    background: var(--color-fire-50);
-    border: 1px solid var(--color-fire-100);
-    margin-top: auto;
-  }
-
-  .mega__aside-all:hover {
+  .mega__footer-link:hover {
     background: var(--color-fire-100);
   }
 
@@ -337,8 +283,8 @@ const icons: Record<string, string> = {
 
   .mega__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-4);
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3) var(--space-4);
   }
 
 
@@ -446,24 +392,22 @@ const icons: Record<string, string> = {
 
 
 
-  @media (max-width: 1200px) {
-    .mega__grid {
-      grid-template-columns: repeat(2, 1fr);
+  /* El mega ahora es más ancho para acomodar 4 columnas */
+  @media (max-width: 1300px) {
+    .mega {
+      width: min(1050px, 97vw);
     }
-    .mega__aside {
-      width: 210px;
+    .mega__grid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
-  @media (max-width: 960px) {
+  @media (max-width: 1100px) {
+    .mega {
+      width: min(900px, 97vw);
+    }
     .mega__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .mega__aside {
-      width: 190px;
-    }
-    .mega__aside-desc {
-      display: none;
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
@@ -511,18 +455,12 @@ const icons: Record<string, string> = {
       display: block;
     }
 
-    .mega__container {
-      flex-direction: column;
-    }
-
     .mega__main {
       padding: var(--space-4);
-      border-right: none;
-      border-bottom: 1px solid var(--color-smoke-200);
     }
 
     .mega__grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: var(--space-2);
     }
 
@@ -537,27 +475,11 @@ const icons: Record<string, string> = {
     .nav__chevron {
       display: block;
     }
+  }
 
-    /* Aside en móvil: lista horizontal compacta */
-    .mega__aside {
-      width: 100%;
-      border-radius: 0;
-      padding: var(--space-4);
-      background: var(--color-smoke-100);
-    }
-
-    .mega__aside-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-1);
-    }
-
-    .mega__aside-desc {
-      display: none;
-    }
-
-    .mega__aside-name {
-      font-size: 12px;
+  @media (max-width: 480px) {
+    .mega__grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
