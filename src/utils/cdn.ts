@@ -1,35 +1,24 @@
 
-
-const CDN_BASE = "https://emwn2f4rcov.exactdn.com";
-const isDev = import.meta.env.DEV;
-
+// CDN desactivado — imágenes servidas directamente desde el dominio propio.
+// Las imágenes existen en public/images/ y se sirven vía GH Pages / CF Pages.
+// Para reactivar un CDN: reemplazar estas funciones con el nuevo proveedor.
 
 export function cdn(path: string): string {
-  if (isDev) return path;
-  return `${CDN_BASE}${path}?lossy=1&strip=all`;
+  return path;
 }
 
-
-export function cdnW(path: string, width: number): string {
-  if (isDev) return path;
-  return `${CDN_BASE}${path}?w=${width}&lossy=1&strip=all`;
+export function cdnW(path: string, _width: number): string {
+  return path;
 }
-
 
 export function cdnLossless(path: string): string {
-  if (isDev) return path;
-  return `${CDN_BASE}${path}?quality=100`;
+  return path;
 }
 
-
 /**
- * Genera un atributo srcset para imágenes responsivas.
- * Ejemplo: cdnSrcset("/img/traje.jpg", [300, 600, 900])
- * → "https://cdn…/img/traje.jpg?w=300&lossy=1 300w, …"
+ * Sin CDN de redimensionado activo, cdnSrcset devuelve vacío.
+ * El elemento <img> usa src como fallback.
  */
-export function cdnSrcset(path: string, widths: number[]): string {
-  if (isDev) return "";
-  return widths
-    .map((w) => `${CDN_BASE}${path}?w=${w}&lossy=1&strip=all ${w}w`)
-    .join(", ");
+export function cdnSrcset(_path: string, _widths: number[]): string {
+  return "";
 }

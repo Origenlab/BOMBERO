@@ -11803,7 +11803,7 @@ Su aplicación no se limita a la búsqueda. La TIC también permite **lectura t�
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/traje-bombero-estacion-equipo-scba-asesoria-01.avif?lossy=1&strip=all" alt="Bombero con EPP completo y dispositivo termográfico para operación de búsqueda" loading="lazy" width="900" height="600" />
+  <img src="/images/trajes-para-bombero/traje-bombero-estacion-equipo-scba-asesoria-01.avif" alt="Bombero con EPP completo y dispositivo termográfico para operación de búsqueda" loading="lazy" width="900" height="600" />
   <figcaption>La TIC se opera en conjunto con SCBA y EPP completo — su uso correcto requiere doctrina de barrido sistemático, no exploración aleatoria.</figcaption>
 </figure>
 
@@ -12064,7 +12064,7 @@ La herramienta estrella del rescate vehicular —las **cizallas hidráulicas**, 
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/accion/bomberos-rescate-vehicular.avif?lossy=1&strip=all" alt="Bomberos en operación de extricación vehicular con herramientas hidráulicas" loading="lazy" width="900" height="600" />
+  <img src="/images/accion/bomberos-rescate-vehicular.avif" alt="Bomberos en operación de extricación vehicular con herramientas hidráulicas" loading="lazy" width="900" height="600" />
   <figcaption>Extricación vehicular — operación que requiere herramientas hidráulicas de generación actual para cortar el acero UHSS de vehículos modernos.</figcaption>
 </figure>
 
@@ -12283,7 +12283,7 @@ La gestión de esta amenaza recae sobre una arquitectura tripartita: **CONAFOR**
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/accion/bomberos-capacitacion-torre-entrenamiento.avif?lossy=1&strip=all" alt="Capacitación de brigada forestal en torre de entrenamiento" loading="lazy" width="900" height="600" />
+  <img src="/images/accion/bomberos-capacitacion-torre-entrenamiento.avif" alt="Capacitación de brigada forestal en torre de entrenamiento" loading="lazy" width="900" height="600" />
   <figcaption>Capacitación de brigada con énfasis en lectura de terreno y comunicaciones — pilar de seguridad antes del despliegue operativo.</figcaption>
 </figure>
 
@@ -12544,7 +12544,7 @@ México concentra zonas de alta densidad química industrial: el **corredor petr
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-hernandez-capucha-scba-estacion-02.avif?lossy=1&strip=all" alt="Bombero con SCBA y capucha protectora en estación operativa — configuración base para respuesta HAZMAT Nivel B" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/bombero-hernandez-capucha-scba-estacion-02.avif" alt="Bombero con SCBA y capucha protectora en estación operativa — configuración base para respuesta HAZMAT Nivel B" loading="lazy" width="900" height="600" />
   <figcaption>Configuración SCBA + capucha protectora — base de Nivel B según OSHA 29 CFR 1910.120, sobre la que se monta el traje químico no encapsulado.</figcaption>
 </figure>
 
@@ -12819,7 +12819,7 @@ Una lesión en el pie o tobillo dentro de un incendio no solo incapacita al bomb
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif?lossy=1&strip=all" alt="Botas para bombero certificadas NFPA — caucho y cuero" loading="lazy" width="900" height="600" />
+  <img src="/images/botas-para-bomberos/bota-bombero-producto-caucho-par-estudio-04.avif" alt="Botas para bombero certificadas NFPA — caucho y cuero" loading="lazy" width="900" height="600" />
   <figcaption>Botas NFPA 1971 — cuero o caucho según operación. La elección incorrecta es la causa más común de lesiones de pie en operación.</figcaption>
 </figure>
 
@@ -13029,7 +13029,7 @@ En el combate de incendios estructurales, **dos fenómenos representan el mayor 
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/traje-bombero-retrato-scba-capucha-proteccion-01.avif?lossy=1&strip=all" alt="Bombero con EPP completo NFPA 1971 y SCBA — protección crítica en flashover" loading="lazy" width="900" height="600" />
+  <img src="/images/trajes-para-bombero/traje-bombero-retrato-scba-capucha-proteccion-01.avif" alt="Bombero con EPP completo NFPA 1971 y SCBA — protección crítica en flashover" loading="lazy" width="900" height="600" />
   <figcaption>EPP NFPA 1971 + SCBA — la combinación entre conocimiento y equipo certificado es lo que salva vidas en flashover.</figcaption>
 </figure>
 
@@ -13239,7 +13239,7 @@ Esta guía está dirigida a **jefes de cuerpo, directores de protección civil m
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero municipal equipándose con EPP NFPA en estación operativa" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero municipal equipándose con EPP NFPA en estación operativa" loading="lazy" width="900" height="600" />
   <figcaption>Equipar correctamente a un cuerpo municipal exige especificaciones precisas y proveedor con experiencia en sector público.</figcaption>
 </figure>
 
@@ -13452,7 +13452,7 @@ Una quemadura de **segundo grado en el cuello** puede resultar en cicatriz perma
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/capucha-para-bombero/monja-pbi-gold-bombera-casco-scba-nfpa-01.avif?lossy=1&strip=all" alt="Capucha PBI Gold (monja) usada bajo casco y SCBA según NFPA 1971" loading="lazy" width="900" height="600" />
+  <img src="/images/capucha-para-bombero/monja-pbi-gold-bombera-casco-scba-nfpa-01.avif" alt="Capucha PBI Gold (monja) usada bajo casco y SCBA según NFPA 1971" loading="lazy" width="900" height="600" />
   <figcaption>Capucha PBI Gold bajo casco y SCBA — protege la zona crítica entre traje, casco y máscara facial.</figcaption>
 </figure>
 
@@ -13668,7 +13668,7 @@ Esta guía es el manual técnico para que jefes de cuerpo y responsables de equi
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/gafas-para-bomberos/goggle-bombera-scba-equipo-completo-nfpa-01.avif?lossy=1&strip=all" alt="Bombera con goggle de combate compatible con SCBA y casco NFPA 1971" loading="lazy" width="900" height="600" />
+  <img src="/images/gafas-para-bomberos/goggle-bombera-scba-equipo-completo-nfpa-01.avif" alt="Bombera con goggle de combate compatible con SCBA y casco NFPA 1971" loading="lazy" width="900" height="600" />
   <figcaption>Goggle sellado integrado con máscara SCBA y casco NFPA 1971 — la combinación correcta evita la franja expuesta entre componentes del EPP.</figcaption>
 </figure>
 
@@ -14868,7 +14868,7 @@ Pachuca, "La Bella Airosa", añade un reto operativo único: su **altitud de 2,4
 En **BOMBERO MX** abastecemos al **Heroico Cuerpo de Bomberos de Pachuca**, cuerpos municipales hidalguenses, brigadas industriales del corredor Sahagún y empresas de protección civil. Desde nuestra base en CDMX, Hidalgo está a **90–120 minutos por Arco Norte o México–Pachuca**, lo que permite logística rápida.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif?lossy=1&strip=all" alt="Estación operativa de bomberos en Pachuca Hidalgo" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación operativa de bomberos en Pachuca Hidalgo" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa — la red hidalguense combina perfil estructural urbano con presión industrial (Tula, Sahagún) y forestal.</figcaption>
 </figure>
 
@@ -14900,7 +14900,7 @@ La **Refinería Miguel Hidalgo (Tula)** de **PEMEX** procesa más de 315,000 bar
 **Ciudad Sahagún** alberga plantas industriales históricas: **DINA Camiones, Bombardier Sahagún (vagones de tren), Servicio Industriales Peñoles**, entre otras. La manufactura pesada concentra fuegos de aceites, soldadura, almacenes de químicos y metalurgia.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA usado en corredor Ciudad Sahagún" loading="lazy" width="900" height="600" />
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en corredor Ciudad Sahagún" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — exigible en plantas del corredor Sahagún–Tepeapulco.</figcaption>
 </figure>
 
@@ -15056,8 +15056,8 @@ La **México–Pachuca (85D)** y el **Arco Norte** transportan más de 70,000 ve
 ## Productos Recomendados para Brigadas Hidalguenses
 
 <div class="img-grid">
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 con aislamiento térmico" loading="lazy" />
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 con aislamiento térmico" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
@@ -15166,7 +15166,7 @@ Esta combinación —aeroespacial + automotriz + corredor logístico + ciudad co
 En **BOMBERO MX** abastecemos al **Heroico Cuerpo de Bomberos de Querétaro**, cuerpos municipales, brigadas industriales del corredor aeroespacial y empresas de protección civil. Desde nuestra base en CDMX, Querétaro está a **2.5 horas por la 57D** —una de las regiones donde tenemos mayor velocidad logística.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif?lossy=1&strip=all" alt="Estación operativa de bomberos en Querétaro con camión autobomba" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación operativa de bomberos en Querétaro con camión autobomba" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa — la red queretana combina perfil colonial estructural con presión industrial creciente.</figcaption>
 </figure>
 
@@ -15198,7 +15198,7 @@ El **Aeropuerto Intercontinental de Querétaro (AIQ)** opera junto al clúster a
 Los parques **El Marqués I/II/III, Bernardo Quintana, Querétaro Industrial Park, La Cruz, Tres Naciones** y los corredores automotrices alrededor de la 57D concentran cientos de plantas. Riesgos típicos: solventes industriales, pinturas automotrices, gases técnicos y procesos químicos.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA en parques industriales de Querétaro" loading="lazy" width="900" height="600" />
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA en parques industriales de Querétaro" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — exigible en plantas del corredor El Marqués–Bernardo Quintana.</figcaption>
 </figure>
 
@@ -15359,8 +15359,8 @@ La **Reserva de la Biósfera Sierra Gorda** (Jalpan, Landa, Pinal de Amoles) pre
 ## Productos Recomendados para Brigadas Queretanas
 
 <div class="img-grid">
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
@@ -15469,7 +15469,7 @@ Cinco realidades operativas únicas de Jalisco condicionan el equipo que cada es
 En **BOMBERO MX** trabajamos con cuerpos municipales, protección civil estatal y brigadas industriales en todo Jalisco. Esta guía es el resumen de lo que hemos aprendido equipando estaciones en la ZMG y el interior del estado.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-guadalajara-01.avif?lossy=1&strip=all" alt="Estación del Cuerpo de Bomberos de Guadalajara con unidad operativa" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/estacion-bomberos-guadalajara-01.avif" alt="Estación del Cuerpo de Bomberos de Guadalajara con unidad operativa" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa en la ZMG — base para operaciones estructurales, forestales y de rescate.</figcaption>
 </figure>
 
@@ -15501,7 +15501,7 @@ En **BOMBERO MX** trabajamos con cuerpos municipales, protección civil estatal 
 El corredor concentra plantas químicas, papeleras, alimentarias y de plásticos. Eventos históricos como el del **22 de abril de 1992** marcan la cultura operativa local: HAZMAT no es opcional.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA usado en corredor El Salto Jalisco" loading="lazy" width="900" height="600" />
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en corredor El Salto Jalisco" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — exigible en plantas del corredor El Salto y zona industrial de Tlaquepaque.</figcaption>
 </figure>
 
@@ -15615,8 +15615,8 @@ Con más de 50,000 vehículos/día, la Guadalajara–Colima es punto recurrente 
 ## Productos Recomendados para Jalisco
 
 <div class="img-grid">
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/)
@@ -15726,7 +15726,7 @@ La ZMM concentra a las industrias más pesadas de México: **acero (Ternium, AHM
 En **BOMBERO MX** abastecemos al **Heroico Cuerpo de Bomberos de Nuevo León**, cuerpos municipales, brigadas industriales privadas y empresas de protección civil. Esta guía concentra el conocimiento operativo acumulado equipando estaciones en la ZMM y el norte del estado.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-monterrey-01.avif?lossy=1&strip=all" alt="Estación del Cuerpo de Bomberos de Monterrey con unidad de respuesta" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/estacion-bomberos-monterrey-01.avif" alt="Estación del Cuerpo de Bomberos de Monterrey con unidad de respuesta" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa en Monterrey — preparada para escenarios estructurales, industriales pesados y rescate de altura.</figcaption>
 </figure>
 
@@ -15757,7 +15757,7 @@ Más de **1,500 plantas industriales** entre Apodaca y Pesquería incluyen quím
 Las **plantas de acero de Ternium y DeAcero** operan con coladas a >1,500°C. Los incendios involucran calor radiante extremo, gases tóxicos y riesgo de explosión por contacto con agua. Solo equipo certificado con visor térmico dorado y traje de aproximación protege adecuadamente.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial con visor dorado para uso en planta siderúrgica" loading="lazy" width="900" height="600" />
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial con visor dorado para uso en planta siderúrgica" loading="lazy" width="900" height="600" />
   <figcaption>Casco con visor térmico dorado — protección contra calor radiante en operaciones siderúrgicas Santa Catarina.</figcaption>
 </figure>
 
@@ -15895,8 +15895,8 @@ Más de **70,000 vehículos/día**. La zona de Los Chorros (km 35) es punto recu
 ## Productos Recomendados para Brigadas Regiomontanas
 
 <div class="img-grid">
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
@@ -16004,7 +16004,7 @@ Esta combinación geográfica, demográfica e industrial exige que cada estació
 En **BOMBERO MX** llevamos más de una década abasteciendo de equipo certificado a estaciones de bomberos municipales, brigadas industriales y empresas de protección civil en todo el estado de Puebla. Esta guía concentra el conocimiento operativo que hemos acumulado trabajando codo a codo con bomberos poblanos: qué equipo necesitan, por qué, y cómo conseguirlo bajo normativa vigente.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif?lossy=1&strip=all" alt="Estación de bomberos en el Centro Histórico de Puebla con camión autobomba en bahía" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación de bomberos en el Centro Histórico de Puebla con camión autobomba en bahía" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa en Centro Histórico — uno de los escenarios más complejos para combate estructural por densidad arquitectónica patrimonial.</figcaption>
 </figure>
 
@@ -16037,7 +16037,7 @@ El **Centro Histórico** abarca 6.99 km² con más de 2,600 edificios catalogado
 El **clúster Audi México** en San José Chiapa transformó el norte del estado en uno de los polos industriales automotrices más relevantes de Latinoamérica. La planta opera con líneas de pintura (compuestos orgánicos volátiles), almacenes de litio para baterías y procesos de soldadura robótica las 24 horas.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA usado en corredor automotriz Puebla" loading="lazy" width="900" height="600" />
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en corredor automotriz Puebla" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — uso obligatorio dentro de plantas con riesgo HAZMAT como Audi México.</figcaption>
 </figure>
 
@@ -16199,8 +16199,8 @@ A continuación, el **stack mínimo de equipamiento certificado** que toda estac
 ## Productos Recomendados para Brigadas Poblanas
 
 <div class="img-grid">
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 BOMBERO MX" loading="lazy" />
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA en estación" loading="lazy" />
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 BOMBERO MX" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA en estación" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024 vigente
@@ -16310,7 +16310,7 @@ La operación binacional eleva el estándar: los bomberos tijuanenses frecuentem
 En **BOMBERO MX** equipamos al **Heroico Cuerpo de Bomberos de Tijuana**, cuerpos municipales de Mexicali, Ensenada, Rosarito y Tecate, brigadas industriales en zonas de maquiladoras y empresas de protección civil. Esta guía concentra el conocimiento operativo de equipar la región fronteriza.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif?lossy=1&strip=all" alt="Estación de bomberos con flota de unidades operativas" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif" alt="Estación de bomberos con flota de unidades operativas" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa preparada para escenarios estructurales y forestales — patrón habitual en Baja California.</figcaption>
 </figure>
 
@@ -16342,7 +16342,7 @@ Los **vientos Santa Ana** (octubre–febrero) son ráfagas secas que descienden 
 **Otay Mesa**, **El Florido**, **La Mesa** y **El Lago** concentran más de 1,000 maquiladoras: electrónica, automotriz (Toyota, Hyundai), aeroespacial, dispositivos médicos y química especializada. La fuga química y el incendio en almacén de litio son escenarios recurrentes.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif?lossy=1&strip=all" alt="Casco para brigada industrial certificado NFPA usado en maquiladoras de Tijuana" loading="lazy" width="900" height="600" />
+  <img src="/images/cascos-para-bomberos/casco-bombero-brigada-industrial-001.avif" alt="Casco para brigada industrial certificado NFPA usado en maquiladoras de Tijuana" loading="lazy" width="900" height="600" />
   <figcaption>Casco para brigada industrial — exigible en maquiladoras de Otay y zonas industriales fronterizas.</figcaption>
 </figure>
 
@@ -16481,8 +16481,8 @@ La **Autopista Federal 1D** (más conocida como la Tijuana–Ensenada o Escénic
 ## Productos Recomendados para Brigadas Fronterizas
 
 <div class="img-grid">
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes forestales NFPA 1977**](/productos/trajes-para-bomberos/) — Para temporada Santa Ana
@@ -16591,7 +16591,7 @@ La CDMX combina los escenarios más diversos del país en una sola jurisdicción
 **BOMBERO MX** opera desde **CDMX** —donde está nuestro almacén central y oficinas. Esto nos permite **entregar el mismo día** equipo en stock a estaciones del HCBCDMX, brigadas industriales, protección civil de alcaldías y empresas privadas en toda la capital. Esta guía concentra el conocimiento operativo de equipar la red de bomberos más exigente del país.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-cdmx-01.avif?lossy=1&strip=all" alt="Estación del Heroico Cuerpo de Bomberos de CDMX con unidad operativa" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/estacion-bomberos-cdmx-01.avif" alt="Estación del Heroico Cuerpo de Bomberos de CDMX con unidad operativa" loading="lazy" width="900" height="600" />
   <figcaption>Estación del HCBCDMX — referencia operativa nacional. La red de la capital atiende escenarios estructurales, forestales, industriales y de rescate técnico.</figcaption>
 </figure>
 
@@ -16623,7 +16623,7 @@ CDMX concentra los edificios más altos de México: **Torre Reforma (246 m), Tor
 Los mercados tradicionales concentran densidad comercial extrema, mercancía altamente combustible (textiles, plásticos, semillas, ropa), instalaciones eléctricas envejecidas y accesos angostos para autobombas. El incendio del **Mercado de Sonora 2019** y el **Mercado Hidalgo 2024** demostraron la complejidad operativa.
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif?lossy=1&strip=all" alt="Estación de bomberos en Centro Histórico de CDMX con autobomba" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif" alt="Estación de bomberos en Centro Histórico de CDMX con autobomba" loading="lazy" width="900" height="600" />
   <figcaption>Estación operativa en Centro Histórico — los mercados son el escenario estructural más complejo de la capital.</figcaption>
 </figure>
 
@@ -16799,8 +16799,8 @@ CDMX registra más de **20 accidentes vehiculares con extricación diarios**. Lo
 ## Productos Recomendados para Brigadas en CDMX
 
 <div class="img-grid">
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 disponible en BOMBERO MX" loading="lazy" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipándose con EPP NFPA completo" loading="lazy" />
 </div>
 
 - [**Trajes estructurales NFPA 1971**](/productos/trajes-para-bomberos/) — Edición 2024
@@ -16907,7 +16907,7 @@ En **México** la profesionalización de los cuerpos de bomberos ha avanzado sig
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero equipado con EPP NFPA completo en estación operativa de México" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero equipado con EPP NFPA completo en estación operativa de México" loading="lazy" width="900" height="600" />
   <figcaption>EPP NFPA completo — la dotación estándar que toda estación profesional debe tener.</figcaption>
 </figure>
 
@@ -17249,7 +17249,7 @@ Comprar trajes estructurales es probablemente **la decisión de equipamiento má
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bandas-reflectantes-traje-bombero-detalle-01.avif?lossy=1&strip=all" alt="Bandas reflectantes en traje estructural NFPA 1971 detalle" loading="lazy" width="900" height="600" />
+  <img src="/images/trajes-para-bombero/bandas-reflectantes-traje-bombero-detalle-01.avif" alt="Bandas reflectantes en traje estructural NFPA 1971 detalle" loading="lazy" width="900" height="600" />
   <figcaption>Detalle de bandas reflectantes — requeridas por NFPA 1971 para visibilidad nocturna en operación.</figcaption>
 </figure>
 
@@ -17303,7 +17303,7 @@ La norma establece requisitos mínimos de protección térmica (TPP), transferen
 ## Comparativa de Marcas Disponibles en México
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif?lossy=1&strip=all" alt="Traje estructural NFPA 1971 en uso operativo" loading="lazy" width="900" height="600" />
+  <img src="/images/trajes-para-bombero/bombera-cdmx-retrato-casco-amarillo-01.avif" alt="Traje estructural NFPA 1971 en uso operativo" loading="lazy" width="900" height="600" />
   <figcaption>Traje NFPA 1971 en operación — los tres fabricantes principales tienen variantes adecuadas según presupuesto.</figcaption>
 </figure>
 
@@ -17548,7 +17548,7 @@ Cuando un jefe de cuerpo nos pregunta "¿cuál SCBA compro?", la respuesta hones
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/cilindro-scba-bomberos-01.avif?lossy=1&strip=all" alt="Cilindro SCBA NFPA 1981 — el componente que más afecta peso y presupuesto" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/cilindro-scba-bomberos-01.avif" alt="Cilindro SCBA NFPA 1981 — el componente que más afecta peso y presupuesto" loading="lazy" width="900" height="600" />
   <figcaption>Cilindro SCBA — el componente individual con mayor impacto en peso operativo y costo total del sistema.</figcaption>
 </figure>
 
@@ -17836,7 +17836,7 @@ Este artículo detalla cada nivel de inspección que NFPA 1851 exige y **cómo i
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero inspeccionando su EPP antes de entrar a operación según NFPA 1851" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero inspeccionando su EPP antes de entrar a operación según NFPA 1851" loading="lazy" width="900" height="600" />
   <figcaption>Inspección visual rutinaria — 2 minutos antes de cada turno previenen fallas críticas en operación.</figcaption>
 </figure>
 
@@ -18029,7 +18029,7 @@ La elección de casco para bombero **no es cosmética**. El casco absorbe impact
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-equipado-estacion-profesional-03.avif?lossy=1&strip=all" alt="Casco para bombero certificado NFPA 1971 con visor integrado" loading="lazy" width="900" height="600" />
+  <img src="/images/cascos-para-bomberos/casco-bombero-equipado-estacion-profesional-03.avif" alt="Casco para bombero certificado NFPA 1971 con visor integrado" loading="lazy" width="900" height="600" />
   <figcaption>Casco NFPA 1971 — la decisión entre Bullard y Cairns afecta peso operativo, costo y disponibilidad de refacciones.</figcaption>
 </figure>
 
@@ -18209,7 +18209,7 @@ México adopta la clasificación de fuegos **A, B, C, D y K**, alineada con la *
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/extintores/extintor-pqs-polvo-quimico-seco-01.avif?lossy=1&strip=all" alt="Extintor PQS ABC certificado NOM-100 para combate de fuegos Clase A B y C" loading="lazy" width="900" height="600" />
+  <img src="/images/extintores/extintor-pqs-polvo-quimico-seco-01.avif" alt="Extintor PQS ABC certificado NOM-100 para combate de fuegos Clase A B y C" loading="lazy" width="900" height="600" />
   <figcaption>Extintor PQS ABC — el más común en México, pero NO sirve para Clase D ni K. La elección incorrecta es la causa #1 de extinción fallida.</figcaption>
 </figure>
 
@@ -18422,7 +18422,7 @@ Lo que sigue es **el proceso que hemos visto funcionar en más de 80 cuerpos de 
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/directorio/bombero-equipamiento-personal-estacion-01.avif?lossy=1&strip=all" alt="Bombero municipal equipándose con EPP NFPA completo" loading="lazy" width="900" height="600" />
+  <img src="/images/directorio/bombero-equipamiento-personal-estacion-01.avif" alt="Bombero municipal equipándose con EPP NFPA completo" loading="lazy" width="900" height="600" />
   <figcaption>El proceso de cotización empieza por entender exactamente qué falta — puesto por puesto, posición por posición.</figcaption>
 </figure>
 
@@ -20953,7 +20953,7 @@ La aviación comercial mexicana movió más de **90 millones de pasajeros en 202
 </div>
 
 <figure>
-  <img src="https://emwn2f4rcov.exactdn.com/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif?lossy=1&strip=all" alt="Casco ARFF aeroportuario para operación de rescate de aeronaves" loading="lazy" width="900" height="600" />
+  <img src="/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif" alt="Casco ARFF aeroportuario para operación de rescate de aeronaves" loading="lazy" width="900" height="600" />
   <figcaption>Casco ARFF aeroportuario — diseño con visera tintada y protección de nuca extendida para operación en proximidad de fuegos de combustible Jet A.</figcaption>
 </figure>
 
