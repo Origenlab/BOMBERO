@@ -311,10 +311,18 @@ const datosClave = [
   { valor: "911", label: "Emergencias" },
 ];
 
+// Título SEO único y conciso: el nombre de la estación es el discriminante
+// principal; el estado desambigua estaciones homónimas entre estados. Las
+// estaciones de aeropuerto comparten un prefijo largo idéntico, así que se
+// antepone la ciudad (única por aeropuerto) para que sobreviva al recorte.
+const estacionSeoTitle = /aeropuerto/i.test(estacion.nombre)
+  ? `Bomberos Aeropuerto ${ubicacionCorta}, ${estado.nombre}`
+  : `${estacion.nombre}, ${estado.nombre}`;
+
 ---
 
 <PageLayout
-  title={`${estacion.nombre} — Teléfono y Dirección Bomberos ${ubicacionCorta}, ${estado.nombre} | México`}
+  title={estacionSeoTitle}
   description={seoDescription}
   keywords={seoKeywords}
   canonical={canonical}

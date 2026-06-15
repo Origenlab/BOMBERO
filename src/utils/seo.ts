@@ -17,11 +17,43 @@ export function canonicalURL(path: string): string {
 }
 
 
+// Longitud máxima recomendada del <title> (Google trunca ~580px ≈ 60 caracteres).
+const TITLE_MAX = 60;
+const TITLE_SUFFIX = ` | ${SITE.name}`; // " | BOMBERO.MX"
+
+// Recorta un texto a `max` caracteres respetando límite de palabra y sin
+// dejar separadores colgando ni puntuación débil al final.
+function capTitleCore(text: string, max: number): string {
+  const clean = text.replace(/[\s|·•\-–—,;:]+$/g, "").trim();
+  if (clean.length <= max) return clean;
+  let cut = clean.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  if (lastSpace > max * 0.5) cut = cut.slice(0, lastSpace);
+  return cut.replace(/[\s|·•\-–—,;:]+$/g, "").trim();
+}
+
 export function formatTitle(title?: string): string {
   if (!title) return SITE.seo.title;
-  // Avoid duplicate branding when a page title already includes the site name.
-  if (title.toLowerCase().includes(SITE.name.toLowerCase())) return title;
-  return SITE.seo.titleTemplate.replace("%s", title);
+  const trimmed = title.trim();
+  const branded = new RegExp(SITE.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(trimmed);
+
+  // Título ya marcado (incluye "BOMBERO.MX"): respetar si cabe; si no, recortar
+  // el cuerpo conservando un único sufijo de marca limpio.
+  if (branded) {
+    if (trimmed.length <= TITLE_MAX) return trimmed;
+    const brandTail = new RegExp(
+      `\\s*[|·•\\-–—]\\s*[^|]*${SITE.name.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}[^|]*$`,
+      "i",
+    );
+    const core = trimmed.replace(brandTail, "").replace(/[\s|·•\-–—]+$/g, "").trim() || SITE.name;
+    return `${capTitleCore(core, TITLE_MAX - TITLE_SUFFIX.length)}${TITLE_SUFFIX}`;
+  }
+
+  // Título sin marca: añadir sufijo y recortar el cuerpo si excede el límite.
+  const core = trimmed.replace(/[\s|·•\-–—]+$/g, "").trim();
+  const full = `${core}${TITLE_SUFFIX}`;
+  if (full.length <= TITLE_MAX) return full;
+  return `${capTitleCore(core, TITLE_MAX - TITLE_SUFFIX.length)}${TITLE_SUFFIX}`;
 }
 
 
