@@ -213,8 +213,8 @@ Cuando AQUEON diseña un sistema de monitores para planta química, el proceso i
   <h3>¿Su planta química necesita un diagnóstico de cumplimiento ATEX?</h3>
   <p>Los ingenieros de AQUEON realizan auditorías técnicas sin costo en toda la República Mexicana. Entregamos un informe con clasificación de hallazgos por severidad, opciones de corrección y estimado de presupuesto — en formato compatible con los requisitos de su aseguradora.</p>
   <div class="cta-btns">
-    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener">Solicitar diagnóstico ATEX gratuito</a>
-    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener" class="alt">Ver catálogo completo AQUEON</a>
+    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener sponsored">Solicitar diagnóstico ATEX gratuito</a>
+    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener sponsored" class="alt">Ver catálogo completo AQUEON</a>
   </div>
 </div>
 
@@ -372,8 +372,8 @@ La alternativa sin PFAS que ya tiene desempeño comprobado en las pruebas UL 162
   <h3>¿No está seguro de qué concentrado necesita su instalación?</h3>
   <p>Con el tipo de combustible, el caudal del monitor y el área del riesgo, los ingenieros de AQUEON calculan la tasa de aplicación, el tamaño del tanque y la especificación completa del sistema de espuma — sin costo y en menos de 24 horas.</p>
   <div class="cta-btns">
-    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener">Consultar con un ingeniero</a>
-    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener" class="alt">Ver catálogo de concentrados</a>
+    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener sponsored">Consultar con un ingeniero</a>
+    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener sponsored" class="alt">Ver catálogo de concentrados</a>
   </div>
 </div>
 
@@ -457,8 +457,8 @@ Si su instalación usa AFFF clásico y necesita o quiere migrar a espuma libre d
   <h3>¿Está su concentrado de espuma dentro de especificación?</h3>
   <p>AQUEON ofrece análisis de concentrado con laboratorio acreditado NFPA. En 7 días hábiles entregamos el informe de aptitud y, si el concentrado requiere reemplazo, gestionamos el suministro del nuevo concentrado y la disposición ambiental del anterior.</p>
   <div class="cta-btns">
-    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener">Solicitar análisis de concentrado</a>
-    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener" class="alt">Plan de mantenimiento NFPA 25</a>
+    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener sponsored">Solicitar análisis de concentrado</a>
+    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener sponsored" class="alt">Plan de mantenimiento NFPA 25</a>
   </div>
 </div>
 
@@ -677,8 +677,8 @@ El servicio de ingeniería de AQUEON para redes de monitores no comienza con el 
   <h3>¿Puede su red respaldar realmente sus monitores?</h3>
   <p>Hay una sola manera de saberlo — y no es confiar en que "se ve bien". AQUEON realiza auditorías hidráulicas sin costo como paso previo a cualquier proyecto. Si su red necesita refuerzo, entregamos las opciones técnicas con costos detallados antes de que firme nada.</p>
   <div class="cta-btns">
-    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener">Solicitar auditoría hidráulica gratuita</a>
-    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener" class="alt">Ver servicios de ingeniería AQUEON</a>
+    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener sponsored">Solicitar auditoría hidráulica gratuita</a>
+    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener sponsored" class="alt">Ver servicios de ingeniería AQUEON</a>
   </div>
 </div>
 
@@ -902,8 +902,8 @@ La gran mayoría de los aeródromos en México —más de 1,200— no son aeropu
   <h3>¿Su aeródromo o pista privada cumple con los requisitos actuales de la AFAC?</h3>
   <p>AQUEON diseña soluciones ARFF para aeródromos de todas las categorías — desde pistas privadas hasta aeropuertos internacionales. Cumplimiento ICAO / NFPA 403 documentado, con soporte técnico en los 32 estados y stock permanente de concentrado AFFF y espuma libre de flúor certificada.</p>
   <div class="cta-btns">
-    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener">Cotizar sistema ARFF</a>
-    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener" class="alt">Ver soluciones para aeropuertos</a>
+    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener sponsored">Cotizar sistema ARFF</a>
+    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener sponsored" class="alt">Ver soluciones para aeropuertos</a>
   </div>
 </div>
 
@@ -1069,8 +1069,8 @@ Qué se está comprando, con toda la especificidad posible:
   <h3>¿Necesita ayuda para redactar su especificación técnica?</h3>
   <p>Los ingenieros de AQUEON elaboran especificaciones técnicas completas para licitaciones CompraNet, PEMEX, CFE y privadas — sin costo. El documento entregado incluye parámetros verificables por prueba que aseguran que solo equipos de calidad real pueden ganar el concurso.</p>
   <div class="cta-btns">
-    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener">Solicitar especificación técnica gratuita</a>
-    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener" class="alt">Ver catálogo AQUEON</a>
+    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener sponsored">Solicitar especificación técnica gratuita</a>
+    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener sponsored" class="alt">Ver catálogo AQUEON</a>
   </div>
 </div>
 
@@ -1161,8 +1161,8 @@ Antes de firmar cualquier contrato de monitores contra incendios, confirme que p
   <h3>¿Tiene una licitación de monitores contra incendios próxima?</h3>
   <p>AQUEON apoya al área de compras en la elaboración del Anexo Técnico, la evaluación de propuestas y la verificación de certificaciones. El servicio de asesoría pre-licitación es sin costo — y les ha ahorrado a decenas de empresas el costo de corregir una compra equivocada.</p>
   <div class="cta-btns">
-    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener">Solicitar asesoría pre-licitación</a>
-    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener" class="alt">Catálogo completo con precios de referencia</a>
+    <a href="https://monitorescontraincendios.com/#cotizar" target="_blank" rel="noopener sponsored">Solicitar asesoría pre-licitación</a>
+    <a href="https://monitorescontraincendios.com/" target="_blank" rel="noopener sponsored" class="alt">Catálogo completo con precios de referencia</a>
   </div>
 </div>
 
