@@ -15,9 +15,11 @@ import "@styles/mobile.css";
 
 type Props = SEOProps & {
   jsonLd?: Record<string, unknown>[];
+  /** URL de la imagen LCP crítica de la página — genera <link rel="preload"> en <head>. */
+  preloadImage?: string;
 };
 
-const { jsonLd = [], ...seoProps } = Astro.props;
+const { jsonLd = [], preloadImage, ...seoProps } = Astro.props;
 
 /* JSON-LD global condicionado por ruta (2026-06-10):
    Organization + WebSite + LocalBusiness solo en home; LocalBusiness también en /contacto/.
@@ -49,6 +51,10 @@ const allJsonLd = [...globalJsonLd, ...jsonLd];
     <meta name="msapplication-TileColor" content="#dc2626" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
 
+    <!-- Preconnect CDN de imágenes (ExactDN / EWWW.io) -->
+    <link rel="preconnect" href="https://emwn2f4rcov.exactdn.com" crossorigin />
+    <link rel="dns-prefetch" href="https://emwn2f4rcov.exactdn.com" />
+
     <!-- Preconnect a analytics no críticos (sin crossorigin para reducir handshakes) -->
     <link rel="dns-prefetch" href="https://app.rybbit.io" />
     <link rel="dns-prefetch" href="https://app.truconversion.com" />
@@ -62,6 +68,11 @@ const allJsonLd = [...globalJsonLd, ...jsonLd];
     <!-- Preload critical fonts (400=body, 700=headings) -->
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Preload imagen LCP por página (inyectado desde layouts que conocen su imagen crítica) -->
+    {preloadImage && (
+      <link rel="preload" href={preloadImage} as="image" fetchpriority="high" />
+    )}
 
     <SEOHead {...seoProps} />
 

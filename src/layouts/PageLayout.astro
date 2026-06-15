@@ -15,6 +15,8 @@ type Props = SEOProps & {
   quickNav?: boolean;
   /** Fuerza un pool concreto; si se omite se auto-detecta por la URL */
   quickNavPool?: string;
+  /** URL de la imagen LCP crítica — se pasa a BaseLayout para generar <link rel="preload"> */
+  preloadImage?: string;
 };
 
 const {
@@ -22,6 +24,7 @@ const {
   showPreFooterNav = true,
   quickNav = true,
   quickNavPool,
+  preloadImage,
   ...seoProps
 } = Astro.props;
 
@@ -37,7 +40,7 @@ function detectPool(p: string): string {
 const pool = quickNavPool ?? detectPool(path);
 ---
 
-<BaseLayout {...seoProps} jsonLd={jsonLd}>
+<BaseLayout {...seoProps} jsonLd={jsonLd} preloadImage={preloadImage}>
   <Header />
   <main id="main-content">
     <slot />

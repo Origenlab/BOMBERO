@@ -141,7 +141,7 @@ const toAnchor = (s: string) =>
     .replace(/í/g, 'i').replace(/ó/g, 'o')
     .replace(/ú/g, 'u').replace(/ñ/g, 'n');
 
-const title = `Bomberos en ${estado} — ${totalEstaciones} estaciones | teléfonos directos`;
+const title = `Bomberos en ${estado} — Teléfonos`;
 
 // ItemList real de estaciones (GEO): cada estación como FireStation enlazada
 const estacionesItemList = estaciones.map((e, i) => ({
@@ -208,6 +208,7 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
   image={`/api/og/estado/${slug}.svg`}
   modifiedTime={DIRECTORIO_VERIFICADO_ISO}
   jsonLd={allJsonLd}
+  preloadImage={heroImageCdn}
 >
 
 
@@ -249,7 +250,9 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
           src={heroImageCdn}
           alt={heroImageAlt}
           width="800" height="450"
-          loading="eager" decoding="async"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
         />
         <span class="de-hero__visual-caption">{heroCaption}</span>
       </div>
@@ -260,7 +263,8 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
               src={thumb.src}
               alt={thumb.alt}
               width="400" height="225"
-              loading="eager" decoding="async"
+              loading="lazy"
+              decoding="async"
             />
             <span>{thumb.label}</span>
           </div>
