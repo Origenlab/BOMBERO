@@ -5,7 +5,7 @@ import {
   estacionesEdoMex,
 } from "@data/estaciones-edomex";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("estado-de-mexico");
 
@@ -15,12 +15,50 @@ const totalEstaciones = estacionesEdoMex.length;
 const totalMunicipios = municipios.length;
 const totalBomberos   = estacionesEdoMex.reduce((sum, e) => sum + (e.personal || 0), 0);
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Estado de México",       url: "/directorio/estado-de-mexico/" },
-]);
+const canonical = "https://bombero.mx/directorio/estado-de-mexico/";
 
+// ── Comparativa regional (agrupando municipios por zona) ──────────────────
+const zonasDef = [
+  {
+    nombre: "Valle de Toluca",
+    municipios: ["Toluca de Lerdo", "Metepec", "San Miguel Zinacantepec", "Lerma de Villada"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital estatal (2,600 msnm), corredor industrial Lerma-Toluca, Nevado de Toluca 4,680 msnm, Aeropuerto Internacional Toluca.",
+  },
+  {
+    nombre: "ZMVM Norte",
+    municipios: ["Ecatepec", "Tlalnepantla", "Cuautitlán Izcalli", "Coacalco", "Tultitlán de Mariano Escobedo", "Tecámac de Felipe Villanueva"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Ecatepec (1.6M, municipio más poblado del país), zona industrial Vallejo, autopistas México-Pachuca y México-Querétaro.",
+  },
+  {
+    nombre: "ZMVM Oriente",
+    municipios: ["Ciudad Nezahualcóyotl", "Chalco de Díaz Covarrubias", "Valle de Chalco", "Ixtapaluca", "Chimalhuacán", "Texcoco de Mora"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Nezahualcóyotl (1.2M, 19,000 hab/km²), lecho del Lago de Chalco (inundaciones masivas), faldas Sierra Nevada y cenizas Popocatépetl.",
+  },
+  {
+    nombre: "ZMVM Poniente",
+    municipios: ["Huixquilucan", "Atizapán", "Ciudad Nicolás Romero"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Interlomas, Bosque Real, Sierra de las Cruces (incendios forestales), barrancas y zonas boscosas.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesEdoMex.filter((e) => z.municipios.includes(e.ciudad));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personal ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -41,14 +79,99 @@ const itemListSchema = {
         "addressCountry": "MX",
       },
       "telephone": e.telefono,
-      "url": `/directorio/estado-de-mexico/${e.slug}`,
+      "url": `https://bombero.mx/directorio/estado-de-mexico/${e.slug}/`,
       "description": e.descripcion,
       "openingHours": "Mo-Su 00:00-23:59",
     },
   })),
 };
 
-const jsonLd = [itemListSchema];
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en el Estado de México: estaciones, historia y servicios de emergencia",
+  "description": "Guía de los cuerpos de bomberos del Estado de México: historia (Toluca 1939, Naucalpan 1964), infraestructura por región, rescate alta montaña Nevado de Toluca, HAZMAT corredor Lerma-Toluca, inundaciones Valle de Chalco y Popocatépetl.",
+  "about": [
+    "H. Cuerpo de Bomberos del Estado de México",
+    "Protección Civil Estado de México",
+    "Rescate alta montaña Nevado de Toluca",
+    "Materiales peligrosos HAZMAT corredor industrial",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/estado-de-mexico.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en el Estado de México",
+  "description": `Directorio verificado de ${totalEstaciones} estaciones de bomberos en el Estado de México, con teléfonos, cobertura por región, historia y especialidades: alta montaña, HAZMAT industrial, rescate acuático y volcán Popocatépetl.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos del Estado de México" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/estado-de-mexico.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas Estado de México (≥10) ────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en el Estado de México?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que conecta con el C4 (Centro de Coordinación, Control, Cómputo y Comunicaciones) del Estado de México las 24 horas. El sistema enruta la llamada a la estación con menor tiempo de respuesta según tu ubicación. Para emergencias en el Nevado de Toluca, la estación de Zinacantepec coordina con el CENAPRED; para inundaciones en Valle de Chalco, la estación local tiene lanchas de rescate disponibles.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en el Estado de México?",
+    a: `Este directorio reúne <strong>${totalEstaciones} estaciones de bomberos</strong> en <strong>${totalMunicipios} municipios</strong> del Estado de México. Las estaciones se distribuyen en cuatro grandes zonas: Valle de Toluca (capital estatal), ZMVM Norte (Ecatepec, Tlalnepantla, Cuautitlán Izcalli), ZMVM Oriente (Nezahualcóyotl, Chalco, Valle de Chalco) y ZMVM Poniente (Huixquilucan, Atizapán, Nicolás Romero).`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Toluca?",
+    a: `El <strong>Heroico Cuerpo de Bomberos de Toluca</strong> fue fundado formalmente el <strong>7 de septiembre de 1939</strong>, bajo la gestión del gobernador Wenceslao Labra y el presidente municipal Antonio Mancilla Bauza, como respuesta directa a un incendio en el Mercado Riva Palacio ocurrido en 1935 que evidenció la necesidad de un cuerpo profesional. El equipo inicial fue donado por la Cervecería Toluca y el gobierno del Distrito Federal.`,
+  },
+  {
+    q: "¿Cuándo se fundaron los bomberos de Naucalpan?",
+    a: `El primer cuerpo de bomberos de Naucalpan fue organizado alrededor de <strong>1960 por taxistas</strong> del sitio El Prieto, que respondían a incendios por iniciativa propia adaptando herramientas. En <strong>1964</strong> se constituyó formalmente el <strong>Heroico Cuerpo de Bomberos de Naucalpan de Juárez</strong>, con aquellos taxistas en su primera generación. En sus primeros años cubría también emergencias en Atizapán, Huixquilucan, Tlalnepantla y partes de Ecatepec y Nezahualcóyotl.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque el <strong>22 de agosto de 1873</strong> se fundó en el <strong>puerto de Veracruz</strong> el primer cuerpo de bomberos organizado de México. Esa fecha se conmemora cada año en toda la República como el Día del Bombero, incluyendo a los cuerpos del Estado de México.`,
+  },
+  {
+    q: "¿Qué hacen los bomberos del Estado de México ante una erupción del Popocatépetl?",
+    a: `El volcán Popocatépetl se encuentra a unos <strong>70 km</strong> de los municipios orientales del Estado de México. En episodios de actividad alta, las estaciones de Texcoco, Chalco, Ixtapaluca y Nezahualcóyotl coordinan con el <strong>CENAPRED</strong> (Centro Nacional de Prevención de Desastres) y Protección Civil Estatal los protocolos de evacuación preventiva, distribución de cubrebocas y limpieza de techos con caída de ceniza. El 911 es la línea de reporte en esos eventos.`,
+  },
+  {
+    q: "¿Qué equipamiento tienen los bomberos del Estado de México para rescate en el Nevado de Toluca?",
+    a: `La <strong>Estación de Bomberos de Zinacantepec</strong> mantiene la brigada de rescate de alta montaña del estado, con vehículos 4x4 todoterreno, camillas especializadas tipo Stokes para pendientes, oxígeno suplementario portátil para casos de mal de altura agudo (AMS), comunicación satelital (sin cobertura celular en el cráter a 4,200 msnm) y ropa térmica para temperaturas de -15°C. Coordina directamente con el CENAPRED y el Parque Nacional Nevado de Toluca.`,
+  },
+  {
+    q: "¿Qué pasa en las inundaciones de Valle de Chalco y cómo responden los bomberos?",
+    a: `El Valle de Chalco Solidaridad y Chalco ocupan el lecho del antiguo <strong>Lago de Chalco</strong> (desecado en 1895–1904), con suelo arcilloso impermeable al nivel más bajo de la Cuenca de México. Tormentas de <strong>200+ mm en 24 horas</strong> —como la de septiembre de 2021— generan inundaciones de 1 a 2 metros que no drenan por días. Las estaciones de <strong>Valle de Chalco y Chalco</strong> responden con lanchas inflables de material dieléctrico, porque cables de CFE sumergidos electrifican el agua en zonas de autoconstrucción.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos del Estado de México?",
+    a: `Combate de <strong>incendios</strong> estructurales, industriales y forestales; <strong>rescate vehicular</strong> y extricación; <strong>atención prehospitalaria</strong>; <strong>materiales peligrosos (HAZMAT)</strong> en los 90+ parques industriales del corredor Lerma-Toluca; <strong>rescate de alta montaña</strong> en el Nevado de Toluca (4,680 msnm); <strong>rescate acuático</strong> en temporadas de inundación; control de fugas de gas; retiro de enjambres; y coordinación con Protección Civil en emergencias masivas y volcánicas.`,
+  },
+  {
+    q: "¿Los servicios de los bomberos del Estado de México tienen costo?",
+    a: `Las emergencias que comprometen la <strong>vida o la integridad</strong> de las personas se atienden de forma <strong>gratuita</strong>. Algunos servicios secundarios (dictámenes, capacitación a empresas, retiro de enjambres no urgente) pueden tener cuota de recuperación según el municipio. La atención de emergencia nunca se condiciona al pago previo.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en el Estado de México?",
+    a: `Revisa periódicamente la instalación de <strong>gas</strong> (mangueras, reguladores) y la <strong>instalación eléctrica</strong>; evita sobrecargar contactos. Instala <strong>detectores de humo</strong> y ten un extintor vigente en la cocina. Define un <strong>plan de evacuación</strong> con tu familia. En zonas boscosas de Atizapán, Nicolás Romero o Huixquilucan, no quemes basura durante estiaje (noviembre–mayo) y reporta cualquier conato de incendio forestal al <strong>911</strong> de inmediato.`,
+  },
+  {
+    q: "¿Qué zona del Estado de México tiene mayor riesgo de incendio forestal?",
+    a: `Las zonas con mayor riesgo de incendio forestal en el Estado de México son: la <strong>Sierra de las Cruces</strong> (municipios de Nicolás Romero, Huixquilucan y Atizapán de Zaragoza), las <strong>faldas del Nevado de Toluca</strong> en temporada de estiaje, y las áreas boscosas de la <strong>Sierra Nevada</strong> (Texcoco, Ixtapaluca). Las estaciones de Atizapán, Nicolás Romero, Zinacantepec y Texcoco mantienen unidades forestales especializadas para estos frentes.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-moderna-01.avif",
@@ -95,7 +218,7 @@ const stationImages = [
   estado="Estado de México"
   sigla="EDOMEX"
   slug="estado-de-mexico"
-  description={`${totalEstaciones} estaciones en el estado más poblado de México — 17.4M habitantes, Ecatepec (1.6M), Nevado de Toluca (4,680 msnm) y el lecho del Lago de Chalco. Emergencias: 911.`}
+  description={`${totalEstaciones} estaciones en el estado más poblado de México — 17.4M habitantes, Ecatepec (1.6M), rescate alta montaña Nevado de Toluca (4,680 msnm), HAZMAT 90+ parques industriales y Valle de Chalco inundaciones. Emergencias: 911.`}
   keywords={[
     "bomberos Estado de México",
     "bomberos Ecatepec municipio más poblado México",
@@ -107,65 +230,65 @@ const stationImages = [
     "bomberos inundaciones Valle de Chalco",
     "bomberos Metepec corredor industrial",
     "bomberos Huixquilucan Interlomas",
-    "bomberos AICM Felipe Ángeles Aeropuerto Toluca",
     "bomberos Popocatépetl volcán activo",
     "bomberos Cuautitlán Izcalli parques industriales",
     "bomberos Atizapán incendios forestales",
-    "bomberos emergencias ZMVM 17 millones habitantes"
+    "bomberos emergencias ZMVM 17 millones habitantes",
+    "directorio bomberos Estado de México teléfonos",
   ]}
-  canonical="https://bombero.mx/directorio/estado-de-mexico/"
+  canonical={canonical}
   jsonLd={jsonLd}
 
   totalEstaciones={totalEstaciones}
   totalMunicipios={totalMunicipios}
   habitantes="17.4M"
 
-  heroDesc={`<strong>Estado de México</strong>, el <strong>estado más poblado de México</strong> con <strong>17.4 millones de habitantes</strong> (13.5% de la población nacional) y hogar de <strong>Ecatepec</strong> — el <strong>municipio más poblado del país</strong> con <strong>1.6+ millones de habitantes</strong> — integra la <strong>Zona Metropolitana del Valle de México (ZMVM)</strong>, el <strong>área urbana más grande de América</strong> con 22+ millones de habitantes. Con <strong>${totalEstaciones} estaciones</strong> y <strong>${totalBomberos} bomberos profesionales</strong> — especializados en rescate urbano de <strong>densidad crítica</strong> (740 hab/km² en zonas conurbadas), rescate de <strong>alta montaña en el Nevado de Toluca</strong> a <strong>4,680 msnm</strong> (volcán con 2 lagunas en cráter, operaciones a -15°C), emergencias <strong>HAZMAT en 90+ parques industriales</strong> del <strong>corredor Lerma-Toluca</strong> (farmacéutica, automotriz, alimentos), <strong>inundaciones masivas</strong> en Valle de Chalco y Chalco (lago desecado en temporada de lluvias con 200+ mm en 24h), y monitoreo del <strong>volcán Popocatépetl activo</strong> (a 70 km, cenizas y sismos volcánicos).`}
+  heroDesc={`<strong>Estado de México</strong>, el <strong>estado más poblado de México</strong> con <strong>17.4 millones de habitantes</strong> (13.5% de la población nacional) y hogar de <strong>Ecatepec</strong> — el <strong>municipio más poblado del país</strong> con <strong>1.6+ millones de habitantes</strong> — integra la <strong>Zona Metropolitana del Valle de México (ZMVM)</strong>, el <strong>área urbana más grande de América</strong> con 22+ millones de habitantes. Con <strong>${totalEstaciones} estaciones</strong> y <strong>${totalBomberos} bomberos profesionales</strong>, los cuerpos del estado cubren escenarios separados por 60 kilómetros pero distintos en magnitud: desde los <strong>4,680 metros del Nevado de Toluca</strong> (volcán con 2 lagunas en cráter, operaciones a -15°C), hasta los <strong>2,240 metros del antiguo lecho del Lago de Chalco</strong> (inundaciones masivas de 1-2 metros en 24h), el corredor industrial <strong>Lerma-Toluca con 90+ parques industriales</strong> HAZMAT y el volcán <strong>Popocatépetl activo</strong> a 70 km.`}
   heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
   heroImageAlt="Bomberos Estado de México — Ecatepec 1.6M habitantes rescate urbano Nevado Toluca 4680 msnm ZMVM área urbana más grande América"
   heroCaption="Bomberos Estado de México · EDOMEX · 20 Estaciones · Estado Más Poblado México · 17.4 Millones Habitantes"
   heroThumbs={[
-    { src: "/images/directorio/rescate-urbano-bomberos-01.avif", alt: "Rescate urbano densidad Ecatepec 1.6M habitantes Nezahualcóyotl 1.2M ZMVM conurbación México edificios multifamiliares emergencias masivas",     label: "Rescate Urbano ZMVM"     },
-    { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Rescate alta montaña Nevado Toluca 4,680 msnm volcán lagunas cráter Sierra Nevada Iztaccíhuatl Popocatépetl hipotermia altitud", label: "Nevado Toluca 4,680 msnm" },
-    { src: "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif", alt: "Bombero de Estado de México con goggle protector en servicio activo", label: "Protección Especializada" },
+    { src: "/images/directorio/rescate-urbano-bomberos-01.avif",                   alt: "Rescate urbano densidad Ecatepec 1.6M habitantes Nezahualcóyotl 1.2M ZMVM conurbación México edificios multifamiliares emergencias masivas",     label: "Rescate Urbano ZMVM"     },
+    { src: "/images/directorio/rescate-montana-bomberos-01.avif",                  alt: "Rescate alta montaña Nevado Toluca 4,680 msnm volcán lagunas cráter hipotermia altitud Zinacantepec",                                              label: "Nevado Toluca 4,680 msnm" },
+    { src: "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",alt: "Bombero del Estado de México con goggle protector en servicio activo",                                                                              label: "Protección Especializada" },
   ]}
 
   galleryImages={[
-    { src: "/images/directorio/rescate-espeleologico-cuevas-01.avif",        alt: "Popocatépetl volcán activo cenizas caída CENAPRED evacuaciones Alerta Amarilla Texcoco Chalco",      label: "Popocatépetl Volcán Activo"  },
-    { src: "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif", alt: "Bahía de camiones de bomberos de Estado de México vista frontal", label: "Flota Vehicular" },
-    { src: "/images/directorio/puesto-comando-incidente-01.avif",            alt: "C4 Estado México C5 geolocalización emergencias coordinación Toluca Naucalpan Tlalnepantla",        label: "C4 Control Emergencias"      },
-    { src: "/images/directorio/equipo-iluminacion-emergencias-01.avif",      alt: "ZMVM área urbana más grande América 22M habitantes Zona Metropolitana Valle México conurbación",    label: "ZMVM Megalópolis América"    },
+    { src: "/images/directorio/rescate-espeleologico-cuevas-01.avif",             alt: "Popocatépetl volcán activo cenizas caída CENAPRED evacuaciones Alerta Amarilla Texcoco Chalco Ixtapaluca",   label: "Popocatépetl Volcán Activo"  },
+    { src: "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif", alt: "Bahía de camiones de bomberos del Estado de México vista frontal",                                              label: "Flota Vehicular EDOMEX"      },
+    { src: "/images/directorio/puesto-comando-incidente-01.avif",                 alt: "C4 Estado México geolocalización emergencias coordinación Toluca Naucalpan Tlalnepantla Ecatepec",             label: "C4 Control de Emergencias"   },
+    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",                  alt: "Lancha rescate acuático inundaciones Valle de Chalco lecho lago arcilla impermeable cables sumergidos CFE",   label: "Rescate Acuático Chalco"     },
   ]}
 
   emergencyNumbers={[
-    { number: "911",            label: "Emergencias Estado de México"          },
-    { number: "722 215 7790",   label: "Bomberos Toluca (Central Estatal)"     },
-    { number: "55 5787 4512",   label: "Bomberos Ecatepec"                     },
-    { number: "55 5374 8900",   label: "Bomberos Naucalpan"                    },
-    { number: "55 5390 4100",   label: "Bomberos Tlalnepantla"                 },
-    { number: "800 019 0000",   label: "Protección Civil Estado de México"     },
+    { number: "911",          label: "Emergencias Estado de México"      },
+    { number: "722 215 7790", label: "Bomberos Toluca (Central Estatal)" },
+    { number: "55 5787 4512", label: "Bomberos Ecatepec"                 },
+    { number: "55 5374 8900", label: "Bomberos Naucalpan"                },
+    { number: "55 5390 4100", label: "Bomberos Tlalnepantla"             },
+    { number: "800 019 0000", label: "Protección Civil Estado de México" },
   ]}
 
   municipios={municipios}
 
   regiones={[
-    { nombre: "Valle de Toluca (Capital Estatal)",        desc: "Toluca Central (1901, CENAPRED volcanes) · Metepec (plazas comerciales) · Lerma (90+ parques industriales HAZMAT) · Zinacantepec (rescate alta montaña Nevado 4,680 msnm) — 2.3M habitantes" },
-    { nombre: "ZMVM Norte (Conurbación CDMX)",            desc: "Ecatepec (1.6M municipio más poblado México) · Tlalnepantla (industrial) · Naucalpan (corporativos Satélite) · Cuautitlán Izcalli · Tultitlán · Coacalco · Tecámac — 4.5M habitantes" },
-    { nombre: "ZMVM Oriente (Zona Chalco Inundaciones)",  desc: "Nezahualcóyotl (1.2M, 19,000 hab/km²) · Chalco (inundaciones masivas) · Valle de Chalco (rescate acuático) · Ixtapaluca · Chimalhuacán · Texcoco (cenizas Popocatépetl) — 3.8M" },
-    { nombre: "ZMVM Poniente (Zona Residencial)",         desc: "Huixquilucan (Interlomas, Bosque Real) · Atizapán (incendios forestales Sierra Cruces) · Nicolás Romero (rescate barrancas) — 1.2M habitantes"                                     },
+    { nombre: "Valle de Toluca (Capital Estatal)",       desc: "Toluca (fund. 1939) · Metepec (plazas comerciales) · Lerma (90+ parques industriales HAZMAT) · Zinacantepec (rescate alta montaña Nevado 4,680 msnm) — 2.3M habitantes" },
+    { nombre: "ZMVM Norte (Conurbación CDMX)",           desc: "Ecatepec (1.6M municipio más poblado México) · Tlalnepantla (industrial) · Naucalpan (fund. 1964, corporativos Satélite) · Cuautitlán Izcalli · Tultitlán · Coacalco · Tecámac — 4.5M habitantes" },
+    { nombre: "ZMVM Oriente (Zona Chalco Inundaciones)", desc: "Nezahualcóyotl (1.2M, 19,000 hab/km²) · Chalco (inundaciones masivas) · Valle de Chalco (rescate acuático) · Ixtapaluca · Chimalhuacán · Texcoco (cenizas Popocatépetl) — 3.8M" },
+    { nombre: "ZMVM Poniente (Zona Residencial-Bosque)", desc: "Huixquilucan (Interlomas, Bosque Real) · Atizapán (incendios forestales Sierra Cruces) · Nicolás Romero (rescate barrancas) — 1.2M habitantes" },
   ]}
 
   estadosVecinos={estadosVecinos}
 
   estaciones={estacionesEdoMex.map((e) => ({
     nombreCorto: e.nombreCorto,
-    slug: e.slug,
-    direccion: e.direccion,
-    colonia: e.colonia,
-    ciudad: e.ciudad,
-    telefono: e.telefono,
-    servicios: e.servicios,
-    horario: e.horario,
+    slug:        e.slug,
+    direccion:   e.direccion,
+    colonia:     e.colonia,
+    ciudad:      e.ciudad,
+    telefono:    e.telefono,
+    servicios:   e.servicios,
+    horario:     e.horario,
   }))}
 
   stationImages={stationImages}
@@ -180,7 +303,7 @@ const stationImages = [
       imageAlt:  "Equipo Rescate Técnico Urbano NFPA 1006 bomberos Ecatepec 1.6M habitantes edificios colapsados sismos búsqueda extracción",
       badge:     "NFPA 1006",
       title:     "Rescate Técnico Urbano — Ecatepec 1.6M Habitantes",
-      text:      "El <strong>Estado de México</strong> es el <strong>estado más poblado de México</strong> con <strong>17.4 millones de habitantes</strong> (INEGI 2023), representando el <strong>13.5% de la población nacional</strong>. Integra la <strong>Zona Metropolitana del Valle de México (ZMVM)</strong> — el <strong>área urbana más grande de América</strong> con 22+ millones de habitantes distribuidos en 76 municipios conurbados. <strong>Ecatepec de Morelos</strong> es el <strong>municipio más poblado del país</strong> con <strong>1.6+ millones de habitantes</strong> en solo 160 km² (<strong>10,000 hab/km²</strong> — densidad similar a Manhattan), seguido por <strong>Nezahualcóyotl</strong> con 1.2 millones en 63 km² (19,000 hab/km²). Esta densidad extrema genera emergencias masivas: <strong>edificios multifamiliares de 5-8 pisos sin elevador</strong> con 200-400 familias por inmueble; <strong>unidades habitacionales</strong> con 10,000-50,000 habitantes (Los Héroes Tecámac, Geovillas Ixtapaluca); <strong>mercados informales</strong> con estructuras improvisadas y cableado eléctrico clandestino; <strong>asentamientos irregulares</strong> en laderas de barrancas con riesgo de colapso; y <strong>tráfico vehicular extremo</strong> que dificulta tiempos de respuesta (hasta 25 minutos en hora pico). Los bomberos de Ecatepec, Nezahualcóyotl, Naucalpan, Tlalnepantla y Chimalhuacán están certificados en <strong>NFPA 1006 rescate técnico urbano</strong> para estructuras colapsadas, búsqueda y extracción en espacios confinados, y evacuaciones masivas en edificios sin salidas de emergencia. El equipo incluye <strong>cámaras térmicas FLIR</strong> para localización de víctimas, <strong>gatos hidráulicos de 20 toneladas</strong> para levantamiento de vigas de concreto, y <strong>detectores de movimiento sísmico</strong> para operaciones posteriores a sismos (falla tectónica Acambay activa).",
+      text:      "El <strong>Estado de México</strong> es el <strong>estado más poblado de México</strong> con <strong>17.4 millones de habitantes</strong>, representando el <strong>13.5% de la población nacional</strong>. Integra la <strong>Zona Metropolitana del Valle de México (ZMVM)</strong> — el <strong>área urbana más grande de América</strong> con 22+ millones de habitantes en 76 municipios conurbados. <strong>Ecatepec de Morelos</strong> es el <strong>municipio más poblado del país</strong> con <strong>1.6+ millones de habitantes</strong> en 160 km² (<strong>10,000 hab/km²</strong>), seguido por <strong>Nezahualcóyotl</strong> con 1.2 millones en 63 km² (19,000 hab/km²). Esta densidad genera emergencias de geometría difícil: calles de 4 metros con doble fila de estacionamiento donde una autobomba de 8 metros no puede maniobrar, edificios multifamiliares de 5 a 8 pisos sin escaleras de emergencia con hasta 400 familias, y tiempos de respuesta de 25 a 40 minutos en hora pico en el oriente metropolitano. Los bomberos de Ecatepec, Nezahualcóyotl y Chimalhuacán están certificados en <strong>NFPA 1006 rescate técnico urbano</strong> con cámaras térmicas FLIR y gatos hidráulicos de 20 toneladas.",
       href:      "/productos/guantes-para-bomberos/rescate/",
       linkLabel: "Ver Equipos de Rescate",
     },
@@ -189,7 +312,7 @@ const stationImages = [
       imageAlt:  "Equipo Rescate Alta Montaña NFPA 1006 bomberos Zinacantepec Nevado Toluca 4,680 msnm volcán lagunas cráter altitud hipotermia",
       badge:     "NFPA 1006",
       title:     "Rescate Alta Montaña — Nevado de Toluca 4,680 msnm",
-      text:      "El <strong>Nevado de Toluca</strong> (Xinantécatl en náhuatl) es un <strong>volcán extinto a 4,680 msnm</strong> ubicado a 23 km al suroeste de Toluca — la <strong>capital de mayor altitud de México</strong> a 2,600 msnm. Único volcán del país con <strong>2 lagunas en su cráter</strong> (Laguna del Sol y Laguna de la Luna), recibe más de <strong>500,000 visitantes al año</strong> que ascienden hasta el borde del cráter a 4,200 msnm por carretera no pavimentada de 12 km (prohibida en temporada de lluvias mayo-octubre por deslaves). Los riesgos de rescate incluyen: <strong>mal de altura agudo</strong> (AMS) en visitantes no aclimatados con síntomas desde 3,500 msnm (náuseas, cefalea, edema pulmonar); <strong>hipotermia severa</strong> con temperaturas nocturnas de <strong>-15°C</strong> en invierno y sensación térmica de -25°C con viento de 60 km/h; <strong>nevadas sorpresivas</strong> de noviembre a marzo con acumulaciones de 30-50 cm que atrapan vehículos; <strong>niebla densa</strong> que reduce visibilidad a <5 metros y desorienta excursionistas; <strong>pendientes de 35-45°</strong> con ceniza volcánica suelta que actúa como lubricante; y <strong>caída de rayos</strong> en temporada de lluvias (el volcán es el punto más alto a 100 km a la redonda). Los <strong>Bomberos de Zinacantepec</strong> mantienen la única <strong>brigada de rescate de alta montaña</strong> del Estado de México, con <strong>certificación NFPA 1006 en terreno vertical</strong> y operaciones en altitud >4,000 msnm. El equipo incluye <strong>oxígeno suplementario portátil</strong> para casos de AMS, <strong>camillas tipo canasta Stokes</strong> para evacuación en pendientes, <strong>GPS satelital Garmin inReach</strong> (sin cobertura celular en cráter), <strong>ropa térmica de 4 capas</strong> con aislamiento sintético PrimaLoft, y <strong>vehículos 4x4 Toyota Land Cruiser</strong> preparados para nieve y ceniza.",
+      text:      "El <strong>Nevado de Toluca</strong> (Xinantécatl) es un <strong>volcán a 4,680 msnm</strong> con <strong>2 lagunas en su cráter</strong>, ubicado a 23 km de Toluca. Recibe más de <strong>500,000 visitantes anuales</strong> que suben al borde del cráter a 4,200 msnm —la mayoría sin aclimatación previa desde la CDMX a 2,240 msnm. Los riesgos incluyen: mal de altura agudo (AMS) en el 25% de adultos sanos desde los 3,500 msnm; hipotermia severa con temperaturas de <strong>-15°C</strong> y sensación térmica de -25°C; nevadas sorpresivas noviembre-marzo con 30-50 cm de acumulación; niebla que reduce visibilidad a menos de 5 metros; y pendientes de 35-45° con ceniza volcánica suelta. Los <strong>Bomberos de Zinacantepec</strong> mantienen la brigada de alta montaña del estado: rescate certificado <strong>NFPA 1006 en terreno vertical</strong> y altitud >4,000 msnm, con comunicación satelital (sin cobertura celular en el cráter), oxígeno suplementario portátil y vehículos 4x4 para nieve y ceniza.",
       href:      "/productos/guantes-para-bomberos/rescate/",
       linkLabel: "Ver Equipos de Rescate en Montaña",
     },
@@ -198,7 +321,7 @@ const stationImages = [
       imageAlt:  "Traje HAZMAT Nivel B NFPA 1991 bomberos Lerma Naucalpan Tlalnepantla 90 parques industriales corredor Lerma-Toluca farmacéutica",
       badge:     "NFPA 1991",
       title:     "Trajes HAZMAT — 90+ Parques Industriales Corredor Lerma-Toluca",
-      text:      "El <strong>corredor industrial Lerma-Toluca</strong> concentra <strong>90+ parques industriales</strong> en un radio de 40 km, siendo la <strong>segunda zona industrial más importante de México</strong> después del Bajío (Guanajuato-Querétaro). La industria farmacéutica representa el <strong>60% de la producción farmacéutica nacional</strong> con plantas de <strong>Sanofi</strong>, <strong>Roche</strong>, <strong>Pfizer</strong>, <strong>AstraZeneca</strong>, <strong>Novartis</strong> y <strong>Bristol-Myers Squibb</strong> que manejan <strong>solventes orgánicos</strong> (metanol, acetona, tolueno), <strong>ácidos concentrados</strong> (sulfúrico, clorhídrico) y <strong>bases fuertes</strong> (hidróxido de sodio). La industria automotriz incluye plantas de <strong>Chrysler-Toluca</strong> (ensamble RAM), <strong>BMW-San Luis Potosí</strong> (proveedores en Toluca), <strong>Mercedes-Benz</strong> y <strong>Nissan</strong> con uso de <strong>pinturas industriales</strong> (xileno, MEK), <strong>ácidos para galvanizado</strong> y <strong>gases comprimidos</strong> (argón, nitrógeno, acetileno). La industria alimentaria opera con <strong>amoniaco anhidro NH₃</strong> en refrigeración (Bimbo, Nestlé, Coca-Cola FEMSA), <strong>cloro gaseoso</strong> para potabilización y <strong>dióxido de carbono CO₂</strong> para carbonatación. Los <strong>Bomberos de Lerma, Naucalpan y Tlalnepantla</strong> mantienen <strong>brigadas HAZMAT certificadas en Nivel Técnico</strong> con capacidad de contención de derrames de hasta <strong>5,000 litros</strong> y fugas de gases tóxicos. El equipo incluye <strong>trajes NFPA 1991 Nivel B</strong> con protección química (Nivel A reservado para cloro y amoniaco), <strong>detectores multigas portátiles BW Technologies GasAlertMax XT II</strong> (O₂, LEL, H₂S, CO), <strong>medidores de pH y corrosividad</strong>, <strong>diques de contención flexibles</strong> de 2,000 litros, <strong>absorbentes químicos específicos</strong> (para ácidos, bases, solventes), y <strong>protocolos de coordinación</strong> con empresas químicas bajo el programa APELL de UNEP.",
+      text:      "El <strong>corredor industrial Lerma-Toluca</strong> concentra <strong>90+ parques industriales</strong> en un radio de 40 km, con plantas farmacéuticas de Sanofi, Roche, Pfizer, AstraZeneca, Novartis y Bristol-Myers Squibb que representan el <strong>60% de la producción farmacéutica nacional</strong>. La complejidad operacional: en un mismo parque coexisten solventes orgánicos inflamables (tolueno, xileno), ácidos concentrados (sulfúrico, clorhídrico), bases fuertes (hidróxido de sodio), gases criogénicos (nitrógeno líquido a -196°C) y —en plantas farmacéuticas— compuestos intermedios de síntesis bajo confidencialidad comercial que no aparecen en ninguna base de datos pública. Cuando la brigada HAZMAT llega y el manifiesto dice «compuesto orgánico nitrogenado confidencial», la única fuente de información es el director de seguridad de la planta. Por eso los bomberos de Lerma, Naucalpan y Tlalnepantla mantienen líneas directas con los responsables de seguridad de cada instalación del corredor, actualizadas anualmente. Los <strong>trajes NFPA 1991 Nivel B</strong> y detectores multigas portátiles son el equipo base de estas brigadas.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes HAZMAT",
     },
@@ -207,117 +330,301 @@ const stationImages = [
       imageAlt:  "Lanchas Rescate Acuático bomberos Valle de Chalco Chalco inundaciones masivas lago desecado 200+ mm lluvia 24h evacuaciones",
       badge:     "ISO 20380",
       title:     "Rescate Acuático — Inundaciones Masivas Valle de Chalco",
-      text:      "El <strong>Valle de Chalco Solidaridad</strong> y <strong>Chalco</strong> ocupan el lecho del antiguo <strong>Lago de Chalco</strong> — desecado en 1895-1904 para agricultura y urbanizado masivamente desde 1979. Con <strong>400,000+ habitantes</strong> viviendo en <strong>terreno arcilloso impermeable</strong> a 2,240 msnm (el punto más bajo de la Cuenca de México), la zona experimenta <strong>inundaciones masivas recurrentes</strong> en temporada de lluvias (junio-septiembre) cuando precipitaciones de <strong>200+ mm en 24 horas</strong> (tormenta septiembre 2021) saturan el suelo impermeable y colapsan el drenaje pluvial obsoleto. El agua acumulada alcanza <strong>1-2 metros de profundidad</strong> en colonias como Xico, Providencia, San Isidro y Avándaro, inundando <strong>10,000-30,000 viviendas</strong> de un solo piso construidas a nivel de calle sin cimientos elevados. Los riesgos adicionales incluyen: <strong>contaminación fecal</strong> por mezcla de aguas pluviales con drenaje sanitario colapsado; <strong>corrientes subterráneas</strong> que arrastran personas y vehículos hacia pozos de absorción; <strong>descargas eléctricas</strong> por cables de CFE sumergidos; <strong>colapso de viviendas</strong> de tabique sin refuerzo estructural saturadas de agua; y <strong>enfermedades gastrointestinales</strong> (cólera, hepatitis A, leptospirosis) posteriores a evacuación. Los <strong>Bomberos de Valle de Chalco y Chalco</strong> mantienen <strong>4 unidades de rescate acuático</strong> con <strong>lanchas inflables tipo Zodiac</strong> de 4.2 metros con motor fuera de borda de 25 HP (ISO 20380), <strong>bombas de achique de alta capacidad</strong> de 500 litros/minuto, <strong>trajes de inmersión en agua contaminada</strong> con protección biológica, <strong>kits de purificación de agua</strong> para albergues temporales, y <strong>coordinación con Protección Civil Estatal</strong> para evacuaciones masivas (Plan DN-III-E).",
+      text:      "El <strong>Valle de Chalco Solidaridad</strong> y <strong>Chalco</strong> ocupan el lecho del antiguo <strong>Lago de Chalco</strong> — desecado en 1895-1904 y urbanizado masivamente desde 1979. Con <strong>400,000+ habitantes</strong> en terreno arcilloso impermeable al <strong>punto más bajo de la Cuenca de México</strong>, tormentas de <strong>200+ mm en 24 horas</strong> (registradas en septiembre de 2021) generan entre 1 y 2 metros de agua estancada que persiste días después de que para la lluvia. Lo que distingue esta emergencia es el subsuelo eléctrico: decenas de miles de viviendas de autoconstrucción tienen conexiones de CFE sin protección impermeable; cuando el agua supera los 50 cm, cables activos de baja tensión quedan sumergidos y la zona inundada se electrifica. Los bomberos ingresan exclusivamente con <strong>lanchas inflables de material dieléctrico</strong> (ISO 20380) y trajes de inmersión con aislamiento eléctrico. La contaminación fecal — el drenaje pluvial y sanitario colapsan juntos — añade riesgo biológico documentado: leptospirosis, hepatitis A y cólera son diagnósticos recurrentes semanas después de cada inundación mayor.",
       href:      "/productos/guantes-para-bomberos/rescate/",
       linkLabel: "Ver Equipos de Rescate Acuático",
     },
   ]}
+
+  faqsEstado={faqsEstado}
 >
   <Fragment slot="seo">
 
-    <h2>Bomberos del Estado de México — Cuando la Densidad, la Altitud y la Geología Crean Riesgos sin Equivalente</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos del Estado de México</strong> opera en una paradoja
-      estructural que ningún otro cuerpo del país enfrenta: rodea a la Ciudad de México en tres
-      costados, comparte megalópolis con la corporación más antigua del país, pero atiende jurisdicción
-      propia con financiamiento disperso en 125 ayuntamientos. Con {totalEstaciones} estaciones en
-      {totalMunicipios} municipios y {totalBomberos} bomberos profesionales, la corporación cubre
-      escenarios de riesgo separados por 60 kilómetros de distancia pero por varios órdenes de
-      magnitud en naturaleza: desde los 4,680 metros del Nevado de Toluca, donde la fisiología
-      humana se comporta diferente, hasta los 2,240 metros del antiguo lecho del Lago de Chalco,
-      donde el suelo mismo convierte la lluvia en una emergencia de propiedades únicas.
+    <h2>Bomberos en el Estado de México</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores de los cuerpos de bomberos del Estado de México">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Bomberos profesionales</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">17.4M</span><span class="de-stat__label">Habitantes (estado más poblado)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">4,680</span><span class="de-stat__label">msnm rescate Nevado Toluca</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1939</span><span class="de-stat__label">Fundación bomberos Toluca</span></div>
+    </div>
+
+    <p class="de-lead">
+      Los cuerpos de bomberos del <strong>Estado de México</strong> operan una paradoja estructural que
+      no existe en ningún otro estado del país: rodean a la Ciudad de México en tres costados,
+      comparten megalópolis con la corporación más antigua de México, pero atienden jurisdicción
+      propia con financiamiento disperso en 125 ayuntamientos. Con {totalEstaciones} estaciones en{" "}
+      {totalMunicipios} municipios y {totalBomberos} bomberos, cubren escenarios de riesgo separados
+      por 60 kilómetros pero por varios órdenes de magnitud en naturaleza: desde los 4,680 metros
+      del Nevado de Toluca hasta los 2,240 metros del antiguo lecho del Lago de Chalco, donde el
+      suelo mismo convierte la lluvia en una emergencia sin equivalente.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Estado de México?</h3>
+    <h3>Cómo contactar a los bomberos en el Estado de México</h3>
     <p>
       En cualquier emergencia, el <strong>911</strong> conecta con el C4 estatal las 24 horas.
-      Los teléfonos directos de las estaciones principales son: Toluca capital (722) 215-7790,
-      Ecatepec (55) 5787-4512, Naucalpan (55) 5374-8900, Tlalnepantla (55) 5390-4100 y
-      Protección Civil Estatal 800 019-0000. Para emergencias en el Nevado de Toluca, la estación
-      de Zinacantepec coordina directamente con el CENAPRED y mantiene brigada de alta montaña
-      disponible con equipamiento para operaciones por encima de los 4,000 metros sobre el nivel
-      del mar.
+      Los teléfonos directos de las estaciones principales son: <strong>Toluca Central</strong>{" "}
+      (722) 215-7790, <strong>Ecatepec</strong> (55) 5787-4512, <strong>Naucalpan</strong>{" "}
+      (55) 5374-8900, <strong>Tlalnepantla</strong> (55) 5390-4100 y{" "}
+      <strong>Protección Civil Estatal</strong> 800 019-0000. Para emergencias en el Nevado de
+      Toluca, la estación de Zinacantepec coordina directamente con el CENAPRED y mantiene brigada
+      de alta montaña disponible con equipamiento para operaciones por encima de los 4,000 msnm.
+      Encuentra todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a>{" "}
+      de esta página.
     </p>
 
-    <h3>19,000 habitantes por kilómetro cuadrado: el umbral donde la densidad deja de ser un número y se convierte en un problema diferente</h3>
+    <h3>Historia de los cuerpos de bomberos del Estado de México</h3>
     <p>
-      Nezahualcóyotl concentra 1.2 millones de personas en 63 km² —19,000 habitantes por kilómetro
-      cuadrado, densidad comparable a Manhattan— y Ecatepec suma 1.6 millones en 160 km². Estos
-      números tienen un umbral operacional que no aparece en ningún manual de bomberos: a partir de
-      cierta densidad, el problema deja de ser cuántos recursos se necesitan y pasa a ser si los
-      vehículos de emergencia pueden físicamente llegar al edificio. En colonias construidas sin
-      alineamientos viales, con calles de 4 metros de ancho y vehículos estacionados en doble fila,
-      una autobomba de 8 metros no puede maniobrar. Los bomberos llegan con equipo portátil y
-      atacan el incendio desde la vía pública. En edificios multifamiliares de cinco a ocho pisos
-      de construcción informal —sin planos registrados, sin escaleras de emergencia, con hasta 400
-      familias— la evacuación depende completamente de la geometría del inmueble que los bomberos
-      encuentran al llegar, no de ningún plano previo. El tiempo de respuesta en hora pico en las
-      zonas más densas del oriente metropolitano alcanza los 25 a 40 minutos, frente al objetivo
-      de 8 minutos de la NFPA. No por falta de estaciones: por tráfico que ningún carril de
-      emergencia puede resolver cuando la densidad de vehículos supera la capacidad vial estructural.
+      La historia del combate de incendios en el Estado de México no tiene un origen único: cada
+      municipio construyó su corporación en momentos y circunstancias distintas, a menudo a partir
+      de emergencias que revelaron la ausencia de un cuerpo organizado.
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México. La fecha se conmemora cada año como el <strong>Día del Bombero</strong>.</li>
+      <li><span class="de-tl__year">1935</span> Un incendio en el <strong>Mercado Riva Palacio de Toluca</strong> evidencia la ausencia de un cuerpo profesional en la capital del estado.</li>
+      <li><span class="de-tl__year">1939</span> El <strong>7 de septiembre</strong> se funda formalmente el <strong>Heroico Cuerpo de Bomberos de Toluca</strong>, bajo la gestión del gobernador Wenceslao Labra y el presidente municipal Antonio Mancilla Bauza. El equipo inicial es donado por la Cervecería Toluca y el gobierno del Distrito Federal.</li>
+      <li><span class="de-tl__year">1960</span> Taxistas del sitio El Prieto en Naucalpan organizan de manera informal el primer grupo de respuesta a incendios en ese municipio, usando herramientas adaptadas y respondiendo sin equipamiento oficial.</li>
+      <li><span class="de-tl__year">1964</span> Se constituye formalmente el <strong>Heroico Cuerpo de Bomberos de Naucalpan de Juárez</strong>. En sus primeros años cubre también emergencias en Atizapán, Huixquilucan, Tlalnepantla y partes de Ecatepec y Nezahualcóyotl, donde aún no hay cuerpos organizados.</li>
+      <li><span class="de-tl__year">Décadas 1970–2000</span> Los municipios conurbados a la Ciudad de México —Ecatepec, Nezahualcóyotl, Tlalnepantla, Chalco, Valle de Chalco— consolidan sus propios cuerpos conforme la urbanización masiva eleva la demanda de servicios de emergencia.</li>
+      <li><span class="de-tl__year">Hoy</span> Los {totalEstaciones} cuerpos de este directorio cubren cuatro grandes regiones con perfiles de riesgo distintos: Valle de Toluca, ZMVM Norte, ZMVM Oriente y ZMVM Poniente.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cobertura por región</h3>
+    <p>
+      La cobertura se organiza en cuatro zonas con perfiles de riesgo distintos. El Valle de Toluca
+      concentra el mando estatal y el corredor industrial; la ZMVM Norte agrupa los municipios de
+      mayor densidad y proximidad a la CDMX; la ZMVM Oriente enfrenta inundaciones y cenizas del
+      Popocatépetl; la ZMVM Poniente combina bosque con zonas residenciales de acceso difícil. Esta
+      es la distribución de la cobertura por región:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios principales</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonasDef.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.perfil}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los cuerpos de bomberos</h3>
+    <p>
+      Los cuerpos de bomberos del Estado de México son servicios de emergencia integrales que van
+      mucho más allá del combate de incendios. Estas son sus funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, industriales, forestales y de pasto. El corredor Lerma-Toluca y la Sierra de las Cruces son los frentes de mayor complejidad.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en choques y volcaduras con herramienta hidráulica, especialmente en autopistas México-Pachuca, México-Toluca y Circuito Exterior Mexiquense.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Contención de derrames y fugas en los 90+ parques industriales del corredor Lerma-Toluca y zonas industriales de Tlalnepantla y Cuautitlán Izcalli.</p></div>
+      <div class="de-card"><h4>Rescate de alta montaña</h4><p>Operaciones en el Nevado de Toluca (4,680 msnm): mal de altura, hipotermia, personas extraviadas y accidentadas en cráter y laderas.</p></div>
+      <div class="de-card"><h4>Rescate acuático</h4><p>Inundaciones en Valle de Chalco y Chalco (lecho del lago desecado), con lanchas dieléctricas ante cables de CFE sumergidos y trajes de inmersión biológica.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones, simulacros, capacitación y coordinación con Protección Civil Estatal en contingencias volcánicas (Popocatépetl) y eventos masivos.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Zona / estaciones principales</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios industriales y HAZMAT</strong></td><td>24/7</td><td>Lerma, Naucalpan, Tlalnepantla, Cuautitlán Izcalli, Tultitlán</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Atizapán, Nicolás Romero, Zinacantepec, Texcoco, Ixtapaluca</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate de alta montaña</strong></td><td>24/7</td><td>Zinacantepec (Nevado de Toluca), Texcoco (Sierra Nevada)</td></tr>
+          <tr><td><strong>Rescate acuático / inundaciones</strong></td><td>Temporada de lluvias</td><td>Valle de Chalco, Chalco, Nezahualcóyotl, Chimalhuacán</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Retiro de enjambres y fauna</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Contingencias volcánicas (Popo)</strong></td><td>Según alerta CENAPRED</td><td>Texcoco, Chalco, Ixtapaluca, Valle de Chalco</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Frentes de riesgo específicos del Estado de México</h3>
+
+    <p>
+      El <strong>Estado de México</strong> opera en una paradoja estructural que ningún otro cuerpo del
+      país enfrenta: rodea a la Ciudad de México en tres costados, comparte megalópolis con la
+      corporación más antigua del país, pero atiende jurisdicción propia con financiamiento disperso
+      en 125 ayuntamientos. Los cinco frentes que definen el perfil de riesgo del estado no tienen
+      equivalente combinado en ninguna otra entidad de México.
     </p>
 
-    <h3>El Nevado de Toluca a 4,680 msnm: el punto donde la medicina de urgencias cambia de reglas</h3>
     <p>
-      El Nevado de Toluca, volcán extinto con dos lagunas en su cráter, recibe más de 500,000
-      visitantes al año que suben hasta el borde del cráter a 4,200 msnm por carretera. La mayoría
-      son visitantes del día desde Ciudad de México —a 2,240 metros de altitud— que llegan al nivel
-      del cráter sin aclimatación previa. A partir de los 3,500 msnm, el 25% de adultos sanos
-      desarrollan síntomas de mal de altura agudo (AMS): náusea, cefalea pulsátil, desorientación.
-      El problema que los bomberos de Zinacantepec enfrentan es que el tratamiento estándar de
-      urgencias —administrar oxígeno suplementario— requiere ajuste: un cilindro calibrado para
-      flujo a nivel del mar entrega menos moléculas de oxígeno por litro a 4,200 msnm, porque la
-      presión parcial de O₂ es un 40% menor. Los protocolos de reanimación cardiopulmonar también
-      cambian: la resistencia vascular pulmonar aumenta con la altitud, modificando las presiones
-      de ventilación asistida. En invierno, las temperaturas en el cráter bajan a -15°C con vientos
-      de 60 km/h y sensación térmica de -25°C; la hipotermia de grado 3 puede desarrollarse en
-      menos de 20 minutos en ropa casual. La brigada de alta montaña de Zinacantepec es la única
-      en el Estado de México entrenada en este escenario específico: rescate en altitud con
-      pacientes en AMS severo o hipotermia, en terreno sin cobertura celular y a dos horas de
-      carretera del hospital de nivel III más cercano.
+      <strong>Densidad extrema en la ZMVM.</strong> Nezahualcóyotl concentra 1.2 millones de personas en
+      63 km² —19,000 habitantes por kilómetro cuadrado, densidad comparable a Manhattan— y Ecatepec
+      suma 1.6 millones en 160 km². Estos números tienen un umbral operacional que no aparece en
+      ningún manual de bomberos: a partir de cierta densidad, el problema deja de ser cuántos
+      recursos se necesitan y pasa a ser si los vehículos de emergencia pueden físicamente llegar
+      al edificio. En colonias construidas sin alineamientos viales, con calles de 4 metros de ancho
+      y vehículos estacionados en doble fila, una autobomba de 8 metros no puede maniobrar. Los
+      bomberos llegan con equipo portátil y atacan el incendio desde la vía pública. En edificios
+      multifamiliares de cinco a ocho pisos de construcción informal —sin planos registrados, sin
+      escaleras de emergencia, con hasta 400 familias— la evacuación depende completamente de la
+      geometría del inmueble que los bomberos encuentran al llegar, no de ningún plano previo. El
+      tiempo de respuesta en hora pico en las zonas más densas del oriente metropolitano alcanza los
+      25 a 40 minutos, frente al objetivo de 8 minutos de la NFPA: no por falta de estaciones, sino
+      por tráfico que ningún carril de emergencia puede resolver cuando la densidad de vehículos
+      supera la capacidad vial estructural.
     </p>
 
-    <h3>El lecho del Lago de Chalco: arcilla impermeable, cables vivos y por qué el agua no drena aunque pare de llover</h3>
     <p>
-      El Valle de Chalco y Chalco fueron urbanizados sobre el lecho del antiguo Lago de Chalco,
-      desecado entre 1895 y 1904. El suelo que quedó —arcilla lacustre compactada— tiene una
-      permeabilidad cercana a cero: el agua no se absorbe, se acumula sobre la superficie hasta
-      que el sistema de drenaje la evacúa. Con 400,000 habitantes en terreno construido al nivel
-      más bajo de la Cuenca de México, una tormenta de 200 milímetros en 24 horas —registrada en
-      septiembre de 2021— supera la capacidad de bombeo del sistema de drenaje y genera entre 1
-      y 2 metros de agua estancada que permanece días después de que pare la lluvia. Lo que
-      convierte esta inundación en una emergencia distinta a cualquier otra es el subsuelo
-      eléctrico: decenas de miles de viviendas de autoconstrucción tienen conexiones de CFE
-      enterradas a profundidades irregulares, sin protección impermeable. Cuando el nivel del
-      agua supera los 50 centímetros, cables de baja tensión activos quedan sumergidos y la zona
-      inundada se convierte en agua electrificada. Los bomberos no pueden entrar con ningún
-      vehículo metálico ni con equipo conductivo; la respuesta es exclusivamente con lanchas
-      de material dieléctrico y trajes de inmersión biológica que aislan el contacto eléctrico.
-      La contaminación fecal —el drenaje sanitario colapsa junto con el pluvial— añade riesgo
-      biológico real: leptospirosis, hepatitis A y cólera son diagnósticos documentados en los
-      municipios de la zona semanas después de cada inundación mayor.
+      <strong>El Nevado de Toluca a 4,680 msnm.</strong> El volcán extinto con dos lagunas en su cráter
+      recibe más de 500,000 visitantes al año que suben hasta el borde del cráter a 4,200 msnm por
+      carretera. La mayoría son visitantes del día desde Ciudad de México —a 2,240 metros— que llegan
+      al nivel del cráter sin aclimatación previa. A partir de los 3,500 msnm, el 25% de adultos
+      sanos desarrollan síntomas de mal de altura agudo (AMS). El problema que los bomberos de
+      Zinacantepec enfrentan es que el tratamiento estándar de urgencias requiere ajuste: un cilindro
+      calibrado para flujo a nivel del mar entrega menos moléculas de oxígeno por litro a 4,200 msnm,
+      porque la presión parcial de O₂ es un 40% menor. En invierno, las temperaturas en el cráter
+      bajan a -15°C con vientos de 60 km/h y sensación térmica de -25°C; la hipotermia de grado 3
+      puede desarrollarse en menos de 20 minutos en ropa casual. La brigada de alta montaña de
+      Zinacantepec es la única del Estado de México entrenada en este escenario específico: rescate
+      en altitud con pacientes en AMS severo o hipotermia, en terreno sin cobertura celular y a dos
+      horas de carretera del hospital de nivel III más cercano.
     </p>
 
-    <h3>60% de la farmacéutica nacional en 40 km: el perfil HAZMAT más diverso del país y el problema del compuesto sin nombre público</h3>
     <p>
-      El corredor industrial Lerma-Toluca concentra más de 90 parques industriales en un radio de
-      40 kilómetros, con plantas de Sanofi, Roche, Pfizer, AstraZeneca, Novartis y Bristol-Myers
-      Squibb que producen el 60% del total farmacéutico nacional. La complejidad operacional para
-      los bomberos no es la cantidad de instalaciones —es la diversidad química en un solo
-      kilómetro cuadrado. En un mismo parque industrial pueden coexistir solventes orgánicos
-      inflamables más densos que el aire (tolueno, xileno), ácidos concentrados con pH menor a 1
-      (ácido sulfúrico, clorhídrico), bases fuertes corrosivas (hidróxido de sodio), gases
-      criogénicos (nitrógeno líquido a -196°C) y compuestos intermedios de síntesis que no
-      aparecen en ninguna base de datos pública de materiales peligrosos porque son activos
-      farmacéuticos en desarrollo bajo confidencialidad comercial. Cuando una brigada HAZMAT
-      responde a una fuga en una planta farmacéutica y el manifiesto dice "compuesto orgánico
-      nitrogenado confidencial", no existe ficha de seguridad pública, no existe base de datos
-      de emergencia consultable y no existe antídoto conocido: la única fuente de información es
-      el director de seguridad de la planta. Por eso los bomberos de Lerma, Naucalpan y Tlalnepantla
-      mantienen líneas directas con los responsables de seguridad de las plantas del corredor,
-      actualizadas anualmente, como parte del protocolo de primera respuesta. Es el único punto
-      del país donde esa coordinación previa no es una buena práctica —es el único procedimiento
-      que funciona.
+      <strong>El corredor industrial Lerma-Toluca y la química sin nombre público.</strong> El corredor
+      concentra más de 90 parques industriales en un radio de 40 kilómetros. La complejidad
+      operacional no es la cantidad de instalaciones: es la diversidad química en un solo kilómetro
+      cuadrado. En un mismo parque pueden coexistir solventes orgánicos inflamables más densos que
+      el aire (tolueno, xileno), ácidos concentrados con pH menor a 1 (sulfúrico, clorhídrico), bases
+      fuertes corrosivas (hidróxido de sodio), gases criogénicos (nitrógeno líquido a -196°C) y
+      compuestos intermedios de síntesis que no aparecen en ninguna base de datos pública de
+      materiales peligrosos porque son activos farmacéuticos en desarrollo bajo confidencialidad
+      comercial. Cuando una brigada HAZMAT responde a una fuga en una planta farmacéutica y el
+      manifiesto dice "compuesto orgánico nitrogenado confidencial", no existe ficha de seguridad
+      pública y no existe antídoto conocido: la única fuente de información es el director de
+      seguridad de la planta. Por eso los bomberos de Lerma, Naucalpan y Tlalnepantla mantienen
+      líneas directas con los responsables de seguridad de las plantas del corredor, actualizadas
+      anualmente: es el único procedimiento que funciona.
+    </p>
+
+    <p>
+      <strong>El lecho del Lago de Chalco y el agua electrificada.</strong> El Valle de Chalco y Chalco
+      fueron urbanizados sobre el lecho del antiguo Lago de Chalco, desecado entre 1895 y 1904. El
+      suelo que quedó —arcilla lacustre compactada— tiene una permeabilidad cercana a cero. Con
+      400,000 habitantes en terreno construido al nivel más bajo de la Cuenca de México, una tormenta
+      de 200 milímetros en 24 horas supera la capacidad de bombeo del sistema de drenaje y genera
+      entre 1 y 2 metros de agua estancada que permanece días después de que pare la lluvia. Lo que
+      convierte esta inundación en una emergencia distinta es el subsuelo eléctrico: decenas de miles
+      de viviendas de autoconstrucción tienen conexiones de CFE enterradas sin protección impermeable.
+      Cuando el nivel del agua supera los 50 centímetros, cables de baja tensión activos quedan
+      sumergidos y la zona inundada se convierte en agua electrificada. Los bomberos no pueden entrar
+      con ningún vehículo metálico; la respuesta es exclusivamente con lanchas de material dieléctrico
+      y trajes de inmersión que aíslan el contacto eléctrico. La contaminación fecal —el drenaje
+      sanitario colapsa junto con el pluvial— añade riesgo biológico real: leptospirosis, hepatitis A
+      y cólera son diagnósticos documentados semanas después de cada inundación mayor.
+    </p>
+
+    <p>
+      <strong>El Popocatépetl activo a 70 km.</strong> El volcán en actividad permanente se encuentra a
+      unos 70 kilómetros de los municipios orientales del estado. En episodios de actividad alta,
+      la caída de ceniza afecta Texcoco, Chalco, Ixtapaluca y zonas del Valle de Chalco. Las
+      estaciones de esa región coordinan con el CENAPRED los protocolos de evacuación preventiva,
+      distribución de cubrebocas N95 (la ceniza volcánica produce silicosis a largo plazo) y limpieza
+      de techos —cuya acumulación puede colapsar estructuras de menor resistencia. Los sismos
+      volcánicos asociados a la actividad del Popocatépetl son un riesgo adicional para las zonas
+      de construcción frágil en el oriente del estado.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de los datos de las estaciones de este directorio, así se distribuyen las
+      {totalEstaciones} estaciones y los {totalBomberos} bomberos entre las cuatro grandes zonas
+      del estado:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalMunicipios} municipios del Estado de México</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los cuerpos de bomberos del Estado de México</h3>
+    <p>
+      El primer reto es geográfico y demográfico: el estado rodea a la Ciudad de México, comparte
+      infraestructura metropolitana, pero sus 125 municipios financian sus propios cuerpos de manera
+      independiente. Esto genera desigualdades marcadas: Toluca, Ecatepec y Naucalpan tienen cuerpos
+      con décadas de historia y equipamiento consolidado; municipios de más reciente urbanización
+      —como Valle de Chalco, Tecámac o Ixtapaluca— construyeron sus corporaciones en paralelo con
+      el crecimiento explosivo, a menudo con presupuestos insuficientes para el volumen de emergencias
+      que atienden.
+    </p>
+    <p>
+      El segundo reto es el tiempo de respuesta en la ZMVM. En hora pico, el tráfico entre
+      municipios conurbados puede duplicar o triplicar los tiempos estándar. Las carreteras de cuota
+      —Circuito Exterior Mexiquense, Arco Norte, México-Toluca— facilitan el traslado interestatal,
+      pero no resuelven el acceso dentro de las colonias de alta densidad. La coordinación entre
+      corporaciones municipales y con el Heroico Cuerpo de Bomberos de la CDMX —que puede responder
+      en zonas limítrofes— es esencial y se gestiona a través del C4 estatal.
+    </p>
+    <p>
+      El tercer reto es la renovación del equipo de protección personal (EPP) conforme a las normas
+      NFPA vigentes. La especialización —alta montaña, HAZMAT, rescate acuático con riesgo eléctrico—
+      requiere equipo diferenciado que no siempre está disponible en los ciclos presupuestales
+      municipales anuales.
+    </p>
+
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad en el Estado de México</h3>
+    <p>
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones que los
+      cuerpos de bomberos del Estado de México repiten a la población:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas:</strong> revisa mangueras, reguladores y conexiones; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos y "diablitos"; atiende cualquier olor a quemado o calentamiento de cables, especialmente en zonas con conexiones antiguas.</li>
+        <li><strong>Detección:</strong> instala detectores de humo y ten un extintor vigente y accesible en cocina y zonas de riesgo.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión; practícalo con tu familia o vecinos.</li>
+        <li><strong>Temporada de lluvias (jun–sep):</strong> si vives en Valle de Chalco, Chalco o zonas bajas, identifica las rutas de evacuación antes de que el agua corte el paso; no cruces corrientes de agua a pie ni en vehículo.</li>
+        <li><strong>Incendios forestales (nov–may):</strong> en Atizapán, Nicolás Romero, Huixquilucan o zonas boscosas, no quemes basura ni encimas fogatas en temporada de estiaje.</li>
+        <li><strong>Visitas al Nevado de Toluca:</strong> sube con ropa térmica de capas, agua suficiente y anuncia tu ruta; no te expongas al cráter si hay viento o niebla; sube y baja antes del mediodía para evitar tormentas.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Heroico Cuerpo de Bomberos de Toluca (fundación 7 de septiembre de 1939, Gobierno
+      Municipal de Toluca); Milenio / SinEmbargo, «En 1960, taxistas formaron el primer cuerpo de
+      bomberos en Naucalpan» (fundación formal 1964, Heroico Cuerpo de Bomberos de Naucalpan de
+      Juárez); INEGI, Censo de Población y Vivienda 2020 (población Estado de México 17.4M, Ecatepec
+      1.6M, Nezahualcóyotl 1.2M, densidades municipales); Secretaría de Cultura / SIC, Museo del
+      Heroico Cuerpo de Bomberos de Toluca; CENAPRED (protocolos Popocatépetl y Nevado de Toluca);
+      Comisión Nacional del Agua / Protección Civil Estado de México (inundaciones Valle de Chalco,
+      septiembre 2021); Universidad Autónoma del Estado de México (corredor industrial Lerma-Toluca).
+      Las cifras de personal y estaciones por región corresponden a las estaciones publicadas en este
+      directorio. Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

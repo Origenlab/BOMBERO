@@ -4,28 +4,85 @@ import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesQuintanaRoo, getMunicipios } from "@data/estaciones-quintana-roo";
 import { getEstadosVecinos } from "@data/estados-vecinos";
 import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 // Configuración del estado
 const estado = "Quintana Roo";
 const sigla = "QROO";
 const slug = "quintana-roo";
 
-// Miniaturas hero - Caribe Mexicano
+const canonical = "https://bombero.mx/directorio/quintana-roo/";
+
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const municipios      = getMunicipios();
+const totalEstaciones = estacionesQuintanaRoo.length;
+const totalMunicipios = municipios.length;
+
+// ── Comparativa regional (zonas geográficas del estado) ────────────────────
+const zonas = [
+  {
+    nombre:      "Zona Norte — Cancún",
+    municipios:  ["Benito Juárez", "Isla Mujeres"],
+    nMunicipios: 2,
+    nEst:        5,
+    cobertura:   "Total",
+    chip:        "total",
+    perfil:      "Zona Hotelera (30 000+ habitaciones), Aeropuerto CUN SSEI Cat. 9, Puerto Juárez e Isla Mujeres.",
+  },
+  {
+    nombre:      "Riviera Maya Norte",
+    municipios:  ["Solidaridad", "Puerto Morelos"],
+    nMunicipios: 2,
+    nEst:        3,
+    cobertura:   "Alta",
+    chip:        "alta",
+    perfil:      "Playa del Carmen (5ta Avenida, terminal ferry Cozumel), Puerto Morelos y corredor de cenotes.",
+  },
+  {
+    nombre:      "Riviera Maya Sur — Tulum",
+    municipios:  ["Tulum"],
+    nMunicipios: 1,
+    nEst:        2,
+    cobertura:   "Alta",
+    chip:        "alta",
+    perfil:      "Zona Arqueológica de Tulum (2 M visitantes/año), Sistema Sac Actun y eco-resorts.",
+  },
+  {
+    nombre:      "Cozumel",
+    municipios:  ["Cozumel"],
+    nMunicipios: 1,
+    nEst:        2,
+    cobertura:   "Alta",
+    chip:        "alta",
+    perfil:      "Puerto de cruceros #1 de México (4.6 M pasajeros/año), Parque Nacional arrecifes, aeropuerto CZM.",
+  },
+  {
+    nombre:      "Costa Maya — Sur",
+    municipios:  ["Othón P. Blanco", "Felipe Carrillo Puerto", "Bacalar", "Lázaro Cárdenas", "José María Morelos"],
+    nMunicipios: 5,
+    nEst:        5,
+    cobertura:   "Media",
+    chip:        "media",
+    perfil:      "Chetumal (capital estatal, frontera Belice), Bacalar, Reserva Sian Ka'an (UNESCO) y zona selvática.",
+  },
+];
+
+// ── Miniaturas hero ────────────────────────────────────────────────────────
 const heroThumbs = [
   {
     src: "/images/directorio/estacion-bomberos-turistica-01.avif",
-    alt: "Zona Hotelera de Cancún - Quintana Roo",
+    alt: "Zona Hotelera de Cancún — Quintana Roo",
     label: "Cancún ZH"
   },
   { src: "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif", alt: "Central de despacho nocturna de bomberos de Quintana Roo", label: "Monitoreo 24/7" },
   {
     src: "/images/directorio/estacion-bomberos-puerto-01.avif",
-    alt: "Puerto de cruceros de Cozumel - Quintana Roo",
+    alt: "Puerto de cruceros de Cozumel — Quintana Roo",
     label: "Cozumel"
   }
 ];
 
-// Galería de imágenes
+// ── Galería de imágenes ────────────────────────────────────────────────────
 const galleryImages = [
   {
     src: "/images/directorio/traje-inmersion-rescate-01.avif",
@@ -34,18 +91,18 @@ const galleryImages = [
   },
   {
     src: "/images/directorio/camion-bomberos-aeropuerto-01.avif",
-    alt: "Aeropuerto Internacional de Cancún SSEI categoría 9",
+    alt: "Aeropuerto Internacional de Cancún SSEI categoría 9 OACI",
     label: "Aeropuerto CUN"
   },
   { src: "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif", alt: "Bahía moderna con lockers de equipo en estación de bomberos de Quintana Roo", label: "Área de Equipamiento" },
   {
     src: "/images/directorio/equipo-buceo-rescate-01.avif",
-    alt: "Rescate en cenotes de Quintana Roo buceo profesional",
+    alt: "Rescate en cenotes de Quintana Roo buceo profesional Sistema Sac Actun",
     label: "Cenotes"
   },
 ];
 
-// Números de emergencia QROO - Bilingüe
+// ── Números de emergencia QROO — Bilingüe ─────────────────────────────────
 const emergencyNumbers = [
   { number: "911", label: "Emergencias / Emergency" },
   { number: "(998) 884-1300", label: "Bomberos Cancún Central" },
@@ -53,27 +110,27 @@ const emergencyNumbers = [
   { number: "(987) 872-0800", label: "Bomberos Cozumel" }
 ];
 
-// Regiones de Quintana Roo
+// ── Regiones de Quintana Roo ───────────────────────────────────────────────
 const regiones = [
   {
-    nombre: "Zona Norte - Cancún",
-    desc: "Zona Hotelera (30,000+ habitaciones), Centro, Aeropuerto Internacional SSEI Cat. 9, Puerto Juárez"
+    nombre: "Zona Norte — Cancún",
+    desc: "Zona Hotelera (30 000+ habitaciones), Centro, Aeropuerto Internacional SSEI Cat. 9, Puerto Juárez"
   },
   {
     nombre: "Riviera Maya",
-    desc: "Playa del Carmen, Puerto Morelos, Akumal, Tulum - 25+ millones de turistas anuales"
+    desc: "Playa del Carmen, Puerto Morelos, Akumal, Tulum — corredor de resorts y Sistema Sac Actun"
   },
   {
     nombre: "Isla Cozumel",
-    desc: "Puerto de cruceros #3 mundial (4.5M pasajeros), arrecife de coral, buceo profesional"
+    desc: "Puerto de cruceros #1 de México (4.6 M pasajeros/año), arrecife de coral, buceo profesional"
   },
   {
-    nombre: "Costa Maya - Sur",
-    desc: "Bacalar (Laguna de los 7 Colores), Chetumal capital, Felipe Carrillo Puerto, Reserva Sian Ka'an"
+    nombre: "Costa Maya — Sur",
+    desc: "Bacalar (Laguna de los 7 Colores), Chetumal capital, Felipe Carrillo Puerto, Reserva Sian Ka'an (UNESCO)"
   }
 ];
 
-// Tarjetas de equipamiento EPP - Enfoque turístico
+// ── Tarjetas de equipamiento EPP ───────────────────────────────────────────
 const eppCards = [
   {
     image:     "/images/directorio/traje-inmersion-rescate-01.avif",
@@ -104,21 +161,21 @@ const eppCards = [
   },
   {
     image:     "/images/directorio/camion-bomberos-aeropuerto-01.avif",
-    imageAlt:  "Vehículo ARFF para aeropuerto de Cancún",
+    imageAlt:  "Vehículo ARFF para aeropuerto de Cancún SSEI categoría 9",
     badge:     "ARFF",
     title:     "ARFF Aeropuerto Cancún",
-    text:      "Equipo especializado ARFF para el <strong>Aeropuerto Internacional de Cancún</strong>, el segundo más transitado de México. Espumas AFFF y agentes limpios certificados.",
+    text:      "Equipo especializado ARFF para el <strong>Aeropuerto Internacional de Cancún</strong>, el segundo más transitado de México. Espumas AFFF y agentes limpios certificados para Cat. 9 OACI.",
     href:      "/productos/trajes-para-bomberos/traje-arff-aeroportuario/",
     linkLabel: "Ver Equipo ARFF",
   },
 ];
 
-// Schema.org estructurado
+// ── Schema.org ItemList de estaciones ─────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de ${estacionesQuintanaRoo.length} estaciones de bomberos en Quintana Roo. Destino turístico #1 de Latinoamérica con servicio bilingüe 24/7. Cobertura Cancún, Riviera Maya, Playa del Carmen, Tulum, Cozumel. Rescate acuático especializado.`,
+  description: `Directorio verificado de ${estacionesQuintanaRoo.length} estaciones de bomberos en Quintana Roo. Cobertura Cancún Zona Hotelera, Riviera Maya, Playa del Carmen, Tulum, Cozumel y Chetumal. Rescate acuático, cenotes, huracanes y ARFF aeroportuario. Emergencias: 911.`,
   numberOfItems: estacionesQuintanaRoo.length,
   itemListElement: estacionesQuintanaRoo.map((e, i) => ({
     "@type": "ListItem",
@@ -134,19 +191,105 @@ const itemListSchema = {
         addressCountry: "MX"
       },
       telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}/`,
       availableLanguage: e.idiomas || ["Spanish"]
     }
   }))
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Quintana Roo",         url: "/directorio/quintana-roo/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Quintana Roo: estaciones, historia y servicios de emergencia",
+  "description": "Guía del H. Cuerpo de Bomberos de Quintana Roo: historia (Cancún 1976–hoy), infraestructura en zonas turísticas, rescate en cenotes, protocolos de huracanes y directorio de estaciones con teléfonos.",
+  "about": [
+    "H. Cuerpo de Bomberos de Quintana Roo",
+    "Protección Civil",
+    "Rescate acuático y en cenotes",
+    "Respuesta a huracanes",
+    "Servicios de emergencia turística",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/quintana-roo.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
 
-// Imágenes para tarjetas de estaciones
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Quintana Roo",
+  "description": `Directorio verificado de estaciones de bomberos en Quintana Roo, con teléfonos, cobertura, funciones e historia del H. Cuerpo de Bomberos — Cancún, Playa del Carmen, Cozumel y Chetumal.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos de Quintana Roo" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/quintana-roo.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── Estados vecinos ────────────────────────────────────────────────────────
+const estadosVecinos = getEstadosVecinos("quintana-roo");
+
+// ── FAQ únicas de Quintana Roo (≥10) ──────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Quintana Roo?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas con atención en español e inglés. En Cancún también puedes llamar directamente a la Estación Central al <strong>(998) 884-1300</strong>; en Playa del Carmen al <strong>(984) 873-0291</strong>; y en Cozumel al <strong>(987) 872-0800</strong>. Para emergencias en la zona hotelera, el 911 enruta la llamada a la estación más cercana con personal bilingüe.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Cancún?",
+    a: `El <strong>Heroico Cuerpo de Bomberos de Cancún</strong> (municipio Benito Juárez) fue creado el <strong>15 de abril de 1976</strong>, con una primera base en la Avenida Chichén-Itzá con Tulum y doce bomberos fundadores. En sus inicios contó únicamente con un carro-bomba, una pipa, una ambulancia y una camioneta pick-up. En 2022 la corporación ya operaba con más de <strong>170 elementos</strong> en siete bases distribuidas por Cancún y la Zona Hotelera. El primer cuerpo de bomberos del país fue fundado en Veracruz el <strong>22 de agosto de 1873</strong>, fecha que se conmemora como el Día del Bombero en México.`,
+  },
+  {
+    q: "¿Qué lecciones dejó el huracán Wilma 2005 para los bomberos de Quintana Roo?",
+    a: `El huracán <strong>Wilma</strong> tocó tierra en Quintana Roo el <strong>21 de octubre de 2005</strong> con categoría 4–5, vientos de hasta 295 km/h y una permanencia de 63 horas sobre la península — la más prolongada registrada en el estado. Las pérdidas materiales se estimaron en 18 000 millones de pesos, el 94 % concentradas en turismo. La lección operativa central fue que cualquier evacuación que intente comenzar con el ojo del huracán a menos de 12 horas de distancia ya no es viable en la Zona Hotelera: el protocolo actual exige iniciar la evacuación de turistas al menos <strong>72 horas antes</strong> del impacto proyectado, antes de que el Boulevard Kukulcán colapse por el flujo vehicular.`,
+  },
+  {
+    q: "¿Los bomberos de Quintana Roo atienden emergencias en inglés?",
+    a: `Sí. Las estaciones de la Zona Hotelera de Cancún, Playa del Carmen, Cozumel y el Aeropuerto Internacional cuentan con personal bilingüe. El servicio <strong>911</strong> en Quintana Roo tiene operadores en español e inglés las 24 horas. Si llamas y no hablas español, indica "<em>English please</em>" al contestar el operador.`,
+  },
+  {
+    q: "¿Cómo se atiende una emergencia de buceo en un cenote de Quintana Roo?",
+    a: `Un buceador atrapado en una galería inundada del <strong>Sistema Sac Actun</strong> (347+ km de cuevas bajo la Riviera Maya) no puede ser rescatado con técnicas de superficie: el acceso exige certificación de <em>cave diving</em>. Los bomberos de Playa del Carmen y Tulum tienen convenio con centros de buceo especializados y con el <strong>Proyecto Gran Acuífero Maya (PGAM)</strong>, que aportan mapas de cavernas y buceadores cave-certificados como primer recurso técnico. Llama al <strong>911</strong> de inmediato; el tiempo entre el reporte y la primera inmersión de rescate es de 45 a 90 minutos en condiciones óptimas.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de la Zona Hotelera de Cancún?",
+    a: `La estación de la Zona Hotelera cubre los <strong>30 000+ habitaciones</strong> del corredor de 25 km con un tiempo de respuesta garantizado de 3 a 5 minutos. Sus servicios incluyen: combate de incendios hoteleros, rescate acuático oceánico, rescate en altura (edificios de gran altura), atención prehospitalaria bilingüe, evacuación masiva en huracanes y coordinación permanente con la seguridad de las principales cadenas hoteleras. El personal está certificado en rescate oceánico y tiene comunicación directa con los jefes de seguridad de los resorts.`,
+  },
+  {
+    q: "¿Qué tan grave fue el huracán Gilberto de 1988 en Cancún?",
+    a: `El huracán <strong>Gilberto</strong> impactó Quintana Roo el <strong>14 de septiembre de 1988</strong> como categoría 5, con vientos de 285 km/h, en lo que entonces era un Cancún con apenas 15 años de existencia como ciudad planificada. Causó cerca de 225 muertes en México y el Caribe, dejó más de 51 000 damnificados y obligó a evacuar a unas 140 000 personas en el estado. Los daños materiales superaron los 76 millones de dólares. Gilberto fue durante años el huracán más intenso registrado en el Atlántico.`,
+  },
+  {
+    q: "¿Los bomberos de Cozumel atienden emergencias en cruceros?",
+    a: `Sí. La Estación de Bomberos de Cozumel tiene protocolo conjunto con la SEMAR y la Capitanía de Puerto para emergencias a bordo o en muelle. Con más de <strong>4.6 millones de pasajeros de crucero en 2024</strong> — el puerto #1 de México en llegada de cruceros —, los bomberos suben a bordo bajo autoridad del capitán del barco, con equipos propios, mientras las navieras activan sus brigadas internas. El aeropuerto de Cozumel (CZM) cuenta con SSEI categoría 7 OACI de respaldo.`,
+  },
+  {
+    q: "¿Qué hace el SSEI del Aeropuerto de Cancún?",
+    a: `El Servicio de Salvamento y Extinción de Incendios (SSEI) del <strong>Aeropuerto Internacional de Cancún (CUN)</strong> opera con <strong>categoría 9 OACI</strong>, la clasificación para aeronaves de gran fuselaje. Con 5 vehículos ARFF especializados, el protocolo exige tiempo de respuesta máximo de <strong>3 minutos</strong> a cualquier punto de las pistas. El aeropuerto es el segundo más transitado de México, con alrededor de 30 millones de pasajeros anuales.`,
+  },
+  {
+    q: "¿Cómo debo actuar si hay un huracán mientras estoy de vacaciones en Quintana Roo?",
+    a: `Sigue las instrucciones de <strong>Protección Civil Quintana Roo</strong> y del personal del hotel. El protocolo de evacuación inicia <strong>72 horas antes</strong> del impacto proyectado: primero salen los turistas por carreteras 307 y 180 hacia el interior; si la evacuación ya no es posible, permanece en el área de refugio del hotel, en una habitación interior sin ventanas, lejos del acceso al mar. No intentes salir a explorar durante el ojo del huracán — la calma es temporal y el segundo semicírculo llega con igual o mayor intensidad. Marca el <strong>911</strong> solo si hay heridos o riesgo inmediato de vida.`,
+  },
+  {
+    q: "¿Hay incendios forestales en Quintana Roo?",
+    a: `Sí. La temporada de incendios forestales en Quintana Roo va de <strong>marzo a junio</strong> (temporada seca), afectando principalmente la zona selvática interior, la Reserva de la Biósfera <strong>Sian Ka'an</strong> (UNESCO, 528 000 ha) y los corredores de manglar y selva de la Riviera Maya Sur. Los bomberos de Playa del Carmen, Tulum y Chetumal disponen de unidades forestales 4×4. En la temporada de incendios está prohibido encender fuego en áreas naturales; en caso de detectar un incendio forestal, llama al <strong>911</strong>.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque conmemora la fundación del <strong>primer cuerpo de bomberos de México</strong>, el <strong>22 de agosto de 1873 en el puerto de Veracruz</strong>. Cada año, en esa fecha, se reconoce la labor de los bomberos de toda la República, incluidos los cuerpos de Quintana Roo. El H. Cuerpo de Bomberos de Cancún —el primero del estado— fue fundado más de un siglo después, el 15 de abril de 1976.`,
+  },
+];
+
+// ── Imágenes para tarjetas de estaciones ──────────────────────────────────
 const stationImages = [
   "/images/directorio/estacion-bomberos-profesional-01.avif",
   "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
@@ -190,115 +333,285 @@ const stationImages = [
   "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
   "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
 ];
-// Estados vecinos
-const estadosVecinos = getEstadosVecinos("quintana-roo");
 ---
 
 <DirectorioEstadoLayout
   estado={estado}
   sigla={sigla}
   slug={slug}
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Quintana Roo</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
-  heroImage="/images/directorio/estacion-bomberos-turistica-01.avif"
-  heroImageAlt="Estación de Bomberos en Quintana Roo"
-  heroCaption="H. Cuerpo de Bomberos · Quintana Roo"
-  totalEstaciones={estacionesQuintanaRoo.length}
-  totalMunicipios={getMunicipios().length}
+  description={`${estacionesQuintanaRoo.length} estaciones de bomberos en Quintana Roo — Zona Hotelera Cancún, cenotes Sistema Sac Actun, huracanes Caribe y cruceros Cozumel. Emergencias: 911.`}
+  keywords={[
+    "bomberos quintana roo",
+    "bomberos cancún",
+    "estaciones bomberos quintana roo",
+    "emergencias quintana roo 911",
+    "cuerpo bomberos cancún benito juárez",
+    "bomberos playa del carmen",
+    "bomberos cozumel cruceros",
+    "rescate acuático cancún",
+    "rescate cenotes quintana roo",
+    "huracan quintana roo emergencias",
+    "fire department cancun english",
+    "arff aeropuerto cancún OACI",
+    "bomberos tulum",
+    "directorio bomberos quintana roo",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
+
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
   habitantes="1.9M+"
-  canonical="https://bombero.mx/directorio/quintana-roo/"
-  keywords={["bomberos quintana-roo", "estaciones bomberos quintana-roo", "emergencias quintana-roo 911", "cuerpo bomberos quintana-roo"]}
+
+  heroDesc={`El <strong>H. Cuerpo de Bomberos de Quintana Roo</strong> —cuyo cuerpo más antiguo del estado fue fundado en <strong>Cancún el 15 de abril de 1976</strong>— protege el destino turístico de mayor volumen de México. Con <strong>${estacionesQuintanaRoo.length} estaciones</strong> en este directorio, cubre una Zona Hotelera de <strong>30 000+ habitaciones</strong> en 25 km de isla barrera, el <strong>Sistema Sac Actun</strong> (347+ km de cuevas inundadas), el <strong>aeropuerto CUN</strong> con categoría 9 OACI y el puerto de cruceros de <strong>Cozumel</strong>, el #1 de México con 4.6 millones de pasajeros en 2024.`}
+  heroImage="/images/directorio/estacion-bomberos-turistica-01.avif"
+  heroImageAlt="Estación de Bomberos en la Zona Hotelera de Cancún — Quintana Roo, rescate acuático y evacuación de huracanes"
+  heroCaption="H. Cuerpo de Bomberos · Quintana Roo · Cancún desde 1976"
+  heroThumbs={heroThumbs}
+
+  galleryImages={galleryImages}
+
+  emergencyNumbers={emergencyNumbers}
+
   estaciones={estacionesQuintanaRoo}
   stationImages={stationImages}
-  municipios={getMunicipios()}
-  estadosVecinos={estadosVecinos}
-  heroThumbs={heroThumbs}
-  galleryImages={galleryImages}
-  emergencyNumbers={emergencyNumbers}
+
+  municipios={municipios}
   regiones={regiones}
+  estadosVecinos={estadosVecinos}
+
   eppCards={eppCards}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesQuintanaRoo.length} estaciones en Quintana Roo — Zona Hotelera Cancún, Sistema Sac Actun cenotes, huracanes Caribe y cruceros Cozumel. Emergencias: 911.`}
+
+  ctaTitle="Equipamos a los Bomberos de Quintana Roo"
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones del Caribe mexicano: rescate acuático, trajes estructurales para evacuaciones hoteleras, equipo ARFF y buceo técnico para cenotes. Atención especializada para municipios turísticos.`}
+  ctaBtnText="Solicitar Cotización — Quintana Roo"
+
+  faqsEstado={faqsEstado}
 >
   <Fragment slot="seo">
 
-      <h2>Bomberos de Quintana Roo — El Boulevard que No Puede Evacuar 30,000 Cuartos, los Cenotes sin Superficie y el Turista que No Sabe Dónde Está</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Quintana Roo</strong> opera en el único estado de México
-        donde la infraestructura del turismo masivo es, simultáneamente, la mayor concentración de
-        personas a proteger y el principal obstáculo para protegerlas. La Zona Hotelera de Cancún es una
-        isla barrera de 23 km con un solo boulevard y 30,000 habitaciones ocupadas por personas que no
-        hablan español, no conocen la geografía local y confían en que el hotel tiene un plan. El Sistema
-        Sac Actun — el río subterráneo navegable más largo del mundo con 347+ km relevados — recibe buceadores
-        de todo el planeta que se internan en galerías inundadas donde ningún protocolo de superficie funciona.
-        Y la temporada de huracanes entre junio y noviembre no avisa con horas de margen, sino con días —
-        tiempo suficiente para evacuar, si la coordinación empieza antes de que la alarma suene.
-      </p>
+    <h2>Bomberos en Quintana Roo</h2>
 
-      <h3>¿Cómo llamar a los Bomberos de Quintana Roo?</h3>
-      <p>
-        El número único de emergencias en todo el estado es <strong>911</strong>, con operadores en español
-        e inglés las 24 horas. Las estaciones de la Zona Hotelera tienen línea directa con los jefes de
-        seguridad de los grandes complejos turísticos; para emergencias en cenotes o buceo, el protocolo
-        activa al Proyecto Gran Acuífero Maya (PGAM) como recurso técnico de mapas de cavernas antes de
-        cualquier descenso de rescate. En la zona sur, Chetumal coordina con autoridades de Belice para
-        emergencias dentro del radio fronterizo de 20 km.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Quintana Roo">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estacionesQuintanaRoo.length}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">11</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">170+</span><span class="de-stat__label">Elementos en Cancún (2022)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">4.6M</span><span class="de-stat__label">Cruceristas Cozumel/año</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1.9M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1976</span><span class="de-stat__label">Fundación Cancún</span></div>
+    </div>
 
-      <h3>Zona Hotelera de Cancún — 23 km de Isla Barrera, un Solo Acceso y la Lección de Wilma 2005</h3>
-      <p>
-        El Boulevard Kukulcán es la única arteria de la Zona Hotelera: 23 km de calzada dividida en una
-        isla de 400 metros de ancho entre el Caribe y la Laguna Nichupté. En condiciones de tráfico
-        normal, el recorrido completo tarda 35 minutos. Con el volumen de evacuación de un huracán
-        categoría 3+, el análisis post-Wilma (2005) documentó colapsos de flujo vehicular de 8 a 12
-        horas en ese mismo tramo, con hoteles que no habían completado la evacuación cuando el ojo
-        tocó tierra. El protocolo actual escalonado empieza 72 horas antes de la llegada proyectada del
-        ojo: primero salen los turistas, luego el personal de servicio, luego permanece solo la brigada
-        de resguardo. Una evacuación que intente comenzar con el ojo a 12 horas ya no es evacuación,
-        es refugio forzoso en estructuras diseñadas para viento, no para agua de mar.
-      </p>
+    <p class="de-lead">
+      Ningún estado de México combina tantos perfiles de riesgo en un territorio tan estrecho como
+      Quintana Roo: una Zona Hotelera de 25 km con 30 000 habitaciones en una isla barrera con un solo
+      acceso, el sistema de cuevas inundadas más extenso del planeta bajo los pies de millones de
+      turistas, y una temporada de huracanes que ha producido tres impactos de categoría 4 o superior
+      en menos de 20 años. El <strong>H. Cuerpo de Bomberos de Quintana Roo</strong> opera en ese
+      escenario: donde la infraestructura del turismo masivo es, al mismo tiempo, lo que hay que
+      proteger y el principal obstáculo para hacerlo.
+    </p>
 
-      <h3>Sistema Sac Actun — Rescate en Caverna Inundada: Otra Disciplina</h3>
-      <p>
-        El Sistema Sac Actun tiene 347+ km de galerías mapeadas bajo la Riviera Maya — y una extensión
-        real significativamente mayor sin relevar. Un buceador atrapado o inconsciente en una caverna
-        inundada no puede ser rescatado con ninguna técnica de superficie: el acceso requiere certificación
-        de cave diving, conocimiento del mapa específico de la galería y equipo de iluminación redundante
-        porque a 30 metros de profundidad y 200 metros de la entrada no existe luz natural. Los bomberos
-        de Playa del Carmen y Tulum tienen convenio de actuación con el PGAM y con centros de buceo con
-        instructores cave-certificados, que son los primeros recursos técnicos en activarse. El tiempo
-        entre el reporte de desaparecido y la primera inmersión de rescate es de 45 a 90 minutos en
-        condiciones óptimas — tiempo durante el cual la reserva de aire del buceador es la única variable
-        que el rescatista no puede controlar desde afuera.
-      </p>
+    <h3>Cómo contactar a los bomberos en Quintana Roo</h3>
+    <p>
+      En cualquier emergencia, el <strong>911</strong> conecta con operadores en español e inglés
+      las 24 horas. La llamada se enruta a la estación con menor tiempo de respuesta; en la Zona
+      Hotelera de Cancún el tiempo promedio es de 3 a 5 minutos. Los teléfonos directos de las
+      principales estaciones son: Cancún Central <strong>(998) 884-1300</strong>, Playa del Carmen
+      <strong>(984) 873-0291</strong> y Cozumel <strong>(987) 872-0800</strong>. Para emergencias
+      en el aeropuerto de Cancún, el SSEI categoría 9 OACI tiene su propia línea de despacho interno;
+      si eres pasajero, informa al personal de tierra y llama al <strong>911</strong>. Encuentra
+      todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Temporada de Huracanes — Por qué la Evacuación Tiene que Terminar Antes de que el Ojo Llegue a 200 km</h3>
-      <p>
-        Quintana Roo está en la trayectoria histórica de los huracanes de mayor intensidad del Atlántico:
-        Gilberto 1988 (categoría 5 al tocar tierra en Cancún), Wilma 2005 (categoría 4, el más intenso
-        registrado en el Atlántico en ese momento), y Dean 2007 (categoría 5 en Majahual). La lección
-        consolidada de los tres es que la velocidad de intensificación en el Caribe puede pasar de
-        categoría 1 a categoría 4 en menos de 24 horas — lo que convierte la ventana de decisión en
-        48 horas efectivas desde el primer aviso serio. Con 200,000 turistas en las zonas de riesgo,
-        las rutas de evacuación hacia el interior (carreteras 307 y 180) saturan en 4 a 6 horas.
-        Los bomberos activan pre-posicionamiento de brigadas de búsqueda y rescate en Chetumal (zona
-        de refugio) y establecen contacto con los jefes de seguridad hoteleros antes de que la
-        Declaratoria de Emergencia sea oficial.
-      </p>
+    <h3>Historia de los bomberos de Quintana Roo</h3>
+    <p>
+      El estado de Quintana Roo fue creado en 1974 a partir del Territorio Federal del mismo nombre,
+      y la primera ciudad en contar con cuerpo de bomberos propio fue Cancún — una ciudad que apenas
+      había comenzado a construirse. Estos son los hitos verificados de la historia del servicio de
+      bomberos en el estado:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora como el <strong>Día del Bombero</strong> en todo el país.</li>
+      <li><span class="de-tl__year">1974</span> Quintana Roo se convierte en estado de la federación; Cancún, planeada en 1969, inicia su crecimiento acelerado como destino turístico.</li>
+      <li><span class="de-tl__year">1976</span> El <strong>15 de abril</strong> se crea el <strong>H. Cuerpo de Bomberos de Cancún</strong> (municipio Benito Juárez), con una base en Av. Chichén-Itzá y Tulum, doce bomberos y cuatro vehículos.</li>
+      <li><span class="de-tl__year">1988</span> El <strong>huracán Gilberto</strong> impacta Quintana Roo el 14 de septiembre como <strong>categoría 5</strong> (285 km/h), dejando más de 51 000 damnificados; primera gran prueba de coordinación de emergencias en el estado.</li>
+      <li><span class="de-tl__year">2005</span> El <strong>huracán Wilma</strong> toca tierra el 21 de octubre con categoría 4–5 y permanece 63 horas sobre la península; las pérdidas materiales superan los 18 000 millones de pesos. El análisis post-evento redefine los protocolos de evacuación de la Zona Hotelera.</li>
+      <li><span class="de-tl__year">2007</span> El <strong>huracán Dean</strong> impacta el 21 de agosto en Mahahual como <strong>categoría 5</strong> (260 km/h), destruyendo casi por completo la población costera de la Costa Maya.</li>
+      <li><span class="de-tl__year">2018</span> Se descubre el vínculo entre los sistemas Sac Actun y Dos Ojos, conformando la cueva inundada más extensa del mundo (347+ km); los bomberos de Tulum y Playa del Carmen refuerzan convenios de rescate en cueva con el <strong>Proyecto Gran Acuífero Maya (PGAM)</strong>.</li>
+      <li><span class="de-tl__year">Hoy</span> El H. Cuerpo de Bomberos de Benito Juárez opera con <strong>más de 170 elementos</strong> en siete bases en Cancún y la Zona Hotelera; el estado cuenta con {estacionesQuintanaRoo.length} estaciones en este directorio en sus 11 municipios.</li>
+    </ul>
 
-      <h3>Cozumel y Aeropuerto CUN — 4.5 Millones de Cruceristas y SSEI Categoría 9</h3>
-      <p>
-        Cozumel recibe más de 4.5 millones de cruceristas al año en tres terminales marítimas y es el
-        tercer puerto de cruceros más visitado del mundo. Una emergencia médica o de incendio a bordo
-        de un barco atracado activa el protocolo conjunto con la SEMAR: los bomberos de Cozumel suben
-        a bordo bajo autoridad del capitán, con equipos propios, mientras la navieras activan sus
-        brigadas internas. El Aeropuerto Internacional de Cancún (CUN) opera SSEI con categoría 9
-        OACI — la clasificación más alta, diseñada para aeronaves como el Boeing 747 y Airbus A380 —
-        con tiempo de respuesta máximo de 3 minutos a cualquier punto de las dos pistas y reservas de
-        espuma AR-AFFF para 600 litros por minuto sostenidos. El aeropuerto también tiene protocolo
-        de evacuación terrestre hacia la zona continental en caso de huracán, coordinado con los
-        bomberos de la Zona Hotelera para evitar conflicto de flujos vehiculares en el acceso.
-      </p>
-    </Fragment>
+    <h3>Infraestructura: cómo se cubre el estado</h3>
+    <p>
+      La cobertura se organiza en cinco grandes zonas con perfiles de riesgo distintos: el norte
+      turístico-aeroportuario, la Riviera Maya con sus cenotes, Tulum con la zona arqueológica, la
+      isla de Cozumel y la extensa zona sur con Chetumal y la frontera con Belice. Esta es la
+      distribución de la cobertura por región:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los cuerpos de bomberos</h3>
+    <p>
+      Los bomberos de Quintana Roo son un servicio de emergencia integral con funciones que van
+      mucho más allá del combate de incendios. En un estado de vocación turística, la atención
+      prehospitalaria bilingüe y el rescate acuático son tan centrales como el fuego. Estas son
+      sus funciones principales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales en hoteles, resorts y residencias; incendios forestales en temporada seca (marzo–junio); incendios en vehículos en la carretera 307.</p></div>
+      <div class="de-card"><h4>Rescate acuático</h4><p>Playas del Caribe, lagunas (Nichupté, Bacalar), ríos subterráneos y cenotes, corrientes oceánicas y emergencias en embarcaciones y ferries.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Estabilización y soporte vital, con personal bilingüe en zonas turísticas para atender turistas internacionales antes del traslado hospitalario.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en la carretera 307 (Cancún–Chetumal, 50 000+ vehículos/día en el tramo turístico) y en las vías de acceso a la Zona Hotelera.</p></div>
+      <div class="de-card"><h4>Rescate y extinción aeronáutica (ARFF)</h4><p>SSEI categoría 9 OACI en el Aeropuerto de Cancún (CUN) y categoría 7 en Cozumel (CZM), con tiempo de respuesta máximo de 3 minutos a pista.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Simulacros en hoteles y resorts, capacitación de brigadas internas, coordinación con Protección Civil estatal en temporada de huracanes.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático oceánico</strong></td><td>24/7</td><td>Cancún ZH, Playa del Carmen, Cozumel</td></tr>
+          <tr><td><strong>Rescate en cenotes</strong></td><td>24/7</td><td>Playa del Carmen, Tulum (con apoyo PGAM)</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Rescate vehicular</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>ARFF aeronáutico</strong></td><td>24/7</td><td>Aeropuerto CUN (Cat. 9) y CZM (Cat. 7)</td></tr>
+          <tr><td><strong>Emergencias en cruceros</strong></td><td>24/7</td><td>Cozumel (coordinación SEMAR)</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Temporada seca (mar–jun)</td><td>Tulum, Playa del Carmen, Chetumal</td></tr>
+          <tr><td><strong>Evacuación por huracán</strong></td><td>Jun–nov (temporada)</td><td>Todas las zonas; protocolo 72 h antes</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Turismo masivo, huracanes y cenotes: los tres ángulos de riesgo únicos de Quintana Roo</h3>
+    <p>
+      La <strong>Zona Hotelera de Cancún</strong> es una isla barrera de 25 km con un solo boulevard
+      — el Kukulcán — que la conecta con tierra firme. Con 30 000+ habitaciones ocupadas principalmente
+      por turistas internacionales que no conocen la geografía local, una emergencia de evacuación tiene
+      una ventana de tiempo crítica: el análisis post-<strong>Wilma 2005</strong> documentó colapsos de
+      flujo vehicular de 8 a 12 horas en ese tramo cuando la evacuación comenzó tarde. El protocolo
+      actual escalonado exige iniciar la salida de turistas al menos <strong>72 horas antes</strong>
+      del impacto proyectado, antes de que las rutas 307 y 180 saturen en las primeras 4 a 6 horas.
+    </p>
+    <p>
+      Bajo la Riviera Maya, el <strong>Sistema Sac Actun</strong> tiene 347+ km de galerías inundadas
+      mapeadas — y una extensión real mayor sin relevar. Un buceador atrapado o inconsciente en una
+      caverna inundada no puede ser rescatado con técnicas de superficie: el acceso requiere
+      certificación de <em>cave diving</em>, conocimiento del mapa específico de la galería y equipo
+      de iluminación redundante. Los bomberos de Playa del Carmen y Tulum tienen convenio con el
+      <strong>Proyecto Gran Acuífero Maya (PGAM)</strong>, que aporta mapas de cavernas y buceadores
+      técnicos como primer recurso. Entre el reporte de un buceador desaparecido y la primera inmersión
+      de rescate transcurren entre 45 y 90 minutos en condiciones óptimas.
+    </p>
+    <p>
+      Quintana Roo ha recibido tres impactos de categoría 4 o 5 en menos de 20 años:
+      <strong>Gilberto</strong> (1988, cat. 5), <strong>Wilma</strong> (2005, cat. 4–5) y
+      <strong>Dean</strong> (2007, cat. 5 en Mahahual). La intensificación rápida en el Caribe — de
+      categoría 1 a 4 en menos de 24 horas — convierte la ventana de decisión en apenas 48 horas
+      efectivas. Los bomberos activan pre-posicionamiento de brigadas de rescate en Chetumal (zona
+      de refugio sur) y establecen contacto con los jefes de seguridad hoteleros antes de que la
+      Declaratoria de Emergencia sea oficial.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de las estaciones publicadas en este directorio, así se distribuyen los recursos del
+      cuerpo de bomberos entre las grandes zonas del estado:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Municipios</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nMunicipios}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{estacionesQuintanaRoo.length}</td>
+            <td>11</td>
+            <td>Estado de Quintana Roo, 11 municipios</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Quintana Roo</h3>
+    <p>
+      El primer reto es la <strong>asimetría entre carga y recursos</strong>. Quintana Roo recibe
+      alrededor de 25 millones de visitantes al año en un estado con apenas 1.9 millones de
+      habitantes — una relación que no tiene paralelo en ningún otro estado de México. La temporada
+      alta turística (diciembre–enero y Semana Santa) multiplica la población flotante en zonas
+      donde la dotación de bomberos fue diseñada para la demanda base. La estación de la Zona
+      Hotelera cubre 30 000+ habitaciones con personal limitado, y cada evento masivo en el
+      Cancún Convention Center (20 000+ asistentes) requiere coordinación especial.
+    </p>
+    <p>
+      El segundo reto es la <strong>dispersión geográfica</strong>. El estado tiene 1 600 km de
+      costa, municipios insulares (Cozumel, Isla Mujeres) y zonas selváticas con acceso difícil
+      (Bacalar, Felipe Carrillo Puerto, comunidades mayas del interior). Una emergencia en la
+      Reserva Sian Ka'an puede implicar tiempos de respuesta de 30 a 45 minutos por la distancia
+      y la falta de infraestructura vial. El tercer reto es la <strong>renovación de equipo
+      especializado</strong>: el rescate en cenotes y el buceo técnico requieren equipamiento
+      costoso y personal con certificaciones de alto nivel que no todos los municipios pueden
+      sostener por sí solos.
+    </p>
+
+    <h3>Cultura de prevención: cómo protegerte en Quintana Roo</h3>
+    <p>
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones básicas
+      de los cuerpos de bomberos de Quintana Roo para residentes y visitantes:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Huracanes:</strong> si hay alerta, no esperes: inicia la evacuación cuando las autoridades lo ordenen. El Boulevard Kukulcán colapsa en horas; 72 horas de margen hacen la diferencia entre evacuación ordenada y refugio forzoso.</li>
+        <li><strong>Buceo y cenotes:</strong> nunca entres a un cenote o cueva subacuática sin certificación adecuada y guía local. Informa siempre tu ruta y hora de regreso a alguien en superficie.</li>
+        <li><strong>Playas:</strong> respeta las banderas de aviso (roja = prohibido nadar). Las corrientes de retorno del Caribe pueden alejar a un nadador fuerte en segundos; si te atrapa una, nada paralelo a la costa.</li>
+        <li><strong>Hoteles:</strong> ubica las salidas de emergencia de tu habitación el primer día. Si hay una alarma, ve directamente a la salida — no uses el elevador.</li>
+        <li><strong>Incendios forestales:</strong> está prohibido encender fuego en áreas naturales de marzo a junio. Si detectas humo en la selva, llama al <strong>911</strong> antes de intentar acercarte.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> disponible; los operadores de Quintana Roo atienden en español e inglés las 24 horas.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Noticaribe / Ayuntamiento de Benito Juárez, «Celebran el 48 aniversario de la creación
+      del Cuerpo de Bomberos de Cancún» (16 abr. 2018) — fecha de fundación 15 abr. 1976; DRV
+      Noticias, «Cumple 46 años heroico Cuerpo de Bomberos» (17 abr. 2022) — 170+ elementos, 7 bases;
+      CENAPRED, «A 30 años de Gilbert, ¿qué hemos aprendido?» (2018) — datos Gilberto; Heraldo de
+      México Quintana Roo, «Cozumel supera los 4.6 millones de pasajeros en cruceros en 2024» (7 ene.
+      2025); El Universal / PGAM, «Hallan en Quintana Roo la cueva inundada más grande del mundo»
+      (2018) — Sistema Sac Actun 347+ km; Diario Cambio 22, «Huracán Wilma: la tragedia que redefinió
+      la historia de Cancún» — datos Wilma 2005; Expansión, «De Cancún a Santa Lucía: los 10
+      aeropuertos que lideran en pasajeros» (dic. 2025) — datos aeropuerto CUN. Los datos de estaciones
+      y personal provienen de las fichas publicadas en este directorio y no representan la dotación
+      oficial completa de cada municipio. Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
+  </Fragment>
 </DirectorioEstadoLayout>
-

@@ -6,7 +6,7 @@ import {
   ESTADISTICAS_COLIMA,
 } from "@data/estaciones-colima";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("colima");
 
@@ -15,18 +15,59 @@ const municipios      = [...new Set(estacionesColima.map((e) => e.ciudad))].sort
 const totalEstaciones = ESTADISTICAS_COLIMA.total_estaciones;
 const totalMunicipios = ESTADISTICAS_COLIMA.municipios_cubiertos;
 const totalBomberos   = ESTADISTICAS_COLIMA.total_bomberos;
+const totalUnidades   = ESTADISTICAS_COLIMA.total_unidades;
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Colima",                 url: "/directorio/colima/" },
-]);
+const canonical = "https://bombero.mx/directorio/colima/";
 
+// ── Comparativa regional (desde datos reales del directorio) ───────────────
+const zonasDef = [
+  {
+    nombre: "Zona Metropolitana Colima–Villa de Álvarez",
+    municipios: ["Colima", "Villa de Álvarez"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital estatal, coordinación volcánica (CENAPRED), zona universitaria y corredor comercial.",
+  },
+  {
+    nombre: "Zona Portuaria Manzanillo",
+    municipios: ["Manzanillo"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Puerto #1 del Pacífico mexicano (~3.7 M TEU/año), HAZMAT marítimo, playas turísticas.",
+  },
+  {
+    nombre: "Zona Agrícola Tecomán",
+    municipios: ["Tecomán"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Principal productor de limón mexicano (35 % nacional), industria citrícola, Laguna Cuyutlán.",
+  },
+  {
+    nombre: "Zona Volcánica Comala",
+    municipios: ["Comala"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Pueblo Mágico a ~8 km del cráter; respuesta volcánica, lahares y turismo cultural.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesColima.filter((e) => z.municipios.includes(e.ciudad));
+  return {
+    ...z,
+    nMun: z.municipios.length,
+    nEst: est.length,
+    nPers: est.reduce((s, e) => s + (e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades  ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Colima",
-  "description": `Directorio oficial de las ${totalEstaciones} estaciones de bomberos en Colima. Volcán de Fuego (más activo de Norteamérica), Puerto de Manzanillo (#1 Pacífico 3.4M TEU), capital mundial del limón (35% nacional), tsunamis, huracanes. Emergencias: 911.`,
+  "description": `Directorio de las ${totalEstaciones} estaciones de bomberos en Colima: Volcán de Fuego (~3,860 msnm, uno de los más activos de Norteamérica), Puerto de Manzanillo (#1 Pacífico mexicano, ~3.7 M TEU), tsunamis y huracanes del Pacífico. Emergencias: 911.`,
   "numberOfItems": estacionesColima.length,
   "itemListElement": estacionesColima.map((e, i) => ({
     "@type": "ListItem",
@@ -42,11 +83,99 @@ const itemListSchema = {
         "addressCountry": "MX",
       },
       "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/colima/${e.slug}`,
+      "url": `https://bombero.mx/directorio/colima/${e.slug}/`,
     }
   }))
 };
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Colima: estaciones, historia y servicios de emergencia",
+  "description": "Guía de los cuerpos de bomberos de Colima: historia (1942–hoy), infraestructura en 5 municipios, respuesta volcánica, HAZMAT portuario, tsunamis y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Cuerpo de Bomberos de Colima",
+    "Volcán de Fuego de Colima",
+    "Puerto de Manzanillo",
+    "Protección Civil Colima",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/colima.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Colima",
+  "description": `Directorio verificado de las ${totalEstaciones} estaciones de bomberos en Colima, con teléfonos, cobertura por municipio, historia de los cuerpos y perfil de riesgo volcánico, portuario y costero.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Cuerpo de Bomberos de Colima" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/colima.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Colima (≥10) — alimentan el FAQPage schema ──────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Colima?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas en todo el estado de Colima. La llamada se enruta al Centro Estatal de Emergencias, que despacha la unidad más cercana. Para alertas volcánicas, el <strong>Semáforo Volcánico del CENAPRED</strong> activa protocolos de evacuación automáticos; ante erupción inminente, sigue las instrucciones de Protección Civil sin esperar confirmación. Ante tsunami, el Sistema Nacional activa sirenas automáticas en la costa cuando se detecta un sismo mayor a 7.0 en el Pacífico.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Colima?",
+    a: `El directorio de BOMBERO.MX registra <strong>${totalEstaciones} estaciones</strong> de bomberos en Colima, distribuidas en <strong>${totalMunicipios} municipios</strong>: Estación Central de Colima (1942), Estación de Villa de Álvarez (1985), Estación de Manzanillo (Bomberos Voluntarios de Manzanillo, A.C., fundada el 23 de noviembre de 2001), Estación de Tecomán (1972) y Estación de Comala (1990). El total es de <strong>${totalBomberos} bomberos</strong> y <strong>${totalUnidades} unidades</strong> en el directorio.`,
+  },
+  {
+    q: "¿Cuándo se fundó el primer cuerpo de bomberos en Colima?",
+    a: `La <strong>Estación Central de Bomberos de Colima</strong>, en la capital del estado, fue fundada en <strong>1942</strong>. A nivel nacional, el primer cuerpo de bomberos de México se fundó el <strong>22 de agosto de 1873 en el puerto de Veracruz</strong>, fecha que se conmemora cada año como el <strong>Día del Bombero en México</strong>. En Manzanillo, los <strong>Bomberos Voluntarios de Manzanillo, A.C.</strong> se constituyeron el <strong>23 de noviembre de 2001</strong> como asociación civil sin fines de lucro especializada en emergencias portuarias.`,
+  },
+  {
+    q: "¿Qué es el Semáforo Volcánico del Volcán de Fuego de Colima?",
+    a: `El <strong>Semáforo Volcánico</strong> es el sistema del <strong>CENAPRED</strong> (Centro Nacional de Prevención de Desastres) para comunicar el nivel de actividad del Volcán de Fuego de Colima (~3,860 msnm). Sus fases van de Verde (actividad normal) a Amarillo Fase 1, 2 y 3 (actividad creciente) y Rojo (evacuación obligatoria inmediata). Cuando el semáforo escala a <strong>Amarillo Fase 2</strong>, los bomberos de Comala y Colima activan la evacuación preventiva de las comunidades dentro del radio de 8 km del cráter —Pueblo Juárez, La Yerbabuena, Zacualpan— sin esperar confirmación de flujo piroclástico.`,
+  },
+  {
+    q: "¿Qué tan peligroso es el Volcán de Fuego de Colima?",
+    a: `El Volcán de Fuego de Colima es <strong>uno de los volcanes más activos de Norteamérica</strong> y el más activo de México, con erupciones documentadas desde el siglo XVI. La última erupción mayor, en <strong>julio de 2015</strong>, fue la más intensa desde 1913 según el CENAPRED: generó flujos piroclásticos en las barrancas de Montegrande y San Antonio que descendieron a más de 100 km/h, con columnas de ceniza de hasta 10 km de altura. Hasta <strong>350,000 personas</strong> viven en el área de influencia del volcán, y el municipio de Comala colinda a solo 8 km del cráter.`,
+  },
+  {
+    q: "¿Hay riesgo de tsunami en Colima?",
+    a: `Sí. Los <strong>157 km de costa de Colima</strong> son de los más vulnerables de México a tsunamis generados por sismos en la Placa de Cocos. El evento histórico más destructivo fue el <strong>tsunami del 22 de junio de 1932 en Cuyutlán</strong>: un sismo de Mw 6.9 generó olas que superaron los 10 metros de altura, causaron más de 75 muertos y dejaron una franja de 20 km de costa sin una sola casa en pie. El evento se conoce como la <strong>"Ola Verde"</strong>. El <strong>Sistema Nacional de Alerta de Tsunamis</strong> activa sirenas automáticas en Manzanillo, Santiago y Cuyutlán cuando detecta sismos mayores a 7.0 en el Pacífico.`,
+  },
+  {
+    q: "¿Cómo debo actuar ante una alerta de tsunami en Manzanillo o en las playas de Colima?",
+    a: `Ante una alerta de tsunami: <strong>evacúa de inmediato</strong> hacia tierra adentro o a zonas elevadas, siguiendo las rutas de evacuación señalizadas. No esperes ver el agua retroceder —esa señal indica que la primera ola ya está en camino. La ventana de evacuación desde las costas de Colima puede ser de apenas <strong>10 a 30 minutos</strong> desde el sismo. Llama al <strong>911</strong> solo si hay lesionados; en caso contrario, usa la línea para reportar situaciones críticas y mantén libre la red para emergencias. Sigue las instrucciones de Protección Civil y Bomberos de Manzanillo en sitio.`,
+  },
+  {
+    q: "¿Qué hace el cuerpo de bomberos de Manzanillo en el puerto?",
+    a: `Los <strong>Bomberos Voluntarios de Manzanillo</strong> y el cuerpo municipal atienden emergencias específicas del <strong>Puerto de Manzanillo</strong> (#1 del Pacífico mexicano, ~3.7 millones de TEU en 2023): incendios en contenedores y buques, derrames de materiales peligrosos (HAZMAT), rescate acuático en bahía y zonas portuarias, y emergencias en las terminales CONTECON y SSA México. Trabajan en coordinación con la <strong>Capitanía de Puerto</strong> y la <strong>Armada de México</strong>. El mayor riesgo son los contenedores con carga no declarada correctamente, que pueden contener sustancias reactivas o inflamables.`,
+  },
+  {
+    q: "¿Qué es el sismo de 2003 y cómo afectó a los bomberos de Colima?",
+    a: `El <strong>21 de enero de 2003</strong> un sismo de <strong>Mw 7.6</strong> con epicentro frente a las costas de Cuyutlán sacudió Colima durante aproximadamente 55 segundos. El terremoto causó <strong>23 muertos</strong>, alrededor de 300 heridos y más de 10,000 viviendas afectadas, principalmente en Colima capital, Villa de Álvarez, Pueblo Juárez, Coquimatlán y Zacualpan. Los cuerpos de bomberos de la capital y Villa de Álvarez coordinaron búsqueda y rescate urbano, atención prehospitalaria y control de incendios secundarios en las horas posteriores al sismo.`,
+  },
+  {
+    q: "¿Cómo prevenir incendios en zonas de cultivo y empacadoras de limón en Tecomán?",
+    a: `Tecomán concentra el <strong>35 % de la producción nacional de limón mexicano</strong>. En empacadoras y almacenes citrícolas, el principal riesgo es el aceite esencial de limón (limoneno), que es inflamable con punto de ignición de 48 °C y puede crear atmósferas explosivas en espacios cerrados. Las recomendaciones básicas son: mantener ventilación en zonas de proceso, no acumular residuos de cáscara húmeda en espacios cerrados, tener extintores de polvo químico seco o espuma AFFF a la mano, prohibir fumar o encender fuego cerca de zonas de proceso, y capacitar a los trabajadores en el plan de evacuación. Ante cualquier incendio, llama al <strong>911</strong> de inmediato.`,
+  },
+  {
+    q: "¿Los bomberos de Colima atienden incendios forestales en la Sierra de Manantlán?",
+    a: `Sí. La <strong>Reserva de la Biosfera Sierra de Manantlán</strong> (139,577 ha, compartida con Jalisco) es uno de los ecosistemas más biodiversos de México, con bosques de pino-encino, maíz primitivo (teosinte) y poblaciones de jaguar. Los cuerpos de bomberos de Colima apoyan combate de incendios forestales en coordinación con la <strong>CONAFOR</strong> (Comisión Nacional Forestal) y la Secretaría de Protección Civil. La temporada de mayor riesgo es la de estiaje (noviembre–mayo). Los incendios forestales en esta zona también pueden ser detonados por actividad volcánica que genera ceniza incandescente.`,
+  },
+  {
+    q: "¿Qué servicios de emergencia cubre la estación de Comala, el Pueblo Mágico?",
+    a: `La <strong>Estación de Bomberos de Comala</strong> (fundada en 1990) es la más cercana al cráter del Volcán de Fuego, a aproximadamente 8 km. Sus funciones principales son: monitoreo de actividad volcánica y enlace con CENAPRED, coordinación de evacuaciones de las comunidades más cercanas al volcán, combate de incendios forestales en la zona volcánica, rescate en barrancas (La Lumbre, Montegrande), atención a turistas del Pueblo Mágico y protección del patrimonio histórico. También es el punto de avanzada para respuesta a lahares —flujos de lodo volcánico que pueden descender las barrancas a más de 60 km/h.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-profesional-01.avif",
@@ -112,7 +241,7 @@ const stationImages = [
   estado="Colima"
   sigla="COL"
   slug="colima"
-  description={`${totalEstaciones} estaciones en Colima — Volcán de Fuego 8 km del cráter, Puerto Manzanillo #1 Pacífico 3.4M TEU y 157 km costa tsunamis. Emergencias: 911.`}
+  description={`Bomberos en Colima: ${totalEstaciones} estaciones, Volcán de Fuego (~3,860 msnm), Puerto Manzanillo #1 Pacífico y 157 km de costa con riesgo de tsunami. Emergencias: 911.`}
   keywords={[
     "bomberos colima",
     "bomberos colima capital",
@@ -130,47 +259,47 @@ const stationImages = [
     "proteccion civil colima volcan",
     "directorio bomberos colima mexico",
   ]}
-  canonical="https://bombero.mx/directorio/colima/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
   totalEstaciones={totalEstaciones}
   totalMunicipios={totalMunicipios}
   habitantes="785K"
 
-  heroDesc={`<strong>Colima</strong>, el <strong>estado más pequeño de México continental</strong> (5,627 km², 4° más pequeño nacional), concentra los riesgos naturales más intensos del Pacífico: el <strong>Volcán de Fuego de Colima</strong> — uno de los <strong>volcanes más activos de Norteamérica</strong> (3,960 msnm, última erupción mayor 2015, monitoreo permanente CENAPRED) — con <strong>8 km de zona de exclusión</strong> y 350,000 personas en riesgo; el <strong>Puerto de Manzanillo</strong>, el <strong>más grande del Pacífico mexicano</strong> (#1 nacional en contenedores, 3.4 millones TEU/año); y <strong>157 km de costa</strong> vulnerable a <strong>tsunamis y huracanes categoría 5</strong>. Con <strong>${totalEstaciones} estaciones</strong> y <strong>${totalBomberos} bomberos profesionales</strong> — especializados en evacuaciones volcánicas, HAZMAT marítimo y rescate acuático en el Pacífico.`}
+  heroDesc={`<strong>Colima</strong>, el estado más pequeño de México continental (5,627 km²), concentra tres de los riesgos naturales más intensos del Pacífico en apenas 160 km de radio: el <strong>Volcán de Fuego de Colima</strong> —uno de los volcanes más activos de Norteamérica, con erupción mayor en 2015 y actividad fumarólica casi permanente—; el <strong>Puerto de Manzanillo</strong>, el más grande del Pacífico mexicano en movimiento de contenedores (~3.7 millones de TEU en 2023); y <strong>157 km de costa</strong> expuesta a tsunamis y huracanes del Pacífico. Con <strong>${totalEstaciones} estaciones</strong> y <strong>${totalBomberos} bomberos</strong> en el directorio, los cuerpos de Colima operan más especialidades simultáneas —respuesta volcánica, HAZMAT marítimo, rescate costero— que cualquier otro cuerpo de tamaño comparable en México.`}
   heroImage="/images/directorio/estacion-bomberos-profesional-01.avif"
   heroImageAlt="Bomberos Colima — Volcán de Fuego emergencias volcánicas Puerto Manzanillo HAZMAT marítimo costa Pacífico"
   heroCaption="Bomberos Colima · COL · 5 Estaciones · Volcán de Fuego · Puerto #1 Pacífico · 157 km Costa"
   heroThumbs={[
-    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",   alt: "Volcán de Fuego Colima 3960 msnm evacuaciones volcánicas lahares ceniza CENAPRED monitoreo permanente", label: "Volcán de Fuego 3,960m"      },
-    { src: "/images/directorio/unidad-hazmat-emergencias-01.avif",  alt: "Puerto Manzanillo #1 Pacífico 3.4M TEU HAZMAT marítimo contenedores buques Capitanía",              label: "Puerto #1 Pacífico"         },
-    { src: "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif", alt: "Tres unidades de bomberos listas en bahía de Colima", label: "Unidades Listas" },
+    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",            alt: "Volcán de Fuego Colima erupciones lahares flujos piroclásticos CENAPRED semáforo volcánico evacuación",   label: "Volcán de Fuego"        },
+    { src: "/images/directorio/unidad-hazmat-emergencias-01.avif",               alt: "Puerto Manzanillo #1 Pacífico mexicano HAZMAT marítimo contenedores buques Capitanía de Puerto",           label: "HAZMAT Puerto #1 Pacífico" },
+    { src: "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",   alt: "Tres unidades de bomberos en bahía de estación Colima listas para emergencias volcánicas y costeras",    label: "Unidades Listas 24/7"   },
   ]}
 
   galleryImages={[
-    { src: "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif", alt: "Cascos de bomberos con bandera de México en estación de Colima", label: "Orgullo Nacional" },
-    { src: "/images/directorio/rescate-swift-water-rios-01.avif",            alt: "Lahares volcánicos Volcán de Fuego flujos piroclásticos evacuación Comala flujos lodo",           label: "Lahares Volcán de Fuego"    },
-    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",             alt: "Rescate acuático bahía Manzanillo playas Santiago El Paraíso tsunami alerta temprana",             label: "Rescate Bahía Manzanillo"   },
-    { src: "/images/directorio/camion-bomberos-equipado-01.avif",            alt: "Emergencias agrícolas Tecomán capital mundial limón empacadoras cítricos agroquímicos 35%",        label: "Agrícola Tecomán Limón"     },
+    { src: "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif", alt: "Cascos de bomberos con bandera de México en estación de Colima capital coordinación volcánica CENAPRED",  label: "Colima Capital 1942"       },
+    { src: "/images/directorio/rescate-swift-water-rios-01.avif",                alt: "Lahares volcánicos barrancas Montegrande La Lumbre Volcán de Fuego flujos lodo evacuación Comala",          label: "Lahares — Comala"          },
+    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",                 alt: "Rescate acuático bahía Manzanillo playas Pacífico tsunami alerta temprana sirenas Cuyutlán",                label: "Rescate Bahía Manzanillo"  },
+    { src: "/images/directorio/camion-bomberos-equipado-01.avif",                alt: "Emergencias agrícolas Tecomán capital mundial limón empacadoras cítricos limoneno agroquímicos",            label: "Tecomán — Limón"           },
   ]}
 
   emergencyNumbers={[
     { number: "911",            label: "Emergencias Colima"               },
     { number: "(312) 312-3456", label: "Bomberos Colima (Central)"        },
     { number: "(314) 332-0911", label: "Bomberos Manzanillo (Puerto)"     },
-    { number: "(313) 324-1234", label: "Bomberos Tecomán (Limón)"         },
+    { number: "(313) 324-1234", label: "Bomberos Tecomán"                 },
+    { number: "(312) 315-5555", label: "Bomberos Comala (Volcánica)"      },
     { number: "(312) 316-2000", label: "Protección Civil Estatal"         },
-    { number: "(312) 316-2020", label: "Monitoreo Volcánico (CENAPRED)"   },
   ]}
 
   municipios={municipios}
 
   regiones={[
-    { nombre: "Zona Metropolitana Colima-Villa de Álvarez", desc: "Colima (Central 1942, CENAPRED volcánico) · Villa de Álvarez (crecimiento urbano, Tec Colima, U de Colima)" },
-    { nombre: "Zona Portuaria Manzanillo (Pacífico)",       desc: "Manzanillo (Puerto #1 Pacífico, 3.4M TEU, HAZMAT marítimo, playas, cruceros, bahía, 157 km costa)" },
-    { nombre: "Zona Agrícola Tecomán (Capital Limón)",      desc: "Tecomán (capital mundial limón, 35% nacional, empacadoras, agroquímicos, Laguna Cuyutlán, sal)" },
-    { nombre: "Zona Volcánica Comala (Pueblo Mágico)",      desc: "Comala (Pueblo Mágico 2002, Pedro Páramo, Volcán de Fuego 8 km, evacuaciones, riesgo muy alto)" },
-    { nombre: "Áreas Naturales y Costa",                    desc: "Reserva Biosfera Sierra Manantlán · Parque Nacional Nevado · Laguna Cuyutlán Ramsar · playas Santiago" },
+    { nombre: "Zona Metropolitana Colima–Villa de Álvarez", desc: "Colima (Central 1942, enlace CENAPRED) · Villa de Álvarez (1985, zona universitaria, Tec Colima, U de Colima)" },
+    { nombre: "Zona Portuaria Manzanillo (Pacífico)",       desc: "Manzanillo (Bomberos Voluntarios 2001, Puerto #1 Pacífico, HAZMAT marítimo, 157 km costa, playas, cruceros)" },
+    { nombre: "Zona Agrícola Tecomán",                      desc: "Tecomán (1972, 35 % limón mexicano, empacadoras limoneno, Laguna Cuyutlán Ramsar, salinas)" },
+    { nombre: "Zona Volcánica Comala (Pueblo Mágico)",      desc: "Comala (1990, 8 km del cráter, evacuaciones volcánicas, lahares, Pueblo Mágico 2002, Pedro Páramo)" },
+    { nombre: "Áreas Naturales Protegidas",                 desc: "Reserva Biosfera Sierra Manantlán · Parque Nacional Volcán Nevado de Colima · Laguna Cuyutlán (sitio Ramsar)" },
   ]}
 
   estadosVecinos={estadosVecinos}
@@ -184,7 +313,7 @@ const stationImages = [
       imageAlt:  "SCBA NFPA 1981 bomberos Colima ceniza volcánica Volcán de Fuego dióxido azufre SO2 gases volcánicos CENAPRED",
       badge:     "NFPA 1981",
       title:     "Aparato Respiratorio Autónomo SCBA — Ceniza Volcánica",
-      text:      "El <strong>Volcán de Fuego de Colima</strong> (3,960 msnm) es <strong>uno de los volcanes más activos de Norteamérica</strong> — con erupciones documentadas cada 3-5 años desde 1576. La última erupción mayor, en <strong>julio de 2015</strong>, arrojó columnas de ceniza de hasta <strong>10 km de altura</strong>, flujos piroclásticos y material incandescente que viajó más de 3 km por las barrancas. La <strong>Estación Central de Colima</strong> y la <strong>Estación de Comala</strong> mantienen equipos SCBA certificados NFPA 1981 con filtros especializados para <strong>ceniza volcánica</strong> (partículas de 2-10 micras) y <strong>gases volcánicos</strong> (SO₂ dióxido de azufre, H₂S ácido sulfhídrico, CO monóxido de carbono). El <strong>CENAPRED</strong> (Centro Nacional de Prevención de Desastres) mantiene <strong>monitoreo sísmico 24/7</strong> del volcán con estaciones permanentes en Comala; cuando el <strong>Semáforo Volcánico</strong> pasa a Amarillo Fase 2 o Rojo, se activa la evacuación de hasta <strong>350,000 personas</strong> en un radio de 8-12 km.",
+      text:      "El <strong>Volcán de Fuego de Colima</strong> (~3,860 msnm) es uno de los volcanes más activos de Norteamérica, con erupciones documentadas desde 1576. La última erupción mayor, en <strong>julio de 2015</strong> —la más intensa desde 1913, según el CENAPRED— generó flujos piroclásticos en las barrancas de Montegrande y San Antonio, con columnas de ceniza de hasta 10 km de altura. Las estaciones de <strong>Colima capital</strong> y <strong>Comala</strong> mantienen equipos SCBA certificados NFPA 1981 con filtros especializados para ceniza volcánica (partículas de 2–10 micras) y gases volcánicos (SO₂, H₂S, CO). Cuando el <strong>Semáforo Volcánico del CENAPRED</strong> escala a Amarillo Fase 2 o Rojo, se activa la evacuación preventiva de hasta 350,000 personas en el área de influencia del volcán.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Equipos SCBA",
     },
@@ -192,8 +321,8 @@ const stationImages = [
       image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
       imageAlt:  "Traje HAZMAT Nivel A NFPA 1991 bomberos Manzanillo contenedores marítimos químicos puerto Pacífico comercio",
       badge:     "NFPA 1991",
-      title:     "Traje HAZMAT Nivel A — Puerto de Manzanillo Pacífico",
-      text:      "El <strong>Puerto de Manzanillo</strong> es el <strong>puerto más importante del Pacífico mexicano</strong> y el <strong>#1 nacional en movimiento de contenedores</strong> — procesando más de <strong>3.4 millones de TEU al año</strong> (contenedores de 20 pies) con carga diversificada: productos químicos industriales, combustibles, granos, automóviles y cruceros internacionales. La <strong>Estación de Bomberos de Manzanillo</strong> opera con protocolos de <strong>HAZMAT marítimo</strong> para emergencias en contenedores sin identificar (\"contenedores perdidos\"), derrames de químicos en terminales (CONTECON, SSA México), incendios en buques con carga peligrosa y fugas de combustible marino en bahía. El traje NFPA 1991 de Nivel A es el equipo crítico para entrar a contenedores con atmósferas desconocidas o gases tóxicos tras 15+ días en el mar. La coordinación permanente con la <strong>Capitanía de Puerto</strong> y la <strong>Armada de México</strong> garantiza respuesta inmediata a incidentes en las 4 terminales especializadas del puerto.",
+      title:     "Traje HAZMAT Nivel A — Puerto de Manzanillo",
+      text:      "El <strong>Puerto de Manzanillo</strong> es el más importante del Pacífico mexicano en movimiento de contenedores, con <strong>~3.7 millones de TEU en 2023</strong>. Para los bomberos, el mayor riesgo son los contenedores con carga misdeclarada: peróxidos orgánicos, baterías de litio en degradación avanzada o mezclas reactivas que ningún manifiesto de carga describe con precisión. Un contenedor de baterías de litio en thermal runaway genera fluoruro de hidrógeno gaseoso, tóxico en concentraciones de partes por millón. El traje NFPA 1991 Nivel A es el equipo crítico para entrar a contenedores con atmósferas desconocidas. Los bomberos de Manzanillo trabajan en coordinación permanente con la <strong>Capitanía de Puerto</strong> y la <strong>Armada de México</strong>.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -202,7 +331,7 @@ const stationImages = [
       imageAlt:  "Traje Inmersión NFPA 1952 bomberos Colima rescate acuático playas Manzanillo tsunami huracanes bahía Pacífico",
       badge:     "NFPA 1952",
       title:     "Traje de Inmersión NFPA 1952 — Costa Pacífico y Tsunamis",
-      text:      "Los <strong>157 km de costa de Colima</strong> en el Pacífico son de los más vulnerables de México a <strong>tsunamis</strong> generados por sismos en la <strong>Placa de Cocos</strong> (subducción bajo Norteamérica) — el mismo mecanismo que causó el tsunami de <strong>1932 en Cuyutlán</strong>, con olas de hasta <strong>10 metros de altura</strong> que arrasaron la costa. El <strong>Sistema Nacional de Alerta de Tsunamis</strong> activa sirenas en Manzanillo, Santiago y Cuyutlán cuando detecta sismos >7.0 en el Pacífico. La <strong>Estación de Bomberos de Manzanillo</strong> opera 1 lancha de rescate especializada y equipos de traje de inmersión NFPA 1952 para rescate acuático en bahía y playas turísticas (Playa Azul, Santiago, La Audiencia, El Paraíso) durante todo el año. También para la <strong>temporada de huracanes</strong> (junio-noviembre), cuando ciclones categoría 4-5 del Pacífico oriental impactan Colima con marejadas ciclónicas de 3-5 metros y lluvias torrenciales que inundan la zona costera.",
+      text:      "Los <strong>157 km de costa de Colima</strong> son de los más vulnerables de México a tsunamis generados por sismos en la Placa de Cocos. El <strong>tsunami del 22 de junio de 1932 en Cuyutlán</strong> —provocado por un sismo de Mw 6.9— generó olas de más de 10 metros que causaron más de 75 muertos y dejaron 20 km de costa sin una sola estructura en pie. El Sistema Nacional de Alerta de Tsunamis activa sirenas automáticas en Manzanillo, Santiago y Cuyutlán ante sismos mayores a 7.0. La temporada de huracanes (junio–noviembre) añade marejadas de 3 a 5 metros. La estación de Manzanillo opera lancha de rescate y equipos de inmersión para emergencias acuáticas en bahía y playas turísticas durante todo el año.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -211,108 +340,250 @@ const stationImages = [
       imageAlt:  "Botas Estructurales NFPA 1971 bomberos Colima terreno volcánico escoria basalto ceniza lahares roca ígnea",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales — Terreno Volcánico y Lahares",
-      text:      "Los bomberos de las estaciones de <strong>Comala</strong> y <strong>Colima</strong> enfrentan el terreno volcánico más exigente de México: <strong>escoria basáltica</strong> del Volcán de Fuego con aristas cortantes que pueden perforar suela convencional en minutos; <strong>ceniza volcánica compactada</strong> en las barrancas de Comala (La Lumbre, Montegrande) con temperatura superficial de hasta 300°C tras erupciones recientes; <strong>lahares</strong> — flujos de lodo volcánico, ceniza y agua de lluvia que descienden por las barrancas a <strong>60+ km/h</strong> con la consistencia de concreto húmedo; y <strong>roca ígnea</strong> (andesita, dacita) de los domos de lava del volcán. Durante operaciones de evacuación en Pueblo Juárez, La Yerbabuena y Zacualpan — las comunidades más cercanas al cráter — los bomberos deben ascender pendientes de <strong>30-40° en terreno volcánico inestable</strong>. La suela Vibram especializada con tracción volcánica y puntera de acero reforzada son equipos críticos para estas operaciones.",
+      text:      "Los bomberos de <strong>Comala</strong> y <strong>Colima capital</strong> operan en el terreno volcánico más exigente de México: escoria basáltica con aristas cortantes; ceniza volcánica compactada en las barrancas de La Lumbre y Montegrande con temperatura superficial elevada tras erupciones recientes; y <strong>lahares</strong> —flujos de lodo volcánico, ceniza y agua que descienden las barrancas a más de 60 km/h con la consistencia de concreto húmedo—. Durante evacuaciones de <strong>Pueblo Juárez, La Yerbabuena y Zacualpan</strong>, los bomberos ascienden pendientes de 30–40° en terreno volcánico inestable. Suela con tracción para roca ígnea y puntera de acero reforzada son equipos críticos en estas operaciones.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
   ]}
 
   ctaTitle="Equipamos a los Bomberos de Colima — Volcánico, Marítimo y Costero"
-  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones de Colima: desde SCBA con filtros para ceniza volcánica y gases del Volcán de Fuego, hasta trajes HAZMAT Nivel A para el Puerto de Manzanillo y equipos de rescate acuático para la costa del Pacífico. Atención en Colima y Manzanillo.`}
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones de Colima: SCBA con filtros para ceniza volcánica, trajes HAZMAT Nivel A para el Puerto de Manzanillo y equipos de rescate acuático para la costa del Pacífico. Atención en Colima y Manzanillo.`}
   ctaBtnText="Solicitar Cotización — Colima"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Colima — Estado Pequeño, Riesgos sin Equivalente en el Pacífico</h2>
-    <p>
-      Los cuerpos de bomberos de <strong>Colima</strong> operan en la paradoja del sistema
-      nacional: el estado más pequeño de México continental (5,627 km²) con la concentración
-      de riesgos naturales de mayor magnitud del Pacífico. En un radio de 160 km coexisten
-      el volcán activo más próximo a una capital estatal del país, el puerto de contenedores
-      con mayor movimiento del Pacífico mexicano y la franja costera con el tiempo de evacuación
-      por tsunami más corto de México. Con {totalEstaciones} estaciones en {totalMunicipios}
-      municipios y {totalBomberos} bomberos profesionales, la corporación opera más especialidades
-      simultáneas que cualquier otro cuerpo de tamaño comparable: respuesta volcánica, HAZMAT
-      marítimo, rescate costero y emergencias agroindustriales con riesgo de explosión.
+    <h2>Bomberos en Colima</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Colima">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Bomberos en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">~3,860 m</span><span class="de-stat__label">Alt. Volcán de Fuego</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">~3.7 M</span><span class="de-stat__label">TEU Puerto 2023</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">157 km</span><span class="de-stat__label">Costa en riesgo</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1942</span><span class="de-stat__label">Fundación Est. Central</span></div>
+    </div>
+
+    <p class="de-lead">
+      Colima es el estado más pequeño de México continental y el que concentra la mayor densidad
+      de riesgos naturales simultáneos por kilómetro cuadrado en el Pacífico: un volcán activo a
+      8 km de un Pueblo Mágico, el puerto de contenedores más importante del Pacífico mexicano y
+      una franja costera con el historial tsunamigénico más destructivo del país. Con
+      <strong>{totalEstaciones} estaciones</strong> y <strong>{totalBomberos} bomberos</strong> en el
+      directorio, los cuerpos de Colima operan más especialidades simultáneas —respuesta volcánica,
+      HAZMAT marítimo, rescate acuático— que cualquier otro cuerpo de tamaño comparable en México.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Colima?</h3>
+    <h3>Cómo contactar a los bomberos en Colima</h3>
     <p>
-      En cualquier emergencia, el <strong>911</strong> conecta con el Centro Estatal de
-      Emergencias las 24 horas. Los teléfonos directos de las estaciones son: Colima capital
-      (312) 312-3456, Manzanillo / Puerto (314) 332-0911, Tecomán (313) 324-1234, Comala /
-      Volcán (312) 315-5555, Protección Civil Estatal (312) 316-2000 y Monitoreo Volcánico
-      CENAPRED (312) 316-2020. Para alertas de tsunami, el Sistema Nacional activa sirenas
-      automáticas en toda la costa de Colima cuando detecta sismos mayores a 7.0 en el Pacífico.
-      En emergencias en el Puerto de Manzanillo, la Capitanía de Puerto (SEMAR) coordina la
-      respuesta con los bomberos locales.
+      En cualquier emergencia, el <strong>911</strong> conecta con el Centro Estatal de Emergencias
+      las 24 horas. Los teléfonos directos del directorio son: Estación Central Colima
+      (312) 312-3456, Manzanillo Puerto (314) 332-0911, Tecomán (313) 324-1234, Comala–Zona
+      Volcánica (312) 315-5555 y Protección Civil Estatal (312) 316-2000. Ante una
+      <strong>alerta volcánica</strong>, no esperes la llamada: cuando el Semáforo Volcánico del
+      CENAPRED escala a Amarillo Fase 2, la evacuación ya debería estar en marcha. Ante una
+      <strong>alerta de tsunami</strong> en la costa, las sirenas automáticas del Sistema Nacional se
+      activan sin necesidad de llamar; evacúa de inmediato hacia zona elevada. Encuentra todos los
+      datos en el <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
     </p>
 
-    <h3>El volcán más activo de México: 8 km del cráter a Comala y menos de 5 minutos de margen</h3>
+    <h3>Historia de los cuerpos de bomberos en Colima</h3>
     <p>
-      El Volcán de Fuego de Colima (3,960 msnm) registra erupciones cada 3 a 5 años desde
-      1576 y actividad fumarólica casi permanente, lo que lo posiciona como el volcán más
-      activo de México y uno de los cinco más activos de América. La última erupción mayor,
-      en julio de 2015, generó flujos piroclásticos —nubes ardientes de gas, roca y ceniza a
-      700°C— que descendieron por las barrancas de Montegrande y La Lumbre a más de 100 km/h.
-      A esa velocidad, el flujo recorre los 8 kilómetros que separan el cráter de Comala en
-      menos de cinco minutos: menos tiempo del que tardan en activarse las alarmas, organizarse
-      la evacuación y que los residentes de Pueblo Juárez y La Yerbabuena aborden los vehículos.
-      Por eso los bomberos de Comala no esperan confirmación de flujo: cuando el Semáforo
-      Volcánico del CENAPRED escala a Amarillo Fase 2, la evacuación de los 2,500 residentes
-      de la zona de exclusión comienza de forma inmediata, con rutas preestablecidas hacia
-      Colima capital y vehículos de gran capacidad en posición de salida las 24 horas.
+      La historia del combate de incendios en Colima no puede entenderse sin los dos factores que
+      definen el estado: el volcán y el puerto. El volcán marcó la urgencia de crear estructuras de
+      respuesta en la capital y en Comala; el puerto generó la necesidad de una corporación
+      especializada en emergencias marítimas en Manzanillo. Estos son los hitos verificables:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora cada año como el <strong>Día del Bombero en México</strong>.</li>
+      <li><span class="de-tl__year">1932</span> El <strong>22 de junio</strong>, un sismo de Mw 6.9 genera el <strong>tsunami de Cuyutlán</strong> —la "Ola Verde"—: olas de más de 10 metros arrasan 20 km de costa, causan más de 75 muertos y destruyen el balneario de Cuyutlán. Evento que marcó la conciencia de riesgo costero en el estado.</li>
+      <li><span class="de-tl__year">1942</span> Se funda la <strong>Estación Central de Bomberos de Colima</strong>, en la capital del estado, primera del territorio colimense.</li>
+      <li><span class="de-tl__year">1958</span> Se establece la <strong>Estación de Bomberos de Manzanillo</strong> para atender emergencias del creciente puerto y la zona costera.</li>
+      <li><span class="de-tl__year">1972</span> Se funda la <strong>Estación de Tecomán</strong>, en la región agrícola productora del 35 % del limón mexicano.</li>
+      <li><span class="de-tl__year">1985</span> Se establece la <strong>Estación de Villa de Álvarez</strong>, respondiendo al crecimiento de la zona metropolitana de Colima.</li>
+      <li><span class="de-tl__year">1990</span> Se crea la <strong>Estación de Comala</strong>, específicamente para coordinar la respuesta volcánica del Pueblo Mágico más cercano al cráter del Volcán de Fuego.</li>
+      <li><span class="de-tl__year">2001</span> Se constituye el <strong>23 de noviembre</strong> la asociación civil <strong>Bomberos Voluntarios de Manzanillo, A.C.</strong>, especializada en emergencias portuarias y rescate acuático.</li>
+      <li><span class="de-tl__year">2003</span> El <strong>21 de enero</strong>, un sismo de <strong>Mw 7.6</strong> frente a Cuyutlán sacude Colima durante 55 segundos: 23 muertos, ~300 heridos y más de 10,000 viviendas afectadas. Las estaciones de Colima y Villa de Álvarez lideran la respuesta de búsqueda y rescate.</li>
+      <li><span class="de-tl__year">2015</span> El volcán registra su <strong>erupción más intensa desde 1913</strong> (julio): flujos piroclásticos en barrancas de Montegrande y San Antonio, columnas de ceniza de hasta 10 km de altura. Los bomberos de Comala coordinan la evacuación de comunidades cercanas.</li>
+      <li><span class="de-tl__year">Hoy</span> El directorio de BOMBERO.MX registra <strong>{totalEstaciones} estaciones</strong> en {totalMunicipios} municipios, con <strong>{totalBomberos} bomberos</strong> y <strong>{totalUnidades} unidades</strong>, especializados en respuesta volcánica, HAZMAT marítimo, rescate costero y emergencias agroindustriales.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cobertura por región</h3>
+    <p>
+      La cobertura del directorio se organiza en cuatro zonas con perfiles de riesgo distintos. La
+      zona metropolitana de Colima–Villa de Álvarez concentra el mayor número de estaciones y la
+      coordinación volcánica estatal; Manzanillo atiende el puerto y la costa; Tecomán cubre la
+      zona agroindustrial del limón; y Comala es la avanzada en la zona volcánica de mayor riesgo.
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los bomberos en Colima</h3>
+    <p>
+      Los cuerpos de bomberos de Colima son servicios de emergencia integrales con especialidades
+      que no existen en ningún otro cuerpo de tamaño comparable en México:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Respuesta volcánica</h4><p>Evacuación preventiva ante escalada del Semáforo Volcánico, rescate en lahares y barrancas, protección de comunidades en radio de 8 km del cráter.</p></div>
+      <div class="de-card"><h4>HAZMAT marítimo</h4><p>Contención de derrames en contenedores y buques en el Puerto de Manzanillo, coordinación con Capitanía de Puerto y Armada de México.</p></div>
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, forestales, de cultivos y en instalaciones portuarias e industriales citrícolas. Espuma AFFF para líquidos inflamables.</p></div>
+      <div class="de-card"><h4>Rescate acuático y costero</h4><p>Rescate en bahía, playas turísticas y zona hotelera de Manzanillo; respuesta a tsunamis y marejadas ciclónicas en los 157 km de costa.</p></div>
+      <div class="de-card"><h4>Búsqueda y rescate urbano</h4><p>Respuesta a sismos (sismo Mw 7.6 de 2003), derrumbes y personas atrapadas en estructuras colapsadas en zona metropolitana y costera.</p></div>
+      <div class="de-card"><h4>Prevención y protección civil</h4><p>Inspecciones, planes de emergencia volcánica, simulacros comunitarios, capacitación a empresas agrícolas, portuarias y hoteleras.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Estaciones/Zonas</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Respuesta volcánica y evacuación</strong></td><td>24/7</td><td>Comala y Colima capital (CENAPRED)</td></tr>
+          <tr><td><strong>HAZMAT marítimo (puerto)</strong></td><td>24/7</td><td>Manzanillo (coordinación Capitanía)</td></tr>
+          <tr><td><strong>Rescate acuático y costero</strong></td><td>24/7</td><td>Manzanillo (lancha de rescate)</td></tr>
+          <tr><td><strong>Búsqueda y rescate urbano (USAR)</strong></td><td>24/7</td><td>Colima central (brigada especializada)</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Incendios en empacadoras citrícolas</strong></td><td>24/7</td><td>Tecomán (espuma AFFF)</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Comala, Colima, Sierra Manantlán</td></tr>
+          <tr><td><strong>Respuesta a tsunamis y huracanes</strong></td><td>Jun–Nov (ciclones); permanente (tsunami)</td><td>Manzanillo y costa</td></tr>
+          <tr><td><strong>Emergencias turísticas</strong></td><td>24/7</td><td>Manzanillo, Comala (Pueblo Mágico)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>El volcán, el puerto y la costa: tres riesgos sin equivalente en México</h3>
+    <p>
+      El <strong>Volcán de Fuego de Colima</strong> (~3,860 msnm) registra actividad eruptiva
+      documentada desde el siglo XVI y es considerado el volcán más activo de México. La erupción de
+      julio de 2015 —la más intensa en más de un siglo— generó flujos piroclásticos en las barrancas
+      de Montegrande y San Antonio que descendieron a más de 100 km/h. A esa velocidad, el flujo
+      recorre los 8 kilómetros que separan el cráter de Comala en menos de cinco minutos: menos
+      tiempo del que tarda en activarse la evacuación. Por eso los bomberos de Comala no esperan
+      confirmación: cuando el <strong>Semáforo Volcánico del CENAPRED</strong> escala a Amarillo
+      Fase 2, la evacuación preventiva de Pueblo Juárez, La Yerbabuena y Zacualpan comienza de
+      inmediato, con rutas preestablecidas y vehículos en posición las 24 horas.
+    </p>
+    <p>
+      El <strong>Puerto de Manzanillo</strong> es el primer puerto de México en movimiento de
+      contenedores y el principal del Pacífico latinoamericano, con aproximadamente <strong>3.7 millones
+      de TEU movilizados en 2023</strong>. Para los bomberos, el mayor desafío no es el volumen —es lo
+      que viene dentro sin declarar. Los llamados contenedores misdeclarados pueden contener peróxidos
+      orgánicos, baterías de litio en degradación o mezclas reactivas. Un contenedor de baterías de
+      litio en thermal runaway produce fluoruro de hidrógeno gaseoso, tóxico incluso en concentraciones
+      de partes por millón. Los bomberos de Manzanillo, en coordinación con la Capitanía de Puerto y la
+      Armada de México, mantienen trajes HAZMAT Nivel A, detectores de HF y protocolos de aislamiento y
+      ventilación forzada para este escenario.
+    </p>
+    <p>
+      Los <strong>157 km de costa</strong> tienen el historial tsunamigénico más destructivo del Pacífico
+      mexicano. El <strong>tsunami de Cuyutlán del 22 de junio de 1932</strong> —la "Ola Verde"—
+      fue generado por un sismo de Mw 6.9 y produjo olas de más de 10 metros que causaron más de
+      75 muertos y dejaron 20 km de costa sin una estructura en pie. La ventana de evacuación desde
+      la zona hotelera de Manzanillo hasta zona segura puede ser de apenas 10 a 15 minutos desde la
+      detección del sismo. Los bomberos de Manzanillo entrenan evacuaciones de la zona hotelera
+      —más de 5,000 cuartos, varios a nivel del mar— en ese margen de tiempo, antes de que la primera
+      ola llegue a la bahía.
     </p>
 
-    <h3>Puerto de Manzanillo: 3.4 millones de contenedores al año y el riesgo del HAZMAT desconocido</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      El Puerto de Manzanillo procesa más de 3.4 millones de TEU anuales, posicionándolo como
-      el primer puerto de México en carga contenedorizada y el primero del Pacífico latinoamericano.
-      Para los bomberos, el mayor desafío no es el volumen —es lo que viene dentro sin declarar.
-      Los llamados contenedores misdeclarados, estimados en el 3% del tráfico global, representan
-      miles de unidades al año en Manzanillo que pueden contener peróxidos orgánicos, baterías
-      de litio en degradación avanzada o mezclas reactivas que ningún manifiesto de carga describe
-      con precisión. Un contenedor de baterías de litio en thermal runaway dentro de la bodega
-      de un buque genera una emergencia que los protocolos convencionales no pueden controlar:
-      el litio arde en presencia de agua y produce fluoruro de hidrógeno gaseoso, tóxico por
-      inhalación incluso en concentraciones de partes por millón. Los bomberos de Manzanillo, en
-      coordinación con la Capitanía de Puerto y la Armada de México, mantienen trajes HAZMAT Nivel A,
-      detectores de HF y protocolos de aislamiento y ventilación forzada para este escenario
-      específico —una capacidad que ningún cuerpo de bomberos costero del Pacífico tiene desarrollada
-      a este nivel fuera de Manzanillo.
+      A partir de los datos de las estaciones del directorio, así se distribuyen los recursos del
+      cuerpo de bomberos entre las grandes zonas de Colima. Las cifras de personal y unidades
+      corresponden a las estaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>5 municipios de Colima</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Colima</h3>
+    <p>
+      El principal reto es de cobertura: el estado tiene <strong>10 municipios</strong> y el directorio
+      registra estaciones en 5 de ellos. Los municipios de Cuauhtémoc, Ixtlahuacán, Armería, Minatitlán
+      y Coquimatlán dependen de la respuesta de estaciones vecinas, lo que eleva los tiempos ante
+      emergencias en zonas rurales y de difícil acceso. La misma amplitud del perfil de riesgo —volcán,
+      puerto, costa— exige que cada bombero domine protocolos radicalmente distintos: no hay otro estado
+      de México donde un mismo cuerpo deba saber evacuar ante un lahar, manejar HAZMAT en contenedor
+      marítimo y coordinar la evacuación de una zona hotelera ante alerta de tsunami.
+    </p>
+    <p>
+      El segundo reto es de equipamiento. La renovación del <strong>equipo de protección personal (EPP)</strong>
+      conforme a normas NFPA vigentes, la actualización de los sistemas de comunicación con CENAPRED y la
+      Capitanía de Puerto, y el mantenimiento de unidades especializadas (lanchas, vehículos todo terreno
+      volcánico, equipos HAZMAT) requieren presupuestos que la mayoría de los municipios del estado no
+      pueden absorber sin financiamiento federal. El <strong>Volcán de Fuego</strong>, cuya actividad
+      puede intensificarse sin previo aviso, exige que el equipo esté siempre operativo.
     </p>
 
-    <h3>Tsunamis y huracanes: los 157 km de costa con la ventana de evacuación más corta del Pacífico</h3>
+    <h3>Cultura de prevención: cómo proteger tu familia en Colima</h3>
     <p>
-      Los sismos de subducción en la Placa de Cocos —la misma que produjo los terremotos de 1985
-      y 2017— generan tsunamis que alcanzan las costas de Colima entre 10 y 30 minutos desde el
-      epicentro. El tsunami de 1932, generado por un sismo de Mw 8.2, arrasó Cuyutlán con olas
-      de hasta 10 metros y es el evento tsunamigénico más destructor de la historia documentada
-      de México. Esa ventana de 10 a 30 minutos es la más corta del Pacífico mexicano: los bomberos
-      de Manzanillo entrenan evacuaciones de la zona hotelera —más de 5,000 cuartos, varios a nivel
-      del mar— en menos de 15 minutos, antes de que la primera ola llegue a la bahía. El Sistema
-      Nacional de Alerta de Tsunamis activa sirenas automáticas en Manzanillo, Santiago y Cuyutlán
-      cuando se detecta un sismo mayor a 7.0. La temporada de huracanes (junio a noviembre) añade
-      el riesgo de ciclones del Pacífico oriental con marejadas de 3 a 5 metros que inundan hasta
-      2 km tierra adentro, obligando a la evacuación preventiva de colonias costeras antes de que
-      el fenómeno alcance máxima intensidad.
+      La geografía de Colima exige un plan de emergencia familiar que contemple los tres escenarios
+      simultáneos del estado. Los cuerpos de bomberos recomiendan:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención para residentes y visitantes de Colima</h4>
+      <ul>
+        <li><strong>Volcán:</strong> conoce el nivel actual del Semáforo Volcánico del CENAPRED; identifica las rutas de evacuación de tu comunidad; no ignores las sirenas ni las alertas aunque la actividad parezca menor.</li>
+        <li><strong>Tsunami y costa:</strong> si estás en Manzanillo o las playas de Colima y sientes un sismo largo o fuerte, evacúa hacia tierra adentro o a zona elevada de inmediato —no esperes a escuchar las sirenas.</li>
+        <li><strong>Sismo:</strong> Colima está en una de las zonas sísmicas más activas del país (Placa de Cocos); mantén una mochila de emergencia y conoce las zonas seguras de tu edificio o casa.</li>
+        <li><strong>Gas e incendio doméstico:</strong> revisa mangueras y reguladores de gas periódicamente; ante olor a gas, no acciones interruptores, cierra la llave de paso, ventila y sal; ante incendio, sal y cierra puertas a tu paso.</li>
+        <li><strong>Detección:</strong> instala detector de humo y ten un extintor vigente en cocina y zonas de riesgo.</li>
+        <li><strong>Siempre:</strong> el <strong>911</strong> es la línea de emergencias en todo Colima, disponible las 24 horas.</li>
+      </ul>
+    </div>
 
-    <h3>Tecomán y el limoneno: la emergencia agroindustrial que los manuales de bomberos no describen</h3>
-    <p>
-      Tecomán produce el 35% del limón mexicano —más de 850,000 toneladas anuales— en una
-      región donde la cáscara de limón es también un riesgo industrial poco documentado. El
-      limoneno, el aceite esencial que concentra la cáscara, es altamente inflamable con un
-      punto de ignición de 48°C: en una empacadora con procesamiento activo, sus vapores en
-      espacios cerrados crean atmósferas explosivas que se comportan de forma diferente a un
-      incendio estructural convencional. Un chorro de agua sobre aceite esencial ardiendo no
-      lo extingue —lo dispersa, ampliando el área de incendio. Los bomberos de Tecomán son
-      los únicos del país entrenados en emergencias de limoneno a escala industrial, con espuma
-      AFFF de baja expansión y técnicas de extinción de líquidos inflamables agrícolas. La
-      estación también cubre la Laguna de Cuyutlán —sitio Ramsar de 900 ha de manglares y hábitat
-      de flamencos rosados— y las playas de Boca de Pascuales, donde las olas de rompiente
-      son de las más violentas del Pacífico mexicano y generan rescates acuáticos de alta dificultad.
+    <p class="de-srcnote">
+      Fuentes: Bomberos Voluntarios de Manzanillo, A.C. (nosotros.bomberosmanzanillo.com, fecha fundación 23-nov-2001);
+      CENAPRED — «El tsunami de Cuyutlán, Colima, a 90 años de distancia» (gob.mx/cenapred, 2022);
+      La Jornada — «La erupción del volcán de Colima, la más intensa desde 1913: Cenapred» (julio 2015);
+      Servicio Sismológico Nacional / UNAM — Reporte especial sismos 1932 (ssn.unam.mx);
+      Wikipedia — «Terremoto de Colima de 2003» (Mw 7.6, 21 enero 2003, 23 muertos);
+      PortalPortuario / T21 — movimiento de contenedores Puerto de Manzanillo ~3.7 M TEU 2023;
+      Universidad de Colima / CUEIV — altura actual del volcán (~3,860 msnm post-erupciones recientes);
+      datos de estaciones-colima.ts (personal, unidades, fechas de fundación de Est. Colima 1942,
+      Est. Tecomán 1972, Est. Villa de Álvarez 1985, Est. Comala 1990). Los números de teléfono
+      corresponden al dataset del directorio verificado y deben confirmarse con cada cuerpo.
+      Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

@@ -3,122 +3,69 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesPuebla, getMunicipios } from "@data/estaciones-puebla";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 // Configuración del estado
 const estado = "Puebla";
 const sigla = "PUE";
 const slug = "puebla";
 
-// Miniaturas hero - Industrial, UNESCO y Volcán
-const heroThumbs = [
-  {
-    src: "/images/directorio/estacion-bomberos-puebla-01.avif",
-    alt: "Centro Histórico de Puebla Patrimonio UNESCO catedral",
-    label: "Centro UNESCO"
-  },
-  { src: "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif", alt: "Cascos de bomberos con bandera de México en estación de Puebla", label: "Orgullo Nacional" },
-  {
-    src: "/images/directorio/rescate-montana-bomberos-01.avif",
-    alt: "Volcán Popocatépetl activo monitoreo Puebla",
-    label: "Volcán Activo"
-  }
-];
+const canonical = "https://bombero.mx/directorio/puebla/";
 
-// Galería de imágenes
-const galleryImages = [
-  { src: "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif", alt: "Estación de bomberos de Puebla con múltiples bahías operativas", label: "Estación Equipada" },
-  {
-    src: "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",
-    alt: "Autopista México-Puebla rescate carretero 80,000 vehículos",
-    label: "Autopista 150D"
-  },
-  {
-    src: "/images/directorio/estacion-bomberos-selva-01.avif",
-    alt: "Cuetzalan Pueblo Mágico cascadas voladores",
-    label: "Cuetzalan PM"
-  },
-  {
-    src: "/images/directorio/estacion-bomberos-puebla-01.avif",
-    alt: "Talavera poblana artesanía patrimonio Centro Histórico",
-    label: "Talavera Poblana"
-  },
-];
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const totalEstaciones = estacionesPuebla.length;
+const totalMunicipios = getMunicipios().length;
 
-// Números de emergencia Puebla
-const emergencyNumbers = [
-  { number: "911", label: "Emergencias" },
-  { number: "(222) 309-9400", label: "Bomberos Central Puebla" },
-  { number: "(222) 303-8000", label: "HAZMAT Volkswagen" },
-  { number: "(222) 247-0707", label: "Bomberos Cholula" }
-];
-
-// Regiones de Puebla
-const regiones = [
+// ── Comparativa regional ───────────────────────────────────────────────────
+const zonasDef = [
   {
     nombre: "Zona Metropolitana",
-    desc: "Puebla Centro UNESCO, Cholula (Gran Pirámide), Cuautlancingo, Amozoc"
+    municipios: ["Puebla Centro", "Puebla Norte", "Puebla Sur", "San Pedro Cholula", "Amozoc de Mota"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Centro Histórico UNESCO (2,619 edificios históricos), Gran Pirámide de Cholula, alta densidad y autopista México-Puebla."
   },
   {
     nombre: "Zona Industrial Automotriz",
-    desc: "Volkswagen (400,000+ vehículos), Audi México (Q5), HAZMAT Nivel III"
-  },
-  {
-    nombre: "Sierra Norte",
-    desc: "Zacatlán, Chignahuapan, Cuetzalan, Xicotepec (4 Pueblos Mágicos)"
+    municipios: ["Cuautlancingo", "San José Chiapa", "Huejotzingo"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Planta Volkswagen (~317,000 veh/año), Audi México (~138,000 Q5/año). HAZMAT Nivel III activo 24/7."
   },
   {
     nombre: "Corredor Volcánico",
-    desc: "Atlixco, San Nicolás de los Ranchos, monitoreo Popocatépetl"
-  }
-];
-
-// Tarjetas de equipamiento EPP
-const eppCards = [
-  {
-    image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
-    imageAlt:  "Equipos HAZMAT para industria automotriz en Puebla",
-    badge:     "Industrial",
-    title:     "Equipos HAZMAT Automotriz",
-    text:      "Trajes y detectores para emergencias químicas en plantas <strong>Volkswagen, Audi</strong> y corredor industrial Puebla-Tlaxcala. Certificación para materiales peligrosos Nivel A.",
-    href:      "/productos/trajes-para-bomberos/traje-hazmat/",
-    linkLabel: "Ver Equipos HAZMAT",
+    municipios: ["Atlixco", "San Nicolás de los Ranchos", "Tochimilco"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Radio de 12 km de exclusión del Popocatépetl (5,426 msnm). Protocolo CENAPRED de evacuación coordinada."
   },
   {
-    image:     "/images/directorio/mascara-scba-bombero-01.avif",
-    imageAlt:  "Equipo de protección para emergencias volcánicas Popocatépetl",
-    badge:     "Volcánico",
-    title:     "Protección Volcánica",
-    text:      "Equipos SCBA y máscaras para operaciones cerca del <strong>Popocatépetl</strong>. Protección respiratoria contra ceniza volcánica y gases en la zona de exclusión.",
-    href:      "/productos/cascos-para-bomberos/",
-    linkLabel: "Ver Protección Respiratoria",
-  },
-  {
-    image:     "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",
-    imageAlt:  "Equipo de rescate vehicular para autopistas de Puebla",
-    badge:     "Rescate",
-    title:     "Rescate Carretero Pesado",
-    text:      "Herramientas de extricación para accidentes en la <strong>autopista México-Puebla</strong> y libramiento. Equipo hidráulico de corte y separación certificado.",
-    href:      "/productos/guantes-para-bomberos/",
-    linkLabel: "Ver Equipo de Rescate",
-  },
-  {
-    image:     "/images/directorio/equipo-bomberos-completo-01.avif",
-    imageAlt:  "Equipo completo para bomberos de Puebla",
-    badge:     "NFPA 1971",
-    title:     "EPP Estructural Completo",
-    text:      "Sistema 3 capas certificado para los bomberos de <strong>Puebla capital y Cholula</strong>. Traje, casco, guantes y botas con protección térmica integrada NFPA 1971.",
-    href:      "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/",
-    linkLabel: "Ver Trajes Estructurales",
+    nombre: "Sierra Norte",
+    municipios: ["Zacatlán", "Chignahuapan", "Cuetzalan", "Xicotepec"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "4 Pueblos Mágicos, terracería en temporada de lluvias. Incendios forestales estiaje (nov–may)."
   },
 ];
 
-// Schema.org estructurado
+const zonas = zonasDef.map((z) => {
+  const est = estacionesPuebla.filter((e) =>
+    z.municipios.some((m) => (e.municipio ?? "").includes(m) || (e.ciudad ?? "").includes(m))
+  );
+  return {
+    ...z,
+    nEst: est.length,
+    nPers: est.reduce((s, e) => s + (e.personal ?? 0), 0),
+    nUni: est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ──────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de ${estacionesPuebla.length} estaciones de bomberos en Puebla. Capital industrial automotriz con plantas Volkswagen y Audi. Centro Histórico UNESCO. Monitoreo Volcán Popocatépetl. 8 Pueblos Mágicos.`,
+  description: `Directorio de ${totalEstaciones} estaciones de bomberos en Puebla. Capital industrial automotriz (VW, Audi), Centro Histórico UNESCO, monitoreo del Volcán Popocatépetl y Sierra Norte. Emergencias: 911.`,
   numberOfItems: estacionesPuebla.length,
   itemListElement: estacionesPuebla.map((e, i) => ({
     "@type": "ListItem",
@@ -139,11 +86,196 @@ const itemListSchema = {
   }))
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Puebla",         url: "/directorio/puebla/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Puebla: estaciones, historia y servicios de emergencia",
+  "description": "Guía del H. Cuerpo de Bomberos de Puebla: historia, infraestructura en la zona industrial automotriz (VW/Audi), Volcán Popocatépetl, Centro Histórico UNESCO y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "H. Cuerpo de Bomberos de Puebla",
+    "Protección Civil Puebla",
+    "HAZMAT industria automotriz",
+    "Volcán Popocatépetl",
+    "Servicios de emergencia Puebla",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/puebla.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Puebla",
+  "description": `Directorio verificado de ${totalEstaciones} estaciones de bomberos en Puebla, con teléfonos, cobertura, funciones e historia del H. Cuerpo de Bomberos de Puebla.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos de Puebla" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/puebla.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Puebla (≥10) ─────────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencias para llamar a los bomberos en Puebla?",
+    a: `Marca el <strong>911</strong>, el número único de emergencias que opera las 24 horas en todo el estado. La Estación Central de Puebla tiene línea directa al <strong>(222) 309-9400</strong>. Para Tehuacán: <strong>(238) 382-0033</strong>. Para Cholula: <strong>(222) 247-0707</strong>. En la zona industrial automotriz (Volkswagen/Cuautlancingo), la línea de HAZMAT es <strong>(222) 303-8000</strong>.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Puebla?",
+    a: `Este directorio reúne <strong>${totalEstaciones} estaciones de bomberos en Puebla</strong>, distribuidas en la zona metropolitana, el corredor industrial automotriz (VW y Audi), el corredor volcánico (zona del Popocatépetl), la Sierra Norte y el Valle de Tehuacán. La Estación Central es la sede del H. Cuerpo de Bomberos de Puebla, en Av. 25 Poniente 1502, Col. Volcanes.`,
+  },
+  {
+    q: "¿Cuándo se fundaron los bomberos de Puebla?",
+    a: `El primer cuerpo de bomberos de México se fundó el <strong>22 de agosto de 1873 en Veracruz</strong>; esa fecha se conmemora como el <strong>Día del Bombero</strong> en todo el país. En Puebla, el H. Cuerpo de Bomberos formalizó su estructura institucional durante el siglo XX y cuenta con varias décadas de servicio continuo. La estación de Tehuacán, por ejemplo, tiene más de 50 años de operación documentada.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque el <strong>22 de agosto de 1873</strong> se fundó en el puerto de Veracruz el <strong>primer cuerpo de bomberos de México</strong>. Desde entonces, esa fecha honra la labor de todos los bomberos del país, incluidos los de Puebla.`,
+  },
+  {
+    q: "¿Los bomberos de Puebla atienden emergencias volcánicas del Popocatépetl?",
+    a: `Sí. Las estaciones de <strong>Atlixco, San Nicolás de los Ranchos y Tochimilco</strong> están capacitadas para operar bajo el <strong>Semáforo de Alerta Volcánica del Popocatépetl</strong> (sistema CENAPRED). El radio de exclusión es de <strong>12 km</strong> del cráter. En Fase Amarilla 3 o superior, activan pre-posicionamiento de unidades y coordinación con Protección Civil de los 6 municipios en zona de mayor peligro, con una población de aproximadamente <strong>56,000 personas</strong>.`,
+  },
+  {
+    q: "¿Hay bomberos especializados en HAZMAT para las plantas Volkswagen y Audi en Puebla?",
+    a: `Sí. La <strong>Estación HAZMAT Cuautlancingo</strong> (Av. Volkswagen s/n, Zona Industrial) atiende emergencias en la planta Volkswagen de México (~317,000 vehículos al año). La <strong>Estación San José Chiapa</strong> cubre la planta Audi México (~138,000 Q5 al año). Ambas tienen capacidad <strong>HAZMAT Nivel III</strong>, trajes encapsulados Nivel A y detectores multigas para materiales como pinturas de base isocianato (MDI/TDI) usados en las líneas de pintura automotriz.`,
+  },
+  {
+    q: "¿Qué pasó con los bomberos de Puebla en el sismo del 19 de septiembre de 2017?",
+    a: `El <strong>sismo del 19 de septiembre de 2017</strong> (Mw 7.1, epicentro en el límite Puebla-Morelos, municipio de Chiautla de Tapia) dejó en Puebla <strong>45 muertos</strong>, afectaciones en <strong>115 municipios</strong> y más de <strong>31,000 inmuebles dañados</strong>, incluyendo 621 inmuebles históricos. Los bomberos de Puebla coordinaron con el Sistema Nacional de Protección Civil las labores de búsqueda y rescate urbano (USAR), apuntalamiento y evaluación de estructuras en los municipios más afectados del estado.`,
+  },
+  {
+    q: "¿Cómo se protegen los edificios del Centro Histórico de Puebla en caso de incendio?",
+    a: `El <strong>Centro Histórico de Puebla</strong> fue declarado Patrimonio de la Humanidad por la UNESCO el <strong>11 de diciembre de 1987</strong>. Comprende 391 manzanas con <strong>2,619 edificios de valor histórico</strong> construidos entre los siglos XVI y XIX, con muros de cantera gris y adobe. Los bomberos utilizan protocolos de <strong>ataque con niebla de agua a baja presión</strong> para evitar el colapso de muros de adobe y piedra; la coordinación con el <strong>INAH</strong> es obligatoria en cualquier intervención sobre edificios catalogados.`,
+  },
+  {
+    q: "¿Los bomberos de Puebla atienden la Sierra Norte y Cuetzalan?",
+    a: `Sí. Las estaciones de <strong>Zacatlán, Chignahuapan, Cuetzalan y Xicotepec</strong> cubren la Sierra Norte. Cuetzalan del Progreso está a 1,060 msnm con accesos de terracería que en temporada de lluvias (junio–octubre) son intransitables para vehículos de más de 3 toneladas. La estación opera con unidades <strong>4x4 ligeras</strong> y coordinación con brigadas forestales comunitarias. El tiempo de respuesta desde Xicotepec puede superar los 90 minutos en lluvias intensas.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en la autopista México-Puebla (150D)?",
+    a: `La autopista México-Puebla (150D) registra más de <strong>80,000 vehículos diarios</strong>. Las estaciones de <strong>San Martín Texmelucan y Huejotzingo</strong> son las de respuesta primaria para rescate vehicular, extricación con herramienta hidráulica y emergencias con materiales peligrosos en transporte. El corredor también está cubierto por las estaciones de Amozoc en el tramo oriente.`,
+  },
+  {
+    q: "¿Los bomberos de Puebla atienden la Zona Arqueológica de Cholula?",
+    a: `Sí. La <strong>Estación de Bomberos Cholula</strong> (Av. Morelos 100, San Pedro Cholula, tel. (222) 247-0707) cubre la Gran Pirámide de Cholula —la mayor por volumen del mundo—, el Santuario de los Remedios y la zona universitaria de la UDLAP. El núcleo prehispánico es de tierra apisonada y relleno arqueológico; los protocolos limitan el uso de agua directa para no comprometer la estructura. Toda intervención con agente supresor requiere coordinación con el INAH.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en una zona cercana al Popocatépetl?",
+    a: `Mantente informado a través del <strong>CENAPRED</strong> (cenapred.unam.mx) y del Semáforo de Alerta Volcánica. Ante caída de ceniza: <strong>cubre tinacos y depósitos de agua</strong>, usa cubrebocas con filtro P100, evita salir y cierra puertas y ventanas. Ten identificadas las <strong>rutas de evacuación</strong> y el punto de reunión de tu comunidad. En caso de emergencia, llama al <strong>911</strong>.`,
+  },
+];
+
+// Miniaturas hero
+const heroThumbs = [
+  {
+    src: "/images/directorio/estacion-bomberos-puebla-01.avif",
+    alt: "Centro Histórico de Puebla Patrimonio UNESCO catedral siglo XVI",
+    label: "Centro UNESCO"
+  },
+  { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "Equipo HAZMAT industrial bomberos Puebla planta Volkswagen Audi", label: "HAZMAT Industrial" },
+  {
+    src: "/images/directorio/rescate-montana-bomberos-01.avif",
+    alt: "Volcán Popocatépetl activo monitoreo semáforo CENAPRED Puebla",
+    label: "Volcán Activo"
+  }
+];
+
+// Galería de imágenes
+const galleryImages = [
+  { src: "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif", alt: "Estación de bomberos de Puebla con múltiples bahías operativas", label: "Estación Equipada" },
+  {
+    src: "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",
+    alt: "Autopista México-Puebla rescate carretero 80,000 vehículos diarios",
+    label: "Autopista 150D"
+  },
+  {
+    src: "/images/directorio/estacion-bomberos-selva-01.avif",
+    alt: "Cuetzalan Pueblo Mágico Sierra Norte Puebla rescate montaña",
+    label: "Cuetzalan PM"
+  },
+  {
+    src: "/images/directorio/estacion-bomberos-puebla-01.avif",
+    alt: "Centro Histórico UNESCO Puebla 2619 edificios históricos siglos XVI-XIX",
+    label: "Patrimonio UNESCO"
+  },
+];
+
+// Números de emergencia Puebla
+const emergencyNumbers = [
+  { number: "911", label: "Emergencias" },
+  { number: "(222) 309-9400", label: "Bomberos Central Puebla" },
+  { number: "(222) 303-8000", label: "HAZMAT Volkswagen" },
+  { number: "(222) 247-0707", label: "Bomberos Cholula" }
+];
+
+// Regiones de Puebla
+const regiones = [
+  {
+    nombre: "Zona Metropolitana",
+    desc: "Puebla Centro UNESCO, Cholula (Gran Pirámide), Cuautlancingo, Amozoc"
+  },
+  {
+    nombre: "Zona Industrial Automotriz",
+    desc: "Volkswagen (~317,000 veh/año), Audi México (~138,000 Q5/año), HAZMAT Nivel III"
+  },
+  {
+    nombre: "Sierra Norte",
+    desc: "Zacatlán, Chignahuapan, Cuetzalan, Xicotepec (4 Pueblos Mágicos)"
+  },
+  {
+    nombre: "Corredor Volcánico",
+    desc: "Atlixco, San Nicolás de los Ranchos, Tochimilco — exclusión 12 km Popocatépetl"
+  }
+];
+
+// Tarjetas de equipamiento EPP
+const eppCards = [
+  {
+    image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+    imageAlt:  "Equipos HAZMAT Nivel III industria automotriz Volkswagen Audi Puebla isocianatos pintura",
+    badge:     "Industrial",
+    title:     "Equipos HAZMAT Automotriz",
+    text:      "Trajes encapsulados Nivel A y detectores multigas para emergencias en las líneas de pintura de <strong>Volkswagen y Audi</strong>, donde los isocianatos (MDI/TDI) por encima de 150 °C requieren cartuchos NIOSH específicos, distintos del equipo SCBA estándar. Certificación HAZMAT Nivel III.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat/",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+  {
+    image:     "/images/directorio/mascara-scba-bombero-01.avif",
+    imageAlt:  "Equipo SCBA protección respiratoria ceniza volcánica Popocatépetl Puebla zona exclusión",
+    badge:     "Volcánico",
+    title:     "Protección Respiratoria Volcánica",
+    text:      "Equipos SCBA y máscaras para operaciones en el corredor volcánico del <strong>Popocatépetl</strong> (5,426 msnm). Protección respiratoria contra ceniza volcánica y gases en los 6 municipios de la zona de mayor peligro con ≈56,000 habitantes.",
+    href:      "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Protección Respiratoria",
+  },
+  {
+    image:     "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",
+    imageAlt:  "Equipo rescate vehicular extricación autopista México-Puebla 150D 80000 vehículos diarios",
+    badge:     "Rescate",
+    title:     "Rescate Carretero Pesado",
+    text:      "Herramientas de extricación hidráulica para accidentes en la <strong>autopista México-Puebla (150D)</strong> — más de 80,000 vehículos diarios—, libramiento y Puebla-Veracruz. Equipo de corte y separación certificado para volcaduras de camiones de carga.",
+    href:      "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Equipo de Rescate",
+  },
+  {
+    image:     "/images/directorio/equipo-bomberos-completo-01.avif",
+    imageAlt:  "EPP estructural completo NFPA 1971 bomberos Puebla Centro Histórico UNESCO Cholula",
+    badge:     "NFPA 1971",
+    title:     "EPP Estructural Completo",
+    text:      "Sistema 3 capas certificado NFPA 1971 para los bomberos de <strong>Puebla capital y Cholula</strong>. Traje, casco, guantes y botas con protección térmica para incendios en edificios de cantera y adobe del Centro Histórico y la zona arqueológica de Cholula.",
+    href:      "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/",
+    linkLabel: "Ver Trajes Estructurales",
+  },
+];
 
 // Imágenes para tarjetas de estaciones
 const stationImages = [
@@ -189,7 +321,8 @@ const stationImages = [
   "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif",
   "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif",
 ];
-// Estados vecinos (desde archivo centralizado)
+
+// Estados vecinos
 const estadosVecinos = getEstadosVecinos("puebla");
 ---
 
@@ -197,103 +330,263 @@ const estadosVecinos = getEstadosVecinos("puebla");
   estado={estado}
   sigla={sigla}
   slug={slug}
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Puebla</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
-  heroImage="/images/directorio/estacion-bomberos-puebla-01.avif"
-  heroImageAlt="Estación de Bomberos en Puebla"
-  heroCaption="H. Cuerpo de Bomberos · Puebla"
-  totalEstaciones={estacionesPuebla.length}
-  totalMunicipios={getMunicipios().length}
+  description={`${totalEstaciones} estaciones en Puebla — Popocatépetl activo (semáforo CENAPRED), VW y Audi HAZMAT Nivel III, Centro Histórico UNESCO (2,619 edificios) y Sierra Norte. Emergencias: 911.`}
+  keywords={[
+    "bomberos puebla",
+    "estaciones bomberos puebla",
+    "heroico cuerpo bomberos puebla",
+    "emergencias puebla 911",
+    "bomberos volkswagen puebla hazmat",
+    "bomberos audi san jose chiapa",
+    "bomberos cholula gran piramide",
+    "bomberos popocatepetl volcán evacuacion",
+    "bomberos sierra norte cuetzalan",
+    "bomberos tehuacan puebla",
+    "bomberos centro historico puebla unesco",
+    "rescate carretero autopista mexico puebla",
+    "sismo 19 septiembre 2017 puebla rescate",
+    "directorio bomberos puebla",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
+
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
   habitantes="6.6M+"
-  canonical="https://bombero.mx/directorio/puebla/"
-  keywords={["bomberos puebla", "estaciones bomberos puebla", "emergencias puebla 911", "cuerpo bomberos puebla"]}
-  estaciones={estacionesPuebla}
-  stationImages={stationImages}
-  municipios={getMunicipios()}
-  estadosVecinos={estadosVecinos}
+
+  heroDesc={`El <strong>H. Cuerpo de Bomberos de Puebla</strong> es la corporación que puede recibir en el mismo turno la alerta volcánica del <strong>Popocatépetl</strong>, una emergencia con isocianatos en la línea de pintura de <strong>Volkswagen o Audi</strong> y un incendio en los 2,619 edificios del <strong>Centro Histórico UNESCO</strong>. Con <strong>${totalEstaciones} estaciones</strong> en este directorio, protege a <strong>6.6 millones de habitantes</strong>, cuatro zonas de riesgo diferenciado y uno de los corredores industriales automotrices más grandes de América Latina.`}
+  heroImage="/images/directorio/estacion-bomberos-puebla-01.avif"
+  heroImageAlt="H. Cuerpo de Bomberos de Puebla — Centro Histórico UNESCO, Popocatépetl, corredor industrial VW/Audi"
+  heroCaption="H. Cuerpo de Bomberos · Puebla · Centro Histórico UNESCO · Volcán Popocatépetl"
   heroThumbs={heroThumbs}
   galleryImages={galleryImages}
   emergencyNumbers={emergencyNumbers}
   regiones={regiones}
   eppCards={eppCards}
-  jsonLd={[itemListSchema]}
+  estaciones={estacionesPuebla}
+  stationImages={stationImages}
+  municipios={getMunicipios()}
+  estadosVecinos={estadosVecinos}
   title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesPuebla.length} estaciones en Puebla — Popocatépetl activo, VW y Audi HAZMAT Nivel III, Centro Histórico UNESCO y Sierra Norte. Emergencias: 911.`}
+  faqsEstado={faqsEstado}
+  ctaTitle="Equipamos a los Bomberos de Puebla"
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones del H. Cuerpo de Bomberos de Puebla: HAZMAT industrial (VW/Audi), protección volcánica, rescate carretero y EPP estructural para el Centro Histórico UNESCO. Experiencia en licitaciones públicas.`}
+  ctaBtnText="Solicitar Cotización — Puebla"
 >
   <Fragment slot="seo">
 
-      <h2>Bomberos de Puebla — El Semáforo del Popocatépetl, los Isocianatos de VW y las 2,600 Fachadas Coloniales que No Toleran Presión de Manguera</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Puebla</strong> es la única corporación del país que puede
-        recibir en el mismo turno la alerta de evacuación volcánica del Popocatépetl, un incendio con vapores
-        de isocianato en la línea de pintura de Volkswagen y una llamada de estructura en el Centro Histórico
-        donde la presión del chorro amenaza más fachadas coloniales de las que salva. Cada uno de estos tres
-        escenarios tiene sus propios agentes de supresión, su propia cadena de mando federal y sus propios
-        límites físicos que ningún reglamento general de bomberos puede anticipar sin formación específica.
-        La preparación en Puebla no se mide por el número de estaciones — se mide por cuántos de esos
-        protocolos simultáneos puede activar la corporación sin que ninguno interfiera con los otros.
-      </p>
+    <h2>Bomberos en Puebla: el volcán, los isocianatos de VW/Audi y los 2,619 edificios históricos que no toleran presión de manguera</h2>
 
-      <h3>¿Cómo llamar a los Bomberos de Puebla?</h3>
-      <p>
-        El número único de emergencias en todo el estado es <strong>911</strong>. La estación HAZMAT de
-        Cuautlancingo tiene línea directa con la guardia de seguridad industrial de Volkswagen y Audi en
-        todo momento; para emergencias volcánicas, el CENAPRED activa el protocolo con las estaciones de
-        Atlixco, San Nicolás de los Ranchos y Tochimilco directamente, en paralelo al despacho municipal.
-        En la Sierra Norte, localidades de difícil acceso como Cuetzalan del Progreso tienen coordinación
-        preestablecida con Protección Civil estatal para los tramos donde la señal celular es intermitente.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del H. Cuerpo de Bomberos de Puebla">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">4</span><span class="de-stat__label">Zonas de riesgo diferenciado</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">6</span><span class="de-stat__label">Municipios zona volcánica</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2,619</span><span class="de-stat__label">Edificios históricos UNESCO</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">6.6M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">5,426</span><span class="de-stat__label">msnm — Popocatépetl</span></div>
+    </div>
 
-      <h3>El Semáforo Volcánico — La Cuenta Regresiva que Convierte la Antelación en Activo Táctico</h3>
-      <p>
-        El Semáforo de Alerta Volcánica del Popocatépetl — el único sistema federal de aviso escalonado
-        para una emergencia natural en México — le da a las estaciones de Atlixco y San Nicolás de los
-        Ranchos algo que ninguna corporación del país tiene para sus peores emergencias: horas de
-        preparación antes de que ocurra nada. Cuando CENAPRED eleva a Amarillo Fase 3, el protocolo
-        activa pre-posicionamiento de unidades en los 9 municipios de la zona de mayor peligro, solicitud
-        de ayuda mutua a Morelos y Estado de México, y la cadena de mando volcánica donde el bombero no
-        decide cuándo evacuar — el semáforo ya lo decidió. Lo que sí decide es si los 15 a 30 minutos
-        entre la alerta y la llegada del flujo de material volcánico se convirtieron en evacuación
-        ordenada o en improvisación bajo ceniza.
-      </p>
+    <p class="de-lead">
+      El <strong>H. Cuerpo de Bomberos de Puebla</strong> opera sobre una geografía sin equivalente en México:
+      un volcán activo que dicta sus propias reglas de evacuación, el mayor clúster automotriz del país con
+      químicos que los equipos estándar no capturan, 2,619 edificios de cantera y adobe donde una manguera
+      mal regulada derrumba lo que el fuego no ha tocado, y una sierra al norte donde el GPS no registra
+      los caminos que llevan al agua. Cuatro frentes que exigen protocolos distintos, personal distinto y
+      equipos distintos — a veces en el mismo turno.
+    </p>
 
-      <h3>Volkswagen, Audi y los Isocianatos — Por qué el Filtro Estándar de SCBA No Alcanza</h3>
-      <p>
-        Las líneas de pintura de Volkswagen en Cuautlancingo (400,000 vehículos al año) y Audi en
-        San José Chiapa usan poliuretano de base isocianato — MDI y TDI. Por encima de 150°C, esos
-        compuestos descomponen y liberan vapores que los filtros P100 de los SCBA convencionales no
-        capturan con eficiencia certificada; se necesitan cartuchos NIOSH específicos para vapores
-        orgánicos de isocianatos, distintos del equipo estándar de respuesta estructural. Los bomberos
-        de Cuautlancingo tienen entrenamiento anual dentro de las propias plantas con los ingenieros
-        de seguridad de VW, equipos de detección de isocianatos y protocolos de zona de exclusión de
-        100 metros mínimo en incendio activo en línea de pintura. Es el único acuerdo documentado de
-        entrenamiento conjunto entre una corporación de bomberos y un OEM automotriz en México.
-      </p>
+    <h3>Cómo contactar a los bomberos en Puebla</h3>
+    <p>
+      En cualquier emergencia en el estado, marca el <strong>911</strong>. La Estación Central de Puebla
+      atiende en <strong>(222) 309-9400</strong>; la unidad HAZMAT del corredor industrial (Volkswagen) en
+      <strong>(222) 303-8000</strong>; Cholula en <strong>(222) 247-0707</strong>; y Tehuacán en
+      <strong>(238) 382-0033</strong>. Para emergencias volcánicas, el protocolo CENAPRED activa directamente
+      a las estaciones de Atlixco, San Nicolás de los Ranchos y Tochimilco en paralelo al despacho municipal.
+      En la Sierra Norte, la señal celular es intermitente; la coordinación pasa por Protección Civil estatal.
+      Consulta el <a href="#listado-estaciones">directorio de estaciones</a> para teléfonos directos.
+    </p>
 
-      <h3>Centro Histórico UNESCO y Cholula — Cantera Gris, Adobe y el Límite que Impone el INAH al Agua</h3>
-      <p>
-        El Centro Histórico de Puebla (UNESCO 1987) concentra más de 2,600 edificios catalogados con
-        mampostería de cantera gris, muros de adobe y arcos de ladrillo del siglo XVI. Un chorro de
-        manguera directo a más de 2 bar sobre adobe saturado puede derribar un muro de 40 cm más
-        rápido que el fuego que lo amenazaba: el protocolo para patrimonio limita el caudal directo y
-        prioriza el ataque por niebla desde el interior. En la Gran Pirámide de Cholula — mayor por
-        volumen que Keops — el problema es el relleno: el núcleo prehispánico bajo la colina es un
-        compuesto de tierra apisonada y piedra suelta donde la infiltración de agua puede desestabilizar
-        la estructura antes de que el incendio superficial lo haga. El coordinador de la zona
-        arqueológica del INAH tiene firma obligatoria en cualquier operación con agente supresor.
-      </p>
+    <h3>Historia del H. Cuerpo de Bomberos de Puebla</h3>
+    <p>
+      La historia del combate de incendios en México arranca en el puerto de Veracruz y llega pronto a
+      Puebla, segunda ciudad del país por población e importancia histórica. Estos son los hitos que
+      enmarcan la trayectoria del cuerpo:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México; la fecha es el <strong>Día del Bombero</strong> en todo el país.</li>
+      <li><span class="de-tl__year">1987</span> La UNESCO declara el <strong>Centro Histórico de Puebla Patrimonio de la Humanidad</strong> (11 de diciembre). 2,619 edificios pasan a requerir protocolos de intervención específicos en caso de incendio.</li>
+      <li><span class="de-tl__year">1994</span> <strong>Volkswagen de México</strong> expande su planta en Cuautlancingo; el H. Cuerpo adapta su respuesta industrial con brigadas HAZMAT y acuerdos de entrenamiento conjunto dentro de la planta.</li>
+      <li><span class="de-tl__year">2016</span> <strong>Audi México</strong> inaugura su planta en San José Chiapa (primera planta Audi en América Latina). Se crea la estación especializada con capacidad para emergencias de línea de producción.</li>
+      <li><span class="de-tl__year">2017</span> El <strong>sismo del 19 de septiembre</strong> (Mw 7.1, epicentro en Chiautla de Tapia, límite Puebla-Morelos) deja <strong>45 muertos en Puebla</strong>, 115 municipios afectados y más de 31,000 inmuebles dañados, incluidos 621 inmuebles históricos.</li>
+      <li><span class="de-tl__year">2018</span> La UNESCO declara la <strong>Reserva de la Biósfera Tehuacán-Cuicatlán</strong> Patrimonio Mixto (natural y cultural), ampliando el área de protección de las estaciones del Valle de Tehuacán.</li>
+      <li><span class="de-tl__year">Hoy</span> El H. Cuerpo opera <strong>{totalEstaciones} estaciones</strong> en este directorio, con unidades HAZMAT industriales, 4x4 para la sierra y equipo volcánico de pre-posicionamiento coordinado con CENAPRED.</li>
+    </ul>
 
-      <h3>Sierra Norte — Cuetzalan, la Terracería y el Límite Real de las Unidades Pesadas</h3>
-      <p>
-        Cuetzalan del Progreso está a 1,060 msnm y sus accesos son terracería que en temporada de
-        lluvias (junio-octubre) se vuelve intransitable para vehículos de más de 3 toneladas. Un
-        autotanque estándar no llega. La estación trabaja con vehículos 4x4 ligeros y la brigada
-        forestal totonaca comunitaria, que conoce los puntos de agua naturales y los atajos de
-        terracería que el GPS no registra. Zacatlán y Chignahuapan tienen asfalto, pero en invierno
-        enfrentan niebla con visibilidad de menos de 50 metros — el tiempo de respuesta desde
-        Xicotepec de Juárez a Cuetzalan en condiciones óptimas es 45 minutos; en lluvia activa,
-        puede superar los 90. El límite operacional real en la Sierra Norte no es la capacitación
-        del personal: es el kilómetro del camino donde termina el asfalto.
-      </p>
-    </Fragment>
+    <h3>Infraestructura de emergencia: cómo se cubren las cuatro zonas de Puebla</h3>
+    <p>
+      La cobertura se organiza en cuatro zonas con perfiles de riesgo radicalmente distintos. La zona
+      metropolitana concentra la mayor densidad de población y el Centro Histórico; la industrial maneja
+      los materiales más complejos; el corredor volcánico opera bajo el Semáforo del Popocatépetl; y la
+      Sierra Norte enfrenta los límites reales del acceso en terracería. Esta es la distribución:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios clave</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonasDef.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.slice(0, 3).join(", ")}{z.municipios.length > 3 ? "…" : ""}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del H. Cuerpo de Bomberos de Puebla</h3>
+    <p>
+      El cuerpo de bomberos de Puebla es un servicio integral que va mucho más allá del fuego. Sus
+      funciones centrales son:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Estructurales, forestales e industriales, con protocolos diferenciados para adobe/cantera del Centro Histórico y para plantas automotrices.</p></div>
+      <div class="de-card"><h4>HAZMAT industrial</h4><p>Contención de materiales peligrosos en el corredor VW-Audi: isocianatos, solventes de pintura y químicos de proceso automotriz, con trajes Nivel A.</p></div>
+      <div class="de-card"><h4>Emergencias volcánicas</h4><p>Pre-posicionamiento bajo el Semáforo CENAPRED, evacuación coordinada y atención a afectados por ceniza volcánica en los 6 municipios de mayor riesgo.</p></div>
+      <div class="de-card"><h4>Rescate vehicular y carretero</h4><p>Extricación en accidentes de la autopista México-Puebla (150D) con más de 80,000 vehículos diarios, y de la Puebla-Veracruz y el Arco Norte.</p></div>
+      <div class="de-card"><h4>Rescate de montaña y USAR</h4><p>Búsqueda y rescate urbano (USAR) tras sismos, y rescate de montaña con unidades 4x4 en la Sierra Norte, incluyendo Cuetzalan y Zacatlán.</p></div>
+      <div class="de-card"><h4>Prevención y protección civil</h4><p>Inspecciones en establecimientos, capacitación ciudadana, simulacros en escuelas y empresas, y coordinación con el sistema de alertas estatales.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales y patrimonio</strong></td><td>24/7</td><td>Todas las estaciones; protocolo especial en Centro Histórico y Cholula</td></tr>
+          <tr><td><strong>HAZMAT Nivel III</strong></td><td>24/7</td><td>Estaciones Cuautlancingo (VW) y San José Chiapa (Audi)</td></tr>
+          <tr><td><strong>Emergencias volcánicas Popocatépetl</strong></td><td>24/7</td><td>Atlixco, San Nicolás de los Ranchos, Tochimilco</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones; prioridad en corredores autopista</td></tr>
+          <tr><td><strong>Búsqueda y rescate urbano (USAR)</strong></td><td>24/7</td><td>Brigadas especializadas zona metropolitana</td></tr>
+          <tr><td><strong>Rescate de montaña 4x4</strong></td><td>24/7</td><td>Sierra Norte: Zacatlán, Chignahuapan, Cuetzalan, Xicotepec</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Sierra Norte y corredor volcánico</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Popocatépetl, VW/Audi y el Centro Histórico — los tres frentes que no admiten un protocolo único</h3>
+    <p>
+      El <strong>Volcán Popocatépetl</strong> (5,426 msnm) es el segundo volcán más alto de México y uno
+      de los más activos del mundo. Puebla es el estado con mayor exposición a su actividad: el corredor
+      de ceniza afecta hasta 8 municipios simultáneamente en episodios de actividad alta, según registros
+      de Protección Civil del estado. El <strong>Semáforo de Alerta Volcánica</strong> del CENAPRED —único
+      sistema federal de aviso escalonado para una emergencia natural en México— le da a las estaciones de
+      Atlixco, San Nicolás de los Ranchos y Tochimilco algo que pocas corporaciones del país tienen: horas
+      de preparación antes de que ocurra nada. Cuando el semáforo sube a Amarillo Fase 3, el protocolo
+      activa pre-posicionamiento en los 6 municipios de mayor peligro (≈56,000 habitantes) y solicitud de
+      ayuda mutua a Morelos y Estado de México. El radio de exclusión es de <strong>12 km</strong> del cráter.
+    </p>
+    <p>
+      En el corredor industrial, las líneas de pintura de <strong>Volkswagen</strong> en Cuautlancingo
+      (~317,000 vehículos al año) y de <strong>Audi México</strong> en San José Chiapa (~138,000 Q5 al año)
+      usan poliuretano de base isocianato —MDI y TDI—. Por encima de 150 °C, esos compuestos liberan
+      vapores que los filtros P100 de los SCBA convencionales no capturan con eficiencia certificada;
+      se necesitan cartuchos NIOSH específicos para vapores orgánicos de isocianatos. Las estaciones
+      HAZMAT de Cuautlancingo y San José Chiapa tienen trajes encapsulados Nivel A, detectores multigas
+      y protocolos de zona de exclusión de 100 m mínimo en incendio activo en línea de pintura.
+    </p>
+    <p>
+      En el <strong>Centro Histórico de Puebla</strong> (UNESCO, 11 de dic. de 1987), los 2,619 edificios
+      históricos entre los siglos XVI y XIX son de cantera gris, muros de adobe y arcos de ladrillo. Un
+      chorro directo de manguera sobre adobe saturado puede derribar un muro de 40 cm más rápido que el
+      fuego que lo amenazaba: el protocolo limita el caudal y prioriza la niebla de agua desde el interior.
+      En la Gran Pirámide de Cholula —la mayor por volumen del mundo— el núcleo prehispánico de tierra
+      apisonada puede desestabilizarse con infiltración de agua; la firma del coordinador del INAH es
+      obligatoria antes de cualquier intervención con agente supresor.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos del
+      H. Cuerpo de Bomberos entre las grandes zonas del estado. Las cifras de estaciones y personal
+      corresponden a las instalaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers > 0 ? z.nPers : "—"}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>—</td>
+            <td>4 zonas de riesgo diferenciado, Puebla</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Puebla</h3>
+    <p>
+      El primer reto es de equipamiento especializado. La zona HAZMAT de Cuautlancingo y San José Chiapa
+      requiere renovación continua de trajes encapsulados, detectores multigas y equipos SCBA con cartuchos
+      específicos para isocianatos, cuyo ciclo de vida útil es más corto que el del EPP estructural
+      estándar. El presupuesto de renovación de una estación HAZMAT industrial es sensiblemente más alto
+      que el de una estación convencional.
+    </p>
+    <p>
+      El segundo reto es geográfico y de acceso. En la Sierra Norte, los caminos de terracería a Cuetzalan
+      y sus comunidades son intransitables para unidades de más de 3 toneladas en temporada de lluvias
+      (junio–octubre). Esto limita el peso del equipo desplegable y obliga a coordinación con brigadas
+      forestales comunitarias que conocen las fuentes de agua naturales y los accesos que el GPS no
+      registra. En la zona volcánica, el <strong>sismo del 19S de 2017</strong> evidenció que los 115
+      municipios afectados de Puebla excedieron la capacidad de respuesta simultánea: un sismo de
+      mayor magnitud o una erupción volcánica requeriría activación del nivel federal de protección civil.
+    </p>
+
+    <h3>Cultura de prevención: cómo proteger tu hogar en Puebla</h3>
+    <p>
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones básicas de
+      los bomberos y de Protección Civil para la población de Puebla:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Volcán:</strong> consulta el Semáforo de Alerta Volcánica en cenapred.unam.mx; identifica las rutas de evacuación de tu municipio y el punto de reunión de tu comunidad.</li>
+        <li><strong>Ceniza volcánica:</strong> cubre tinacos y depósitos de agua, usa cubrebocas con filtro P100, cierra puertas y ventanas y evita salir con actividad de ceniza intensa.</li>
+        <li><strong>Gas:</strong> revisa mangueras, reguladores y conexiones; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble antes de llamar.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos; atiende cualquier olor a quemado o cable caliente.</li>
+        <li><strong>Detección:</strong> instala detectores de humo y ten un extintor vigente en cocina y zonas de riesgo.</li>
+        <li><strong>Sismo:</strong> identifica zonas seguras, fija muebles altos y mantén una mochila de emergencia; al activarse la alerta, actúa de inmediato.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Servicio Sismológico Nacional — UNAM, reporte especial sismo 19 sep 2017 (Mw 7.1,
+      epicentro Chiautla de Tapia); Coordinadora Nacional de Protección Civil, cifras oficiales de
+      víctimas 19S-2017; CENAPRED, Infografía Semáforo de Alerta Volcánica del Popocatépetl (radio
+      de exclusión 12 km); UNESCO, «Historic centre of Puebla», declaración 11 dic 1987 (2,619 edificios
+      históricos); Gobierno del Estado de Puebla / Municipios Puebla, afectación ceniza Popocatépetl
+      (66 localidades, 6 municipios alta peligrosidad ≈56,394 habitantes); Milenio / Telediario, producción
+      VW (~317,000 veh/año 2025) y Audi México (~138,000 Q5, ene–nov 2025); Bombero.mx, directorio de
+      estaciones Puebla. Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
+  </Fragment>
 </DirectorioEstadoLayout>
-

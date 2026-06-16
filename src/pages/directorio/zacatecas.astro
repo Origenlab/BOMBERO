@@ -2,100 +2,258 @@
 
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 import {
   estacionesZacatecas,
   getMunicipios,
-  getEstacionBySlug,
-  getEstacionesCercanas,
 } from "@data/estaciones-zacatecas";
 
 const estado = "Zacatecas";
 const sigla = "ZAC";
 const slug = "zacatecas";
 
+const canonical = "https://bombero.mx/directorio/zacatecas/";
 
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const totalEstaciones = estacionesZacatecas.length;
+const municipios      = getMunicipios();
+const totalMunicipios = municipios.length;
+const totalBomberos   = estacionesZacatecas.reduce((s, e) => s + (e.personalActivo ?? 0), 0);
+const totalUnidades   = 58; // ESTADISTICAS_ZACATECAS.total_unidades
+
+// ── Comparativa regional ───────────────────────────────────────────────────
+const zonasDef = [
+  {
+    nombre:    "ZM Zacatecas-Guadalupe",
+    municipios: ["Zacatecas", "Guadalupe"],
+    cobertura: "Total",
+    chip:      "total",
+    perfil:    "Centro Histórico UNESCO (1993), Catedral barroca, Mina El Edén, 2 440 msnm.",
+  },
+  {
+    nombre:    "Corredor Minero Fresnillo",
+    municipios: ["Fresnillo"],
+    cobertura: "Alta",
+    chip:      "alta",
+    perfil:    "Peñasquito (Newmont, ~33 Moz Ag/año), Fresnillo plc, HAZMAT explosivos/cianuro.",
+  },
+  {
+    nombre:    "Corredor Minero Noreste",
+    municipios: ["Concepción del Oro"],
+    cobertura: "Alta",
+    chip:      "alta",
+    perfil:    "Minas de plata y zinc activas; Real de Providencia; ácidos mineros.",
+  },
+  {
+    nombre:    "Pueblos Mágicos y Sierra",
+    municipios: ["Jerez", "Sombrerete", "Valparaíso"],
+    cobertura: "Media",
+    chip:      "media",
+    perfil:    "Jerez (Pueblo Mágico), Sombrerete (450 años minería), Sierra de Órganos PN.",
+  },
+  {
+    nombre:    "Corredor Norte y Sur",
+    municipios: ["Río Grande", "Juan Aldama", "Juchipila", "Nochistlán de Mejia", "Loreto", "Tlaltenango", "Pinos", "Villanueva"],
+    cobertura: "Baja",
+    chip:      "baja",
+    perfil:    "Ganadería extensiva, carreteras 45 y 54D, Sierra Madre Occidental, Cañón de Juchipila.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesZacatecas.filter((e) => z.municipios.includes(e.municipio ?? ""));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personalActivo ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio verificado de las ${totalEstaciones} estaciones de bomberos en Zacatecas. Centro Histórico UNESCO (1993), Peñasquito mayor productora de plata en México (~33 Moz/año), HAZMAT especializado en cianuro y explosivos mineros, Sierra de Órganos Parque Nacional. Emergencias: 911.`,
+  numberOfItems: totalEstaciones,
+  itemListElement: estacionesZacatecas.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.municipio,
+        addressRegion: estado,
+        addressCountry: "MX",
+      },
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}/`,
+    },
+  })),
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Bomberos en Zacatecas: estaciones, historia y servicios de emergencia",
+  description: "Guía del H. Cuerpo de Bomberos de Zacatecas: historia, infraestructura en 15 municipios, HAZMAT minero, protección del Centro Histórico UNESCO y directorio de estaciones con teléfonos directos.",
+  about: [
+    "H. Cuerpo de Bomberos de Zacatecas",
+    "Protección Civil",
+    "HAZMAT minero",
+    "Rescate en espacios confinados",
+  ],
+  inLanguage: "es-MX",
+  image: `https://bombero.mx/api/og/estado/${slug}.svg`,
+  author:    { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  publisher: { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+  mainEntityOfPage: canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  url: canonical,
+  name: "Estaciones de Bomberos en Zacatecas",
+  description: `Directorio verificado de ${totalEstaciones} estaciones de bomberos en Zacatecas, con teléfonos, cobertura, funciones e historia del H. Cuerpo de Bomberos del estado minero de México.`,
+  inLanguage: "es-MX",
+  isPartOf: { "@type": "WebSite", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  about: { "@type": "GovernmentOrganization", name: "H. Cuerpo de Bomberos de Zacatecas" },
+  primaryImageOfPage: `https://bombero.mx/api/og/estado/${slug}.svg`,
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Zacatecas (≥10) ─────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Zacatecas?",
+    a: `Marca el <strong>911</strong> desde cualquier teléfono en el estado; el sistema opera las 24 horas y despacha a la estación más cercana. Para emergencias directas en la capital puedes llamar al <strong>492 922 0020</strong> (Cuartel Central Zacatecas) y en el corredor minero de Fresnillo al <strong>493 932 0101</strong>. En cualquier emergencia, el 911 es la línea recomendada.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Zacatecas?",
+    a: `Este directorio reúne <strong>${totalEstaciones} estaciones verificadas</strong> del H. Cuerpo de Bomberos de Zacatecas, distribuidas en <strong>${totalMunicipios} municipios</strong> que abarcan las principales zonas urbanas, el corredor minero y las regiones serranas del estado.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque el <strong>22 de agosto de 1873</strong> se fundó en el puerto de <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora anualmente en todo el país, incluidos los bomberos de Zacatecas, como reconocimiento a su labor de proteger vidas y bienes.`,
+  },
+  {
+    q: "¿Qué hace especial la labor de los bomberos de Zacatecas frente a otros estados?",
+    a: `Zacatecas es el estado con mayor producción de plata de México —alrededor del <strong>40 % del total nacional</strong>— lo que exige a sus bomberos certificaciones HAZMAT de clase mundial: manejo de cianuro de sodio (proceso de cianuración), explosivos tipo ANFO, xantatos de flotación y ácidos mineros. A esto se suma la protección del <strong>Centro Histórico Patrimonio de la Humanidad UNESCO (1993)</strong> y el rescate en terreno serrano a más de 2 400 msnm.`,
+  },
+  {
+    q: "¿Qué es el HAZMAT minero y por qué es crítico en Zacatecas?",
+    a: `HAZMAT (materiales peligrosos) en contexto minero incluye <strong>cianuro de sodio</strong> usado en el proceso de cianuración para disolver oro y plata, explosivos industriales como <strong>ANFO y emulsiones</strong>, xantatos inflamables usados en flotación de zinc, y ácidos de lixiviación. En Zacatecas estos químicos están presentes en operaciones a gran escala —Peñasquito en Mazapil, Fresnillo plc en Fresnillo— y un incidente mal atendido puede ser letal en segundos si el bombero no porta SCBA y detector de gases.`,
+  },
+  {
+    q: "¿Por qué la Mina El Edén es un riesgo especial para los bomberos de Zacatecas capital?",
+    a: `La <strong>Mina El Edén</strong> es un museo subterráneo en el Cerro del Grillo, a minutos del Centro Histórico, con túneles a más de 320 metros de profundidad. En una emergencia con visitantes en su interior, los bomberos enfrentan evacuación en espacios confinados, comunicaciones limitadas por radio a partir de los 50 m de profundidad, aire sin oxígeno suficiente en galerías sin ventilación activa y temperatura creciente con la profundidad. Los protocolos de respuesta en minería subterránea son obligatorios, no opcionales, en este escenario.`,
+  },
+  {
+    q: "¿Cómo afectan las heladas y el clima del altiplano a las operaciones de bomberos en Zacatecas?",
+    a: `La ciudad de Zacatecas se ubica a <strong>2 440 msnm</strong> en el altiplano semiárido; las temperaturas invernales caen regularmente por debajo de 0 °C y pueden alcanzar <strong>-10 °C</strong> en zonas serranas. El frío extremo aumenta el riesgo de incendios por calefactores y estufas de leña mal instalados, reduce la autonomía de los SCBA (mayor frecuencia respiratoria), congela mangueras y válvulas, y dificulta el rescate vial en carreteras heladas. En verano, la humedad relativa puede caer por debajo del 20 %, elevando el riesgo de incendio forestal.`,
+  },
+  {
+    q: "¿Cuántas hectáreas afectaron los incendios forestales en Zacatecas recientemente?",
+    a: `En los primeros meses de <strong>2026</strong>, antes de que iniciara oficialmente la temporada de incendios forestales, el fuego ya había consumido más de <strong>4 500 hectáreas</strong> en Zacatecas. La temporada de estiaje (noviembre–mayo) combinada con el clima semiárido del altiplano genera condiciones de alto riesgo que activan la coordinación entre bomberos municipales y brigadas de <strong>CONAFOR</strong>.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de Zacatecas?",
+    a: `Combate de <strong>incendios estructurales, forestales e industriales</strong>; <strong>rescate vehicular</strong> y extricación; <strong>atención prehospitalaria</strong>; <strong>HAZMAT minero</strong> (cianuro, explosivos, ácidos); rescate en <strong>espacios confinados y minas</strong>; control de <strong>fugas de gas</strong>; <strong>rescate en montaña</strong> (Sierra de Órganos, Sierra Madre Occidental); protección del <strong>patrimonio histórico UNESCO</strong> y prevención e inspecciones de Protección Civil.`,
+  },
+  {
+    q: "¿Los bomberos de Zacatecas cobran por sus servicios de emergencia?",
+    a: `Las emergencias que ponen en riesgo la vida —incendios, rescates, fugas de gas, accidentes— se atienden de forma <strong>gratuita</strong>. Algunos servicios secundarios como dictámenes técnicos, capacitación a empresas o simulacros pueden tener cuota de recuperación según el municipio. La atención de emergencia nunca se condiciona a un pago.`,
+  },
+  {
+    q: "¿Cómo coordina el Cuerpo de Bomberos de Zacatecas con las brigadas mineras privadas?",
+    a: `Las grandes operaciones mineras —Peñasquito (Newmont), Fresnillo plc— mantienen brigadas de emergencia internas certificadas en rescate minero. En un incidente de magnitud, los bomberos municipales activan el <strong>Sistema de Comando de Incidentes (ICS)</strong> para coordinar la respuesta integrada, donde las brigadas internas conocen la planta y los gases presentes, y los bomberos municipales aportan la capacidad de extinción y el mando unificado. Esta coordinación se practica en simulacros periódicos.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir emergencias en mi hogar en Zacatecas?",
+    a: `Revisa periódicamente la instalación de <strong>gas LP</strong> (mangueras, reguladores) y la <strong>instalación eléctrica</strong>; evita sobrecargar contactos. En temporada de frío, utiliza calefactores certificados y con ventilación adecuada; nunca uses braseros en interiores cerrados. Instala un <strong>detector de humo</strong> y ten un extintor accesible. Comparte el número <strong>911</strong> con toda tu familia y practica un <strong>plan de evacuación</strong> con punto de reunión definido.`,
+  },
+];
+
+// ── Assets: se preservan íntegramente ────────────────────────────────────────
 const heroThumbs = [
   { src: "/images/directorio/autobomba-panel-bombeo-manometros-01.avif", alt: "Panel de bombeo con manómetros en autobomba de Zacatecas", label: "Panel de Bombeo" },
   { src: "/images/directorio/estacion-bomberos-equipada-01.avif", alt: "Bomberos HAZMAT Minera Peñasquito Fresnillo Zacatecas", label: "Equipo Profesional" },
   { src: "/images/directorio/estacion-bomberos-central-edificio-01.avif", alt: "Rescate minero espacios confinados Zacatecas", label: "Servicio 24/7" },
 ];
 
-
 const galleryImages = [
   { src: "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif", alt: "Detalle de válvulas en autobomba de bomberos de Zacatecas", label: "Equipo Hidráulico" },
-  { src: "/images/directorio/estacion-bomberos-centro-historico-01.avif", alt: "Protección Centro Histórico UNESCO Zacatecas",
-    label: "Protección Centro Histórico UNESCO"
-  },
-  { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Incendios forestales Sierra de Órganos Parque Nacional",
-    label: "Incendios forestales Sierra de Órganos"
-  },
-  { src: "/images/directorio/equipo-rescate-completo-01.avif", alt: "Rescate en espacios confinados minas subterráneas",
-    label: "Rescate en espacios confinados minas"
-  },
+  { src: "/images/directorio/estacion-bomberos-centro-historico-01.avif", alt: "Protección Centro Histórico UNESCO Zacatecas", label: "Centro Histórico UNESCO" },
+  { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Incendios forestales Sierra de Órganos Parque Nacional Zacatecas", label: "Sierra de Órganos" },
+  { src: "/images/directorio/equipo-rescate-completo-01.avif", alt: "Rescate en espacios confinados minas subterráneas Zacatecas", label: "Rescate Minero" },
 ];
-
 
 const emergencyNumbers = [
   { label: "Emergencias", number: "911" },
   { label: "Cuartel Central Zacatecas", number: "492 922 0020" },
-  { label: "Bomberos Fresnillo (Hub Minero)", number: "493 932 0101" },
+  { label: "Bomberos Fresnillo", number: "493 932 0101" },
   { label: "Bomberos Guadalupe", number: "492 899 1234" },
   { label: "Bomberos Jerez", number: "494 945 0123" },
   { label: "Protección Civil Zacatecas", number: "492 922 5059" },
 ];
 
-
 const regiones = [
-  { nombre: "Zona Metropolitana Zacatecas-Guadalupe", desc: "Zacatecas capital (Centro Histórico UNESCO 1993), Guadalupe (170,000 hab.) — Catedral Barroca, Mina El Edén, protección patrimonio" },
-  { nombre: "Corredor Minero Fresnillo", desc: "Fresnillo (Minera Peñasquito — MAYOR MINA DE PLATA DEL MUNDO), Fresnillo plc — HAZMAT explosivos, cianuro, xantatos" },
-  { nombre: "Corredor Minero Noreste", desc: "Concepción del Oro, Mazapil — minas de plata y zinc activas, HAZMAT ácidos mineros, Real de Providencia" },
-  { nombre: "Pueblos Mágicos", desc: "Jerez de García Salinas (La Ciudad Perfecta), Sombrerete (450 años minería) — patrimonio colonial, Sierra de Órganos" },
-  { nombre: "Sierra Madre Occidental", desc: "Tlaltenango, Valparaíso, Sierra del Tigre — incendios forestales, rescate en montaña, coordinación CONAFOR" },
-  { nombre: "Cañón de Juchipila / Sur", desc: "Juchipila, Nochistlán, corredor Guadalajara-Zacatecas — rescate en cañones y barrancas, autopista 54D" },
-  { nombre: "Corredor Norte", desc: "Río Grande, Juan Aldama, carretera federal 45 hacia Chihuahua — ganadería, accidentes carreteros" },
+  { nombre: "ZM Zacatecas-Guadalupe", desc: "Capital (Centro Histórico UNESCO 1993, 2 440 msnm), Guadalupe — Catedral barroca, Mina El Edén, rescate en cañada urbana" },
+  { nombre: "Corredor Minero Fresnillo", desc: "Fresnillo — Peñasquito (Newmont), Fresnillo plc, Juanicipio — HAZMAT explosivos, cianuro de sodio, xantatos" },
+  { nombre: "Corredor Minero Noreste", desc: "Concepción del Oro, Mazapil — minas de plata y zinc, Real de Providencia, ácidos mineros" },
+  { nombre: "Pueblos Mágicos", desc: "Jerez (Pueblo Mágico), Sombrerete (450 años de minería de plata), Valparaíso — Sierra de Órganos PN" },
+  { nombre: "Sierra Madre Occidental", desc: "Tlaltenango, Valparaíso, Sierra del Tigre — incendios forestales, rescate en barrancos, CONAFOR" },
+  { nombre: "Cañón de Juchipila / Sur", desc: "Juchipila, Nochistlán, autopista 54D Guadalajara-Zacatecas — rescate en cañones, barrancas" },
+  { nombre: "Corredor Norte", desc: "Río Grande, Juan Aldama, carretera federal 45 Zacatecas-Chihuahua — ganadería, carga pesada" },
 ];
-
 
 const eppCards = [
   {
     image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
-    imageAlt:  "Equipo HAZMAT para minería en Zacatecas",
-    badge:     "Minería",
-    title:     "HAZMAT Minero Nivel 3",
-    text:      "Trajes y detectores para emergencias con <strong>cianuro y ácidos</strong> en minas de Fresnillo, Peñoles y Goldcorp. Protección certificada para la industria minera.",
+    imageAlt:  "Equipo HAZMAT para minería en Zacatecas cianuro explosivos",
+    badge:     "HAZMAT Minero",
+    title:     "HAZMAT Nivel 3 — Cianuro y Explosivos",
+    text:      "Trajes encapsulantes y detectores de HCN para emergencias con <strong>cianuro de sodio</strong> en plantas de cianuración (Peñasquito, Fresnillo plc) y control de <strong>ANFO y emulsiones explosivas</strong> en minas subterráneas del corredor zacatecano.",
     href:      "/productos/trajes-para-bomberos/traje-hazmat/",
     linkLabel: "Ver Equipos HAZMAT",
   },
   {
     image:     "/images/directorio/rescate-urbano-bomberos-01.avif",
-    imageAlt:  "Equipo de rescate para centro histórico UNESCO de Zacatecas",
+    imageAlt:  "Equipo de rescate para Centro Histórico Patrimonio UNESCO Zacatecas cantera colonial",
     badge:     "UNESCO",
-    title:     "Patrimonio UNESCO",
-    text:      "Equipo técnico para protección del <strong>Centro Histórico Patrimonio UNESCO</strong>. Sistemas de rescate y herramientas de intervención para edificaciones coloniales.",
+    title:     "Protección Patrimonio UNESCO",
+    text:      "Equipo técnico para el <strong>Centro Histórico de Zacatecas (UNESCO 1993)</strong>: cascos, herramienta de rescate y sistemas de evacuación adaptados a edificaciones coloniales de cantera rosa del siglo XVI–XVIII.",
     href:      "/productos/cascos-para-bomberos/",
     linkLabel: "Ver Equipo de Rescate",
   },
   {
     image:     "/images/directorio/rescate-montana-bomberos-01.avif",
-    imageAlt:  "Equipo de rescate para Sierra de Órganos Zacatecas",
-    badge:     "Sierra",
-    title:     "Sierra de Órganos",
-    text:      "Equipamiento para rescate en <strong>Sierra de Órganos y Sierra de Valparaíso</strong>. Equipo forestal y sistemas de cuerdas para terreno montañoso agreste.",
+    imageAlt:  "Equipo forestal y rescate Sierra de Órganos Parque Nacional Zacatecas",
+    badge:     "Forestal",
+    title:     "Sierra de Órganos y Altiplano",
+    text:      "Equipamiento para incendios forestales en la <strong>Sierra de Órganos</strong> (Parque Nacional) y la Sierra Madre Occidental. Trajes forestales NFPA 1977, sistemas de cuerdas y comunicaciones para terreno serrano a más de <strong>2 400 msnm</strong>.",
     href:      "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
     linkLabel: "Ver Equipo Forestal",
   },
   {
     image:     "/images/directorio/rescate-espeleologico-cuevas-01.avif",
-    imageAlt:  "Equipo de rescate en minas subterráneas de Zacatecas",
+    imageAlt:  "Equipo de rescate en minas subterráneas Zacatecas espacios confinados SCBA",
     badge:     "Minero",
-    title:     "Rescate Minero",
-    text:      "Equipo de rescate para emergencias en <strong>minas subterráneas de Fresnillo y Sombrerete</strong>. SCBA, detectores de gases y sistemas de comunicación para galerías.",
+    title:     "Rescate en Minas Subterráneas",
+    text:      "SCBA, detectores de gases y sistemas de comunicación para rescate en <strong>minas subterráneas de Fresnillo, Sombrerete y Concepción del Oro</strong>. Protocolos certificados para atmósferas con CO, NOx post-voladura y gas sulfhídrico.",
     href:      "/productos/cascos-para-bomberos/",
     linkLabel: "Ver Equipo Minero",
   },
 ];
-
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-profesional-01.avif",
@@ -141,151 +299,309 @@ const stationImages = [
   "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif",
 ];
 
-// Estados vecinos (desde archivo centralizado)
 const estadosVecinos = getEstadosVecinos("zacatecas");
-
-
-const itemListSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de las ${estacionesZacatecas.length} estaciones de bomberos en Zacatecas. Centro Histórico UNESCO (1993), Minera Peñasquito (mayor mina de plata del mundo, 25M oz/año), HAZMAT especializado en explosivos y cianuro minero, Sierra de Órganos Parque Nacional, Pueblos Mágicos Jerez y Sombrerete. 600+ años de tradición minera. Emergencias 911.`,
-  numberOfItems: estacionesZacatecas.length,
-  itemListElement: estacionesZacatecas.map((e, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    item: {
-      "@type": "FireStation",
-      name: e.nombre,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: e.direccion,
-        addressLocality: e.municipio,
-        addressRegion: estado,
-        addressCountry: "MX",
-      },
-      telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
-    },
-  })),
-};
-
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Zacatecas",         url: "/directorio/zacatecas/" },
-]);
 ---
 
 <DirectorioEstadoLayout
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Zacatecas</strong>.     El estado que forjó la historia de México con su plata: <strong>Minera Peñasquito</strong>     (Newmont) es la <strong>mayor mina de plata del mundo</strong>, produciendo más de     <strong>25 millones de onzas anuales</strong>. El <strong>Centro Histórico de Zacatecas</strong>     es <strong>Patrimonio de la Humanidad UNESCO desde 1993</strong>, con su Catedral Barroca     considerada la obra maestra del churrigueresco mexicano. Con <strong>600+ años de minería     continua</strong>, los bomberos zacatecanos dominan <strong>HAZMAT de clase mundial</strong>:     explosivos industriales, cianuro de sodio, xantatos y ácidos mineros. La <strong>Sierra     de Órganos</strong> (Parque Nacional) y los <strong>Pueblos Mágicos</strong> de <strong>Jerez</strong>     y <strong>Sombrerete</strong> completan un estado donde la tradición minera exige bomberos     con certificaciones únicas en México."
-  heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
-  heroImageAlt="Estación de Bomberos en Zacatecas"
-  heroCaption="H. Cuerpo de Bomberos · Zacatecas"
-  totalEstaciones={estacionesZacatecas.length}
-  totalMunicipios={getMunicipios().length}
-  habitantes="1.6M+"
-  canonical="https://bombero.mx/directorio/zacatecas/"
-  keywords={["bomberos zacatecas", "estaciones bomberos zacatecas", "emergencias zacatecas 911"]}
   estado={estado}
   sigla={sigla}
   slug={slug}
-  estaciones={estacionesZacatecas}
-  municipios={getMunicipios()}
-  heroThumbs={heroThumbs}
-  galleryImages={galleryImages}
-  emergencyNumbers={emergencyNumbers}
-  regiones={regiones}
-  eppCards={eppCards}
-  stationImages={stationImages}
-  estadosVecinos={estadosVecinos}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en Zacatecas — Directorio`}
-  description="${estacionesZacatecas.length} estaciones en Zacatecas — 500 años de túneles bajo el Centro Histórico UNESCO, Peñasquito mayor mina de plata del mundo y NaCN HAZMAT. Emergencias: 911."
->
+  description={`Bomberos en Zacatecas: ${totalEstaciones} estaciones, Centro Histórico UNESCO (1993), Peñasquito mayor productora de plata en México (~33 Moz/año) y HAZMAT minero con cianuro. Emergencias: 911.`}
+  keywords={[
+    "bomberos zacatecas",
+    "estaciones bomberos zacatecas",
+    "emergencias zacatecas 911",
+    "bomberos fresnillo hazmat minero",
+    "cuerpo bomberos zacatecas capital",
+    "bomberos centro historico unesco zacatecas",
+    "rescate minero zacatecas",
+    "hazmat cianuro minas zacatecas",
+    "incendios forestales sierra organos zacatecas",
+    "bomberos guadalupe zacatecas",
+    "directorio bomberos zacatecas telefono",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
+  habitantes="1.6M+"
+
+  heroDesc={`El <strong>H. Cuerpo de Bomberos de Zacatecas</strong> opera en el estado que produce alrededor del <strong>40 % de la plata de México</strong>. La mina <strong>Peñasquito</strong> (Newmont), en Mazapil, es la mayor productora individual de plata del país con cerca de <strong>33 millones de onzas anuales</strong>. El <strong>Centro Histórico de Zacatecas</strong> —fundado en 1546, declarado <strong>Patrimonio de la Humanidad por la UNESCO en 1993</strong>— y sus túneles coloniales definen un perfil de riesgo único: incendios que pueden descender a galerías del siglo XVI bajo la ciudad. Con <strong>${totalEstaciones} estaciones</strong> en <strong>${totalMunicipios} municipios</strong> y especialización HAZMAT en cianuro, explosivos y xantatos mineros, los bomberos zacatecanos protegen a <strong>1.6 millones de habitantes</strong> en un territorio de altiplano semiárido a más de 2 400 msnm.`}
+  heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
+  heroImageAlt="Estación de Bomberos en Zacatecas — Centro Histórico UNESCO, corredor minero Peñasquito Fresnillo"
+  heroCaption="H. Cuerpo de Bomberos · Zacatecas · Centro Histórico UNESCO 1993"
+  heroThumbs={heroThumbs}
+
+  galleryImages={galleryImages}
+
+  emergencyNumbers={emergencyNumbers}
+
+  municipios={municipios}
+
+  regiones={regiones}
+
+  estadosVecinos={estadosVecinos}
+
+  estaciones={estacionesZacatecas}
+  stationImages={stationImages}
+
+  eppCards={eppCards}
+
+  ctaTitle="Equipamos al H. Cuerpo de Bomberos de Zacatecas"
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones del H. Cuerpo de Bomberos de Zacatecas. Especialidad en HAZMAT minero: trajes encapsulantes, detectores de HCN y SCBA para el corredor Fresnillo-Peñasquito. Experiencia en licitaciones públicas estatales y municipales.`}
+  ctaBtnText="Solicitar Cotización — Zacatecas"
+
+  faqsEstado={faqsEstado}
+>
 
   <Fragment slot="seo">
 
-      <h2>Bomberos de Zacatecas — Cuando el Incendio en el UNESCO Baja a los Túneles del Siglo XVI: 500 Años de Minería Bajo la Ciudad</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Zacatecas</strong> opera en el estado que produce
-        más del 35% de la plata de México y alberga la mayor mina de plata del planeta, todo en un
-        territorio que fue colonizado en 1546 exclusivamente para la extracción de minerales, lo que
-        significa que la ciudad capital se construyó sobre una red de túneles que lleva 480 años
-        creciendo en todas direcciones bajo el Centro Histórico declarado Patrimonio de la Humanidad.
-        Los bomberos zacatecanos no solo responden a incendios: responden a incendios que pueden
-        descender bajo tierra a través de corredores que ningún plano completo describe.
-      </p>
+    <h2>Bomberos en Zacatecas</h2>
 
-      <h3>¿Cómo llamar a los bomberos en Zacatecas?</h3>
-      <p>
-        Marca <strong>911</strong> desde cualquier teléfono en Zacatecas para emergencias de bomberos,
-        rescate o ambulancia. El número opera las 24 horas y despacha a la estación más cercana
-        según ubicación. Las estaciones de Zacatecas capital, Fresnillo, Guadalupe y Jerez
-        mantienen guardia permanente, con protocolo de coordinación automática con brigadas
-        internas de las empresas mineras para emergencias en instalaciones de extracción.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Zacatecas">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Personal activo</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalUnidades}</span><span class="de-stat__label">Unidades</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">~40 %</span><span class="de-stat__label">Plata nacional</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1993</span><span class="de-stat__label">UNESCO (centro histórico)</span></div>
+    </div>
 
-      <h3>Centro Histórico UNESCO — Los Túneles Coloniales como Canal Invisible de Propagación</h3>
-      <p>
-        La ciudad de Zacatecas fue fundada en 1546 en el fondo de una cañada flanqueada por dos
-        cerros mineros, el Cerro de la Bufa y el Cerro del Grillo, y los 480 años de extracción
-        que siguieron dejaron una red de galerías y túneles bajo los cimientos del Centro Histórico
-        cuya extensión total no está completamente cartografiada. Muchos edificios coloniales del
-        siglo XVIII tienen sótanos que conectan con pasajes de acceso a vetas, algunos de los
-        cuales se adentran cientos de metros en la roca bajo la ciudad. Cuando un incendio ocurre
-        en el interior de una vecindad, hostal o museo del Centro Histórico, puede descender a
-        estos túneles a través de pisos fisurados o accesos enmascarados, encontrando madera de
-        entibación de 200 a 400 años de antigüedad con contenido de humedad menor al 8% a los
-        2,440 msnm de altitud semiseca. Una vez dentro del túnel, el fuego accede a un sistema
-        de tiro natural que conecta la superficie de la ciudad con las bocaminas del cerro,
-        convirtiendo el incendio urbano en un incendio subterráneo sin acceso de manguera directa
-        y sin posibilidad de comunicación por radio más allá de los primeros 50 metros.
-      </p>
+    <p class="de-lead">
+      Ningún cuerpo de bomberos en México combina tantos riesgos de origen minero con la protección
+      de un Patrimonio de la Humanidad como el <strong>H. Cuerpo de Bomberos de Zacatecas</strong>.
+      El estado produce cerca del <strong>40 % de la plata nacional</strong> gracias a operaciones
+      a gran escala —Peñasquito, Fresnillo plc, Juanicipio— cuyas plantas manejan cianuro de sodio,
+      explosivos industriales y xantatos. Al mismo tiempo, el <strong>Centro Histórico de Zacatecas</strong>
+      —declarado Patrimonio Mundial por la UNESCO en 1993— se asienta sobre una red de túneles coloniales
+      que llevan 480 años creciendo bajo la ciudad. Este directorio reúne las {totalEstaciones} estaciones
+      verificadas con teléfonos, cobertura y perfiles de riesgo.
+    </p>
 
-      <h3>Minera Peñasquito — La Mayor Mina de Plata del Mundo y el NaCN que Libera HCN al Calentarse</h3>
-      <p>
-        Operada por Newmont Corporation en el municipio de Mazapil, Peñasquito produce más de
-        25 millones de onzas de plata y 400,000 onzas de oro al año mediante cianuración: el
-        mineral triturado se mezcla con una solución de cianuro de sodio que disuelve selectivamente
-        el oro, proceso que requiere grandes volúmenes de cianuro almacenados y en circulación en
-        toda la planta. El cianuro de sodio es estable en solución alcalina, pero cuando una tubería
-        con solución cianurada entra en contacto con el calor de un incendio o con un ácido derramado,
-        libera cianuro de hidrógeno gas, incoloro e inodoro a concentraciones bajas, con un umbral de
-        incapacitación a 100-200 partes por millón y de letalidad inmediata a 300 ppm. Un bombero
-        que ingresa a la zona de un incendio en la planta de cianuración sin detector de HCN y sin
-        SCBA puede recibir dosis letales antes de detectar síntoma alguno. El protocolo de Peñasquito
-        requiere confirmación de concentración de HCN por debajo de 10 ppm antes de retirar el SCBA.
-      </p>
+    <h3>Cómo contactar a los bomberos en Zacatecas</h3>
+    <p>
+      En cualquier emergencia en el estado, marca el <strong>911</strong>: el sistema opera las 24 horas
+      y despacha a la unidad con menor tiempo de respuesta desde tu ubicación. Las estaciones de
+      <strong>Zacatecas capital</strong> (492 922 0020) y <strong>Fresnillo</strong> (493 932 0101)
+      mantienen guardia permanente con protocolo de coordinación automática con las brigadas internas
+      de las empresas mineras para emergencias en instalaciones de extracción. Encuentra todos los
+      datos en el <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Corredor Fresnillo — ANFO, Xantatos y la Atmósfera Post-Voladura que Precede a Todo Rescate</h3>
-      <p>
-        Las minas de Fresnillo plc — Fresnillo, Saucito y San Julián — producen más de 50 millones
-        de onzas de plata equivalente al año y utilizan ANFO y emulsiones explosivas para voladura
-        en los frentes subterráneos. Cada detonación genera una mezcla de óxidos de nitrógeno,
-        monóxido de carbono y gases residuales que requiere entre 30 y 45 minutos de ventilación
-        forzada antes de que cualquier persona pueda reingresar al nivel. Si un incendio se desata
-        durante o inmediatamente después de una voladura, los bomberos enfrentan una doble
-        restricción: no pueden ingresar hasta que los gases de voladura se hayan disipado, y
-        durante ese intervalo obligatorio el fuego avanza sin intervención. Los xantatos utilizados
-        en la flotación de zinc añaden otra dimensión: son sólidos inflamables que producen vapores
-        tóxicos al arder, requiriendo ventilación especializada y extinción con agua pulverizada.
-      </p>
+    <h3>Historia del cuerpo de bomberos en Zacatecas</h3>
+    <p>
+      La historia del combate de incendios organizado en México arranca en el puerto de Veracruz y
+      se expande al interior del país a lo largo del siglo XX. Estos son los hitos verificados que
+      enmarcan la actividad de los bomberos zacatecanos:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1546</span> El 8 de septiembre se funda la ciudad de <strong>Zacatecas</strong> a raíz del descubrimiento de ricas vetas de plata por Juan de Tolosa. Desde el primer día, la extracción subterránea es la actividad central y el mayor riesgo de la ciudad.</li>
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el <strong>primer cuerpo de bomberos de México</strong>; la fecha se conmemora cada año como el <strong>Día del Bombero</strong> en todo el país, incluido Zacatecas.</li>
+      <li><span class="de-tl__year">1993</span> El Centro Histórico de Zacatecas recibe la declaratoria de <strong>Patrimonio de la Humanidad de la UNESCO</strong>, añadiendo a los bomberos la responsabilidad de proteger 236 manzanas de arquitectura colonial de cantera rosa.</li>
+      <li><span class="de-tl__year">2004</span> La mina <strong>Peñasquito</strong> (municipio de Mazapil) inicia su proceso de desarrollo; se convierte en la mayor productora individual de plata de México, transformando el perfil HAZMAT que los bomberos del corredor deben dominar.</li>
+      <li><span class="de-tl__year">Hoy</span> El H. Cuerpo de Bomberos opera <strong>{totalEstaciones} estaciones</strong> en <strong>{totalMunicipios} municipios</strong>, con <strong>{totalBomberos} elementos activos</strong> y <strong>{totalUnidades} unidades</strong>, atendiendo desde la capital UNESCO hasta las minas subterráneas del noreste.</li>
+    </ul>
 
-      <h3>Las 5,000 Bocaminas — Rescate Subterráneo sin Radio, sin Mapa Completo y a 2,440 msnm</h3>
-      <p>
-        Zacatecas tiene más de 5,000 minas activas e inactivas distribuidas por todo el estado, muchas
-        de ellas con accesos no señalizados y sin documentación técnica actualizada. La Mina El Edén,
-        hoy museo turístico a 320 metros de profundidad en el Cerro El Grillo, dentro de la ciudad
-        capital, ilustra la magnitud del problema: es una mina formalmente mapeada y visitable, pero
-        la mayoría de las bocaminas del estado no lo son. En rescate subterráneo a estas profundidades,
-        las comunicaciones por radio dejan de funcionar entre los 50 y 100 metros de profundidad,
-        los equipos SCBA a 2,440 msnm tienen una autonomía reducida por la mayor frecuencia
-        respiratoria del rescatista, y la temperatura del subsuelo sube aproximadamente 3°C por cada
-        100 metros de profundidad, sumando calor a los riesgos de gas y desorientación. El rescate
-        en minas del corredor zacatecano requiere equipos de rescate en minería certificados, líneas
-        guía de orientación y coordinación permanente con los técnicos de ventilación de la empresa.
-      </p>
+    <h3>Infraestructura de emergencia: cobertura por región</h3>
+    <p>
+      La cobertura del cuerpo se organiza en cinco grandes zonas, cada una con un perfil de riesgo
+      diferenciado: la zona metropolitana concentra la densidad poblacional y el patrimonio histórico;
+      el corredor minero de Fresnillo agrupa la mayor actividad HAZMAT; el noreste suma las minas
+      más antiguas del estado; la zona de Pueblos Mágicos añade el reto del patrimonio colonial y
+      la sierra; y el cinturón norte-sur cubre los corredores carreteros y la Sierra Madre Occidental.
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios atendidos</th><th>Estaciones</th><th>Personal</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalMunicipios} municipios</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades} unidades</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      Los bomberos de Zacatecas son un servicio de emergencia integral. Su trabajo va mucho más
+      allá del fuego en un estado donde las amenazas van de los incendios forestales en sierra a
+      las emergencias con cianuro en las plantas mineras:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Incendios estructurales e industriales</h4><p>Residencial, comercial, industrial y minero, incluyendo galeríaas subterráneas e instalaciones de cianuración.</p></div>
+      <div class="de-card"><h4>HAZMAT minero</h4><p>Cianuro de sodio, ANFO, xantatos, ácidos de lixiviación y gases post-voladura en las operaciones del corredor minero.</p></div>
+      <div class="de-card"><h4>Rescate en espacios confinados</h4><p>Minas activas e históricas con atmósferas deficientes de oxígeno y gases tóxicos, usando SCBA y líneas guía.</p></div>
+      <div class="de-card"><h4>Incendios forestales</h4><p>Estiaje de noviembre a mayo en la Sierra de Órganos, Sierra Madre Occidental y zonas de altiplano semiárido.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en carreteras federales 45 y 54D, autopistas y vías de acarreo minero con alto tránsito de carga.</p></div>
+      <div class="de-card"><h4>Protección patrimonio UNESCO</h4><p>Protocolos especiales para el Centro Histórico de Zacatecas: edificaciones coloniales de cantera, criptas y espacios subterráneos.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>HAZMAT minero (cianuro, explosivos)</strong></td><td>24/7</td><td>Fresnillo, Concepción del Oro, Zacatecas capital</td></tr>
+          <tr><td><strong>Rescate en espacios confinados</strong></td><td>24/7</td><td>Brigadas especializadas corredor minero</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Sierra de Órganos, Tlaltenango, Valparaíso, Juchipila</td></tr>
+          <tr><td><strong>Rescate en montaña y barrancos</strong></td><td>24/7</td><td>Sierra Madre Occidental, Cañón de Juchipila</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Protección de patrimonio histórico</strong></td><td>24/7</td><td>Zacatecas capital (Centro Histórico UNESCO)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Minería, cianuro y el riesgo que define a Zacatecas</h3>
+    <p>
+      Zacatecas produce alrededor del <strong>40 % de la plata nacional</strong> según datos de la
+      Secretaría de Economía del estado. La mina <strong>Peñasquito</strong> (Newmont Corporation),
+      en Mazapil, es la mayor productora individual de plata de México con cerca de <strong>33 millones
+      de onzas anuales</strong>; las minas de <strong>Fresnillo plc</strong> —Fresnillo, Saucito y
+      Juanicipio— suman decenas de millones de onzas adicionales. Ambas empresas operan mediante
+      <strong>cianuración</strong>: el mineral triturado se mezcla con solución de cianuro de sodio
+      (NaCN) que disuelve selectivamente el oro y la plata. Cuando esta solución entra en contacto
+      con calor o con un ácido derramado, libera <strong>cianuro de hidrógeno gas (HCN)</strong>,
+      incoloro e inodoro a bajas concentraciones, con umbral de incapacitación a 100–200 ppm y
+      de letalidad inmediata a 300 ppm. Un bombero que ingresa a la zona de un incendio en planta
+      de cianuración sin detector de HCN y sin SCBA puede recibir dosis letales antes de detectar
+      síntoma alguno.
+    </p>
+    <p>
+      A esto se suma el uso de <strong>explosivos industriales</strong> (ANFO, emulsiones) para
+      voladura en frentes subterráneos: cada detonación genera óxidos de nitrógeno y CO que
+      requieren 30–45 minutos de ventilación forzada antes de que cualquier persona pueda reingresar
+      al nivel. Si un incendio se desata durante o inmediatamente después de una voladura, los
+      bomberos enfrentan una doble restricción: los gases de voladura los excluyen de la galería
+      mientras el fuego avanza sin intervención. Los <strong>xantatos</strong> utilizados en la
+      flotación de zinc añaden una tercera variable: sólidos inflamables que producen vapores tóxicos
+      al arder, requiriendo ventilación especializada y extinción con agua pulverizada.
+    </p>
+
+    <h3>Centro Histórico UNESCO y la Mina El Edén: el patrimonio como riesgo</h3>
+    <p>
+      La ciudad de Zacatecas fue fundada el <strong>8 de septiembre de 1546</strong> en el fondo de
+      una cañada flanqueada por los cerros La Bufa y El Grillo, y los casi <strong>480 años de
+      extracción</strong> que siguieron dejaron una red de galerías bajo los cimientos del Centro
+      Histórico cuya extensión total no está completamente cartografiada. El UNESCO reconoció este
+      conjunto en <strong>1993</strong> por ser un ejemplo excepcional de asentamiento colonial
+      adaptado a terreno minero. Muchos edificios del siglo XVIII tienen sótanos que conectan con
+      pasajes de acceso a vetas; cuando un incendio ocurre en un hostal o museo del Centro Histórico,
+      puede descender a estos túneles a través de pisos fisurados, encontrando madera de entibación
+      de 200–400 años con bajísima humedad a los 2 440 msnm de altitud semiseca.
+    </p>
+    <p>
+      La <strong>Mina El Edén</strong>, hoy museo turístico con galerías a más de 320 metros de
+      profundidad en el Cerro El Grillo, ilustra el reto: es la única mina colonial formalmente
+      mapeada y visitable de la ciudad, pero en una emergencia con turistas en su interior los
+      bomberos enfrentan comunicaciones por radio inoperantes más allá de los 50 metros, ausencia
+      de oxígeno en galerías sin ventilación activa y temperatura creciente con la profundidad.
+      Más del 40 % del estado tiene el mayor estado de México de bocaminas activas e históricas
+      fuera de contexto turístico, muchas sin señalización.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de los datos del directorio, así se distribuyen los recursos del cuerpo entre las
+      cinco grandes zonas del estado:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Cobertura</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades} unidades</td>
+            <td>{totalMunicipios} municipios — Zacatecas</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Zacatecas</h3>
+    <p>
+      El primer reto es la <strong>dispersión geográfica</strong>: el estado tiene 75 539 km²
+      con 58 municipios, muchos en terreno serrano de difícil acceso. Los municipios más extensos
+      —Pinos, Mazapil, Valparaíso— presentan tiempos de respuesta de 12–20 minutos en sus
+      zonas más remotas, un lapso crítico en emergencias médicas y en incendios forestales.
+      La carretera federal 45 (corredor norte hacia Chihuahua) y la autopista 54D
+      (Guadalajara-Zacatecas) concentran alta incidencia de accidentes con carga pesada.
+    </p>
+    <p>
+      El segundo reto es la <strong>especialización continua en HAZMAT minero</strong>. La
+      incorporación de nuevas técnicas de extracción —lixiviación en montón, flotación de sulfuros—
+      introduce nuevos compuestos que los bomberos deben conocer y para los que deben contar con
+      equipo de detección actualizado. La renovación de SCBA conforme a norma NFPA 1981 y de
+      trajes encapsulantes para ácidos es una necesidad operativa permanente en el corredor minero.
+      En paralelo, los <strong>incendios forestales</strong> acumularon más de 4 500 hectáreas
+      afectadas solo en los primeros meses de 2026 antes de que iniciara la temporada oficial,
+      señal de que la presión climática sobre el altiplano semiárido se intensifica.
+    </p>
+
+    <h3>Cultura de prevención en Zacatecas</h3>
+    <p>
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones que los
+      bomberos de Zacatecas hacen a la población del estado:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas LP:</strong> revisa mangueras y regulador al menos una vez al año; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble antes de llamar al 911.</li>
+        <li><strong>Calefacción en invierno:</strong> en el altiplano las temperaturas bajan de 0 °C; usa calefactores certificados con ventilación; nunca uses braseros u hornillas en espacios cerrados.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos y extensiones; atiende cualquier olor a quemado o cable caliente.</li>
+        <li><strong>Detección de humo:</strong> instala detectores de humo y ten un extintor vigente y accesible en cocina y zonas de riesgo.</li>
+        <li><strong>Incendios forestales:</strong> en temporada de estiaje no quemes basura ni residuos en zonas de monte; reporta cualquier columna de humo al 911 o a la línea de CONAFOR.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión con tu familia; practícalo periódicamente.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Secretaría de Economía del Estado de Zacatecas (producción minera, liderazgo nacional
+      en plata, plomo y zinc); Newmont Corporation, sitio oficial de operaciones Peñasquito
+      (producción ~33 Moz Ag anuales, municipio Mazapil); Fresnillo plc, informes anuales
+      (Fresnillo, Saucito, Juanicipio); UNESCO World Heritage Centre, ficha 676 — Centro Histórico
+      de Zacatecas (declaratoria 1993); INAH, Patrimonio Mundial México (fundación de Zacatecas
+      1546); Meganoticias/CONAFOR, reporte incendios forestales Zacatecas 2026 (4 500+ hectáreas);
+      INIFAP, Estadísticas Climatológicas Zacatecas (temperaturas mínimas y altitud 2 440 msnm).
+      Las cifras de personal y unidades provienen de los datos del directorio publicado en esta
+      página. Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
   </Fragment>
 </DirectorioEstadoLayout>

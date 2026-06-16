@@ -3,149 +3,176 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesOaxaca, getMunicipios } from "@data/estaciones-oaxaca";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
-// Configuración del estado
-const estado = "Oaxaca";
-const sigla = "OAX";
-const slug = "oaxaca";
+const estadosVecinos = getEstadosVecinos("oaxaca");
 
-// Miniaturas hero - UNESCO, Costa y Sierra
-const heroThumbs = [
-  {
-    src: "/images/directorio/rescate-urbano-bomberos-01.avif",
-    alt: "Zona arqueológica de Monte Albán Patrimonio UNESCO Oaxaca",
-    label: "Monte Albán UNESCO"
-  },
-  {
-    src: "/images/directorio/estacion-bomberos-centro-historico-01.avif",
-    alt: "Centro Histórico de Oaxaca de Juárez Patrimonio UNESCO",
-    label: "Centro Histórico"
-  },
-  { src: "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif", alt: "Cascos y lockers rojos en estación de bomberos de Oaxaca", label: "Cascos Certificados" }
-];
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const totalEstaciones = estacionesOaxaca.length;
+const totalMunicipios = getMunicipios().length;
+const totalPersonal   = estacionesOaxaca.reduce((s, e) => s + (e.personal ?? 0), 0);
 
-// Galería de imágenes
-const galleryImages = [
-  {
-    src: "/images/directorio/estacion-bomberos-oaxaca-01.avif",
-    alt: "Guelaguetza fiesta tradicional en Oaxaca julio",
-    label: "La Guelaguetza"
-  },
-  {
-    src: "/images/directorio/traje-inmersion-rescate-01.avif",
-    alt: "Playa Zicatela Puerto Escondido surf Pipeline mexicano",
-    label: "Zicatela Surf"
-  },
-  { src: "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif", alt: "Tres unidades de bomberos listas en bahía de Oaxaca", label: "Unidades Listas" },
-  {
-    src: "/images/directorio/estacion-bomberos-oaxaca-01.avif",
-    alt: "Día de Muertos tradición oaxaqueña panteones",
-    label: "Día de Muertos"
-  },
-];
+const canonical = "https://bombero.mx/directorio/oaxaca/";
 
-// Números de emergencia Oaxaca
-const emergencyNumbers = [
-  { number: "911", label: "Emergencias" },
-  { number: "(951) 516-2424", label: "Bomberos Oaxaca Centro" },
-  { number: "(958) 587-0106", label: "Bomberos Huatulco" },
-  { number: "(971) 714-0099", label: "HAZMAT Salina Cruz" }
-];
-
-// Regiones de Oaxaca
-const regiones = [
+// ── Zonas con perfil de cobertura ─────────────────────────────────────────
+const zonas = [
   {
-    nombre: "Valles Centrales",
-    desc: "Oaxaca de Juárez, Monte Albán UNESCO, Mitla, Tlacolula"
+    nombre:    "Valles Centrales",
+    municipios: ["Oaxaca de Juárez", "Santa Cruz Xoxocotlán", "Tlacolula"],
+    nEst:       3,
+    cobertura: "Total",
+    chip:      "total",
+    perfil:    "Centro Histórico UNESCO (1987), Monte Albán (1987), Aeropuerto OAX, Guelaguetza y Día de Muertos.",
   },
   {
-    nombre: "Costa Oaxaqueña",
-    desc: "Huatulco 9 bahías, Puerto Escondido (Zicatela), Pochutla, Zipolite"
+    nombre:    "Costa Oaxaqueña",
+    municipios: ["Santa María Huatulco", "Puerto Escondido", "San Pedro Pochutla"],
+    nEst:       3,
+    cobertura: "Alta",
+    chip:      "alta",
+    perfil:    "9 Bahías de Huatulco (turismo internacional), Playa Zicatela (surf), oleaje extremo y temporada de huracanes (jun–nov).",
   },
   {
-    nombre: "Istmo de Tehuantepec",
-    desc: "Juchitán, Salina Cruz (Refinería HAZMAT), Tehuantepec, Corredor Interoceánico"
+    nombre:    "Istmo de Tehuantepec",
+    municipios: ["Juchitán de Zaragoza", "Salina Cruz", "Tehuantepec"],
+    nEst:       3,
+    cobertura: "Alta",
+    chip:      "alta",
+    perfil:    "Refinería Antonio Dovalí Jaime, Puerto de Salina Cruz, Corredor Interoceánico (303 km) y zona del sismo Mw 8.2 del 7 sep 2017.",
   },
   {
-    nombre: "Sierra Norte y Mixteca",
-    desc: "Ixtlán, Capulálpam (Pueblo Mágico), Huajuapan, Tlaxiaco"
-  }
-];
-
-// Tarjetas de equipamiento EPP
-const eppCards = [
-  {
-    image:     "/images/directorio/traje-inmersion-rescate-01.avif",
-    imageAlt:  "Equipo de rescate acuático para playas de Oaxaca",
-    badge:     "Costa",
-    title:     "Rescate Acuático Costa",
-    text:      "Equipamiento especializado para rescate en las <strong>9 bahías de Huatulco</strong> y oleaje extremo de Zicatela. Trajes de inmersión y dispositivos de flotación certificados.",
-    href:      "/productos/trajes-para-bomberos/",
-    linkLabel: "Ver Equipo Acuático",
+    nombre:    "Papaloapan",
+    municipios: ["San Juan Bautista Tuxtepec", "Loma Bonita"],
+    nEst:       2,
+    cobertura: "Media",
+    chip:      "media",
+    perfil:    "Cuenca del río Papaloapan (inundaciones), ingenios azucareros, agroindustria y frontera con Veracruz.",
   },
   {
-    image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
-    imageAlt:  "Traje HAZMAT Nivel A para refinería Salina Cruz",
-    badge:     "HAZMAT",
-    title:     "Equipos HAZMAT Refinería",
-    text:      "Trajes encapsulados y detectores para emergencias en <strong>Refinería Salina Cruz</strong> y puerto industrial. Protección contra sustancias químicas y vapores tóxicos.",
-    href:      "/productos/trajes-para-bomberos/traje-hazmat/",
-    linkLabel: "Ver Equipos HAZMAT",
-  },
-  {
-    image:     "/images/directorio/equipo-rescate-vertical-01.avif",
-    imageAlt:  "Equipo de rescate en altura para zonas arqueológicas de Oaxaca",
-    badge:     "UNESCO",
-    title:     "Rescate Patrimonio",
-    text:      "Equipamiento técnico para protección de estructuras históricas en <strong>Monte Albán y Centro Histórico</strong>. Sistemas de rescate vertical y equipo de aproximación.",
-    href:      "/productos/cascos-para-bomberos/",
-    linkLabel: "Ver Equipo de Altura",
-  },
-  {
-    image:     "/images/accion/bomberos-accion-incendio-estructural.avif",
-    imageAlt:  "Equipo forestal para incendios en la Sierra Norte de Oaxaca",
-    badge:     "Forestal",
-    title:     "Protección Sierra Norte",
-    text:      "Equipo forestal para combate de incendios en la <strong>Sierra Norte y Mixteca</strong>. Trajes ligeros NFPA 1977 y herramientas manuales para terreno montañoso.",
-    href:      "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
-    linkLabel: "Ver Equipo Forestal",
+    nombre:    "Sierra Norte y Mixteca",
+    municipios: ["Ixtlán de Juárez", "Huajuapan de León", "Tlaxiaco"],
+    nEst:       3,
+    cobertura: "Baja",
+    chip:      "baja",
+    perfil:    "Bosques templados (incendios forestales), comunidades zapotecas y mixtecas, caminos rurales de difícil acceso y 570 municipios dispersos.",
   },
 ];
 
-// Schema.org estructurado
+// ── Schemas estructurados ──────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de ${estacionesOaxaca.length} estaciones de bomberos en Oaxaca. Protección de 2 sitios UNESCO (Monte Albán, Centro Histórico). Cobertura Costa turística, Istmo industrial y Sierra Norte.`,
-  numberOfItems: estacionesOaxaca.length,
-  itemListElement: estacionesOaxaca.map((e, i) => ({
+  "name": "Estaciones de Bomberos en Oaxaca",
+  "description": `Directorio de las ${totalEstaciones} estaciones del Heroico Cuerpo de Bomberos del Estado de Oaxaca. Fundado en diciembre de 1954. Cobertura de 2 sitios UNESCO (Centro Histórico y Monte Albán), Costa Oaxaqueña, Istmo industrial y 570 municipios en sierra y mixteca. Emergencias: 911.`,
+  "numberOfItems": totalEstaciones,
+  "itemListElement": estacionesOaxaca.map((e, i) => ({
     "@type": "ListItem",
-    position: i + 1,
-    item: {
+    "position": i + 1,
+    "item": {
       "@type": "FireStation",
-      name: e.nombre,
-      address: {
+      "name": e.nombre,
+      "address": {
         "@type": "PostalAddress",
-        streetAddress: e.direccion,
-        addressLocality: e.municipiosCubiertos?.[0] || estado,
-        addressRegion: estado,
-        addressCountry: "MX"
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio ?? e.ciudad ?? "Oaxaca",
+        "addressRegion": "Oaxaca",
+        "addressCountry": "MX",
       },
-      telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
-    }
-  }))
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/oaxaca/${e.slug}/`,
+    },
+  })),
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Oaxaca",         url: "/directorio/oaxaca/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Oaxaca: estaciones, historia y servicios de emergencia",
+  "description": `Guía del Heroico Cuerpo de Bomberos del Estado de Oaxaca: historia (1954–hoy), ${totalEstaciones} estaciones, sismo Mw 8.2 del 7 sep 2017, rescate acuático en la Costa, HAZMAT en Salina Cruz y 570 municipios dispersos.`,
+  "about": [
+    "Heroico Cuerpo de Bomberos del Estado de Oaxaca",
+    "Protección Civil",
+    "Sismo 7 de septiembre de 2017",
+    "Rescate acuático Costa Oaxaqueña",
+    "HAZMAT Refinería Salina Cruz",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/oaxaca.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
 
-// Imágenes para tarjetas de estaciones
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Oaxaca",
+  "description": `Directorio verificado de ${totalEstaciones} estaciones de bomberos en Oaxaca: Valles Centrales, Costa, Istmo, Papaloapan y Sierra. Teléfonos, cobertura e historia del Heroico Cuerpo de Bomberos del Estado de Oaxaca.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos del Estado de Oaxaca" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/oaxaca.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQs únicas de Oaxaca (≥10) ───────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Oaxaca?",
+    a: `El número único de emergencias en todo el estado de Oaxaca es el <strong>911</strong>, disponible las 24 horas. La Estación Central de Oaxaca de Juárez también atiende en el <strong>(951) 516-2424</strong>. En Huatulco el número directo es <strong>(958) 587-0106</strong> y en Salina Cruz (HAZMAT) <strong>(971) 714-0099</strong>. En comunidades de sierra donde la señal celular es intermitente, el despacho puede pasar por radio comunitaria, por lo que es clave indicar el municipio y la agencia más cercana.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos del Estado de Oaxaca?",
+    a: `El Heroico Cuerpo de Bomberos del Estado de Oaxaca se fundó en <strong>diciembre de 1954</strong>. Su origen fue un incendio en una curtiduría del Barrio de Jalatlaco, en la capital, que evidenció la necesidad de un servicio profesional. El entonces gobernador Manuel Cabrera Carrasquedo instruyó a seis policías para fungir como bomberos; la primera sede fue en la esquina de las calles Bustamante y Guerrero, en el Centro Histórico. La primera maquinaria contra incendios llegó en 1955 y se conserva como patrimonio histórico. El 22 de agosto de 1873, el primer cuerpo de bomberos del país se fundó en Veracruz; esa fecha se conmemora como el <strong>Día del Bombero en México</strong>.`,
+  },
+  {
+    q: "¿Cómo respondieron los bomberos de Oaxaca al sismo del 7 de septiembre de 2017?",
+    a: `El <strong>sismo Mw 8.2 del 7 de septiembre de 2017</strong> —epicentro en el Golfo de Tehuantepec, a las 23:49 hrs— fue el más intenso registrado en México en casi un siglo. En Oaxaca causó <strong>82 muertes</strong>, con 45 de ellas concentradas en <strong>Juchitán de Zaragoza</strong>, donde más de la mitad de la ciudad colapsó. Más de 80,000 viviendas resultaron dañadas y 688 escuelas del Istmo quedaron afectadas. Las brigadas del HCBO operaron durante días en rescate estructural, búsqueda de sobrevivientes y evacuaciones, en coordinación con la Secretaría de Seguridad y Protección Civil. La estación de Juchitán, hoy especializada en rescate estructural post-sísmico, es la primera respuesta ante cualquier reactivación sísmica en el Istmo.`,
+  },
+  {
+    q: "¿Qué servicios ofrecen los bomberos en las Bahías de Huatulco?",
+    a: `La <strong>Estación de Bomberos Bahías de Huatulco</strong> cubre las <strong>9 bahías</strong> del complejo turístico con servicios de rescate acuático, atención de incendios estructurales y en embarcaciones, rescate vehicular, atención prehospitalaria y apoyo a turistas internacionales con personal bilingüe. Opera motos acuáticas y una unidad de rescate acuático. Durante la <strong>temporada de huracanes</strong> (junio–noviembre), el protocolo de alerta se activa en coordinación con la Capitanía de Puerto y el SINAPROC.`,
+  },
+  {
+    q: "¿Los bomberos de Oaxaca cubren la zona arqueológica de Monte Albán?",
+    a: `Sí. La <strong>Estación de Santa Cruz Xoxocotlán</strong> es la primera respuesta ante emergencias en la Zona Arqueológica de Monte Albán (Patrimonio de la Humanidad desde 1987). El protocolo INAH limita la presión de manguera sobre superficies históricas de cantera verde y restringe el acceso de autotanques a la plataforma principal; la única manguera posible se tiende desde el estacionamiento, a 2 km de la Gran Plaza. El Centro Histórico de Oaxaca de Juárez (también UNESCO desde 1987) lo cubre la <strong>Estación Central</strong>, con vehículos de menos de 3.5 toneladas para acceder al cuadro patrimonial.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos de Salina Cruz las emergencias en la refinería?",
+    a: `La <strong>Estación HAZMAT de Salina Cruz</strong> está especializada en la <strong>Refinería Antonio Dovalí Jaime</strong>, con capacidad de 330,000 barriles diarios, y en el Puerto de Salina Cruz. Cuenta con trajes encapsulados Nivel A, detectores multigas y unidad de espuma AFFF. La estación mantiene línea directa con la guardia de la refinería y con la Capitanía del Puerto. También cubre el <strong>Corredor Interoceánico</strong> (303 km, Salina Cruz–Coatzacoalcos), aunque la diversidad de carga HAZMAT en tránsito ferroviario rebasa la calibración del equipo específico de refinería.`,
+  },
+  {
+    q: "¿Qué tan alta es la actividad sísmica en Oaxaca?",
+    a: `Oaxaca es uno de los estados de <strong>mayor sismicidad de México</strong>. El sismo Mw 8.2 del 7 de septiembre de 2017 fue el más fuerte del país en casi 100 años; generó 9,945 réplicas hasta noviembre de ese año. El <strong>Istmo de Tehuantepec</strong> concentra la mayor actividad: la subducción de la placa de Cocos bajo la placa norteamericana genera sismos frecuentes. La <strong>Mixteca</strong> y las zonas serranas también tienen historial sísmico relevante. Los cuerpos de bomberos del Istmo (Juchitán, Salina Cruz, Tehuantepec) están especializados en rescate estructural para este escenario.`,
+  },
+  {
+    q: "¿Qué hace que el rescate en la Sierra Norte y la Mixteca sea tan difícil?",
+    a: `La sierra oaxaqueña presenta tres desafíos simultáneos: <strong>acceso vial</strong> (caminos de terracería que se cierran por deslaves en temporada de lluvias), <strong>dispersión geográfica</strong> (Oaxaca tiene 570 municipios, la mayoría rurales, muchos con menos de 500 habitantes) y <strong>señal celular intermitente</strong> que dificulta la comunicación de emergencias. La <strong>Estación de Ixtlán de Juárez</strong> opera con vehículo 4x4 y ambulancia todo terreno para atender incendios forestales y rescate de montaña. En la Mixteca, la estación de Huajuapan y la de Tlaxiaco responden a comunidades con tiempos de llegada que pueden superar los 20 minutos.`,
+  },
+  {
+    q: "¿Cómo se coordinan los bomberos de Oaxaca con las comunidades indígenas?",
+    a: `Oaxaca reconoce <strong>16 grupos étnicos</strong>, con lenguas y sistemas de autoridad propios (usos y costumbres). En comunidades con gobierno por asamblea, la activación de la emergencia pasa por el agente municipal o la radio comunitaria antes de llegar al despacho de bomberos. Los cuerpos del HCBO coordinan con las <strong>Brigadas Comunitarias de Protección Civil</strong>, formadas y capacitadas por el gobierno estatal, especialmente para incendios forestales y sismos. La comunicación en lengua zapoteca, mixteca o mazateca es una competencia que se desarrolla en las estaciones serranas.`,
+  },
+  {
+    q: "¿Qué riesgo representa el mezcal artesanal para los bomberos de Oaxaca?",
+    a: `El mezcal se produce en los <strong>570 municipios</strong> autorizados por la Denominación de Origen. La destilación artesanal en hornos de tierra y ollas de barro genera destilados de <strong>55–75% ABV</strong>: a esa concentración la llama del etanol es casi invisible a la luz del día. El agente extinguidor correcto es espuma de película acuosa o extintor tipo B; el agua puede agravar el incendio por salpicadura. En palenques dispersos en localidades serranas, los tiempos de llegada superan los 30 minutos, por lo que el protocolo es evacuación total y protección de estructuras adyacentes.`,
+  },
+  {
+    q: "¿Hay riesgo de huracanes en la costa de Oaxaca?",
+    a: `Sí. La Costa Oaxaqueña está expuesta a la <strong>temporada de huracanes del Pacífico</strong> (junio–noviembre). Huatulco y Puerto Escondido se ubican en el corredor de trayectorias de ciclones que se forman frente a las costas de Guerrero y Oaxaca. El mayor riesgo operacional combina el <strong>oleaje extremo</strong> (Playa Zicatela registra olas de hasta 8 metros en temporada de surf) con el cierre de carreteras por deslaves en la sierra costera, que aísla comunidades. Los bomberos de Huatulco y Puerto Escondido coordinan con la Capitanía de Puerto y la Armada de México en alertas ciclónicas.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Oaxaca y cómo puedo localizarlas?",
+    a: `Este directorio registra <strong>${totalEstaciones} estaciones</strong> del Heroico Cuerpo de Bomberos del Estado de Oaxaca distribuidas en las principales regiones: Valles Centrales, Costa Oaxaqueña, Istmo de Tehuantepec, Papaloapan y Sierra Norte/Mixteca. También existe la estación del Aeropuerto Internacional de Oaxaca (SSEI/ARFF). Para cualquier emergencia, el número único es el <strong>911</strong>; los teléfonos directos de cada estación aparecen en el listado de esta página.`,
+  },
+];
+
+// ── Imágenes de estaciones ─────────────────────────────────────────────────
 const stationImages = [
   "/images/directorio/estacion-bomberos-profesional-01.avif",
   "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
@@ -189,110 +216,338 @@ const stationImages = [
   "/images/directorio/central-despacho-bomberos-operador-nocturno-01.avif",
   "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
 ];
-// Estados vecinos
-const estadosVecinos = getEstadosVecinos("oaxaca");
 ---
 
 <DirectorioEstadoLayout
-  estado={estado}
-  sigla={sigla}
-  slug={slug}
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Oaxaca</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
-  heroImage="/images/directorio/rescate-urbano-bomberos-01.avif"
-  heroImageAlt="Estación de Bomberos en Oaxaca"
-  heroCaption="H. Cuerpo de Bomberos · Oaxaca"
-  totalEstaciones={estacionesOaxaca.length}
-  totalMunicipios={getMunicipios().length}
+  estado="Oaxaca"
+  sigla="OAX"
+  slug="oaxaca"
+  description={`Bomberos en Oaxaca: ${totalEstaciones} estaciones en Valles Centrales, Costa, Istmo y Sierra. Centro Histórico y Monte Albán UNESCO, sismo Mw 8.2 (2017) y rescate acuático. Emergencias: 911.`}
+  keywords={[
+    "bomberos oaxaca",
+    "cuerpo de bomberos oaxaca",
+    "heroico cuerpo de bomberos oaxaca",
+    "estaciones bomberos oaxaca",
+    "telefono bomberos oaxaca 911",
+    "bomberos juchitan sismo 2017",
+    "bomberos huatulco rescate acuatico",
+    "bomberos puerto escondido zicatela",
+    "bomberos hazmat salina cruz refineria",
+    "bomberos monte alban centro historico unesco",
+    "bomberos oaxaca sierra norte mixteca",
+    "incendios forestales oaxaca bomberos",
+    "historia bomberos oaxaca 1954",
+    "directorio bomberos oaxaca",
+    "emergencias oaxaca 911",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
+
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
   habitantes="4.1M+"
-  canonical="https://bombero.mx/directorio/oaxaca/"
-  keywords={["bomberos oaxaca", "estaciones bomberos oaxaca", "emergencias oaxaca 911", "cuerpo bomberos oaxaca"]}
+
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos del Estado de Oaxaca</strong> —fundado en <strong>diciembre de 1954</strong> tras un incendio en el Barrio de Jalatlaco— protege el estado con la geografía de emergencias más diversa de México: <strong>2 sitios UNESCO</strong> (Centro Histórico y Monte Albán), las <strong>9 Bahías de Huatulco</strong> y el oleaje extremo de Zicatela, la <strong>Refinería Dovalí Jaime</strong> de Salina Cruz, el territorio del <strong>sismo Mw 8.2 del 7 de septiembre de 2017</strong> (Juchitán, 82 muertes en Oaxaca) y <strong>570 municipios dispersos</strong> en sierra, mixteca y cañadas. Con <strong>${totalEstaciones} estaciones</strong> en este directorio para <strong>4.1 millones de habitantes</strong>, el cuerpo enfrenta cinco perfiles de riesgo que no coexisten en ningún otro estado del país.`}
+  heroImage="/images/directorio/estacion-bomberos-central-edificio-01.avif"
+  heroImageAlt="Heroico Cuerpo de Bomberos del Estado de Oaxaca — fundado en 1954, Centro Histórico UNESCO Oaxaca de Juárez"
+  heroCaption="H. Cuerpo de Bomberos del Estado de Oaxaca · Fundado en 1954"
+  heroThumbs={[
+    { src: "/images/directorio/rescate-urbano-bomberos-01.avif",           alt: "Rescate estructural urbano USAR Juchitán Oaxaca sismo Mw 8.2 septiembre 2017 Istmo Tehuantepec", label: "Rescate Sísmico Istmo"   },
+    { src: "/images/directorio/traje-inmersion-rescate-01.avif",           alt: "Rescate acuático Bahías de Huatulco Puerto Escondido Zicatela Costa Oaxaqueña temporada huracanes", label: "Rescate Acuático Costa" },
+    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "HAZMAT Nivel A Refinería Antonio Dovalí Jaime Salina Cruz Oaxaca Puerto Industrial Corredor Interoceánico", label: "HAZMAT Refinería"        },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/estacion-bomberos-centro-historico-01.avif", alt: "Protección Centro Histórico UNESCO Oaxaca de Juárez cantera verde Catedral Ex Convento Santo Domingo 1987", label: "Centro Histórico UNESCO" },
+    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",            alt: "Rescate acuático Bahías de Huatulco Costa Oaxaqueña turistas internacionales 9 bahías protegidas",          label: "Rescate 9 Bahías"       },
+    { src: "/images/directorio/rescate-urbano-bomberos-01.avif",            alt: "Brigada rescate estructural Juchitán post-sismo 2017 Istmo Tehuantepec Oaxaca viviendas colapsadas",        label: "Sismo 2017 Istmo"      },
+    { src: "/images/directorio/equipo-rescate-vertical-01.avif",            alt: "Rescate en altura Sierra Norte Oaxaca Monte Albán UNESCO zona arqueológica zapoteca incendios forestales",   label: "Sierra y Monte Albán"  },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",           label: "Emergencias Oaxaca"         },
+    { number: "(951) 516-2424", label: "Bomberos Oaxaca de Juárez" },
+    { number: "(958) 587-0106", label: "Bomberos Huatulco"         },
+    { number: "(954) 582-0222", label: "Bomberos Puerto Escondido" },
+    { number: "(971) 711-0088", label: "Bomberos Juchitán"         },
+    { number: "(971) 714-0099", label: "HAZMAT Salina Cruz"        },
+  ]}
+
+  municipios={getMunicipios()}
+
+  regiones={[
+    { nombre: "Valles Centrales",         desc: "Oaxaca de Juárez (Centro Histórico UNESCO) · Monte Albán UNESCO · Aeropuerto OAX · Tlacolula · Mitla" },
+    { nombre: "Costa Oaxaqueña",          desc: "Huatulco (9 bahías) · Puerto Escondido (Zicatela) · Pochutla · Zipolite · Mazunte"                    },
+    { nombre: "Istmo de Tehuantepec",     desc: "Juchitán (sismo 2017) · Salina Cruz (Refinería + HAZMAT) · Tehuantepec · Corredor Interoceánico"       },
+    { nombre: "Papaloapan",               desc: "Tuxtepec · Loma Bonita · Cuenca del Papaloapan (inundaciones) · Frontera Veracruz"                     },
+    { nombre: "Sierra Norte y Mixteca",   desc: "Ixtlán de Juárez · Capulálpam (Pueblo Mágico) · Huajuapan de León · Tlaxiaco · 570 municipios"        },
+  ]}
+
+  estadosVecinos={estadosVecinos}
+
   estaciones={estacionesOaxaca}
   stationImages={stationImages}
-  municipios={getMunicipios()}
-  estadosVecinos={estadosVecinos}
-  heroThumbs={heroThumbs}
-  galleryImages={galleryImages}
-  emergencyNumbers={emergencyNumbers}
-  regiones={regiones}
-  eppCards={eppCards}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesOaxaca.length} estaciones en Oaxaca — Monte Albán UNESCO, vientos Tehuanos 100+ km/h, refinería Salina Cruz y mezcal artesanal en 570 municipios. Emergencias: 911.`}
+
+  eppCards={[
+    {
+      image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+      imageAlt:  "Traje Estructural NFPA 1971 bomberos Oaxaca rescate sísmico Juchitán Istmo Tehuantepec 2017 derrumbes cantera verde",
+      badge:     "NFPA 1971",
+      title:     "Traje Estructural NFPA 1971 — Rescate Sísmico Istmo",
+      text:      "El sismo Mw 8.2 del 7 de septiembre de 2017 derrumbó más de la mitad de Juchitán y dañó 80,000 viviendas en Oaxaca. Las brigadas del Istmo operaron durante días en escombro de <strong>adobe, cantera y tabique</strong> —materiales que generan polvo fino con sílice cristalina y fragmentos cortantes—. El traje estructural NFPA 1971 protege de calor convectivo, llama directa y los cortes de materiales de construcción tradicionales mientras el bombero abre paso en un derrumbe. En el Centro Histórico, la <strong>cantera verde</strong> se fractura al enfriarse bruscamente tras un incendio: la intervención exige combinación de corte mecánico y aproximación controlada.",
+      href:      "/productos/trajes-para-bomberos/",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
+      imageAlt:  "Traje HAZMAT Nivel A bomberos Salina Cruz Refinería Antonio Dovalí Jaime Oaxaca H2S materiales peligrosos Corredor Interoceánico",
+      badge:     "HAZMAT Nivel A",
+      title:     "Traje Encapsulado HAZMAT — Refinería Dovalí Jaime",
+      text:      "La Refinería Antonio Dovalí Jaime procesa <strong>330,000 barriles diarios</strong> con unidades de craqueo catalítico a 500–600 °C y H₂S en concentraciones letales por encima de 300 ppm. El Corredor Interoceánico (303 km) transporta HAZMAT clase 3, 6 y 8 sin instalaciones de emergencia en tramos intermedios. Los trajes encapsulados Nivel A de la estación de Salina Cruz están calibrados para la mezcla específica de la refinería —la diversidad de carga ferroviaria requiere adaptación protocolaria en cada incidente—.",
+      href:      "/productos/trajes-para-bomberos/traje-hazmat/",
+      linkLabel: "Ver Equipos HAZMAT",
+    },
+    {
+      image:     "/images/directorio/traje-inmersion-rescate-01.avif",
+      imageAlt:  "Traje inmersión NFPA 1952 rescate acuático Bahías de Huatulco Puerto Escondido Zicatela Costa Oaxaqueña huracanes",
+      badge:     "NFPA 1952",
+      title:     "Traje de Inmersión NFPA 1952 — Costa Oaxaqueña",
+      text:      "Las <strong>9 Bahías de Huatulco</strong> reciben turismo internacional con picos en Semana Santa y temporada alta. Playa Zicatela, en Puerto Escondido, registra olas de hasta 8 metros en temporada de surf que crean corrientes de resaca entre las más peligrosas del Pacífico mexicano. El traje de inmersión NFPA 1952 protege al bombero-rescatista en el agua fría de fondo y en el ambiente de oleaje extremo, donde un traje inadecuado condena la maniobra antes de que empiece. La temporada de huracanes (junio–noviembre) agrega el riesgo de ciclón sobre la misma franja costera.",
+      href:      "/productos/trajes-para-bomberos/",
+      linkLabel: "Ver Trajes de Inmersión",
+    },
+    {
+      image:     "/images/accion/bomberos-accion-incendio-estructural.avif",
+      imageAlt:  "Equipo forestal NFPA 1977 bomberos Sierra Norte Mixteca Oaxaca incendios temporada seca febrero mayo palenques mezcal",
+      badge:     "NFPA 1977",
+      title:     "Equipo Forestal NFPA 1977 — Sierra y Mezcal",
+      text:      "La temporada seca (febrero–mayo) desencadena incendios forestales en la <strong>Sierra Norte, la Mixteca y los Valles Centrales</strong>. A ello se suma el riesgo específico de los palenques de mezcal: destilados de <strong>55–75% ABV</strong> con llama casi invisible a la luz del día. El traje forestal NFPA 1977 —ligero y transpirable— permite al bombero operar durante horas en terreno montañoso con pendientes superiores al 40%, sin el peso del traje estructural que limita la movilidad en campo abierto. En 570 municipios dispersos, el equipo llega antes que el camión.",
+      href:      "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
+      linkLabel: "Ver Equipo Forestal",
+    },
+  ]}
+
+  ctaTitle="Equipamos al Heroico Cuerpo de Bomberos del Estado de Oaxaca"
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones de Oaxaca: trajes estructurales para rescate sísmico en el Istmo, HAZMAT Nivel A para Salina Cruz, equipo acuático para la Costa y trajes forestales para sierra y mixteca. Atención a licitaciones municipales y estatales.`}
+  ctaBtnText="Solicitar Cotización — Oaxaca"
+
+  faqsEstado={faqsEstado}
 >
+
   <Fragment slot="seo">
 
-      <h2>Bomberos de Oaxaca — Cuando el Viento Dicta la Física del Incendio: Tehuanos, Mezcal y el Istmo</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Oaxaca</strong> opera en el único estado de México donde un
-        fenómeno meteorológico local convierte un incendio forestal controlable en un frente imparable en minutos.
-        Los vientos Tehuanos — brechas de presión entre el Pacífico y el Golfo que alcanzan 120 km/h sostenidos en
-        el Istmo de Tehuantepec entre octubre y marzo — no aceleran el fuego: lo cambian de categoría.
-        Sobre ese territorio también descansa la refinería de mayor capacidad del sureste, el nuevo Corredor
-        Interoceánico que transporta carga HAZMAT sin instalaciones de emergencia intermedias, y el 90% de la
-        producción mezcalera del país repartida en 570 municipios con destilación artesanal a 55-75% ABV.
-        En Oaxaca, antes de hablar de táctica de supresión, hay que preguntar qué está haciendo el viento.
-      </p>
+    <h2>Bomberos en Oaxaca: sismo Mw 8.2, Costa, Refinería y 570 municipios dispersos</h2>
 
-      <h3>¿Cómo llamar a los Bomberos de Oaxaca?</h3>
-      <p>
-        El número único de emergencias en todo Oaxaca es <strong>911</strong>. En el Istmo, la Estación HAZMAT de
-        Salina Cruz tiene línea directa con la guardia de la Refinería Dovalí Jaime y con la Capitanía del Puerto;
-        en localidades de la Sierra Juárez y la Mixteca alta donde la señal celular es intermitente, el enlace
-        pasa por radio comunitaria antes de llegar al despacho municipal. Para cualquier emergencia en zona serrana
-        es clave indicar el municipio y la agencia de referencia más cercana, no solo la descripción del lugar.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Oaxaca">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1954</span><span class="de-stat__label">Año de fundación</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">~{totalPersonal}</span><span class="de-stat__label">Personal directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2</span><span class="de-stat__label">Sitios UNESCO</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">570</span><span class="de-stat__label">Municipios del estado</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">Mw 8.2</span><span class="de-stat__label">Sismo 7-sep-2017</span></div>
+    </div>
 
-      <h3>Vientos Tehuanos — Los 100 km/h que Cambian de Categoría el Incendio Forestal</h3>
-      <p>
-        A 100 km/h el calor convectivo que normalmente asciende en columna es forzado en horizontal: las brasas
-        viajan 300-400 metros por delante del frente y crean focos secundarios simultáneos en todo ese radio antes
-        de que el camión pueda moverse. El chorro de manguera de 2½ pulgadas se fragmenta en niebla por encima de
-        80 km/h, perdiendo el 70% de su alcance efectivo. La operación aérea de carga queda suspendida por encima
-        de 50 km/h sostenidos. El protocolo del Istmo en Tehuano activo no contempla ataque directo: es abandono
-        del perímetro, protección de exposiciones prioritarias y espera a que el viento baje de 50 km/h, que puede
-        tardar entre 6 y 72 horas. Juchitán y Tehuantepec tienen planes de evacuación preventiva que se activan
-        antes de que el incendio llegue, no después.
-      </p>
+    <p class="de-lead">
+      El <strong>Heroico Cuerpo de Bomberos del Estado de Oaxaca</strong> —fundado en diciembre de 1954—
+      protege el territorio con la combinación de riesgos más heterogénea de la república: dos sitios
+      Patrimonio de la Humanidad en la capital, 9 bahías turísticas y oleaje extremo en la costa,
+      una refinería de 330,000 barriles diarios y un corredor interoceánico en el Istmo, la zona
+      epicentral del sismo Mw 8.2 del 7 de septiembre de 2017 —el más intenso en México en casi un
+      siglo—, y 570 municipios dispersos en sierra y mixteca donde los tiempos de llegada pueden
+      superar los 20 minutos. En Oaxaca, no existe un perfil único de emergencia.
+    </p>
 
-      <h3>Mezcal en 570 Municipios — Hornos de Tierra y Llama Invisible a 75% ABV</h3>
-      <p>
-        La producción artesanal de mezcal usa hornos de tierra donde piñas de agave se entierran con mesquite
-        ardiendo durante tres a cinco días, seguidos de destilación en ollas de barro o alambiques de cobre.
-        El destilado sale entre 55 y 75% ABV: a esa concentración la llama del etanol es prácticamente
-        transparente a la luz del día. El bombero que no detecta humo ni llama visible puede estar caminando
-        sobre etanol en combustión activa. El agente correcto es extintor tipo B o espuma de película acuosa;
-        el agua agrava el incendio por salpicadura y expansión de vapor. En palenques dispersos en localidades
-        de menos de 500 habitantes, los tiempos de llegada superan los 30 minutos — el protocolo es desalojo
-        total del área y protección de estructuras adyacentes, nunca supresión directa sobre recipientes
-        activos de destilación.
-      </p>
+    <h3>Cómo contactar a los bomberos en Oaxaca</h3>
+    <p>
+      En todo el estado, el <strong>911</strong> conecta con la Central de Despacho las 24 horas.
+      Los teléfonos directos de las principales estaciones son: Oaxaca de Juárez
+      (<strong>951 516-2424</strong>), Huatulco (<strong>958 587-0106</strong>), Puerto Escondido
+      (<strong>954 582-0222</strong>), Juchitán (<strong>971 711-0088</strong>) y Salina Cruz —HAZMAT—
+      (<strong>971 714-0099</strong>). En comunidades serranas con señal celular intermitente, el
+      enlace pasa por radio comunitaria; es clave indicar el municipio y la agencia de referencia
+      más cercana. Todos los datos aparecen en el
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Refinería Dovalí Jaime y el Corredor Interoceánico — HAZMAT sin Red de Seguridad Intermedia</h3>
-      <p>
-        La Refinería Antonio Dovalí Jaime en Salina Cruz procesa 330,000 barriles diarios con unidades de
-        craqueo catalítico fluido (FCC) a 500-600°C y líneas de proceso con H₂S en concentraciones letales
-        por encima de 300 ppm. El Corredor Interoceánico inaugurado en fases desde 2023 corre 303 km hasta
-        Coatzacoalcos transportando contenedores intermodales que incluyen HAZMAT clase 3, 6 y 8 — y lo hace
-        sin instalaciones de emergencia en los tramos intermedios que atraviesan comunidades zapotecas e ikoots.
-        Un descarrilamiento con carga inflamable entre el km 80 y el km 220 activa un protocolo de zona de
-        exclusión de 500 metros y solicitud de recursos HAZMAT de Coatzacoalcos, con tiempos de respuesta
-        especializada de 90 a 150 minutos. La brigada de Salina Cruz tiene trajes encapsulados nivel A y
-        detectores multigas calibrados para la mezcla específica de la refinería, no para la diversidad de
-        carga del corredor ferroviario.
-      </p>
+    <h3>Historia del Heroico Cuerpo de Bomberos del Estado de Oaxaca</h3>
+    <p>
+      El cuerpo de bomberos de Oaxaca nació de una emergencia real, no de una planificación
+      institucional. Estos son los hitos verificados de su historia:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en el puerto de Veracruz el <strong>primer cuerpo de bomberos de México</strong>. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong> en todo el país.</li>
+      <li><span class="de-tl__year">1954</span> Un incendio en una curtiduría del <strong>Barrio de Jalatlaco</strong>, en Oaxaca de Juárez, expone la falta de un servicio organizado. El gobernador Manuel Cabrera Carrasquedo instruyó a <strong>seis policías</strong> para fungir como bomberos; primera sede en las calles Bustamante y Guerrero, Centro Histórico.</li>
+      <li><span class="de-tl__year">1955</span> Llega la <strong>primera maquinaria contra incendios</strong> del estado, conservada como patrimonio histórico en la Subestación Sur.</li>
+      <li><span class="de-tl__year">1987</span> La UNESCO declara Patrimonio de la Humanidad el <strong>Centro Histórico de Oaxaca de Juárez</strong> y la <strong>Zona Arqueológica de Monte Albán</strong>, ampliando el mandato de protección del cuerpo de bomberos.</li>
+      <li><span class="de-tl__year">2017</span> El <strong>sismo Mw 8.2 del 7 de septiembre</strong> —epicentro en el Golfo de Tehuantepec, 23:49 hrs— es el más intenso en México en casi un siglo. En Oaxaca mueren <strong>82 personas</strong> (45 solo en Juchitán); más de 80,000 viviendas resultan dañadas. Las brigadas operan durante días en rescate estructural.</li>
+      <li><span class="de-tl__year">Hoy</span> El HCBO opera <strong>subestaciones en el Istmo, la Costa y otras regiones</strong>, además de la sede en Oaxaca de Juárez, con personal especializado en rescate sísmico, acuático, HAZMAT, forestal y patrimonio histórico.</li>
+    </ul>
 
-      <h3>Monte Albán y Centro Histórico UNESCO — Cantera Verde, Adobe y los Límites que el INAH Impone al Agua</h3>
-      <p>
-        La cantera verde oaxaqueña — toba volcánica porosa con clorita — absorbe agua bajo presión y se
-        fractura cuando se enfría rápido tras haber sido calentada por el fuego. El protocolo INAH para
-        incendios en patrimonio limita la presión de manguera a menos de 1.5 bar en superficies directas y
-        prohíbe agua sobre piedra calentada por encima de 200°C; el ataque por niebla reemplaza al chorro
-        directo. En Monte Albán, la plataforma sobre la roca madre impide el acceso de autotanques: la única
-        manguera posible se tiende desde el estacionamiento principal 2 km abajo, reduciendo el caudal
-        disponible a un tercio y obligando a priorizar entre el Edificio J, la Gran Plaza y el Sistema IV
-        según el viento del momento. Para el Centro Histórico, el acceso está limitado a vehículos menores
-        de 3.5 toneladas en el cuadro patrimonial, lo que excluye las unidades de mayor caudal.
-      </p>
-    </Fragment>
+    <h3>Infraestructura de emergencia: cómo se cubren las cinco regiones de Oaxaca</h3>
+    <p>
+      Las <strong>{totalEstaciones} estaciones</strong> de este directorio se distribuyen en cinco
+      regiones con perfiles de riesgo radicalmente distintos. Los Valles Centrales concentran la
+      mayor densidad de población y el patrimonio UNESCO; la Costa enfrenta oleaje extremo y
+      huracanes; el Istmo combina sismicidad alta con riesgo industrial; el Papaloapan cubre
+      inundaciones y agroindustria; y la Sierra Norte con la Mixteca suma incendios forestales
+      y dispersión geográfica extrema:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios principales</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos de Oaxaca</h3>
+    <p>
+      En Oaxaca, el trabajo del bombero abarca desde la refinería más grande del sureste hasta
+      los canales de bahías turísticas y los bosques de la sierra. Estas son las funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Estructurales, forestales (Sierra Norte, Mixteca), en patrimonio histórico (cantera verde) y en instalaciones industriales (Salina Cruz).</p></div>
+      <div class="de-card"><h4>Rescate sísmico (USAR)</h4><p>Localización y extracción en derrumbes de adobe, cantera y tabique, competencia forjada en el sismo Mw 8.2 del 7 de septiembre de 2017.</p></div>
+      <div class="de-card"><h4>Rescate acuático</h4><p>Atención en las 9 Bahías de Huatulco, el oleaje extremo de Zicatela, corrientes de resaca y emergencias de embarcaciones turísticas.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Brigada especializada en Salina Cruz para la Refinería Dovalí Jaime, Puerto Industrial y carga del Corredor Interoceánico.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Estabilización y soporte vital antes del traslado, en coordinación con los Servicios de Salud de Oaxaca.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Capacitación a brigadas comunitarias indígenas, simulacros en escuelas y comunidades, y dictámenes de riesgo.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate sísmico (USAR)</strong></td><td>24/7</td><td>Istmo: Juchitán, Salina Cruz, Tehuantepec</td></tr>
+          <tr><td><strong>Rescate acuático</strong></td><td>24/7</td><td>Huatulco, Puerto Escondido, Tuxtepec (Papaloapan)</td></tr>
+          <tr><td><strong>HAZMAT Nivel A</strong></td><td>24/7</td><td>Salina Cruz (Refinería + Puerto Industrial)</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (feb–may)</td><td>Ixtlán, Huajuapan, Tlaxiaco y Valles Centrales</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Rescate vehicular</strong></td><td>24/7</td><td>Carreteras 190, 200 y 175 (alta siniestralidad)</td></tr>
+          <tr><td><strong>ARFF aeronáutico (SSEI)</strong></td><td>24/7</td><td>Aeropuerto Internacional de Oaxaca (OAX)</td></tr>
+          <tr><td><strong>Inundaciones</strong></td><td>Lluvias (jun–oct)</td><td>Tuxtepec y cuenca del Papaloapan</td></tr>
+          <tr><td><strong>Protección patrimonio UNESCO</strong></td><td>24/7</td><td>Oaxaca de Juárez (Centro Histórico) y Santa Cruz Xoxocotlán (Monte Albán)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>El sismo del 7 de septiembre de 2017: el Istmo como zona de mayor riesgo sísmico de Oaxaca</h3>
+    <p>
+      A las 23:49 del 7 de septiembre de 2017, un sismo de <strong>magnitud Mw 8.2</strong> sacudió
+      el Golfo de Tehuantepec. Fue el más intenso registrado en México en casi un siglo. En Oaxaca
+      murieron <strong>82 personas</strong> —45 solo en Juchitán de Zaragoza—; más de
+      <strong>80,000 viviendas</strong> sufrieron daños y <strong>688 escuelas del Istmo</strong>
+      quedaron afectadas. Parte de las estaciones que debían responder a la emergencia sufrieron
+      daños propios.
+    </p>
+    <p>
+      El Istmo opera sobre la zona de subducción de la placa de Cocos bajo la placa norteamericana,
+      una de las más activas del continente. Las construcciones tradicionales de adobe y mampostería
+      —comunes en Juchitán, Tehuantepec y comunidades zapotecas e ikoots— acumulan daño ante
+      sismos sucesivos. Por eso la estación de Juchitán está especializada en
+      <strong>rescate estructural</strong>: equipo de corte, detección de vida y apuntalamiento,
+      con protocolos que no esperan la réplica sino que la anticipan. El sistema de alerta sísmica
+      del Servicio Sismológico Nacional da segundos de aviso; en el Istmo, esos segundos son la
+      diferencia entre evacuar y quedar atrapado.
+    </p>
+    <p>
+      La <strong>costa oaxaqueña</strong> agrega el riesgo de tsunami asociado a sismos de gran
+      magnitud generados en la zona de subducción frente al litoral. Los protocolos de evacuación
+      preventiva de Huatulco y Puerto Escondido incluyen corredores hacia zonas altas activables
+      antes de que llegue la ola.
+    </p>
+
+    <h3>Comparativa regional de cobertura en Oaxaca</h3>
+    <p>
+      A partir de las estaciones registradas en este directorio, así se distribuye la
+      infraestructura del cuerpo de bomberos entre las grandes zonas del estado.
+      El perfil de cada región resume los principales retos operativos:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Perfil de riesgo principal</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>5 regiones del Estado de Oaxaca</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Oaxaca</h3>
+    <p>
+      El primer reto es la <strong>dispersión geográfica</strong>. Oaxaca tiene 570 municipios,
+      la mayoría rurales, muchos conectados por caminos de terracería que se cierran con las
+      primeras lluvias. Las estaciones de Ixtlán, Huajuapan y Tlaxiaco responden a áreas
+      enormes con un solo vehículo; en emergencias forestales de estiaje, la distancia al fuego
+      puede superar los 30 kilómetros en terreno sin pavimentar.
+    </p>
+    <p>
+      El segundo reto es la <strong>diversidad de riesgos</strong>. Ningún estado mexicano
+      concentra simultáneamente riesgo sísmico de primer nivel, riesgo industrial HAZMAT,
+      rescate acuático de alta energía en mar abierto, incendios forestales de temporada,
+      protección de patrimonio UNESCO y emergencias en comunidades indígenas con lenguas
+      propias. Equipar y capacitar para todos estos escenarios —con presupuesto municipal
+      o estatal— es el desafío estructural del HCBO. El equipo de protección personal (EPP)
+      certificado NFPA, los SCBA, los trajes HAZMAT y el equipo de rescate acuático tienen
+      ciclos de vida distintos que exigen reposición coordinada.
+    </p>
+
+    <h3>Cultura de prevención en Oaxaca: cómo protegerse en un estado de múltiples riesgos</h3>
+    <p>
+      En Oaxaca la prevención tiene que contemplar más de un tipo de emergencia. Estas son las
+      recomendaciones que los cuerpos de bomberos y Protección Civil transmiten a la población:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención para Oaxaca</h4>
+      <ul>
+        <li><strong>Sismo:</strong> identifica zonas seguras (columnas, marcos de puertas interiores), fija muebles altos y mantén una mochila de emergencia lista; al sentir el temblor, actúa de inmediato sin esperar la alerta.</li>
+        <li><strong>Tsunami:</strong> en la costa, ante un sismo intenso que dure más de un minuto, evacúa hacia zonas altas sin esperar la alerta oficial; el tiempo puede ser de apenas 10–15 minutos.</li>
+        <li><strong>Huracán:</strong> sigue las alertas del SMN; en Huatulco y Puerto Escondido, conoce las rutas de evacuación publicadas por tu municipio antes de que llegue la temporada.</li>
+        <li><strong>Gas y mezcal:</strong> en palenques y destilerías, ventila siempre antes de encender fuego; el etanol a alta concentración arde sin llama visible. Ante cualquier fuga, evacúa y llama al 911.</li>
+        <li><strong>Incendio forestal:</strong> en temporada seca, no quemes basura ni uses fuego en áreas boscosas; reporta cualquier columna de humo al 911 o a CONAFOR.</li>
+        <li><strong>Patrimonio:</strong> en visitas a Monte Albán o el Centro Histórico, conoce la ubicación de los extintores y las salidas de emergencia antes de un incendio.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a toda la familia cuándo y cómo llamar, incluyendo indicar el municipio y la referencia más cercana en zonas rurales.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Secretaría de Seguridad y Protección Ciudadana del Estado de Oaxaca (SSPO) — directorio
+      oficial del H. Cuerpo de Bomberos; Quadratin Oaxaca, «Heroico Cuerpo de Bomberos, más de seis
+      décadas al servicio» (fundación 1954, incendio Barrio de Jalatlaco); Gobierno del Estado de Oaxaca,
+      «Cumple bomberos 68 años de heroicas labores» (oaxaca.gob.mx); Servicio Sismológico Nacional —
+      parámetros del sismo del 7 de septiembre de 2017, Mw 8.2, Golfo de Tehuantepec, 23:49 hrs;
+      Milenio / Heraldo de México — víctimas sismo 2017 (82 en Oaxaca, 45 en Juchitán, 80,000 viviendas
+      afectadas); UNESCO — declaratoria Centro Histórico de Oaxaca y Monte Albán (1987);
+      PEMEX / SSPO — datos Refinería Antonio Dovalí Jaime (330,000 barriles/día);
+      Denominación de Origen Mezcal — 570 municipios productores. Las cifras de personal
+      corresponden a las estaciones publicadas en este directorio.
+      Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
+  </Fragment>
 </DirectorioEstadoLayout>
-

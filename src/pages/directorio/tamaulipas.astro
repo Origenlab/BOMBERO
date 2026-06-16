@@ -3,11 +3,12 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesTamaulipas, getMunicipios, ESTADISTICAS_TAMAULIPAS } from "@data/estaciones-tamaulipas";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estado = "Tamaulipas";
 const sigla = "TAM";
 const slug = "tamaulipas";
+const canonical = "https://bombero.mx/directorio/tamaulipas/";
 
 // ─── Imágenes Hero ────────────────────────────────────────────────────────────
 const heroThumbs = [
@@ -152,6 +153,38 @@ const stationImages = [
   "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif",
   "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
 ];
+// ─── Comparativa regional ────────────────────────────────────────────────────
+const zonas = [
+  {
+    nombre: "Frontera Norte",
+    municipios: "Nuevo Laredo, Matamoros",
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Cinco puentes internacionales, ~40% del comercio terrestre MX-EE.UU., cluster maquilador automotriz y electrónico.",
+  },
+  {
+    nombre: "Zona Reynosa / Burgos",
+    municipios: "Reynosa, Río Bravo",
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Mayor ciudad de TAM, Cuenca de Burgos (gas natural), maquiladoras electrónicas y puentes McAllen-Reynosa.",
+  },
+  {
+    nombre: "Centro / Capital",
+    municipios: "Ciudad Victoria, San Fernando",
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Capital estatal, corredor carretero federal, acceso a Sierra Madre Oriental.",
+  },
+  {
+    nombre: "Sur / Tampico-Altamira",
+    municipios: "Tampico, Ciudad Madero, Altamira",
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Refinería Francisco I. Madero (190 mbpd), Puerto Industrial Altamira (BASF, Celanese, Vitro), rescate en río Pánuco.",
+  },
+];
+
 // ─── Schema.org JSON-LD ───────────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
@@ -178,22 +211,103 @@ const itemListSchema = {
   })),
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Tamaulipas",         url: "/directorio/tamaulipas/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Tamaulipas: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de Tamaulipas: historia (Tampico 1903, Nuevo Laredo 1926), infraestructura en la frontera con Texas, Cuenca de Burgos, Puerto Industrial Altamira y riesgos HAZMAT. Directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Tamaulipas",
+    "Protección Civil",
+    "Materiales peligrosos HAZMAT",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/tamaulipas.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Tamaulipas",
+  "description": `Directorio verificado de estaciones de bomberos en Tamaulipas: Reynosa, Matamoros, Nuevo Laredo, Tampico, Ciudad Victoria. HAZMAT industrial en Puerto Altamira y Cuenca de Burgos. Emergencias 911.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de Tamaulipas" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/tamaulipas.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ─── FAQs únicas de Tamaulipas (≥10) ─────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Tamaulipas?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas en todo el estado. Para contacto directo: Bomberos Reynosa (899 922 0500), Bomberos Tampico (833 212 1515) y Bomberos Nuevo Laredo (867 712 8600). En emergencias industriales en el Puerto de Altamira o la Cuenca de Burgos, la coordinación con las brigadas internas de PEMEX y las plantas es parte del protocolo desde el primer aviso al 911.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de Tampico?",
+    a: `El Heroico Cuerpo de Bomberos de Tampico fue fundado el <strong>30 de marzo de 1903</strong>, cuando el presidente municipal Amado Nicasio Jáuregui se reunió con los primeros fundadores en el teatro "Apolo". Es el <strong>tercer cuerpo de bomberos fundado en México</strong>, después del de Veracruz (22 de agosto de 1873) y el de la Ciudad de México (1887). La primera estación lleva el nombre de Antonio Cervantes Guajardo, bombero fallecido en acto de servicio.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de Nuevo Laredo?",
+    a: `El Heroico Cuerpo de Bomberos de Nuevo Laredo fue fundado en <strong>1926</strong> por un grupo de ciudadanos encabezados por Isaac Echeverría, Heriberto Deándar Amador, Pedro de León y otros vecinos, entre ellos taxistas y electricistas. La primera estación se instaló en la esquina de Belden y Matamoros. En 2026, la corporación celebra su <strong>centenario</strong>.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque conmemora la fundación del <strong>primer cuerpo de bomberos de México</strong>, el 22 de agosto de 1873 en el puerto de Veracruz. En Tamaulipas, el Heroico Cuerpo de Bomberos de Tampico (1903) es uno de los más antiguos del país, fundado apenas 30 años después de esa fecha histórica.`,
+  },
+  {
+    q: "¿Qué riesgos HAZMAT existen en el Puerto Industrial de Altamira?",
+    a: `El Puerto Industrial de Altamira alberga la <strong>mayor planta química privada de México</strong> (BASF), además de Celanese (ácido acético y acetato de vinilo), Vitro (sosa cáustica), Braskem y decenas de plantas petroquímicas. El ácido acético —miscible en agua— no puede contenerse con barreras flotantes y requiere dilución masiva o neutralización con carbonato de sodio. Las brigadas de Altamira operan en coordinación directa con las brigadas internas de cada planta.`,
+  },
+  {
+    q: "¿Qué es la Cuenca de Burgos y por qué representa un riesgo especial para los bomberos?",
+    a: `La Cuenca de Burgos, bajo el norte de Tamaulipas, es la <strong>mayor reserva de gas natural no asociado de México</strong>, con cientos de pozos, compresoras y gasoductos de PEMEX. A diferencia de una refinería, los riesgos en campo abierto incluyen fugas de H₂S (sulfuro de hidrógeno) sin perímetro fijo: a 500 ppm es inmediatamente peligroso para la vida. Las brigadas HAZMAT de Reynosa cuentan con detectores de H₂S de lectura continua y protocolos de posicionamiento dinámico según la dirección del viento.`,
+  },
+  {
+    q: "¿Cómo funciona la coordinación binacional entre los bomberos de Nuevo Laredo y Texas?",
+    a: `Nuevo Laredo mantiene protocolos de ayuda mutua con el <strong>Laredo Fire Department</strong> de Texas, que pueden activar refuerzo desde el lado estadounidense en 10 a 15 minutos. En los cinco puentes internacionales, ante un accidente con HAZMAT en tránsito, se activa zona de exclusión de 100 metros, coordinación simultánea con bomberos de ambos lados de la frontera, y acceso inmediato de aduana sin trámite consular durante la emergencia activa.`,
+  },
+  {
+    q: "¿Qué porcentaje del comercio México-EE.UU. pasa por Nuevo Laredo?",
+    a: `Por el <strong>Puente Mundial del Comercio</strong> (World Trade Bridge) de Nuevo Laredo cruza alrededor del <strong>40% del comercio terrestre entre México y Estados Unidos</strong>. El intercambio comercial registra operaciones por más de 200 mil millones de dólares anuales. Este flujo incluye miles de tractocamiones diarios con cargas bajo cientos de clasificaciones UN/DOT de materiales peligrosos, lo que convierte cada accidente de tránsito en un posible incidente HAZMAT de clasificación desconocida hasta que se lee la placa o el manifiesto.`,
+  },
+  {
+    q: "¿Cuáles han sido los huracanes más destructivos en Tamaulipas?",
+    a: `Tamaulipas es uno de los estados con mayor historial de impactos ciclónicos del Golfo de México. El <strong>huracán Beulah (septiembre de 1967)</strong>, categoría 5, tocó tierra en Matamoros con vientos de hasta 218 km/h y causó daños superiores a 500 millones de dólares. El <strong>huracán Gilberto (septiembre de 1988)</strong> impactó con vientos máximos de 215 km/h. En 1933, el huracán Cuba-Brownsville devastó Matamoros. La zona costera de Tampico y el delta del Pánuco son las áreas más expuestas a marejadas ciclónicas.`,
+  },
+  {
+    q: "¿Qué industria maquiladora existe en Matamoros y cuáles son sus riesgos?",
+    a: `Matamoros alberga <strong>más de 100 empresas maquiladoras</strong>, de las cuales entre 40 y 50 pertenecen a la industria automotriz y electrónica (Aptiv/Delphi, Continental, proveedores Tier-1). Los riesgos industriales incluyen isocianatos, solventes y materiales inflamables propios del sector. Ante un incidente que supere la capacidad local, los acuerdos de ayuda mutua con los bomberos del condado de Cameron y Brownsville, Texas, pueden activar refuerzo a escasos kilómetros del Río Bravo.`,
+  },
+  {
+    q: "¿Qué debo hacer si detecto una fuga de gas industrial en Tamaulipas?",
+    a: `Llama de inmediato al <strong>911</strong>. No acciones ningún interruptor eléctrico, no enciendas vehículos y evacúa en dirección perpendicular o contraria al viento. Si estás cerca de instalaciones de PEMEX o una planta del Puerto de Altamira, aleja a todas las personas al menos 300 metros y espera las instrucciones de los bomberos. En zonas rurales de la Cuenca de Burgos, aléjate del pozo o gasoducto en dirección contraria al viento y llama inmediatamente al 911.`,
+  },
+  {
+    q: "¿Cómo se atienden las emergencias de rescate acuático en Tamaulipas?",
+    a: `El Río Bravo (Río Grande) en la frontera con Texas es el principal escenario de rescate acuático en Reynosa y Nuevo Laredo; las brigadas cuentan con lanchas y equipo de aguas rápidas (swift water). En Tampico y Ciudad Madero, el rescate se realiza en el río Pánuco y la zona estuarina. Durante la temporada de huracanes (junio-noviembre), las inundaciones en municipios costeros como Soto la Marina y San Fernando activan protocolos de rescate coordinados con Protección Civil estatal.`,
+  },
+];
 ---
 
 <DirectorioEstadoLayout
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Tamaulipas</strong>.     Encuentra teléfonos de emergencia, direcciones y servicios en el estado con la     <strong>frontera más activa de México con Texas</strong>: el mayor puerto terrestre de las Américas,     la Cuenca de Burgos, y los corredores maquiladores de Reynosa y Matamoros."
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Tamaulipas</strong> —con el de Tampico entre los tres más antiguos del país, fundado el 30 de marzo de 1903, y el de Nuevo Laredo celebrando su <strong>centenario en 2026</strong>— opera en el estado con el mayor flujo de materiales peligrosos en tránsito de México. Con <strong>${estacionesTamaulipas.length} estaciones</strong> en este directorio, protege a más de <strong>3.5 millones de tamaulipecos</strong> a lo largo de ~500 km de frontera con Texas, la <strong>Cuenca de Burgos</strong> (mayor reserva de gas natural no asociado del país), el <strong>Puerto Industrial de Altamira</strong> con BASF y Celanese, y la <strong>Refinería Francisco I. Madero</strong> en Ciudad Madero.`}
   heroImage="/images/directorio/estacion-bomberos-norte-mexico-01.avif"
-  heroImageAlt="Estación de Bomberos en Tamaulipas"
-  heroCaption="H. Cuerpo de Bomberos · Tamaulipas"
+  heroImageAlt="Estación de Bomberos en Tamaulipas — frontera norte, HAZMAT industrial y rescate fluvial"
+  heroCaption="H. Cuerpo de Bomberos · Tamaulipas · Centenario Nuevo Laredo 2026"
   title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesTamaulipas.length} estaciones en Tamaulipas — 40% exportaciones México Nuevo Laredo HAZMAT en tránsito, BASF Altamira y H₂S Cuenca Burgos. Emergencias: 911.`}
+  description={`Bomberos Tamaulipas: ${estacionesTamaulipas.length} estaciones en Reynosa, Tampico, Nuevo Laredo y Matamoros. HAZMAT Cuenca de Burgos, Refinería Madero y Puerto Altamira. Emergencias: 911.`}
   keywords={keywords}
-  canonical={`https://bombero.mx/directorio/${slug}/`}
+  canonical={canonical}
   estado={estado}
   sigla={sigla}
   slug={slug}
@@ -209,81 +323,236 @@ const breadcrumbSchema = breadcrumbJsonLd([
   stationImages={stationImages}
   municipios={municipios}
   estadosVecinos={estadosVecinos}
-  jsonLd={[itemListSchema]}
+  jsonLd={jsonLd}
+  faqsEstado={faqsEstado}
+  ctaTitle="Equipamos a los Cuerpos de Bomberos de Tamaulipas"
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones de bomberos de Tamaulipas: HAZMAT para Cuenca de Burgos y Puerto Altamira, rescate fluvial para Río Bravo y Pánuco, y EPP estructural para los cinco puentes internacionales de Nuevo Laredo. Atención a licitaciones municipales y estatales.`}
+  ctaBtnText="Solicitar Cotización — Tamaulipas"
 >
 
   <Fragment slot="seo">
 
-      <h2>Bomberos de Tamaulipas — Cuando el HAZMAT Está en el Camión y No en la Planta: Nuevo Laredo, Altamira y la Cuenca de Burgos</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Tamaulipas</strong> opera en el estado con el mayor flujo
-        de materiales peligrosos en tránsito de México. Por los cinco puentes internacionales de Nuevo Laredo
-        pasan diariamente miles de tractocamiones que mueven el 40%+ de las exportaciones mexicanas hacia
-        Estados Unidos — y entre esa carga hay productos químicos bajo más de 3,000 clasificaciones UN/DOT
-        distintas. A diferencia de una planta industrial donde el riesgo es fijo y conocido, el HAZMAT en
-        un accidente de tránsito en un puente internacional puede ser cualquier cosa, y el bombero llega
-        sin saber el producto hasta que lee la placa o el manifiesto de carga. Mientras tanto, en Altamira
-        opera la mayor planta química privada de México, y bajo el norte del estado corre la mayor reserva
-        de gas natural no asociado del país.
-      </p>
+    <h2>Bomberos en Tamaulipas</h2>
 
-      <h3>¿Cómo llamar a los Bomberos de Tamaulipas?</h3>
-      <p>
-        El número único de emergencias en todo el estado es <strong>911</strong>. En Nuevo Laredo, el
-        protocolo binacional con el Laredo Fire Department puede activar refuerzo desde el lado
-        estadounidense en 10 a 15 minutos. En Altamira, la estación tiene línea directa con las brigadas
-        internas de BASF, Celanese y el Puerto Industrial. Para emergencias en pozos y compresoras de la
-        Cuenca de Burgos, la coordinación con la brigada HAZMAT de PEMEX Gas Reynosa es el primer
-        recurso especializado.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Tamaulipas">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estacionesTamaulipas.length}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{ESTADISTICAS_TAMAULIPAS.municipios_cubiertos}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{ESTADISTICAS_TAMAULIPAS.total_bomberos}</span><span class="de-stat__label">Elementos (estimado)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">~500 km</span><span class="de-stat__label">Frontera con Texas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">3.5M+</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1903</span><span class="de-stat__label">Fundación Bomberos Tampico</span></div>
+    </div>
 
-      <h3>Nuevo Laredo — 3,000 Clasificaciones UN/DOT y el Bombero que Lee la Placa Mientras Actúa</h3>
-      <p>
-        Los cinco puentes internacionales de Nuevo Laredo procesan el 40%+ del comercio terrestre entre
-        México y Estados Unidos — un flujo continuo de materiales peligrosos bajo cientos de clasificaciones
-        UN/DOT: líquidos inflamables clase 3, gases comprimidos clase 2, corrosivos clase 8, materiales
-        radiactivos clase 7 para uso médico e industrial. En un accidente sobre el puente, el bombero
-        identifica el riesgo por la placa UN del camión y el documento de embarque — un proceso de 2 a 5
-        minutos mientras el producto ya está fuera del contenedor. El protocolo incluye zona de exclusión
-        de 100 metros desde el primer aviso, activación simultánea de bomberos de ambos lados de la
-        frontera, y coordinación con Aduana para acceso inmediato sin trámite consular durante la
-        emergencia activa.
-      </p>
+    <p class="de-lead">
+      El <strong>Heroico Cuerpo de Bomberos de Tamaulipas</strong> opera en el estado con el mayor flujo
+      de materiales peligrosos en tránsito de México. Por los cinco puentes internacionales de Nuevo Laredo
+      cruza alrededor del <strong>40% del comercio terrestre México-EE.UU.</strong> — y entre esa carga
+      hay productos bajo cientos de clasificaciones UN/DOT. Mientras tanto, en Altamira opera la
+      <strong>mayor planta química privada del país</strong>, bajo el norte del estado corre la
+      <strong>mayor reserva de gas natural no asociado de México</strong>, y la Refinería Francisco I. Madero
+      procesa hasta 190,000 barriles por día. El de Tampico es uno de los tres cuerpos de bomberos más
+      antiguos de México, fundado el 30 de marzo de 1903.
+    </p>
 
-      <h3>BASF Altamira — Ácido Acético Miscible: El Derrame que No Contiene una Barrera Flotante</h3>
-      <p>
-        BASF opera en Altamira la mayor planta química privada de México, con producción de ácido acético
-        concentrado (99%+), butanodiol y otros productos industriales. El ácido acético tiene dos
-        propiedades que complican la respuesta: punto de inflamación de 39°C (líquido inflamable clase 3A
-        en el verano tamaulipeco) y miscibilidad total con agua. A diferencia del petróleo, el ácido
-        acético se disuelve completamente en el agua y no forma charco separable — una barrera flotante de
-        contención no lo detiene porque lo atraviesa disuelto. El protocolo usa dilución controlada en
-        grandes volúmenes para bajar la concentración por debajo del umbral de inflamabilidad, y
-        neutralización con carbonato de sodio, no contención superficial.
-      </p>
+    <h3>Cómo contactar a los bomberos en Tamaulipas</h3>
+    <p>
+      En cualquier emergencia, el <strong>911</strong> conecta con la central de despacho las 24 horas en
+      todo el estado. Los teléfonos directos de las principales corporaciones son: Bomberos Reynosa
+      (899 922 0500), Bomberos Tampico (833 212 1515) y Bomberos Nuevo Laredo (867 712 8600). En Nuevo
+      Laredo, el protocolo binacional con el Laredo Fire Department puede activar refuerzo desde Texas
+      en 10 a 15 minutos. En el Puerto Industrial de Altamira, la estación opera con línea directa a las
+      brigadas internas de BASF, Celanese y la administración portuaria. Para emergencias en pozos y
+      compresoras de la Cuenca de Burgos, la coordinación inmediata con la brigada HAZMAT de PEMEX Gas
+      es parte del primer protocolo de respuesta. Encuentra todos los datos en el
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Cuenca de Burgos — Gas Natural en Campo Abierto: H₂S sin Perímetro Fijo</h3>
-      <p>
-        La Cuenca de Burgos, bajo el norte de Tamaulipas, es la mayor reserva de gas natural no asociado
-        de México, con centenares de pozos, compresoras y gasoductos de PEMEX Gas. A diferencia de una
-        refinería donde el H₂S está confinado en líneas de proceso dentro de un perímetro cerrado, en
-        campo gasífero la fuga puede ocurrir en cualquier punto de la infraestructura sobre terreno
-        abierto. El viento lleva la nube de H₂S sin obstáculos hasta comunidades rurales a kilómetros del
-        origen: a 20 ppm produce irritación severa de vías respiratorias; a 500 ppm es inmediatamente
-        peligroso para la vida. Las brigadas de Reynosa tienen detectores de H₂S de lectura continua y
-        protocolo de posicionamiento dinámico según la dirección del viento en el momento de la emergencia.
-      </p>
+    <h3>Historia de los bomberos en Tamaulipas</h3>
+    <p>
+      Tamaulipas tiene dos de los cuerpos de bomberos más antiguos de México. Estos son los hitos
+      verificados que explican su trayectoria:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el <strong>primer cuerpo de bomberos de México</strong>. La fecha se conmemora como el Día del Bombero en toda la República.</li>
+      <li><span class="de-tl__year">1903</span> El <strong>30 de marzo</strong>, el presidente municipal de Tampico, Amado Nicasio Jáuregui, reúne a los fundadores en el teatro "Apolo". Nace el <strong>Heroico Cuerpo de Bomberos de Tampico</strong>, el <strong>tercero en fundarse en México</strong>. La primera estación lleva el nombre de Antonio Cervantes Guajardo, bombero fallecido en acto de servicio.</li>
+      <li><span class="de-tl__year">1926</span> Un grupo de ciudadanos —entre ellos taxistas y electricistas encabezados por Isaac Echeverría y Heriberto Deándar Amador— funda el <strong>Heroico Cuerpo de Bomberos de Nuevo Laredo</strong>. La primera estación se instala en la esquina de Belden y Matamoros.</li>
+      <li><span class="de-tl__year">1933</span> El huracán Cuba-Brownsville, de categoría 5, devasta Matamoros; el presidente Lázaro Cárdenas comisiona la reconstrucción municipal. Es el punto de inflexión para el refuerzo de la protección civil en la zona fronteriza.</li>
+      <li><span class="de-tl__year">1967</span> El <strong>huracán Beulah</strong> toca tierra en Matamoros con vientos de hasta 218 km/h, causando daños superiores a 500 millones de dólares. Es el evento ciclónico más destructivo del siglo XX en Tamaulipas.</li>
+      <li><span class="de-tl__year">1985</span> Inicia operaciones el <strong>Puerto Industrial de Altamira</strong> (junio de 1985), integrando desde el primer año plantas químicas que exigen brigadas HAZMAT especializadas.</li>
+      <li><span class="de-tl__year">1988</span> El <strong>huracán Gilberto</strong> impacta la costa con vientos máximos de 215 km/h, afectando Tampico, Ciudad Madero y el corredor portuario.</li>
+      <li><span class="de-tl__year">2026</span> El Heroico Cuerpo de Bomberos de Nuevo Laredo celebra su <strong>centenario</strong>. Las corporaciones del estado operan <strong>{estacionesTamaulipas.length} estaciones</strong> con cobertura en {ESTADISTICAS_TAMAULIPAS.municipios_cubiertos} municipios.</li>
+    </ul>
 
-      <h3>Matamoros y la Coordinación con Tres Condados de Texas</h3>
-      <p>
-        Tamaulipas es el único estado de México con acuerdos de ayuda mutua formalizados simultáneamente
-        con tres jurisdicciones texanas: Laredo Fire Department para Nuevo Laredo, condado de Hidalgo y
-        McAllen para Reynosa, y condado de Cameron y Brownsville para Matamoros. Matamoros concentra el
-        mayor clúster maquilador automotriz del estado con Delphi Technologies, Continental y decenas de
-        proveedores Tier-1 — los mismos riesgos de isocianatos y solventes que en Puebla y Coahuila, con
-        la diferencia de que un incidente que supere la capacidad local tiene refuerzo texano a 5 km al
-        otro lado del Río Bravo.
-      </p>
-    </Fragment>
+    <h3>Infraestructura de emergencia: cobertura por zona del estado</h3>
+    <p>
+      La cobertura se organiza en cuatro grandes zonas, cada una con un perfil de riesgo diferenciado:
+      la frontera norte maneja el mayor volumen de HAZMAT en tránsito del país; Reynosa protege la
+      Cuenca de Burgos y el cluster maquilador; el centro cubre la capital estatal y el corredor
+      carretero; y el sur concentra la mayor infraestructura petroquímica fija. Esta es la distribución:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Zona</th><th>Municipios principales</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los cuerpos de bomberos</h3>
+    <p>
+      Los cuerpos de bomberos de Tamaulipas son servicios de emergencia integrales. Estas son sus
+      funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, industriales y forestales; flamazos y explosiones en instalaciones petroleras, maquiladoras y zonas urbanas.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Contención de derrames y fugas en el Puerto de Altamira, Cuenca de Burgos, carreteras y puentes internacionales bajo clasificación UN/DOT desconocida.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en choques y volcaduras en autopistas, puentes internacionales y cruces fronterizos con tráfico de vehículos pesados.</p></div>
+      <div class="de-card"><h4>Rescate acuático</h4><p>Operaciones en el Río Bravo/Grande (Reynosa y Nuevo Laredo), el río Pánuco (Tampico) y zonas inundadas durante temporada de huracanes.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Soporte vital avanzado (ALS) y estabilización de lesionados antes del traslado, en coordinación con servicios médicos de urgencia.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones, simulacros y capacitación en plantas industriales, parques maquiladores, puertos y comunidades rurales de la Cuenca de Burgos.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales e industriales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>HAZMAT — gas natural y petroquímica</strong></td><td>24/7</td><td>Reynosa, Altamira, Ciudad Madero</td></tr>
+          <tr><td><strong>HAZMAT — tránsito fronterizo</strong></td><td>24/7</td><td>Nuevo Laredo, Matamoros, Reynosa</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático — Río Bravo</strong></td><td>24/7</td><td>Reynosa, Nuevo Laredo</td></tr>
+          <tr><td><strong>Rescate acuático — Río Pánuco</strong></td><td>24/7</td><td>Tampico, Ciudad Madero</td></tr>
+          <tr><td><strong>Atención prehospitalaria (ALS)</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Coordinación binacional con Texas</strong></td><td>24/7</td><td>Nuevo Laredo, Reynosa, Matamoros</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Sierra Madre, San Fernando, El Cielo</td></tr>
+          <tr><td><strong>Inundaciones y huracanes</strong></td><td>Jun–nov</td><td>Costa Golfo, Soto la Marina, Tampico</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Frontera, petroquímica y Golfo: el perfil de riesgo de Tamaulipas</h3>
+    <p>
+      Por los <strong>cinco puentes internacionales de Nuevo Laredo</strong> cruza alrededor del 40% del
+      comercio terrestre entre México y Estados Unidos, con un intercambio superior a 200,000 millones
+      de dólares anuales. Esa carga incluye productos bajo cientos de clasificaciones UN/DOT: líquidos
+      inflamables (clase 3), gases comprimidos (clase 2), corrosivos (clase 8) y materiales radiactivos
+      (clase 7) para uso médico e industrial. En un accidente sobre el puente, el bombero identifica el
+      riesgo por la placa UN y el manifiesto de carga — un proceso de minutos mientras el producto ya
+      puede estar fuera del contenedor. El protocolo establece zona de exclusión de 100 metros, activación
+      simultánea de bomberos de ambos lados de la frontera y acceso aduanal inmediato sin trámite consular
+      durante la emergencia activa.
+    </p>
+    <p>
+      En Altamira, la <strong>mayor planta química privada de México</strong> (BASF) produce ácido acético
+      concentrado, butanodiol y otros productos industriales. El ácido acético —punto de inflamación de
+      39°C y miscible en agua— no puede contenerse con barreras flotantes: se disuelve en el agua y la
+      atraviesa. El protocolo usa dilución controlada en grandes volúmenes y neutralización con carbonato
+      de sodio. La <strong>Refinería Francisco I. Madero</strong> en Ciudad Madero tiene capacidad instalada
+      de <strong>190,000 barriles por día</strong> y exige brigadas con equipo para hidrocarburos y
+      corrientes de proceso a alta temperatura y presión.
+    </p>
+    <p>
+      La <strong>Cuenca de Burgos</strong> —bajo el norte de Tamaulipas— es la mayor reserva de gas
+      natural no asociado de México, con cientos de pozos y gasoductos de PEMEX. A diferencia de una
+      refinería, el H₂S puede escapar en cualquier punto sobre terreno abierto: a 20 ppm genera
+      irritación severa de vías respiratorias; a 500 ppm es inmediatamente peligroso para la vida. Las
+      brigadas de Reynosa operan con detectores de H₂S de lectura continua y posicionamiento dinámico
+      según la dirección del viento. En el litoral, el <strong>Golfo de México</strong> ha registrado
+      varios ciclones de categoría 4 y 5 que han afectado directamente a Matamoros y Tampico —el
+      huracán Beulah (1967) con vientos de hasta 218 km/h, y el Gilberto (1988) con 215 km/h— lo que
+      convierte la temporada ciclónica (junio-noviembre) en un período de alerta permanente para las
+      brigadas costeras.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de la distribución geográfica de las estaciones de este directorio, así se concentran
+      los recursos del cuerpo de bomberos entre las grandes zonas de Tamaulipas:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Zona</th><th>Municipios</th><th>Cobertura</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td colSpan={3}>{estacionesTamaulipas.length} estaciones en {ESTADISTICAS_TAMAULIPAS.municipios_cubiertos} municipios de Tamaulipas</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Tamaulipas</h3>
+    <p>
+      El principal reto es la <strong>heterogeneidad del riesgo</strong>: en ningún otro estado mexicano
+      un mismo cuerpo debe estar preparado el mismo día para un derrame de ácido acético en un puerto
+      petroquímico, una fuga de H₂S en campo abierto, un accidente HAZMAT de clasificación desconocida
+      en un puente internacional, un huracán que inunde el delta del Pánuco y un incendio forestal en
+      la Sierra Madre Oriental. Esa diversidad exige especialización simultánea en brigadas HAZMAT,
+      rescate acuático, coordinación binacional y combate forestal — todo con los presupuestos propios
+      de municipios fronterizos.
+    </p>
+    <p>
+      La <strong>dispersión territorial</strong> agrava el problema: desde el extremo norte de Nuevo
+      Laredo hasta la zona sur de Tampico hay más de 600 km de carretera, con municipios rurales de la
+      región serrana y del corredor San Fernando que dependen de tiempos de respuesta largos. La
+      <strong>renovación del EPP certificado</strong> conforme a normas NFPA y la modernización del
+      parque vehicular son retos permanentes para todas las corporaciones del estado.
+    </p>
+
+    <h3>Cultura de prevención en Tamaulipas</h3>
+    <p>
+      En un estado con infraestructura industrial de este perfil, la prevención es la primera línea de
+      defensa. Estas son las recomendaciones básicas que los cuerpos de bomberos de Tamaulipas transmiten
+      a la población:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas doméstico:</strong> revisa regularmente mangueras y reguladores; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y evacúa.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos; atiende cualquier olor a quemado o cable caliente antes de que se convierta en incendio.</li>
+        <li><strong>Detección:</strong> instala detectores de humo y ten un extintor vigente en cocina y áreas de riesgo.</li>
+        <li><strong>Huracanes:</strong> sigue el boletín de Protección Civil estatal desde el inicio de la temporada (junio); conoce las rutas de evacuación de tu municipio antes de que llegue la alerta.</li>
+        <li><strong>Zona industrial o agrícola:</strong> si detectas olor extraño a azufre o gas cerca de infraestructura de PEMEX, aléjate en dirección contraria al viento y llama al 911 de inmediato.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión con tu familia; practícalo al menos una vez al año.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes verificadas: Milenio, «Bomberos de Tampico, historia e inicios» (fundación 30 de marzo de 1903,
+      tercer cuerpo de bomberos de México); Hoy Tamaulipas, «Nuevo Laredo celebrará el centenario del
+      Cuerpo de Bomberos en 2026» (fundación 1926); Wikipedia, «Francisco I. Madero Refinery» (190,000
+      bbl/día capacidad instalada); Wikipedia, «Port of Altamira» (22+ millones de toneladas, BASF mayor
+      planta química privada de México); Somos Industria, «Nuevo Laredo: Principal ruta de exportación»
+      (~40% del comercio terrestre MX-EE.UU.); Expreso de Tamaulipas, «Huracanes han dejado su huella
+      en Tamaulipas» (Beulah 1967: 218 km/h; Gilberto 1988: 215 km/h); México Desconocido y El
+      Financiero, «Cuenca de Burgos» (mayor reserva de gas natural no asociado de México).
+      Las cifras de personal y unidades corresponden a estimaciones del directorio publicado en esta
+      página. Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
+  </Fragment>
 </DirectorioEstadoLayout>
 

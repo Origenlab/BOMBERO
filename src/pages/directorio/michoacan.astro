@@ -1,25 +1,69 @@
 ---
 
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
-import { estacionesMichoacan, getMunicipios, ESTADISTICAS_MICHOACAN, MICHOACAN_SEO } from "@data/estaciones-michoacan";
+import { estacionesMichoacan, getMunicipios } from "@data/estaciones-michoacan";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("michoacan");
-
 const municipios = getMunicipios();
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Michoacán",              url: "/directorio/michoacan/" },
-]);
+const canonical = "https://bombero.mx/directorio/michoacan/";
 
+// ── Comparativa regional (calculada desde los datos reales del directorio) ──
+const zonasDef = [
+  {
+    nombre: "Zona Metropolitana Morelia",
+    municipios: ["Morelia", "Tarímbaro"],
+    nivel: "Total",
+    chip: "total",
+    perfil: "Capital del estado, Centro Histórico UNESCO (1991), zona industrial sur.",
+  },
+  {
+    nombre: "Meseta Purépecha y Lacustre",
+    municipios: ["Uruapan", "Paracho de Verduzco", "Tancítaro", "Pátzcuaro", "Quiroga"],
+    nivel: "Alta",
+    chip: "alta",
+    perfil: "Capital mundial del aguacate, bosques pino-encino, Lago de Pátzcuaro y Janitzio.",
+  },
+  {
+    nombre: "Costa del Pacífico",
+    municipios: ["Lázaro Cárdenas", "Playa Azul", "Caleta de Campos"],
+    nivel: "Alta",
+    chip: "alta",
+    perfil: "Puerto industrial, ArcelorMittal (ex-SICARTSA), HAZMAT nivel III, rescate marítimo.",
+  },
+  {
+    nombre: "Tierra Caliente y Ciénega",
+    municipios: ["Apatzingán", "Huetamo", "Zamora de Hidalgo", "Jiquilpan de Juárez", "Sahuayo de Morelos"],
+    nivel: "Media",
+    chip: "media",
+    perfil: "Producción de limón, fresa y berries; clima extremo hasta 45 °C.",
+  },
+  {
+    nombre: "Oriente — Mariposa Monarca",
+    municipios: ["Zitácuaro", "Angangueo", "Ciudad Hidalgo", "La Piedad de Cabadas"],
+    nivel: "Media",
+    chip: "media",
+    perfil: "Reserva Biosfera Mariposa Monarca UNESCO (2008), bosques de oyamel a 3,400 msnm.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesMichoacan.filter((e) => z.municipios.includes(e.ciudad));
+  return {
+    ...z,
+    nEst: est.length,
+    nMunicipios: z.municipios.length,
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Michoacán de Ocampo, México",
-  "description": "Directorio completo de las 22 estaciones de bomberos en Michoacán. Protección para Morelia (Patrimonio UNESCO), Lázaro Cárdenas, Uruapan, Pátzcuaro, Reserva Mariposa Monarca y 4.7 millones de habitantes. Emergencias 911.",
+  "description": `Directorio completo de las ${estacionesMichoacan.length} estaciones de bomberos en Michoacán. Protección para Morelia (Patrimonio UNESCO), Lázaro Cárdenas, Uruapan, Pátzcuaro, Reserva Mariposa Monarca y 4.7 millones de habitantes. Emergencias 911.`,
   "numberOfItems": estacionesMichoacan.length,
   "itemListElement": estacionesMichoacan.map((e, i) => ({
     "@type": "ListItem",
@@ -39,6 +83,95 @@ const itemListSchema = {
     }
   }))
 };
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Michoacán: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de Michoacán: historia (1873–hoy), infraestructura en las principales ciudades, incendios forestales, volcán Paricutín, puerto industrial de Lázaro Cárdenas y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "H. Cuerpo de Bomberos de Michoacán",
+    "Protección Civil",
+    "Incendios forestales",
+    "HAZMAT portuario",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/michoacan.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Michoacán de Ocampo",
+  "description": `Directorio verificado de las ${estacionesMichoacan.length} estaciones de bomberos en Michoacán, con teléfonos, cobertura regional, funciones e historia del cuerpo de bomberos.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos de Michoacán de Ocampo" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/michoacan.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Michoacán (≥10) — alimentan el FAQPage schema ─────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Michoacán?",
+    a: `Marca el <strong>911</strong>, el número único de emergencias que opera las 24 horas a través del Centro de Coordinación, Control, Cómputo y Comunicaciones (C4) del estado. La llamada se enruta a la estación más cercana. Los teléfonos directos principales son: Morelia (443) 312-3232, Lázaro Cárdenas (753) 532-1234, Uruapan (452) 524-5252 y Zamora (351) 512-1212.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Michoacán?",
+    a: `Este directorio reúne <strong>${estacionesMichoacan.length} estaciones de bomberos</strong> en Michoacán, distribuidas entre la Zona Metropolitana de Morelia, la Meseta Purépecha, la Costa del Pacífico, Tierra Caliente, la Ciénega de Chapala y la Región Oriente (Mariposa Monarca). El estado tiene <strong>113 municipios</strong>.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Morelia?",
+    a: `El <strong>Cuerpo de Bomberos de Morelia</strong> fue fundado en <strong>1954</strong>. Protege el Centro Histórico de Morelia, declarado Patrimonio de la Humanidad por la UNESCO en 1991 y cuenta con especialización en incendios en edificios coloniales de cantera rosa. El primer cuerpo de bomberos de México fue fundado el <strong>22 de agosto de 1873</strong> en Veracruz, fecha que se conmemora como el Día del Bombero.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque conmemora la fundación del <strong>primer cuerpo de bomberos del país</strong>, el 22 de agosto de 1873 en el puerto de Veracruz. Cada año, en esa fecha, se reconoce la labor de los bomberos en toda la República, incluidos los de Michoacán.`,
+  },
+  {
+    q: "¿Qué riesgo representa el volcán Paricutín para los bomberos de Michoacán?",
+    a: `El Paricutín, que nació el <strong>20 de febrero de 1943</strong> en una parcela del municipio de Parangaricutiro y estuvo activo hasta 1952, está hoy inactivo. Sin embargo, su existencia evidencia que la región forma parte del <strong>Campo Volcánico Michoacán-Guanajuato</strong>, uno de los más activos del país. Los bomberos de Uruapan y Tancítaro incluyen el riesgo volcánico en sus protocolos de planificación de emergencias. El volcán Jorullo, también en Michoacán, nació en <strong>1759</strong> en Tierra Caliente.`,
+  },
+  {
+    q: "¿Qué hace especial la respuesta de bomberos en el Puerto de Lázaro Cárdenas?",
+    a: `El Puerto de Lázaro Cárdenas alberga la planta <strong>ArcelorMittal</strong> (fundada en 1976 como SICARTSA), el mayor complejo siderúrgico del Pacífico mexicano. Sus hornos de arco eléctrico funden chatarra a 1,600 °C. Los bomberos de Lázaro Cárdenas están certificados en <strong>HAZMAT Nivel III</strong> y en el protocolo crítico de emergencias siderúrgicas: en zonas con metal fundido se usan arena seca o polvo de cal, nunca agua, ya que su contacto con acero líquido genera vapor explosivo.`,
+  },
+  {
+    q: "¿Cómo responden los bomberos a un incendio forestal vinculado al aguacate en Michoacán?",
+    a: `Michoacán aporta el <strong>86 % de la producción nacional de aguacate</strong>. La expansión de huertas sobre bosques de pino-encino, especialmente en la Meseta Purépecha, ha generado incendios forestales, algunos vinculados a cambios de uso de suelo. Los bomberos de Uruapan, Tancítaro y Paracho trabajan en coordinación con la <strong>Comisión Nacional Forestal (CONAFOR)</strong> en la temporada de estiaje (marzo-mayo). La lucha en pendientes boscosas se hace con herramienta manual y mochilas extintoras.`,
+  },
+  {
+    q: "¿Qué plan operativo activan los bomberos durante el Día de Muertos en Janitzio?",
+    a: `La Isla de Janitzio, con aproximadamente 3,000 residentes permanentes, recibe entre 120,000 y 150,000 visitantes durante las noches del 1 y 2 de noviembre. El único acceso es por lancha desde Pátzcuaro. Los bomberos de Pátzcuaro activan un <strong>plan de contingencia anual</strong> con pre-posicionamiento de lanchas de rescate, una unidad de tierra en el embarcadero y coordinación con Cruz Roja y Protección Civil Estatal en canal de radio exclusivo.`,
+  },
+  {
+    q: "¿Por qué los bomberos no pueden usar autobombas en los santuarios de la Mariposa Monarca?",
+    a: `Los santuarios El Rosario, Sierra Chincua y Cerro Pelón de la Reserva de la Biosfera Mariposa Monarca (UNESCO, 2008; 56,259 ha) están a altitudes de 3,000–3,400 msnm, con caminos que terminan 1–2 km antes de las colonias. Los vehículos pesados no pueden acceder. Ante un incendio forestal, los bomberos de Zitácuaro y Angangueo responden <strong>a pie con herramientas manuales y mochilas extintoras de 20 litros</strong>, apoyados por guardabosques ejidales que conocen el terreno.`,
+  },
+  {
+    q: "¿Michoacán tiene riesgo sísmico?",
+    a: `Sí. Michoacán forma parte de la <strong>zona de subducción de la Placa de Cocos</strong> bajo la Placa Norteamericana. El segmento michoacano tiene una magnitud máxima estimada de Mw 8.3. El <strong>sismo de 1985 (Mw 8.1)</strong> fue el más destructivo del siglo XX en México y tuvo su epicentro frente a las costas de Michoacán. Los cuerpos de bomberos costeros incluyen protocolos sísmicos y de tsunamis en su capacitación.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de Michoacán?",
+    a: `Los cuerpos de bomberos michoacanos atienden <strong>incendios estructurales, forestales e industriales</strong>; <strong>rescate vehicular</strong> en carreteras serranas y autopistas; <strong>atención prehospitalaria</strong>; <strong>materiales peligrosos (HAZMAT)</strong> en el puerto y zonas agroindustriales; <strong>rescate acuático</strong> en el Lago de Pátzcuaro, la costa y el Río Balsas; y <strong>protección civil</strong> con simulacros y capacitación comunitaria.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en casa en Michoacán?",
+    a: `Revisa periódicamente la instalación de <strong>gas</strong> (mangueras y reguladores) y la <strong>instalación eléctrica</strong>. Instala <strong>detectores de humo</strong> y mantén un extintor vigente. En temporada seca no quemes basura ni pastizales cerca de zonas forestales. Define un <strong>plan de evacuación familiar</strong> con punto de reunión y ten el <strong>911</strong> visible para todos.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-moderna-01.avif",
@@ -103,16 +236,16 @@ const stationImages = [
   estado="Michoacán"
   sigla="MICH"
   slug="michoacan"
-  description={`${ESTADISTICAS_MICHOACAN.total_estaciones} estaciones en Michoacán — Morelia UNESCO, Janitzio Noche de Muertos, ArcelorMittal Lázaro Cárdenas y Mariposa Monarca 3,400 msnm. Emergencias: 911.`}
-  keywords={["bomberos michoacán","estaciones bomberos morelia","bomberos lázaro cárdenas","emergencias michoacán 911","bomberos uruapan","bomberos pátzcuaro","cuerpo bomberos michoacán","bomberos mariposa monarca","rescate acuático lago pátzcuaro","bomberos puerto industrial"]}
-  canonical="https://bombero.mx/directorio/michoacan/"
-  jsonLd={[itemListSchema]}
+  description={`Bomberos en Michoacán: ${estacionesMichoacan.length} estaciones en Morelia UNESCO, Lázaro Cárdenas (ArcelorMittal), Uruapan, Pátzcuaro y Reserva Mariposa Monarca. Emergencias: 911.`}
+  keywords={["bomberos michoacán","estaciones bomberos morelia","bomberos lázaro cárdenas","emergencias michoacán 911","bomberos uruapan","bomberos pátzcuaro","cuerpo bomberos michoacán","bomberos mariposa monarca","rescate acuático lago pátzcuaro","bomberos puerto industrial","hazmat michoacán","incendios forestales aguacate michoacán"]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
   totalEstaciones={estacionesMichoacan.length}
   totalMunicipios={municipios.length}
   habitantes="4.7M+"
 
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Michoacán</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de las 22 estaciones que protegen 2 sitios Patrimonio UNESCO, el puerto industrial más importante del Pacífico y la capital mundial del aguacate."
+  heroDesc={`Directorio completo del <strong>H. Cuerpo de Bomberos de Michoacán</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de las <strong>${estacionesMichoacan.length} estaciones</strong> que protegen 2 sitios Patrimonio UNESCO, el mayor complejo siderúrgico del Pacífico y la capital mundial del aguacate.`}
   heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
   heroImageAlt="Estación Central de Bomberos Morelia, Michoacán - Centro Histórico UNESCO"
   heroCaption="H. Cuerpo de Bomberos · Michoacán"
@@ -132,7 +265,7 @@ const stationImages = [
   emergencyNumbers={[
     { number: "911",               label: "Emergencias"           },
     { number: "(443) 312-3232",    label: "Bomberos Morelia"      },
-    { number: "(753) 532-0606",    label: "Bomberos Lázaro C."    },
+    { number: "(753) 532-1234",    label: "Bomberos Lázaro C."    },
     { number: "(452) 524-5252",    label: "Bomberos Uruapan"      },
   ]}
 
@@ -158,7 +291,7 @@ const stationImages = [
       imageAlt:  "Traje Estructural NFPA 1971 para bomberos Morelia - Centro Histórico UNESCO",
       badge:     "NFPA 1971",
       title:     "Traje Estructural NFPA 1971",
-      text:      "Equipo certificado para los bomberos de <strong>Morelia</strong> que protegen el Centro Histórico Patrimonio de la Humanidad. Diseñado para incendios en edificios de cantera rosa, casonas coloniales y protección del patrimonio michoacano desde 1991.",
+      text:      "Equipo certificado para los bomberos de <strong>Morelia</strong> que protegen el Centro Histórico Patrimonio de la Humanidad. Diseñado para incendios en edificios de cantera rosa, casonas coloniales y protección del patrimonio michoacano.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -167,7 +300,7 @@ const stationImages = [
       imageAlt:  "Casco NFPA 1971 para bomberos Lázaro Cárdenas - Puerto Industrial",
       badge:     "NFPA 1971",
       title:     "Casco Estructural NFPA 1971",
-      text:      "Protección certificada para emergencias en el <strong>Puerto de Lázaro Cárdenas</strong>, el más importante del Pacífico mexicano. Compatible con equipos de comunicación para coordinación en emergencias industriales, navales y HAZMAT portuario.",
+      text:      "Protección certificada para emergencias en el <strong>Puerto de Lázaro Cárdenas</strong> y el complejo siderúrgico ArcelorMittal. Compatible con equipos de comunicación para coordinación en emergencias industriales, navales y HAZMAT portuario.",
       href:      "/productos/cascos-para-bomberos/",
       linkLabel: "Ver Cascos para Bombero",
     },
@@ -194,123 +327,237 @@ const stationImages = [
   ctaTitle="Equipamos a los Bomberos de Michoacán"
   ctaDesc="Cotiza equipo certificado NFPA para tu estación. Stock inmediato para licitaciones en Morelia, Lázaro Cárdenas, Uruapan, Zamora y los 113 municipios del estado. Protección para 2 sitios Patrimonio UNESCO."
   ctaBtnText="Solicitar Cotización — Michoacán"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Michoacán — Cuando el Calendario Cultural es el Mapa de Riesgo Operacional</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Michoacán de Ocampo</strong> opera en el estado donde
-      el perfil de riesgo de ciertas ubicaciones cambia radicalmente en fechas específicas del
-      calendario cultural. La Isla de Janitzio, con 3,000 residentes permanentes y acceso exclusivo
-      por lancha, recibe entre 120,000 y 150,000 visitantes en las noches del 1 y 2 de noviembre:
-      los bomberos de Pátzcuaro tienen un plan de contingencia que se activa cada año en esa fecha,
-      con pre-posicionamiento de unidades de rescate acuático y lanchas adicionales contratadas,
-      porque ningún plan de respuesta normal contempla evacuar una isla con una décima de su
-      capacidad habitual de transporte. La Reserva de la Biosfera Mariposa Monarca en los
-      municipios de Zitácuaro y Angangueo —Patrimonio UNESCO desde 2008— tiene su mayor
-      concentración de colonia en los meses de noviembre a marzo, que coincide exactamente
-      con la temporada de secas: los bomberos activan guardia forestal reforzada en los bosques
-      de oyamel a 3,000-3,400 metros no porque llegue el invierno, sino porque llegan las
-      mariposas. El Puerto de Lázaro Cárdenas opera la única planta siderúrgica de arco eléctrico
-      del Pacífico mexicano —ArcelorMittal, antiguo SICARTSA— donde un incendio en presencia de
-      acero fundido a 1,600°C tiene una contraindicación absoluta que los bomberos no pueden
-      olvidar: el agua en contacto con metal fundido causa explosiones de vapor instantáneas.
-      Y el Centro Histórico de Morelia, Patrimonio UNESCO desde 1991, tiene una trampa visual
-      específica: sus edificios coloniales de cantera rosa parecen sólidos y no combustibles
-      desde la calle, pero sus techos son vigas de madera del siglo XVII cubiertas con
-      plasterwork decorativo que no puede verse desde el exterior hasta que el fuego lo rompe.
+    <h2>Bomberos en Michoacán</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Michoacán">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">113</span><span class="de-stat__label">Municipios</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estacionesMichoacan.length}</span><span class="de-stat__label">Estaciones</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2</span><span class="de-stat__label">Patrimonios UNESCO</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1954</span><span class="de-stat__label">Bomberos Morelia</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">4.7M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">86 %</span><span class="de-stat__label">Aguacate nacional</span></div>
+    </div>
+
+    <p class="de-lead">
+      El <strong>H. Cuerpo de Bomberos de Michoacán de Ocampo</strong> opera en un estado donde el
+      perfil de riesgo cambia radicalmente según la región: en Morelia protegen edificios coloniales
+      del siglo XVII con vigas ocultas bajo el yeso; en Lázaro Cárdenas responden a emergencias en
+      acerías donde el agua es un peligro; en los santuarios de la Mariposa Monarca llegan a pie
+      porque los vehículos no alcanzan las colonias; y en Pátzcuaro activan cada 1° de noviembre uno
+      de los pocos planes de emergencia del país que se disparan por fecha de calendario, no por
+      reporte de incidente.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Michoacán?</h3>
+    <h3>Cómo contactar a los bomberos en Michoacán</h3>
     <p>
       En cualquier emergencia, el <strong>911</strong> conecta con el C4 de Michoacán las 24 horas.
       Los teléfonos directos de las principales estaciones son: Morelia (443) 312-3232, Lázaro
-      Cárdenas (753) 532-0606, Uruapan (452) 524-5252, Zamora (351) 512-0505 y Zitácuaro
-      (715) 153-0000. En emergencias dentro de la planta de ArcelorMittal en Lázaro Cárdenas,
-      la brigada industrial interna activa de forma simultánea al cuerpo municipal bajo protocolo
-      de mando unificado; el 911 coordina ambas respuestas cuando la llamada reporta humo o
-      incendio dentro del perímetro industrial de las Estaciones I y II del complejo siderúrgico.
+      Cárdenas (753) 532-1234, Uruapan (452) 524-5252, Zamora (351) 512-1212 y Zitácuaro
+      (715) 153-2525. En emergencias dentro del complejo ArcelorMittal en Lázaro Cárdenas, la
+      brigada industrial interna actúa de forma simultánea al cuerpo municipal bajo protocolo de
+      mando unificado; el 911 coordina ambas respuestas cuando se reporta humo o incendio dentro del
+      perímetro siderúrgico.
     </p>
 
-    <h3>Noche de Muertos en Janitzio: 150,000 visitantes, una isla y el plan que se activa cada 1° de noviembre</h3>
+    <h3>Historia de los bomberos en Michoacán</h3>
     <p>
-      La Isla de Janitzio es una pequeña elevación en el centro del Lago de Pátzcuaro con
-      aproximadamente 3,000 residentes permanentes. El único acceso es en lancha desde el
-      embarcadero de Pátzcuaro: un trayecto de 25 minutos. Durante las noches del 1 y 2 de
-      noviembre, la isla recibe entre 120,000 y 150,000 visitantes que llegan a presenciar las
-      vigilias en el cementerio de la isla, donde las familias purépechas colocan ofrendas de
-      cempasúchil, comida, veladoras y decoraciones de papel picado entre las tumbas encendidas.
-      El cementerio de Janitzio no fue diseñado como recinto para eventos masivos: tiene accesos
-      estrechos, no tiene alumbrado eléctrico propio y las veladoras de cera constituyen fuentes
-      de ignición distribuidas entre decoraciones de papel. El plan operacional de los bomberos
-      de Pátzcuaro para esa noche no es reactivo: implica pre-posicionamiento de lanchas de
-      rescate adicionales (rentadas temporalmente), una unidad de tierra permanente en el
-      embarcadero, coordinación con los fiscales purépechas que controlan el acceso a la
-      isla, y un canal de radio específico compartido con la Cruz Roja y Protección Civil
-      Estatal. Es uno de los pocos planes de emergencia masiva del país que se activa por
-      fecha de calendario en lugar de por reporte de incidente.
+      La historia del combate de incendios organizado en Michoacán arranca décadas después de la
+      fundación del primer cuerpo de bomberos de México. Estos son los hitos verificados:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el <strong>primer cuerpo de bomberos de México</strong>. La fecha se conmemora hasta hoy como el Día del Bombero.</li>
+      <li><span class="de-tl__year">1943</span> El <strong>20 de febrero</strong>, el volcán <strong>Paricutín</strong> nace en una parcela del municipio de Parangaricutiro —el volcán más joven del mundo entonces estudiado— y permanece activo hasta 1952, sepultando los pueblos de Paricutín y San Juan Parangaricutiro. La existencia de este volcán y del <strong>Jorullo</strong> (nacido en 1759 en Tierra Caliente) evidencian el vulcanismo activo del territorio michoacano.</li>
+      <li><span class="de-tl__year">1954</span> Se funda el <strong>Cuerpo de Bomberos de Morelia</strong>, que comienza a proteger la capital del estado con un incipiente cuerpo profesional.</li>
+      <li><span class="de-tl__year">1976</span> El <strong>4 de noviembre</strong> se inaugura en Lázaro Cárdenas la planta siderúrgica <strong>SICARTSA</strong> (Siderúrgica Lázaro Cárdenas-Las Truchas), el mayor complejo de acero del Pacífico mexicano. Con ella surge la necesidad de bomberos certificados en HAZMAT industrial y emergencias siderúrgicas.</li>
+      <li><span class="de-tl__year">1991</span> El <strong>Centro Histórico de Morelia</strong> es declarado Patrimonio de la Humanidad por la UNESCO, lo que añade al cuerpo de bomberos de la capital el deber de proteger 200 manzanas de arquitectura colonial de los siglos XVI al XIX.</li>
+      <li><span class="de-tl__year">2006</span> <strong>Mittal Steel</strong> adquiere SICARTSA por 1,400 millones de dólares, transformándola en <strong>ArcelorMittal Lázaro Cárdenas</strong>, el mayor productor de acero de México y principal empleador privado del estado.</li>
+      <li><span class="de-tl__year">2008</span> La <strong>Reserva de la Biosfera Mariposa Monarca</strong> (56,259 ha en Michoacán y Estado de México) es declarada Patrimonio Natural de la Humanidad por la UNESCO, ampliando la responsabilidad de los bomberos de Zitácuaro y Angangueo.</li>
+      <li><span class="de-tl__year">Hoy</span> Las <strong>{estacionesMichoacan.length} estaciones</strong> de este directorio protegen 4.7 millones de michoacanos, dos Patrimonios UNESCO, el puerto industrial más activo del Pacífico y la zona aguacatera más productiva del mundo.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cobertura regional</h3>
+    <p>
+      La cobertura de los cuerpos de bomberos michoacanos se organiza en cinco grandes zonas, cada
+      una con un perfil de riesgo distinto. La capital concentra el patrimonio histórico; la costa
+      reúne industria pesada; la meseta, los bosques en riesgo de incendio; y el oriente, los
+      santuarios naturales de difícil acceso. Esta es la distribución por región:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios atendidos</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.nivel}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los cuerpos de bomberos</h3>
+    <p>
+      Los bomberos michoacanos son un servicio de emergencia integral con capacidades que van mucho
+      más allá del fuego. Estas son sus funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales en patrimonio colonial, forestales en pino-encino y oyamel, e industriales en el complejo siderúrgico y agroindustrial.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en carreteras serranas de la Meseta Purépecha, autopistas y libramentos de la zona metropolitana con herramienta hidráulica.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Contención de derrames en el puerto de Lázaro Cárdenas, la siderúrgica ArcelorMittal y zonas de almacenamiento agroindustrial de Zamora y Uruapan.</p></div>
+      <div class="de-card"><h4>Rescate acuático</h4><p>Operaciones en el Lago de Pátzcuaro, el Río Balsas en Huetamo, la costa michoacana y las lanchas de acceso a la Isla de Janitzio.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Estabilización y soporte vital a lesionados antes del traslado, en coordinación con servicios médicos de urgencia del IMSS y la Cruz Roja.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones, simulacros y capacitación a escuelas, empresas y comunidades en los 113 municipios del estado.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>24/7 (estiaje mar–may)</td><td>Meseta Purépecha, Oriente, Morelia Norte</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>Lázaro Cárdenas (Nivel III), Morelia, Zamora</td></tr>
+          <tr><td><strong>Rescate acuático</strong></td><td>24/7</td><td>Pátzcuaro, Huetamo, Costa del Pacífico</td></tr>
+          <tr><td><strong>Emergencias portuarias</strong></td><td>24/7</td><td>Lázaro Cárdenas</td></tr>
+          <tr><td><strong>Emergencias masivas (Día de Muertos)</strong></td><td>1–2 nov (plan anual)</td><td>Pátzcuaro / Janitzio</td></tr>
+          <tr><td><strong>Rescate de montaña</strong></td><td>24/7</td><td>Zitácuaro, Angangueo, Tancítaro</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Frentes de riesgo únicos de Michoacán</h3>
+    <p>
+      Michoacán concentra en un solo territorio varios perfiles de emergencia que en otros estados
+      ocurren de forma aislada.
+    </p>
+    <p>
+      <strong>Incendios forestales por expansión aguacatera.</strong> Michoacán aporta el 86 % de la
+      producción nacional de aguacate. La investigación de Climate Rights International identificó
+      185 incendios forestales en la última década ocurridos en terrenos colindantes con huertas
+      certificadas para exportación. Los bosques de pino-encino de la Meseta Purépecha y los de
+      oyamel de la Reserva Mariposa Monarca son los más expuestos. Los bomberos de Uruapan, Paracho,
+      Tancítaro, Zitácuaro y Angangueo trabajan en coordinación con CONAFOR y las brigadas
+      comunitarias durante la temporada de estiaje (marzo-mayo).
+    </p>
+    <p>
+      <strong>Volcán Paricutín y vulcanismo monogenético.</strong> El Paricutín nació el 20 de
+      febrero de 1943 en el municipio de Parangaricutiro, el volcán más joven del mundo cuya vida
+      completa fue documentada por la ciencia. Aunque está inactivo desde 1952, Michoacán forma
+      parte del <strong>Campo Volcánico Michoacán-Guanajuato</strong>, el campo de volcanes
+      monogenéticos más extenso de América del Norte, con más de 1,400 conos volcánicos. Enjambres
+      sísmicos registrados por investigadores de la UNAM en la región sugieren que el campo sigue
+      activo. El volcán Jorullo —que nació en septiembre de 1759 en Tierra Caliente— es el
+      antecedente histórico documentado. Los bomberos de Uruapan y la costa incluyen rutas de
+      evacuación volcánica en sus protocolos de planeación.
+    </p>
+    <p>
+      <strong>Puerto industrial y HAZMAT siderúrgico.</strong> ArcelorMittal Lázaro Cárdenas —fundada
+      en 1976 como SICARTSA— opera hornos de arco eléctrico que funden chatarra a 1,600 °C.
+      Genera más de 8,000 empleos directos y es el mayor productor de acero de México. Los bomberos
+      del puerto están certificados en HAZMAT Nivel III y en el protocolo de emergencias
+      siderúrgicas: en zonas con metal fundido se usan arena seca, polvo de cal o tierra, nunca
+      agua, porque el agua en contacto con acero líquido genera vapor explosivo con una expansión
+      volumétrica de aproximadamente 1,700 veces el volumen líquido.
+    </p>
+    <p>
+      <strong>Riesgo sísmico costero.</strong> El segmento sísmico de Michoacán-Colima-Jalisco tiene
+      una magnitud máxima estimada de Mw 8.3. El <strong>sismo de Michoacán de 1985</strong> (Mw 8.1)
+      fue el más destructivo del siglo XX en México y tuvo su epicentro frente a la costa del estado.
+      Los cuerpos de bomberos de Lázaro Cárdenas, Playa Azul y Caleta de Campos incluyen protocolos
+      de respuesta a tsunami en su capacitación.
     </p>
 
-    <h3>ArcelorMittal Lázaro Cárdenas: acero fundido a 1,600°C y la regla que ningún bombero del puerto puede olvidar</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      La planta de ArcelorMittal en Lázaro Cárdenas —antiguo SICARTSA, hoy parte del grupo
-      siderúrgico más grande del mundo— opera hornos de arco eléctrico (EAF) que funden chatarra
-      de acero a 1,600°C para producir acero primario. El Puerto de Lázaro Cárdenas es el único
-      punto de ingreso en el Pacífico mexicano donde los bomberos municipales deben estar
-      certificados en respuesta a emergencias siderúrgicas. La regla más crítica de esa
-      certificación no es sobre el fuego: es sobre el agua. El agua en contacto con acero
-      fundido a alta temperatura genera vapor de forma instantánea y explosiva —la expansión
-      volumétrica del agua al evaporarse a 1,600°C es aproximadamente 1,700 veces su volumen
-      líquido, y esa expansión puede proyectar metal fundido decenas de metros. Los bomberos
-      de Lázaro Cárdenas que responden a incidentes en el complejo siderúrgico usan arena seca,
-      polvo de cal o tierra como agentes de control en zonas con metal fundido, nunca agua ni
-      espuma. En el área de la acería, el agua sólo se usa en los sistemas de enfriamiento de
-      estructuras metálicas, nunca en el piso de fusión. Este protocolo va en contra del
-      reflejo operacional básico de cualquier bombero, razón por la que forma parte del
-      entrenamiento de incorporación obligatorio para cualquier nuevo miembro de la estación del puerto.
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos
+      entre las grandes zonas del estado. La columna "Estaciones" corresponde a las publicadas
+      en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Municipios</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nMunicipios}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{estacionesMichoacan.length}</td>
+            <td>{municipios.length}</td>
+            <td>113 municipios de Michoacán de Ocampo</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Michoacán</h3>
+    <p>
+      El primer reto es geográfico: Michoacán tiene 58,643 km² con siete regiones de perfil de riesgo
+      radicalmente distinto —desde el puerto industrial hasta los bosques de alta montaña—, lo que
+      exige equipamiento especializado para cada frente. Una autobomba de incendios forestales no es
+      la misma unidad que una de HAZMAT portuario, y ambas deben coexistir en un presupuesto estatal
+      limitado.
+    </p>
+    <p>
+      El segundo reto es de acceso. Los santuarios de la Mariposa Monarca, los volcanes del Eje
+      Volcánico Transversal y las comunidades de la Sierra Purépecha tienen caminos que los vehículos
+      de emergencia no pueden recorrer hasta el punto de intervención. La respuesta en estas zonas
+      depende de la coordinación con <strong>guardabosques comunitarios</strong>, brigadas forestales
+      ejidales y, en la costa, con la Capitanía de Puerto y la Secretaría de Marina.
     </p>
 
-    <h3>Morelia UNESCO: cantera rosa porosa y vigas del siglo XVII que el yeso no deja ver</h3>
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad en Michoacán</h3>
     <p>
-      El Centro Histórico de Morelia fue declarado Patrimonio de la Humanidad por la UNESCO en 1991.
-      Sus 200 manzanas de arquitectura colonial del siglo XVI al XIX están construidas principalmente
-      en cantera rosa —una toba volcánica de la región con una característica que los bomberos
-      conocen bien: es más porosa y menos conductora del calor que la piedra caliza o el granito,
-      lo que significa que absorbe calor lentamente, pero también que el calor acumulado en sus
-      paredes se mantiene por horas después de extinguido el fuego, dificultando el enfriamiento
-      estructural. El segundo factor es la trampa visual de los techos: los edificios coloniales
-      de Morelia presentan hacia el interior artesonados de yeso y estucos decorativos que ocultan
-      las vigas estructurales de madera de cedro y ayacahuite colocadas en el siglo XVII. Desde
-      el exterior y desde el interior, un bombero no puede determinar la masa de madera oculta
-      en la estructura del techo sin planos del edificio. En varios incendios históricos del
-      centro de Morelia, el colapso de techo ocurrió cuando el fuego llegó a las vigas ocultas
-      sin que la temperatura superficial del yeso hubiera dado indicación de la combustión interior.
-      Los bomberos de Morelia usan cámara termométrica en todas las intervenciones en edificios
-      del primer cuadro antes de declarar la extinción, precisamente para detectar combustión
-      activa detrás de revestimientos que visualmente parecen fríos.
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones básicas
+      de los cuerpos de bomberos para la población michoacana:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas:</strong> revisa mangueras, reguladores y conexiones; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos; atiende cualquier olor a quemado o calentamiento de cables.</li>
+        <li><strong>Detección:</strong> instala detectores de humo y ten un extintor vigente y accesible en la cocina.</li>
+        <li><strong>Temporada seca:</strong> no quemes basura ni pastizales cerca de zonas forestales entre marzo y mayo; el riesgo de incendio forestal en la Meseta Purépecha y la sierra es máximo en esa época.</li>
+        <li><strong>Sismo:</strong> identifica zonas seguras en tu casa y ten una mochila de emergencia; en la costa, conoce las rutas de evacuación de tsunami.</li>
+        <li><strong>Día de Muertos:</strong> si visitas Janitzio, identifica las lanchas de rescate y los puestos de bomberos en el embarcadero; en caso de emergencia, sigue las instrucciones del personal de Protección Civil.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
 
-    <h3>Reserva Mariposa Monarca: oyamel a 3,400 msnm, resina combustible y el combate a pie porque el camión no llega a los santuarios</h3>
-    <p>
-      La Reserva de la Biosfera Mariposa Monarca en los municipios de Zitácuaro, Angangueo y
-      Ocampo alberga cada invierno entre 100 y 500 millones de mariposas monarca en colonias
-      concentradas en bosques de oyamel a altitudes de 3,000 a 3,400 metros. El oyamel
-      (Abies religiosa) es una conífera de alta montaña cuya resina tiene un punto de inflamación
-      de aproximadamente 55°C —mucho más bajo que el de los pinos comunes— y cuyas acículas
-      secas forman una capa de combustible fino sobre el suelo forestal que puede alcanzar los
-      30 centímetros de profundidad. Un incendio en esta capa bajo viento en las pendientes de
-      los santuarios puede avanzar más rápido de lo que un bombero con herramientas manuales
-      puede retroceder. Los vehículos de los bomberos no pueden acceder a los santuarios El
-      Rosario, Sierra Chincua o Cerro Pelón: los caminos de acceso terminan a 1-2 kilómetros de
-      las colonias, y desde ese punto la respuesta es a pie con herramientas manuales (rakes,
-      azadas, motosierras portátiles) y mochilas extintoras de 20 litros. Los bomberos de
-      Zitácuaro y Angangueo trabajan en coordinación con la brigada forestal comunitaria de las
-      comunidades ejidales —los guardabosques locales— que conocen el terreno y pueden guiar
-      la respuesta a zonas sin camino marcado. La temporada de mayor riesgo (enero-marzo, secas
-      con los bosques en máxima carga de combustible) coincide con el pico de la colonia:
-      los bomberos no pueden intervenir con medios aéreos ni autobombas en la zona central de
-      los santuarios sin riesgo de dispersar la colonia.
+    <p class="de-srcnote">
+      Fuentes: Dirección de Bomberos de Morelia (Reglamento Interno, Orden Jurídico Nacional); Gobierno
+      de Michoacán (directorio oficial); Instituto de Geología UNAM (Paricutín, Campo Volcánico
+      Michoacán-Guanajuato); ArcelorMittal México (historia SICARTSA, inauguración 4 nov. 1976);
+      Climate Rights International, «Unholy Guacamole» (incendios forestales y aguacate, 2023);
+      UNAM Global (enjambres sísmicos Michoacán); UNESCO (Centro Histórico Morelia 1991, Reserva
+      Biosfera Mariposa Monarca 2008, 56,259 ha); Cuadratín Michoacán (bomberos Morelia); La Voz de
+      Michoacán (bomberos voluntarios Uruapan, fundación ~1936). La fecha de fundación del cuerpo de
+      Morelia (1954) procede del histórico de la Estación Central publicado en el directorio municipal;
+      las fechas de fundación de Uruapan y Lázaro Cárdenas no pudieron verificarse con fuente
+      primaria y se omiten. Las cifras de estaciones y municipios corresponden a las publicadas en
+      este directorio. Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

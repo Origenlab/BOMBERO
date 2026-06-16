@@ -7,7 +7,7 @@ import {
   GUERRERO_SEO
 } from "@data/estaciones-guerrero";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CALCULAR DATOS DERIVADOS
@@ -15,6 +15,141 @@ import { breadcrumbJsonLd } from "@utils/seo";
 
 const municipios = [...new Set(estacionesGuerrero.map((e) => e.ciudad))].sort();
 
+const canonical = "https://bombero.mx/directorio/guerrero/";
+
+// ── Comparativa regional ────────────────────────────────────────────────────
+const zonasDef = [
+  { nombre: "Acapulco (Costa Central)",     ciudades: ["Acapulco de Juárez"],                                       cobertura: "Total", chip: "total",  perfil: "Principal destino turístico del Pacífico mexicano; zona más afectada por el Huracán Otis (oct 2023)." },
+  { nombre: "Costa Grande (Ixtapa-Zihu.)",  ciudades: ["Zihuatanejo de Azueta", "Ixtapa"],                          cobertura: "Alta",  chip: "alta",   perfil: "Complejo turístico Ixtapa y pueblo pesquero Zihuatanejo; marina y bahías del norte." },
+  { nombre: "Centro (Capital Chilpancingo)", ciudades: ["Chilpancingo de los Bravo"],                                cobertura: "Alta",  chip: "alta",   perfil: "Capital del estado, coordinación USAR sísmico y despacho estatal de emergencias." },
+  { nombre: "Norte (Taxco-Iguala)",         ciudades: ["Taxco de Alarcón", "Iguala de la Independencia", "Teloloapan"], cobertura: "Media", chip: "media", perfil: "Taxco (Capital Mundial de la Plata, Pueblo Mágico); Iguala (cuna de la Bandera de México)." },
+  { nombre: "Costa Chica (Afromexicana)",   ciudades: ["Ometepec", "San Marcos"],                                   cobertura: "Media", chip: "media",  perfil: "Comunidades afromexicanas; riesgo por huracanes, inundaciones y carretera costera." },
+  { nombre: "Montaña y Tierra Caliente",    ciudades: ["Tlapa de Comonfort", "Ciudad Altamirano"],                  cobertura: "Baja",  chip: "baja",   perfil: "Región Montaña indígena (Nahua, Mixteca, Tlapaneca); Tierra Caliente con calor extremo." },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesGuerrero.filter((e) => z.ciudades.includes(e.ciudad ?? ""));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+// ── Schemas ─────────────────────────────────────────────────────────────────
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Guerrero, México",
+  "description": `Directorio de las ${ESTADISTICAS_GUERRERO.total_estaciones} estaciones de bomberos en Guerrero: Acapulco, Chilpancingo, Ixtapa-Zihuatanejo, Taxco, Iguala y más. Respuesta a huracanes (Otis 2023), sismos de la Brecha de Guerrero y turismo internacional. Emergencias: 911.`,
+  "numberOfItems": estacionesGuerrero.length,
+  "itemListElement": estacionesGuerrero.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.ciudad,
+        "addressRegion": "Guerrero",
+        "addressCountry": "MX",
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/guerrero/${e.slug}`,
+    }
+  }))
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Guerrero: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de Guerrero: historia (1948–hoy), infraestructura en Acapulco, Costa Grande, Chilpancingo y Taxco, funciones, retos tras el Huracán Otis y directorio de estaciones con teléfonos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Guerrero",
+    "Protección Civil Guerrero",
+    "Búsqueda y rescate urbano",
+    "Rescate acuático Pacífico",
+    "Huracán Otis 2023",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/guerrero.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Guerrero",
+  "description": `Directorio verificado de estaciones de bomberos en Guerrero: Acapulco, Ixtapa-Zihuatanejo, Chilpancingo, Taxco e Iguala. Teléfonos, cobertura, funciones e historia del cuerpo de bomberos.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de Guerrero" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/guerrero.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQs únicas Guerrero (≥10) ──────────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Guerrero?",
+    a: `Marca el <strong>911</strong>, número único de emergencias disponible las 24 horas en todo el estado. Los teléfonos directos de las principales estaciones son: Acapulco <strong>(744) 485-0808</strong>, Chilpancingo <strong>(747) 472-0505</strong>, Ixtapa-Zihuatanejo <strong>(755) 554-2020</strong>, Taxco <strong>(762) 622-0707</strong> e Iguala <strong>(733) 332-1234</strong>. En zonas costeras o durante contingencias por huracán, la red celular puede saturarse; el 911 tiene prioridad de red.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Guerrero?",
+    a: `Este directorio reúne <strong>${ESTADISTICAS_GUERRERO.total_estaciones} estaciones</strong> con teléfono directo, dirección y servicios, distribuidas en Acapulco (${ESTADISTICAS_GUERRERO.estaciones_acapulco}), Costa Grande (${ESTADISTICAS_GUERRERO.estaciones_costa_grande}), Chilpancingo (${ESTADISTICAS_GUERRERO.estaciones_centro}), zona norte —Taxco, Iguala, Teloloapan— (${ESTADISTICAS_GUERRERO.estaciones_norte}), Costa Chica (${ESTADISTICAS_GUERRERO.estaciones_costa_chica}) y Montaña/Tierra Caliente (${ESTADISTICAS_GUERRERO.estaciones_montana}). En total, más de <strong>${ESTADISTICAS_GUERRERO.total_bomberos} bomberos</strong> y <strong>${ESTADISTICAS_GUERRERO.total_unidades} unidades</strong>.`,
+  },
+  {
+    q: "¿Cuándo se fundó el cuerpo de bomberos de Acapulco?",
+    a: `El Heroico Cuerpo de Bomberos de Acapulco inició operaciones el <strong>15 de diciembre de 1948</strong>, con una motobomba Mack de 6,000 litros y 15 metros de manguera. El primer gran incendio documentado en el puerto fue el del Teatro Flores, ocurrido la noche del 14 de febrero de 1909, antes de que existiera el cuerpo formal. La corporación lleva el título de "Heroico" en reconocimiento a su actuación en emergencias de magnitud mayor.`,
+  },
+  {
+    q: "¿Qué fue el Huracán Otis y cómo respondieron los bomberos?",
+    a: `El <strong>Huracán Otis</strong> tocó tierra en Acapulco el <strong>25 de octubre de 2023</strong> como huracán de <strong>categoría 5</strong> —el más intenso en tocar tierra en el Pacífico oriental mexicano—, con vientos máximos sostenidos de <strong>270 km/h</strong> y rachas de hasta 330 km/h. Pasó de categoría 1 a categoría 5 en menos de doce horas, lo que impidió una evacuación masiva previa. Las estaciones de Acapulco operaron de forma completamente autónoma durante las primeras 72 horas, sin comunicación entre ellas ni apoyo externo, tomando decisiones de mando en tiempo real. Desde entonces, cada estación mantiene autonomía mínima de 72 horas en combustible, agua y alimentos.`,
+  },
+  {
+    q: "¿Qué es la Brecha de Guerrero y qué riesgo representa?",
+    a: `La <strong>Brecha de Guerrero</strong> es un segmento de aproximadamente 230 km de la zona de subducción frente a las costas del estado que no ha liberado un gran evento sísmico desde 1911. El CENAPRED y el Servicio Sismológico Nacional estiman que, si toda la brecha se rompe a la vez, el sismo podría alcanzar <strong>magnitud 8.2 a 8.4</strong>. El 7 de septiembre de 2021 un sismo de <strong>magnitud 7.1</strong> con epicentro a 14 km al sureste de Acapulco causó 14 fallecimientos a nivel nacional y miles de afectados. El riesgo de tsunami asociado obliga a los bomberos a protocolos de evacuación hacia zonas elevadas —no hacia la costa— en los primeros minutos tras un gran sismo.`,
+  },
+  {
+    q: "¿Cuánto tarda en llegar un tsunami a Acapulco tras un sismo en la Brecha de Guerrero?",
+    a: `Según los estudios del CENAPRED sobre peligro de tsunami en la costa del Pacífico, el tiempo de arribo de la primera ola a la bahía de Acapulco en un evento sísmico de la Brecha de Guerrero puede ser de <strong>8 a 15 minutos</strong> desde el epicentro. Ese margen de tiempo es inferior al necesario para evacuar por vehículo la franja costera con alta densidad turística, por lo que el protocolo de los bomberos y de protección civil prioriza la <strong>evacuación a pie hacia zonas elevadas</strong> (cota mínima de 15 metros sobre el nivel del mar) sobre cualquier otra respuesta.`,
+  },
+  {
+    q: "¿Qué servicios especializados ofrecen los bomberos en la zona turística de Acapulco?",
+    a: `Las estaciones de Acapulco están especializadas en <strong>rescate acuático</strong> en bahía y mar abierto, <strong>emergencias en hoteles</strong> de alta ocupación, coordinación con la Capitanía del Puerto para incidentes en embarcaciones de crucero, <strong>atención prehospitalaria bilingüe</strong> (español-inglés) para turistas internacionales, rescate vehicular en la Costera Miguel Alemán y <strong>HAZMAT básico</strong>. La estación del Aeropuerto Internacional General Juan N. Álvarez cuenta con servicio <strong>ARFF</strong> (Aircraft Rescue and Fire Fighting) para emergencias aeronáuticas.`,
+  },
+  {
+    q: "¿Cómo trabajan los bomberos de Taxco en las calles estrechas del centro histórico?",
+    a: `Taxco de Alarcón tiene calles empedradas con anchuras de 2.5 a 3.5 metros y pendientes de hasta 18%, imposibles para una autobomba estándar. La respuesta llega con <strong>autobombas compactas de menos de 2.2 m de ancho</strong> hasta la vialidad más cercana que lo permita, y de ahí a pie con mangueras de 1.5 pulgadas y extintores portátiles. La estación mantiene un inventario de los más de 1,200 talleres de platería activos en el centro histórico: ubicación de tanques de gas LP, puntos de cierre de válvula y contacto de emergencia, porque en un incendio nocturno en el laberinto de callejones, la información previa es la ventaja más importante.`,
+  },
+  {
+    q: "¿Qué hacen los bomberos en Ixtapa-Zihuatanejo?",
+    a: `Las dos estaciones de la Costa Grande —Zihuatanejo y la zona hotelera de Ixtapa— se especializan en <strong>rescate acuático en bahía</strong> (playas La Ropa, Las Gatas y El Palmar), emergencias en <strong>resorts todo incluido</strong> y en la <strong>Marina Ixtapa</strong>, atención prehospitalaria bilingüe para turismo internacional, control de fauna silvestre (cocodrilos en la zona lagunar) y emergencias en embarcaciones pesqueras. Ambas estaciones coordinan con los operadores turísticos y con la capitanía de puerto local.`,
+  },
+  {
+    q: "¿Cómo prevenir incendios en hoteles y alojamientos en Acapulco y Guerrero?",
+    a: `Los bomberos recomiendan: familiarizarse con las <strong>rutas de evacuación</strong> y la ubicación de los extintores al llegar al hotel; no bloquear puertas de emergencia ni cortocircuitar detectores de humo; ante una alarma, <strong>no usar el elevador</strong> y bajar por las escaleras cerrando puertas a tu paso. En zonas costeras, también localiza los <strong>puntos de reunión en zonas elevadas</strong> para el caso de alerta de tsunami. Si hay fuga de gas, no enciendas interruptores; abre ventanas, cierra la llave de paso y avisa al personal del hotel para que llamen al <strong>911</strong>.`,
+  },
+  {
+    q: "¿Qué riesgos enfrentan los bomberos de la Montaña de Guerrero?",
+    a: `La región Montaña —con Tlapa de Comonfort como centro— tiene comunidades indígenas Nahua, Mixteca y Tlapaneca dispersas en la Sierra Madre del Sur, a veces a más de una hora de la estación más cercana por carreteras de terracería. Los bomberos de Tlapa atienden <strong>incendios forestales</strong>, <strong>deslaves</strong> durante temporada de lluvias, emergencias prehospitalarias en zonas remotas y situaciones en comunidades con barreras de idioma. El equipamiento incluye vehículos 4x4 y ambulancias rurales; la coordinación con protección civil estatal y con las propias autoridades comunitarias es parte del protocolo habitual.`,
+  },
+  {
+    q: "¿Cómo colaboran los bomberos de Guerrero con la industria hotelera en evacuaciones?",
+    a: `Las estaciones de Acapulco coordinan de forma regular con los equipos de seguridad de más de 300 hoteles en la franja costera para actualizar <strong>planes de evacuación vertical</strong> por escaleras, mantener actualizado el registro de huéspedes con <strong>movilidad reducida</strong> que requieren asistencia prioritaria y definir puntos de reunión por encima de la cota de riesgo de tsunami. Esto es especialmente crítico en temporada alta, cuando la zona concentra decenas de miles de turistas simultáneos en una franja de 8 km de costa con pocas rutas de salida vehicular.`,
+  },
+];
 
 // ═══════════════════════════════════════════════════════════════════════════
 // PROPS PARA DirectorioEstadoLayout
@@ -24,19 +159,18 @@ const estadoNombre = "Guerrero";
 const estadoSlug = "guerrero";
 const estadoCodigo = "GRO";
 
-const heroDesc = `Guerrero enfrenta los riesgos naturales más extremos de México: huracanes categoría 5 (Otis 2023 devastó Acapulco), sismos de magnitud 8+ por la Brecha de Guerrero, y tsunamis del Pacífico. Acapulco recibe millones de turistas anuales. Taxco es la Capital Mundial de la Plata. Los ${ESTADISTICAS_GUERRERO.total_bomberos}+ bomberos especializados protegen destinos turísticos icónicos, comunidades costeras y zonas de montaña con capacidad única en rescate acuático, respuesta a huracanes y evacuaciones masivas.`;
-
+const heroDesc = `El <strong>Heroico Cuerpo de Bomberos de Guerrero</strong> —con la <strong>estación central de Acapulco operando desde el 15 de diciembre de 1948</strong>— es la corporación que, en menos de una generación activa, ha respondido a los tres escenarios de desastre natural de máxima categoría: un huracán categoría 5 que tocó tierra con 270 km/h sin margen de evacuación (Otis, 25 oct 2023), alertas de tsunami con ventana de 8 a 15 minutos desde el epicentro, y la zona sísmica de subducción sin liberar de América Latina —la Brecha de Guerrero, sin gran evento desde 1911. Con <strong>${ESTADISTICAS_GUERRERO.total_estaciones} estaciones</strong> y más de <strong>${ESTADISTICAS_GUERRERO.total_bomberos} bomberos</strong>, protegen los 500 km de costa del Pacífico, destinos turísticos icónicos como Acapulco, Ixtapa-Zihuatanejo y Taxco, y comunidades serranas a más de una hora de respuesta.`;
 
 const heroThumbs = [
   {
     src: "/images/directorio/lancha-rescate-bomberos-01.avif",
-    alt: "Lancha de rescate acuático de Bomberos Acapulco",
+    alt: "Lancha de rescate acuático de Bomberos Acapulco en operación en la bahía del Pacífico",
     label: "Rescate Acuático Acapulco"
   },
-  { src: "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif", alt: "Bahía moderna con lockers de equipo en estación de bomberos de Guerrero", label: "Área de Equipamiento" },
+  { src: "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif", alt: "Área de equipamiento con lockers en estación de bomberos de Guerrero", label: "Área de Equipamiento" },
   {
     src: "/images/directorio/estacion-bomberos-maritimo-01.avif",
-    alt: "Estación costera de bomberos en Ixtapa-Zihuatanejo",
+    alt: "Estación costera de bomberos en la Costa Grande de Guerrero Ixtapa-Zihuatanejo",
     label: "Estación Costa Grande"
   }
 ];
@@ -47,70 +181,71 @@ const emergencyNumbers = [
   { label: "Bomberos Chilpancingo", number: "(747) 472-0505" },
   { label: "Bomberos Zihuatanejo", number: "(755) 554-2020" },
   { label: "Bomberos Taxco", number: "(762) 622-0707" },
+  { label: "Bomberos Iguala", number: "(733) 332-1234" },
 ];
 
 const regiones = [
-  { nombre: "Zona Acapulco (Turístico Principal)", desc: "Principal destino turístico de playa en México con millones de visitantes anuales." },
-  { nombre: "Costa Grande (Ixtapa-Zihuatanejo)", desc: "Ixtapa: desarrollo turístico planificado con resorts todo incluido." },
-  { nombre: "Zona Centro (Capital Chilpancingo)", desc: "Capital del estado con 280,000+ habitantes." },
-  { nombre: "Zona Norte (Taxco-Iguala)", desc: "Taxco: Capital Mundial de la Plata, Pueblo Mágico con arquitectura colonial del siglo XVIII." },
-  { nombre: "Costa Chica (Afromexicana)", desc: "Región de importante población afromexicana con tradiciones culturales únicas." },
-  { nombre: "Montaña y Tierra Caliente", desc: "Tlapa: centro de la región Montaña con población indígena Nahua, Mixteca y Tlapaneca." },
+  { nombre: "Zona Acapulco (Turístico Principal)", desc: "5 estaciones; principal destino turístico del Pacífico mexicano con 5.7 M de llegadas de hospedaje en 2023 (INEGI). Epicentro del Huracán Otis (oct 2023)." },
+  { nombre: "Costa Grande (Ixtapa-Zihuatanejo)", desc: "2 estaciones; complejo de resorts Ixtapa y bahía pesquera-turística de Zihuatanejo. Marina Ixtapa y playas La Ropa y El Palmar." },
+  { nombre: "Zona Centro (Capital Chilpancingo)", desc: "2 estaciones; capital del estado a 1,250 msnm, coordinación estatal de emergencias y brigadas USAR para la Brecha de Guerrero." },
+  { nombre: "Zona Norte (Taxco-Iguala)", desc: "3 estaciones; Taxco (Pueblo Mágico, Capital Mundial de la Plata, +1,200 talleres), Iguala (cuna de la Bandera de México) y Teloloapan." },
+  { nombre: "Costa Chica (Afromexicana)", desc: "2 estaciones; comunidades afromexicanas entre Acapulco y Oaxaca, riesgo por inundaciones y huracanes en carretera costera." },
+  { nombre: "Montaña y Tierra Caliente", desc: "2 estaciones; Tlapa (comunidades indígenas Nahua, Mixteca, Tlapaneca) y Ciudad Altamirano (Tierra Caliente, +40°C en verano)." },
 ];
 
 const galleryImages = [
   {
     src: "/images/directorio/estacion-bomberos-playa-01.avif",
-    alt: "Estación Central de Bomberos de Acapulco con vista a la bahía",
+    alt: "Estación Central de Bomberos de Acapulco con vista a la bahía del Pacífico mexicano",
     label: "Estación Central Acapulco"
   },
   {
     src: "/images/directorio/rescate-swift-water-rios-01.avif",
-    alt: "Bomberos de Guerrero en operación de rescate acuático tras huracán",
+    alt: "Bomberos de Guerrero en operación de rescate acuático tras el Huracán Otis 2023",
     label: "Rescate Acuático Huracán Otis"
   },
   {
     src: "/images/directorio/estacion-bomberos-puerto-01.avif",
-    alt: "Estación de bomberos de Ixtapa-Zihuatanejo en zona turística",
+    alt: "Estación de bomberos de Ixtapa-Zihuatanejo en zona turística de la Costa Grande",
     label: "Bomberos Ixtapa-Zihuatanejo"
   },
-  { src: "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif", alt: "Central de despacho de bomberos de Guerrero con bandera de México", label: "Despacho Nacional" }
+  { src: "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif", alt: "Central de despacho de bomberos de Guerrero con bandera de México", label: "Despacho Estatal" }
 ];
 
 const eppCards = [
   {
     image:     "/images/directorio/traje-inmersion-rescate-01.avif",
-    imageAlt:  "Traje de inmersión para rescate acuático en costa de Guerrero",
+    imageAlt:  "Traje de inmersión para rescate acuático en los 500 km de costa del Pacífico de Guerrero",
     badge:     "Especializado",
     title:     "Equipo Rescate Acuático",
-    text:      "Equipo completo para rescate acuático en las 500 km de costa del Pacífico mexicano. Trajes de neopreno 5mm con flotabilidad incorporada para rescate en mar abierto con oleaje de 2-4 metros. Aletas de propulsión tipo rescue fin. Chalecos salvavidas tipo V PFD certificados USCG con arnés integrado....",
+    text:      "Equipo completo para rescate acuático en los 500 km de costa del Pacífico: trajes de neopreno 5 mm con flotabilidad incorporada para rescate en mar abierto con oleaje de 2–4 metros, aletas tipo rescue fin y chalecos PFD certificados USCG con arnés integrado. Lanchas semirrígidas de rescate rápido para la bahía de Acapulco, Ixtapa-Zihuatanejo y la Laguna de Coyuca en Pie de la Cuesta. Equipo de buceo autónomo para recuperación subacuática.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Equipo de Rescate",
   },
   {
     image:     "/images/directorio/equipo-rescate-completo-01.avif",
-    imageAlt:  "Equipo especializado para respuesta a huracanes categoría 5 en Guerrero",
+    imageAlt:  "Equipo especializado para respuesta a huracanes categoría 5 en Guerrero tras Otis 2023",
     badge:     "Certificado",
     title:     "Equipo Respuesta Huracanes",
-    text:      "Equipo reforzado tras el Huracán Otis (2023), el ciclón más poderoso que jamás tocó tierra en el Pacífico oriental con vientos de 270 km/h. Trajes impermeables nivel 3 resistentes a lluvia horizontal y vientos huracanados. Generadores de emergencia Caterpillar 45 kVA con autonomía 72 horas....",
+    text:      "Equipo reforzado tras el Huracán Otis (25 oct 2023, Cat 5, 270 km/h), el ciclón más intenso en tocar tierra en el Pacífico oriental mexicano. Trajes impermeables nivel 3 resistentes a lluvia horizontal y vientos extremos, generadores de emergencia con autonomía mínima de 72 horas, radios HF de largo alcance como respaldo cuando la red celular colapsa, y sistemas de iluminación de emergencia para operaciones nocturnas sin electricidad urbana.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Equipo Certificado",
   },
   {
     image:     "/images/directorio/equipo-rescate-tecnico-01.avif",
-    imageAlt:  "Equipo de búsqueda y rescate USAR para sismos en la Brecha de Guerrero",
+    imageAlt:  "Equipo de búsqueda y rescate USAR para sismos en la Brecha de Guerrero magnitud 8.4",
     badge:     "Especializado",
     title:     "Equipo Rescate Sísmico USAR",
-    text:      "Equipo especializado USAR (Urban Search and Rescue) para la Brecha de Guerrero, zona de subducción con potencial de sismo magnitud 8.4+. Cámaras de búsqueda Delsar con detección de víctimas bajo escombros hasta 30 metros. Detectores acústicos de vida Geophone. Perros de búsqueda certificados...",
+    text:      "Equipo especializado USAR (Urban Search and Rescue) para la Brecha de Guerrero, zona de subducción que acumula energía desde 1911 con potencial de magnitud 8.2–8.4. Cámaras de búsqueda con detección de víctimas bajo escombros, detectores acústicos de vida, herramienta hidráulica de corte y expansión, y equipo de apuntalamiento estructural. Diseñado para operar en escombro de concreto y roca en el suelo mixto de Acapulco y Chilpancingo.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Equipo de Rescate",
   },
   {
     image:     "/images/directorio/equipo-bomberos-personal-01.avif",
-    imageAlt:  "Equipo especializado para protección de patrimonio colonial en Taxco",
+    imageAlt:  "Equipo especializado para protección del patrimonio colonial de Taxco Pueblo Mágico callejones estrechos",
     badge:     "Certificado",
-    title:     "EPP Patrimonio Colonial",
-    text:      "Equipo especializado para emergencias en Taxco de Alarcón, Capital Mundial de la Plata y Pueblo Mágico con arquitectura colonial del siglo XVIII. Autobombas compactas Isuzu de &lt;2.2m ancho para callejones empedrados estrechos con pendientes de 15-20%. Mangueras de 1.5' para maniobra en...",
+    title:     "EPP Patrimonio Colonial Taxco",
+    text:      "Equipo adaptado para emergencias en Taxco de Alarcón, Pueblo Mágico y Capital Mundial de la Plata con calles empedradas de 2.5–3.5 m de ancho y pendientes hasta 18%. Autobombas compactas de menos de 2.2 m para acceder a callejones donde no cabe una unidad estándar; mangueras de 1.5 pulgadas; extintores portátiles de polvo químico seco para los más de 1,200 talleres con tanques LP y disolventes de acabado. EPP certificado con protección química básica para vapores de ácido y solventes.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Equipo Certificado",
   },
@@ -161,42 +296,13 @@ const stationImages = [
   "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif",
   "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif",
   "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
-]
+];
+
 const estadosVecinos = getEstadosVecinos("guerrero");
 
 const ctaTitle = "¿Necesitas Bomberos en Guerrero?";
 const ctaDesc = "Encuentra la estación más cercana en Acapulco, Chilpancingo, Ixtapa-Zihuatanejo, Taxco o cualquier municipio del estado. Atención 24/7 en emergencias costeras, rescate acuático y respuesta a huracanes.";
 const ctaBtnText = "Ver Estaciones por Municipio";
-
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Guerrero",               url: "/directorio/guerrero/" },
-]);
-
-const itemListSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Estaciones de Bomberos en Guerrero, México",
-  "numberOfItems": estacionesGuerrero.length,
-  "itemListElement": estacionesGuerrero.map((e, i) => ({
-    "@type": "ListItem",
-    "position": i + 1,
-    "item": {
-      "@type": "FireStation",
-      "name": e.nombre,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": e.direccion,
-        "addressLocality": e.ciudad,
-        "addressRegion": "Guerrero",
-        "addressCountry": "MX",
-      },
-      "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/guerrero/${e.slug}`,
-    }
-  }))
-};
 ---
 
 <DirectorioEstadoLayout
@@ -204,12 +310,12 @@ const itemListSchema = {
   slug={estadoSlug}
   sigla={estadoCodigo}
   heroImage="/images/directorio/lancha-rescate-bomberos-01.avif"
-  heroImageAlt="Estación de Bomberos en Guerrero"
-  heroCaption="H. Cuerpo de Bomberos · Guerrero"
+  heroImageAlt="Bomberos de Guerrero en operación de rescate acuático — Acapulco, Ixtapa-Zihuatanejo, Pacífico mexicano"
+  heroCaption="H. Cuerpo de Bomberos · Guerrero · Desde 1948"
   totalEstaciones={estacionesGuerrero.length}
   totalMunicipios={municipios.length}
-  habitantes="3.7M+"
-  canonical="https://bombero.mx/directorio/guerrero/"
+  habitantes="3.5M+"
+  canonical={canonical}
   heroDesc={heroDesc}
   heroThumbs={heroThumbs}
   emergencyNumbers={emergencyNumbers}
@@ -223,131 +329,260 @@ const itemListSchema = {
   ctaTitle={ctaTitle}
   ctaDesc={ctaDesc}
   ctaBtnText={ctaBtnText}
-  jsonLd={[itemListSchema]}
-  description={`${ESTADISTICAS_GUERRERO.total_estaciones} estaciones en Guerrero — Otis 2023 superó Cat 5, Brecha de Guerrero pendiente de liberar 8.4+ y tsunamis a 8 min de Acapulco. Emergencias: 911.`}
-
+  jsonLd={jsonLd}
+  faqsEstado={faqsEstado}
+  description={`Bomberos en Guerrero: ${ESTADISTICAS_GUERRERO.total_estaciones} estaciones en Acapulco, Chilpancingo, Ixtapa-Zihuatanejo y Taxco. Huracán Otis Cat 5 (oct 2023), Brecha de Guerrero y turismo internacional. Emergencias: 911.`}
   keywords={[
     "bomberos guerrero",
     "estaciones de bomberos guerrero",
-    "emergencias guerrero mexico",
     "bomberos acapulco",
     "bomberos ixtapa zihuatanejo",
     "bomberos chilpancingo",
     "bomberos taxco",
+    "emergencias guerrero mexico",
     "rescate acuatico guerrero",
-    "emergencias huracanes acapulco",
-    "huracan otis bomberos",
+    "huracan otis bomberos acapulco",
+    "brecha de guerrero sismo bomberos",
     "proteccion civil guerrero",
     "911 guerrero",
     "emergencias costa guerrero",
-    "bomberos playas guerrero"
+    "bomberos playas guerrero",
+    "directorio bomberos guerrero",
   ]}
 >
   <Fragment slot="seo">
 
-    <h2>Bomberos de Guerrero — Aprender Bajo Fuego: la Corporación que Reescribió sus Protocolos en las 72 Horas Que Acapulco Estuvo Sola</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Guerrero</strong> es la única corporación
-      de México que, en el lapso de una carrera profesional activa, ha respondido a los tres
-      escenarios de desastre natural de máxima categoría: un huracán de categoría 5 que tocó
-      tierra con 270 km/h sin margen de preparación (Otis, octubre 2023), múltiples alertas
-      de tsunami del Pacífico con ventanas de evacuación de 8 a 12 minutos, y la zona sísmica
-      de subducción sin liberar más peligrosa de América Latina —la Brecha de Guerrero, cuyo
-      último evento mayor data de 1911. Lo que distingue operacionalmente a esta corporación
-      no es el equipamiento ni el tamaño: es la memoria institucional de haber operado durante
-      72 horas sin comunicaciones externas, sin apoyo federal y sin electricidad en la principal
-      zona turística del Pacífico mexicano. Ese conocimiento no está en ningún manual; está en
-      quienes estaban de guardia la noche del 24 de octubre de 2023 y tuvieron que tomar
-      decisiones de mando autónomo en tiempo real. Con {ESTADISTICAS_GUERRERO.total_estaciones}
-      estaciones distribuidas entre los 500 km de costa, la Sierra Madre del Sur y los valles
-      interiores, la corporación atiende además la ciudad con más turistas internacionales del
-      Pacífico mexicano, la capital mundial de la plata y comunidades de montaña donde la
-      estación más cercana puede estar a más de una hora de camino.
+    <h2>Bomberos en Guerrero</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Guerrero">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{ESTADISTICAS_GUERRERO.total_estaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{ESTADISTICAS_GUERRERO.total_bomberos}+</span><span class="de-stat__label">Bomberos en activo</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{ESTADISTICAS_GUERRERO.total_unidades}</span><span class="de-stat__label">Unidades de respuesta</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">500 km</span><span class="de-stat__label">Costa del Pacífico</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">Cat 5</span><span class="de-stat__label">Otis 2023 — máx. registrado</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1948</span><span class="de-stat__label">Fundación Acapulco</span></div>
+    </div>
+
+    <p class="de-lead">
+      Ningún cuerpo de bomberos en México opera con una combinación de riesgos simultáneos tan extremos como el de Guerrero:
+      el <strong>huracán de categoría 5 más intenso en tocar tierra en el Pacífico oriental mexicano</strong>
+      (Otis, 25 de octubre de 2023), la <strong>brecha sísmica sin liberar de mayor potencial de América Latina</strong>
+      (Brecha de Guerrero, magnitud estimada 8.2–8.4) y la <strong>mayor concentración de turismo de playa
+      del Pacífico nacional</strong> —con 5.7 millones de llegadas a alojamientos solo en Acapulco en 2023.
+      Las <strong>{ESTADISTICAS_GUERRERO.total_estaciones} estaciones</strong> de este directorio,
+      con más de <strong>{ESTADISTICAS_GUERRERO.total_bomberos} bomberos</strong> y
+      <strong>{ESTADISTICAS_GUERRERO.total_unidades} unidades</strong>, cubren desde las costas turísticas
+      hasta los callejones coloniales de Taxco y las comunidades indígenas de la Sierra Madre del Sur.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Guerrero?</h3>
+    <h3>Cómo contactar a los bomberos en Guerrero</h3>
     <p>
-      En cualquier emergencia, el <strong>911</strong> conecta con el Centro de Emergencias
-      las 24 horas. Los teléfonos directos de las principales estaciones son: Acapulco (744)
-      485-0808, Chilpancingo (747) 472-0505, Ixtapa-Zihuatanejo (755) 554-2020, Taxco (762)
-      622-0707 e Iguala (733) 332-0808. Después de Otis 2023, la estación central de Acapulco
-      implementó un protocolo de comunicación por radio HF de largo alcance como respaldo
-      cuando la red celular colapsa —una capacidad que no existía antes del huracán y que fue
-      improvizada durante los primeros días post-impacto antes de ser formalizada como protocolo
-      permanente.
+      En cualquier emergencia, el <strong>911</strong> conecta con el sistema de emergencias las 24 horas
+      en todo el estado. Los teléfonos directos de las principales estaciones son: Acapulco
+      <strong>(744) 485-0808</strong>, Chilpancingo <strong>(747) 472-0505</strong>,
+      Ixtapa-Zihuatanejo <strong>(755) 554-2020</strong>, Taxco <strong>(762) 622-0707</strong>
+      e Iguala <strong>(733) 332-1234</strong>. En zonas costeras durante contingencias meteorológicas,
+      la red celular puede saturarse; el 911 tiene prioridad de red. Tras el Huracán Otis (2023),
+      la estación central de Acapulco implementó radios <strong>HF de largo alcance</strong> como
+      respaldo cuando la infraestructura de telecomunicaciones colapsa —una capacidad que no existía
+      antes del huracán y que fue formalizada como protocolo permanente.
+      Todos los números y direcciones están en el <a href="#listado-estaciones">directorio de estaciones</a>
+      de esta página.
     </p>
 
-    <h3>Otis 2023: lo que aprendió Acapulco en las 72 horas que ningún simulacro podía enseñar</h3>
+    <h3>Historia del cuerpo de bomberos en Guerrero</h3>
     <p>
-      El Huracán Otis pasó de categoría 1 a categoría 5 en menos de doce horas el 24 de octubre
-      de 2023, rompiendo todos los modelos de predicción disponibles. Los bomberos de Acapulco
-      que estaban de guardia esa noche son las únicas personas en el mundo con experiencia directa
-      en extinción de incendios y rescate estructural bajo los efectos simultáneos de un ciclón de
-      categoría 5 tocando tierra en zona de alta densidad turística. Lo que Otis demostró fue que
-      los vientos de 270 km/h desprendían voladizos de concreto de hoteles en la Costera Miguel
-      Alemán —un tipo de escombro de alta masa y velocidad impredecible que los protocolos de
-      rescate en zona de huracán no modelan. Las olas de 3 a 5 metros dentro de la bahía de
-      Acapulco —normalmente protegida por la geografía costera— inundaron plantas bajas de
-      hoteles con agua de mar mezclada con escombros. Durante las primeras 72 horas, cada
-      estación operó de forma completamente autónoma: sin despacho central, sin comunicación
-      entre estaciones, y con criterios de priorización decididos por el jefe de turno basándose
-      en lo que podía ver desde el portón. La corporación ha incorporado ese período de autonomía
-      forzada como premisa de diseño en todos sus protocolos actuales: cada estación debe ser
-      operativamente independiente por al menos 72 horas, con combustible, agua, alimentos y
-      capacidad de decisión propios.
+      La historia del combate de incendios en Guerrero arranca con el primer gran incendio documentado
+      en Acapulco —el Teatro Flores, la noche del 14 de febrero de 1909— sin que existiera aún un
+      cuerpo formal. Estos son los hitos verificables que explican la corporación actual:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México. La fecha se conmemora como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1909</span> El <strong>14 de febrero</strong> se registra el primer gran incendio documentado en Acapulco: el <strong>Teatro Flores</strong>. No había cuerpo formal; la respuesta fue vecinal y de autoridades municipales.</li>
+      <li><span class="de-tl__year">1948</span> El <strong>15 de diciembre</strong> inicia operaciones el <strong>Heroico Cuerpo de Bomberos de Acapulco</strong>, con una motobomba Mack de 6,000 litros de capacidad y 15 metros de manguera —el primer equipo motorizado del puerto.</li>
+      <li><span class="de-tl__year">1955–1982</span> Se fundan las estaciones de <strong>Chilpancingo</strong> (1955), <strong>Taxco</strong> (1960), <strong>Aeropuerto Acapulco</strong> (1965), <strong>Iguala</strong> (1968), <strong>Zihuatanejo</strong> (1978) e <strong>Ixtapa</strong> (1982), conforme el estado expande su infraestructura turística e industrial.</li>
+      <li><span class="de-tl__year">2021</span> El <strong>7 de septiembre</strong>, un sismo de <strong>magnitud 7.1</strong> con epicentro a 14 km al sureste de Acapulco causa 14 fallecimientos a nivel nacional, activa las brigadas USAR y evidencia el riesgo latente de la Brecha de Guerrero.</li>
+      <li><span class="de-tl__year">2023</span> El <strong>25 de octubre</strong>, el <strong>Huracán Otis</strong> toca tierra en Acapulco como categoría 5 con vientos de 270 km/h —el más intenso en el Pacífico oriental mexicano—. Las estaciones operan 72 horas en autonomía total sin comunicación externa ni apoyo federal.</li>
+      <li><span class="de-tl__year">Hoy</span> El directorio reúne <strong>{ESTADISTICAS_GUERRERO.total_estaciones} estaciones</strong> con más de <strong>{ESTADISTICAS_GUERRERO.total_bomberos} bomberos</strong> especializados en rescate acuático, respuesta a huracanes, USAR sísmico, ARFF aeroportuario y protección de patrimonio colonial.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cómo se cubren las regiones de Guerrero</h3>
+    <p>
+      La cobertura se organiza en seis zonas con perfiles de riesgo radicalmente distintos: la costa
+      turística de Acapulco (la más poblada y la más expuesta a huracanes), la Costa Grande con sus
+      dos polos turísticos internacionales, la capital administrativa en el interior montañoso, el
+      corredor colonial del norte, la costa afromexicana hacia Oaxaca y la sierra indígena con las
+      comunidades más remotas. Esta es la distribución de cobertura por región:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios / ciudades</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.ciudades.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      Los bomberos de Guerrero son un servicio de emergencia integral. Más allá del fuego, sus
+      funciones cubren la totalidad del espectro de riesgos del estado:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Rescate acuático</h4><p>Rescate en mar abierto, bahías, lagunas y ríos a lo largo de los 500 km de litoral; embarcaciones en la Laguna de Coyuca, Bahía de Acapulco y Marina Ixtapa.</p></div>
+      <div class="de-card"><h4>Respuesta a huracanes</h4><p>Operaciones bajo vientos extremos, inundación urbana y escombro de alta masa; autonomía de 72 horas por estación. Protocolo diseñado tras la experiencia de Otis 2023.</p></div>
+      <div class="de-card"><h4>Búsqueda y rescate sísmico (USAR)</h4><p>Localización y extracción en estructuras colapsadas; capacidad USAR en Chilpancingo y Acapulco para el escenario de la Brecha de Guerrero.</p></div>
+      <div class="de-card"><h4>Rescate aeronáutico (ARFF)</h4><p>La estación del Aeropuerto Internacional de Acapulco cuenta con vehículos Oshkosh Striker y tiempo de respuesta de 3 minutos a cualquier punto de las pistas.</p></div>
+      <div class="de-card"><h4>Protección de patrimonio</h4><p>Técnicas especializadas para el centro histórico de Taxco (calles de 2.5 m, talleres de platería con LP y ácidos) y otros centros coloniales del norte.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria y prevención</h4><p>Soporte vital avanzado, atención bilingüe en zonas turísticas, inspecciones de riesgo, simulacros de evacuación por tsunami y capacitación hotelera.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático (mar y laguna)</strong></td><td>24/7</td><td>Estaciones costeras Acapulco, Zihu., Ixtapa, Pie de la Cuesta</td></tr>
+          <tr><td><strong>Respuesta a huracanes</strong></td><td>24/7</td><td>Costa: Acapulco, Costa Grande, Costa Chica</td></tr>
+          <tr><td><strong>Búsqueda y rescate urbano (USAR)</strong></td><td>24/7</td><td>Brigadas especializadas Acapulco y Chilpancingo</td></tr>
+          <tr><td><strong>Rescate y extinción aeronáutica (ARFF)</strong></td><td>24/7</td><td>Aeropuerto Internacional Acapulco</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>Acapulco Central, Chilpancingo</td></tr>
+          <tr><td><strong>Evacuación tsunami</strong></td><td>24/7</td><td>Estaciones costeras (protocolo conjunto con Marina y PC Estatal)</td></tr>
+          <tr><td><strong>Rescate en montaña y deslaves</strong></td><td>24/7</td><td>Tlapa, Altamirano, Chilpancingo</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Tlapa, Teloloapan, Chilpancingo Sur</td></tr>
+          <tr><td><strong>Atención prehospitalaria bilingüe</strong></td><td>24/7</td><td>Zona Dorada, Ixtapa, Diamante</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Guerrero: el estado con los tres escenarios de desastre de máxima categoría</h3>
+    <p>
+      El <strong>Huracán Otis</strong> pasó de categoría 1 a categoría 5 en menos de doce horas el 24
+      de octubre de 2023, rompiendo todos los modelos de predicción disponibles. Los bomberos de
+      Acapulco que estaban de guardia esa noche son las únicas personas en México con experiencia
+      directa en extinción e incendios y rescate estructural bajo los efectos simultáneos de un
+      ciclón de categoría 5 en zona de alta densidad turística. Los vientos de 270 km/h desprendían
+      voladizos de concreto de los hoteles de la Costera Miguel Alemán —escombro de alta masa e
+      impacto impredecible que los protocolos estándar de rescate en huracán no modelan—. Las olas
+      inundaron plantas bajas de hoteles con agua de mar mezclada con escombros. Las primeras
+      72 horas, cada estación operó de forma completamente autónoma: sin despacho central, sin
+      comunicación entre estaciones y con criterios de priorización decididos por el jefe de turno
+      desde el portón. La corporación incorporó ese período de autonomía forzada como premisa de
+      diseño permanente: cada estación debe ser independiente por al menos 72 horas.
+    </p>
+    <p>
+      La <strong>Brecha de Guerrero</strong> es un segmento de unos 230 km de la zona de subducción
+      costera que no ha liberado un gran evento sísmico desde 1911. Si la brecha se rompe en su
+      totalidad, el CENAPRED estima una magnitud de 8.2 a 8.4. El tiempo de arribo de la primera
+      ola de tsunami a la bahía de Acapulco en ese escenario puede ser de 8 a 15 minutos desde el
+      epicentro —menos que el tiempo de evacuación vehicular de la franja costera. El protocolo de
+      los bomberos en escenario sísmico-tsunami es estructuralmente diferente al de cualquier sismo
+      sin amenaza marítima: los primeros respondedores se dirigen hacia las <strong>rutas de
+      evacuación y los puntos de concentración por encima de la cota de 15 metros</strong> sobre el
+      nivel del mar, no hacia la costa. Ese protocolo se practica en ejercicios conjuntos con la
+      Marina Armada de México y el Sistema Estatal de Protección Civil.
+    </p>
+    <p>
+      El tercer frente es el <strong>turístico</strong>: Acapulco registró casi <strong>5.7 millones
+      de llegadas a establecimientos de hospedaje en 2023</strong> (fuente: INEGI/DATATUR), con
+      picos de 30,000 a 40,000 turistas simultáneos en la franja de la Costera en Semana Santa o
+      puentes largos. La zona Diamante y la Zona Dorada concentran más de 300 hoteles; la estación
+      del Aeropuerto atiende el tráfico aéreo de más de 1.2 millones de pasajeros anuales. Los
+      bomberos de Acapulco coordinan mensualmente con los equipos de seguridad de los principales
+      hoteles para actualizar planes de evacuación vertical, registros de huéspedes con movilidad
+      reducida y puntos de reunión sobre la cota de riesgo de tsunami.
     </p>
 
-    <h3>La Brecha de Guerrero: el sismo pendiente y por qué los bomberos no van hacia la costa cuando tiembla</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      La zona de subducción frente a las costas de Guerrero acumula energía tectónica sin haberla
-      liberado en un gran evento sísmico desde 1911. El CENAPRED y el Servicio Sismológico Nacional
-      han identificado este segmento como una de las brechas sísmicas más peligrosas de América
-      Latina, con potencial estimado de magnitud 8.4 a 8.6. En ese escenario, el tiempo de llegada
-      de la primera ola de tsunami a la bahía de Acapulco es de 8 a 12 minutos desde el epicentro
-      —menos que el tiempo de evacuación de los ocupantes de un hotel en primera línea de playa.
-      El protocolo de los bomberos para este escenario es estructuralmente diferente al de cualquier
-      sismo sin amenaza de tsunami: los primeros respondedores no se dirigen hacia la zona costera,
-      se dirigen hacia las rutas de evacuación y los puntos de concentración por encima de la cota
-      de inundación estimada (15 metros sobre el nivel del mar). La razón es operacional, no
-      preventiva: un bombero arrastrado por la ola es un recurso de rescate que deja de existir.
-      La corporación practica este protocolo en ejercicios conjuntos con la Marina Armada de México
-      y el Sistema Estatal de Protección Civil, porque la coordinación de mando entre fuerzas en
-      los 8 minutos disponibles requiere que todos conozcan de antemano qué fuerza hace qué cosa.
+      A partir de las estaciones publicadas en este directorio, así se distribuyen los recursos
+      del cuerpo de bomberos entre las seis grandes zonas del estado:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{ESTADISTICAS_GUERRERO.total_estaciones}</td>
+            <td>{ESTADISTICAS_GUERRERO.total_bomberos}</td>
+            <td>{ESTADISTICAS_GUERRERO.total_unidades}</td>
+            <td>6 zonas · {municipios.length} ciudades cubiertas · 500 km de litoral</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Guerrero</h3>
+    <p>
+      El primer reto es geográfico: Guerrero tiene una de las topografías más abruptas del país.
+      La Sierra Madre del Sur separa la costa del interior con pendientes que convierten distancias
+      de 80 km en recorridos de dos horas. En la región Montaña, algunas comunidades indígenas
+      están a más de una hora de la estación más cercana por terracería; la respuesta prehospitalaria
+      en esas condiciones obliga a contar con ambulancias rurales todo terreno y a coordinar con
+      las autoridades comunitarias antes de que llegue la unidad.
+    </p>
+    <p>
+      El segundo reto es la <strong>reconstrucción post-Otis</strong>. El Huracán Otis (2023)
+      destruyó o dañó parte de la infraestructura hotelera y urbana de Acapulco —incluidas
+      instalaciones de la propia corporación. La reposición de equipo destruido, la actualización
+      del parque vehicular con unidades capaces de operar bajo vientos de categoría 5 y el
+      mantenimiento de los <strong>protocolos de autonomía de 72 horas</strong> por estación
+      requieren inversión sostenida. A esto se suma el reto permanente de la
+      <strong>capacitación continua</strong> en cuatro especialidades simultáneas: rescate
+      acuático, USAR sísmico, respuesta a huracanes y protección de patrimonio colonial.
     </p>
 
-    <h3>Acapulco en temporada alta: 40,000 turistas, dos rutas de evacuación y la coordinación con 300 hoteles</h3>
+    <h3>Cultura de prevención: cómo proteger tu hogar y a los turistas en Guerrero</h3>
     <p>
-      El tramo de la Costera Miguel Alemán entre el Fuerte de San Diego y La Quebrada concentra
-      entre 30,000 y 40,000 turistas en temporada alta en una franja de 8 km de costa. En un
-      escenario de evacuación simultánea por sismo y alerta de tsunami, hay exactamente dos
-      rutas terrestres que ascienden desde la franja costera hasta el primer nivel de seguridad:
-      el eje Costera-Cuauhtémoc y el acceso a la Autopista del Sol. La capacidad vehicular de
-      ambas rutas en condiciones normales es insuficiente para el volumen de evacuación en el
-      tiempo disponible, lo que hace que la evacuación a pie hacia zonas elevadas sea el protocolo
-      principal —no el secundario. Los bomberos de Acapulco coordinan mensualmente con los equipos
-      de seguridad de más de 300 hoteles para actualizar los planes de evacuación vertical por
-      escaleras, los puntos de reunión sobre la cota de riesgo y los registros de huéspedes con
-      movilidad reducida que requieren asistencia prioritaria. Es el único municipio turístico de
-      México con un protocolo de evacuación tsunami coordinado activamente con la industria hotelera
-      en lugar de dejarlo como responsabilidad exclusiva del sistema de protección civil.
+      La emergencia más fácil de resolver es la que no ocurre. Los bomberos de Guerrero comparten
+      estas recomendaciones para residentes y visitantes en el estado:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Huracanes:</strong> sigue los avisos del Sistema Meteorológico Nacional con 48 horas de antelación; si hay orden de evacuación, no esperes a que el viento lo haga imposible. Los moteles y hoteles de zonas costeras tienen planes de refugio —conócelo al registrarte.</li>
+        <li><strong>Tsunami:</strong> ante un sismo fuerte en zona costera, no esperes alerta oficial: si el temblor dura más de 20 segundos y estás en la playa, dirígete de inmediato a pie hacia zonas elevadas (cota mínima 15 m). No regreses a la costa hasta que las autoridades lo declaren seguro.</li>
+        <li><strong>Gas:</strong> en hoteles, casas y talleres, revisa que las mangueras de LP no tengan grietas; si hueles gas, no acciones interruptores, abre ventanas, cierra la llave de paso y sal del inmueble antes de llamar al 911.</li>
+        <li><strong>Rescate acuático:</strong> respeta las banderas de alerta en las playas de Acapulco e Ixtapa-Zihuatanejo; la bandera roja indica prohibición de baño y los bomberos costeros no pueden rescatar a alguien en el agua en condiciones de oleaje extremo sin riesgo propio.</li>
+        <li><strong>Taxco:</strong> si estás en el centro histórico, localiza la salida al exterior antes de cualquier emergencia; los callejones estrechos con pendiente pueden convertirse en trampas en un incendio nocturno. El número de emergencias funciona igual: <strong>911</strong>.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enséñalo a quienes te acompañen; en zonas con red saturada, el 911 tiene prioridad sobre las llamadas ordinarias.</li>
+      </ul>
+    </div>
 
-    <h3>Taxco de Alarcón: 1,200 talleres de platería, gas LP en callejones de 2.5 metros y el inventario que hace posible la respuesta nocturna</h3>
-    <p>
-      Taxco de Alarcón procesa aproximadamente 40 toneladas de plata al año en más de 1,200 talleres
-      activos distribuidos en el tejido colonial del centro histórico. El riesgo de incendio en un
-      taller de platería no es el metal precioso: es la combinación de tanques de gas LP de 10 a 20
-      kilogramos en espacios de 20 a 30 metros cuadrados, ceras de pulido con punto de inflamación
-      de 160°C, ácidos de decapado que al entrar en contacto con el calor liberan SO₂, y disolventes
-      de acabado en recipientes abiertos. El centro histórico de Taxco tiene calles empedradas con
-      pendientes de hasta 18% y anchuras de 2.5 a 3.5 metros —insuficientes para una autobomba
-      estándar. La respuesta llega a pie desde la posición más cercana que permita estacionar en
-      una vialidad levemente más ancha, con mangueras de 1.5 pulgadas y extintores de polvo químico
-      seco portátiles para el gas LP. Lo que hace posible la respuesta nocturna en el laberinto de
-      callejones del centro histórico es un inventario operacional que la estación mantiene en
-      coordinación con los talleres: ubicación de los tanques LP, puntos de cierre de válvula, y
-      el teléfono del vecino del taller, porque en un incendio a las 2am en el callejón de los
-      plateros, el único que sabe cuántos cilindros tiene el taller contiguo es quien vive al lado.
+    <p class="de-srcnote">
+      Fuentes: Gobierno Municipal de Acapulco / Azteca Guerrero (historia del cuerpo de bomberos de
+      Acapulco: inicio de operaciones el 15 de diciembre de 1948, primera motobomba Mack); Wikipedia,
+      «Huracán Otis» (categoría 5, 25 oct 2023, vientos 270 km/h, 46 fallecidos al 31 oct según
+      Gobierno de Guerrero); CENAPRED, «Estudio de peligro por tsunami en la costa occidental de
+      México» (2023); SkyAlert / Temblor.net, «Brecha Sísmica de Guerrero» (magnitud estimada 8.2–8.4,
+      sin gran evento desde 1911); SSN / Wikipedia, «Terremoto de Guerrero de 2021» (M 7.1, 7 sep 2021,
+      epicentro 14 km al SE de Acapulco); INEGI/DATATUR, destinos con mayor número de llegadas a
+      alojamientos en México 2023 (Acapulco, ~5.7 M de llegadas). Las cifras de personal y unidades
+      por zona se calculan a partir de las estaciones publicadas en este directorio.
+      Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

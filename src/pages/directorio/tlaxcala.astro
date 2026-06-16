@@ -9,32 +9,196 @@ import {
 } from "@data/estaciones-tlaxcala";
 import { getEstadosVecinos } from "@data/estados-vecinos";
 import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estado = "Tlaxcala";
 const sigla = "TLA";
 const slug = "tlaxcala";
 
+const canonical = "https://bombero.mx/directorio/tlaxcala/";
+
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const municipios      = getMunicipios();
+const totalEstaciones = estacionesTlaxcala.length;
+const totalMunicipios = municipios.length;
+const totalBomberos   = estacionesTlaxcala.reduce((sum, e) => sum + (e.personalActivo ?? e.personal ?? 0), 0);
+const totalUnidades   = estacionesTlaxcala.reduce((sum, e) => sum + (e.unidades ?? 0), 0);
+
+// ── Comparativa regional ───────────────────────────────────────────────────
+const zonas = [
+  {
+    nombre: "Capital e histórica",
+    municipiosZona: ["Tlaxcala", "Ixtacuixtla", "Papalotla", "Tlaltelulco"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital del estado, Centro Histórico colonial (s. XVI), Xochitécatl-Cacaxtla y corredor Apizaco.",
+  },
+  {
+    nombre: "Corredor industrial norte",
+    municipiosZona: ["Apizaco", "Tetla"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Nodo ferroviario Ferromex, parque industrial con química/farmacéutica y sector textil.",
+  },
+  {
+    nombre: "Audi / automotriz",
+    municipiosZona: ["San José Chiapa"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Única planta Audi en América. HAZMAT automotriz, baterías HV y VOCs de pintura.",
+  },
+  {
+    nombre: "Textilera / conurbación Puebla",
+    municipiosZona: ["Chiautempan", "Zacatelco", "San Pablo del Monte", "Teolocholco"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Capital textilera nacional, fibras sintéticas, colorantes azo y zona metropolitana Puebla-Tlaxcala.",
+  },
+  {
+    nombre: "Oriente / La Malinche",
+    municipiosZona: ["Huamantla", "Tetlatlahuca"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Volcán La Malinche 4,461 msnm, rescate alta montaña, incendios forestales y heladas.",
+  },
+  {
+    nombre: "Noroeste / corredor 150D",
+    municipiosZona: ["Calpulalpan", "Tlaxco"],
+    cobertura: "Baja",
+    chip: "baja",
+    perfil: "Planta Grupo Modelo, HAZMAT NH₃/CO₂, autopista 150D y bosques pino-encino norte.",
+  },
+];
+
+const estadosVecinos = getEstadosVecinos("tlaxcala");
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Estaciones de Bomberos en ${estado}, México`,
+  description: `Directorio oficial de las ${totalEstaciones} estaciones de bomberos en Tlaxcala. Única planta Audi en las Américas (San José Chiapa), capital textilera de México (Chiautempan), Volcán La Malinche (4,461 msnm), Grupo Modelo Calpulalpan. Heroico Cuerpo de Bomberos fundado en febrero de 1982. Emergencias 911.`,
+  numberOfItems: estacionesTlaxcala.length,
+  itemListElement: estacionesTlaxcala.map((e, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "FireStation",
+      name: e.nombre,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: e.direccion,
+        addressLocality: e.municipio,
+        addressRegion: estado,
+        addressCountry: "MX",
+      },
+      telephone: e.telefono,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+    },
+  })),
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Tlaxcala: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de Tlaxcala: historia (1982–hoy), infraestructura en sus municipios, funciones, retos y directorio de estaciones con teléfonos directos. La Malinche, corredor Audi, Ferromex y zona textilera.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Tlaxcala",
+    "Protección Civil Tlaxcala",
+    "Rescate en alta montaña La Malinche",
+    "HAZMAT industrial Tlaxcala",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/tlaxcala.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": `Estaciones de Bomberos en Tlaxcala`,
+  "description": `Directorio verificado de las ${totalEstaciones} estaciones de bomberos en Tlaxcala, con teléfonos, cobertura, funciones e historia del Heroico Cuerpo de Bomberos fundado en 1982.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de Tlaxcala" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/tlaxcala.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Tlaxcala (≥10) ──────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Tlaxcala?",
+    a: `Marca el <strong>911</strong> desde cualquier teléfono en Tlaxcala para emergencias de bomberos, rescate o ambulancia. El número opera las 24 horas y despacha a la estación más cercana según tu ubicación. Las principales estaciones con guardia permanente son Tlaxcala capital (<strong>246 462 0100</strong>), Apizaco (<strong>241 418 0300</strong>), Huamantla (<strong>247 472 0500</strong>), Calpulalpan (<strong>591 922 0300</strong>) y Chiautempan (<strong>241 416 0200</strong>).`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de Tlaxcala?",
+    a: `El <strong>Heroico Cuerpo de Bomberos de Tlaxcala</strong>, adscrito a la Secretaría de Seguridad Ciudadana (SSC) del estado, fue fundado en <strong>febrero de 1982</strong>. Inició con una motobomba y una combi Volkswagen instalados en el Palacio de Gobierno; en octubre de 1982 recibió su primer camión de bomberos, bautizado <em>"Camaxtli"</em> (dios tlaxcalteca del fuego). En junio de 1985 se instaló oficialmente en el edificio diseñado para ello. En agosto de 2025 cumplió <strong>43 años de servicio ininterrumpido</strong>.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Conmemora la fundación del <strong>primer cuerpo de bomberos de México</strong> el 22 de agosto de 1873 en el puerto de Veracruz. Cada año, el Heroico Cuerpo de Bomberos de Tlaxcala celebra su aniversario institucional y se premia a los elementos con actos de valor y perseverancia en esa fecha.`,
+  },
+  {
+    q: "¿Qué riesgos industriales atienden los bomberos en Tlaxcala?",
+    a: `Tlaxcala concentra múltiples perfiles HAZMAT: <strong>automotriz premium</strong> en la planta Audi de San José Chiapa (disolventes, isocianatos, baterías de ión de litio de alta tensión); <strong>HAZMAT ferroviario</strong> en el nodo Ferromex de Apizaco (clorosulfúrico, ácidos, combustibles en tránsito); <strong>incendios textiles</strong> en Chiautempan (fibras sintéticas de alta propagación y colorantes azo que generan HCN y HCl al arder); y <strong>HAZMAT amoniaco/CO₂</strong> en la planta cervecera Grupo Modelo de Calpulalpan.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos emergencias en el Volcán La Malinche?",
+    a: `El Volcán La Malinche (Matlalcuéytl), con 4,461 msnm, exige rescate en alta montaña con equipo especializado para altitud, hipotermia y terreno volcánico. Los bomberos de <strong>Huamantla</strong> son la primera respuesta; Tetlatlahuca apoya en la ladera norte y San Pablo del Monte en la ladera sur. Por encima de 3,000 msnm, las autobombas pierden hasta un 30% de caudal, los SCBA duran 20–25% menos y la espuma mecánica sobreexpande, lo que exige recalibración operativa constante. El Parque Nacional La Malinche concentra más del 72% de los incendios forestales anuales del estado.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Tlaxcala?",
+    a: `Este directorio documenta <strong>${totalEstaciones} estaciones</strong> del Heroico Cuerpo de Bomberos de Tlaxcala, distribuidas en <strong>${totalMunicipios} municipios</strong> de los 60 que tiene el estado. La red está coordinada desde la Estación Central de Tlaxcala de Xicohténcatl con subestaciones estratégicas en Apizaco, Huamantla, Calpulalpan, Chiautempan, Tlaxco y otras localidades clave.`,
+  },
+  {
+    q: "¿Qué es el corredor industrial Puebla-Tlaxcala y cómo lo cubren los bomberos?",
+    a: `La <strong>Zona Metropolitana Puebla-Tlaxcala</strong> es la cuarta más poblada de México; 20 de sus municipios pertenecen a Tlaxcala. En el lado tlaxcalteca se concentra la planta Audi, parques industriales con automotriz, química, farmacéutica y textil, así como el corredor de carga de la autopista 150D. Las estaciones de Zacatelco, San Pablo del Monte, Teolocholco y Chiautempan coordinan de forma habitual con el Cuerpo de Bomberos de Puebla para emergencias en la franja conurbada.`,
+  },
+  {
+    q: "¿Cuáles son los servicios que prestan los bomberos en Tlaxcala?",
+    a: `Combate de <strong>incendios estructurales, forestales e industriales</strong>; <strong>rescate vehicular</strong> en autopistas y carreteras federales; <strong>rescate en alta montaña</strong> (La Malinche); <strong>materiales peligrosos (HAZMAT)</strong> automotriz, ferroviario, químico y cervecero; <strong>atención prehospitalaria</strong> y traslados; <strong>control de fugas de gas</strong>; <strong>rescate en espacios confinados</strong>; y <strong>prevención</strong> (inspecciones, simulacros y capacitación).`,
+  },
+  {
+    q: "¿Los bomberos de Tlaxcala tienen costo?",
+    a: `Las emergencias que comprometen la <strong>vida o la integridad</strong> de las personas se atienden de forma <strong>gratuita</strong>. Algunos servicios secundarios pueden tener cuota de recuperación según el municipio. La atención de emergencia nunca se condiciona a un pago. Llama al <strong>911</strong> en cualquier caso.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en fábricas textiles o industriales en Tlaxcala?",
+    a: `Mantén <strong>vías de escape libres</strong> y señalizadas; revisa periódicamente los <strong>sistemas eléctricos</strong> y de gas; instala <strong>detectores de humo y de gases tóxicos</strong> en talleres con colorantes azo; almacena fibras sintéticas separadas de fuentes de calor; capacita a tu brigada contraincendios conforme a las <strong>NOM de Protección Civil</strong>; y coordina con Protección Civil municipal tu plan de emergencia. Ante cualquier siniestro, llama al <strong>911</strong>.`,
+  },
+  {
+    q: "¿Qué ropa de protección usan los bomberos de Tlaxcala?",
+    a: `Según el tipo de emergencia, el personal del Heroico Cuerpo de Bomberos de Tlaxcala usa: <strong>traje estructural NFPA 1971</strong> para incendios en edificios, fábricas textiles y bodegas; <strong>traje HAZMAT</strong> de nivel A/B para el corredor automotriz Audi o las emergencias ferroviarias de Apizaco; y equipo de rescate en altura con casco técnico y arnés para operaciones en La Malinche. La altitud del volcán obliga a cilindros SCBA de mayor capacidad para compensar la mayor frecuencia respiratoria de los elementos.`,
+  },
+  {
+    q: "¿Cuándo son los incendios forestales en Tlaxcala?",
+    a: `La temporada crítica es de <strong>enero a mayo</strong>, con el pico en marzo y abril cuando coinciden las heladas nocturnas, los vientos del norte y la vegetación seca. El Parque Nacional La Malinche concentra el 72% de todos los siniestros forestales del estado. En 1998, el año más severo registrado, Tlaxcala documentó <strong>439 incendios que afectaron 8,855 hectáreas</strong>. Los bomberos de Huamantla, Tetlatlahuca y San Pablo del Monte coordinan con la CONANP y la CONAFOR para la respuesta en el parque.`,
+  },
+];
 
 const heroThumbs = [
-  { src: "/images/directorio/estacion-bomberos-moderna-01.avif", alt: "Estación Central de Bomberos Tlaxcala", label: "Respuesta Rápida" },
-  { src: "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif", alt: "Área de pesas y entrenamiento en estación de bomberos de Tlaxcala", label: "Entrenamiento Físico" },
-  { src: "/images/directorio/estacion-bomberos-equipada-01.avif", alt: "Rescate Volcán La Malinche Tlaxcala", label: "Servicio 24/7" },
+  { src: "/images/directorio/estacion-bomberos-moderna-01.avif", alt: "Estación Central de Bomberos Tlaxcala — fundada en 1982, 43 años de servicio", label: "Respuesta Rápida" },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-pesas-entrenamiento-01.avif", alt: "Área de entrenamiento en estación de bomberos de Tlaxcala", label: "Entrenamiento Físico" },
+  { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Rescate alta montaña Volcán La Malinche Tlaxcala 4461 msnm", label: "Alta Montaña" },
 ];
-
 
 const galleryImages = [
-  { src: "/images/directorio/estacion-bomberos-industrial-01.avif", alt: "HAZMAT automotriz planta Audi México",
-    label: "HAZMAT automotriz planta Audi México"
-  },
-  { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Rescate en alta montaña Volcán La Malinche",
-    label: "Rescate en alta montaña Volcán La"
-  },
-  { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Bomberos industria textil Chiautempan",
-    label: "Bomberos industria textil Chiautempan"
-  },
-  { src: "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif", alt: "Entrenamiento funcional en estación de bomberos de Tlaxcala", label: "Entrenamiento Funcional" },
+  { src: "/images/directorio/estacion-bomberos-industrial-01.avif", alt: "HAZMAT automotriz planta Audi México San José Chiapa Tlaxcala", label: "HAZMAT Audi México" },
+  { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Rescate en alta montaña Volcán La Malinche Tlaxcala 4,461 msnm", label: "Rescate La Malinche" },
+  { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Bomberos incendio textil Chiautempan fibras sintéticas Tlaxcala", label: "Incendio Textil" },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif", alt: "Entrenamiento funcional bomberos Tlaxcala preparación altitud La Malinche", label: "Entrenamiento Altitud" },
 ];
-
 
 const emergencyNumbers = [
   { label: "Emergencias", number: "911" },
@@ -45,56 +209,53 @@ const emergencyNumbers = [
   { label: "Bomberos Chiautempan", number: "241 416 0200" },
 ];
 
-
 const regiones = [
-  { nombre: "Corredor Audi", desc: "San José Chiapa (ÚNICA planta Audi Américas), proveedores Tier-1/Tier-2, Tlaltelulco" },
-  { nombre: "Capital Industrial", desc: "Apizaco (nodo ferroviario Ferromex), Tetla (farmacéutico), corredor logístico" },
-  { nombre: "Capital Textilera", desc: "Santa Ana Chiautempan (mayor concentración telares de México), Papalotla" },
-  { nombre: "Región Capital", desc: "Tlaxcala de Xicohténcatl (capital), Centro Histórico colonial, Ixtacuixtla" },
-  { nombre: "Oriente / La Malinche", desc: "Huamantla (volcán 4,461 msnm), San Pablo del Monte, Tetlatlahuca — rescate alta montaña" },
-  { nombre: "Noroeste / Autopista 150D", desc: "Calpulalpan (Grupo Modelo cervecería), corredor México-Puebla-Veracruz" },
+  { nombre: "Capital e histórica", desc: "Tlaxcala de Xicohténcatl (capital), Centro Histórico colonial s. XVI, Xochitécatl-Cacaxtla, Ixtacuixtla, Papalotla, Tlaltelulco" },
+  { nombre: "Corredor industrial norte", desc: "Apizaco (nodo ferroviario Ferromex), Tetla (química/farmacéutica), parque industrial, sector textil" },
+  { nombre: "Audi / automotriz", desc: "San José Chiapa (única planta Audi en América), proveedores Tier-1/Tier-2, HAZMAT automotriz premium" },
+  { nombre: "Textilera / conurbación Puebla", desc: "Santa Ana Chiautempan (mayor concentración telares de México), Zacatelco, San Pablo del Monte, Teolocholco" },
+  { nombre: "Oriente / La Malinche", desc: "Huamantla (volcán 4,461 msnm), Tetlatlahuca — rescate alta montaña, incendios forestales, heladas" },
+  { nombre: "Noroeste / Autopista 150D", desc: "Calpulalpan (Grupo Modelo), Tlaxco (bosques pino-encino) — HAZMAT NH₃/CO₂, corredor México-Puebla-Veracruz" },
 ];
-
 
 const eppCards = [
   {
     image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
-    imageAlt:  "Equipo HAZMAT para planta Audi en Tlaxcala",
+    imageAlt:  "Equipo HAZMAT automotriz planta Audi México San José Chiapa Tlaxcala",
     badge:     "Audi",
     title:     "HAZMAT Automotriz",
-    text:      "Equipos de protección para emergencias químicas en <strong>planta Audi y corredor industrial Puebla-Tlaxcala</strong>. Trajes y detectores certificados para la industria automotriz.",
+    text:      "Equipos de protección para emergencias químicas en <strong>planta Audi y corredor industrial Puebla-Tlaxcala</strong>. Trajes y detectores certificados para isocianatos, disolventes y baterías de ión de litio de alta tensión.",
     href:      "/productos/trajes-para-bomberos/traje-hazmat/",
     linkLabel: "Ver Equipos HAZMAT",
   },
   {
     image:     "/images/directorio/traje-bombero-estructural-nfpa-01.avif",
-    imageAlt:  "Traje estructural para incendios textiles en Tlaxcala",
+    imageAlt:  "Traje estructural NFPA 1971 para incendios textiles fibras sintéticas Chiautempan Tlaxcala",
     badge:     "Textil",
     title:     "Incendios Textiles",
-    text:      "Protección estructural para emergencias en <strong>fábricas textiles de Tlaxcala y Santa Ana Chiautempan</strong>. Trajes certificados para incendios con materiales sintéticos.",
+    text:      "Protección estructural para emergencias en <strong>fábricas textiles de Chiautempan y el corredor tlaxcalteca</strong>. Trajes certificados NFPA 1971 para incendios con fibras sintéticas de alta velocidad de propagación y gases azo.",
     href:      "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/",
     linkLabel: "Ver Trajes Estructurales",
   },
   {
     image:     "/images/directorio/rescate-montana-bomberos-01.avif",
-    imageAlt:  "Equipo de rescate en altura para La Malinche Tlaxcala",
+    imageAlt:  "Equipo de rescate en altura Volcán La Malinche Matlalcuéytl Tlaxcala 4461 msnm",
     badge:     "Montaña",
     title:     "Rescate Alta Montaña",
-    text:      "Sistemas de rescate vertical para emergencias en <strong>volcán La Malinche</strong> y zonas boscosas. Cuerdas técnicas y equipo de protección para alta montaña.",
+    text:      "Sistemas de rescate vertical y equipo SCBA de alta capacidad para operaciones en el <strong>Volcán La Malinche (4,461 msnm)</strong>. La altitud reduce el rendimiento del SCBA hasta un 25% y exige cilindros de mayor autonomía.",
     href:      "/productos/cascos-para-bomberos/",
     linkLabel: "Ver Equipo de Rescate",
   },
   {
     image:     "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
-    imageAlt:  "Autobomba para emergencias ferroviarias en Tlaxcala",
+    imageAlt:  "Autobomba para emergencias ferroviarias HAZMAT nodo Ferromex Apizaco Tlaxcala",
     badge:     "Ferroviario",
     title:     "HAZMAT Ferroviario",
-    text:      "Equipo especializado para emergencias en la <strong>red ferroviaria que cruza Tlaxcala</strong>. Protección HAZMAT para descarrilamientos con materiales peligrosos.",
+    text:      "Equipo especializado para emergencias en el <strong>nodo ferroviario Ferromex de Apizaco</strong>, punto de confluencia de rutas hacia Veracruz, el Bajío y el norte del país, con tránsito diario de carga clasificada bajo el sistema UN.",
     href:      "/productos/trajes-para-bomberos/traje-hazmat/",
     linkLabel: "Ver Equipos HAZMAT",
   },
 ];
-
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-profesional-01.avif",
@@ -139,148 +300,271 @@ const stationImages = [
   "/images/directorio/vestidor-bomberos-cascos-bandera-mexico-01.avif",
   "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif",
 ];
-
-const estadosVecinos = getEstadosVecinos("tlaxcala");
-
-
-const itemListSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de las ${estacionesTlaxcala.length} estaciones de bomberos en Tlaxcala. Única planta Audi en las Américas (San José Chiapa), capital textilera de México (Chiautempan), Volcán La Malinche (4,461 msnm), Grupo Modelo Calpulalpan. El estado más pequeño con la mayor densidad industrial. Emergencias 911.`,
-  numberOfItems: estacionesTlaxcala.length,
-  itemListElement: estacionesTlaxcala.map((e, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    item: {
-      "@type": "FireStation",
-      name: e.nombre,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: e.direccion,
-        addressLocality: e.municipio,
-        addressRegion: estado,
-        addressCountry: "MX",
-      },
-      telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
-    },
-  })),
-};
-
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Tlaxcala",         url: "/directorio/tlaxcala/" },
-]);
 ---
 
 <DirectorioEstadoLayout
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Tlaxcala</strong>.     El <strong>estado más pequeño de México</strong> (3,991 km²) y paradójicamente     el de <strong>mayor densidad industrial por km²</strong>: sede de la     <strong>única planta Audi en todo el continente americano</strong>,     capital textilera nacional, el Volcán La Malinche a 4,461 msnm     y la cervecería más grande del centro del país."
-  heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
-  heroImageAlt="Estación de Bomberos en Tlaxcala"
-  heroCaption="H. Cuerpo de Bomberos · Tlaxcala"
-  totalEstaciones={estacionesTlaxcala.length}
-  totalMunicipios={getMunicipios().length}
-  habitantes="1.3M+"
-  canonical="https://bombero.mx/directorio/tlaxcala/"
-  keywords={["bomberos tlaxcala", "estaciones bomberos tlaxcala", "emergencias tlaxcala 911"]}
   estado={estado}
   sigla={sigla}
   slug={slug}
-  estaciones={estacionesTlaxcala}
-  municipios={getMunicipios()}
-  heroThumbs={heroThumbs}
-  galleryImages={galleryImages}
-  emergencyNumbers={emergencyNumbers}
-  regiones={regiones}
-  eppCards={eppCards}
-  stationImages={stationImages}
-  estadosVecinos={estadosVecinos}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en Tlaxcala — Directorio`}
-  description="${estacionesTlaxcala.length} estaciones en Tlaxcala — La Malinche 4,461 msnm degrada bomba y SCBA, Ferromex Apizaco HAZMAT y fibras sintéticas Chiautempan. Emergencias: 911."
->
+  description={`Bomberos en Tlaxcala: ${totalEstaciones} estaciones, historia desde 1982, HAZMAT Audi y Ferromex en Apizaco, rescate alta montaña La Malinche (4,461 msnm) e incendios textiles Chiautempan. Emergencias: 911.`}
+  keywords={[
+    "bomberos tlaxcala",
+    "estaciones bomberos tlaxcala",
+    "emergencias tlaxcala 911",
+    "heroico cuerpo bomberos tlaxcala",
+    "telefono bomberos tlaxcala capital",
+    "bomberos apizaco hazmat ferroviario",
+    "rescate alta montana la malinche",
+    "bomberos chiautempan incendio textil",
+    "bomberos calpulalpan grupo modelo",
+    "hazmat audi mexico san jose chiapa",
+    "directorio bomberos tlaxcala municipios",
+    "incendios forestales parque nacional malinche",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
+  habitantes="1.3M+"
+
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Tlaxcala</strong>, fundado en <strong>febrero de 1982</strong> con una motobomba y una combi Volkswagen, es hoy una red de <strong>${totalEstaciones} estaciones</strong> que protege el estado más pequeño de México y paradójicamente uno de los de <strong>mayor densidad industrial por km²</strong>: la <strong>única planta Audi en toda América</strong> en San José Chiapa, el nodo ferroviario Ferromex de Apizaco, la capital textilera nacional en Chiautempan, la cervecería Grupo Modelo de Calpulalpan y el <strong>Volcán La Malinche a 4,461 msnm</strong>, donde la altitud recalibra cada herramienta que los bomberos llevan consigo.`}
+  heroImage="/images/directorio/estacion-bomberos-moderna-01.avif"
+  heroImageAlt="Estación de Bomberos en Tlaxcala — Heroico Cuerpo de Bomberos fundado en 1982"
+  heroCaption="H. Cuerpo de Bomberos · Tlaxcala · Desde 1982"
+  heroThumbs={heroThumbs}
+
+  galleryImages={galleryImages}
+
+  emergencyNumbers={emergencyNumbers}
+
+  municipios={municipios}
+
+  regiones={regiones}
+
+  estadosVecinos={estadosVecinos}
+
+  estaciones={estacionesTlaxcala}
+  stationImages={stationImages}
+
+  eppCards={eppCards}
+
+  ctaTitle="Equipamos al Heroico Cuerpo de Bomberos de Tlaxcala"
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones de bomberos de Tlaxcala. Experiencia en HAZMAT automotriz para el corredor Audi, trajes estructurales para incendios textiles y equipo de rescate para La Malinche. Atención en Tlaxcala y zona metropolitana Puebla-Tlaxcala.`}
+  ctaBtnText="Solicitar Cotización — Tlaxcala"
+
+  faqsEstado={faqsEstado}
+>
 
   <Fragment slot="seo">
 
-      <h2>Bomberos de Tlaxcala — La Altitud Recalcula Todo: Pump al 70%, Espuma Sobreexpandida y el Tren HAZMAT que Pasa por Apizaco Cada Noche</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Tlaxcala</strong> opera en el estado más pequeño de México
-        pero con una de sus mayores concentraciones industriales por kilómetro cuadrado: la única planta Audi
-        de todo el continente americano en el corredor San José Chiapa, el principal nodo ferroviario del
-        centro del país en Apizaco, la capital textilera nacional en Chiautempan y una de las tres cervecerías
-        más grandes de México en Calpulalpan, todo ello a la sombra del Volcán La Malinche a 4,461 msnm,
-        donde la altitud no es solo un reto físico para los bomberos sino un recalibrador permanente
-        de cada herramienta que traen consigo.
-      </p>
+    <h2>Bomberos en Tlaxcala</h2>
 
-      <h3>¿Cómo llamar a los bomberos en Tlaxcala?</h3>
-      <p>
-        Marca <strong>911</strong> desde cualquier teléfono en Tlaxcala para emergencias de bomberos,
-        rescate o ambulancia. El número opera las 24 horas del día y despacha a la estación más
-        cercana según ubicación. Las estaciones de Tlaxcala capital, Apizaco, Huamantla,
-        Calpulalpan y Chiautempan mantienen guardia permanente.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Tlaxcala">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Bomberos (directorio)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalUnidades}</span><span class="de-stat__label">Unidades</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1982</span><span class="de-stat__label">Año de fundación</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">4,461 m</span><span class="de-stat__label">Cota máx. La Malinche</span></div>
+    </div>
 
-      <h3>La Malinche 4,461 msnm — Altitud que Degrada Bomba, Espuma y SCBA Simultáneamente</h3>
-      <p>
-        El Volcán La Malinche no es el escenario más alto de México, pero sí el más instructivo para
-        la doctrina de incendios de altura: cuando los bomberos de Huamantla responden a incendios
-        forestales por encima de los 3,000 msnm, cada herramienta trabaja con una fracción de su
-        capacidad nominal. Los motores de combustión interna pierden aproximadamente 3% de potencia
-        por cada 300 metros sobre los 900 msnm, lo que significa que una autobomba diseñada para
-        operar a plena presión al nivel del mar llega al flanco del volcán con cerca del 70% de su
-        caudal efectivo. La espuma mecánica, a menor presión atmosférica, sobreexpande alterando la
-        relación agua-aire de la solución y reduciendo la eficacia del film acuoso supresor. Los
-        cilindros de SCBA, con el mismo volumen de aire comprimido, duran entre un 20 y 25% menos
-        porque el organismo eleva su frecuencia respiratoria para mantener saturación de oxígeno.
-        El incendio de 1999 en La Malinche, que consumió más de 10,000 hectáreas de bosque templado,
-        fue la primera gran lección colectiva sobre este fenómeno multi-variable de altitud para
-        los cuerpos de bomberos del centro de México.
-      </p>
+    <p class="de-lead">
+      El <strong>Heroico Cuerpo de Bomberos de Tlaxcala</strong> opera en el estado más pequeño de México
+      —3,991 km²— pero con una de las mayores densidades industriales por kilómetro cuadrado del país:
+      la única planta de fabricación de automóviles Audi en todo el continente americano, el nodo
+      ferroviario más activo del centro del país, la capital textilera nacional, una de las tres cervecerías
+      más grandes de México y, al oriente, el Volcán La Malinche a 4,461 msnm, donde la altitud no es solo
+      un desafío físico sino un recalibrador permanente de cada herramienta que los bomberos llevan consigo.
+    </p>
 
-      <h3>Apizaco — El Nodo Ferroviario donde Ferromex No Tiene Terminal de Descarga HAZMAT</h3>
-      <p>
-        Apizaco concentra la confluencia de las rutas ferroviarias que unen la Ciudad de México con
-        Veracruz, el Bajío con el Golfo y el corredor norte-sur del sistema ferroviario nacional.
-        Cada jornada, decenas de convoyes Ferromex transitan por el municipio con carga clasificada
-        bajo el sistema UN: clorosulfúrico, ácidos industriales, gases comprimidos a alta presión,
-        combustibles y petroquímicos. El desafío específico de Apizaco es que no existe una terminal
-        de descarga de emergencia ni un área de confinamiento temporal: una fuga o descarrilamiento
-        con carga peligrosa ocurre sobre las vías en tránsito, a metros de colonias densamente
-        pobladas, sin posibilidad de trasladar el vagón a zona segura en tiempos operativos.
-        Los bomberos de Apizaco son los únicos en Tlaxcala certificados para respuesta a accidentes
-        ferroviarios con protocolos directos de coordinación con Ferromex.
-      </p>
+    <h3>Cómo contactar a los bomberos en Tlaxcala</h3>
+    <p>
+      En cualquier emergencia, marca <strong>911</strong> desde cualquier teléfono: el sistema opera las
+      24 horas y despacha a la estación con menor tiempo de respuesta según tu ubicación. Los teléfonos
+      directos de las principales estaciones son: Tlaxcala capital (<strong>246 462 0100</strong>),
+      Apizaco (<strong>241 418 0300</strong>), Huamantla (<strong>247 472 0500</strong>),
+      Calpulalpan (<strong>591 922 0300</strong>) y Chiautempan (<strong>241 416 0200</strong>).
+      Encuentra todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Santa Ana Chiautempan — Fibras Sintéticas 5-10× Madera y los Gases del Tinte Azo que No Se Ven</h3>
-      <p>
-        Santa Ana Chiautempan concentra más de 500 empresas textileras con la mayor densidad de
-        telares industriales de México. La particularidad de estos incendios es doble: las fibras
-        sintéticas — fundamentalmente poliéster, nylon y acrílico — propagan el fuego entre
-        cinco y diez veces más rápido que la madera estructural, lo que reduce el tiempo efectivo
-        de intervención antes de flashover a menos de tres minutos en bodegas de mediano tamaño.
-        Simultáneamente, los colorantes azo utilizados en los baños de tintura industrial, al
-        alcanzar temperaturas superiores a 400°C, liberan cloruro de hidrógeno y cianuro de
-        hidrógeno: dos agentes tóxicos incoloros e inodoros en bajas concentraciones que producen
-        efecto agudo antes de que el bombero perciba síntoma alguno si ingresa sin SCBA.
-      </p>
+    <h3>Historia del Heroico Cuerpo de Bomberos de Tlaxcala</h3>
+    <p>
+      La corporación tlaxcalteca nació con pocos recursos y creció sobre un escenario industrial que se
+      transformó radicalmente en cuatro décadas. Estos son los hitos verificados que explican su evolución:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México. La fecha se conmemora como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1982</span> En <strong>febrero</strong>, el gobierno del estado crea el <strong>Heroico Cuerpo de Bomberos de Tlaxcala</strong>, adscrito a la SSC. Inicia con una motobomba y una combi Volkswagen en el Palacio de Gobierno. En octubre recibe su primer camión, bautizado <em>"Camaxtli"</em> —dios tlaxcalteca del fuego, la caza y la esperanza.</li>
+      <li><span class="de-tl__year">1984</span> La estación se traslada a un local en el <strong>Centro Expositor</strong> de la capital para ganar espacio operativo.</li>
+      <li><span class="de-tl__year">1985</span> En junio, los bomberos se instalan en el <strong>edificio diseñado para ellos</strong>, marcando el inicio de su etapa institucional formal.</li>
+      <li><span class="de-tl__year">1998</span> El año más severo en incendios forestales del estado: <strong>439 siniestros que afectaron 8,855 hectáreas</strong>, el 10% de la superficie del estado, con el Parque Nacional La Malinche como zona más castigada. La experiencia impulsa la especialización en rescate forestal de alta altitud.</li>
+      <li><span class="de-tl__year">2013</span> Se coloca la primera piedra de la <strong>planta Audi en San José Chiapa</strong>. Tres años de obras obligan a preparar una estación con capacidad HAZMAT automotriz de clase mundial.</li>
+      <li><span class="de-tl__year">2016</span> El <strong>30 de septiembre</strong> se inaugura la <strong>planta Audi México</strong> con una inversión de 1,300 millones de dólares; desde ese momento opera la estación de San José Chiapa, la más especializada en HAZMAT automotriz de Tlaxcala.</li>
+      <li><span class="de-tl__year">2025</span> El 22 de agosto la corporación celebra su <strong>43.º aniversario</strong> con más de 1,500 servicios atendidos en el año y 70 elementos con licencia tipo "E" para operar unidades de emergencia.</li>
+    </ul>
 
-      <h3>Grupo Modelo Calpulalpan — Amoníaco Industrial, CO₂ de Fermentación y la Autopista 150D al Lado</h3>
-      <p>
-        La planta cervecera de Calpulalpan produce más de 10 millones de hectolitros anuales y
-        presenta dos riesgos que operan por mecanismos distintos. El amoníaco de los sistemas de
-        refrigeración industrial puede alcanzar 50 partes por millón en menos de dos minutos tras
-        una ruptura de manguera, umbral a partir del cual provoca irritación severa de vías
-        respiratorias y puede ser letal en exposición prolongada. El dióxido de carbono producido
-        durante la fermentación se acumula en cisternas y espacios confinados sin olor ni color,
-        desplazando el oxígeno disponible y convirtiendo el rescate de personal en una operación
-        encubierta de alto riesgo. La autopista México 150D, el corredor de carga más denso del
-        centro del país, bordea el municipio y añade el riesgo permanente de accidentes con
-        camiones cisterna que transportan materiales industriales.
-      </p>
+    <h3>Infraestructura de emergencia: cómo se cubren los municipios de Tlaxcala</h3>
+    <p>
+      La cobertura de las estaciones se organiza en seis zonas con perfiles de riesgo muy distintos: desde
+      la capital histórica hasta el corredor automotriz, el nodo ferroviario, la capital textilera, el
+      rescate volcánico y los bosques del norte. Esta es la distribución:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios principales</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipiosZona.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los bomberos en Tlaxcala</h3>
+    <p>
+      El cuerpo de bomberos de Tlaxcala es un servicio de emergencia integral. Sus funciones centrales son:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, forestales, industriales y de pasto; protección del Centro Histórico colonial y zonas arqueológicas.</p></div>
+      <div class="de-card"><h4>Rescate en alta montaña</h4><p>Localización y extracción de montañistas en el Volcán La Malinche (4,461 msnm), con equipo para hipotermia, terreno volcánico y nieve.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Respuesta a emergencias en industria automotriz, ferroviaria, textil, química y cervecera con protocolos específicos por sector.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en accidentes en autopista 150D, carreteras federales y corredores industriales, una de las demandas más frecuentes.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Estabilización y soporte vital a lesionados en coordinación con servicios médicos, especialmente en zonas de difícil acceso.</p></div>
+      <div class="de-card"><h4>Prevención e inspección</h4><p>Dictámenes de riesgo, simulacros y capacitación a empresas del sector industrial, textil y automotriz del estado.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>24/7 (crítico ene–may)</td><td>Huamantla, Tlaxco, San Pablo del Monte, Tetlatlahuca</td></tr>
+          <tr><td><strong>Rescate en alta montaña</strong></td><td>24/7</td><td>Huamantla (La Malinche), Tetlatlahuca, San Pablo del Monte</td></tr>
+          <tr><td><strong>HAZMAT automotriz</strong></td><td>24/7</td><td>San José Chiapa — Audi México</td></tr>
+          <tr><td><strong>HAZMAT ferroviario</strong></td><td>24/7</td><td>Apizaco — nodo Ferromex</td></tr>
+          <tr><td><strong>HAZMAT textil / azo-colorantes</strong></td><td>24/7</td><td>Chiautempan</td></tr>
+          <tr><td><strong>HAZMAT amoniaco / CO₂</strong></td><td>24/7</td><td>Calpulalpan — Grupo Modelo</td></tr>
+          <tr><td><strong>Rescate vehicular</strong></td><td>24/7</td><td>Todas las estaciones; especializado en autopista 150D (Calpulalpan)</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia ALS (Tlaxcala, Apizaco, Huamantla)</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>La Malinche, el corredor Audi, Ferromex y la industria textil: cuatro frentes sin paralelo en México</h3>
+    <p>
+      El Volcán La Malinche no es el más alto de México, pero sí uno de los más instructivos para la doctrina
+      de bomberos de altitud. Cuando el personal de Huamantla responde a incendios forestales por encima de
+      los 3,000 msnm, cada herramienta trabaja a una fracción de su capacidad nominal: los motores de
+      combustión pierden aproximadamente un 3% de potencia por cada 300 metros sobre los 900 msnm, la espuma
+      mecánica sobreexpande por la menor presión atmosférica y los cilindros de SCBA duran entre un 20 y un
+      25% menos porque el organismo eleva su frecuencia respiratoria para mantener saturación de oxígeno.
+      El año 1998, el más severo en incendios forestales de Tlaxcala con <strong>439 siniestros y 8,855
+      hectáreas afectadas</strong>, fue la primera gran lección colectiva sobre este fenómeno multi-variable
+      para los cuerpos de bomberos del centro de México.
+    </p>
+    <p>
+      En Apizaco, el nodo ferroviario Ferromex une el Pacífico con el Golfo, la Ciudad de México con Veracruz
+      y el norte con el sureste. Cada jornada, convoyes con carga clasificada bajo el sistema UN —clorosulfúrico,
+      ácidos industriales, gases comprimidos y combustibles— transitan por el municipio sin terminal de
+      descarga de emergencia ni área de confinamiento temporal. Una fuga o descarrilamiento ocurre sobre las
+      vías en tránsito, a metros de colonias densamente pobladas. En Santa Ana Chiautempan, las fibras
+      sintéticas de las más de 500 fábricas textileras propagan el fuego entre cinco y diez veces más rápido
+      que la madera, y los colorantes azo, al superar los 400 °C, liberan cloruro de hidrógeno y cianuro de
+      hidrógeno —incoloros e inodoros en bajas concentraciones— antes de que el bombero perciba síntoma
+      alguno sin SCBA. En Calpulalpan, el amoniaco de la refrigeración industrial de Grupo Modelo puede
+      alcanzar 50 partes por millón en menos de dos minutos tras una ruptura, y el CO₂ de los tanques de
+      fermentación desplaza el oxígeno en espacios confinados sin olor ni señal visible.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de los datos de las estaciones registradas en este directorio, así se distribuyen los recursos
+      del cuerpo de bomberos entre las grandes zonas de Tlaxcala. Las cifras de personal y unidades
+      corresponden a las estaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => {
+            const est = estacionesTlaxcala.filter(e =>
+              z.municipiosZona.includes(e.municipio ?? "")
+            );
+            return (
+              <tr>
+                <td><strong>{z.nombre}</strong></td>
+                <td>{est.length}</td>
+                <td>{z.perfil}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalMunicipios} municipios de Tlaxcala</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Tlaxcala</h3>
+    <p>
+      El principal reto es de escala y especialización simultánea. Tlaxcala tiene el menor territorio de
+      México, pero en ese territorio coexisten cuatro perfiles HAZMAT completamente distintos —automotriz,
+      ferroviario, textil y cervecero— que exigen certificaciones, equipos y protocolos propios para cada
+      uno. Mantener la capacidad HAZMAT actualizada en los cuatro frentes con los presupuestos disponibles
+      es una tensión permanente para la corporación.
+    </p>
+    <p>
+      El segundo reto es la altitud. La Malinche obliga a la estación de Huamantla a operar en condiciones
+      que ningún manual estándar prevé para un estado de apenas 3,991 km²: equipo de rescate en nieve y
+      hielo, SCBA de mayor autonomía para compensar la altitud, vehículos 4x4 para terreno volcánico y
+      tiempos de respuesta que en la cumbre pueden extenderse a 90 minutos. La coordinación con la CONANP
+      y la CONAFOR para los incendios forestales del parque nacional es un tercer eje de trabajo continuo
+      durante la temporada seca, que concentra el 72% de los siniestros anuales del estado en el Parque
+      Nacional La Malinche.
+    </p>
+
+    <h3>Cultura de prevención: cómo proteger tu hogar e industria en Tlaxcala</h3>
+    <p>
+      Las emergencias más fáciles de atender son las que no ocurren. Estas son las recomendaciones del
+      Heroico Cuerpo de Bomberos de Tlaxcala para la población y las industrias del estado:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas LP e industrial:</strong> revisa mangueras, reguladores y conexiones; si detectas fuga, no acciones interruptores, cierra la llave de paso, ventila y evacúa el inmueble antes de llamar al 911.</li>
+        <li><strong>Instalación eléctrica:</strong> no sobrecargues contactos; en talleres textiles, revisa el estado de los tableros y las conexiones de los telares con un electricista certificado.</li>
+        <li><strong>Industria textil:</strong> almacena fibras sintéticas separadas de fuentes de calor; instala detectores de gases en zonas de tintura con colorantes azo; entrena tu brigada conforme a las NOM.</li>
+        <li><strong>HAZMAT:</strong> elabora y actualiza tu plan de respuesta a emergencias con materiales peligrosos en coordinación con Protección Civil municipal; capacita al personal de primera respuesta interna.</li>
+        <li><strong>La Malinche:</strong> en temporada de estiaje (ene–may) no enciendas fogatas en el parque; avisa a los guardabosques de cualquier humo visible en las laderas.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enséñalo a niñas, niños y trabajadores como la primera acción ante cualquier emergencia.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Gobierno del Estado de Tlaxcala, Secretaría de Seguridad Ciudadana —comunicado oficial
+      «Celebran 41 años de servicio del Heroico Cuerpo de Bomberos en Tlaxcala» (agosto 2023); El Sol de
+      Tlaxcala, «Cumple Central de Bomberos 43 años de servicio ininterrumpido en Tlaxcala» (agosto 2025);
+      Protección Civil del Estado de Tlaxcala, Programa de Incendios Forestales 2014 (datos históricos
+      1998: 439 incendios, 8,855 hectáreas); Audi México, nota de prensa inauguración planta San José
+      Chiapa 30 de septiembre de 2016; Zona Metropolitana Puebla-Tlaxcala (SEDATU/CONAPO/INEGI).
+      Las cifras de personal y unidades por región se calculan a partir de las estaciones publicadas en
+      este directorio. Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
   </Fragment>
 </DirectorioEstadoLayout>
-

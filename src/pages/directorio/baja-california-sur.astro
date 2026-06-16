@@ -3,24 +3,45 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesBajaCaliforniaSur, getMunicipios, getEstadisticas } from "@data/estaciones-baja-california-sur";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("baja-california-sur");
 
 const municipios   = getMunicipios();
 const estadisticas = getEstadisticas();
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Baja California Sur",    url: "/directorio/baja-california-sur/" },
-]);
+const canonical = "https://bombero.mx/directorio/baja-california-sur/";
 
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const totalEstaciones = estacionesBajaCaliforniaSur.length;
+const totalPersonal   = estacionesBajaCaliforniaSur.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0);
+const totalUnidades   = estacionesBajaCaliforniaSur.reduce((s, e) => s + (e.unidades ?? 0), 0);
+
+// ── Comparativa regional por municipio ─────────────────────────────────────
+const zonasDef = [
+  { nombre: "Los Cabos",    municipios: ["Los Cabos"],    cobertura: "Total", chip: "total", perfil: "Cabo San Lucas · San José del Cabo · Corredor Turístico · 3M+ turistas anuales." },
+  { nombre: "La Paz",       municipios: ["La Paz"],       cobertura: "Alta",  chip: "alta",  perfil: "Capital del estado · Bahía de La Paz · rescate acuático Mar de Cortés." },
+  { nombre: "Loreto",       municipios: ["Loreto"],       cobertura: "Media", chip: "media", perfil: "Pueblo Mágico · Parque Nacional Bahía de Loreto (UNESCO) · islas remotas." },
+  { nombre: "Comondú",      municipios: ["Comondú"],      cobertura: "Media", chip: "media", perfil: "Ciudad Constitución · Valle de Santo Domingo · Puerto San Carlos (ballena gris)." },
+  { nombre: "Mulegé",       municipios: ["Mulegé"],       cobertura: "Baja",  chip: "baja",  perfil: "Santa Rosalía · patrimonio Eiffel · ferry Guaymas · mayor stock de madera histórica." },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesBajaCaliforniaSur.filter((e) => z.municipios.includes(e.municipio ?? ""));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Baja California Sur, México",
-  "description": "Directorio oficial de las 6 estaciones de bomberos en Baja California Sur. Teléfonos directos en La Paz, Los Cabos, Cabo San Lucas, Loreto y Santa Rosalía. Cobertura 24/7. Emergencias: llama al 911.",
+  "description": `Directorio verificado de las ${totalEstaciones} estaciones de bomberos en Baja California Sur. Teléfonos directos en La Paz, Los Cabos, Cabo San Lucas, Loreto y Santa Rosalía. Cobertura 24/7. Emergencias: llama al 911.`,
   "numberOfItems": estacionesBajaCaliforniaSur.length,
   "itemListElement": estacionesBajaCaliforniaSur.map((e, i) => ({
     "@type": "ListItem",
@@ -31,7 +52,7 @@ const itemListSchema = {
       "address": {
         "@type": "PostalAddress",
         "streetAddress": e.direccion,
-        "addressLocality": e.municipio || e.ciudad,
+        "addressLocality": e.municipio ?? e.ciudad,
         "addressRegion": "Baja California Sur",
         "addressCountry": "MX",
       },
@@ -41,6 +62,92 @@ const itemListSchema = {
   }))
 };
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Baja California Sur: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de Baja California Sur: historia (1959–hoy), infraestructura en los 5 municipios, rescate acuático, huracanes y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de La Paz",
+    "Bomberos Baja California Sur",
+    "Rescate acuático Mar de Cortés",
+    "Emergencias turísticas Los Cabos",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/baja-california-sur.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Baja California Sur",
+  "description": `Directorio verificado de las ${totalEstaciones} estaciones de bomberos en los 5 municipios de Baja California Sur, con teléfonos directos, cobertura, funciones e historia del Heroico Cuerpo de Bomberos.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de La Paz, Baja California Sur" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/baja-california-sur.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Baja California Sur (≥10) ────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Baja California Sur?",
+    a: `Marca el <strong>911</strong>, número único disponible las 24 horas en todo el estado. El sistema enruta la llamada a la unidad más cercana. En La Paz el número directo es 612 122 0054; en Cabo San Lucas 624 143 3577; en San José del Cabo 624 142 2466; en Loreto 613 135 0059; en Ciudad Constitución 613 132 0303; y en Santa Rosalía 615 152 0050. En emergencias en mar abierto, el 911 coordina también con la Armada de México.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de La Paz?",
+    a: `El Heroico Cuerpo de Bomberos de La Paz fue fundado en <strong>1959</strong> y celebra su aniversario en agosto. En 2025 conmemoró su 66° aniversario. El <strong>Día del Bombero en México</strong> se celebra el <strong>22 de agosto</strong>, fecha que conmemora la fundación del primer cuerpo de bomberos del país en Veracruz en 1873.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Baja California Sur?",
+    a: `Este directorio reúne <strong>${totalEstaciones} estaciones</strong> activas en los <strong>${estadisticas.totalMunicipios} municipios</strong> de Baja California Sur, con un total de <strong>${totalPersonal} bomberos</strong> y <strong>${totalUnidades} unidades</strong>: La Paz (Estación Central), San José del Cabo, Cabo San Lucas, Loreto, Ciudad Constitución y Santa Rosalía.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en Baja California Sur?",
+    a: `Combate de <strong>incendios estructurales y forestales</strong>, <strong>rescate acuático</strong> en el Mar de Cortés y playas de alto riesgo, <strong>rescate vehicular</strong> en la Carretera Transpeninsular, <strong>atención prehospitalaria</strong>, control de <strong>materiales peligrosos (HAZMAT)</strong>, emergencias en <strong>embarcaciones y puertos</strong>, evacuaciones por <strong>huracanes</strong> y operaciones de rescate en <strong>islas remotas</strong> del Parque Nacional Bahía de Loreto.`,
+  },
+  {
+    q: "¿Cómo respondieron los bomberos de BCS al huracán Odile en 2014?",
+    a: `El huracán Odile tocó tierra en Cabo San Lucas el 14 de septiembre de 2014 como categoría 3, causando daños por aproximadamente <strong>16.6 mil millones de pesos</strong>. Las estaciones de Los Cabos coordinaron la evacuación de <strong>38,000 turistas</strong>, incluyendo 26,000 extranjeros, mediante un puente aéreo organizado con la Fuerza Aérea Mexicana hacia Guadalajara, Tijuana y Ciudad de México. Los bomberos operaron con comunicaciones cortadas y la Transpeninsular bloqueada.`,
+  },
+  {
+    q: "¿Por qué Baja California Sur tiene un riesgo especial de huracanes?",
+    a: `De acuerdo con la Conagua, <strong>Baja California Sur es el estado con mayor incidencia ciclónica de México</strong> en los últimos 60 años, con más de 170 ciclones tropicales en el Pacífico y un promedio de tres por año, además de alrededor de 50 impactos directos desde 1964. La posición del extremo peninsular, entre el Pacífico y el Mar de Cortés, la convierte en el destino más frecuente de las trayectorias ciclónicas del Pacífico mexicano.`,
+  },
+  {
+    q: "¿Qué hace especial el rescate acuático en La Paz y el Mar de Cortés?",
+    a: `El Mar de Cortés, llamado «el acuario del mundo» por Jacques Cousteau, combina <strong>corrientes de marea intensas</strong> entre islas, temperaturas de 14 a 20 °C en invierno y <strong>cobertura celular prácticamente nula</strong> en la mayoría de sus islas. Los buceadores y kayakistas que visitan Espíritu Santo, Los Islotes (colonia de lobos marinos) y La Ballena pueden perderse sin señal GPS. La estación de La Paz mantiene <strong>equipos de buceo y embarcaciones de respuesta rápida</strong> todo el año para este tipo de emergencias.`,
+  },
+  {
+    q: "¿Qué es la Iglesia de Santa Bárbara en Santa Rosalía y por qué representa un riesgo de incendio?",
+    a: `La Iglesia de Santa Bárbara fue <strong>diseñada por Gustave Eiffel</strong> en 1884 como prototipo de iglesia para colonias tropicales. La compró la Compagnie du Boleo en 1894 en Bruselas y la instaló en Santa Rosalía en 1897, siendo la <strong>única estructura diseñada por Eiffel en México</strong>. Está construida en hierro galvanizado, pero el centro histórico de Santa Rosalía concentra el <strong>mayor stock de edificios de madera del país</strong> —traídos prefabricados de Francia por El Boleo desde 1885—, lo que genera un riesgo de propagación de incendio muy alto en el clima desértico.`,
+  },
+  {
+    q: "¿Qué cubre la estación de bomberos de Loreto?",
+    a: `La estación de Loreto cubre el <strong>Parque Nacional Bahía de Loreto</strong> (Patrimonio Natural de la Humanidad UNESCO), que incluye islas como Coronado, Carmen y Danzante accesibles exclusivamente por embarcación. También protege la <strong>Misión de Nuestra Señora de Loreto</strong> (1697), la más antigua de las Californias, y atiende emergencias en la Sierra de la Giganta. Los rescates en islas pueden tomar de 30 a 60 minutos en llegar.`,
+  },
+  {
+    q: "¿Por qué la Carretera Transpeninsular representa un reto para los bomberos de BCS?",
+    a: `La <strong>Carretera Federal 1 Transpeninsular</strong> es la única vía terrestre de la península, con 1,125 km sin vía alterna entre La Paz y Los Cabos. Un accidente en el tramo norte puede quedar a más de <strong>400 km del hospital más cercano</strong> con capacidad quirúrgica. Las estaciones de Ciudad Constitución, Loreto y Santa Rosalía operan como <strong>primer respondiente médico extendido</strong>, con capacidad de manejo de vía aérea avanzada, dado que el traslado supera la «hora de oro». En temporada de huracanes, derrumbes e inundaciones pueden seccionar la carretera, aislando cada tramo como un corredor autónomo.`,
+  },
+  {
+    q: "¿Cómo atienen los bomberos de BCS las emergencias en playas de alto riesgo de Los Cabos?",
+    a: `Las playas de Divorce Beach (Playa del Divorcio) y Playa del Amor en Cabo San Lucas son conocidas por las <strong>corrientes del Pacífico extremadamente peligrosas</strong> que señalan todos los mapas de riesgo. Las unidades de Cabo San Lucas disponen de <strong>lanchas de rescate de 30 pies y motos acuáticas</strong> para intervenir con rapidez. En temporada alta, cuando los cruceros aportan hasta 5,000 pasajeros diarios, la demanda de rescate acuático aumenta significativamente.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir emergencias si viajo como turista a Baja California Sur?",
+    a: `Guarda el <strong>911</strong> en tu teléfono antes de salir. En playas: respeta las banderas de advertencia y no nades en Divorce Beach ni Playa del Amor sin supervisión. En buceo y kayak: registra tu ruta con el dive master o guía y lleva un localizador de emergencia (PLB o EPIRB). En ruta por la Transpeninsular: informa tu itinerario, lleva agua y combustible extra, y evita conducir de noche. Durante temporada de huracanes (junio–noviembre): sigue las instrucciones de Protección Civil y del hotel para evacuación.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-maritimo-01.avif",
@@ -105,7 +212,7 @@ const stationImages = [
   estado="Baja California Sur"
   sigla="BCS"
   slug="baja-california-sur"
-  description={`${estadisticas.totalEstaciones} estaciones en BCS — 1,200 km peninsulares, huracán Odile Los Cabos, Santa Rosalía Eiffel UNESCO Loreto y 3M turistas. Emergencias: 911.`}
+  description={`Bomberos en BCS: ${totalEstaciones} estaciones en los 5 municipios, teléfonos directos, rescate acuático Mar de Cortés, huracanes y Patrimonio UNESCO. Emergencias: 911.`}
   keywords={[
     "bomberos baja california sur",
     "estaciones bomberos la paz",
@@ -123,28 +230,28 @@ const stationImages = [
     "directorio bomberos bcs",
     "emergencias 911 la paz bcs",
   ]}
-  canonical="https://bombero.mx/directorio/baja-california-sur/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
-  totalEstaciones={estadisticas.totalEstaciones}
+  totalEstaciones={totalEstaciones}
   totalMunicipios={estadisticas.totalMunicipios}
   habitantes="798K+"
 
-  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Baja California Sur</strong> protege los <strong>${estadisticas.totalMunicipios} municipios</strong> de la península más larga del mundo con <strong>${estadisticas.totalEstaciones} estaciones activas</strong> y más de <strong>296 bomberos profesionales</strong> — desde la capital La Paz hasta los resorts de clase mundial de Los Cabos, el patrimonio UNESCO del Mar de Cortés y los edificios históricos de madera de Santa Rosalía.`}
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Baja California Sur</strong> —fundado en La Paz en <strong>1959</strong>— protege los <strong>${estadisticas.totalMunicipios} municipios</strong> de la península más larga del mundo con <strong>${totalEstaciones} estaciones activas</strong> y <strong>${totalPersonal} bomberos</strong> — desde la capital La Paz hasta los resorts de clase mundial de Los Cabos, el Patrimonio UNESCO del Parque Nacional Bahía de Loreto y los edificios históricos de madera de Santa Rosalía diseñados por Gustave Eiffel.`}
   heroImage="/images/directorio/estacion-bomberos-maritimo-01.avif"
   heroImageAlt="Estación de Bomberos Baja California Sur — rescate acuático Mar de Cortés Los Cabos"
-  heroCaption="H. Cuerpo de Bomberos · Baja California Sur"
+  heroCaption="H. Cuerpo de Bomberos · Baja California Sur · Fundado en La Paz, 1959"
   heroThumbs={[
     { src: "/images/directorio/estacion-bomberos-bahia-lockers-extractores-01.avif", alt: "Bahía con lockers y extractores en estación de bomberos de Baja California Sur", label: "Equipamiento Profesional" },
-    { src: "/images/directorio/estacion-bomberos-huracanes-01.avif", alt: "Bomberos BCS evacuación turistas huracán Los Cabos Cabo San Lucas", label: "Huracanes Pacífico"      },
-    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",    alt: "Bomberos forestal Sierra de la Giganta Loreto BCS",                 label: "Forestal Sierra Giganta" },
+    { src: "/images/directorio/estacion-bomberos-huracanes-01.avif", alt: "Bomberos BCS evacuación turistas huracán Los Cabos Cabo San Lucas Odile 2014", label: "Huracanes Pacífico"      },
+    { src: "/images/accion/bomberos-accion-incendio-estructural.avif", alt: "Bomberos forestal Sierra de la Giganta Loreto BCS incendio estructural", label: "Forestal Sierra Giganta" },
   ]}
 
   galleryImages={[
-    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",              alt: "Rescate acuático bahía La Paz Mar de Cortés bomberos BCS",             label: "Rescate Bahía La Paz"     },
+    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",              alt: "Rescate acuático bahía La Paz Mar de Cortés bomberos BCS embarcación",             label: "Rescate Bahía La Paz"     },
     { src: "/images/directorio/sistema-espuma-incendios-01.avif", alt: "Conexiones de manguera en autobomba de bomberos de Baja California Sur", label: "Conexiones Operativas" },
-    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Incendio edificios históricos madera Santa Rosalía BCS Eiffel",     label: "Patrimonio Santa Rosalía" },
-    { src: "/images/directorio/rescate-montana-bomberos-01.avif",             alt: "Rescate Sierra de la Giganta Loreto Parque Nacional BCS",              label: "Rescate Sierra Giganta"   },
+    { src: "/images/directorio/bomberos-emergencia-incendio-estructural-01.avif", alt: "Incendio edificios históricos madera Santa Rosalía BCS iglesia Eiffel",     label: "Patrimonio Santa Rosalía" },
+    { src: "/images/directorio/rescate-montana-bomberos-01.avif",             alt: "Rescate Sierra de la Giganta Loreto Parque Nacional BCS bomberos",              label: "Rescate Sierra Giganta"   },
   ]}
 
   emergencyNumbers={[
@@ -173,28 +280,28 @@ const stationImages = [
   eppCards={[
     {
       image:     "/images/directorio/traje-inmersion-rescate-01.avif",
-      imageAlt:  "Traje de inmersión rescate acuático bomberos Mar de Cortés Baja California Sur",
+      imageAlt:  "Traje de inmersión rescate acuático bomberos Mar de Cortés Baja California Sur NFPA 1952",
       badge:     "NFPA 1952",
       title:     "Traje de Inmersión para Rescate Acuático",
-      text:      "Certificado NFPA 1952 para el <strong>Mar de Cortés</strong>, reconocido por Jacques Cousteau como \"el acuario del mundo\". Indispensable en la <strong>Bahía de La Paz</strong>, las playas de alto riesgo de <strong>Cabo San Lucas</strong> (Divorce Beach, Playa del Amor) y los rescates en islas del <strong>Parque Nacional Bahía de Loreto</strong> (Patrimonio UNESCO). Protección térmica certificada para operaciones de buceo en fauna marina (ballenas, lobos marinos, mantas).",
+      text:      "Certificado NFPA 1952 para el <strong>Mar de Cortés</strong>, reconocido por Jacques Cousteau como «el acuario del mundo». Indispensable en la <strong>Bahía de La Paz</strong>, las playas de alto riesgo de <strong>Cabo San Lucas</strong> (Divorce Beach, Playa del Amor) y los rescates en islas del <strong>Parque Nacional Bahía de Loreto</strong> (Patrimonio UNESCO). Protección térmica certificada para operaciones de buceo con fauna marina (ballenas, lobos marinos, mantas) y corrientes de marea en canales entre islas.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
     {
       image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-      imageAlt:  "Traje estructural NFPA 1971 bomberos Los Cabos resorts evacuación huracán BCS",
+      imageAlt:  "Traje estructural NFPA 1971 bomberos Los Cabos resorts evacuación huracán Odile BCS",
       badge:     "NFPA 1971",
       title:     "Traje Estructural NFPA 1971",
-      text:      "Exigido en la protección de <strong>infraestructura hotelera de Los Cabos</strong> valuada en miles de millones de dólares: Four Seasons, One&Only, St. Regis y Ritz-Carlton. Durante huracanes de categoría 4-5 como <strong>Odile (2014)</strong>, los bomberos coordinaron la evacuación de más de <strong>30,000 turistas</strong> en 72 horas. Máxima resistencia térmica para incendios estructurales en la <strong>Marina de Cabo San Lucas</strong>, la más grande del Pacífico mexicano.",
+      text:      "Exigido en la protección de <strong>infraestructura hotelera de Los Cabos</strong>: Four Seasons, One&amp;Only, St. Regis y Ritz-Carlton. Durante el <strong>huracán Odile (2014)</strong>, las estaciones de Los Cabos coordinaron la evacuación de <strong>38,000 turistas</strong> mediante un puente aéreo con la Fuerza Aérea Mexicana. Máxima resistencia térmica para incendios estructurales en la <strong>Marina de Cabo San Lucas</strong> y en la zona de entretenimiento del Corredor Turístico.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
     {
       image:     "/images/directorio/mascara-scba-bombero-01.avif",
-      imageAlt:  "Equipo SCBA aparato respiratorio bomberos Santa Rosalía edificios madera histórica BCS",
+      imageAlt:  "Equipo SCBA aparato respiratorio bomberos Santa Rosalía edificios madera histórica BCS NFPA 1981",
       badge:     "NFPA 1981",
       title:     "Aparato Respiratorio Autónomo SCBA",
-      text:      "Certificado NFPA 1981 para incendios en los <strong>edificios históricos de madera de Santa Rosalía</strong>, arquitectura única en México traída desde Francia por la Compagnie du Boleo en 1885. Incluye protección para la <strong>Iglesia de Santa Bárbara</strong>, diseñada por <strong>Gustave Eiffel</strong>. También para incendios en embarcaciones del <strong>ferry Santa Rosalía-Guaymas</strong> y en el Puerto de Los Cabos, principal terminal de cruceros del Pacífico mexicano.",
+      text:      "Certificado NFPA 1981 para incendios en los <strong>edificios históricos de madera de Santa Rosalía</strong>, arquitectura única en México traída desde Francia por la Compagnie du Boleo desde 1885. Incluye protección para la <strong>Iglesia de Santa Bárbara</strong>, diseñada por <strong>Gustave Eiffel</strong> e instalada en 1897. También para incendios en embarcaciones del <strong>ferry Santa Rosalía–Guaymas</strong> y en el Puerto de Los Cabos, principal terminal de cruceros del Pacífico mexicano.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Equipos SCBA",
     },
@@ -203,84 +310,222 @@ const stationImages = [
       imageAlt:  "Botas estructurales NFPA 1971 bomberos BCS terreno mixto desierto playa sierra",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales de Cuero",
-      text:      "Certificadas NFPA 1971 para el terreno más extremo de la península: arenas volcánicas de la <strong>Bahía de La Paz</strong> y <strong>El Arco de Cabo San Lucas</strong>, roca ígnea de la <strong>Sierra de la Giganta</strong> en operaciones de rescate con Loreto, suelo arcilloso del <strong>Valle de Santo Domingo</strong> (principal zona agrícola de BCS) y muelles de madera del <strong>Puerto de Ferry de Santa Rosalía</strong>. Resistencia total en las condiciones más diversas de México.",
+      text:      "Certificadas NFPA 1971 para el terreno más extremo de la península: arenas volcánicas de la <strong>Bahía de La Paz</strong> y <strong>El Arco de Cabo San Lucas</strong>, roca ígnea de la <strong>Sierra de la Giganta</strong> en rescates con Loreto, suelo arcilloso del <strong>Valle de Santo Domingo</strong> (principal zona agrícola de BCS) y muelles del <strong>Puerto de Ferry de Santa Rosalía</strong>. Resistencia total en las condiciones más diversas de México.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
   ]}
 
   ctaTitle="Equipamos a los Bomberos de Baja California Sur"
-  ctaDesc={`Cotiza equipo certificado NFPA para las ${estadisticas.totalEstaciones} estaciones en La Paz, Los Cabos, Loreto, Ciudad Constitución y Santa Rosalía. Envío a los 5 municipios del estado. Atención a licitaciones públicas y compra directa.`}
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones en La Paz, Los Cabos, Loreto, Ciudad Constitución y Santa Rosalía. Envío a los 5 municipios del estado. Atención a licitaciones públicas y compra directa.`}
   ctaBtnText="Solicitar Cotización — Baja California Sur"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Baja California Sur — La Península de 1,200 km donde una Emergencia a Mitad del Camino Está a 600 km de Todo</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Baja California Sur</strong> opera 6 estaciones para proteger una
-      península de 1,200 km con 798,447 habitantes fijos y más de 3 millones de visitantes
-      internacionales al año. El reto operativo es único: la Carretera Transpeninsular es la
-      única vía terrestre entre La Paz y Los Cabos, lo que exige autosuficiencia total de cada
-      estación ante cortes de comunicaciones, especialmente durante temporada de huracanes.
+    <h2>Bomberos en Baja California Sur</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Baja California Sur">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">5</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones activas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalPersonal}</span><span class="de-stat__label">Bomberos en servicio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalUnidades}</span><span class="de-stat__label">Unidades desplegadas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">798K+</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1959</span><span class="de-stat__label">Fundación La Paz</span></div>
+    </div>
+
+    <p class="de-lead">
+      El <strong>Heroico Cuerpo de Bomberos de Baja California Sur</strong> opera {totalEstaciones} estaciones
+      para proteger la <strong>península más larga del mundo</strong>: 1,125 km de Carretera Transpeninsular
+      sin vía alterna, el estado con <strong>mayor incidencia ciclónica de México</strong> (más de 50 impactos
+      directos desde 1964), el destino turístico de Los Cabos con más de 3 millones de visitantes al año,
+      y el Patrimonio UNESCO del Mar de Cortés. Cada estación opera con autosuficiencia total porque,
+      cuando un huracán corta la Transpeninsular, no existe otro camino.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en BCS?</h3>
+    <h3>Cómo contactar a los bomberos en Baja California Sur</h3>
     <p>
-      El <strong>911</strong> despacha la unidad más cercana en todo el estado e incluye
-      coordinación con la Armada de México para emergencias en mar abierto. Teléfonos directos:
-      La Paz 612 122 0054, Cabo San Lucas 624 143 3577, San José del Cabo 624 142 2466,
-      Loreto 613 135 0059, Ciudad Constitución 613 132 0303, Santa Rosalía 615 152 0050.
+      En cualquier emergencia, el <strong>911</strong> opera las 24 horas en todo el estado y coordina con la
+      Armada de México para incidentes en mar abierto. Los teléfonos directos son: La Paz 612 122 0054,
+      Cabo San Lucas 624 143 3577, San José del Cabo 624 142 2466, Loreto 613 135 0059, Ciudad Constitución
+      613 132 0303 y Santa Rosalía 615 152 0050. En zonas sin cobertura celular —islas del Mar de Cortés,
+      tramos remotos de la Transpeninsular— usa radio de largo alcance o localizador de emergencia (PLB).
+      Encuentra todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
     </p>
 
-    <h3>Huracanes, turismo de lujo y rescate acuático en el Pacífico</h3>
+    <h3>Historia del Heroico Cuerpo de Bomberos de Baja California Sur</h3>
     <p>
-      Cuando el huracán Odile tocó tierra en Los Cabos en septiembre de 2014, los bomberos de BCS
-      coordinaron la evacuación de más de 30,000 turistas internacionales en 72 horas, con
-      comunicaciones cortadas y la Transpeninsular bloqueada. Las estaciones de Cabo San Lucas y
-      San José del Cabo protegen la marina más grande del Pacífico mexicano, la zona hotelera de
-      lujo del Corredor y más de 20,000 turistas simultáneos en temporada alta. El rescate en
-      Divorce Beach y Playa del Amor —donde las corrientes del Pacífico son letales y señaladas
-      en todos los mapas de riesgo— genera salidas de rescate cada semana durante temporada.
+      La historia del combate de incendios en BCS arranca en el primer cuerpo de bomberos del país y llega
+      a la capital peninsular décadas después. Estos son los hitos verificables que explican la corporación actual:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora como el <strong>Día del Bombero</strong> en todo el país.</li>
+      <li><span class="de-tl__year">1885</span> La <strong>Compagnie du Boleo</strong> francesa inicia la explotación minera de cobre en Santa Rosalía, trayendo edificios prefabricados de madera de Francia que aún hoy conforman el casco histórico.</li>
+      <li><span class="de-tl__year">1897</span> Se instala en Santa Rosalía la <strong>Iglesia de Santa Bárbara</strong>, diseñada por <strong>Gustave Eiffel</strong> en 1884, exhibida en la Exposición Universal de París de 1889 y adquirida por la Boleo en Bruselas en 1894.</li>
+      <li><span class="de-tl__year">1959</span> Se funda el <strong>Heroico Cuerpo de Bomberos de La Paz</strong>, eje operativo de la entonces capital del Territorio de Baja California Sur.</li>
+      <li><span class="de-tl__year">1975</span> Baja California Sur se convierte en el estado número 29 de México; el cuerpo de bomberos pasa a ser referencia de la nueva entidad federativa.</li>
+      <li><span class="de-tl__year">2014</span> El <strong>huracán Odile</strong> toca tierra en Cabo San Lucas como categoría 3 (14 de septiembre), genera daños por 16.6 mil millones de pesos y obliga a evacuar a <strong>38,000 turistas</strong> mediante puente aéreo con la Fuerza Aérea Mexicana.</li>
+      <li><span class="de-tl__year">Hoy</span> El cuerpo opera <strong>{totalEstaciones} estaciones</strong> en los 5 municipios con <strong>{totalPersonal} bomberos</strong> y {totalUnidades} unidades, especializados en rescate acuático, evacuaciones por huracán, protección de patrimonio histórico y rescate en islas remotas.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cómo se cubren los 5 municipios</h3>
+    <p>
+      La cobertura se organiza por municipio, cada uno con un perfil de riesgo radicalmente distinto: Los Cabos
+      concentra la mayor demanda turística y el mayor equipamiento; La Paz combina capital administrativa con
+      rescate marítimo; Loreto atiende islas remotas del Parque Nacional UNESCO; Comondú cubre la zona agrícola
+      y el Puerto San Carlos (ballena gris); y Mulegé protege el patrimonio arquitectónico más singular del estado.
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región / Municipio</th><th>Municipios atendidos</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      Los bomberos de BCS no solo apagan fuegos: en una península con islas remotas, huracanes y turismo masivo,
+      sus funciones abarcan un espectro de emergencias sin paralelo en el país.
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Rescate acuático y marítimo</h4><p>Operaciones en el Mar de Cortés, Bahía de La Paz, playas de alto riesgo de Los Cabos e islas del Parque Nacional Bahía de Loreto (solo por embarcación).</p></div>
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales (incluidos edificios históricos de madera de Santa Rosalía), forestales en la Sierra de la Giganta y en embarcaciones y marina.</p></div>
+      <div class="de-card"><h4>Evacuaciones por huracán</h4><p>Coordinación de evacuaciones masivas de turistas internacionales, con protocolo establecido desde el huracán Odile (2014): 38,000 personas en 72 horas.</p></div>
+      <div class="de-card"><h4>Rescate vehicular en Transpeninsular</h4><p>Extricación y atención prehospitalaria avanzada en la única vía de la península, donde el traslado al hospital puede superar 4 horas.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Fugas de agroquímicos en el Valle de Santo Domingo, derrames en embarcaciones y zonas portuarias de La Paz y Cabo San Lucas.</p></div>
+      <div class="de-card"><h4>Prevención y protección civil</h4><p>Inspecciones a hoteles y centros turísticos, simulacros de evacuación por huracán, y coordinación con Protección Civil estatal en temporada ciclónica.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático</strong></td><td>24/7</td><td>La Paz, Cabo San Lucas, San José del Cabo, Loreto</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Evacuación por huracán</strong></td><td>Jun–Nov</td><td>Los Cabos, La Paz, coordinación estatal</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>La Paz (Unidad HAZMAT), zonas portuarias</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Loreto (Sierra de la Giganta), Mulegé</td></tr>
+          <tr><td><strong>Rescate en islas remotas</strong></td><td>24/7</td><td>Loreto (Coronado, Carmen, Danzante)</td></tr>
+          <tr><td><strong>Emergencias en embarcaciones y ferry</strong></td><td>24/7</td><td>Santa Rosalía, Cabo San Lucas, La Paz</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Huracanes, turismo masivo y rescate acuático: el triángulo de riesgo de BCS</h3>
+    <p>
+      Baja California Sur es, según Conagua, el <strong>estado con mayor incidencia ciclónica de México</strong>:
+      más de 170 ciclones tropicales registrados en el Pacífico adyacente y alrededor de 50 impactos directos
+      desde 1964. La posición del extremo sur de la península —flanqueada por el Pacífico y el Mar de Cortés—
+      convierte Los Cabos en el destino más frecuente de las trayectorias ciclónicas del Pacífico mexicano.
+      El <strong>huracán Odile</strong> (septiembre de 2014, categoría 3) lo demostró sin margen de duda:
+      daños por 16.6 mil millones de pesos, 15,000 personas sin vivienda y 38,000 turistas que debieron ser
+      evacuados mediante un puente aéreo organizado con la Fuerza Aérea Mexicana. Todo ello con la
+      Transpeninsular bloqueada y las comunicaciones cortadas.
+    </p>
+    <p>
+      A esto se suma el rescate acuático en el Mar de Cortés, cuyas corrientes de marea en los canales entre
+      islas, las temperaturas de hasta 14 °C en invierno y la escasa cobertura celular convierten cada
+      emergencia en buceo o kayak en una operación de alta complejidad. La estación de La Paz mantiene unidades
+      de rescate en buceo y embarcación de respuesta rápida todo el año para atender al turismo que visita
+      Espíritu Santo, Los Islotes y la colonia de lobos marinos de La Paz.
+      Y en tierra, los <strong>edificios históricos de madera de Santa Rosalía</strong> —el mayor stock de
+      arquitectura prefabricada francesa del país— representan un riesgo de propagación de incendio
+      especialmente alto en el clima desértico, con recursos operativos limitados por la escasa población del municipio.
     </p>
 
-    <h3>Patrimonio Eiffel, madera histórica y Bahía de Loreto</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      Los bomberos de Santa Rosalía protegen la única construcción de Gustave Eiffel en México:
-      la Iglesia de Santa Bárbara, prefabricada en Francia en 1887 para la Compagnie du Boleo y
-      armada en el desierto peninsular. El centro histórico de Santa Rosalía concentra el mayor
-      stock de edificios de madera de la república —riesgo de propagación alta en un municipio
-      con recursos limitados. Al norte, la estación de Loreto cubre el Parque Nacional Bahía de
-      Loreto (Patrimonio UNESCO), donde los rescates se realizan en islas como Coronado y Carmen,
-      accesibles exclusivamente por embarcación.
+      A partir de las estaciones publicadas en este directorio, así se distribuyen los recursos del cuerpo de
+      bomberos entre los cinco municipios de BCS. Los datos de personal y unidades corresponden a las
+      estaciones registradas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Municipio</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalPersonal}</td>
+            <td>{totalUnidades}</td>
+            <td>5 municipios de Baja California Sur</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Baja California Sur</h3>
+    <p>
+      El primer reto es la <strong>distancia</strong>. La Carretera Federal 1 Transpeninsular —1,125 km sin
+      carretera alterna— convierte un accidente en el tramo norte en una emergencia a más de 400 km del hospital
+      con capacidad quirúrgica. Las estaciones de Ciudad Constitución, Loreto y Santa Rosalía operan como primer
+      respondiente médico extendido porque el tiempo de traslado supera ampliamente la hora de oro. Y cuando un
+      huracán derrumba la carretera, cada sección queda aislada como un corredor autónomo sin apoyo terrestre.
+    </p>
+    <p>
+      El segundo reto es la <strong>asimetría de recursos</strong>. Los Cabos concentra el mayor presupuesto
+      municipal —impulsado por el turismo de lujo— mientras que Mulegé y Loreto cubren territorios extensos con
+      equipos más reducidos. La renovación del equipo de protección personal (EPP) conforme a normas NFPA, la
+      modernización de unidades acuáticas y la capacitación en rescate técnico en islas representan las
+      inversiones pendientes más urgentes en los municipios del norte del estado.
     </p>
 
-  
-      <h3>Carretera Transpeninsular — El Único Corredor de 1,200 km y el Accidente a 400 km del Hospital</h3>
-      <p>
-        La Carretera Federal 1 Transpeninsular es la única vía terrestre que une La Paz con Los Cabos
-        y recorre toda la extensión de la península, 1,125 kilómetros de asfalto sin carretera paralela
-        ni alternativa. Un accidente vehicular en el tramo Guerrero Negro-Santa Rosalía ocurre a más de
-        400 kilómetros del hospital general más cercano con capacidad quirúrgica. Los bomberos de las
-        estaciones de tránsito — Ciudad Constitución, Loreto, Santa Rosalía — operan en modo de
-        primer respondiente médico extendido, con capacidad de manejo de vía aérea avanzada y
-        estabilización de trauma porque el tiempo de traslado al hospital supera ampliamente el
-        margen de la hora de oro. En temporada de huracanes, cuando el ciclón corta la carretera
-        con derrumbes o inundaciones, cada sección de la Transpeninsular se convierte en un
-        corredor autónomo sin comunicación terrestre con el resto del estado.
-      </p>
-      <h3>La Paz y el Mar de Cortés — Buceo Técnico, Corrientes Tiburones y el Rescate sin Señal GPS</h3>
-      <p>
-        La Paz es la capital del turismo de buceo en el Mar de Cortés, cuyas aguas fríen —14 a 20°C
-        en invierno— y fuertes corrientes de marea en los canales entre islas generan un escenario
-        de rescate acuático que combina hipotermia rápida con posicionamiento difícil. Los buceadores
-        de recreo y técnico que visitan los islotes de La Paz, Espíritu Santo y Los Islotes —donde
-        habita la única colonia de lobos marinos buceables de México— desaparecen bajo la superficie
-        con frecuencia suficiente como para que los bomberos de La Paz mantengan unidades de rescate
-        en buceo y embarcación de respuesta rápida activas todo el año. El Mar de Cortés, sin
-        cobertura celular en la mayoría de sus islas, convierte una emergencia médica bajo el agua
-        en un rescate donde el tiempo de localización depende del último punto GPS registrado en
-        el diario de buceo del dive master.
-      </p>
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu viaje en BCS</h3>
+    <p>
+      Las emergencias más frecuentes en BCS tienen solución preventiva. Estas son las recomendaciones que
+      el cuerpo de bomberos reitera a residentes y turistas:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Huracanes:</strong> sigue el plan de emergencia del hotel o Protección Civil; no esperes a la última hora para evacuar. Ruta de evacuación antes de la temporada ciclónica (junio–noviembre).</li>
+        <li><strong>Playas de riesgo:</strong> respeta siempre las banderas. En Cabo San Lucas, Divorce Beach y Playa del Amor son de riesgo extremo incluso para nadadores expertos por las corrientes del Pacífico.</li>
+        <li><strong>Buceo y kayak:</strong> registra tu ruta con el dive master o guía; lleva localizador de emergencia (PLB) en excursiones a islas. El Mar de Cortés no tiene cobertura celular en la mayoría de las islas.</li>
+        <li><strong>Carretera Transpeninsular:</strong> lleva agua, combustible extra y comunica tu itinerario antes de salir. Evita conducir de noche en tramos sin iluminación. Ante una emergencia en ruta, el 911 conecta con la estación más cercana.</li>
+        <li><strong>Gas y electricidad:</strong> revisa mangueras y reguladores periódicamente; en Santa Rosalía y edificios históricos, instala detectores de humo por el riesgo elevado en estructuras de madera.</li>
+        <li><strong>Siempre:</strong> guarda el <strong>911</strong> en tu teléfono. En zonas sin señal, usa radio de largo alcance o satélite.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: BCS Noticias y CULCO BCS («Bomberos de La Paz celebran su 59 aniversario», agosto 2018;
+      «La Paz celebra el 66 aniversario», agosto 2025) para la fundación del cuerpo en 1959; Wikipedia,
+      «Iglesia de Santa Bárbara (Santa Rosalía)» para el origen del diseño de Eiffel (1884) y la instalación
+      en 1897; Wikipedia, «Huracán Odile», para los datos de daños y evacuación de 2014 (38,000 turistas,
+      16.6 mil millones de pesos); CONAGUA y Tribuna México para la incidencia ciclónica de BCS (mayor del país,
+      170+ ciclones desde 1964); Wikipedia, «Loreto, Baja California Sur» para la fundación de la misión en 1697.
+      Las cifras de personal y unidades por municipio se calculan a partir de las estaciones publicadas en este
+      directorio. Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
   </Fragment>
 </DirectorioEstadoLayout>

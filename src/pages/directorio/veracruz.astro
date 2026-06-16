@@ -4,99 +4,98 @@ import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import {
   estacionesVeracruz,
   getMunicipios,
-  getEstacionBySlug,
-  getEstacionesCercanas,
 } from "@data/estaciones-veracruz";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estado = "Veracruz";
 const sigla = "VER";
 const slug = "veracruz";
 
+const canonical = "https://bombero.mx/directorio/veracruz/";
+
+const estadosVecinos = getEstadosVecinos("veracruz");
+
+// ── Zonas de cobertura (desde regiones reales del dataset) ──────────────────
+const zonas = [
+  { nombre: "Norte / Huasteca", municipios: "Tuxpan, Poza Rica, Papantla, Álamo", cobertura: "Alta",  chip: "alta",  perfil: "Pozos petroleros activos, Puerto Tuxpan, Zona Arqueológica El Tajín (UNESCO)." },
+  { nombre: "Centro / Xalapa-Puerto", municipios: "Veracruz, Boca del Río, Xalapa, Coatepec", cobertura: "Total", chip: "total", perfil: "Puerto comercial #1 de México (~33 M ton/año), capital estatal, rescate marítimo con SEMAR." },
+  { nombre: "Montaña / Orizaba-Córdoba", municipios: "Orizaba, Río Blanco, Córdoba, Fortín", cobertura: "Alta",  chip: "alta",  perfil: "Pico de Orizaba 5,636 msnm, Cumbres de Maltrata, rescate de altura y accidentes viales." },
+  { nombre: "Sur / Corredor Petroquímico", municipios: "Coatzacoalcos, Minatitlán, Cosoleacaque", cobertura: "Alta",  chip: "alta",  perfil: "Mayor corredor petroquímico de México: complejos Pajaritos, Cangrejera y Morelos; Refinería PEMEX Minatitlán." },
+  { nombre: "Inundable / Papaloapan", municipios: "Cosamaloapan, Tlacotalpan, Tierra Blanca, Alvarado", cobertura: "Media", chip: "media", perfil: "Planicie inundable, cuencas de los ríos Papaloapan y Coatzacoalcos, rescate acuático estacional." },
+];
 
 const heroThumbs = [
-  { src: "/images/directorio/estacion-bomberos-veracruz-01.avif", alt: "Estación Central de Bomberos Puerto Veracruz", label: "Respuesta Rápida" },
+  { src: "/images/directorio/estacion-bomberos-veracruz-01.avif", alt: "Estación Central de Bomberos Puerto Veracruz — fundada como primera corporación de México en 1873", label: "Cuna del Bomberismo" },
   { src: "/images/directorio/gimnasio-estacion-bomberos-funcional-01.avif", alt: "Entrenamiento funcional en estación de bomberos de Veracruz", label: "Entrenamiento Funcional" },
-  { src: "/images/directorio/estacion-bomberos-petrolera-01.avif", alt: "Rescate marítimo Puerto de Veracruz SEMAR", label: "Servicio 24/7" },
+  { src: "/images/directorio/estacion-bomberos-petrolera-01.avif", alt: "Unidad HAZMAT para el corredor petroquímico Coatzacoalcos-Minatitlán", label: "HAZMAT Petroquímico" },
 ];
-
 
 const galleryImages = [
-  { src: "/images/directorio/estacion-bomberos-maritimo-01.avif", alt: "Emergencias portuarias Puerto de Veracruz",
-    label: "Emergencias portuarias Puerto de"
-  },
-  { src: "/images/directorio/estacion-bomberos-refineria-01.avif", alt: "HAZMAT refinería PEMEX Minatitlán",
-    label: "HAZMAT refinería PEMEX Minatitlán"
-  },
-  { src: "/images/directorio/estacion-bomberos-huracanes-01.avif", alt: "Operativo huracanes costa veracruzana",
-    label: "Operativo huracanes costa veracruzana"
-  },
-  { src: "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif", alt: "Zona de fuerza en gimnasio de bomberos de Veracruz", label: "Acondicionamiento Físico" },
+  { src: "/images/directorio/estacion-bomberos-maritimo-01.avif", alt: "Emergencias portuarias Puerto de Veracruz en coordinación con SEMAR", label: "Emergencias portuarias" },
+  { src: "/images/directorio/estacion-bomberos-refineria-01.avif", alt: "HAZMAT refinería PEMEX Minatitlán y Complejo Pajaritos Coatzacoalcos", label: "HAZMAT refinería PEMEX" },
+  { src: "/images/directorio/estacion-bomberos-huracanes-01.avif", alt: "Operativo huracanes costa veracruzana 745 km Golfo de México", label: "Operativos de huracanes" },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif", alt: "Acondicionamiento físico en estación de bomberos de Veracruz", label: "Acondicionamiento Físico" },
 ];
-
 
 const emergencyNumbers = [
   { label: "Emergencias", number: "911" },
   { label: "Bomberos Puerto Veracruz", number: "(229) 932-0202" },
-  { label: "HAZMAT Coatzacoalcos", number: "(921) 211-7000" },
   { label: "Bomberos Xalapa", number: "(228) 842-1400" },
-  { label: "Emergencias PEMEX", number: "(921) 211-7000" },
+  { label: "HAZMAT Coatzacoalcos / PEMEX", number: "(921) 211-7000" },
+  { label: "Bomberos Poza Rica", number: "(782) 823-3333" },
   { label: "SEMAR Rescate Marítimo", number: "(229) 932-0090" },
-  { label: "VHF Canal 16", number: "Marítimo" },
+  { label: "Emergencias marítimas VHF", number: "Canal 16" },
 ];
-
 
 const regiones = [
-  { nombre: "Zona Metropolitana Puerto Veracruz", desc: "Puerto comercial #1 de México (24M ton/año), San Juan de Ulúa, Boca del Río, Costa de Oro — rescate marítimo coordinado SEMAR" },
-  { nombre: "Corredor Petroquímico Sur", desc: "Coatzacoalcos (mayor complejo petroquímico de Latinoamérica), Minatitlán (refinería 150,000 bbl/día), Terminal Pajaritos — HAZMAT Nivel A" },
-  { nombre: "Zona Capital Xalapa", desc: "Xalapa (capital, 500,000 hab.), Coatepec, Xico, Banderilla — neblina densa, carreteras sinuosas Veracruz-Xalapa" },
-  { nombre: "Región Poza Rica — Huasteca", desc: "Poza Rica (pozos petroleros activos), Tuxpan (puerto), Papantla (El Tajín UNESCO), Álamo — HAZMAT petrolero" },
-  { nombre: "Corredor Córdoba-Orizaba", desc: "Cumbres de Maltrata (autopista más peligrosa), Fortín, Río Blanco — industria azucarera, rescate vehicular en montaña" },
-  { nombre: "Los Tuxtlas / Costa Sur", desc: "Catemaco, San Andrés Tuxtla, Reserva de la Biósfera Los Tuxtlas — incendios forestales, ecoturismo" },
-  { nombre: "Zona Inundable Papaloapan", desc: "Cosamaloapan, Tlacotalpan (UNESCO), Tierra Blanca — inundaciones severas, rescate acuático" },
+  { nombre: "Zona Metropolitana Puerto Veracruz", desc: "Puerto comercial #1 de México (~33 M ton/año 2024), San Juan de Ulúa, Boca del Río, Costa de Oro — rescate marítimo coordinado con SEMAR" },
+  { nombre: "Corredor Petroquímico Sur", desc: "Coatzacoalcos (complejos Pajaritos, Cangrejera y Morelos), Minatitlán (Refinería PEMEX) — HAZMAT Nivel A, agentes: cloro, amoníaco anhidro, etileno, benceno" },
+  { nombre: "Zona Capital Xalapa", desc: "Xalapa (capital, ~500,000 hab.), Coatepec, Xico, Banderilla — neblina densa, carreteras sinuosas Veracruz-Xalapa" },
+  { nombre: "Región Poza Rica — Huasteca", desc: "Poza Rica (pozos activos), Tuxpan (puerto, ~8 M ton/año), Papantla (El Tajín UNESCO), Álamo — HAZMAT petrolero" },
+  { nombre: "Corredor Córdoba-Orizaba", desc: "Cumbres de Maltrata (mayor desnivel en carretera federal: 2,600 m en ~30 km), Fortín, Río Blanco — rescate vehicular en montaña y altura" },
+  { nombre: "Los Tuxtlas / Costa Sur", desc: "Catemaco, San Andrés Tuxtla, Reserva de la Biósfera Los Tuxtlas — incendios forestales, ecoturismo de montaña" },
+  { nombre: "Zona Inundable Papaloapan", desc: "Cosamaloapan, Tlacotalpan (Patrimonio UNESCO), Tierra Blanca — inundaciones severas río Papaloapan, rescate acuático" },
 ];
-
 
 const eppCards = [
   {
     image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
-    imageAlt:  "Traje HAZMAT para industria petrolera en Veracruz",
-    badge:     "PEMEX",
-    title:     "HAZMAT Petrolero",
-    text:      "Trajes encapsulados para emergencias en <strong>refinerías de Minatitlán y Coatzacoalcos</strong>. Protección contra hidrocarburos y derivados del petróleo.",
+    imageAlt:  "Traje HAZMAT Nivel A para emergencias en refinería PEMEX Minatitlán y Complejo Petroquímico Pajaritos Coatzacoalcos",
+    badge:     "HAZMAT Nivel A",
+    title:     "Traje Encapsulado HAZMAT — Corredor Petroquímico",
+    text:      "Para emergencias en los complejos Pajaritos, Cangrejera y Morelos y la Refinería PEMEX Minatitlán. Protección completa contra <strong>cloro gas, amoníaco anhidro, ácido fluorhídrico y etileno</strong>. El ácido fluorhídrico penetra la piel sin dolor inmediato y puede ser fatal, exigiendo descontaminación de cuerpo entero antes de ingreso a hospital.",
     href:      "/productos/trajes-para-bomberos/traje-hazmat/",
     linkLabel: "Ver Equipos HAZMAT",
   },
   {
     image:     "/images/directorio/lancha-rescate-bomberos-01.avif",
-    imageAlt:  "Lancha de rescate para puerto de Veracruz",
-    badge:     "SEMAR",
-    title:     "Rescate Marítimo",
-    text:      "Equipo de rescate marítimo para operaciones en el <strong>Puerto de Veracruz y Coatzacoalcos</strong>. Lanchas de rescate y equipo de inmersión para emergencias portuarias.",
+    imageAlt:  "Lancha de rescate marítimo para Puerto de Veracruz y operaciones conjuntas SEMAR",
+    badge:     "Rescate Marítimo",
+    title:     "Equipo de Rescate Marítimo — Puerto y Costa",
+    text:      "Para operaciones en el <strong>Puerto de Veracruz y Puerto de Coatzacoalcos</strong> en coordinación con SEMAR. Lanchas de rescate, equipo de inmersión y barreras flotantes para contención de derrames. El Canal 16 VHF es el canal internacional de socorro activo las 24 horas.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Equipo Marítimo",
   },
   {
     image:     "/images/directorio/equipo-bomberos-completo-01.avif",
-    imageAlt:  "Equipo completo para operativos de huracanes en Veracruz",
+    imageAlt:  "Equipo de rescate acuático para operativos de huracanes en los 745 km de costa veracruzana",
     badge:     "Huracanes",
-    title:     "Operativos Huracanes",
-    text:      "Equipamiento integral para temporada de <strong>huracanes del Golfo de México</strong>. Equipo de rescate acuático, comunicaciones y protección personal reforzada.",
+    title:     "Equipamiento Operativo — Temporada Ciclónica",
+    text:      "Para los <strong>745 km de costa del Golfo</strong> expuestos de junio a noviembre. El protocolo de cuatro niveles (verde-amarillo-naranja-rojo) activa el pre-posicionamiento desde 72 horas antes. Karl (2010) afectó el <strong>68 % del territorio</strong>; Grace (2021) ingresó con vientos superiores a 200 km/h.",
     href:      "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/",
     linkLabel: "Ver Equipo de Protección",
   },
   {
     image:     "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
-    imageAlt:  "Autobomba para eventos masivos en Veracruz",
-    badge:     "Eventos",
-    title:     "Eventos Masivos",
-    text:      "Equipo de prevención y respuesta para <strong>Carnaval de Veracruz y Cumbre Tajín</strong>. Sistemas de evacuación y protección para aglomeraciones de más de 50,000 personas.",
+    imageAlt:  "Autobomba para rescate de altura en Pico de Orizaba y Cumbres de Maltrata Veracruz",
+    badge:     "Rescate Altura",
+    title:     "Rescate en Altura — Pico de Orizaba y Cumbres",
+    text:      "Para operaciones en el <strong>Pico de Orizaba (Citlaltépetl, 5,636 msnm)</strong>, la montaña más alta de México, y las Cumbres de Maltrata (2,600 m de desnivel en ~30 km). Las estaciones de Orizaba y Río Blanco mantienen equipos especializados de rappel y cuerdas de trabajo para rescate de alpinistas y rescate vehicular en barranco.",
     href:      "/productos/cascos-para-bomberos/",
-    linkLabel: "Ver Equipo de Seguridad",
+    linkLabel: "Ver Equipo de Altura",
   },
 ];
-
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-profesional-01.avif",
@@ -142,14 +141,12 @@ const stationImages = [
   "/images/directorio/central-despacho-bomberos-alerta-estacion-01.avif",
 ];
 
-const estadosVecinos = getEstadosVecinos("veracruz");
-
-
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de las ${estacionesVeracruz.length} estaciones de bomberos en Veracruz. Puerto comercial #1 de México (24M ton/año), Complejo Petroquímico Coatzacoalcos (mayor de Latinoamérica), Refinería PEMEX Minatitlán (150,000 bbl/día), 745 km de costa del Golfo, coordinación SEMAR rescate marítimo, operativos huracanes, El Tajín UNESCO, Carnaval de Veracruz. Emergencias 911.`,
+  description: `Directorio de las ${estacionesVeracruz.length} estaciones de bomberos en Veracruz — la cuna del bomberismo nacional (primer cuerpo fundado el 22 de agosto de 1873 en el puerto). Puerto comercial #1 de México (~33 M ton/año), corredor petroquímico Pajaritos-Minatitlán, 745 km de costa del Golfo, Pico de Orizaba 5,636 msnm. Emergencias: 911.`,
   numberOfItems: estacionesVeracruz.length,
   itemListElement: estacionesVeracruz.map((e, i) => ({
     "@type": "ListItem",
@@ -165,28 +162,127 @@ const itemListSchema = {
         addressCountry: "MX",
       },
       telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}/`,
     },
   })),
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Veracruz",         url: "/directorio/veracruz/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Bomberos en Veracruz: estaciones, historia y servicios de emergencia",
+  description: "Guía del H. Cuerpo de Bomberos de Veracruz: historia desde 1873 (primer cuerpo de México), corredor petroquímico, rescate marítimo, huracanes y Pico de Orizaba. Directorio de estaciones con teléfonos directos.",
+  about: [
+    "H. Cuerpo de Bomberos de Veracruz",
+    "Primer cuerpo de bomberos de México 1873",
+    "Rescate marítimo Puerto de Veracruz",
+    "HAZMAT industria petroquímica Coatzacoalcos",
+    "Rescate de altura Pico de Orizaba",
+  ],
+  inLanguage: "es-MX",
+  image: "https://bombero.mx/api/og/estado/veracruz.svg",
+  author:    { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  publisher: { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+  mainEntityOfPage: canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  url: canonical,
+  name: "Estaciones de Bomberos en Veracruz",
+  description: `Directorio verificado de estaciones de bomberos en Veracruz, con teléfonos, cobertura y la historia del primer cuerpo de bomberos de México (1873).`,
+  inLanguage: "es-MX",
+  isPartOf: { "@type": "WebSite", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  about: { "@type": "GovernmentOrganization", name: "H. Cuerpo de Bomberos de Veracruz" },
+  primaryImageOfPage: "https://bombero.mx/api/og/estado/veracruz.svg",
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Veracruz (≥10) ────────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Veracruz?",
+    a: `Marca el <strong>911</strong> desde cualquier teléfono en el estado, las 24 horas. El sistema despacha a la estación con menor tiempo de respuesta desde tu ubicación. Para emergencias en puertos, el <strong>Canal 16 VHF</strong> es el canal internacional de socorro marítimo disponible las 24 horas. Para incidentes en instalaciones PEMEX, el protocolo activa en paralelo a las brigadas internas de la planta.`,
+  },
+  {
+    q: "¿Por qué Veracruz es la cuna del bomberismo en México?",
+    a: `Porque el <strong>22 de agosto de 1873</strong> se fundó en el puerto de Veracruz el <strong>primer cuerpo de bomberos de toda la República Mexicana</strong>. Domingo Bureau Vázquez, un veracruzano de familia francesa, organizó a 46 voluntarios (8 convocados y 38 con el equipo que él mismo financió), y constituyó la Compañía de Bomberos de la Ciudad de Veracruz la noche de ese 22 de agosto en el cabildo del palacio municipal. Esa fecha se conmemora hoy como el <strong>Día del Bombero en México</strong>.`,
+  },
+  {
+    q: "¿Cuándo se fundó el primer cuerpo de bomberos de México?",
+    a: `El <strong>22 de agosto de 1873 en el puerto de Veracruz</strong>. Domingo Bureau Vázquez, regidor veracruzano, había organizado desde 1850 a un grupo de voluntarios que apagaban incendios. La legislatura del estado reconoció la compañía el 18 de enero de 1873, pero la constitución formal ocurrió el <strong>22 de agosto de 1873</strong> en sesión de cabildo. Veracruz también es señalado como cuna del primer cuerpo de bomberos de América Latina.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Veracruz?",
+    a: `Este directorio reúne <strong>${estacionesVeracruz.length} estaciones de bomberos en Veracruz</strong> con teléfono directo, dirección y municipio. La red abarca desde el corredor petroquímico del sur (Coatzacoalcos-Minatitlán) hasta la región Huasteca (Poza Rica-Tuxpan), pasando por la capital Xalapa y el Puerto de Veracruz. Todos los datos están verificados editorialmente.`,
+  },
+  {
+    q: "¿Qué teléfonos directos tienen los bomberos en Veracruz?",
+    a: `Los principales teléfonos directos son: Bomberos Puerto Veracruz <strong>(229) 932-0202</strong>, Bomberos Xalapa <strong>(228) 842-1400</strong>, HAZMAT Coatzacoalcos / PEMEX <strong>(921) 211-7000</strong> y Bomberos Poza Rica <strong>(782) 823-3333</strong>. En cualquier emergencia en Veracruz, la forma más rápida de pedir ayuda es marcar el <strong>911</strong>.`,
+  },
+  {
+    q: "¿Cómo responden los bomberos de Veracruz a los huracanes?",
+    a: `El protocolo opera en <strong>cuatro niveles de alerta</strong> (verde-amarillo-naranja-rojo). Desde que un ciclón se detecta a 72 horas, el sistema activa alerta amarilla: el personal entra en turno reforzado, las embarcaciones de rescate se alistan y se pre-posiciona equipo en los municipios de mayor riesgo de la costa (745 km). Al alcanzar el nivel rojo, los bomberos dejan de responder a llamadas individuales y operan en modo de búsqueda y rescate zonal. El huracán Karl (2010) afectó el 68 % del territorio veracruzano; Grace (2021) ingresó con más de 200 km/h.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos de Veracruz las emergencias en el Puerto?",
+    a: `El Puerto de Veracruz movilizó alrededor de <strong>33 millones de toneladas de carga en 2024</strong>. Para emergencias marítimas, los bomberos coordinan con <strong>SEMAR</strong> mediante el Canal 16 VHF. El protocolo de contención de derrames incluye barreras flotantes desplegadas en la bocana antes de que el hidrocarburo salga al mar, decisión que debe tomarse en el primer par de horas desde el reporte.`,
+  },
+  {
+    q: "¿Qué es el corredor petroquímico de Coatzacoalcos y qué riesgos implica?",
+    a: `Los complejos Pajaritos, Cangrejera y Morelos en Coatzacoalcos, junto con la Refinería PEMEX Minatitlán, conforman el mayor corredor de procesamiento de hidrocarburos del sur de México. Los bomberos HAZMAT de la zona operan con <strong>certificación Nivel A</strong> (el máximo para materiales peligrosos) ante una cartera que incluye cloro gas, amoníaco anhidro, ácido fluorhídrico, etileno y benceno. El Complejo Pajaritos entró en operación en 1967 y en 2024-2025 PEMEX invirtió más de 6,000 millones de pesos en su reactivación.`,
+  },
+  {
+    q: "¿Cómo se atienden los accidentes en el Pico de Orizaba?",
+    a: `El <strong>Pico de Orizaba o Citlaltépetl (5,636 msnm)</strong> es la montaña más alta de México y el volcán más alto de Norteamérica. Las estaciones de Orizaba y Río Blanco coordinan rescates de altura con equipos de rappel, cuerdas de trabajo y ropa de abrigo extrema. En diciembre de 2025 se rescató exitosamente a 12 alpinistas extraviados en el Glaciar Jamapa. Los operativos requieren coordinación con Cruz Roja, Secretaría de Seguridad de Puebla y Guardia Nacional.`,
+  },
+  {
+    q: "¿Qué riesgos específicos tienen las Cumbres de Maltrata para los bomberos?",
+    a: `Las Cumbres de Maltrata es el tramo de la autopista Orizaba-Veracruz donde la vía desciende <strong>~2,600 metros en aproximadamente 30 kilómetros</strong>, el mayor desnivel de una carretera federal en México. Los accidentes vehiculares suelen ocurrir no en la calzada sino 30, 100 o hasta 300 metros debajo de ella, en barrancos de ladera volcánica. El rescate requiere técnicas de rappel con el vehículo siniestrado como punto de anclaje y extracción de ocupantes uno por uno.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en Veracruz?",
+    a: `Los cuerpos de bomberos veracruzanos atienden <strong>incendios estructurales, forestales e industriales</strong>, rescate vehicular y extricación, atención prehospitalaria, <strong>materiales peligrosos (HAZMAT)</strong> en el corredor petroquímico, <strong>rescate marítimo</strong> en puertos y costa, rescate fluvial en el sistema Papaloapan, <strong>rescate de altura</strong> en el Pico de Orizaba y Cumbres de Maltrata, y respuesta a huracanes e inundaciones. La prevención e inspecciones de establecimientos también forma parte de su labor.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en el corredor petroquímico de Veracruz?",
+    a: `Las instalaciones industriales de la zona petroquímica deben cumplir los planes de emergencia exigidos por PEMEX y SEMARNAT, actualizar las fichas de seguridad (MSDS) de cada sustancia y entrenar a sus brigadas internas al menos dos veces al año. Ante cualquier fuga o olor extraño: evacuar de inmediato el área, activar la alarma interna, no accionar interruptores eléctricos y llamar al <strong>911</strong> y a la línea directa de bomberos HAZMAT Coatzacoalcos (921) 211-7000.`,
+  },
+];
 ---
 
 <DirectorioEstadoLayout
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Veracruz</strong>.     El tercer estado más poblado de México (<strong>8 millones de habitantes</strong>)     y el de mayor importancia estratégica para el comercio exterior:     el <strong>Puerto de Veracruz</strong> mueve <strong>24 millones de toneladas anuales</strong>     (60% del comercio marítimo mexicano), mientras el <strong>Complejo Petroquímico de Coatzacoalcos</strong>     es el <strong>mayor de Latinoamérica</strong>. Con <strong>745 km de costa</strong> expuesta     a huracanes y una industria petrolera que representa el <strong>35% de la producción     petroquímica nacional</strong>, Veracruz requiere bomberos con certificaciones     HAZMAT de clase mundial y coordinación permanente con <strong>SEMAR</strong> y <strong>PEMEX</strong>."
+  heroDesc="El <strong>H. Cuerpo de Bomberos de Veracruz</strong> custodia la <strong>cuna del bomberismo nacional</strong>: el primer cuerpo de bomberos de México —y de América Latina— nació en este puerto el <strong>22 de agosto de 1873</strong>, cuando Domingo Bureau organizó a 46 voluntarios que nunca dejaron apagar el fuego. Hoy, <strong>153 años después</strong>, esa tradición sostiene estaciones que enfrentan simultáneamente el <strong>Puerto de Veracruz</strong> (~33 millones de toneladas anuales), el mayor corredor petroquímico del sur del país (Coatzacoalcos-Minatitlán), el <strong>Pico de Orizaba</strong> (Citlaltépetl, 5,636 msnm — la montaña más alta de México) y <strong>745 km de costa</strong> expuesta a huracanes del Golfo."
   heroImage="/images/directorio/estacion-bomberos-veracruz-01.avif"
-  heroImageAlt="Estación de Bomberos en Veracruz"
-  heroCaption="H. Cuerpo de Bomberos · Veracruz"
+  heroImageAlt="Estación Central de Bomberos Puerto de Veracruz — primer cuerpo de bomberos de México, fundado el 22 de agosto de 1873"
+  heroCaption="H. Cuerpo de Bomberos · Veracruz · Primer cuerpo de México desde 1873"
   totalEstaciones={estacionesVeracruz.length}
   totalMunicipios={getMunicipios().length}
   habitantes="8.1M+"
-  canonical="https://bombero.mx/directorio/veracruz/"
-  keywords={["bomberos veracruz", "estaciones bomberos veracruz", "emergencias veracruz 911"]}
+  canonical={canonical}
+  keywords={[
+    "bomberos veracruz",
+    "estaciones bomberos veracruz",
+    "primer cuerpo bomberos mexico 1873",
+    "bomberos puerto veracruz",
+    "bomberos xalapa",
+    "bomberos coatzacoalcos hazmat",
+    "bomberos poza rica",
+    "emergencias veracruz 911",
+    "rescate maritimo veracruz semar",
+    "hazmat petroleo veracruz coatzacoalcos",
+    "rescate altura pico orizaba bomberos",
+    "huracanes golfo de mexico veracruz bomberos",
+    "directorio bomberos veracruz",
+    "historia bomberos mexico veracruz",
+    "cuerpos de bomberos veracruz municipios",
+  ]}
   estado={estado}
   sigla={sigla}
   slug={slug}
@@ -199,84 +295,225 @@ const breadcrumbSchema = breadcrumbJsonLd([
   eppCards={eppCards}
   stationImages={stationImages}
   estadosVecinos={estadosVecinos}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en Veracruz — Directorio`}
-  description="${estacionesVeracruz.length} estaciones en Veracruz — Puerto #1 México, corredor petroquímico Pajaritos-Minatitlán, arrecife coralino SAV y corriente del Golfo. Emergencias: 911."
+  jsonLd={jsonLd}
+  title={`Bomberos en Veracruz — Directorio de ${estacionesVeracruz.length} Estaciones`}
+  description={`Bomberos en Veracruz: ${estacionesVeracruz.length} estaciones — cuna del bomberismo nacional (1873), Puerto #1 de México, corredor petroquímico Coatzacoalcos-Minatitlán, Pico de Orizaba 5,636 msnm. Emergencias: 911.`}
+  ctaTitle="Equipamos a los Cuerpos de Bomberos de Veracruz"
+  ctaDesc={`Cotiza equipo certificado NFPA para estaciones de bomberos en Veracruz: HAZMAT para el corredor petroquímico, rescate marítimo y de altura, EPP estructural. Experiencia en licitaciones públicas y abastecimiento a brigadas especializadas.`}
+  ctaBtnText="Solicitar Cotización — Veracruz"
+  faqsEstado={faqsEstado}
 >
-
 
   <Fragment slot="seo">
 
-      <h2>Bomberos de Veracruz — Cuando el Derrame en Puerto Entra al Arrecife en 6 Horas: Corriente del Golfo, Pajaritos y los 745 km de Costa</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Veracruz</strong> protege al tercer estado más poblado
-        de México en un territorio que desciende desde el Pico de Orizaba a 5,636 msnm hasta los
-        745 kilómetros de costa del Golfo: el principal puerto comercial del país, el mayor corredor
-        petroquímico de América Latina, la temporada de ciclones del Golfo y la única reserva arrecifal
-        del Golfo de México, todo en el mismo estado y con las mismas estaciones respondiendo.
-      </p>
+    <h2>Bomberos en Veracruz: la cuna del bomberismo nacional que hoy protege un puerto, un corredor petroquímico y la montaña más alta de México</h2>
 
-      <h3>¿Cómo llamar a los bomberos en Veracruz?</h3>
-      <p>
-        Marca <strong>911</strong> desde cualquier teléfono en Veracruz para emergencias de bomberos,
-        rescate o ambulancia. El número opera las 24 horas y despacha a la estación más cercana.
-        Para emergencias marítimas en el puerto, el Canal 16 VHF es el canal internacional de
-        socorro disponible las 24 horas. Para emergencias en instalaciones PEMEX, el protocolo
-        de coordinación directa con las brigadas internas de la planta activa en paralelo.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Veracruz">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1873</span><span class="de-stat__label">Primer cuerpo de México</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estacionesVeracruz.length}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">~33 M</span><span class="de-stat__label">Toneladas/año en Puerto (2024)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">745 km</span><span class="de-stat__label">Costa expuesta a ciclones</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">5,636 m</span><span class="de-stat__label">Pico de Orizaba (Citlaltépetl)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">8.1M+</span><span class="de-stat__label">Habitantes</span></div>
+    </div>
 
-      <h3>Puerto Veracruz — El Sistema Arrecifal y la Corriente del Golfo como Reloj de Contención</h3>
-      <p>
-        En Puerto Veracruz, el reloj de una emergencia de derrame no lo marca la química sino la
-        oceanografía. La Terminal Marítima Pajaritos maneja crudo y petroquímicos a metros de un
-        sistema portuario que conecta directamente con el Sistema Arrecifal Veracruzano, el único
-        arrecife coralino del Golfo de México y Área Natural Protegida desde 1992. La Corriente del
-        Norte, predominante entre octubre y enero, puede desplazar un hidrocarburo derramado en la
-        dársena portuaria a velocidades de 0.5 a 2 nudos, lo que sitúa el frente del derrame fuera
-        de la bocana en dos a cuatro horas y sobre los primeros arrecifes en seis a doce horas según
-        condiciones de viento y marea. El protocolo de contención en Puerto Veracruz incluye barreras
-        flotantes desplegadas en la bocana antes de que el derrame salga, decisión que los bomberos
-        deben tomar con margen de una a dos horas desde el primer reporte, no al llegar al arrecife.
-      </p>
+    <p class="de-lead">
+      Ningún estado de México combina tantos perfiles de riesgo distintos en el mismo territorio como
+      Veracruz: desde el primer puerto comercial del país y el mayor corredor petroquímico del sur
+      hasta la montaña más alta de México y una costa de 745 km abierta al Golfo. Y todo bajo la
+      custodia de la corporación que más sabe de bomberos en el país —<strong>la que los inventó</strong>:
+      el <strong>22 de agosto de 1873</strong>, en el puerto de Veracruz, nació el primer cuerpo de
+      bomberos de toda la República Mexicana.
+    </p>
 
-      <h3>Corredor Petroquímico Pajaritos-Minatitlán — HAZMAT Nivel A en el Mayor Complejo de América Latina</h3>
-      <p>
-        Los complejos petroquímicos Pajaritos, Cangrejera y Morelos en Coatzacoalcos, junto con la
-        Refinería PEMEX Minatitlán de 150,000 barriles diarios, conforman el mayor corredor de
-        hidrocarburos de América Latina. Los bomberos HAZMAT de Coatzacoalcos y Minatitlán operan
-        con certificación Nivel A, el más alto para materiales peligrosos, ante una cartera de agentes
-        que incluye ácido fluorhídrico, cloro gas, amoníaco anhidro, benceno, etileno y centenares de
-        productos petroquímicos con fichas de seguridad específicas. El ácido fluorhídrico es
-        particularmente exigente: penetra la piel sin dolor inmediato, forma fluoruro de calcio al
-        reaccionar con el tejido óseo y puede ser fatal con exposición cutánea de 25 cm² en una
-        concentración del 70%, lo que obliga a descontaminación de cuerpo entero antes de ingresar al
-        hospital y neutralización activa con gluconato de calcio en el lugar del incidente.
-      </p>
+    <h3>Cómo contactar a los bomberos en Veracruz</h3>
+    <p>
+      En cualquier emergencia en Veracruz, marca el <strong>911</strong> desde cualquier teléfono,
+      las 24 horas. El sistema despacha a la estación con menor tiempo de respuesta. Los teléfonos
+      directos de los principales cuerpos son: Bomberos Puerto Veracruz <strong>(229) 932-0202</strong>,
+      Bomberos Xalapa <strong>(228) 842-1400</strong>, HAZMAT Coatzacoalcos / línea PEMEX
+      <strong>(921) 211-7000</strong> y Bomberos Poza Rica <strong>(782) 823-3333</strong>. Para
+      emergencias marítimas, el <strong>Canal 16 VHF</strong> es el canal internacional de socorro activo
+      las 24 horas y la Zona Naval de Veracruz (SEMAR) puede alcanzarse en el <strong>(229) 932-0090</strong>.
+      Encuentra todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a>.
+    </p>
 
-      <h3>Temporada de Ciclones — 745 km de Costa y el Protocolo que Comienza 72 Horas Antes</h3>
-      <p>
-        Veracruz tiene la mayor longitud de costa del Golfo de México en el país, 745 kilómetros
-        expuestos a una temporada ciclónica de junio a noviembre que históricamente genera dos o tres
-        ciclones tropicales con impacto directo o indirecto cada año. El huracán Karl en 2010 y Grace
-        en 2021 demostraron que la llanura costera veracruzana puede inundarse con rapidez suficiente
-        para convertir en islas comunidades enteras en menos de seis horas. El Sistema Estatal de
-        Alerta activa su protocolo en cuatro fases cuando un ciclón se aproxima a 72 horas, con
-        pre-posicionamiento de equipos de rescate acuático en los municipios de mayor riesgo antes
-        de que llegue el primer viento. Cuando el evento alcanza su máxima intensidad, los bomberos
-        dejan de responder a llamadas individuales y operan en modo de búsqueda y rescate zonal.
-      </p>
+    <h3>Historia de los bomberos en Veracruz: de la primera compañía de América Latina al siglo XXI</h3>
+    <p>
+      La historia del bomberismo en México no comienza en la capital: comienza en este puerto, en 1873,
+      cuando un regidor de familia francesa decidió que la ciudad merecía algo más que aguadores y
+      vecinos con cubetas. Estos son los hitos que definen a la corporación más antigua del país:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">~1850</span> Domingo Bureau Vázquez organiza de manera informal el primer grupo de veracruzanos voluntarios dedicados a sofocar incendios en el puerto. El antecedente directo de todo el sistema nacional.</li>
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong>, en la sala de cabildo del palacio municipal de Veracruz, se constituye formalmente la <strong>Compañía de Bomberos de la Ciudad de Veracruz</strong> — el <strong>primer cuerpo de bomberos de México y de América Latina</strong>. Bureau financia de su propio bolsillo baldes, palas y picos; acuden 46 hombres. Esta fecha se conmemora hoy como el <strong>Día del Bombero en México</strong>.</li>
+      <li><span class="de-tl__year">1887</span> La Ciudad de México instala su primera estación de bomberos, impulsada por el ejemplo veracruzano.</li>
+      <li><span class="de-tl__year">Siglo XX</span> Las estaciones se profesionalizan en paralelo al crecimiento industrial del estado: la apertura de campos petroleros en la Huasteca, la construcción de la Refinería PEMEX Minatitlán y el desarrollo del Complejo Pajaritos exigen brigadas con certificación HAZMAT.</li>
+      <li><span class="de-tl__year">2010</span> El <strong>huracán Karl</strong> (categoría 3 al toca tierra el 17 de septiembre) afecta <strong>117 municipios</strong>, el 68 % del territorio veracruzano; 100,000 personas son evacuadas. El operativo de bomberos y Protección Civil es el mayor de la historia reciente del estado.</li>
+      <li><span class="de-tl__year">2021</span> El <strong>huracán Grace</strong> ingresa por la costa norte con vientos superiores a 200 km/h, generando daños en techumbres, cultivos e infraestructura en decenas de municipios.</li>
+      <li><span class="de-tl__year">Hoy</span> El directorio de Veracruz reúne <strong>{estacionesVeracruz.length} estaciones verificadas</strong> con teléfono directo, con cobertura del puerto, el corredor petroquímico, la zona de altura y el sistema fluvial del Papaloapan.</li>
+    </ul>
 
-      <h3>Cumbres de Maltrata — El Desnivel de 2,600 m en 30 km y el Rescate Vehicular sin Acceso Directo</h3>
-      <p>
-        La autopista Orizaba-Veracruz desciende 2,600 metros en aproximadamente 30 kilómetros a través
-        de las Cumbres de Maltrata, el tramo de mayor pendiente de una carretera federal en México.
-        Los accidentes vehiculares en este corredor no ocurren en la calzada sino 30, 100 o incluso
-        300 metros debajo de ella, en barrancos de ladera volcánica donde ningún vehículo de bomberos
-        puede llegar por sus propios medios. El rescate requiere unidades de rappel y cuerdas de trabajo
-        a tensión, con el vehículo siniestrado como punto de anclaje provisional mientras se evacúan
-        los ocupantes uno por uno. Las estaciones de Orizaba y Río Blanco mantienen equipos de rescate
-        en altura específicamente dimensionados para este corredor, que registra más de 400 accidentes
-        graves al año.
-      </p>
+    <h3>Infraestructura de emergencia: cómo se cubren las grandes zonas del estado</h3>
+    <p>
+      La cobertura se organiza en cinco zonas con perfiles de riesgo radicalmente distintos. El corredor
+      petroquímico del sur concentra el riesgo HAZMAT más alto; el centro-puerto combina rescate marítimo
+      con respuesta urbana; la zona de altura (Orizaba-Córdoba) especializa a sus estaciones en rescate
+      de montaña y vehicular en barranco; la Huasteca gestiona pozos petroleros e industria papantera;
+      y el Papaloapan activa su capacidad de rescate acuático en cada temporada de lluvias:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Zona</th><th>Municipios principales</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los cuerpos de bomberos en Veracruz</h3>
+    <p>
+      Los cuerpos de bomberos veracruzanos son servicios de emergencia integral: sus funciones van
+      mucho más allá del fuego y se adaptan a la diversidad de riesgos del estado:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, industriales (refinerías, petroquímicas), forestales y de pasto, flamazos y explosiones en instalaciones con hidrocarburos.</p></div>
+      <div class="de-card"><h4>Rescate marítimo y portuario</h4><p>Emergencias en el Puerto de Veracruz, Puerto de Coatzacoalcos y Puerto Tuxpan, en coordinación con SEMAR. Canal 16 VHF de socorro activo 24 h.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos HAZMAT</h4><p>Contención de fugas y derrames en el corredor petroquímico Pajaritos-Minatitlán. Certificación Nivel A para cloro, amoníaco, ácido fluorhídrico y etileno.</p></div>
+      <div class="de-card"><h4>Rescate de altura</h4><p>Operaciones en el Pico de Orizaba (5,636 msnm), Glaciar Jamapa, barrancas de Cumbres de Maltrata y accidentes vehiculares en pendientes extremas.</p></div>
+      <div class="de-card"><h4>Rescate acuático y fluvial</h4><p>Inundaciones en la cuenca del Papaloapan y ríos costeros, operativos de evacuación en temporada de ciclones y búsqueda en aguas del Golfo.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones de establecimientos, simulacros con industria y población, y coordinación con Ejército, Marina, Protección Civil y Plan DN-III-E.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Zona principal</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios industriales / refinerías</strong></td><td>24/7</td><td>Coatzacoalcos, Minatitlán, Poza Rica</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT Nivel A)</strong></td><td>24/7</td><td>Corredor petroquímico sur</td></tr>
+          <tr><td><strong>Rescate marítimo y portuario</strong></td><td>24/7</td><td>Puerto Veracruz, Coatzacoalcos, Tuxpan</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate de altura</strong></td><td>24/7</td><td>Orizaba, Río Blanco</td></tr>
+          <tr><td><strong>Rescate acuático / inundaciones</strong></td><td>Temporal (jun-nov) + 24/7</td><td>Papaloapan, zona costera</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov-may)</td><td>Tuxtlas, Orizaba, zona serrana</td></tr>
+          <tr><td><strong>Operativos de ciclones</strong></td><td>Jun-Nov</td><td>745 km de costa y Papaloapan</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Los tres frentes de riesgo que solo existen en Veracruz</h3>
+    <p>
+      Tres riesgos de Veracruz no tienen equivalente en ningún otro estado de México. El primero es el
+      <strong>corredor petroquímico Pajaritos-Minatitlán</strong>: los complejos Pajaritos, Cangrejera y
+      Morelos en Coatzacoalcos, junto con la Refinería PEMEX Minatitlán, procesan cientos de miles de
+      toneladas de petroquímicos al año. Las brigadas HAZMAT de la zona trabajan con certificación
+      Nivel A ante agentes que incluyen ácido fluorhídrico —que penetra la piel sin dolor inmediato y
+      puede ser fatal con exposición cutánea de 25 cm²—, cloro gas, amoníaco anhidro, etileno y benceno.
+      La decisión de evacuación en radio de 1 a 5 km debe tomarse en los primeros minutos.
+    </p>
+    <p>
+      El segundo es la <strong>costa y los ciclones del Golfo</strong>. Con 745 kilómetros de litoral
+      expuestos, Veracruz tiene la trayectoria histórica más activa de huracanes de cualquier estado
+      mexicano en el Golfo. El protocolo de cuatro niveles de alerta activa el pre-posicionamiento de
+      embarcaciones y equipos desde 72 horas antes del impacto. Karl (2010) afectó 117 municipios y
+      obligó a evacuar a más de 100,000 personas; Grace (2021) ingresó con vientos de más de 200 km/h.
+      En el sur, el sistema fluvial del Papaloapan añade un riesgo de inundación que puede aislar
+      comunidades enteras en horas.
+    </p>
+    <p>
+      El tercero es el <strong>Pico de Orizaba (Citlaltépetl, 5,636 msnm)</strong>, la montaña más alta
+      de México y la tercera de Norteamérica. Los rescates en el Glaciar Jamapa —el de 12 alpinistas
+      en diciembre de 2025 es el más reciente de una larga serie— exigen equipo de alta montaña, ropa
+      de frío extremo y coordinación interinstitucional con la Guardia Nacional, Cruz Roja y Secretarías
+      de Seguridad de Veracruz y Puebla. A ello se suman las Cumbres de Maltrata: la autopista
+      Orizaba-Veracruz desciende ~2,600 metros en ~30 km, el mayor desnivel de una carretera federal en
+      el país, y los accidentes volcados hacia el barranco exigen rappel y extracción vertical.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      Las cinco zonas del directorio concentran recursos según el perfil de riesgo de cada región.
+      La zona centro (Puerto-Xalapa) y el corredor petroquímico sur tienen la mayor densidad de estaciones;
+      el Papaloapan y la región norte tienen cobertura media por la extensión territorial:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Zona</th><th>Cobertura</th><th>Perfil de riesgo principal</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{estacionesVeracruz.length} estaciones</td>
+            <td>7 regiones · 212 municipios · 8.1 M habitantes</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Veracruz</h3>
+    <p>
+      El primer reto es de escala y diversidad. Veracruz es el tercer estado más poblado de México
+      (8.1 millones de habitantes) y abarca desde playas a nivel del mar hasta glaciares a 5,636 msnm.
+      Mantener brigadas especializadas en HAZMAT Nivel A, rescate marítimo y rescate de altura dentro del
+      mismo estado —y con la misma estructura presupuestal municipal— exige una coordinación que pocos
+      cuerpos del país deben resolver.
+    </p>
+    <p>
+      El segundo reto es el <strong>financiamiento del equipo especializado</strong>. Los trajes
+      encapsulados Nivel A para el corredor petroquímico, las embarcaciones de rescate para huracanes y
+      el equipo de alta montaña tienen ciclos de mantenimiento y reposición costosos que no siempre
+      compiten bien en los presupuestos municipales frente a otros rubros. La capacitación continua
+      (HAZMAT, rescate marítimo y de altura son disciplinas que requieren actualización anual) es
+      igualmente demandante en recursos humanos y económicos.
+    </p>
+
+    <h3>Cultura de prevención: cómo proteger tu hogar y comunidad en Veracruz</h3>
+    <p>
+      La mejor intervención de emergencia sigue siendo la que no tiene que ocurrir. Estas son las
+      recomendaciones que los bomberos veracruzanos transmiten a la población:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención en Veracruz</h4>
+      <ul>
+        <li><strong>Temporada de ciclones (jun-nov):</strong> identifica tu zona de riesgo en el mapa municipal, conoce el refugio más cercano y prepara una mochila de emergencia con agua, medicamentos, documentos y comida para 72 horas.</li>
+        <li><strong>Gas e instalaciones eléctricas:</strong> revisa mangueras y conexiones periódicamente; ante olor a gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble antes de llamar al 911.</li>
+        <li><strong>Zona industrial:</strong> si vives cerca de una petroquímica o refinería, identifica los puntos de muster de emergencia, conoce el sonido de la alarma de la planta y sigue las instrucciones de evacuación sin detenerte a recoger pertenencias.</li>
+        <li><strong>Ríos y zonas inundables:</strong> ante lluvias intensas y aviso de desbordamiento, evacúa a terrenos altos antes de que el agua suba; nunca cruces un vado con corriente.</li>
+        <li><strong>Alpinismo en el Pico de Orizaba:</strong> registra tu ascenso con las autoridades locales, lleva GPS y comunicaciones satelitales, y nunca asciendas sin un guía certificado en condiciones adversas.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a los menores cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: La Silla Rota Veracruz (22 ago 2023), Diario de Listmo (fundación 1873), N+ Veracruz
+      (primer cuerpo América Latina), Infobae México (22 ago 2021), El Financiero (Complejo Petroquímico
+      Pajaritos), Wikipedia (Citlaltépetl; Huracán Karl), El Financiero / Imagen de Veracruz (Puerto de
+      Veracruz 33 M ton 2024), El Piñero / El Financiero (rescate Pico de Orizaba 2025), Municipio Sur
+      (inversión PEMEX 2025 en complejos petroquímicos). Las cifras de estaciones y municipios
+      corresponden a las publicadas en este directorio con verificación editorial de {DIRECTORIO_VERIFICADO_ISO}.
+      Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
   </Fragment>
 </DirectorioEstadoLayout>

@@ -3,111 +3,190 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesTabasco, getMunicipios, ESTADISTICAS_TABASCO } from "@data/estaciones-tabasco";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estado = "Tabasco";
-const sigla = "TAB";
-const slug = "tabasco";
+const sigla  = "TAB";
+const slug   = "tabasco";
+
+const canonical = "https://bombero.mx/directorio/tabasco/";
+
+// ─── Estadísticas del directorio ─────────────────────────────────────────────
+const municipios      = getMunicipios();
+const totalEstaciones = estacionesTabasco.length;
+const totalMunicipios = municipios.length;
+const totalBomberos   = estacionesTabasco.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0);
+const totalUnidades   = estacionesTabasco.reduce((s, e) => s + (e.unidades ?? 0), 0);
+
+// ─── Comparativa regional (zonas) ────────────────────────────────────────────
+const zonasDef = [
+  {
+    nombre: "Zona Centro — Villahermosa",
+    municipios_: ["Centro"],
+    cobertura: "Total", chip: "total",
+    perfil: "Capital, aeropuerto, coordinación estatal PEMEX, Laguna de las Ilusiones.",
+  },
+  {
+    nombre: "Zona Petrolera — Paraíso/Cunduacán",
+    municipios_: ["Paraíso", "Cunduacán", "Macuspana"],
+    cobertura: "Alta", chip: "alta",
+    perfil: "Refinería Olmeca Dos Bocas, complejos petroquímicos y campos gasíferos PEMEX.",
+  },
+  {
+    nombre: "Región Chontalpa",
+    municipios_: ["Cárdenas", "Comalcalco", "Jalpa de Méndez", "Nacajuca", "Huimanguillo"],
+    cobertura: "Alta", chip: "alta",
+    perfil: "Agroindustria cañera y cacaotera, llanura inundable de alta frecuencia.",
+  },
+  {
+    nombre: "Pantanos y Costa — Delta",
+    municipios_: ["Centla"],
+    cobertura: "Media", chip: "media",
+    perfil: "Reserva Biósfera Pantanos de Centla RAMSAR, delta Grijalva-Usumacinta, Golfo de México.",
+  },
+  {
+    nombre: "Región Ríos — Usumacinta",
+    municipios_: ["Tenosique", "Emiliano Zapata", "Balancán", "Jalapa", "Jalpa", "Tacotalpa"],
+    cobertura: "Baja", chip: "baja",
+    perfil: "Frontera Guatemala, rescate fluvial Usumacinta, selva tropical y Sierra de Tabasco.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesTabasco.filter((e) => z.municipios_.includes(e.municipio));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
 
 // ─── Imágenes Hero ────────────────────────────────────────────────────────────
 const heroThumbs = [
-  { src: "/images/directorio/estacion-bomberos-selva-01.avif", alt: "Bomberos de Tabasco en rescate acuático por inundación", label: "Respuesta Rápida" },
-  { src: "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif", alt: "Bombero mexicano en turno de guardia en Tabasco", label: "Guardia de Turno" },
-  { src: "/images/directorio/estacion-bomberos-inundaciones-01.avif", alt: "Lancha de rescate en Pantanos de Centla", label: "Servicio 24/7" },
+  { src: "/images/directorio/estacion-bomberos-selva-01.avif",           alt: "Bomberos de Tabasco en rescate acuático por inundación",         label: "Respuesta Rápida"  },
+  { src: "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif", alt: "Bombero mexicano en turno de guardia en Tabasco",         label: "Guardia de Turno"  },
+  { src: "/images/directorio/estacion-bomberos-inundaciones-01.avif",    alt: "Lancha de rescate en Pantanos de Centla",                        label: "Servicio 24/7"     },
 ];
 
-// ─── Galería de Imágenes ──────────────────────────────────────────────────────
+// ─── Galería ──────────────────────────────────────────────────────────────────
 const galleryImages = [
-  { src: "/images/directorio/estacion-bomberos-petrolera-01.avif", alt: "Emergencia HAZMAT en instalaciones PEMEX",
-    label: "Emergencia HAZMAT en instalaciones PEMEX"
-  },
-  { src: "/images/directorio/estacion-bomberos-inundaciones-01.avif", alt: "Evacuación durante inundación del Grijalva",
-    label: "Evacuación durante inundación del"
-  },
-  { src: "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif", alt: "Gimnasio crossfit en estación de bomberos de Tabasco", label: "Preparación Física" },
-  { src: "/images/directorio/estacion-bomberos-selva-01.avif", alt: "Rescate acuático en Pantanos de Centla",
-    label: "Rescate acuático en Pantanos de Centla"
-  },
+  { src: "/images/directorio/estacion-bomberos-petrolera-01.avif",   alt: "Emergencia HAZMAT en instalaciones PEMEX Tabasco",       label: "HAZMAT Petrolero"         },
+  { src: "/images/directorio/estacion-bomberos-inundaciones-01.avif",alt: "Evacuación durante inundación del Grijalva Tabasco",     label: "Rescate en Inundación"    },
+  { src: "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif", alt: "Gimnasio crossfit en estación de bomberos de Tabasco", label: "Preparación Física"  },
+  { src: "/images/directorio/estacion-bomberos-selva-01.avif",        alt: "Rescate acuático en Pantanos de Centla Tabasco",        label: "Pantanos de Centla"       },
 ];
 
-// ─── Números de Emergencia ────────────────────────────────────────────────────
+// ─── Números de emergencia ────────────────────────────────────────────────────
 const emergencyNumbers = [
-  { number: "911", label: "Emergencias" },
-  { number: "993 315 3700", label: "Bomberos Villahermosa" },
-  { number: "933 333 3900", label: "Bomberos Paraíso" },
-  { number: "937 372 0600", label: "Bomberos Cárdenas" },
+  { number: "911",          label: "Emergencias"            },
+  { number: "993 315 3700", label: "Bomberos Villahermosa"  },
+  { number: "933 333 3900", label: "Bomberos Paraíso"       },
+  { number: "937 372 0600", label: "Bomberos Cárdenas"      },
 ];
 
-// ─── Regiones del Estado ──────────────────────────────────────────────────────
+// ─── Regiones ─────────────────────────────────────────────────────────────────
 const regiones = [
-  { nombre: "Zona Centro", desc: "Villahermosa (capital), aeropuerto, instalaciones PEMEX, Laguna de las Ilusiones" },
-  { nombre: "Zona Petrolera - Dos Bocas", desc: "Paraíso (Refinería Olmeca), Cunduacán, Macuspana — HAZMAT industrial máximo nivel" },
-  { nombre: "Región Chontalpa", desc: "Cárdenas, Comalcalco (cacao #1), Jalpa de Méndez, Huimanguillo — agroindustria y ganadería" },
-  { nombre: "Región Ríos - Usumacinta", desc: "Tenosique, Balancán, Emiliano Zapata — frontera Guatemala, rescate fluvial" },
-  { nombre: "Pantanos y Costa", desc: "Centla (Reserva Biósfera), Nacajuca (comunidades Chontal) — humedales y delta" },
+  { nombre: "Zona Centro",              desc: "Villahermosa (capital), aeropuerto, instalaciones PEMEX, Laguna de las Ilusiones"         },
+  { nombre: "Zona Petrolera — Dos Bocas",desc: "Paraíso (Refinería Olmeca), Cunduacán, Macuspana — HAZMAT industrial máximo nivel"      },
+  { nombre: "Región Chontalpa",         desc: "Cárdenas, Comalcalco (cacao #1), Jalpa de Méndez, Nacajuca, Huimanguillo — agroindustria"},
+  { nombre: "Región Ríos — Usumacinta", desc: "Tenosique, Balancán, Emiliano Zapata — frontera Guatemala, rescate fluvial"              },
+  { nombre: "Pantanos y Costa",         desc: "Centla (Reserva Biósfera RAMSAR), Nacajuca (Chontal) — humedales y delta"                },
 ];
 
-// ─── Cards de EPP ─────────────────────────────────────────────────────────────
+// ─── EPP Cards ────────────────────────────────────────────────────────────────
 const eppCards = [
   {
     image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
-    imageAlt:  "Traje HAZMAT para industria petrolera en Tabasco",
+    imageAlt:  "Traje HAZMAT nivel A para industria petrolera Tabasco PEMEX Refinería Olmeca",
     badge:     "PEMEX",
     title:     "HAZMAT Petrolero",
-    text:      "Trajes encapsulados para emergencias en <strong>instalaciones de PEMEX y Dos Bocas</strong>. Protección contra hidrocarburos y gases H₂S en pozos y refinerías.",
+    text:      "Trajes encapsulados para emergencias en <strong>instalaciones de PEMEX y Refinería Olmeca Dos Bocas</strong>. Protección contra hidrocarburos, H₂S y gases en pozos y refinerías.",
     href:      "/productos/trajes-para-bomberos/traje-hazmat/",
     linkLabel: "Ver Equipos HAZMAT",
   },
   {
     image:     "/images/directorio/traje-inmersion-rescate-01.avif",
-    imageAlt:  "Equipo de rescate acuático para inundaciones en Tabasco",
+    imageAlt:  "Equipo de rescate acuático para inundaciones río Grijalva Tabasco",
     badge:     "Acuático",
     title:     "Rescate Acuático",
-    text:      "Equipamiento completo para rescate en <strong>inundaciones del río Grijalva y zona lacustre</strong>. Lanchas, chalecos y equipo swift water para temporada de lluvias.",
+    text:      "Equipamiento completo para rescate en <strong>inundaciones del río Grijalva y Pantanos de Centla</strong>. Lanchas, chalecos y equipo swift water para temporada de lluvias.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Equipo Acuático",
   },
   {
     image:     "/images/directorio/camion-bomberos-aeropuerto-01.avif",
-    imageAlt:  "Vehículo ARFF para aeropuerto de Villahermosa",
+    imageAlt:  "Vehículo ARFF para aeropuerto Carlos Rovirosa Pérez Villahermosa Tabasco",
     badge:     "ARFF",
     title:     "ARFF Aeroportuario",
-    text:      "Equipo especializado ARFF para el <strong>aeropuerto de Villahermosa</strong> y helipuertos petroleros. Espumas AFFF y agentes certificados para combustibles.",
+    text:      "Equipo especializado ARFF para el <strong>aeropuerto Carlos Rovirosa Pérez</strong> y helipuertos petroleros. Espumas AFFF y agentes certificados para combustibles Jet A-1.",
     href:      "/productos/trajes-para-bomberos/traje-arff-aeroportuario/",
     linkLabel: "Ver Equipo ARFF",
   },
   {
     image:     "/images/directorio/equipo-bomberos-completo-01.avif",
-    imageAlt:  "Equipo completo de bomberos para Tabasco",
+    imageAlt:  "Equipo completo NFPA 1971 bomberos Villahermosa Cárdenas Comalcalco Tabasco",
     badge:     "NFPA 1971",
     title:     "EPP Estructural",
-    text:      "Sistema completo de protección personal para bomberos de <strong>Villahermosa, Cárdenas y Comalcalco</strong>. Traje, casco, guantes y botas certificados NFPA.",
+    text:      "Sistema completo de protección personal para bomberos de <strong>Villahermosa, Cárdenas y Comalcalco</strong>. Traje, casco, guantes y botas certificados NFPA 1971.",
     href:      "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/",
     linkLabel: "Ver Trajes Estructurales",
   },
 ];
 
-// ─── SEO y Meta ───────────────────────────────────────────────────────────────
-const municipios = getMunicipios();
-
-const keywords = [
-  "bomberos tabasco",
-  "estaciones bomberos villahermosa",
-  "bomberos villahermosa",
-  "emergencias tabasco 911",
-  "bomberos paraiso tabasco",
-  "refineria olmeca dos bocas bomberos",
-  "cuerpo bomberos tabasco",
-  "bomberos pemex tabasco",
-  "proteccion civil tabasco",
-  "bomberos inundaciones tabasco",
-  "rescate acuatico grijalva",
-  "hazmat petrolero sureste",
+// ─── FAQs específicas de Tabasco (≥10) ───────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencias para llamar a los bomberos en Tabasco?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas a través del Centro Estatal de Emergencias. La llamada se enruta a la estación más cercana. Para contacto directo: Bomberos Villahermosa <strong>993 315 3700</strong>, Bomberos Paraíso <strong>933 333 3900</strong>, Bomberos Cárdenas <strong>937 372 0600</strong>. En los Pantanos de Centla y comunidades fluviales sin carretera, la activación incluye la flota de lanchas y coordinación con la Armada de México.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Tabasco?",
+    a: `El H. Cuerpo de Bomberos de Tabasco opera <strong>${totalEstaciones} estaciones</strong> distribuidas en los <strong>${totalMunicipios} municipios</strong> de este directorio, con presencia en la capital Villahermosa, la zona petrolera (Paraíso, Cunduacán, Macuspana), la Chontalpa (Cárdenas, Comalcalco), los Pantanos de Centla y la región del Usumacinta (Tenosique, Balancán, Emiliano Zapata, Tacotalpa, Jalapa).`,
+  },
+  {
+    q: "¿Cuándo se fundó el primer cuerpo de bomberos de México y cómo se relaciona con Tabasco?",
+    a: `El <strong>primer cuerpo de bomberos de México</strong> se fundó el <strong>22 de agosto de 1873</strong> en el puerto de Veracruz. Esa fecha se conmemora cada año como el <strong>Día del Bombero en México</strong>. Tabasco, como estado del sureste, desarrolló posteriormente sus propias corporaciones municipales, siendo Villahermosa la que concentra la estación central y el mayor número de personal del estado.`,
+  },
+  {
+    q: "¿Por qué Tabasco es el estado con mayor riesgo de inundaciones en México?",
+    a: `Tabasco combina tres factores que ningún otro estado replica en la misma intensidad: está ubicado en la <strong>llanura aluvial más baja del país</strong>, recibe las cuencas de los ríos <strong>Grijalva y Usumacinta</strong> —los dos más caudalosos de México—, y registra precipitaciones anuales de entre 1,500 y 4,000 mm. En octubre-noviembre de 2007, en solo 5 días cayó el <strong>46% de la precipitación anual</strong>, los ríos se desbordaron y el agua afectó alrededor del <strong>80% del territorio tabasqueño</strong>, con más de un millón de personas afectadas.`,
+  },
+  {
+    q: "¿Qué pasó con los bomberos de Tabasco durante la inundación de 2007?",
+    a: `La inundación de octubre-noviembre de 2007 fue la mayor catástrofe hídrica de México en el siglo XXI hasta ese momento. Los bomberos respondieron a incendios estructurales en colonias inundadas <strong>llegando en lancha</strong>, con sus propias estaciones bajo el agua y los camiones inmovilizados. Esa experiencia definió los protocolos actuales de <strong>modo anfibio</strong>: rescate acuático permanente en todas las unidades y flotillas de lanchas en cada estación. En 2020, las lluvias asociadas a frentes fríos inundaron nuevamente el estado, afectando a más de 302,000 personas.`,
+  },
+  {
+    q: "¿Qué es la Refinería Olmeca Dos Bocas y cuál es el riesgo para los bomberos?",
+    a: `La <strong>Refinería Olmeca</strong>, ubicada en Paraíso sobre el Golfo de México, tiene una capacidad diseñada de <strong>340,000 barriles diarios</strong>. Su operación implica riesgos HAZMAT de máximo nivel: unidades de proceso a alta temperatura, líneas de <strong>H₂S</strong> (gas sulfhídrico) en concentraciones letales, tanques de almacenamiento de crudo, y la particularidad costera de que el viento marino puede arrastrar nubes de gas hacia zonas habitadas. La brigada HAZMAT de la estación de Paraíso opera con detectores de H₂S de lectura continua y protocolos diferenciados según la dirección del viento.`,
+  },
+  {
+    q: "¿Qué son los Pantanos de Centla y qué desafíos representan para los bomberos?",
+    a: `Los <strong>Pantanos de Centla</strong> son la Reserva de la Biósfera de humedales más grande del sureste mexicano, con <strong>302,706 hectáreas</strong> inscritas como sitio <strong>RAMSAR</strong> en 1995. El territorio es completamente fluvial: canales, lagunas, manglares y ciénagas donde el barro puede tener 1 a 3 metros antes de encontrar tierra firme. La visibilidad bajo el agua es mínima y no hay carreteras en gran parte del área. Los bomberos de Centla operan en lanchas y coordinan con la Armada de México y la CONANP.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en Tabasco?",
+    a: `Combate de <strong>incendios estructurales</strong>, <strong>HAZMAT industrial</strong> (petroleo, H₂S, amoniaco), <strong>rescate acuático</strong> en inundaciones e ríos, <strong>rescate fluvial</strong> en el Grijalva y el Usumacinta, <strong>ARFF</strong> en el aeropuerto Carlos Rovirosa Pérez, atención prehospitalaria, rescate vehicular, control de fugas de gas, incendios en cañaverales y selva, y rescate espeleológico en las Grutas de Coconá y Villa Luz (Tacotalpa).`,
+  },
+  {
+    q: "¿Los servicios de los bomberos de Tabasco tienen costo?",
+    a: `Las emergencias que comprometen la <strong>vida o la integridad</strong> —incendios, rescates, inundaciones, fugas de gas— se atienden de forma <strong>gratuita</strong>. Algunos servicios secundarios pueden tener cuota de recuperación. La atención de emergencia nunca se condiciona a un pago. Para toda emergencia llama al <strong>911</strong>.`,
+  },
+  {
+    q: "¿Por qué Tabasco tiene tantas instalaciones de PEMEX y qué riesgo implican?",
+    a: `PEMEX opera en <strong>14 de los 17 municipios</strong> de Tabasco, con instalaciones que ocupan más de 12,000 hectáreas y una red de ductos de crudo y gas que recorre la llanura aluvial. Las líneas corren bajo suelos inundables: en una crecida sostenida, la erosión puede exponer un ducto, romperlo por fatiga mecánica y generar un derrame de hidrocarburo sobre agua en movimiento que viaja kilómetros antes de que llegue el primer bombero. Por eso las estaciones de Macuspana y Cárdenas preposicionan barreras flotantes de contención.`,
+  },
+  {
+    q: "¿Cómo prevenir incendios y emergencias en el hogar en Tabasco?",
+    a: `Revisa periódicamente las instalaciones de <strong>gas</strong> (mangueras, reguladores) y la <strong>instalación eléctrica</strong>. En temporada de lluvias, ten un <strong>plan de evacuación</strong> claro si vives en zona inundable: identifica la ruta de salida y el punto de reunión. Instala <strong>detectores de humo</strong> y ten un extintor vigente. Si detectas fuga de gas: no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble. Siempre llama al <strong>911</strong>.`,
+  },
+  {
+    q: "¿Qué hace especial al aeropuerto de Villahermosa para los bomberos?",
+    a: `El <strong>Aeropuerto Internacional Carlos A. Rovirosa Pérez</strong> opera con categoría <strong>ARFF Categoría 6 ICAO</strong> y es el principal hub aéreo del sureste petrolero: concentra una alta frecuencia de vuelos del sector energético (PEMEX, contratistas) además del tráfico regular. La estación aeroportuaria tiene tiempo de respuesta de <strong>3 minutos</strong> (estándar ICAO) a cualquier punto de pistas y plataformas, con camiones Oshkosh Striker de espuma AFFF.`,
+  },
 ];
 
-const estadosVecinos = getEstadosVecinos("tabasco");
-
-// Imágenes para tarjetas de estaciones
+// ─── Imágenes de estaciones ───────────────────────────────────────────────────
 const stationImages = [
   "/images/directorio/estacion-bomberos-profesional-01.avif",
   "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
@@ -152,12 +231,13 @@ const stationImages = [
   "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",
   "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif",
 ];
+
 // ─── Schema.org JSON-LD ───────────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de las ${estacionesTabasco.length} estaciones de bomberos en Tabasco. Villahermosa, Paraíso-Dos Bocas, Macuspana, Cárdenas, Comalcalco. Petróleo PEMEX, Refinería Olmeca, inundaciones Grijalva-Usumacinta y Pantanos de Centla. Emergencias 911.`,
+  description: `Directorio verificado de las ${totalEstaciones} estaciones del H. Cuerpo de Bomberos de Tabasco. Villahermosa, Paraíso-Dos Bocas (Refinería Olmeca), Macuspana, Cárdenas, Comalcalco. Petróleo PEMEX, inundaciones Grijalva-Usumacinta, Pantanos de Centla RAMSAR. Emergencias: 911.`,
   numberOfItems: estacionesTabasco.length,
   itemListElement: estacionesTabasco.map((e, i) => ({
     "@type": "ListItem",
@@ -178,118 +258,321 @@ const itemListSchema = {
   })),
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Tabasco",         url: "/directorio/tabasco/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Bomberos en Tabasco: estaciones, historia e infraestructura de emergencia",
+  description: "Guía del H. Cuerpo de Bomberos de Tabasco: inundaciones 2007 y 2020, Refinería Olmeca Dos Bocas, PEMEX, Pantanos de Centla RAMSAR, ríos Grijalva-Usumacinta. Directorio de estaciones con teléfonos.",
+  about: [
+    "H. Cuerpo de Bomberos de Tabasco",
+    "Protección Civil Tabasco",
+    "Rescate acuático Grijalva Usumacinta",
+    "HAZMAT industria petrolera PEMEX",
+    "Refinería Olmeca Dos Bocas",
+  ],
+  inLanguage: "es-MX",
+  image: "https://bombero.mx/api/og/estado/tabasco.svg",
+  author:    { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  publisher: { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+  mainEntityOfPage: canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  url: canonical,
+  name: "Estaciones de Bomberos en Tabasco",
+  description: `Directorio verificado de las ${totalEstaciones} estaciones de bomberos en Tabasco: Villahermosa, Paraíso, Cárdenas, Comalcalco, Macuspana y más. Teléfonos, cobertura, funciones e historia.`,
+  inLanguage: "es-MX",
+  isPartOf: { "@type": "WebSite", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  about: { "@type": "GovernmentOrganization", name: "H. Cuerpo de Bomberos de Tabasco" },
+  primaryImageOfPage: "https://bombero.mx/api/og/estado/tabasco.svg",
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+const estadosVecinos = getEstadosVecinos("tabasco");
 ---
 
 <DirectorioEstadoLayout
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Tabasco</strong>.     Encuentra teléfonos de emergencia, direcciones y servicios en el corazón petrolero de México:     sede de la <strong>Refinería Olmeca Dos Bocas</strong>, ríos Grijalva y Usumacinta,     y el <strong>estado con mayor riesgo de inundaciones</strong> del país."
-  heroImage="/images/directorio/estacion-bomberos-selva-01.avif"
-  heroImageAlt="Estación de Bomberos en Tabasco"
-  heroCaption="H. Cuerpo de Bomberos · Tabasco"
-  title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesTabasco.length} estaciones en Tabasco — incendio+inundación simultáneos, Refinería Olmeca Dos Bocas 340K bbl y Pantanos de Centla RAMSAR. Emergencias: 911.`}
-  keywords={keywords}
-  canonical={`https://bombero.mx/directorio/${slug}/`}
   estado={estado}
   sigla={sigla}
   slug={slug}
-  totalEstaciones={estacionesTabasco.length}
-  totalMunicipios={getMunicipios().length}
+  description={`Bomberos en Tabasco: ${totalEstaciones} estaciones, rescate acuático Grijalva-Usumacinta, HAZMAT Refinería Olmeca Dos Bocas 340K bbl y Pantanos de Centla RAMSAR. Emergencias: 911.`}
+  keywords={[
+    "bomberos tabasco",
+    "estaciones bomberos villahermosa",
+    "bomberos villahermosa",
+    "emergencias tabasco 911",
+    "bomberos paraiso tabasco",
+    "refineria olmeca dos bocas bomberos",
+    "cuerpo bomberos tabasco",
+    "bomberos pemex tabasco",
+    "proteccion civil tabasco",
+    "bomberos inundaciones tabasco",
+    "rescate acuatico grijalva usumacinta",
+    "hazmat petrolero sureste mexico",
+    "pantanos centla reserva biosfera tabasco",
+    "bomberos cardenas comalcalco tabasco",
+    "directorio bomberos tabasco",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
+
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
   habitantes="2.4M+"
+
+  heroDesc={`El <strong>H. Cuerpo de Bomberos de Tabasco</strong> opera en el estado que concentra simultáneamente la mayor frecuencia de inundaciones de México y la <strong>Refinería Olmeca Dos Bocas</strong> —con capacidad de 340,000 barriles diarios— en su litoral. Con <strong>${totalEstaciones} estaciones</strong> en los <strong>${totalMunicipios} municipios</strong> de este directorio, protege a <strong>2.4 millones de tabasqueños</strong> en un territorio cruzado por los ríos Grijalva y Usumacinta, la <strong>Reserva de la Biósfera Pantanos de Centla</strong> (sitio RAMSAR) y más de <strong>8,200 km de ductos PEMEX</strong> bajo suelo inundable.`}
+  heroImage="/images/directorio/estacion-bomberos-selva-01.avif"
+  heroImageAlt="H. Cuerpo de Bomberos de Tabasco — rescate acuático inundaciones Grijalva HAZMAT PEMEX"
+  heroCaption="H. Cuerpo de Bomberos · Tabasco · Rescate acuático e industrial"
   heroThumbs={heroThumbs}
   galleryImages={galleryImages}
   emergencyNumbers={emergencyNumbers}
+  municipios={municipios}
   regiones={regiones}
-  eppCards={eppCards}
+  estadosVecinos={estadosVecinos}
   estaciones={estacionesTabasco}
   stationImages={stationImages}
-  municipios={municipios}
-  estadosVecinos={estadosVecinos}
-  jsonLd={[itemListSchema]}
+  eppCards={eppCards}
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-      <h2>Bomberos de Tabasco — Cuando el Incendio Está Rodeado de Agua y la Lancha Es el Único Camino para Llegar</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Tabasco</strong> opera en el estado con la mayor frecuencia
-        de inundaciones de México y, simultáneamente, con la refinería más nueva y de mayor inversión del
-        país en su litoral. En octubre de 2007, cuando el 80% del territorio tabasqueño quedó bajo el agua,
-        los bomberos respondieron a incendios estructurales en colonias inundadas llegando en lancha,
-        operando con agua hasta las rodillas y usando como agente supresor la misma agua de inundación —
-        contaminada con hidrocarburos y residuos cloacales — porque era el único recurso disponible.
-        Ese escenario, que ningún manual estándar de bomberos contempla, definió los protocolos actuales
-        del cuerpo: el modo anfibio, donde el camión queda en tierra y la operación completa se conduce
-        desde embarcaciones ligeras.
-      </p>
+    <h2>Bomberos en Tabasco</h2>
 
-      <h3>¿Cómo llamar a los Bomberos de Tabasco?</h3>
-      <p>
-        El número único de emergencias en todo el estado es <strong>911</strong>, despachado por el Centro
-        Estatal de Emergencias. La estación de Paraíso tiene línea directa con la guardia de seguridad
-        de la Refinería Olmeca y con la Capitanía del Puerto de Dos Bocas para emergencias marítimas.
-        En los Pantanos de Centla y comunidades del delta del Usumacinta sin acceso por carretera, la
-        activación incluye la flota de lanchas de la estación fluvial y coordinación con la Armada de
-        México para operaciones en la zona costera del Golfo.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Tabasco">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en el directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Bomberos (directorio)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalUnidades}</span><span class="de-stat__label">Unidades registradas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2.4M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">302,706 ha</span><span class="de-stat__label">Pantanos de Centla (RAMSAR)</span></div>
+    </div>
 
-      <h3>Modo Anfibio — Extinguir un Incendio Llegando en Lancha con Agua en el Suelo</h3>
-      <p>
-        La inundación de octubre-noviembre 2007 fue la mayor catástrofe hídrica en México en el siglo
-        XXI: el 80% del territorio de Tabasco quedó bajo el agua durante más de dos semanas, con el río
-        Grijalva superando en 3.5 metros su nivel de emergencia en Villahermosa. Durante esas semanas,
-        los bomberos atendieron incendios estructurales con las estaciones propias inundadas, los camiones
-        inmovilizados, y el acceso a las colonias afectadas únicamente por lancha. El protocolo que emergió
-        de esa experiencia incluye equipamiento de rescate acuático permanente en todas las unidades,
-        flotillas de lanchas de aluminio con motores fuera de borda en cada estación, y el criterio de que
-        ante nivel de agua superior a 50 cm en el acceso, la operación es anfibio desde el primer minuto.
-        En un incendio con inundación simultánea, la manguera se conecta al autotanque anclado afuera de
-        la zona inundada y se tiende por encima del nivel del agua.
-      </p>
+    <p class="de-lead">
+      Ningún cuerpo de bomberos en México enfrenta la combinación de riesgos que define a Tabasco:
+      un estado que puede inundarse hasta en un <strong>80% de su territorio</strong> en días —como ocurrió
+      en octubre-noviembre de 2007—, con la <strong>Refinería Olmeca Dos Bocas</strong> operando en su
+      litoral, más de <strong>8,200 km de ductos de PEMEX</strong> bajo suelo inundable y la
+      <strong>Reserva de la Biósfera Pantanos de Centla</strong> —sitio RAMSAR, la mayor zona de
+      humedales del sureste mexicano— donde no hay carreteras y la única forma de llegar a una emergencia
+      es en lancha. Las <strong>{totalEstaciones} estaciones</strong> de este directorio cubren los
+      {totalMunicipios} municipios de Tabasco con un protocolo que ningún manual estándar prevé: el
+      modo anfibio, donde el camión queda en tierra y la operación completa se conduce desde el agua.
+    </p>
 
-      <h3>Refinería Olmeca Dos Bocas — H₂S, Crudo Ligero y el Mar como Enfriador Corrosivo</h3>
-      <p>
-        La Refinería Olmeca en el municipio de Paraíso entró en operación en 2023 con capacidad de
-        340,000 barriles diarios y está ubicada en la franja costera del Golfo de México a tres kilómetros
-        del litoral. Los riesgos específicos de su diseño incluyen unidades de FCC (craqueo catalítico
-        fluido) a 500-600°C, líneas de proceso con H₂S en concentraciones que superan los 300 ppm en
-        zona de riesgo inmediato para la vida, y tanques de almacenamiento de crudo ligero e intermedios.
-        La particularidad costera: el agua del Golfo como agente de enfriamiento en incendio de tanque
-        introduce cloruro de sodio en el ambiente, que a altas temperaturas forma ácido clorhídrico —
-        corrosivo para el equipo SCBA y para la piel expuesta. La brigada HAZMAT de Paraíso tiene
-        detectores de H₂S de lectura continua y protocolos de zona de exclusión diferenciados para
-        viento marino (brisa que arrastra la nube hacia tierra) y viento tierra (que empuja hacia el mar).
-      </p>
+    <h3>Cómo contactar a los Bomberos de Tabasco</h3>
+    <p>
+      En cualquier emergencia en el estado, el <strong>911</strong> conecta con el Centro Estatal de
+      Emergencias las 24 horas y despacha a la estación más cercana. Líneas directas principales:
+      Villahermosa (Estación Central) <strong>993 315 3700</strong>, Paraíso — Dos Bocas
+      <strong>933 333 3900</strong> y Cárdenas <strong>937 372 0600</strong>. La estación de Paraíso
+      tiene línea directa con la guardia de seguridad de la Refinería Olmeca y con la Capitanía del
+      Puerto de Dos Bocas. En los Pantanos de Centla y comunidades del delta sin acceso por carretera,
+      la activación incluye la flota de lanchas de la estación de Centla (Frontera) y coordinación con
+      la Armada de México. Encuentra todos los teléfonos en el{" "}
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>PEMEX Ductos bajo Suelo Inundable — Ruptura por Erosión de Suelo en Crecida</h3>
-      <p>
-        Tabasco tiene la mayor densidad de ductos de PEMEX por km² de México, con líneas de crudo y
-        gas natural que corren bajo el suelo de llanuras aluviales del Grijalva y el Usumacinta. En una
-        inundación con corriente sostenida, la erosión del suelo sobre un ducto puede exponer el tubo,
-        reducir el soporte de sustentación y provocar una ruptura por fatiga mecánica — con fuga de
-        hidrocarburo sobre la superficie del agua inundada. Un derrame de crudo sobre agua en movimiento
-        viaja con la corriente y puede alcanzar zonas habitadas a kilómetros del punto de ruptura antes
-        de que llegue el primer bombero. El protocolo incluye monitoreo de presión en ductos críticos
-        durante alertas de inundación y recursos de contención fluvial (barreras de absorción flotantes)
-        preposicionados en las estaciones de Macuspana y Cárdenas.
-      </p>
+    <h3>Historia del H. Cuerpo de Bomberos de Tabasco</h3>
+    <p>
+      La historia del combate organizado de incendios en México arranca en el Golfo y llega pronto a
+      las ciudades del sureste. Estos son los hitos que enmarcan la corporación tabasqueña:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en el puerto de <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero en México</strong>.</li>
+      <li><span class="de-tl__year">S. XX</span> Villahermosa y los municipios de la Chontalpa organizan sus primeros cuerpos de bomberos municipales, articulados con la Protección Civil estatal del gobierno de Tabasco.</li>
+      <li><span class="de-tl__year">Décadas 70–90</span> La expansión de <strong>PEMEX</strong> en Tabasco obliga a profesionalizar la respuesta HAZMAT. Se incorpora equipo especializado en hidrocarburos en las estaciones de la zona petrolera (Villahermosa Norte, Macuspana, Cunduacán).</li>
+      <li><span class="de-tl__year">2007</span> La <strong>gran inundación de octubre-noviembre</strong> —la mayor catástrofe hídrica de México del siglo XXI hasta ese momento— afecta alrededor del 80% del territorio y a más de 1 millón de personas. Los bomberos responden en lancha con sus estaciones bajo el agua. Nacen los protocolos de <strong>modo anfibio</strong>.</li>
+      <li><span class="de-tl__year">2020</span> Nuevas inundaciones severas —aceleradas por frentes fríos y la depresión tropical Iota— afectan a más de 302,000 personas en Tabasco. Intervención masiva de rescate acuático.</li>
+      <li><span class="de-tl__year">2023</span> La <strong>Refinería Olmeca</strong> en Dos Bocas inicia su primera producción, consolidando a Paraíso como el municipio con el mayor riesgo industrial de la entidad. La estación de Paraíso actualiza sus capacidades HAZMAT de refinación.</li>
+      <li><span class="de-tl__year">Hoy</span> El H. Cuerpo de Bomberos de Tabasco opera <strong>{totalEstaciones} estaciones</strong> con <strong>{totalBomberos} elementos</strong> y <strong>{totalUnidades} unidades</strong> registrados en este directorio, atendiendo los 17 municipios del estado.</li>
+    </ul>
 
-      <h3>Pantanos de Centla — 302,706 ha de Visibilidad Cero y Suelo sin Fondo</h3>
-      <p>
-        Los Pantanos de Centla son la reserva de humedales más grande del sureste mexicano — 302,706
-        hectáreas de canales, lagunas, manglares y ciénagas donde la visibilidad bajo el agua es de 15
-        a 30 cm y el suelo de barro tiene entre 1 y 3 metros de profundidad antes de encontrar tierra
-        firme. Un rescatista que entra al pantano sin conocer el patrón de canales navegables puede
-        quedar atascado a 200 metros de su embarcación en barro hasta la cintura. La estación de Frontera
-        trabaja con guías locales chontales que conocen los laberintos de canales de la reserva — no
-        porque el GPS sea inútil (lo es para distinguir canal navegable de pantano intransitable), sino
-        porque el conocimiento de qué camino sostiene el peso de una lancha con motor no está en ningún
-        mapa digital.
-      </p>
-    </Fragment>
+    <h3>Infraestructura de emergencia: cómo se cubren los 17 municipios</h3>
+    <p>
+      La cobertura del cuerpo se organiza por grandes zonas, cada una con un perfil de riesgo
+      diferenciado. El centro concentra la mayor capacidad operativa en Villahermosa; la zona
+      petrolera de Paraíso y Cunduacán despliega los recursos HAZMAT de máximo nivel; la Chontalpa
+      agrícola enfrenta inundaciones de llanura y cañaverales; los Pantanos de Centla exigen
+      exclusivamente operaciones acuáticas; y la región del Usumacinta combina rescate fluvial
+      de alta complejidad con selva y frontera guatemalteca:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios principales</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios_.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      El H. Cuerpo de Bomberos de Tabasco es un servicio de emergencia integral. En un estado con
+      riesgos tan específicos como los hidrocarburos y las inundaciones, las funciones van mucho más
+      allá del fuego estructural:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, industriales, en cañaverales y en vegetación de selva y manglar, en los 17 municipios del estado.</p></div>
+      <div class="de-card"><h4>Rescate acuático</h4><p>Operaciones en inundaciones, ríos Grijalva y Usumacinta, Pantanos de Centla, lagunas y zona costera del Golfo de México.</p></div>
+      <div class="de-card"><h4>HAZMAT Industrial</h4><p>Derrames de crudo, fugas de H₂S y gas natural, incendios en tanques y procesos de la Refinería Olmeca, complejos PEMEX y ductos.</p></div>
+      <div class="de-card"><h4>ARFF Aeroportuario</h4><p>Rescate y extinción de incendios en aeronaves (ARFF Categoría 6 ICAO) en el Aeropuerto Internacional Carlos Rovirosa Pérez y helipuertos petroleros.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Soporte vital básico y avanzado (BLS/ALS) a lesionados en accidentes, incendios, rescates y emergencias industriales.</p></div>
+      <div class="de-card"><h4>Prevención y protección civil</h4><p>Inspecciones de riesgo, simulacros en escuelas y empresas, y coordinación con el IPCET ante alertas de inundación estacional.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático e inundaciones</strong></td><td>24/7</td><td>Todas las estaciones (lanchas permanentes)</td></tr>
+          <tr><td><strong>HAZMAT hidrocarburos</strong></td><td>24/7</td><td>Villahermosa Norte, Paraíso, Macuspana, Cunduacán</td></tr>
+          <tr><td><strong>ARFF aeroportuario</strong></td><td>24/7</td><td>Aeropuerto Carlos Rovirosa Pérez</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia ALS/BLS</td></tr>
+          <tr><td><strong>Rescate fluvial Usumacinta</strong></td><td>24/7</td><td>Tenosique, Emiliano Zapata, Balancán</td></tr>
+          <tr><td><strong>Rescate en Pantanos de Centla</strong></td><td>24/7</td><td>Estación Centla (Frontera) + SEMAR</td></tr>
+          <tr><td><strong>Incendios selva y cañaverales</strong></td><td>Temporal</td><td>Cárdenas, Huimanguillo, Balancán, Tenosique</td></tr>
+          <tr><td><strong>Rescate espeleológico</strong></td><td>24/7</td><td>Tacotalpa (Grutas de Coconá y Villa Luz)</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Inundaciones e industria petrolera: los dos riesgos que definen a Tabasco</h3>
+    <p>
+      El <strong>agua y el petróleo</strong> son la combinación que hace única la operación de los
+      bomberos tabasqueños. En octubre-noviembre de 2007, en solo cinco días cayó el 46% de la
+      precipitación anual del estado; los ríos Grijalva, Carrizal, Usumacinta y afluentes se
+      desbordaron simultáneamente y el agua afectó alrededor del <strong>80% del territorio</strong>,
+      con más de un millón de personas afectadas. Los bomberos respondieron a incendios estructurales
+      con sus estaciones inundadas, camiones inmovilizados y acceso a colonias solo por lancha.
+      El protocolo que surgió de esa experiencia define el cuerpo hasta hoy: todas las unidades
+      llevan equipo de rescate acuático permanente, todas las estaciones tienen flotillas de lanchas
+      con motor fuera de borda y, ante nivel de agua superior a 50 cm en el acceso, la operación
+      es <em>anfibio</em> desde el primer minuto. En 2020, nuevas inundaciones afectaron a más de
+      302,000 personas; la capacidad de respuesta acuática volvió a ser la diferencia.
+    </p>
+    <p>
+      PEMEX opera en <strong>14 de los 17 municipios</strong> de Tabasco con más de 12,000 hectáreas
+      de instalaciones y más de <strong>8,200 km de ductos</strong> bajo suelo inundable. La Refinería
+      Olmeca en Dos Bocas (Paraíso), con capacidad diseñada de <strong>340,000 barriles diarios</strong>,
+      añade el mayor riesgo industrial de la entidad: unidades de proceso a alta temperatura, líneas con
+      <strong>H₂S</strong> en concentraciones que superan los límites de riesgo inmediato para la vida,
+      y tanques de almacenamiento de crudo a tres kilómetros del Golfo. La particularidad costera de la
+      refinería es que el agua marina como agente de enfriamiento en un incendio de tanque introduce
+      cloruros que a alta temperatura generan ácido clorhídrico, corrosivo para el SCBA y la piel
+      expuesta. La brigada HAZMAT de Paraíso opera con detectores de H₂S de lectura continua y
+      protocolos diferenciados para viento marino y viento tierra.
+    </p>
+    <p>
+      La intersección de los dos riesgos es el escenario más complejo: un ducto PEMEX bajo una
+      llanura aluvial, en plena crecida, puede sufrir erosión en su soporte, romperse por fatiga
+      mecánica y generar un derrame de hidrocarburo sobre agua en movimiento que se extiende
+      kilómetros antes de que llegue el primer bombero. Las estaciones de Macuspana y Cárdenas
+      preposicionan barreras flotantes de absorción para este escenario durante las alertas de
+      inundación.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de las estaciones registradas en este directorio, así se distribuyen los recursos
+      del cuerpo de bomberos entre las grandes zonas del estado. Las cifras corresponden a las
+      estaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Bomberos</th><th>Unidades</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>17 municipios de Tabasco</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Tabasco</h3>
+    <p>
+      El primer reto es estructural: el territorio tabasqueño se inunda de forma recurrente y la
+      infraestructura de las estaciones debe resistir eventos que en otros estados serían
+      excepcionales. Mantener las flotillas de lanchas en condiciones operativas, disponer de
+      equipo HAZMAT al nivel que exige la Refinería Olmeca y el corredor PEMEX, y garantizar
+      tiempos de respuesta aceptables en municipios tan extensos como Balancán o Huimanguillo
+      —donde una comunidad puede estar a 30 minutos en lancha de la estación— son desafíos
+      permanentes de presupuesto y logística.
+    </p>
+    <p>
+      El segundo reto es la <strong>doble especialización</strong>: los bomberos de Tabasco deben
+      ser, al mismo tiempo, técnicos en rescate acuático y en HAZMAT de hidrocarburos. Un bombero
+      que responde a una emergencia en Macuspana puede encontrar, en la misma guardia, una fuga de
+      gas natural en un campo de producción PEMEX y un rescate de personas atrapadas por el
+      desbordamiento del Usumacinta. La capacitación continua en ambas competencias, con el equipo
+      especializado que cada una exige, representa la presión más constante sobre los recursos del
+      cuerpo. El cambio climático agrava el riesgo hídrico: los modelos proyectan eventos de lluvia
+      más intensos y concentrados en el sureste mexicano en las próximas décadas.
+    </p>
+
+    <h3>Cultura de prevención: cómo proteger tu hogar y comunidad en Tabasco</h3>
+    <p>
+      En un estado con alto riesgo de inundación estacional, la preparación previa es lo que marca
+      la diferencia entre una evacuación ordenada y una emergencia evitable:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención para Tabasco</h4>
+      <ul>
+        <li><strong>Inundaciones:</strong> identifica si tu colonia o comunidad está en zona inundable; ten un plan de evacuación con ruta de salida y punto de reunión familiar antes de que llegue el agua.</li>
+        <li><strong>Alertas:</strong> sigue las comunicaciones del IPCET (Instituto de Protección Civil de Tabasco) en temporada de lluvias (junio-noviembre); no esperes a que el nivel sea visible para actuar.</li>
+        <li><strong>Gas:</strong> revisa mangueras y reguladores periódicamente; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble.</li>
+        <li><strong>Electricidad:</strong> en zona inundable, instala el tablero eléctrico en nivel elevado; desconecta el suministro antes de que entre el agua.</li>
+        <li><strong>Detección:</strong> instala detectores de humo y ten un extintor vigente y accesible, especialmente en cocina y zona de gas.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar. En zona rural o fluvial, conoce también el número de tu estación de bomberos más cercana.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Wikipedia, «Inundación de Tabasco y Chiapas de 2007» (80% territorio, 1M+ afectados;
+      46% lluvia anual en 5 días); CENAPRED, Impacto Socioeconómico 2020 (302,498 afectados por
+      inundaciones 2020); Wikipedia, «Refinería Olmeca» (capacidad 340,000 bbl/día; inicio de
+      producción 2023-2024); RSIS RAMSAR sitio 733, «Reserva de la Biósfera Pantanos de Centla»
+      (302,706 ha; inscripción 1995); Gatopardo / Fundar, «Tabasco: infraestructura PEMEX» (14 de
+      17 municipios; 8,206 km de ductos); Portal Tabasco — IPCET, comunicados de bomberos 2022
+      (88 elementos Villahermosa; equipo y unidades). Las cifras de estaciones, bomberos y unidades
+      por región se calculan a partir de las estaciones publicadas en este directorio. Para
+      emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
+  </Fragment>
 </DirectorioEstadoLayout>
-

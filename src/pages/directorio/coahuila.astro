@@ -6,7 +6,7 @@ import {
   ESTADISTICAS_COAHUILA,
 } from "@data/estaciones-coahuila";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("coahuila");
 
@@ -15,13 +15,50 @@ const municipios      = [...new Set(estacionesCoahuila.map((e) => e.ciudad))].so
 const totalEstaciones = ESTADISTICAS_COAHUILA.total_estaciones;
 const totalMunicipios = ESTADISTICAS_COAHUILA.municipios_cubiertos;
 const totalBomberos   = ESTADISTICAS_COAHUILA.total_bomberos;
+const totalUnidades   = ESTADISTICAS_COAHUILA.total_unidades;
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Coahuila",               url: "/directorio/coahuila/" },
-]);
+const canonical = "https://bombero.mx/directorio/coahuila/";
 
+// ── Comparativa regional ───────────────────────────────────────────────────
+const zonas = [
+  {
+    nombre:    "Sureste / Saltillo (Capital)",
+    nEst:      ESTADISTICAS_COAHUILA.estaciones_saltillo,
+    cobertura: "Total",
+    chip:      "total",
+    perfil:    "Capital del estado; clúster automotriz GM/Chrysler/Daimler en Ramos Arizpe; Sierra de Arteaga (incendios forestales).",
+  },
+  {
+    nombre:    "Comarca Lagunera / Torreón",
+    nEst:      ESTADISTICAS_COAHUILA.estaciones_laguna,
+    cobertura: "Total",
+    chip:      "total",
+    perfil:    "1.3 M de habitantes zona conurbada; amoniaco NH₃ en plantas lácteas (Lala, Alpura); inundaciones súbitas Río Nazas.",
+  },
+  {
+    nombre:    "Centro / Zona Acerera (Monclova)",
+    nEst:      ESTADISTICAS_COAHUILA.estaciones_monclova,
+    cobertura: "Alta",
+    chip:      "alta",
+    perfil:    "AHMSA (4 altos hornos, arrabio a 1,500°C); Cuatro Ciénegas APFF (84,347 ha, 70+ endemismos).",
+  },
+  {
+    nombre:    "Región Carbonífera (Sabinas-Múzquiz)",
+    nEst:      ESTADISTICAS_COAHUILA.estaciones_carboniferas,
+    cobertura: "Media",
+    chip:      "media",
+    perfil:    "95 % de la producción nacional de carbón; minas subterráneas activas; rescate minero especializado.",
+  },
+  {
+    nombre:    "Norte / Frontera con Texas",
+    nEst:      ESTADISTICAS_COAHUILA.estaciones_frontera,
+    cobertura: "Media",
+    chip:      "media",
+    perfil:    "512 km de frontera; protocolos binacionales Eagle Pass / Del Rio; Presa de la Amistad (cuenca compartida).",
+  },
+];
+
+// ── Schemas estructurados ─────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -47,6 +84,93 @@ const itemListSchema = {
   }))
 };
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Coahuila de Zaragoza: estaciones, historia y servicios de emergencia",
+  "description": "Guía de los cuerpos de bomberos de Coahuila: historia (Saltillo 1981, Monclova 1978), infraestructura por zonas, rescate minero (Pasta de Conchos 2006), HAZMAT AHMSA, clúster automotriz y directorio de estaciones con teléfonos.",
+  "about": [
+    "Cuerpo de Bomberos de Saltillo",
+    "Bomberos Coahuila",
+    "Rescate minero carbón",
+    "AHMSA Monclova",
+    "Protección Civil Coahuila",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/coahuila.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Coahuila de Zaragoza",
+  "description": `Directorio verificado de ${totalEstaciones} estaciones de bomberos en ${totalMunicipios} ciudades de Coahuila de Zaragoza, con teléfonos, cobertura por zona, funciones e historia de los cuerpos bomberiles.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Cuerpos de Bomberos de Coahuila de Zaragoza" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/coahuila.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Coahuila (≥10) ─────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Coahuila?",
+    a: `Marca el <strong>911</strong>, número único de emergencias disponible las 24 horas desde cualquier teléfono en el estado. Los números directos de las principales corporaciones son: Saltillo <strong>(844) 410-7900</strong>, Torreón <strong>(871) 712-0000</strong>, Monclova <strong>(866) 633-1111</strong>, Piedras Negras <strong>(878) 782-0000</strong> y Protección Civil Estatal <strong>(844) 411-5000</strong>. En la Región Carbonífera, la estación de Sabinas es el punto de coordinación para emergencias mineras.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Saltillo?",
+    a: `El <strong>Cuerpo de Bomberos de Saltillo</strong> se constituyó formalmente el <strong>29 de diciembre de 1981</strong> a iniciativa del presidente municipal Enrique Martínez y Martínez, aunque existe un antecedente de brigada contra incendios vinculada a la industria local desde la década de 1950. Hoy es la sede de la Comandancia General y la <strong>Academia Estatal de Bomberos de Coahuila</strong>.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Monclova?",
+    a: `Los bomberos de Monclova tienen origen en <strong>1978</strong>, cuando trabajadores de <strong>Altos Hornos de México (AHMSA)</strong> organizaron la primera brigada de respuesta ante la creciente demanda industrial de la ciudad. La estación municipal formal se estableció en <strong>1983</strong>. Hoy es el único cuerpo del país entrenado específicamente para incendios en altos hornos activos.`,
+  },
+  {
+    q: "¿Qué fue la tragedia de la Mina Pasta de Conchos?",
+    a: `El <strong>19 de febrero de 2006</strong>, una explosión de gas metano (grisú) en la Mina 8 de la Unidad Pasta de Conchos, en San Juan de Sabinas, atrapó a <strong>65 mineros</strong> del turno nocturno a unos 60 metros de profundidad. La empresa operadora era <strong>Grupo México</strong>. Las labores de rescate movilizaron equipos de México, Estados Unidos y Chile durante semanas; ningún sobreviviente fue rescatado con vida. La tragedia impulsó los protocolos de rescate minero más estrictos del país. A abril de 2026, trabajos continuados han recuperado más de 26 cuerpos.`,
+  },
+  {
+    q: "¿Cuáles son los riesgos industriales más grandes que enfrentan los bomberos en Coahuila?",
+    a: `Los principales son: (1) <strong>AHMSA Monclova</strong>: cuatro altos hornos con arrabio a 1,500°C, gas de alto horno y explosiones de coque; (2) <strong>clúster automotriz Saltillo-Ramos Arizpe</strong> (GM, Chrysler/Stellantis, Daimler): pinturas isocianato, solventes aromáticos y gases de soldadura robótica; (3) <strong>minas de carbón subterráneas</strong> en Sabinas y Múzquiz: riesgo permanente de grisú, CO y colapsos; (4) <strong>amoniaco anhidro (NH₃)</strong> en plantas lácteas de la Comarca Lagunera.`,
+  },
+  {
+    q: "¿Cómo coordinan los bomberos de Coahuila con los de Texas?",
+    a: `Coahuila comparte <strong>512 km de frontera</strong> con Texas, el tramo más extenso de un solo estado mexicano. Los bomberos de <strong>Piedras Negras</strong> tienen convenios de cooperación formal con el <strong>Eagle Pass Fire Department</strong> para los Puentes I y II y para incidentes con carga peligrosa en el comercio T-MEC. Los de <strong>Ciudad Acuña</strong> coordinan con el <strong>Del Rio Fire Department</strong> en la <strong>Presa de la Amistad</strong>, embalse binacional de más de 89,000 km² de cuenca compartida.`,
+  },
+  {
+    q: "¿Qué es la Región Carbonífera de Coahuila y por qué concentra riesgos especiales?",
+    a: `La Región Carbonífera abarca los municipios de Sabinas, San Juan de Sabinas, Múzquiz y Nueva Rosita, y produce el <strong>95% del carbón nacional</strong>. Sus minas subterráneas presentan riesgo permanente de <strong>explosiones de grisú</strong> (metano CH₄), <strong>incendios subterráneos</strong>, intoxicación por CO y CO₂, y <strong>colapsos de galería</strong>. La estación de Sabinas mantiene la brigada de rescate minero más especializada del estado, equipada con SCBA de 60+ minutos, detectores multigas y sistemas de comunicación bajo tierra.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de Coahuila?",
+    a: `Combate de <strong>incendios</strong> estructurales, industriales y forestales; <strong>rescate vehicular</strong> y extricación; <strong>atención prehospitalaria</strong>; <strong>rescate minero</strong> subterráneo; <strong>materiales peligrosos (HAZMAT)</strong> metalúrgico, automotriz y agroindustrial; control de <strong>fugas de amoniaco</strong>; <strong>rescate en inundaciones</strong> y desbordamientos; <strong>rescate técnico</strong> en altura y espacios confinados; coordinación <strong>binacional</strong> con Texas; e inspecciones y capacitación en prevención de incendios.`,
+  },
+  {
+    q: "¿Por qué son especialmente peligrosos los incendios en AHMSA Monclova?",
+    a: `<strong>Altos Hornos de México (AHMSA)</strong> es el mayor complejo siderúrgico integrado de México: sus cuatro altos hornos producen arrabio a temperaturas de <strong>1,500°C</strong>, y la coquería genera <strong>gas de alto horno</strong> (mezcla de monóxido de carbono, hidrógeno y nitrógeno) que es explosivo e invisible. Un derrame de escoria o metal fundido supera por mucho cualquier incendio estructural convencional. Los bomberos de Monclova son los únicos del país entrenados específicamente para estos escenarios, con trajes aluminizados de aproximación y protocolos propios.`,
+  },
+  {
+    q: "¿Cuáles son los riesgos de inundación en Coahuila?",
+    a: `Aunque Coahuila es un estado predominantemente árido, sus cuencas presentan <strong>inundaciones súbitas</strong> ante tormentas intensas. La <strong>Comarca Lagunera</strong> —cuenca cerrada del Río Nazas— es históricamente vulnerable: la ciudad de Torreón ha sufrido inundaciones en colonias bajas en múltiples temporadas de lluvias. En la zona fronteriza, el <strong>Río Bravo</strong> y la <strong>Presa de la Amistad</strong> generan escenarios de crecida binacional. La Región Carbonífera también registra inundaciones de minas por acumulación de agua subterránea —como ocurrió en el pozo <em>El Pinabete</em> en agosto de 2022, cuando 10 mineros quedaron atrapados en Villa de Agujita, Sabinas.`,
+  },
+  {
+    q: "¿Qué hace especial a Cuatro Ciénegas para los bomberos locales?",
+    a: `El <strong>Área de Protección de Flora y Fauna Cuatro Ciénegas</strong> (84,347 ha) concentra más de <strong>70 especies endémicas</strong> únicas en el planeta —incluyendo estromatolitos vivos, las formas de vida fotosintéticas más antiguas de la Tierra— y recibe decenas de miles de visitantes anuales en condiciones de desierto de +45°C. La estación local opera en coordinación con la <strong>CONANP</strong> para atender emergencias médicas, rescates en pozas y desierto, e incendios de pastizal en un ecosistema donde cualquier intervención mal planificada puede causar daños irreversibles al patrimonio natural.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en zonas industriales o en el hogar en Coahuila?",
+    a: `En <strong>hogares</strong>: revisa instalaciones de gas LP y natural, mantén un extintor vigente y detectores de humo, no sobrecargues contactos y acuerda un plan de evacuación familiar. En <strong>zonas industriales</strong>: cumple con los planes de emergencia de la instalación, verifica periódicamente las brigadas internas, asegura la señalización de riesgos HAZMAT y practica simulacros. Ante cualquier emergencia, llama siempre al <strong>911</strong>. En la Región Carbonífera, el cumplimiento de los protocolos de detección de grisú y ventilación es la medida preventiva más crítica.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-industrial-01.avif",
@@ -111,7 +235,7 @@ const stationImages = [
   estado="Coahuila de Zaragoza"
   sigla="COAH"
   slug="coahuila"
-  description={`${totalEstaciones} estaciones en Coahuila — AHMSA Monclova, Pasta de Conchos rescate minero, NH₃ Comarca Lagunera y 512 km frontera Texas. Emergencias: 911.`}
+  description={`Bomberos en Coahuila: ${totalEstaciones} estaciones, rescate minero (Pasta de Conchos), HAZMAT AHMSA Monclova, clúster automotriz Saltillo-Ramos Arizpe y 512 km de frontera con Texas. Emergencias: 911.`}
   keywords={[
     "bomberos coahuila",
     "bomberos saltillo coahuila",
@@ -129,28 +253,28 @@ const stationImages = [
     "heroico cuerpo bomberos saltillo torreon",
     "directorio bomberos coahuila zaragoza",
   ]}
-  canonical="https://bombero.mx/directorio/coahuila/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
   totalEstaciones={totalEstaciones}
   totalMunicipios={totalMunicipios}
   habitantes="3.2M"
 
-  heroDesc={`<strong>Coahuila de Zaragoza</strong> — el <strong>3er estado más grande de México</strong> con 151,563 km² — alberga los riesgos industriales más exigentes del país: la <strong>mayor acería integrada de México</strong> (AHMSA, Monclova), el <strong>95% de la producción nacional de carbón</strong> (Sabinas, Múzquiz, Nueva Rosita) y el <strong>2do clúster automotriz de México</strong> (GM, Chrysler, Daimler en Saltillo-Ramos Arizpe). Con <strong>${totalEstaciones} estaciones</strong> en <strong>${totalMunicipios} ciudades</strong> y <strong>${totalBomberos.toLocaleString()} bomberos profesionales</strong> — incluyendo las unidades de rescate minero más especializadas del país, brigadas HAZMAT metalúrgico y coordinación binacional con los cuerpos de bomberos de <strong>Texas (EE.UU.)</strong> a lo largo de <strong>512 km de frontera</strong>.`}
+  heroDesc={`<strong>Coahuila de Zaragoza</strong> — el <strong>3er estado más grande de México</strong> con 151,563 km² — alberga los riesgos industriales más exigentes del país: la <strong>mayor acería integrada de México</strong> (AHMSA, Monclova), el <strong>95% de la producción nacional de carbón</strong> (Sabinas, Múzquiz, Nueva Rosita) y el <strong>2do clúster automotriz de México</strong> (GM, Chrysler, Daimler en Saltillo-Ramos Arizpe). Con <strong>${totalEstaciones} estaciones</strong> en <strong>${totalMunicipios} ciudades</strong> y <strong>${totalBomberos.toLocaleString()} bomberos profesionales</strong> — incluyendo brigadas de rescate minero, HAZMAT metalúrgico y coordinación binacional con los cuerpos de bomberos de <strong>Texas (EE.UU.)</strong> a lo largo de <strong>512 km de frontera</strong>.`}
   heroImage="/images/directorio/estacion-bomberos-industrial-01.avif"
   heroImageAlt="Bomberos Coahuila de Zaragoza — AHMSA acería Monclova rescate minero carbón Saltillo zona automotriz"
   heroCaption="Bomberos Coahuila · COAH · 24 Estaciones · AHMSA · Rescate Minero · Frontera Texas"
   heroThumbs={[
     { src: "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif", alt: "Flota completa de unidades de bomberos de Coahuila", label: "Flota Completa" },
     { src: "/images/directorio/equipo-rescate-tecnico-01.avif",              alt: "Rescate minero carbón Coahuila Sabinas Múzquiz minas activas grisú explosiones subterráneas",         label: "Rescate Minero Carbón"    },
-    { src: "/images/directorio/camion-bomberos-equipado-01.avif",            alt: "Clúster automotriz Saltillo Ramos Arizpe GM Chrysler Daimler BMW incendios industriales HAZMAT",       label: "Automotriz Saltillo"      },
+    { src: "/images/directorio/camion-bomberos-equipado-01.avif",            alt: "Clúster automotriz Saltillo Ramos Arizpe GM Chrysler Daimler incendios industriales HAZMAT",       label: "Automotriz Saltillo"      },
   ]}
 
   galleryImages={[
     { src: "/images/directorio/detector-multigas-hazmat-01.avif",            alt: "Detector multigás bomberos carbón Coahuila metano CO CO2 minas Sabinas grisú región carbonífera",    label: "Gases Minas de Carbón"   },
     { src: "/images/directorio/vestidor-bomberos-cascos-lockers-rojos-01.avif", alt: "Cascos y lockers rojos en estación de bomberos de Coahuila", label: "Cascos Certificados" },
     { src: "/images/directorio/rescate-swift-water-rios-01.avif",            alt: "Rescate acuático Presa La Amistad Ciudad Acuña Del Rio Texas Río Bravo frontera binacional",          label: "Rescate Presa Amistad"   },
-    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",            alt: "Incendios forestales Sierra Arteaga Coahuila bosques coníferas Pueblo Mágico La Suiza México",        label: "Forestal Sierra Arteaga" },
+    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",       alt: "Incendios forestales Sierra Arteaga Coahuila bosques coníferas Pueblo Mágico La Suiza México",        label: "Forestal Sierra Arteaga" },
   ]}
 
   emergencyNumbers={[
@@ -165,9 +289,9 @@ const stationImages = [
   municipios={municipios}
 
   regiones={[
-    { nombre: "Zona Metropolitana Saltillo (Capital)",  desc: "Saltillo (Central 1945) · Ramos Arizpe (GM/Chrysler/Daimler) · Saltillo Norte · Saltillo Sur · Arteaga (Pueblo Mágico, La Suiza de México)" },
-    { nombre: "Comarca Lagunera (Torreón)",             desc: "Torreón Central (1936) · Torreón Norte · Zona Industrial · Matamoros (algodón) · San Pedro (Grupo Lala, amoniaco refrigeración)" },
-    { nombre: "Zona Acerera (Monclova-AHMSA)",          desc: "Monclova Central (1952, altos hornos) · Frontera (apoyo siderúrgico) · Castaños · Cuatro Ciénegas (Pueblo Mágico APFF estromatolitos)" },
+    { nombre: "Zona Metropolitana Saltillo (Capital)",  desc: "Saltillo (Central 1981) · Ramos Arizpe (GM/Chrysler/Daimler) · Saltillo Norte · Saltillo Sur · Arteaga (Pueblo Mágico, La Suiza de México)" },
+    { nombre: "Comarca Lagunera (Torreón)",             desc: "Torreón Central · Torreón Norte · Zona Industrial · Matamoros (algodón) · San Pedro (Grupo Lala, amoniaco refrigeración)" },
+    { nombre: "Zona Acerera (Monclova-AHMSA)",          desc: "Monclova Central (brigada AHMSA desde 1978) · Frontera (apoyo siderúrgico) · Castaños · Cuatro Ciénegas (Pueblo Mágico APFF estromatolitos)" },
     { nombre: "Región Carbonífera (Minería Carbón)",    desc: "Sabinas (rescate minero principal) · Nueva Rosita · Múzquiz (comunidades Kikapú) · San Juan de Sabinas — 95% carbón nacional" },
     { nombre: "Zona Fronteriza (Texas) y Vitivinícola", desc: "Piedras Negras/Eagle Pass (binacional) · Ciudad Acuña/Del Rio · Allende · Nava | Parras de la Fuente (Casa Madero 1597) · General Cepeda" },
   ]}
@@ -183,7 +307,7 @@ const stationImages = [
       imageAlt:  "Traje HAZMAT Nivel A NFPA 1991 bomberos Coahuila acería AHMSA Monclova metal fundido altos hornos gas industrial",
       badge:     "NFPA 1991",
       title:     "Traje HAZMAT Nivel A — Acería AHMSA y Zona Automotriz",
-      text:      "<strong>AHMSA (Altos Hornos de México)</strong>, con sede en Monclova, es el complejo siderúrgico integrado más grande de México: cuatro altos hornos activos que procesan más de <strong>4 millones de toneladas de acero al año</strong> a temperaturas de <strong>1,600°C</strong>. Los bomberos de la Estación Central de Monclova (fundada 1952) están especializados en los incendios de mayor complejidad térmica del país: <strong>metal fundido derramado, explosiones de alto horno, gas de coque y gases de batería</strong>. El traje NFPA 1991 de Nivel A proporciona protección química total frente a los vapores corrosivos de la planta. En Saltillo-Ramos Arizpe, el <strong>2do clúster automotriz de México</strong> — GM, Chrysler/Stellantis, Daimler — genera emergencias HAZMAT con <strong>pinturas automotrices, solventes aromáticos (tolueno, xileno), colas de poliuretano y químicos de línea de ensamble</strong> que requieren el más alto nivel de protección química.",
+      text:      "<strong>AHMSA (Altos Hornos de México)</strong>, con sede en Monclova, es el complejo siderúrgico integrado más grande de México: cuatro altos hornos activos que procesan acero a temperaturas de <strong>1,500°C</strong>. Los bomberos de Monclova —con brigada especializada desde 1978 a iniciativa de trabajadores de la propia planta— atienden los incendios de mayor complejidad térmica del país: <strong>metal fundido derramado, explosiones de alto horno, gas de coque y gases de batería</strong>. El traje NFPA 1991 de Nivel A proporciona protección química total frente a los vapores corrosivos. En Saltillo-Ramos Arizpe, el <strong>2do clúster automotriz de México</strong> —GM, Chrysler/Stellantis, Daimler— genera emergencias HAZMAT con <strong>pinturas automotrices, solventes aromáticos (tolueno, xileno) y químicos de línea de ensamble</strong> que requieren el más alto nivel de protección química.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -192,16 +316,16 @@ const stationImages = [
       imageAlt:  "SCBA NFPA 1981 rescate minero carbón Coahuila Sabinas Múzquiz minas subterráneas grisú metano CO intoxicación",
       badge:     "NFPA 1981",
       title:     "Aparato Respiratorio Autónomo SCBA — Rescate Minero",
-      text:      "La <strong>Región Carbonífera de Coahuila</strong> — Sabinas, Múzquiz, Nueva Rosita y San Juan de Sabinas — produce el <strong>95% del carbón nacional</strong>, con decenas de minas activas subterráneas. Los bomberos de la Estación de Sabinas (fundada 1960) mantienen la brigada de rescate minero más especializada de México: preparada para <strong>explosiones de grisú (metano CH₄)</strong>, <strong>incendios subterráneos de carbón</strong>, <strong>colapsos de pilares y techos de mina</strong>, e intoxicación por <strong>monóxido de carbono (CO)</strong> y <strong>CO₂</strong>. El SCBA certificado NFPA 1981 con equipos de <strong>larga autonomía (60+ min)</strong>, detectores multigas integrados y sistemas de comunicación subterránea es el equipo crítico en los rescates de mayor riesgo de Latinoamérica. La tragedia de la <strong>Mina Pasta de Conchos (2006)</strong>, en San Juan de Sabinas, impulsó los protocolos de rescate minero más estrictos del país.",
+      text:      "La <strong>Región Carbonífera de Coahuila</strong> —Sabinas, Múzquiz, Nueva Rosita y San Juan de Sabinas— produce el <strong>95% del carbón nacional</strong>, con minas subterráneas activas. La brigada de rescate minero de Sabinas está preparada para <strong>explosiones de grisú (metano CH₄)</strong>, <strong>incendios subterráneos de carbón</strong>, <strong>colapsos de pilares</strong> e intoxicación por <strong>monóxido de carbono (CO)</strong>. La tragedia de la <strong>Mina Pasta de Conchos</strong> (19 de febrero de 2006, San Juan de Sabinas: 65 mineros fallecidos en una explosión de metano operada por Grupo México) transformó los protocolos de rescate minero del país y elevó los estándares de equipo: SCBA de <strong>larga autonomía (60+ min)</strong>, detectores multigas integrados y sistemas de comunicación subterránea.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Equipos SCBA",
     },
     {
       image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-      imageAlt:  "Traje Estructural NFPA 1971 bomberos Saltillo Coahuila incendios industriales rescate automotriz calor extremo 45C",
+      imageAlt:  "Traje Estructural NFPA 1971 bomberos Saltillo Coahuila incendios industriales rescate automotriz calor extremo desierto",
       badge:     "NFPA 1971",
-      title:     "Traje Estructural NFPA 1971 — Calor Industrial Extremo",
-      text:      "Coahuila registra temperaturas de hasta <strong>+45°C en verano</strong> en el Desierto Chihuahuense — el más extenso de América del Norte — con humedad relativa inferior al 15%. Esta combinación convierte cada incendio estructural en un reto de termorregulación extrema para los bomberos: el <strong>estrés por calor</strong> (golpe de calor) es la primera causa de bajas en servicio activo en el noreste de México. El traje NFPA 1971 con tecnología <strong>THL (Total Heat Loss)</strong> permite disipar el calor generado por el metabolismo durante operaciones de 30-45 minutos en ambientes industriales a +200°C con humedad radiante de hornos siderúrgicos, líneas de fundición automotriz y hornos de tratamiento térmico de Ramos Arizpe. También para los incendios forestales en la <strong>Sierra de Arteaga</strong> (\"La Suiza de México\", Pueblo Mágico) donde los bosques de pino-oyamel arden con intensidad en temporada de sequía.",
+      title:     "Traje Estructural NFPA 1971 — Calor Industrial y Desierto",
+      text:      "Coahuila registra temperaturas de hasta <strong>+45°C en verano</strong> en el Desierto Chihuahuense —el más extenso de América del Norte— con humedad relativa inferior al 15%. Esta combinación convierte cada incendio estructural en un reto de termorregulación extrema: el <strong>estrés por calor</strong> es la primera causa de bajas en servicio activo en el noreste. El traje NFPA 1971 con tecnología <strong>THL (Total Heat Loss)</strong> permite disipar el calor metabólico durante operaciones en ambientes industriales de +200°C —hornos siderúrgicos, líneas de fundición automotriz— y en los <strong>incendios forestales de la Sierra de Arteaga</strong> (\"La Suiza de México\"), donde los bosques de pino-oyamel arden con intensidad en temporada seca.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -210,7 +334,7 @@ const stationImages = [
       imageAlt:  "Botas Estructurales NFPA 1971 bomberos Coahuila terreno desierto minas carbón acería escoria metal planta automotriz",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales — Terreno Industrial y Desierto",
-      text:      "Los bomberos de Coahuila enfrentan los terrenos de mayor exigencia del norte de México: <strong>escoria y metal fundido</strong> derramado en la acería AHMSA de Monclova — con temperatura superficial de hasta 800°C; <strong>pisos de galería subterránea</strong> en las minas de carbón de Sabinas, con riesgo de derrumbe y suelo inestable; <strong>asfalto industrial</strong> de parques automotrices de Saltillo-Ramos Arizpe con derrames de aceites, solventes y refrigerantes; <strong>arena del Desierto Chihuahuense</strong> en las zonas fronterizas y carboníferas, con abrasión extrema; <strong>roca caliza de montaña</strong> en la Sierra de Arteaga durante rescates de alta montaña; y <strong>terreno húmedo</strong> en la Presa de la Amistad (Ciudad Acuña) durante rescates acuáticos binacionales. La puntera de acero y la suela anticlavos son indispensables en minas activas.",
+      text:      "Los bomberos de Coahuila operan en los terrenos de mayor exigencia del norte de México: <strong>escoria y metal fundido</strong> en la acería AHMSA de Monclova; <strong>pisos de galería subterránea</strong> en las minas de carbón de Sabinas, con suelo inestable y riesgo de derrumbe; <strong>asfalto industrial</strong> de parques automotrices de Saltillo-Ramos Arizpe con derrames de aceites y solventes; <strong>arena del Desierto Chihuahuense</strong> con abrasión extrema; <strong>roca caliza de montaña</strong> en la Sierra de Arteaga para rescates en altura; y <strong>terreno húmedo</strong> en la Presa de la Amistad (Ciudad Acuña) en rescates acuáticos binacionales. La puntera de acero y suela anticlavos son indispensables en minas activas.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
@@ -219,99 +343,216 @@ const stationImages = [
   ctaTitle="Equipamos a los Bomberos de Coahuila — Industrial, Minero y Frontera"
   ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones de Coahuila: desde trajes HAZMAT Nivel A para AHMSA Monclova y la zona automotriz, hasta SCBA de larga autonomía para rescate minero en la Región Carbonífera. Atención en Saltillo, Torreón y Monclova.`}
   ctaBtnText="Solicitar Cotización — Coahuila"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Coahuila de Zaragoza — Capital Industrial del Norte</h2>
-    <p>
-      Los cuerpos de bomberos de <strong>Coahuila de Zaragoza</strong> operan en el perfil
-      de riesgo industrial más diverso del norte de México: la mayor acería del país, el 95%
-      de la producción nacional de carbón, el segundo clúster automotriz, 512 km de frontera
-      con Texas y el ecosistema de pozas endémicas más importante del planeta —todo en el tercer
-      estado más extenso de México (151,563 km²). Con {totalEstaciones} estaciones en
-      {totalMunicipios} ciudades y {totalBomberos.toLocaleString()} bomberos profesionales, el
-      sistema bomberil coahuilense opera más especialidades críticas simultáneas que cualquier
-      otro estado del noreste: HAZMAT metalúrgico, rescate minero, HAZMAT automotriz,
-      coordinación binacional y protección de ecosistemas únicos.
+    <h2>Bomberos en Coahuila</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores de los cuerpos de bomberos de Coahuila">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Ciudades cubiertas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos.toLocaleString()}</span><span class="de-stat__label">Bomberos profesionales</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalUnidades}</span><span class="de-stat__label">Unidades de emergencia</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">512 km</span><span class="de-stat__label">Frontera con Texas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1981</span><span class="de-stat__label">Fundación Saltillo</span></div>
+    </div>
+
+    <p class="de-lead">
+      Los cuerpos de bomberos de <strong>Coahuila de Zaragoza</strong> operan en el perfil de riesgo
+      industrial más diverso del norte de México: la mayor acería del país (AHMSA, Monclova), el 95%
+      de la producción nacional de carbón (Región Carbonífera), el segundo clúster automotriz
+      (Saltillo-Ramos Arizpe), 512 km de frontera con Texas y el ecosistema de pozas endémicas más
+      importante del planeta —todo en el tercer estado más extenso de México (151,563 km²). Con
+      {totalEstaciones} estaciones en {totalMunicipios} ciudades y {totalBomberos.toLocaleString()} bomberos
+      profesionales, el sistema bomberil coahuilense opera más especialidades críticas simultáneas que
+      cualquier otro estado del noreste: HAZMAT metalúrgico, rescate minero subterráneo, HAZMAT
+      automotriz, coordinación binacional y protección de ecosistemas únicos.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Coahuila?</h3>
+    <h3>Cómo contactar a los bomberos en Coahuila</h3>
     <p>
-      El <strong>911</strong> conecta con el Centro Estatal de Emergencias las 24 horas desde
-      cualquier teléfono en Coahuila, en español e inglés. Los teléfonos directos de las
-      principales corporaciones son: Saltillo 844-410-7900, Torreón 871-712-0000, Monclova /
-      AHMSA 866-633-1111, Piedras Negras / frontera 878-782-0000, Sabinas / rescate minero
-      861-613-0088, y Protección Civil Estatal 844-411-5000. En emergencias de la Región
-      Carbonífera, la Estación de Sabinas es el punto de coordinación para rescate minero.
-      En la frontera, los protocolos binacionales activan automáticamente a los Fire
-      Departments de Eagle Pass y Del Rio cuando la emergencia afecta ambos lados del Río Bravo.
+      El <strong>911</strong> conecta con el Centro Estatal de Emergencias las 24 horas desde cualquier
+      teléfono en Coahuila, en español e inglés. Los teléfonos directos de las principales corporaciones
+      son: Saltillo <strong>(844) 410-7900</strong>, Torreón <strong>(871) 712-0000</strong>, Monclova /
+      AHMSA <strong>(866) 633-1111</strong>, Piedras Negras / frontera <strong>(878) 782-0000</strong>
+      y Protección Civil Estatal <strong>(844) 411-5000</strong>. En emergencias de la Región
+      Carbonífera, la estación de Sabinas es el punto de coordinación para rescate minero subterráneo.
+      En la zona fronteriza, los protocolos binacionales activan automáticamente a los Fire Departments
+      de Eagle Pass y Del Rio cuando la emergencia afecta ambos lados del Río Bravo.
+      Encuentra todos los teléfonos en el <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
     </p>
 
-    <h3>Pasta de Conchos 2006: la tragedia que transformó los protocolos de rescate minero en México</h3>
+    <h3>Historia de los cuerpos de bomberos de Coahuila</h3>
     <p>
-      El 19 de febrero de 2006, una explosión de grisú en la Mina Pasta de Conchos —San Juan
-      de Sabinas— atrapó a 65 mineros a 150 metros de profundidad. Las labores de rescate
-      duraron más de dos semanas y movilizaron equipos de México, Estados Unidos y Chile.
-      Ningún sobreviviente fue rescatado con vida. Lo que Pasta de Conchos cambió no fue solo
-      el protocolo: fue la concepción completa del rescate minero en México. Se volvió obligatorio
-      el SCBA de larga autonomía (60+ minutos), la instalación de detectores multigas permanentes
-      en galerías, los simulacros de evacuación trimestral y la formación de brigadas especializadas
-      con certificación internacional. Hoy la Estación de Sabinas —fundada en 1960, la única con
-      certificación formal de rescate minero subterráneo en América Latina— opera con detectores
-      de metano, CO y CO₂, sistemas de comunicación bajo tierra y equipos de apuntalamiento de
-      emergencia. La Región Carbonífera sigue produciendo el 95% del carbón nacional: el riesgo
-      no desapareció, pero los protocolos que surgieron de la tragedia hicieron de los bomberos
-      de Coahuila los más preparados del país para enfrentarlo.
+      El combate de incendios en Coahuila creció en paralelo a su industria: cada gran actividad económica
+      del estado generó su propia brigada antes de que existiera un cuerpo municipal formal. Estos son los
+      hitos verificables:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el <strong>primer cuerpo de bomberos de México</strong>. La fecha se conmemora como el Día del Bombero en toda la República.</li>
+      <li><span class="de-tl__year">1978</span> Trabajadores de <strong>AHMSA</strong> organizan en Monclova la primera <strong>brigada de respuesta industrial</strong>, que se convierte en el embrión del Cuerpo de Bomberos Municipal.</li>
+      <li><span class="de-tl__year">1981</span> El <strong>29 de diciembre</strong>, a iniciativa del presidente municipal Enrique Martínez y Martínez, se constituye formalmente el <strong>Cuerpo de Bomberos de Saltillo</strong>, hoy sede de la Academia Estatal.</li>
+      <li><span class="de-tl__year">1983</span> Se establece la <strong>estación municipal de Monclova</strong>, consolidando la respuesta profesional para la zona acerera de AHMSA.</li>
+      <li><span class="de-tl__year">2006</span> El <strong>19 de febrero</strong>, la explosión de grisú en la <strong>Mina Pasta de Conchos</strong> (San Juan de Sabinas, Grupo México) mata a <strong>65 mineros</strong>. La tragedia redefine los protocolos de rescate minero en todo el país.</li>
+      <li><span class="de-tl__year">2022</span> En agosto, <strong>10 mineros quedan atrapados</strong> en el pozo <em>El Pinabete</em> (Villa de Agujita, Sabinas) tras inundación de galería; el rescate moviliza equipos especializados durante semanas y recuerda que el riesgo minero sigue vigente.</li>
+      <li><span class="de-tl__year">Hoy</span> Los cuerpos de Coahuila operan <strong>{totalEstaciones} estaciones</strong> en <strong>{totalMunicipios} ciudades</strong> con <strong>{totalBomberos.toLocaleString()} bomberos</strong> y <strong>{totalUnidades} unidades</strong>, incluyendo brigadas HAZMAT, rescate minero y coordinación binacional con Texas.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cobertura por zonas</h3>
+    <p>
+      La cobertura se organiza en cinco grandes zonas, cada una con un perfil de riesgo diferenciado.
+      Saltillo concentra la mayor densidad de bomberos por el clúster automotriz; Torreón cubre la
+      conurbación lagunera; Monclova es la zona de mayor riesgo térmico industrial; la Región
+      Carbonífera mantiene el rescate minero más especializado del país; y la frontera opera con
+      protocolos binacionales. Esta es la distribución de cobertura:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los cuerpos de bomberos</h3>
+    <p>
+      Los bomberos de Coahuila son un servicio de emergencia integral. Su trabajo cubre especialidades que
+      pocos estados del país pueden operar simultáneamente:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Rescate minero subterráneo</h4><p>Brigadas especializadas en grisú, CO, colapsos de galería e incendios de carbón. Única capacidad formal de este tipo en el norte de México.</p></div>
+      <div class="de-card"><h4>HAZMAT metalúrgico e industrial</h4><p>Arrabio a 1,500°C, gas de alto horno, escoria derramada y solventes automotrices en AHMSA y el clúster Saltillo-Ramos Arizpe.</p></div>
+      <div class="de-card"><h4>Coordinación binacional Texas</h4><p>Protocolos formales con Eagle Pass y Del Rio Fire Departments para incidentes en los puentes internacionales y la Presa de la Amistad.</p></div>
+      <div class="de-card"><h4>Control de amoniaco (NH₃)</h4><p>Fugas en plantas lácteas de la Comarca Lagunera (Lala, Alpura): invisible, explosivo al 15-28% y tóxico desde 300 ppm.</p></div>
+      <div class="de-card"><h4>Combate de incendios estructurales</h4><p>Incendios urbanos, comerciales e industriales en las cinco zonas del estado, con autobombas de 8,000–12,000 litros y escaleras de 24-42 m.</p></div>
+      <div class="de-card"><h4>Rescate vehicular e inundaciones</h4><p>Extricación en accidentes carreteros y respuesta a inundaciones súbitas en cuencas del Nazas (Torreón) y Río Bravo (frontera).</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Rescate minero subterráneo</strong></td><td>24/7</td><td>Sabinas y Región Carbonífera</td></tr>
+          <tr><td><strong>HAZMAT metalúrgico (AHMSA)</strong></td><td>24/7</td><td>Monclova</td></tr>
+          <tr><td><strong>HAZMAT automotriz</strong></td><td>24/7</td><td>Ramos Arizpe y Saltillo</td></tr>
+          <tr><td><strong>Control de amoniaco NH₃</strong></td><td>24/7</td><td>San Pedro de las Colonias, Torreón</td></tr>
+          <tr><td><strong>Coordinación binacional</strong></td><td>24/7</td><td>Piedras Negras y Ciudad Acuña</td></tr>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Sierra de Arteaga, zonas rurales</td></tr>
+          <tr><td><strong>Rescate e inundaciones</strong></td><td>Temporada de lluvias</td><td>Comarca Lagunera y frontera</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Minería del carbón y tragedias: el riesgo que definió a los bomberos de Coahuila</h3>
+    <p>
+      El <strong>19 de febrero de 2006</strong>, una explosión de gas metano en la <strong>Mina 8 de la
+      Unidad Pasta de Conchos</strong> —San Juan de Sabinas, operada por Grupo México— atrapó a
+      <strong>65 mineros</strong> del turno nocturno a 60 metros de profundidad. Las labores de rescate
+      duraron semanas y movilizaron equipos de México, Estados Unidos y Chile. Ningún sobreviviente fue
+      rescatado con vida. A abril de 2026, trabajos continuados han recuperado más de 26 cuerpos.
+    </p>
+    <p>
+      Lo que Pasta de Conchos cambió no fue solo el protocolo: fue la concepción completa del rescate
+      minero en México. Se volvió obligatorio el SCBA de larga autonomía (60+ minutos), la instalación
+      de detectores multigas permanentes en galerías, los simulacros de evacuación trimestral y la
+      formación de brigadas con certificación específica. En agosto de <strong>2022</strong>, la inundación
+      del pozo <em>El Pinabete</em> en Villa de Agujita (Sabinas) —donde 10 mineros quedaron atrapados
+      durante semanas— recordó que el riesgo no ha desaparecido: la Región Carbonífera produce el
+      <strong>95% del carbón nacional</strong> con minas subterráneas activas. Los bomberos de la zona
+      son la primera y, en muchos casos, única respuesta especializada disponible.
     </p>
 
-    <h3>AHMSA Monclova y Saltillo-Ramos Arizpe: el mayor frente de riesgo HAZMAT industrial del norte de México</h3>
+    <h3>Comparativa regional</h3>
     <p>
-      Altos Hornos de México (AHMSA) en Monclova —cuatro altos hornos, una coquería y más de
-      25,000 empleados— es la mayor planta siderúrgica integrada de América Latina y el mayor
-      riesgo térmico industrial del país: arrabio a 1,500°C, gas de alto horno (mezcla de CO,
-      H₂ y N₂), explosiones de coque y derrames de escoria que superan cualquier escenario
-      estructural convencional. Los bomberos de la Estación de Monclova (fundada 1952) son los
-      únicos del país entrenados específicamente para incendios en altos hornos, con trajes
-      aluminizados de aproximación y protocolos que difieren radicalmente de los estándares
-      urbanos. A 180 km al sur, el corredor Saltillo-Ramos Arizpe concentra el segundo polo
-      automotriz de México —General Motors (Silverado, Suburban), Chrysler/Stellantis (Ram 1500),
-      Daimler (Cascadia) y más de 200 proveedores Tier 1—, donde los bomberos de Ramos Arizpe
-      gestionan emergencias HAZMAT que incluyen pinturas isocianato, solventes aromáticos (tolueno,
-      xileno) y mezclas de gases de soldadura robótica, certificados en HAZMAT Nivel Técnico con
-      monitores de compuestos orgánicos volátiles.
+      A partir de los datos del directorio, así se distribuyen las estaciones entre las grandes zonas
+      del estado, con su perfil de riesgo específico:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Cobertura</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td><span class="de-chip de-chip--total">Total</span></td>
+            <td>{totalMunicipios} ciudades de Coahuila de Zaragoza</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Coahuila</h3>
+    <p>
+      El primer reto es geográfico: con 151,563 km², Coahuila es el tercer estado más extenso de México,
+      y sus zonas de mayor riesgo (Región Carbonífera, frontera) están alejadas de los centros de mayor
+      densidad de recursos. Los tiempos de respuesta en municipios pequeños de la Región Carbonífera o en
+      el desierto fronterizo pueden superar los 20 minutos, un margen crítico en incidentes mineros donde
+      los primeros cinco minutos determinan la supervivencia.
+    </p>
+    <p>
+      El segundo reto es la <strong>obsolescencia del equipo</strong>. La especialización que requiere
+      el estado —SCBA de alta autonomía para minas, trajes aluminizados para altos hornos, detectores
+      multigas calibrados— implica costos de adquisición y mantenimiento muy superiores a los de un
+      cuerpo urbano estándar. La mayoría de los municipios carboníferos y fronterizos dependen de
+      presupuestos municipales limitados. El tercer reto es la <strong>continuidad del entrenamiento</strong>:
+      los incidentes mineros son complejos y cambiantes, y la brigada de Sabinas requiere simulacros
+      regulares en condiciones reales de mina para mantener las habilidades activas.
     </p>
 
-    <h3>512 km de frontera con Texas, la Presa de la Amistad y los 70 endemismos de Cuatro Ciénegas</h3>
+    <h3>Cultura de prevención en Coahuila</h3>
     <p>
-      Coahuila comparte con Texas el tramo fronterizo internacional más largo de México sin
-      atravesar más de un estado americano: 512 km. Los bomberos de Piedras Negras y el Eagle
-      Pass Fire Department operan bajo convenios de cooperación formal para los Puentes I y II
-      y para incidentes con carga peligrosa en el comercio T-MEC. Los de Ciudad Acuña coordinan
-      con Del Rio Fire Department en la Presa de la Amistad, uno de los embalses binacionales
-      más extensos del mundo (89,000 km² de cuenca compartida). A 200 km al este, Cuatro Ciénegas
-      concentra el riesgo más singular del estado: el Área de Protección de Flora y Fauna (84,347 ha)
-      alberga más de 70 especies endémicas únicas en el planeta —incluyendo estromatolitos vivos
-      de 3,500 millones de años, las formas de vida más antiguas de la Tierra— y 50,000 visitantes
-      anuales que generan emergencias en condiciones de +45°C en pleno desierto. La estación local
-      opera en coordinación permanente con la CONANP para proteger un ecosistema que los biólogos
-      comparan con una ventana a los primeros organismos del planeta.
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones que los
+      cuerpos de bomberos de Coahuila difunden a la población:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas LP y natural:</strong> revisa mangueras, reguladores y conexiones periódicamente; ante olor a gas, no acciones interruptores, cierra la llave de paso, ventila y evacúa.</li>
+        <li><strong>Amoniaco (NH₃):</strong> en plantas lácteas o frigoríficos, verifica detectores fijos y válvulas de cierre automático; ante fuga, evacúa a barlovento y llama al 911.</li>
+        <li><strong>Zonas mineras:</strong> cumple con los protocolos de detección de grisú, ventilación y uso de SCBA; nunca ingresa a una galería sin equipo de detección de metano y CO.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos; ante olor a quemado o cables calientes, corta el suministro y llama al 911.</li>
+        <li><strong>Incendios forestales:</strong> en Sierra de Arteaga y zonas rurales, no enciendas fogatas en temporada de estiaje; reporta cualquier columna de humo al 911.</li>
+        <li><strong>Inundaciones súbitas:</strong> en la Comarca Lagunera y cuencas del Nazas, no cruces arroyos o vados crecidos; el agua turbia puede arrastrar vehículos con apenas 30 cm de profundidad.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
 
-    <h3>Amoniaco en la Comarca Lagunera y Casa Madero 1597: del riesgo químico más silencioso al patrimonio más antiguo de América</h3>
-    <p>
-      La Comarca Lagunera —Torreón, San Pedro de las Colonias, Gómez Palacio— es el núcleo
-      lechero de México: más de 400,000 vacas y plantas de Grupo Lala, Alpura y Chilchota, cuya
-      cadena de frío opera con amoniaco anhidro (NH₃). El amoniaco es invisible, más ligero que
-      el aire en caliente y tóxico por inhalación en concentraciones tan bajas como 300 ppm —
-      pero explosivo entre el 15 y el 28% en mezcla con aire, lo que lo hace más peligroso que
-      el propano en instalaciones industriales semi-abiertas. Los bomberos de San Pedro son los
-      especialistas regionales en esta emergencia, la más frecuente y la menos visible de su zona.
-      La Estación Central de Torreón (fundada 1936), la más antigua de la Comarca, coordina la
-      respuesta para 1.3 millones de habitantes de la zona conurbada. Al sur, los bomberos de
-      Parras de la Fuente custodian Casa Madero —viñedo fundado en 1597, el más antiguo del
-      continente americano—, donde un incendio en las bodegas coloniales de mampostería y barricas
-      de roble centenarias representaría una pérdida patrimonial sin equivalente en México.
+    <p class="de-srcnote">
+      Fuentes: Vanguardia (Cuerpo de Bomberos Saltillo, fundación 29 dic. 1981); El Tiempo Monclova
+      (bomberos Monclova, brigada AHMSA desde 1978, estación municipal 1983); Wikipedia, «Desastre
+      minero de Pasta de Conchos» (65 fallecidos, 19 feb. 2006, Grupo México); La Jornada / Infobae
+      (recuperación de cuerpos en Pasta de Conchos, 2026); El Financiero / Publimetro (mineros
+      atrapados El Pinabete, Sabinas, agosto 2022); INEGI, datos demográficos y geográficos de
+      Coahuila de Zaragoza. Las cifras de estaciones, bomberos y unidades se calculan a partir del
+      directorio publicado en esta página. Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

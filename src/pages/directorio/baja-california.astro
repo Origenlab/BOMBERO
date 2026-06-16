@@ -3,25 +3,76 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesBajaCalifornia, getMunicipios, getEstadisticas } from "@data/estaciones-baja-california";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("baja-california");
 
 const municipios   = getMunicipios();
 const estadisticas = getEstadisticas();
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Baja California",        url: "/directorio/baja-california/" },
-]);
+const canonical = "https://bombero.mx/directorio/baja-california/";
 
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const totalEstaciones = estacionesBajaCalifornia.length;
+const totalPersonal   = estacionesBajaCalifornia.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0);
+const totalUnidades   = estacionesBajaCalifornia.reduce((s, e) => s + (e.unidades ?? 0), 0);
+
+// ── Comparativa regional ────────────────────────────────────────────────────
+const zonasDef = [
+  {
+    nombre: "Tijuana Metropolitana",
+    municipios: ["Tijuana"],
+    chip: "total",
+    cobertura: "Total",
+    perfil: "Ciudad más poblada de BC (2.1M+), frontera San Diego, maquiladora Otay, cañones y deslaves.",
+  },
+  {
+    nombre: "Mexicali y Desierto",
+    municipios: ["Mexicali"],
+    chip: "total",
+    cobertura: "Total",
+    perfil: "Capital del estado, calor extremo 52 °C, industria aeroespacial/electrónica, Valle agrícola y frontera Arizona.",
+  },
+  {
+    nombre: "Ensenada y Costa",
+    municipios: ["Ensenada"],
+    chip: "alta",
+    cobertura: "Alta",
+    perfil: "Puerto de altura Pacífico, Valle de Guadalupe (vitivinícola), San Quintín (agroindustrial).",
+  },
+  {
+    nombre: "Tecate y Sierra",
+    municipios: ["Tecate"],
+    chip: "alta",
+    cobertura: "Alta",
+    perfil: "Sierra de Juárez, La Rumorosa (1 275 msnm), industria cervecera Heineken, paso fronterizo.",
+  },
+  {
+    nombre: "Playas de Rosarito",
+    municipios: ["Playas de Rosarito"],
+    chip: "media",
+    cobertura: "Media",
+    perfil: "Corredor turístico costero, rescate acuático Pacífico, eventos masivos Spring Break.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesBajaCalifornia.filter((e) => z.municipios.includes(e.municipio));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0),
+    nMun:  z.municipios.length,
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Baja California, México",
-  "description": "Directorio oficial de las estaciones de bomberos en Baja California. Teléfonos directos de emergencia en Tijuana, Mexicali, Ensenada, Tecate y Playas de Rosarito. Cobertura 24/7. Emergencias: llama al 911.",
-  "numberOfItems": estacionesBajaCalifornia.length,
+  "description": `Directorio de las ${totalEstaciones} estaciones de bomberos en los 5 municipios de Baja California: Tijuana (fundada 1925), Mexicali (1918), Ensenada, Tecate y Playas de Rosarito. HAZMAT maquiladora, incendios forestales Sierra de Juárez, rescate sísmico y respuesta binacional San Diego/Imperial County. Emergencias: 911.`,
+  "numberOfItems": totalEstaciones,
   "itemListElement": estacionesBajaCalifornia.map((e, i) => ({
     "@type": "ListItem",
     "position": i + 1,
@@ -36,11 +87,98 @@ const itemListSchema = {
         "addressCountry": "MX",
       },
       "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/baja-california/${e.slug}`,
+      "url": `https://bombero.mx/directorio/baja-california/${e.slug}/`,
     }
   }))
 };
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Baja California: estaciones, historia y servicios de emergencia",
+  "description": "Guía del H. Cuerpo de Bomberos de Baja California: historia (Mexicali 1918, Tijuana 1925), infraestructura en los 5 municipios, HAZMAT maquiladoras, riesgo sísmico, vientos Santa Ana y directorio con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Baja California",
+    "Protección Civil",
+    "Materiales peligrosos HAZMAT",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/baja-california.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Baja California",
+  "description": `Directorio verificado de las ${totalEstaciones} estaciones de bomberos en los 5 municipios de Baja California: Tijuana, Mexicali, Ensenada, Tecate y Playas de Rosarito. Teléfonos, cobertura, funciones e historia.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos de Baja California" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/baja-california.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Baja California (≥10) ────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Baja California?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas en los 5 municipios de Baja California. La llamada se enruta al C4 municipal más cercano (Tijuana, Mexicali, Ensenada, Tecate o Rosarito), que coordina respuesta simultánea de bomberos, policía y servicios médicos. Los teléfonos directos de las estaciones principales son: Tijuana <strong>664 684 0580</strong>, Mexicali <strong>686 558 1616</strong>, Ensenada <strong>646 178 2388</strong>, Tecate <strong>665 654 1313</strong>, Rosarito <strong>661 612 0808</strong>.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Tijuana?",
+    a: `El <strong>20 de noviembre de 1925</strong>, un grupo de ciudadanos voluntarios fundó el Cuerpo de Bomberos de Tijuana para proteger la entonces pequeña ciudad fronteriza. La fecha y la historia están documentadas en la exposición centenaria <em>«100 años en la línea de fuego»</em> del Centro Cultural Tijuana (CECUT), que conmemoró el primer siglo de servicio del cuerpo. A nivel nacional, el primer cuerpo de bomberos de México fue fundado el <strong>22 de agosto de 1873</strong> en Veracruz.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Mexicali?",
+    a: `El Cuerpo de Bomberos de Mexicali fue fundado en <strong>1918</strong>, cuatro años después de que el municipio fuera creado formalmente (1914). La institución celebró su centenario en 2018, con cobertura de La Voz de la Frontera. En el transcurso de más de un siglo ha desarrollado protocolos únicos para operar en el desierto de Sonora, donde las temperaturas pueden superar los 52 °C.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque conmemora la fundación del <strong>primer cuerpo de bomberos de México</strong>, el 22 de agosto de 1873 en el puerto de Veracruz. Cada año, en esa fecha, se reconoce la labor de todos los bomberos del país, incluidos los de los cinco municipios de Baja California.`,
+  },
+  {
+    q: "¿Qué es el riesgo HAZMAT en las maquiladoras de Tijuana y Mexicali?",
+    a: `Baja California concentra más de 700 plantas maquiladoras de exportación en sectores de electrónica, aeroespacial, dispositivos médicos y automotriz. Estas instalaciones almacenan solventes, metales, resinas y gases industriales que generan emergencias de <strong>materiales peligrosos (HAZMAT)</strong> de alta complejidad: incendios con llama invisible (solventes), derrames de químicos regulados y fugas de gases industriales. Las estaciones de Otay (Tijuana) e Industrial (Mexicali) tienen personal certificado en HAZMAT con trajes encapsulados Nivel A y laboratorio móvil.`,
+  },
+  {
+    q: "¿Qué tan activa es la actividad sísmica en Baja California?",
+    a: `Baja California está en el límite entre las placas tectónicas del Pacífico y Norteamérica, con alrededor de <strong>15 fallas activas</strong> identificadas, entre ellas Cerro Prieto (80 km, responsable de sismos de 7.1 en 1940 y 6.6 en 1979), San Andrés, Rose Canyon (entre San Diego y Tijuana), Elsinore y Coronado Banks. El sismo más reciente de gran magnitud fue el <strong>El Mayor-Cucapah del 4 de abril de 2010 (Mw 7.2)</strong>, el mayor instrumentalmente registrado en la región. Los municipios con mayor actividad sísmica son Tijuana, Mexicali, Tecate y Ensenada.`,
+  },
+  {
+    q: "¿Qué son los vientos de Santa Ana y cómo afectan a los bomberos de BC?",
+    a: `Los <strong>vientos de Santa Ana</strong> son corrientes de aire caliente y muy seco que descienden desde el interior del suroeste de Estados Unidos hacia la costa del sur de California y el norte de Baja California. Ocurren principalmente entre <strong>octubre y febrero</strong>, con rachas que pueden superar los 100 km/h. En Tijuana, Tecate y Rosarito, estos vientos propagan incendios de matorral y chaparral a velocidades extremas, obligan a evacuaciones y ponen en alerta permanente a los cuerpos de bomberos durante toda la temporada seca. Coordinan con San Diego Fire-Rescue por la continuidad transfronteriza del riesgo.`,
+  },
+  {
+    q: "¿Cómo funciona la cooperación binacional de los bomberos de Baja California con Estados Unidos?",
+    a: `Baja California es el único estado de México con protocolos formales de respuesta conjunta con agencias de bomberos de Estados Unidos. La estación central de Tijuana coordina con <strong>San Diego Fire-Rescue Department</strong>; Mexicali mantiene acuerdos con el <strong>Imperial County Fire Department</strong> de California; y San Luis Río Colorado opera en coordinación con agencias de <strong>Yuma, Arizona</strong>. Estos convenios permiten cruce de unidades cuando el incendio o emergencia afecta ambos lados de la frontera, y generan capacitación continua bilateral.`,
+  },
+  {
+    q: "¿Por qué el calor de Mexicali es tan peligroso para los bomberos?",
+    a: `Mexicali registra temperaturas que superan los <strong>52 °C en julio y agosto</strong>, convirtiéndola en una de las ciudades habitadas más calurosas del hemisferio occidental. Un bombero en traje estructural completo puede sufrir golpe de calor —temperatura corporal superior a 40 °C con cese de sudoración y pérdida de conciencia— en menos de 15 minutos de exposición sin hidratación. Las estaciones de Mexicali mantienen <strong>puestos de hidratación y enfriamiento rápido</strong> permanentes durante los meses de verano y aplican rotaciones de personal de 8 a 10 minutos en el perímetro de trabajo.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de Baja California?",
+    a: `Combate de incendios estructurales, forestales y de matorral; <strong>materiales peligrosos (HAZMAT)</strong> en la industria maquiladora; rescate vehicular (incluyendo la peligrosa carretera de La Rumorosa con más de 80 curvas); <strong>rescate acuático</strong> en el Pacífico (Ensenada, Playas de Tijuana, Rosarito); atención prehospitalaria; búsqueda y rescate en zonas sísmicas; emergencias por golpe de calor (Mexicali); <strong>emergencias portuarias</strong> en el Puerto de Ensenada, y capacitación y prevención.`,
+  },
+  {
+    q: "¿Qué riesgo representan los incendios forestales en la Sierra de Juárez y La Rumorosa?",
+    a: `La <strong>Sierra de Juárez</strong> y la zona de <strong>La Rumorosa</strong> (1 275 msnm) albergan bosques de pino-encino dentro del Parque Nacional Constitución de 1857. Durante la temporada seca (mayo-septiembre), y especialmente cuando confluyen con los <strong>vientos de Santa Ana</strong>, los incendios de matorral y bosque pueden avanzar varios kilómetros por hora. La Estación La Rumorosa fue establecida específicamente para cubrir este punto crítico, donde además se registran numerosos accidentes vehiculares por niebla densa, nieve invernal y viento.`,
+  },
+  {
+    q: "¿Cómo debo actuar ante una emergencia en la zona maquiladora de Tijuana o Mexicali?",
+    a: `En cualquier emergencia industrial, llama inmediatamente al <strong>911</strong> e indica el nombre del parque industrial y el tipo de sustancia involucrada si la conoces. <strong>No entres al área</strong> hasta que el personal HAZMAT haya evaluado el riesgo y establecido el perímetro de seguridad. Evacúa siguiendo las rutas del plan de emergencias de la planta y activa la brigada interna mientras aguardas la llegada de los bomberos. Las estaciones Otay (Tijuana) e Industrial (Mexicali) tienen tiempos de respuesta de 5 a 10 minutos en zonas industriales.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-industrial-01.avif",
@@ -105,7 +243,7 @@ const stationImages = [
   estado="Baja California"
   sigla="BC"
   slug="baja-california"
-  description={`${estadisticas.totalEstaciones} estaciones en Baja California — Tijuana 700 maquiladoras, Mexicali 52°C, cooperación binacional California Fire y La Rumorosa. Emergencias: 911.`}
+  description={`${totalEstaciones} estaciones en Baja California — Tijuana (1925) y Mexicali (1918): HAZMAT maquiladoras, sismos, vientos Santa Ana y respuesta binacional California/Arizona. Emergencias: 911.`}
   keywords={[
     "bomberos baja california",
     "estaciones bomberos tijuana",
@@ -123,44 +261,47 @@ const stationImages = [
     "emergencias 911 tijuana",
     "directorio bomberos bc",
   ]}
-  canonical="https://bombero.mx/directorio/baja-california/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
-  totalEstaciones={estadisticas.totalEstaciones}
+  totalEstaciones={totalEstaciones}
   totalMunicipios={estadisticas.totalMunicipios}
   habitantes="3.8M+"
 
-  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Baja California</strong> protege los <strong>${estadisticas.totalMunicipios} municipios</strong> del estado fronterizo más dinámico de México con <strong>${estadisticas.totalEstaciones} estaciones activas</strong> y más de <strong>940 bomberos profesionales</strong> — desde el desierto de Mexicali (50°C en verano) hasta el puerto de Ensenada, las maquiladoras de Tijuana y los bosques de La Rumorosa.`}
+  heroDesc={`Los <strong>cuerpos de bomberos de Baja California</strong> —con raíces en <strong>Mexicali (1918)</strong> y <strong>Tijuana (1925)</strong>— protegen los <strong>${estadisticas.totalMunicipios} municipios</strong> del estado fronterizo más dinámico de México con <strong>${totalEstaciones} estaciones activas</strong> y <strong>${totalPersonal} bomberos profesionales</strong>. Su jurisdicción abarca el corredor maquilador más denso del país, el desierto de Mexicali donde el termómetro supera los 52 °C, la Sierra de Juárez con sus incendios forestales, el Puerto de Ensenada y la única frontera de México con respuesta binacional formal con California y Arizona.`}
   heroImage="/images/directorio/estacion-bomberos-norte-mexico-01.avif"
-  heroImageAlt="Estación de Bomberos Baja California — estado fronterizo noreste de México"
-  heroCaption="H. Cuerpo de Bomberos · Baja California"
+  heroImageAlt="Estación de Bomberos Baja California — estado fronterizo noreste de México con respuesta binacional"
+  heroCaption="H. Cuerpo de Bomberos · Baja California · Tijuana 1925 · Mexicali 1918"
   heroThumbs={[
-    { src: "/images/directorio/unidad-hazmat-emergencias-01.avif",           alt: "Unidad HAZMAT bomberos maquiladoras Tijuana Mexicali",    label: "HAZMAT Maquiladora"  },
-    { src: "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif", alt: "Bahía de camiones de bomberos de Baja California vista frontal", label: "Flota Vehicular" },
-    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",            alt: "Camión forestal bomberos Sierra de Juárez La Rumorosa",   label: "Forestal Sierra"     },
+    { src: "/images/directorio/unidad-hazmat-emergencias-01.avif",                alt: "Unidad HAZMAT bomberos maquiladoras Tijuana Mexicali 700 parques industriales",      label: "HAZMAT Maquiladora"  },
+    { src: "/images/directorio/estacion-bomberos-bahia-camiones-frontal-01.avif", alt: "Bahía de camiones de bomberos de Baja California vista frontal estación",             label: "Flota Vehicular"     },
+    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",             alt: "Camión forestal bomberos Sierra de Juárez La Rumorosa vientos Santa Ana BC",        label: "Forestal Sierra"     },
   ]}
 
   galleryImages={[
-    { src: "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif", alt: "Bombero de Baja California con goggle protector en servicio activo", label: "Protección Especializada" },
-    { src: "/images/directorio/camion-escalera-bomberos-01.avif",            alt: "Rescate en altura edificios Tijuana Mexicali",                 label: "Rescate en Altura"    },
-    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",        alt: "Capacitación NFPA bomberos Baja California zona fronteriza",   label: "Capacitación NFPA"    },
-    { src: "/images/directorio/rescate-swift-water-rios-01.avif",            alt: "Rescate acuático bomberos costa Pacífico Ensenada Rosarito",   label: "Rescate Pacífico"     },
+    { src: "/images/directorio/bombero-profesional-retrato-closeup-goggle-01.avif", alt: "Bombero de Baja California con equipo de protección personal en servicio activo",    label: "Protección Especializada" },
+    { src: "/images/directorio/camion-escalera-bomberos-01.avif",                   alt: "Rescate en altura edificios Tijuana Mexicali unidad escalera telescópica",           label: "Rescate en Altura"        },
+    { src: "/images/directorio/descontaminacion-hazmat-01.avif",                    alt: "Descontaminación HAZMAT bomberos parques maquiladores Otay Tijuana zona industrial", label: "Descon. HAZMAT"           },
+    { src: "/images/directorio/pick-up-bomberos-forestal-01.avif",                  alt: "Unidad forestal pick-up bomberos incendios matorral Sierra Juárez La Rumorosa BC",  label: "Forestal Serrana"         },
   ]}
 
   emergencyNumbers={[
-    { number: "911",          label: "Emergencias"          },
-    { number: "664 684 0580", label: "Bomberos Tijuana"     },
-    { number: "686 558 1616", label: "Bomberos Mexicali"    },
-    { number: "646 178 2388", label: "Bomberos Ensenada"    },
+    { number: "911",          label: "Emergencias (todo BC)"  },
+    { number: "664 684 0580", label: "Bomberos Tijuana"       },
+    { number: "686 558 1616", label: "Bomberos Mexicali"      },
+    { number: "646 178 2388", label: "Bomberos Ensenada"      },
+    { number: "665 654 1313", label: "Bomberos Tecate"        },
+    { number: "661 612 0808", label: "Bomberos Rosarito"      },
   ]}
 
   municipios={municipios}
 
   regiones={[
-    { nombre: "Zona Frontera Norte",   desc: "Tijuana · Playas de Rosarito · Tecate"      },
-    { nombre: "Zona Desierto-Capital", desc: "Mexicali · Valle de Mexicali · San Luis RC"  },
-    { nombre: "Zona Vitivinícola",     desc: "Ensenada · Valle de Guadalupe · Maneadero"   },
-    { nombre: "Zona Agrícola Sur",     desc: "San Quintín · Vicente Guerrero · Camalú"     },
+    { nombre: "Zona Frontera Norte",   desc: "Tijuana · Playas de Rosarito · Tecate"                         },
+    { nombre: "Zona Desierto-Capital", desc: "Mexicali · Valle de Mexicali · San Luis Río Colorado"           },
+    { nombre: "Zona Vitivinícola",     desc: "Ensenada · Valle de Guadalupe · Maneadero · Puerto de Ensenada" },
+    { nombre: "Zona Serrana",          desc: "La Rumorosa · Sierra de Juárez · Parque Nac. Constitución 1857" },
+    { nombre: "Zona Agrícola Sur",     desc: "San Quintín · Vicente Guerrero · Camalú"                        },
   ]}
 
   estadosVecinos={estadosVecinos}
@@ -171,114 +312,278 @@ const stationImages = [
   eppCards={[
     {
       image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-      imageAlt:  "Traje Forestal NFPA 1977 para bomberos Baja California Sierra Juárez La Rumorosa",
-      badge:     "NFPA 1977",
-      title:     "Traje Forestal NFPA 1977",
-      text:      "Certificado para los incendios forestales en la <strong>Sierra de Juárez</strong>, el <strong>Parque Nacional Constitución de 1857</strong> y la peligrosa zona boscosa de <strong>La Rumorosa</strong> a 1,275 metros de altitud. Tejido ultraligero y transpirable para jornadas prolongadas bajo el clima mediterráneo-seco de BC.",
+      imageAlt:  "Traje Estructural NFPA 1971 bomberos Baja California maquiladoras HAZMAT Tijuana Mexicali sismos",
+      badge:     "NFPA 1971",
+      title:     "Traje Estructural NFPA 1971 — HAZMAT y Sismo",
+      text:      "El estándar de referencia para los bomberos del corredor maquilador más denso de México. Las más de <strong>700 plantas de exportación</strong> en Otay, El Florido y los parques industriales de Mexicali generan emergencias con solventes, resinas y gases industriales donde el traje debe resistir al calor de contacto y la degradación química simultáneamente. La resistencia al corte también protege en operaciones de búsqueda y rescate tras los <strong>sismos en las fallas Cerro Prieto y Rose Canyon</strong> que afectan a los 4 municipios del norte del estado.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
     {
       image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
-      imageAlt:  "Casco Estructural NFPA 1971 para bomberos Tijuana Mexicali maquiladoras",
-      badge:     "NFPA 1971",
-      title:     "Casco Estructural NFPA 1971",
-      text:      "Exigido en los más de <strong>700 parques maquiladores</strong> de Otay, El Florido y los corredores industriales de Mexicali (sector aeroespacial, electrónica y dispositivos médicos). Compatible con sistemas de comunicación binacional para operaciones coordinadas con <strong>San Diego Fire-Rescue Department</strong>.",
-      href:      "/productos/cascos-para-bomberos/",
-      linkLabel: "Ver Cascos para Bombero",
+      imageAlt:  "Casco NFPA 1971 bomberos Tecate La Rumorosa forestal Sierra Juárez Baja California",
+      badge:     "NFPA 1977",
+      title:     "Traje Forestal NFPA 1977 — Sierra y Santa Ana",
+      text:      "Certificado para los incendios de matorral y chaparral que los <strong>vientos de Santa Ana</strong> (hasta 100 km/h, octubre-febrero) propagan en cañones de Tijuana, Tecate y Rosarito, y para los incendios de bosque de pino-encino en la <strong>Sierra de Juárez</strong> y el <strong>Parque Nacional Constitución de 1857</strong>. Tejido ultraligero y transpirable para jornadas prolongadas en terreno escarpado a 1 275 metros de altitud en La Rumorosa.",
+      href:      "/productos/trajes-para-bomberos/",
+      linkLabel: "Ver Trajes para Bombero",
     },
     {
       image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
-      imageAlt:  "Guantes Estructurales NFPA 1971 bomberos La Rumorosa rescate vehicular",
+      imageAlt:  "Guantes NFPA 1971 bomberos Baja California rescate vehicular La Rumorosa maquiladoras",
       badge:     "NFPA 1971",
       title:     "Guantes Estructurales NFPA 1971",
-      text:      "Resistencia térmica certificada para emergencias en plantas aeroespaciales de Mexicali y electrónicas de Tijuana. Prensión segura en rescate vehicular sobre los <strong>80+ curvas de La Rumorosa</strong> y la <strong>Autopista Tijuana–Mexicali</strong>, donde la estación de La Rumorosa atiende múltiples accidentes al mes.",
+      text:      "Resistencia térmica para emergencias en plantas aeroespaciales y electrónicas de Mexicali y Tijuana; prensión segura en <strong>rescate vehicular en La Rumorosa</strong> (80+ curvas, niebla y nieve invernal) y en extricación tras colisiones en la Autopista Tijuana-Mexicali; protección química ante el contacto accidental con materiales de los <strong>parques maquiladores</strong>. Compatible con comunicadores de radio binacional.",
       href:      "/productos/guantes-para-bomberos/",
       linkLabel: "Ver Guantes para Bombero",
     },
     {
       image:     "/images/directorio/botas-bombero-proteccion-01.avif",
-      imageAlt:  "Botas Estructurales NFPA 1971 bomberos Baja California terreno mixto",
+      imageAlt:  "Botas Estructurales NFPA 1971 bomberos Baja California terreno mixto desierto costa sierra",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales de Cuero",
-      text:      "Certificadas NFPA 1971 para el terreno más diverso de México: pisos de fábrica en <strong>Otay y El Vigía</strong>, arenas y escolleras de <strong>Playas de Tijuana y Puerto de Ensenada</strong>, y terreno volcánico de la <strong>Bahía de San Quintín</strong> en operaciones de rescate rural y costero.",
+      text:      "Certificadas NFPA 1971 para el terreno más diverso de México: pisos de fábrica en <strong>Otay y El Vigía</strong>; arenas y escolleras del <strong>Puerto de Ensenada y Playas de Tijuana</strong>; roca volcánica de la <strong>Bahía de San Quintín</strong>; escombros de estructuras colapsadas por sismo; y caminos de tierra en el desierto de Mexicali donde la temperatura del suelo puede superar los <strong>70 °C</strong> en verano.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
   ]}
 
   ctaTitle="Equipamos a los Bomberos de Baja California"
-  ctaDesc={`Cotiza equipo certificado NFPA para tus ${estadisticas.totalEstaciones} estaciones en Tijuana, Mexicali, Ensenada, Tecate y Rosarito. Envío inmediato a los 5 municipios. Atención a licitaciones públicas y compra directa.`}
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones en Tijuana, Mexicali, Ensenada, Tecate y Rosarito. Envío inmediato a los 5 municipios. Atención a licitaciones públicas y compra directa.`}
   ctaBtnText="Solicitar Cotización — Baja California"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Baja California — Los 700 Parques Maquiladores, los 52°C de Mexicali y la Única Frontera con Respuesta Binacional</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Baja California</strong> opera en los 5 municipios
-      del estado con {estadisticas.totalEstaciones} estaciones activas y más de 940 bomberos
-      profesionales. Su jurisdicción abarca escenarios extremadamente diversos: desde los 52°C
-      del verano en Mexicali hasta el océano Pacífico en Ensenada, los parques industriales de
-      Tijuana y los bosques de la Sierra de Juárez.
+    <h2>Bomberos en Baja California: la frontera donde convergen el desierto, el Pacífico, las maquiladoras y dos países</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Baja California">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en BC</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">5</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalPersonal}</span><span class="de-stat__label">Bomberos en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">52 °C</span><span class="de-stat__label">Temperatura récord Mexicali</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1918</span><span class="de-stat__label">Fundación Mexicali</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1925</span><span class="de-stat__label">Fundación Tijuana</span></div>
+    </div>
+
+    <p class="de-lead">
+      Ningún estado de México reúne un perfil de riesgo tan heterogéneo como Baja California:
+      un desierto con temperaturas que superan los 52 °C, más de 700 parques maquiladores con
+      materiales peligrosos, la única frontera del país con respuesta binacional formal con
+      California y Arizona, incendios de matorral impulsados por vientos de Santa Ana, sismos en
+      quince fallas activas —incluyendo la falla Rose Canyon entre Tijuana y San Diego— y una
+      línea costera con rescate acuático en el Pacífico. Los bomberos de los cinco municipios lo
+      atienden todo con <strong>{totalEstaciones} estaciones</strong> y <strong>{totalPersonal} bomberos</strong>.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Baja California?</h3>
+    <h3>Cómo contactar a los bomberos en Baja California</h3>
     <p>
-      El <strong>911</strong> es el número único de despacho en todo el estado — conecta con el C4
-      municipal que coordina respuesta simultánea de bomberos, policía y servicios médicos.
-      Para contacto directo con las estaciones centrales: Tijuana 664 684 0580, Mexicali 686 558 1616,
-      Ensenada 646 178 2388, Tecate 665 654 1313, Rosarito 661 612 0808.
+      En cualquier emergencia, el <strong>911</strong> conecta con el C4 municipal más cercano las 24 horas
+      en los cinco municipios del estado. El sistema despacha simultáneamente a bomberos, policía y
+      servicios médicos desde la estación con menor tiempo de respuesta. Para contacto directo con las
+      estaciones centrales: Tijuana <strong>664 684 0580</strong>, Mexicali <strong>686 558 1616</strong>,
+      Ensenada <strong>646 178 2388</strong>, Tecate <strong>665 654 1313</strong>, Rosarito
+      <strong>661 612 0808</strong>. En zonas rurales de Ensenada (San Quintín, Valle de Guadalupe) y
+      en la carretera de La Rumorosa, los tiempos de respuesta pueden extenderse entre 10 y 30 minutos.
+      Consulta el <a href="#listado-estaciones">directorio completo de estaciones</a> para los teléfonos
+      directos de cada subestación.
     </p>
 
-    <h3>Perfil de riesgo del estado fronterizo</h3>
+    <h3>Historia de los cuerpos de bomberos en Baja California</h3>
     <p>
-      Ningún otro estado de México concentra un perfil de riesgo tan heterogéneo. Los más de 700
-      parques maquiladores de Tijuana y Mexicali —electrónica, aeroespacial, dispositivos médicos—
-      generan la mayor densidad de emergencias HAZMAT del país. La carretera de La Rumorosa (80+
-      curvas, niebla frecuente, 1,275 msnm) requiere una estación dedicada exclusivamente a esa vía.
-      Los incendios forestales en la Sierra de Juárez y el rescate acuático en el Pacífico completan
-      el espectro operativo.
+      La historia de los bomberos en Baja California corre en paralelo con la fundación y el crecimiento
+      de sus ciudades. A nivel nacional, el primer cuerpo de bomberos de México nació en Veracruz el
+      22 de agosto de 1873; la frontera norte organizó los suyos pocas décadas después:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora cada año como el <strong>Día del Bombero</strong> en todo el país.</li>
+      <li><span class="de-tl__year">1914</span> Se constituye formalmente el <strong>municipio de Mexicali</strong>, cuatro años antes de que su cuerpo de bomberos fuera organizado.</li>
+      <li><span class="de-tl__year">1918</span> Fundación del <strong>Cuerpo de Bomberos de Mexicali</strong>, el más antiguo de Baja California, en la entonces pequeña capital del Territorio Norte. La institución celebró su centenario en 2018 (fuente: <em>La Voz de la Frontera</em>).</li>
+      <li><span class="de-tl__year">1925</span> El <strong>20 de noviembre</strong>, ciudadanos voluntarios de Tijuana organizan el <strong>Cuerpo de Bomberos de Tijuana</strong>. La fecha y la historia están documentadas en la exposición centenaria <em>«100 años en la línea de fuego»</em> del Centro Cultural Tijuana (CECUT).</li>
+      <li><span class="de-tl__year">1985</span> La estación de <strong>La Rumorosa</strong> es establecida formalmente para cubrir el tramo de montaña más peligroso de la carretera Tecate-Mexicali, escenario frecuente de accidentes múltiples y niebla densa.</li>
+      <li><span class="de-tl__year">1995</span> <strong>Playas de Rosarito</strong> se independiza de Tijuana como quinto municipio del estado; su cuerpo de bomberos crece al ritmo del desarrollo turístico costero.</li>
+      <li><span class="de-tl__year">2005</span> La <strong>Estación Industrial de Mexicali</strong> es creada ante el crecimiento exponencial del sector maquilador aeroespacial y de dispositivos médicos en los parques industriales.</li>
+      <li><span class="de-tl__year">2010</span> El <strong>sismo El Mayor-Cucapah (Mw 7.2, 4 de abril)</strong> —el mayor registrado instrumentalmente en la región— sacude Mexicali y el Valle Imperial, reforzando la importancia de la respuesta sísmica binacional.</li>
+      <li><span class="de-tl__year">Hoy</span> Los bomberos de los 5 municipios operan <strong>{totalEstaciones} estaciones</strong> con <strong>{totalPersonal} elementos</strong> y <strong>{totalUnidades} unidades</strong>, bajo coordinación binacional permanente con San Diego, Imperial County y Yuma.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cobertura por municipio</h3>
+    <p>
+      La cobertura de los cuerpos de bomberos de Baja California se organiza en torno a los cinco municipios
+      del estado, cada uno con un perfil de riesgo diferenciado: la megalópolis fronteriza industrial de
+      Tijuana, el desierto extremo y la capital administrativa en Mexicali, el puerto y la región
+      vitivinícola en Ensenada, la sierra y la industria cervecera en Tecate, y el corredor turístico
+      costero en Rosarito. Esta es la distribución de estaciones y cobertura por zona:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipio(s)</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los bomberos de Baja California</h3>
+    <p>
+      Por su perfil de riesgo único, los cuerpos de bomberos de BC operan capacidades que no existen
+      juntas en ningún otro estado del país:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Estructurales, forestales (Sierra de Juárez), de matorral con vientos Santa Ana y en instalaciones industriales del corredor maquilador.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Derrames y fugas en más de 700 plantas maquiladoras de electrónica, aeroespacial, automotriz y dispositivos médicos en Tijuana y Mexicali.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en accidentes carreteros, incluyendo el tramo La Rumorosa (80+ curvas), la Autopista Tijuana-Mexicali y la Carretera Transpeninsular.</p></div>
+      <div class="de-card"><h4>Rescate acuático</h4><p>Operaciones en el océano Pacífico (Playas de Tijuana, Rosarito, Ensenada), puerto de altura, canales y presas municipales.</p></div>
+      <div class="de-card"><h4>Emergencias por calor extremo</h4><p>Protocolos únicos en Mexicali para golpe de calor, incendios residenciales en temperaturas superiores a 52 °C y emergencias en trabajadores al aire libre.</p></div>
+      <div class="de-card"><h4>Respuesta binacional</h4><p>Coordinación formal con San Diego Fire-Rescue, Imperial County (California) y Yuma (Arizona) para incidentes transfronterizos y capacitación bilateral.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>Otay (Tijuana), Industrial (Mexicali), Ensenada</td></tr>
+          <tr><td><strong>Rescate vehicular</strong></td><td>24/7</td><td>Todas las estaciones; esp. La Rumorosa</td></tr>
+          <tr><td><strong>Rescate acuático</strong></td><td>24/7</td><td>Playas Tijuana, Rosarito, Ensenada, La Presa</td></tr>
+          <tr><td><strong>Incendios forestales / matorral</strong></td><td>Temporada seca y Santa Ana</td><td>Tecate, La Rumorosa, Tijuana Este y Sur, Rosarito Sur, Valle de Guadalupe</td></tr>
+          <tr><td><strong>Emergencias por calor extremo</strong></td><td>May–Sep</td><td>Mexicali (todas las estaciones)</td></tr>
+          <tr><td><strong>Emergencias portuarias</strong></td><td>24/7</td><td>Puerto de Ensenada (coord. SEMAR y API)</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia (mayoría)</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate en zonas de difícil acceso</strong></td><td>24/7</td><td>La Rumorosa, Tijuana Este, San Quintín</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>El perfil de riesgo de la frontera: maquiladoras, sismos, Santa Ana e incendios</h3>
+    <p>
+      El riesgo más singular de Baja California es el que nadie ve desde afuera: los
+      <strong>más de 700 parques maquiladores</strong> de Tijuana y Mexicali —electrónica de consumo,
+      componentes aeroespaciales, dispositivos médicos, arneses automotrices— almacenan solventes,
+      metales reactivos, resinas y gases industriales que, en caso de incendio o derrame, generan
+      emergencias HAZMAT de clase mundial. La Estación Otay de Tijuana y la Estación Industrial de
+      Mexicali son las unidades especializadas para este escenario, con trajes encapsulados Nivel A,
+      laboratorio móvil y personal certificado.
+    </p>
+    <p>
+      El riesgo sísmico es constante. Baja California registra alrededor de <strong>15 fallas activas</strong>,
+      entre ellas la <strong>falla Cerro Prieto</strong> (80 km, con sismos de M 7.1 en 1940 y M 6.6 en 1979),
+      la <strong>falla Rose Canyon</strong> (entre San Diego y Tijuana) y la falla de San Andrés. El sismo
+      <strong>El Mayor-Cucapah del 4 de abril de 2010 (Mw 7.2)</strong> —el mayor instrumentalmente
+      registrado en la región— sacudió Mexicali y activó la respuesta binacional con el Imperial
+      County de California. La búsqueda y rescate en estructuras colapsadas (USAR) es una capacidad
+      operativa activa en Tijuana y Mexicali.
+    </p>
+    <p>
+      Los <strong>vientos de Santa Ana</strong>, que descienden calientes y secos desde el interior de
+      Estados Unidos entre octubre y febrero, pueden superar los 100 km/h y propagan incendios de
+      matorral y chaparral en los cañones de Tijuana, Tecate y Rosarito a velocidades que obligan a
+      evacuaciones masivas. En diciembre de 2023 y 2024, estos vientos provocaron incendios simultáneos
+      en varias colonias de Tijuana y Rosarito con evacuaciones de familias. El mismo sistema meteorológico
+      que alimentó los grandes incendios del sur de California opera sin frontera en el norte de BC.
+    </p>
+    <p>
+      En el extremo opuesto, el <strong>desierto de Mexicali</strong> ofrece el escenario inverso: no el
+      viento sino la calma absoluta a 52 °C, donde un bombero en traje estructural puede sufrir golpe
+      de calor en menos de 15 minutos. Las estaciones de Mexicali son las únicas del país con protocolos
+      formales de rotación de personal y enfriamiento rápido como parte de su operación regular de verano.
     </p>
 
-    <h3>Cooperación binacional con California Fire</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      Baja California es el único estado de México con protocolos formales de respuesta conjunta
-      con agencias de bomberos de Estados Unidos. La estación central de Tijuana coordina con
-      San Diego Fire-Rescue Department; Mexicali mantiene acuerdos con el Imperial County de
-      California; y San Luis Río Colorado opera en coordinación con el Fire Department de Yuma,
-      Arizona. Estos convenios permiten cruce de unidades cuando el incidente afecta ambos lados
-      de la frontera.
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos de los
+      cuerpos de bomberos entre los municipios de Baja California. Los municipios sin dato de personal
+      provienen de estaciones sin ese campo publicado:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Zona</th><th>Estaciones</th><th>Personal (directorio)</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalPersonal}</td>
+            <td>5 municipios de Baja California</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Baja California</h3>
+    <p>
+      El primer reto es el <strong>crecimiento urbano no planificado</strong>. Tijuana ha crecido
+      sobre cañones y laderas donde el acceso para unidades pesadas es difícil o imposible, lo que
+      eleva el riesgo de víctimas en incendios de asentamientos irregulares y complica la
+      respuesta a deslaves en temporada de lluvias (diciembre-marzo). En Mexicali, la expansión
+      de fraccionamientos hacia el desierto aumenta la demanda de cobertura en zonas alejadas
+      de las estaciones actuales.
+    </p>
+    <p>
+      El segundo reto es la <strong>intensificación del riesgo climático</strong>. Los incendios
+      de vientos Santa Ana se han vuelto más frecuentes e intensos en los últimos años, y las
+      olas de calor en Mexicali son más largas. Esto exige renovación continua de <strong>EPP
+      certificado NFPA</strong> —trajes, SCBA, cascos— y capacitación especializada que en Baja
+      California incluye protocolos binacionales que no existen en ningún otro estado de México.
+    </p>
+    <p>
+      El tercer reto es la <strong>cobertura de zonas rurales extensas</strong>. El municipio de
+      Ensenada —el más grande del país por superficie— incluye San Quintín a 300 km del centro,
+      con tiempos de respuesta de hasta 30 minutos y población jornalera que desconoce los
+      protocolos de emergencia. Ampliar la red de subestaciones y fortalecer la cultura de
+      prevención en comunidades rurales es una necesidad operativa real.
     </p>
 
-    <h3>Mexicali en Verano — 52°C, Golpe de Calor y la Mayor Temperatura Urbana de América del Norte</h3>
-      <p>
-        Mexicali registra temperaturas de superficie que superan los 52°C en julio y agosto, convirtiendo
-        a la capital bajacaliforniana en una de las ciudades habitadas más calurosas del hemisferio
-        occidental. El golpe de calor — temperatura corporal superior a 40°C con cese de sudoración,
-        confusión y pérdida de conciencia — puede producirse en menos de 15 minutos de exposición
-        sin agua para un bombero en traje estructural completo. Los incendios residenciales en
-        colonias populares de Mexicali en verano combinan el estrés térmico del exterior con el
-        calor de radiación del incendio, obligando a rotaciones de personal cada 8-10 minutos
-        en el perímetro de trabajo. Las estaciones de Mexicali mantienen puestos de hidratación
-        y enfriamiento rápido permanentes durante los meses de verano, con protocolos de suspensión
-        de actividad exterior cuando el índice de calor supera los 48°C.
-      </p>
+    <h3>Cultura de prevención en Baja California</h3>
+    <p>
+      Por la combinación de riesgos del estado, las recomendaciones de prevención de los cuerpos
+      de bomberos de BC incluyen medidas que no son habituales en el resto del país:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención — Baja California</h4>
+      <ul>
+        <li><strong>Vientos de Santa Ana (oct–feb):</strong> no realices quemas al aire libre, no tires colillas, mantén libre de vegetación seca el perímetro de tu vivienda; prepara una mochila de evacuación si vives en zona de cañón o matorral.</li>
+        <li><strong>Calor extremo (Mexicali, may–sep):</strong> no trabajes al aire libre entre las 11:00 y las 16:00; hidratación de al menos 1 litro de agua por hora; ante síntomas de golpe de calor (confusión, piel caliente y seca), llama al <strong>911</strong> de inmediato.</li>
+        <li><strong>Zona maquiladora:</strong> conoce el plan de emergencias de tu planta, la localización de la hoja de datos de seguridad (SDS) de las sustancias que manejas y la salida de emergencia más cercana.</li>
+        <li><strong>Sismo:</strong> identifica zonas seguras (arco de puerta o escritorio resistente) y colócate lejos de ventanas; en Baja California la respuesta puede tardarse más por la distancia entre municipios — prepara agua y alimentos para 72 horas.</li>
+        <li><strong>Gas y electricidad:</strong> ante olor a gas no acciones interruptores; cierra la llave de paso, abre ventanas y evacúa antes de llamar desde el exterior.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> guardado y enséñalo a niñas y niños. En carretera La Rumorosa, avisa a alguien de tu ruta antes de salir.</li>
+      </ul>
+    </div>
 
-  
-      <h3>Puerto Ensenada y Valle de Guadalupe — HAZMAT Portuario y la Vitivinicultura en el Desierto</h3>
-      <p>
-        El Puerto de Ensenada es el principal puerto pesquero de México y un punto de entrada de
-        carga a granel, con instalaciones para manejo de fertilizantes, combustibles y productos
-        agroquímicos. La estación de bomberos de Ensenada coordina con la API y SEMAR para
-        emergencias en muelle, incluyendo derrames de combustible en bahía y accidentes con
-        buques de pesca de gran calado. A 30 kilómetros al norte, el Valle de Guadalupe concentra
-        la mayor producción de vino de México, con más de 100 bodegas que almacenan hasta 200,000
-        litros de vino fermentando o en barrica. El alcohol etílico de los procesos de fermentación
-        y destilación secundaria representa un riesgo de incendio de llama invisible — igual que
-        en el corredor tequilero de Jalisco — con la diferencia de que las instalaciones vitivinícolas
-        del Valle son en su mayoría estructuras de madera y adobe que se propagan tres veces más
-        rápido que la mampostería.
-      </p>
+    <p class="de-srcnote">
+      Fuentes: Centro Cultural Tijuana (CECUT), exposición centenaria <em>«100 años en la línea de fuego»</em>
+      (cecut.gob.mx/bomberostijuana) — fundación del Cuerpo de Bomberos de Tijuana el 20 de noviembre de 1925.
+      La Voz de la Frontera, «El Cuerpo de Bomberos de Mexicali: 1918-2018» — centenario del cuerpo de Mexicali.
+      Red Sísmica del Noroeste de México (RESNOM/CICESE) — fallas activas en BC y sismo El Mayor-Cucapah Mw 7.2
+      del 4 de abril de 2010. Noro.mx y fuentes de Protección Civil de BC — vientos de Santa Ana y temporadas
+      de incendios 2023-2024. El dato de fundación de Ensenada (1918) proviene del archivo interno del directorio;
+      no ha sido verificado en fuente primaria y debe tomarse con reserva. Las cifras de personal y unidades
+      corresponden a las estaciones publicadas en este directorio. Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
   </Fragment>
 </DirectorioEstadoLayout>

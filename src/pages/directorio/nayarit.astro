@@ -1,25 +1,76 @@
 ---
 
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
-import { estacionesNayarit, getMunicipios, ESTADISTICAS_NAYARIT, NAYARIT_SEO } from "@data/estaciones-nayarit";
+import { estacionesNayarit, getMunicipios, ESTADISTICAS_NAYARIT } from "@data/estaciones-nayarit";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("nayarit");
-
 const municipios = getMunicipios();
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Nayarit",                url: "/directorio/nayarit/" },
-]);
+const canonical = "https://bombero.mx/directorio/nayarit/";
 
+// ── Estadísticas derivadas ──────────────────────────────────────────────────
+const totalEstaciones = estacionesNayarit.length;
+const totalMunicipios = municipios.length;
+
+// ── Comparativa regional (zonas del directorio) ─────────────────────────────
+const zonasDef = [
+  {
+    nombre: "Zona Metropolitana Tepic",
+    municipiosZona: ["Tepic", "Xalisco"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital estatal, coordinación estatal de emergencias, único equipo HAZMAT Nivel II del estado.",
+  },
+  {
+    nombre: "Riviera Nayarit Sur",
+    municipiosZona: ["Bahía de Banderas"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Nuevo Vallarta, Punta de Mita, resorts de ultra lujo, Aeropuerto PVR (ARFF Cat. 9).",
+  },
+  {
+    nombre: "Riviera Nayarit Norte",
+    municipiosZona: ["Compostela"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Sayulita (Pueblo Mágico 2015), Rincón de Guayabitos, rescate surf y costas.",
+  },
+  {
+    nombre: "Zona Histórica San Blas",
+    municipiosZona: ["San Blas"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Puerto colonial, manglares La Tovara, Reserva RAMSAR, rescate en cocodrilos.",
+  },
+  {
+    nombre: "Llanura Costera Norte",
+    municipiosZona: ["Santiago Ixcuintla", "Tuxpan"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Marismas Nacionales (RAMSAR 1995), Mexcaltitán, zona tabacalera y agrícola.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesNayarit.filter((e) =>
+    z.municipiosZona.includes(e.ciudad ?? e.municipio ?? "")
+  );
+  return {
+    ...z,
+    nEst: est.length,
+    nPers: est.reduce((s, e) => s + (e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Nayarit, México",
-  "description": "Directorio completo de las 14 estaciones de bomberos en Nayarit. Protección para Tepic, Riviera Nayarit, Bahía de Banderas, Sayulita, 289 km de litoral y 1.3 millones de habitantes más 5 millones de turistas anuales. Emergencias 911.",
+  "description": `Directorio completo de las ${totalEstaciones} estaciones de bomberos en Nayarit. Protección para Tepic, Riviera Nayarit, Bahía de Banderas, Sayulita, 289 km de litoral y 1.3 millones de habitantes más 10 millones de visitantes anuales. Emergencias 911.`,
   "numberOfItems": estacionesNayarit.length,
   "itemListElement": estacionesNayarit.map((e, i) => ({
     "@type": "ListItem",
@@ -39,6 +90,93 @@ const itemListSchema = {
     }
   }))
 };
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Nayarit: estaciones, historia y servicios de emergencia",
+  "description": "Guía del cuerpo de bomberos de Nayarit: historia, infraestructura en la Riviera Nayarit, Tepic, San Blas y la Sierra Wixárika, funciones, riesgos (Ceboruco, huracanes, rescate acuático) y directorio de estaciones.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Tepic",
+    "H. Cuerpo de Bomberos de Bahía de Banderas",
+    "Protección Civil Nayarit",
+    "Rescate acuático Riviera Nayarit",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/nayarit.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Nayarit",
+  "description": `Directorio verificado de ${totalEstaciones} estaciones de bomberos en Nayarit, con teléfonos, cobertura, funciones e historia del cuerpo de bomberos.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Cuerpo de Bomberos de Nayarit" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/nayarit.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Nayarit (≥10) ─────────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencias para llamar a los bomberos en Nayarit?",
+    a: `Marca el <strong>911</strong>, número único que opera las 24 horas a través del C4 de Nayarit. Los teléfonos directos de las estaciones principales son: Tepic <strong>(311) 213-2232</strong>, Bahía de Banderas <strong>(329) 291-6060</strong>, San Blas <strong>(323) 285-0505</strong>, Sayulita <strong>(329) 291-3636</strong> y Compostela <strong>(311) 215-4141</strong>.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Nayarit?",
+    a: `Este directorio registra <strong>${totalEstaciones} estaciones de bomberos</strong> distribuidas en los principales municipios del estado, desde la zona metropolitana de Tepic hasta la Riviera Nayarit, San Blas, la llanura costera norte y la sierra.`,
+  },
+  {
+    q: "¿Cuándo se fundó el cuerpo de bomberos de Tepic?",
+    a: `El Heroico Cuerpo de Bomberos de Tepic tiene documentadas décadas de servicio continuo en la capital del estado. El primer cuerpo de bomberos de México se fundó el <strong>22 de agosto de 1873 en Veracruz</strong>, fecha que se conmemora como el Día del Bombero en toda la República.`,
+  },
+  {
+    q: "¿El volcán Ceboruco representa un riesgo real para Tepic?",
+    a: `Sí. El Ceboruco es un <strong>estratovolcán activo</strong> ubicado a unos 80 km de Tepic, con su última erupción registrada entre <strong>1870 y 1875</strong>. Emite fumarolas activas y el CENAPRED lo clasifica entre los volcanes mexicanos con mayor nivel de riesgo. Las comunidades más cercanas, como <strong>Jala</strong> (Pueblo Mágico), están en el radio de atención prioritaria del plan de emergencia volcánica estatal.`,
+  },
+  {
+    q: "¿Cómo evacúan los turistas de la Riviera Nayarit ante un huracán?",
+    a: `Los hoteles de la Riviera Nayarit tienen planes de evacuación coordinados con la Unidad Estatal de Protección Civil y los bomberos de Bahía de Banderas. En temporada de huracanes (junio-noviembre) el protocolo establece refugios temporales en escuelas y recintos de zona alta; los turistas deben seguir instrucciones del hotel y del <strong>911</strong>. El huracán <strong>Patricia (2015)</strong> —el más intenso del Pacífico hasta entonces— y <strong>Willa (2018)</strong> activaron evacuaciones masivas de la costa nayarita.`,
+  },
+  {
+    q: "¿Qué hace especial el rescate acuático en las Islas Marietas?",
+    a: `Las Islas Marietas son un Parque Nacional con la famosa Playa del Amor, accesible únicamente nadando por un pasaje subacuático de unos 30 metros o caminando en ventana de marea baja. Un rescate allí combina técnicas de espacio confinado subacuático con rescate oceánico, con la restricción adicional de que la CONANP limita equipos motorizados en la zona. Los bomberos de Bahía de Banderas y la SEMAR coordinan la respuesta con nadadores de rescate.`,
+  },
+  {
+    q: "¿Qué es un incendio de turba en los manglares de Marismas Nacionales?",
+    a: `En temporadas de sequía severa, el suelo de turba bajo la cobertura de manglar puede deshidratarse y arder de forma subterránea a temperaturas de 200–400 °C <strong>sin llama visible</strong>. El fuego puede desplazarse kilómetros y el suelo sobre su frente puede colapsar bajo el peso de una persona. Los bomberos de San Blas y Santiago Ixcuintla sondean el terreno con vara antes de cada paso y usan mochilas de agua de 20 litros en lugar de autobomba.`,
+  },
+  {
+    q: "¿Por qué el rescate de surfistas en Sayulita tiene un protocolo especial?",
+    a: `El extremo norte de la playa de Sayulita termina en un campo de rocas volcánicas que emergen y se ocultan con el oleaje. Un surfista arrastrado hacia esa zona no puede ser alcanzado directamente por el rompiente norte: la aproximación de rescate se hace desde el sur, nadando lateralmente fuera del rompiente hasta alcanzar al accidentado por el costado sin roca. Los bomberos de Bahía de Banderas entrenan este protocolo junto con guardavidas del municipio.`,
+  },
+  {
+    q: "¿Qué servicios ARFF ofrece la estación del Aeropuerto Internacional de Puerto Vallarta?",
+    a: `El Aeropuerto Internacional Licenciado Gustavo Díaz Ordaz (PVR), en territorio de Bahía de Banderas, Nayarit, cuenta con servicios de <strong>Rescate y Extinción de Incendios de Aeronaves (ARFF)</strong> conforme a normativa OACI Categoría 9, con tiempo de respuesta máximo de 3 minutos a cualquier punto de las pistas. El aeropuerto recibió más de 3.7 millones de llegadas en el primer semestre de 2024.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos emergencias en comunidades Wixárikas de la sierra?",
+    a: `Las comunidades Wixárikas (Huichol) de la Sierra del Nayar se ubican entre 1,500 y 2,500 msnm, con caminos que se cortan durante lluvias. El primer contacto para cualquier respuesta externa es la estructura de gobernanza comunitaria propia. Los bomberos de Compostela y Tepic coordinan rescates con el apoyo de guías locales y, cuando es necesario, con helicópteros de la Secretaría de la Defensa.`,
+  },
+  {
+    q: "¿Cuáles son los principales riesgos por huracán en la costa de Nayarit?",
+    a: `Los <strong>289 km de litoral</strong> de Nayarit están expuestos a la temporada de ciclones del Pacífico (junio-noviembre). El huracán Patricia (2015), el de mayor intensidad registrada en el Pacífico, pasó cercano a las costas nayaritas como categoría 5; Willa (2018) tocó tierra como categoría 3 y causó el desbordamiento de los ríos San Pedro y Acaponeta, con más de 180,000 damnificados en Nayarit. El protocolo de evacuación incluye resorts, playas, marinas y comunidades en zona de inundación.`,
+  },
+  {
+    q: "¿Cómo prevenir emergencias en la playa en la Riviera Nayarit?",
+    a: `Nada siempre en zonas con bandera verde y vigilancia de guardavidas. Respeta las banderas de advertencia de corrientes, medusas o fauna marina. No entres al agua solo ni de noche. En resorts, localiza las salidas de emergencia y el punto de reunión del hotel antes de que ocurra cualquier incidente. Ante cualquier emergencia, marca el <strong>911</strong>; en la zona turística hay personal bilingüe.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-playa-01.avif",
@@ -95,48 +233,48 @@ const stationImages = [
   estado="Nayarit"
   sigla="NAY"
   slug="nayarit"
-  description={`${ESTADISTICAS_NAYARIT.total_estaciones} estaciones en Nayarit — Riviera Nayarit, Islas Marietas rescate en cueva, Ceboruco activo a 15 km de Tepic, manglares RAMSAR y Sierra Wixárika. Emergencias: 911.`}
-  keywords={["bomberos nayarit","estaciones bomberos tepic","bomberos riviera nayarit","emergencias nayarit 911","bomberos bahía de banderas","bomberos sayulita","rescate acuático nayarit","bomberos nuevo vallarta","cuerpo bomberos nayarit","bomberos punta mita"]}
-  canonical="https://bombero.mx/directorio/nayarit/"
-  jsonLd={[itemListSchema]}
+  description={`Bomberos en Nayarit: ${totalEstaciones} estaciones con teléfonos directos — Tepic, Riviera Nayarit, Bahía de Banderas, San Blas, Islas Marietas y volcán Ceboruco. Emergencias: 911.`}
+  keywords={["bomberos nayarit","estaciones bomberos tepic","bomberos riviera nayarit","emergencias nayarit 911","bomberos bahía de banderas","bomberos sayulita","rescate acuático nayarit","bomberos nuevo vallarta","cuerpo bomberos nayarit","bomberos punta mita","volcán ceboruco evacuación","huracán nayarit protección civil"]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
-  totalEstaciones={estacionesNayarit.length}
-  totalMunicipios={municipios.length}
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
   habitantes="1.3M+"
 
-  heroDesc="Directorio completo del <strong>Heroico Cuerpo de Bomberos de Nayarit</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de las 14 estaciones que protegen 289 km de litoral del Pacífico, la Riviera Nayarit de clase mundial, 2 Pueblos Mágicos y más de 5 millones de turistas anuales."
+  heroDesc={`Directorio completo del <strong>Cuerpo de Bomberos de Nayarit</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de las <strong>${totalEstaciones} estaciones</strong> que protegen 289 km de litoral del Pacífico, la Riviera Nayarit, 2 Pueblos Mágicos, el volcán Ceboruco y más de <strong>10 millones de visitantes anuales</strong>.`}
   heroImage="/images/directorio/estacion-bomberos-playa-01.avif"
-  heroImageAlt="Estación Central de Bomberos Tepic, Nayarit - Puerta de Oro del Pacífico"
-  heroCaption="H. Cuerpo de Bomberos · Nayarit"
+  heroImageAlt="Estación Central de Bomberos Tepic, Nayarit — Riviera Nayarit y volcán Ceboruco"
+  heroCaption="Cuerpo de Bomberos · Nayarit"
   heroThumbs={[
     { src: "/images/directorio/vestidor-bomberos-equipo-epp-madera-01.avif", alt: "Vestidor de bomberos de Nayarit con equipo de protección personal", label: "Vestidor EPP" },
-    { src: "/images/directorio/camion-bomberos-moderno-01.avif",           alt: "Camión de bomberos Bahía de Banderas",         label: "Flota Turística"     },
-    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",     alt: "Bomberos Nayarit protegiendo zona hotelera",   label: "Respuesta 24/7"      },
+    { src: "/images/directorio/camion-bomberos-moderno-01.avif",             alt: "Camión de bomberos Bahía de Banderas Riviera Nayarit",            label: "Flota Turística" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",       alt: "Bomberos Nayarit protegiendo zona hotelera Riviera Nayarit",      label: "Respuesta 24/7" },
   ]}
 
   galleryImages={[
-    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",        alt: "Entrenamiento bomberos Nayarit",            label: "Academia Bomberil"    },
-    { src: "/images/directorio/camion-escalera-bomberos-01.avif",            alt: "Camión escalera bomberos Tepic",            label: "Rescate en Altura"    },
-    { src: "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif", alt: "Estación de bomberos de Nayarit en centro histórico con unidades", label: "Estación Central" },
-    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "Equipo HAZMAT volcán Ceboruco",             label: "HAZMAT Volcánico"     },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",             alt: "Entrenamiento bomberos Nayarit",                                       label: "Academia Bomberil"  },
+    { src: "/images/directorio/camion-escalera-bomberos-01.avif",                 alt: "Camión escalera bomberos Tepic Nayarit",                               label: "Rescate en Altura"  },
+    { src: "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif", alt: "Estación de bomberos Bahía de Banderas Nayarit con unidades al frente", label: "Estación Central"   },
+    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",      alt: "Equipo HAZMAT monitoreo volcán Ceboruco Nayarit",                      label: "HAZMAT Volcánico"   },
   ]}
 
   emergencyNumbers={[
-    { number: "911",               label: "Emergencias"             },
-    { number: "(311) 213-2232",    label: "Bomberos Tepic"          },
-    { number: "(329) 291-6060",    label: "Bomberos Bahía Banderas" },
-    { number: "(323) 285-0202",    label: "Bomberos San Blas"       },
+    { number: "911",            label: "Emergencias (C4 Nayarit)"  },
+    { number: "(311) 213-2232", label: "Bomberos Tepic"            },
+    { number: "(329) 291-6060", label: "Bomberos Bahía Banderas"   },
+    { number: "(323) 285-0505", label: "Bomberos San Blas"         },
   ]}
 
   municipios={municipios}
 
   regiones={[
-    { nombre: "Zona Metropolitana Tepic",    desc: "Capital estatal, centro comercial y administrativo"           },
-    { nombre: "Riviera Nayarit Sur",         desc: "Nuevo Vallarta, Bucerías, Punta de Mita - turismo de lujo"    },
-    { nombre: "Riviera Nayarit Norte",       desc: "Sayulita (Pueblo Mágico), San Pancho, surf y ecoturismo"      },
-    { nombre: "Zona Histórica San Blas",     desc: "Puerto colonial, La Tovara, manglares RAMSAR"                 },
-    { nombre: "Sierra del Nayar",            desc: "Comunidades Wixárikas, volcán Ceboruco activo"                },
-    { nombre: "Corredor Industrial Sur",     desc: "Bahía de Banderas, aeropuerto internacional PVR"             },
+    { nombre: "Zona Metropolitana Tepic",   desc: "Capital estatal, centro administrativo y HAZMAT Nivel II estatal"       },
+    { nombre: "Riviera Nayarit Sur",        desc: "Nuevo Vallarta, Bucerías, Punta de Mita — turismo internacional de lujo" },
+    { nombre: "Riviera Nayarit Norte",      desc: "Sayulita (Pueblo Mágico), San Pancho, Guayabitos — surf y ecoturismo"   },
+    { nombre: "Zona Histórica San Blas",    desc: "Puerto colonial, La Tovara, manglares RAMSAR"                           },
+    { nombre: "Sierra del Nayar",           desc: "Comunidades Wixárikas, volcán Ceboruco activo"                          },
+    { nombre: "Corredor Industrial Sur",    desc: "Carretera 200, aeropuerto PVR, desarrollo turístico"                    },
   ]}
 
   estadosVecinos={estadosVecinos}
@@ -147,156 +285,278 @@ const stationImages = [
   eppCards={[
     {
       image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-      imageAlt:  "Traje Estructural NFPA 1971 para bomberos Riviera Nayarit",
+      imageAlt:  "Traje Estructural NFPA 1971 para bomberos Riviera Nayarit resorts lujo Bahía de Banderas",
       badge:     "NFPA 1971",
       title:     "Traje Estructural NFPA 1971",
-      text:      "Equipo certificado para los bomberos de <strong>Riviera Nayarit</strong> y zona hotelera de clase mundial. Diseñado para incendios en resorts de lujo, condominios de playa y emergencias en la Bahía de Banderas con más de 5 millones de turistas internacionales anuales.",
+      text:      "Equipo certificado para los bomberos de <strong>Riviera Nayarit</strong> y zona hotelera de clase mundial. Diseñado para incendios en resorts de ultra lujo, condominios de playa y emergencias en la Bahía de Banderas — uno de los destinos con mayor ocupación hotelera del Pacífico mexicano.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
     {
       image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
-      imageAlt:  "Casco NFPA 1971 para bomberos Aeropuerto Vallarta-Nayarit",
+      imageAlt:  "Casco NFPA 1971 para bomberos Aeropuerto Internacional PVR Bahía de Banderas ARFF",
       badge:     "NFPA 1971",
       title:     "Casco Estructural NFPA 1971",
-      text:      "Protección certificada para emergencias ARFF en el <strong>Aeropuerto Internacional de Puerto Vallarta-Bahía de Banderas</strong>. Compatible con equipos de comunicación para coordinación en operaciones aeroportuarias y rescate de aeronaves de turismo internacional.",
+      text:      "Protección certificada para emergencias ARFF en el <strong>Aeropuerto Internacional de Puerto Vallarta-Bahía de Banderas (PVR)</strong>, Categoría 9 OACI, con más de 3.7 millones de llegadas aéreas en el primer semestre de 2024. Compatible con equipos de comunicación para coordinación aeroportuaria.",
       href:      "/productos/cascos-para-bomberos/",
       linkLabel: "Ver Cascos para Bombero",
     },
     {
       image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
-      imageAlt:  "Guantes NFPA 1971 para bomberos Sayulita - Pueblo Mágico",
+      imageAlt:  "Guantes NFPA 1971 para bomberos Sayulita Pueblo Mágico rescate surf Nayarit",
       badge:     "NFPA 1971",
       title:     "Guantes Estructurales NFPA 1971",
-      text:      "Resistencia térmica certificada para emergencias en <strong>Sayulita y la costa surfista de Nayarit</strong>. Prensión segura para rescate acuático oceánico, incendios en zonas turísticas bohemias y atención en los 2 Pueblos Mágicos del estado.",
+      text:      "Resistencia térmica certificada para emergencias en <strong>Sayulita (Pueblo Mágico desde 2015)</strong> y la costa surfista de Nayarit. Prensión segura para rescate en oleaje con rocas volcánicas y atención en los 2 Pueblos Mágicos del estado.",
       href:      "/productos/guantes-para-bomberos/",
       linkLabel: "Ver Guantes para Bombero",
     },
     {
       image:     "/images/directorio/botas-bombero-proteccion-01.avif",
-      imageAlt:  "Botas NFPA 1971 para bomberos San Blas - Humedales RAMSAR",
+      imageAlt:  "Botas NFPA 1971 para bomberos San Blas manglares Marismas Nacionales RAMSAR Nayarit",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales de Cuero",
-      text:      "Calzado certificado NFPA 1971 para los bomberos de <strong>San Blas y los humedales de Marismas Nacionales</strong>. Resistentes al agua para rescate en manglares, La Tovara y operaciones en la Reserva de la Biosfera RAMSAR con su ecosistema único de cocodrilos.",
+      text:      "Calzado certificado NFPA 1971 para los bomberos de <strong>San Blas y la Reserva de la Biosfera Marismas Nacionales</strong> (Sitio Ramsar 732 desde 1995). Resistentes al agua para rescate en manglares, La Tovara y terreno de turba en incendios subterráneos.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
   ]}
 
   ctaTitle="Equipamos a los Bomberos de Nayarit"
-  ctaDesc="Cotiza equipo certificado NFPA para tu estación. Stock inmediato para licitaciones en Tepic, Bahía de Banderas, Riviera Nayarit y los 20 municipios del estado. Protección para 289 km de litoral."
+  ctaDesc={`Cotiza equipo certificado NFPA para tu estación en los ${totalEstaciones} puntos del directorio de Nayarit. Stock inmediato para licitaciones en Tepic, Bahía de Banderas, Riviera Nayarit y los 20 municipios del estado. Protección para 289 km de litoral.`}
   ctaBtnText="Solicitar Cotización — Nayarit"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Nayarit — Cuando Llegar al Paciente es la Primera Emergencia: Cueva, Manglar, Volcán y Sierra Wixárika</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Nayarit</strong> opera en el estado donde varios
-      de los escenarios de emergencia más críticos plantean la pregunta de acceso antes de la
-      pregunta de incidente. La Playa del Amor en las Islas Marietas se encuentra dentro de una
-      cámara volcánica colapsada: el único acceso es nadando 30 metros por un pasaje subacuático
-      o caminando durante la ventana de marea baja. Si un visitante se lesiona dentro, el
-      rescate enfrenta exactamente las mismas restricciones de acceso que el turista, más la
-      restricción adicional de la CONANP sobre acceso con equipos motorizados al área protegida.
-      El sistema de manglares de Marismas Nacionales —el segundo más grande de América después
-      de los Everglades— tiene acceso terrestre sólo desde puntos específicos de entrada ejidal;
-      el interior es transitable únicamente en embarcación de poco calado por canales cuya
-      profundidad varía por temporada. El Volcán Ceboruco está a 15 km de Tepic y permanece
-      bajo monitoreo activo del CENAPRED: sus rutas de acceso son transitables en vehículo
-      4x4 durante 7 km y después sólo a pie, lo que hace que cualquier emergencia en su zona
-      de peligro volcánico se resuelva primero como problema de traslado. Y las comunidades
-      Wixárikas de la Sierra del Nayar, a entre 1,500 y 2,500 metros de altitud, tienen
-      caminos que se cortan durante lluvias intensas y una estructura de gobernanza propia
-      que es el primer punto de contacto operacional para cualquier respuesta externa. Con
-      {ESTADISTICAS_NAYARIT.total_estaciones} estaciones en {municipios.length} municipios y
-      289 km de litoral del Pacífico que recibe más de 5 millones de turistas anuales, la
-      corporación gestiona la concentración turística más densa del Pacífico norte de México
-      más cuatro ambientes de emergencia donde el acceso define el resultado antes que cualquier
-      otra variable operacional.
+    <h2>Bomberos en Nayarit</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Nayarit">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">20</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">289 km</span><span class="de-stat__label">Litoral protegido</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">10M+</span><span class="de-stat__label">Visitantes anuales</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1.3M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2</span><span class="de-stat__label">Pueblos Mágicos</span></div>
+    </div>
+
+    <p class="de-lead">
+      El cuerpo de bomberos de Nayarit opera en el único estado de México donde el mismo turno puede
+      requerir rescate dentro de una cueva volcánica submarina, extracción de un surfista en rompiente
+      con rocas, evacuación de un resort de ultra lujo ante huracán categoría 5 y monitoreo de un
+      estratovolcán activo a menos de 100 km de la capital. Con <strong>{totalEstaciones} estaciones</strong>,
+      <strong>289 km de litoral del Pacífico</strong> y <strong>más de 10 millones de visitantes anuales</strong>
+      que superan en número a la población residente en temporada alta, la corporación gestiona la
+      concentración turística más intensa del Pacífico norte de México más cuatro entornos de emergencia
+      donde el acceso define el resultado antes que cualquier otra variable.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Nayarit?</h3>
+    <h3>Cómo contactar a los bomberos en Nayarit</h3>
     <p>
-      En cualquier emergencia, el <strong>911</strong> conecta con el C4 de Nayarit las 24 horas.
-      Los teléfonos directos de las principales estaciones son: Tepic (311) 213-2232, Bahía de
-      Banderas-Nuevo Vallarta (329) 291-6060, San Blas (323) 285-0202, Compostela (327) 274-0055
-      y Santiago Ixcuintla (323) 235-0202. La estación de Bahía de Banderas coordina rescates
-      en el sector nayarita de la Bahía de Banderas con la Secretaría de Marina y, en incidentes
-      en aguas limítrofes con Jalisco, con los bomberos de Puerto Vallarta bajo protocolo de
-      mando por jurisdicción del primer respondedor.
+      En cualquier emergencia, el <strong>911</strong> conecta con el C4 de Nayarit las 24 horas en
+      español e inglés. Los teléfonos directos de las principales estaciones son: Tepic
+      <strong>(311) 213-2232</strong>, Bahía de Banderas-Nuevo Vallarta <strong>(329) 291-6060</strong>,
+      San Blas <strong>(323) 285-0505</strong>, Sayulita <strong>(329) 291-3636</strong> y Compostela
+      <strong>(311) 215-4141</strong>. La estación de Bahía de Banderas coordina rescates en el sector
+      nayarita de la Bahía con la Secretaría de Marina y, en incidentes en aguas limítrofes con
+      Jalisco, con los bomberos de Puerto Vallarta bajo protocolo de mando por jurisdicción del primer
+      respondedor. Consulta el <a href="#listado-estaciones">directorio completo de estaciones</a> en
+      esta página.
     </p>
 
-    <h3>Islas Marietas: la Playa del Amor dentro de una cueva y por qué el rescate acuático allí no se parece a ningún otro</h3>
+    <h3>Historia del cuerpo de bomberos en Nayarit</h3>
     <p>
-      Las Islas Marietas son un Parque Nacional en la Bahía de Banderas formado por volcanes
-      extintos cuyas cámaras colapsadas crearon formaciones geológicas únicas. La más conocida
-      es la Playa del Amor —Playa Escondida—: una playa de arena blanca dentro de una cámara
-      volcánica con techo abierto al cielo, accesible únicamente nadando a través de un pasaje
-      subterráneo de aproximadamente 30 metros de largo o caminando durante ventana de marea
-      muy baja. El pasaje no tiene iluminación, tiene corrientes variables dependiendo del
-      estado de la marea y el oleaje, y en su interior el espacio de aire puede ser de 30 a
-      50 centímetros sobre el nivel del agua. Un rescate dentro de la Playa del Amor combina
-      las restricciones de un rescate en espacio confinado subacuático con las de un rescate
-      acuático oceánico. La CONANP limita el acceso con equipos motorizados en la zona de
-      buceo de las islas. Los bomberos de Bahía de Banderas y el personal de la SEMAR coordinan
-      la respuesta a emergencias en las Marietas con bote de rescate posicionado fuera del
-      perímetro de exclusión y nadadores de rescate que entran al pasaje a nado — el mismo
-      procedimiento que usaría cualquier visitante, pero con equipo de rescate portátil.
+      El primer cuerpo de bomberos de México se fundó el <strong>22 de agosto de 1873 en Veracruz</strong>,
+      fecha que se conmemora cada año como el Día del Bombero en todo el país. Estos son los hitos
+      verificables que enmarcan la historia de los bomberos en Nayarit:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1870–1875</span> El <strong>volcán Ceboruco</strong> registra su última erupción documentada, la más reciente en sus ocho erupciones de los últimos mil años; a partir de entonces queda bajo monitoreo geoquímico permanente.</li>
+      <li><span class="de-tl__year">1995</span> La Reserva de Marismas Nacionales es inscrita como <strong>Sitio Ramsar 732</strong>, reconociendo sus 133,854 ha de manglares como humedal de importancia internacional y definiendo para los bomberos de San Blas y Santiago Ixcuintla protocolos específicos de rescate en manglar.</li>
+      <li><span class="de-tl__year">2005</span> Las Islas Marietas son decretadas <strong>Parque Nacional</strong>, incorporando la Playa del Amor al territorio de protección de la estación de Punta de Mita y Bahía de Banderas.</li>
+      <li><span class="de-tl__year">2015</span> <strong>Sayulita</strong> recibe la denominación de <strong>Pueblo Mágico</strong>. El mismo año, el <strong>huracán Patricia</strong> —el de mayor intensidad registrada en el Pacífico Oriental— pasa cercano a las costas nayaritas como categoría 5, activando el mayor protocolo de evacuación turística en la historia reciente del estado.</li>
+      <li><span class="de-tl__year">2018</span> El <strong>huracán Willa</strong> toca tierra en el norte de Nayarit como categoría 3 y provoca el desbordamiento de los ríos San Pedro y Acaponeta, con más de 180,000 damnificados; los bomberos y Protección Civil coordinan la evacuación y asistencia en las zonas inundadas.</li>
+      <li><span class="de-tl__year">Hoy</span> El directorio registra <strong>{totalEstaciones} estaciones</strong> que protegen 1.3 millones de habitantes, más de 10 millones de visitantes anuales y 289 km de litoral del Pacífico.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cómo se cubren los 20 municipios</h3>
+    <p>
+      La cobertura del cuerpo de bomberos en Nayarit se organiza en función del perfil de riesgo de
+      cada zona: la capital concentra la coordinación estatal y el equipo HAZMAT; la Riviera Nayarit
+      Sur aloja el mayor volumen de turismo internacional junto al único aeropuerto internacional del
+      estado (PVR); la costa norte suma el rescate surf y el ecoturismo; San Blas gestiona manglares
+      y fauna; y la llanura norte y la sierra completan la cobertura rural y volcánica.
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios principales</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipiosZona.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      El cuerpo de bomberos de Nayarit cubre un espectro de emergencias inusualmente amplio para un
+      estado de su tamaño, condicionado por la combinación de turismo masivo, ecosistemas únicos y
+      riesgos naturales múltiples:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Estructurales, hoteleros, forestales y de turba en manglar; incendios agrícolas en la llanura tabacalera norte.</p></div>
+      <div class="de-card"><h4>Rescate acuático oceánico</h4><p>Corrientes, surfistas, embarcaciones, cuevas submarinas (Islas Marietas) y canales de manglar en San Blas y Marismas.</p></div>
+      <div class="de-card"><h4>Emergencias volcánicas</h4><p>Monitoreo del Ceboruco, protocolo de evacuación de Jala y evacuación de excursionistas en las faldas del volcán.</p></div>
+      <div class="de-card"><h4>ARFF aeroportuario</h4><p>Servicio de rescate y extinción de aeronaves en PVR, Categoría 9 OACI, con respuesta máxima de 3 minutos.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos HAZMAT</h4><p>Unidad Nivel II en Tepic para combustibles, insumos agrícolas y emergencias químicas en corredor industrial.</p></div>
+      <div class="de-card"><h4>Evacuación por huracán</h4><p>Coordinación con Protección Civil y la Marina para evacuación masiva de hoteles, marinas y comunidades costeras.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales y hoteleros</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático oceánico</strong></td><td>24/7</td><td>Bahía de Banderas, Punta de Mita, Sayulita</td></tr>
+          <tr><td><strong>Rescate en manglares y humedales</strong></td><td>24/7</td><td>San Blas, Santiago Ixcuintla</td></tr>
+          <tr><td><strong>ARFF aeronáutico</strong></td><td>24/7</td><td>Aeropuerto PVR (Bahía de Banderas)</td></tr>
+          <tr><td><strong>Materiales peligrosos HAZMAT Nivel II</strong></td><td>24/7</td><td>Estación Central Tepic</td></tr>
+          <tr><td><strong>Emergencias volcánicas (Ceboruco)</strong></td><td>24/7</td><td>Tepic, Compostela</td></tr>
+          <tr><td><strong>Evacuación por huracán</strong></td><td>Temporada jun–nov</td><td>Toda la costa</td></tr>
+          <tr><td><strong>Incendios forestales y de turba</strong></td><td>Estiaje (mar–jun)</td><td>Sierra del Nayar, San Blas, costa norte</td></tr>
+          <tr><td><strong>Rescate carretero</strong></td><td>24/7</td><td>Carretera 15D, 200 y 15</td></tr>
+          <tr><td><strong>Rescate en fauna silvestre (cocodrilos)</strong></td><td>24/7</td><td>San Blas, Marismas Nacionales</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Riviera Nayarit, volcán Ceboruco y huracanes: los cuatro entornos de riesgo únicos</h3>
+    <p>
+      Nayarit concentra cuatro entornos de emergencia sin equivalente en otro estado del Pacífico
+      mexicano. El primero es la <strong>Playa del Amor en las Islas Marietas</strong>: accesible
+      únicamente nadando 30 metros por un pasaje subacuático oscuro o caminando en ventana de marea
+      baja, cualquier rescate allí combina técnicas de espacio confinado subacuático con rescate
+      oceánico, bajo la restricción de la CONANP que limita equipos motorizados en el área protegida.
+      Los bomberos de Bahía de Banderas y la SEMAR posicionan un bote fuera del perímetro y envían
+      nadadores de rescate que entran al pasaje con equipo portátil.
+    </p>
+    <p>
+      El segundo es la <strong>Reserva de la Biosfera Marismas Nacionales</strong> (Sitio Ramsar 732,
+      133,854 ha). En temporadas de sequía severa, el suelo de turba bajo los manglares puede
+      deshidratarse y arder a 200–400 °C <em>sin llama visible</em> sobre la superficie, desplazándose
+      kilómetros desde el punto de ignición y creando un suelo que puede colapsar sin aviso bajo el
+      peso de una persona. Los bomberos de San Blas y Santiago Ixcuintla sondean con vara antes de
+      cada paso y usan mochilas de agua de 20 litros en lugar de autobomba.
+    </p>
+    <p>
+      El tercero es el <strong>volcán Ceboruco</strong>, estratovolcán activo que emite fumarolas y
+      cuya última erupción fue entre 1870 y 1875. El CENAPRED lo clasifica entre los 15 volcanes
+      mexicanos con mayor nivel de riesgo. La comunidad de <strong>Jala</strong> (Pueblo Mágico)
+      está en el radio de peligro volcánico de nivel alto; el plan de evacuación activa a los bomberos
+      de Tepic y Compostela como apoyo logístico mientras Protección Civil coordina los albergues.
+    </p>
+    <p>
+      El cuarto es la <strong>temporada de huracanes del Pacífico</strong>. En 2015, el huracán
+      Patricia —el más intenso registrado en el Pacífico Oriental hasta entonces— pasó como categoría
+      5 cerca de las costas nayaritas; en 2018, Willa tocó tierra como categoría 3 en Nayarit norte
+      y causó el desbordamiento de los ríos San Pedro y Acaponeta con más de 180,000 damnificados.
+      Los <strong>289 km de litoral</strong> —que en temporada alta alojan a más visitantes que
+      residentes— exigen planes de evacuación hotelera, clausura de marinas y coordinación
+      interinstitucional con la Marina y Protección Civil en cada evento.
     </p>
 
-    <h3>Marismas Nacionales: el incendio de turba bajo el manglar y cómo extingues un fuego que no tiene llama visible</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      La Reserva de la Biosfera Marismas Nacionales, con más de 170,000 hectáreas de manglares,
-      lagunas costeras y estuarios, es el sistema de manglares más extenso de América Latina
-      fuera de Brasil. Los manglares no arden convencional mente —la vegetación está permanentemente
-      saturada de agua— pero en años de sequía extrema, el suelo de turba bajo la cobertura
-      de manglar puede deshidratarse y entrar en combustión lenta subterránea. Un incendio de
-      turba en manglar no tiene llama visible sobre la superficie: arde bajo el suelo a
-      temperaturas de 200-400°C, puede desplazarse kilómetros desde el punto de ignición sin
-      indicador visual, y puede permanecer activo por semanas o meses. El suelo sobre el frente
-      de avance del fuego subterráneo puede colapsar bajo el peso de una persona o un vehículo
-      sin previo aviso. Los bomberos de San Blas y Santiago Ixcuintla que responden a emergencias
-      en Marismas Nacionales hacen sondeo del terreno con vara antes de cada paso en zona
-      potencialmente afectada, usan mochilas de agua de 20 litros para inundación localizada del
-      suelo —no autobomba— y coordinan con los guardianes del área protegida que conocen
-      las zonas de turba más vulnerable en cada temporada de seca.
+      A partir de las estaciones publicadas en este directorio, así se distribuyen los recursos entre
+      las grandes zonas de Nayarit. Las cifras de personal y unidades corresponden a las estaciones
+      con datos disponibles en cada región:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers > 0 ? z.nPers : "—"}</td>
+              <td>{z.nUni > 0 ? z.nUni : "—"}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>—</td>
+            <td>—</td>
+            <td>20 municipios del Estado de Nayarit</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Nayarit</h3>
+    <p>
+      El primer reto es la <strong>dispersión geográfica</strong>: los 27,815 km² del estado incluyen
+      zonas serranas con caminos que se cortan en temporada de lluvias, comunidades indígenas con
+      acceso vehicular restringido a ciertos kilómetros y ecosistemas costeros de difícil entrada
+      (manglar, islotes, cuevas submarinas). En estos entornos, el tiempo de respuesta no depende
+      del tráfico sino de la topografía y las condiciones meteorológicas.
+    </p>
+    <p>
+      El segundo reto es la <strong>estacionalidad extrema del riesgo</strong>: Nayarit pasa de ser
+      un estado con 1.3 millones de habitantes a recibir más de 10 millones de visitantes anuales,
+      con picos en diciembre-abril (temporada alta internacional) y julio-agosto (turismo nacional).
+      En esos periodos, la demanda de emergencias en la Riviera Nayarit —rescates acuáticos,
+      accidentes de deportes extremos, intoxicaciones— se multiplica con personal que no aumenta
+      proporcionalmente. El tercer reto, compartido con todo el país, es la
+      <strong>renovación continua de equipo certificado NFPA</strong> y la capacitación especializada
+      para los perfiles únicos de la entidad: rescate en cueva, ARFF, emergencias volcánicas y
+      manejo de fauna.
     </p>
 
-    <h3>Sayulita y el rescate en oleaje de surf: por qué el campo de rocas del norte de la playa cambia completamente el protocolo de aproximación</h3>
+    <h3>Cultura de prevención: cómo protegerte en Nayarit</h3>
     <p>
-      Sayulita es el punto de surf más conocido del Pacífico mexicano y recibe entre 300,000
-      y 400,000 visitantes anuales, incluyendo surfistas de todos los niveles de experiencia.
-      La playa de Sayulita tiene una característica geomorfológica que el visitante no siempre
-      nota desde la orilla: el extremo norte de la playa termina en un campo de rocas volcánicas
-      que emergen y se ocultan con el oleaje. Los surfistas que pierden el control de su tabla
-      en el tramo norte pueden ser arrastrados hacia ese campo de rocas. El protocolo de rescate
-      en Sayulita para ese escenario es diferente al rescate oceánico abierto: la aproximación
-      directa a través del rompiente norte expone a los rescatadores a las mismas rocas, por lo
-      que la entrada al agua se hace desde el sur de la playa y el nado de aproximación es
-      lateral, fuera del rompiente, hasta llegar a la posición de la víctima por el costado no
-      expuesto a roca. El rescate de tabla —llevar la tabla como flotador antes de remolcar al
-      surfista— es mandatorio porque la tabla es el único flotador disponible en posición de
-      roca. Los bomberos de Bahía de Banderas entrenan este protocolo específico de Sayulita
-      junto con los guardavidas del municipio dos veces al año.
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones básicas
+      para residentes y turistas en Nayarit:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Playa y surf:</strong> nada solo en zonas con bandera verde y guardavidas; respeta las banderas de advertencia; nunca entres al agua de noche o solo.</li>
+        <li><strong>Islas Marietas:</strong> accede solo con operador autorizado por la CONANP; no nades el pasaje subacuático sin guía certificado.</li>
+        <li><strong>Manglares y estuarios:</strong> no nades en zonas no habilitadas; mantén distancia de cocodrilos; reporta avistamientos al 911.</li>
+        <li><strong>Volcán Ceboruco:</strong> consulta el semáforo de alerta volcánica del CENAPRED antes de ascender; respeta las señalizaciones de zona de peligro.</li>
+        <li><strong>Huracanes:</strong> conoce el plan de evacuación de tu hotel o zona de alojamiento antes de que inicie la temporada; sigue las instrucciones de Protección Civil y no regresses a la zona costera hasta que se emita la señal de "todo claro".</li>
+        <li><strong>Sierra:</strong> informa tu ruta a alguien antes de internarte; lleva carga extra de batería y agua; consulta el estado de los caminos en temporada de lluvias.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> guardado y enséñaselo a todos en tu grupo.</li>
+      </ul>
+    </div>
 
-    <h3>Volcán Ceboruco: el estratovolcán a 15 km de Tepic y por qué el plan de evacuación de Jala es el más cercano a la capital de cualquier zona volcánica en México</h3>
-    <p>
-      El Volcán Ceboruco, con 2,280 metros de altura, tuvo su última erupción registrada en
-      1870-1875 y permanece bajo monitoreo sísmico y geoquímico del CENAPRED. La caldera del
-      Ceboruco emite fumarolas activas y su actividad sismica es medida por la estación
-      sismológica de Tepic. La comunidad de Jala —Pueblo Mágico, famosa por su variedad de
-      maíz gigante— se encuentra dentro del radio de 15 km del cráter considerado zona de
-      peligro volcánico de nivel alto en un escenario de erupción moderada. Ninguna otra
-      capital de estado en México tiene una zona volcánica de riesgo comparable a tan poca
-      distancia: Tepic a 15 km de Ceboruco vs. Colima a 30 km del Volcán de Fuego. El plan
-      de evacuación de la zona de Jala activa a los bomberos de Tepic como apoyo logístico
-      para la evacuación terrestre mientras la Unidad Estatal de Protección Civil coordina
-      los albergues. La ruta de acceso al volcán para monitoreo y evacuación de rescate
-      —en caso de excursionistas en las faldas— es transitable para vehículo de doble
-      tracción hasta el km 7 desde la carretera; más allá, el terreno de lava solidificada
-      y pendiente de 25-30% requiere acceso a pie con equipo completo de montaña.
+    <p class="de-srcnote">
+      Fuentes: Gobierno del Estado de Nayarit — Unidad Estatal de Protección Civil y Bomberos;
+      CENAPRED, «Mapa de peligros del volcán Ceboruco» y clasificación de volcanes activos mexicanos;
+      CONANP, Parque Nacional Islas Marietas (decreto 2005) y Reserva de la Biosfera Marismas
+      Nacionales; Sitio Ramsar 732 (Ramsar Convention, 1995); Tribunal de la Bahía y El Universal,
+      cobertura huracán Willa 2018 (180,000 damnificados Nayarit); Wikipedia, «Huracán Patricia»
+      (2015, Pacífico Oriental); Secretaría de Turismo de Nayarit y Tribunal de la Bahía, estadísticas
+      de ocupación hotelera Riviera Nayarit 2024 (3.7 M llegadas aéreas primer semestre). Las cifras
+      de personal y unidades por zona provienen de las estaciones con datos publicados en este
+      directorio. Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

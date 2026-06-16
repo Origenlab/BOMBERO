@@ -6,7 +6,7 @@ import {
   ESTADISTICAS_DURANGO,
 } from "@data/estaciones-durango";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("durango");
 
@@ -15,18 +15,55 @@ const municipios      = [...new Set(estacionesDurango.map((e) => e.ciudad))].sor
 const totalEstaciones = ESTADISTICAS_DURANGO.total_estaciones;
 const totalMunicipios = ESTADISTICAS_DURANGO.municipios_cubiertos;
 const totalBomberos   = ESTADISTICAS_DURANGO.total_bomberos;
+const totalUnidades   = ESTADISTICAS_DURANGO.total_unidades;
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Durango",                url: "/directorio/durango/" },
-]);
+const canonical = "https://bombero.mx/directorio/durango/";
+
+// ── Comparativa regional (calculada desde los datos reales del directorio) ──
+const zonas = [
+  {
+    nombre: "Zona Metropolitana Durango",
+    municipios: ["Durango"],
+    cobertura: "Total",
+    chip: "total",
+    nEst:  estacionesDurango.filter(e => e.ciudad === "Durango").length,
+    nMun:  1,
+    perfil: "Capital del estado, coord. forestal CONAFOR, academia estatal, centro histórico (Camino Real UNESCO 2010), 700 K+ hab.",
+  },
+  {
+    nombre: "Comarca Lagunera (DGO)",
+    municipios: ["Gómez Palacio", "Lerdo"],
+    cobertura: "Alta",
+    chip: "alta",
+    nEst:  estacionesDurango.filter(e => ["Gómez Palacio","Lerdo"].includes(e.ciudad)).length,
+    nMun:  2,
+    perfil: "Cuenca lechera de México: HAZMAT amoniaco NH₃ (Grupo Lala), Parque Industrial Lagunero, 530 K+ hab.",
+  },
+  {
+    nombre: "Sierra Madre Occidental",
+    municipios: ["Santiago Papasquiaro", "Pueblo Nuevo", "Pueblo Nuevo (El Salto)"],
+    cobertura: "Alta",
+    chip: "alta",
+    nEst:  estacionesDurango.filter(e => ["Santiago Papasquiaro","Pueblo Nuevo","Pueblo Nuevo (El Salto)"].includes(e.ciudad)).length,
+    nMun:  2,
+    perfil: "Incendios forestales (72 K ha en 2024), aserraderos, rescate montaña, nieve invernal, minería San Dimas.",
+  },
+  {
+    nombre: "Zona Centro-Sur (Agrícola)",
+    municipios: ["Canatlán", "Nombre de Dios", "Vicente Guerrero"],
+    cobertura: "Media",
+    chip: "media",
+    nEst:  estacionesDurango.filter(e => ["Canatlán","Nombre de Dios","Vicente Guerrero"].includes(e.ciudad)).length,
+    nMun:  3,
+    perfil: "Agricultura frutícola y menonita, Nombre de Dios (Pueblo Mágico 2023, fundado 1555), incendios de pastizal.",
+  },
+];
 
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Durango",
-  "description": `Directorio oficial de las ${totalEstaciones} estaciones de bomberos en Durango. #1 nacional madera (25%), incendios forestales Sierra Madre Occidental, Comarca Lagunera amoniaco NH₃, Zona del Silencio Mapimí, carretera Espina del Diablo, 2 Pueblos Mágicos. Emergencias: 911.`,
+  "description": `Directorio verificado de las ${totalEstaciones} estaciones de bomberos en Durango. #1 nacional madera (25%), incendios forestales Sierra Madre Occidental (72,829 ha en 2024), Comarca Lagunera HAZMAT amoniaco NH₃, minería San Dimas, centro histórico Camino Real UNESCO, Espina del Diablo. Emergencias: 911.`,
   "numberOfItems": estacionesDurango.length,
   "itemListElement": estacionesDurango.map((e, i) => ({
     "@type": "ListItem",
@@ -47,6 +84,94 @@ const itemListSchema = {
   }))
 };
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Durango: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de Durango: historia (1935–hoy), infraestructura en 4 zonas, incendios forestales Sierra Madre, HAZMAT Comarca Lagunera, rescate minero y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Durango",
+    "Incendios forestales Sierra Madre Occidental",
+    "Protección Civil Durango",
+    "HAZMAT amoniaco Comarca Lagunera",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/durango.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Durango",
+  "description": `Directorio verificado de estaciones de bomberos en Durango: capital, Comarca Lagunera y Sierra Madre Occidental. Teléfonos directos, cobertura, historia e infraestructura del Heroico Cuerpo de Bomberos de Durango.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de Durango" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/durango.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+
+// ── FAQ únicas de Durango (≥10) ───────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Durango?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas en todo el estado. Para la capital, el teléfono directo de la Estación Central es <strong>(618) 814-4555</strong>; para Gómez Palacio / La Laguna, <strong>(871) 714-1210</strong>; para Lerdo, <strong>(871) 725-3252</strong>; y para Santiago Papasquiaro, <strong>(674) 862-0911</strong>. Para incendios forestales en la Sierra Madre Occidental, también puedes reportar a CONAFOR al <strong>(618) 825-2003</strong>; las 39 torres de vigilancia forestal del estado detectan columnas de humo a hasta 50 km de distancia.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de Durango?",
+    a: `La <strong>Estación Central de Bomberos de la capital</strong>, sede de la Comandancia General, data de <strong>1935</strong>, según el directorio oficial. El cuerpo de bomberos de <strong>Gómez Palacio</strong> fue establecido en <strong>1952</strong>, coincidiendo con el auge industrial de la Comarca Lagunera. Ambas fechas constan en los registros de las propias estaciones. El primer cuerpo de bomberos de México fue fundado en Veracruz el <strong>22 de agosto de 1873</strong>, fecha que se conmemora como <strong>Día del Bombero</strong> en todo el país.`,
+  },
+  {
+    q: "¿Cuántos incendios forestales hay en Durango y cuántas hectáreas queman?",
+    a: `Durango es consistentemente el estado con mayor superficie forestal afectada por incendios en México. En <strong>2024</strong> se registraron <strong>364 incendios</strong> que quemaron <strong>72,829 hectáreas</strong>, según datos de CONAFOR. En <strong>2025</strong> la cifra superó las <strong>103,000 hectáreas</strong>, situando al estado como el más afectado del país. La temporada crítica va de <strong>enero a junio</strong>; los municipios de mayor riesgo son Pueblo Nuevo, Durango (periurbano), San Dimas y Santiago Papasquiaro.`,
+  },
+  {
+    q: "¿Qué es la Espina del Diablo y por qué representa un riesgo para los bomberos?",
+    a: `La <strong>carretera federal 40D Durango-Mazatlán</strong> —llamada popularmente "La Espina del Diablo" o "Espinazo del Diablo"— cruza la Sierra Madre Occidental con <strong>115 puentes y 61 túneles</strong> en 230 km, incluyendo el <strong>Puente Baluarte</strong> (403 m sobre el río, el más alto de América en el momento de su construcción). Un accidente en el tramo serrano puede estar a <strong>más de tres horas</strong> de la estación más cercana, sin cobertura celular ni acceso desde abajo. Los túneles añaden el riesgo de acumulación de CO en incendios vehiculares. Los bomberos de Pueblo Nuevo y El Salto entrenan rescate vertical con rappel y comunicación satelital para atender este corredor.`,
+  },
+  {
+    q: "¿Qué es el riesgo HAZMAT de amoniaco en la Comarca Lagunera?",
+    a: `La <strong>Comarca Lagunera</strong> (Gómez Palacio y Lerdo en Durango; Torreón y Matamoros en Coahuila) es la principal cuenca lechera de México. Las plantas procesadoras de <strong>Grupo Lala</strong>, Alpura y Chilchota usan <strong>amoniaco anhidro (NH₃)</strong> como refrigerante industrial en sistemas de 10 a 20 toneladas por planta. El NH₃ es tóxico por inhalación (>300 ppm letal en 30 min), corrosivo e inflamable. Los <strong>Bomberos de Gómez Palacio</strong> mantienen brigadas HAZMAT con detectores multigas calibrados para NH₃ y trajes de protección química Nivel A. Una fuga de una tonelada puede generar una nube tóxica de hasta 1 km².`,
+  },
+  {
+    q: "¿Cómo responden los bomberos de Durango a los incendios en la Sierra Madre Occidental?",
+    a: `El combate de incendios forestales en la Sierra Madre exige tácticas específicas: los incendios de copa (fuego que salta entre copas de pinos a 40–50 m de altura) avanzan a <strong>5 km/h en pendientes de 30–40°</strong> y no pueden contenerse con retardante aéreo sobre esas inclinaciones. La táctica principal es el control en barreras naturales y el contrafuego controlado. En altitudes de 2,500–3,000 msnm la presión de oxígeno es 25% menor, lo que agota antes al personal. La coordinación se da entre las estaciones de Santiago Papasquiaro, Pueblo Nuevo, El Salto, las <strong>13 brigadas forestales estatales</strong> y <strong>CONAFOR</strong>.`,
+  },
+  {
+    q: "¿Los bomberos de Durango atienden emergencias mineras?",
+    a: `Sí. Durango es uno de los estados mineros más importantes de México, con producción de oro, plata, zinc y plomo que emplea a más de 22,000 trabajadores directos. El municipio de <strong>San Dimas</strong> (con las minas de Tayoltita y Yerbaniz) ha registrado accidentes graves incluyendo colapsos de túneles y fallas de voladuras. Las estaciones de la Sierra —Santiago Papasquiaro y El Salto— son las primeras respondientes a emergencias mineras en esa zona, capacitadas para rescate en espacios confinados y manejo de gases tóxicos.`,
+  },
+  {
+    q: "¿Qué hace especial el Centro Histórico de Durango para los bomberos?",
+    a: `El <strong>Centro Histórico de Durango</strong> forma parte del <strong>Camino Real de Tierra Adentro</strong>, declarado <strong>Patrimonio Cultural de la Humanidad por la UNESCO en 2010</strong>. Comprende <strong>747 edificios</strong> en 1.75 km², el centro histórico colonial más grande del norte de México, construidos mayoritariamente en <strong>cantera rosa</strong>. La cantera es porosa y puede absorber agua de los sistemas de extinción, pero los edificios antiguos con madera interior generan humos tóxicos al arder. Los bomberos de la Estación Central coordinan la protección de este patrimonio siguiendo lineamientos del INAH para intervenciones en inmuebles históricos.`,
+  },
+  {
+    q: "¿Cómo son los inviernos en la Sierra de Durango y qué tipo de emergencias generan?",
+    a: `La Sierra Madre Occidental en Durango registra nevadas entre <strong>diciembre y febrero</strong> con acumulaciones de hasta <strong>50 cm de nieve</strong> a altitudes superiores a 2,800 msnm y temperaturas de hasta <strong>–15°C</strong>. Estas condiciones generan accidentes vehiculares por hielo en la carretera Durango-Mazatlán y caminos serranos, emergencias de hipotermia en comunidades aisladas y personas extraviadas en entornos boscosos nevados. Las estaciones de Santiago Papasquiaro y El Salto mantienen equipo especializado para rescate invernal.`,
+  },
+  {
+    q: "¿Qué servicios de emergencia cubre la Comarca Lagunera en el lado de Durango?",
+    a: `La <strong>Comarca Lagunera duranguense</strong> (Gómez Palacio y Lerdo) suma más de 530,000 habitantes y cuenta con tres instalaciones: la Estación Central de Gómez Palacio (fundada 1952), la Subestación de la Zona Industrial del Parque Industrial Lagunero, y la Estación de Lerdo (instalaciones nuevas inauguradas en 2023). Los servicios incluyen incendios estructurales, rescate vehicular, HAZMAT agroindustrial (amoniaco), emergencias en parques industriales y coordinación con bomberos de Torreón para incidentes metropolitanos de La Laguna.`,
+  },
+  {
+    q: "¿Qué cuidados debo tener si viajo por la carretera Durango-Mazatlán?",
+    a: `Ante un accidente en la carretera 40D llama al <strong>911</strong> e indica el kilómetro exacto y el nombre del tramo o tunnel más cercano (la señalización es continua). En caso de incendio en tunnel: no abras la ventana, sal del vehículo, sigue la señalización de emergencia a pie y no regreses al vehículo. En nevadas o hielo, estaciona en zona habilitada, enciende las luces intermitentes y espera apoyo. Los tramos más críticos son el Espinazo del Diablo (km 200-230) y las curvas de Mexiquillo, donde la cobertura celular es nula.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios forestales en Durango?",
+    a: `El <strong>80% de los incendios forestales en Durango son de origen humano</strong>, principalmente por quemas agrícolas no controladas, fogatas mal extinguidas y tiro de cigarros. Medidas clave: nunca hagas fuego en época de estiaje (enero-junio) sin permiso de CONAFOR; apaga completamente fogatas con agua, tierra y verificación manual; reporta columnas de humo al <strong>911</strong> o al número de CONAFOR <strong>(618) 825-2003</strong>; y respeta las restricciones de acceso a zonas forestales en temporada de riesgo alto.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-profesional-01.avif",
@@ -111,7 +236,7 @@ const stationImages = [
   estado="Durango"
   sigla="DGO"
   slug="durango"
-  description={`${totalEstaciones} estaciones en Durango — Sierra Madre 25% madera nacional 45,000 ha/año, La Espina del Diablo 61 túneles y NH₃ La Laguna. Emergencias: 911.`}
+  description={`Bomberos en Durango: ${totalEstaciones} estaciones en capital, La Laguna y Sierra Madre. Incendios forestales (72 K ha 2024), HAZMAT amoniaco, rescate minero, Espina del Diablo. Emergencias: 911.`}
   keywords={[
     "bomberos durango",
     "bomberos durango capital",
@@ -129,19 +254,19 @@ const stationImages = [
     "proteccion civil durango forestal",
     "directorio bomberos durango mexico",
   ]}
-  canonical="https://bombero.mx/directorio/durango/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
   totalEstaciones={totalEstaciones}
   totalMunicipios={totalMunicipios}
   habitantes="1.8M"
 
-  heroDesc={`<strong>Durango</strong>, el <strong>4° estado más grande de México</strong> (123,451 km²) y hogar de la <strong>Sierra Madre Occidental</strong> — la cadena montañosa más extensa del país — es el <strong>#1 nacional en producción de madera</strong> con el <strong>25% de la producción nacional</strong> (4.9 millones de hectáreas boscosas). Este liderazgo forestal genera el riesgo de incendios más crítico del país: <strong>45,000 hectáreas quemadas al año</strong> en temporada enero-junio, con brigadas forestales especializadas en Santiago Papasquiaro, Pueblo Nuevo y El Salto. Con <strong>${totalEstaciones} estaciones</strong> y <strong>${totalBomberos} bomberos profesionales</strong> — incluyendo brigadas HAZMAT para amoniaco NH₃ en la <strong>Comarca Lagunera</strong> (cuenca lechera de México), rescate en la <strong>Zona del Silencio de Mapimí</strong> (Pueblo Mágico, anomalía electromagnética) y emergencias en la <strong>carretera Durango-Mazatlán</strong> ('La Espina del Diablo', una de las más peligrosas de México).`}
+  heroDesc={`<strong>Durango</strong>, el <strong>4° estado más grande de México</strong> (123,451 km²) y hogar de la <strong>Sierra Madre Occidental</strong>, es el <strong>#1 nacional en producción de madera</strong> con el <strong>25% de la producción forestal del país</strong> (4.9 millones de hectáreas boscosas). Esta riqueza genera el riesgo de incendios más intenso de México: <strong>72,829 hectáreas quemadas en 2024</strong> (CONAFOR), con brigadas forestales especializadas en Santiago Papasquiaro, Pueblo Nuevo y El Salto. Con <strong>${totalEstaciones} estaciones</strong> y <strong>${totalBomberos} bomberos</strong> — incluyendo brigadas HAZMAT para amoniaco NH₃ en la <strong>Comarca Lagunera</strong> (cuenca lechera de México), rescate minero en <strong>San Dimas</strong> y emergencias en la <strong>carretera Durango-Mazatlán "Espina del Diablo"</strong> (61 túneles, 115 puentes). La Estación Central de la capital opera desde <strong>1935</strong>; la de Gómez Palacio desde <strong>1952</strong>.`}
   heroImage="/images/accion/bomberos-accion-incendio-estructural.avif"
   heroImageAlt="Bomberos Durango — Sierra Madre Occidental incendios forestales #1 madera nacional Comarca Lagunera"
   heroCaption="Bomberos Durango · DGO · 12 Estaciones · #1 Madera Nacional · Sierra Madre Occidental"
   heroThumbs={[
-    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif", alt: "Incendios forestales Durango Sierra Madre Occidental 45,000 ha año CONAFOR brigadas pino encino",     label: "Forestales Sierra Madre"     },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif", alt: "Incendios forestales Durango Sierra Madre Occidental 72,829 ha en 2024 CONAFOR brigadas pino encino",     label: "Forestales Sierra Madre"     },
     { src: "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif", alt: "Estación de bomberos de Durango con múltiples bahías operativas", label: "Estación Equipada" },
     { src: "/images/directorio/rescate-montana-bomberos-01.avif",     alt: "Carretera Durango Mazatlán Espina del Diablo rescate montaña curvas peligrosas accidentes",        label: "Espina del Diablo Rescate"  },
   ]}
@@ -183,7 +308,7 @@ const stationImages = [
       imageAlt:  "Traje Forestal NFPA 1977 bomberos Durango incendios Sierra Madre Occidental pino encino bosques calor radiante",
       badge:     "NFPA 1977",
       title:     "Traje Forestal NFPA 1977 — Sierra Madre Occidental",
-      text:      "Durango es el <strong>#1 nacional en producción de madera</strong> con <strong>4.9 millones de hectáreas de bosques</strong> de pino-encino en la <strong>Sierra Madre Occidental</strong> — la cadena montañosa más extensa de México — que generan el <strong>25% de la madera del país</strong> con más de 35,000 empleos directos en aserraderos y plantas procesadoras. Esta riqueza forestal convierte a Durango en el estado con los <strong>incendios forestales más intensos de México</strong>: promedio de <strong>45,000 hectáreas quemadas al año</strong> durante la temporada crítica (enero-junio) con incendios que pueden alcanzar <strong>frentes de fuego de 10+ km de longitud</strong> y velocidades de avance de <strong>5 km/h</strong> en terreno montañoso. Los <strong>Bomberos de Santiago Papasquiaro</strong>, <strong>Pueblo Nuevo</strong> y <strong>El Salto</strong> — corazón forestal del estado — operan con trajes certificados NFPA 1977 diseñados específicamente para <strong>calor radiante de incendios de copa</strong> (fuego que salta entre las copas de los pinos a 50+ metros de altura) con protección TPP de <strong>50+ cal/cm²</strong>. Los incendios forestales de <strong>Pueblo Nuevo en 2024</strong> arrasaron más de 12,000 hectáreas y requirieron el despliegue de las <strong>13 brigadas forestales estatales</strong> coordinadas por <strong>CONAFOR</strong> (Comisión Nacional Forestal).",
+      text:      "Durango es el <strong>#1 nacional en producción de madera</strong> con <strong>4.9 millones de hectáreas de bosques</strong> de pino-encino en la <strong>Sierra Madre Occidental</strong> que generan el <strong>25% de la madera del país</strong> con más de 35,000 empleos directos. Esta riqueza forestal convierte a Durango en el estado con la <strong>mayor superficie quemada de México</strong>: <strong>72,829 hectáreas afectadas en 2024</strong> (CONAFOR, 364 incendios) durante la temporada crítica enero-junio, con incendios que pueden alcanzar <strong>frentes de fuego de 10+ km de longitud</strong> y velocidades de avance de <strong>5 km/h</strong> en terreno montañoso. Los <strong>Bomberos de Santiago Papasquiaro</strong>, <strong>Pueblo Nuevo</strong> y <strong>El Salto</strong> — corazón forestal del estado — operan con trajes certificados NFPA 1977 diseñados específicamente para <strong>calor radiante de incendios de copa</strong> (fuego que salta entre las copas de los pinos a 40–50 metros de altura) con protección TPP de <strong>50+ cal/cm²</strong>. Las <strong>13 brigadas forestales estatales</strong> se coordinan con <strong>CONAFOR</strong> (Comisión Nacional Forestal) desde la Estación Central de la capital.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -219,99 +344,214 @@ const stationImages = [
   ctaTitle="Equipamos a los Bomberos de Durango — Forestal, Industrial y Montaña"
   ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones de Durango: desde trajes forestales NFPA 1977 para incendios de la Sierra Madre Occidental, hasta trajes HAZMAT Nivel A para amoniaco NH₃ en La Laguna y equipos de rescate en montaña para la Espina del Diablo. Atención en Durango, Gómez Palacio y Santiago Papasquiaro.`}
   ctaBtnText="Solicitar Cotización — Durango"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Durango — Tres Riesgos Extremos en el 4° Estado más Grande de México</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Durango</strong> opera en una geografía que impone
-      simultáneamente los tres escenarios de emergencia más exigentes del norte del país: incendios
-      forestales en la cadena montañosa más extensa de México, rescate en una de las carreteras más
-      peligrosas del continente y respuesta HAZMAT en la cuenca lechera más grande de México. Con
-      {totalEstaciones} estaciones distribuidas entre la capital, la Comarca Lagunera y la Sierra
-      Madre Occidental, la corporación entrena para rangos de temperatura que van de –15°C en la
-      sierra en invierno a +48°C en el desierto de Mapimí en verano, con emergencias que pueden
-      tardar tres horas de desplazamiento solo para llegar al punto de acceso.
+    <h2>Bomberos en Durango: sierra, desierto, lago y cantera en el 4° estado más grande de México</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Durango">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Bomberos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">72,829</span><span class="de-stat__label">Ha forestales 2024</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">61</span><span class="de-stat__label">Túneles Espina Diablo</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1.8M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1935</span><span class="de-stat__label">Est. Central capital</span></div>
+    </div>
+
+    <p class="de-lead">
+      Ningún cuerpo de bomberos del norte de México opera con cuatro frentes de riesgo tan distintos
+      como el <strong>Heroico Cuerpo de Bomberos de Durango</strong>: incendios forestales de copa en la
+      Sierra Madre Occidental —el estado con mayor superficie quemada de México en 2024—, rescate de
+      alta montaña en la carretera con más túneles del país, respuesta HAZMAT a fugas de amoniaco en
+      la mayor cuenca lechera de México y protección del centro histórico colonial más grande del norte,
+      declarado parte del Camino Real de Tierra Adentro (UNESCO, 2010). Con {totalEstaciones} estaciones
+      distribuidas entre la capital, la Comarca Lagunera y la Sierra Madre, la corporación atiende
+      emergencias que pueden exigir hasta tres horas de desplazamiento para llegar al punto de acceso.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Durango?</h3>
+    <h3>Cómo contactar a los bomberos en Durango</h3>
     <p>
       En cualquier emergencia, el <strong>911</strong> conecta con el Centro Estatal de Emergencias
-      las 24 horas. Los teléfonos directos de las estaciones son: Durango capital (618) 814-4555,
-      Gómez Palacio / La Laguna (871) 714-1210, Lerdo (871) 725-3252, Santiago Papasquiaro
+      las 24 horas. Los teléfonos directos de las principales estaciones son: Estación Central Durango
+      (618) 814-4555, Gómez Palacio Central (871) 714-1210, Lerdo (871) 725-3252, Santiago Papasquiaro
       (674) 862-0911, Protección Civil Estatal (618) 137-8400 y CONAFOR Incendios Forestales
-      (618) 825-2003. Para incendios en la Sierra Madre Occidental, las 39 torres de vigilancia
-      forestal activan brigadas cuando detectan columnas de humo a hasta 50 km de distancia, antes
-      de que llegue cualquier reporte ciudadano.
+      (618) 825-2003. Para incendios en la Sierra Madre, las <strong>39 torres de vigilancia forestal</strong>
+      detectan columnas de humo a hasta 50 km de distancia. Encuentra todos los datos en el
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
     </p>
 
-    <h3>Los incendios de copa de la Sierra Madre: por qué el #1 nacional en madera produce los incendios más violentos del país</h3>
+    <h3>Historia del Heroico Cuerpo de Bomberos de Durango</h3>
     <p>
-      Durango produce el 25% de la madera de México desde 4.9 millones de hectáreas de bosques de
-      pino y encino en la Sierra Madre Occidental. Lo que esa cifra no describe es el comportamiento
-      del fuego en esos bosques: los árboles de pino ponderosa y pino real alcanzan 40 a 50 metros
-      de altura con copas densas que, en condiciones de sequía y vientos de 40+ km/h, generan
-      incendios de copa —fuego que salta entre las copas de los árboles sin tocar el suelo— que
-      avanzan a velocidades de 5 km/h en terreno montañoso con pendientes de 30 a 40°. Un incendio
-      de copa no puede contenerse con líneas cortaluegos convencionales ni con retardante aéreo sobre
-      pendientes mayores a 30°, donde el producto resbala antes de alcanzar la base del árbol. La
-      única táctica efectiva es el control en barrera natural: ríos, caminos, y claros previamente
-      quemados en brigadas de contrafuego controlado. En altitudes de 2,500 a 3,000 msnm, donde la
-      presión de oxígeno es 25% menor que al nivel del mar, los bomberos trabajan con mayor fatiga
-      física en cada turno. Los incendios de Pueblo Nuevo en 2024 arrasaron más de 12,000 hectáreas
-      en 23 días, con frentes de fuego de 15 km de longitud y columnas de humo visibles desde Durango
-      capital, 200 km al norte.
+      La historia de las emergencias organizadas en Durango arranca con el auge minero y maderero del
+      siglo XX y refleja el crecimiento industrial de cada zona del estado:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1935</span> Se establece la <strong>Estación Central de Bomberos de la capital</strong> de Durango, futura Comandancia General y sede de la Academia Estatal, según los registros de la propia estación.</li>
+      <li><span class="de-tl__year">1952</span> La <strong>Estación Central de Bomberos de Gómez Palacio</strong> entra en operaciones, respondiendo al crecimiento industrial y lechero de la Comarca Lagunera.</li>
+      <li><span class="de-tl__year">1968</span> Se inaugura la estación de <strong>Santiago Papasquiaro</strong>, punto clave en el corazón forestal de la Sierra Madre Occidental.</li>
+      <li><span class="de-tl__year">2010</span> El <strong>Camino Real de Tierra Adentro</strong>, que incluye el Centro Histórico de Durango —747 edificios en 1.75 km², el más grande del norte de México—, es declarado <strong>Patrimonio Cultural de la Humanidad por la UNESCO</strong>, ampliando las responsabilidades de protección patrimonial del cuerpo.</li>
+      <li><span class="de-tl__year">2024</span> Durango se convierte en el estado con la <strong>mayor superficie forestal quemada de México</strong>: 364 incendios y <strong>72,829 hectáreas afectadas</strong> según CONAFOR. Las nuevas instalaciones de Santiago Papasquiaro se inauguran con infraestructura moderna.</li>
+      <li><span class="de-tl__year">Hoy</span> El cuerpo opera <strong>{totalEstaciones} estaciones</strong> con <strong>{totalBomberos} bomberos</strong> en cuatro zonas del estado, incluyendo las primeras mujeres bomberas incorporadas recientemente en la Comarca Lagunera.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cómo se cubren las cuatro zonas de Durango</h3>
+    <p>
+      La cobertura del cuerpo se organiza por zonas con perfiles de riesgo radicalmente distintos:
+      la capital concentra la coordinación forestal y la protección patrimonial; la Comarca Lagunera
+      alberga la mayor capacidad HAZMAT del estado; la Sierra Madre exige estaciones forestales con
+      equipo de montaña; y la zona centro-sur atiende emergencias agrícolas y carreteras federales.
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios</th><th>Estaciones</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td>{z.nEst}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos de Durango</h3>
+    <p>
+      El cuerpo de bomberos de Durango cubre un espectro de emergencias más amplio que la mayoría
+      de los estados: del fuego de copa forestal al rescate en mina, del HAZMAT industrial al
+      rescate de alta montaña. Estas son sus funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios forestales</h4><p>Incendios de copa en la Sierra Madre Occidental, coordinación con CONAFOR y las 13 brigadas forestales estatales. Temporada crítica: enero a junio.</p></div>
+      <div class="de-card"><h4>Rescate en montaña y carretera</h4><p>Rescate vertical con rappel, extricación en pendiente y emergencias en los 61 túneles y 115 puentes de la carretera Durango-Mazatlán (Espina del Diablo).</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Respuesta a fugas de amoniaco NH₃ en plantas lecheras y frigoríficos industriales de la Comarca Lagunera con brigadas Nivel A especializadas.</p></div>
+      <div class="de-card"><h4>Rescate en espacios confinados</h4><p>Colapsos de túneles y fallas de voladuras en el distrito minero de San Dimas (Tayoltita), uno de los más activos del norte de México.</p></div>
+      <div class="de-card"><h4>Incendios estructurales y urbanos</h4><p>Protección del centro histórico (cantera rosa, 747 edificios UNESCO) y zonas industriales de Gómez Palacio, Lerdo y la capital.</p></div>
+      <div class="de-card"><h4>Emergencias invernales</h4><p>Nevadas, heladas e hipotermia en comunidades serranas aisladas a altitudes superiores a 2,800 msnm con temperaturas hasta –15°C.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Zona principal</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios forestales</strong></td><td>24/7 (crítico ene–jun)</td><td>Santiago Papasquiaro, Pueblo Nuevo, El Salto</td></tr>
+          <tr><td><strong>Rescate en montaña y carretera</strong></td><td>24/7</td><td>Pueblo Nuevo, El Salto, Estación Sur (Durango)</td></tr>
+          <tr><td><strong>HAZMAT amoniaco (Nivel A)</strong></td><td>24/7</td><td>Gómez Palacio Central e Industrial</td></tr>
+          <tr><td><strong>Rescate minero</strong></td><td>24/7</td><td>Santiago Papasquiaro, El Salto (San Dimas)</td></tr>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Emergencias invernales / hipotermia</strong></td><td>Dic–Feb</td><td>Santiago Papasquiaro, El Salto</td></tr>
+          <tr><td><strong>Control de fugas de gas industrial</strong></td><td>24/7</td><td>Gómez Palacio, Estación Central Durango</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Sierra Madre Occidental: el estado que quema más bosque de México</h3>
+    <p>
+      Durango produce el <strong>25% de la madera de México</strong> desde 4.9 millones de hectáreas
+      de bosques de pino y encino en la Sierra Madre Occidental. Lo que esa cifra no describe es el
+      comportamiento del fuego en esos bosques: los árboles de pino alcanzan 40 a 50 metros de altura
+      con copas densas que, en condiciones de sequía y vientos de 40+ km/h, generan <strong>incendios
+      de copa</strong> —fuego que salta entre copas sin tocar el suelo— que avanzan a 5 km/h en
+      pendientes de 30–40°. Un incendio de copa no puede contenerse con retardante aéreo sobre
+      pendientes mayores a 30°, donde el producto resbala antes de alcanzar la base del árbol.
+      La única táctica efectiva es el control en barrera natural y el contrafuego controlado.
+      En altitudes de 2,500–3,000 msnm, la presión de oxígeno es 25% menor que al nivel del mar,
+      lo que agota antes al personal. En <strong>2024</strong>, Durango registró <strong>364 incendios
+      y 72,829 hectáreas afectadas</strong> (CONAFOR); en 2025 la cifra superó las 103,000 hectáreas,
+      situando al estado como el más impactado del país.
+    </p>
+    <p>
+      A esto se suma la <strong>minería</strong>: el municipio de <strong>San Dimas</strong>
+      (Tayoltita, Yerbaniz) opera minas de oro, plata, zinc y plomo con más de 22,000 trabajadores
+      directos en el estado. Colapsos de túneles y accidentes de voladura exigen rescatistas con
+      capacitación en espacios confinados y manejo de gases tóxicos —una especialidad de las
+      estaciones de la sierra duranguense.
     </p>
 
-    <h3>La Espina del Diablo: 61 túneles, precipicios de 1,000 metros y por qué llegar al kilómetro 200 puede tomar tres horas</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      La carretera federal 40D Durango-Mazatlán atraviesa la Sierra Madre con 115 puentes y 61
-      túneles en 230 km —incluyendo el Puente Baluarte, el más alto de América con 403 metros sobre
-      el río. El problema operacional que esa ingeniería crea para los bomberos es invisible en los
-      folletos turísticos: un accidente en el kilómetro 200, en la Quebrada de Mexiquillo o en el
-      Espinazo del Diablo, puede estar a tres horas de la estación más cercana por carretera, sin
-      acceso desde abajo y sin cobertura celular para transmitir coordenadas exactas al helicóptero.
-      Los túneles añaden otro riesgo: en un accidente con incendio dentro de un túnel, el monóxido
-      de carbono se acumula sin dispersión hasta concentraciones de 10,000 ppm en minutos, y el
-      ataque con agua sin ventilación forzada activa produce una explosión de vapor que puede ser
-      más letal que el fuego original. Los bomberos de Pueblo Nuevo y El Salto entrenan rescate
-      vertical con rappel, extricación vehicular en pendiente y comunicación satelital para operar
-      en el tramo más aislado de carretera federal del norte de México.
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos
+      del cuerpo de bomberos entre las grandes zonas del estado:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Municipios</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nMun}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalMunicipios}</td>
+            <td>4 zonas del estado de Durango</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Durango</h3>
+    <p>
+      El primer reto es la <strong>distancia</strong>. Con 123,451 km² y comunidades serranas a más
+      de tres horas de la estación más cercana por carretera, los tiempos de respuesta en la Sierra
+      Madre Occidental son los más largos de México para un servicio de emergencias urbano-forestal.
+      La <strong>carretera 40D</strong>, con tramos sin cobertura celular y sin acceso desde abajo,
+      convierte cualquier accidente grave en una operación de rescate de alta complejidad.
+    </p>
+    <p>
+      El segundo reto es la <strong>diversidad del riesgo</strong>. Una sola corporación debe
+      mantener competencias en incendios forestales de copa, HAZMAT de amoniaco, rescate minero
+      en espacios confinados, emergencias invernales en nieve y protección de patrimonio histórico.
+      Cada especialidad exige equipo, entrenamiento y protocolos distintos, y los presupuestos
+      municipales de una entidad con el 1.4% del PIB nacional difícilmente sostienen todas las
+      líneas al mismo tiempo.
     </p>
 
-    <h3>Amoniaco en La Laguna: cómo 3,000 millones de litros de leche al año generan el riesgo HAZMAT más silencioso del norte</h3>
+    <h3>Cultura de prevención: cómo proteger tu comunidad en Durango</h3>
     <p>
-      La Comarca Lagunera —Gómez Palacio y Lerdo en Durango; Torreón y Matamoros en Coahuila—
-      produce más de 3,000 millones de litros de leche al año con 400,000 vacas en producción y
-      plantas procesadoras de Grupo Lala, Alpura y Chilchota. Toda esa cadena de frío depende de
-      amoniaco anhidro (NH₃) como refrigerante industrial: sistemas de 10 a 20 toneladas por planta
-      que mantienen la temperatura desde la recepción de leche hasta el almacenamiento congelado.
-      La paradoja del amoniaco es que es indetectable hasta que ya es un problema: sin olor perceptible
-      por debajo de 5 ppm, su concentración puede escalar a 300 ppm —nivel letal en 30 minutos— antes
-      de que los trabajadores de la planta lo detecten sin instrumentos. Una fuga de una tonelada de
-      amoniaco líquido, al evaporarse, puede generar una nube tóxica que cubre hasta 1 km² a
-      concentración de alerta, lo que obliga a evacuar colonias vecinas antes de que las cuadrillas
-      de respuesta puedan entrar con trajes HAZMAT Nivel A. Los bomberos de Gómez Palacio son la
-      única brigada del norte de México especializada en este escenario específico, con detectores
-      multigas calibrados para NH₃ desde 25 ppm y protocolos coordinados con las plantas de la
-      Comarca actualizados anualmente.
+      En Durango, la prevención más urgente es la forestal. Estas son las recomendaciones que
+      los cuerpos de bomberos y CONAFOR repiten a la población:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Incendios forestales:</strong> no hagas fuego en el monte durante la temporada seca (enero-junio); si necesitas quemar rastrojo, obtén permiso de CONAFOR antes.</li>
+        <li><strong>Reporte temprano:</strong> ante cualquier columna de humo, llama al 911 o reporta a CONAFOR al (618) 825-2003; cada minuto cuenta en un incendio de copa.</li>
+        <li><strong>Carretera Espina del Diablo:</strong> revisa frenos y neumaticos antes de entrar; guarda el kilómetro exacto de tu ubicación; ante emergencia activa las luces de emergencia y llama al 911.</li>
+        <li><strong>Gas y amoniaco (zona industrial):</strong> si detectas olor fuerte a amoniaco (irritante, como cloro fuerte), evacúa el edificio, no acciones interruptores y llama al 911.</li>
+        <li><strong>Invierno serrano:</strong> no transites de noche en carreteras de montaña con pronóstico de helada; lleva ropa de abrigo extra y comunica tu ruta.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enséña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
 
-    <h3>Pueblo Nuevo 2024: cómo un incendio en La Ciudad llegó a Durango capital 200 km después</h3>
-    <p>
-      En abril de 2024, un incendio forestal iniciado cerca de La Ciudad, comunidad serrana del
-      municipio de Pueblo Nuevo, se convirtió en el evento de gestión de emergencias más complejo
-      de Durango en décadas. El incendio duró 23 días. Quemó más de 12,000 hectáreas de bosque
-      de pino-encino con una antigüedad promedio de 60 a 80 años —tiempo mínimo para que la cubierta
-      forestal se regenere. Requirió las 13 brigadas forestales del estado más refuerzo federal de
-      CONAFOR y helicópteros Bambi Bucket de la Secretaría de Defensa Nacional. A 200 kilómetros
-      del epicentro, Durango capital registró índices de PM2.5 de hasta 250 microgramos por metro
-      cúbico durante dos semanas —cinco veces el límite seguro de 50 μg/m³— obligando a suspender
-      clases y actividades al aire libre. El incendio demostró el límite de la respuesta local en
-      emergencias de esta escala: cuando un frente de fuego alcanza 15 km de longitud con vientos
-      de 40 km/h que generan saltos entre copas de 200 metros, ninguna brigada puede contenerlo
-      directamente. Solo puede flanquearlo, reducirlo y esperar que las barreras naturales lo detengan.
+    <p class="de-srcnote">
+      Fuentes: CONAFOR (Comisión Nacional Forestal) — reportes de incendios forestales 2024 y 2025;
+      registros de estaciones del directorio de bomberos de Durango (Estación Central 1935, Gómez
+      Palacio 1952, Santiago Papasquiaro 1968); UNESCO/INAH — declaratoria Camino Real de Tierra
+      Adentro 2010 (sitio WHC-10/34.COM/8B); El Siglo de Durango, El Sol de Durango y Posta México
+      — cobertura de accidentes mineros en San Dimas 2025-2026; Milenio/La Jornada — estadísticas
+      de incendios forestales 2025; datos de personal y unidades calculados desde las estaciones
+      publicadas en este directorio. Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

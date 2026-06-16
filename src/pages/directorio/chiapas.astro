@@ -3,24 +3,66 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesChiapas, getMunicipios, getEstadisticas } from "@data/estaciones-chiapas";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("chiapas");
 
 const municipios   = getMunicipios();
 const estadisticas = getEstadisticas();
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Chiapas",                url: "/directorio/chiapas/" },
-]);
+const totalBomberos = estacionesChiapas.reduce((sum, e) => sum + (e.personalActivo ?? 0), 0);
+const totalUnidades = estacionesChiapas.reduce((sum, e) => sum + (e.unidadesDisponibles?.length ?? 0), 0);
 
+const canonical = "https://bombero.mx/directorio/chiapas/";
+
+// ── Comparativa regional (calculada desde datos reales del directorio) ──────
+const zonasDef = [
+  {
+    nombre: "Zona Metropolitana",
+    munis: ["Tuxtla Gutiérrez", "Chiapa de Corzo", "Cintalapa"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital estatal (3 est.), Cañón del Sumidero, carretera Panamericana y Reserva El Ocote.",
+  },
+  {
+    nombre: "Los Altos y Frontera Sur",
+    munis: ["San Cristóbal de las Casas", "Comitán de Domínguez", "Las Margaritas"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "San Cristóbal (Pueblo Mágico, 2,200 msnm), Lagos de Montebello y selva fronteriza Tojolabal.",
+  },
+  {
+    nombre: "Selva y Zona Norte",
+    munis: ["Palenque", "Ocosingo", "Pichucalco", "Reforma"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Palenque UNESCO, Selva Lacandona, Montes Azules y Complejo Cactus PEMEX.",
+  },
+  {
+    nombre: "Soconusco y Costa",
+    munis: ["Tapachula", "Tonalá", "Huixtla", "Arriaga", "Villaflores"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Frontera Guatemala, río Suchiate, Puerto Chiapas, costa del Pacífico y zona cafetalera.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const ests = estacionesChiapas.filter((e) => z.munis.includes(e.municipio ?? ""));
+  return {
+    ...z,
+    nEst:  ests.length,
+    nPers: ests.reduce((s, e) => s + (e.personalActivo ?? 0), 0),
+    nUni:  ests.reduce((s, e) => s + (e.unidadesDisponibles?.length ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Chiapas, México",
-  "description": "Directorio oficial de las 18 estaciones de bomberos en Chiapas. Teléfonos directos en Tuxtla Gutiérrez, San Cristóbal de las Casas, Tapachula, Palenque y Comitán. Cobertura 24/7 para más de 5.5 millones de chiapanecos y 4.5 millones de turistas. Emergencias: llama al 911.",
+  "description": `Directorio verificado de las ${estadisticas.totalEstaciones} estaciones de bomberos en Chiapas. Teléfonos directos en Tuxtla Gutiérrez, San Cristóbal de las Casas, Tapachula, Palenque y Comitán. Cobertura 24/7. Emergencias: 911.`,
   "numberOfItems": estacionesChiapas.length,
   "itemListElement": estacionesChiapas.map((e, i) => ({
     "@type": "ListItem",
@@ -41,6 +83,94 @@ const itemListSchema = {
   }))
 };
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Chiapas: estaciones, historia y servicios de emergencia",
+  "description": "Guía del H. Cuerpo de Bomberos de Chiapas: historia (1952–hoy), infraestructura en 15 municipios, sismo Mw 8.2 de 2017, volcanes Chichonal y Tacaná, selva Lacandona y directorio con teléfonos directos.",
+  "about": [
+    "H. Cuerpo de Bomberos de Chiapas",
+    "Instituto de Bomberos del Estado de Chiapas",
+    "Protección Civil Chiapas",
+    "Búsqueda y rescate urbano",
+    "Incendios forestales selva Lacandona",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/chiapas.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Chiapas",
+  "description": `Directorio verificado de las ${estadisticas.totalEstaciones} estaciones de bomberos en Chiapas, con teléfonos, cobertura municipal, historia del cuerpo e información sobre riesgos sísmicos, volcánicos y forestales.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos de Chiapas" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/chiapas.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Chiapas (≥10) — alimentan el FAQPage schema ───────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Chiapas?",
+    a: `Marca el <strong>911</strong>, número único nacional que opera las 24 horas. En zonas urbanas el despacho llega a la estación más cercana en segundos. En municipios como Tuxtla Gutiérrez el tiempo promedio de llegada es de <strong>6 a 10 minutos</strong>. En comunidades de la Selva Lacandona sin cobertura celular, la estación de Ocosingo opera con <strong>comunicación satelital Iridium</strong>. Teléfonos directos adicionales: Tuxtla Gutiérrez 961 612-4692, San Cristóbal 967 678-0770, Tapachula 962 626-1515.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Chiapas?",
+    a: `El H. Cuerpo de Bomberos de Chiapas opera <strong>${estadisticas.totalEstaciones} estaciones activas</strong> distribuidas en <strong>${estadisticas.totalMunicipios} municipios</strong>, con <strong>${totalBomberos} bomberos profesionales</strong>. Las estaciones más grandes se ubican en Tuxtla Gutiérrez (3 estaciones), Tapachula (2) y las ciudades de San Cristóbal de las Casas, Palenque y Comitán.`,
+  },
+  {
+    q: "¿Cuándo se fundó el cuerpo de bomberos en Chiapas?",
+    a: `La <strong>primera estación profesional de bomberos del sureste mexicano</strong> se fundó en <strong>Tuxtla Gutiérrez en 1952</strong>. Desde 1998 opera como Centro de Comando C4 estatal, coordinando las ${estadisticas.totalEstaciones} estaciones activas. El <strong>22 de agosto</strong> se conmemora el Día del Bombero en México, en recuerdo de la fundación del primer cuerpo en Veracruz en <strong>1873</strong>.`,
+  },
+  {
+    q: "¿Cómo respondieron los bomberos de Chiapas al sismo del 7 de septiembre de 2017?",
+    a: `El <strong>sismo Mw 8.2 del 7 de septiembre de 2017</strong> —el más fuerte registrado en México desde 1932, con epicentro en el Golfo de Tehuantepec a 133 km al suroeste de Pijijiapan— causó <strong>18 muertes en Chiapas</strong> y daños severos en Tuxtla Gutiérrez, Tonalá y Arriaga. Las brigadas del H. Cuerpo activaron el protocolo de <strong>búsqueda y rescate urbano (USAR)</strong> en las primeras horas, con operaciones de apuntalamiento y evacuación en edificaciones dañadas. La Central de Tuxtla Gutiérrez coordinó las operaciones de los 15 municipios afectados.`,
+  },
+  {
+    q: "¿Qué riesgo representa el volcán Chichonal para Chiapas?",
+    a: `El <strong>Volcán Chichonal</strong> registró su última gran erupción el <strong>28 de marzo de 1982</strong>, generando columnas piroclásticas de hasta 32 km de altura, destruyendo 9 comunidades zoques y causando alrededor de <strong>2,000 fallecidos</strong>, el mayor desastre volcánico de la historia de México. Hoy el volcán sigue activo con actividad fumarólica monitoreada por el CENAPRED. Las estaciones de Pichucalco y la Central de Tuxtla coordinan con Protección Civil Chiapas para evacuaciones preventivas en escenario de alerta volcánica.`,
+  },
+  {
+    q: "¿Qué riesgo representa el volcán Tacaná para los bomberos de Tapachula?",
+    a: `El <strong>Volcán Tacaná</strong> (4,093 msnm, en la frontera México-Guatemala) es considerado uno de los volcanes de mayor riesgo relativo del país por el CENAPRED. Registra actividad fumarólica con una frecuencia histórica de 25 a 50 años y genera en promedio 5 eventos volcano-tectónicos mensuales. La estación de Tapachula forma parte del Plan Operativo de Protección Civil del Tacaná, con protocolos de evacuación para los municipios de Tapachula, Unión Juárez, Cacahoatán, Motozintla y Tuxtla Chico.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en la Selva Lacandona?",
+    a: `La estación de Ocosingo —que cubre el municipio más extenso de Chiapas con <strong>8,887 km²</strong>— opera con equipos de incendio forestal, ambulancia todo terreno, comunicación satelital Iridium y transporte a lomo de mula para comunidades sin camino vehicular. Combate incendios forestales en la Selva Lacandona y la <strong>Reserva de la Biosfera Montes Azules</strong>, coordina búsquedas de personas extraviadas y atiende comunidades lacandonas y tzeltales. La temporada crítica de incendios abarca de febrero a mayo.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos las emergencias en la Zona Arqueológica de Palenque?",
+    a: `La estación de Palenque opera un <strong>protocolo específico de protección de patrimonio INAH</strong>: extinción perimetral con niebla de agua a presión reducida, espuma seca como barrera cortaluegos alrededor de estructuras mayas, y acceso de agua directa sobre piedra solo con autorización del custodio INAH. La zona arqueológica, <strong>Patrimonio de la Humanidad UNESCO desde 1987</strong>, recibe más de 1 millón de turistas anuales y está rodeada por selva activa en tres frentes.`,
+  },
+  {
+    q: "¿Cómo funciona el rescate acuático en el Cañón del Sumidero?",
+    a: `La estación de Chiapa de Corzo opera <strong>3 lanchas de rescate, motos acuáticas y equipo de buceo</strong> certificado para la corriente del río Grijalva. El Cañón tiene paredes de hasta 1,000 metros de altura: hay puntos donde la ruta por agua desde la estación toma 20 minutos, mientras que la misma ubicación por carretera requiere más de 3 horas. Más de <strong>500,000 turistas</strong> navegan anualmente el cañón en embarcaciones turísticas.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos las emergencias migratorias en el río Suchiate?",
+    a: `Los bomberos de <strong>Tapachula</strong> operan dos lanchas de rescate especializadas en el río Suchiate, frontera natural con Guatemala. En temporada de lluvias (junio-octubre) el río alcanza 2 metros de profundidad con corriente que supera 2 m/s. La estación coordina con Bomberos Voluntarios de Tecún Umán, Guatemala, bajo <strong>protocolos de rescate binacional</strong> formalizados —los únicos de ese tipo en la frontera sur de México.`,
+  },
+  {
+    q: "¿Qué tipo de emergencias industriales atiende la estación de Reforma?",
+    a: `La estación de Reforma custodia el <strong>Complejo Procesador de Gas Cactus</strong>, el mayor procesador de gas natural del sureste de México. Su personal está certificado en <strong>HAZMAT nivel técnico</strong>, rescate en espacios confinados y control de blowouts (reventones de pozo) por Wild Well Control. Cuenta con unidades de espuma AFFF, dos unidades HAZMAT de nivel técnico y equipo de nitrógeno para incendios de hidrocarburos.`,
+  },
+  {
+    q: "¿Qué debo hacer si hay un incendio o una emergencia en Chiapas?",
+    a: `Llama de inmediato al <strong>911</strong>. Indica tu municipio y referencia exacta de ubicación, ya que en zonas rurales el GPS puede no funcionar y el nombre de la comunidad es clave para el despacho correcto. En comunidades sin cobertura celular, recurre a la radio comunitaria o busca el punto de acceso más cercano con señal. Para incendios forestales en la temporada seca, la coordinación también va con <strong>CONANP</strong> y <strong>CONAFOR</strong>.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-selva-01.avif",
@@ -105,7 +235,7 @@ const stationImages = [
   estado="Chiapas"
   sigla="CHIS"
   slug="chiapas"
-  description={`${estadisticas.totalEstaciones} estaciones en Chiapas — Palenque UNESCO en la selva, Cañón del Sumidero 1,000 m, Complejo Cactus PEMEX y 658 km frontera Guatemala. Emergencias: 911.`}
+  description={`Bomberos en Chiapas: ${estadisticas.totalEstaciones} estaciones en ${estadisticas.totalMunicipios} municipios, teléfonos directos, rescate en Palenque UNESCO, Cañón del Sumidero, selva Lacandona y HAZMAT PEMEX. Emergencias: 911.`}
   keywords={[
     "bomberos chiapas",
     "bomberos tuxtla gutierrez",
@@ -123,27 +253,27 @@ const stationImages = [
     "emergencias frontera guatemala chiapas",
     "bomberos pueblos magicos chiapas",
   ]}
-  canonical="https://bombero.mx/directorio/chiapas/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
   totalEstaciones={estadisticas.totalEstaciones}
   totalMunicipios={estadisticas.totalMunicipios}
   habitantes="5.5M+"
 
-  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Chiapas</strong> despliega <strong>${estadisticas.totalEstaciones} estaciones activas</strong> en <strong>${estadisticas.totalMunicipios} municipios</strong> con más de <strong>788 bomberos profesionales</strong> — guardando la selva Lacandona, los <strong>5 Pueblos Mágicos</strong>, la zona arqueológica de Palenque (Patrimonio UNESCO), el Cañón del Sumidero, las cascadas de Agua Azul y los <strong>658 km de frontera con Guatemala</strong>.`}
+  heroDesc={`El <strong>H. Cuerpo de Bomberos de Chiapas</strong> despliega <strong>${estadisticas.totalEstaciones} estaciones activas</strong> en <strong>${estadisticas.totalMunicipios} municipios</strong> con <strong>${totalBomberos} bomberos profesionales</strong> — guardando la selva Lacandona, los <strong>5 Pueblos Mágicos</strong>, la Zona Arqueológica de <strong>Palenque (Patrimonio UNESCO)</strong>, el Cañón del Sumidero, y los <strong>658 km de frontera con Guatemala</strong>. Primera estación fundada en <strong>Tuxtla Gutiérrez en 1952</strong>.`}
   heroImage="/images/directorio/estacion-bomberos-selva-01.avif"
   heroImageAlt="Estación de Bomberos Chiapas — selva Lacandona Palenque UNESCO Cañón del Sumidero"
-  heroCaption="H. Cuerpo de Bomberos · Chiapas"
+  heroCaption="H. Cuerpo de Bomberos · Chiapas · Primera estación desde 1952"
   heroThumbs={[
     { src: "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif", alt: "Estación de bomberos de Chiapas en centro histórico con unidades", label: "Estación Central" },
-    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",  alt: "Bomberos forestales selva Lacandona Palenque UNESCO Reserva Montes Azules Chiapas",           label: "Forestal Selva Lacandona" },
-    { src: "/images/directorio/unidad-hazmat-emergencias-01.avif", alt: "HAZMAT bomberos Reforma Chiapas Complejo Cactus PEMEX pozos petroleros gas natural norte",     label: "HAZMAT PEMEX Norte"       },
+    { src: "/images/accion/bomberos-accion-incendio-estructural.avif", alt: "Bomberos forestales selva Lacandona Palenque UNESCO Reserva Montes Azules Chiapas", label: "Forestal Selva Lacandona" },
+    { src: "/images/directorio/unidad-hazmat-emergencias-01.avif", alt: "HAZMAT bomberos Reforma Chiapas Complejo Cactus PEMEX pozos petroleros gas natural norte", label: "HAZMAT PEMEX Norte" },
   ]}
 
   galleryImages={[
-    { src: "/images/directorio/estacion-bomberos-turistica-01.avif", alt: "Bomberos Palenque zona arqueológica UNESCO rescate turístico 1 millón visitantes anuales",  label: "Palenque UNESCO"           },
-    { src: "/images/directorio/rescate-montana-bomberos-01.avif",    alt: "Rescate montaña San Cristóbal de las Casas 2,200 msnm hipotermia Los Altos Chiapas",       label: "Rescate Los Altos"         },
-    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",     alt: "Rescate lacustre Lagos de Montebello 59 lagunas Comitán Chiapas Parque Nacional",          label: "Lagos de Montebello"       },
+    { src: "/images/directorio/estacion-bomberos-turistica-01.avif", alt: "Bomberos Palenque zona arqueológica UNESCO rescate turístico 1 millón visitantes anuales", label: "Palenque UNESCO" },
+    { src: "/images/directorio/rescate-montana-bomberos-01.avif", alt: "Rescate montaña San Cristóbal de las Casas 2,200 msnm hipotermia Los Altos Chiapas", label: "Rescate Los Altos" },
+    { src: "/images/directorio/lancha-rescate-bomberos-01.avif", alt: "Rescate lacustre Lagos de Montebello 59 lagunas Comitán Chiapas Parque Nacional", label: "Lagos de Montebello" },
     { src: "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif", alt: "Equipo completo de bombero en vestidor de estación de Chiapas", label: "Equipo Completo EPP" },
   ]}
 
@@ -159,11 +289,11 @@ const stationImages = [
   municipios={municipios}
 
   regiones={[
-    { nombre: "Zona Metropolitana",   desc: "Tuxtla Gutiérrez (3 est.) · Chiapa de Corzo · Cañón del Sumidero · Cintalapa"   },
-    { nombre: "Los Altos",            desc: "San Cristóbal de las Casas · Comitán de Domínguez · Lagos de Montebello"         },
-    { nombre: "Selva Norte y Mayas",  desc: "Palenque UNESCO · Ocosingo · Cascadas Agua Azul · Selva Lacandona"               },
-    { nombre: "Soconusco y Costa",    desc: "Tapachula · Puerto Chiapas · Huixtla · Tonalá · Arriaga · Frontera Guatemala"    },
-    { nombre: "Zona Petrolera Norte", desc: "Reforma · Complejo Cactus PEMEX · Pichucalco · Villaflores · Frontera Tabasco"   },
+    { nombre: "Zona Metropolitana",   desc: "Tuxtla Gutiérrez (3 est.) · Chiapa de Corzo · Cañón del Sumidero · Cintalapa" },
+    { nombre: "Los Altos",            desc: "San Cristóbal de las Casas · Comitán de Domínguez · Lagos de Montebello"      },
+    { nombre: "Selva Norte y Mayas",  desc: "Palenque UNESCO · Ocosingo · Cascadas Agua Azul · Selva Lacandona"             },
+    { nombre: "Soconusco y Costa",    desc: "Tapachula · Puerto Chiapas · Huixtla · Tonalá · Arriaga · Frontera Guatemala"  },
+    { nombre: "Zona Petrolera Norte", desc: "Reforma · Complejo Cactus PEMEX · Pichucalco · Frontera Tabasco"               },
   ]}
 
   estadosVecinos={estadosVecinos}
@@ -177,7 +307,7 @@ const stationImages = [
       imageAlt:  "Traje Forestal NFPA 1977 bomberos selva Lacandona Palenque UNESCO incendios forestales Chiapas",
       badge:     "NFPA 1977",
       title:     "Traje Forestal NFPA 1977 — Selva Tropical",
-      text:      "Certificado para los ecosistemas más complejos de México: la <strong>Selva Lacandona</strong>, segunda selva tropical del continente americano con 1.5 millones de hectáreas; la <strong>Reserva de la Biósfera Montes Azules</strong>, hogar del jaguar, tapir y guacamaya roja; y los bosques de Los Altos de Chiapas a <strong>2,200 msnm</strong>. Las brigadas de Ocosingo operan con comunicación satelital Iridium y mulas de carga en operaciones de hasta <strong>5 días en comunidades sin acceso vehicular</strong>. Tejido ultraligero certificado para la humedad tropical del 80-90% de la selva chiapaneca.",
+      text:      "Certificado para los ecosistemas más complejos de México: la <strong>Selva Lacandona</strong>, segunda selva tropical del continente americano con 1.5 millones de hectáreas; la <strong>Reserva de la Biósfera Montes Azules</strong>, hábitat del jaguar, tapir y guacamaya roja; y los bosques de Los Altos de Chiapas a <strong>2,200 msnm</strong>. Las brigadas de Ocosingo operan con comunicación satelital Iridium y mulas de carga en operaciones de hasta <strong>5 días en comunidades sin acceso vehicular</strong>. Tejido ultraligero certificado para la humedad tropical del 80-90% de la selva chiapaneca.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -186,7 +316,7 @@ const stationImages = [
       imageAlt:  "Casco Estructural NFPA 1971 bomberos San Cristóbal de las Casas Palenque UNESCO centros históricos Chiapas",
       badge:     "NFPA 1971",
       title:     "Casco Estructural NFPA 1971",
-      text:      "Imprescindible para proteger el patrimonio más valioso del sureste: la <strong>Zona Arqueológica de Palenque</strong> (Patrimonio UNESCO, 1987) con el Templo de las Inscripciones y el sarcófago de Pakal el Grande; el <strong>centro histórico colonial de San Cristóbal de las Casas</strong>, Pueblo Mágico a 2,200 msnm con calles empedradas del siglo XVI; el <strong>Pueblo Mágico de Chiapa de Corzo</strong> con su famosa fuente mudéjar; y las zonas arqueológicas de <strong>Bonampak</strong> (murales mayas únicos en el mundo) y <strong>Yaxchilán</strong> (accesible solo por río Usumacinta). Compatible con comunicación satelital para zonas sin cobertura celular.",
+      text:      "Imprescindible para proteger el patrimonio más valioso del sureste: la <strong>Zona Arqueológica de Palenque</strong> (Patrimonio UNESCO, 1987) con el Templo de las Inscripciones y el sarcófago de Pakal el Grande; el <strong>centro histórico colonial de San Cristóbal de las Casas</strong>, Pueblo Mágico a 2,200 msnm con calles empedradas del siglo XVI; el <strong>Pueblo Mágico de Chiapa de Corzo</strong> con su famosa fuente mudéjar; y las zonas arqueológicas de <strong>Bonampak</strong> (murales mayas únicos) y <strong>Yaxchilán</strong> (accesible solo por río Usumacinta). Compatible con comunicación satelital para zonas sin cobertura celular.",
       href:      "/productos/cascos-para-bomberos/",
       linkLabel: "Ver Cascos para Bombero",
     },
@@ -195,16 +325,16 @@ const stationImages = [
       imageAlt:  "SCBA NFPA 1981 bomberos Reforma Chiapas PEMEX Complejo Cactus pozos petroleros gas natural",
       badge:     "NFPA 1981",
       title:     "Aparato Respiratorio Autónomo SCBA",
-      text:      "Certificado NFPA 1981 para el <strong>Complejo Procesador de Gas Cactus</strong> en Reforma, el mayor complejo de procesamiento de gas del sureste de México. Las brigadas de <strong>Reforma y Pichucalco</strong> están certificadas internacionalmente en control de pozos por <strong>Wild Well Control</strong> y HAZMAT nivel técnico para blowouts (reventones de pozo). También para rescate en <strong>espacios confinados del Cañón del Sumidero</strong> (paredes de 1,000 metros de altura), las <strong>grutas y cenotes de la Selva Lacandona</strong> y emergencias en los <strong>parques eólicos del Istmo de Tehuantepec</strong> en Arriaga (hasta 150 km/h de viento).",
+      text:      "Certificado NFPA 1981 para el <strong>Complejo Procesador de Gas Cactus</strong> en Reforma, el mayor complejo de procesamiento de gas del sureste de México. Las brigadas de <strong>Reforma y Pichucalco</strong> están certificadas en control de pozos por <strong>Wild Well Control</strong> y HAZMAT nivel técnico para blowouts. También para rescate en <strong>espacios confinados del Cañón del Sumidero</strong> (paredes de 1,000 metros de altura), las <strong>grutas y cenotes de la Selva Lacandona</strong> y escenarios de ceniza volcánica en zonas de influencia del <strong>Volcán Chichonal</strong> (Pichucalco) y el <strong>Volcán Tacaná</strong> (Tapachula).",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Equipos SCBA",
     },
     {
       image:     "/images/directorio/botas-bombero-proteccion-01.avif",
-      imageAlt:  "Botas Estructurales NFPA 1971 bomberos Chiapas terreno mixto selva montaña playa fronteras zonas arqueológicas",
+      imageAlt:  "Botas Estructurales NFPA 1971 bomberos Chiapas terreno mixto selva montaña playa zonas arqueológicas",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales de Cuero",
-      text:      "Certificadas NFPA 1971 para el estado con mayor diversidad de terrenos de México: suelo selvático húmedo de la <strong>Selva Lacandona</strong> con 10 cm de hojarasca; piedra caliza de las <strong>zonas arqueológicas mayas</strong> (Palenque, Bonampak, Yaxchilán, Toniná); adoquín de altura de los <strong>Pueblos Mágicos coloniales</strong> a 2,200 msnm; arena volcánica del <strong>litoral del Pacífico</strong> (Puerto Chiapas, Puerto Arista, Boca del Cielo); suelo arcilloso de <strong>valles cafetaleros</strong> del Soconusco; y asfalto de la <strong>carretera Panamericana</strong>, la más transitada del sur con 15,000 vehículos diarios.",
+      text:      "Certificadas NFPA 1971 para el estado con mayor diversidad de terrenos de México: suelo selvático húmedo de la <strong>Selva Lacandona</strong> con alta hojarasca; piedra caliza de las <strong>zonas arqueológicas mayas</strong> (Palenque, Bonampak, Yaxchilán); adoquín de los <strong>Pueblos Mágicos coloniales</strong> a 2,200 msnm; arena volcánica del <strong>litoral del Pacífico</strong> (Puerto Chiapas, Puerto Arista); suelo arcilloso de <strong>valles cafetaleros</strong> del Soconusco; y asfalto de la <strong>carretera Panamericana</strong> con más de 15,000 vehículos diarios.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
@@ -213,103 +343,238 @@ const stationImages = [
   ctaTitle="Equipamos a los Bomberos de Chiapas"
   ctaDesc={`Cotiza equipo certificado NFPA para las ${estadisticas.totalEstaciones} estaciones desde Tuxtla Gutiérrez hasta la frontera con Guatemala. Envío a los ${estadisticas.totalMunicipios} municipios con cobertura activa. Atención a licitaciones públicas municipales y estatales.`}
   ctaBtnText="Solicitar Cotización — Chiapas"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Chiapas — Patrimonio UNESCO en la Selva, el Cañón más Profundo de México y el Gas del Sureste</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Chiapas</strong> opera en la superposición más
-      compleja de riesgos culturales, naturales e industriales de México: un Patrimonio Mundial
-      UNESCO rodeado en tres frentes por selva tropical activa en Palenque, donde un incendio
-      forestal puede aproximarse a estructuras de 1,300 años sin carretera de acceso en varios
-      frentes; la Selva Lacandona —segunda masa forestal tropical de América del Norte, con
-      1.5 millones de hectáreas— donde la estación de Ocosingo opera con mulas de carga y
-      comunicación satelital Iridium porque las comunidades que protege no tienen camino
-      pavimentado; y al norte, el Complejo Cactus de PEMEX en Reforma, el mayor procesador de
-      gas natural del sureste de México, con brigadas certificadas en control de pozos por Wild
-      Well Control. Con {estadisticas.totalEstaciones} estaciones en {estadisticas.totalMunicipios}
-      municipios y más de {estadisticas.totalBomberos} bomberos profesionales, es la única
-      corporación del país que exige simultáneamente protocolos de preservación arqueológica,
-      comunicación satelital en zona de selva y certificación internacional en control de blowouts.
+    <h2>Bomberos en Chiapas</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Chiapas">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estadisticas.totalEstaciones}</span><span class="de-stat__label">Estaciones activas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estadisticas.totalMunicipios}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Bomberos profesionales</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">5.5M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1952</span><span class="de-stat__label">Primera estación</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">658 km</span><span class="de-stat__label">Frontera Guatemala</span></div>
+    </div>
+
+    <p class="de-lead">
+      El <strong>H. Cuerpo de Bomberos de Chiapas</strong> opera en la superposición más compleja
+      de riesgos naturales, culturales e industriales del sureste: un Patrimonio Mundial UNESCO en
+      Palenque rodeado por selva tropical activa, la Selva Lacandona —segunda masa forestal tropical
+      de América del Norte— donde la estación de Ocosingo llega con mulas y satélite, dos volcanes
+      activos monitoreados (Chichonal y Tacaná), el sismo más poderoso en México desde 1932
+      (Mw 8.2, septiembre 2017), y el Complejo Cactus de PEMEX en Reforma, el mayor procesador
+      de gas del sureste. Con {estadisticas.totalEstaciones} estaciones en {estadisticas.totalMunicipios} municipios
+      y {totalBomberos} bomberos profesionales, es una de las corporaciones con mayor diversidad de riesgo
+      operacional en el país.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Chiapas?</h3>
+    <h3>Cómo contactar a los bomberos en Chiapas</h3>
     <p>
-      En cualquier emergencia, el <strong>911</strong> despacha en todo el estado. La estación
-      de Ocosingo opera con comunicación satelital Iridium para emergencias en la Selva Lacandona
-      donde la cobertura celular no existe. Teléfonos directos: Tuxtla Gutiérrez 961 612-4692,
-      San Cristóbal 967 678-0770, Tapachula 962 626-1515, Comitán 963 632-1616, Palenque
-      916 345-0808, Ocosingo 919 673-0303, Chiapa de Corzo 961 616-0404 y Reforma 932 326-1010.
-      Para incendios forestales en la Lacandona, la coordinación va directamente con CONANP y
-      CONAFOR durante la temporada crítica de febrero a mayo.
+      En cualquier emergencia, el <strong>911</strong> conecta con el Centro de Comando C4 estatal
+      las 24 horas. El sistema despacha a la estación con menor tiempo de respuesta; en zonas
+      urbanas el promedio es de 6 a 10 minutos. En municipios rurales y comunidades de la Selva
+      Lacandona sin cobertura celular, la estación de Ocosingo opera con comunicación satelital
+      Iridium como único vínculo con el sistema. Teléfonos directos: Tuxtla Gutiérrez Central
+      961 612-4692, San Cristóbal 967 678-0770, Tapachula 962 626-1515, Palenque 916 345-0808,
+      Comitán 963 632-1616, Ocosingo 919 673-0303, Chiapa de Corzo 961 616-0404 y Reforma
+      932 326-1010. En zonas sin señal celular, la radio comunitaria y el traslado al punto de
+      acceso más cercano son el primer paso. Encuentra todos los datos en el
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
     </p>
 
-    <h3>Palenque UNESCO y la selva que la rodea: por qué los bomberos coordinan con el INAH antes de abrir la manguera</h3>
+    <h3>Historia del H. Cuerpo de Bomberos de Chiapas</h3>
     <p>
-      La Zona Arqueológica de Palenque no es un museo rodeado por espacio urbano —es una
-      apertura en la selva activa. El Templo de las Inscripciones, el Palacio y los tres
-      templos del Grupo de las Cruces están construidos sobre plataformas de caliza cubierta
-      por 1,300 años de química tropical: los mismos ácidos orgánicos del suelo selvático que
-      disuelven carbonatos superficiales e integran minerales en formas específicas que los
-      arqueólogos del INAH monitorean. Un chorro de agua a presión convencional (7+ bar) sobre
-      estas superficies puede disolver esa capa en minutos —la misma que protege los glifos
-      del Tablero de las Inscripciones desde el siglo VII. La estación de Palenque opera con
-      protocolo INAH para emergencias en zona arqueológica: niebla de agua a presión reducida
-      en el perímetro de vegetación, espuma seca como barrera cortaluegos alrededor de las
-      estructuras, y entrada de agua directa sobre piedra solo con autorización del custodio
-      INAH presente. Es el único protocolo de extinción en México con restricciones de ingeniería
-      patrimonial incorporadas. Los cinco Pueblos Mágicos del estado —San Cristóbal, Chiapa de
-      Corzo, Comitán, Palenque, San Juan Chamula— suman más de 3 millones de visitantes anuales.
-      Bonampak y Yaxchilán, accesible este último solo por el río Usumacinta, dependen de las
-      brigadas regionales sin acceso vehicular convencional.
+      La historia del combate organizado de incendios en Chiapas arranca a mediados del siglo XX,
+      con la capital como punto de partida y una red que fue creciendo conforme la industria
+      petrolera, el turismo arqueológico y la presión sobre la selva exigieron respuestas
+      especializadas:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1952</span> Se funda la <strong>primera estación profesional de bomberos del sureste mexicano</strong> en Tuxtla Gutiérrez, con el primer vehículo de atención de emergencias del estado.</li>
+      <li><span class="de-tl__year">1975</span> Se establece la estación de <strong>Chiapa de Corzo</strong> para atender el Parque Nacional Cañón del Sumidero, recién abierto al turismo. La estación de <strong>Reforma</strong> se funda ese mismo año con el auge petrolero de la zona norte.</li>
+      <li><span class="de-tl__year">1980</span> Inauguración de la estación de <strong>Palenque</strong>, inicialmente orientada a la protección de la zona arqueológica. En 1987 se especializó en protocolos de rescate con preservación patrimonial tras la declaración UNESCO.</li>
+      <li><span class="de-tl__year">1982</span> El <strong>Volcán Chichonal</strong> erupciona el 28 de marzo generando columnas de 32 km de altura y destruyendo 9 comunidades zoques, con alrededor de 2,000 fallecidos: el mayor desastre volcánico de la historia de México. El evento impulsa los protocolos estatales de evacuación por riesgo volcánico.</li>
+      <li><span class="de-tl__year">1994</span> Se funda la estación de <strong>Ocosingo</strong> como unidad de apoyo humanitario. Desde 2000 se especializa en incendios de la Selva Lacandona y rescate en comunidades sin camino vehicular.</li>
+      <li><span class="de-tl__year">1998</span> La Central de Tuxtla Gutiérrez inicia operaciones como <strong>Centro de Comando C4 estatal</strong>, coordinando todas las estaciones de Chiapas.</li>
+      <li><span class="de-tl__year">2005</span> El <strong>Huracán Stan</strong> azota el Soconusco y la Sierra Madre; la estación de Tapachula realiza más de 3,000 rescates en 72 horas. El evento fija los protocolos de respuesta a huracanes del Pacífico.</li>
+      <li><span class="de-tl__year">2017</span> El <strong>sismo Mw 8.2 del 7 de septiembre</strong> —epicentro en el Golfo de Tehuantepec, el más fuerte en México desde 1932— causa 18 fallecidos en Chiapas y daños en Tuxtla, Tonalá y Arriaga. Las brigadas USAR de la Central coordinan la respuesta en 15 municipios afectados.</li>
+      <li><span class="de-tl__year">Hoy</span> El H. Cuerpo opera <strong>{estadisticas.totalEstaciones} estaciones</strong> en <strong>{estadisticas.totalMunicipios} municipios</strong> con <strong>{totalBomberos} bomberos profesionales</strong>, cubriendo desde el volcán Tacaná en la frontera sur hasta los campos petroleros de Reforma en el norte.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cómo se cubren los 15 municipios</h3>
+    <p>
+      La cobertura del cuerpo se organiza en cuatro grandes zonas, cada una con perfil de riesgo
+      distinto. La Zona Metropolitana concentra la mayor densidad de población y los servicios de
+      comando; Los Altos combina patrimonio colonial con montaña y comunidades indígenas; la Zona
+      Selva y Norte cubre la Selva Lacandona y la industria petrolera; y el Soconusco y Costa
+      atiende la frontera con Guatemala, la industria cafetalera y el litoral del Pacífico:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.munis.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      El H. Cuerpo de Bomberos de Chiapas es un servicio de emergencia integral. Estas son sus
+      funciones centrales, adaptadas a los riesgos específicos del estado:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, forestales en selva tropical y pastizales, y emergencias industriales en el Complejo Cactus PEMEX.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en la carretera Panamericana y accidentes de autobuses y tráileres en los tramos de alta accidentalidad del estado.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Estabilización y soporte vital en coordinación con servicios médicos, incluyendo traslados de comunidades aisladas con acceso solo vehicular 4x4.</p></div>
+      <div class="de-card"><h4>Rescate acuático y selva</h4><p>Operaciones en el río Grijalva, Cañón del Sumidero, Lagos de Montebello, río Suchiate y comunidades de la Selva Lacandona.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Contención de hidrocarburos y gas natural en la zona petrolera norte, y control de agroquímicos en la región cafetalera del Soconusco.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones, simulacros, capacitación comunitaria y coordinación con CONANP y CONAFOR en temporada de incendios forestales.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Búsqueda y rescate en selva (SAR)</strong></td><td>24/7</td><td>Ocosingo, Palenque, Las Margaritas</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>Reforma, Pichucalco, Central Tuxtla</td></tr>
+          <tr><td><strong>Rescate acuático fluvial</strong></td><td>24/7</td><td>Chiapa de Corzo, Tapachula, Comitán</td></tr>
+          <tr><td><strong>Rescate acuático marítimo y portuario</strong></td><td>24/7</td><td>Puerto Chiapas, Tonalá</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (feb–may)</td><td>Ocosingo, Palenque, San Cristóbal, Cintalapa</td></tr>
+          <tr><td><strong>Inundaciones y huracanes</strong></td><td>Temporada lluvias (jun–oct)</td><td>Tapachula, Tonalá, Huixtla, Pichucalco</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate en comunidades sin acceso vehicular</strong></td><td>24/7</td><td>Ocosingo, Las Margaritas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Riesgo sísmico y volcánico: el sismo Mw 8.2 de 2017, el Chichonal y el Tacaná</h3>
+    <p>
+      Chiapas es el estado con mayor diversidad de amenazas geológicas activas de México. El
+      <strong>7 de septiembre de 2017 a las 23:49 horas</strong>, un sismo de magnitud <strong>Mw 8.2</strong>
+      —el más poderoso registrado en el país desde el terremoto de Jalisco-Colima de 1932— sacudió
+      el Golfo de Tehuantepec con epicentro a 133 km al suroeste de Pijijiapan, Chiapas, a 58 km
+      de profundidad. El sismo causó <strong>18 fallecidos en Chiapas</strong>, daños estructurales en
+      Tuxtla Gutiérrez, Tonalá y Arriaga, y se percibió en cinco países de Centroamérica. Las
+      brigadas del H. Cuerpo activaron protocolos USAR en las primeras horas, con operaciones de
+      apuntalamiento, evacuación y coordinación interinstitucional que se extendieron durante días.
+    </p>
+    <p>
+      En el perfil volcánico, el estado alberga dos amenazas activas. El <strong>Volcán Chichonal</strong>
+      —que en su erupción del 28 de marzo de 1982 generó columnas piroclásticas de 32 km de altura,
+      destruyó 9 comunidades zoques y causó alrededor de <strong>2,000 fallecidos</strong> en el peor
+      desastre volcánico de la historia de México— sigue activo con fumarólica monitoreada por el
+      CENAPRED. Las estaciones de Pichucalco y la Central de Tuxtla coordinan con Protección Civil
+      el plan de evacuación ante cualquier escalada de actividad. El <strong>Volcán Tacaná</strong>
+      (4,093 msnm, frontera México-Guatemala), considerado entre los de mayor riesgo relativo del
+      país según el CENAPRED, genera en promedio 5 eventos volcano-tectónicos mensuales y tiene
+      registros de episodios fumarólicos desde 1855. La estación de Tapachula forma parte del Plan
+      Operativo de Protección Civil del Tacaná, con municipios de Tapachula, Unión Juárez, Cacahoatán,
+      Motozintla y Tuxtla Chico en zona de influencia.
     </p>
 
-    <h3>El Cañón del Sumidero: 500,000 turistas y la única ruta de rescate que es más rápida en lancha que en carretera</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      El Cañón del Sumidero tiene paredes verticales de hasta 1,000 metros sobre el río Grijalva.
-      Esto tiene una consecuencia operacional que no aparece en ninguna guía turística: hay
-      puntos del cañón donde llegar por agua desde Chiapa de Corzo toma 20 minutos, pero la
-      misma ubicación por carretera requiere 3 horas de vuelta por las alturas. La estación de
-      Chiapa de Corzo opera con tres lanchas de rescate, motos acuáticas y equipo de buceo
-      certificado para la corriente del Grijalva, y ha realizado más de 500 rescates acuáticos
-      documentados. Los 500,000 turistas anuales que navegan los 35 km del cañón en embarcaciones
-      turísticas —en corriente activa entre noviembre y mayo— representan el mayor volumen de
-      rescate acuático en zona sin carretera de acceso de toda la República. Las Cascadas de
-      Agua Azul, Misol-Há y los 59 Lagos de Montebello suman emergencias turísticas adicionales
-      para las estaciones de Palenque, Ocosingo y Comitán.
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos
+      del cuerpo entre las grandes zonas de Chiapas. Las cifras de personal y unidades corresponden
+      a las estaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{estadisticas.totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>{estadisticas.totalMunicipios} municipios de Chiapas</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Chiapas</h3>
+    <p>
+      El primer reto es de geografía y conectividad. En un estado donde el municipio más extenso
+      —Ocosingo— tiene 8,887 km² y el 60% de sus comunidades carecen de camino pavimentado, el
+      tiempo de respuesta en zona rural puede superar los 45 minutos en vehículo 4x4, y algunas
+      comunidades solo se alcanzan a lomo de mula. La comunicación satelital Iridium resuelve
+      parcialmente el problema de las radiocomunicaciones, pero no elimina la distancia física.
+      A esto se suma la estacionalidad del riesgo: la temporada de incendios forestales (febrero
+      a mayo) coincide con la mayor sequía en ecosistemas que el resto del año superan el 85% de
+      humedad relativa, lo que genera condiciones de fuego sin equivalente en el centro o norte
+      del país.
+    </p>
+    <p>
+      El segundo reto es de capacidad especializada múltiple. Ningún otro cuerpo estatal en México
+      exige simultáneamente protocolos de preservación arqueológica (INAH), certificación
+      internacional en control de blowouts petroleros (Wild Well Control), rescate binacional en
+      frontera internacional (río Suchiate con Guatemala), comunicación en lenguas indígenas
+      (tzotzil, tzeltal, tojolabal, lacandón) y planes de evacuación volcánica para dos volcanes
+      activos monitoreados. La presión presupuestal para mantener EPP certificado NFPA, renovar
+      unidades todo terreno y sostener la capacitación continua de {totalBomberos} bomberos en
+      múltiples especialidades representa el desafío operacional permanente del cuerpo.
     </p>
 
-    <h3>Selva Lacandona: 1.5 millones de hectáreas donde la estación responde con mulas y satélite</h3>
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad en Chiapas</h3>
     <p>
-      La Selva Lacandona es la segunda masa forestal tropical de América del Norte. La estación
-      de Ocosingo cubre 8,887 km² —el municipio más extenso de Chiapas— en un territorio donde
-      el 60% de las comunidades no tienen camino pavimentado. En esas zonas, el tiempo de respuesta
-      promedio es de 45 minutos en vehículo 4x4, y en algunas comunidades el acceso es solo por
-      vereda: los bomberos llegan con equipo a lomo de mula y GPS satelital Iridium porque no hay
-      señal celular ni radio convencional en el interior del dosel. En 2019, la estación coordinó
-      más de 200 intervenciones en incendios que amenazaron la Reserva de la Biósfera Montes Azules.
-      La temporada crítica de incendios (febrero a mayo) coincide con el periodo de mayor sequía
-      en una selva que el resto del año supera el 85% de humedad relativa —creando condiciones de
-      riesgo que no tienen ningún análogo en las zonas templadas del norte del país.
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones
+      básicas que los bomberos de Chiapas comparten con la población:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Sismo:</strong> identifica las zonas seguras de tu inmueble, fija muebles altos y ten una mochila de emergencia; ante una sacudida fuerte, actúa de inmediato sin esperar confirmación.</li>
+        <li><strong>Incendio forestal:</strong> no realices quemas agrícolas sin permiso, especialmente en temporada de estiaje (febrero-mayo); ante un incendio cercano, llama al 911 y coordina con CONAFOR o CONANP.</li>
+        <li><strong>Gas LP:</strong> revisa mangueras, reguladores y conexiones; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y evacúa antes de llamar al 911.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos; atiende cualquier olor a quemado o calentamiento de cables, especialmente en instalaciones antiguas.</li>
+        <li><strong>Detección:</strong> instala detectores de humo en dormitorios; en zona rural, el humo visible en la selva es señal de alerta temprana.</li>
+        <li><strong>Turismo:</strong> si visitas el Cañón del Sumidero, las Cascadas de Agua Azul, Palenque o la Selva Lacandona, informa tu ruta a alguien de confianza y lleva agua y señal de teléfono o radio.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar; en comunidades sin señal, conoce el punto de acceso más cercano.</li>
+      </ul>
+    </div>
 
-    <h3>El Río Suchiate y La Bestia: Tapachula y Arriaga, las dos estaciones con los rescates más específicos del sureste</h3>
-    <p>
-      El río Suchiate es la frontera natural entre México y Guatemala en Tapachula. En temporada
-      seca (marzo a mayo) tiene 40 centímetros de profundidad y puede vadearse. En temporada de
-      lluvias (junio a octubre) alcanza 2 metros con velocidad de corriente que supera los 2 m/s
-      —suficiente para arrastrar a alguien 300 metros en menos de tres minutos. Decenas de miles
-      de migrantes cruzan mensualmente en balsas artesanales. Los bomberos de Tapachula coordinan
-      con Bomberos Voluntarios de Tecún Umán en Guatemala bajo protocolos de rescate binacional
-      formalizados: la única coordinación de ese tipo en la frontera sur de México. A 100 km al
-      noroeste, la estación de Arriaga cubre La Bestia —el tren de carga en el que viajan
-      migrantes a través del Istmo de Tehuantepec—, donde las caídas de vagones en movimiento
-      a 40-60 km/h generan politraumatismos severos que la estación atiende antes de que llegue
-      cualquier ambulancia, ya que el hospital de segundo nivel más cercano está a 90 km. Al norte
-      del estado, la estación de Reforma con 48 bomberos custodia el Complejo Cactus PEMEX, el
-      mayor procesador de gas natural del sureste: certificación en control de blowouts por Wild
-      Well Control de Houston, la única de ese nivel en toda la región.
+    <p class="de-srcnote">
+      Fuentes: Instituto de Bomberos del Estado de Chiapas (institutodebomberos.chiapas.gob.mx);
+      H. Cuerpo de Bomberos de Tuxtla Gutiérrez (bomberostuxtlagutierrez.org); Servicio Sismológico
+      Nacional / UNAM, Reporte Especial Sismo de Tehuantepec 2017-09-07 Mw 8.2; Wikipedia,
+      «Terremoto de Chiapas de 2017» y «Erupción del Volcán Chichonal de 1982»; CENAPRED,
+      Monitoreo de la Actividad del Volcán Tacaná 2018–2020; Secretaría de Protección Civil de
+      Chiapas, Plan Operativo Volcán Tacaná; PAHO/OPS, Sismo Mw 8.2 Chiapas septiembre 2017;
+      CONAFOR, datos de incendios forestales en Chiapas 2026. Las cifras de personal y unidades
+      por región se calculan a partir de las estaciones publicadas en este directorio.
+      Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

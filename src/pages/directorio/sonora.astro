@@ -4,10 +4,13 @@ import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesSonora, getMunicipios, ESTADISTICAS_SONORA } from "@data/estaciones-sonora";
 import { getEstadosVecinos } from "@data/estados-vecinos";
 import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estado = "Sonora";
 const sigla = "SON";
 const slug = "sonora";
+
+const canonical = "https://bombero.mx/directorio/sonora/";
 
 // ─── Imágenes Hero ────────────────────────────────────────────────────────────
 const heroThumbs = [
@@ -41,9 +44,9 @@ const emergencyNumbers = [
 // ─── Regiones del Estado ──────────────────────────────────────────────────────
 const regiones = [
   { nombre: "Zona Centro", desc: "Hermosillo (capital), planta Ford, Kia Pesqueira, aeropuerto internacional" },
-  { nombre: "Zona Fronteriza Norte", desc: "Nogales, Agua Prieta, San Luis R.C. — 588km de frontera con Arizona, coordinación binacional" },
-  { nombre: "Zona Minera", desc: "Cananea (Buenavista del Cobre), Nacozari (La Caridad) — 65% del cobre nacional" },
-  { nombre: "Valle del Yaqui-Mayo", desc: "Ciudad Obregón, Navojoa, Huatabampo — granero de México, trigo #1 nacional" },
+  { nombre: "Zona Fronteriza Norte", desc: "Nogales, Agua Prieta, San Luis R.C. — 588 km de frontera con Arizona, coordinación binacional" },
+  { nombre: "Zona Minera", desc: "Cananea (Buenavista del Cobre), Nacozari (La Caridad) — minería de cobre Grupo México" },
+  { nombre: "Valle del Yaqui-Mayo", desc: "Ciudad Obregón, Navojoa, Huatabampo — granero de México, trigo y garbanzo" },
   { nombre: "Golfo de California", desc: "Guaymas, San Carlos, Puerto Peñasco — acuacultura, turismo náutico, rescate marino" },
 ];
 
@@ -152,12 +155,109 @@ const stationImages = [
   "/images/directorio/estacion-bomberos-bahia-moderna-lockers-01.avif",
   "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
 ];
+
+// ─── Comparativa regional ─────────────────────────────────────────────────────
+const zonas = [
+  {
+    nombre: "Zona Centro (Hermosillo)",
+    municipios: ["Hermosillo"],
+    nEst: 4,
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital del estado, corredor automotriz Ford-Kia, aeropuerto internacional y sede de coordinación estatal.",
+  },
+  {
+    nombre: "Zona Fronteriza Norte",
+    municipios: ["Nogales", "Agua Prieta", "San Luis Río Colorado"],
+    nEst: 3,
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "588 km de frontera con Arizona. Coordinación binacional activa, maquiladoras y cruces internacionales.",
+  },
+  {
+    nombre: "Zona Minera",
+    municipios: ["Cananea", "Nacozari de García"],
+    nEst: 2,
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Mina Buenavista del Cobre y La Caridad (Grupo México). HAZMAT con ácido sulfúrico y cianuro.",
+  },
+  {
+    nombre: "Valle del Yaqui-Mayo",
+    municipios: ["Cajeme", "Navojoa", "Huatabampo"],
+    nEst: 4,
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Granero de México: trigo y garbanzo. Emergencias agroindustriales y comunidades indígenas.",
+  },
+  {
+    nombre: "Golfo de California",
+    municipios: ["Guaymas", "Puerto Peñasco"],
+    nEst: 3,
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Puerto de Guaymas, San Carlos (Mar de Cortés) y Puerto Peñasco. Rescate marítimo y turismo costero.",
+  },
+];
+
+// ─── FAQs específicas de Sonora (≥10) ────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Sonora?",
+    a: `Marca el <strong>911</strong>, número único de emergencias disponible las 24 horas a través del C4 Sonora (Centro de Coordinación, Comando, Comunicaciones y Cómputo). En Hermosillo, el teléfono directo de la Estación Central es <strong>662 210 3600</strong>; en Nogales, <strong>631 312 1690</strong>; en Ciudad Obregón, <strong>644 415 7070</strong>. En cualquier emergencia activa, el 911 es la línea prioritaria.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Sonora?",
+    a: `Este directorio registra <strong>${estacionesSonora.length} estaciones activas</strong> distribuidas en los principales municipios de Sonora: Hermosillo (4), Nogales (2), Ciudad Obregón (2), Guaymas y San Carlos, Puerto Peñasco, Cananea, Nacozari, San Luis Río Colorado, Caborca, Agua Prieta, Navojoa, Huatabampo, Magdalena de Kino, Álamos y otras localidades. Todos los datos de contacto están disponibles en el listado de esta página.`,
+  },
+  {
+    q: "¿Cuándo se fundó el primer cuerpo de bomberos de Sonora?",
+    a: `El <strong>primer cuerpo de bomberos del estado de Sonora fue el de Nogales</strong>, fundado el <strong>25 de noviembre de 1917</strong> por un grupo de ciudadanos encabezados por Gustavo L. Manríquez. El cuerpo lleva el nombre de su fundador: <strong>H. Cuerpo de Bomberos Voluntarios Gustavo L. Manríquez</strong>. En 2022 cumplió 105 años de servicio continuado. El Cuerpo de Bomberos de Hermosillo fue fundado posteriormente, el <strong>13 de agosto de 1946</strong>, por Jahudiel Zamorano Ledesma y siete voluntarios en la Sociedad de Artesanos.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Hermosillo?",
+    a: `El <strong>13 de agosto de 1946</strong>, cuando Jahudiel Zamorano Ledesma y siete voluntarios firmaron el acta constitutiva del Club de Bomberos de Hermosillo A.C. en la Sociedad de Artesanos. En 2025 conmemoró su <strong>79 aniversario</strong>. El 15 de julio de 1950 se constituyó formalmente el <strong>Patronato de Bomberos de Hermosillo</strong>. La fecha nacional del Día del Bombero, el 22 de agosto, conmemora la fundación del primer cuerpo de México en Veracruz en 1873.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Ciudad Obregón?",
+    a: `El <strong>4 de julio de 1949</strong>, cuando un grupo de ciudadanos de Cajeme encabezados por Ramón M. Ochoa constituyeron el Club de Bomberos Voluntarios de Ciudad Obregón, A.C., con Guillermo Vélez Calderón como primer comandante. El H. Cuerpo de Bomberos de Cajeme celebró su <strong>76 aniversario en julio de 2025</strong>.`,
+  },
+  {
+    q: "¿Qué fue el derrame del río Sonora en 2014?",
+    a: `El <strong>6 de agosto de 2014</strong>, una falla en las instalaciones de lixiviación del complejo Buenavista del Cobre de Grupo México en Cananea liberó aproximadamente <strong>40 millones de litros</strong> (40,000 m³) de solución de sulfato de cobre con ácido sulfúrico al Arroyo Tinajas, afluente del Río Bacanuchi y del Río Sonora. El frente contaminante recorrió más de 180 km del corredor fluvial, afectando el agua potable de más de 22,000 personas en 7 municipios. Es considerado el mayor desastre ambiental minero en la historia de México. Los bomberos de Cananea activaron coordinación con CONAGUA, COFEPRIS y la Brigada HAZMAT estatal.`,
+  },
+  {
+    q: "¿Por qué el calor es un riesgo crítico para los bomberos en Sonora?",
+    a: `Hermosillo ha sido registrada como la ciudad más caliente del mundo en picos estivales, alcanzando <strong>47.5 °C</strong> en agosto de 2024. A esas temperaturas, una persona sin agua puede desarrollar golpe de calor (temperatura corporal superior a 40°C, cese de sudoración, confusión) en 90 minutos a 3 horas. Los bomberos deben llevar tanques adicionales de agua al campo para protocolos de enfriamiento de emergencia, y los rescates en zonas desérticas alejadas pueden tardar entre 45 y 90 minutos de llegada, tiempo durante el cual el daño neurológico puede ser irreversible.`,
+  },
+  {
+    q: "¿Qué es el acuerdo binacional de bomberos Sonora-Arizona?",
+    a: `Sonora y Arizona mantienen un <strong>Convenio de Cooperación para la Prevención y Respuesta a Emergencias Binacionales</strong> firmado el 19 de junio de 2004 con vigencia indefinida. En la práctica, los cuerpos de bomberos de Nogales-Sonora y Nogales-Arizona coordinan activaciones de apoyo mutuo, con un plan binacional que se actualizó más recientemente tras la pausa pandémica. Acuerdos similares operan en Douglas/Agua Prieta y San Luis Río Colorado/San Luis Arizona.`,
+  },
+  {
+    q: "¿Cuáles son los principales riesgos HAZMAT que enfrentan los bomberos de Sonora?",
+    a: `Sonora concentra varios perfiles HAZMAT únicos en México: (1) <strong>minería de cobre</strong> en Cananea y Nacozari con ácido sulfúrico, cianuro y reactivos metalúrgicos; (2) <strong>industria automotriz</strong> en Hermosillo (Ford, Kia, maquiladoras Tier 1) con isocianatos, solventes orgánicos y baterías de litio; (3) <strong>frontera</strong> en Nogales, Agua Prieta y San Luis R.C. con carga internacional que puede incluir cualquier categoría de materiales peligrosos; (4) <strong>puertos</strong> de Guaymas con combustibles marinos e hidrocarburos; y (5) agroquímicos y fertilizantes en el Valle del Yaqui y Valle del Mayo.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos las emergencias en el Golfo de California?",
+    a: `Las estaciones de Guaymas, San Carlos y Puerto Peñasco cuentan con lanchas de rescate y coordinan con la Capitanía de Puerto y la Secretaría de Marina para emergencias marítimas en el Golfo de California. Atienden rescates de buzos, turistas en embarcaciones, incendios en instalaciones portuarias y control de derrames de hidrocarburo marino. Puerto Peñasco, conocido como Rocky Point en Arizona, recibe millones de turistas estadounidenses al año, por lo que sus bomberos mantienen capacidades de atención en inglés.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de Sonora?",
+    a: `Combate de <strong>incendios</strong> (estructurales, forestales, agrícolas e industriales), <strong>rescate vehicular</strong>, <strong>atención prehospitalaria</strong>, <strong>materiales peligrosos (HAZMAT)</strong> industrial/minero/fronterizo, <strong>rescate acuático</strong> en el Golfo de California, <strong>rescate aeronáutico (ARFF)</strong> en el aeropuerto de Hermosillo, control de <strong>fugas de gas</strong>, <strong>rescate en zonas desérticas</strong> con protocolo de golpe de calor, coordinación binacional con Arizona y <strong>prevención</strong> mediante inspecciones y simulacros.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir un incendio en zonas de calor extremo como Sonora?",
+    a: `En el contexto sonorense: revisa <strong>sistemas de aire acondicionado</strong> antes de temporada (sobrecalentamiento eléctrico es causa frecuente de incendio en verano); no dejes vehículos con materiales inflamables al sol directo; en zonas rurales, evita quemas no controladas en época de calor; mantén <strong>detectores de humo</strong> y un extintor vigente. Ante cualquier emergencia, marca siempre el <strong>911</strong>. En el desierto, lleva siempre agua suficiente y un teléfono cargado en viajes fuera de localidades.`,
+  },
+];
+
 // ─── Schema.org JSON-LD ───────────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de las ${estacionesSonora.length} estaciones de bomberos en Sonora. Hermosillo, Nogales, Ciudad Obregón, Guaymas, Cananea. Minería de cobre #1, automotriz Ford/Kia, 588km frontera con Arizona y Golfo de California. Emergencias 911.`,
+  description: `Directorio oficial de las ${estacionesSonora.length} estaciones de bomberos en Sonora. Hermosillo (fundación 1946), Nogales (1917, primer cuerpo del estado), Ciudad Obregón (1949). Minería de cobre Grupo México, corredor automotriz Ford-Kia, 588 km de frontera con Arizona, Golfo de California. Emergencias: 911.`,
   numberOfItems: estacionesSonora.length,
   itemListElement: estacionesSonora.map((e, i) => ({
     "@type": "ListItem",
@@ -173,27 +273,56 @@ const itemListSchema = {
         addressCountry: "MX",
       },
       telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}/`,
     },
   })),
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Sonora",         url: "/directorio/sonora/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Sonora: estaciones, historia y servicios de emergencia",
+  "description": "Guía del H. Cuerpo de Bomberos de Sonora: historia (Nogales 1917, Hermosillo 1946), infraestructura regional, riesgos HAZMAT minero y fronterizo, calor desértico extremo y directorio de estaciones con teléfonos.",
+  "about": [
+    "H. Cuerpo de Bomberos de Sonora",
+    "Protección Civil",
+    "Materiales peligrosos mineros",
+    "Servicios de emergencia fronterizos",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/sonora.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": `Estaciones de Bomberos en Sonora`,
+  "description": `Directorio verificado de estaciones de bomberos en Sonora con teléfonos, cobertura regional, funciones e historia de los cuerpos de bomberos de Hermosillo, Nogales y Ciudad Obregón.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos de Sonora" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/sonora.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
 ---
 
 <DirectorioEstadoLayout
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Sonora</strong>.     Encuentra teléfonos de emergencia, direcciones y servicios en el estado más grande del noroeste:     <strong>capital del cobre mexicano</strong>, corredor automotriz Ford-Kia,     <strong>588 km de frontera con Arizona</strong>, el Mar de Cortés y el Valle del Yaqui."
+  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Sonora</strong>. Encuentra teléfonos de emergencia, direcciones y servicios en el estado con mayor diversidad de riesgos del noroeste: <strong>capital del cobre mexicano</strong>, corredor automotriz Ford-Kia, <strong>588 km de frontera con Arizona</strong>, el Mar de Cortés y el Valle del Yaqui."
   heroImage="/images/directorio/estacion-bomberos-norte-mexico-01.avif"
   heroImageAlt="Estación de Bomberos en Sonora"
   heroCaption="H. Cuerpo de Bomberos · Sonora"
   title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesSonora.length} estaciones en Sonora — Buenavista 40M litros cobre 180 km derramados, desierto 47°C, Ford Hermosillo y Nogales binacional. Emergencias: 911.`}
+  description={`Bomberos en Sonora: ${estacionesSonora.length} estaciones — Nogales (1917, primer cuerpo del estado), Hermosillo (1946), minería de cobre Grupo México, desierto a 47 °C, Ford y frontera con Arizona. Emergencias: 911.`}
   keywords={keywords}
-  canonical={`https://bombero.mx/directorio/${slug}/`}
+  canonical={canonical}
   estado={estado}
   sigla={sigla}
   slug={slug}
@@ -209,84 +338,234 @@ const breadcrumbSchema = breadcrumbJsonLd([
   stationImages={stationImages}
   municipios={municipios}
   estadosVecinos={estadosVecinos}
-  jsonLd={[itemListSchema]}
+  jsonLd={jsonLd}
+  ctaTitle="Equipamos a los Cuerpos de Bomberos de Sonora"
+  ctaDesc={`Cotiza equipo certificado NFPA para estaciones de Sonora: HAZMAT minero para Cananea y Nacozari, equipo automotriz para Hermosillo, rescate acuático para Guaymas y equipo desértico para zonas de calor extremo. Experiencia en licitaciones públicas municipales.`}
+  ctaBtnText="Solicitar Cotización — Sonora"
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-      <h2>Bomberos de Sonora — El Derrame que Recorrió 180 km, el Desierto que Mata en Dos Horas y la Frontera que Se Cruza con el Camión</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Sonora</strong> opera en el segundo estado más grande de México
-        con una diversidad de riesgos que ningún manual nacional de bomberos cubre en su totalidad. La minería
-        de cobre en Cananea y Nacozari genera la única categoría de emergencia en México donde el agente
-        contaminante viaja 180 km río abajo durante dos semanas — como ocurrió en agosto de 2014, cuando
-        40 millones de litros de solución de sulfato de cobre ácido del complejo Buenavista del Cobre llegaron
-        hasta el Río Sonora. El desierto sonorense alcanza 47°C en julio, temperatura a la que una persona
-        sin agua puede morir de golpe de calor en dos a tres horas. Y en Nogales, el único acuerdo de ayuda
-        mutua binacional operativo en México permite que un camión de bomberos cruce la frontera con Estados
-        Unidos durante una emergencia activa.
-      </p>
+    <h2>Bomberos en Sonora</h2>
 
-      <h3>¿Cómo llamar a los Bomberos de Sonora?</h3>
-      <p>
-        El número único de emergencias en todo el estado es <strong>911</strong>, despachado por el C4 Sonora.
-        En Cananea y Nacozari, las brigadas internas de la mina tienen activación paralela con las estaciones
-        municipales para emergencias con ácido sulfúrico y cianuro. En Puerto Peñasco, el 911 opera con
-        operadores bilingüe español-inglés dado el volumen de turistas estadounidenses. En Nogales, el
-        protocolo binacional con el departamento de bomberos de Nogales, Arizona puede activarse para
-        refuerzo de recursos en menos de 8 minutos.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Sonora">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1917</span><span class="de-stat__label">Primer cuerpo (Nogales)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estacionesSonora.length}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">588 km</span><span class="de-stat__label">Frontera con Arizona</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">47.5 °C</span><span class="de-stat__label">Temperatura récord (ago. 2024)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">3.0 M</span><span class="de-stat__label">Habitantes protegidos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">5</span><span class="de-stat__label">Zonas de riesgo diferenciado</span></div>
+    </div>
 
-      <h3>Buenavista del Cobre — Cuando la Emergencia Viaja 180 km en Dos Semanas</h3>
-      <p>
-        El 6 de agosto de 2014, una falla en las instalaciones de lixiviación del complejo minero
-        Buenavista del Cobre de Grupo México liberó aproximadamente 40 millones de litros de solución
-        de sulfato de cobre con ácido sulfúrico al Arroyo Tinajas, afluente del Río Bacanuchi y
-        posteriormente del Río Sonora. El frente de contaminación tardó 14 días en recorrer los 180 km
-        del corredor fluvial, afectando el agua potable de 22,000 personas en 7 municipios. Los bomberos
-        de Cananea, Arizpe y Ures no podían contener el frente con ningún recurso propio: el protocolo
-        activó coordinación simultánea con CONAGUA, COFEPRIS, la Brigada HAZMAT estatal y los ayuntamientos
-        afectados para distribución de agua y monitoreo de calidad. El evento redefinió el protocolo de
-        emergencias mineras en Sonora — ya no solo el punto de fuga, sino el corredor de impacto.
-      </p>
+    <p class="de-lead">
+      Ningún estado de México concentra una combinación de riesgos tan dispar como Sonora:
+      minería de cobre con ácido sulfúrico y cianuro en la sierra, temperaturas de hasta
+      <strong>47.5 °C</strong> en el desierto, 588 kilómetros de frontera con Arizona con flujo
+      constante de carga HAZMAT, un puerto en el Golfo de California, uno de los complejos
+      automotrices más modernos del continente y comunidades rurales a horas de la estación más
+      cercana. Los cuerpos de bomberos de Sonora —el de <strong>Nogales, fundado en 1917</strong>
+      como el primero del estado, y el de <strong>Hermosillo, fundado en 1946</strong>— heredan
+      décadas de especialización en escenarios que no existen en ningún manual nacional estándar.
+    </p>
 
-      <h3>Desierto de Sonora en Verano — 47°C y la Ventana de Dos Horas</h3>
-      <p>
-        El Desierto de Sonora registra temperaturas de hasta 47°C en julio y agosto en zonas como el
-        Campo Dorado, Caborca y Puerto Peñasco. A esa temperatura, una persona sin agua desarrolla
-        golpe de calor (temperatura corporal sobre 40°C, cese de sudoración, confusión) en un rango
-        de 90 minutos a 3 horas según condición física, hidratación previa y exposición solar directa.
-        El tratamiento de primera línea es enfriamiento por inmersión en agua fría, que requiere
-        llevar agua al campo — en zonas desérticas alejadas de localidades, los camiones de bomberos
-        salen con tanques adicionales de agua y protocolos de enfriamiento de emergencia. Los rescates
-        de personas en el desierto por extravío o por accidentes vehiculares en carreteras remotas
-        pueden tomar 45 a 90 minutos de llegada, tiempo durante el cual el daño neurológico por golpe
-        de calor puede ser irreversible.
-      </p>
+    <h3>Cómo contactar a los bomberos en Sonora</h3>
+    <p>
+      En cualquier emergencia en Sonora, el <strong>911</strong> conecta con el C4 Sonora las
+      24 horas. Los teléfonos directos de las principales estaciones son: Hermosillo Central
+      (<strong>662 210 3600</strong>), Nogales Central (<strong>631 312 1690</strong>) y Ciudad
+      Obregón (<strong>644 415 7070</strong>). En Cananea y Nacozari, las brigadas internas de las
+      minas tienen activación paralela con las estaciones municipales. En Puerto Peñasco, el 911
+      cuenta con operadores bilingüe español-inglés por el volumen de turistas estadounidenses.
+      Encuentra todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a> de
+      esta página.
+    </p>
 
-      <h3>Ford Hermosillo — Línea de Pintura, Solventes y Baterías de Litio de Nueva Generación</h3>
-      <p>
-        La Planta Ford en Hermosillo es una de las instalaciones automotrices más modernas de América
-        del Norte, produciendo la Ford Maverick y la Bronco Sport. Su línea de pintura usa isocianatos
-        y solventes de base orgánica con los mismos riesgos que otras plantas automotrices — vapores
-        que superan la capacidad de filtrado de P100 estándar. Las versiones eléctricas e híbridas
-        añaden el protocolo de batería de litio en thermal runaway documentado en Puebla y SLP. La
-        estación HAZMAT de Hermosillo tiene entrenamiento anual en planta con el equipo de seguridad
-        industrial de Ford y protocolos de zona de exclusión de 100 metros mínimo para incendio en
-        línea de pintura activa.
-      </p>
+    <h3>Historia de los bomberos en Sonora</h3>
+    <p>
+      La historia del servicio de bomberos en Sonora comienza en la frontera norte del estado y
+      desciende hacia la capital a lo largo de tres décadas clave:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El 22 de agosto se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México, fecha que se conmemora como el <strong>Día Nacional del Bombero</strong>.</li>
+      <li><span class="de-tl__year">1917</span> El <strong>25 de noviembre</strong>, ciudadanos de Nogales encabezados por <strong>Gustavo L. Manríquez</strong> escriben al presidente municipal para constituir el primer cuerpo de bomberos de Sonora. Es también el <strong>primer cuerpo de bomberos de la frontera norte de México</strong>.</li>
+      <li><span class="de-tl__year">1946</span> El <strong>13 de agosto</strong>, Jahudiel Zamorano Ledesma y siete voluntarios firman el acta constitutiva del Cuerpo de Bomberos de Hermosillo en la Sociedad de Artesanos. En 1950 se formaliza el <strong>Patronato de Bomberos de Hermosillo</strong>.</li>
+      <li><span class="de-tl__year">1949</span> El <strong>4 de julio</strong> se constituye el Club de Bomberos Voluntarios de Ciudad Obregón, con Guillermo Vélez Calderón como primer comandante. El Valle del Yaqui suma su primer cuerpo.</li>
+      <li><span class="de-tl__year">1954</span> El <strong>25 de abril</strong>, tras un incendio en el barrio de Cananea Vieja, Eduardo Elías Romero y un grupo de jóvenes fundan el <strong>H. Cuerpo de Bomberos Voluntarios de Cananea</strong>, especializado en riesgos mineros desde su primer día.</li>
+      <li><span class="de-tl__year">2004</span> Sonora y Arizona formalizan el <strong>Convenio de Cooperación para la Prevención y Respuesta a Emergencias Binacionales</strong> (19 de junio), con vigencia indefinida. El acuerdo marcos las activaciones de ayuda mutua entre Nogales y Douglas.</li>
+      <li><span class="de-tl__year">2014</span> El <strong>6 de agosto</strong>, el derrame de Buenavista del Cobre libera 40 millones de litros de sulfato de cobre con ácido sulfúrico al Río Sonora. Redefine el protocolo de emergencias mineras del estado.</li>
+      <li><span class="de-tl__year">Hoy</span> Los cuerpos de Sonora operan <strong>{estacionesSonora.length} estaciones</strong> en este directorio, cubriendo minería, frontera, desierto, costa y corredor automotriz con equipos y protocolos especializados.</li>
+    </ul>
 
-      <h3>Nogales y la Frontera Binacional — El Único Cruce con Camión Activo en México</h3>
-      <p>
-        Nogales, Sonora comparte 12 km de frontera urbana con Nogales, Arizona, y las dos ciudades
-        funcionan económicamente como una unidad — lo que significa que un incendio puede originarse
-        en el lado mexicano e impactar estructuras en el lado estadounidense, o viceversa. El acuerdo
-        de ayuda mutua formalizado entre los departamentos de bomberos de ambas ciudades permite el
-        cruce de unidades con equipo durante emergencias activas, bajo autorización de los respectivos
-        jefes de operación y coordinación con migración. Es el único protocolo de este tipo activo en
-        México. Douglas, Agua Prieta y San Luis Río Colorado tienen acuerdos similares pero de menor
-        activación documentada.
-      </p>
-    </Fragment>
+    <h3>Infraestructura de emergencia: cómo se cubre el estado</h3>
+    <p>
+      Sonora es el segundo estado más grande de México (179,503 km²) y su red de bomberos se organiza
+      en cinco grandes zonas con perfiles de riesgo radicalmente distintos. La cobertura es total en
+      la zona metropolitana de Hermosillo y alta en la frontera norte; las zonas agrícolas del sur y
+      el litoral del Golfo tienen cobertura media, con tiempos de respuesta que pueden superar los
+      20 minutos en zonas rurales. Esta es la distribución actual del directorio:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios clave</th><th>Estaciones</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td>{z.nEst}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los cuerpos de bomberos de Sonora</h3>
+    <p>
+      Los bomberos de Sonora operan como servicio de emergencia integral. Su catálogo de funciones
+      es más amplio que el de la mayoría de los estados por la diversidad de entornos que cubren:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Estructurales, forestales, agrícolas e industriales. Las plantas de pasto y los campos del Valle del Yaqui son escenarios frecuentes en temporada de estiaje.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Ácido sulfúrico y cianuro en minas, isocianatos en automotrices, carga internacional en frontera y combustibles marinos en puertos del Golfo.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en accidentes en carreteras federales, incluyendo la Internacional México 15 (Hermosillo-Nogales), una de las más transitadas del noroeste.</p></div>
+      <div class="de-card"><h4>Rescate acuático y marítimo</h4><p>Lanchas en Guaymas, San Carlos y Puerto Peñasco. Coordinación con Capitanía de Puerto y Marina en el Golfo de California.</p></div>
+      <div class="de-card"><h4>Rescate desértico y calor extremo</h4><p>Protocolo de golpe de calor con tanques adicionales de agua y enfriamiento de emergencia para operaciones en el Desierto de Sonora y Altar.</p></div>
+      <div class="de-card"><h4>Rescate aeronáutico (ARFF)</h4><p>Estación ARFF en el Aeropuerto Internacional de Hermosillo con certificación ICAO y respuesta en menos de 3 minutos a cualquier punto de pista.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>HAZMAT minero (ácido sulfúrico, cianuro)</strong></td><td>24/7</td><td>Cananea, Nacozari</td></tr>
+          <tr><td><strong>HAZMAT automotriz / fronterizo</strong></td><td>24/7</td><td>Hermosillo Industrial, Nogales, Agua Prieta</td></tr>
+          <tr><td><strong>Rescate vehicular</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático y marítimo</strong></td><td>24/7</td><td>Guaymas, San Carlos, Puerto Peñasco</td></tr>
+          <tr><td><strong>Rescate desértico / golpe de calor</strong></td><td>24/7</td><td>Hermosillo, Caborca, Puerto Peñasco</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Rescate y extinción aeronáutica (ARFF)</strong></td><td>24/7</td><td>Aeropuerto Internacional Hermosillo</td></tr>
+          <tr><td><strong>Incendios forestales y agrícolas</strong></td><td>Estiaje y cosecha</td><td>Cajeme, Navojoa, Álamos, sierra sonorense</td></tr>
+          <tr><td><strong>Coordinación binacional</strong></td><td>Activa</td><td>Nogales, Agua Prieta, San Luis R.C.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Calor extremo, minería y frontera: los tres riesgos que definen a Sonora</h3>
+    <p>
+      El <strong>2 de agosto de 2024</strong>, Hermosillo alcanzó <strong>47.5 °C</strong>,
+      récord histórico para agosto. La ciudad ha llegado a ser registrada como el punto más caliente
+      del planeta en picos estivales, superando al desierto del Sahara. A esa temperatura, una persona
+      sin hidratación puede desarrollar golpe de calor —temperatura corporal sobre 40 °C, cese de
+      sudoración, confusión— en un rango de 90 minutos a 3 horas. El tratamiento de primera línea
+      es el enfriamiento por inmersión en agua fría, lo que obliga a los camiones a salir con
+      tanques adicionales hacia zonas desérticas sin agua disponible.
+    </p>
+    <p>
+      En la sierra sonorense, la <strong>minería de cobre</strong> plantea el único escenario en
+      México donde el agente contaminante de una emergencia puede viajar más de 180 km en dos semanas:
+      el derrame del 6 de agosto de 2014 en Buenavista del Cobre liberó 40 millones de litros de
+      solución de sulfato de cobre con ácido sulfúrico al Arroyo Tinajas, afluente del Río Bacanuchi
+      y del Río Sonora, afectando el agua potable de más de 22,000 personas en 7 municipios. El evento
+      redefinió el protocolo de emergencias mineras: ya no solo el punto de fuga, sino el corredor de
+      impacto río abajo hasta el Molinito, presa que abastece Hermosillo.
+    </p>
+    <p>
+      En la frontera norte, el <strong>Convenio Sonora-Arizona de 2004</strong> formaliza la
+      cooperación binacional entre los cuerpos de bomberos de Nogales, Douglas y San Luis Río Colorado
+      con sus contrapartes en Arizona. El plan binacional permite activar apoyo mutuo entre brigadas
+      de ambas naciones, con el marco legal que regula el cruce de unidades y equipo durante
+      emergencias activas. En junio de 2026, este protocolo se activó para la coordinación ante un
+      incendio forestal que cruzó la línea fronteriza en la zona de Santa Cruz.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      La siguiente tabla muestra la distribución de las estaciones del directorio entre las cinco
+      grandes zonas del estado, con el perfil de riesgo de cada una:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios clave</th><th>Estaciones</th><th>Cobertura</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td>{z.nEst}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>5 zonas · {zonas.map(z => z.municipios).flat().length} municipios clave</td>
+            <td>{estacionesSonora.length}</td>
+            <td></td>
+            <td>Estado de Sonora — 179,503 km²</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Sonora</h3>
+    <p>
+      El primer reto es la <strong>distancia</strong>. Sonora es el segundo estado más extenso de
+      México y muchas comunidades rurales, ejidos mineros y localidades costeras están a 30, 60 o
+      más minutos de la estación más cercana. En el contexto del calor extremo —donde 90 minutos sin
+      atención pueden significar daño neurológico irreversible— cada minuto adicional de tiempo de
+      respuesta tiene consecuencias directas sobre la vida. La expansión de subestaciones en zonas
+      de cobertura media es una necesidad documentada.
+    </p>
+    <p>
+      El segundo reto es la <strong>especialización continua</strong>. Las minas de Cananea y
+      Nacozari actualizan sus procesos, la Planta Ford de Hermosillo ensambla modelos con baterías de
+      litio de nueva generación, y el tráfico de carga internacional en la frontera introduce nuevas
+      categorías de materiales peligrosos cada año. Mantener el entrenamiento HAZMAT al nivel de la
+      industria privada requiere inversión sostenida en formación y equipo certificado que los
+      presupuestos municipales no siempre garantizan.
+    </p>
+
+    <h3>Cultura de prevención en Sonora</h3>
+    <p>
+      La emergencia más fácil de atender es la que no ocurre. Los cuerpos de bomberos de Sonora
+      repiten estas recomendaciones básicas a la población:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención en Sonora</h4>
+      <ul>
+        <li><strong>Calor extremo:</strong> en verano, lleva siempre agua suficiente al salir de zonas urbanas; ante síntomas de golpe de calor (cese de sudoración, confusión), enfría de inmediato y marca el 911.</li>
+        <li><strong>Gas:</strong> revisa mangueras, reguladores y conexiones; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble.</li>
+        <li><strong>Electricidad:</strong> en verano, el uso intensivo de aire acondicionado sobrecarga instalaciones viejas; revisa cables y contactos periódicamente.</li>
+        <li><strong>Detección:</strong> instala detectores de humo en tu vivienda y ten un extintor vigente y accesible.</li>
+        <li><strong>Zonas desérticas:</strong> informa a alguien tu ruta antes de salir a zonas remotas; un teléfono cargado y agua son equipo mínimo.</li>
+        <li><strong>Costas y lago:</strong> usa chaleco salvavidas en embarcaciones; ante emergencia en el mar, el 911 coordina con Capitanía de Puerto.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: H. Cuerpo de Bomberos Voluntarios Gustavo L. Manríquez, Nogales (fundación 1917,
+      bomberosnogales.com.mx); Patronato de Bomberos de Hermosillo (fundación 13 ago. 1946, pbh.com.mx;
+      79 aniversario ago. 2025, El Imparcial / Proyecto Puente); H. Cuerpo de Bomberos de Cajeme
+      (fundación 4 jul. 1949, 76 aniversario jul. 2025, El Imparcial / Medios Obson); H. Cuerpo de
+      Bomberos Voluntarios de Cananea (fundación 25 abr. 1954, Municipio de Cananea); Desastre
+      ecológico Ríos Bacanuchi y Sonora, Wikipedia / ResearchGate / Greenpeace México (derrame
+      6 ago. 2014, 40 millones de litros, 25,000+ afectados); temperatura récord Hermosillo 47.5 °C
+      agosto 2024 (El Imparcial / Radio Sonora / noro.mx); Convenio Sonora-Arizona 19 jun. 2004
+      (El Diario de Sonora, Radar Sonora, Milenio); Sonora es el 2.° estado más grande de México,
+      179,503 km², 72 municipios, población ~3.07 M (INEGI). Para emergencias, llama siempre al
+      <strong>911</strong>.
+    </p>
+
+  </Fragment>
 </DirectorioEstadoLayout>
-

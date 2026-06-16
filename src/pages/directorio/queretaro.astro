@@ -3,74 +3,48 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesQueretaro, getMunicipios } from "@data/estaciones-queretaro";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 // Configuración del estado
 const estado = "Querétaro";
 const sigla = "QRO";
 const slug = "queretaro";
+const canonical = "https://bombero.mx/directorio/queretaro/";
 
-// Miniaturas hero - Aeroespacial, UNESCO y Peña de Bernal
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const municipios      = getMunicipios();
+const totalEstaciones = estacionesQueretaro.length;
+const totalMunicipios = municipios.length;
+
+// Miniaturas hero
 const heroThumbs = [
   { src: "/images/directorio/central-despacho-bomberos-monitores-mapa-01.avif", alt: "Central de despacho de emergencias de bomberos de Querétaro con monitores", label: "Central de Despacho" },
-  {
-    src: "/images/directorio/estacion-bomberos-queretaro-01.avif",
-    alt: "Centro Histórico de Querétaro Acueducto UNESCO 1996",
-    label: "UNESCO 1996"
-  },
-  {
-    src: "/images/directorio/rescate-montana-bomberos-01.avif",
-    alt: "Peña de Bernal tercer monolito más grande del mundo",
-    label: "Peña de Bernal"
-  }
+  { src: "/images/directorio/estacion-bomberos-queretaro-01.avif",              alt: "Centro Histórico de Querétaro Acueducto UNESCO 1996",                     label: "UNESCO 1996"        },
+  { src: "/images/directorio/rescate-montana-bomberos-01.avif",                 alt: "Peña de Bernal tercer monolito más grande del mundo",                     label: "Peña de Bernal"    },
 ];
 
 // Galería de imágenes
 const galleryImages = [
-  { src: "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif", alt: "Bahía de bomberos de Querétaro con ventanal panorámico", label: "Instalaciones Modernas" },
-  {
-    src: "/images/directorio/estacion-bomberos-selva-01.avif",
-    alt: "Misiones Franciscanas Sierra Gorda UNESCO 2003",
-    label: "Misiones UNESCO"
-  },
-  {
-    src: "/images/directorio/estacion-bomberos-moderna-01.avif",
-    alt: "Campus UNAM Juriquilla parques tecnológicos",
-    label: "Silicon Valley MX"
-  },
-  {
-    src: "/images/directorio/bomberos-profesionales-accion-01.avif",
-    alt: "Festival Internacional del Globo Tequisquiapan",
-    label: "Festival del Globo"
-  },
+  { src: "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",    alt: "Bahía de bomberos de Querétaro con ventanal panorámico",                label: "Instalaciones Modernas" },
+  { src: "/images/directorio/estacion-bomberos-selva-01.avif",             alt: "Misiones Franciscanas Sierra Gorda UNESCO 2003",                        label: "Misiones UNESCO"        },
+  { src: "/images/directorio/estacion-bomberos-moderna-01.avif",           alt: "Campus UNAM Juriquilla parques tecnológicos Querétaro",                 label: "Silicon Valley MX"      },
+  { src: "/images/directorio/bomberos-profesionales-accion-01.avif",       alt: "Festival Internacional del Globo Tequisquiapan Querétaro",              label: "Festival del Globo"     },
 ];
 
 // Números de emergencia Querétaro
 const emergencyNumbers = [
-  { number: "911", label: "Emergencias" },
-  { number: "(442) 212-3939", label: "Central Querétaro" },
-  { number: "(442) 221-7800", label: "HAZMAT Industrial" },
-  { number: "(427) 272-0066", label: "San Juan del Río" }
+  { number: "911",            label: "Emergencias"         },
+  { number: "(442) 212-3939", label: "Central Querétaro"   },
+  { number: "(442) 221-7800", label: "HAZMAT Industrial"   },
+  { number: "(427) 272-0066", label: "San Juan del Río"    },
 ];
 
 // Regiones de Querétaro
 const regiones = [
-  {
-    nombre: "Centro Histórico UNESCO",
-    desc: "Santiago de Querétaro, Acueducto 74 arcos, templos barrocos (UNESCO 1996)"
-  },
-  {
-    nombre: "Zona Aeroespacial Norte",
-    desc: "Bombardier, Safran, ITP Aero, Airbus - 200+ empresas, 40,000 empleos HAZMAT"
-  },
-  {
-    nombre: "Ruta del Vino y Queso",
-    desc: "Tequisquiapan, Bernal (Peña 350m), Ezequiel Montes - 35 viñedos"
-  },
-  {
-    nombre: "Sierra Gorda",
-    desc: "Jalpan Pueblo Mágico, Misiones UNESCO 2003, Reserva Biósfera 383,567 ha"
-  }
+  { nombre: "Centro Histórico UNESCO",    desc: "Santiago de Querétaro, Acueducto 74 arcos, templos barrocos (UNESCO 1996)" },
+  { nombre: "Zona Aeroespacial Norte",    desc: "Bombardier, Safran, ITP Aero, Airbus — 200+ empresas, HAZMAT 24/7"         },
+  { nombre: "Ruta del Vino y Queso",      desc: "Tequisquiapan, Bernal (Peña 350 m), Ezequiel Montes — 35 viñedos"          },
+  { nombre: "Sierra Gorda",               desc: "Jalpan Pueblo Mágico, Misiones UNESCO 2003, Reserva Biósfera 383,567 ha"   },
 ];
 
 // Tarjetas de equipamiento EPP
@@ -80,7 +54,7 @@ const eppCards = [
     imageAlt:  "Traje HAZMAT para industria aeroespacial en Querétaro",
     badge:     "Aeroespacial",
     title:     "HAZMAT Nivel A Aeroespacial",
-    text:      "Trajes encapsulados para emergencias en <strong>Bombardier, Safran y parque aeroespacial</strong>. Protección contra fluidos hidráulicos y combustibles de aviación.",
+    text:      "Trajes encapsulados para emergencias en <strong>Bombardier, Safran y parque aeroespacial</strong>. Protección contra fluidos hidráulicos, resinas epóxicas y combustibles de aviación.",
     href:      "/productos/trajes-para-bomberos/traje-hazmat/",
     linkLabel: "Ver Equipos HAZMAT",
   },
@@ -89,7 +63,7 @@ const eppCards = [
     imageAlt:  "Equipo de rescate vertical para Peña de Bernal Querétaro",
     badge:     "Rescate",
     title:     "Rescate Peña de Bernal",
-    text:      "Sistemas de rescate vertical y cuerdas técnicas para emergencias en la <strong>Peña de Bernal</strong> y Sierra Gorda. Arneses y dispositivos de descenso certificados.",
+    text:      "Sistemas de rescate vertical y cuerdas técnicas para emergencias en la <strong>Peña de Bernal</strong> y Sierra Gorda. Arneses y dispositivos de descenso certificados NFPA.",
     href:      "/productos/cascos-para-bomberos/",
     linkLabel: "Ver Equipo de Rescate",
   },
@@ -113,13 +87,45 @@ const eppCards = [
   },
 ];
 
-// Schema.org estructurado
+// ── Comparativa regional (4 zonas clave del estado) ─────────────────────────
+const zonas = [
+  {
+    nombre:    "Centro Histórico y Capital",
+    municipios: ["Santiago de Querétaro", "Corregidora", "Juriquilla"],
+    cobertura: "Total",
+    chip:      "total",
+    perfil:    "Centro Histórico (UNESCO 1996), acueducto de 74 arcos, crecimiento urbano acelerado.",
+  },
+  {
+    nombre:    "Zona Industrial Norte",
+    municipios: ["El Marqués", "Parque Aeroespacial", "Aeropuerto QRO"],
+    cobertura: "Alta",
+    chip:      "alta",
+    perfil:    "Clúster aeroespacial (Bombardier, Safran, ITP Aero), HAZMAT Nivel A, SSEI Cat. 8.",
+  },
+  {
+    nombre:    "Zona Industrial Sur",
+    municipios: ["San Juan del Río", "Pedro Escobedo"],
+    cobertura: "Alta",
+    chip:      "alta",
+    perfil:    "Mabe, Kellogg's, Tremec, Brembo — 22,000+ empleos, rescate carretero 57D.",
+  },
+  {
+    nombre:    "Sierra Gorda y Ruta del Vino",
+    municipios: ["Jalpan de Serra", "Tequisquiapan", "Bernal"],
+    cobertura: "Media",
+    chip:      "media",
+    perfil:    "Misiones UNESCO 2003, incendios forestales, rescate vertical Peña de Bernal.",
+  },
+];
+
+// ── Schemas estructurados ────────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de ${estacionesQueretaro.length} estaciones de bomberos en Querétaro. Hub aeroespacial #1 de México con HAZMAT especializado. 2 sitios UNESCO (Centro Histórico 1996, Misiones 2003). 4 Pueblos Mágicos.`,
-  numberOfItems: estacionesQueretaro.length,
+  description: `Directorio de ${totalEstaciones} estaciones de bomberos en Querétaro. Hub aeroespacial n.º 1 de México con HAZMAT especializado. 2 sitios UNESCO (Centro Histórico 1996, Misiones 2003). 4 Pueblos Mágicos. Cuerpo fundado en 1949. Emergencias: 911.`,
+  numberOfItems: totalEstaciones,
   itemListElement: estacionesQueretaro.map((e, i) => ({
     "@type": "ListItem",
     position: i + 1,
@@ -131,19 +137,100 @@ const itemListSchema = {
         streetAddress: e.direccion,
         addressLocality: e.municipiosCubiertos?.[0] || estado,
         addressRegion: estado,
-        addressCountry: "MX"
+        addressCountry: "MX",
       },
       telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
-    }
-  }))
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+    },
+  })),
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Querétaro",         url: "/directorio/queretaro/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Bomberos en Querétaro: estaciones, historia y servicios de emergencia",
+  description: "Guía del H. Cuerpo de Bomberos Voluntarios de Querétaro: historia (1949–hoy), infraestructura, HAZMAT aeroespacial, Sierra Gorda, Peña de Bernal y directorio de estaciones con teléfonos directos.",
+  about: [
+    "H. Cuerpo de Bomberos Voluntarios de Querétaro",
+    "Protección Civil Querétaro",
+    "HAZMAT aeroespacial",
+    "Rescate en montaña Sierra Gorda",
+  ],
+  inLanguage: "es-MX",
+  image: `https://bombero.mx/api/og/estado/${slug}.svg`,
+  author:    { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  publisher: { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+  mainEntityOfPage: canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  url: canonical,
+  name: `Estaciones de Bomberos en ${estado}`,
+  description: `Directorio verificado de ${totalEstaciones} estaciones de bomberos en Querétaro, con teléfonos, cobertura, funciones e historia del H. Cuerpo de Bomberos Voluntarios fundado en 1949.`,
+  inLanguage: "es-MX",
+  isPartOf: { "@type": "WebSite", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  about: { "@type": "GovernmentOrganization", name: "H. Cuerpo de Bomberos Voluntarios de Querétaro" },
+  primaryImageOfPage: `https://bombero.mx/api/og/estado/${slug}.svg`,
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Querétaro (≥10) ────────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Querétaro?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas en todo el estado. La Central del H. Cuerpo de Bomberos de Querétaro también atiende en <strong>(442) 212-3939</strong>. Para emergencias industriales en la zona aeroespacial de El Marqués: <strong>(442) 221-7800</strong>. En San Juan del Río: <strong>(427) 272-0066</strong>. En zonas con señal reducida de la Sierra Gorda, la coordinación pasa por radio y protección civil estatal.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de Querétaro?",
+    a: `El <strong>30 de agosto de 1949</strong> se firmó el acta constitutiva de <em>Previsión y Protección, S.C.</em>, organización civil que impulsó la creación del cuerpo. El <strong>30 de noviembre de 1949</strong> el H. Cuerpo de Bomberos Voluntarios de Querétaro entró formalmente en acción. La primera estación se ubicó en la calle Guerrero, en un antiguo cuartel del ejército, con tres unidades: una jeep Willis 1947, un carro tanque Chevrolet 1942 y una American La France 1958. La estación actual de la calle Zaragoza esquina Ocampo fue inaugurada el <strong>17 de mayo de 1963</strong>.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque conmemora la fundación del <strong>primer cuerpo de bomberos del país</strong>, el 22 de agosto de 1873 en el puerto de Veracruz. Cada año, en esa fecha, se reconoce la labor de los bomberos de toda la República, incluidos los del H. Cuerpo de Bomberos Voluntarios de Querétaro, fundado 76 años después.`,
+  },
+  {
+    q: "¿Los bomberos de Querétaro tienen capacidad HAZMAT para la industria aeroespacial?",
+    a: `Sí. La estación HAZMAT de El Marqués y la del Parque Aeroespacial cuentan con capacidad <strong>Nivel A</strong> para atender emergencias en las plantas de <strong>Bombardier, Safran, ITP Aero y las 200+ empresas</strong> del clúster aeroespacial. El protocolo incluye trajes encapsulados, aspiradores HEPA para fibra de carbono conductora, detectores de gases especializados y zona de descontaminación activa de 60 a 90 minutos posteriores al cierre del siniestro.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de Querétaro?",
+    a: `Combate de <strong>incendios</strong> estructurales, forestales y de pastizal; <strong>rescate vehicular</strong> y extricación en autopistas; <strong>atención prehospitalaria</strong>; <strong>búsqueda y rescate en altura</strong> (Peña de Bernal y Sierra Gorda); <strong>materiales peligrosos (HAZMAT)</strong> industriales y en tránsito; <strong>incendios forestales</strong> en la Reserva de la Biósfera; control de <strong>fugas de gas</strong>; <strong>rescate y extinción aeronáutica (SSEI)</strong> en el Aeropuerto Internacional; y prevención (inspecciones, simulacros y capacitación ciudadana).`,
+  },
+  {
+    q: "¿Hay bomberos especializados para rescate en la Peña de Bernal?",
+    a: `Sí. La estación de Bernal–Ezequiel Montes cuenta con equipo y personal certificado en <strong>rescate vertical</strong> para la Peña de Bernal (350 m de altura sobre la planicie), el tercer monolito más grande del mundo. Durante el equinoccio de primavera (tercera semana de marzo), cuando pueden concentrarse hasta <strong>500,000 visitantes en dos días</strong>, se implementa un pre-posicionamiento de unidad de rescate en el acceso noreste del monolito y coordinación de helipuerto provisional.`,
+  },
+  {
+    q: "¿Los bomberos cubren la Sierra Gorda y sus misiones UNESCO?",
+    a: `Sí. La estación de Jalpan de Serra cubre la <strong>Reserva de la Biósfera Sierra Gorda</strong> (383,567 hectáreas) y las cinco <strong>Misiones Franciscanas</strong> declaradas Patrimonio UNESCO en 2003 (Jalpan, Tilaco, Tancoyol, Landa y Concá). Trabajan con vehículo 4x4 ligero, coordinación con las brigadas de Pronatura Sierra Gorda para incendio forestal y el criterio INAH de no usar agua directa a presión sobre relieves polícromos de cantera.`,
+  },
+  {
+    q: "¿Los bomberos atienden emergencias en la autopista México-Querétaro 57D?",
+    a: `Sí. Las estaciones de San Juan del Río y la estación carretera 57D cuentan con <strong>rescate vehicular pesado</strong> y unidades HAZMAT para tránsito. La autopista registra más de 100,000 vehículos diarios y es uno de los corredores de mayor riesgo del país por la combinación de volumen de tráfico, materiales peligrosos en tránsito y zonas de curvas pronunciadas en la bajada de Palmillas.`,
+  },
+  {
+    q: "¿Qué cobertura tienen los bomberos en el Centro Histórico UNESCO de Querétaro?",
+    a: `La Estación Central cubre todo el <strong>Centro Histórico de Santiago de Querétaro</strong>, declarado Patrimonio de la Humanidad UNESCO en 1996. El protocolo de intervención en patrimonio impide el uso de agua directa a alta presión sobre el <strong>Acueducto de 74 arcos</strong> y los relieves de cantera de los templos barrocos. El equipo estructural de la estación incluye una escalera telescópica de 42 m para alcanzar cúpulas y torres en caso de incendio.`,
+  },
+  {
+    q: "¿Cómo opera el SSEI del Aeropuerto Internacional de Querétaro?",
+    a: `El Aeropuerto Internacional de Querétaro (QRO) cuenta con un <strong>Servicio de Salvamento y Extinción de Incendios (SSEI) Categoría 8 OACI</strong>, con capacidad para atender aeronaves de fuselaje ancho (A320, B737) con tiempo máximo de respuesta de <strong>3 minutos</strong> a cualquier punto de pista. Los hangares MRO adyacentes presentan riesgo combinado de materiales compuestos (fibra de carbono) y combustible Jet-A.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en Querétaro?",
+    a: `Revisa periódicamente instalaciones de <strong>gas y electricidad</strong>; evita sobrecargar contactos. Instala <strong>detectores de humo</strong> y mantén un extintor vigente. En zonas industriales o de la <strong>Ruta del Vino y Queso</strong>, respeta las restricciones de fogatas en temporada de estiaje (noviembre–mayo). En la Sierra Gorda, no inicies fuego en zonas de matorral en época seca. Define un <strong>plan de evacuación</strong> familiar y ten el <strong>911</strong> visible y accesible para todos.`,
+  },
+  {
+    q: "¿Los servicios de los bomberos de Querétaro tienen costo?",
+    a: `Las emergencias que comprometen la <strong>vida o la integridad</strong> de las personas —incendios, rescates, fugas de gas— se atienden de forma <strong>gratuita</strong>. El H. Cuerpo de Bomberos Voluntarios de Querétaro funciona con estructura mixta de financiamiento municipal y aportaciones voluntarias. La atención de emergencia nunca se condiciona a un pago. Algunos servicios secundarios (dictámenes, capacitación a empresas) pueden generar una cuota de recuperación.`,
+  },
+];
 
 // Imágenes para tarjetas de estaciones
 const stationImages = [
@@ -189,7 +276,8 @@ const stationImages = [
   "/images/directorio/autobomba-panel-bombeo-manometros-01.avif",
   "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
 ];
-// Estados vecinos (desde archivo centralizado)
+
+// Estados vecinos
 const estadosVecinos = getEstadosVecinos("queretaro");
 ---
 
@@ -197,103 +285,270 @@ const estadosVecinos = getEstadosVecinos("queretaro");
   estado={estado}
   sigla={sigla}
   slug={slug}
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Querétaro</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
-  heroImage="/images/directorio/estacion-bomberos-industrial-01.avif"
-  heroImageAlt="Estación de Bomberos en Querétaro"
-  heroCaption="H. Cuerpo de Bomberos · Querétaro"
-  totalEstaciones={estacionesQueretaro.length}
-  totalMunicipios={getMunicipios().length}
+  description={`Bomberos en Querétaro: ${totalEstaciones} estaciones, HAZMAT aeroespacial (Bombardier, Safran), 2 sitios UNESCO, Sierra Gorda y Peña de Bernal. Cuerpo fundado en 1949. Emergencias: 911.`}
+  keywords={[
+    "bomberos queretaro",
+    "estaciones bomberos queretaro",
+    "heroico cuerpo de bomberos queretaro",
+    "emergencias queretaro 911",
+    "bomberos zona industrial el marques",
+    "bomberos aeroespacial queretaro",
+    "hazmat queretaro bombardier safran",
+    "bomberos centro historico queretaro unesco",
+    "bomberos pena de bernal rescate vertical",
+    "bomberos sierra gorda misiones",
+    "bomberos san juan del rio queretaro",
+    "bomberos aeropuerto queretaro ssei",
+    "historia bomberos queretaro 1949",
+    "directorio bomberos queretaro",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
+
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
   habitantes="2.4M+"
-  canonical="https://bombero.mx/directorio/queretaro/"
-  keywords={["bomberos queretaro", "estaciones bomberos queretaro", "emergencias queretaro 911", "cuerpo bomberos queretaro"]}
+
+  heroDesc={`El <strong>H. Cuerpo de Bomberos Voluntarios de Querétaro</strong> —fundado el <strong>30 de noviembre de 1949</strong> y con estación central desde <strong>1963</strong>— protege el estado donde una emergencia industrial puede ser más peligrosa después de apagar el fuego que durante el incendio. Con <strong>${totalEstaciones} estaciones</strong> cubre el <strong>Centro Histórico UNESCO</strong>, el <strong>clúster aeroespacial más importante de México</strong> (Bombardier, Safran, ITP Aero), la <strong>Sierra Gorda</strong> (Reserva de la Biósfera + Misiones UNESCO 2003), la <strong>Peña de Bernal</strong> y la autopista 57D.`}
+  heroImage="/images/directorio/estacion-bomberos-industrial-01.avif"
+  heroImageAlt="Estación de Bomberos en Querétaro — H. Cuerpo de Bomberos Voluntarios fundado 1949"
+  heroCaption="H. Cuerpo de Bomberos Voluntarios · Querétaro · Fundado 1949"
+  heroThumbs={heroThumbs}
+
+  galleryImages={galleryImages}
+
+  emergencyNumbers={emergencyNumbers}
+
+  municipios={municipios}
+
+  regiones={regiones}
+
+  estadosVecinos={estadosVecinos}
+
   estaciones={estacionesQueretaro}
   stationImages={stationImages}
-  municipios={getMunicipios()}
-  estadosVecinos={estadosVecinos}
-  heroThumbs={heroThumbs}
-  galleryImages={galleryImages}
-  emergencyNumbers={emergencyNumbers}
-  regiones={regiones}
+
   eppCards={eppCards}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesQueretaro.length} estaciones en Querétaro — fibra de carbono Bombardier y Airbus HAZMAT, Sierra Gorda UNESCO, Peña de Bernal 500K equinoccio y SSEI Cat8. Emergencias: 911.`}
+
+  ctaTitle="Equipamos al H. Cuerpo de Bomberos Voluntarios de Querétaro"
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones del cuerpo de bomberos de Querétaro: HAZMAT Nivel A para clúster aeroespacial, rescate vertical Sierra Gorda/Bernal, trajes estructurales y herramienta de extricación carretera. Atención en Querétaro.`}
+  ctaBtnText="Solicitar Cotización — Querétaro"
+
+  faqsEstado={faqsEstado}
 >
+
   <Fragment slot="seo">
 
-      <h2>Bomberos de Querétaro — Cuando la Emergencia No Termina al Apagar el Fuego: Fibra de Carbono, Kevlar y el Clúster Aeroespacial</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Querétaro</strong> opera en el único estado de México donde
-        una emergencia industrial puede ser más peligrosa después de la extinción que durante el incendio.
-        Las 200+ empresas del clúster aeroespacial de El Marqués y Aeropuerto fabrican piezas de aeronaves
-        con fibra de carbono y Kevlar — materiales compuestos que al quemarse liberan fragmentos conductores
-        y cianuro de hidrógeno que los filtros P100 convencionales de SCBA no capturan. La fase de
-        decontaminación post-fuego en una planta de composites puede requerir más tiempo y más equipamiento
-        especializado que la supresión misma. Sobre ese territorio también descansan dos sitios Patrimonio
-        UNESCO, la Peña de Bernal con 500,000 visitantes en un solo fin de semana de equinoccio, y las
-        cinco misiones de la Sierra Gorda a las que no llega ningún autotanque.
-      </p>
+    <h2>Bomberos en Querétaro</h2>
 
-      <h3>¿Cómo llamar a los Bomberos de Querétaro?</h3>
-      <p>
-        El número único de emergencias en todo el estado es <strong>911</strong>. La estación HAZMAT de
-        El Marqués tiene protocolo de activación inmediata con las brigadas internas de Bombardier, Safran
-        e ITP Aero; el aeropuerto opera SSEI propio con categoría 8 OACI, independiente del despacho
-        municipal. En la Sierra Gorda, la estación de Jalpan de Serra coordina con protección civil estatal
-        para emergencias en la Reserva de la Biósfera, donde la cobertura celular en cañadas interiores
-        es inexistente y la comunicación pasa por radio o por mensajeros comunitarios.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Querétaro">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1949</span><span class="de-stat__label">Año de fundación</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en el directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">200+</span><span class="de-stat__label">Empresas aeroespaciales</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2</span><span class="de-stat__label">Sitios UNESCO cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">383 K ha</span><span class="de-stat__label">Reserva Sierra Gorda</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2.4 M</span><span class="de-stat__label">Habitantes</span></div>
+    </div>
 
-      <h3>Fibra de Carbono y Kevlar — El Riesgo que Crece Cuando el Fuego Se Apaga</h3>
-      <p>
-        La fibra de carbono que usan Bombardier, Safran y Airbus para fabricar fuselajes, palas de turbina
-        y estructuras de helicóptero libera, al combustionarse, fragmentos de entre 3 y 10 micrómetros que
-        son eléctricamente conductores — capaces de provocar cortocircuitos en equipos electrónicos a metros
-        de distancia y catalogados como posible carcinógeno por la IARC. El Kevlar de estructuras de seguridad
-        produce cianuro de hidrógeno (HCN) con TLV-C de 4.7 ppm. Los cartuchos P100 de SCBA convencional
-        no están certificados para ninguno de los dos. Los bomberos de El Marqués trabajan con trajes de
-        decontaminación de dos piezas, aspiradores HEPA específicos para fibra conductora y un protocolo
-        de zona de exclusión que se mantiene activo entre 60 y 90 minutos después del último chorro de
-        agua — tiempo durante el cual los fragmentos siguen circulando en el aire.
-      </p>
+    <p class="de-lead">
+      El <strong>H. Cuerpo de Bomberos Voluntarios de Querétaro</strong> opera en el único estado de
+      México donde una emergencia industrial puede ser más peligrosa después de apagar el fuego que
+      durante el incendio. Las 200+ empresas del clúster aeroespacial de El Marqués fabrican piezas
+      de aeronave con <strong>fibra de carbono y Kevlar</strong> que al arder liberan fragmentos conductores
+      y cianuro de hidrógeno que los filtros P100 convencionales de SCBA no capturan. Sobre ese mismo
+      territorio se asientan dos Patrimonios de la Humanidad, la Peña de Bernal con medio millón de
+      visitantes en un fin de semana de equinoccio, y la Sierra Gorda, donde no llega ningún autotanque.
+    </p>
 
-      <h3>Misiones de la Sierra Gorda UNESCO 2003 — Cinco Sitios a los que No Llega el Autotanque</h3>
-      <p>
-        Las cinco Misiones Franciscanas del siglo XVIII en Jalpan, Tilaco, Tancoyol, Landa y Concá fueron
-        declaradas Patrimonio UNESCO en 2003 por su arquitectura barroca mestiza única. Están distribuidas
-        en 383,567 hectáreas de la Reserva de la Biósfera Sierra Gorda, en rutas de terracería que en
-        temporada de lluvias son intransitables para vehículos de más de 3 toneladas. Un autotanque de
-        extinción no llega a ninguna de las cinco. El protocolo para incendio en zona misional combina
-        vehículo ligero 4x4 desde Jalpan, coordinación con las brigadas de Pronatura Sierra Gorda para
-        incendio forestal perimetral, y el criterio INAH de no usar agua directa sobre los relieves
-        polícromos del exterior — la misma restricción de presión que aplica en todos los patrimonios
-        de cantera, pero en un lugar donde el caudal disponible ya es el mínimo posible.
-      </p>
+    <h3>Cómo contactar a los bomberos en Querétaro</h3>
+    <p>
+      El número único de emergencias en todo el estado es el <strong>911</strong>. La Central del H.
+      Cuerpo de Bomberos atiende también en <strong>(442) 212-3939</strong>. La estación HAZMAT de El
+      Marqués cuenta con protocolo de activación inmediata con las brigadas internas de Bombardier,
+      Safran e ITP Aero: <strong>(442) 221-7800</strong>. En San Juan del Río: <strong>(427) 272-0066</strong>.
+      El aeropuerto opera SSEI propio con categoría 8 OACI, independiente del despacho municipal, con
+      tiempo de respuesta máximo de 3 minutos a cualquier punto de pista. En la Sierra Gorda, la
+      cobertura celular en cañadas interiores es inexistente y la comunicación pasa por radio o
+      coordinación con protección civil estatal desde Jalpan de Serra. Encuentra todos los datos en el
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Peña de Bernal en Equinoccio — 500,000 Personas, una Sola Vía de Acceso y Rescate Vertical</h3>
-      <p>
-        La Peña de Bernal es el tercer monolito más grande del mundo con 350 metros sobre la planicie.
-        En condiciones normales recibe 800,000 visitantes al año; en el fin de semana del equinoccio de
-        primavera (tercera semana de marzo) ese número se concentra en dos días, con el único acceso
-        vehicular al Pueblo Mágico saturado desde las 5 a.m. Una emergencia médica o de rescate en
-        la cara norte de la peña — a más de 200 metros de altura, en roca de riolita con pendientes de
-        70 a 90 grados — requiere acceso por cuerda antes de que llegue el primer vehículo. Los tiempos
-        de evacuación de la calle principal en equinoccio superan los 90 minutos; el protocolo incluye
-        pre-posicionamiento de unidad de rescate vertical en el acceso noreste del monolito los tres
-        días previos al equinoccio, con coordinación anticipada de helipuerto provisional en el ejido.
-      </p>
+    <h3>Historia del H. Cuerpo de Bomberos Voluntarios de Querétaro</h3>
+    <p>
+      El cuerpo de bomberos del estado nació por iniciativa civil en la posguerra y lleva más de siete
+      décadas creciendo junto con una de las entidades de mayor expansión industrial del país. Estos
+      son los hitos verificados de su historia:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México, fecha que se conmemora cada año como el <strong>Día del Bombero</strong>.</li>
+      <li><span class="de-tl__year">1949</span> El <strong>30 de agosto</strong> un grupo de empresarios queretanos firma el acta constitutiva de <em>Previsión y Protección, S.C.</em>, sociedad civil impulsora del cuerpo, con apoyo del Gobernador interino Eduardo Luque Loyola.</li>
+      <li><span class="de-tl__year">1949</span> El <strong>30 de noviembre</strong> el H. Cuerpo de Bomberos Voluntarios de Querétaro entra formalmente en acción. La primera estación se instala en un cuartel de la calle Guerrero con tres unidades: jeep Willis 1947, carro tanque Chevrolet 1942 y American La France 1958.</li>
+      <li><span class="de-tl__year">1962</span> Se coloca la primera piedra de la nueva estación en Zaragoza esquina con Ocampo, en el Centro Histórico.</li>
+      <li><span class="de-tl__year">1963</span> El <strong>17 de mayo</strong> se inaugura la estación de <strong>Zaragoza y Ocampo</strong>, que sigue siendo la sede central del cuerpo.</li>
+      <li><span class="de-tl__year">1988</span> Se abre la Estación 2 en Ampliación Jurica, respondiendo al crecimiento urbano hacia el norte de la capital.</li>
+      <li><span class="de-tl__year">1996</span> La UNESCO declara el <strong>Centro Histórico de Querétaro</strong> Patrimonio de la Humanidad — el cuerpo adapta sus protocolos para la protección del acueducto y los templos coloniales.</li>
+      <li><span class="de-tl__year">2003</span> La UNESCO reconoce las <strong>cinco Misiones Franciscanas de la Sierra Gorda</strong> como Patrimonio de la Humanidad.</li>
+      <li><span class="de-tl__year">2005</span> Se inaugura la Estación 4 en Col. Ecológica; el clúster aeroespacial de El Marqués impulsa la creación de unidades HAZMAT especializadas.</li>
+      <li><span class="de-tl__year">2016</span> Se abre la Estación 5, consolidando la cobertura metropolitana conforme Querétaro supera los dos millones de habitantes.</li>
+      <li><span class="de-tl__year">Hoy</span> El directorio registra <strong>{totalEstaciones} estaciones</strong> en todo el estado, con capacidad HAZMAT Nivel A, SSEI Cat. 8 en el aeropuerto y brigadas de rescate vertical para la Peña de Bernal y la Sierra Gorda.</li>
+    </ul>
 
-      <h3>Aeropuerto Internacional de Querétaro — SSEI Categoría 8 y Hangares MRO de Composites</h3>
-      <p>
-        El aeropuerto opera SSEI propio con categoría 8 OACI, capaz de atender aeronaves de fuselaje ancho
-        como el Airbus A320 y Boeing 737 con tiempo de respuesta máximo de 3 minutos a cualquier punto de
-        pista. Los hangares MRO adyacentes presentan el mismo riesgo de composites que las plantas de
-        fabricación, con la variante de que las aeronaves en mantenimiento pueden tener tanques de
-        combustible Jet-A parcialmente llenos durante operaciones de reparación de estructura — lo que
-        combina el riesgo de fibra de carbono con el riesgo de líquido inflamable clase B en el mismo
-        espacio. La brigada SSEI tiene protocolos diferenciados para incendio en pista, en hangar de
-        composites y en hangar de combustible, con sistemas de espuma AR-AFFF fija en los tres sectores.
-      </p>
-    </Fragment>
+    <h3>Infraestructura de emergencia en Querétaro</h3>
+    <p>
+      La cobertura del cuerpo se organiza en cuatro grandes zonas, cada una con un perfil de riesgo
+      distinto. El centro concentra la mayor densidad histórica y patrimonial; la zona norte alberga
+      el clúster aeroespacial más importante del país; el sur reúne la industria de manufactura y el
+      corredor de la autopista 57D; y la Sierra Gorda y la Ruta del Vino combinan incendios forestales
+      con rescate técnico en alturas. Esta es la distribución de la cobertura por región:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios / zonas atendidas</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      El H. Cuerpo de Bomberos Voluntarios de Querétaro es un servicio de emergencia integral. Su
+      trabajo cubre desde el incendio estructural en el Centro Histórico hasta la evacuación de
+      una aeronave en pista o el rescate de un escalador a 300 metros de altura:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Incendios estructurales</h4><p>Edificios históricos de cantera, naves industriales, plazas comerciales y fraccionamientos residenciales de alto crecimiento.</p></div>
+      <div class="de-card"><h4>HAZMAT industrial</h4><p>Respuesta Nivel A en el clúster aeroespacial: materiales compuestos, resinas epóxicas, combustibles de aviación y químicos industriales.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación con herramienta hidráulica en la autopista 57D (100,000+ veh./día) y el periférico de la capital.</p></div>
+      <div class="de-card"><h4>Rescate en altura</h4><p>Técnicas de cuerda en la Peña de Bernal (350 m), cañones de la Sierra Gorda y emergencias en estructuras verticales.</p></div>
+      <div class="de-card"><h4>Incendios forestales</h4><p>Brigadas forestales en la Reserva de la Biósfera Sierra Gorda (383,567 ha) en coordinación con Pronatura y protección civil.</p></div>
+      <div class="de-card"><h4>Prevención y protección civil</h4><p>Inspecciones, dictámenes de riesgo, simulacros en empresas aeroespaciales y capacitación ciudadana.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>HAZMAT Nivel A aeroespacial</strong></td><td>24/7</td><td>El Marqués y Parque Aeroespacial</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate en altura / técnico</strong></td><td>24/7</td><td>Bernal, Jalpan, Central</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Jalpan de Serra, Sierra Gorda</td></tr>
+          <tr><td><strong>SSEI aeronáutico Categoría 8</strong></td><td>24/7</td><td>Aeropuerto Internacional QRO</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>HAZMAT en tránsito (57D)</strong></td><td>24/7</td><td>Est. Carretero 57D y San Juan del Río</td></tr>
+          <tr><td><strong>Protección patrimonio UNESCO</strong></td><td>24/7</td><td>Estación Central (Centro Histórico)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Corredor industrial y aeroespacial: el riesgo que crece cuando el fuego se apaga</h3>
+    <p>
+      La fibra de carbono que usan Bombardier, Safran y Airbus para fabricar fuselajes, palas de turbina
+      y estructuras de helicóptero libera, al combustionarse, <strong>fragmentos de entre 3 y 10 micrómetros
+      eléctricamente conductores</strong> —capaces de provocar cortocircuitos en equipos electrónicos a metros
+      de distancia y catalogados como posible carcinógeno por la IARC. El Kevlar de estructuras de
+      seguridad produce <strong>cianuro de hidrógeno (HCN)</strong> con TLV-C de 4.7 ppm. Los cartuchos
+      P100 de SCBA convencional no están certificados para ninguno de los dos. Los bomberos de El Marqués
+      trabajan con trajes de descontaminación de dos piezas, aspiradores HEPA específicos para fibra
+      conductora y un protocolo de zona de exclusión que se mantiene activo entre 60 y 90 minutos
+      después del último chorro de agua.
+    </p>
+    <p>
+      El crecimiento urbano acelerado añade una capa adicional de riesgo: Querétaro es uno de los estados
+      de mayor expansión demográfica de México, con nuevos fraccionamientos que avanzan sobre los límites
+      del corredor industrial de El Marqués y el municipio de Corregidora. La distancia entre una nave
+      industrial con material compuesto y una zona residencial AAA se mide a veces en cientos de metros,
+      lo que convierte la gestión de la zona de exclusión en una variable crítica en cada incidente.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos del
+      cuerpo de bomberos entre las grandes zonas del estado. Las cifras corresponden a la información
+      publicada en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Zonas clave</th><th>Cobertura</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td colspan="3">{totalEstaciones} estaciones · {totalMunicipios} zonas cubiertas · estado de Querétaro</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Querétaro</h3>
+    <p>
+      El primer reto es la <strong>brecha entre la velocidad del crecimiento industrial y la capacidad
+      instalada</strong>. El clúster aeroespacial de Querétaro crece a un ritmo aproximado del 12% anual
+      según datos del sector; la incorporación de nuevas empresas con materiales de riesgo no siempre
+      va acompañada de brigadas internas o acuerdos formales de respuesta con el cuerpo de bomberos.
+      La capacitación continua en materiales específicos —cada nueva aleación, cada nueva resina de
+      composite— representa un costo real que depende en parte del financiamiento de la propia industria.
+    </p>
+    <p>
+      El segundo reto es <strong>la extensión territorial de la Sierra Gorda</strong>. Las 383,567 hectáreas
+      de la Reserva de la Biósfera se cubren en gran medida desde una sola estación en Jalpan de Serra.
+      En temporada de incendios forestales (noviembre–mayo), un frente de fuego en los cañones interiores
+      puede requerir horas de desplazamiento y comunicación por radio ante la ausencia de señal celular.
+      La coordinación con las brigadas comunitarias de Pronatura Sierra Gorda y la protección civil
+      estatal es estructural, no optativa, para cubrir ese territorio.
+    </p>
+
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad en Querétaro</h3>
+    <p>
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones básicas que
+      el H. Cuerpo de Bomberos y protección civil de Querétaro trasladan a la población:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas:</strong> revisa mangueras, reguladores y conexiones; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble antes de llamar al 911.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos y "diablitos"; atiende cualquier olor a quemado o calentamiento de cables, especialmente en instalaciones antiguas del Centro Histórico.</li>
+        <li><strong>Detección:</strong> instala detectores de humo y ten un extintor vigente y accesible en cocina y zonas de riesgo.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión; practícalo con tu familia o vecinos.</li>
+        <li><strong>Zonas forestales:</strong> en la Sierra Gorda y áreas periurbanas, no inicies fogatas en temporada de estiaje (noviembre–mayo) y reporta cualquier columna de humo al 911.</li>
+        <li><strong>Eventos masivos:</strong> en el equinoccio de la Peña de Bernal o la Feria del Queso y Vino de Tequisquiapan, identifica las salidas de emergencia y sigue las instrucciones de protección civil.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: H. Cuerpo de Bomberos Voluntarios de Querétaro — bomberosqueretaro.com (historia, hitos
+      1949–2016); Municipio de Querétaro — municipiodequeretaro.gob.mx; UNESCO, «Centro Histórico de
+      Querétaro» (1996) y «Misiones Franciscanas de la Sierra Gorda de Querétaro» (2003); Comisión
+      Nacional de Áreas Naturales Protegidas (CONANP), Reserva de la Biósfera Sierra Gorda (383,567 ha);
+      Aeropuerto Internacional de Querétaro — categoría SSEI 8 OACI; IARC, clasificación de fibras de
+      carbono como posible carcinógeno; Secretaría de Desarrollo Sustentable del Estado de Querétaro,
+      estadísticas del clúster aeroespacial. Las cifras de estaciones corresponden al directorio
+      publicado en esta página; los datos de personal son referenciales por estación.
+      Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
+  </Fragment>
 </DirectorioEstadoLayout>
-

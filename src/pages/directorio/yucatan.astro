@@ -4,97 +4,181 @@ import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import {
   estacionesYucatan,
   getMunicipios,
-  getEstacionBySlug,
-  getEstacionesCercanas,
 } from "@data/estaciones-yucatan";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
-const estado = "Yucatán";
-const sigla = "YUC";
-const slug = "yucatan";
+const estadosVecinos = getEstadosVecinos("yucatan");
 
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const totalEstaciones = estacionesYucatan.length;
+const totalMunicipios = getMunicipios().length;
+const totalBomberos   = estacionesYucatan.reduce((sum, e) => sum + (e.personalActivo ?? e.personal ?? 0), 0);
+const totalUnidades   = estacionesYucatan.reduce((sum, e) => sum + (e.unidades ?? 0), 0);
 
-const heroThumbs = [
-  { src: "/images/directorio/estacion-bomberos-turistica-01.avif", alt: "Cuartel Central de Bomberos de Mérida Yucatán", label: "Respuesta Rápida" },
-  { src: "/images/directorio/gimnasio-estacion-bomberos-entrenamiento-fuerza-01.avif", alt: "Zona de fuerza en gimnasio de bomberos de Yucatán", label: "Acondicionamiento Físico" },
-  { src: "/images/directorio/estacion-bomberos-playa-01.avif", alt: "Bomberos Chichén Itzá protección patrimonio", label: "Servicio 24/7" },
-];
+const canonical = "https://bombero.mx/directorio/yucatan/";
 
-
-const galleryImages = [
-  { src: "/images/directorio/equipo-buceo-rescate-01.avif", alt: "Rescate acuático en cenotes Yucatán",
-    label: "Rescate acuático en cenotes Yucatán"
-  },
-  { src: "/images/directorio/autobomba-panel-bombeo-manometros-01.avif", alt: "Panel de bombeo con manómetros en autobomba de Yucatán", label: "Panel de Bombeo" },
-  { src: "/images/directorio/estacion-bomberos-equipada-01.avif", alt: "Emergencias Centro Histórico Mérida",
-    label: "Emergencias Centro Histórico Mérida"
-  },
-  { src: "/images/directorio/estacion-bomberos-puerto-01.avif", alt: "Emergencias Puerto Progreso cruceros",
-    label: "Emergencias Puerto Progreso cruceros"
-  },
-];
-
-
-const emergencyNumbers = [
-  { label: "Emergencias", number: "911" },
-  { label: "Cuartel Central Mérida", number: "999 924 9242" },
-  { label: "Bomberos Norte Mérida", number: "999 944 1155" },
-  { label: "Bomberos Progreso", number: "969 935 0909" },
-  { label: "Bomberos Valladolid", number: "985 856 2121" },
-  { label: "Protección Civil Yucatán", number: "999 930 3200" },
-];
-
-
-const regiones = [
-  { nombre: "Zona Metropolitana de Mérida", desc: "Mérida capital (1.2M hab.), Umán, Kanasín, Progreso — ciudad más segura de México, Centro Histórico colonial" },
-  { nombre: "Corredor Chichén Itzá", desc: "Chichén Itzá (Maravilla del Mundo), Valladolid (Pueblo Mágico), Pisté — 2.5 millones de visitantes/año" },
-  { nombre: "Costa Norte / Puerto Progreso", desc: "Progreso (cruceros 500,000 pax/año), Chicxulub, Telchac — rescate marítimo, huracanes" },
-  { nombre: "Ruta Puuc UNESCO", desc: "Uxmal, Kabah, Labná, Sayil — ciudades mayas del Clásico Terminal, selva baja" },
-  { nombre: "Reservas Biósfera", desc: "Celestún (flamencos UNESCO/RAMSAR), Ría Lagartos, Las Coloradas — incendios forestales, manglares" },
-  { nombre: "Oriente / Zona Maya", desc: "Tizimín, Izamal (Pueblo Mágico), Motul — agroindustria, cenotes ceremoniales" },
-];
-
-
-const eppCards = [
+// ── Comparativa regional ───────────────────────────────────────────────────
+const zonasDef = [
   {
-    image:     "/images/directorio/equipo-buceo-rescate-01.avif",
-    imageAlt:  "Equipo de buceo para rescate en cenotes de Yucatán",
-    badge:     "Cenotes",
-    title:     "Rescate en Cenotes",
-    text:      "Equipamiento de buceo técnico para rescate en los <strong>miles de cenotes de la Península</strong>. Equipo de inmersión con comunicación y sistemas de iluminación subacuática.",
-    href:      "/productos/cascos-para-bomberos/",
-    linkLabel: "Ver Equipo de Buceo",
+    nombre: "Zona Metropolitana de Mérida",
+    municipios: ["Mérida", "Kanasín", "Umán"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital (1.2M hab.), Centro Histórico colonial, corredor industrial, aeropuerto internacional y zona hospitalaria del sureste.",
   },
   {
-    image:     "/images/directorio/equipo-rescate-vertical-01.avif",
-    imageAlt:  "Equipo de rescate para zonas arqueológicas de Yucatán",
-    badge:     "UNESCO",
-    title:     "Patrimonio UNESCO",
-    text:      "Equipo técnico para protección de <strong>Chichén Itzá, Uxmal</strong> y zonas arqueológicas mayas. Sistemas de rescate vertical y equipo de aproximación no invasivo.",
-    href:      "/productos/cascos-para-bomberos/",
-    linkLabel: "Ver Equipo de Rescate",
+    nombre: "Costa Norte / Puerto Progreso",
+    municipios: ["Progreso", "Río Lagartos"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Muelle de 6.5 km (uno de los más largos del continente), cruceros internacionales, Reserva Biósfera Ría Lagartos (RAMSAR) y Las Coloradas.",
   },
   {
-    image:     "/images/directorio/traje-inmersion-rescate-01.avif",
-    imageAlt:  "Equipo de rescate acuático para Puerto Progreso Yucatán",
-    badge:     "Puerto",
-    title:     "Puerto Cruceros",
-    text:      "Equipo de rescate marítimo para el <strong>Puerto de Progreso</strong> y terminal de cruceros. Lanchas de rescate y equipo de emergencia para embarcaciones turísticas.",
-    href:      "/productos/trajes-para-bomberos/",
-    linkLabel: "Ver Equipo Acuático",
+    nombre: "Corredor Chichén Itzá / Oriente",
+    municipios: ["Tinum", "Valladolid", "Tizimín"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Chichén Itzá (2.5M visitantes/año), Valladolid (Pueblo Mágico), cenotes del oriente, corredor Mérida-Cancún.",
   },
   {
-    image:     "/images/accion/bomberos-accion-incendio-estructural.avif",
-    imageAlt:  "Equipo forestal para reservas naturales de Yucatán",
-    badge:     "Biósfera",
-    title:     "Reservas Biósfera",
-    text:      "Equipo forestal para protección de <strong>Reserva de la Biósfera Ría Celestún y Ría Lagartos</strong>. Trajes ligeros NFPA 1977 para incendios en humedales tropicales.",
-    href:      "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
-    linkLabel: "Ver Equipo Forestal",
+    nombre: "Ruta Puuc / Sur",
+    municipios: ["Ticul", "Oxkutzcab", "Tekax"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Uxmal UNESCO, Kabah, Sayil, Labná; selva baja caducifolia y municipio más extenso del estado (Tekax).",
+  },
+  {
+    nombre: "Reservas Biósfera / Costa Oeste",
+    municipios: ["Celestún", "Izamal", "Motul"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Reserva Biósfera Ría Celestún (UNESCO/RAMSAR), humedales de manglar, Izamal Pueblo Mágico y corredor norte Mérida-Tizimín.",
   },
 ];
 
+const zonas = zonasDef.map((z) => {
+  const est = estacionesYucatan.filter((e) => z.municipios.includes(e.municipio ?? ""));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Estaciones de Bomberos en Yucatán",
+  "description": `Directorio de las ${totalEstaciones} estaciones del Heroico Cuerpo de Bomberos de Yucatán. Fundado en Mérida el 14 de agosto de 1948 (Decreto 223). Rescate espeleoacuático en cenotes, protección de Chichén Itzá y Uxmal (UNESCO), huracanes, Puerto Progreso y reservas biósfera. Emergencias: 911.`,
+  "numberOfItems": estacionesYucatan.length,
+  "itemListElement": estacionesYucatan.map((e, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "item": {
+      "@type": "FireStation",
+      "name": e.nombre,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": e.direccion,
+        "addressLocality": e.municipio,
+        "addressRegion": "Yucatán",
+        "addressCountry": "MX",
+      },
+      "telephone": e.telefono,
+      "url": `https://bombero.mx/directorio/yucatan/${e.slug}`,
+    }
+  }))
+};
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Yucatán: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Cuerpo de Bomberos de Yucatán: historia (1948–hoy), infraestructura en Mérida y el estado, rescate en cenotes, huracanes Gilberto e Isidoro, Chichén Itzá UNESCO, Puerto Progreso y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Cuerpo de Bomberos del Municipio de Mérida",
+    "Protección Civil Yucatán",
+    "Rescate espeleoacuático en cenotes",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/yucatan.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Yucatán",
+  "description": `Directorio verificado de estaciones de bomberos en Yucatán, con teléfonos, cobertura, funciones e historia del Cuerpo de Bomberos fundado en Mérida en 1948.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Cuerpo de Bomberos del Municipio de Mérida, Yucatán" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/yucatan.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Yucatán (≥10) ─────────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Yucatán?",
+    a: `Marca el <strong>911</strong> desde cualquier teléfono en Yucatán, las 24 horas del día, para bomberos, rescate o ambulancia. El sistema enruta la llamada a la unidad más cercana según tu ubicación. El Cuartel Central de Mérida tiene también el teléfono directo <strong>999 924 9242</strong>; Progreso: <strong>969 935 0071</strong>; Valladolid: <strong>985 856 2023</strong>. En zonas rurales y comunidades mayas alejadas, el 911 sigue siendo el canal más confiable.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Mérida, Yucatán?",
+    a: `El Cuerpo de Bomberos del Municipio de Mérida fue creado formalmente mediante el <strong>Decreto Número 223</strong>, publicado en el Diario Oficial del Estado de Yucatán el <strong>14 de agosto de 1948</strong>, bajo el gobierno del profesor José González Beytia. La ley lo define como una institución de servicio público cuyo objetivo es prevenir y extinguir incendios, y proteger vidas ante cualquier desastre. Cada <strong>22 de agosto</strong> se conmemora el Día del Bombero en México, fecha en que se fundó en 1873 el primer cuerpo de bomberos del país, en Veracruz.`,
+  },
+  {
+    q: "¿Por qué el rescate en cenotes es una especialidad única de los bomberos de Yucatán?",
+    a: `Yucatán tiene más de <strong>6,000 cenotes catalogados</strong> —pozas naturales de acceso al acuífero kárstico subterráneo— con profundidades de entre 5 y más de 40 metros y extensas galerías inundadas. Cuando un buceador o turista queda atrapado en estos sistemas, el rescate requiere <strong>buceo espeleoacuático</strong> (buceo en cuevas inundadas) con equipamiento técnico y protocolos de seguridad distintos al rescate acuático convencional. En 2025, Yucatán graduó a los <strong>primeros buzos espeleosocorristas de México</strong>, un equipo integrado a la red de rescate de Protección Civil y los cuerpos de bomberos estatales. La estación de Valladolid opera el único servicio con certificación en rescate espeleoacuático del sureste de México.`,
+  },
+  {
+    q: "¿Qué fue el huracán Gilberto y cómo afectó a Yucatán?",
+    a: `El huracán Gilberto tocó tierra en la Península de Yucatán el <strong>14 de septiembre de 1988</strong> como categoría 5, con vientos sostenidos de hasta <strong>287 km/h</strong>. Aunque el ojo no atravesó directamente Mérida, la capital experimentó vientos de hasta 152 km/h. El saldo en Yucatán incluyó decenas de miles de damnificados, 35,000 personas sin hogar en la península, 83 barcos hundidos y semanas sin electricidad ni agua potable. Gilberto representa hasta hoy el punto de referencia de la planificación de emergencias ante huracanes en el estado.`,
+  },
+  {
+    q: "¿Qué fue el huracán Isidoro y qué lecciones dejó para los bomberos de Yucatán?",
+    a: `El huracán Isidoro impactó la costa norte de Yucatán el <strong>22 de septiembre de 2002</strong>, tocando tierra en Telchac Puerto (a 45 km al este de Progreso) como categoría 3, con vientos de <strong>205 km/h</strong> y rachas de 250 km/h. El ciclón permaneció sobre la península durante más de 30 horas, dejando <strong>500,000 damnificados, 15,000 viviendas dañadas y 85 municipios en estado de desastre</strong>. Los servicios básicos tardaron hasta un mes en restablecerse en algunas comunidades. Isidoro fue el catalizador que modernizó los protocolos de coordinación entre bomberos, Protección Civil y SEMAR para la respuesta a huracanes en el sureste de México.`,
+  },
+  {
+    q: "¿Por qué el calor extremo es un riesgo de emergencia en Yucatán?",
+    a: `Mérida es una de las ciudades más cálidas de México: las temperaturas entre abril y mayo superan frecuentemente los <strong>40°C</strong>, con sensación térmica que puede alcanzar los <strong>45°C</strong> por el efecto de "isla de calor" urbana, que eleva la temperatura entre 3 y 5 grados más que el campo circundante. Estudios internacionales de 2026 han colocado a Mérida dentro del mapa mundial de ciudades con mayor exposición a riesgo por calor extremo. Para los bomberos, esto significa atención frecuente a golpes de calor en turistas, trabajadores y adultos mayores, además de mayores riesgos de incendio en época seca. Llamar al <strong>911</strong> ante síntomas de insolación grave.`,
+  },
+  {
+    q: "¿Cómo protegen los bomberos yucatecos a Chichén Itzá y Uxmal durante eventos masivos?",
+    a: `Chichén Itzá recibe más de <strong>2.5 millones de visitantes al año</strong> y concentra hasta <strong>40,000 personas en un solo día</strong> durante los equinoccios de primavera y otoño. La unidad de bomberos de Tinum mantiene protocolos de evacuación masiva coordinados con el INAH para esos eventos. Un factor crítico es que el sitio tiene una sola vía principal de acceso, lo que exige planificación específica de flujo ante emergencias. Los bomberos aplican técnica de <strong>niebla de baja presión</strong> para cualquier incendio en zona arqueológica, a fin de no dañar la caliza original de las estructuras. La estación de Ticul cubre la <strong>Zona Arqueológica de Uxmal</strong> (UNESCO), en la Ruta Puuc.`,
+  },
+  {
+    q: "¿Qué hace especial al Puerto de Progreso en materia de emergencias?",
+    a: `El muelle de Progreso tiene <strong>6.5 kilómetros de longitud</strong>, lo que lo convierte en uno de los más extensos del continente. Cuando un crucero atraca en el extremo del muelle, los pasajeros están a 6.5 km del punto de emergencia terrestre. Los bomberos de Progreso mantienen una unidad posicionada en el extremo del muelle durante la temporada de cruceros (aproximadamente <strong>150 cruceros internacionales al año</strong>), coordinan con la Capitanía de Puerto de la SEMAR y mantienen enlace de radio VHF con los oficiales de seguridad de cada navío. Los protocolos siguen los estándares IMO/OMI para emergencias a bordo.`,
+  },
+  {
+    q: "¿Por qué Yucatán no tiene ríos superficiales y qué implica eso para los bomberos?",
+    a: `La Península de Yucatán es una plataforma de <strong>roca caliza porosa (karst)</strong> que ha absorbido toda el agua superficial a lo largo de millones de años de erosión, sin dejar un solo río permanente en los 39,612 km² del estado. El agua dulce existe únicamente en el <strong>acuífero subterráneo</strong>, accesible a través de los cenotes. Para los bomberos que responden a incendios en zonas rurales, esto significa que el suministro de agua equivale estrictamente al contenido de los tanques de la autobomba. Cuando se vacían, la recarga requiere regresar a un punto de abastecimiento pre-identificado, un ciclo que puede durar de 20 a 40 minutos en municipios alejados. Esta logística de <em>tanque lanzadera</em> es el modo de operación estándar en cada incendio rural de Yucatán.`,
+  },
+  {
+    q: "¿Qué servicios de emergencia prestan los bomberos de Yucatán?",
+    a: `Los cuerpos de bomberos de Yucatán atienden: <strong>incendios estructurales, forestales y de manglar</strong>; <strong>rescate vehicular y extricación</strong>; <strong>atención prehospitalaria</strong>; <strong>rescate acuático y espeleoacuático en cenotes</strong>; <strong>materiales peligrosos (HAZMAT)</strong> en industria y transporte; control de <strong>fugas de gas</strong>; <strong>emergencias portuarias y marítimas</strong> en Progreso; <strong>ARFF aeronáutico</strong> en el aeropuerto de Mérida (ICAO Cat. 7); y <strong>protección civil ante huracanes</strong>. En las reservas biósfera (Celestún y Ría Lagartos), disponen de unidades de rescate acuático para emergencias en humedales y manglares.`,
+  },
+  {
+    q: "¿Los bomberos de Yucatán atienden emergencias en las reservas biósfera?",
+    a: `Sí. Las estaciones de <strong>Celestún</strong> y <strong>Río Lagartos</strong> cubren, respectivamente, la Reserva de la Biósfera Ría Celestún y la Reserva de la Biósfera Ría Lagartos, ambas sitios <strong>RAMSAR</strong> y de gran importancia para la conservación de los flamencos rosados. Los incendios en manglar y vegetación hídrica producen humo denso con llama poco visible, lo que complica la localización del frente activo. Las unidades de estas estaciones cuentan con lanchas de rescate y coordinan con la CONANP y la SEMARNAT para emergencias ambientales.`,
+  },
+  {
+    q: "¿Cómo debo prepararme ante un huracán en Yucatán?",
+    a: `Sigue siempre las instrucciones de <strong>Protección Civil Yucatán</strong> (999 930 3200) y el <strong>Sistema Meteorológico Nacional</strong>. Ante alerta de huracán: refuerza puertas y ventanas, almacena agua y alimentos para al menos 72 horas, carga medicamentos esenciales, identifica el refugio temporal más cercano, y aleja objetos del exterior que puedan convertirse en proyectiles. Marca el <strong>911</strong> solo ante emergencia real durante el evento; las líneas deben mantenerse libres para despachar recursos. Recuerda que en zonas costeras bajas como Progreso o Celestún, las marejadas de tormenta pueden inundar en minutos.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-profesional-01.avif",
@@ -139,146 +223,350 @@ const stationImages = [
   "/images/directorio/central-despacho-bomberos-mexicano-turno-01.avif",
   "/images/directorio/gimnasio-estacion-bomberos-crossfit-01.avif",
 ];
-
-const estadosVecinos = getEstadosVecinos("yucatan");
-
-
-const itemListSchema = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de las ${estacionesYucatan.length} estaciones de bomberos en Yucatán. Mérida (ciudad más segura de México), Chichén Itzá (Maravilla del Mundo), Uxmal UNESCO, 6,000+ cenotes, Puerto Progreso (cruceros), Reservas Biósfera Celestún y Ría Lagartos. Rescate acuático especializado en cenotes y cavernas. Emergencias 911.`,
-  numberOfItems: estacionesYucatan.length,
-  itemListElement: estacionesYucatan.map((e, i) => ({
-    "@type": "ListItem",
-    position: i + 1,
-    item: {
-      "@type": "FireStation",
-      name: e.nombre,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: e.direccion,
-        addressLocality: e.municipio,
-        addressRegion: estado,
-        addressCountry: "MX",
-      },
-      telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
-    },
-  })),
-};
-
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Yucatán",         url: "/directorio/yucatan/" },
-]);
 ---
 
 <DirectorioEstadoLayout
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Yucatán</strong>.     El estado alberga <strong>Chichén Itzá</strong>, una de las <strong>7 Maravillas del Mundo Moderno</strong>,     <strong>Uxmal</strong> (UNESCO), y más de <strong>6,000 cenotes</strong> —incluyendo el anillo     del cráter de <strong>Chicxulub</strong>, el asteroide que extinguió a los dinosaurios—.     <strong>Mérida</strong>, la capital, es consistentemente la <strong>ciudad más segura de México</strong>.     Con <strong>3.5 millones de turistas anuales</strong>, <strong>Puerto Progreso</strong> recibiendo     cruceros internacionales, y las <strong>Reservas de la Biósfera Celestún y Ría Lagartos</strong>     (hogar de la mayor colonia de flamencos rosados de México), los bomberos yucatecos dominan     rescate acuático en cenotes, protección de patrimonio y emergencias turísticas de clase mundial."
-  heroImage="/images/directorio/estacion-bomberos-turistica-01.avif"
-  heroImageAlt="Estación de Bomberos en Yucatán"
-  heroCaption="H. Cuerpo de Bomberos · Yucatán"
-  totalEstaciones={estacionesYucatan.length}
-  totalMunicipios={getMunicipios().length}
-  habitantes="2.3M+"
-  canonical="https://bombero.mx/directorio/yucatan/"
-  keywords={["bomberos yucatan", "estaciones bomberos yucatan", "emergencias yucatan 911"]}
-  estado={estado}
-  sigla={sigla}
-  slug={slug}
-  estaciones={estacionesYucatan}
-  municipios={getMunicipios()}
-  heroThumbs={heroThumbs}
-  galleryImages={galleryImages}
-  emergencyNumbers={emergencyNumbers}
-  regiones={regiones}
-  eppCards={eppCards}
-  stationImages={stationImages}
-  estadosVecinos={estadosVecinos}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en Yucatán — Directorio`}
-  description="${estacionesYucatan.length} estaciones en Yucatán — sin ríos superficiales, acuífero karst 6,000+ cenotes, Chichén Itzá Maravilla del Mundo y Progreso cruceros. Emergencias: 911."
->
+  estado="Yucatán"
+  sigla="YUC"
+  slug="yucatan"
+  description={`Bomberos en Yucatán: ${totalEstaciones} estaciones en Mérida y el estado — rescate en cenotes, huracanes Gilberto e Isidoro, Chichén Itzá y Uxmal UNESCO, Puerto Progreso y reservas biósfera. Emergencias: 911.`}
+  keywords={[
+    "bomberos yucatan",
+    "bomberos merida yucatan",
+    "cuerpo bomberos merida 1948",
+    "estaciones bomberos yucatan directorio",
+    "telefono bomberos merida 911",
+    "rescate cenotes yucatan espeleobuceo",
+    "bomberos chichen itza patrimonio",
+    "bomberos puerto progreso cruceros",
+    "bomberos huracan yucatan gilberto isidoro",
+    "bomberos celestun rio lagartos reserva biosfera",
+    "rescate acuatico cenotes yucatan",
+    "bomberos uxmal ruta puuc",
+    "calor extremo merida emergencia yucatan",
+    "arff aeropuerto merida yucatan",
+    "directorio bomberos yucatan municipios",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
+  habitantes="2.3M+"
+
+  heroDesc={`El <strong>Cuerpo de Bomberos del Municipio de Mérida</strong> —creado el <strong>14 de agosto de 1948</strong> mediante Decreto 223 del Congreso del Estado de Yucatán— protege el único estado de México sin un solo río superficial permanente: aquí el agua dulce existe exclusivamente en el <strong>acuífero kárstico de más de 6,000 cenotes</strong>, y los bomberos operan sin hidrantes rurales. Con <strong>${totalEstaciones} estaciones</strong> en este directorio, cubren <strong>2.3 millones de habitantes</strong>, dos sitios <strong>Patrimonio de la Humanidad UNESCO</strong> (Chichén Itzá y Uxmal), el <strong>Puerto de Progreso</strong> con su muelle de 6.5 km —uno de los más largos del continente—, el <strong>Aeropuerto Internacional de Mérida</strong> (ICAO Cat. 7), las reservas biósfera de <strong>Celestún y Ría Lagartos</strong> (RAMSAR) y una costa histórica de paso de huracanes, desde el <strong>Gilberto de 1988</strong> hasta el <strong>Isidoro de 2002</strong>.`}
+  heroImage="/images/directorio/estacion-bomberos-turistica-01.avif"
+  heroImageAlt="Cuartel Central de Bomberos de Mérida Yucatán — fundado 1948, Centro Histórico colonial"
+  heroCaption="Cuerpo de Bomberos · Yucatán · Fundado en Mérida el 14 de agosto de 1948"
+  heroThumbs={[
+    { src: "/images/directorio/equipo-buceo-rescate-01.avif",                         alt: "Rescate espeleoacuático en cenotes de Yucatán — buzos espeleosocorristas primer cuerpo certificado de México 2025", label: "Rescate en Cenotes"     },
+    { src: "/images/directorio/estacion-bomberos-playa-01.avif",                       alt: "Bomberos Puerto Progreso Yucatán — muelle 6.5 km cruceros internacionales rescate marítimo",                          label: "Puerto Progreso"        },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",                  alt: "Protección Chichén Itzá y Uxmal UNESCO Yucatán — protocolo INAH niebla baja presión zonas arqueológicas",            label: "Patrimonio UNESCO"      },
+  ]}
+
+  galleryImages={[
+    { src: "/images/directorio/equipo-buceo-rescate-01.avif",              alt: "Rescate acuático y espeleobuceo en cenotes de Yucatán — sistema kárstico subterráneo acuífero maya",         label: "Cenotes: rescate kárstico" },
+    { src: "/images/directorio/autobomba-panel-bombeo-manometros-01.avif", alt: "Autobomba lanzadera bomberos Yucatán — logística de tanque en zonas rurales sin ríos superficiales",           label: "Logística sin ríos"        },
+    { src: "/images/directorio/estacion-bomberos-equipada-01.avif",        alt: "Emergencias Centro Histórico de Mérida Yucatán — patrimonio colonial protegido por Cuerpo Bomberos 1948",       label: "Centro Histórico Mérida"   },
+    { src: "/images/directorio/estacion-bomberos-puerto-01.avif",          alt: "Emergencias Puerto de Progreso Yucatán — cruceros internacionales muelle más largo continente americano 6.5 km", label: "Puerto Progreso cruceros"  },
+  ]}
+
+  emergencyNumbers={[
+    { number: "911",          label: "Emergencias Yucatán"        },
+    { number: "999 924 9242", label: "Cuartel Central Mérida"     },
+    { number: "999 944 1155", label: "Bomberos Norte Mérida"      },
+    { number: "969 935 0071", label: "Bomberos Puerto Progreso"   },
+    { number: "985 856 2023", label: "Bomberos Valladolid"        },
+    { number: "999 930 3200", label: "Protección Civil Yucatán"   },
+  ]}
+
+  municipios={getMunicipios()}
+
+  regiones={[
+    { nombre: "Zona Metropolitana de Mérida",    desc: "Mérida (1.2M hab.) · Kanasín · Umán — Centro Histórico colonial, aeropuerto ICAO Cat. 7 y corredor industrial"       },
+    { nombre: "Corredor Chichén Itzá / Oriente", desc: "Chichén Itzá (Maravilla del Mundo) · Valladolid (Pueblo Mágico) · Tizimín — cenotes, corredor Mérida-Cancún"          },
+    { nombre: "Costa Norte / Puerto Progreso",   desc: "Progreso (muelle 6.5 km) · Río Lagartos (RAMSAR) · Las Coloradas — cruceros, huracanes y humedales costeros"          },
+    { nombre: "Ruta Puuc / Sur",                 desc: "Ticul (puerta Ruta Puuc) · Oxkutzcab · Tekax (municipio más extenso) — Uxmal UNESCO, selva maya y zonas rurales"      },
+    { nombre: "Reservas Biósfera / Costa Oeste", desc: "Celestún (RAMSAR, flamencos) · Izamal (Pueblo Mágico) · Motul — manglares, humedales y corredor norte Mérida-Tizimín" },
+  ]}
+
+  estadosVecinos={estadosVecinos}
+
+  estaciones={estacionesYucatan}
+  stationImages={stationImages}
+
+  eppCards={[
+    {
+      image:     "/images/directorio/equipo-buceo-rescate-01.avif",
+      imageAlt:  "Equipo de buceo espeleoacuático para rescate en cenotes de Yucatán — primer cuerpo espeleosocorrista de México 2025",
+      badge:     "NFPA 1952",
+      title:     "Traje de Inmersión NFPA 1952 — Rescate en Cenotes",
+      text:      "Yucatán alberga más de <strong>6,000 cenotes catalogados</strong> que dan acceso al mayor acuífero subterráneo de América del Norte. En 2025, Yucatán graduó a los <strong>primeros buzos espeleosocorristas de México</strong>, integrados a la red de Protección Civil y cuerpos de bomberos del estado. Un accidente en un cenote —ya sea un buceador atrapado en una galería inundada a 20 o más metros de profundidad, o un turista en apnea sin equipo adecuado— requiere respuesta espeleoacuática con traje de inmersión, SCUBA certificado y líneas guía. La estación de Valladolid opera el único servicio de rescate espeleoacuático del sureste de México, con tiempos de respuesta de 6 a 10 minutos hacia los cenotes del corredor oriente.",
+      href:      "/productos/trajes-para-bomberos/",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/directorio/mascara-scba-bombero-01.avif",
+      imageAlt:  "SCBA NFPA 1981 bomberos Yucatán — huracanes, manglares y zonas arqueológicas con gases de combustión",
+      badge:     "NFPA 1981",
+      title:     "Aparato Respiratorio Autónomo SCBA",
+      text:      "En los incendios de manglar de las reservas biósfera de <strong>Celestún y Ría Lagartos</strong>, la vegetación hídrica produce humo denso con llama poco visible —el SCBA certificado NFPA 1981 es indispensable para los bomberos que deben aproximarse al frente activo. El mismo equipo se usa en emergencias del <strong>Corredor Industrial Mérida-Umán</strong> (LaFarge-Holcim, FEMSA, Bimbo) donde se almacenan materiales peligrosos. En las zonas arqueológicas de <strong>Chichén Itzá y Uxmal</strong>, un incendio estructural en las instalaciones turísticas puede liberar gases de combustión que obligan al uso de SCBA para no dañar las estructuras al tiempo que se protege al personal.",
+      href:      "/productos/trajes-para-bomberos/",
+      linkLabel: "Ver Equipos SCBA",
+    },
+    {
+      image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
+      imageAlt:  "Traje Estructural NFPA 1971 bomberos Mérida Yucatán — Centro Histórico colonial y emergencias industriales Corredor Umán",
+      badge:     "NFPA 1971",
+      title:     "Traje Estructural NFPA 1971 — Mérida e Industria",
+      text:      "El <strong>Cuartel Central de Mérida</strong> —inaugurado bajo el Decreto 223 de 1948 y hub de coordinación regional del sureste de México— opera con traje estructural NFPA 1971 para todos los incendios en el <strong>Centro Histórico colonial</strong> de la ciudad: inmuebles del siglo XIX y XX con techos de madera, pasillos estrechos y un tejido urbano denso que exige tejido resistente al corte, termorregulación y protección contra derrumbe. El mismo traje es estándar en el <strong>Corredor Industrial Mérida-Umán</strong>, donde las plantas de manufactura, alimentación y materiales de construcción generan incendios de alta energía.",
+      href:      "/productos/trajes-para-bomberos/",
+      linkLabel: "Ver Trajes para Bombero",
+    },
+    {
+      image:     "/images/accion/bomberos-accion-incendio-estructural.avif",
+      imageAlt:  "Traje forestal NFPA 1977 bomberos Yucatán — selva maya Tekax Oxkutzcab incendios rurales sin ríos superficiales",
+      badge:     "NFPA 1977",
+      title:     "Traje Forestal NFPA 1977 — Selva Maya y Milpa",
+      text:      "En el sur y el oriente de Yucatán, los incendios de selva baja caducifolia y milpas son un riesgo estacional. Sin un solo río superficial permanente en el estado, los bomberos de estaciones como <strong>Tekax, Oxkutzcab y Tizimín</strong> operan con una restricción absoluta: el agua disponible es exactamente la que lleva la autobomba. El traje forestal certificado NFPA 1977 —ligero, con protección térmica y resistencia al corte de vegetación seca— es el equipo de referencia para estas operaciones de <em>tanque lanzadera</em> en municipios donde la recarga puede tardar 20 a 40 minutos.",
+      href:      "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
+      linkLabel: "Ver Traje Forestal NFPA 1977",
+    },
+  ]}
+
+  ctaTitle="Equipamos al Cuerpo de Bomberos de Yucatán"
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones de bomberos de Yucatán: trajes de inmersión para rescate en cenotes, trajes forestales para la selva maya, equipos SCBA para zonas industriales y ARFF para el aeropuerto de Mérida. Experiencia en licitaciones públicas del sureste de México.`}
+  ctaBtnText="Solicitar Cotización — Yucatán"
+
+  faqsEstado={faqsEstado}
+>
 
   <Fragment slot="seo">
 
-      <h2>Bomberos de Yucatán — El Estado sin Ríos donde Todo el Agua Está 30 Metros Abajo y el Cenote es el Único Hidrante Rural</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Yucatán</strong> opera en el único estado de México
-        que no tiene un solo río superficial permanente en sus 39,524 km², donde cada gota de agua
-        dulce disponible está enterrada en el acuífero de cenotes de la plataforma kárstica maya, y
-        donde los riesgos de emergencia van desde los 50,000 visitantes concentrados en el equinoccio
-        de Chichén Itzá hasta los 5,000 cruceristas al final de un muelle de 6.5 kilómetros, pasando
-        por los incendios forestales en los que el próximo suministro de agua requiere un viaje
-        de ida y vuelta de la autobomba.
-      </p>
+    <h2>Bomberos en Yucatán: el estado sin ríos donde el cenote es el único hidrante rural y el huracán no encuentra montaña que lo frene</h2>
 
-      <h3>¿Cómo llamar a los bomberos en Yucatán?</h3>
-      <p>
-        Marca <strong>911</strong> desde cualquier teléfono en Yucatán para emergencias de bomberos,
-        rescate o ambulancia. El número opera las 24 horas y despacha a la estación más cercana
-        según ubicación. Las estaciones de Mérida, Progreso, Valladolid y las estaciones satélite
-        de la Ruta de los Cenotes mantienen guardia permanente.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Yucatán">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">6,000+</span><span class="de-stat__label">Cenotes catalogados</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2 UNESCO</span><span class="de-stat__label">Chichén Itzá · Uxmal</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2.3M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1948</span><span class="de-stat__label">Fundación (Decreto 223)</span></div>
+    </div>
 
-      <h3>Karst sin Ríos — El Acuífero de Cenotes como Único Suministro de Agua para Incendios Rurales</h3>
-      <p>
-        La Península de Yucatán es una plataforma de roca caliza porosa que ha absorbido todos los
-        ríos superficiales en millones de años de erosión kárstica: el resultado es que no existe
-        ni un solo cuerpo de agua permanente en superficie en todo el estado. Los 6,000 cenotes
-        catalogados son las ventanas de acceso al acuífero, pero están distribuidos de manera
-        irregular y su profundidad varía entre 5 y más de 40 metros, lo que hace imposible la
-        conexión directa de mangueras sin equipo de bombeo vertical especializado. Para los
-        bomberos que responden a incendios en zonas rurales, milpas o henequenales fuera del
-        perímetro urbano de Mérida, el agua disponible es exactamente la que cabe en los
-        tanques de la autobomba. Cuando esos tanques se vacían, el siguiente suministro requiere
-        regresar a la estación o a un punto de abastecimiento pre-identificado, un ciclo de
-        ida y vuelta que puede durar 20 a 40 minutos en municipios alejados. Esta logística de
-        tanque lanzadera no es una contingencia sino el modo de operación estándar de cada
-        incendio rural en Yucatán.
-      </p>
+    <p class="de-lead">
+      El <strong>Cuerpo de Bomberos del Municipio de Mérida</strong> —fundado el 14 de agosto de 1948
+      mediante Decreto 223 del Congreso del Estado— opera en un territorio con tres singularidades
+      que no se repiten juntas en ningún otro estado de México: no hay un solo río superficial
+      permanente en los 39,612 km² del estado, el acuífero subterráneo se asoma en más de
+      6,000 cenotes con galerías inundadas de hasta 40 metros de profundidad, y la plataforma
+      caliza completamente plana —sin relieve de más de 210 metros— no ofrece ninguna barrera
+      orográfica cuando un huracán del Golfo avanza hacia Mérida. Sobre ese escenario,
+      <strong>{totalEstaciones} estaciones</strong> protegen a 2.3 millones de habitantes, dos Patrimonios
+      de la Humanidad UNESCO, el muelle de cruceros más extenso del continente y dos reservas
+      biósfera de importancia internacional.
+    </p>
 
-      <h3>Chichén Itzá — 50,000 Personas en el Equinoccio y una Sola Carretera de Evacuación</h3>
-      <p>
-        Chichén Itzá recibe más de 2.5 millones de visitantes al año y concentra hasta 50,000
-        personas en un solo día durante los equinoccios de primavera y otoño, cuando el fenómeno
-        de la serpiente de luz descendiendo por la Pirámide de Kukulcán atrae a turistas de todo
-        el mundo. El sitio arqueológico es accesible por una sola vía principal, lo que convierte
-        cualquier emergencia de evacuación en un problema de flujo único sin rutas alternativas.
-        Los bomberos de Pisté y Valladolid mantienen protocolos específicos con el INAH que
-        limitan la presión de mangueras sobre estructuras mayas a valores que no dañen la caliza
-        original, lo que significa que un incendio estructural en la zona de servicios turísticos
-        del sitio requiere ataque con niebla de baja presión y no con chorro directo, reduciendo
-        la tasa de aplicación de agua disponible precisamente cuando el suministro ya es escaso.
-      </p>
+    <h3>Cómo contactar a los bomberos en Yucatán</h3>
+    <p>
+      En cualquier emergencia, marca el <strong>911</strong> las 24 horas; la llamada se enruta a la
+      unidad más cercana según tu ubicación. El <strong>Cuartel Central de Mérida</strong> tiene
+      teléfono directo al 999 924 9242; la estación Norte de Mérida al 999 944 1155; Progreso al
+      969 935 0071; Valladolid al 985 856 2023. Protección Civil Yucatán atiende coordinación de
+      emergencias al 999 930 3200. Encuentra la dirección y teléfono de cada estación en el
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Puerto Progreso — El Muelle de 6.5 km y los 5,000 Cruceristas al Final del Embarcadero</h3>
-      <p>
-        El muelle de Progreso tiene 6.5 kilómetros de longitud, lo que lo convierte en uno de los
-        más extensos del continente americano. Cuando un crucero atraca en el extremo del muelle,
-        sus pasajeros están a 6.5 kilómetros del punto de amarre terrestre de los servicios de
-        emergencia. Una emergencia médica o incendio a bordo con 5,000 pasajeros implica que los
-        primeros vehículos de bomberos necesitan de 8 a 12 minutos solo para recorrer el muelle
-        antes de iniciar cualquier acción. El protocolo de Progreso incluye una unidad estacionada
-        permanentemente en el extremo del muelle durante la temporada de cruceros, coordina
-        evacuación con SEMAR y mantiene enlace VHF con los oficiales de seguridad de cada navío.
-      </p>
+    <h3>Historia del Cuerpo de Bomberos de Yucatán</h3>
+    <p>
+      La historia del combate de incendios en Yucatán arranca tres cuartos de siglo después de la
+      primera estación del país y sigue viva en el Cuartel Central de la Calle 60 de Mérida:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong> en todo el país.</li>
+      <li><span class="de-tl__year">1948</span> El <strong>14 de agosto</strong>, el Congreso del Estado de Yucatán publica el <strong>Decreto Número 223</strong>, que crea el Cuerpo de Bomberos del Municipio de Mérida bajo el gobierno del profesor José González Beytia, con el mandato expreso de prevenir y extinguir incendios y proteger vidas.</li>
+      <li><span class="de-tl__year">1988</span> El <strong>huracán Gilberto</strong> (14 de septiembre) toca tierra en Yucatán como <strong>categoría 5</strong> con vientos de 287 km/h. Mérida registra ráfagas de hasta 152 km/h, 35,000 personas quedan sin hogar en la península y 83 barcos se hunden. Gilberto marca hasta hoy el parámetro de máxima intensidad ciclónica en el estado.</li>
+      <li><span class="de-tl__year">2002</span> El <strong>huracán Isidoro</strong> (22 de septiembre) impacta en Telchac Puerto como <strong>categoría 3</strong> (205 km/h) y permanece sobre Yucatán más de 30 horas. Resultado: <strong>500,000 damnificados, 15,000 viviendas dañadas y 85 municipios en desastre</strong>. El evento transforma los protocolos de coordinación entre bomberos, Protección Civil y SEMAR para respuesta ciclónica.</li>
+      <li><span class="de-tl__year">2025</span> Yucatán gradúa a los <strong>primeros buzos espeleosocorristas de México</strong>, integrados a la red de Protección Civil y los cuerpos de bomberos estatales, posicionando al estado como pionero en rescate en cuevas inundadas en América Latina.</li>
+      <li><span class="de-tl__year">Hoy</span> El cuerpo opera <strong>{totalEstaciones} estaciones</strong> en este directorio, cubre los <strong>{totalMunicipios} municipios</strong> listados y mantiene la única unidad de rescate espeleoacuático certificada del sureste de México.</li>
+    </ul>
 
-      <h3>Reservas Celestún y Ría Lagartos — Manglar, Flamingo y el Huracán que No Tiene Montaña que lo Frene</h3>
-      <p>
-        La plataforma caliza de Yucatán es totalmente plana: la elevación máxima del estado no
-        supera los 210 metros. Cuando un huracán del Golfo impacta la costa norte, no encuentra
-        ninguna barrera orográfica que reduzca su intensidad antes de alcanzar Mérida. Este
-        factor convierte a Yucatán en el estado del sureste mexicano más expuesto a la energía
-        sin atenuación de los ciclones tropicales. Las Reservas de la Biósfera Celestún y Ría
-        Lagartos, ambas sitios RAMSAR, concentran en sus manglares y humedales a las colonias
-        de flamenco más grandes de México, pero también presentan el desafío de incendios en
-        vegetación hídrica que arde con humo denso y escasa llama visible, dificultando la
-        localización del frente activo desde la autobomba.
-      </p>
+    <h3>Infraestructura de emergencia: cómo se cubre el estado</h3>
+    <p>
+      La cobertura se organiza por cinco zonas según el perfil de riesgo de cada territorio. La
+      Zona Metropolitana de Mérida concentra la mayor densidad de recursos; el corredor oriente
+      hacia Chichén Itzá combina turismo masivo con rescate en cenotes; la costa norte enfrenta
+      cruceros y huracanes; la Ruta Puuc cubre zonas arqueológicas en selva; y las reservas biósfera
+      del poniente y el norte exigen unidades especializadas en humedales y manglar:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios atendidos</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonasDef.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      Los bomberos de Yucatán son un servicio de emergencia integral adaptado a los riesgos
+      específicos del territorio: la falta de agua superficial, los cenotes, los huracanes y el
+      turismo masivo en sitios arqueológicos. Estas son sus funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, industriales, forestales y de manglar, adaptados a la logística de tanque lanzadera sin ríos superficiales.</p></div>
+      <div class="de-card"><h4>Rescate espeleoacuático en cenotes</h4><p>Localización y extracción de personas en sistemas kársticos inundados, con buzos espeleosocorristas certificados desde 2025.</p></div>
+      <div class="de-card"><h4>Emergencias portuarias y marítimas</h4><p>Incendios y rescates en el Puerto de Progreso, coordinación con SEMAR y protocolo IMO/OMI para cruceros internacionales.</p></div>
+      <div class="de-card"><h4>ARFF Aeronáutico</h4><p>Rescate y extinción en el Aeropuerto Internacional de Mérida (ICAO Cat. 7), con tiempos de respuesta de 3 a 5 minutos.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Contención de derrames y fugas en el Corredor Industrial Mérida-Umán: cemento, alimentos, bebidas y gases industriales.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones, simulacros y capacitación ante huracanes, calor extremo y emergencias en zonas turísticas de alta afluencia.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate espeleoacuático en cenotes</strong></td><td>24/7</td><td>Valladolid y unidades especializadas</td></tr>
+          <tr><td><strong>Emergencias portuarias (cruceros)</strong></td><td>24/7</td><td>Puerto Progreso</td></tr>
+          <tr><td><strong>ARFF aeronáutico (ICAO Cat. 7)</strong></td><td>24/7</td><td>Aeropuerto Internacional de Mérida</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>Corredor Industrial Mérida-Umán</td></tr>
+          <tr><td><strong>Rescate acuático en humedales</strong></td><td>24/7</td><td>Celestún, Río Lagartos y costa norte</td></tr>
+          <tr><td><strong>Incendios forestales y de manglar</strong></td><td>Estiaje (feb–may)</td><td>Sur, oriente y reservas biósfera</td></tr>
+          <tr><td><strong>Protección patrimonio UNESCO</strong></td><td>24/7</td><td>Chichén Itzá (Tinum) y Uxmal (Ticul)</td></tr>
+          <tr><td><strong>Emergencias por huracán</strong></td><td>Temporada ciclónica (jun–nov)</td><td>Todo el estado</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Los riesgos que solo existen en Yucatán: huracanes, cenotes y calor extremo</h3>
+    <p>
+      La plataforma caliza de Yucatán tiene una elevación máxima de 210 metros y es completamente
+      plana: cuando un huracán del Golfo avanza tierra adentro, no encuentra ninguna barrera
+      montañosa que reduzca su intensidad antes de alcanzar Mérida. Esta ausencia de relieve es la
+      razón por la que el <strong>huracán Gilberto</strong> mantuvo categoría 5 durante 85 km tierra
+      adentro el 14 de septiembre de 1988 (vientos de 287 km/h, 35,000 damnificados en la
+      península) y por la que el <strong>huracán Isidoro</strong> permaneció sobre el estado durante
+      más de 30 horas el 22 de septiembre de 2002 (categoría 3, 205 km/h, 500,000 damnificados y
+      85 municipios en desastre). Ambos eventos son los marcadores de referencia de todos los planes
+      de contingencia de los cuerpos de bomberos yucatecos.
+    </p>
+    <p>
+      El riesgo de cenotes es el más singular del país. Más de 6,000 cenotes catalogados dan acceso
+      al acuífero subterráneo a través de aberturas que van desde pequeñas bocas en la selva hasta
+      amplias pozas turísticas, con galerías inundadas que se extienden kilómetros bajo tierra.
+      Cuando un buceador queda atrapado —como ocurrió en octubre de 2024 con un buzo argentino
+      localizado a 28 metros de profundidad tras 24 horas de búsqueda— el rescate exige
+      <strong>espeleobuceo</strong> con líneas guía, iluminación subacuática, SCUBA técnico y
+      procedimientos de seguridad específicos. Yucatán graduó en 2025 a los primeros
+      <strong>espeleosocorristas de México</strong> para dar respuesta a este tipo de emergencias.
+    </p>
+    <p>
+      El tercer frente es el calor. Mérida registra temperaturas de hasta <strong>42°C</strong> entre
+      abril y mayo, con sensación térmica de hasta <strong>45°C</strong> por el efecto de isla de
+      calor urbana, que eleva la temperatura entre 3 y 5 grados en el casco de la ciudad. Un estudio
+      internacional de 2026 colocó a Mérida dentro del mapa mundial de ciudades con mayor exposición
+      a riesgo por calor extremo. Para los bomberos, esto se traduce en atención frecuente a golpes
+      de calor en turistas y adultos mayores, y en condiciones de trabajo de alta demanda física
+      cuando se combate un incendio bajo el sol de mediodía yucateco con traje de protección
+      estructural completo.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de los datos de estaciones de este directorio, esta es la distribución de recursos
+      del cuerpo de bomberos entre las grandes zonas del estado. Las cifras de personal y unidades
+      corresponden a las estaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>{totalMunicipios} municipios de Yucatán</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Yucatán</h3>
+    <p>
+      El principal reto estructural es la <strong>ausencia de agua superficial</strong>. Sin ríos ni
+      hidrantes rurales, cada incendio en zonas no urbanas depende de la capacidad del tanque de la
+      autobomba y de la logística de recarga en puntos pre-identificados. En municipios del sur y
+      oriente del estado —donde las distancias entre comunidades y estaciones pueden superar los 30
+      km—, el tiempo de respuesta se extiende inevitablemente, y el ciclo de lanzadera puede tardar
+      de 20 a 40 minutos por carga. La inversión en autobombas de mayor capacidad y en la
+      identificación y señalización de fuentes de agua alternativas (cenotes de bombeo) es una
+      prioridad operativa.
+    </p>
+    <p>
+      El segundo reto es la <strong>especialización ante riesgos únicos</strong>. El rescate
+      espeleoacuático en cenotes, las emergencias en cruceros bajo protocolo IMO/OMI, la protección
+      de sitios UNESCO con restricciones de presión de manguera, y los incendios en manglares con
+      humo denso de baja llama visible son competencias que no tienen equivalente en la mayoría de
+      los estados de México y que requieren formación continua y equipamiento específico. El
+      programa de espeleosocorristas inaugurado en 2025 es el primer paso formal en esta dirección
+      a nivel nacional.
+    </p>
+
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad en Yucatán</h3>
+    <p>
+      En un estado con temporada ciclónica de junio a noviembre, calor extremo de abril a mayo y
+      cenotes en prácticamente todos los municipios, la prevención tiene dimensiones locales muy
+      concretas. Estas son las recomendaciones básicas de los cuerpos de bomberos yucatecos:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Huracanes:</strong> sigue los avisos de Protección Civil Yucatán (999 930 3200) y el SMN desde el inicio de cada temporada ciclónica (1 de junio); prepara una mochila de emergencia con agua para 72 horas, medicamentos y documentos.</li>
+        <li><strong>Cenotes:</strong> nunca bucees solo ni sin equipo certificado en cavernas; respeta las señales de zona de buceo técnico y no entres a galerías sin líneas guía y formación específica.</li>
+        <li><strong>Calor extremo:</strong> entre abril y mayo, evita actividades físicas al aire libre entre las 11:00 y las 16:00; mantén hidratación constante y presta atención a síntomas de golpe de calor (confusión, piel seca y caliente, temperatura superior a 40°C).</li>
+        <li><strong>Gas y electricidad:</strong> revisa mangueras y reguladores periódicamente; ante olor a gas, no acciones interruptores, ventila el espacio y sal del inmueble.</li>
+        <li><strong>Detección:</strong> instala detectores de humo; mantén un extintor accesible en cocina y zonas de mayor riesgo.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Congreso del Estado de Yucatán, Decreto Número 223 (Diario Oficial, 14 de agosto de 1948)
+      — Ley que Crea el Cuerpo de Bomberos del Municipio de Mérida; CONAGUA / SMN, «Ciclones Tropicales
+      2002: Isidoro» (PDF); Wikipedia, «Huracán Gilbert» (categoría 5, 1988); Diario de Yucatán, crónica
+      huracán Gilberto (14 sep. 1988); La Silla Rota / Reporteros Hoy, «Yucatán gradúa los primeros buzos
+      espeleosocorristas de México» (sep. 2025); ADN40 / Infobae, rescate cenote Yucatán (oct. 2024);
+      Diario de Yucatán, «Calor extremo: isla de calor en Mérida» (abr. 2026). Las cifras de personal
+      y unidades por región se calculan a partir de las estaciones publicadas en este directorio.
+      Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
   </Fragment>
 </DirectorioEstadoLayout>
-

@@ -3,24 +3,73 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesCampeche, getMunicipios, getEstadisticas } from "@data/estaciones-campeche";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("campeche");
 
 const municipios   = getMunicipios();
 const estadisticas = getEstadisticas();
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Campeche",               url: "/directorio/campeche/" },
-]);
+const canonical = "https://bombero.mx/directorio/campeche/";
 
+// ── Comparativa regional ────────────────────────────────────────────────────
+const zonas = [
+  {
+    nombre: "Zona Capital UNESCO",
+    municipios: ["Campeche"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "San Francisco de Campeche · Ciudad amurallada siglo XVII · Malecón · 8 baluartes.",
+  },
+  {
+    nombre: "Zona Petrolera",
+    municipios: ["Carmen"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Ciudad del Carmen (isla) · Sonda de Campeche · +200 plataformas PEMEX · Laguna de Términos.",
+  },
+  {
+    nombre: "Zona Maya-Biósfera",
+    municipios: ["Calakmul"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Calakmul · Xpujil · Reserva Biósfera UNESCO 723 k ha · Frontera Petén Guatemala.",
+  },
+  {
+    nombre: "Zona Sur Selvática",
+    municipios: ["Candelaria", "Escárcega"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Candelaria · Escárcega · Tren Maya · carreteras 186/261 · Frontera Guatemala.",
+  },
+  {
+    nombre: "Zona Norte Camino Real",
+    municipios: ["Calkiní", "Champotón"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Calkiní · Champotón · Carretera 180 · Costa del Golfo · comunidades mayas.",
+  },
+];
+
+const zonasConDatos = zonas.map((z) => {
+  const est = estacionesCampeche.filter((e) => z.municipios.includes(e.municipio));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+const totalBomberos = estacionesCampeche.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0);
+const totalUnidades = estacionesCampeche.reduce((s, e) => s + (e.unidades ?? 0), 0);
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Campeche, México",
-  "description": "Directorio oficial de las 7 estaciones de bomberos en Campeche. Teléfonos directos en San Francisco de Campeche, Ciudad del Carmen, Escárcega, Champotón, Calkiní, Candelaria y Calakmul. Cobertura 24/7. Emergencias: llama al 911.",
+  "description": `Directorio verificado de las ${estadisticas.totalEstaciones} estaciones de bomberos en Campeche: San Francisco de Campeche (capital UNESCO), Ciudad del Carmen (petrolera), Escárcega, Champotón, Calkiní, Candelaria y Calakmul (Reserva Biósfera). Emergencias: 911.`,
   "numberOfItems": estacionesCampeche.length,
   "itemListElement": estacionesCampeche.map((e, i) => ({
     "@type": "ListItem",
@@ -36,11 +85,99 @@ const itemListSchema = {
         "addressCountry": "MX",
       },
       "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/campeche/${e.slug}`,
+      "url": `https://bombero.mx/directorio/campeche/${e.slug}/`,
     }
   }))
 };
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Campeche: estaciones, historia y servicios de emergencia",
+  "description": "Directorio del Heroico Cuerpo de Bomberos de Campeche: historia, infraestructura en los 13 municipios, riesgo petrolero offshore (Sonda de Campeche), triple Patrimonio UNESCO y servicios de emergencia con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Campeche",
+    "Sonda de Campeche PEMEX",
+    "Patrimonio UNESCO Campeche",
+    "Reserva Biósfera Calakmul",
+    "Servicios de emergencia sureste México",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/campeche.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": `Estaciones de Bomberos en Campeche — Directorio Verificado`,
+  "description": `Directorio verificado de las ${estadisticas.totalEstaciones} estaciones de bomberos en Campeche, con teléfonos, cobertura por región, historia y servicios de emergencia.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de Campeche" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/campeche.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQs únicas de Campeche (≥10) ─────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencias para llamar a los bomberos en Campeche?",
+    a: `Marca el <strong>911</strong>, el número único de emergencias que opera las 24 horas en los 13 municipios del estado. Para teléfonos directos: Campeche capital <strong>981 811 3636</strong>, Ciudad del Carmen <strong>938 382 5050</strong>, Escárcega <strong>982 824 0066</strong>, Champotón <strong>982 828 0038</strong>, Calkiní <strong>996 963 0033</strong>, Candelaria <strong>982 826 0025</strong>, Calakmul (Xpujil) <strong>983 871 6036</strong>. En emergencias offshore en la Sonda de Campeche, el 911 coordina también con la Armada de México y brigadas industriales de PEMEX.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Campeche?",
+    a: `El estado de Campeche cuenta con <strong>${estadisticas.totalEstaciones} estaciones de bomberos activas</strong> en este directorio, distribuidas en <strong>${estadisticas.totalMunicipios} municipios</strong>: San Francisco de Campeche (capital), Ciudad del Carmen, Escárcega, Champotón, Calkiní, Candelaria y Calakmul (Xpujil). El cuerpo opera con <strong>${totalBomberos} bomberos</strong> y <strong>${totalUnidades} unidades</strong>, con cobertura 24/7 en los 13 municipios del estado.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque el <strong>22 de agosto de 1873</strong> se fundó en el puerto de Veracruz el <strong>primer cuerpo de bomberos de México</strong> —y de América Latina—. Esa fecha se conmemora cada año como el Día del Bombero en toda la República, incluyendo los cuerpos de Campeche. Los bomberos de Campeche capital, Ciudad del Carmen, Escárcega y los demás municipios celebran este aniversario nacional cada año.`,
+  },
+  {
+    q: "¿Cómo responden los bomberos a una emergencia en las plataformas petroleras de la Sonda de Campeche?",
+    a: `Las emergencias offshore en la <strong>Sonda de Campeche</strong> —más de 200 plataformas marinas que producen una fracción importante del petróleo nacional— requieren un protocolo especializado. La <strong>Estación de Ciudad del Carmen</strong> (la más cercana, en isla) coordina con las brigadas de emergencia industriales de <strong>PEMEX</strong>, la <strong>Armada de México</strong> y contratistas como Halliburton, Schlumberger y Baker Hughes. El personal mantiene certificaciones HAZMAT nivel técnico para hidrocarburos y el tiempo de respuesta offshore puede ser de <strong>45 a 90 minutos</strong> dependiendo de la posición de la plataforma. Para incidentes de gran magnitud se activa el plan de emergencias regional del sector petrolero.`,
+  },
+  {
+    q: "¿Qué riesgos especiales enfrentan los bomberos de la Ciudad del Carmen?",
+    a: `Ciudad del Carmen es una <strong>isla</strong> conectada al continente únicamente por los puentes <strong>Zacatal (3.2 km)</strong> y <strong>La Unidad (3.8 km)</strong>. Cuando un huracán del Golfo impacta la zona o los puentes quedan bloqueados, la estación activa protocolos de isla: respuesta autónoma sin refuerzos externos durante horas o días. A ello se suma la alta concentración de industria petrolera con riesgo de incendios en tanques de hidrocarburos, derrames en Laguna de Términos y emergencias en helipuertos y muelles de servicio a plataformas.`,
+  },
+  {
+    q: "¿Qué hace diferente la protección del Centro Histórico UNESCO de Campeche?",
+    a: `La <strong>Ciudad Histórica Fortificada de Campeche</strong>, inscrita en el Patrimonio de la Humanidad el 4 de diciembre de 1999, tiene murallas del siglo XVII construidas originalmente para resistir ataques piratas. La cantera original de sus edificios coloniales, baluartes y fuertes requiere técnicas de extinción especializadas para no causar daños adicionales con agua a presión o productos químicos. Cualquier intervención en el perímetro del centro histórico se coordina con el <strong>INAH</strong>, y los bomberos de la estación capital tienen capacitación específica en protección del patrimonio construido.`,
+  },
+  {
+    q: "¿Cómo combaten los bomberos los incendios forestales en la Reserva de la Biósfera de Calakmul?",
+    a: `La <strong>Reserva de la Biósfera Calakmul</strong> (723,185 hectáreas, Patrimonio UNESCO desde 2014) exige combate forestal especializado. La <strong>Estación Calakmul</strong> en Xpujil opera con <strong>drones de cámara térmica</strong> para detección de frentes activos, unidades forestales 4x4, tanques nodriza de 15,000 litros, motopulverizadoras y líneas cortafuegos. El trabajo se coordina con <strong>CONANP</strong> (guardaparques) y <strong>CONAFOR</strong>. En zonas sin acceso vehicular, el combate se hace a pie con herramienta manual. La temporada crítica va de <strong>febrero a mayo</strong>; un incendio en la reserva puede cruzar hacia el Petén guatemalteco en horas.`,
+  },
+  {
+    q: "¿Qué riesgo representa la temporada de huracanes para los bomberos de Campeche?",
+    a: `Campeche es uno de los estados con mayor exposición a ciclones tropicales del Golfo de México. El <strong>huracán Isidore (2002)</strong> descargó hasta <strong>777 mm de lluvia en 96 horas</strong> sobre Campeche, uno de los máximos registrados en el estado. Las estaciones de la capital, Champotón y Ciudad del Carmen activan planes de contingencia ante avisos de huracán: preposicionamiento de equipos en lugares seguros, coordinación con Protección Civil estatal y refuerzo de brigadas de rescate acuático para inundaciones costeras. La temporada va de junio a noviembre.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de Campeche además de apagar incendios?",
+    a: `Los cuerpos de bomberos de Campeche atienden: <strong>rescate vehicular</strong> con herramienta hidráulica (especialmente en carreteras 186 y 261), <strong>rescate acuático</strong> en Laguna de Términos, río Champotón, ríos Candelaria y San Pedro; <strong>HAZMAT</strong> para hidrocarburos en Ciudad del Carmen; <strong>incendios forestales</strong> en Calakmul y zona selvática; atención <strong>prehospitalaria</strong>; control de <strong>fugas de gas</strong>; retiro de <strong>enjambres de abejas africanizadas</strong>; y apoyo en emergencias del <strong>Tren Maya</strong> (estación Escárcega).`,
+  },
+  {
+    q: "¿Los servicios de bomberos en Campeche tienen costo?",
+    a: `Las emergencias que comprometen la <strong>vida o la integridad</strong> de personas —incendios, rescates, fugas de gas— se atienden de forma <strong>gratuita</strong>. Algunos servicios secundarios como retiro de enjambres, dictámenes preventivos o capacitación a empresas pueden tener cuota de recuperación. La atención de emergencia nunca se condiciona a pago previo. Para emergencias, llama siempre al <strong>911</strong>.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en mi hogar en Campeche?",
+    a: `Las principales recomendaciones para hogares en Campeche: revisa periódicamente la instalación de <strong>gas LP</strong> (mangueras, reguladores, conexiones), ya que el clima húmedo del trópico acelera el deterioro de los materiales. Instala <strong>detectores de humo</strong> y ten un extintor vigente en cocina. Ante una fuga de gas, <strong>no acciones interruptores</strong>, abre ventanas, cierra la llave de paso y evacúa. En temporada seca, evita quemas agrícolas no controladas cerca de zonas forestales. Si detectas un incendio, llama de inmediato al <strong>911</strong> o al teléfono directo de la estación más cercana.`,
+  },
+  {
+    q: "¿Qué tan peligrosos son los incendios de manglar en la Laguna de Términos?",
+    a: `Los incendios en los manglares de la <strong>Laguna de Términos</strong> —Área de Protección de Flora y Fauna con 891,000 hectáreas— son especialmente difíciles porque la combustión ocurre en la materia orgánica del suelo y en raíces aéreas, produciendo <strong>humo denso con escasa llama visible</strong>. El terreno fangoso impide el acceso terrestre y obliga a los bomberos a operar desde embarcaciones. Cualquier intervención requiere coordinación con <strong>CONANP</strong> y la <strong>Armada de México</strong>. La Laguna de Términos es además el sistema lagunar costero más importante del Golfo de México, sustento de la pesca artesanal de la isla del Carmen.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-petrolera-01.avif",
@@ -105,7 +242,7 @@ const stationImages = [
   estado="Campeche"
   sigla="CAMP"
   slug="campeche"
-  description={`${estadisticas.totalEstaciones} estaciones en Campeche — triple UNESCO, Sonda PEMEX 60% producción nacional, Calakmul selva y Ciudad del Carmen isla. Emergencias: 911.`}
+  description={`Bomberos en Campeche: ${estadisticas.totalEstaciones} estaciones, triple Patrimonio UNESCO, Sonda PEMEX (200+ plataformas offshore), Reserva Biósfera Calakmul y huracanes del Golfo. Emergencias: 911.`}
   keywords={[
     "bomberos campeche",
     "estaciones bomberos ciudad del carmen",
@@ -123,14 +260,14 @@ const stationImages = [
     "directorio bomberos campeche",
     "emergencias 911 san francisco campeche",
   ]}
-  canonical="https://bombero.mx/directorio/campeche/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
   totalEstaciones={estadisticas.totalEstaciones}
   totalMunicipios={estadisticas.totalMunicipios}
   habitantes="928K+"
 
-  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Campeche</strong> protege los <strong>${estadisticas.totalMunicipios} municipios</strong> del único estado de México con triple Patrimonio UNESCO con <strong>${estadisticas.totalEstaciones} estaciones activas</strong> y más de <strong>322 bomberos profesionales</strong> — desde la ciudad amurallada del siglo XVII hasta las plataformas petroleras de la Sonda de Campeche, la selva de Calakmul y la frontera con Guatemala.`}
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Campeche</strong> protege los <strong>${estadisticas.totalMunicipios} municipios</strong> del único estado de México con triple Patrimonio UNESCO con <strong>${estadisticas.totalEstaciones} estaciones activas</strong> y <strong>${totalBomberos} bomberos</strong> — desde la ciudad amurallada del siglo XVII hasta las plataformas petroleras de la Sonda de Campeche, la selva de Calakmul y la frontera con Guatemala.`}
   heroImage="/images/directorio/estacion-bomberos-petrolera-01.avif"
   heroImageAlt="Estación de Bomberos Campeche — HAZMAT Sonda de Campeche ciudad amurallada UNESCO"
   heroCaption="H. Cuerpo de Bomberos · Campeche"
@@ -176,7 +313,7 @@ const stationImages = [
       imageAlt:  "Traje HAZMAT Nivel A bomberos Ciudad del Carmen plataformas petroleras PEMEX Sonda Campeche",
       badge:     "NFPA 1991",
       title:     "Traje HAZMAT Nivel A — Emergencias Petroleras",
-      text:      "Certificado NFPA 1991 para la <strong>Sonda de Campeche</strong>, la mayor zona de producción petrolera de México: <strong>60% del petróleo nacional</strong> y <strong>30% del gas natural</strong> provienen de sus más de 200 plataformas marinas. Protección total encapsulada contra hidrocarburos, gases tóxicos y derrames en mar abierto. Compatible con los protocolos de emergencia de <strong>PEMEX, Halliburton, Schlumberger y Baker Hughes</strong> para incidentes offshore en la Sonda de Campeche.",
+      text:      "Certificado NFPA 1991 para la <strong>Sonda de Campeche</strong>, zona con más de 200 plataformas marinas de PEMEX y contratistas como Halliburton, Schlumberger y Baker Hughes. Protección total encapsulada contra hidrocarburos, gases tóxicos y derrames en mar abierto. La <strong>Estación de Ciudad del Carmen</strong> —isla con acceso único por los puentes Zacatal y La Unidad— responde a incidentes offshore en coordinación con la Armada de México.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -185,7 +322,7 @@ const stationImages = [
       imageAlt:  "Traje estructural NFPA 1971 bomberos Campeche ciudad amurallada UNESCO edificios coloniales siglo XVII",
       badge:     "NFPA 1971",
       title:     "Traje Estructural NFPA 1971",
-      text:      "Imprescindible para proteger la <strong>Ciudad Histórica Fortificada de Campeche</strong> (Patrimonio UNESCO, 1999) — la <strong>única ciudad amurallada de México</strong> con 8 baluartes y 2.5 km de murallas del siglo XVII. Los edificios de cantera del centro histórico requieren técnicas especializadas de extinción para no dañar el patrimonio. También para incendios en la <strong>Antigua Ciudad Maya de Calakmul</strong> (UNESCO, 2002), el mayor sitio arqueológico maya de México con 6,750 estructuras.",
+      text:      "Imprescindible para la <strong>Ciudad Histórica Fortificada de Campeche</strong> (Patrimonio UNESCO, diciembre 1999) — la única ciudad amurallada de México, con murallas del siglo XVII construidas para resistir piratas. Los edificios de cantera del centro histórico requieren técnicas de extinción especializadas coordinadas con el <strong>INAH</strong>. También para la <strong>Antigua Ciudad Maya de Calakmul</strong> (UNESCO 2014), con más de 6,000 estructuras en 35 km² de selva.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -194,7 +331,7 @@ const stationImages = [
       imageAlt:  "Traje Forestal NFPA 1977 bomberos selva Reserva Biósfera Calakmul incendios forestales jaguar puma",
       badge:     "NFPA 1977",
       title:     "Traje Forestal NFPA 1977",
-      text:      "Certificado para combate de incendios en la <strong>Reserva de la Biósfera de Calakmul</strong> (Patrimonio UNESCO, 2014), con <strong>723,185 hectáreas</strong> de selva tropical — la mayor reserva de bosque tropical de México y segunda del continente americano después del Amazonas. Hogar del jaguar, puma, tapir, guacamaya roja y más de 300 especies de aves. Las brigadas de Calakmul trabajan en coordinación con <strong>CONANP y CONAFOR</strong> con drones térmicos y tanques nodriza.",
+      text:      "Certificado para combate en la <strong>Reserva de la Biósfera de Calakmul</strong> (Patrimonio UNESCO, 2014), con <strong>723,185 hectáreas</strong> de selva tropical —segunda reserva de bosque tropical de América después del Amazonas—. Hogar del jaguar, puma, tapir y guacamaya roja. Las brigadas de Calakmul operan con drones térmicos, tanques nodriza y coordinación permanente con <strong>CONANP</strong> y <strong>CONAFOR</strong>.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -203,7 +340,7 @@ const stationImages = [
       imageAlt:  "Botas estructurales NFPA 1971 bomberos Campeche terreno mixto plataformas selva ciudad colonial costal",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales de Cuero",
-      text:      "Certificadas NFPA 1971 para el terreno más diverso del sureste: cubiertas de metal en <strong>plataformas petroleras offshore</strong> de la Sonda de Campeche, adoquín histórico de la <strong>ciudad amurallada de Campeche</strong>, suelo selvático húmedo de la <strong>Reserva de Calakmul</strong>, muelles pesqueros de <strong>Champotón y la Laguna de Términos</strong>, y suelo fronterizo de <strong>Candelaria</strong> junto al río homónimo. Resistencia garantizada en los ambientes más extremos de México.",
+      text:      "Certificadas NFPA 1971 para el terreno más diverso del sureste: cubiertas de metal en <strong>plataformas petroleras offshore</strong>, adoquín histórico de la <strong>ciudad amurallada</strong>, suelo selvático húmedo de la <strong>Reserva de Calakmul</strong>, muelles pesqueros de <strong>Champotón y la Laguna de Términos</strong>, y suelo fronterizo de <strong>Candelaria</strong> junto al río homónimo. Resistencia garantizada en los entornos más exigentes del sureste.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
@@ -212,74 +349,238 @@ const stationImages = [
   ctaTitle="Equipamos a los Bomberos de Campeche"
   ctaDesc={`Cotiza equipo certificado NFPA para las ${estadisticas.totalEstaciones} estaciones en San Francisco de Campeche, Ciudad del Carmen, Escárcega, Champotón, Calkiní, Candelaria y Calakmul. Envío a los 13 municipios del estado. Atención a licitaciones públicas PEMEX y compra directa.`}
   ctaBtnText="Solicitar Cotización — Campeche"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Campeche — Las Plataformas a 100 km en el Mar, la Ciudad Amurallada del Siglo XVII y la Selva que Conecta con Guatemala</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Campeche</strong> opera 7 estaciones en el único estado
-      de México con triple Patrimonio de la Humanidad UNESCO, producción petrolera offshore en el
-      Golfo y la segunda selva tropical más grande del continente americano. Los 322 bomberos del
-      estado cubren escenarios que no existen en ninguna otra entidad: una ciudad amurallada del
-      siglo XVII, plataformas offshore a 100 km en el mar y una reserva selvática de 723,185 ha.
+    <h2>Bomberos en Campeche</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Campeche">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estadisticas.totalMunicipios}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estadisticas.totalEstaciones}</span><span class="de-stat__label">Estaciones activas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Bomberos en servicio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalUnidades}</span><span class="de-stat__label">Unidades operativas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">3</span><span class="de-stat__label">Sitios Patrimonio UNESCO</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">200+</span><span class="de-stat__label">Plataformas PEMEX offshore</span></div>
+    </div>
+
+    <p class="de-lead">
+      Campeche es el único estado de México con <strong>triple Patrimonio de la Humanidad UNESCO</strong>
+      y uno de los territorios con mayor diversidad de riesgo en el país: una ciudad amurallada del siglo XVII,
+      más de 200 plataformas petroleras en el mar y una reserva de selva tropical de 723,185 hectáreas.
+      Los <strong>{totalBomberos} bomberos</strong> distribuidos en las{" "}
+      <strong>{estadisticas.totalEstaciones} estaciones</strong> del estado atienden escenarios que no
+      tienen equivalente en ninguna otra entidad: incendios en edificios coloniales que requieren
+      coordinación con el INAH, emergencias offshore a 100 km en el Golfo de México y combate
+      forestal en la segunda reserva tropical más grande de América.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Campeche?</h3>
+    <h3>Cómo contactar a los bomberos en Campeche</h3>
     <p>
-      El <strong>911</strong> coordina respuesta en todo el estado, incluyendo emergencias
-      offshore en la Sonda de Campeche en coordinación con la Armada de México y brigadas PEMEX.
-      Teléfonos directos: Campeche capital 981 811 3636, Ciudad del Carmen 938 382 5050,
-      Escárcega 982 824 0066, Champotón 982 828 0038, Calkiní 996 963 0033,
-      Candelaria 982 826 0025, Calakmul (Xpujil) 983 871 6036.
+      En cualquier emergencia, el <strong>911</strong> conecta con Protección Civil y coordina el
+      despacho de la unidad más cercana en los 13 municipios, incluyendo emergencias offshore en
+      la Sonda de Campeche en coordinación con la Armada de México. Los teléfonos directos de
+      las principales estaciones son: Campeche capital <strong>981 811 3636</strong>, Ciudad del
+      Carmen <strong>938 382 5050</strong>, Escárcega <strong>982 824 0066</strong>, Champotón
+      <strong>982 828 0038</strong>, Calkiní <strong>996 963 0033</strong>, Candelaria
+      <strong>982 826 0025</strong> y Calakmul (Xpujil) <strong>983 871 6036</strong>. Encuentra
+      todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
     </p>
 
-    <h3>Triple Patrimonio UNESCO: ciudad, pirámides y selva</h3>
+    <h3>Historia de los bomberos en Campeche</h3>
     <p>
-      La estación de la capital protege la Ciudad Histórica Fortificada de Campeche —8 baluartes
-      y murallas del siglo XVII construidas para resistir piratas—, donde cualquier intervención
-      de extinción debe preservar la cantera original declarada Patrimonio en 1999. A 300 km al
-      sur, la estación de Calakmul (Xpujil) custodia tanto la zona arqueológica maya con 6,750
-      estructuras —rival histórica de Tikal en Guatemala— como la Reserva de la Biósfera de
-      723,185 hectáreas. Cada incendio en la zona de monumentos requiere coordinación con el INAH
-      antes de cualquier intervención química.
+      La historia del combate de incendios en Campeche arranca en el contexto de una ciudad construida
+      para resistir el fuego y la guerra. Estos son los hitos verificables que explican la evolución
+      del cuerpo:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en el puerto de Veracruz el <strong>primer cuerpo de bomberos de México</strong> —y de América Latina—. La fecha se conmemora cada año como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1917</span> La nueva Constitución Política de México establece el marco para que los municipios organicen sus servicios de protección civil. En Campeche, las poblaciones costeras ya contaban con cuadrillas de extinción informales ante el riesgo permanente de incendios en estructuras coloniales.</li>
+      <li><span class="de-tl__year">1979</span> El descubrimiento y explotación masiva del campo <strong>Cantarell</strong> en la Sonda de Campeche transforma Ciudad del Carmen en capital petrolera de México. El cuerpo de bomberos de Carmen inicia su especialización industrial para responder a emergencias en plataformas y muelles petroleros.</li>
+      <li><span class="de-tl__year">1986</span> Incendio de la plataforma <strong>Abkatún</strong> en la Sonda de Campeche. El evento expone la necesidad de protocolos de respuesta offshore y acelera la certificación HAZMAT del personal de Ciudad del Carmen.</li>
+      <li><span class="de-tl__year">1989</span> Se establece la <strong>Reserva de la Biósfera de Calakmul</strong>, la mayor área protegida de bosque tropical de México, con 723,185 hectáreas. Las brigadas forestales comienzan a operar en coordinación con la recién creada CONANP.</li>
+      <li><span class="de-tl__year">1999</span> La <strong>Ciudad Histórica Fortificada de Campeche</strong> es inscrita en la Lista del Patrimonio Mundial de la UNESCO el <strong>4 de diciembre</strong>. Los bomberos de la capital desarrollan protocolos específicos para intervención en edificios patrimoniales con coordinación del INAH.</li>
+      <li><span class="de-tl__year">2002</span> El <strong>huracán Isidore</strong> descarga hasta <strong>777 mm de lluvia en 96 horas</strong> sobre Campeche, uno de los máximos registrados en el estado. Las estaciones de la capital, Champotón y Carmen responden a cientos de emergencias en cascada durante la temporada.</li>
+      <li><span class="de-tl__year">2005</span> Se establece formalmente la <strong>Estación Calakmul</strong> en Xpujil, específicamente equipada para protección de la Reserva de la Biósfera y la zona arqueológica maya.</li>
+      <li><span class="de-tl__year">2014</span> La UNESCO inscribe la <strong>Antigua Ciudad Maya y Bosques Tropicales Protegidos de Calakmul</strong> como Patrimonio Mixto (cultural y natural), el primero de este tipo en México. Campeche pasa a ser el estado con más sitios UNESCO del país.</li>
+      <li><span class="de-tl__year">Hoy</span> El cuerpo opera <strong>{estadisticas.totalEstaciones} estaciones</strong> con <strong>{totalBomberos} bomberos</strong> y <strong>{totalUnidades} unidades</strong>, atendiendo los tres tipos de riesgo más singulares de México: petroleo offshore, patrimonio colonial e incendios de selva tropical.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cómo se cubren los 13 municipios</h3>
+    <p>
+      La cobertura del cuerpo se organiza en cinco zonas con perfiles de riesgo radicalmente
+      distintos. La capital concentra la protección patrimonial; Carmen cubre la industria
+      petrolera offshore; Calakmul defiende la biósfera selvática; y las zonas sur y norte
+      dan respuesta a carreteras, comunidades mayas y costa del Golfo:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonasConDatos.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los bomberos en Campeche</h3>
+    <p>
+      Los cuerpos de bomberos de Campeche son servicios de emergencia integral con capacidades
+      diferenciadas por zona. Estas son sus funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Estructurales en edificios coloniales y modernos, forestales en selva tropical, industriales en instalaciones petroleras y portuarias.</p></div>
+      <div class="de-card"><h4>HAZMAT — Materiales peligrosos</h4><p>Control de derrames e incendios de hidrocarburos en Ciudad del Carmen y Sonda de Campeche, con trajes encapsulados Nivel A y coordinación con PEMEX.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación con herramienta hidráulica en las carreteras 186 y 261, de alto tráfico de carga pesada y autobuses, y en la zona del Tren Maya en Escárcega.</p></div>
+      <div class="de-card"><h4>Rescate acuático</h4><p>Operaciones en Laguna de Términos, Golfo de México, río Champotón, ríos Candelaria y San Pedro, y coordinación para emergencias offshore.</p></div>
+      <div class="de-card"><h4>Incendios forestales</h4><p>Combate en la Reserva de la Biósfera de Calakmul con drones térmicos, tanques nodriza y líneas cortafuegos, coordinado con CONANP y CONAFOR.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones a instalaciones petroleras, patrimonio histórico, hoteles y comercios; simulacros de huracán; capacitación bilingüe español-maya en comunidades indígenas.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio</th><th>Disponibilidad</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>HAZMAT — Hidrocarburos</strong></td><td>24/7</td><td>Ciudad del Carmen (Nivel A/B)</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático marítimo</strong></td><td>24/7</td><td>Carmen, Champotón</td></tr>
+          <tr><td><strong>Rescate acuático fluvial</strong></td><td>24/7</td><td>Candelaria (ríos Candelaria y San Pedro)</td></tr>
+          <tr><td><strong>Combate forestal</strong></td><td>Temporada seca (feb–may)</td><td>Calakmul, Candelaria, Escárcega</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Protección patrimonio UNESCO</strong></td><td>24/7</td><td>Campeche capital y Calakmul</td></tr>
+          <tr><td><strong>Emergencias Tren Maya</strong></td><td>24/7</td><td>Escárcega (estación ferroviaria)</td></tr>
+          <tr><td><strong>Huracanes e inundaciones</strong></td><td>Temporada jun–nov</td><td>Carmen, Campeche, Champotón</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Petróleo, UNESCO y selva: los tres frentes de riesgo únicos de Campeche</h3>
+    <p>
+      La estación de Ciudad del Carmen responde a emergencias en más de <strong>200 plataformas
+      marinas</strong> de la Sonda de Campeche. Ciudad del Carmen es una isla conectada al
+      continente únicamente por los puentes <strong>Zacatal (3.2 km)</strong> y <strong>La Unidad
+      (3.8 km)</strong>, lo que impone protocolos de isla ante huracanes del Golfo con accesos
+      cortados. El personal mantiene certificaciones HAZMAT nivel técnico para hidrocarburos y
+      coordina con brigadas industriales de PEMEX, Halliburton y Schlumberger. En 2023 y 2024
+      se registraron incendios en plataformas de la Sonda que activaron el sistema de respuesta
+      regional.
+    </p>
+    <p>
+      A 100 km en dirección opuesta, la estación de la capital protege la <strong>Ciudad Histórica
+      Fortificada de Campeche</strong>, inscrita como Patrimonio UNESCO el 4 de diciembre de 1999.
+      Sus murallas del siglo XVII —construidas para resistir piratas del Caribe— y los edificios
+      de cantera del centro histórico exigen técnicas de extinción que no dañen los materiales
+      originales. Cualquier intervención química en la zona de monumentos requiere coordinación
+      previa con el <strong>INAH</strong>. A 300 km al sureste, la estación de Calakmul (Xpujil)
+      custodia la <strong>Antigua Ciudad Maya</strong> —con más de 6,000 estructuras en 35 km² de
+      selva— y la <strong>Reserva de la Biósfera de 723,185 hectáreas</strong>, la mayor de México y
+      segunda de América. Un incendio en la temporada seca puede cruzar en horas a la selva del
+      Petén guatemalteco.
+    </p>
+    <p>
+      La <strong>Laguna de Términos</strong> —Área de Protección de Flora y Fauna con 891,000 hectáreas,
+      el sistema lagunar costero más importante del Golfo de México— añade un cuarto frente: incendios
+      de manglar con combustión subterránea, escasa llama visible y suelo fangoso impracticable. La
+      Armada de México y la Estación de Carmen operan en coordinación para las zonas más remotas de
+      la laguna.
     </p>
 
-    <h3>La Sonda de Campeche: bomberos en el mayor campo petrolero de México</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      La estación de Ciudad del Carmen responde a emergencias en más de 200 plataformas marinas
-      de la Sonda de Campeche, que produce aproximadamente el 60% del petróleo nacional. Ciudad
-      del Carmen es una isla conectada al continente únicamente por los puentes Zacatal (3.2 km)
-      y La Unidad (3.8 km), lo que impone protocolos de isla para respuesta ante huracanes del
-      Golfo con accesos cortados. El personal mantiene certificaciones HAZMAT nivel técnico para
-      hidrocarburos y coordina con brigadas industriales de PEMEX, Halliburton y Schlumberger.
+      Distribución de estaciones, personal y unidades por zona, calculada a partir de los datos
+      de las estaciones publicadas en este directorio:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonasConDatos.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{estadisticas.totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>13 municipios de Campeche</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Campeche</h3>
+    <p>
+      El primer reto es la <strong>dispersión geográfica</strong>: Campeche es el tercer estado
+      más grande de México por superficie (57,924 km²) con apenas 928,000 habitantes. Municipios
+      como Calakmul y Candelaria tienen densidades inferiores a 3 habitantes por km², lo que
+      convierte cualquier emergencia en zona remota en una operación de largo alcance con tiempos
+      de respuesta de una a tres horas y dependencia de radios satelitales ante la ausencia de
+      cobertura celular.
+    </p>
+    <p>
+      El segundo reto es la <strong>especialización técnica</strong>: ninguna otra entidad exige
+      simultáneamente capacitación HAZMAT para hidrocarburos, técnicas de extinción patrimonial
+      coordinadas con el INAH, combate forestal en selva tropical con drones y rescate acuático
+      en tres tipos de cuerpo de agua diferentes (mar abierto, laguna costera y ríos de selva).
+      El presupuesto para mantener actualizadas esas certificaciones y el equipo asociado es uno
+      de los desafíos estructurales del cuerpo.
+    </p>
+    <p>
+      El tercer reto es la <strong>temporada de huracanes</strong>. El huracán Isidore (2002)
+      descargó 777 mm en 96 horas sobre Campeche; Dean (2007) cruzó la Península como categoría
+      5. Con el Golfo de México como factor permanente, las estaciones de Carmen, Campeche y
+      Champotón deben mantener planes de contingencia activos de junio a noviembre, con
+      preposicionamiento de equipos y refuerzo de brigadas de rescate acuático.
     </p>
 
-    <h3>Calakmul y la frontera del fuego con el Petén guatemalteco</h3>
+    <h3>Cultura de prevención en Campeche</h3>
     <p>
-      La selva que rodea Calakmul conecta sin interrupción con la selva del Petén en Guatemala,
-      formando el segundo bloque de bosque tropical de América después del Amazonas. En temporada
-      seca —febrero a mayo— un foco de incendio puede cruzar la frontera en horas. La brigada
-      forestal de Calakmul opera con drones de cámara térmica, radios satelitales y coordinación
-      permanente con CONANP y CONAFOR. El jaguar, el tapir y la guacamaya roja tienen en esta
-      estación su única línea de defensa contra el fuego en la región más remota del sureste.
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones que
+      los cuerpos de bomberos del estado transmiten a la población:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención para Campeche</h4>
+      <ul>
+        <li><strong>Gas LP:</strong> el clima tropical húmedo acelera el deterioro de mangueras y reguladores; revísalos cada seis meses. Si hueles gas, no acciones interruptores, abre puertas y ventanas, cierra la llave de paso y evacúa antes de llamar al 911.</li>
+        <li><strong>Temporada de huracanes (jun–nov):</strong> mantén una mochila de emergencia con agua, documentos, medicamentos y radio de batería; identifica la ruta de evacuación y el albergue más cercano antes de cada temporada.</li>
+        <li><strong>Incendios forestales:</strong> en comunidades colindantes con selva, evita quemas de rozas en temporada seca (feb–may); una chispa puede alcanzar la biósfera en minutos. Reporta cualquier columna de humo sospechosa al 911 o a los guardaparques de CONANP.</li>
+        <li><strong>Zona petrolera:</strong> si vives o trabajas cerca de instalaciones de Ciudad del Carmen, conoce el plan de evacuación de tu inmueble y los puntos de encuentro en caso de emergencia industrial.</li>
+        <li><strong>Patrimonio histórico:</strong> si detectas un conato de incendio en el centro histórico o en una zona arqueológica, llama al 911 de inmediato y no uses extintores no certificados sobre superficies de cantera o estuco original.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enséñales a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Secretaría de Protección Civil de Campeche (SEPROCI), directorio oficial de estaciones;
+      UNESCO, «Ciudad Histórica Fortificada de Campeche» (inscripción 4 dic. 1999) y «Antigua Ciudad Maya
+      y Bosques Tropicales Protegidos de Calakmul» (inscripción 21 jun. 2014); CONAGUA / SMN, ficha
+      de daños huracán Isidore (2002) —acumulado 777 mm en 96 h sobre Campeche—;
+      El Financiero, «La Sonda de Campeche produce el 66% de barriles de petróleo en el país»;
+      SEMARNAT, «Reserva de la Biósfera Calakmul» (723,185 ha); datos de personal y unidades calculados
+      a partir de las estaciones publicadas en este directorio. Para emergencias, llama siempre al
+      <strong>911</strong>.
     </p>
 
-  
-      <h3>Laguna de Términos — La Segunda Laguna Costera de México y el Manglar que Arde sin Llama Visible</h3>
-      <p>
-        La Laguna de Términos es el sistema lagunar costero más importante del Golfo de México:
-        891,000 hectáreas de humedales, manglares, pastos marinos y zonas de alimentación que
-        sustentan la pesca artesanal de Isla del Carmen y el ecosistema del que depende una parte
-        significativa de la producción pesquera del sureste. Los incendios en manglar son
-        especialmente difíciles de combatir porque la combustión ocurre en la materia orgánica
-        del suelo y en las raíces aéreas, produciendo humo denso y escasa llama visible que
-        impide localizar el frente activo desde la distancia. El terreno fangoso de entre 0.5 y
-        1.5 metros de profundidad hace imposible el acceso terrestre, obligando a los bomberos
-        a operar desde embarcaciones con manguerotes de baja presión y a coordinar con la Armada
-        de México para cobertura de las zonas más remotas. La Laguna de Términos es además un
-        Área de Protección de Flora y Fauna, lo que añade coordinación con CONANP a cualquier
-        intervención de extinción.
-      </p>
   </Fragment>
 </DirectorioEstadoLayout>

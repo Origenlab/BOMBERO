@@ -1,25 +1,69 @@
 ---
 
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
-import { estacionesMorelos, getMunicipios, ESTADISTICAS_MORELOS, MORELOS_SEO } from "@data/estaciones-morelos";
+import { estacionesMorelos, getMunicipios, ESTADISTICAS_MORELOS } from "@data/estaciones-morelos";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("morelos");
 
 const municipios = getMunicipios();
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Morelos",                url: "/directorio/morelos/" },
-]);
+const canonical = "https://bombero.mx/directorio/morelos/";
 
+// ── Comparativa regional ───────────────────────────────────────────────────
+const zonasDef = [
+  {
+    nombre: "Zona Metropolitana Cuernavaca",
+    municipiosZona: ["Cuernavaca", "Temixco"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital del estado, 50+ barrancas urbanas, Palacio de Cortés (1535), turismo de fin de semana.",
+  },
+  {
+    nombre: "Zona Industrial CIVAC",
+    municipiosZona: ["Jiutepec"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "~160 empresas desde 1966, HAZMAT farmacéutico y automotriz, Nissan Mexicana.",
+  },
+  {
+    nombre: "Altos de Morelos",
+    municipiosZona: ["Tepoztlán"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Pueblos Mágicos Tepoztlán y Tlayacapan, rescate de montaña, incendios forestales.",
+  },
+  {
+    nombre: "Valle de Cuautla",
+    municipiosZona: ["Cuautla", "Oaxtepec", "Yautepec", "Axochiapan"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Segunda ciudad, balnearios termales, epicentro sismo 19S 2017, agroquímicos.",
+  },
+  {
+    nombre: "Haciendas del Sur",
+    municipiosZona: ["Jojutla", "Zacatepec de Hidalgo", "Puente de Ixtla"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Zona cañera, ingenios azucareros, zona más dañada sismo 2017, Xochicalco UNESCO.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesMorelos.filter((e) => z.municipiosZona.includes(e.ciudad ?? ""));
+  return {
+    ...z,
+    nEst: est.length,
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Morelos, México",
-  "description": "Directorio completo de las 16 estaciones de bomberos en Morelos. Protección para Cuernavaca, Cuautla, Tepoztlán, zona industrial CIVAC, Xochicalco UNESCO y 2 millones de habitantes a 85 km de CDMX. Emergencias 911.",
+  "description": `Directorio completo de las ${estacionesMorelos.length} estaciones de bomberos en Morelos. Protección para Cuernavaca, Cuautla, Tepoztlán, zona industrial CIVAC, Xochicalco UNESCO y 2 millones de habitantes a 85 km de CDMX. Emergencias 911.`,
   "numberOfItems": estacionesMorelos.length,
   "itemListElement": estacionesMorelos.map((e, i) => ({
     "@type": "ListItem",
@@ -39,6 +83,93 @@ const itemListSchema = {
     }
   }))
 };
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Morelos: estaciones, historia y servicios de emergencia",
+  "description": "Guía de los cuerpos de bomberos de Morelos: historia (Cuernavaca 1943, Cuautla 1958), infraestructura en 6 zonas operativas, funciones, retos y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Cuernavaca",
+    "Bomberos de Cuautla",
+    "Protección Civil Morelos",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/morelos.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Morelos",
+  "description": `Directorio verificado de estaciones de bomberos en los municipios de Morelos, con teléfonos, cobertura, funciones e historia de los cuerpos de bomberos del estado.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de Cuernavaca" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/morelos.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQs únicas de Morelos (≥10) ──────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Morelos?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas a través del C5 de Morelos. La llamada se enruta a la estación con menor tiempo de respuesta. En Cuernavaca el promedio es de <strong>4 a 7 minutos</strong>; en zonas de sierra o corredor carretero puede extenderse. También puedes llamar directamente a la Estación Central de Cuernavaca: <strong>(777) 312-3636</strong>.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Morelos?",
+    a: `Este directorio registra <strong>${estacionesMorelos.length} estaciones de bomberos</strong> distribuidas en los principales municipios del estado, organizadas en 6 zonas operativas: Zona Metropolitana Cuernavaca, Zona Industrial CIVAC, Altos de Morelos, Valle de Cuautla, Haciendas del Sur y Corredor Norte CDMX. Las corporaciones principales son el Heroico Cuerpo de Bomberos de Cuernavaca y el Heroico Cuerpo de Bomberos de Cuautla.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de Cuernavaca?",
+    a: `El <strong>Heroico Cuerpo de Bomberos de Cuernavaca</strong> fue fundado en <strong>1943</strong>, siendo el más antiguo del estado de Morelos. El de Cuautla, la segunda ciudad más importante, fue fundado en <strong>1958</strong>. En México, el primer cuerpo de bomberos del país se estableció el <strong>22 de agosto de 1873 en Veracruz</strong>, fecha que se conmemora como el Día del Bombero.`,
+  },
+  {
+    q: "¿Cómo respondieron los bomberos al sismo del 19 de septiembre de 2017 en Morelos?",
+    a: `El sismo del 19 de septiembre de 2017 (Mw 7.1, epicentro en Axochiapan, Morelos) causó <strong>74 muertos y más de 23,000 viviendas dañadas</strong> en el estado. Jojutla fue el municipio más afectado, con 356 casas colapsadas. Los bomberos de Morelos operaron en coordinación con brigadas de rescate nacionales durante días, atendiendo derrumbes en edificaciones con mampostería antigua y rescate simultáneo en barrancas con escombros en caída libre. La experiencia del 19S reforzó los protocolos de búsqueda y rescate urbano (USAR) del estado.`,
+  },
+  {
+    q: "¿Qué hace especial a la zona industrial CIVAC para los bomberos de Morelos?",
+    a: `La Ciudad Industrial del Valle de Cuernavaca (CIVAC), fundada en 1966 en Jiutepec, concentra alrededor de <strong>160 empresas</strong>, incluyendo fabricantes de productos farmacéuticos, automotrices (Nissan Mexicana) y química industrial. La estación de CIVAC trata cualquier incendio en instalación farmacéutica como <strong>emergencia HAZMAT de inicio</strong>, porque los solventes de síntesis —como la dimetilformamida o el diclorometano— producen gases tóxicos al arder con perfiles muy distintos al humo de un incendio convencional.`,
+  },
+  {
+    q: "¿Qué son las barrancas de Cuernavaca y por qué representan un riesgo específico?",
+    a: `Cuernavaca está atravesada por <strong>más de 50 barrancas</strong> de entre 10 y 40 metros de profundidad, resultado de la erosión de la capa de toba volcánica. En ellas se ha edificado informalmente, se han tendido cables eléctricos y se han vertido escombros. El rescate en una barranca urbana no es rescate en montaña: los bomberos deben identificar y aislar cables activos, anclar en infraestructura urbana y coordinar con la CFE. Un sismo puede además derribar estructuras sobre la barranca mientras se trabaja en el fondo.`,
+  },
+  {
+    q: "¿Cuáles son los riesgos de la Autopista del Sol para los bomberos de Morelos?",
+    a: `La Autopista del Sol (95D) asciende desde CDMX hasta 3,000 msnm cerca de Huitzilac antes de descender a Cuernavaca. El tramo alto concentra <strong>bancos de niebla orográfica</strong> en temporada de lluvias que reducen la visibilidad a 20–30 metros. Los conductores de CDMX no anticipan el cambio de condiciones; los frenos se enfrían al ascender y el agarre de los neumáticos cae justo cuando la visibilidad desaparece. La estación de Huitzilac mantiene unidad de rescate vehicular pesada durante fines de semana y puentes.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos las emergencias en los balnearios de Cuautla?",
+    a: `El Valle de Cuautla concentra más de 30 balnearios y parques acuáticos que reciben millones de visitantes al año, con picos de <strong>5,000 a 15,000 personas en un solo día</strong> en Semana Santa. Los bomberos de Cuautla preposicionan unidades en los accesos de los principales balnearios —no dentro de los parques— para mantener abiertos los cuellos de botella en caso de evacuación masiva. El agua termal con azufre y carbonatos interfiere con la eficacia del cloro, lo que da un perfil médico distinto al casi-ahogamiento en piscina convencional.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de Morelos?",
+    a: `Combate de <strong>incendios estructurales, forestales y agrícolas</strong>; <strong>rescate vehicular</strong> en la Autopista del Sol y carreteras federales; <strong>atención prehospitalaria</strong>; <strong>búsqueda y rescate urbano (USAR)</strong> en derrumbes; <strong>materiales peligrosos (HAZMAT)</strong> en la zona industrial CIVAC; <strong>rescate de montaña</strong> en el cerro del Tepozteco y Lagunas de Zempoala; <strong>rescate acuático</strong> en balnearios y ríos; y <strong>prevención e inspecciones</strong>. La emergencia se coordina siempre a través del <strong>911</strong>.`,
+  },
+  {
+    q: "¿Es peligroso subir al cerro del Tepozteco? ¿Qué hacen los bomberos si me pierdo?",
+    a: `El cerro del Tepozteco eleva la pirámide prehispánica a unos 600 metros sobre el pueblo. El sendero puede ser exigente en calor y en temporada de lluvias con barro. Si un excursionista cae, se extravía o requiere atención médica, los <strong>bomberos de Tepoztlán</strong> coordinan el rescate de montaña con técnicas verticales y búsqueda activa en la sierra. Registra tu ruta, lleva agua y teléfono cargado, y avisa a alguien antes de subir.`,
+  },
+  {
+    q: "¿Qué es Xochicalco y por qué es relevante para los bomberos de Morelos?",
+    a: `La Zona Arqueológica de Xochicalco es <strong>Patrimonio Mundial UNESCO desde 1999</strong>. Su observatorio astronómico es una cámara subterránea excavada en roca volcánica con una sola entrada y sin ventilación mecánica, donde la luz solar entra por un ducto hexagonal en el solsticio. Para los bomberos, una emergencia de rescate en ese espacio es una <strong>operación en espacio confinado</strong> con riesgo de atmósfera deficiente en oxígeno, lo que requiere equipo SCBA y protocolos específicos.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir emergencias si visito Morelos de fin de semana?",
+    a: `Si visitas la Autopista del Sol, <strong>reduce velocidad en el tramo de Huitzilac</strong> ante niebla o lluvia. En los balnearios, supervisa a menores en albercas y conoce la ubicación del salvavidas. En el Tepozteco, lleva agua, calzado adecuado y teléfono cargado. Ante cualquier emergencia, marca el <strong>911</strong>; el C5 de Morelos atiende las 24 horas. Conserva el teléfono directo de la estación más cercana a tu destino.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-equipada-01.avif",
@@ -97,22 +228,22 @@ const stationImages = [
   estado="Morelos"
   sigla="MOR"
   slug="morelos"
-  description={`${ESTADISTICAS_MORELOS.total_estaciones} estaciones en Morelos — Cuernavaca 50 barrancas urbanas, Autopista del Sol niebla a 3,000 msnm, CIVAC farmacéutica y Xochicalco UNESCO. Emergencias: 911.`}
-  keywords={["bomberos morelos","estaciones bomberos cuernavaca","bomberos cuautla","emergencias morelos 911","bomberos tepoztlán","bomberos jiutepec CIVAC","cuerpo bomberos morelos","rescate autopista del sol","bomberos xochicalco","bomberos zona industrial"]}
-  canonical="https://bombero.mx/directorio/morelos/"
-  jsonLd={[itemListSchema]}
+  description={`Bomberos en Morelos: ${estacionesMorelos.length} estaciones en Cuernavaca, Cuautla, CIVAC y 4 zonas más. Sismo 19S 2017, barrancas urbanas, Autopista del Sol y Xochicalco UNESCO. Emergencias: 911.`}
+  keywords={["bomberos morelos","estaciones bomberos cuernavaca","bomberos cuautla","emergencias morelos 911","bomberos tepoztlán","bomberos jiutepec CIVAC","cuerpo bomberos morelos","rescate autopista del sol","bomberos xochicalco","sismo morelos 2017 bomberos"]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
   totalEstaciones={estacionesMorelos.length}
   totalMunicipios={municipios.length}
   habitantes="2M+"
 
-  heroDesc="Directorio completo del <strong>Heroico Cuerpo de Bomberos de Morelos</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de las 16 estaciones que protegen la Ciudad de la Eterna Primavera, la zona industrial CIVAC, 2 Pueblos Mágicos y Xochicalco UNESCO — a solo 85 km de la capital del país."
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Cuernavaca</strong> —fundado en <strong>1943</strong>, el más antiguo de Morelos— y las corporaciones de los municipios del estado protegen a <strong>2 millones de morelenses</strong> con <strong>${estacionesMorelos.length} estaciones</strong> en 6 zonas operativas. Barrancas urbanas de hasta 40 m de profundidad en la capital, la niebla de la Autopista del Sol a 3,000 msnm, el corredor industrial CIVAC con manufactura farmacéutica, los balnearios de Cuautla con millones de visitantes, y el epicentro del <strong>sismo del 19S de 2017 (Mw 7.1)</strong> en el propio territorio del estado: el perfil de riesgo de Morelos no tiene equivalente en el centro del país.`}
   heroImage="/images/directorio/estacion-bomberos-equipada-01.avif"
-  heroImageAlt="Estación Central de Bomberos Cuernavaca, Morelos - Ciudad de la Eterna Primavera"
-  heroCaption="H. Cuerpo de Bomberos · Morelos"
+  heroImageAlt="Estación Central de Bomberos Cuernavaca, Morelos — fundada 1943, Ciudad de la Eterna Primavera"
+  heroCaption="H. Cuerpo de Bomberos · Morelos · Cuernavaca fundado 1943"
   heroThumbs={[
     { src: "/images/directorio/camion-bomberos-moderno-01.avif",           alt: "Camión de bomberos Cuernavaca MOR",           label: "Flota Cuernavaca"    },
-    { src: "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",        alt: "Rescate vehicular Autopista del Sol",         label: "Rescate Carretero"   },
+    { src: "/images/directorio/equipo-bomberos-rescate-vehicular-01.avif",        alt: "Rescate vehicular Autopista del Sol niebla Huitzilac",         label: "Rescate Carretero"   },
     { src: "/images/directorio/bombero-profesional-equipo-completo-vestidor-02.avif", alt: "Equipo completo de bombero en vestidor de estación de Morelos", label: "Equipo Completo EPP" },
   ]}
 
@@ -120,25 +251,26 @@ const stationImages = [
     { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",        alt: "Entrenamiento bomberos Morelos",            label: "Academia Bomberil"    },
     { src: "/images/directorio/camion-escalera-bomberos-01.avif",            alt: "Camión escalera bomberos Cuernavaca",       label: "Rescate en Altura"    },
     { src: "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif", alt: "Bombero junto a camiones en bahía de estación de Morelos", label: "Servicio Activo" },
-    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "Equipo HAZMAT zona industrial CIVAC",       label: "HAZMAT Industrial"    },
+    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "Equipo HAZMAT zona industrial CIVAC Jiutepec",       label: "HAZMAT Industrial"    },
   ]}
 
   emergencyNumbers={[
     { number: "911",               label: "Emergencias"           },
     { number: "(777) 312-3636",    label: "Bomberos Cuernavaca"   },
-    { number: "(735) 352-5050",    label: "Bomberos Cuautla"      },
-    { number: "(777) 320-1010",    label: "Bomberos CIVAC"        },
+    { number: "(735) 352-2424",    label: "Bomberos Cuautla"      },
+    { number: "(777) 320-4545",    label: "Bomberos CIVAC"        },
+    { number: "(739) 395-0505",    label: "Bomberos Tepoztlán"    },
   ]}
 
   municipios={municipios}
 
   regiones={[
-    { nombre: "Zona Metropolitana Cuernavaca",  desc: "Capital, Temixco, clima primaveral, turismo, Palacio de Cortés"  },
-    { nombre: "Zona Industrial CIVAC",          desc: "Jiutepec, manufactura automotriz, HAZMAT especializado"          },
-    { nombre: "Altos de Morelos",               desc: "Tepoztlán, Tlayacapan - Pueblos Mágicos, ecoturismo, misticismo" },
-    { nombre: "Valle de Cuautla",               desc: "Cuautla, balnearios, historia zapatista, agricultura"            },
-    { nombre: "Haciendas del Sur",              desc: "Jojutla, Zacatepec, cañaverales, patrimonio hacendario"          },
-    { nombre: "Corredor Norte CDMX",            desc: "Huitzilac, Autopista del Sol, rescate carretero intensivo"       },
+    { nombre: "Zona Metropolitana Cuernavaca",  desc: "Capital, Temixco, clima primaveral, 50+ barrancas urbanas, Palacio de Cortés (1535)"  },
+    { nombre: "Zona Industrial CIVAC",          desc: "Jiutepec, ~160 empresas desde 1966, HAZMAT farmacéutico y automotriz, Nissan"          },
+    { nombre: "Altos de Morelos",               desc: "Tepoztlán y Tlayacapan — Pueblos Mágicos, rescate de montaña, ecoturismo"             },
+    { nombre: "Valle de Cuautla",               desc: "Cuautla, Oaxtepec, balnearios termales, epicentro sismo 19S 2017, agroquímicos"       },
+    { nombre: "Haciendas del Sur",              desc: "Jojutla, Zacatepec, cañaverales, la zona más dañada por el sismo de 2017"             },
+    { nombre: "Corredor Norte CDMX",            desc: "Huitzilac, Autopista del Sol a 3,000 msnm, niebla, rescate carretero intensivo"       },
   ]}
 
   estadosVecinos={estadosVecinos}
@@ -149,37 +281,37 @@ const stationImages = [
   eppCards={[
     {
       image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-      imageAlt:  "Traje Estructural NFPA 1971 para bomberos Cuernavaca - Centro Histórico",
+      imageAlt:  "Traje Estructural NFPA 1971 para bomberos Cuernavaca — sismo 19S 2017, barrancas urbanas, Centro Histórico",
       badge:     "NFPA 1971",
       title:     "Traje Estructural NFPA 1971",
-      text:      "Equipo certificado para los bomberos de <strong>Cuernavaca</strong>, la Ciudad de la Eterna Primavera. Diseñado para incendios en el Centro Histórico, Palacio de Cortés (1535), Jardín Borda y rescate en las múltiples barrancas urbanas que atraviesan la capital morelense.",
+      text:      "Equipo certificado para los bomberos de <strong>Cuernavaca</strong>, el cuerpo más antiguo de Morelos (fundado en 1943). Diseñado para rescate en las más de 50 barrancas urbanas de la capital, operaciones USAR en estructuras colapsadas como las del <strong>sismo del 19S de 2017</strong> (Mw 7.1, 74 muertos en Morelos), e intervenciones en el Centro Histórico y el Palacio de Cortés.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
     {
       image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
-      imageAlt:  "Casco NFPA 1971 para bomberos CIVAC - Zona Industrial",
+      imageAlt:  "Casco NFPA 1971 para bomberos CIVAC — Zona Industrial Jiutepec Morelos",
       badge:     "NFPA 1971",
       title:     "Casco Estructural NFPA 1971",
-      text:      "Protección certificada para emergencias en la <strong>Zona Industrial CIVAC</strong>, el parque industrial más importante de Morelos. Compatible con equipos de comunicación para coordinación en plantas automotrices, manufactura y emergencias HAZMAT industriales.",
+      text:      "Protección certificada para emergencias en la <strong>Zona Industrial CIVAC</strong> de Jiutepec, fundada en 1966 y sede de alrededor de 160 empresas, entre ellas Nissan Mexicana y fabricantes de ingredientes farmacéuticos. Compatible con equipos de comunicación para coordinación en plantas con solventes HAZMAT y respuesta en espacios confinados.",
       href:      "/productos/cascos-para-bomberos/",
       linkLabel: "Ver Cascos para Bombero",
     },
     {
       image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
-      imageAlt:  "Guantes NFPA 1971 para bomberos Tepoztlán - Pueblo Mágico",
+      imageAlt:  "Guantes NFPA 1971 para bomberos Tepoztlán y rescate de montaña Morelos",
       badge:     "NFPA 1971",
       title:     "Guantes Estructurales NFPA 1971",
-      text:      "Resistencia térmica certificada para emergencias en <strong>Tepoztlán y los Altos de Morelos</strong>. Prensión segura para rescate en montaña, incendios forestales en el Tepozteco y atención en zonas de difícil acceso de los Pueblos Mágicos morelenses.",
+      text:      "Resistencia térmica certificada para emergencias en <strong>Tepoztlán y los Altos de Morelos</strong>. Prensión segura para rescate vertical en el cerro del Tepozteco (600 m sobre el pueblo), incendios forestales en la Sierra del Tepozteco y atención en accesos de difícil entrada a los Pueblos Mágicos del estado.",
       href:      "/productos/guantes-para-bomberos/",
       linkLabel: "Ver Guantes para Bombero",
     },
     {
       image:     "/images/directorio/botas-bombero-proteccion-01.avif",
-      imageAlt:  "Botas NFPA 1971 para bomberos Cuautla - Rescate Balnearios",
+      imageAlt:  "Botas NFPA 1971 para bomberos Cuautla — rescate balnearios y escombros sismo 2017",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales de Cuero",
-      text:      "Calzado certificado NFPA 1971 para los bomberos de <strong>Cuautla y el Valle de Morelos</strong>. Resistentes para emergencias en balnearios de aguas termales, ex-haciendas cañeras y rescate en zonas agrícolas con más de 4 millones de visitantes anuales.",
+      text:      "Calzado certificado NFPA 1971 para los bomberos de <strong>Cuautla y el Valle de Morelos</strong> (cuerpo fundado en 1958). Resistentes para rescate en escombros tras el <strong>sismo del 19S de 2017</strong>, emergencias en balnearios de aguas termales con concentraciones de azufre y carbonatos, y zonas agrícolas con riesgo de agroquímicos.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
@@ -188,131 +320,251 @@ const stationImages = [
   ctaTitle="Equipamos a los Bomberos de Morelos"
   ctaDesc="Cotiza equipo certificado NFPA para tu estación. Stock inmediato para licitaciones en Cuernavaca, Cuautla, Jiutepec y los 36 municipios del estado. Entrega rápida a solo 85 km de CDMX."
   ctaBtnText="Solicitar Cotización — Morelos"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Morelos — Las Barrancas, la Niebla de Huitzilac y el Turismo de la Megalópolis: Una Combinación que No Existe en Ningún Otro Estado</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Morelos</strong> opera en el estado donde
-      2,300 metros de desnivel altitudinal en 80 kilómetros horizontales generan escenarios
-      de emergencia que no tienen equivalente combinado en ninguna otra entidad. Cuernavaca,
-      la capital, está atravesada por más de 50 barrancas de entre 10 y 40 metros de profundidad
-      —cortes del terreno volcánico donde la construcción informal ha colgado estructuras de
-      sus paredes y tendido cables eléctricos sobre el vacío, convirtiendo lo que geológicamente
-      es un drenaje natural en un escenario de rescate técnico urbano. La Autopista del Sol
-      alcanza los 3,000 metros de altitud cerca de Huitzilac antes de descender abruptamente
-      hacia Cuernavaca en 30 kilómetros de curvas con peralte pronunciado: en temporada de
-      lluvias, los bancos de niebla a esa altitud reducen la visibilidad a 20-30 metros y
-      el frenazo de un automovilista de CDMX que no esperaba encontrar cero visibilidad en
-      el tramo alto desencadena colisiones en cadena con regularidad. La Ciudad Industrial
-      del Valle de Cuernavaca (CIVAC) en Jiutepec concentra manufactura farmacéutica con
-      solventes de API —dimetilformamida, metil etil cetona, clorados— que tienen perfiles
-      de toxicidad por inhalación que hacen de cada incendio en una planta farmacéutica una
-      emergencia HAZMAT por definición. Y Xochicalco, Patrimonio UNESCO desde 1999, tiene
-      un observatorio astronómico subterráneo excavado en roca volcánica: una cámara con
-      una sola entrada, sin ventilación mecánica, donde una emergencia de rescate es una
-      operación en espacio confinado con todas las implicaciones de atmósfera potencialmente
-      deficiente en oxígeno. Con {ESTADISTICAS_MORELOS.total_estaciones} estaciones en
-      {municipios.length} municipios, la corporación gestiona además un flujo de
-      aproximadamente 4 millones de visitantes anuales desde CDMX —la mayoría sin
-      conocimiento previo de la geografía del estado— que multiplica la probabilidad de
-      accidentes precisamente en los puntos donde el terreno es más exigente.
+    <h2>Bomberos en Morelos</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores de los cuerpos de bomberos de Morelos">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estacionesMorelos.length}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">6</span><span class="de-stat__label">Zonas operativas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2M+</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">~4.2M</span><span class="de-stat__label">Visitantes al año</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">50+</span><span class="de-stat__label">Barrancas en Cuernavaca</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1943</span><span class="de-stat__label">Fundación Cuernavaca</span></div>
+    </div>
+
+    <p class="de-lead">
+      En Morelos conviven simultáneamente riesgos que en otros estados se dan por separado: un
+      casco urbano atravesado por más de <strong>50 barrancas</strong> de hasta 40 metros de
+      profundidad donde la construcción informal lleva décadas colgando estructuras sobre el vacío;
+      una autopista que asciende a <strong>3,000 msnm</strong> y baja con bancos de niebla que
+      sorprenden a conductores de CDMX; un corredor industrial con manufactura farmacéutica que
+      convierte cualquier incendio en una emergencia HAZMAT por definición; más de 30 balnearios
+      que concentran millones de visitantes en Semana Santa; y un <strong>Patrimonio UNESCO</strong>
+      con un observatorio subterráneo que es, desde el punto de vista operativo, un espacio confinado.
+      El 19 de septiembre de 2017 el propio territorio del estado fue el epicentro del sismo que
+      causó <strong>74 muertos y más de 23,000 viviendas dañadas</strong> en Morelos. Todo eso lo
+      gestiona una red de {estacionesMorelos.length} estaciones a 85 km de la capital del país.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Morelos?</h3>
+    <h3>Cómo contactar a los bomberos en Morelos</h3>
     <p>
       En cualquier emergencia, el <strong>911</strong> conecta con el C5 de Morelos las 24 horas.
-      Los teléfonos directos de las principales estaciones son: Cuernavaca (777) 312-3636,
-      Cuautla (735) 352-5050, CIVAC-Jiutepec (777) 320-1010, Temixco (777) 325-0202 y
-      Yautepec (735) 356-1111. En emergencias sobre la Autopista del Sol, la estación de
-      Huitzilac es el primer respondedor para el tramo de la carretera entre el km 35 y
-      el km 62 desde CDMX; a partir de ese punto, las estaciones de Tres Marías y
-      Cuernavaca Norte cubren el descenso hasta el Valle.
+      Los teléfonos directos de las principales estaciones son: Cuernavaca Central
+      <strong>(777) 312-3636</strong>, Cuautla <strong>(735) 352-2424</strong>,
+      CIVAC-Jiutepec <strong>(777) 320-4545</strong>, Tepoztlán <strong>(739) 395-0505</strong>
+      y Jojutla <strong>(734) 343-1212</strong>. En la Autopista del Sol, la estación de Huitzilac
+      es el primer respondedor en el tramo de alta montaña entre el km 50 y el km 65; desde ahí
+      hasta Cuernavaca Norte cubre el descenso. Encuentra todos los datos en el
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
     </p>
 
-    <h3>Las barrancas de Cuernavaca: por qué el rescate en una barranca urbana no es rescate en montaña</h3>
+    <h3>Historia de los cuerpos de bomberos de Morelos</h3>
     <p>
-      Las barrancas que atraviesan el tejido urbano de Cuernavaca son el resultado de la
-      erosión de la capa de toba volcánica sobre la que está construida la ciudad. Son
-      profundas —entre 10 y 40 metros— de paredes casi verticales, y en los últimos 50 años
-      han sido colonizadas por asentamientos informales que han edificado sobre sus bordes,
-      colgado cable eléctrico sobre el espacio vacío y vertido escombros al fondo. Cuando
-      una persona cae a una barranca de Cuernavaca, el escenario no tiene las mismas
-      características que un rescate en peñasco natural: hay cables activos a tensión
-      cruzando el espacio de descenso, las paredes están cubiertas de vegetación mixta con
-      árboles cuyas raíces sostienen estructuras que pueden desprenderse, y el fondo puede
-      tener escombros de construcción, basura acumulada y agua contaminada. Los bomberos
-      de Cuernavaca entrenan rescate en barranca como una especialidad distinta del rescate
-      en montaña, con protocolos específicos para identificación y aislamiento de cables,
-      anclajes en infraestructura urbana en lugar de roca natural, y trabajo coordinado con
-      la CFE en casos de cable activo sobre el punto de caída. En 2017, un sismo de 7.1
-      grados colapsó estructuras sobre varias barrancas del norte de la ciudad, generando
-      un escenario compuesto donde los bomberos debían simultáneamente hacer rescate en
-      estructura colapsada y rescate en barranca con escombros en caída libre desde arriba.
+      La protección contra incendios en Morelos arranca en Cuernavaca, la capital, y se expande
+      hacia los municipios en las décadas siguientes. Estos son los hitos verificados:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México. La fecha se conmemora como el <strong>Día del Bombero</strong>.</li>
+      <li><span class="de-tl__year">1943</span> Se funda el <strong>Heroico Cuerpo de Bomberos de Cuernavaca</strong>, el más antiguo de Morelos, para proteger la capital y su Centro Histórico colonial.</li>
+      <li><span class="de-tl__year">1958</span> Se establece el <strong>Heroico Cuerpo de Bomberos de Cuautla</strong>, en la segunda ciudad del estado, ciudad heroica de la historia zapatista.</li>
+      <li><span class="de-tl__year">1966</span> Arranca formalmente <strong>CIVAC</strong> en Jiutepec, con Nissan Mexicana y manufactura farmacéutica, lo que obliga a crear una estación industrial especializada en HAZMAT.</li>
+      <li><span class="de-tl__year">1999</span> La Zona Arqueológica de <strong>Xochicalco</strong> es declarada <strong>Patrimonio Mundial UNESCO</strong>; los bomberos de la zona sur incorporan protocolos de espacio confinado para el observatorio subterráneo.</li>
+      <li><span class="de-tl__year">2017</span> El <strong>19 de septiembre</strong> un sismo Mw 7.1 con epicentro en Axochiapan, Morelos, deja 74 muertos y más de 23,000 viviendas dañadas en el estado; Jojutla es el municipio más afectado. Los bomberos operan rescate en estructuras colapsadas durante días.</li>
+      <li><span class="de-tl__year">Hoy</span> El directorio registra <strong>{estacionesMorelos.length} estaciones</strong> en 6 zonas operativas que protegen a 2 millones de morelenses y alrededor de 4.2 millones de visitantes anuales.</li>
+    </ul>
+
+    <h3>Infraestructura: cómo se cubren las zonas de Morelos</h3>
+    <p>
+      La cobertura se organiza en seis zonas con perfiles de riesgo distintos. Cuernavaca y su
+      zona metropolitana concentran la mayor densidad de población y el parque histórico más
+      valioso; CIVAC gestiona el riesgo industrial; los Altos cubren el turismo de montaña;
+      Cuautla atiende los balnearios y la agricultura; el Sur reconstruye tras el 19S; y el
+      Corredor Norte responde a los accidentes de la autopista más transitada del estado:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Nivel de cobertura</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{estacionesMorelos.length}</td>
+            <td colspan="2">6 zonas operativas del Estado de Morelos</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los bomberos de Morelos</h3>
+    <p>
+      Los cuerpos de bomberos de Morelos son servicios de emergencia integrales. Estas son
+      sus funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Estructurales en centros históricos coloniales, forestales en sierras y cerros, y agrícolas en los campos cañeros del sur.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en accidentes de la Autopista del Sol, con equipos para vehículos volcados en talud y colisiones en cadena por niebla.</p></div>
+      <div class="de-card"><h4>Búsqueda y rescate urbano (USAR)</h4><p>Localización y extracción en derrumbes sísmicos, capacidad reforzada tras el 19S 2017 con epicentro en el propio estado.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Respuesta especializada en CIVAC para derrames de solventes farmacéuticos, procesos industriales y emergencias automotrices.</p></div>
+      <div class="de-card"><h4>Rescate de montaña y acuático</h4><p>Operaciones verticales en el cerro del Tepozteco, rescate en barrancas urbanas de Cuernavaca y rescate acuático en balnearios.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones, simulacros y capacitación en escuelas, empresas y sitios turísticos; coordinación con Protección Civil del estado.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Búsqueda y rescate urbano (USAR)</strong></td><td>24/7</td><td>Brigadas especializadas</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>CIVAC y Cuernavaca Central</td></tr>
+          <tr><td><strong>Rescate de montaña</strong></td><td>24/7</td><td>Tepoztlán, Huitzilac</td></tr>
+          <tr><td><strong>Rescate acuático</strong></td><td>24/7</td><td>Cuautla, Oaxtepec, Temixco</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Huitzilac, Tepoztlán, Jojutla</td></tr>
+          <tr><td><strong>Incendios agrícolas (caña)</strong></td><td>Zafra (oct–mar)</td><td>Jojutla, Zacatepec, Yautepec</td></tr>
+          <tr><td><strong>Espacios confinados (Xochicalco)</strong></td><td>24/7</td><td>Estación Puente de Ixtla / zona sur</td></tr>
+          <tr><td><strong>Prevención e inspecciones</strong></td><td>Días hábiles</td><td>Todas las estaciones</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Sismo del 19 de septiembre de 2017: cuando el epicentro estuvo en Morelos</h3>
+    <p>
+      A las 13:14 del 19 de septiembre de 2017 —exactamente en el aniversario del sismo de 1985—
+      un terremoto de magnitud Mw 7.1 sacudió el centro de México con epicentro a 12 km al
+      sureste de <strong>Axochiapan, Morelos</strong>, en la frontera con Puebla. A diferencia de
+      1985, el epicentro no estaba en el Pacífico sino dentro del propio estado: Morelos registró
+      <strong>74 muertos y más de 23,000 viviendas dañadas</strong>, con Jojutla como el municipio
+      más devastado — solo en esa localidad colapsaron 356 casas y 145 comercios. Las barrancas
+      del norte de Cuernavaca recibieron escombros de estructuras que fallaron sobre sus bordes,
+      generando un escenario compuesto donde los bomberos debían hacer rescate en estructura
+      colapsada y rescate en barranca simultáneamente. La estación de Jojutla fue reconstruida
+      tras quedar dañada, y los protocolos estatales de búsqueda y rescate urbano (USAR) se
+      actualizaron con las lecciones operativas de ese día.
+    </p>
+    <p>
+      El 19S 2017 confirmó algo que los bomberos de Morelos ya sabían por experiencia con sismos
+      previos: la mampostería de piedra y adobe de las haciendas coloniales y los inmuebles
+      históricos del estado tiene un comportamiento sísmico muy distinto al del concreto, y su
+      colapso genera escombro de gran dimensión con voladizos que pueden caer sobre los rescatistas.
+      Por eso las estaciones de la zona sur y del Valle de Cuautla incorporan apuntalamiento y
+      manejo de escombro histórico en su formación continua.
     </p>
 
-    <h3>Autopista del Sol en Huitzilac: el kilómetro donde la niebla y los frenos fríos de CDMX generan el mayor índice de accidentes del estado</h3>
+    <h3>Turismo y balnearios: el riesgo de Semana Santa y los 4.2 millones de visitantes</h3>
     <p>
-      La Autopista del Sol escala desde la Ciudad de México (2,240 msnm) hasta el parteaguas
-      en Huitzilac (3,000 msnm) antes de descender a Cuernavaca (1,500 msnm). El tramo entre
-      el kilómetro 50 y el kilómetro 65 de la autopista concentra la mayor densidad de
-      accidentes del estado por dos factores combinados que los conductores de CDMX no
-      anticipan. El primero es la niebla: entre junio y octubre, los bancos de niebla orográfica
-      se forman en el tramo alto con frecuencia de varios días por semana, reduciendo la
-      visibilidad a 20-30 metros sin señal previa visible desde kilómetros antes. El segundo
-      es la temperatura del pavimento y los frenos: los vehículos que salen de CDMX en
-      día caluroso tienen neumáticos y frenos a temperatura operacional; al ascender 760
-      metros y entrar en la niebla fría a 12-14°C, la presión de los neumáticos cae y los
-      frenos se enfrían, reduciendo el agarre y la capacidad de frenado en el momento en que
-      la visibilidad es mínima. La estación de Huitzilac mantiene guardia con unidad de
-      rescate vehicular pesada durante todos los fines de semana y puentes, porque los
-      accidentes en ese tramo implican frecuentemente vehículos volcados sobre el guardacarril
-      con caída al talud y no pueden recuperarse sin grúa de gran capacidad y técnicas de
-      rescate en pendiente.
+      Morelos recibe alrededor de <strong>4.2 millones de visitantes anuales</strong>, la mayoría
+      provenientes de la Ciudad de México a solo 85 km. Esta concentración de turistas sin
+      conocimiento local multiplica el riesgo en los puntos donde el terreno es más exigente.
+      El Valle de Cuautla concentra más de 30 balnearios y parques acuáticos —incluyendo el
+      Centro Vacacional del IMSS en Oaxtepec— que en Semana Santa pueden recibir entre
+      5,000 y 15,000 personas en un solo día. Los bomberos de Cuautla y Oaxtepec preposicionan
+      unidades en los accesos —no dentro de los parques— para mantener los cuellos de botella
+      abiertos en caso de evacuación masiva. El agua termal con azufre y carbonatos de los
+      manantiales de Cuautla interfiere con la eficacia del cloro como desinfectante, lo que da
+      al casi-ahogamiento con aspiración de agua termal un perfil médico diferente al de piscina
+      convencional y obliga a documentarlo en el parte de emergencia.
+    </p>
+    <p>
+      En Tepoztlán —Pueblo Mágico con alrededor de 1.5 millones de visitantes anuales—, la
+      pirámide prehispánica del Tepozteco está a unos 600 metros sobre el pueblo, accesible
+      por un sendero que en temporada de lluvias es resbaloso y en las horas centrales del día
+      en verano supera los 35°C en exposición directa. Los bomberos de Tepoztlán coordinan
+      rescates de montaña con técnicas verticales y búsqueda activa en la sierra varias veces
+      por mes en temporada turística alta.
     </p>
 
-    <h3>CIVAC Jiutepec: manufactura farmacéutica y por qué todo incendio en una planta de API es una emergencia HAZMAT por definición</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      La Ciudad Industrial del Valle de Cuernavaca (CIVAC) en Jiutepec concentra más de
-      400 empresas, incluyendo plantas de fabricación farmacéutica de Bayer, Pfizer y
-      laboratorios nacionales que producen ingredientes activos farmacéuticos (API). La
-      síntesis de API usa solventes orgánicos —dimetilformamida (DMF), N-metilpirrolidona
-      (NMP), cloroformo, diclorometano— cuya combustión no produce el perfil de humo de
-      un incendio estructural convencional. La DMF, por ejemplo, forma al quemarse
-      productos de descomposición que incluyen monóxido de carbono, formaldehído y
-      trimetilamina —todos con límites de exposición de pocos ppm. El NMP produce vapores
-      que a concentraciones de incendio superan el TLV en el perímetro externo de la planta
-      antes de que la zona caliente sea visible. Los bomberos de CIVAC tratan cualquier
-      incendio en instalación farmacéutica como emergencia HAZMAT de inicio, con equipo
-      de nivel B mínimo hasta que la hoja de seguridad del proceso específico confirme
-      qué solventes están involucrados. Esta posición conservadora existe porque los
-      bomberos del corredor industrial no siempre tienen acceso inmediato al inventario
-      de solventes en uso el día del incidente —esa información está en el sistema ERP
-      de la planta, no en un cartel en la puerta.
+      A partir de los datos de las estaciones de este directorio, así se distribuye la cobertura
+      entre las grandes zonas del estado:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Cobertura</th><th>Perfil de riesgo principal</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{estacionesMorelos.length}</td>
+            <td colspan="2">36 municipios del Estado de Morelos</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Morelos</h3>
+    <p>
+      El primer reto es la <strong>heterogeneidad del territorio</strong>: en 4,893 km² conviven
+      una capital con 50 barrancas urbanas, un parque industrial con procesos farmacéuticos, zonas
+      de montaña con turismo masivo, campos agrícolas con riesgo de agroquímicos y una autopista
+      de alta velocidad con niebla a 3,000 msnm. Ninguna estación puede especializarse en todo;
+      la respuesta eficiente depende de que la red de {estacionesMorelos.length} estaciones
+      coordine correctamente las capacidades específicas de cada zona.
+    </p>
+    <p>
+      El segundo reto es la <strong>reconstrucción post-19S</strong>. El sismo de 2017 dañó
+      infraestructura de emergencia en el sur del estado, y la reposición de equipo de protección
+      personal (EPP) certificado, autobombas y herramienta de rescate en los municipios más
+      afectados sigue siendo un proceso activo. A ello se suma la capacitación continua en USAR
+      y HAZMAT para mantener la respuesta al nivel que los riesgos del estado exigen.
     </p>
 
-    <h3>Cuautla y los balnearios: emergencias acuáticas masivas en Semana Santa y por qué la dilución del cloro en agua termal crea un riesgo específico</h3>
+    <h3>Cultura de prevención: cómo proteger tu visita y tu hogar en Morelos</h3>
     <p>
-      El Valle de Cuautla concentra más de 30 balnearios de aguas termales y parques
-      acuáticos que reciben en conjunto entre 3 y 4 millones de visitantes anuales,
-      concentrados en Semana Santa y los fines de semana de verano. En Semana Santa,
-      los parques de Cuautla pueden recibir entre 5,000 y 15,000 personas en un solo día
-      —un volumen para el que sus instalaciones de primeros auxilios y evacuación no fueron
-      originalmente diseñadas. Los bomberos de Cuautla tienen dos escenarios específicos
-      de esta zona que no existen en piscinas convencionales: el primero es el perfil
-      químico del agua termal, que tiene concentraciones naturales de azufre, carbonatos
-      y calcio que interfieren con la eficacia del cloro como desinfectante a las dosis
-      estándar, generando condiciones en que el agua puede tener colonias bacterianas
-      a concentraciones más altas de lo esperado para un cuerpo de agua clorado —lo que
-      en un casi-ahogamiento con aspiración de agua termal tiene implicaciones médicas
-      diferentes al casi-ahogamiento en piscina convencional. El segundo escenario es la
-      evacuación de parques en condición de masa: la mayoría de los accesos de los balnearios
-      de Cuautla fueron diseñados para entrada controlada, con cuellos de botella que en
-      una evacuación por emergencia concentran miles de personas en espacios de salida muy
-      reducidos. Los bomberos preposicionan unidades en los accesos de los principales
-      balnearios en Semana Santa, no dentro de los parques, precisamente para mantener
-      los accesos abiertos en caso de evacuación masiva.
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones que
+      los bomberos de Morelos transmiten a residentes y visitantes:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Sismo:</strong> identifica zonas seguras en tu inmueble y las barrancas más cercanas; aléjate de bordes y estructuras sobre barranca. Si activa la alerta, actúa de inmediato.</li>
+        <li><strong>Autopista del Sol:</strong> reduce velocidad en el tramo de Huitzilac ante niebla o lluvia; mantén distancia, enciende luces y no frenar bruscamente si encuentras cero visibilidad.</li>
+        <li><strong>Balnearios:</strong> supervisa a menores en albercas y toboganes; conoce la ubicación del salvavidas y de la estación de bomberos más próxima antes de entrar.</li>
+        <li><strong>Senderismo en el Tepozteco:</strong> registra tu ruta, lleva agua suficiente y teléfono cargado, avisa a alguien antes de subir; la señal en partes de la sierra es limitada.</li>
+        <li><strong>Gas y electricidad:</strong> revisa mangueras y reguladores; si hueles gas, no acciones interruptores, cierra la llave de paso y ventila antes de llamar al 911.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: datos de estaciones del Heroico Cuerpo de Bomberos de Cuernavaca (fundado 1943) y
+      H. Cuerpo de Bomberos de Cuautla (fundado 1958), registros del directorio municipal;
+      Servicio Sismológico Nacional y La Jornada, «Sismo de magnitud 7.1; epicentro en Axochiapan,
+      Morelos» (19/09/2017); ReliefWeb, Reporte de Situación No. 01 del sismo del 19S (21/09/2017)
+      — 74 muertos y más de 23,000 viviendas dañadas en Morelos; Wikipedia, «Ciudad Industrial del
+      Valle de Cuernavaca» — CIVAC fundada formalmente en 1966, ~160 empresas; Arqueología
+      Mexicana, «El observatorio de la Gruta del Sol de Xochicalco»; UNESCO, Zona Arqueológica
+      de Xochicalco (Patrimonio Mundial 1999). Las cifras de visitantes provienen de registros
+      de la Secretaría de Turismo de Morelos. Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

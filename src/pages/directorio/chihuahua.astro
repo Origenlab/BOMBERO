@@ -7,6 +7,7 @@ import {
 } from "@data/estaciones-chihuahua";
 import { getEstadosVecinos } from "@data/estados-vecinos";
 import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("chihuahua");
 
@@ -15,7 +16,30 @@ const municipios        = [...new Set(estacionesChihuahua.map((e) => e.ciudad))]
 const totalEstaciones   = ESTADISTICAS_CHIHUAHUA.total_estaciones;
 const totalMunicipios   = ESTADISTICAS_CHIHUAHUA.municipios_cubiertos;
 const totalBomberos     = ESTADISTICAS_CHIHUAHUA.total_bomberos;
+const totalUnidades     = ESTADISTICAS_CHIHUAHUA.total_unidades;
 
+const canonical = "https://bombero.mx/directorio/chihuahua/";
+
+// ── Comparativa regional ────────────────────────────────────────────────────
+const zonasDef = [
+  { nombre: "Zona Metropolitana Chihuahua", municipiosZona: ["Chihuahua"], cobertura: "Total", chip: "total", perfil: "Capital del estado · Parques industriales · Grutas de Nombre de Dios · Coordinación estatal." },
+  { nombre: "Zona Fronteriza Ciudad Juárez",  municipiosZona: ["Juárez"],     cobertura: "Total", chip: "total", perfil: "400+ maquiladoras · ARFF Abraham González · Coordinación El Paso Fire Dept. · HAZMAT industrial." },
+  { nombre: "Sierra Tarahumara",              municipiosZona: ["Creel", "Bocoyna", "Guachochi", "Madera", "Batopilas"], cobertura: "Media", chip: "media", perfil: "Barrancas del Cobre · rescate montaña · incendios forestales · –20°C en invierno." },
+  { nombre: "Zona Agrícola Centro-Sur",       municipiosZona: ["Delicias", "Cuauhtémoc", "Camargo", "Jiménez"],         cobertura: "Alta",  chip: "alta",  perfil: "Agricultura tecnificada · comunidades menonitas · carreteras federales 45 y 45D." },
+  { nombre: "Noroeste y Sur Histórico",       municipiosZona: ["Casas Grandes", "Nuevo Casas Grandes", "Hidalgo del Parral", "Santa Bárbara"], cobertura: "Media", chip: "media", perfil: "Paquimé UNESCO · rescate minero Parral · pastizales Janos." },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesChihuahua.filter((e) => z.municipiosZona.includes(e.ciudad));
+  return {
+    ...z,
+    nEst:  est.length || "—",
+    nPers: est.reduce((s, e) => s + (e.personal ?? 0), 0) || "—",
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0) || "—",
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio/" },
@@ -46,6 +70,95 @@ const itemListSchema = {
     }
   }))
 };
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Chihuahua: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de Chihuahua: historia (1923–hoy), Ciudad Juárez (1918), infraestructura, HAZMAT maquiladoras, rescate Sierra Tarahumara, incendios forestales y directorio con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Chihuahua",
+    "Heroico Cuerpo de Bomberos de Ciudad Juárez",
+    "Protección Civil Chihuahua",
+    "Incendios forestales Sierra Tarahumara",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/chihuahua.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Chihuahua",
+  "description": `Directorio verificado de las ${totalEstaciones} estaciones de bomberos en Chihuahua en ${totalMunicipios} ciudades, con teléfonos, cobertura, funciones e historia del Heroico Cuerpo de Bomberos.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de Chihuahua" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/chihuahua.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Chihuahua (≥10) — alimentan el FAQPage schema ─────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Chihuahua?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas en todo el estado, con o sin saldo, en español e inglés. Los teléfonos directos por ciudad son: Chihuahua capital (614 429-3300), Ciudad Juárez (656 616-1000), Creel / Sierra Tarahumara (635 456-0066), Hidalgo del Parral (627 522-0077), Cuauhtémoc (625 581-0088). En zonas rurales y serranas, el tiempo de respuesta puede extenderse; el 911 activa también helicópteros estatales en emergencias de alto riesgo.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de Chihuahua capital?",
+    a: `El <strong>Heroico Cuerpo de Bomberos de Chihuahua</strong> fue fundado en <strong>1923</strong> con una plantilla inicial de cuatro elementos. El <strong>28 de noviembre de 1948</strong>, sesenta bomberos respondieron a un incendio en la ferretería "La Sirena" (Las Palmas y 16 de Septiembre); la barda del inmueble colapsó y sepultó a <strong>12 bomberos bajo los escombros</strong>. A partir de ese episodio se les llamó héroes y la institución adoptó el nombre de <strong>Heroico Cuerpo de Bomberos</strong>. En 2023 se conmemoró su primer centenario.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de Ciudad Juárez?",
+    a: `El <strong>Cuerpo de Bomberos de Ciudad Juárez</strong> fue fundado en <strong>1918</strong> bajo el mando del jefe <strong>Arturo Duglas</strong>, durante la administración municipal de Alberto B. Almeida. Nació como cuerpo voluntario ante la urgencia de atender los incendios frecuentes de la ciudad. En <strong>1926</strong> se adquirió la primera máquina extintora, lo que marcó el inicio de la profesionalización. En mayo de 2025 el cuerpo celebró su <strong>107 aniversario</strong>.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque conmemora la fundación del <strong>primer cuerpo de bomberos de México</strong> el 22 de agosto de <strong>1873 en Veracruz</strong>. Desde 1956 se celebra en esa fecha el <strong>Día del Bombero</strong> en toda la República. Tanto el Heroico Cuerpo de Bomberos de Chihuahua como el de Ciudad Juárez son reconocidos cada año en esa fecha.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Chihuahua?",
+    a: `El directorio de Chihuahua reúne <strong>${totalEstaciones} estaciones</strong> activas en <strong>${totalMunicipios} ciudades</strong> del estado. La distribución principal es: Chihuahua capital (5 estaciones), Ciudad Juárez (7 estaciones), Sierra Tarahumara (Creel, Bocoyna, Guachochi, Madera, Batopilas), Zona Agrícola Centro-Sur (Delicias, Cuauhtémoc, Camargo, Jiménez) y Sur Histórico (Hidalgo del Parral, Nuevo Casas Grandes). Encuentra el directorio completo con teléfonos directos en esta página.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en Chihuahua?",
+    a: `Combate de <strong>incendios</strong> (estructurales, forestales e industriales), <strong>rescate vehicular</strong> en carreteras, <strong>materiales peligrosos (HAZMAT)</strong> en la zona maquiladora de Ciudad Juárez, <strong>rescate de montaña y barranca</strong> en las Barrancas del Cobre, <strong>búsqueda en desierto</strong>, atención prehospitalaria, control de <strong>fugas de gas</strong>, rescate en espacios confinados (minas de Parral), servicio ARFF en el Aeropuerto Internacional Abraham González y coordinación binacional con el <strong>El Paso Fire Department</strong> de Texas.`,
+  },
+  {
+    q: "¿Cuál es el riesgo de incendios forestales en la Sierra Tarahumara?",
+    a: `Chihuahua es el estado con mayor afectación forestal del país. En la temporada <strong>2025</strong> se registraron <strong>598 incendios</strong> que consumieron más de <strong>222,000 hectáreas</strong> —un aumento de 827.6% respecto a 2024—, con los focos más intensos en Bocoyna, Guadalupe y Calvo y otros municipios serranos. Las brigadas de bomberos de Creel, Madera, Guachochi y Bocoyna, junto con más de 400 combatientes del Estado y la Federación, operan con vehículos 4×4 y equipo de combate forestal en la <strong>Sierra Madre Occidental</strong> durante la temporada seca (nov–may).`,
+  },
+  {
+    q: "¿Cómo responden los bomberos de Ciudad Juárez a emergencias en maquiladoras?",
+    a: `Las estaciones de Ciudad Juárez —incluyendo la unidad de <strong>Zona Industrial</strong>— cuentan con unidades HAZMAT especializadas, laboratorio móvil de identificación química y sistemas de descontaminación masiva para atender las más de <strong>400 plantas maquiladoras</strong> de las industrias automotriz (Delphi, Bosch), aeroespacial, electrónica (Foxconn, Lexmark) y médica. Los protocolos de respuesta están coordinados con el <strong>El Paso Fire Department</strong> de Texas y contemplan despliegue cruzado de unidades para incidentes transfronterizos.`,
+  },
+  {
+    q: "¿Qué debo hacer en una emergencia en la Sierra Tarahumara o las Barrancas del Cobre?",
+    a: `Marca el <strong>911</strong> de inmediato; el sistema puede activar helicópteros de rescate para emergencias en zonas de difícil acceso. La estación de <strong>Creel</strong> (Pueblo Mágico, 2,338 msnm) es la sede de rescate de montaña más especializada del norte: personal certificado en rappel, tirolesa y búsqueda en barranca, con equipos de atención de hipotermia para los <strong>–20°C de la sierra en invierno</strong>. La estación de Bocoyna cubre el recorrido del tren Chepe (Chihuahua al Pacífico). Da tu ubicación exacta o el kilómetro de carretera más cercano.`,
+  },
+  {
+    q: "¿Qué debo hacer si detecto un incendio o una fuga de gas en Chihuahua?",
+    a: `Llama de inmediato al <strong>911</strong>. Ante una <strong>fuga de gas</strong>: no acciones interruptores, cierra la llave de paso, ventila el espacio y evacúa; en invierno las intoxicaciones por calefacción de propano son frecuentes en la Sierra Tarahumara. Ante un <strong>incendio</strong>: sal de inmediato, cierra puertas a tu paso para frenar el avance del fuego y nunca regreses por objetos. En zonas rurales del desierto con tiempos de respuesta de 45–90 minutos, señala tu ubicación con claridad y mantén encendido el teléfono.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios forestales en la Sierra Tarahumara?",
+    a: `No enciendas fogatas en temporada de estiaje (noviembre–mayo) fuera de los sitios habilitados; nunca dejes brasas sin apagar; no arrojes colillas desde el automóvil en carreteras serranas. Reporta humo o columnas de fuego de inmediato al <strong>911</strong> o a la Comisión Nacional Forestal (CONAFOR). El acceso oportuno de las brigadas depende de alertas tempranas: un reporte a tiempo puede salvar miles de hectáreas de bosque de pino-encino de la <strong>Sierra Madre Occidental</strong>.`,
+  },
+  {
+    q: "¿Cuánto personal tiene el Heroico Cuerpo de Bomberos de Chihuahua capital?",
+    a: `El Heroico Cuerpo de Bomberos del Municipio de Chihuahua cuenta con <strong>212 elementos</strong>, incluyendo 39 mujeres bombero, distribuidos en ocho estaciones de la capital, según datos oficiales de 2023. A nivel estatal, el directorio de Chihuahua suma <strong>${totalBomberos.toLocaleString()} bomberos</strong> en las ${totalEstaciones} estaciones publicadas en esta página.`,
+  },
+];
+
 
 
 const stationImages = [
@@ -111,7 +224,7 @@ const stationImages = [
   estado="Chihuahua"
   sigla="CHIH"
   slug="chihuahua"
-  description={`${totalEstaciones} estaciones en Chihuahua — Ciudad Juárez 400 maquiladoras, Barrancas del Cobre, Paquimé UNESCO y el estado más extenso de México. Emergencias: 911.`}
+  description={`Bomberos en Chihuahua: ${totalEstaciones} estaciones en ${totalMunicipios} ciudades, Ciudad Juárez (1918), Chihuahua capital (1923), Barrancas del Cobre, 400 maquiladoras y 247,455 km². Emergencias: 911.`}
   keywords={[
     "bomberos chihuahua",
     "bomberos ciudad juarez",
@@ -129,8 +242,8 @@ const stationImages = [
     "arff aeropuerto juarez abraham gonzalez",
     "cuerpo bomberos chihuahua estado",
   ]}
-  canonical="https://bombero.mx/directorio/chihuahua/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
   totalEstaciones={totalEstaciones}
   totalMunicipios={totalMunicipios}
@@ -217,98 +330,223 @@ const stationImages = [
   ]}
 
   ctaTitle="Equipamos a los Bomberos de Chihuahua"
-  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones desde Ciudad Juárez hasta la Sierra Tarahumara. Envío a los ${totalMunicipios} municipios con cobertura activa. Atención a licitaciones públicas municipales y estatales — experiencia con corporaciones del norte de México.`}
+  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones desde Ciudad Juárez hasta la Sierra Tarahumara. Envío a los ${totalMunicipios} ciudades con cobertura activa. Atención a licitaciones públicas municipales y estatales — experiencia con corporaciones del norte de México.`}
   ctaBtnText="Solicitar Cotización — Chihuahua"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Chihuahua — el Estado más Extenso de México y la Paradoja de los 15 Habitantes por Kilómetro Cuadrado</h2>
-    <p>
-      El <strong>H. Cuerpo de Bomberos de Chihuahua</strong> enfrenta el reto inverso al de los
-      estados urbanos: no la densidad, sino la distancia. Con 15 habitantes por kilómetro cuadrado
-      en las zonas rurales y un territorio de 247,455 km² —más extenso que el Reino Unido y Alemania
-      juntos— el 70% del estado tiene tiempos de respuesta superiores a 45 minutos, no por falta
-      de recursos, sino porque ningún presupuesto puede financiar una estación en cada tramo de los
-      1,000 kilómetros que separan Ciudad Juárez de la frontera con Durango. Por eso las estaciones
-      rurales de Chihuahua cumplen una función que pocas corporaciones del país reconocen
-      formalmente: son la unidad de atención médica de emergencia de último recurso en un radio de
-      90 km, antes de que llegue cualquier otro servicio. Con {totalEstaciones} estaciones en
-      {totalMunicipios} ciudades y más de {totalBomberos} bomberos profesionales, la corporación
-      opera el rango de condiciones más extremo de México: de los +45°C del Desierto Chihuahuense
-      en verano a los –20°C de la Sierra Tarahumara en invierno, y de la concentración de 400
-      maquiladoras en Ciudad Juárez a los 200 kilómetros de carretera sin población entre
-      Chihuahua capital y Ojinaga.
+    <h2>Bomberos en Chihuahua: el estado más extenso de México entre el desierto, la sierra y la frontera</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Chihuahua">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Ciudades cubiertas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones activas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">212</span><span class="de-stat__label">Elementos (capital, 2023)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">247,455 km²</span><span class="de-stat__label">Territorio a cubrir</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">3.8M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1918</span><span class="de-stat__label">Primer cuerpo (Juárez)</span></div>
+    </div>
+
+    <p class="de-lead">
+      Ningún estado de México exige al cuerpo de bomberos cubrir un rango de riesgos tan amplio
+      como Chihuahua: <strong>247,455 km²</strong> de territorio —más extenso que el Reino Unido y
+      Alemania juntos—, temperaturas que van de los <strong>–20°C de la Sierra Tarahumara</strong>
+      a los <strong>+45°C del Desierto Chihuahuense</strong>, la mayor concentración industrial de
+      la frontera norte con <strong>más de 400 maquiladoras</strong> en Ciudad Juárez, y una sierra
+      donde en 2025 ardieron más de <strong>222,000 hectáreas</strong> de bosque. Con {totalEstaciones}
+      estaciones en {totalMunicipios} ciudades, los cuerpos de bomberos de Chihuahua son la primera
+      —y a veces única— respuesta de emergencia en cientos de kilómetros de carretera federal.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Chihuahua?</h3>
+    <h3>Cómo contactar a los bomberos en Chihuahua</h3>
     <p>
       En cualquier emergencia, el <strong>911</strong> conecta desde cualquier teléfono en todo el
       estado, con o sin saldo, en español e inglés. Los teléfonos directos por ciudad son:
       Chihuahua capital (614 429-3300), Ciudad Juárez (656 616-1000), Creel / Sierra Tarahumara
-      (635 456-0066), Hidalgo del Parral (627 522-0077), Cuauhtémoc (625 581-0088), Delicias
-      (639 472-0066) y Nuevo Casas Grandes (636 694-0088). Las estaciones de Ciudad Juárez
-      operan con personal bilingüe y protocolos coordinados con el El Paso Fire Department de
-      Texas para emergencias en la zona fronteriza.
+      (635 456-0066), Hidalgo del Parral (627 522-0077) y Cuauhtémoc (625 581-0088). Las estaciones
+      de Ciudad Juárez operan con personal bilingüe y protocolos coordinados con el
+      <strong>El Paso Fire Department</strong> de Texas para emergencias en la zona fronteriza. En
+      zonas serranas y rurales, indica tu ubicación exacta o el kilómetro de carretera más cercano.
+      Encuentra todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a> de
+      esta página.
     </p>
 
-    <h3>Ciudad Juárez y sus 400 maquiladoras: el mayor frente industrial de la frontera norte</h3>
+    <h3>Historia de los bomberos de Chihuahua</h3>
     <p>
-      Con 1.5 millones de habitantes y más de 400 plantas maquiladoras de las industrias
-      automotriz, aeroespacial, electrónica y médica —Foxconn, Lexmark, Delphi, Bosch—,
+      Los dos cuerpos más importantes del estado nacieron en épocas distintas pero con el mismo
+      origen: la urgencia de proteger a comunidades que crecían más rápido que sus servicios de
+      emergencia.
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong>.</li>
+      <li><span class="de-tl__year">1918</span> Se funda el <strong>Cuerpo de Bomberos de Ciudad Juárez</strong> bajo el mando del jefe <strong>Arturo Duglas</strong>, durante la administración de Alberto B. Almeida. Nació como cuerpo voluntario ante los incendios frecuentes de la ciudad fronteriza.</li>
+      <li><span class="de-tl__year">1923</span> Nace el <strong>Heroico Cuerpo de Bomberos de Chihuahua capital</strong> con una plantilla de <strong>cuatro elementos</strong>. Es el centenario que se conmemoró en 2023.</li>
+      <li><span class="de-tl__year">1926</span> Ciudad Juárez adquiere su <strong>primera máquina extintora</strong>, inicio de la profesionalización del cuerpo fronterizo.</li>
+      <li><span class="de-tl__year">1948</span> El <strong>28 de noviembre</strong>, sesenta bomberos combaten un incendio en la ferretería <strong>"La Sirena"</strong> (Las Palmas y 16 de Septiembre). La barda colapsa y <strong>12 bomberos quedan sepultados</strong>. A partir de ese episodio la corporación capitalina adopta el nombre de <strong>Heroico Cuerpo de Bomberos</strong>.</li>
+      <li><span class="de-tl__year">Hoy</span> El directorio estatal suma <strong>{totalEstaciones} estaciones</strong> en <strong>{totalMunicipios} ciudades</strong>. El municipio de Chihuahua capital opera con <strong>212 elementos</strong>, incluyendo 39 mujeres bombero (2023). Ciudad Juárez celebró su <strong>107 aniversario</strong> en mayo de 2025.</li>
+    </ul>
+
+    <h3>Infraestructura: cómo se cubren los 247,455 km² del estado más grande de México</h3>
+    <p>
+      La cobertura se organiza en cinco grandes zonas, cada una con un perfil de riesgo diferenciado.
+      La zona metropolitana de la capital coordina operaciones estatales; la frontera concentra el
+      riesgo industrial; la sierra afronta rescate de montaña e incendios forestales; la zona
+      agrícola atiende accidentes en carreteras federales y siniestros rurales; y el sur histórico
+      guarda minas y patrimonio UNESCO. Esta es la distribución de la cobertura:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios principales</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipiosZona.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los cuerpos de bomberos en Chihuahua</h3>
+    <p>
+      Los bomberos de Chihuahua operan un espectro de servicios que pocas corporaciones del país
+      deben dominar simultáneamente: del rescate en alta montaña al combate de incendios
+      petroquímicos en zona fronteriza.
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Estructurales, industriales y forestales. Temporada forestal crítica: noviembre a mayo en la Sierra Madre Occidental.</p></div>
+      <div class="de-card"><h4>Rescate de montaña y barranca</h4><p>Rappel, tirolesa y búsqueda en las Barrancas del Cobre. Hipotermia operacional a –20°C en invierno serrano.</p></div>
+      <div class="de-card"><h4>HAZMAT — Zona maquiladora</h4><p>Respuesta a derrames y fugas químicas en las 400+ plantas industriales de Ciudad Juárez. Laboratorio móvil y descontaminación masiva.</p></div>
+      <div class="de-card"><h4>Rescate vehicular y de desierto</h4><p>Extricación en carreteras y búsqueda en arena suelta. Dunas de Samalayuca y accidentes en federal México 45 sin cobertura médica próxima.</p></div>
+      <div class="de-card"><h4>Rescate minero (espacios confinados)</h4><p>SCBA de larga duración y detectores de gases en minas históricas de Hidalgo del Parral y Santa Bárbara (fundada en 1567).</p></div>
+      <div class="de-card"><h4>Coordinación binacional y ARFF</h4><p>Protocolo con el El Paso Fire Department para incidentes transfronterizos. Unidad ARFF en el Aeropuerto Internacional Abraham González.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales e industriales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Sierra Tarahumara: Creel, Madera, Guachochi, Bocoyna</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate de montaña / barranca</strong></td><td>24/7</td><td>Creel, Bocoyna, Guachochi</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>Ciudad Juárez Zona Industrial · Chihuahua capital</td></tr>
+          <tr><td><strong>Rescate en espacios confinados (minas)</strong></td><td>24/7</td><td>Hidalgo del Parral, Santa Bárbara</td></tr>
+          <tr><td><strong>ARFF aeroportuario</strong></td><td>24/7</td><td>Aeropuerto Abraham González (Ciudad Juárez)</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Búsqueda en desierto</strong></td><td>24/7</td><td>Estaciones del Desierto Chihuahuense</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia; función de salud rural en zonas sin clínica</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Ciudad Juárez y la Sierra Tarahumara: los dos frentes más exigentes del estado</h3>
+    <p>
+      Con 1.5 millones de habitantes y más de <strong>400 plantas maquiladoras</strong> —Foxconn,
+      Lexmark, Delphi, Bosch— de las industrias automotriz, aeroespacial, electrónica y médica,
       Ciudad Juárez concentra el mayor volumen de emergencias industriales del norte de México.
-      Sus 7 estaciones, incluyendo la unidad ARFF certificada por la DGAC en el Aeropuerto
-      Internacional Abraham González, son referente nacional en respuesta HAZMAT: la estación de
-      Zona Industrial opera con laboratorio móvil de identificación química y sistema de
-      descontaminación masiva. Los acuerdos binacionales con el El Paso Fire Department y los
-      protocolos con la EPA de Estados Unidos permiten despliegue cruzado de unidades en la
-      frontera, coordinación única en el país. La estación PRONAF atiende la zona consular con
-      personal bilingüe para emergencias de visitantes internacionales.
+      Sus estaciones son referente nacional en respuesta HAZMAT: la unidad de Zona Industrial opera
+      con laboratorio móvil de identificación química y sistema de descontaminación masiva. Los
+      protocolos con el <strong>El Paso Fire Department</strong> permiten despliegue cruzado de
+      unidades en la frontera, coordinación binacional única en el país.
+    </p>
+    <p>
+      En el extremo opuesto del estado, la <strong>Sierra Tarahumara</strong> concentra el otro gran
+      frente de riesgo. En la temporada <strong>2025</strong>, Chihuahua registró <strong>598
+      incendios forestales</strong> que consumieron más de <strong>222,000 hectáreas</strong> de
+      bosque de pino-encino —un aumento de 827.6% respecto a las 37,000 ha de 2024, con los focos
+      más críticos en Bocoyna y Guadalupe y Calvo. Las brigadas de Creel (2,338 msnm), Madera y
+      Guachochi operan con vehículos 4×4, equipo forestal y coordinación con la CONAFOR y más de
+      400 combatientes estatales. En invierno, los mismos equipos atienden hipotermia y rescate a
+      <strong>–20°C</strong> en la Sierra Madre Occidental.
     </p>
 
-    <h3>Las Barrancas del Cobre: 300,000 turistas anuales y rescate a –20°C en la Sierra Tarahumara</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      Las Barrancas del Cobre —seis cañones interconectados con profundidades de hasta 1,800 metros,
-      cuatro veces más profundas que el Grand Canyon de Arizona— reciben más de 300,000 turistas
-      al año impulsados por el tren El Chepe (Chihuahua al Pacífico, 650 km de vías panorámicas).
-      La estación de Creel, Pueblo Mágico a 2,338 msnm, es la sede de rescate de montaña más
-      especializada del norte de México: personal certificado en rappel, tirolesa, búsqueda en
-      barranca y atención de hipotermia por los inviernos de –20°C de la Sierra Tarahumara.
-      La estación de Bocoyna cubre Divisadero y el recorrido del Chepe, mientras las brigadas
-      forestales de Guachochi y Madera protegen más de 3 millones de hectáreas de bosques de
-      pino-encino en la Sierra Madre Occidental.
+      A partir de los datos de las estaciones publicadas en este directorio, así se distribuyen los
+      recursos de los cuerpos de bomberos entre las grandes zonas del estado. Las cifras de personal
+      y unidades corresponden a las estaciones con datos disponibles:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>{totalMunicipios} ciudades · 247,455 km² · estado más extenso de México</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Chihuahua</h3>
+    <p>
+      El primer reto es la <strong>distancia</strong>. Con 15 habitantes por kilómetro cuadrado en
+      las zonas rurales y tramos de hasta 200 km entre poblaciones, ningún presupuesto puede
+      financiar una estación en cada segmento de las carreteras federales 45, 2 y 16. Las
+      estaciones rurales del desierto y la sierra operan con tiempos de respuesta de 45 a 90
+      minutos y funcionan de hecho como servicios de emergencia médica de última instancia para
+      comunidades sin clínica a menos de 90 km.
+    </p>
+    <p>
+      El segundo reto es la <strong>diversidad de entornos</strong>: el mismo cuerpo debe dominar
+      respuesta HAZMAT para industria química internacional, rescate de alta montaña a –20°C,
+      combate de incendios forestales en bosque de pino-encino, búsqueda en arena suelta y rescate
+      minero en espacios confinados —competencias que normalmente corresponden a corporaciones
+      especializadas distintas. La formación continua y la renovación de <strong>EPP certificado
+      NFPA</strong> adecuado a cada entorno representan una presión presupuestal constante.
     </p>
 
-    <h3>De Paquimé UNESCO a las minas de Parral: emergencias en cuatro siglos de patrimonio histórico</h3>
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad en Chihuahua</h3>
     <p>
-      La Zona Arqueológica de Paquimé —Patrimonio Mundial UNESCO desde 1998, con 2,000 cuartos de
-      adobe construidos por la cultura Casas Grandes entre los siglos X y XIV— es el sitio
-      arqueológico más importante del norte árido de América. Las estaciones de Nuevo Casas Grandes
-      y Casas Grandes mantienen protocolos de protección patrimonial coordinados con el INAH y
-      cubren la vecina Reserva de la Biósfera de Janos contra incendios de pastizal. En el sur,
-      Hidalgo del Parral —donde fue asesinado Francisco Villa el 20 de julio de 1923, tras 400 años
-      de extracción minera continua— y Santa Bárbara, fundada en 1567 como la primera ciudad minera
-      del estado, cuentan con las únicas estaciones del estado certificadas en rescate de espacios
-      confinados, equipadas con SCBA de larga duración y detectores de monóxido de carbono,
-      metano y CO₂.
+      Las condiciones climáticas extremas de Chihuahua exigen medidas de prevención específicas que
+      van más allá de las recomendaciones estándar:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención en Chihuahua</h4>
+      <ul>
+        <li><strong>Gas en invierno serrano:</strong> la calefacción de propano es la primera causa de intoxicación por monóxido de carbono en la Sierra Tarahumara en invierno. Nunca uses estufas o calentadores sin ventilación y revisa conexiones antes de la temporada fría.</li>
+        <li><strong>Incendios forestales:</strong> no enciendas fogatas fuera de sitios habilitados entre noviembre y mayo; nunca arrojes colillas en carreteras serranas. Reporta humo al 911 de inmediato —un aviso a tiempo puede salvar miles de hectáreas.</li>
+        <li><strong>Desierto y carretera:</strong> en carreteras rurales sin servicios, lleva agua, teléfono cargado y señala tu posición exacta antes de desviarte de la ruta. En tormentas de arena, detente fuera de la calzada y activa luces de emergencia.</li>
+        <li><strong>Gas y electricidad en casa:</strong> revisa mangueras, reguladores y conexiones; evita sobrecargar contactos. Instala detectores de humo y ten un extintor vigente.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión familiar; practica con niñas y niños.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enséñalo a todos en casa — funciona en español e inglés, con y sin saldo, en toda la frontera.</li>
+      </ul>
+    </div>
 
-    <h3>El desierto más grande de América del Norte: 362,000 km² y estaciones que operan como clínicas de emergencia rural</h3>
-    <p>
-      El Desierto Chihuahuense, con 362,000 km², es el más grande de Norteamérica —mayor que los
-      desiertos de Sonora, Mojave y Great Basin combinados. Las estaciones de Ojinaga, Jiménez y
-      Camargo cubren tramos de las carreteras federales México 45 y México 2 con 180 km entre
-      poblaciones, con el mayor índice de accidentalidad del norte por visibilidad cero en tormentas
-      de arena y asfalto que supera los +55°C de temperatura superficial en verano. Las Dunas de
-      Samalayuca —el mayor campo de dunas activas del norte de México, a 50 km de Ciudad Juárez—
-      generan rescates en arena suelta sin acceso convencional, atendidos por unidades 4×4 de la
-      estación Juárez Poniente. Con tiempos de respuesta de 45 a 90 minutos en zonas rurales, las
-      estaciones del desierto cargan un inventario que revela qué función real cumplen: desfibriladores
-      AED para infartos en comunidades sin clínica, kits obstétricos para partos de emergencia antes
-      de que llegue cualquier ambulancia, antiveneno contra Crotalus atrox —la víbora de cascabel
-      más frecuente del desierto chihuahuense— y detectores de monóxido de carbono para
-      intoxicaciones por calefacción de propano en invierno. Es el inventario de un servicio médico
-      de urgencias rural, porque eso también son estas estaciones.
+    <p class="de-srcnote">
+      Fuentes: Municipio de Chihuahua — Coordinación de Comunicación Social («Bomberos de la ciudad:
+      100 años sirviendo a los chihuahuenses», 2023); Norte de Chihuahua («Heroico Cuerpo de Bomberos
+      en Chihuahua, un siglo salvando vidas», septiembre 2023); ADN / A Diario Network («Cumple 107
+      años de servicio el Heroico Cuerpo de Bomberos de Ciudad Juárez», 2025); El Diario de Chihuahua
+      («Incendios en Chihuahua han arrasado más de 168 mil ha en 2025»); Portal Gubernamental de
+      Chihuahua («Combaten más de 200 brigadistas incendios forestales activos en la Sierra
+      Tarahumara», 2025); Pausa.mx («Incendios forestales: aumentó 827.6% el territorio afectado
+      en Chihuahua durante 2025»). Las cifras de personal y unidades por región se calculan a partir
+      de las estaciones publicadas en este directorio. Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

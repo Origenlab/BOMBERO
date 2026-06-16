@@ -4,10 +4,9 @@ import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import {
   estacionesGuanajuato,
   ESTADISTICAS_GUANAJUATO,
-  GUANAJUATO_SEO
 } from "@data/estaciones-guanajuato";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CALCULAR DATOS DERIVADOS
@@ -15,6 +14,8 @@ import { breadcrumbJsonLd } from "@utils/seo";
 
 const municipios = [...new Set(estacionesGuanajuato.map((e) => e.ciudad))].sort();
 
+const totalBomberos = estacionesGuanajuato.reduce((sum, e) => sum + (e.personal ?? 0), 0);
+const totalUnidades = estacionesGuanajuato.reduce((sum, e) => sum + (e.unidades ?? 0), 0);
 
 // ═══════════════════════════════════════════════════════════════════════════
 // PROPS PARA DirectorioEstadoLayout
@@ -24,19 +25,24 @@ const estadoNombre = "Guanajuato";
 const estadoSlug = "guanajuato";
 const estadoCodigo = "GTO";
 
-const heroDesc = `Guanajuato es el líder nacional en producción automotriz con plantas de Toyota, GM, Mazda y Honda. León concentra el 70% de la producción nacional de calzado. La Refinería PEMEX Salamanca procesa 220,000 barriles diarios. San Miguel de Allende ha sido votada #1 ciudad del mundo. Los ${ESTADISTICAS_GUANAJUATO.total_bomberos}+ bomberos especializados protegen este patrimonio industrial, cultural y turístico.`;
+const canonical = "https://bombero.mx/directorio/guanajuato/";
 
+const heroDesc = `El <strong>Heroico Cuerpo de Bomberos de Guanajuato</strong> protege el estado con mayor producción automotriz de México: plantas de Toyota, GM, Mazda y Honda en el corredor del Bajío, la <strong>Refinería Antonio M. Amor</strong> de PEMEX en Salamanca —inaugurada en 1950, 220,000 barriles diarios—, León como capital mundial del calzado y la piel, y la <strong>Ciudad Histórica de Guanajuato</strong> —Patrimonio de la Humanidad UNESCO desde 1988—, con su red de túneles coloniales donde un camión de bomberos no pasa en varios tramos. Con <strong>${ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones</strong>, <strong>${totalBomberos} bomberos</strong> y <strong>${totalUnidades} unidades</strong>, la corporación gestiona un territorio donde el riesgo industrial del siglo XXI coexiste con infraestructura urbana del siglo XVI.`;
 
 const heroThumbs = [
   {
     src: "/images/directorio/camion-bomberos-autobomba-urbana-01.avif",
-    alt: "Autobomba urbana del Cuerpo de Bomberos de León, Guanajuato",
+    alt: "Autobomba urbana del Cuerpo de Bomberos de León, Guanajuato — corredor industrial automotriz Bajío",
     label: "Autobomba Central León"
   },
-  { src: "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif", alt: "Bahía de bomberos de Guanajuato con ventanal panorámico", label: "Instalaciones Modernas" },
+  {
+    src: "/images/directorio/estacion-bomberos-bahia-ventanal-01.avif",
+    alt: "Bahía de estación de bomberos en Guanajuato con equipos especializados HAZMAT refinería Salamanca",
+    label: "HAZMAT Refinería Salamanca"
+  },
   {
     src: "/images/directorio/bomberos-profesionales-accion-01.avif",
-    alt: "Bomberos de Guanajuato en maniobras de rescate industrial",
+    alt: "Bomberos de Guanajuato en maniobras de rescate industrial corredor automotriz Bajío",
     label: "Rescate Industrial GTO"
   }
 ];
@@ -47,69 +53,74 @@ const emergencyNumbers = [
   { label: "Bomberos Celaya", number: "(461) 612-3222" },
   { label: "Bomberos Salamanca", number: "(464) 648-0808" },
   { label: "Bomberos Irapuato", number: "(462) 626-2222" },
+  { label: "Bomberos Guanajuato capital", number: "(473) 732-0424" },
 ];
 
 const regiones = [
-  { nombre: "Zona Metropolitana León", desc: "Ciudad más poblada del estado con 1." },
-  { nombre: "Corredor Industrial Bajío", desc: "Principal corredor automotriz de México con plantas Honda y proveedoras tier-1." },
-  { nombre: "Capital Guanajuato (UNESCO)", desc: "Patrimonio de la Humanidad UNESCO desde 1988." },
-  { nombre: "Zona Bajío Norte (Agroindustrial)", desc: "Irapuato: Capital Mundial de la Fresa." },
-  { nombre: "Pueblos Mágicos (Turismo Premium)", desc: "San Miguel de Allende: #1 Ciudad del Mundo según Condé Nast Traveler y Travel+Leisure." },
+  { nombre: "Zona Metropolitana León", desc: "Ciudad más poblada del estado (1.6M hab.). León Central fundada 1930, 9 estaciones, 300+ bomberos. Capital mundial del calzado y la piel." },
+  { nombre: "Corredor Industrial Bajío", desc: "Celaya, Silao, Villagrán. Toyota, Mazda, Honda, GM. Corredor automotriz #1 de México. Celaya fundada 1955." },
+  { nombre: "Zona Refinería Salamanca", desc: "Refinería Antonio M. Amor (PEMEX, 1950). 220,000 bpd. Única refinería del Bajío. Equipo HAZMAT Nivel A certificado." },
+  { nombre: "Capital Guanajuato UNESCO", desc: "Ciudad Histórica Patrimonio de la Humanidad (1988). Túneles coloniales siglo XVIII. Minas de plata activas desde 1558. Festival Cervantino." },
+  { nombre: "Bajío Norte y Pueblos Mágicos", desc: "Irapuato (Capital de la Fresa), San Miguel de Allende (UNESCO), Dolores Hidalgo (Cuna de la Independencia). Despacho bilingüe español-inglés." },
 ];
 
 const galleryImages = [
   {
     src: "/images/directorio/estacion-bomberos-mexico-01.avif",
-    alt: "Estación Central de Bomberos de León, la más grande de Guanajuato",
-    label: "Estación Central León"
+    alt: "Estación Central de Bomberos de León — fundada 1930, ciudad más grande de Guanajuato",
+    label: "Estación Central León 1930"
   },
   {
     src: "/images/directorio/camion-bomberos-equipado-01.avif",
-    alt: "Unidad HAZMAT especializada de Bomberos Salamanca para emergencias en refinería",
-    label: "HAZMAT Refinería Salamanca"
+    alt: "Unidad HAZMAT especializada de Bomberos Salamanca para emergencias en Refinería PEMEX Antonio M. Amor",
+    label: "HAZMAT Refinería PEMEX 1950"
   },
   {
     src: "/images/directorio/bomberos-accion-incendio-01.avif",
-    alt: "Bomberos de Guanajuato combatiendo incendio industrial en planta automotriz",
-    label: "Incendio Industrial Corredor Bajío"
+    alt: "Bomberos de Guanajuato combatiendo incendio industrial en corredor automotriz Bajío León Celaya",
+    label: "Corredor Automotriz Bajío"
   },
-  { src: "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif", alt: "Central de despacho nocturna de bomberos de Guanajuato", label: "Monitoreo 24/7" }
+  {
+    src: "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
+    alt: "Central de despacho nocturna de bomberos de Guanajuato monitoreo 24/7 emergencias industriales",
+    label: "Centro de Despacho 24/7"
+  }
 ];
 
 const eppCards = [
   {
     image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-    imageAlt:  "Traje estructural certificado NFPA 1971 para bomberos industriales de León y Celaya",
+    imageAlt:  "Traje estructural certificado NFPA 1971 para bomberos industriales León Celaya corredor automotriz Guanajuato",
     badge:     "NFPA 1971",
     title:     "Traje Estructural NFPA 1971",
-    text:      "Traje ignífugo de 3 capas certificado NFPA 1971 para combate de incendios en plantas automotrices (pintura, solventes, espumas), curtidurías y fábricas de calzado. Barrera térmica Nomex® con resistencia hasta 500°C. Reflectantes 3M Scotchlite™ para visibilidad en operaciones nocturnas industriales....",
+    text:      "Traje ignífugo de 3 capas certificado NFPA 1971 para combate de incendios en plantas automotrices (pintura, solventes, espumas AFFF), curtidurías y fábricas de calzado. Barrera térmica Nomex® con resistencia hasta 500°C. Reflectantes 3M Scotchlite™ para visibilidad en operaciones nocturnas industriales. El traje de referencia del corredor automotriz más activo de México.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Trajes para Bombero",
   },
   {
     image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
-    imageAlt:  "Traje HAZMAT Nivel A para emergencias petroquímicas en Refinería Salamanca",
+    imageAlt:  "Traje HAZMAT Nivel A para emergencias petroquímicas en Refinería Antonio M. Amor PEMEX Salamanca 220000 barriles",
     badge:     "NFPA 1991",
     title:     "Equipo HAZMAT Nivel A",
-    text:      "Traje encapsulado totalmente hermético para emergencias con hidrocarburos y productos petroquímicos en la Refinería Antonio M. Amor de Salamanca (220,000 bpd). Protección contra vapores de gasolina, diésel, turbosina, amoniaco y ácido sulfhídrico (H₂S). SCBA interno 60 minutos. Resistencia química...",
+    text:      "Traje encapsulado totalmente hermético para emergencias en la Refinería Antonio M. Amor de Salamanca (220,000 bpd, inaugurada 1950). Protección contra vapores de gasolina, diésel, turbosina, amoniaco y sulfuro de hidrógeno (H₂S). SCBA interno 60 minutos. La única brigada municipal del Bajío con certificación en emergencias de refinería opera desde Salamanca con este equipo.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Equipo HAZMAT",
   },
   {
     image:     "/images/directorio/botas-bombero-proteccion-01.avif",
-    imageAlt:  "Botas dieléctricas de bombero para emergencias en plantas industriales de Guanajuato",
+    imageAlt:  "Botas dieléctricas de bombero para emergencias en plantas industriales Guanajuato León calzado curtidurías",
     badge:     "NFPA 1971",
     title:     "Botas Industriales Diélectricas",
-    text:      "Botas de seguridad dieléctrica certificadas ASTM F2413 clase 75 para emergencias en plantas automotrices con sistemas eléctricos de alto voltaje (prensas, hornos de pintura, robots industriales). Punta de acero ASTM F2413. Entresuela Kevlar® anti-perforación. Suela antideslizante Vibram® para pisos...",
+    text:      "Botas de seguridad dieléctrica certificadas ASTM F2413 para emergencias en plantas automotrices con sistemas eléctricos de alto voltaje (prensas, hornos de pintura, robots). También para curtidurías de León, donde el piso mojado con sulfato de cromo III exige aislamiento eléctrico y resistencia química combinados. Punta de acero, entresuela Kevlar® anti-perforación, suela Vibram® antideslizante.",
     href:      "/productos/botas-para-bomberos/",
     linkLabel: "Ver Botas para Bombero",
   },
   {
     image:     "/images/directorio/equipo-bomberos-completo-01.avif",
-    imageAlt:  "Equipo especializado para protección de patrimonio UNESCO en Guanajuato",
+    imageAlt:  "Equipo especializado para protección de patrimonio UNESCO en Guanajuato capital túneles coloniales siglo XVIII",
     badge:     "Certificado",
     title:     "EPP Patrimonio UNESCO",
-    text:      "Equipo especializado para emergencias en sitios Patrimonio de la Humanidad UNESCO: Ciudad de Guanajuato y San Miguel de Allende. Mangueras de 1.5' para acceso en callejones estrechos coloniales. Extintores portátiles ABC/K para estructuras históricas de madera del siglo XVII-XVIII. Trajes...",
+    text:      "Equipo especializado para emergencias en la Ciudad Histórica de Guanajuato (UNESCO, 1988) y San Miguel de Allende. Mangueras de 1.5\" para acceso en callejones estrechos coloniales y túneles donde un camión estándar no cabe. Extintores portátiles ABC/K para estructuras de piedra y madera del siglo XVI-XVIII. Equipo de respiración autónoma para el monóxido de carbono que se acumula en los túneles del río Guanajuato.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Equipo Certificado",
   },
@@ -160,24 +171,24 @@ const stationImages = [
   "/images/directorio/autobomba-panel-bombeo-detalle-valvulas-01.avif",
   "/images/directorio/sistema-espuma-incendios-01.avif",
   "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",
-]
+];
+
 // Estados vecinos (desde archivo centralizado)
 const estadosVecinos = getEstadosVecinos("guanajuato");
 
 const ctaTitle = "¿Necesitas Bomberos en Guanajuato?";
-const ctaDesc = "Encuentra la estación más cercana en León, Celaya, Irapuato, San Miguel de Allende o cualquier municipio del estado. Atención 24/7 en emergencias industriales, HAZMAT y rescate.";
+const ctaDesc = "Encuentra la estación más cercana en León, Celaya, Irapuato, San Miguel de Allende o cualquier municipio del estado. Atención 24/7 en emergencias industriales, HAZMAT, refinería y rescate.";
 const ctaBtnText = "Ver Estaciones por Municipio";
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Guanajuato",               url: "/directorio/guanajuato/" },
-]);
+// ═══════════════════════════════════════════════════════════════════════════
+// SCHEMAS ESTRUCTURADOS
+// ═══════════════════════════════════════════════════════════════════════════
 
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Guanajuato, México",
+  "description": `Directorio de las ${ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones de bomberos en Guanajuato: León (fundada 1930), Celaya (1955), Irapuato (1962), Salamanca (brigada HAZMAT refinería PEMEX) y Guanajuato capital (UNESCO). Emergencias: 911.`,
   "numberOfItems": estacionesGuanajuato.length,
   "itemListElement": estacionesGuanajuato.map((e, i) => ({
     "@type": "ListItem",
@@ -193,10 +204,153 @@ const itemListSchema = {
         "addressCountry": "MX",
       },
       "telephone": e.telefono,
-      "url": `https://bombero.mx/directorio/guanajuato/${e.slug}`,
+      "url": `https://bombero.mx/directorio/guanajuato/${e.slug}/`,
     }
   }))
 };
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Guanajuato: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de Guanajuato: historia (León 1930, refinería Salamanca, UNESCO), infraestructura, HAZMAT industrial y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Guanajuato",
+    "Refinería Antonio M. Amor PEMEX Salamanca",
+    "Corredor industrial automotriz Bajío",
+    "Patrimonio de la Humanidad UNESCO Guanajuato",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/guanajuato.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Guanajuato",
+  "description": `Directorio verificado de las ${ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones de bomberos en Guanajuato: teléfonos, cobertura por municipio, historia e infraestructura HAZMAT para el corredor automotriz del Bajío y la refinería de Salamanca.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos de Guanajuato" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/guanajuato.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// COMPARATIVA REGIONAL (zonas)
+// ═══════════════════════════════════════════════════════════════════════════
+
+const zonasDef = [
+  {
+    nombre: "Zona Metropolitana León",
+    ciudades: ["León", "Silao de la Victoria"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "León fundada 1930 — capital del calzado (70% producción nacional), corredor automotriz, Aeropuerto Internacional del Bajío.",
+  },
+  {
+    nombre: "Corredor Industrial Bajío",
+    ciudades: ["Celaya", "Villagrán", "Apaseo el Grande"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Celaya fundada 1955 — Honda, proveedoras tier-1, autopista 45D. Conexión industrial hacia Querétaro.",
+  },
+  {
+    nombre: "Zona Refinería Salamanca",
+    ciudades: ["Salamanca"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Refinería Antonio M. Amor (PEMEX, 1950) — 220,000 bpd, única del Bajío. Brigada HAZMAT nivel A.",
+  },
+  {
+    nombre: "Capital y UNESCO",
+    ciudades: ["Guanajuato"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Ciudad Histórica UNESCO (1988). Túneles coloniales, minas de plata siglo XVI. Festival Cervantino (120,000 visitantes/año).",
+  },
+  {
+    nombre: "Bajío Norte y Pueblos Mágicos",
+    ciudades: ["Irapuato", "San Francisco del Rincón", "Pénjamo", "San Miguel de Allende", "Dolores Hidalgo"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Irapuato (Capital de la Fresa, fundada 1962). San Miguel de Allende (UNESCO). Dolores Hidalgo (Cuna de la Independencia).",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesGuanajuato.filter((e) => z.ciudades.includes(e.ciudad ?? ""));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// FAQs GUANAJUATO (≥10 únicas)
+// ═══════════════════════════════════════════════════════════════════════════
+
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Guanajuato?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas. Los teléfonos directos de las principales corporaciones son: León <strong>(477) 712-5555</strong>, Celaya <strong>(461) 612-3222</strong>, Salamanca <strong>(464) 648-0808</strong>, Irapuato <strong>(462) 626-2222</strong> y Guanajuato capital <strong>(473) 732-0424</strong>. En emergencias en la Refinería Antonio M. Amor, la brigada HAZMAT de PEMEX activa de forma paralela con los bomberos municipales bajo protocolo de mando unificado.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de León, Guanajuato?",
+    a: `El <strong>Heroico Cuerpo de Bomberos de León</strong> fue fundado el <strong>10 de junio de 1930</strong>, siendo inaugurado por el presidente municipal Francisco Álvarez Jr. Es una de las corporaciones de bomberos más antiguas y reconocidas del Bajío. Actualmente opera con más de <strong>300 elementos</strong> distribuidos en <strong>9 estaciones</strong> en el municipio.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Celaya?",
+    a: `El Heroico Cuerpo de Bomberos de Celaya fue fundado el <strong>14 de junio de 1955</strong>. Su creación fue impulsada por el incendio del Cine Colonial ocurrido el 24 de junio de 1953, durante el cual fue necesario solicitar apoyo de bomberos de Querétaro, Morelia, León y la Ciudad de México. La corporación inició con alrededor de <strong>24 elementos voluntarios</strong> y actualmente cuenta con <strong>110 elementos</strong>.`,
+  },
+  {
+    q: "¿Cuándo se inauguró la Refinería de Salamanca y por qué es relevante para los bomberos?",
+    a: `La <strong>Refinería Ingeniero Antonio M. Amor de PEMEX</strong> fue inaugurada el <strong>30 de julio de 1950</strong> por el presidente Miguel Alemán Valdés. Con capacidad de <strong>220,000 barriles diarios</strong> y 42 plantas de producción en 518 hectáreas, es la única refinería del Bajío. Los bomberos de Salamanca mantienen la única brigada municipal de la región con certificación en emergencias de refinería, incluyendo manejo de sulfuro de hidrógeno (H₂S) y de la Unidad de Craqueo Catalítico Fluido (FCC).`,
+  },
+  {
+    q: "¿Por qué los túneles de Guanajuato representan un riesgo especial para los bomberos?",
+    a: `Los túneles viales de Guanajuato capital fueron construidos entre 1960 y 1990 aprovechando los canales hidráulicos del siglo XVIII excavados para desviar las crecidas del río Guanajuato. El problema operativo es doble: primero, en varios tramos el <strong>ancho no permite que un camión de bomberos pase junto a un vehículo accidentado</strong>, por lo que la intervención llega a pie con mangueras portátiles. Segundo, la ventilación es por diferencial de presión entre bocas y no es forzada, por lo que el monóxido de carbono puede alcanzar concentraciones de alerta en menos de tres minutos.`,
+  },
+  {
+    q: "¿Cómo responden los bomberos de Guanajuato a un incendio en una curtiduría de León?",
+    a: `Los bomberos de León tratan los incendios en curtidurías como emergencias HAZMAT desde el perímetro. El proceso de curtido al cromo usa sulfato de cromo III, pero la combustión lo convierte en <strong>cromo hexavalente Cr(VI)</strong>, clasificado por la IARC en el Grupo 1 de carcinógenos humanos confirmados. El protocolo exige SCBA obligatorio a 50 metros del humo y zona de exclusión para el público hasta que el monitoreo de aire confirme que los vapores de Cr(VI) están bajo el límite de exposición ocupacional de <strong>0.005 mg/m³ (NOM-010-STPS)</strong>.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en Guanajuato?",
+    a: `Los cuerpos de bomberos de Guanajuato prestan: <strong>combate de incendios</strong> (estructurales, industriales, forestales), <strong>rescate vehicular</strong> y extricación, <strong>atención prehospitalaria</strong>, <strong>materiales peligrosos (HAZMAT)</strong> con certificación nivel A en Salamanca, <strong>rescate en espacios confinados</strong> y minas históricas en Guanajuato capital, <strong>control de fugas de gas</strong>, emergencias en <strong>instalaciones petroquímicas</strong>, y atención en <strong>eventos masivos</strong> como el Festival Internacional Cervantino y festividades de San Miguel de Allende.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque conmemora la fundación del <strong>primer cuerpo de bomberos de México</strong>, establecido el <strong>22 de agosto de 1873</strong> en el puerto de Veracruz. Cada año en esa fecha se reconoce la labor de los bomberos de toda la República, incluyendo los de las corporaciones de Guanajuato.`,
+  },
+  {
+    q: "¿Por qué la Ciudad Histórica de Guanajuato es Patrimonio de la Humanidad UNESCO?",
+    a: `La <strong>Ciudad Histórica de Guanajuato y Minas Adyacentes</strong> fue inscrita en la Lista del Patrimonio Mundial de la UNESCO en <strong>1988</strong>. La ciudad surgió en el siglo XVI a partir del descubrimiento de la <strong>Veta Madre en 1558</strong>; la mina La Valenciana llegó a producir hasta un tercio de la plata mundial durante el período colonial. Esta riqueza minera financió una arquitectura barroca única, con iglesias, teatros y el entramado urbano en cañada que convierte a la ciudad en un caso sin equivalente en América.`,
+  },
+  {
+    q: "¿Cómo atiende San Miguel de Allende las emergencias de su comunidad extranjera?",
+    a: `La estación de bomberos de San Miguel de Allende mantiene <strong>despachadores bilingües español-inglés</strong> en todos los turnos, una capacidad que ninguna otra estación del Bajío tiene. La razón es operativa: el municipio concentra aproximadamente <strong>15,000 residentes extranjeros permanentes</strong> —en su mayoría estadounidenses y canadienses— que generan llamadas de emergencia en inglés con frecuencia suficiente como para justificar el servicio bilingüe permanente. Las unidades también son compactas para operar en calles coloniales de 3 a 4 metros de ancho.`,
+  },
+  {
+    q: "¿Los bomberos de Guanajuato tienen costo?",
+    a: `Las emergencias que comprometen la <strong>vida o la integridad</strong> de las personas —incendios, rescates, fugas de gas, accidentes— se atienden de forma <strong>gratuita</strong> en todos los municipios. Algunos servicios secundarios (retiro de enjambres, dictámenes de seguridad, capacitación a empresas) pueden tener una cuota de recuperación según el municipio. La atención de emergencia nunca se condiciona a un pago. Ante cualquier duda, marca el <strong>911</strong>.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en una empresa industrial en Guanajuato?",
+    a: `En el entorno industrial del Bajío, las medidas más críticas son: <strong>inventario y etiquetado de sustancias peligrosas</strong> conforme a la NOM-018-STPS; revisión periódica de instalaciones eléctricas en áreas con solventes o pinturas (zonas Clase I División 1 conforme a NOM-001-SEDE); <strong>detectores de gases</strong> calibrados para los agentes específicos del proceso (vapores de gasolina, H₂S, solventes orgánicos); brigadas de emergencia internas capacitadas; y <strong>plan de auxilio mutuo</strong> con la estación de bomberos más cercana. El 911 coordina la respuesta; los cuerpos de bomberos de León, Celaya y Salamanca ofrecen también inspecciones de seguridad.`,
+  },
+];
+
 ---
 
 <DirectorioEstadoLayout
@@ -204,12 +358,12 @@ const itemListSchema = {
   slug={estadoSlug}
   sigla={estadoCodigo}
   heroImage="/images/directorio/camion-bomberos-autobomba-urbana-01.avif"
-  heroImageAlt="Estación de Bomberos en Guanajuato"
-  heroCaption="H. Cuerpo de Bomberos · Guanajuato"
+  heroImageAlt="Estación de Bomberos en Guanajuato — corredor automotriz Bajío, Refinería PEMEX Salamanca, UNESCO"
+  heroCaption="H. Cuerpo de Bomberos · Guanajuato · León 1930 · Salamanca 1950"
   totalEstaciones={estacionesGuanajuato.length}
   totalMunicipios={municipios.length}
   habitantes="6.2M+"
-  canonical="https://bombero.mx/directorio/guanajuato/"
+  canonical={canonical}
   heroDesc={heroDesc}
   heroThumbs={heroThumbs}
   emergencyNumbers={emergencyNumbers}
@@ -223,16 +377,16 @@ const itemListSchema = {
   ctaTitle={ctaTitle}
   ctaDesc={ctaDesc}
   ctaBtnText={ctaBtnText}
-  jsonLd={[itemListSchema]}
-  description={`${ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones en Guanajuato — PEMEX Salamanca (única refinería del Bajío), túneles coloniales UNESCO, León capital del calzado y BMW en Silao. Emergencias: 911.`}
-
+  jsonLd={jsonLd}
+  faqsEstado={faqsEstado}
+  description={`${ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones en Guanajuato — León (1930), Refinería PEMEX Salamanca (220,000 bpd), túneles coloniales UNESCO y corredor automotriz Bajío. Emergencias: 911.`}
   keywords={[
     "bomberos guanajuato",
     "estaciones de bomberos guanajuato",
     "emergencias guanajuato mexico",
     "bomberos leon guanajuato",
     "bomberos celaya",
-    "bomberos salamanca refineria",
+    "bomberos salamanca refineria pemex",
     "bomberos irapuato",
     "bomberos san miguel de allende",
     "cuerpo de bomberos guanajuato",
@@ -240,113 +394,234 @@ const itemListSchema = {
     "911 guanajuato",
     "emergencias industriales guanajuato",
     "bomberos bajio",
-    "hazmat guanajuato"
+    "hazmat guanajuato refineria",
   ]}
 >
   <Fragment slot="seo">
 
-    <h2>Bomberos de Guanajuato — Cuando la Infraestructura del Pasado Multiplica los Riesgos del Presente</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Guanajuato</strong> opera en el estado donde
-      la infraestructura construida en distintos siglos convierte riesgos manejables en categorías
-      sin equivalente: una refinería de petróleo diseñada en los años sesenta para procesar crudo
-      ligero que hoy maneja mezclas con mayor contenido de azufre; una ciudad Patrimonio Mundial
-      con una red de carreteras subterráneas donde un camión de bomberos no cabe en varios tramos;
-      y la capital mundial del calzado de cuero, donde los solventes de acabado acumulados en
-      talleres del siglo XIX crean concentraciones de vapores inflamables que la ventilación
-      original no fue diseñada para controlar. Con {ESTADISTICAS_GUANAJUATO.total_estaciones}
-      estaciones en {municipios.length} municipios y {ESTADISTICAS_GUANAJUATO.total_bomberos}
-      bomberos profesionales, la corporación gestiona el estado con el mayor crecimiento de
-      inversión manufacturera de México en la última década —BMW, Honda, Mazda, Toyota, GM—
-      en un entorno que mezcla instalaciones de clase mundial con estructura urbana construida
-      siglos antes de que existiera el concepto de emergencia industrial.
+    <h2>Bomberos en Guanajuato</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Guanajuato">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{ESTADISTICAS_GUANAJUATO.total_estaciones}</span><span class="de-stat__label">Estaciones</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Bomberos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalUnidades}</span><span class="de-stat__label">Unidades</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1930</span><span class="de-stat__label">León (fundación)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">220K</span><span class="de-stat__label">bpd refinería</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">6.2M</span><span class="de-stat__label">Habitantes</span></div>
+    </div>
+
+    <p class="de-lead">
+      Guanajuato es el único estado de México donde los bomberos deben estar certificados para atender
+      una refinería de petróleo, un centro histórico declarado Patrimonio de la Humanidad por la UNESCO,
+      el corredor automotriz más activo del país y la capital mundial del calzado —todo al mismo tiempo.
+      Con <strong>{ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones</strong> y <strong>{totalBomberos} bomberos</strong>,
+      las corporaciones de Guanajuato operan en un territorio donde cada municipio tiene un perfil de riesgo
+      que no existe en ningún otro lugar del Bajío.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Guanajuato?</h3>
+    <h3>Cómo contactar a los bomberos en Guanajuato</h3>
     <p>
-      En cualquier emergencia, el <strong>911</strong> conecta con el Centro Estatal de
-      Emergencias las 24 horas. Los teléfonos directos de las principales estaciones son:
-      León (477) 712-5555, Celaya (461) 612-3222, Salamanca (464) 648-0808, Irapuato
-      (462) 626-2222, Guanajuato capital (473) 732-0042 y San Miguel de Allende (415) 152-0911.
-      La estación de San Miguel opera con personal bilingüe español-inglés para atender a los
-      15,000 residentes extranjeros permanentes del municipio. En emergencias de la Refinería
-      Antonio M. Amor en Salamanca, la brigada HAZMAT de PEMEX activa de forma paralela con
-      los bomberos municipales bajo protocolo de mando unificado.
+      En cualquier emergencia, el <strong>911</strong> conecta con el Centro Estatal de Emergencias
+      las 24 horas. Los teléfonos directos de las principales corporaciones son: León
+      <strong>(477) 712-5555</strong>, Celaya <strong>(461) 612-3222</strong>, Salamanca
+      <strong>(464) 648-0808</strong>, Irapuato <strong>(462) 626-2222</strong> y Guanajuato capital
+      <strong>(473) 732-0424</strong>. En emergencias de la Refinería Antonio M. Amor en Salamanca,
+      la brigada HAZMAT de PEMEX activa de forma paralela con los bomberos municipales bajo protocolo
+      de mando unificado. La estación de San Miguel de Allende opera con despachadores bilingües
+      español-inglés en todos los turnos para atender a los aproximadamente 15,000 residentes extranjeros
+      permanentes del municipio.
     </p>
 
-    <h3>La refinería de Salamanca: la única del Bajío y por qué un incendio en la unidad de craqueo no se controla como ningún otro</h3>
+    <h3>Historia de los cuerpos de bomberos en Guanajuato</h3>
     <p>
-      La Refinería Antonio M. Amor en Salamanca es la única planta de refinación de petróleo
-      en el Bajío —una de seis en todo México— y procesa entre 165,000 y 175,000 barriles
-      diarios de crudo con una mezcla que incluye fracciones de alto contenido de azufre. El
-      riesgo operacional que define a esta instalación no es el volumen: es la Unidad de
-      Craqueo Catalítico Fluido (FCC), que opera a 500-600°C con catalizador sólido en
-      suspensión. Cuando la unidad FCC tiene un incendio, el catalizador caliente continúa
-      promoviendo reacciones de craqueo aunque la llama principal esté controlada, generando
-      butadieno y propileno —gases que forman nubes explosivas más rápido que el vapor de
-      gasolina y que arden con llama invisible en condiciones de alta temperatura. El segundo
-      riesgo específico de Salamanca es el sulfuro de hidrógeno (H₂S), subproducto inevitable
-      del procesamiento de crudo con azufre: más denso que el aire, se acumula silenciosamente
-      en zonas bajas de la instalación a concentraciones letales (300 ppm, que paralizan el
-      nervio olfatorio antes de que el olor de huevo podrido alcance a advertir del peligro).
-      Los bomberos de Salamanca actualizan su inventario de riesgo con PEMEX trimestralmente
-      y son la única brigada municipal del Bajío con certificación en emergencias de refinería.
+      Las fechas de fundación de las principales corporaciones del estado reflejan el crecimiento
+      industrial y urbano de Guanajuato a lo largo del siglo XX:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México —hito que se conmemora cada año como el <strong>Día del Bombero</strong> en todo el país.</li>
+      <li><span class="de-tl__year">1930</span> El <strong>10 de junio</strong> es inaugurado el <strong>Heroico Cuerpo de Bomberos de León</strong> por el presidente municipal Francisco Álvarez Jr. León era ya entonces la ciudad más populosa del estado y el centro de la industria del calzado.</li>
+      <li><span class="de-tl__year">1938</span> Se establece el cuerpo de bomberos en <strong>Guanajuato capital</strong>, ciudad declarada Patrimonio Histórico por su red de minas activas desde 1558 y su arquitectura barroca colonial.</li>
+      <li><span class="de-tl__year">1950</span> El <strong>30 de julio</strong>, el presidente Miguel Alemán Valdés inaugura la <strong>Refinería Ingeniero Antonio M. Amor de PEMEX</strong> en Salamanca, con una capacidad inicial de 25,000 barriles diarios. La brigada de bomberos de Salamanca comienza su especialización en emergencias petroquímicas desde ese año.</li>
+      <li><span class="de-tl__year">1955</span> El <strong>14 de junio</strong> se funda el Heroico Cuerpo de Bomberos de <strong>Celaya</strong>, impulsado por el incendio del Cine Colonial del 24 de junio de 1953 —que requirió apoyo de León, Querétaro, Morelia y la Ciudad de México— y la ausencia de bomberos propios en la tercera ciudad del estado.</li>
+      <li><span class="de-tl__year">1962</span> Se establece el Cuerpo de Bomberos de <strong>Irapuato</strong>, segunda ciudad más poblada del estado, conocida como la Capital Mundial de la Fresa y centro de una agroindustria con cámaras de refrigeración y empacadoras de alto riesgo.</li>
+      <li><span class="de-tl__year">1988</span> La UNESCO declara la <strong>Ciudad Histórica de Guanajuato y Minas Adyacentes</strong> Patrimonio de la Humanidad, elevando el estándar de protección de patrimonio cultural que los bomberos deben garantizar en el centro histórico y las minas históricas.</li>
+      <li><span class="de-tl__year">Hoy</span> Las corporaciones de Guanajuato operan <strong>{ESTADISTICAS_GUANAJUATO.total_estaciones} estaciones</strong> con <strong>{totalBomberos} bomberos</strong> y <strong>{totalUnidades} unidades</strong>, cubriendo desde el corredor automotriz más activo de México hasta Pueblos Mágicos con calles que datan del siglo XVI.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cómo se cubren las principales zonas</h3>
+    <p>
+      La cobertura del estado se organiza en cinco grandes zonas, cada una con un perfil de riesgo
+      específico. León y el corredor automotriz concentran el mayor número de estaciones por la
+      densidad industrial; Salamanca requiere especialización HAZMAT única en la región; Guanajuato
+      capital exige equipo compacto adaptado a callejones coloniales; y el norte y los Pueblos Mágicos
+      combinan agroindustria con turismo de alto volumen. Esta es la distribución de la cobertura:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios / Ciudades</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.ciudades.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los cuerpos de bomberos en Guanajuato</h3>
+    <p>
+      Los bomberos de Guanajuato son un servicio de emergencia integral cuyas funciones van mucho
+      más allá del fuego. Estas son sus funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, industriales, forestales y en instalaciones petroquímicas. Espuma AFFF para incendios clase B en la refinería y el corredor automotriz.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en choques y volcaduras con herramienta hidráulica, en autopistas 45D, León-Silao y accesos industriales de alto tráfico.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Contención de derrames de hidrocarburos, solventes de curtidurías y pinturas automotrices. Nivel A en Salamanca para emergencias de refinería.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Estabilización y soporte vital a lesionados antes del traslado, en coordinación con servicios médicos de urgencia del IMSS y ISSSTE.</p></div>
+      <div class="de-card"><h4>Rescate en espacios confinados</h4><p>Minas históricas y galerías subterráneas en Guanajuato capital, túneles viales con acumulación de CO y silos agroindustriales en Irapuato.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones de riesgo en plantas automotrices, curtidurías y edificios coloniales. Dictámenes y capacitación industrial. Plan de Auxilio Mutuo con PEMEX.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales e industriales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Materiales peligrosos HAZMAT Nivel A</strong></td><td>24/7</td><td>Salamanca (refinería)</td></tr>
+          <tr><td><strong>HAZMAT solventes / curtidurías</strong></td><td>24/7</td><td>León (curtidurías)</td></tr>
+          <tr><td><strong>HAZMAT automotriz (pintura, solventes)</strong></td><td>24/7</td><td>Silao, Celaya</td></tr>
+          <tr><td><strong>Rescate en espacios confinados / minas</strong></td><td>24/7</td><td>Guanajuato capital</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Emergencias en eventos masivos</strong></td><td>Protocolo activo</td><td>Festival Cervantino, fiestas patrias</td></tr>
+          <tr><td><strong>Despacho bilingüe español-inglés</strong></td><td>24/7</td><td>San Miguel de Allende</td></tr>
+          <tr><td><strong>Incendios en vegetación y pastizales</strong></td><td>Estiaje (nov–may)</td><td>Pénjamo, Marfil, Sierra de Guanajuato</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Corredor industrial automotriz del Bajío: el riesgo que define a la región</h3>
+    <p>
+      Guanajuato es el principal productor de vehículos de México, con plantas de Toyota, General
+      Motors, Mazda, Honda y Hino distribuidas principalmente en Silao, Celaya y sus parques
+      industriales satelitales. Una planta de ensamble automotriz concentra en un mismo recinto los
+      tres grandes vectores de riesgo industrial: <strong>fuego</strong> (hornos de pintura con
+      temperaturas de 180–200°C sobre cuerpos de vehículo con imprimante inflamable),
+      <strong>química</strong> (solventes, isocianatos en bases de pintura en polvo, adhesivos
+      estructurales y líquidos de frenos) y <strong>electricidad</strong> (prensas hidráulicas,
+      robots de soldadura con sistemas de alta tensión). La respuesta a un incendio en la línea de
+      pintura de una armadora no puede tratarse como un incendio estructural convencional: los
+      vapores de solvente a presión de rocío forman nubes con límite inferior de inflamabilidad que
+      el personal de bomberos debe conocer antes de abrir cualquier puerta. Las estaciones de Silao
+      y Celaya entrenan protocolo específico para cada planta del corredor mediante convenios de
+      auxilio mutuo con las brigadas industriales internas.
     </p>
 
-    <h3>Los túneles de Guanajuato UNESCO: canales de inundación del siglo XVIII reconvertidos en carreteras y sus consecuencias para la emergencia</h3>
+    <h3>Refinería de Salamanca y minería histórica: los dos extremos del riesgo geológico</h3>
     <p>
-      La red de túneles bajo el centro histórico de Guanajuato fue construida entre 1960 y 1990
-      aprovechando los canales hidráulicos excavados en el siglo XVIII para desviar las crecidas
-      estacionales del río Guanajuato bajo la ciudad. Esta reutilización de infraestructura
-      hidráulica como vialidad tiene una consecuencia que los ingenieros de los años sesenta no
-      calcularon: los canales fueron diseñados para flujo de agua, con secciones de sedimentación
-      en los puntos bajos. En esos mismos puntos, el monóxido de carbono del tráfico vehicular
-      se acumula porque la ventilación es por diferencial de presión entre bocas de túnel —no
-      forzada— y en accidentes con incendio, el CO puede alcanzar concentraciones de alerta
-      (200 ppm) en menos de tres minutos sin que ningún sistema de ventilación activa lo
-      disperse. El problema dimensional se suma: en varios tramos del túnel bajo la Alhóndiga
-      de Granaditas y la Plaza de la Paz, la anchura no permite que un camión de bomberos pase
-      junto a un vehículo accidentado. La respuesta llega a pie desde las bocas más cercanas,
-      con mangueras de 1.5 pulgadas y equipos portátiles. El Festival Internacional Cervantino
-      —que concentra 120,000 visitantes en 17 días cada octubre— multiplica el tráfico en los
-      túneles y activa un protocolo de refuerzo con estaciones adicionales en las bocas de acceso.
+      La <strong>Refinería Ingeniero Antonio M. Amor</strong> en Salamanca fue inaugurada el 30 de
+      julio de 1950 por el presidente Miguel Alemán Valdés, con una capacidad inicial de 25,000
+      barriles diarios que creció hasta los actuales <strong>220,000 barriles diarios</strong>
+      en 42 plantas de producción distribuidas en 518 hectáreas. Es la única refinería del Bajío
+      y abastece a nueve estados del centro-occidente del país. El riesgo operacional que define a
+      esta instalación es la <strong>Unidad de Craqueo Catalítico Fluido (FCC)</strong>, que opera
+      a 500–600°C con catalizador sólido en suspensión: cuando hay un incendio, el catalizador
+      caliente continúa promoviendo reacciones de craqueo y genera butadieno y propileno —gases que
+      forman nubes explosivas más rápido que el vapor de gasolina. El segundo riesgo específico es
+      el <strong>sulfuro de hidrógeno (H₂S)</strong>, subproducto del procesamiento de crudo con
+      azufre: más denso que el aire, se acumula silenciosamente en zonas bajas a concentraciones
+      letales antes de que el olor de huevo podrido alcance a advertir del peligro.
+    </p>
+    <p>
+      En el extremo opuesto del espectro —histórico y geológico— están las <strong>minas de plata
+      de Guanajuato</strong>. La Veta Madre fue descubierta en 1558 y la mina La Valenciana llegó a
+      producir hasta un tercio de la plata mundial durante el período colonial. Hoy algunas minas
+      siguen activas como atractivo turístico y otras permanecen en la red de galerías bajo la ciudad.
+      Los bomberos de Guanajuato capital son los únicos en el Bajío con protocolo específico para
+      rescate en galería minera histórica, incluyendo ventilación forzada portátil y comunicación
+      en entornos de roca sin señal de radio convencional.
     </p>
 
-    <h3>León y las curtidurías: por qué el humo de una curtiduría en llamas es más peligroso que el cuero que procesa</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      León concentra el 70% de la producción nacional de calzado y opera las curtidurías más
-      grandes de América Latina. El proceso de curtido al cromo usa sulfato de cromo III —no
-      tóxico en estado normal— pero la combustión lo convierte en cromo hexavalente, Cr(VI),
-      clasificado por la IARC en el Grupo 1 de carcinógenos humanos confirmados. Un incendio
-      en una curtiduría no genera el mismo perfil toxicológico que un incendio estructural
-      convencional: el humo contiene Cr(VI), productos de combustión de los colorantes azo
-      usados en el tinte (que incluyen bencidina y anilina), formaldehído de los agentes de
-      curtido y vapores de isocianato del acabado en poliuretano. Los bomberos de León
-      tratan los incendios en curtidurías como emergencias HAZMAT desde el perímetro: SCBA
-      obligatorio a 50 metros del humo, zona de exclusión para el público hasta que el análisis
-      de aire confirme que los vapores de Cr(VI) están bajo el límite de exposición ocupacional
-      (0.005 mg/m³ según la NOM-010-STPS). Es el protocolo más específico del estado y el único
-      en México que integra monitoreo de cromo hexavalente como parte del procedimiento estándar
-      de extinción de incendios.
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos
+      entre las grandes zonas del estado. Las cifras de personal y unidades corresponden a las
+      estaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{ESTADISTICAS_GUANAJUATO.total_estaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>{municipios.length} municipios · Estado de Guanajuato</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Guanajuato</h3>
+    <p>
+      El primer reto es de escala y velocidad: el corredor automotriz del Bajío crece más rápido
+      que la infraestructura de emergencias. Cada nueva planta que se instala en Silao o Celaya trae
+      un perfil de riesgo nuevo —materiales, procesos, dimensiones— que las brigadas de bomberos
+      deben conocer <em>antes</em> de que ocurra un incidente, no después. Los convenios de auxilio
+      mutuo con brigadas industriales son la herramienta que permite absorber ese crecimiento, pero
+      exigen actualización continua del personal y del equipo.
+    </p>
+    <p>
+      El segundo reto es presupuestal. Como la mayoría de los cuerpos de bomberos del país, las
+      corporaciones guanajuatenses enfrentan presión para renovar el <strong>equipo de protección
+      personal (EPP)</strong> conforme a las normas NFPA vigentes, sostener la certificación de
+      brigadas HAZMAT y modernizar unidades envejecidas. La especialización —HAZMAT nivel A para
+      Salamanca, unidades compactas para los centros históricos, equipo para galería minera en
+      Guanajuato capital— implica inversiones que los presupuestos municipales no siempre pueden
+      absorber sin apoyo estatal o federal.
     </p>
 
-    <h3>San Miguel de Allende: calles de 1542, 15,000 residentes extranjeros y el único despacho bilingüe del Bajío</h3>
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu empresa en Guanajuato</h3>
     <p>
-      San Miguel de Allende fue fundada en 1542 para una sociedad que se desplazaba a caballo.
-      Las calles del centro histórico tienen entre 3 y 4 metros de ancho —diseñadas para carretas,
-      no para autobombas. Un camión de bomberos estándar de 8 metros de longitud no puede dar
-      vuelta en varios cruces del primer cuadro. La estación de San Miguel opera con autobomba
-      compacta, equipo de mochila portátil y protocolo de ataque inicial a pie desde el acceso
-      más próximo mientras la unidad principal ocupa posición en la vialidad principal más cercana.
-      La Parroquia de San Miguel Arcángel —el edificio más fotografiado de México— tiene una
-      fachada neogótica de piedra construida en 1880 sobre una estructura colonial de madera de
-      1542: la piedra da una falsa apariencia de solidez incombustible, pero el interior arde.
-      Los bomberos de San Miguel entrenan específicamente el reconocimiento de fachadas engañosas:
-      edificios con exterior de mampostería que contienen elementos combustibles del siglo XVI no
-      visibles desde la calle. La presencia de 15,000 residentes extranjeros permanentes —en su
-      mayoría estadounidenses y canadienses mayores de 60 años— genera llamadas de emergencia en
-      inglés con frecuencia suficiente para que la estación mantenga despachadores bilingües en
-      todos los turnos, una capacidad que ninguna otra estación del Bajío tiene.
+      La emergencia más fácil de atender es la que no ocurre. Las recomendaciones varían según el
+      entorno —industrial, histórico o doméstico— pero los principios son los mismos:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención en Guanajuato</h4>
+      <ul>
+        <li><strong>Gas LP y natural:</strong> revisa mangueras, reguladores y conexiones cada 6 meses; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y evacúa.</li>
+        <li><strong>Industria y talleres:</strong> mantén un inventario de materiales peligrosos actualizado; instala detectores de gases calibrados para los agentes de tu proceso (solventes, H₂S, CO).</li>
+        <li><strong>Edificios históricos:</strong> en inmuebles del centro de Guanajuato o San Miguel, identifica la estructura original de madera del siglo XVI detrás de fachadas de mampostería; el fuego puede progresar por estructuras no visibles desde la calle.</li>
+        <li><strong>Detección:</strong> instala detectores de humo en todas las habitaciones y ten un extintor vigente y accesible; en cocinas industriales, usa extintores clase K.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión; practícalo con tu familia, empleados o equipo de brigada.</li>
+        <li><strong>En el corredor automotriz:</strong> reporta cualquier fuga o derrame de solvente de inmediato al 911; no intentes controlar un derrame sin EPP certificado y ventilación.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a todas las personas del inmueble —incluyendo trabajadores eventuales— cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Municipio de León (enterate.leon.gob.mx) — fundación del cuerpo de bomberos el 10 de junio de 1930; Expresa TV / Periódico AM — Cuerpo de Bomberos de Celaya fundado el 14 de junio de 1955 tras el incendio del Cine Colonial de 1953; Notibajio — Bomberos de Irapuato, 62 años de entrega (fundación 1962); Periódico Correo — Bomberos de Guanajuato celebran 69 años de servicio voluntario (2024); PEMEX Sala de Prensa — Refinería Ing. Antonio M. Amor inaugurada el 30 de julio de 1950, capacidad 220,000 bpd, 42 plantas; UNESCO / INAH — Ciudad Histórica de Guanajuato y Minas Adyacentes, inscrita 1988; Mining México / Wikipedia — Veta Madre descubierta 1558, mina La Valenciana. Las cifras de personal, unidades y estaciones corresponden al directorio publicado en esta página. Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

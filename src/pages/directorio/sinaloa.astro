@@ -3,14 +3,64 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesSinaloa, getMunicipios } from "@data/estaciones-sinaloa";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 // Configuración del estado
 const estado = "Sinaloa";
 const sigla = "SIN";
 const slug = "sinaloa";
 
-// Miniaturas hero - Agroexportación y Costa
+const canonical = "https://bombero.mx/directorio/sinaloa/";
+
+// ── Estadísticas derivadas ──────────────────────────────────────────────────
+const totalEstaciones = estacionesSinaloa.length;
+const totalMunicipios = getMunicipios().length;
+const totalBomberos   = estacionesSinaloa.reduce((sum, e) => sum + (e.personalActivo ?? e.personal ?? 0), 0);
+const totalUnidades   = estacionesSinaloa.reduce((sum, e) => sum + (e.unidades ?? 0), 0);
+
+// ── Comparativa regional ────────────────────────────────────────────────────
+const zonasDef = [
+  {
+    nombre: "Zona Norte",
+    municipios: ["Ahome", "El Fuerte", "Choix", "Guasave", "Sinaloa"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Los Mochis (agroindustria y Tren Chepe), Puerto Topolobampo, zona cañera norte.",
+  },
+  {
+    nombre: "Zona Centro",
+    municipios: ["Culiacán", "Navolato", "Angostura", "Mocorito", "Salvador Alvarado", "Badiraguato"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital Culiacán, Aeropuerto Bachigualato, Ingenio El Dorado (Navolato), valle hortícola.",
+  },
+  {
+    nombre: "Zona Sur — Mazatlán",
+    municipios: ["Mazatlán", "Concordia", "Rosario", "Escuinapa", "Cosalá"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Puerto de Mazatlán, Zona Dorada turística, costa sur, Marismas Nacionales, Pueblos Mágicos.",
+  },
+  {
+    nombre: "Sierra Madre Occidental",
+    municipios: ["Badiraguato", "Choix", "Cosalá"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Incendios forestales, rescate en alta montaña, comunidades de difícil acceso.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesSinaloa.filter((e) => z.municipios.includes(e.municipio ?? ""));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+// Miniaturas hero
 const heroThumbs = [
   {
     src: "/images/directorio/estacion-bomberos-playa-01.avif",
@@ -89,7 +139,7 @@ const eppCards = [
     imageAlt:  "Equipo HAZMAT para agroindustria en Sinaloa",
     badge:     "HAZMAT",
     title:     "HAZMAT Agroindustrial",
-    text:      "Trajes y detectores para emergencias con <strong>agroquímicos y fertilizantes</strong> en los valles agrícolas de Sinaloa. Protección contra pesticidas y sustancias tóxicas.",
+    text:      "Trajes y detectores para emergencias con <strong>agroquímicos y fertilizantes</strong> en los valles agrícolas de Sinaloa. Protección contra organofosforados y síndrome colinérgico.",
     href:      "/productos/trajes-para-bomberos/traje-hazmat/",
     linkLabel: "Ver Equipos HAZMAT",
   },
@@ -113,12 +163,12 @@ const eppCards = [
   },
 ];
 
-// Schema.org estructurado
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de ${estacionesSinaloa.length} estaciones de bomberos en Sinaloa. Líder nacional en agroexportación. Puerto de Mazatlán, Zona Dorada turística. Cobertura zona de huracanes del Pacífico.`,
+  description: `Directorio de ${estacionesSinaloa.length} estaciones de bomberos en Sinaloa. Culiacán (fundación 1949), Mazatlán (fundación 1942), Los Mochis (fundación 1954). HAZMAT agroindustrial, rescate acuático Pacífico y cobertura huracanes. Emergencias: 911.`,
   numberOfItems: estacionesSinaloa.length,
   itemListElement: estacionesSinaloa.map((e, i) => ({
     "@type": "ListItem",
@@ -134,16 +184,101 @@ const itemListSchema = {
         addressCountry: "MX"
       },
       telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}/`
     }
   }))
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Sinaloa",         url: "/directorio/sinaloa/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Sinaloa: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de Sinaloa: historia (Culiacán 1949, Mazatlán 1942, Los Mochis 1954), infraestructura en 18 municipios, HAZMAT agroindustrial, rescate acuático Pacífico, protección ante huracanes y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de Sinaloa",
+    "Protección Civil Sinaloa",
+    "HAZMAT agroquímicos",
+    "Rescate acuático Pacífico",
+    "Huracanes del Pacífico",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/sinaloa.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Sinaloa",
+  "description": `Directorio verificado de ${estacionesSinaloa.length} estaciones de bomberos en Sinaloa, con teléfonos, cobertura, funciones e historia. Culiacán (1949), Mazatlán (1942), Los Mochis (1954).`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de Sinaloa" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/sinaloa.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// Estados vecinos
+const estadosVecinos = getEstadosVecinos("sinaloa");
+
+// ── FAQ únicas de Sinaloa (≥10) ─────────────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Sinaloa?",
+    a: `El número único de emergencias en todo Sinaloa es el <strong>911</strong>, disponible las 24 horas. Para emergencias en campo agrícola con posible intoxicación por agroquímico, el protocolo activa simultáneamente a bomberos y IMSS — el antídoto (atropina para síndrome colinérgico) puede requerirse antes de confirmación diagnóstica. Los números directos de las principales estaciones son: Culiacán (667 715 8311), Mazatlán (669 982 0800) y Los Mochis (668 815 7050).`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Culiacán?",
+    a: `El <strong>H. Cuerpo de Bomberos de Culiacán</strong> tiene sus orígenes en <strong>1948</strong>, cuando Gilberto González, Manuel Rodríguez, Jorge Sataraín y Nicolás Tamayo formaron el primer grupo organizado para combatir incendios en la capital sinaloense. La primera junta directiva se constituyó formalmente el <strong>5 de junio de 1949</strong>, con el periodista Gustavo Daniel Cañedo de "La Voz de Sinaloa" como primer presidente. El edificio actual de la estación principal fue construido a partir de <strong>1966</strong> con donación del Club Rotario Culiacán.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Mazatlán?",
+    a: `El <strong>H. Cuerpo Voluntario de Bomberos de Mazatlán</strong> fue fundado el <strong>13 de enero de 1942</strong> por el doctor Olavo Corona, quien tras presenciar un incendio en el Puerto Viejo apagado a cubetazos organizó al primer grupo de voluntarios. Lo que comenzó con una ambulancia improvisada y herramientas rudimentarias cuenta hoy con cuatro estaciones en el puerto y proyecta una quinta en la zona de Cerritos. En enero de 2026 el cuerpo conmemoró <strong>84 años de historia</strong>.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Los Mochis?",
+    a: `El <strong>H. Cuerpo Voluntario de Bomberos de Los Mochis</strong> fue fundado el <strong>16 de febrero de 1954</strong> por un grupo de jóvenes comprometidos con su comunidad. En febrero de 2026 el cuerpo conmemoró <strong>72 años</strong> de servicio continuo. Desde su fundación protege el principal centro urbano del norte de Sinaloa, el puerto industrial de Topolobampo y las zonas agroindustriales del municipio de Ahome.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en Sinaloa?",
+    a: `Los cuerpos de bomberos de Sinaloa prestan: combate de <strong>incendios estructurales, forestales y agrícolas</strong> (cañaverales, campos de tomate y rastrojos), <strong>rescate acuático</strong> en costas del Pacífico, esteros y lagunas, <strong>HAZMAT agroindustrial</strong> (organofosforados, amoniaco portuario, fertilizantes), <strong>rescate vehicular y extricación</strong>, atención <strong>prehospitalaria</strong>, <strong>rescate en sierra</strong> (Sierra Madre Occidental), <strong>ARFF aeroportuario</strong> en el Aeropuerto de Culiacán, y protección civil ante <strong>huracanes del Pacífico</strong>. La prevención e inspecciones también forman parte de su labor.`,
+  },
+  {
+    q: "¿Qué riesgos específicos enfrenta Sinaloa por los agroquímicos?",
+    a: `Sinaloa aplica el mayor volumen de pesticidas agrícolas de México en sus aproximadamente 640,000 hectáreas de riego tecnificado. Los <strong>organofosforados</strong> —la familia de plaguicidas más usada— producen un síndrome colinérgico reconocible: pupilas puntiformes, broncospasmo, bradicardia e hipersalivación. El problema operacional es que los bomberos llegan a campos donde los jornaleros afectados no pueden identificar el compuesto porque el envase fue reutilizado. El protocolo es tratar el síndrome clínico, no esperar confirmación del producto; activar antídoto (atropina IV) y notificar al IMSS.`,
+  },
+  {
+    q: "¿Cómo afectan los huracanes del Pacífico a Sinaloa?",
+    a: `Sinaloa tiene <strong>640 km de litoral</strong> expuesto al Pacífico oriental, que registra algunas de las intensificaciones de huracán más rápidas del mundo. El <strong>Huracán Manuel (septiembre 2013)</strong> dejó 412 mm de lluvia en Culiacán en pocas horas —casi la precipitación anual normal— con el desbordamiento del Río Culiacán (confluencia del Humaya y Tamazula) que inundó colonias y dejó <strong>146,270 damnificados</strong> en 95 comunidades. El <strong>Huracán Willa (octubre 2018)</strong> alcanzó categoría 5 en el Pacífico y afectó el sur de Sinaloa. El protocolo de evacuación activa la alerta con 72 horas de anticipación.`,
+  },
+  {
+    q: "¿Qué riesgos HAZMAT existen en los puertos de Mazatlán y Topolobampo?",
+    a: `El <strong>Puerto de Mazatlán</strong> opera una flota camaronera industrial con refrigerantes de <strong>amoniaco</strong> en los barcos de pesca congeladora; una fuga activa zona de exclusión de 500 metros y requiere traje nivel B mínimo. El puerto recibe más de 300,000 cruceristas al año. <strong>Topolobampo</strong> (municipio de Ahome, norte de Sinaloa) es terminal del ferrocarril y maneja granel sólido, fertilizantes y contenedores intermodales; un incendio en silo de grano puede generar polvo combustible en suspensión con riesgo de deflagración. Ambos puertos tienen convenio con la Armada de México para operaciones marítimas.`,
+  },
+  {
+    q: "¿Qué es el incendio de cañaveral y por qué es peligroso en Sinaloa?",
+    a: `La <strong>quema de caña</strong> previa a cosecha —práctica autorizada bajo condiciones controladas— genera un frente de fuego que puede avanzar entre 4 y 15 km/h según el viento. Lo que distingue al cañaveral es la <strong>trayectoria de las brasas</strong>: fragmentos de hoja encendida que viajan 150 a 250 metros por delante del frente con el viento, creando focos secundarios que pueden cortar la ruta de retirada del bombero si el viento rota. La estación de Navolato tiene convenio con el <strong>Ingenio Azucarero El Dorado</strong> para activación conjunta; el criterio de abandono del perímetro se activa con viento superior a 25 km/h.`,
+  },
+  {
+    q: "¿Qué municipios cubre la Sierra Madre Occidental en Sinaloa?",
+    a: `Los municipios serranos de Sinaloa con mayor riesgo de incendio forestal y rescate en montaña son <strong>Badiraguato</strong>, <strong>Choix</strong> y <strong>Cosalá</strong> (Pueblo Mágico con minas históricas de plata). Sus estaciones operan con vehículos 4x4 preparados para terrenos de alta pendiente, con tiempos de respuesta de 15 a 40 minutos en las comunidades más alejadas. También se incluye la presierra de <strong>Concordia</strong> y <strong>Mocorito</strong> (Pueblo Mágico). El municipio de El Fuerte, en el norte serrano, es punto de partida del <strong>Tren Chepe</strong> hacia las Barrancas del Cobre.`,
+  },
+  {
+    q: "¿Cómo prevenir incendios en campos agrícolas de Sinaloa?",
+    a: `Los cuerpos de bomberos de Sinaloa recomiendan para zonas agrícolas: avisar a la estación más cercana antes de realizar <strong>quemas autorizadas</strong> de rastrojo o caña; verificar la dirección y velocidad del viento antes de iniciar (no quemar con viento superior a 20 km/h); mantener cortafuegos de al menos 3 metros; tener agua disponible en tanques de emergencia; y llamar al <strong>911</strong> ante cualquier fuga o intoxicación por agroquímico. En caso de intoxicación, retirar a los afectados del campo, no inducir el vómito y comunicar al operador el nombre del cultivo y los productos empleados ese día.`,
+  },
+  {
+    q: "¿Qué hacer en temporada de huracanes si vivo en la costa de Sinaloa?",
+    a: `Ante un aviso de huracán en la costa de Sinaloa: sigue las instrucciones de <strong>Protección Civil Sinaloa</strong> y el <strong>Servicio Meteorológico Nacional (SMN)</strong>; evacúa las zonas de manglar, playa y riberas de ríos ante alerta naranja o roja; no esperes a que los caminos de terracería se vuelvan intransitables con las primeras bandas de lluvia. Ten preparada una <strong>mochila de emergencia</strong> con documentos, agua, medicamentos y linterna. Llama al <strong>911</strong> solo para emergencias reales; para información de refugios contacta al ayuntamiento de tu municipio.`,
+  },
+];
 
 // Imágenes para tarjetas de estaciones
 const stationImages = [
@@ -189,23 +324,36 @@ const stationImages = [
   "/images/directorio/estacion-bomberos-bahia-tres-unidades-01.avif",
   "/images/directorio/estacion-bomberos-bahia-multiples-bahias-01.avif",
 ];
-// Estados vecinos (desde archivo centralizado)
-const estadosVecinos = getEstadosVecinos("sinaloa");
 ---
 
 <DirectorioEstadoLayout
   estado={estado}
   sigla={sigla}
   slug={slug}
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Sinaloa</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de Sinaloa</strong> —con cuerpos fundados en <strong>Mazatlán (1942)</strong>, <strong>Culiacán (1949)</strong> y <strong>Los Mochis (1954)</strong>— protege un estado donde el riesgo agrícola, portuario, serrano y costero se presentan de forma simultánea. Con <strong>${totalEstaciones} estaciones</strong> en <strong>${totalMunicipios} municipios</strong>, cubre 640 km de litoral Pacífico expuesto a huracanes, los valles agrícolas con mayor uso de agroquímicos de México y dos puertos industriales activos.`}
   heroImage="/images/directorio/estacion-bomberos-playa-01.avif"
-  heroImageAlt="Estación de Bomberos en Sinaloa"
+  heroImageAlt="Estación de Bomberos en Sinaloa — costa Pacífico y operaciones agroindustriales"
   heroCaption="H. Cuerpo de Bomberos · Sinaloa"
-  totalEstaciones={estacionesSinaloa.length}
-  totalMunicipios={getMunicipios().length}
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
   habitantes="3.1M+"
-  canonical="https://bombero.mx/directorio/sinaloa/"
-  keywords={["bomberos sinaloa", "estaciones bomberos sinaloa", "emergencias sinaloa 911", "cuerpo bomberos sinaloa"]}
+  canonical={canonical}
+  keywords={[
+    "bomberos sinaloa",
+    "estaciones bomberos sinaloa",
+    "emergencias sinaloa 911",
+    "cuerpo bomberos sinaloa",
+    "bomberos culiacan",
+    "bomberos mazatlan",
+    "bomberos los mochis",
+    "hazmat agroquimicos sinaloa",
+    "rescate acuatico pacifico sinaloa",
+    "huracan sinaloa proteccion civil",
+    "bomberos navolato ingenio el dorado",
+    "topolobampo bomberos puerto",
+    "sierra madre occidental incendios forestales sinaloa",
+    "directorio bomberos sinaloa telefono",
+  ]}
   estaciones={estacionesSinaloa}
   stationImages={stationImages}
   municipios={getMunicipios()}
@@ -215,88 +363,228 @@ const estadosVecinos = getEstadosVecinos("sinaloa");
   emergencyNumbers={emergencyNumbers}
   regiones={regiones}
   eppCards={eppCards}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesSinaloa.length} estaciones en Sinaloa — organofosforados en jornaleros, cañaverales brasas 200 m, 640 km costa Pacífico y Mazatlán NH₃. Emergencias: 911.`}
+  jsonLd={jsonLd}
+  description={`Bomberos en Sinaloa: ${totalEstaciones} estaciones, Culiacán (1949), Mazatlán (1942), Los Mochis (1954). HAZMAT agroquímicos, rescate acuático Pacífico y huracanes. Emergencias: 911.`}
+  ctaTitle="Equipamos a los Bomberos de Sinaloa"
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones de bomberos de Sinaloa: trajes HAZMAT para agroquímicos del valle agrícola, equipo de rescate acuático para la costa del Pacífico y equipo forestal para la Sierra Madre Occidental. Atención en Culiacán, Mazatlán y Los Mochis.`}
+  ctaBtnText="Solicitar Cotización — Sinaloa"
+  faqsEstado={faqsEstado}
 >
   <Fragment slot="seo">
 
-      <h2>Bomberos de Sinaloa — El Campo que No Sabe Qué Producto Usó, el Cañaveral que Lanza Brasas a 200 Metros y el Pacífico que Intensifica en 48 Horas</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Sinaloa</strong> enfrenta una combinación de riesgos
-        que no existe en ningún otro estado: el mayor volumen de agroquímicos aplicados en México se
-        concentra en campos donde 300,000 a 500,000 jornaleros migrantes trabajan cada temporada, muchos
-        de comunidades indígenas de Oaxaca y Guerrero que no hablan español y que, ante una intoxicación,
-        no pueden identificar el compuesto al que se expusieron porque el envase fue reutilizado. Los
-        cañaverales de la llanura costera arden de una forma específica: las brasas viajan 200 metros
-        con el viento antes de que el frente llegue. Y la cuenca del Pacífico frente a Sinaloa registra
-        algunas de las intensificaciones de huracán más rápidas del mundo — de tormenta tropical a
-        categoría 4 en menos de 36 horas, sobre 640 km de litoral sin barrera natural de protección.
-      </p>
+    <h2>Bomberos en Sinaloa: el estado del agroquímico sin etiqueta, el cañaveral que lanza brasas a 200 metros y el Pacífico que alcanzó categoría 5 en 36 horas</h2>
 
-      <h3>¿Cómo llamar a los Bomberos de Sinaloa?</h3>
-      <p>
-        El número único de emergencias en todo el estado es <strong>911</strong>. Para emergencias en
-        campo agrícola con posible intoxicación por agroquímico, el protocolo activa simultáneamente
-        a bomberos y IMSS — el antídoto específico (atropina para síndrome colinérgico) puede requerirse
-        antes de confirmación diagnóstica. Las estaciones costeras de Mazatlán, Escuinapa y Rosario
-        tienen protocolo de coordinación con la Armada de México para emergencias marítimas en temporada
-        de huracanes. En cañaverales, la llamada más útil es la que incluye la dirección del viento en
-        ese momento.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Sinaloa">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Elementos registrados</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalUnidades}</span><span class="de-stat__label">Unidades operativas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">640 km</span><span class="de-stat__label">Litoral Pacífico</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1942</span><span class="de-stat__label">Primer cuerpo (Mazatlán)</span></div>
+    </div>
 
-      <h3>Agroquímicos y Jornaleros — Tratamiento del Síndrome Antes de Conocer el Compuesto</h3>
-      <p>
-        Sinaloa aplica el mayor volumen de pesticidas agrícolas de México en sus 640,000 hectáreas de
-        riego tecnificado. Los organofosforados — la familia de plaguicidas más usada — inhiben la
-        enzima acetilcolinesterasa y producen un síndrome colinérgico reconocible: miosis (pupilas
-        puntiformes), broncospasmo, bradicardia, hipersalivación y fasciculaciones musculares. El
-        antídoto es atropina intravenosa a dosis altas, iniciada sobre diagnóstico clínico sin esperar
-        confirmación de laboratorio. El problema operacional: el bombero llega a un campo con 50 a
-        200 jornaleros de los cuales varios presentan síntomas, el envase del producto no tiene etiqueta
-        legible porque fue reutilizado, y ninguno de los afectados puede dar el nombre comercial del
-        compuesto. El protocolo es tratar el síndrome, no el producto; retirar del campo a todos los
-        presentes aunque no muestren síntomas; y notificar al IMSS para antídotos en cantidad.
-      </p>
+    <p class="de-lead">
+      El <strong>Heroico Cuerpo de Bomberos de Sinaloa</strong> enfrenta una combinación de riesgos
+      que no existe en ningún otro estado: los valles agrícolas con mayor aplicación de agroquímicos
+      de México —donde jornaleros de comunidades indígenas trabajan con envases reutilizados sin
+      etiqueta legible—, cañaverales cuyas brasas viajan 200 metros por delante del frente de fuego,
+      un litoral de 640 km expuesto a la cuenca del Pacífico oriental que registra algunas de las
+      intensificaciones de huracán más rápidas del mundo, y dos puertos industriales activos con
+      amoniaco, granel agrícola y combustibles a distancias operacionales distintas en cada extremo
+      del estado.
+    </p>
 
-      <h3>Cañaverales — Por qué la "Quema Controlada" Puede Dejar de Serlo en Minutos</h3>
-      <p>
-        La quema de caña previa a cosecha — práctica autorizada en Sinaloa bajo condiciones de viento
-        bajo y humedad adecuada — genera un frente de fuego que en caña seca avanza a 4-6 km/h en
-        calma y puede superar 15 km/h con viento de 20 km/h. Lo que distingue al cañaveral del incendio
-        forestal es la trayectoria de las brasas: los fragmentos de hoja de caña encendida pesan menos
-        que la aguja de pino, viajan 150 a 250 metros por delante del frente con el viento y crean focos
-        secundarios que cortan la ruta de retirada del bombero si el viento rota. El Ingenio El Dorado
-        en Navolato tiene brigada propia y convenio con la estación municipal para activación conjunta
-        desde el primer reporte; el criterio de abandono del perímetro se activa con viento superior
-        a 25 km/h, sin excepción.
-      </p>
+    <h3>Cómo contactar a los bomberos en Sinaloa</h3>
+    <p>
+      En cualquier emergencia, el <strong>911</strong> conecta con Protección Civil y Bomberos las
+      24 horas en todo Sinaloa. Para emergencias en campo agrícola con posible intoxicación por
+      agroquímico, el protocolo activa simultáneamente a bomberos y IMSS: el antídoto específico
+      (atropina intravenosa para síndrome colinérgico) puede requerirse antes de la confirmación
+      diagnóstica. Las estaciones de Mazatlán, Escuinapa y Rosario tienen protocolo de coordinación
+      con la Armada de México para emergencias marítimas en temporada de huracanes. Los teléfonos
+      directos de las principales estaciones son: Culiacán — 667 715 8311; Mazatlán — 669 982 0800;
+      Los Mochis — 668 815 7050. Consulta todos los datos en el
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Huracanes del Pacífico — 640 km de Costa y la Intensificación que Supera la Alerta</h3>
-      <p>
-        La cuenca del Pacífico oriental registra la intensificación de huracanes más rápida del mundo:
-        Willa (2018) pasó de tormenta tropical a categoría 5 en 48 horas frente a las costas de Sinaloa
-        y Nayarit; Patricia (2015) alcanzó categoría 5 a 250 km de la costa en menos de 36 horas.
-        El protocolo de evacuación costera de Sinaloa activa la alerta con 72 horas de anticipación,
-        pero cuando la intensificación supera los modelos de pronóstico, esa ventana se comprime a 24
-        horas — tiempo insuficiente para mover a la población de los campos agrícolas de la llanura
-        costera, donde los caminos de terracería se vuelven intransitables con las primeras bandas de
-        lluvia. El Huracán Manuel (2013) demostró que las inundaciones en el valle agrícola de Culiacán
-        pueden ser más destructivas que el viento directo: el río Tamazula desbordó con 6 metros sobre
-        el nivel de emergencia y aisló colonias por 72 horas.
-      </p>
+    <h3>Historia de los cuerpos de bomberos en Sinaloa</h3>
+    <p>
+      Tres ciudades y tres fundaciones distintas construyeron la cobertura que existe hoy en el estado.
+      La tradición del 22 de agosto de 1873 —cuando se fundó el primer cuerpo de bomberos de México
+      en el puerto de Veracruz— llegó a Sinaloa décadas después, con voluntarios que respondían a
+      incendios con las herramientas que tenían a la mano:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora cada año como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1942</span> El <strong>13 de enero</strong>, el doctor <strong>Olavo Corona</strong> organiza el primer grupo de voluntarios en <strong>Mazatlán</strong> tras presenciar un incendio en el Puerto Viejo apagado a cubetazos. Nace el H. Cuerpo Voluntario de Bomberos de Mazatlán, el más antiguo del estado.</li>
+      <li><span class="de-tl__year">1948–1949</span> En <strong>Culiacán</strong>, Gilberto González, Manuel Rodríguez, Jorge Sataraín y Nicolás Tamayo forman el primer grupo de respuesta contra incendios (1948). La primera junta directiva se constituye formalmente el <strong>5 de junio de 1949</strong>, con el periodista Gustavo Daniel Cañedo como presidente.</li>
+      <li><span class="de-tl__year">1954</span> El <strong>16 de febrero</strong> se funda el H. Cuerpo Voluntario de Bomberos de <strong>Los Mochis</strong>, que en febrero de 2026 conmemoró 72 años de servicio continuo al norte del estado.</li>
+      <li><span class="de-tl__year">1966</span> El Club Rotario Culiacán dona el edificio de la estación central de Culiacán, inaugurando la infraestructura permanente de la capital sinaloense.</li>
+      <li><span class="de-tl__year">2013</span> El <strong>Huracán Manuel</strong> (septiembre) descarga 412 mm de lluvia en Culiacán —equivalente a la precipitación anual normal— desbordando el Río Culiacán y dejando 146,270 damnificados. Las brigadas de bomberos coordinan evacuaciones durante 72 horas.</li>
+      <li><span class="de-tl__year">Hoy</span> El estado cuenta con <strong>{totalEstaciones} estaciones</strong> en <strong>{totalMunicipios} municipios</strong>, protegiendo 3.1 millones de habitantes, dos puertos activos y 640 km de litoral del Pacífico.</li>
+    </ul>
 
-      <h3>Puerto de Mazatlán y Topolobampo — HAZMAT Portuario en los Dos Extremos del Estado</h3>
-      <p>
-        Mazatlán recibe más de 300,000 cruceristas anuales y opera una flota camaronera industrial con
-        combustible y refrigerantes de amoniaco en los barcos de pesca congeladora; el amoniaco en
-        fuga activa zona de exclusión de 500 metros y requiere traje nivel B mínimo. Topolobampo, en el
-        norte del estado, es el terminal marítimo del ferrocarril Chepe y maneja granel sólido (grano,
-        fertilizante) y contenedores intermodales: un incendio en silo de grano genera polvo combustible
-        que en suspensión puede producir una deflagración. Las dos estaciones portuarias tienen convenio
-        con la Armada de México para operaciones de rescate en zona marítima y protocolo de exclusión
-        diferenciado según la naturaleza de la carga involucrada.
-      </p>
-    </Fragment>
+    <h3>Infraestructura de emergencia: cómo se cubre el estado</h3>
+    <p>
+      La cobertura se organiza en tres grandes zonas más la sierra. El centro concentra la capital y
+      el aeropuerto; el norte agrupa el polo industrial de Los Mochis y el puerto de Topolobampo;
+      el sur articula el turismo y la actividad portuaria de Mazatlán. La Sierra Madre Occidental
+      presenta los mayores tiempos de respuesta por las condiciones de acceso:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios principales</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonasDef.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales de los bomberos en Sinaloa</h3>
+    <p>
+      Los cuerpos de bomberos de Sinaloa van mucho más allá del incendio estructural. El perfil
+      agrícola, portuario y costero del estado define un catálogo de servicios específico:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Incendios estructurales y agrícolas</h4><p>Combate en viviendas, comercios, bodegas agroindustriales, cañaverales y campos de tomate, pepino y garbanzo.</p></div>
+      <div class="de-card"><h4>HAZMAT agroquímico</h4><p>Atención a intoxicaciones por organofosforados y otros pesticidas en campos donde el envase reutilizado impide identificar el compuesto.</p></div>
+      <div class="de-card"><h4>Rescate acuático Pacífico</h4><p>Operaciones en playas de Mazatlán, esteros, lagunas costeras y manglares de Marismas Nacionales con lanchas y equipo de neopreno.</p></div>
+      <div class="de-card"><h4>Protección civil ante huracanes</h4><p>Coordinación de evacuaciones, rescate en inundaciones fluviales y costeras, y operaciones en coordinación con la Armada de México.</p></div>
+      <div class="de-card"><h4>HAZMAT portuario</h4><p>Control de fugas de amoniaco en flota camaronera (Mazatlán) y derrames en manejo de fertilizante y granel (Topolobampo).</p></div>
+      <div class="de-card"><h4>Rescate en sierra y turístico</h4><p>Operaciones en barrancas, cascadas y caminos de terracería de la Sierra Madre Occidental; rescate turístico en la Ruta del Tren Chepe.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios en campos agrícolas y cañaverales</strong></td><td>24/7</td><td>Culiacán, Navolato, Guasave, Los Mochis</td></tr>
+          <tr><td><strong>HAZMAT agroquímico (organofosforados)</strong></td><td>24/7</td><td>Estaciones Culiacán Central y Sur, Guasave</td></tr>
+          <tr><td><strong>Rescate acuático costera</strong></td><td>24/7</td><td>Mazatlán (zona norte y central), Escuinapa</td></tr>
+          <tr><td><strong>HAZMAT portuario (amoniaco / granel)</strong></td><td>24/7</td><td>Mazatlán, Los Mochis (Topolobampo)</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>ARFF aeroportuario</strong></td><td>24/7</td><td>Aeropuerto Internacional de Culiacán</td></tr>
+          <tr><td><strong>Incendios forestales (sierra)</strong></td><td>Estiaje (nov–may)</td><td>Badiraguato, Choix, Cosalá, Concordia</td></tr>
+          <tr><td><strong>Protección civil ante huracanes</strong></td><td>Temporada (jun–nov)</td><td>Mazatlán, Escuinapa, Rosario</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Riesgo agrícola y portuario: el valle que no sabe qué producto usó y los dos puertos en cada extremo del estado</h3>
+    <p>
+      Sinaloa aplica el mayor volumen de pesticidas agrícolas de México en sus aproximadamente
+      640,000 hectáreas de riego tecnificado. Los <strong>organofosforados</strong> —la familia de
+      plaguicidas más usada— inhiben la enzima acetilcolinesterasa y producen un síndrome colinérgico
+      reconocible: miosis (pupilas puntiformes), broncospasmo, bradicardia, hipersalivación y
+      fasciculaciones musculares. El antídoto es atropina intravenosa a dosis altas, iniciada sobre
+      diagnóstico clínico sin esperar confirmación de laboratorio. El problema operacional es que el
+      bombero llega a un campo donde varios jornaleros presentan síntomas, el envase del producto
+      no tiene etiqueta legible porque fue reutilizado, y ninguno de los afectados puede dar el
+      nombre comercial del compuesto. El protocolo: tratar el síndrome, no el producto; retirar del
+      campo a todos los presentes aunque no muestren síntomas; y notificar al IMSS para antídotos
+      en cantidad.
+    </p>
+    <p>
+      En los dos extremos del estado, los puertos presentan riesgos HAZMAT distintos. El
+      <strong>Puerto de Mazatlán</strong> opera flota camaronera industrial con refrigerantes de
+      amoniaco en los barcos de pesca congeladora: una fuga activa zona de exclusión de 500 metros
+      y requiere traje nivel B mínimo. <strong>Topolobampo</strong> (municipio de Ahome) es
+      terminal ferroviaria y maneja granel sólido —grano, fertilizante— y contenedores intermodales;
+      un incendio en silo de grano genera polvo combustible que en suspensión puede producir
+      deflagración. La estación aeroportuaria de Culiacán opera conforme a estándares ICAO para
+      ARFF, con tiempo de respuesta de 2 a 3 minutos a cualquier punto de pistas.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos
+      entre las grandes zonas del estado. Las cifras de personal y unidades corresponden a las
+      estaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>{totalMunicipios} municipios de Sinaloa</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Sinaloa</h3>
+    <p>
+      El primer reto es geográfico: Sinaloa tiene 58,328 km² con tres perfiles de terreno radicalmente
+      distintos —llanura costera, valle agrícola y sierra— que exigen vehículos y equipamientos
+      incompatibles entre sí. Las estaciones serranas de Badiraguato y Choix operan con unidades 4x4
+      para terrenos de alta pendiente con tiempos de respuesta de hasta 40 minutos en las comunidades
+      más alejadas; ese mismo tiempo es inaceptable para una emergencia HAZMAT en un campo con 50
+      jornaleros afectados.
+    </p>
+    <p>
+      El segundo reto es estacional: la temporada de quema agrícola (diciembre a marzo) coincide
+      parcialmente con el inicio de la temporada de incendios forestales en la sierra, mientras que
+      la temporada de huracanes (junio a noviembre) exige protocolos de evacuación costera que
+      movilizan recursos desde el interior del estado. La planificación a futuro pasa por
+      <strong>renovar EPP certificado</strong> conforme a normas NFPA vigentes, modernizar la flota
+      de vehículos agrícolas y mantener la capacitación continua en HAZMAT y rescate acuático.
+    </p>
+
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad en Sinaloa</h3>
+    <p>
+      Los cuerpos de bomberos de Sinaloa repiten a la población recomendaciones diferenciadas según
+      el entorno —campo, costa o sierra:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Agroquímicos:</strong> guarda los envases con etiqueta legible; nunca reutilices recipientes de pesticidas para otro uso; ante síntomas de intoxicación (mareo, salivación excesiva, visión borrosa), sal del campo de inmediato y llama al 911.</li>
+        <li><strong>Quema de rastrojo o caña:</strong> solicita autorización municipal; nunca quemes con viento superior a 20 km/h; avisa a la estación de bomberos más cercana antes de iniciar; ten agua disponible.</li>
+        <li><strong>Huracanes:</strong> sigue las alertas del SMN y Protección Civil Sinaloa; evacúa zonas de manglar, playa y riberas de ríos antes de que los caminos se vuelvan intransitables; prepara mochila de emergencia con documentos, agua y medicamentos.</li>
+        <li><strong>Gas y electricidad:</strong> revisa mangueras y reguladores periódicamente; ante olor a gas, no acciones interruptores, ventila y sal del inmueble; evita sobrecargar contactos.</li>
+        <li><strong>Detección:</strong> instala detectores de humo y ten un extintor vigente en cocina; en zona rural, identifica la ruta de salida y el punto de reunión más cercano.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enséñalo a niñas y niños; en campo agrícola, comunica siempre el cultivo y los productos empleados ese día.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: H. Cuerpo Voluntario de Bomberos de Mazatlán (fundación 13 enero 1942, 84 años en
+      enero 2026 — Punto MX, Línea Directa); H. Cuerpo Voluntario de Bomberos de Los Mochis
+      (fundación 16 febrero 1954, 72 años en febrero 2026 — Debate.com.mx, Noticiero Altavoz);
+      H. Cuerpo de Bomberos de Culiacán (primer grupo 1948, junta directiva 5 junio 1949, edificio
+      1966 — El Sol de Sinaloa, Noroeste.com.mx); Huracán Manuel 2013: CONAGUA/SMN (Reseña
+      ciclónica), Excélsior (146,270 damnificados, 412 mm); Huracán Willa 2018: Wikipedia
+      (intensificación categoría 5, Pacífico oriental) y SMN; datos de estaciones calculados a
+      partir del directorio publicado en esta página. Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
+  </Fragment>
 </DirectorioEstadoLayout>
-

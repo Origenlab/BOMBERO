@@ -3,122 +3,53 @@
 import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesSanLuisPotosi, getMunicipios } from "@data/estaciones-san-luis-potosi";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 // Configuración del estado
 const estado = "San Luis Potosí";
 const sigla = "SLP";
 const slug = "san-luis-potosi";
 
-// Miniaturas hero - Industria y Huasteca
-const heroThumbs = [
-  {
-    src: "/images/directorio/estacion-bomberos-centro-historico-01.avif",
-    alt: "Centro Histórico de San Luis Potosí - Candidato UNESCO",
-    label: "Centro Histórico"
-  },
-  { src: "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif", alt: "Central de despacho de bomberos de San Luis Potosí con bandera de México", label: "Despacho Nacional" },
-  {
-    src: "/images/directorio/rescate-swift-water-rios-01.avif",
-    alt: "Cascada de Tamul Huasteca Potosina",
-    label: "Huasteca Potosina"
-  }
-];
+const canonical = "https://bombero.mx/directorio/san-luis-potosi/";
 
-// Galería de imágenes
-const galleryImages = [
-  {
-    src: "/images/directorio/unidad-hazmat-emergencias-01.avif",
-    alt: "Equipo HAZMAT de Bomberos de SLP en zona industrial automotriz",
-    label: "HAZMAT Industrial"
-  },
-  {
-    src: "/images/directorio/rescate-espeleologico-cuevas-01.avif",
-    alt: "Sótano de las Golondrinas 512m de profundidad Aquismón",
-    label: "Sótano Golondrinas"
-  },
-  { src: "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif", alt: "Estación de bomberos de San Luis Potosí con puertas de cristal y unidades visibles", label: "Estación Profesional" },
-  {
-    src: "/images/directorio/estacion-bomberos-industrial-01.avif",
-    alt: "General Motors Complejo San Luis Potosí",
-    label: "GM Complejo"
-  },
-];
-
-// Números de emergencia SLP
-const emergencyNumbers = [
-  { number: "911", label: "Emergencias" },
-  { number: "(444) 812-2583", label: "Bomberos Central SLP" },
-  { number: "(444) 815-7575", label: "HAZMAT Industrial" },
-  { number: "(481) 382-1035", label: "Bomberos Ciudad Valles" }
-];
-
-// Regiones de San Luis Potosí
-const regiones = [
+// ── Comparativa regional ────────────────────────────────────────────────────
+const zonas = [
   {
     nombre: "Zona Metropolitana SLP",
-    desc: "Capital del estado, Centro Histórico (candidato UNESCO), Parque Tangamanga, zona comercial"
+    municipios: ["San Luis Potosí", "Soledad de Graciano Sánchez"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital del estado, Centro Histórico (Camino Real de Tierra Adentro, UNESCO 2010) y zona comercial.",
   },
   {
-    nombre: "Zona Industrial Automotriz",
-    desc: "BMW Group Plant, GM Complejo, 12 parques industriales, 300+ proveedores tier 1-3"
+    nombre: "Corredor Industrial Automotriz",
+    municipios: ["Villa de Reyes", "Zona Industrial"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "BMW Group Plant (2019), GM Complejo (2008), 12 parques industriales, HAZMAT especializado.",
   },
   {
     nombre: "Huasteca Potosina",
-    desc: "Tamul, Sótano de las Golondrinas, Xilitla, Aquismón - 2M+ turistas aventura anuales"
+    municipios: ["Aquismón", "Ciudad Valles", "Xilitla", "Tamasopo"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Sótano de las Golondrinas (512 m), Cascada de Tamul, turismo de aventura, swift water.",
   },
   {
-    nombre: "Zona Altiplano",
-    desc: "Matehuala, Real de Catorce (Pueblo Mágico), desierto Wirikuta, zona minera histórica"
-  }
-];
-
-// Tarjetas de equipamiento EPP
-const eppCards = [
-  {
-    image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
-    imageAlt:  "Equipo HAZMAT para plantas automotrices en San Luis Potosí",
-    badge:     "Industrial",
-    title:     "HAZMAT Automotriz",
-    text:      "Trajes y detectores para emergencias en plantas <strong>BMW, GM y corredor automotriz</strong> de SLP. Protección certificada contra materiales peligrosos industriales.",
-    href:      "/productos/trajes-para-bomberos/traje-hazmat/",
-    linkLabel: "Ver Equipos HAZMAT",
-  },
-  {
-    image:     "/images/directorio/rescate-espeleologico-cuevas-01.avif",
-    imageAlt:  "Equipo de espeleología para sótanos de San Luis Potosí",
-    badge:     "Espeleología",
-    title:     "Rescate en Sótanos",
-    text:      "Equipo especializado para rescate en el <strong>Sótano de las Golondrinas</strong> y sistema de cuevas de la Huasteca. Cuerdas técnicas y sistemas de ascenso/descenso.",
-    href:      "/productos/cascos-para-bomberos/",
-    linkLabel: "Ver Equipo de Rescate",
-  },
-  {
-    image:     "/images/directorio/rescate-swift-water-rios-01.avif",
-    imageAlt:  "Equipo de rescate en ríos de la Huasteca Potosina",
-    badge:     "Swift Water",
-    title:     "Rescate Acuático Ríos",
-    text:      "Equipamiento swift water para rescate en <strong>cascadas de Tamul, río Gallinas</strong> y ríos de la Huasteca Potosina. Chalecos y tablas de aguas rápidas.",
-    href:      "/productos/trajes-para-bomberos/",
-    linkLabel: "Ver Equipo Acuático",
-  },
-  {
-    image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
-    imageAlt:  "Guantes estructurales para bomberos de San Luis Potosí",
-    badge:     "NFPA 1971",
-    title:     "Guantes Industriales",
-    text:      "Guantes estructurales con protección térmica para emergencias en <strong>zona industrial y minera</strong> de SLP. Prensión certificada para rescate y combate de incendios.",
-    href:      "/productos/guantes-para-bomberos/",
-    linkLabel: "Ver Guantes para Bombero",
+    nombre: "Altiplano / Zona Media",
+    municipios: ["Matehuala", "Real de Catorce", "Rioverde"],
+    cobertura: "Baja",
+    chip: "baja",
+    perfil: "Real de Catorce (Pueblo Mágico), Wirikuta, desierto a 2,750 msnm, acceso vía Túnel Ogarrio.",
   },
 ];
 
-// Schema.org estructurado
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de ${estacionesSanLuisPotosi.length} estaciones de bomberos en San Luis Potosí. HAZMAT especializado para BMW y GM. Rescate espeleológico Huasteca Potosina. Cobertura 4 Pueblos Mágicos.`,
+  description: `Directorio oficial de ${estacionesSanLuisPotosi.length} estaciones de bomberos en San Luis Potosí. Fundación formal 1951. HAZMAT especializado para BMW y GM. Rescate espeleológico Huasteca Potosina. Cobertura 4 Pueblos Mágicos. Emergencias: 911.`,
   numberOfItems: estacionesSanLuisPotosi.length,
   itemListElement: estacionesSanLuisPotosi.map((e, i) => ({
     "@type": "ListItem",
@@ -131,19 +62,211 @@ const itemListSchema = {
         streetAddress: e.direccion,
         addressLocality: e.zona,
         addressRegion: estado,
-        addressCountry: "MX"
+        addressCountry: "MX",
       },
       telephone: e.telefono,
-      url: `https://bombero.mx/directorio/${slug}/${e.slug}`
-    }
-  }))
+      url: `https://bombero.mx/directorio/${slug}/${e.slug}`,
+    },
+  })),
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "San Luis Potosí",         url: "/directorio/san-luis-potosi/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Bomberos en San Luis Potosí: estaciones, historia y servicios de emergencia",
+  description: "Guía del H. Cuerpo de Bomberos de San Luis Potosí: historia (1951–hoy), infraestructura en zona industrial automotriz, Huasteca Potosina, Altiplano y directorio de estaciones con teléfonos directos.",
+  about: [
+    "H. Cuerpo de Bomberos de San Luis Potosí",
+    "Protección Civil",
+    "HAZMAT industrial automotriz",
+    "Rescate espeleológico Huasteca Potosina",
+  ],
+  inLanguage: "es-MX",
+  image: "https://bombero.mx/api/og/estado/san-luis-potosi.svg",
+  author:    { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  publisher: { "@type": "Organization", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+  mainEntityOfPage: canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  url: canonical,
+  name: "Estaciones de Bomberos en San Luis Potosí",
+  description: `Directorio verificado de estaciones de bomberos en San Luis Potosí, con teléfonos, cobertura, funciones e historia del H. Cuerpo de Bomberos (fundado 1951).`,
+  inLanguage: "es-MX",
+  isPartOf: { "@type": "WebSite", name: "BOMBERO.MX", url: "https://bombero.mx/" },
+  about: { "@type": "GovernmentOrganization", name: "H. Cuerpo de Bomberos de San Luis Potosí" },
+  primaryImageOfPage: "https://bombero.mx/api/og/estado/san-luis-potosi.svg",
+  dateModified: DIRECTORIO_VERIFICADO_ISO,
+};
+
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de San Luis Potosí (≥10) ────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en San Luis Potosí?",
+    a: `El número único de emergencias en todo el estado de San Luis Potosí es el <strong>911</strong>, disponible las 24 horas del día. La llamada se enruta al cuerpo de bomberos más cercano según tu ubicación. Para emergencias en planta BMW o GM, las brigadas internas tienen protocolo de activación directa con la estación del corredor industrial. En la Huasteca Potosina, el 911 coordina con las estaciones de Aquismón y Ciudad Valles, que tienen convenios con grupos voluntarios de espeleología y swift water.`,
+  },
+  {
+    q: "¿Cuándo se fundó el H. Cuerpo de Bomberos de San Luis Potosí?",
+    a: `El <strong>H. Cuerpo de Bomberos de San Luis Potosí</strong> tuvo sus primeros pasos como brigada informal hacia los años de <strong>1900</strong>, y fue formalmente fundado como Cuerpo de Bomberos en el año de <strong>1951</strong>, según la presentación histórica impartida por el Cmte. Adolfo Benavente Duque en el Museo Francisco Cossío (septiembre 2019). A nivel nacional, el primer cuerpo de bomberos del país se fundó el <strong>22 de agosto de 1873 en Veracruz</strong>, fecha que se conmemora como el <strong>Día del Bombero</strong> en toda la República.`,
+  },
+  {
+    q: "¿Qué es el thermal runaway y por qué los bomberos de SLP tienen protocolo especial para BMW?",
+    a: `El <strong>thermal runaway</strong> (fuga térmica) ocurre cuando una celda de batería de litio-ion entra en reacción exotérmica autosostenida: produce su propio oxígeno, supera los 700 °C en el núcleo y libera gases tóxicos como HF (ácido fluorhídrico) y CO. El agua sobre la llama visible no detiene el proceso interno. El protocolo BMW exige <strong>inmersión total del módulo o vehículo en agua durante mínimo 24 horas</strong> antes de declararlo extinguido. La <strong>BMW Group Plant en Villa de Reyes</strong> produce la Serie 3 y Serie 2 Coupé con versiones híbridas enchufables; los bomberos de la zona industrial tienen capacitación anual en planta para este protocolo específico.`,
+  },
+  {
+    q: "¿Cuánto tiempo tarda un rescate en el Sótano de las Golondrinas?",
+    a: `El <strong>Sótano de las Golondrinas</strong> en Aquismón tiene <strong>512 metros de caída libre</strong> y una apertura de boca de 60 metros. Una cuerda estática de 600 metros pesa entre 90 y 110 kg; la fricción acumulada hace que el ascenso motorizado de un rescatista con una víctima en camilla tome entre 45 minutos y 2 horas solo para los últimos 100 metros. El tiempo total de extracción de una persona inconsciente desde el fondo oscila entre <strong>8 y 14 horas en condiciones óptimas</strong>. Las comunicaciones por radio no penetran a más de 100 metros de profundidad. La estación de Aquismón mantiene convenio con el Grupo Espeleológico Mexicano para rescates que superan la capacidad del equipo municipal.`,
+  },
+  {
+    q: "¿Por qué los bomberos que atienden Real de Catorce tienen tiempos de respuesta más largos?",
+    a: `Real de Catorce se accede únicamente por el <strong>Túnel Ogarrio</strong> (2.3 km de largo, un carril, con semáforo alterno cada 15-20 minutos). Una unidad autobomba tarda aproximadamente <strong>8 minutos adicionales</strong> solo en cruzar el túnel, más el tiempo de traslado desde Matehuala. A esto se suma que el Pueblo Mágico está a <strong>2,750 msnm</strong> en el desierto de Wirikuta, con temperaturas entre -10 °C en enero y 42 °C en mayo. Las emergencias médicas en esta zona combinan altitud, acceso restringido y, en zonas sagradas Wixáritari, la necesidad de coordinación con las autoridades tradicionales antes de intervenir.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de San Luis Potosí?",
+    a: `El H. Cuerpo de Bomberos de San Luis Potosí presta servicios de <strong>combate de incendios</strong> (estructurales, forestales, industriales), <strong>rescate vehicular</strong> y extricación, <strong>atención prehospitalaria</strong>, <strong>materiales peligrosos (HAZMAT)</strong> especializado para zona automotriz, <strong>rescate espeleológico</strong> (Sótano de las Golondrinas y cuevas de la Huasteca), <strong>rescate en aguas rápidas (swift water)</strong> en ríos como el Tampaón y el Gallinas, <strong>búsqueda y rescate (SAR)</strong> en desierto y montaña, y coordinación con Protección Civil para emergencias masivas en los 4 Pueblos Mágicos del estado.`,
+  },
+  {
+    q: "¿Cómo se atiende una emergencia en la Cascada de Tamul?",
+    a: `La <strong>Cascada de Tamul</strong> (105 metros de altura) solo es accesible remontando el río Tampaón en lancha durante aproximadamente <strong>45 minutos</strong> desde el embarcadero de Tanchachín. Cualquier emergencia en la base de la cascada tiene un retraso estructural mínimo de 45 minutos antes del primer contacto con el rescatista. En temporada de lluvias (junio-octubre), el río puede pasar de clase II a clase IV; las lanchas de rescate son reemplazadas por técnicas de swift water con cuerdas de orilla y mínimo 3 rescatistas en posiciones simultáneas. Siempre llama al <strong>911</strong> desde el punto más cercano con señal.`,
+  },
+  {
+    q: "¿Qué relación tienen los bomberos de SLP con la industria minera del Altiplano?",
+    a: `El <strong>Altiplano potosino</strong> tiene una larga tradición minera, con yacimientos históricos en Real de Catorce y zonas activas en Matehuala y la Sierra de Álvarez. Las minas abandonadas representan riesgos de derrumbe, acumulación de gases y caídas; las activas exigen protocolos específicos de rescate en espacio confinado y detección de atmósferas IDLH. Las estaciones del Altiplano coordinan con Protección Civil estatal para incidentes en instalaciones mineras, que requieren el mismo equipo de rescate técnico vertical que se usa en los sótanos de la Huasteca.`,
+  },
+  {
+    q: "¿El Centro Histórico de San Luis Potosí tiene protección especial contra incendios?",
+    a: `El centro histórico de San Luis Potosí forma parte del <strong>Camino Real de Tierra Adentro</strong>, inscrito en la Lista del Patrimonio Mundial de la UNESCO en <strong>2010</strong>. Sus edificios coloniales de cantera rosa del siglo XVII-XIX concentran alto valor patrimonial y presentan riesgos específicos: estructuras antiguas con materiales que liberan gases tóxicos al arder, pasillos estrechos que dificultan el acceso de unidades y densidad de visitantes. La estación de bomberos del centro coordina con el INAH para protocolos de intervención en inmuebles catalogados, priorizando la contención perimetral sobre la entrada directa.`,
+  },
+  {
+    q: "¿Cuántos Pueblos Mágicos cubre el sistema de bomberos de San Luis Potosí?",
+    a: `San Luis Potosí tiene <strong>4 Pueblos Mágicos</strong> designados por la Secretaría de Turismo: <strong>Real de Catorce</strong> (2001), <strong>Xilitla</strong> (2011), <strong>Santa María del Río</strong> (2012) y <strong>Aquismón</strong> (2018). Cada uno presenta un perfil de riesgo distinto: Real de Catorce por altitud y acceso; Xilitla por su entorno selvático (Jardín Surrealista de Edward James); Santa María del Río por su arquitectura colonial histórica; y Aquismón como puerta de entrada al Sótano de las Golondrinas y la Cascada de Tamul. En cualquier emergencia, marca el <strong>911</strong>.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir un incendio en mi hogar en San Luis Potosí?",
+    a: `Las recomendaciones básicas del H. Cuerpo de Bomberos para el hogar en SLP son: revisa periódicamente mangueras y conexiones de <strong>gas</strong>; ante olor a gas, no accionas interruptores, cierra la llave de paso y evacúa. Evita sobrecargar contactos eléctricos. Instala un <strong>detector de humo</strong> en cocina y dormitorios, y ten un extintor vigente accesible. Define una <strong>ruta de evacuación</strong> y un punto de reunión para tu familia. En emergencia, llama siempre al <strong>911</strong> antes de intentar controlar el fuego por tu cuenta.`,
+  },
+  {
+    q: "¿Qué debo hacer si me encuentro en una emergencia en la Huasteca Potosina como turista?",
+    a: `Si eres turista en la Huasteca y necesitas ayuda de emergencia, <strong>llama al 911</strong> de inmediato e indica tu ubicación lo más precisa posible (nombre de la cascada, sótano o río, y el municipio más cercano). En zonas sin señal celular, avisa a otros visitantes o a los operadores locales de turismo de aventura, quienes tienen radios y conocen los protocolos de aviso a las estaciones de Aquismón o Ciudad Valles. No intentes rescatar a alguien del agua o de un sótano sin equipo certificado: espera a los rescatistas especializados.`,
+  },
+];
+
+// Miniaturas hero
+const heroThumbs = [
+  {
+    src: "/images/directorio/estacion-bomberos-centro-historico-01.avif",
+    alt: "Centro Histórico de San Luis Potosí — Camino Real de Tierra Adentro, Patrimonio Mundial UNESCO 2010",
+    label: "Centro Histórico UNESCO",
+  },
+  {
+    src: "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
+    alt: "Central de despacho de bomberos de San Luis Potosí con bandera de México",
+    label: "Despacho Central SLP",
+  },
+  {
+    src: "/images/directorio/rescate-swift-water-rios-01.avif",
+    alt: "Rescate swift water en río Tampaón de la Huasteca Potosina",
+    label: "Swift Water Huasteca",
+  },
+];
+
+// Galería de imágenes
+const galleryImages = [
+  {
+    src: "/images/directorio/unidad-hazmat-emergencias-01.avif",
+    alt: "Equipo HAZMAT de Bomberos de SLP en zona industrial automotriz BMW y GM",
+    label: "HAZMAT Industrial",
+  },
+  {
+    src: "/images/directorio/rescate-espeleologico-cuevas-01.avif",
+    alt: "Rescate espeleológico en Sótano de las Golondrinas, Aquismón, 512 m de profundidad",
+    label: "Sótano Golondrinas 512 m",
+  },
+  {
+    src: "/images/directorio/estacion-bomberos-bahia-puertas-cristal-01.avif",
+    alt: "Estación de bomberos de San Luis Potosí con puertas de cristal y unidades visibles",
+    label: "Estación Profesional",
+  },
+  {
+    src: "/images/directorio/estacion-bomberos-industrial-01.avif",
+    alt: "Corredor industrial automotriz San Luis Potosí — cobertura HAZMAT 24/7",
+    label: "Corredor Automotriz",
+  },
+];
+
+// Números de emergencia SLP
+const emergencyNumbers = [
+  { number: "911",           label: "Emergencias (todo SLP)" },
+  { number: "(444) 812-2583", label: "Bomberos Central SLP" },
+  { number: "(444) 815-7575", label: "HAZMAT Industrial" },
+  { number: "(481) 382-1035", label: "Bomberos Ciudad Valles" },
+];
+
+// Regiones de San Luis Potosí
+const regiones = [
+  {
+    nombre: "Zona Metropolitana SLP",
+    desc: "Capital del estado, Centro Histórico (Camino Real UNESCO 2010), Parque Tangamanga, zona comercial",
+  },
+  {
+    nombre: "Corredor Industrial Automotriz",
+    desc: "BMW Group Plant (Villa de Reyes), GM Complejo, 12 parques industriales, 300+ proveedores tier 1-3",
+  },
+  {
+    nombre: "Huasteca Potosina",
+    desc: "Tamul, Sótano de las Golondrinas (512 m), Xilitla, Aquismón — turismo de aventura y swift water",
+  },
+  {
+    nombre: "Altiplano / Zona Media",
+    desc: "Matehuala, Real de Catorce (Pueblo Mágico), desierto Wirikuta (2,750 msnm), zona minera histórica",
+  },
+];
+
+// Tarjetas de equipamiento EPP
+const eppCards = [
+  {
+    image:     "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif",
+    imageAlt:  "Equipo HAZMAT para plantas automotrices en San Luis Potosí — BMW y GM thermal runaway",
+    badge:     "Industrial",
+    title:     "HAZMAT Automotriz",
+    text:      "Trajes y detectores para emergencias en plantas <strong>BMW Group (Villa de Reyes) y GM Complejo</strong>. Incluye equipamiento para thermal runaway de baterías litio-ion: contenedores de inmersión, trajes Nivel A y detectores de HF. Protocolo de 24 horas de inmersión total.",
+    href:      "/productos/trajes-para-bomberos/traje-hazmat/",
+    linkLabel: "Ver Equipos HAZMAT",
+  },
+  {
+    image:     "/images/directorio/rescate-espeleologico-cuevas-01.avif",
+    imageAlt:  "Equipo de rescate espeleológico para Sótano de las Golondrinas 512 m Aquismón SLP",
+    badge:     "Espeleología",
+    title:     "Rescate en Sótanos",
+    text:      "Equipo especializado para rescate en el <strong>Sótano de las Golondrinas (512 m)</strong>, Sótano del Barro (410 m) y sistema de cuevas de la Huasteca. Cuerdas estáticas de 600 m, camillas técnicas y sistemas de ascenso/descenso para extracciones de 8–14 horas.",
+    href:      "/productos/cascos-para-bomberos/",
+    linkLabel: "Ver Equipo de Rescate",
+  },
+  {
+    image:     "/images/directorio/rescate-swift-water-rios-01.avif",
+    imageAlt:  "Equipo swift water para rescate en ríos de la Huasteca Potosina — Tampaón, Gallinas clase IV",
+    badge:     "Swift Water",
+    title:     "Rescate Acuático Ríos",
+    text:      "Equipamiento swift water para rescate en <strong>Cascada de Tamul, río Tampaón y río Gallinas</strong> de la Huasteca Potosina. Chalecos clase V, lanchas inflables y cuerdas throw bag para corrientes clase IV en temporada de lluvias.",
+    href:      "/productos/trajes-para-bomberos/",
+    linkLabel: "Ver Equipo Acuático",
+  },
+  {
+    image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
+    imageAlt:  "Guantes estructurales NFPA 1971 para bomberos de San Luis Potosí zona industrial y minera",
+    badge:     "NFPA 1971",
+    title:     "Guantes Industriales",
+    text:      "Guantes estructurales con protección térmica para emergencias en <strong>zona industrial automotriz y minera</strong> del Altiplano potosino. Resistencia certificada a corte y calor para rescate y combate de incendios en plantas con materiales peligrosos.",
+    href:      "/productos/guantes-para-bomberos/",
+    linkLabel: "Ver Guantes para Bombero",
+  },
+];
 
 // Imágenes para tarjetas de estaciones
 const stationImages = [
@@ -189,6 +312,7 @@ const stationImages = [
   "/images/directorio/estacion-bomberos-bahia-bombero-camiones-01.avif",
   "/images/directorio/estacion-bomberos-bahia-centro-historico-01.avif",
 ];
+
 // Estados vecinos (desde archivo centralizado)
 const estadosVecinos = getEstadosVecinos("san-luis-potosi");
 ---
@@ -197,106 +321,280 @@ const estadosVecinos = getEstadosVecinos("san-luis-potosi");
   estado={estado}
   sigla={sigla}
   slug={slug}
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de San Luis Potosí</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
-  heroImage="/images/directorio/estacion-bomberos-centro-historico-01.avif"
-  heroImageAlt="Estación de Bomberos en San Luis Potosí"
-  heroCaption="H. Cuerpo de Bomberos · San Luis Potosí"
+  description={`Bomberos en SLP: ${estacionesSanLuisPotosi.length} estaciones — HAZMAT BMW/GM, rescate espeleológico Sótano Golondrinas 512 m, swift water Huasteca y cobertura 4 Pueblos Mágicos. Emergencias: 911.`}
+  keywords={[
+    "bomberos san luis potosi",
+    "estaciones bomberos san luis potosi",
+    "emergencias san luis potosi 911",
+    "cuerpo bomberos san luis potosi",
+    "bomberos hazmat zona industrial slp",
+    "rescate espeleologico sotano golondrinas",
+    "bomberos huasteca potosina swift water",
+    "bomberos real de catorce wirikuta",
+    "bomberos villa de reyes bmw",
+    "bomberos ciudad valles slp",
+    "directorio bomberos san luis potosi",
+    "historia bomberos slp 1951",
+    "centro historico san luis potosi patrimonio unesco",
+    "bomberos altiplano matehuala",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
+
   totalEstaciones={estacionesSanLuisPotosi.length}
   totalMunicipios={getMunicipios().length}
   habitantes="2.8M+"
-  canonical="https://bombero.mx/directorio/san-luis-potosi/"
-  keywords={["bomberos san-luis-potosi", "estaciones bomberos san-luis-potosi", "emergencias san-luis-potosi 911", "cuerpo bomberos san-luis-potosi"]}
+
+  heroDesc={`El <strong>H. Cuerpo de Bomberos de San Luis Potosí</strong> —con primeros pasos hacia 1900 y fundación formal en <strong>1951</strong>— opera en el único estado de México donde coexisten un corredor automotriz con protocolos de <strong>thermal runaway para baterías BMW</strong>, un sótano natural de <strong>512 metros</strong> que convierte cualquier rescate en una operación de 8 a 14 horas, y un desierto sagrado Wixárika a 2,750 msnm donde el acceso al pueblo más cercano atraviesa un túnel de un solo carril. Con <strong>${estacionesSanLuisPotosi.length} estaciones</strong> en este directorio, protege a los <strong>2.8 millones de potosinos</strong>, el <strong>Centro Histórico Patrimonio Mundial UNESCO</strong> (Camino Real de Tierra Adentro, 2010) y los <strong>4 Pueblos Mágicos</strong> del estado.`}
+  heroImage="/images/directorio/estacion-bomberos-centro-historico-01.avif"
+  heroImageAlt="Estación de Bomberos en San Luis Potosí — Centro Histórico Patrimonio UNESCO"
+  heroCaption="H. Cuerpo de Bomberos · San Luis Potosí · Fundado 1951"
+  heroThumbs={heroThumbs}
+
+  galleryImages={galleryImages}
+
+  emergencyNumbers={emergencyNumbers}
+
   estaciones={estacionesSanLuisPotosi}
   stationImages={stationImages}
+
   municipios={getMunicipios()}
-  estadosVecinos={estadosVecinos}
-  heroThumbs={heroThumbs}
-  galleryImages={galleryImages}
-  emergencyNumbers={emergencyNumbers}
   regiones={regiones}
+  estadosVecinos={estadosVecinos}
+
   eppCards={eppCards}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesSanLuisPotosi.length} estaciones en SLP — BMW thermal runaway 24h inmersión, Sótano Golondrinas 512 m extracción 8-14h, Wirikuta y Huasteca Potosina. Emergencias: 911.`}
+
+  ctaTitle="Equipamos al H. Cuerpo de Bomberos de San Luis Potosí"
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones del cuerpo de bomberos de SLP. Experiencia en HAZMAT industrial automotriz, rescate espeleológico y swift water para la Huasteca Potosina. Atención en San Luis Potosí.`}
+  ctaBtnText="Solicitar Cotización — SLP"
+
+  faqsEstado={faqsEstado}
 >
   <Fragment slot="seo">
 
-      <h2>Bomberos de San Luis Potosí — El Sótano que Tarda 12 Horas, la Batería que No Se Apaga y el Desierto Sagrado de Wirikuta</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de San Luis Potosí</strong> opera en el único estado de México
-        donde dos de sus emergencias más complejas tienen en común un límite que ningún equipamiento puede
-        superar: el tiempo físico mínimo de resolución. Extraer a una persona del Sótano de las Golondrinas
-        desde 512 metros de profundidad tarda entre 8 y 14 horas sin importar cuántos rescatistas estén
-        arriba — la fricción de la cuerda y la resistencia del cuerpo humano son las variables determinantes,
-        no la fuerza del equipo. Un vehículo eléctrico BMW en thermal runaway necesita 24 horas de inmersión
-        total en agua para considerarse extinguido — el proceso no se acelera. Sobre ese mismo territorio,
-        la Huasteca recibe corrientes clase IV en temporada de lluvias, y Wirikuta recibe peregrinos Wixáritari
-        en un desierto a 2,750 metros donde la atención médica más cercana está a 40 kilómetros.
-      </p>
+    <h2>Bomberos en San Luis Potosí</h2>
 
-      <h3>¿Cómo llamar a los Bomberos de San Luis Potosí?</h3>
-      <p>
-        El número único de emergencias en todo el estado es <strong>911</strong>. Las estaciones del corredor
-        industrial (Villa de Reyes, San Luis capital) tienen protocolo de activación directa con las brigadas
-        internas de BMW y General Motors. Para emergencias en el Sótano de las Golondrinas y la Huasteca,
-        la estación de Aquismón y Ciudad Valles coordinan con los grupos voluntarios de espeleología y
-        swift water que tienen equipamiento técnico especializado. En Wirikuta y Real de Catorce, el enlace
-        con la comunidad Wixárika es previo a cualquier intervención en zona sagrada.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de San Luis Potosí">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{estacionesSanLuisPotosi.length}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1951</span><span class="de-stat__label">Fundación formal</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">512 m</span><span class="de-stat__label">Sótano Golondrinas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2.8M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">4</span><span class="de-stat__label">Pueblos Mágicos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">2010</span><span class="de-stat__label">Patrimonio UNESCO</span></div>
+    </div>
 
-      <h3>BMW y el Thermal Runaway — Por qué una Batería de Litio No Se "Apaga" en 20 Minutos</h3>
-      <p>
-        La BMW Group Plant en Villa de Reyes produce la Serie 3 y Serie 2 Coupé con paquetes de batería
-        de litio-ion para versiones híbridas enchufables. Cuando una celda de litio entra en thermal
-        runaway — por cortocircuito, sobretemperatura o impacto — la reacción exotérmica es
-        autosostenida: produce su propio oxígeno, supera los 700°C en el núcleo y libera HF (ácido
-        fluorhídrico), CO y gases inflamables. El agua sobre la llama visible no detiene el thermal
-        runaway — solo enfría la superficie mientras el interior continúa en reacción. El protocolo BMW
-        exige inmersión total del módulo o vehículo en un contenedor con agua durante un mínimo de 24
-        horas antes de declararlo extinguido y seguro para manipulación. Los bomberos de Villa de Reyes
-        tienen contenedores de acero galvanizado de 5,000 litros y capacitación anual en planta para
-        este protocolo específico, que no figura en ningún manual estándar de bomberos.
-      </p>
+    <p class="de-lead">
+      San Luis Potosí es el estado donde tres de los escenarios de emergencia más exigentes de México
+      conviven en el mismo territorio: un corredor industrial automotriz con baterías que no se apagan
+      en 20 minutos, un sótano que impone 8 horas de tiempo mínimo de rescate sin importar cuántos
+      bomberos estén arriba, y un desierto sagrado a 2,750 metros de altitud al que se entra por un
+      túnel de un solo carril. El <strong>H. Cuerpo de Bomberos de San Luis Potosí</strong>, fundado
+      formalmente en <strong>1951</strong>, opera sobre ese territorio con estaciones en la capital,
+      el corredor automotriz, la Huasteca Potosina y el Altiplano.
+    </p>
 
-      <h3>Sótano de las Golondrinas — 512 m: El Tiempo Mínimo que la Física Impone al Rescate</h3>
-      <p>
-        El Sótano de las Golondrinas en Aquismón tiene 512 metros de caída libre con una apertura de boca
-        de 60 metros y una campana de 300 metros en el fondo. Una cuerda estática de 600 metros pesa entre
-        90 y 110 kg, y la fricción acumulada en el descenso de un rescatista con una víctima en camilla
-        hace que el ascenso motorizado mediante winche tome entre 45 minutos y 2 horas solo para los
-        últimos 100 metros — sin contar el tiempo de descenso, evaluación y estabilización. El tiempo
-        total de extracción de una persona inconsciente desde el fondo oscila entre 8 y 14 horas en
-        condiciones óptimas. Las comunicaciones por radio no penetran a más de 100 metros de profundidad;
-        se usa comunicación por cuerda o radio con repetidor en el borde. La estación de Aquismón
-        mantiene convenio de actuación con el Grupo Espeleológico Mexicano para los rescates que superan
-        la capacidad del equipo municipal.
-      </p>
+    <h3>Cómo contactar a los bomberos en San Luis Potosí</h3>
+    <p>
+      En cualquier emergencia en el estado, el <strong>911</strong> conecta las 24 horas con la
+      coordinación más cercana. Los teléfonos directos documentados en este directorio son: Bomberos
+      Central SLP <strong>(444) 812-2583</strong>, HAZMAT Industrial <strong>(444) 815-7575</strong>
+      y Bomberos Ciudad Valles <strong>(481) 382-1035</strong>. En el corredor industrial,
+      las brigadas internas de BMW y GM tienen protocolo de activación directa con la estación de
+      la zona. En la Huasteca Potosina, el 911 coordina con las estaciones de Aquismón y Ciudad
+      Valles, que tienen convenios con grupos voluntarios de espeleología y swift water. Encuentra
+      todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Wirikuta y Real de Catorce — Desierto Sagrado, Altitud y el Protocolo Cultural Wixárika</h3>
-      <p>
-        Wirikuta es el territorio sagrado de la nación Wixárika (Huichol) en el Altiplano potosino, a
-        2,750 msnm, con temperaturas que oscilan entre -10°C en enero y 42°C en mayo. Cada año miles
-        de peregrinos recorren a pie rutas de hasta 500 km desde Jalisco y Nayarit hasta este desierto
-        de matorral. Una emergencia médica en Wirikuta combina los factores de hipotermia o golpe de
-        calor según temporada, altitud (con el consecuente descenso de saturación de O₂ al 85-90%
-        en esfuerzo físico), acceso de terracería de 40 km desde Matehuala, y la necesidad de coordinación
-        con las autoridades tradicionales Wixáritari antes de cualquier intervención en sitios ceremoniales.
-        Real de Catorce se accede solo por el Túnel Ogarrio (2.3 km, un carril, semáforo alterno): el
-        autotanque tarda 8 minutos adicionales solo en cruzar el túnel.
-      </p>
+    <h3>Historia del H. Cuerpo de Bomberos de San Luis Potosí</h3>
+    <p>
+      La historia del combate de incendios en México arranca en el puerto de Veracruz y llega
+      décadas después a San Luis Potosí. Estos son los hitos verificados:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">~1900</span> En San Luis Potosí comienzan los <strong>primeros pasos organizados</strong> de respuesta a incendios, según el relato histórico del Cmte. Adolfo Benavente Duque (Museo Francisco Cossío, 2019).</li>
+      <li><span class="de-tl__year">1951</span> Se funda formalmente el <strong>H. Cuerpo de Bomberos de San Luis Potosí</strong> con sus primeros equipos de bombeo y vehicular.</li>
+      <li><span class="de-tl__year">2008</span> <strong>General Motors</strong> inaugura su Complejo en la Zona Industrial; el cuerpo incorpora protocolos HAZMAT para fundición de aluminio, gases industriales y aceites.</li>
+      <li><span class="de-tl__year">2010</span> El <strong>Centro Histórico de San Luis Potosí</strong> es reconocido como parte del <strong>Camino Real de Tierra Adentro</strong>, Patrimonio Mundial UNESCO, elevando los estándares de protección del casco histórico.</li>
+      <li><span class="de-tl__year">2019</span> <strong>BMW Group Plant</strong> inicia operaciones en Villa de Reyes (Serie 3 y Serie 2 Coupé con paquetes híbridos enchufables); el cuerpo integra capacitación anual en planta para thermal runaway de litio-ion.</li>
+      <li><span class="de-tl__year">Hoy</span> El cuerpo cubre <strong>{estacionesSanLuisPotosi.length} estaciones</strong> en este directorio, con especialización en HAZMAT automotriz, rescate espeleológico y swift water.</li>
+    </ul>
 
-      <h3>Huasteca Potosina — Tamul, Sótano del Barro y el Swift Water en Ríos Clase IV</h3>
-      <p>
-        La Cascada de Tamul (105 metros) solo es accesible remontando el río Tampaón en lancha durante
-        45 minutos desde el embarcadero de Tanchachín — lo que significa que cualquier emergencia en la
-        base de la cascada llega al rescatista con al menos 45 minutos de retraso estructural antes del
-        primer contacto. En temporada de lluvias (junio-octubre), el río Tampaón pasa de clase II a
-        clase IV; las lanchas de rescate son reemplazadas por cuerdas de orilla y técnicas de swift water
-        que requieren mínimo 3 rescatistas en posiciones simultáneas. El Sótano del Barro, a 410 metros
-        de profundidad, presenta los mismos desafíos de tiempo mínimo que las Golondrinas pero con
-        espacio de boca más reducido y paredes que concentran la humedad — lo que acelera el deterioro
-        del equipo y complica la ventilación del rescatista.
-      </p>
-    </Fragment>
+    <h3>Infraestructura de emergencia: cómo se cubren las zonas del estado</h3>
+    <p>
+      La cobertura del cuerpo se organiza por zonas geográficas y perfiles de riesgo. La zona
+      metropolitana concentra la mayor densidad poblacional y el Centro Histórico patrimonio
+      UNESCO; el corredor industrial cubre BMW y GM con HAZMAT especializado; la Huasteca
+      exige rescate espeleológico y swift water; y el Altiplano requiere unidades con capacidad
+      4x4 para desierto y alta montaña. Esta es la distribución por región:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios principales</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      El H. Cuerpo de Bomberos de San Luis Potosí es un servicio integral que va mucho más allá
+      del fuego estructural. Estas son sus funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, forestales, industriales y en zonas de difícil acceso como la selva de la Huasteca o el matorral desértico del Altiplano.</p></div>
+      <div class="de-card"><h4>HAZMAT industrial</h4><p>Contención de derrames y fugas en el corredor automotriz: pinturas, solventes, baterías litio-ion (BMW), fundición de aluminio y gases industriales (GM).</p></div>
+      <div class="de-card"><h4>Rescate espeleológico</h4><p>Extracción de personas en el Sótano de las Golondrinas (512 m), Sótano del Barro (410 m) y sistema de cuevas de la Huasteca con cuerdas técnicas y camillas especializadas.</p></div>
+      <div class="de-card"><h4>Rescate en aguas rápidas</h4><p>Swift water en ríos Tampaón, Gallinas y Santa María, incluyendo emergencias en la Cascada de Tamul (acceso mínimo 45 min en lancha).</p></div>
+      <div class="de-card"><h4>Búsqueda y rescate (SAR)</h4><p>Localización de turistas en desierto Wirikuta, minas abandonadas del Altiplano y accesos de alta montaña como Real de Catorce (Túnel Ogarrio).</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones en plantas industriales, Pueblos Mágicos y edificios del Centro Histórico; coordinación con autoridades Wixáritari en zonas sagradas.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>HAZMAT industrial automotriz</strong></td><td>24/7</td><td>Estaciones corredor industrial</td></tr>
+          <tr><td><strong>Thermal runaway litio-ion (BMW)</strong></td><td>24/7</td><td>Estación Villa de Reyes / Zona Industrial</td></tr>
+          <tr><td><strong>Rescate espeleológico</strong></td><td>24/7</td><td>Aquismón, Ciudad Valles + grupos voluntarios</td></tr>
+          <tr><td><strong>Rescate en aguas rápidas (swift water)</strong></td><td>24/7 (temporada lluvias jun-oct crítico)</td><td>Huasteca Potosina</td></tr>
+          <tr><td><strong>Búsqueda y rescate (SAR) desierto</strong></td><td>24/7</td><td>Altiplano — Matehuala, Real de Catorce</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios forestales y de matorral</strong></td><td>Estiaje y temporada seca</td><td>Huasteca y Altiplano</td></tr>
+          <tr><td><strong>Protección patrimonio histórico</strong></td><td>24/7</td><td>Centro Histórico SLP capital</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Corredor industrial, Huasteca y Wirikuta: los tres frentes de riesgo de SLP</h3>
+    <p>
+      En el corredor automotriz de Villa de Reyes, la <strong>BMW Group Plant</strong> produce
+      la Serie 3 y Serie 2 Coupé con paquetes de batería de litio-ion desde 2019. Cuando una
+      celda entra en <em>thermal runaway</em>, la reacción exotérmica es autosostenida: produce
+      su propio oxígeno, supera los 700 °C en el núcleo y libera HF (ácido fluorhídrico) y CO.
+      El protocolo exige inmersión total del módulo en agua durante un mínimo de <strong>24
+      horas</strong> antes de declararlo extinguido. El <strong>GM Complejo</strong>, con 6,000
+      empleados y operaciones desde 2008, suma riesgos de fundición de aluminio, aceites
+      industriales y gases. Los bomberos de la zona tienen capacitación anual en planta para
+      protocolos que no figuran en ningún manual estándar.
+    </p>
+    <p>
+      En la Huasteca, el <strong>Sótano de las Golondrinas</strong> (512 m de caída libre,
+      boca de 60 m, campana de 300 m en el fondo) impone un límite físico que ningún equipo
+      puede reducir: extraer una persona inconsciente desde el fondo tarda entre 8 y 14 horas
+      en condiciones óptimas. Las comunicaciones por radio no penetran a más de 100 metros de
+      profundidad. La <strong>Cascada de Tamul</strong> (105 m de altura) suma otro límite
+      estructural: cualquier emergencia en su base llega al rescatista con 45 minutos de retraso
+      mínimo —el tiempo de remontada por el río Tampaón—, que en temporada de lluvias se vuelve
+      impracticable en lancha. En el <strong>Sótano del Barro</strong> (410 m), la humedad
+      concentrada en las paredes acelera el deterioro del equipo y complica la ventilación
+      del rescatista.
+    </p>
+    <p>
+      En el Altiplano, <strong>Wirikuta</strong> —territorio sagrado de la nación Wixárika— opera
+      a 2,750 msnm con temperaturas de -10 °C en enero y 42 °C en mayo. Una emergencia médica
+      combina riesgo de hipotermia o golpe de calor según temporada, saturación de O₂ descendida
+      al 85–90 % en esfuerzo físico, acceso de terracería de 40 km desde Matehuala y la necesidad
+      de coordinación con las autoridades tradicionales antes de intervenir en sitios ceremoniales.
+      <strong>Real de Catorce</strong> añade el Túnel Ogarrio (2.3 km, un carril): una autobomba
+      tarda 8 minutos adicionales solo en cruzar el túnel.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      La distribución de cobertura del cuerpo de bomberos de San Luis Potosí entre las grandes
+      zonas del estado, según los datos de este directorio:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios clave</th><th>Cobertura</th><th>Perfil de riesgo</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{estacionesSanLuisPotosi.length} estaciones</td>
+            <td>4 zonas</td>
+            <td>Estado de San Luis Potosí — 2.8 millones de habitantes</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en San Luis Potosí</h3>
+    <p>
+      El primer reto es la <strong>especialización simultánea</strong>: ningún otro estado
+      demanda de sus cuerpos de bomberos un dominio tan diverso en un mismo territorio.
+      El HAZMAT industrial automotriz, el rescate espeleológico de gran profundidad, el swift
+      water en ríos clase IV y el SAR en desierto de altitud no comparten equipo, protocolos
+      ni entrenamiento. Cada uno requiere inversión independiente y actualización permanente.
+      La BMW Group Plant actualiza sus protocolos de batería conforme cambia la química
+      de sus celdas; el cuerpo debe acompañar esa evolución.
+    </p>
+    <p>
+      El segundo reto es el <strong>acceso</strong>. La Huasteca Potosina combina caminos de
+      terracería, ríos desbordados en temporada de lluvias y zonas sin señal celular que impiden
+      activar el 911 desde el lugar del incidente. Real de Catorce y el Altiplano suman altitud
+      y un túnel de carril único que alarga cualquier tiempo de respuesta. La solución pasa por
+      convenios con operadores de turismo de aventura que actúen como primer eslabón de aviso,
+      y por la dotación de equipos de comunicación satelital en las estaciones de la Huasteca.
+    </p>
+    <p>
+      Como en todos los cuerpos de bomberos del país, la <strong>renovación de EPP</strong>
+      conforme a normas NFPA vigentes y el sostenimiento de la capacitación especializada son
+      prioridades permanentes que compiten con presupuestos municipales acotados.
+    </p>
+
+    <h3>Cultura de prevención: cómo protegerte en SLP</h3>
+    <p>
+      La emergencia que no ocurre no necesita rescate. Estas son las recomendaciones básicas
+      para residentes y visitantes de San Luis Potosí:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas:</strong> revisa mangueras y reguladores; ante olor a gas, no accionas interruptores, cierra la llave de paso, ventila y evacúa el inmueble.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos; cualquier olor a quemado o cable caliente debe atenderse de inmediato.</li>
+        <li><strong>Detección:</strong> instala un detector de humo y mantén un extintor vigente accesible en cocina y zonas de riesgo.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión; practícalo con tu familia.</li>
+        <li><strong>Turismo en la Huasteca:</strong> no ingreses a sótanos o cuevas sin guía certificado y equipo técnico; ante emergencia avisa a los operadores locales que tienen radios y protocolos de activación del 911.</li>
+        <li><strong>Real de Catorce / Wirikuta:</strong> infórmate sobre las condiciones de altitud y temperatura antes de salir; lleva agua, abrigo y cargador portátil para tu teléfono.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> memorizado y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: Cmte. Adolfo Benavente Duque, plática "H. Cuerpo de Bomberos de San Luis Potosí,
+      una historia de entrega, valor y sacrificio" (Museo Francisco Cossío / Imágenes Históricas
+      SLP A.C., septiembre 2019) — fundación 1951 y primeros pasos ~1900; UNESCO World Heritage
+      Centre, <em>Camino Real de Tierra Adentro</em> (List No. 1351, inscripción 2010) — Centro
+      Histórico de SLP; BMW Group, datos de la BMW Group Plant San Luis Potosí (Villa de Reyes,
+      operaciones desde 2019); General Motors, Complejo San Luis Potosí (operaciones desde 2008);
+      datos de turismo Huasteca Potosina (SECTUR SLP); datos geográficos Sótano de las Golondrinas
+      y Sótano del Barro (literatura espeleológica publicada). Las estaciones y teléfonos directos
+      corresponden a datos verificados del directorio. Para emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
+  </Fragment>
 </DirectorioEstadoLayout>
-
