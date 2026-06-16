@@ -35,7 +35,10 @@ const rawUrl = href ?? (slug.startsWith("/") ? slug : `${cleanBaseUrl}/${slug}`)
 const detalleUrl = rawUrl.endsWith("/") ? rawUrl : `${rawUrl}/`;
 const nombreEstacion = nombre ?? "Estación de Bomberos";
 const zona = alcaldia ?? "Cobertura local";
-const imageCdn = image ? cdnW(image, 400) : undefined;
+// El llamador puede pasar una ruta local (/images/...) o una URL ya transformada
+// por el CDN. Solo aplicamos cdnW a rutas locales para evitar el doble-wrap
+// (https://cdn/https://cdn/...) que rompía la imagen de la card.
+const imageCdn = image ? (/^https?:\/\//.test(image) ? image : cdnW(image, 400)) : undefined;
 ---
 
 <article class="station-card">
