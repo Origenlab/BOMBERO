@@ -112,6 +112,10 @@ interface Props {
   ctaDesc: string;
   ctaBtnText: string;
   ctaBtnHref?: string;
+
+  // FAQ únicas por estado (≥10). Si se pasan, sustituyen las plantillas genéricas
+  // y alimentan el FAQPage schema con preguntas específicas del estado (E-E-A-T/GEO).
+  faqsEstado?: { q: string; a: string }[];
 }
 
 const {
@@ -124,6 +128,7 @@ const {
   municipios, regiones, estadosVecinos,
   eppCards,
   ctaTitle, ctaDesc, ctaBtnText, ctaBtnHref = "/cotizar/",
+  faqsEstado,
 } = Astro.props;
 
 
@@ -551,6 +556,7 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
       scope="estado"
       estado={estado}
       totalEstaciones={totalEstaciones}
+      faqs={faqsEstado}
     />
   </div>
 
@@ -1395,4 +1401,183 @@ const allJsonLd = [...(jsonLd ?? []), placeJsonLd, govJsonLd];
       flex-shrink: 0;
     }
   }
+
+  /* ════════════════════════════════════════════════════════════════
+     MÓDULOS DE CONTENIDO DEL SLOT SEO (estándar directorio 2026)
+     Estilan HTML inyectado por cada página estatal vía slot="seo".
+     Todos responsivos sin depender de mobile.css (grid auto-fit +
+     tablas con scroll horizontal).
+     ════════════════════════════════════════════════════════════════ */
+
+  .de-seo :global(h4) {
+    font-size: var(--text-lg);
+    font-weight: 800;
+    color: var(--color-smoke-900);
+    margin: var(--space-6) 0 var(--space-2);
+    letter-spacing: -0.01em;
+    scroll-margin-top: 90px;
+  }
+  .de-seo :global(h2),
+  .de-seo :global(h3) { scroll-margin-top: 90px; }
+
+  .de-seo :global(.de-lead) {
+    font-size: var(--text-lg);
+    color: var(--color-smoke-700);
+    line-height: 1.75;
+  }
+
+  /* — Banda de estadísticas / indicadores — */
+  .de-seo :global(.de-statband) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-6) 0 var(--space-8);
+  }
+  .de-seo :global(.de-stat) {
+    background: linear-gradient(160deg, var(--color-smoke-50), #fff);
+    border: 1px solid var(--color-smoke-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    text-align: center;
+  }
+  .de-seo :global(.de-stat__num) {
+    display: block;
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-fire-600);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .de-seo :global(.de-stat__label) {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-smoke-600);
+    font-weight: 700;
+  }
+
+  /* — Tablas de valor — */
+  .de-seo :global(.de-vwrap) {
+    overflow-x: auto;
+    margin: var(--space-5) 0 var(--space-6);
+    border: 1px solid var(--color-smoke-200);
+    border-radius: var(--radius-xl);
+    -webkit-overflow-scrolling: touch;
+  }
+  .de-seo :global(.de-vtable) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    min-width: 540px;
+  }
+  .de-seo :global(.de-vtable th) {
+    background: var(--color-smoke-900);
+    color: #fff;
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .de-seo :global(.de-vtable td) {
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--color-smoke-200);
+    color: var(--color-smoke-700);
+    vertical-align: top;
+  }
+  .de-seo :global(.de-vtable tbody tr:nth-child(even)) { background: var(--color-smoke-50); }
+  .de-seo :global(.de-vtable strong) { color: var(--color-smoke-900); }
+  .de-seo :global(.de-vtable tfoot td) {
+    background: var(--color-smoke-100);
+    font-weight: 700;
+    color: var(--color-smoke-900);
+    border-top: 2px solid var(--color-smoke-300);
+  }
+
+  .de-seo :global(.de-chip) {
+    display: inline-block;
+    padding: 0.12rem 0.55rem;
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .de-seo :global(.de-chip--total) { background: #dcfce7; color: #15803d; }
+  .de-seo :global(.de-chip--alta)  { background: var(--color-fire-100);  color: var(--color-fire-700); }
+  .de-seo :global(.de-chip--media) { background: var(--color-ember-100); color: var(--color-ember-700); }
+  .de-seo :global(.de-chip--baja)  { background: var(--color-smoke-200); color: var(--color-smoke-700); }
+
+  /* — Línea de tiempo (historia) — */
+  .de-seo :global(.de-timeline) {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-5) 0 var(--space-6);
+    border-left: 2px solid var(--color-fire-200);
+  }
+  .de-seo :global(.de-timeline li) {
+    position: relative;
+    padding: 0 0 var(--space-5) var(--space-6);
+  }
+  .de-seo :global(.de-timeline li:last-child) { padding-bottom: 0; }
+  .de-seo :global(.de-timeline li::before) {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 0.3rem;
+    width: 12px;
+    height: 12px;
+    border-radius: var(--radius-full);
+    background: var(--color-fire-600);
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--color-fire-200);
+  }
+  .de-seo :global(.de-timeline .de-tl__year) {
+    font-weight: 800;
+    color: var(--color-fire-700);
+    margin-right: 0.4rem;
+  }
+
+  /* — Tarjetas informativas (funciones) — */
+  .de-seo :global(.de-cards) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: var(--space-4);
+    margin: var(--space-5) 0 var(--space-6);
+  }
+  .de-seo :global(.de-card) {
+    background: #fff;
+    border: 1px solid var(--color-smoke-200);
+    border-left: 3px solid var(--color-fire-500);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+  }
+  .de-seo :global(.de-card h4) { margin: 0 0 var(--space-2); font-size: var(--text-base); }
+  .de-seo :global(.de-card p)  { margin: 0; font-size: var(--text-sm); color: var(--color-smoke-600); }
+
+  /* — Callout (datos clave / prevención) — */
+  .de-seo :global(.de-callout) {
+    background: linear-gradient(160deg, var(--color-fire-50), #fff);
+    border: 1px solid var(--color-fire-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    margin: var(--space-6) 0;
+  }
+  .de-seo :global(.de-callout h4) { margin-top: 0; }
+  .de-seo :global(.de-callout ul) { margin: var(--space-2) 0 0; padding-left: 1.15rem; }
+  .de-seo :global(.de-callout li) { margin-bottom: var(--space-2); color: var(--color-smoke-700); }
+  .de-seo :global(.de-callout li:last-child) { margin-bottom: 0; }
+
+  /* — Nota de fuentes (E-E-A-T) — */
+  .de-seo :global(.de-srcnote) {
+    font-size: var(--text-xs);
+    color: var(--color-smoke-500);
+    border-top: 1px dashed var(--color-smoke-300);
+    margin-top: var(--space-8);
+    padding-top: var(--space-3);
+    line-height: 1.65;
+  }
+  .de-seo :global(.de-srcnote a) { color: var(--color-smoke-600); text-decoration: underline; }
 </style>

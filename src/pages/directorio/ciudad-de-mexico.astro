@@ -7,15 +7,41 @@ import {
 } from "@data/estaciones-cdmx";
 import { getEstadosVecinos } from "@data/estados-vecinos";
 import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("ciudad-de-mexico");
 
-// ── Derivar estadísticas desde el array de estaciones ──────────────────────
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
 const alcaldias       = getAlcaldias();
 const totalEstaciones = estacionesCDMX.length;
 const totalAlcaldias  = alcaldias.length;
 const totalBomberos   = estacionesCDMX.reduce((sum, e) => sum + (e.personalActivo ?? e.personal ?? 0), 0);
+const totalUnidades   = estacionesCDMX.reduce((sum, e) => sum + (e.unidades ?? 0), 0);
 
+const canonical = "https://bombero.mx/directorio/ciudad-de-mexico/";
+
+// ── Comparativa regional (calculada desde los datos reales del directorio) ──
+const limpiaAlcaldia = (a: string) =>
+  a.replace(" de Morelos", "").replace("La Magdalena Contreras", "Magdalena Contreras");
+
+const zonasDef = [
+  { nombre: "Centro y Oriente",     alcaldias: ["Cuauhtémoc", "Venustiano Carranza", "Iztacalco", "Iztapalapa"],                       cobertura: "Total", chip: "total", perfil: "Centro Histórico (UNESCO), Metro, AICM y la mayor densidad de población de la capital." },
+  { nombre: "Norte",                alcaldias: ["Gustavo A. Madero", "Azcapotzalco"],                                                   cobertura: "Alta",  chip: "alta",  perfil: "Basílica de Guadalupe y corredor industrial de Vallejo-Azcapotzalco." },
+  { nombre: "Poniente y Barrancas", alcaldias: ["Miguel Hidalgo", "Álvaro Obregón", "Cuajimalpa de Morelos", "La Magdalena Contreras"], cobertura: "Alta",  chip: "alta",  perfil: "Corporativos, barrancas profundas y el bosque del Desierto de los Leones." },
+  { nombre: "Sur y Zona Lacustre",  alcaldias: ["Tlalpan", "Coyoacán", "Benito Juárez", "Xochimilco", "Tláhuac", "Milpa Alta"],         cobertura: "Media", chip: "media", perfil: "Ajusco, Suelo de Conservación y las chinampas de Xochimilco (UNESCO)." },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesCDMX.filter((e) => z.alcaldias.includes(e.alcaldia));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio/" },
@@ -26,7 +52,7 @@ const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Ciudad de México",
-  "description": `Directorio oficial de las ${totalEstaciones} estaciones del Heroico Cuerpo de Bomberos de la CDMX. Fundado en 1887. Teléfonos directos en las 16 alcaldías. ARFF AICM, USAR sísmico, Xochimilco UNESCO, Basílica de Guadalupe. Emergencias: llama al 911.`,
+  "description": `Directorio de las ${totalEstaciones} estaciones del Heroico Cuerpo de Bomberos de la Ciudad de México en las 16 alcaldías. Primera estación instalada en 1887; carácter "Heroico" desde 1951. Búsqueda y rescate urbano (USAR) en suelo lacustre, ARFF del AICM y rescate acuático en Xochimilco. Emergencias: 911.`,
   "numberOfItems": estacionesCDMX.length,
   "itemListElement": estacionesCDMX.map((e, i) => ({
     "@type": "ListItem",
@@ -47,6 +73,94 @@ const itemListSchema = {
   }))
 };
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en la Ciudad de México: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Heroico Cuerpo de Bomberos de la Ciudad de México: historia (1873–hoy), infraestructura en las 16 alcaldías, funciones, retos y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Heroico Cuerpo de Bomberos de la Ciudad de México",
+    "Protección Civil",
+    "Búsqueda y rescate urbano",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/ciudad-de-mexico.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en la Ciudad de México",
+  "description": `Directorio verificado de estaciones de bomberos en las 16 alcaldías de la Ciudad de México, con teléfonos, cobertura, funciones e historia del Heroico Cuerpo de Bomberos.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Heroico Cuerpo de Bomberos de la Ciudad de México" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/ciudad-de-mexico.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de la Ciudad de México (≥10) — alimentan el FAQPage schema ───
+const faqsCDMX = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en la Ciudad de México?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas a través del Centro de Comando, Control, Cómputo, Comunicaciones y Contacto Ciudadano (C5). La llamada se enruta a la estación con menor tiempo de respuesta desde tu ubicación. En zonas urbanas densas el tiempo promedio de llegada es de <strong>4 a 8 minutos</strong>. Algunas comandancias conservan el histórico <strong>068</strong>, pero el 911 es la línea recomendada.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en la Ciudad de México?",
+    a: `El Heroico Cuerpo de Bomberos de la Ciudad de México opera <strong>23 instalaciones oficiales</strong> (estaciones y subestaciones) distribuidas en las <strong>16 alcaldías</strong>, según el directorio oficial del Gobierno de la Ciudad de México. Este directorio reúne <strong>${totalEstaciones} estaciones</strong> con teléfono directo, dirección y servicios; la sede es la Estación Central, en el Centro de la ciudad.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Heroico Cuerpo de Bomberos de la Ciudad de México?",
+    a: `El <strong>primer cuerpo de bomberos de México</strong> se fundó el <strong>22 de agosto de 1873 en Veracruz</strong>. En la capital, la <strong>primera estación de bomberos se instaló en 1887</strong>, en el Centro Histórico. El primer Reglamento del Cuerpo de Bomberos se expidió en <strong>1922</strong> y en <strong>1951</strong>, por decreto presidencial, se le otorgó el carácter de <strong>"Heroico"</strong>.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque conmemora la fundación del <strong>primer cuerpo de bomberos del país</strong>, el 22 de agosto de 1873 en el puerto de Veracruz. Cada año, en esa fecha, se reconoce la labor de los bomberos de toda la República, incluidos los del Heroico Cuerpo de Bomberos de la Ciudad de México.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de la Ciudad de México?",
+    a: `Combate de <strong>incendios</strong> (estructurales, forestales y de pasto), <strong>rescate vehicular</strong> y extricación, <strong>atención prehospitalaria</strong>, <strong>búsqueda y rescate urbano (USAR)</strong> en derrumbes y sismos, <strong>materiales peligrosos (HAZMAT)</strong>, control de <strong>fugas de gas</strong>, atención de <strong>inundaciones</strong> y encharcamientos, rescate acuático en Xochimilco y Tláhuac, retiro de enjambres y manejo de fauna. La prevención (inspecciones y capacitación) también es parte central de su labor.`,
+  },
+  {
+    q: "¿Los servicios de los bomberos de la CDMX tienen costo?",
+    a: `Las emergencias que comprometen la <strong>vida o la integridad</strong> de las personas —incendios, rescates, fugas de gas— se atienden de forma <strong>gratuita</strong>. Algunos servicios secundarios (retiro de enjambres, dictámenes, capacitación a empresas) pueden tener una cuota de recuperación. La atención de emergencia nunca se condiciona a un pago.`,
+  },
+  {
+    q: "¿Cómo responden los bomberos a un sismo en la Ciudad de México?",
+    a: `El <strong>suelo lacustre</strong> del antiguo Lago de Texcoco amplifica las ondas sísmicas varias veces, lo que multiplica el riesgo de colapso. Por eso el cuerpo mantiene brigadas de <strong>búsqueda y rescate urbano (USAR)</strong> con equipo de corte, detección de vida y apuntalamiento. El <strong>Sistema de Alerta Sísmica (SASMEX)</strong> da segundos de aviso y la respuesta se coordina con la Secretaría de Gestión Integral de Riesgos y Protección Civil y el C5. El sismo de 1985 fue el punto de inflexión que dio origen al Sistema Nacional de Protección Civil.`,
+  },
+  {
+    q: "¿Quién atiende las emergencias en el Aeropuerto Internacional (AICM)?",
+    a: `El AICM cuenta con un servicio de <strong>rescate y extinción de incendios de aeronaves (ARFF)</strong> con vehículos especializados y tiempos de respuesta de pocos minutos a cualquier punto de las pistas, conforme a los estándares de aviación. Trabaja en coordinación con el Heroico Cuerpo de Bomberos para incidentes en el entorno aeroportuario.`,
+  },
+  {
+    q: "¿Cómo se atiende un incendio dentro del Metro de la Ciudad de México?",
+    a: `El Sistema de Transporte Colectivo Metro —12 líneas y 195 estaciones— exige protocolos específicos para espacios subterráneos confinados: uso de <strong>equipo de respiración autónoma (SCBA)</strong>, ventilación, evacuación masiva y coordinación con el personal del STC. Las estaciones de bomberos de la zona central entrenan de forma específica para este escenario.`,
+  },
+  {
+    q: "¿Qué debo hacer si detecto un incendio o una fuga de gas en casa?",
+    a: `Llama de inmediato al <strong>911</strong>. Ante una <strong>fuga de gas</strong>: no enciendas ni apagues interruptores, no uses el teléfono dentro del inmueble, cierra la llave de paso, abre puertas y ventanas y evacúa. Ante un <strong>incendio</strong>: sal de inmediato, cierra puertas a tu paso para frenar el avance del fuego y nunca regreses por objetos. No intentes combatir un fuego que ya no puedes controlar.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en mi hogar en la Ciudad de México?",
+    a: `Revisa periódicamente la instalación de <strong>gas</strong> (mangueras, reguladores y conexiones) y la <strong>instalación eléctrica</strong>; evita sobrecargar contactos y "diablitos". Instala <strong>detectores de humo</strong>, mantén un extintor vigente y accesible, no dejes velas o estufas sin vigilancia y acuerda con tu familia un <strong>plan de evacuación</strong> con punto de reunión. Conserva el 911 visible para todos en casa.`,
+  },
+  {
+    q: "¿Cómo puedo apoyar o convertirme en bombero en la Ciudad de México?",
+    a: `Puedes apoyar mediante donativos al patronato del cuerpo de bomberos o difundiendo este directorio. Para ingresar como bombero, el Heroico Cuerpo de Bomberos forma a su personal en su <strong>Academia de Bomberos</strong> y publica convocatorias de reclutamiento con requisitos de edad, escolaridad y condición física. Consulta los canales oficiales del Gobierno de la Ciudad de México para fechas vigentes.`,
+  },
+];
+const faqsEstado = faqsCDMX.map((f) => ({ q: f.q, a: f.a }));
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-cdmx-01.avif",
@@ -115,51 +229,51 @@ const stationImages = [
   estado="Ciudad de México"
   sigla="CDMX"
   slug="ciudad-de-mexico"
-  description={`${totalEstaciones} estaciones CDMX — fundado 1887, USAR INSARAG, Metro, Popocatépetl, Xochimilco UNESCO y 87,000 ha de bosque urbano. Emergencias: 911.`}
+  description={`Bomberos en la CDMX: ${totalEstaciones} estaciones en las 16 alcaldías, teléfonos directos, USAR sísmico, ARFF del AICM y rescate en Xochimilco. Emergencias: 911.`}
   keywords={[
     "bomberos ciudad de mexico",
     "bomberos cdmx",
     "heroico cuerpo de bomberos cdmx",
     "estaciones bomberos cdmx alcaldias",
+    "telefono bomberos cdmx 911",
     "bomberos centro historico cdmx",
-    "bomberos xochimilco chinampas",
+    "bomberos xochimilco rescate acuatico",
     "arff aeropuerto internacional cdmx aicm",
     "rescate sismico usar cdmx",
     "bomberos basilica guadalupe gam",
     "bomberos iztapalapa inundaciones",
     "bomberos ajusco incendios forestales",
-    "bomberos azcapotzalco industrial",
-    "emergencias 911 cdmx",
-    "bomberos metro cdmx lineas",
+    "historia bomberos mexico 1873 1887",
+    "bomberos metro cdmx",
     "directorio bomberos ciudad de mexico",
   ]}
-  canonical="https://bombero.mx/directorio/ciudad-de-mexico/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
   totalEstaciones={totalEstaciones}
   totalMunicipios={totalAlcaldias}
   habitantes="9.2M+"
 
-  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de la Ciudad de México</strong>, fundado el <strong>22 de agosto de 1887</strong>, es la corporación de bomberos más antigua y grande de México. Con <strong>${totalEstaciones} estaciones</strong> en <strong>${totalAlcaldias} alcaldías</strong> y más de <strong>${totalBomberos.toLocaleString()} bomberos profesionales</strong> — protegiendo los <strong>9.2 millones de habitantes</strong> de la capital federal, los 2 sitios UNESCO (Centro Histórico y Xochimilco), la <strong>Basílica de Guadalupe</strong> (la más visitada del mundo católico), el <strong>AICM</strong> y el Sistema de Transporte Colectivo Metro con <strong>12 líneas y 195 estaciones</strong>.`}
+  heroDesc={`El <strong>Heroico Cuerpo de Bomberos de la Ciudad de México</strong> —heredero del primer cuerpo de bomberos del país (Veracruz, 1873), con su <strong>primera estación instalada en 1887</strong> y carácter <strong>"Heroico" desde 1951</strong>— es la corporación de bomberos con mayor tradición de México. Con <strong>${totalEstaciones} estaciones</strong> en este directorio dentro de las <strong>16 alcaldías</strong>, protege a los <strong>9.2 millones de habitantes</strong> de la capital, dos sitios <strong>UNESCO</strong> (Centro Histórico y Xochimilco), la <strong>Basílica de Guadalupe</strong>, el <strong>AICM</strong> y un Metro de <strong>12 líneas y 195 estaciones</strong>, sobre el suelo lacustre que amplifica cada sismo.`}
   heroImage="/images/directorio/estacion-bomberos-cdmx-01.avif"
-  heroImageAlt="Heroico Cuerpo de Bomberos de la Ciudad de México — fundado 1887 Centro Histórico UNESCO CDMX"
-  heroCaption="Heroico Cuerpo de Bomberos · Ciudad de México · Desde 1887"
+  heroImageAlt="Heroico Cuerpo de Bomberos de la Ciudad de México — primera estación 1887, Centro Histórico UNESCO CDMX"
+  heroCaption="Heroico Cuerpo de Bomberos · Ciudad de México · Primera estación desde 1887"
   heroThumbs={[
-    { src: "/images/directorio/equipo-rescate-completo-01.avif",   alt: "Rescate sísmico USAR CDMX estructuras colapsadas suelo lacustre sismo 2017 19 septiembre",         label: "USAR Rescate Sísmico"      },
-    { src: "/images/directorio/sistema-espuma-incendios-01.avif", alt: "Conexiones de manguera en autobomba de bomberos de Ciudad de México", label: "Conexiones Operativas" },
-    { src: "/images/directorio/camion-bomberos-aeropuerto-01.avif",alt: "ARFF aeropuerto internacional AICM CDMX Oshkosh Striker vehículos rescate aeronáutico DGAC",      label: "ARFF Aeropuerto AICM"     },
+    { src: "/images/directorio/equipo-rescate-completo-01.avif",   alt: "Búsqueda y rescate urbano USAR CDMX estructuras colapsadas suelo lacustre sismo 19 septiembre",      label: "USAR Rescate Sísmico"  },
+    { src: "/images/directorio/sistema-espuma-incendios-01.avif",  alt: "Conexiones de manguera en autobomba de bomberos de la Ciudad de México",                            label: "Conexiones Operativas" },
+    { src: "/images/directorio/camion-bomberos-aeropuerto-01.avif",alt: "ARFF aeropuerto internacional AICM CDMX vehículos de rescate y extinción de incendios de aeronaves", label: "ARFF Aeropuerto AICM"  },
   ]}
 
   galleryImages={[
-    { src: "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif", alt: "Equipo de protección personal completo en estación de bomberos de Ciudad de México", label: "EPP Certificado" },
-    { src: "/images/directorio/estacion-bomberos-centro-historico-01.avif",    alt: "Protección Centro Histórico CDMX UNESCO Zócalo Templo Mayor Catedral Metropolitana 1887",  label: "Centro Histórico UNESCO" },
-    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",               alt: "Rescate acuático canales Xochimilco chinampas UNESCO Tláhuac CDMX trajineras turismo",     label: "Xochimilco y Tláhuac"    },
-    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",              alt: "Incendios forestales Ajusco 3959 msnm Cuajimalpa Desierto Leones CDMX",                   label: "Forestal Ajusco-Ajusco"  },
+    { src: "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif", alt: "Equipo de protección personal completo en estación de bomberos de la Ciudad de México", label: "EPP Certificado"       },
+    { src: "/images/directorio/estacion-bomberos-centro-historico-01.avif",    alt: "Protección del Centro Histórico CDMX UNESCO: Zócalo, Templo Mayor y Catedral Metropolitana", label: "Centro Histórico UNESCO" },
+    { src: "/images/directorio/lancha-rescate-bomberos-01.avif",               alt: "Rescate acuático en los canales de Xochimilco chinampas UNESCO y Tláhuac CDMX",            label: "Xochimilco y Tláhuac"  },
+    { src: "/images/accion/bomberos-accion-incendio-estructural.avif",         alt: "Combate de incendios forestales en el Ajusco y Cuajimalpa, Suelo de Conservación CDMX",     label: "Forestal del Ajusco"   },
   ]}
 
   emergencyNumbers={[
-    { number: "911",          label: "Emergencias CDMX"          },
-    { number: "55 5768 3700", label: "Bomberos Central (1887)"   },
+    { number: "911",          label: "Emergencias CDMX (C5)"     },
+    { number: "55 5768 3700", label: "Bomberos Estación Central" },
     { number: "55 5786 9012", label: "Bomberos AICM (ARFF)"      },
     { number: "55 5686 4523", label: "Bomberos Iztapalapa"       },
     { number: "55 5781 2345", label: "Bomberos GAM (Basílica)"   },
@@ -169,11 +283,11 @@ const stationImages = [
   municipios={alcaldias}
 
   regiones={[
-    { nombre: "Centro y Poniente",       desc: "Cuauhtémoc (Central 1887) · Miguel Hidalgo · Álvaro Obregón · Benito Juárez · Centro Histórico UNESCO" },
-    { nombre: "Zona Boscosa Surponiente", desc: "Cuajimalpa (Desierto Leones) · Tlalpan (Ajusco 3,959 msnm) · Magdalena Contreras (Los Dinamos)"        },
-    { nombre: "Zona Oriente y Aeropuerto",desc: "Venustiano Carranza · AICM ARFF · Iztacalco · Iztapalapa (más poblada) · Terminal 1 y 2"              },
-    { nombre: "Zona Norte Industrial",    desc: "Gustavo A. Madero (Basílica 22M/año) · Azcapotzalco (industrial) · Lindavista · Tepeyac"               },
-    { nombre: "Zona Lacustre Sur",        desc: "Xochimilco (UNESCO) · Tláhuac (chinampas) · Milpa Alta (rural, volcánica)"                              },
+    { nombre: "Centro y Poniente",        desc: "Cuauhtémoc (Estación Central) · Miguel Hidalgo · Álvaro Obregón · Benito Juárez · Centro Histórico UNESCO" },
+    { nombre: "Zona Boscosa Surponiente", desc: "Cuajimalpa (Desierto de los Leones) · Tlalpan (Ajusco 3,930 msnm) · Magdalena Contreras (Los Dinamos)"      },
+    { nombre: "Zona Oriente y Aeropuerto",desc: "Venustiano Carranza · AICM (ARFF) · Iztacalco · Iztapalapa (la más poblada) · Terminal 1 y 2"                },
+    { nombre: "Zona Norte",               desc: "Gustavo A. Madero (Basílica de Guadalupe) · Azcapotzalco (corredor industrial Vallejo) · Lindavista"         },
+    { nombre: "Zona Lacustre Sur",        desc: "Xochimilco (UNESCO) · Tláhuac (chinampas) · Milpa Alta (rural y volcánica)"                                   },
   ]}
 
   estadosVecinos={estadosVecinos}
@@ -187,7 +301,7 @@ const stationImages = [
       imageAlt:  "Traje Estructural NFPA 1971 bomberos CDMX rescate sísmico suelo lacustre derrumbes edificios 1985 2017",
       badge:     "NFPA 1971",
       title:     "Traje Estructural NFPA 1971 — Rescate Sísmico",
-      text:      "El traje de referencia del cuerpo de bomberos más antiguo de México, validado en los sismos más devastadores de la historia del país. El <strong>suelo lacustre</strong> de la Ciudad de México — antiguo lago de Texcoco con hasta <strong>40 metros de sedimento blando</strong> — amplifica las ondas sísmicas hasta <strong>5 veces</strong>, generando los derrumbes más letales del continente americano. Tras el <strong>sismo de septiembre de 1985</strong> (10,000+ víctimas) y el de <strong>2017</strong> (369 víctimas), el HCBCDMX consolidó el equipo USAR más entrenado de Latinoamérica. Tejido resistente al corte de vidrio y acero de estructuras colapsadas, con termorregulación para operaciones de 12+ horas en rubble urbano.",
+      text:      "El traje de referencia del cuerpo de bomberos con mayor tradición de México, probado en los sismos más severos del país. El <strong>suelo lacustre</strong> de la Ciudad de México —antiguo lago de Texcoco con hasta <strong>40 metros de sedimento blando</strong>— amplifica las ondas sísmicas varias veces, generando algunos de los derrumbes más letales del continente. Tras el <strong>sismo del 19 de septiembre de 1985</strong>, uno de los desastres más devastadores de la historia de México, y el del <strong>19 de septiembre de 2017</strong> (369 víctimas a nivel nacional), el cuerpo fortaleció sus capacidades de <strong>búsqueda y rescate urbano (USAR)</strong>. Tejido resistente al corte de vidrio y acero de estructuras colapsadas, con termorregulación para operaciones prolongadas en escombro urbano.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -196,7 +310,7 @@ const stationImages = [
       imageAlt:  "SCBA NFPA 1981 bomberos CDMX metro espacios confinados ceniza Popocatépetl contingencia ambiental",
       badge:     "NFPA 1981",
       title:     "Aparato Respiratorio Autónomo SCBA",
-      text:      "Certificado NFPA 1981 para los escenarios más complejos de aire contaminado en México: las <strong>195 estaciones del Sistema de Transporte Colectivo Metro</strong> — 12 líneas, 431 km de túneles subterráneos — donde un incendio o descarrilamiento obliga a evacuar hasta <strong>5 millones de pasajeros diarios</strong>; los <strong>incidentes de ceniza volcánica</strong> del <strong>Popocatépetl</strong> (\"Don Goyo\"), que cierran el espacio aéreo y saturan los pulmones a 70 km de distancia; y la <strong>zona industrial de Azcapotzalco</strong>, con refinerías, petroquímicas y almacenamientos de materiales peligrosos. También para incendios en el <strong>Centro Histórico de la Ciudad de México</strong> (Patrimonio UNESCO, 2000+), donde edificios de adobe y cantera del siglo XVII liberan gases tóxicos al arder.",
+      text:      "Certificado NFPA 1981 para los escenarios de aire contaminado más complejos de México: las <strong>195 estaciones del Metro</strong> —12 líneas y cientos de kilómetros de túnel— donde un incendio o un descarrilamiento obliga a evacuar a miles de pasajeros en espacios sin ventilación natural; los <strong>incidentes de ceniza volcánica del Popocatépetl</strong>, que en episodios de alta actividad afectan la calidad del aire y el espacio aéreo del Valle de México; y la <strong>zona industrial de Azcapotzalco-Vallejo</strong>, con almacenamiento de materiales peligrosos. También para incendios en el <strong>Centro Histórico</strong> (Patrimonio UNESCO), donde edificios antiguos de adobe y cantera liberan gases tóxicos al arder.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Equipos SCBA",
     },
@@ -205,7 +319,7 @@ const stationImages = [
       imageAlt:  "Traje Inmersión NFPA 1952 bomberos Xochimilco chinampas canales UNESCO Tláhuac rescate acuático CDMX",
       badge:     "NFPA 1952",
       title:     "Traje de Inmersión NFPA 1952 — Chinampas UNESCO",
-      text:      "Certificado NFPA 1952 para el único sistema de chinampas en operación activa del mundo: los <strong>canales de Xochimilco</strong> (Patrimonio UNESCO desde 1987), con 204 km de vías acuáticas, 29,000+ trajineras y más de <strong>5 millones de visitantes anuales</strong>. La <strong>Estación Xochimilco</strong> opera 1 unidad acuática especializada para rescate de turistas en los canales, control de embarcaciones incendiadas y emergencias en las chinampas patrimonio de la humanidad — las \"jardines flotantes\" más importantes de Mesoamérica. La estación de <strong>Tláhuac</strong> complementa la cobertura en el Lago de Tláhuac y comunidades lacustres de San Pedro Tláhuac.",
+      text:      "Para uno de los pocos sistemas de chinampas en operación activa del mundo: los <strong>canales de Xochimilco</strong> (Patrimonio UNESCO desde 1987), con alrededor de 200 km de vías acuáticas, miles de trajineras y varios millones de visitantes al año. La <strong>Estación Xochimilco</strong> opera unidades acuáticas para el rescate de turistas en los canales, el control de embarcaciones incendiadas y las emergencias entre las chinampas —hábitat del axolote—. La estación de <strong>Tláhuac</strong> complementa la cobertura en el Lago de Tláhuac y las comunidades lacustres del sur.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
@@ -214,106 +328,233 @@ const stationImages = [
       imageAlt:  "Botas Estructurales NFPA 1971 bomberos CDMX terreno mixto hundimiento adoquín Centro Histórico escombros sísmico barrancas",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales de Cuero",
-      text:      "Certificadas NFPA 1971 para el terreno urbano más complejo de México: asfalto fisurado por <strong>hundimiento diferencial de hasta 9 metros</strong> en Iztapalapa y Gustavo A. Madero (la CDMX se hunde entre 20-30 cm por año en las zonas de lago); adoquín histórico del <strong>Centro Histórico</strong> con 700+ años de ocupación continua desde los aztecas; escombros y roca ígnea en operaciones USAR post-sísmicas; lodo y sedimento de los <strong>canales de Xochimilco y Tláhuac</strong>; pendientes pronunciadas en las <strong>barrancas de Álvaro Obregón y Magdalena Contreras</strong> (más de 30°); y roca volcánica del <strong>Ajusco</strong> (Pedregal de San Ángel) a 3,959 msnm.",
+      text:      "Certificadas NFPA 1971 para uno de los terrenos urbanos más complejos de México: asfalto fisurado por el <strong>hundimiento diferencial</strong> de las zonas de lago (Iztapalapa y Gustavo A. Madero se hunden varios centímetros al año); el adoquín histórico del <strong>Centro Histórico</strong>, con siglos de ocupación continua; el escombro y la roca de las operaciones USAR; el lodo y sedimento de los <strong>canales de Xochimilco y Tláhuac</strong>; las pendientes pronunciadas de las <strong>barrancas de Álvaro Obregón y Magdalena Contreras</strong>; y la roca volcánica del <strong>Ajusco</strong> y el Pedregal de San Ángel.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
   ]}
 
   ctaTitle="Equipamos al Heroico Cuerpo de Bomberos de la Ciudad de México"
-  ctaDesc={`Cotiza equipo certificado NFPA para las ${totalEstaciones} estaciones del HCBCDMX en las ${totalAlcaldias} alcaldías. Experiencia en licitaciones públicas de la CDMX, abastecimiento a cuerpos USAR certificados y brigadas de aeropuerto ARFF. Atención en Ciudad de México.`}
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones del cuerpo de bomberos de la CDMX en las 16 alcaldías. Experiencia en licitaciones públicas, abastecimiento a brigadas USAR y a unidades de rescate aeroportuario (ARFF). Atención en la Ciudad de México.`}
   ctaBtnText="Solicitar Cotización — CDMX"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de la Ciudad de México — El 19 de Septiembre que Definió una Doctrina: USAR INSARAG, Metro y 87,000 ha de Bosque Urbano</h2>
-    <p>
-      Ningún cuerpo de bomberos en México opera en un territorio con más variables de riesgo
-      simultáneas que el <strong>Heroico Cuerpo de Bomberos de la Ciudad de México (HCBCDMX)</strong>:
-      suelo lacustre sismicamente amplificado, un metro con 5 millones de pasajeros diarios,
-      dos Patrimonios UNESCO, el santuario católico más visitado del mundo, el aeropuerto con
-      mayor tráfico de América Latina y bosques de alta montaña dentro del perímetro urbano —
-      todo en 1,495 km². Fundado el 22 de agosto de 1887, es la corporación de bomberos más
-      antigua de México y la primera en obtener la certificación INSARAG Pesado de las Naciones
-      Unidas. Con {totalEstaciones} estaciones en las {totalAlcaldias} alcaldías y más de
-      {totalBomberos} bomberos profesionales, protege a 9.2 millones de capitalinos y a los
-      22 millones de habitantes del área metropolitana.
+    <h2>Bomberos en la Ciudad de México: la corporación que opera sobre un lago, junto a un volcán y entre dos Patrimonios de la Humanidad</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de la Ciudad de México">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">16</span><span class="de-stat__label">Alcaldías cubiertas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">23</span><span class="de-stat__label">Instalaciones oficiales</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">~1,900</span><span class="de-stat__label">Elementos (2015)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">~160</span><span class="de-stat__label">Emergencias al día</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">9.2M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1887</span><span class="de-stat__label">Primera estación</span></div>
+    </div>
+
+    <p class="de-lead">
+      Ningún cuerpo de bomberos en México opera con tantas variables de riesgo simultáneas como el
+      <strong>Heroico Cuerpo de Bomberos de la Ciudad de México</strong>: suelo lacustre que amplifica
+      los sismos, un Metro que mueve a millones de personas cada día, dos sitios Patrimonio de la
+      Humanidad, el santuario católico más visitado del mundo, uno de los aeropuertos con mayor tráfico
+      de América Latina y bosques de alta montaña dentro del perímetro urbano. Más allá de apagar
+      incendios, estas estaciones son la primera respuesta a la que acuden 9.2 millones de capitalinos
+      —y buena parte de los más de 20 millones del área metropolitana— cuando todo lo demás falla.
     </p>
 
-    <h3>¿Cómo contactar al Heroico Cuerpo de Bomberos de la Ciudad de México?</h3>
+    <h3>Cómo contactar a los bomberos en la Ciudad de México</h3>
     <p>
-      En cualquier emergencia, el <strong>911</strong> conecta con el Centro de Comando C5
-      las 24 horas, en español e inglés, con y sin saldo. El tiempo de respuesta promedio en
-      zonas urbanas densas es de 4 a 6 minutos. Los teléfonos directos de las principales
-      estaciones son: Estación Central (55 5768 3700), AICM ARFF (55 5786 9012), Iztapalapa
-      (55 5686 4523), Gustavo A. Madero / Basílica (55 5781 2345), Tlalpan / Ajusco
-      (55 5573 1396), Tacubaya (55 5516 1092), Coyoacán (55 5524 6312) y Xochimilco
-      (55 5676 0912). En Milpa Alta y zonas rurales del sur, los tiempos pueden extenderse
-      hasta 20 minutos por las condiciones de acceso.
+      En cualquier emergencia, el <strong>911</strong> conecta con el Centro de Comando (C5) las 24 horas,
+      en español e inglés. El sistema enruta la llamada a la estación con menor tiempo de respuesta; en
+      zonas urbanas densas el promedio es de 4 a 8 minutos. Los teléfonos directos de las principales
+      estaciones son: Estación Central (55 5768 3700), AICM / ARFF (55 5786 9012), Iztapalapa
+      (55 5686 4523), Gustavo A. Madero / Basílica (55 5781 2345) y Tlalpan / Ajusco (55 5573 1396).
+      En Milpa Alta y zonas rurales del sur, los tiempos pueden extenderse por las condiciones de acceso.
+      Encuentra todos los datos en el <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
     </p>
 
-    <h3>El 19 de septiembre y la certificación INSARAG: cómo los sismos forjaron al HCBCDMX moderno</h3>
+    <h3>Historia del Heroico Cuerpo de Bomberos de la Ciudad de México</h3>
     <p>
-      El suelo lacustre del antiguo Lago de Texcoco —con hasta 40 metros de sedimento blando—
-      amplifica las ondas sísmicas entre 3 y 5 veces respecto a la roca sólida, un fenómeno
-      documentado por el Instituto de Ingeniería de la UNAM que convierte temblores moderados
-      en Guerrero o Oaxaca en catástrofes en la capital. El sismo del 19 de septiembre de 1985
-      (Mw 8.1, más de 10,000 víctimas) destruyó la concepción reactiva de la emergencia: en
-      sus secuelas, el HCBCDMX rediseñó completamente su modelo operacional, integrando búsqueda
-      y rescate urbano (USAR) como competencia central e invirtiendo en equipos de corte, detección
-      de vida y apuntalamiento estructural. Cuando el 19 de septiembre de 2017 —curiosamente, fecha
-      idéntica— un sismo de Mw 7.1 colapsó 38 edificios y causó 369 víctimas, las brigadas USAR
-      del HCBCDMX extrajeron sobrevivientes durante 72 horas continuas, mérito que les valió la
-      certificación INSARAG Pesado: el nivel más alto reconocido por Naciones Unidas en rescate
-      de estructura colapsada, que poseen menos de 30 equipos en el mundo. El Sistema de Alerta
-      Sísmica (SASMEX) activa a las estaciones con hasta 60 segundos de anticipación.
+      La historia del combate de incendios en México arranca en el puerto de Veracruz y llega a la
+      capital pocos años después. Estos son los hitos que explican por qué la corporación de la Ciudad
+      de México es la de mayor tradición del país:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El 22 de agosto se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong>.</li>
+      <li><span class="de-tl__year">1887</span> Se instala la <strong>primera estación de bomberos de la Ciudad de México</strong>, en el Centro Histórico, junto a la sede de los poderes.</li>
+      <li><span class="de-tl__year">1922</span> Se expide el <strong>primer Reglamento del Cuerpo de Bomberos</strong> del entonces Distrito Federal, que profesionaliza el servicio.</li>
+      <li><span class="de-tl__year">1951</span> Por <strong>decreto presidencial</strong> se otorga al cuerpo el carácter de <strong>"Heroico"</strong>, en reconocimiento a su labor.</li>
+      <li><span class="de-tl__year">1985</span> El <strong>sismo del 19 de septiembre</strong> (Mw 8.1) evidencia la falta de coordinación en la respuesta y transforma para siempre el modelo de emergencias del país.</li>
+      <li><span class="de-tl__year">1986</span> Como respuesta directa al desastre se crea el <strong>Sistema Nacional de Protección Civil (SINAPROC)</strong>; nacen brigadas ciudadanas como los <strong>Topos</strong>.</li>
+      <li><span class="de-tl__year">2017</span> Otro <strong>19 de septiembre</strong>, un sismo Mw 7.1 colapsa decenas de edificios; las brigadas de <strong>búsqueda y rescate urbano (USAR)</strong> operan durante días.</li>
+      <li><span class="de-tl__year">Hoy</span> El Heroico Cuerpo de Bomberos opera <strong>23 instalaciones oficiales</strong> en las 16 alcaldías, con cerca de <strong>1,900 elementos</strong> que atienden alrededor de <strong>160 emergencias diarias</strong>.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cómo se cubren las 16 alcaldías</h3>
+    <p>
+      La cobertura del cuerpo se organiza por grandes zonas, cada una con un perfil de riesgo distinto.
+      El centro y el oriente concentran la mayor densidad de población y la infraestructura crítica
+      (Metro, AICM, Centro Histórico); el norte resguarda la Basílica de Guadalupe y el corredor
+      industrial; el poniente combina corporativos con barrancas y bosque; y el sur lacustre suma el
+      Ajusco, el Suelo de Conservación y las chinampas de Xochimilco. Esta es la distribución de la
+      cobertura por región:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Alcaldías atendidas</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.alcaldias.map(limpiaAlcaldia).join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      El cuerpo de bomberos de la Ciudad de México es un servicio de emergencia integral: su trabajo va
+      mucho más allá del fuego. Estas son sus funciones centrales:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, forestales y de pasto, flamazos y explosiones, en inmuebles, comercios e industria.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en choques y volcaduras con herramienta hidráulica, una de las demandas más frecuentes en vialidades saturadas.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Estabilización y soporte vital a lesionados antes del traslado, en coordinación con servicios médicos de urgencia.</p></div>
+      <div class="de-card"><h4>Búsqueda y rescate urbano</h4><p>Localización y extracción de personas en derrumbes y espacios confinados (USAR), capacidad clave en una ciudad sísmica.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Contención de derrames y fugas químicas en industria, transporte y almacenamiento de sustancias peligrosas.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones, dictámenes de riesgo, simulacros y capacitación a escuelas, empresas y comunidades.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Búsqueda y rescate urbano (USAR)</strong></td><td>24/7</td><td>Brigadas especializadas</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>Unidad HAZMAT (zona central e industrial)</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático</strong></td><td>24/7</td><td>Xochimilco y Tláhuac</td></tr>
+          <tr><td><strong>Rescate y extinción aeronáutica (ARFF)</strong></td><td>24/7</td><td>Aeropuerto (AICM)</td></tr>
+          <tr><td><strong>Inundaciones y encharcamientos</strong></td><td>Temporada de lluvias</td><td>Zonas bajas del oriente y sur</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (nov–may)</td><td>Tlalpan, Cuajimalpa y Milpa Alta</td></tr>
+          <tr><td><strong>Retiro de enjambres y fauna</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Frentes de riesgo que solo existen en la Ciudad de México</h3>
+    <p>
+      El <strong>suelo lacustre</strong> del antiguo Lago de Texcoco amplifica las ondas sísmicas varias
+      veces respecto a la roca firme, un fenómeno documentado por el Instituto de Ingeniería de la UNAM
+      que convierte temblores moderados en otras regiones en catástrofes en la capital. Por eso la
+      búsqueda y rescate urbano (USAR) es una competencia central del cuerpo, con equipo de corte,
+      detección de vida y apuntalamiento, y el Sistema de Alerta Sísmica (SASMEX) que da segundos de
+      aviso a las estaciones. A esto se suman tres frentes sin equivalente en el país: el
+      <strong>Metro</strong> —12 líneas y 195 estaciones—, donde un incendio en túnel obliga a evacuar a
+      miles de personas en espacios confinados; los <strong>incidentes de ceniza del Popocatépetl</strong>,
+      que afectan el aire y el espacio aéreo del Valle de México; y la <strong>zona industrial de
+      Azcapotzalco-Vallejo</strong>, cubierta por brigadas HAZMAT.
+    </p>
+    <p>
+      En el sur y el poniente, la ciudad esconde frentes que poca gente asocia con una megalópolis. Los
+      canales de <strong>Xochimilco</strong> —Patrimonio UNESCO con alrededor de 200 km de vías acuáticas—
+      obligan a sus bomberos a llegar a la emergencia en lancha, navegando entre chinampas para atender
+      embarcaciones y turistas. La <strong>Basílica de Guadalupe</strong>, el santuario católico más
+      visitado del mundo, exige protocolos de evacuación masiva cada 12 de diciembre, cuando millones de
+      peregrinos se concentran en su atrio. El <strong>AICM</strong> cuenta con su unidad de rescate y
+      extinción aeronáutica (ARFF). Y al sur, el volcán <strong>Ajusco</strong> y el <strong>Desierto de
+      los Leones</strong> —primer parque nacional de México, decretado en 1917— forman un Suelo de
+      Conservación con decenas de miles de hectáreas de bosque que las estaciones de Tlalpan, Cuajimalpa
+      y Milpa Alta protegen del fuego en cada temporada de estiaje.
     </p>
 
-    <h3>Metro, Popocatépetl y zona industrial: las tres emergencias que solo existen en la CDMX</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      El Sistema de Transporte Colectivo Metro —12 líneas, 195 estaciones, 431 km de
-      infraestructura y 5 millones de pasajeros diarios— representa el escenario de emergencia
-      más complejo para un cuerpo de bomberos urbano: un incendio en los túneles centrales puede
-      afectar simultáneamente a decenas de miles de personas en espacios sin ventilación natural.
-      Las estaciones del centro operan protocolos USAR específicos para metro, desarrollados en
-      respuesta a incidentes como el colapso parcial de la Línea 12 en 2021. A esto se suma la
-      ceniza volcánica del Popocatépetl, que en episodios de alta actividad satura el aire a
-      70 km de distancia, cierra el espacio aéreo del AICM y activa protocolos coordinados con
-      el CENAPRED. La zona industrial de Azcapotzalco —exrefinería, corredor petroquímico y
-      parques logísticos— es cubierta por la estación HAZMAT Nivel Técnico con laboratorio
-      móvil de identificación química.
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos del
+      cuerpo de bomberos entre las grandes zonas de la ciudad. Las cifras de personal y unidades
+      corresponden a las estaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>16 alcaldías de la Ciudad de México</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en la Ciudad de México</h3>
+    <p>
+      El primer reto es físico: la ciudad se construyó sobre un lago y <strong>se hunde</strong>. El
+      hundimiento diferencial fractura calles y tuberías en el oriente, complica el acceso de las
+      unidades pesadas y deforma estructuras que luego fallan ante un sismo. A ello se suma la
+      <strong>densidad y el tránsito</strong>: en hora pico, los tiempos de respuesta pueden duplicarse
+      en los corredores más saturados, sin que ningún carril de emergencia resuelva por completo el
+      problema cuando la vialidad ya está colapsada.
+    </p>
+    <p>
+      El segundo reto es de recursos. Como la mayoría de los cuerpos de bomberos del país, la corporación
+      enfrenta presiones presupuestales para <strong>renovar equipo de protección personal (EPP)</strong>
+      conforme a las normas vigentes, modernizar autobombas y herramienta de rescate, y sostener la
+      <strong>capacitación continua</strong> de su personal. La planeación a futuro pasa por el equipo
+      especializado —USAR, HAZMAT, rescate acuático y aeronáutico— y por reforzar la
+      <strong>cultura de prevención</strong> para reducir el número de emergencias en origen.
     </p>
 
-    <h3>Xochimilco UNESCO, la Basílica de Guadalupe y el AICM: tres frentes que solo existen en México</h3>
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad</h3>
     <p>
-      Los canales de Xochimilco —Patrimonio UNESCO desde 1987, con 204 km de vías acuáticas y
-      5 millones de visitantes anuales— obligan a la estación local a operar lanchas de rescate:
-      los bomberos de Xochimilco son los únicos en México que llegan a un incendio en barco,
-      navegando entre las chinampas para atender embarcaciones, turistas y el ecosistema de
-      axolotes. La Basílica de Nuestra Señora de Guadalupe —santuario más visitado del mundo
-      católico, con 22 millones de peregrinos al año— exige protocolos de evacuación masiva
-      para el 12 de diciembre, cuando más de 2 millones de personas se concentran en el atrio,
-      coordinados con la Guardia Nacional. El AICM Benito Juárez, con 40 millones de pasajeros
-      anuales y 4 operaciones por minuto en horas pico, es protegido por la unidad ARFF
-      certificada ICAO Categoría 9, con vehículos Oshkosh Striker capaces de aplicar 3,000 GPM
-      de espuma AFFF en 30 segundos y tiempo de respuesta máximo certificado de 3 minutos a
-      cualquier punto de las dos pistas.
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones básicas que
+      los cuerpos de bomberos repiten a la población de la Ciudad de México:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas:</strong> revisa mangueras, reguladores y conexiones; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos y "diablitos"; atiende cualquier olor a quemado o calentamiento de cables.</li>
+        <li><strong>Detección:</strong> instala detectores de humo y ten un extintor vigente y accesible en cocina y zonas de riesgo.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión; practícalo con tu familia o vecinos.</li>
+        <li><strong>Sismo:</strong> identifica zonas seguras, fija muebles altos y mantén una mochila de emergencia; al activarse la alerta, actúa de inmediato.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
 
-    <h3>87,000 hectáreas de bosque en el corazón de la megalópolis: el frente forestal del sur</h3>
-    <p>
-      Lo que menos se espera de la segunda ciudad más grande de América Latina es que tenga
-      bosques de alta montaña dentro de su perímetro. El volcán Ajusco (3,959 msnm), el Parque
-      Nacional Desierto de los Leones —primer parque nacional de México, decretado en 1917— y los
-      bosques de pino-oyamel de Milpa Alta forman el Suelo de Conservación de la CDMX: 87,000
-      hectáreas que capturan el agua que abastece a 9 millones de capitalinos y regulan la
-      temperatura de la metrópoli. En 2020, un incendio en esta zona requirió activar todas las
-      brigadas forestales del sur, con tiempos de respuesta de hasta 25 minutos en zonas sin
-      acceso vehicular convencional. Las estaciones de Tlalpan, Cuajimalpa y Milpa Alta mantienen
-      brigadas certificadas en combate de incendios de interfaz urbano-forestal —la especialidad
-      que protege simultáneamente la biodiversidad única de la CDMX y la principal reserva
-      hídrica de la ciudad.
+    <p class="de-srcnote">
+      Fuentes: Heroico Cuerpo de Bomberos de la Ciudad de México (Gobierno de la CDMX, directorio oficial
+      de estaciones); Wikipedia, «Heroico Cuerpo de Bomberos de la Ciudad de México»; Instituto de
+      Ingeniería de la UNAM (amplificación sísmica del suelo lacustre); CNDH y registros del Sistema
+      Nacional de Protección Civil sobre los sismos de 1985 y 2017. Las cifras de personal y unidades por
+      región se calculan a partir de las estaciones publicadas en este directorio; los datos
+      institucionales (≈1,900 elementos y ≈160 emergencias diarias) corresponden a reportes de 2015.
+      Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>

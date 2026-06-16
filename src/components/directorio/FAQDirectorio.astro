@@ -15,6 +15,8 @@
  * ──────────────────────────────────────────────────────────────────
  */
 
+type QA = { q: string; a: string };
+
 interface Props {
   scope?: "nacional" | "estado" | "estacion";
   estado?: string;
@@ -24,6 +26,8 @@ interface Props {
   telefonoEstacion?: string;
   ciudadEstacion?: string;
   nombreEstacion?: string;
+  /** FAQ únicas por página (anula las plantillas genéricas y alimenta el FAQPage schema). */
+  faqs?: QA[];
 }
 
 const {
@@ -35,9 +39,8 @@ const {
   telefonoEstacion,
   ciudadEstacion,
   nombreEstacion,
+  faqs,
 } = Astro.props;
-
-type QA = { q: string; a: string };
 
 function nacional(): QA[] {
   return [
@@ -124,7 +127,9 @@ function porEstacion(): QA[] {
 }
 
 const items: QA[] =
-  scope === "estado" ? porEstado() : scope === "estacion" ? porEstacion() : nacional();
+  faqs && faqs.length > 0
+    ? faqs
+    : scope === "estado" ? porEstado() : scope === "estacion" ? porEstacion() : nacional();
 
 // JSON-LD FAQPage (sanea HTML simple: convierte <strong>/<a> a texto plano para el schema)
 function stripHtml(html: string): string {
