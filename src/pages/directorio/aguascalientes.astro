@@ -4,11 +4,63 @@ import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesAguascalientes, getMunicipios } from "@data/estaciones-aguascalientes";
 import { getEstadosVecinos } from "@data/estados-vecinos";
 import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("aguascalientes");
 
 const municipios = getMunicipios();
 
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const totalEstaciones = estacionesAguascalientes.length;
+const totalMunicipios = municipios.length;
+const totalBomberos   = estacionesAguascalientes.reduce((sum, e) => sum + (e.personalActivo ?? e.personal ?? 0), 0);
+const totalUnidades   = estacionesAguascalientes.reduce((sum, e) => sum + (e.unidades ?? 0), 0);
+
+const canonical = "https://bombero.mx/directorio/aguascalientes/";
+
+// ── Comparativa regional ───────────────────────────────────────────────────
+const zonasDef = [
+  {
+    nombre: "Zona Metropolitana",
+    municipios: ["Aguascalientes", "Jesús María", "San Francisco de los Romo"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Capital estatal, Feria Nacional de San Marcos (8.5 M visitantes), complejo Nissan A1/A2/Powertrain y Centro Histórico.",
+  },
+  {
+    nombre: "Zona Norte",
+    municipios: ["Rincón de Romos", "Cosío", "Tepezalá", "Asientos"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Zona agrícola y ganadera; patrimonio minero histórico en Asientos; carretera federal a Zacatecas.",
+  },
+  {
+    nombre: "Zona Sur",
+    municipios: ["Calvillo", "San José de Gracia"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Sierra Fría (112,000 ha de bosque encino-pino), Presa Plutarco Elías Calles y turismo de naturaleza.",
+  },
+  {
+    nombre: "Zona Oriente",
+    municipios: ["El Llano", "Pabellón de Arteaga"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Corredor agrícola y textil-maquilador; carretera a San Luis Potosí.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesAguascalientes.filter((e) => z.municipios.includes(e.municipio));
+  return {
+    ...z,
+    nEst:  est.length,
+    nPers: est.reduce((s, e) => s + (e.personalActivo ?? e.personal ?? 0), 0),
+    nUni:  est.reduce((s, e) => s + (e.unidades ?? 0), 0),
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio/" },
@@ -19,7 +71,7 @@ const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Aguascalientes, México",
-  "description": "Directorio completo de las estaciones de bomberos en Aguascalientes. Teléfonos de emergencia, direcciones y servicios. 13 estaciones cubriendo los 11 municipios. Emergencias 911.",
+  "description": `Directorio completo de las ${totalEstaciones} estaciones de bomberos en Aguascalientes. Teléfonos de emergencia, direcciones y servicios cubriendo los ${totalMunicipios} municipios. Cuerpo de bomberos activo desde 1972. Emergencias: 911.`,
   "numberOfItems": estacionesAguascalientes.length,
   "itemListElement": estacionesAguascalientes.map((e, i) => ({
     "@type": "ListItem",
@@ -39,6 +91,94 @@ const itemListSchema = {
     }
   }))
 };
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Aguascalientes: estaciones, historia y servicios de emergencia",
+  "description": `Guía del H. Cuerpo de Bomberos de Aguascalientes: historia (desde 1972), infraestructura en los ${totalMunicipios} municipios, riesgos industriales (Nissan), Feria de San Marcos, Sierra Fría y directorio de estaciones con teléfonos directos.`,
+  "about": [
+    "H. Cuerpo de Bomberos de Aguascalientes",
+    "Protección Civil Aguascalientes",
+    "Bomberos industriales automotriz",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/aguascalientes.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": `Estaciones de Bomberos en Aguascalientes — Directorio de ${totalEstaciones} estaciones`,
+  "description": `Directorio verificado de estaciones de bomberos en los ${totalMunicipios} municipios de Aguascalientes, con teléfonos, cobertura, funciones e historia del H. Cuerpo de Bomberos (desde 1972).`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos de Aguascalientes" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/aguascalientes.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Aguascalientes (≥10) ─────────────────────────────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Aguascalientes?",
+    a: `Marca el <strong>911</strong> desde cualquier teléfono en Aguascalientes. El Centro de Comando, Control, Comunicaciones y Cómputo (C4) del estado despacha la unidad más cercana según la naturaleza del incidente, las 24 horas del día. También puedes comunicarte directamente a la Estación Central al <strong>449 910 2030</strong> o a Protección Civil Estatal al <strong>449 910 3300</strong>.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Aguascalientes?",
+    a: `El directorio de BOMBERO.MX registra <strong>${totalEstaciones} estaciones de bomberos</strong> distribuidas en los <strong>${totalMunicipios} municipios</strong> del estado. La sede principal es la Estación Central, ubicada en Av. Adolfo López Mateos Oriente 1801 (Lomas del Campestre, Aguascalientes capital), que coordina las operaciones de emergencia metropolitanas.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Aguascalientes?",
+    a: `El <strong>Cuerpo de Bomberos de Aguascalientes</strong> inició operaciones en <strong>1972</strong>, cuando se formalizó el servicio con la creación de la Inspección de Policía Municipal que integraba funciones de bomberos. La primera estación independiente se instaló después en la salida a San Luis Potosí. El <strong>22 de agosto</strong> se celebra el <strong>Día del Bombero</strong> en México, en conmemoración de la fundación del primer cuerpo del país en Veracruz el 22 de agosto de 1873.`,
+  },
+  {
+    q: "¿Por qué los bomberos de Aguascalientes tienen capacitación especial en industria automotriz?",
+    a: `Porque Aguascalientes alberga el <strong>complejo industrial Nissan</strong>, uno de los más grandes de América Latina, con tres plantas en operación: Planta Powertrain (desde 1982), Planta A1 de vehículos (desde 1992) y Planta A2 (desde noviembre de 2013). Las operaciones de pintura automotriz utilizan bases de poliuretano con isocianatos —compuestos con riesgo de sensibilización respiratoria irreversible— y los modelos más recientes incorporan baterías de alta tensión que requieren protocolos de <strong>thermal runaway</strong>. Las brigadas de San Francisco de los Romo y la unidad HAZMAT de la Estación Central entrenan regularmente con brigadas industriales internas.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos de Aguascalientes la Feria Nacional de San Marcos?",
+    a: `La <strong>Feria Nacional de San Marcos</strong> es el evento masivo más grande de México, con <strong>8.5 millones de visitantes</strong> en aproximadamente 25 días (edición 2026, según el Gobierno de Aguascalientes). Durante la feria, más de 500 puestos de comida operan con cilindros de gas LP individuales sin un sistema de corte centralizado, lo que obliga al cuerpo de bomberos a <strong>pre-posicionar unidades adicionales dentro del recinto ferial</strong>. La Estación Zona Sur, ubicada en la zona de San Marcos, es la primera respuesta durante el evento.`,
+  },
+  {
+    q: "¿Qué riesgo representan los incendios forestales en Aguascalientes?",
+    a: `La <strong>Sierra Fría</strong>, con 112,000 hectáreas de bosque de encino, pino, cedro y madroño, es el macizo forestal más importante del estado. Abarca los municipios de Calvillo, San José de Gracia, Pabellón de Arteaga, Rincón de Romos y Jesús María. La temporada de incendios se concentra entre marzo y junio; en 2025 el estado registró <strong>más de 5,000 hectáreas afectadas</strong> (Newsweek, junio 2025). Los bomberos de Calvillo coordinan con <strong>CONAFOR</strong> en terrenos de difícil acceso, a altitudes de hasta 3,050 msnm.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en Aguascalientes?",
+    a: `Combate de <strong>incendios estructurales, forestales y agrícolas</strong>; <strong>rescate vehicular</strong> y extricación; <strong>atención prehospitalaria</strong>; <strong>materiales peligrosos (HAZMAT)</strong> en parques industriales; control de <strong>fugas de gas</strong>; rescate en montaña y zonas de difícil acceso; <strong>rescate acuático</strong> en la Presa Calles; atención de eventos masivos; retiro de enjambres y manejo de fauna. También realizan inspecciones preventivas y capacitación a empresas y comunidades.`,
+  },
+  {
+    q: "¿Tiene costo el servicio de bomberos en Aguascalientes?",
+    a: `Las emergencias que comprometen la <strong>vida o integridad</strong> de las personas —incendios, rescates, fugas de gas— se atienden de forma <strong>gratuita</strong>. Algunos servicios secundarios como dictámenes o capacitación a empresas pueden tener cuota de recuperación. La atención de emergencia nunca se condiciona a un pago. Para emergencias, marca siempre el <strong>911</strong>.`,
+  },
+  {
+    q: "¿Qué es la Presa Plutarco Elías Calles y por qué es un riesgo para los bomberos?",
+    a: `La <strong>Presa Plutarco Elías Calles</strong>, ubicada en el municipio de San José de Gracia, es la presa más grande de Aguascalientes y un destino turístico activo con embarcaciones recreativas. La Estación de Bomberos de San José de Gracia opera con <strong>lanchas de rescate</strong> especializadas para emergencias acuáticas, búsqueda de personas y atención a embarcaciones en el embalse y en las zonas boscosas de la Sierra Fría adyacentes a la presa.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos el Centro Histórico de Aguascalientes?",
+    a: `El Centro Histórico de Aguascalientes concentra edificios en <strong>cantera rosa</strong> del siglo XVIII, incluyendo la Catedral Basílica, el Palacio de Gobierno y el Teatro Morelos. Los callejones históricos con anchos de 3 a 4 metros limitan el acceso de autobombas estándar, obligando a extender líneas de manguera a mano. El protocolo de intervención coordina con el <strong>INAH</strong> el uso de niebla de baja presión en fachadas históricas para evitar daños estructurales por presión directa.`,
+  },
+  {
+    q: "¿Qué debo hacer si detecto un incendio o una fuga de gas en Aguascalientes?",
+    a: `Llama de inmediato al <strong>911</strong>. Ante una <strong>fuga de gas</strong>: no enciendas ni apagues interruptores, no uses el teléfono dentro del inmueble, cierra la llave de paso, abre puertas y ventanas y evacúa el lugar. Ante un <strong>incendio</strong>: sal de inmediato, cierra puertas a tu paso para frenar el avance del fuego y nunca regreses por objetos. No intentes combatir un incendio que ya no puedes controlar con un extintor doméstico.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir incendios en mi hogar en Aguascalientes?",
+    a: `Revisa periódicamente la instalación de <strong>gas</strong> (mangueras, reguladores y conexiones) y la <strong>instalación eléctrica</strong>; evita sobrecargar contactos. Instala <strong>detectores de humo</strong>, mantén un extintor vigente en cocina y zonas de riesgo, no dejes estufas o velas sin vigilancia, y acuerda con tu familia un <strong>plan de evacuación</strong> con punto de reunión. Conserva el 911 visible para todos en casa.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-central-edificio-01.avif",
@@ -95,30 +235,30 @@ const stationImages = [
   estado="Aguascalientes"
   sigla="AGS"
   slug="aguascalientes"
-  description={`${estacionesAguascalientes.length} estaciones en Aguascalientes — Feria San Marcos 8M visitantes LP temporal, Nissan-Renault isocianatos y Sierra Fría. Emergencias: 911.`}
-  keywords={["bomberos aguascalientes","estaciones bomberos aguascalientes","emergencias aguascalientes 911","cuerpo bomberos aguascalientes","bomberos industria automotriz","rescate aguascalientes"]}
-  canonical="https://bombero.mx/directorio/aguascalientes/"
-  jsonLd={[itemListSchema]}
+  description={`Bomberos en Aguascalientes: ${totalEstaciones} estaciones en ${totalMunicipios} municipios, Nissan industrial, Feria San Marcos y Sierra Fría. Emergencias: 911.`}
+  keywords={["bomberos aguascalientes","estaciones bomberos aguascalientes","emergencias aguascalientes 911","cuerpo bomberos aguascalientes","bomberos industria automotriz nissan","rescate aguascalientes sierra fria","bomberos feria san marcos","hazmat aguascalientes","directorio bomberos aguascalientes"]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
-  totalEstaciones={estacionesAguascalientes.length}
-  totalMunicipios={municipios.length}
-  habitantes="1.5M+"
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
+  habitantes="1.4M+"
 
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Aguascalientes</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones en el estado de la industria automotriz."
+  heroDesc={`El <strong>H. Cuerpo de Bomberos de Aguascalientes</strong> —con servicio continuo desde <strong>1972</strong>— protege un estado de alta complejidad en apenas 5,618 km²: sede del <strong>complejo industrial Nissan</strong> (tres plantas, más de 17 millones de motores producidos), anfitrión de la <strong>Feria Nacional de San Marcos</strong> (8.5 millones de visitantes en 25 días) y guardián de la <strong>Sierra Fría</strong> (112,000 ha de bosque encino-pino). Con <strong>${totalEstaciones} estaciones</strong> en este directorio, cubren los <strong>${totalMunicipios} municipios</strong> del estado las 24 horas.`}
   heroImage="/images/directorio/estacion-bomberos-central-edificio-01.avif"
-  heroImageAlt="Estación Central de Bomberos Aguascalientes"
-  heroCaption="H. Cuerpo de Bomberos · Aguascalientes"
+  heroImageAlt="Estación Central de Bomberos de Aguascalientes — H. Cuerpo de Bomberos, servicio desde 1972"
+  heroCaption="H. Cuerpo de Bomberos · Aguascalientes · Servicio desde 1972"
   heroThumbs={[
-    { src: "/images/directorio/camion-bomberos-moderno-01.avif",            alt: "Camión de bomberos Aguascalientes",        label: "Flota vehicular"  },
-    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "Equipo HAZMAT bomberos Aguascalientes",    label: "HAZMAT Industrial" },
-    { src: "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif", alt: "Bahía interior de estación de bomberos de Aguascalientes con bandera de México", label: "Bahía Interior" },
+    { src: "/images/directorio/camion-bomberos-moderno-01.avif",            alt: "Camión autobomba del Cuerpo de Bomberos de Aguascalientes",                        label: "Flota vehicular"   },
+    { src: "/images/directorio/equipo-hazmat-materiales-peligrosos-01.avif", alt: "Equipo HAZMAT de bomberos de Aguascalientes para emergencias industriales Nissan", label: "HAZMAT Industrial"  },
+    { src: "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif", alt: "Bahía interior de estación de bomberos de Aguascalientes con bandera de México", label: "Bahía Interior"    },
   ]}
 
   galleryImages={[
-    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",  alt: "Entrenamiento de bomberos en Aguascalientes", label: "Capacitación Continua"   },
-    { src: "/images/directorio/camion-escalera-bomberos-01.avif",      alt: "Camión escalera bomberos AGS",               label: "Rescate en Altura"       },
-    { src: "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif", alt: "Bombero profesional de Aguascalientes con casco y equipo completo", label: "Servicio Profesional" },
-    { src: "/images/directorio/mascara-scba-bombero-01.avif", alt: "Equipo SCBA bomberos Aguascalientes",    label: "Equipo Certificado NFPA" },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",  alt: "Entrenamiento de bomberos de Aguascalientes para incendios forestales en Sierra Fría", label: "Capacitación Continua"   },
+    { src: "/images/directorio/camion-escalera-bomberos-01.avif",      alt: "Camión escalera de bomberos de Aguascalientes para rescate en alturas",               label: "Rescate en Altura"       },
+    { src: "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif", alt: "Bombero profesional de Aguascalientes con casco y equipo completo certificado NFPA", label: "Servicio Profesional" },
+    { src: "/images/directorio/mascara-scba-bombero-01.avif", alt: "Equipo SCBA certificado NFPA 1981 para bomberos de Aguascalientes en parques industriales",    label: "Equipo Certificado NFPA" },
   ]}
 
   emergencyNumbers={[
@@ -130,10 +270,10 @@ const stationImages = [
   municipios={municipios}
 
   regiones={[
-    { nombre: "Zona Metropolitana", desc: "Aguascalientes, Jesús María, San Francisco" },
+    { nombre: "Zona Metropolitana", desc: "Aguascalientes capital, Jesús María, San Francisco de los Romo" },
     { nombre: "Zona Norte",         desc: "Rincón de Romos, Cosío, Tepezalá, Asientos" },
-    { nombre: "Zona Sur",           desc: "Calvillo, San José de Gracia"               },
-    { nombre: "Zona Oriente",       desc: "El Llano, Pabellón de Arteaga"             },
+    { nombre: "Zona Sur",           desc: "Calvillo (Sierra Fría), San José de Gracia (Presa Calles)" },
+    { nombre: "Zona Oriente",       desc: "El Llano, Pabellón de Arteaga" },
   ]}
 
   estadosVecinos={estadosVecinos}
@@ -144,37 +284,37 @@ const stationImages = [
   eppCards={[
     {
       image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-      imageAlt:  "Traje Forestal NFPA 1977 para bomberos Aguascalientes",
+      imageAlt:  "Traje Forestal NFPA 1977 para bomberos de Aguascalientes en Sierra Fría y bosques de Calvillo",
       badge:     "NFPA 1977",
       title:     "Traje Forestal NFPA 1977",
-      text:      "Diseñado para los bomberos de Aguascalientes que combaten incendios en la <strong>Sierra Fría</strong> y zonas boscosas de Calvillo. Tejido ultraligero transpirable para jornadas prolongadas en campo abierto bajo el clima semi-árido del estado.",
+      text:      "Diseñado para los bomberos de Aguascalientes que combaten incendios en la <strong>Sierra Fría</strong> y zonas boscosas de Calvillo y San José de Gracia. Tejido ultraligero transpirable para jornadas prolongadas en campo abierto a altitudes de hasta 3,050 msnm, bajo el clima semi-árido del estado.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
     {
       image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
-      imageAlt:  "Casco Estructural NFPA 1971 para bomberos Aguascalientes",
+      imageAlt:  "Casco Estructural NFPA 1971 para bomberos de Aguascalientes en parques industriales automotrices Nissan",
       badge:     "NFPA 1971",
       title:     "Casco Estructural NFPA 1971",
-      text:      "Certificación NFPA 1971 requerida en los parques industriales automotrices de Aguascalientes. Compatible con el sistema 3 capas exigido en las plantas de <strong>Nissan, Jatco</strong> y proveedores Tier 1 del estado.",
+      text:      "Certificación NFPA 1971 requerida en los parques industriales automotrices de Aguascalientes. Compatible con el sistema 3 capas exigido en las plantas de <strong>Nissan</strong> (A1, A2 y Powertrain) y proveedores Tier 1 del estado en San Francisco de los Romo.",
       href:      "/productos/cascos-para-bomberos/",
       linkLabel: "Ver Cascos para Bombero",
     },
     {
       image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
-      imageAlt:  "Guantes Estructurales NFPA 1971 para bomberos Aguascalientes",
+      imageAlt:  "Guantes Estructurales NFPA 1971 para bomberos de Aguascalientes en rescate vehicular y zonas industriales",
       badge:     "NFPA 1971",
       title:     "Guantes Estructurales NFPA 1971",
-      text:      "Resistencia térmica certificada para emergencias en plantas metalúrgicas y automotrices de Aguascalientes. Prensión segura en rescate vehicular sobre la <strong>autopista México-Aguascalientes</strong> y zonas industriales.",
+      text:      "Resistencia térmica certificada para emergencias en plantas metalúrgicas y automotrices de Aguascalientes. Prensión segura en rescate vehicular sobre la <strong>autopista México-Aguascalientes</strong> y zonas industriales del corredor San Francisco de los Romo.",
       href:      "/productos/guantes-para-bomberos/",
       linkLabel: "Ver Guantes para Bombero",
     },
     {
       image:     "/images/directorio/botas-bombero-proteccion-01.avif",
-      imageAlt:  "Botas Estructurales NFPA 1971 para bomberos Aguascalientes",
+      imageAlt:  "Botas Estructurales NFPA 1971 para bomberos de Aguascalientes en entorno industrial y terreno serrano",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales de Cuero",
-      text:      "Calzado certificado NFPA 1971 para el entorno industrial de Aguascalientes. Puntera de acero y suela antiderrapante para <strong>pisos de fábrica, pavimentos industriales</strong> y operaciones en la Presa Calles.",
+      text:      "Calzado certificado NFPA 1971 para el entorno mixto de Aguascalientes: puntera de acero y suela antiderrapante para <strong>pisos de fábrica y pavimentos industriales</strong>, pero también para el terreno irregular de la Sierra Fría y operaciones en la ribera de la <strong>Presa Calles</strong>.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
@@ -183,79 +323,237 @@ const stationImages = [
   ctaTitle="Equipamos a los Bomberos de Aguascalientes"
   ctaDesc="Cotiza equipo certificado NFPA directamente para tu estación. Stock inmediato para licitaciones gubernamentales en los 11 municipios del estado."
   ctaBtnText="Solicitar Cotización — Aguascalientes"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-      <h2>Bomberos de Aguascalientes — Cuando la Feria Convierte el Centro en 500 Instalaciones de Gas LP sin Corte Central</h2>
-      <p>
-        El <strong>Heroico Cuerpo de Bomberos de Aguascalientes</strong> protege al estado industrial
-        del centro-norte de México: sede de una de las plantas automotrices más grandes del continente,
-        capital de la Feria Nacional de San Marcos — el evento más concurrido de México — y guardián
-        de un Centro Histórico colonial que concentra la mayor densidad de arquitectura en cantera
-        rosa del país. Tres escenarios que exigen tres especialidades distintas operando en simultáneo
-        en un territorio de apenas 5,616 km².
-      </p>
+    <h2>Bomberos en Aguascalientes</h2>
 
-      <h3>¿Cómo llamar a los bomberos en Aguascalientes?</h3>
-      <p>
-        Marca <strong>911</strong> desde cualquier teléfono en Aguascalientes para emergencias de
-        bomberos, rescate o ambulancia. El Centro de Comando, Control, Comunicaciones y Cómputo (C4)
-        del estado despacha la unidad más cercana según la naturaleza del incidente las 24 horas del
-        día. Las estaciones de Aguascalientes capital, Calvillo, Rincón de Romos y Jesús María
-        mantienen guardia permanente.
-      </p>
+    <div class="de-statband" role="list" aria-label="Indicadores del Cuerpo de Bomberos de Aguascalientes">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Municipios cubiertos</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalBomberos}</span><span class="de-stat__label">Personal registrado</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalUnidades}</span><span class="de-stat__label">Unidades operativas</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1.4M</span><span class="de-stat__label">Habitantes (AGS)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1972</span><span class="de-stat__label">Servicio desde</span></div>
+    </div>
 
-      <h3>Feria Nacional de San Marcos — 8 Millones de Visitantes y 500 Instalaciones de Gas LP sin Corte Central</h3>
-      <p>
-        La Feria Nacional de San Marcos es el evento masivo más grande de México: 8 millones de
-        visitantes en 21 días, con una infraestructura temporal que supera en densidad de instalaciones
-        de gas licuado cualquier parque industrial permanente del estado. Los más de 500 puestos de
-        comida y bebida que operan en el recinto ferial funcionan con cilindros y manifolds de propano
-        individuales, instalados en su mayoría por los propios vendedores, sin inspección técnica
-        centralizada y sin un sistema de corte de gas único que pueda accionarse en caso de emergencia.
-        Un incendio en la zona de puestos durante las horas pico puede involucrar decenas de cilindros
-        de 20 y 30 kg a pocos metros entre sí, en un espacio donde las rutas de evacuación están
-        saturadas de asistentes. Los bomberos de Aguascalientes pre-posicionan unidades adicionales
-        dentro del recinto ferial durante los días de mayor afluencia.
-      </p>
+    <p class="de-lead">
+      El <strong>H. Cuerpo de Bomberos de Aguascalientes</strong> opera desde 1972 en uno de los estados
+      más compactos —5,618 km²— y más industrializados de México. Tres escenarios de riesgo sin
+      equivalente en el país convergen aquí en simultáneo: el <strong>complejo automotriz Nissan</strong>
+      con tres plantas y más de cuatro mil empleados, la <strong>Feria Nacional de San Marcos</strong>
+      con 8.5 millones de visitantes en 25 días y la <strong>Sierra Fría</strong> con 112,000 hectáreas
+      de bosque encino-pino susceptibles a incendios. Las {totalEstaciones} estaciones de este
+      directorio cubren los {totalMunicipios} municipios del estado las 24 horas del año.
+    </p>
 
-      <h3>Planta Nissan-Renault-Infiniti — Isocianatos, Solventes de Pintura y Baterías de Alta Tensión</h3>
-      <p>
-        El Complejo Industrial Nissan de Aguascalientes, que incluye las plantas CIVAC 1, CIVAC 2 y la
-        planta de motores, es uno de los más grandes de América Latina y produce más de un millón de
-        unidades al año para exportación global. El taller de pintura utiliza bases de poliuretano que
-        requieren isocianatos, fundamentalmente MDI y TDI, con el mismo riesgo de síndrome de
-        sensibilización respiratoria irreversible que hace que la exposición por encima de 0.02 ppm
-        sea causa de asma ocupacional permanente. Los modelos híbridos y eléctricos incorporan baterías
-        de ion litio de 400V que, ante impacto o cortocircuito, pueden entrar en thermal runaway con
-        temperaturas de celda superiores a 800°C y emisión de gases fluorados tóxicos. El personal de
-        las estaciones de la zona industrial entrena anualmente en las brigadas internas de la planta.
-      </p>
+    <h3>Cómo contactar a los bomberos en Aguascalientes</h3>
+    <p>
+      En cualquier emergencia en Aguascalientes, marca el <strong>911</strong>: el Centro de Comando,
+      Control, Comunicaciones y Cómputo (C4) del estado despacha la unidad más cercana según la
+      naturaleza del incidente, las 24 horas del día. Los teléfonos directos son: Estación Central
+      (<strong>449 910 2030</strong>) y Protección Civil Estatal (<strong>449 910 3300</strong>). Las
+      estaciones de Aguascalientes capital, Calvillo, Rincón de Romos y Jesús María mantienen guardia
+      permanente. Encuentra todos los datos de contacto en el{" "}
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
+    </p>
 
-      <h3>Sierra Fría — Bosque Encino-Pino a 2,800 msnm y la Temporada de Incendios Marzo-Junio</h3>
-      <p>
-        La Sierra Fría, en el municipio de Calvillo, es el macizo forestal más importante de
-        Aguascalientes: bosque de encino y pino a altitudes de 2,400 a 3,050 msnm en un estado
-        predominantemente árido. La temporada de incendios forestales se concentra entre marzo y junio,
-        cuando la sequía post-invierno combina con los vientos del noroeste para propagar frentes
-        activos que pueden alcanzar varias decenas de hectáreas en pocas horas. La altitud reduce la
-        eficacia de las motobombas por la misma razón que en La Malinche o la Sierra Gorda: menor
-        presión atmosférica, menor caudal efectivo. Los bomberos de Calvillo y la brigada forestal
-        estatal coordinan con CONAFOR para la atención de estos incendios en terreno de difícil acceso.
-      </p>
+    <h3>Historia del Cuerpo de Bomberos de Aguascalientes</h3>
+    <p>
+      La protección civil organizada en Aguascalientes arranca en el siglo XX y se consolida en la
+      segunda mitad del mismo. Estos son los hitos documentados que explican la corporación actual:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en <strong>Veracruz</strong> el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1972</span> El municipio de Aguascalientes formaliza el <strong>servicio de bomberos</strong> integrado a la Inspección de Policía Municipal; es el punto de partida del H. Cuerpo de Bomberos de Aguascalientes capital (El Sol del Centro, agosto 2025).</li>
+      <li><span class="de-tl__year">1982</span> Nissan inaugura su <strong>Planta Powertrain</strong> (motores) en Aguascalientes, primer paso del corredor automotriz que transformará las demandas de los bomberos industriales del estado.</li>
+      <li><span class="de-tl__year">1992</span> Nissan pone en marcha la <strong>Planta A1 de vehículos</strong>; el Nissan Tsubame es el primer modelo exportado desde Aguascalientes a Japón. Los parques industriales de San Francisco de los Romo expanden la demanda de bomberos HAZMAT.</li>
+      <li><span class="de-tl__year">2013</span> Nissan inaugura la <strong>Planta A2</strong> (noviembre), con inversión de 2,000 millones de dólares y capacidad de 610 vehículos por día. La zona industrial norte se convierte en uno de los perímetros de riesgo más complejos del estado.</li>
+      <li><span class="de-tl__year">Hoy</span> El cuerpo opera <strong>{totalEstaciones} estaciones</strong> en los {totalMunicipios} municipios del estado, con {totalBomberos} elementos registrados y {totalUnidades} unidades operativas para atender emergencias estructurales, forestales, industriales y de eventos masivos.</li>
+    </ul>
 
-      <h3>Centro Histórico Colonial — Cantera Rosa del Siglo XVIII y el Protocolo INAH sin Presión Directa</h3>
-      <p>
-        El Centro Histórico de Aguascalientes concentra la mayor densidad de edificios en cantera
-        rosa tezontle del país, con la Catedral Basílica, el Palacio de Gobierno, el Teatro Morelos
-        y decenas de casonas del siglo XVIII construidas con mampostería de cal y canto. La cantera
-        rosa porosa absorbe el agua de manguera con mayor velocidad que la piedra caliza densa,
-        lo que puede causar expansión diferencial y desprendimiento de elementos decorativos bajo
-        presión directa. El protocolo de intervención coordinado con el INAH limita el ataque directo
-        a niebla de baja presión en fachadas históricas y exige ventilación positiva antes de acceso
-        interior. El callejón de la ciudad histórica, con anchuras de 3 a 4 metros, impide el
-        acceso de autobombas estándar y requiere líneas tendidas a mano desde la calle principal.
-      </p>
+    <h3>Infraestructura de emergencia: cómo se cubren los 11 municipios</h3>
+    <p>
+      La cobertura se organiza en cuatro zonas con perfiles de riesgo distintos. La zona metropolitana
+      concentra la mayor densidad de población y la infraestructura crítica (industria automotriz, feria,
+      Centro Histórico); la zona norte cubre el corredor agrícola-ganadero y el patrimonio minero de
+      Asientos; la zona sur protege el bosque serrano y la Presa Calles; y la zona oriente atiende el
+      corredor textil-maquilador y la carretera a San Luis Potosí.
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios atendidos</th><th>Nivel de cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      El cuerpo de bomberos de Aguascalientes es un servicio de emergencia integral. Su trabajo abarca
+      desde la industria automotriz de clase mundial hasta el rescate en montaña y los eventos masivos:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Incendios estructurales, forestales, agrícolas y de pastizal, flamazos y explosiones industriales, en inmuebles residenciales, comercios e industria automotriz.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en choques y volcaduras con herramienta hidráulica en autopistas y carreteras estatales, incluyendo la México-Aguascalientes y la carretera a Zacatecas.</p></div>
+      <div class="de-card"><h4>Atención prehospitalaria</h4><p>Estabilización y soporte vital básico y avanzado a lesionados antes del traslado, en coordinación con servicios médicos de urgencia y el GAMET estatal.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Contención de derrames y fugas en parques industriales automotrices, almacenes de agroquímicos en zona norte y transporte de sustancias peligrosas en carreteras federales.</p></div>
+      <div class="de-card"><h4>Rescate en montaña y acuático</h4><p>Rescates en la Sierra Fría (hasta 3,050 msnm), rescate acuático en la Presa Calles y atención a turistas en zonas de ecoturismo de Calvillo y San José de Gracia.</p></div>
+      <div class="de-card"><h4>Protección civil y prevención</h4><p>Inspecciones, dictámenes de riesgo, pre-posicionamiento en la Feria Nacional de San Marcos y capacitación a escuelas, empresas y comunidades rurales.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios forestales y agrícolas</strong></td><td>24/7</td><td>Calvillo, Jesús María, Rincón de Romos, San José de Gracia</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>Estación Central y San Francisco de los Romo</td></tr>
+          <tr><td><strong>Control de fugas de gas</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate en montaña</strong></td><td>24/7</td><td>Calvillo y San José de Gracia</td></tr>
+          <tr><td><strong>Rescate acuático (Presa Calles)</strong></td><td>24/7</td><td>San José de Gracia</td></tr>
+          <tr><td><strong>Eventos masivos (Feria San Marcos)</strong></td><td>Temporal (abril-mayo)</td><td>Zona Sur y Estación Central</td></tr>
+          <tr><td><strong>Retiro de enjambres y fauna</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Ángulos de riesgo que definen a Aguascalientes</h3>
+    <p>
+      <strong>Feria Nacional de San Marcos — 8.5 millones de visitantes y 500 instalaciones de gas LP
+      sin corte central:</strong> el evento masivo más grande de México recibe 8.5 millones de visitantes
+      en aproximadamente 25 días (dato oficial del Gobierno de Aguascalientes, edición 2026) y genera
+      una derrama económica superior a 10,000 millones de pesos. Su infraestructura temporal incluye más
+      de 500 puestos de comida y bebida que operan con cilindros y manifolds de propano individuales,
+      instalados sin un sistema de corte de gas único accionable en caso de emergencia. Un incendio en
+      la zona de puestos durante las horas pico puede involucrar decenas de cilindros de 20 y 30 kg a
+      pocos metros entre sí, en espacios con rutas de evacuación saturadas. Los bomberos de Aguascalientes
+      pre-posicionan unidades adicionales dentro del recinto ferial durante los días de mayor afluencia.
+    </p>
+    <p>
+      <strong>Planta Nissan — Isocianatos, solventes de pintura y baterías de alta tensión:</strong>
+      las tres plantas del complejo Nissan en Aguascalientes (Powertrain, A1 y A2) suman más de cuatro
+      mil trabajadores y producen desde motores hasta vehículos completos para exportación global. El
+      taller de pintura de A2 utiliza bases de poliuretano con isocianatos —compuestos con riesgo de
+      sensibilización respiratoria irreversible a exposiciones por encima de 0.02 ppm— y los modelos
+      más recientes incorporan baterías de ion litio de alta tensión que, ante impacto o cortocircuito,
+      pueden entrar en <em>thermal runaway</em> con temperaturas de celda superiores a 800 °C y emisión
+      de gases fluorados tóxicos. Las estaciones de San Francisco de los Romo y la unidad HAZMAT de la
+      Estación Central entrenan anualmente con las brigadas industriales de la planta.
+    </p>
+    <p>
+      <strong>Sierra Fría — Bosque encino-pino a 3,050 msnm y la temporada de incendios:</strong>
+      la Sierra Fría es el macizo forestal más importante de Aguascalientes: 112,000 hectáreas de bosque
+      de encino, pino, cedro y madroño que abarcan cinco municipios. La temporada de incendios se
+      concentra entre marzo y junio; en 2025 el estado registró más de 5,000 hectáreas afectadas
+      (Newsweek, junio 2025). La altitud reduce la eficacia de las motobombas por menor presión
+      atmosférica y menor caudal efectivo. Los bomberos de Calvillo coordinan con CONAFOR en terrenos
+      de difícil acceso donde solo unidades todoterreno pueden llegar.
+    </p>
+    <p>
+      <strong>Centro Histórico colonial — Cantera rosa del siglo XVIII y el protocolo INAH:</strong>
+      el Centro Histórico de Aguascalientes concentra la Catedral Basílica, el Palacio de Gobierno y
+      el Teatro Morelos, construidos en mampostería de cantera rosa. Los callejones históricos con
+      anchuras de 3 a 4 metros impiden el acceso de autobombas estándar y obligan a tender líneas de
+      manguera a mano desde las calles principales. El protocolo coordinado con el INAH limita el ataque
+      directo a niebla de baja presión en fachadas históricas para evitar daños estructurales.
+    </p>
+
+    <h3>Comparativa regional de cobertura</h3>
+    <p>
+      A partir de los datos de las estaciones de este directorio, así se distribuyen los recursos del
+      cuerpo de bomberos entre las grandes zonas del estado. Las cifras de personal y unidades
+      corresponden a las estaciones publicadas en esta página:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal</th><th>Unidades</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers}</td>
+              <td>{z.nUni}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalBomberos}</td>
+            <td>{totalUnidades}</td>
+            <td>{totalMunicipios} municipios de Aguascalientes</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Aguascalientes</h3>
+    <p>
+      El primer reto es la <strong>dispersión territorial</strong>: municipios como Cosío o El Llano
+      tienen tiempos de respuesta de 15 a 30 minutos en sus comunidades más alejadas, y el terreno
+      serrano de la Sierra Fría agrega dificultad logística a los incendios forestales. A ello se suma
+      la <strong>complejidad industrial creciente</strong>: la expansión de Nissan (una ampliación de
+      120,000 m² anunciada en 2024 para producir pickups) y la llegada de nuevos proveedores Tier 1
+      elevan la demanda de capacitación HAZMAT y materiales especializados para los bomberos de la zona
+      norte-industrial.
+    </p>
+    <p>
+      El segundo reto es el de recursos. Como la mayoría de los cuerpos de bomberos del país, la
+      corporación enfrenta presiones para <strong>renovar equipo de protección personal (EPP)</strong>
+      conforme a las normas vigentes, modernizar autobombas y herramienta de rescate, y sostener la
+      capacitación continua del personal —en especial en HAZMAT, rescate en montaña y atención de
+      eventos masivos— para responder a un estado que no deja de crecer.
+    </p>
+
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad</h3>
+    <p>
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones básicas que
+      los bomberos de Aguascalientes transmiten a la ciudadanía:
+    </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas:</strong> revisa mangueras, reguladores y conexiones; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos; atiende cualquier olor a quemado o calentamiento de cables.</li>
+        <li><strong>Detección:</strong> instala detectores de humo y ten un extintor vigente y accesible en cocina y zonas de riesgo.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión; practícalo con tu familia o vecinos.</li>
+        <li><strong>Zonas boscosas:</strong> en la Sierra Fría, no quemes basura ni prendas fogatas en época de sequía; respeta las vedas forestales de CONAFOR.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
+
+    <p class="de-srcnote">
+      Fuentes: El Sol del Centro, «Desde 1972 el Cuerpo de Bomberos de Aguascalientes protege a la
+      ciudadanía» (22 de agosto de 2025); Gobierno de Aguascalientes, comunicado oficial Feria Nacional
+      de San Marcos 2026 (8.5 millones de visitas, derrama &gt;10,000 MXN); Nissan Mexico News,
+      «Nissan celebra 40, 30 y 9 años de sus Plantas en Aguascalientes» (2022); Mexico Industry, «Nissan
+      Aguascalientes Planta A2 celebra siete años» (2020); Newsweek en Español, «Incendios en
+      Aguascalientes dejan más de 5 mil hectáreas afectadas» (junio 2025); CONAFOR, «Sierra Fría» y
+      nota de plaga forestal; Wikipedia, «Feria Nacional de San Marcos». Las cifras de personal y
+      unidades por región se calculan a partir de las estaciones publicadas en este directorio. Para
+      emergencias, llama siempre al <strong>911</strong>.
+    </p>
+
   </Fragment>
 </DirectorioEstadoLayout>

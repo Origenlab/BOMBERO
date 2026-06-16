@@ -4,11 +4,73 @@ import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesNuevoLeon, getMunicipios } from "@data/estaciones-nuevo-leon";
 import { getEstadosVecinos } from "@data/estados-vecinos";
 import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 // Configuración del estado
 const estado = "Nuevo León";
 const sigla = "NL";
 const slug = "nuevo-leon";
+
+const canonical = "https://bombero.mx/directorio/nuevo-leon/";
+
+// Estadísticas derivadas del directorio
+const totalEstaciones = estacionesNuevoLeon.length;
+const totalMunicipios = getMunicipios().length;
+const totalPersonal = estacionesNuevoLeon.reduce((sum, e) => sum + (e.personal ?? 0), 0);
+const totalUnidades = estacionesNuevoLeon.reduce((sum, e) => sum + (e.unidades ?? 0), 0);
+
+// Comparativa regional — zonas definidas explícitamente
+const zonasDef = [
+  {
+    nombre: "Zona Metropolitana de Monterrey",
+    municipios: ["Monterrey", "San Pedro Garza García", "Guadalupe", "Juárez", "General Escobedo", "Santa Catarina", "García"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Centro histórico, corredores corporativos, Torre KOI (279.5 m), Metrorrey 3 líneas y 40 estaciones."
+  },
+  {
+    nombre: "Corredores Industriales (Norte y Sur)",
+    municipios: ["Apodaca (HAZMAT Norte)", "Santa Catarina (HAZMAT Sur)", "Pesquería"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "TERNIUM, CEMEX, Vitro, KIA Motors, Navistar — 4 estaciones HAZMAT certificadas."
+  },
+  {
+    nombre: "Corredor Carretero Norte",
+    municipios: ["General Zuazua", "Salinas Victoria", "Ciénega de Flores"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Autopista Monterrey-Colombia-Laredo: corredor comercial terrestre más importante de México hacia EE.UU."
+  },
+  {
+    nombre: "Sierra Madre Oriental",
+    municipios: ["Santiago", "Allende"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Rescate de montaña, incendios forestales Chipinque y La Huasteca, Pueblo Mágico Santiago."
+  },
+  {
+    nombre: "Zona Citrícola Sur",
+    municipios: ["Montemorelos", "Linares"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Capital citrícola de México, agroindustria de naranja, carretera nacional sur."
+  },
+];
+
+// zonas con conteo de estaciones del directorio
+const zonas = zonasDef.map((z) => {
+  const estaciones = estacionesNuevoLeon.filter((e) =>
+    z.municipios.some((m) => e.municipio?.includes(m.split(" ")[0]) || e.ciudad?.includes(m.split(" ")[0]))
+  );
+  return {
+    ...z,
+    nEst:  estaciones.length,
+    nPers: estaciones.reduce((s, e) => s + (e.personal ?? 0), 0),
+    nUni:  estaciones.reduce((s, e) => s + (e.unidades ?? 0), 0),
+    nMunicipios: z.municipios.length,
+  };
+});
 
 // Imágenes para tarjetas de estaciones
 const stationImages = [
@@ -52,17 +114,22 @@ const stationImages = [
   "/images/directorio/central-despacho-bomberos-nocturna-pantallas-01.avif",
   "/images/directorio/central-despacho-bomberos-bandera-mexico-01.avif",
 ];
-// Miniaturas hero - ZMM y Sierra Madre
+
+// Miniaturas hero
 const heroThumbs = [
   {
     src: "/images/directorio/estacion-bomberos-monterrey-01.avif",
-    alt: "Skyline de Monterrey con Cerro de la Silla - Nuevo León",
+    alt: "Skyline de Monterrey con Cerro de la Silla — Nuevo León",
     label: "Monterrey ZMM"
   },
-  { src: "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif", alt: "Equipo de protección personal completo en estación de bomberos de Nuevo León", label: "EPP Certificado" },
+  {
+    src: "/images/directorio/vestidor-bomberos-equipo-epp-completo-02.avif",
+    alt: "Equipo de protección personal completo en estación de bomberos de Nuevo León",
+    label: "EPP Certificado"
+  },
   {
     src: "/images/directorio/rescate-montana-bomberos-01.avif",
-    alt: "Sierra Madre Oriental y Parque Chipinque",
+    alt: "Rescate de montaña en Sierra Madre Oriental — Santiago, Nuevo León",
     label: "Sierra Madre"
   }
 ];
@@ -71,70 +138,76 @@ const heroThumbs = [
 const galleryImages = [
   {
     src: "/images/directorio/unidad-hazmat-emergencias-01.avif",
-    alt: "Equipo HAZMAT de Bomberos de Monterrey en emergencia industrial",
+    alt: "Unidad HAZMAT de Bomberos de Nuevo León en emergencia industrial",
     label: "HAZMAT Nivel III"
   },
-  { src: "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif", alt: "Flota completa de unidades de bomberos de Nuevo León", label: "Flota Completa" },
+  {
+    src: "/images/directorio/estacion-bomberos-bahia-flota-unidades-01.avif",
+    alt: "Flota completa de unidades de bomberos de Nuevo León",
+    label: "Flota Completa"
+  },
   {
     src: "/images/directorio/rescate-swift-water-rios-01.avif",
-    alt: "Cascada Cola de Caballo en Santiago Pueblo Mágico",
-    label: "Santiago PM"
+    alt: "Rescate en el Canal del Río Santa Catarina — Monterrey",
+    label: "Río Santa Catarina"
   },
   {
     src: "/images/directorio/estacion-bomberos-petroquimica-01.avif",
-    alt: "Corporativos CEMEX y Vitro en zona industrial sur",
-    label: "Corporativos Globales"
+    alt: "Corredor industrial Apodaca — Pesquería, Nuevo León",
+    label: "Corredor Industrial"
   },
 ];
 
 // Números de emergencia NL
 const emergencyNumbers = [
-  { number: "911", label: "Emergencias" },
-  { number: "(81) 8345-2424", label: "Bomberos Monterrey" },
-  { number: "(81) 8378-8080", label: "Bomberos San Pedro" },
-  { number: "(81) 8350-6060", label: "HAZMAT Industrial" }
+  { number: "911",              label: "Emergencias (C5 NL)"   },
+  { number: "(81) 8345-2424",  label: "Bomberos Monterrey"    },
+  { number: "(81) 8378-8080",  label: "Bomberos San Pedro"    },
+  { number: "(81) 8350-6060",  label: "HAZMAT Industrial"     },
+  { number: "(81) 8367-9090",  label: "Bomberos Guadalupe"    },
+  { number: "(81) 8285-1414",  label: "Bomberos Santiago"     },
 ];
 
-// Estados vecinos (desde archivo centralizado)
+// Estados vecinos
 const estadosVecinos = getEstadosVecinos("nuevo-leon");
 
 // Regiones de Nuevo León
 const regiones = [
   {
-    nombre: "Zona Metropolitana Monterrey",
-    desc: "Monterrey, San Pedro, Guadalupe, Apodaca, Santa Catarina, Escobedo, García, Juárez"
+    nombre: "Zona Metropolitana de Monterrey",
+    desc: "Monterrey, San Pedro Garza García, Guadalupe, Apodaca, Santa Catarina, General Escobedo, García, Juárez"
   },
   {
     nombre: "Corredores Industriales",
-    desc: "TERNIUM, CEMEX, Vitro, KIA Motors, Navistar - 4 estaciones HAZMAT certificadas"
+    desc: "TERNIUM (Pesquería), CEMEX, Vitro (Santa Catarina), KIA Motors, Navistar (Apodaca) — 4 estaciones HAZMAT certificadas"
   },
   {
     nombre: "Sierra Madre Oriental",
-    desc: "Santiago (Pueblo Mágico), Chipinque, La Huasteca, Cola de Caballo"
+    desc: "Santiago (Pueblo Mágico), Allende, Chipinque, La Huasteca, Cascada Cola de Caballo"
   },
   {
     nombre: "Zona Citrícola Sur",
-    desc: "Montemorelos (capital citrícola), Linares, agroindustria"
+    desc: "Montemorelos (capital citrícola), Linares, agroindustria naranja"
   }
 ];
 
-// Tarjetas de equipamiento EPP
+// Tarjetas EPP
 const eppCards = [
   {
     image:     "/images/directorio/traje-hazmat-nivel-a-01.avif",
     imageAlt:  "Traje HAZMAT para emergencias industriales en Nuevo León",
-    badge:     "Industrial",
+    badge:     "HAZMAT Industrial",
     title:     "Trajes Industriales NL",
-    text:      "Equipo de protección HAZMAT para emergencias en los corredores industriales de <strong>Monterrey, Apodaca y Santa Catarina</strong>. Trajes certificados para el sector siderúrgico y petroquímico del estado.",
+    text:      "Equipo de protección HAZMAT para emergencias en los corredores industriales de <strong>Monterrey, Apodaca, Pesquería y Santa Catarina</strong>. Trajes certificados para el sector siderúrgico, cementero y petroquímico del estado.",
     href:      "/productos/trajes-para-bomberos/",
     linkLabel: "Ver Trajes para Bombero",
   },
   {
     image:     "/images/directorio/mascara-scba-bombero-01.avif",
     imageAlt:  "Equipo SCBA para espacios confinados en Nuevo León",
-    badge:     "SCBA",
+    badge:     "NFPA 1981",
     title:     "SCBA Espacios Confinados",
-    text:      "Equipos de respiración autónoma para operaciones en <strong>plantas CEMEX, Ternium y FRISA</strong>. Máxima autonomía en atmósferas IDLH con certificación NFPA 1981.",
+    text:      "Equipos de respiración autónoma para operaciones en <strong>plantas TERNIUM, CEMEX y Vitro</strong>. Máxima autonomía en atmósferas IDLH con certificación NFPA 1981, indispensables en el Metrorrey (40 estaciones, 3 líneas).",
     href:      "/productos/cascos-para-bomberos/",
     linkLabel: "Ver Equipo Respiratorio",
   },
@@ -143,7 +216,7 @@ const eppCards = [
     imageAlt:  "Equipo de rescate vehicular para autopistas de Nuevo León",
     badge:     "Rescate",
     title:     "Rescate Vehicular Pesado",
-    text:      "Herramientas hidráulicas de extricación para accidentes en la <strong>autopista Monterrey-Laredo</strong> y vialidades del área metropolitana. Spreaders y cutters de última generación.",
+    text:      "Herramientas hidráulicas de extricación para accidentes en la <strong>autopista Monterrey-Laredo</strong> y el corredor Colombia, con más de 15,000 tractocamiones diarios. Spreaders y cutters de última generación.",
     href:      "/productos/guantes-para-bomberos/",
     linkLabel: "Ver Equipo de Rescate",
   },
@@ -152,19 +225,19 @@ const eppCards = [
     imageAlt:  "Casco estructural NFPA para bomberos de Nuevo León",
     badge:     "NFPA 1971",
     title:     "Cascos Certificados NFPA",
-    text:      "Cascos estructurales con protección térmica avanzada para los bomberos de <strong>Monterrey y su zona metropolitana</strong>. Visores integrados y sistemas de comunicación compatibles.",
+    text:      "Cascos estructurales con protección térmica avanzada para los bomberos de <strong>Monterrey y su zona metropolitana</strong>. Visores integrados y sistemas de comunicación compatibles con los protocolos del Centro de Operaciones de Emergencia (COE).",
     href:      "/productos/cascos-para-bomberos/",
     linkLabel: "Ver Cascos para Bombero",
   },
 ];
 
-// Schema.org estructurado
+// Schemas estructurados
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: `Estaciones de Bomberos en ${estado}, México`,
-  description: `Directorio oficial de ${estacionesNuevoLeon.length} estaciones de bomberos en Nuevo León. La Capital Industrial de México con 4 estaciones HAZMAT certificadas. Cobertura ZMM, corredores industriales y Sierra Madre Oriental.`,
-  numberOfItems: estacionesNuevoLeon.length,
+  description: `Directorio de ${totalEstaciones} estaciones de bomberos en Nuevo León. Bomberos de Nuevo León A.B.P., fundados en 1908 en Monterrey. Corredores industriales HAZMAT, Sierra Madre Oriental y corredor Monterrey-Laredo. Emergencias: 911.`,
+  numberOfItems: totalEstaciones,
   itemListElement: estacionesNuevoLeon.map((e, i) => ({
     "@type": "ListItem",
     position: i + 1,
@@ -184,154 +257,372 @@ const itemListSchema = {
   }))
 };
 
-const breadcrumbSchema = breadcrumbJsonLd([
-  { name: "Inicio",                 url: "/" },
-  { name: "Directorio de Bomberos", url: "/directorio/" },
-  { name: "Nuevo León",         url: "/directorio/nuevo-leon/" },
-]);
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Nuevo León: estaciones, historia y servicios de emergencia",
+  "description": "Guía del Cuerpo de Bomberos de Nuevo León: historia (1908–hoy), infraestructura en la ZMM, HAZMAT industrial, rescate en Sierra Madre Oriental, Huracán Alex 2010 y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Bomberos de Nuevo León A.B.P.",
+    "H. Cuerpo de Bomberos de Monterrey",
+    "Protección Civil Nuevo León",
+    "Materiales peligrosos HAZMAT industrial",
+    "Servicios de emergencia noreste de México",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/nuevo-leon.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": `Estaciones de Bomberos en Nuevo León`,
+  "description": `Directorio verificado de ${totalEstaciones} estaciones de bomberos en Nuevo León, con teléfonos directos, cobertura, funciones e historia del Cuerpo de Bomberos de Nuevo León desde 1908.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "Bomberos de Nuevo León A.B.P." },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/nuevo-leon.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// FAQs únicas Nuevo León (≥10) — alimentan el FAQPage schema
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Nuevo León?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas a través del C5 de Nuevo León. El sistema enruta la llamada a la estación más cercana. Los teléfonos directos principales son: Monterrey (81) 8345-2424, San Pedro Garza García (81) 8378-8080, Guadalupe (81) 8367-9090, HAZMAT Industrial (81) 8350-6060 y Santiago Sierra Madre (81) 8285-1414.`,
+  },
+  {
+    q: "¿Cuándo se fundó el Cuerpo de Bomberos de Nuevo León?",
+    a: `Los <strong>Bomberos de Nuevo León</strong> fueron fundados el <strong>28 de septiembre de 1908</strong> en la ciudad de Monterrey. La organización se constituyó como Asociación Civil en 1954 y como Asociación de Beneficencia Privada (A.B.P.) en 2011. El primer cuerpo de bomberos del país se fundó el <strong>22 de agosto de 1873</strong> en el puerto de Veracruz, fecha que se conmemora cada año como el <strong>Día del Bombero</strong> en México.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Nuevo León?",
+    a: `Este directorio reúne <strong>${totalEstaciones} estaciones de bomberos</strong> en Nuevo León, distribuidas en la Zona Metropolitana de Monterrey, los corredores industriales, el corredor carretero norte y la zona citrícola sur. La ZMM concentra la mayor parte de las estaciones, incluyendo las cuatro unidades HAZMAT especializadas.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `Porque conmemora la fundación del primer cuerpo de bomberos del país, el <strong>22 de agosto de 1873</strong> en el puerto de Veracruz. En esa fecha se reconoce cada año la labor de todos los bomberos de la República, incluidos los cuerpos de la Zona Metropolitana de Monterrey y el resto de Nuevo León.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos de Nuevo León?",
+    a: `Combate de <strong>incendios estructurales, industriales y forestales</strong>; <strong>materiales peligrosos (HAZMAT)</strong> en los corredores industriales; <strong>rescate vehicular</strong> en autopistas de alto tráfico; <strong>rescate de montaña</strong> y cascadas en la Sierra Madre Oriental; <strong>rescate en agua rápida</strong> en el Canal del Río Santa Catarina; atención de emergencias en el <strong>Metrorrey</strong> (3 líneas, 40 estaciones); y prevención mediante inspecciones y simulacros.`,
+  },
+  {
+    q: "¿Qué daños causó el Huracán Alex en Nuevo León?",
+    a: `El <strong>Huracán Alex</strong> tocó tierra en Tamaulipas el <strong>1 de julio de 2010</strong> como categoría 2 y descargó entre 500 y 800 milímetros de lluvia en 60 horas sobre Nuevo León. El Canal del Río Santa Catarina se desbordó, afectando al menos 60 colonias en Monterrey. El saldo fue de <strong>15 personas fallecidas</strong>, más de 15,000 familias damnificadas y daños estimados en <strong>16,896 millones de pesos</strong>. Los bomberos y Protección Civil ejecutaron rescates en el canal en condiciones extremas de flujo rápido.`,
+  },
+  {
+    q: "¿Por qué Nuevo León tiene la mayor concentración de estaciones HAZMAT de México?",
+    a: `Nuevo León alberga la mayor concentración de industria pesada del norte del país: siderúrgicas como <strong>TERNIUM</strong> (Pesquería), cementeras como <strong>CEMEX</strong> (corporativo global, sede Monterrey), vidriera como <strong>Vitro</strong>, automotrices como <strong>KIA Motors</strong> y <strong>Navistar</strong> (Apodaca), y miles de empresas con materiales peligrosos en sus corredores industriales. Esta densidad industrial justifica las <strong>4 estaciones HAZMAT certificadas</strong> del estado.`,
+  },
+  {
+    q: "¿Cómo responden los bomberos a una emergencia en el Metrorrey?",
+    a: `El <strong>Metrorrey</strong> opera 3 líneas y 40 estaciones en Monterrey, San Pedro y Guadalupe, con una afluencia de aproximadamente 369,000 pasajeros diarios. Los protocolos de emergencia en el sistema requieren equipo de <strong>respiración autónoma (SCBA)</strong> para espacios confinados, ventilación táctica y evacuación coordinada con el personal del Sistema de Transporte Colectivo. La Estación Central de Monterrey es la primera respuesta para incidentes en las líneas que pasan por el centro.`,
+  },
+  {
+    q: "¿Cómo trabajan los bomberos en los incendios forestales de Chipinque?",
+    a: `El <strong>Parque Ecológico Chipinque</strong> tiene 1,624 hectáreas en la Sierra Madre Oriental dentro del municipio de San Pedro Garza García. La temporada crítica de incendios va de enero a junio. En condiciones de viento norte y baja humedad, un incendio en las laderas puede alcanzar zonas residenciales en menos de una hora. Los bomberos de San Pedro y Santa Catarina pre-posicionan unidades durante los días de alto riesgo y coordinan con los guardabosques del parque para detección temprana de columnas de humo.`,
+  },
+  {
+    q: "¿Qué debo hacer si veo humo en la Sierra Madre Oriental o en Chipinque?",
+    a: `Llama de inmediato al <strong>911</strong> o directamente a los Bomberos de Santiago al (81) 8285-1414. No intentes combatir el fuego por tu cuenta. Si estás en una zona de senderismo, sigue las rutas de evacuación señalizadas y aléjate en dirección contraria al humo. Durante la temporada de alto riesgo respeta las restricciones de acceso a las áreas naturales protegidas.`,
+  },
+  {
+    q: "¿Cómo prevenir incendios en mi hogar en Nuevo León?",
+    a: `Revisa periódicamente la instalación de <strong>gas</strong> y la <strong>instalación eléctrica</strong>; evita sobrecargar contactos. Instala <strong>detectores de humo</strong> y ten un extintor vigente. En temporada de calor extremo (mayo–septiembre con temperaturas de más de 40°C frecuentes en la ZMM), no abandones velas o aparatos eléctricos sin vigilancia. Establece un <strong>plan de evacuación</strong> con tu familia y ten el <strong>911</strong> a la mano.`,
+  },
+  {
+    q: "¿Los servicios de los bomberos de Nuevo León tienen costo?",
+    a: `Las emergencias que comprometen la <strong>vida o la integridad</strong> de las personas —incendios, rescates, fugas de gas— se atienden de forma <strong>gratuita</strong>. Los <strong>Bomberos de Nuevo León A.B.P.</strong> se sostienen también con donativos de particulares y empresas. Algunos servicios secundarios (capacitación, dictámenes a empresas) pueden tener cuota de recuperación. La atención de emergencia nunca se condiciona a un pago.`,
+  },
+];
 ---
 
 <DirectorioEstadoLayout
   estado={estado}
   sigla={sigla}
   slug={slug}
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Nuevo León</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones del estado."
-  heroImage="/images/directorio/estacion-bomberos-monterrey-01.avif"
-  heroImageAlt="Estación de Bomberos en Nuevo León"
-  heroCaption="H. Cuerpo de Bomberos · Nuevo León"
-  totalEstaciones={estacionesNuevoLeon.length}
-  totalMunicipios={getMunicipios().length}
+  description={`Bomberos en Nuevo León: ${totalEstaciones} estaciones en la ZMM 5.8M, corredores industriales HAZMAT, Sierra Madre Oriental y corredor Monterrey-Laredo. Cuerpo fundado en 1908. Emergencias: 911.`}
+  keywords={[
+    "bomberos nuevo leon",
+    "bomberos monterrey",
+    "estaciones bomberos nuevo leon",
+    "cuerpo bomberos monterrey 1908",
+    "hazmat monterrey industrial",
+    "bomberos san pedro garza garcia",
+    "bomberos sierra madre nuevo leon",
+    "incendios forestales chipinque",
+    "rescate montana nuevo leon",
+    "emergencias nuevo leon 911",
+    "bomberos zona metropolitana monterrey",
+    "rio santa catarina rescate inundaciones",
+    "directorio bomberos nuevo leon",
+  ]}
+  canonical={canonical}
+  jsonLd={jsonLd}
+
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
   habitantes="5.8M+"
-  canonical="https://bombero.mx/directorio/nuevo-leon/"
-  keywords={["bomberos nuevo-leon", "estaciones bomberos nuevo-leon", "emergencias nuevo-leon 911", "cuerpo bomberos nuevo-leon"]}
+
+  heroDesc={`Los <strong>Bomberos de Nuevo León</strong> —fundados el <strong>28 de septiembre de 1908</strong> en Monterrey— protegen a los <strong>5.8 millones de habitantes</strong> de la Zona Metropolitana de Monterrey y el resto del estado con <strong>${totalEstaciones} estaciones</strong> en este directorio. La corporación opera frente a la mayor concentración de industria pesada del norte de México: siderúrgicas, cementeras y automotrices con <strong>4 unidades HAZMAT certificadas</strong>; el <strong>Canal del Río Santa Catarina</strong>, escenario de rescate en agua rápida durante el Huracán Alex (2010); y la interfaz forestal-urbana de la <strong>Sierra Madre Oriental</strong> dentro del perímetro metropolitano.`}
+  heroImage="/images/directorio/estacion-bomberos-monterrey-01.avif"
+  heroImageAlt="Estación de Bomberos en Nuevo León — Zona Metropolitana de Monterrey"
+  heroCaption="Bomberos de Nuevo León · Fundados en 1908 · ZMM y Sierra Madre"
+  heroThumbs={heroThumbs}
+
+  galleryImages={galleryImages}
+
+  emergencyNumbers={emergencyNumbers}
+
+  municipios={getMunicipios()}
+
+  regiones={regiones}
+
+  estadosVecinos={estadosVecinos}
+
   estaciones={estacionesNuevoLeon}
   stationImages={stationImages}
-  municipios={getMunicipios()}
-  heroThumbs={heroThumbs}
-  galleryImages={galleryImages}
-  emergencyNumbers={emergencyNumbers}
-  regiones={regiones}
-  estadosVecinos={estadosVecinos}
+
   eppCards={eppCards}
-  jsonLd={[itemListSchema]}
-  title={`Bomberos en ${estado} — Directorio`}
-  description={`${estacionesNuevoLeon.length} estaciones en Nuevo León — ZMM 5.8M, TERNIUM acería más grande de América Latina, Canal Santa Catarina y Torre KOI 280 m. Emergencias: 911.`}
+
+  ctaTitle="Equipamos a los Bomberos de Nuevo León"
+  ctaDesc={`Cotiza equipo certificado NFPA para las estaciones de la ZMM, los corredores industriales HAZMAT y la Sierra Madre Oriental. Experiencia en licitaciones públicas y abastecimiento a unidades HAZMAT del noreste de México. Atención en Monterrey.`}
+  ctaBtnText="Solicitar Cotización — Nuevo León"
+
+  faqsEstado={faqsEstado}
 >
   <Fragment slot="seo">
 
-    <h2>Bomberos de Nuevo León — Cuando la Infraestructura que Hace Grande a una Ciudad Genera sus Propias Emergencias</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Nuevo León</strong> opera en el único estado de México donde las
-      emergencias técnicamente más complejas no provienen de la geografía natural sino de la
-      infraestructura construida para hacer funcionar una metrópoli de 5.8 millones de personas.
-      El Canal del Río Santa Catarina —una canalización de concreto liso de 60 a 80 metros de
-      ancho que atraviesa el centro de Monterrey— fue diseñado para controlar inundaciones;
-      en tormentas extraordinarias como el Huracán Alex (2010), se convierte en el escenario
-      de rescate de agua rápida más exigente de México: paredes verticales de concreto sin
-      puntos de agarre, donde la velocidad del flujo puede superar los 4 metros por segundo
-      y el rescate convencional desde embarcación es imposible. TERNIUM en Apodaca opera el
-      horno de arco eléctrico más grande de América Latina —4.5 millones de toneladas anuales
-      de acero— a 15 kilómetros del centro de la ciudad, donde el mismo principio que en Lázaro
-      Cárdenas aplica con cinco veces el volumen: agua en contacto con acero fundido genera
-      explosiones de vapor instantáneas. La Torre KOI en San Pedro Garza García mide 280
-      metros —el edificio más alto de México— y el piso 17 es el último punto al que una
-      escalera de 54 metros puede llegar desde la calle: cualquier rescate por encima del piso
-      17 requiere técnicas de descenso controlado desde el interior, no desde el exterior del
-      edificio. El Metrorrey mueve 500,000 pasajeros diarios en túneles a 12-18 metros de
-      profundidad bajo el centro de Monterrey. Con {estacionesNuevoLeon.length} estaciones y
-      {getMunicipios().length} municipios cubiertos, la corporación gestiona
-      simultáneamente la mayor concentración de industria pesada del norte de México, la
-      interfaz forestal-urbana de la Sierra Madre Oriental dentro del perímetro metropolitano,
-      y el corredor carretero México-Laredo con más de 15,000 tractocamiones diarios.
+    <h2>Bomberos en Nuevo León</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Nuevo León">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">4</span><span class="de-stat__label">Unidades HAZMAT certif.</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">51</span><span class="de-stat__label">Municipios del estado</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">5.8M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1908</span><span class="de-stat__label">Fundación en Monterrey</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">15,000+</span><span class="de-stat__label">Tractocamiones/día (MTY-Laredo)</span></div>
+    </div>
+
+    <p class="de-lead">
+      Los <strong>Bomberos de Nuevo León</strong>, fundados el 28 de septiembre de 1908 en Monterrey,
+      operan en el estado con la mayor concentración de industria pesada del norte de México. La
+      corporación gestiona simultáneamente emergencias HAZMAT en parques industriales donde la física
+      del acero fundido o el cemento calcinado prohíbe el uso del agua; rescates en el Canal del Río
+      Santa Catarina —donde el concreto liso elimina los puntos de anclaje de la técnica convencional
+      de agua rápida—; y la interfaz forestal-urbana más densa del noreste, donde la Sierra Madre
+      Oriental entra literalmente dentro del perímetro metropolitano de Monterrey.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Nuevo León?</h3>
+    <h3>Cómo contactar a los bomberos en Nuevo León</h3>
     <p>
       En cualquier emergencia, el <strong>911</strong> conecta con el C5 de Nuevo León las 24 horas.
-      Los teléfonos directos de las principales estaciones son: Monterrey (81) 8345-2424, San Pedro
-      Garza García (81) 8378-8080, Unidad HAZMAT Industrial (81) 8350-6060, Guadalupe
-      (81) 8156-1515 y Santiago Pueblo Mágico (826) 847-0012. En incidentes dentro de los
-      parques industriales de Apodaca (TERNIUM, KIA, Navistar) o Santa Catarina (CEMEX,
-      PPG Industries), la brigada industrial interna se activa en paralelo con los bomberos
-      municipales; el 911 coordina la activación simultánea cuando el reporte indica humo
-      o incendio dentro del perímetro de parques industriales registrados.
+      El sistema enruta la llamada a la unidad con menor tiempo de respuesta. Los teléfonos directos
+      de las principales estaciones son: Monterrey Estación Central (81) 8345-2424, San Pedro Garza
+      García (81) 8378-8080, Guadalupe (81) 8367-9090, Unidad HAZMAT Industrial (81) 8350-6060 y
+      Santiago Sierra Madre (81) 8285-1414. En incidentes dentro de parques industriales de Apodaca,
+      Pesquería o Santa Catarina, la brigada industrial interna se activa en paralelo; el 911 coordina
+      la activación simultánea cuando el reporte indica humo o incendio dentro del perímetro de parques
+      registrados. Encuentra todos los datos en el
+      <a href="#listado-estaciones">directorio de estaciones</a> de esta página.
     </p>
 
-    <h3>El Canal del Río Santa Catarina: rescate de agua rápida en un canal de concreto donde las reglas del swift water no aplican del mismo modo</h3>
+    <h3>Historia del Cuerpo de Bomberos de Nuevo León</h3>
     <p>
-      El Río Santa Catarina fue encauzado en un canal de concreto trapezoidal de 60 a 80
-      metros de ancho y hasta 12 metros de profundidad que atraviesa el área metropolitana
-      de Monterrey de poniente a oriente. En condiciones normales tiene flujo mínimo o está
-      seco. En eventos de precipitación extraordinaria puede llenarse a su capacidad en 30 a
-      45 minutos, con velocidades de flujo de 3 a 6 metros por segundo. El Huracán Alex (julio
-      2010) superó la capacidad de diseño del canal y produjo un flujo que arrastró vehículos
-      desde los puentes del Parque Fundidora y destruyó cinco puentes vehiculares en 14 horas.
-      La diferencia operacional entre el rescate en el Santa Catarina y el rescate en un río
-      natural es el concreto: las paredes lisas no tienen salientes, ramas ni roca fracturada
-      donde anclar equipos de rescate desde la orilla. Todos los anclajes son en el barandal
-      de los puentes o en las escalinatas de acceso al canal. El rescate en agua rápida en
-      el canal es estrictamente desde posición de puente o desde puntos de descenso
-      pre-designados, con sistemas de rescate de lazo (throw rope) y líneas de seguridad
-      ancladas en los puntos de infraestructura identificados. Los bomberos de Monterrey
-      entrenan trimestralmente en el canal —cuando está seco— precisamente para familiarizarse
-      con la geometría de los anclajes antes de necesitarlos con flujo activo.
+      La historia de los bomberos organizados en México arranca en el puerto de Veracruz y llega al
+      noreste pocas décadas después. Estos son los hitos que explican el desarrollo de la corporación
+      neoleonesa:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1908</span> El <strong>28 de septiembre</strong> se establece el cuerpo de bomberos en Monterrey, núcleo de lo que hoy son los <strong>Bomberos de Nuevo León</strong>. La industrialización del noreste —Fundidora Monterrey operó desde 1900— impulsó la necesidad de una corporación formal.</li>
+      <li><span class="de-tl__year">1954</span> La organización se constituye formalmente como <strong>Asociación Civil</strong>, consolidando su estructura operativa y su capacidad de recibir donativos privados.</li>
+      <li><span class="de-tl__year">1988</span> El <strong>Huracán Gilberto</strong> (septiembre) impacta el noreste de México con vientos de más de 300 km/h al tocar tierra en Tamaulipas; sus lluvias provocan inundaciones significativas en Nuevo León y estresan la capacidad de respuesta de la corporación.</li>
+      <li><span class="de-tl__year">2005</span> Se inaugura la <strong>Estación HAZMAT Norte</strong>, creada específicamente para atender el Corredor Industrial Norte (TERNIUM y parques industriales de Apodaca y Pesquería).</li>
+      <li><span class="de-tl__year">2008</span> Se inaugura la <strong>Estación HAZMAT Sur</strong> para el corredor de CEMEX, Vitro y Santa Catarina.</li>
+      <li><span class="de-tl__year">2010</span> El <strong>Huracán Alex</strong> (1 de julio, categoría 2) descarga hasta 800 mm de lluvia en 60 horas; el Canal del Río Santa Catarina se desborda, deja 15 muertos, 15,000 familias damnificadas y daños por 16,896 millones de pesos. Es el mayor reto de rescate en agua rápida de la historia reciente del estado.</li>
+      <li><span class="de-tl__year">2011</span> Los Bomberos de Nuevo León se constituyen como <strong>Asociación de Beneficencia Privada (A.B.P.)</strong>, fortaleciendo su gobernanza y sus mecanismos de financiamiento.</li>
+      <li><span class="de-tl__year">Hoy</span> Con <strong>{totalEstaciones} estaciones</strong> en este directorio, la corporación opera en la segunda zona metropolitana más grande de México y en el principal corredor industrial del norte del país.</li>
+    </ul>
+
+    <h3>Infraestructura: cómo se cubren las regiones de Nuevo León</h3>
+    <p>
+      La cobertura del cuerpo se organiza en grandes zonas según el perfil de riesgo. La Zona
+      Metropolitana concentra población, industria y la infraestructura del Metrorrey; los corredores
+      industriales albergan las cuatro unidades HAZMAT certificadas; el corredor carretero norte es la
+      puerta de entrada más importante del comercio terrestre México-EE.UU.; y la Sierra Madre y la
+      zona citrícola completan la cobertura del estado:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios representativos</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonasDef.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipios.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      Los bomberos de Nuevo León son un servicio de emergencia integral. Su labor va mucho más allá
+      del fuego. Estas son las funciones centrales que las estaciones del estado cubren las 24 horas:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Incendios estructurales e industriales</h4><p>Combate de incendios en residencias, comercios, edificios de gran altura (Torre KOI, 279.5 m) y plantas industriales con agentes específicos por clase de fuego.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Contención de derrames y fugas químicas en los parques industriales de Apodaca, Pesquería, Santa Catarina y García. Cuatro estaciones HAZMAT certificadas.</p></div>
+      <div class="de-card"><h4>Rescate en agua rápida</h4><p>Operaciones en el Canal del Río Santa Catarina con técnicas adaptadas al concreto liso, incluyendo sistemas de lazo y líneas de seguridad en puentes e infraestructura fija.</p></div>
+      <div class="de-card"><h4>Rescate de montaña</h4><p>Búsqueda y rescate de excursionistas, rescate vertical y atención de accidentes en cascadas (Cola de Caballo, El Chipitín) en la Sierra Madre Oriental.</p></div>
+      <div class="de-card"><h4>Incendios forestales</h4><p>Control de fuego en Chipinque (1,624 ha), La Huasteca y Santiago. Coordinación con CONAFOR en temporada de riesgo (enero–junio).</p></div>
+      <div class="de-card"><h4>Rescate carretero y prevención</h4><p>Extricación vehicular en autopistas de alto tráfico, HAZMAT en tránsito en el corredor Monterrey-Laredo e inspecciones y simulacros en industria y comunidad.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Incendios industriales (clase B, C, D)</strong></td><td>24/7</td><td>Estaciones HAZMAT Norte y Sur</td></tr>
+          <tr><td><strong>Materiales peligrosos (HAZMAT)</strong></td><td>24/7</td><td>4 unidades certificadas</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate en agua rápida</strong></td><td>24/7</td><td>Estaciones del río Santa Catarina</td></tr>
+          <tr><td><strong>Rescate de montaña y cascadas</strong></td><td>24/7</td><td>Estación Santiago – Sierra Madre</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Temporada alta ene–jun</td><td>Santiago, Allende, San Pedro, Santa Catarina</td></tr>
+          <tr><td><strong>Emergencias Metrorrey</strong></td><td>24/7</td><td>Estaciones zona centro y oriente</td></tr>
+          <tr><td><strong>Rescate carretero — tractocamiones</strong></td><td>24/7</td><td>Estación Colombia y Salinas Victoria</td></tr>
+          <tr><td><strong>Prevención e inspecciones</strong></td><td>Días hábiles</td><td>Todas las comandancias</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Frentes de riesgo específicos de Nuevo León</h3>
+    <p>
+      El <strong>Canal del Río Santa Catarina</strong> es una canalización de concreto liso de 60 a 80
+      metros de ancho que atraviesa el área metropolitana de poniente a oriente. En condiciones normales
+      tiene flujo mínimo o está seco; en eventos de precipitación extraordinaria puede llenarse a su
+      capacidad en 30 a 45 minutos, con velocidades de flujo de 3 a 6 metros por segundo. El Huracán
+      Alex (2010) superó la capacidad de diseño del canal y destruyó cinco puentes vehiculares en 14
+      horas. La diferencia operacional con un río natural es el concreto: las paredes lisas no tienen
+      salientes donde anclar equipos convencionales. Todos los anclajes de rescate se hacen en barandales
+      de puentes o en escalinatas de acceso pre-designadas.
+    </p>
+    <p>
+      En los <strong>corredores industriales</strong>, la regla más importante define toda intervención en
+      plantas siderúrgicas: el agua sobre metal fundido o suelo contaminado con acero caliente provoca una
+      expansión instantánea de vapor con proyección de material en radio de decenas de metros. Los agentes
+      de control en el piso de fusión son arena seca y cal; el agua solo se usa en sistemas de enfriamiento
+      de equipos, nunca en la zona de colada. Esta distinción requiere entrenamiento específico previo a
+      cualquier ingreso al área de horno, sin excepción.
+    </p>
+    <p>
+      El <strong>Parque Ecológico Chipinque</strong> (1,624 ha, municipio de San Pedro Garza García) es
+      la interfaz forestal-urbana más densa del noreste: está rodeado por colonias residenciales de alta
+      densidad. En condiciones de viento norte y baja humedad relativa, un incendio en las laderas puede
+      alcanzar la primera línea de casas en menos de una hora. Los registros dendrocronológicos muestran
+      incendios documentados desde 1860, con alta recurrencia en los últimos 40 años; en 1998 uno afectó
+      aproximadamente 500 hectáreas (un tercio del parque).
     </p>
 
-    <h3>TERNIUM Apodaca: el horno de arco eléctrico más grande de América Latina a 15 km del centro y la prohibición absoluta del agua</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      La planta siderúrgica de TERNIUM en Apodaca produce 4.5 millones de toneladas de acero
-      anuales mediante hornos de arco eléctrico (EAF) que funden chatarra a 1,600°C. La planta
-      está rodeada por colonias residenciales de Apodaca y Santa Catarina, con los barrios más
-      cercanos a menos de 500 metros del perímetro industrial. La regla que define toda
-      intervención de bomberos en el área del horno de fusión es absoluta: el agua aplicada
-      sobre metal fundido o sobre suelo contaminado con acero fundido provoca una expansión
-      instantánea de vapor —la misma física que en Lázaro Cárdenas— con proyección de metal
-      a alta temperatura en radio de decenas de metros. Los agentes de control en el piso de
-      fusión son arena seca y cal; el agua se usa únicamente en los sistemas de enfriamiento
-      de los electrodos y las paredes del horno, nunca en el área de colada. Esta distinción
-      —agua para equipos, nunca para el metal— requiere que cada bombero que ingresa al área
-      de horno haya completado el entrenamiento específico de TERNIUM antes de responder a
-      cualquier incidente, sin excepción. La estación de Apodaca mantiene ese entrenamiento
-      actualizado semestralmente con el equipo de seguridad industrial de la planta.
+      A partir de los datos de las estaciones publicadas en este directorio, así se distribuyen las
+      estaciones y los recursos declarados entre las grandes zonas de Nuevo León:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Personal declarado</th><th>Unidades declaradas</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nPers > 0 ? z.nPers : "—"}</td>
+              <td>{z.nUni > 0 ? z.nUni : "—"}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalPersonal > 0 ? totalPersonal : "—"}</td>
+            <td>{totalUnidades > 0 ? totalUnidades : "—"}</td>
+            <td>51 municipios de Nuevo León</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Nuevo León</h3>
+    <p>
+      El primer reto es de escala. La Zona Metropolitana de Monterrey concentra más de 5 millones de
+      personas en una cuenca geográfica rodeada de montaña que comprime el crecimiento urbano y eleva la
+      densidad. El Metrorrey (3 líneas, 40 estaciones, aproximadamente 369,000 pasajeros diarios según
+      datos de 2023) y la Torre KOI (279.5 metros, el edificio más alto de México, en San Pedro Garza
+      García) representan escenarios de emergencia que requieren protocolos exclusivos de rescate en
+      altura y en espacios confinados subterráneos.
+    </p>
+    <p>
+      El segundo reto es el corredor carretero. La autopista Monterrey-Colombia-Laredo mueve más de
+      15,000 tractocamiones diarios hacia Estados Unidos, muchos de ellos cargando materiales peligrosos
+      en tránsito. Un accidente con carga química o inflamable en este corredor exige intervención HAZMAT
+      coordinada entre estaciones locales, Aduanas y, en ocasiones, autoridades de Texas. El tercer reto
+      es el clima: las olas de calor del verano (temperaturas superiores a 40°C frecuentes en la ZMM,
+      con máximas históricas de 45°C) elevan el riesgo de incendios y afectan las condiciones físicas
+      del personal durante operaciones prolongadas al exterior.
     </p>
 
-    <h3>Torre KOI y el rescate en altura donde ninguna escalera llega: protocolos de descenso controlado en el edificio más alto de México</h3>
+    <h3>Cultura de prevención: cómo proteger tu hogar y tu comunidad en Nuevo León</h3>
     <p>
-      La Torre KOI en San Pedro Garza García tiene 280 metros de altura y 67 pisos. Una escalera
-      de bomberos de 54 metros —el estándar máximo en el parque vehicular regiomontano— alcanza
-      el equivalente aproximado del piso 17 de un edificio con piso-techo de 3 metros. Cualquier
-      rescate por encima de ese nivel requiere que los bomberos entren al edificio por acceso
-      terrestre y operen desde el interior. Para evacuación de personas con movilidad reducida
-      en pisos superiores, los protocolos de Torre KOI especifican el uso de las zonas de rescate
-      (rescue zones) en cada piso: áreas compartimentadas resistentes al fuego con comunicación
-      directa con el despacho de bomberos, donde los ocupantes esperan el rescate en lugar de
-      intentar bajar por escaleras. Los bomberos de San Pedro Garza García realizan ejercicios
-      en Torre KOI y en otros edificios premium de la zona que tienen protocolos similares —el
-      Titanium, el Mitikah Monterrey, el Q— porque el tiempo de orientación en la torre (ubicar
-      al ocupante, trazar la ruta de evacuación con circulación de incendio activo) define si
-      el rescate se completa en el tiempo de seguridad disponible. La coordinación con el equipo
-      de seguridad del edificio que conoce la distribución de cada piso es operacionalmente
-      necesaria, no opcional.
+      La emergencia más fácil de atender es la que no ocurre. Estas son las recomendaciones que los
+      cuerpos de bomberos de Nuevo León reiteran a la población:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención — Nuevo León</h4>
+      <ul>
+        <li><strong>Gas:</strong> revisa mangueras, reguladores y conexiones regularmente; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y sal del inmueble antes de llamar.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos y extensiones; en el calor extremo del verano neolonés (más de 40°C), el uso simultáneo de aparatos de climatización puede saturar circuitos residenciales.</li>
+        <li><strong>Detectores:</strong> instala detectores de humo en cocina y habitaciones; ten un extintor vigente y accesible.</li>
+        <li><strong>Sierra Madre y Chipinque:</strong> no hagas fogatas en zonas boscosas, no tires colillas, reporta columnas de humo al 911 de inmediato y respeta las restricciones de acceso en temporada de alto riesgo (enero–junio).</li>
+        <li><strong>Río Santa Catarina:</strong> en temporada de lluvias y ante avisos de ciclones o lluvias intensas, mantente alejado del canal y nunca cruces si hay flujo activo, aunque parezca bajo.</li>
+        <li><strong>Industria:</strong> si vives cerca de un parque industrial y detectas olor inusual o nube de humo de color anormal, evacúa en dirección contraria al viento y llama al 911 sin regresar al inmueble.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
 
-    <h3>Chipinque, La Huasteca y la interfaz forestal-urbana más densa del norte: por qué los incendios de la Sierra Madre Oriental pueden amenazar colonias en 45 minutos</h3>
-    <p>
-      El Parque Ecológico Chipinque y el Área Natural Protegida La Huasteca son masas forestales
-      de la Sierra Madre Oriental que se adentran dentro del perímetro metropolitano de Monterrey
-      —Chipinque está literalmente rodeado por colonias residenciales de alta densidad de San Pedro
-      y Santa Catarina. La interfaz forestal-urbana en Chipinque tiene la densidad de construcción
-      más alta de cualquier área forestal protegida urbana del norte de México. En condiciones de
-      viento norte —frecuentes en marzo y abril— un incendio en las laderas superiores de
-      Chipinque puede alcanzar la primera línea de casas en los fraccionamientos de San Pedro en
-      45 a 60 minutos, dependiendo de la carga de combustible y la humedad del día. Los bomberos
-      de San Pedro, Santa Catarina y Monterrey pre-posicionan unidades en los accesos de Chipinque
-      y La Huasteca durante los días de alto riesgo (bajo 15% de humedad relativa + viento norte
-      sobre 40 km/h), coordinados con el cuerpo de guardabosques del área protegida que monitorea
-      columnas de humo desde los miradores. El protocolo establece que la evacuación preventiva de
-      las primeras cuatro calles adyacentes al perímetro forestal puede activarse como medida
-      precautoria antes de que el fuego llegue al límite del parque.
+    <p class="de-srcnote">
+      Fuentes: Bomberos de Nuevo León A.B.P. (bomberosdenuevoleon.org, fundación 28 sep 1908);
+      Wikipedia, «Huracán Alex (2010)» y CONEVAL, «El huracán Alex: a 14 años de su paso en Nuevo
+      León» (Milenio, 2024) — 15 muertos, 16,896 millones de pesos en daños; Parque Ecológico
+      Chipinque / Scielo México, «Caracterización de regeneración post-incendio Chipinque» — extensión
+      1,624 ha, incendio 1998 (~500 ha); Wikipedia, «Torre KOI» — 279.5 m, 64 pisos, San Pedro Garza
+      García; Wikipedia, «Metrorrey» — 3 líneas, 40 estaciones, ~369,000 pasajeros/día (2023).
+      El primer cuerpo de bomberos de México se fundó el 22 de agosto de 1873 en Veracruz (Día del
+      Bombero). Las cifras de personal y unidades por región corresponden a las estaciones publicadas
+      en este directorio; no todos los registros declaran esas variables.
+      Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>
 </DirectorioEstadoLayout>
-

@@ -4,11 +4,69 @@ import DirectorioEstadoLayout from "@layouts/DirectorioEstadoLayout.astro";
 import { estacionesJalisco, getMunicipios, ESTADISTICAS_JALISCO } from "@data/estaciones-jalisco";
 import { getEstadosVecinos } from "@data/estados-vecinos";
 import { breadcrumbJsonLd } from "@utils/seo";
+import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("jalisco");
 
 const municipios = getMunicipios();
 
+const canonical = "https://bombero.mx/directorio/jalisco/";
+
+// ── Estadísticas derivadas del directorio ──────────────────────────────────
+const totalEstaciones = estacionesJalisco.length;
+const totalMunicipios = municipios.length;
+
+// ── Comparativa regional (zonas del estado) ─────────────────────────────────
+const zonasDef = [
+  {
+    nombre: "Zona Metropolitana de Guadalajara",
+    municipiosZona: ["Guadalajara", "Zapopan", "San Pedro Tlaquepaque", "Tonalá", "Tlajomulco de Zúñiga"],
+    cobertura: "Total",
+    chip: "total",
+    perfil: "Segunda metrópoli de México (5.2 M hab.), Bosque La Primavera, corredor tecnológico El Salto y Aeropuerto Internacional GDL.",
+  },
+  {
+    nombre: "Costa — Puerto Vallarta",
+    municipiosZona: ["Puerto Vallarta", "Nuevo Vallarta"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "7 millones de turistas/año, rescate acuático en Bahía de Banderas, temporada de huracanes jun–nov.",
+  },
+  {
+    nombre: "Ruta del Tequila — Valles",
+    municipiosZona: ["Tequila", "Amatitán"],
+    cobertura: "Alta",
+    chip: "alta",
+    perfil: "Paisaje Agavero UNESCO (2006), +160 destilerías, etanol de destilación a 55–65 % ABV.",
+  },
+  {
+    nombre: "Lago de Chapala — Ciénega",
+    municipiosZona: ["Chapala", "Ajijic", "Jocotepec", "Ocotlán", "La Barca"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Lago dulce más grande de México (1,100 km²), comunidad de ~16,000 residentes extranjeros, industria mueblera en Ocotlán.",
+  },
+  {
+    nombre: "Altos, Sur y Periferia",
+    municipiosZona: ["Lagos de Moreno", "Tepatitlán de Morelos", "San Juan de los Lagos", "Ciudad Guzmán", "Tamazula de Gordiano", "Autlán de Navarro", "Cihuatlán", "Colotlán"],
+    cobertura: "Media",
+    chip: "media",
+    perfil: "Agroindustria avícola/azucarera, Pueblos Mágicos, peregrinaciones masivas, Volcán de Colima y zona Huichola.",
+  },
+];
+
+const zonas = zonasDef.map((z) => {
+  const est = estacionesJalisco.filter((e) =>
+    z.municipiosZona.includes(e.municipio ?? e.ciudad ?? "")
+  );
+  return {
+    ...z,
+    nEst: est.length,
+    nMun: z.municipiosZona.length,
+  };
+});
+
+// ── Schemas estructurados ───────────────────────────────────────────────────
 const breadcrumbSchema = breadcrumbJsonLd([
   { name: "Inicio",                 url: "/" },
   { name: "Directorio de Bomberos", url: "/directorio/" },
@@ -19,7 +77,7 @@ const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Estaciones de Bomberos en Jalisco, México",
-  "description": "Directorio completo de las estaciones de bomberos en Jalisco. 38 estaciones protegiendo la Zona Metropolitana de Guadalajara, Puerto Vallarta, la Ruta del Tequila y 8.3 millones de habitantes. Emergencias 911.",
+  "description": `Directorio completo de las ${totalEstaciones} estaciones de bomberos en Jalisco. Cubre la Zona Metropolitana de Guadalajara (5.2 M hab.), Puerto Vallarta, la Ruta del Tequila UNESCO y el Lago de Chapala. Emergencias: 911.`,
   "numberOfItems": estacionesJalisco.length,
   "itemListElement": estacionesJalisco.map((e, i) => ({
     "@type": "ListItem",
@@ -39,6 +97,94 @@ const itemListSchema = {
     }
   }))
 };
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bomberos en Jalisco: estaciones, historia y servicios de emergencia",
+  "description": "Guía del cuerpo de bomberos de Jalisco: historia (1923–hoy), infraestructura en la ZMG, Puerto Vallarta, Ruta del Tequila y Lago de Chapala, funciones, retos y directorio de estaciones con teléfonos directos.",
+  "about": [
+    "Cuerpo de Bomberos de Guadalajara",
+    "Protección Civil Jalisco",
+    "Rescate acuático",
+    "Servicios de emergencia",
+  ],
+  "inLanguage": "es-MX",
+  "image": "https://bombero.mx/api/og/estado/jalisco.svg",
+  "author":    { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "publisher": { "@type": "Organization", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+  "mainEntityOfPage": canonical,
+};
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": canonical,
+  "url": canonical,
+  "name": "Estaciones de Bomberos en Jalisco",
+  "description": `Directorio verificado de ${totalEstaciones} estaciones de bomberos en Jalisco: ZMG, Puerto Vallarta, Ruta del Tequila y Lago de Chapala. Teléfonos directos, cobertura e historia del cuerpo de bomberos.`,
+  "inLanguage": "es-MX",
+  "isPartOf": { "@type": "WebSite", "name": "BOMBERO.MX", "url": "https://bombero.mx/" },
+  "about": { "@type": "GovernmentOrganization", "name": "H. Cuerpo de Bomberos de Jalisco" },
+  "primaryImageOfPage": "https://bombero.mx/api/og/estado/jalisco.svg",
+  "dateModified": DIRECTORIO_VERIFICADO_ISO,
+};
+
+// breadcrumbSchema NO se pasa: el componente <Breadcrumb> ya emite el BreadcrumbList.
+const jsonLd = [itemListSchema, articleSchema, collectionPageSchema];
+
+// ── FAQ únicas de Jalisco (≥10) — alimentan el FAQPage schema ───────────────
+const faqsEstado = [
+  {
+    q: "¿Cuál es el número de emergencia para llamar a los bomberos en Jalisco?",
+    a: `Marca el <strong>911</strong>, número único de emergencias que opera las 24 horas a través del C5 Jalisco (Centro de Control, Comando, Comunicaciones, Cómputo y Contacto Ciudadano). El sistema despacha la unidad de bomberos con menor tiempo de respuesta a tu ubicación. Para llamadas directas a las principales estaciones: Guadalajara (33) 3619-1515, Zapopan (33) 3818-2267, Puerto Vallarta (322) 222-0109. En Chapala y Ajijic los despachadores atienden también en inglés.`,
+  },
+  {
+    q: "¿Cuántas estaciones de bomberos hay en Jalisco?",
+    a: `Este directorio reúne <strong>${totalEstaciones} estaciones verificadas</strong> en Jalisco, distribuidas en cinco zonas: la Zona Metropolitana de Guadalajara (ZMG), la costa de Puerto Vallarta, la Ruta del Tequila, el Lago de Chapala y el resto del estado (Altos, Sur y periferia). Cada estación incluye teléfono directo, dirección y servicios.`,
+  },
+  {
+    q: "¿Cuándo se fundó el cuerpo de bomberos de Guadalajara?",
+    a: `El <strong>Cuerpo de Bomberos de Guadalajara fue formalmente constituido el 23 de mayo de 1923</strong>, con 12 bomberos, dos cabos, un sargento y un comandante. En 2023 celebró su centenario. Existen registros de brigadas municipales de supresión de incendios anteriores a esa fecha, pero 1923 es el año reconocido de la institución formal. El incendio del Mercado Corona el 15 de noviembre de 1910 fue el detonante que llevó a las autoridades a crear una corporación profesional permanente.`,
+  },
+  {
+    q: "¿Por qué el 22 de agosto es el Día del Bombero en México?",
+    a: `El 22 de agosto de 1873 se fundó en el puerto de <strong>Veracruz el primer cuerpo de bomberos del país</strong>. Esa fecha se conmemora cada año en toda la República como el Día del Bombero Mexicano. Los cuerpos de bomberos de Jalisco —Guadalajara, Zapopan, Puerto Vallarta y los demás municipios— participan en los eventos conmemorativos de esa fecha.`,
+  },
+  {
+    q: "¿Qué servicios prestan los bomberos en Jalisco?",
+    a: `Combate de <strong>incendios estructurales, forestales y en destilerías</strong>; <strong>rescate vehicular</strong> en carreteras y vialidades urbanas; <strong>rescate acuático</strong> en el Lago de Chapala, Puerto Vallarta y la Marina; <strong>atención prehospitalaria</strong>; materiales peligrosos (<strong>HAZMAT</strong>) incluyendo etanol de destilación y gases industriales; <strong>rescate aeronáutico (ARFF)</strong> en el Aeropuerto Internacional de Guadalajara; control de fugas de gas; incendios en campos de agave; y emergencias en zonas indígenas del norte del estado.`,
+  },
+  {
+    q: "¿Los servicios de bomberos en Jalisco tienen costo?",
+    a: `Las emergencias que ponen en riesgo la <strong>vida o la integridad de las personas</strong> —incendios, rescates, fugas de gas— se atienden de forma <strong>gratuita</strong>. Algunos cuerpos municipales pueden tener cuotas de recuperación para servicios no urgentes como dictámenes o retiro de enjambres. La atención de emergencia nunca se condiciona a un pago previo. Ante cualquier emergencia llama al <strong>911</strong>.`,
+  },
+  {
+    q: "¿Por qué los incendios en las destilerías de tequila son más peligrosos que un incendio común?",
+    a: `El etanol a las concentraciones de destilación (55–65 % ABV) tiene un <strong>punto de inflamación de 13 °C</strong> —es inflamable a temperatura ambiente— y su llama a plena luz solar es casi invisible: de color azul pálido, difícil de distinguir. Además, la espuma AFFF convencional se destruye en segundos al contacto con solventes polares como el etanol. Los bomberos de Tequila y Amatitán emplean <strong>espuma AR-AFFF</strong> (resistente al alcohol) y tienen planes de contención de derrames para proteger el suelo agavero declarado Patrimonio UNESCO en 2006.`,
+  },
+  {
+    q: "¿Qué ocurrió en las explosiones del 22 de abril de 1992 en Guadalajara?",
+    a: `El <strong>22 de abril de 1992</strong> una serie de explosiones destruyó más de 14 kilómetros de calles en el barrio de Analco, en el sector Oriente de Guadalajara. La causa fue la acumulación de gasolina en el sistema de drenaje del Colector Intermedio de Oriente. El saldo oficial fue de <strong>209 muertos, cerca de 500 heridos y 15,000 personas sin hogar</strong>. La tragedia transformó los protocolos de detección de gases en la red de drenaje de toda la ciudad y se conmemora cada año en Jalisco como fecha para la cultura de prevención de desastres.`,
+  },
+  {
+    q: "¿Cómo responden los bomberos a emergencias en el Bosque La Primavera?",
+    a: `El <strong>Bosque La Primavera</strong> es una reserva forestal de 30,500 hectáreas con perímetro compartido entre Guadalajara, Zapopan y Tlajomulco —tres municipios con corporaciones independientes, diferentes frecuencias de radio y diferentes estándares de equipo. En temporada de incendios (abril–junio), los tres cuerpos implementan un protocolo de <strong>preposicionamiento</strong>: despliegan unidades dentro de los límites del bosque al inicio de cada día de alto riesgo, antes de que se reporte humo, porque la coordinación posterior al inicio del fuego puede costar los minutos que hacen la diferencia entre contención y evacuación de colonias.`,
+  },
+  {
+    q: "¿Cómo atienden los bomberos a los turistas y residentes extranjeros en Jalisco?",
+    a: `Puerto Vallarta recibe cerca de <strong>7 millones de visitantes al año</strong>, y las estaciones de la zona hotelera tienen personal con capacitación para atención a turistas internacionales. En el Lago de Chapala, donde viven aproximadamente <strong>16,000 expatriados</strong> (principalmente jubilados de Estados Unidos y Canadá), las estaciones de Chapala y Ajijic mantienen <strong>despacho bilingüe español-inglés en todos los turnos</strong>. El 911 también tiene atención en inglés.`,
+  },
+  {
+    q: "¿Cómo puedo prevenir un incendio o emergencia en mi hogar en Jalisco?",
+    a: `Revisa periódicamente la instalación de <strong>gas</strong> (mangueras, reguladores y conexiones) y la <strong>instalación eléctrica</strong>. Instala <strong>detectores de humo</strong> y ten un extintor vigente y accesible. Si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y evacúa. En caso de incendio, sal de inmediato cerrando puertas a tu paso. Define un <strong>plan de evacuación</strong> familiar con punto de reunión. Ten el <strong>911</strong> visible para toda la familia.`,
+  },
+  {
+    q: "¿Cómo puedo apoyar o ingresar al cuerpo de bomberos en Jalisco?",
+    a: `Cada municipio convoca sus propios procesos de selección con requisitos de edad, escolaridad y condición física. Los cuerpos de bomberos de Guadalajara, Zapopan y Puerto Vallarta publican convocatorias en los canales oficiales de sus ayuntamientos. El apoyo ciudadano también puede ser a través de donativos al patronato o difundiendo el directorio de emergencias. Para ingresar como voluntario, consulta directamente con la estación de tu municipio.`,
+  },
+];
 
 const stationImages = [
   "/images/directorio/estacion-bomberos-guadalajara-01.avif",
@@ -119,30 +265,30 @@ const stationImages = [
   estado="Jalisco"
   sigla="JAL"
   slug="jalisco"
-  description={`${ESTADISTICAS_JALISCO.total_estaciones} estaciones en Jalisco — ZMG 5.2M, etanol invisible en Tequila, silano pirofórico en semiconductores y Lago de Chapala. Emergencias: 911.`}
+  description={`Bomberos en Jalisco: ${totalEstaciones} estaciones en ZMG, Puerto Vallarta, Ruta del Tequila y Lago de Chapala. Teléfonos directos y servicios 24/7. Emergencias: 911.`}
   keywords={["bomberos jalisco","estaciones bomberos guadalajara","bomberos puerto vallarta","emergencias jalisco 911","bomberos zapopan","bomberos tonala","rescate acuático vallarta","cuerpo bomberos jalisco","bomberos tequila","bomberos lago chapala"]}
-  canonical="https://bombero.mx/directorio/jalisco/"
-  jsonLd={[itemListSchema]}
+  canonical={canonical}
+  jsonLd={jsonLd}
 
-  totalEstaciones={estacionesJalisco.length}
-  totalMunicipios={municipios.length}
+  totalEstaciones={totalEstaciones}
+  totalMunicipios={totalMunicipios}
   habitantes="8.3M+"
 
-  heroDesc="Directorio completo del <strong>H. Cuerpo de Bomberos de Jalisco</strong>. Encuentra teléfonos de emergencia, direcciones y servicios de todas las estaciones en la segunda metrópoli de México, Puerto Vallarta y la Ruta del Tequila UNESCO."
+  heroDesc={`El <strong>H. Cuerpo de Bomberos de Guadalajara</strong> —fundado formalmente el <strong>23 de mayo de 1923</strong> y celebrado su centenario en 2023— protege la segunda metrópoli de México junto a los cuerpos municipales de Zapopan, Tlaquepaque, Tonalá, Tlajomulco y Puerto Vallarta. Con <strong>${totalEstaciones} estaciones</strong> en este directorio, cubren <strong>8.3 millones de habitantes</strong> en la ZMG, la Ruta del Tequila (Patrimonio <strong>UNESCO</strong>), el Lago de Chapala —el mayor lago de agua dulce del país— y la costa de Puerto Vallarta.`}
   heroImage="/images/directorio/estacion-bomberos-guadalajara-01.avif"
-  heroImageAlt="Estación Central de Bomberos Guadalajara, Jalisco"
-  heroCaption="H. Cuerpo de Bomberos · Jalisco"
+  heroImageAlt="Estación Central de Bomberos Guadalajara, Jalisco — H. Cuerpo de Bomberos fundado en 1923"
+  heroCaption="H. Cuerpo de Bomberos · Jalisco · Fundado 1923"
   heroThumbs={[
-    { src: "/images/directorio/camion-bomberos-moderno-01.avif",            alt: "Camión de bomberos Guadalajara ZMG",        label: "Flota ZMG"  },
-    { src: "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif", alt: "Bombero profesional de Jalisco con casco y equipo completo", label: "Servicio Profesional" },
-    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",      alt: "Bomberos Jalisco en acción",               label: "Respuesta 24/7"   },
+    { src: "/images/directorio/camion-bomberos-moderno-01.avif",                       alt: "Camión de bomberos Guadalajara Zona Metropolitana ZMG Jalisco",              label: "Flota ZMG"            },
+    { src: "/images/directorio/bombero-profesional-retrato-casco-exterior-01.avif",    alt: "Bombero profesional de Jalisco con casco y equipo NFPA completo",            label: "Servicio Profesional" },
+    { src: "/images/directorio/bomberos-profesionales-accion-01.avif",                 alt: "Bomberos Jalisco en acción — rescate y combate de incendios 24 horas",       label: "Respuesta 24/7"       },
   ]}
 
   galleryImages={[
-    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",  alt: "Entrenamiento de bomberos en Jalisco",     label: "Capacitación NFPA"   },
-    { src: "/images/directorio/camion-escalera-bomberos-01.avif",      alt: "Camión escalera bomberos Guadalajara",     label: "Rescate en Altura"   },
-    { src: "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif", alt: "Bahía interior de estación de bomberos de Jalisco con bandera de México", label: "Bahía Interior" },
-    { src: "/images/directorio/mascara-scba-bombero-01.avif", alt: "Equipo SCBA bomberos Jalisco",          label: "SCBA Certificado"    },
+    { src: "/images/directorio/entrenamiento-bomberos-fuego-01.avif",               alt: "Entrenamiento de bomberos en Jalisco certificación NFPA",        label: "Capacitación NFPA"   },
+    { src: "/images/directorio/camion-escalera-bomberos-01.avif",                   alt: "Camión escalera bomberos Guadalajara rescate en altura ZMG",      label: "Rescate en Altura"   },
+    { src: "/images/directorio/estacion-bomberos-bahia-interior-bandera-01.avif",   alt: "Bahía interior de estación de bomberos de Jalisco con bandera",   label: "Bahía Interior"      },
+    { src: "/images/directorio/mascara-scba-bombero-01.avif",                       alt: "Equipo SCBA NFPA 1981 bomberos Jalisco industria y destilerías",  label: "SCBA Certificado"    },
   ]}
 
   emergencyNumbers={[
@@ -157,7 +303,7 @@ const stationImages = [
   regiones={[
     { nombre: "Zona Metropolitana GDL", desc: "Guadalajara, Zapopan, Tlaquepaque, Tonalá, Tlajomulco" },
     { nombre: "Costa Puerto Vallarta",  desc: "Puerto Vallarta, Marina, Nuevo Vallarta"              },
-    { nombre: "Ruta del Tequila",       desc: "Tequila, Amatitán (Patrimonio UNESCO)"                },
+    { nombre: "Ruta del Tequila",       desc: "Tequila, Amatitán (Patrimonio UNESCO 2006)"           },
     { nombre: "Lago de Chapala",        desc: "Chapala, Ajijic, Jocotepec"                           },
   ]}
 
@@ -169,37 +315,37 @@ const stationImages = [
   eppCards={[
     {
       image:     "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
-      imageAlt:  "Traje Estructural NFPA 1971 para bomberos Guadalajara",
+      imageAlt:  "Traje Estructural NFPA 1971 para bomberos Guadalajara ZMG corredor industrial El Salto",
       badge:     "NFPA 1971",
       title:     "Traje Estructural NFPA 1971",
-      text:      "Equipo certificado para los bomberos de la <strong>Zona Metropolitana de Guadalajara</strong>, segunda metrópoli de México. Diseñado para incendios estructurales en zonas industriales, centros comerciales y edificios de gran altura del corredor tecnológico.",
+      text:      "Equipo certificado para los bomberos de la <strong>Zona Metropolitana de Guadalajara</strong>, segunda metrópoli de México. Diseñado para incendios estructurales en zonas industriales, centros comerciales y edificios de gran altura del corredor tecnológico de El Salto, Zapopan Norte y Tlajomulco.",
       href:      "/productos/trajes-para-bomberos/",
       linkLabel: "Ver Trajes para Bombero",
     },
     {
       image:     "/images/directorio/casco-bombero-proteccion-cabeza-01.avif",
-      imageAlt:  "Casco NFPA 1971 para bomberos Puerto Vallarta",
+      imageAlt:  "Casco NFPA 1971 para bomberos Puerto Vallarta rescate acuático Bahía de Banderas turismo",
       badge:     "NFPA 1971",
       title:     "Casco Estructural NFPA 1971",
-      text:      "Protección certificada para emergencias en <strong>Puerto Vallarta</strong> y la zona hotelera. Compatible con equipos de comunicación para coordinación en emergencias turísticas y rescate acuático en la Bahía de Banderas.",
+      text:      "Protección certificada para emergencias en <strong>Puerto Vallarta</strong> y la zona hotelera de la Bahía de Banderas. Compatible con equipos de comunicación para coordinación en emergencias turísticas, rescate acuático oceánico y náutico en marina.",
       href:      "/productos/cascos-para-bomberos/",
       linkLabel: "Ver Cascos para Bombero",
     },
     {
       image:     "/images/directorio/guantes-bombero-resistentes-01.avif",
-      imageAlt:  "Guantes NFPA 1971 para bomberos Tequila",
+      imageAlt:  "Guantes NFPA 1971 para bomberos Tequila destilerías alcohol etanol Ruta del Tequila UNESCO",
       badge:     "NFPA 1971",
       title:     "Guantes Estructurales NFPA 1971",
-      text:      "Resistencia térmica certificada para emergencias en <strong>destilerías de la Ruta del Tequila</strong>, Patrimonio UNESCO. Prensión segura para operaciones con materiales peligrosos y alcohol en zonas de producción tequilera.",
+      text:      "Resistencia térmica certificada para emergencias en <strong>destilerías de la Ruta del Tequila</strong> (Patrimonio UNESCO, 2006). Prensión segura con AR-AFFF y operaciones HAZMAT en zonas de producción tequilera con etanol a 55–65 % de concentración.",
       href:      "/productos/guantes-para-bomberos/",
       linkLabel: "Ver Guantes para Bombero",
     },
     {
       image:     "/images/directorio/botas-bombero-proteccion-01.avif",
-      imageAlt:  "Botas NFPA 1971 para bomberos Lago de Chapala",
+      imageAlt:  "Botas NFPA 1971 para bomberos Lago de Chapala rescate acuático lacustre Jalisco",
       badge:     "NFPA 1971",
       title:     "Botas Estructurales de Cuero",
-      text:      "Calzado certificado NFPA 1971 para los bomberos del <strong>Lago de Chapala</strong> y zonas ribereñas. Resistentes al agua para operaciones de rescate acuático lacustre y atención en comunidades de expatriados.",
+      text:      "Calzado certificado NFPA 1971 para los bomberos del <strong>Lago de Chapala</strong> y zonas ribereñas. Resistentes al agua para rescate lacustre en tular y fondo blando, operaciones en el Bosque La Primavera y acceso en zonas agroindustriales del sur del estado.",
       href:      "/productos/botas-para-bomberos/",
       linkLabel: "Ver Botas para Bombero",
     },
@@ -208,116 +354,231 @@ const stationImages = [
   ctaTitle="Equipamos a los Bomberos de Jalisco"
   ctaDesc="Cotiza equipo certificado NFPA directamente para tu estación. Stock inmediato para licitaciones en Guadalajara, Zapopan, Puerto Vallarta y los 125 municipios del estado."
   ctaBtnText="Solicitar Cotización — Jalisco"
+
+  faqsEstado={faqsEstado}
 >
 
   <Fragment slot="seo">
 
-    <h2>Bomberos de Jalisco — Cuando el Producto de una Industria Define la Química del Incendio</h2>
-    <p>
-      El <strong>Heroico Cuerpo de Bomberos de Jalisco</strong> trabaja en el estado donde las tres
-      industrias que definen su economía —tequila, semiconductores, artesanías— generan perfiles de
-      riesgo que no comparten agente extintor ni protocolo de aproximación. Un incendio en una
-      destilería en el Corredor Tequilero y un incendio residencial a cien metros requieren espumas
-      distintas: la regular destruye su propio efecto en contacto con etanol. Un incendio en una
-      fábrica de semiconductores en el corredor de El Salto y un incendio en la nave industrial
-      contigua requieren agentes distintos: el agua reacciona con el silano en llamas y tapona los
-      filtros del SCBA. En Jalisco, los bomberos estudian el producto, no sólo el edificio. El Cuerpo
-      de Bomberos de Guadalajara fue fundado en 1873 y es el más antiguo del occidente de México;
-      hoy protege una zona metropolitana de 5.2 millones de personas distribuida en cinco municipios
-      políticamente independientes con diferentes equipos, diferentes frecuencias de radio y diferentes
-      niveles de financiamiento —y un bosque urbano de 30,000 hectáreas que se extiende por tres
-      de esas jurisdicciones simultáneamente. Con {ESTADISTICAS_JALISCO.total_estaciones} estaciones
-      y {municipios.length} municipios con cobertura, la corporación protege además el segundo destino
-      turístico del Pacífico mexicano (Puerto Vallarta, con 7 millones de visitantes anuales) y el
-      lago de agua dulce más grande de México (Chapala, 1,100 km²), donde la colonia de expatriados
-      estadounidenses y canadienses es la más grande de América Latina fuera de Brasil.
+    <h2>Bomberos en Jalisco: industria, naturaleza y turismo definen la química del riesgo</h2>
+
+    <div class="de-statband" role="list" aria-label="Indicadores del cuerpo de bomberos de Jalisco">
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalEstaciones}</span><span class="de-stat__label">Estaciones en directorio</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">{totalMunicipios}</span><span class="de-stat__label">Municipios con estación</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">8.3M</span><span class="de-stat__label">Habitantes</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">5.2M</span><span class="de-stat__label">Habitantes ZMG</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">1923</span><span class="de-stat__label">Fundación Gdl. (formal)</span></div>
+      <div class="de-stat" role="listitem"><span class="de-stat__num">7M</span><span class="de-stat__label">Turistas/año (Vallarta)</span></div>
+    </div>
+
+    <p class="de-lead">
+      Los cuerpos de bomberos de Jalisco operan en un estado donde las industrias
+      que definen su economía —tequila, semiconductores, turismo de playa y
+      agroindustria— generan perfiles de riesgo que no comparten ni agente extintor
+      ni protocolo de aproximación. Con <strong>{totalEstaciones} estaciones</strong> en este
+      directorio, los bomberos jaliscienses protegen la segunda metrópoli del país,
+      el lago de agua dulce más grande de México, el único Paisaje Agavero Patrimonio
+      de la Humanidad y la costa del Pacífico con mayor tráfico turístico internacional.
     </p>
 
-    <h3>¿Cómo llamar a los Bomberos en Jalisco?</h3>
+    <h3>Cómo contactar a los bomberos en Jalisco</h3>
     <p>
-      En cualquier emergencia, el <strong>911</strong> conecta con el C5 de Jalisco, que coordina
-      la respuesta de bomberos, policía y servicios médicos las 24 horas. Los teléfonos directos de
-      las principales estaciones son: Guadalajara (33) 3619-1515, Zapopan (33) 3818-2267, Puerto
-      Vallarta (322) 222-0109, Tlaquepaque (33) 3562-7060 y Tlajomulco (33) 3682-2000. En emergencias
-      dentro de la Zona Metropolitana con riesgo de cruce de jurisdicciones —un incendio en el Bosque
-      La Primavera, por ejemplo— el C5 activa simultáneamente a los bomberos de los municipios
-      afectados. Las estaciones de Chapala y Ajijic mantienen despachadores bilingüe español-inglés
-      para atender a la comunidad de residentes extranjeros del Lago de Chapala.
+      En cualquier emergencia, el <strong>911</strong> conecta con el C5 de Jalisco las 24 horas
+      y despacha la unidad con menor tiempo de respuesta. Los teléfonos directos de las
+      principales estaciones son: Guadalajara <strong>(33) 3619-1515</strong>, Zapopan
+      <strong>(33) 3818-2267</strong>, Puerto Vallarta <strong>(322) 222-0109</strong>,
+      Tlaquepaque (33) 3657-0112 y Tonalá (33) 3683-1915. En la Zona Metropolitana,
+      cuando una emergencia afecta límites de dos municipios —un incendio en el Bosque
+      La Primavera, por ejemplo— el C5 activa simultáneamente a los cuerpos de los
+      municipios colindantes. Las estaciones de Chapala y Ajijic mantienen despachadores
+      bilingüe español-inglés para la comunidad de residentes extranjeros del lago.
+      Consulta el directorio completo más abajo para todos los teléfonos directos.
     </p>
 
-    <h3>La Ruta del Tequila: por qué el etanol de destilería arde en llama casi invisible y requiere espuma diferente a cualquier otro incendio</h3>
+    <h3>Historia del cuerpo de bomberos de Jalisco</h3>
     <p>
-      Los municipios del Corredor Tequilero —Tequila, Amatitán, Arenal y Teuchitlán— concentran más
-      de 160 destilerías que producen tequila y mezcal a partir de agave azul. Durante la destilación,
-      el destilado alcanza concentraciones de 55 a 65% de alcohol en volumen antes de ser diluido
-      para embotellado. El etanol a esas concentraciones tiene un punto de inflamación de 13°C —es
-      inflamable a temperatura ambiente. El rasgo operacional más peligroso del etanol en incendio
-      es la invisibilidad de la llama: a 55% ABV, el fuego en condiciones de luz solar directa
-      produce una llama de color azul pálido casi transparente por encima de unos centímetros de
-      altura. Bomberos en Louisville (Kentucky, bourbon) y en Jalisco han documentado quemaduras
-      graves por haber pisado un charco de etanol ardiendo que no podían ver desde su posición.
-      El segundo problema es el agente extintor: la espuma AFFF convencional se destruye en segundos
-      en contacto con solventes polares como el etanol, reformando una superficie combustible en lugar
-      de suprimirla. Los bomberos de Tequila y Amatitán llevan AR-AFFF (espuma resistente al alcohol)
-      como agente primario. El tercer factor es el Paisaje Agavero como Patrimonio UNESCO: el plan
-      de emergencia especifica zanjas de contención alrededor de las destilerías para capturar el
-      escurrimiento de espuma, porque los residuos de furfural y AR-AFFF pueden afectar el
-      enraizamiento del agave en las plantaciones colindantes.
+      La historia de los bomberos en Jalisco arranca con antecedentes coloniales de
+      brigadas de vecinos y llega a la institución formal del siglo XX. Estos son los
+      hitos verificados que explican cómo se consolidó la corporación:
+    </p>
+    <ul class="de-timeline">
+      <li><span class="de-tl__year">1873</span> El <strong>22 de agosto</strong> se funda en Veracruz el primer cuerpo de bomberos de México. La fecha se conmemora hasta hoy como el <strong>Día del Bombero</strong> en toda la República.</li>
+      <li><span class="de-tl__year">1910</span> El <strong>incendio del Mercado Corona</strong> (15 de noviembre, Guadalajara) evidencia la falta de una corporación profesional permanente y desencadena el proceso para crearla.</li>
+      <li><span class="de-tl__year">1923</span> El <strong>23 de mayo</strong> el Ayuntamiento de Guadalajara constituye formalmente el <strong>Cuerpo de Bomberos de Guadalajara</strong> con 12 bomberos, dos cabos, un sargento y un comandante.</li>
+      <li><span class="de-tl__year">1944</span> Se construye la <strong>Estación Central</strong> en Calzada del Águila y Calzada del Campesino, la primera sede permanente de la corporación.</li>
+      <li><span class="de-tl__year">1973</span> Se inaugura la <strong>subestación 2</strong> en Miguel López de Legazpi y Bartolomé Díaz, ampliando la cobertura a la zona norte de la ciudad.</li>
+      <li><span class="de-tl__year">1992</span> Las <strong>explosiones del 22 de abril</strong> destruyen 14 km de calles en el barrio de Analco: 209 muertos, ~500 heridos, 15,000 personas sin hogar. La tragedia transforma los protocolos de detección de gases en la red de drenaje de toda la zona metropolitana.</li>
+      <li><span class="de-tl__year">2006</span> El <strong>Paisaje Agavero y Antiguas Instalaciones Industriales de Tequila</strong> es declarado Patrimonio Mundial UNESCO. Los bomberos de Tequila y Amatitán incorporan planes de emergencia específicos para proteger las destilerías y el entorno agavero.</li>
+      <li><span class="de-tl__year">2023</span> El Cuerpo de Bomberos de Guadalajara celebra su <strong>centenario</strong> con eventos conmemorativos; la Unidad Estatal de Protección Civil y Bomberos de Jalisco festeja también su aniversario 150 de la institución estatal.</li>
+    </ul>
+
+    <h3>Infraestructura de emergencia: cómo se cubre el estado</h3>
+    <p>
+      La cobertura se organiza en cinco grandes zonas con perfiles de riesgo muy
+      distintos. La ZMG concentra la mayor densidad de estaciones y los escenarios
+      más complejos —industria tecnológica, bosque urbano, tres aeropuertos y un
+      sistema de tren ligero—; la costa atiende la presión del turismo internacional
+      y los huracanes; la Ruta del Tequila gestiona los riesgos propios de la
+      destilación; el lago concentra el rescate acuático y la atención bilingüe; y
+      el resto del estado atiende agroindustria, Pueblos Mágicos y emergencias
+      volcánicas. Esta es la distribución por región:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Municipios con estación</th><th>Cobertura</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.municipiosZona.join(", ")}</td>
+              <td><span class={`de-chip de-chip--${z.chip}`}>{z.cobertura}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Funciones principales del cuerpo de bomberos</h3>
+    <p>
+      Los bomberos en Jalisco son un servicio de emergencia integral. Estas son sus
+      funciones centrales en el estado:
+    </p>
+    <div class="de-cards">
+      <div class="de-card"><h4>Combate de incendios</h4><p>Estructurales, forestales (Bosque La Primavera, Sierra de Manantlán), en destilerías y campos de agave, en hoteles y zonas turísticas.</p></div>
+      <div class="de-card"><h4>Rescate vehicular</h4><p>Extricación en choques en vialidades urbanas de la ZMG y carreteras interurbanas (Guadalajara–Chapala, Guadalajara–Puerto Vallarta, autopista al Bajío).</p></div>
+      <div class="de-card"><h4>Rescate acuático</h4><p>Operaciones lacustres en el Lago de Chapala (incluida zona de tular de fondo blando), rescate oceánico en Puerto Vallarta y Bahía de Banderas, y rescate náutico en marinas.</p></div>
+      <div class="de-card"><h4>Materiales peligrosos (HAZMAT)</h4><p>Etanol de destilería (AR-AFFF), gases industriales pirofóricos en parques tecnológicos, derrames en carreteras y fugas en redes de gas.</p></div>
+      <div class="de-card"><h4>Rescate aeronáutico (ARFF)</h4><p>El Aeropuerto Internacional de Guadalajara (GDL) cuenta con estación ARFF dedicada con vehículos y tiempos de respuesta conforme a estándares de aviación civil.</p></div>
+      <div class="de-card"><h4>Prevención y protección civil</h4><p>Inspecciones, simulacros, capacitación a empresas e industria, y coordinación con la Unidad Estatal de Protección Civil y Bomberos de Jalisco.</p></div>
+    </div>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Servicio de emergencia</th><th>Disponibilidad</th><th>Dónde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Incendios estructurales</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate vehicular y extricación</strong></td><td>24/7</td><td>Todas las estaciones</td></tr>
+          <tr><td><strong>Rescate acuático lacustre</strong></td><td>24/7</td><td>Chapala, Ajijic, Jocotepec</td></tr>
+          <tr><td><strong>Rescate acuático oceánico/náutico</strong></td><td>24/7</td><td>Puerto Vallarta, Marina, Nuevo Vallarta</td></tr>
+          <tr><td><strong>HAZMAT — etanol y alcoholes</strong></td><td>24/7</td><td>Tequila, Amatitán y ZMG</td></tr>
+          <tr><td><strong>HAZMAT — gases industriales</strong></td><td>24/7</td><td>ZMG (Tlajomulco, El Salto, Zapopan)</td></tr>
+          <tr><td><strong>Rescate aeronáutico (ARFF)</strong></td><td>24/7</td><td>Aeropuerto Internacional GDL</td></tr>
+          <tr><td><strong>Atención prehospitalaria</strong></td><td>24/7</td><td>Estaciones con ambulancia</td></tr>
+          <tr><td><strong>Incendios forestales</strong></td><td>Estiaje (abr–jun)</td><td>Bosque La Primavera, Sierra de Manantlán, Colotlán</td></tr>
+          <tr><td><strong>Emergencias volcánicas</strong></td><td>24/7</td><td>Ciudad Guzmán (Volcán de Colima)</td></tr>
+          <tr><td><strong>Atención a turistas e inglés</strong></td><td>24/7</td><td>Puerto Vallarta, Chapala, Ajijic</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Los frentes de riesgo únicos de Jalisco: tequila, silano y tular</h3>
+    <p>
+      En el <strong>Corredor Tequilero</strong> —Tequila, Amatitán, Arenal—, más de 160 destilerías
+      producen tequila a partir de agave azul. Durante la destilación el producto alcanza
+      concentraciones de 55 a 65 % de alcohol en volumen. El etanol a esa concentración
+      tiene un punto de inflamación de 13 °C —inflamable a temperatura ambiente— y su llama
+      a plena luz solar es casi invisible: de color azul pálido, difícil de ver desde unos
+      metros. La espuma AFFF convencional se destruye en segundos al contacto con solventes
+      polares; los bomberos del corredor llevan AR-AFFF como agente primario y planes de
+      contención que protegen el suelo agavero Patrimonio UNESCO.
+    </p>
+    <p>
+      En el corredor tecnológico de Tlajomulco, El Salto y Zapopan, empresas de manufactura
+      electrónica usan <strong>silano (SiH₄)</strong>, un gas pirofórico que se inflama
+      espontáneamente en contacto con el aire. El agua reacciona con los compuestos de silicio
+      en llamas generando partículas finas que obstruyen los filtros del SCBA; el agente
+      correcto es polvo químico seco. Los cuerpos de Tlajomulco y El Salto tienen acuerdos
+      de gestión del cambio con las plantas: cualquier modificación en el inventario de gases
+      de proceso activa una notificación a la estación más cercana.
+    </p>
+    <p>
+      En el <strong>Lago de Chapala</strong>, el rescate más frecuente no es el naufragio en
+      aguas abiertas sino el kayak o bote de remos varado en la zona de tular —vegetación
+      densa de tule en agua de rodilla, fondo blando, donde un nadador no avanza—. Los
+      bomberos de Chapala, Ajijic y Jocotepec entrenan específicamente con remos y tabla
+      de rescate sin motor para esas condiciones. El nivel del lago fluctúa 2 a 4 metros
+      según la temporada, desplazando los puntos de bahía a lo largo del año.
     </p>
 
-    <h3>El corredor tecnológico de la ZMG: silano, pirofórico sin chispa, y por qué el agua está prohibida en ciertos incendios industriales</h3>
+    <h3>Comparativa regional de cobertura</h3>
     <p>
-      Guadalajara concentra la mayor densidad de manufactura electrónica de América Latina: IBM,
-      Intel, HP, Flex, Sanmina, Jabil y decenas de fabricantes de semiconductores y ensambladores
-      de electrónica operan en los parques industriales de Tlajomulco, El Salto y Zapopan. Los
-      procesos de fabricación de semiconductores usan silano (SiH₄) como gas fuente de silicio.
-      El silano es pirofórico: se inflama espontáneamente en contacto con el aire a concentraciones
-      superiores al 0.1%, sin necesidad de chispa ni temperatura elevada. Una fuga de silano que
-      alcanza el aire ya está en llamas antes de que cualquier detector térmico la detecte. El agente
-      de supresión correcto es el polvo químico seco (bicarbonato de sodio o potasio), no el agua:
-      el agua reacciona con los compuestos de silicio en la llama produciendo dióxido de silicio en
-      partículas finas que obstruyen los filtros del SCBA y reducen la visibilidad a cero. Los
-      bomberos de Tlajomulco y El Salto tienen acuerdos de Gestión del Cambio (MOC por sus siglas
-      en inglés) con las plantas semiconductor: cualquier modificación en el inventario de gases
-      de proceso activa una notificación a la estación más cercana para actualizar el plan de
-      emergencia de la instalación antes de que ocurra un incidente, no durante uno.
+      A partir de los datos de las estaciones de este directorio, así se distribuyen las
+      estaciones entre las grandes zonas del estado. Los municipios indicados son los que
+      tienen al menos una estación registrada en este directorio:
+    </p>
+    <div class="de-vwrap">
+      <table class="de-vtable">
+        <thead>
+          <tr><th>Región</th><th>Estaciones</th><th>Municipios atendidos</th><th>Perfil de la zona</th></tr>
+        </thead>
+        <tbody>
+          {zonas.map((z) => (
+            <tr>
+              <td><strong>{z.nombre}</strong></td>
+              <td>{z.nEst}</td>
+              <td>{z.nMun}</td>
+              <td>{z.perfil}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Total directorio</td>
+            <td>{totalEstaciones}</td>
+            <td>{totalMunicipios}</td>
+            <td>125 municipios en el estado de Jalisco</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <h3>Retos actuales de los bomberos en Jalisco</h3>
+    <p>
+      El primer reto es la <strong>fragmentación municipal</strong>. La Zona Metropolitana de
+      Guadalajara agrupa cinco municipios políticamente independientes con corporaciones
+      distintas, diferentes frecuencias de radio y diferentes niveles de equipamiento. Un
+      incendio que cruce un límite municipal —el Bosque La Primavera toca Guadalajara,
+      Zapopan y Tlajomulco simultáneamente— requiere coordinar mandos que no comparten
+      canal de radio común. El C5 opera como enlace, pero la coordinación táctica sigue
+      dependiendo de acuerdos informales entre comandantes.
+    </p>
+    <p>
+      El segundo reto es el <strong>crecimiento urbano acelerado</strong>. Tlajomulco de Zúñiga
+      es uno de los municipios de mayor crecimiento demográfico de México; su expansión de
+      fraccionamientos residenciales al sur de la ZMG supera la capacidad de la red de
+      estaciones para mantener tiempos de respuesta aceptables en los nuevos desarrollos.
+      A ello se suman las presiones presupuestales para renovar equipo de protección personal
+      certificado NFPA y sostener la capacitación especializada en los perfiles de riesgo
+      propios del estado.
     </p>
 
-    <h3>Bosque La Primavera y las tres jurisdicciones: por qué el Cuerpo de Bomberos de Zapopan preposiciona unidades antes del incendio</h3>
+    <h3>Cultura de prevención en Jalisco</h3>
     <p>
-      El Bosque La Primavera es una reserva forestal protegida de 30,500 hectáreas ubicada
-      íntegramente dentro de la Zona Metropolitana de Guadalajara, con perímetro compartido entre
-      los municipios de Guadalajara, Zapopan y Tlajomulco. Es la interfaz forestal-urbana más
-      grande de cualquier ciudad de México y una de las más grandes de América Latina. Un incendio
-      que inicia en el sector Zapopan de La Primavera con viento del oeste puede alcanzar la
-      zona de vivienda en el sector Guadalajara en menos de dos horas. Los tres municipios tienen
-      corporaciones independientes con diferentes estándares de equipo, diferentes frecuencias
-      de radio (la coordinación entre ellos usa radio de enlace operado por despachadores, no
-      canal común) y diferentes protocolos de mando. El protocolo de temporada de incendios
-      (abril-junio) requiere que los tres cuerpos preposicionen unidades dentro de los límites
-      del bosque al inicio de cada día de alto riesgo —antes de que haya un reporte de humo—
-      porque coordinar el despliegue después de que el fuego ha cruzado la primera línea de
-      casas cuesta los 20 minutos que hacen la diferencia entre contención y evacuación.
+      Las explosiones del 22 de abril de 1992 —que destruyeron 14 kilómetros de calles y
+      causaron 209 muertes en el barrio de Analco de Guadalajara— dejaron como legado
+      permanente la conciencia de que la prevención evita catástrofes que ningún cuerpo de
+      bomberos puede reparar. El 22 de abril se conmemora en Jalisco como fecha de reflexión
+      sobre la prevención de desastres. Estas son las recomendaciones básicas que los
+      cuerpos de bomberos del estado difunden a la población:
     </p>
+    <div class="de-callout">
+      <h4>Recomendaciones de prevención</h4>
+      <ul>
+        <li><strong>Gas:</strong> revisa mangueras, reguladores y conexiones periódicamente; si hueles gas, no acciones interruptores, cierra la llave de paso, ventila y evacúa antes de llamar.</li>
+        <li><strong>Electricidad:</strong> evita sobrecargar contactos; ante olor a quemado o cables calientes, corta el circuito y llama al 911.</li>
+        <li><strong>Detección:</strong> instala detectores de humo en dormitorios y cocina; revisa las pilas cada año; ten un extintor vigente y accesible.</li>
+        <li><strong>Plan de evacuación:</strong> define rutas de salida y un punto de reunión con tu familia; practícalo al menos una vez al año.</li>
+        <li><strong>Destilerías y talleres:</strong> almacena solventes e inflamables en recipientes certificados, lejos de fuentes de calor; mantén ventilación adecuada.</li>
+        <li><strong>Lago y mar:</strong> usa chalecos salvavidas en embarcaciones; avisa a alguien a dónde vas y cuándo regresas; no te alejes de la orilla en zona de tular.</li>
+        <li><strong>Siempre:</strong> ten el <strong>911</strong> visible y enseña a niñas y niños cuándo y cómo llamar.</li>
+      </ul>
+    </div>
 
-    <h3>Lago de Chapala: el tule, la fluctuación de nivel y el despacho bilingüe que ninguna otra corporación lacustre en México tiene</h3>
-    <p>
-      El Lago de Chapala, con 1,100 km², es el cuerpo de agua dulce superficial más grande de
-      México. Tiene dos características operacionales sin equivalente en otros lagos del país:
-      el nivel fluctúa entre 2 y 4 metros según la temporada, lo que hace que los puntos de
-      bahía de las lanchas de rescate cambien de ubicación a lo largo del año; y las orillas
-      tienen extensas zonas de tular (vegetación de tule) que crean sectores de agua poco
-      profunda con fondo blando y densa vegetación entrelazada donde un bote motorizado encalla
-      y un nadador sin aletas no puede avanzar. El escenario de rescate más frecuente en Chapala
-      no es el naufragio en aguas abiertas: es el bote de remos o kayak que encalló en el tular
-      a 150 metros de la orilla, en agua que llega a la rodilla pero rodeado de cañas que impiden
-      el movimiento. Los bomberos de Chapala, Ajijic y Jocotepec entrenan específicamente en
-      rescate en zona de tular con remos y tabla de rescate sin motor. La colonia de residentes
-      extranjeros permanentes del Lago de Chapala —aproximadamente 16,000 personas, en su mayoría
-      jubilados de Estados Unidos y Canadá— genera un volumen regular de llamadas en inglés.
-      Las estaciones lacustres mantienen despacho bilingüe en todos los turnos, una capacidad
-      que las corporaciones de Pátzcuaro (Michoacán) y Texcoco (Estado de México) —los otros
-      dos grandes lagos del centro de México— no tienen de forma permanente.
+    <p class="de-srcnote">
+      Fuentes: Ayuntamiento de Guadalajara, «100 Años de Bomberos Guadalajara» (El Informador / El Norte, mayo 2023); Milenio, «Día del Bombero: Guadalajara es el cuerpo más antiguo de México»; El Informador, «Explosiones de Guadalajara 1992: memorias de un sobreviviente» (22 de abril de 2022); INEGI, Censo de Población y Vivienda 2020 (8.3 M hab. en Jalisco, 5.2 M en ZMG); UNESCO, «Paisaje Agavero y Antiguas Instalaciones Industriales de Tequila» (inscripción 2006). La distribución de estaciones por región y el número de municipios atendidos se calculan a partir de las estaciones publicadas en este directorio; los totales institucionales de personal y parque vehicular pueden diferir. Para emergencias, llama siempre al <strong>911</strong>.
     </p>
 
   </Fragment>
