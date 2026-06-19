@@ -19,7 +19,7 @@ En BOMBERO.MX tratamos los datos personales que nos compartes para:
 
 ## Derechos ARCO
 
-Puedes solicitar acceso, rectificación, cancelación u oposición al tratamiento de tus datos escribiendo a **ventas@bombero.mx**.
+Puedes solicitar acceso, rectificación, cancelación u oposición al tratamiento de tus datos escribiendo a **ventas.bomberosmx@gmail.com**.
 
 ## Actualizaciones
 

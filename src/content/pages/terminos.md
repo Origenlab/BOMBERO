@@ -22,4 +22,4 @@ La información del directorio se publica con fines de orientación y puede camb
 
 ## Contacto legal
 
-Para dudas sobre estos términos escribe a **ventas@bombero.mx**.
+Para dudas sobre estos términos escribe a **ventas.bomberosmx@gmail.com**.

@@ -22,8 +22,8 @@ export async function GET(context: APIContext) {
     customData: `
       <language>es-MX</language>
       <copyright>© ${new Date().getFullYear()} BOMBERO.MX - Todos los derechos reservados</copyright>
-      <managingEditor>contacto@bombero.mx (BOMBERO.MX)</managingEditor>
-      <webMaster>contacto@bombero.mx (BOMBERO.MX)</webMaster>
+      <managingEditor>ventas.bomberosmx@gmail.com (BOMBERO.MX)</managingEditor>
+      <webMaster>ventas.bomberosmx@gmail.com (BOMBERO.MX)</webMaster>
       <image>
         <url>https://bombero.mx/images/logo-equipo-para-bomberos.avif</url>
         <title>Blog BOMBERO.MX</title>

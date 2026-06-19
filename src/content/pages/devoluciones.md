@@ -21,7 +21,7 @@ Pedidos sobre especificación, importación o fabricación especial pueden tener
 
 ## Solicitud de atención
 
-Para iniciar un proceso escribe a **ventas@bombero.mx** con:
+Para iniciar un proceso escribe a **ventas.bomberosmx@gmail.com** con:
 
 - Número de pedido o referencia.
 - Evidencia del producto.

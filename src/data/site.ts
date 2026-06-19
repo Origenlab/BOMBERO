@@ -75,8 +75,8 @@ export const SITE = {
   },
 
   contact: {
-    email: "ventas@bombero.mx",
-    emailSupport: "soporte@bombero.mx",
+    email: "ventas.bomberosmx@gmail.com",
+    emailSupport: "ventas.bomberosmx@gmail.com",
     phone: "55 7008 1816",
     phoneRaw: "+525570081816",
     phoneTollFree: "55 7008 1816",

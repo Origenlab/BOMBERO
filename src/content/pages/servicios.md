@@ -65,4 +65,4 @@ Col. Condesa, Cuauhtémoc
 
 **Teléfono:** 55 7008 1816
 **WhatsApp:** 55 7008 1816
-**Email:** ventas@bombero.mx
+**Email:** ventas.bomberosmx@gmail.com
