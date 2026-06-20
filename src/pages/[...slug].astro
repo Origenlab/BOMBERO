@@ -3,7 +3,7 @@
 import PageLayout from "@layouts/PageLayout.astro";
 import QuickNav from "@components/QuickNav.astro";
 import HeroSection from "@components/HeroSection.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages");
@@ -12,15 +12,15 @@ export async function getStaticPaths() {
      de cada una (la estática gana, pero se construían dos veces). 2026-06-10 */
   const STATIC_OVERRIDES = new Set(["contacto", "cotizar", "nosotros"]);
   return pages
-    .filter((page) => !STATIC_OVERRIDES.has(page.slug))
+    .filter((page) => !STATIC_OVERRIDES.has(page.id))
     .map((page) => ({
-      params: { slug: page.slug },
+      params: { slug: page.id },
       props: page,
     }));
 }
 
 const page = Astro.props;
-const { Content } = await page.render();
+const { Content } = await render(page);
 ---
 
 <PageLayout

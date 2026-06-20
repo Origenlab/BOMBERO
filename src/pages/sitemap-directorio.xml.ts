@@ -16,7 +16,7 @@ import {
   ESTACIONES_POR_ESTADO_SLUG,
   getAllMunicipios,
   getAllEspecialidades,
-} from "@utils/directorio-index";
+} from "@lib/directorio-index";
 import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const SITE = "https://bombero.mx";

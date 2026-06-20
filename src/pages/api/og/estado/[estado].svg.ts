@@ -3,8 +3,8 @@
  * Open Graph image dinámica para páginas de estado.
  */
 import type { APIRoute } from "astro";
-import { renderOgSvg } from "@utils/og-svg";
-import { getEstadoInfo, getEstacionesEstado, ESTACIONES_POR_ESTADO_SLUG } from "@utils/directorio-index";
+import { renderOgSvg } from "@lib/og-svg";
+import { getEstadoInfo, getEstacionesEstado, ESTACIONES_POR_ESTADO_SLUG } from "@lib/directorio-index";
 
 export function getStaticPaths() {
   return Object.keys(ESTACIONES_POR_ESTADO_SLUG).map((slug) => ({

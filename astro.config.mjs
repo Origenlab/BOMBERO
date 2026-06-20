@@ -1,4 +1,5 @@
 import { defineConfig } from "astro/config";
+import { fileURLToPath } from "node:url";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
@@ -118,5 +119,19 @@ export default defineConfig({
     "/blog/gama-de-mexico-cumplimiento-nfpa-nom-002-stps/": "/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/",
     "/blog/gama-de-mexico-logistica-nacional-equipos/": "/blog/gama-de-mexico-logistica-nacional-cdmx-queretaro/",
     "/blog/gama-de-mexico-sectores-industriales-atendidos/": "/blog/gama-de-mexico-sectores-industriales-mexico/",
+  },
+  // ─── Vite alias (mirror of tsconfig paths) ───
+  vite: {
+    resolve: {
+      alias: {
+        "@": fileURLToPath(new URL("./src", import.meta.url)),
+        "@components": fileURLToPath(new URL("./src/components", import.meta.url)),
+        "@layouts": fileURLToPath(new URL("./src/layouts", import.meta.url)),
+        "@data": fileURLToPath(new URL("./src/data", import.meta.url)),
+        "@config": fileURLToPath(new URL("./src/config", import.meta.url)),
+        "@lib": fileURLToPath(new URL("./src/lib", import.meta.url)),
+        "@styles": fileURLToPath(new URL("./src/styles", import.meta.url)),
+      },
+    },
   },
 });

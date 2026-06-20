@@ -3,11 +3,11 @@
  * Open Graph image dinámica para cada ficha de estación.
  */
 import type { APIRoute } from "astro";
-import { renderOgSvg } from "@utils/og-svg";
+import { renderOgSvg } from "@lib/og-svg";
 import {
   ESTACIONES_POR_ESTADO_SLUG,
   getEstadoInfo,
-} from "@utils/directorio-index";
+} from "@lib/directorio-index";
 
 export function getStaticPaths() {
   const paths: { params: { estado: string; slug: string }; props: any }[] = [];
