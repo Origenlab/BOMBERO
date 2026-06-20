@@ -1397,7 +1397,7 @@ export function getEstacionBySlug(slug: string): Estacion | undefined {
 
 
 export function getMunicipios(): string[] {
-  const municipios = [...new Set(estacionesChiapas.map((e) => e.municipio))];
+  const municipios = [...new Set(estacionesChiapas.map((e) => e.municipio).filter((v): v is string => v !== undefined))];
   return municipios.sort();
 }
 
@@ -1503,7 +1503,7 @@ export function getEstacionesTuristicas(): Estacion[] {
   ];
   return estacionesChiapas.filter(
     (e) =>
-      municipiosTuristicos.includes(e.municipio) ||
+      municipiosTuristicos.includes(e.municipio ?? '') ||
       e.especialidades?.some(
         (esp) =>
           esp.toLowerCase().includes("turís") ||
@@ -1523,7 +1523,7 @@ export function getEstacionesFronterizas(): Estacion[] {
           esp.toLowerCase().includes("guatemala") ||
           esp.toLowerCase().includes("migra")
       ) ||
-      e.zonasCobertura.some(
+      (e.zonasCobertura ?? []).some(
         (zona) =>
           zona.toLowerCase().includes("frontera") ||
           zona.toLowerCase().includes("guatemala")
@@ -1534,14 +1534,14 @@ export function getEstacionesFronterizas(): Estacion[] {
 
 export function generarMetaSEO(estacion: Estacion) {
   return {
-    title: `${estacion.nombreCorto} | Bomberos ${estacion.municipio}, Chiapas | BOMBERO.MX`,
-    description: `${estacion.descripcion.substring(0, 155)}...`,
+    title: `${estacion.nombreCorto} | Bomberos ${estacion.municipio ?? ''}, Chiapas | BOMBERO.MX`,
+    description: `${(estacion.descripcion ?? '').substring(0, 155)}...`,
     keywords: [
-      `bomberos ${estacion.municipio.toLowerCase()}`,
+      `bomberos ${(estacion.municipio ?? '').toLowerCase()}`,
       `bomberos ${estacion.ciudad.toLowerCase()}`,
-      `emergencias ${estacion.municipio.toLowerCase()}`,
-      `911 ${estacion.municipio.toLowerCase()} chiapas`,
-      `rescate ${estacion.municipio.toLowerCase()}`,
+      `emergencias ${(estacion.municipio ?? '').toLowerCase()}`,
+      `911 ${(estacion.municipio ?? '').toLowerCase()} chiapas`,
+      `rescate ${(estacion.municipio ?? '').toLowerCase()}`,
       ...CHIAPAS_SEO.keywordsPrimarios.slice(0, 3),
     ],
     canonicalUrl: `/directorio/chiapas/${estacion.slug}`,

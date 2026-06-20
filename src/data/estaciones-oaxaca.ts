@@ -932,8 +932,8 @@ export function generarSchemaEstacion(estacion: Estacion) {
     "telephone": estacion.telefono,
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": estacion.coordenadas.lat,
-      "longitude": estacion.coordenadas.lng
+      "latitude": estacion.coordenadas?.lat ?? 0,
+      "longitude": estacion.coordenadas?.lng ?? 0
     },
     "openingHours": "Mo-Su 00:00-23:59",
     "areaServed": estacion.municipiosCubiertos?.join(", ")

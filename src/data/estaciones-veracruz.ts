@@ -55,6 +55,7 @@ export interface InstalacionPEMEX {
   ubicacion: string;
   capacidad: string;
   empleados: number;
+  productos?: string[];
   riesgosHAZMAT: string[];
   clasificacionRiesgo: 'A' | 'B' | 'C';
   protocolosActivos: string[];
@@ -325,7 +326,7 @@ export const VERACRUZ_SEO = {
 // ║ INDUSTRIA PETROLERA Y PETROQUÍMICA - DATOS PEMEX                                                         ║
 // ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 
-export const INDUSTRIA_PETROLERA_VERACRUZ: { instalaciones: InstalacionPEMEX[], resumen: any } = {
+export const INDUSTRIA_PETROLERA_VERACRUZ: { instalaciones: InstalacionPEMEX[], resumen: any, estadisticas?: Record<string, unknown> } = {
   resumen: {
     descripcion: "Veracruz concentra el 35% de la industria petroquímica de México",
     empleosDirectos: 45000,
@@ -1923,10 +1924,10 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
   return estacionesVeracruz
     .filter(e => e.slug !== slug)
     .sort((a, b) => {
-      const distA = Math.abs(a.coordenadas.lat - estacion.coordenadas.lat) +
-                    Math.abs(a.coordenadas.lng - estacion.coordenadas.lng);
-      const distB = Math.abs(b.coordenadas.lat - estacion.coordenadas.lat) +
-                    Math.abs(b.coordenadas.lng - estacion.coordenadas.lng);
+      const distA = Math.abs((a.coordenadas?.lat ?? 0) - (estacion.coordenadas?.lat ?? 0)) +
+                    Math.abs((a.coordenadas?.lng ?? 0) - (estacion.coordenadas?.lng ?? 0));
+      const distB = Math.abs((b.coordenadas?.lat ?? 0) - (estacion.coordenadas?.lat ?? 0)) +
+                    Math.abs((b.coordenadas?.lng ?? 0) - (estacion.coordenadas?.lng ?? 0));
       return distA - distB;
     })
     .slice(0, limit);

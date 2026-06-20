@@ -825,7 +825,7 @@ export function getEstacionesByMunicipio(municipio: string): Estacion[] {
 
 
 export function getMunicipios(): string[] {
-  return [...new Set(estacionesEdoMex.map(e => e.municipio))].sort();
+  return [...new Set(estacionesEdoMex.map(e => e.municipio).filter((v): v is string => v !== undefined))].sort();
 }
 
 
@@ -848,5 +848,5 @@ export function getEstacionesPorRegion(region: 'norte' | 'oriente' | 'sur' | 'po
     sur: []
   };
 
-  return estacionesEdoMex.filter(e => regiones[region]?.includes(e.municipio));
+  return estacionesEdoMex.filter(e => regiones[region]?.includes(e.municipio ?? ''));
 }

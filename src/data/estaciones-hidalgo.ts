@@ -1573,7 +1573,7 @@ export function generarMetaSEO(estacion: Estacion): {
     .replace(/\s+/g, '-');
 
   let contexto = '';
-  let keywordsAdicionales: string[] = [];
+  let keywordsAdicionales: readonly string[] = [];
 
   // Contexto específico por zona
   if (estacion.ciudad === 'Pachuca de Soto') {
@@ -1635,7 +1635,7 @@ export function getContextoZona(ciudad: string): {
   tipo: string;
   nombre: string;
   descripcion: string;
-  keywords: string[];
+  keywords: readonly string[];
   color: string;
   icono: string;
   riesgosPrincipales: string[];
@@ -1832,7 +1832,7 @@ export const ESTADISTICAS_HIDALGO = {
   estaciones_rescate_montana: getEstacionesRescateMontana().length,
 
   // Cobertura
-  municipios_cubiertos: new Set(estacionesHidalgo.map(e => e.municipio)).size,
+  municipios_cubiertos: new Set(estacionesHidalgo.map(e => e.municipio).filter((v): v is string => v !== undefined)).size,
   ciudades_cubiertas: new Set(estacionesHidalgo.map(e => e.ciudad)).size,
 
   // Información contextual

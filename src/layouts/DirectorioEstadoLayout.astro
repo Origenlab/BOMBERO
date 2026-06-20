@@ -19,14 +19,14 @@ import HeroSection from "@components/HeroSection.astro";
 
 
 interface EstacionData {
-  nombreCorto: string;
+  nombreCorto?: string;
   slug: string;
   direccion: string;
   colonia?: string;
   municipio?: string;
   ciudad?: string;
-  telefono?: string;
-  servicios?: string[];
+  telefono: string;
+  servicios: string[];
   horario?: string;
 }
 
@@ -72,6 +72,9 @@ interface Props {
   estado: string;               // "Baja California"
   sigla: string;                // "BC"
   slug: string;                 // "baja-california"
+  // Algunas paginas pasan `title`; el layout calcula su propio titulo internamente,
+  // por lo que esta prop se acepta pero no se usa (no altera el HTML emitido).
+  title?: string;
   description: string;
   keywords?: string[];
   canonical: string;
@@ -87,10 +90,10 @@ interface Props {
   heroImage: string;
   heroImageAlt: string;
   heroCaption: string;
-  heroThumbs: [HeroThumb, HeroThumb, HeroThumb];  // exactamente 3
+  heroThumbs: HeroThumb[];  // se esperan 3
 
 
-  galleryImages: [GalleryImage, GalleryImage, GalleryImage, GalleryImage]; // 4
+  galleryImages: GalleryImage[]; // se esperan 4
 
 
   emergencyNumbers: EmergencyNumber[];
@@ -105,12 +108,12 @@ interface Props {
   estadosVecinos: EstadoVecino[];
 
 
-  eppCards: [EppCard, EppCard, EppCard, EppCard];  // exactamente 4
+  eppCards: EppCard[];  // se esperan 4
 
 
-  ctaTitle: string;
-  ctaDesc: string;
-  ctaBtnText: string;
+  ctaTitle?: string;
+  ctaDesc?: string;
+  ctaBtnText?: string;
   ctaBtnHref?: string;
 
   // FAQ únicas por estado (≥10). Si se pasan, sustituyen las plantillas genéricas

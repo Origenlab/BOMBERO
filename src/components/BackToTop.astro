@@ -30,9 +30,10 @@ const buttonClasses = [
 
 <script>
   // Módulo diferido por Astro — DOM disponible, sin wrapper DOMContentLoaded
-  var backToTop = document.querySelector('.back-to-top');
+  var backToTop = document.querySelector('.back-to-top') as HTMLElement | null;
 
   if (backToTop) {
+    const bt = backToTop;
     var threshold = parseInt(backToTop.dataset.threshold || '400', 10);
 
     var ticking = false;
@@ -43,7 +44,7 @@ const buttonClasses = [
       window.requestAnimationFrame(function() {
         var shouldShow = window.scrollY > threshold;
         if (shouldShow !== isVisible) {
-          backToTop.classList.toggle('back-to-top--visible', shouldShow);
+          bt.classList.toggle('back-to-top--visible', shouldShow);
           isVisible = shouldShow;
         }
         ticking = false;

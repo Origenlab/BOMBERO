@@ -23,13 +23,14 @@
 <script>
   // Inicializar Pagefind cuando el DOM esté listo
   (async function initPagefind() {
-    const input = document.getElementById('blog-search-input');
+    const input = document.getElementById('blog-search-input') as HTMLInputElement | null;
     const resultsContainer = document.getElementById('blog-search-results');
 
     if (!input || !resultsContainer) return;
 
-    // Cargar Pagefind dinámicamente (solo disponible después del build)
-    let pagefind;
+    // Cargar Pagefind dinámicamente (solo disponible después del build).
+    // Módulo cargado en runtime (sin tipos publicados): any es el tipo correcto aquí.
+    let pagefind: any;
 
     try {
       // URL construida en runtime para que Vite no intente resolverla en dev
@@ -47,7 +48,7 @@
     }
 
     // Debounce para búsqueda
-    let timeout;
+    let timeout: ReturnType<typeof setTimeout>;
 
     input.addEventListener('input', async () => {
       clearTimeout(timeout);
@@ -62,7 +63,7 @@
       timeout = setTimeout(async () => {
         const search = await pagefind.search(query);
         const results = await Promise.all(
-          search.results.slice(0, 5).map((r) => r.data())
+          search.results.slice(0, 5).map((r: any) => r.data())
         );
 
         if (results.length === 0) {
@@ -86,7 +87,7 @@
 
     // Cerrar resultados al hacer clic fuera
     document.addEventListener('click', (e) => {
-      if (!input.contains(e.target) && !resultsContainer.contains(e.target)) {
+      if (!input.contains(e.target as Node | null) && !resultsContainer.contains(e.target as Node | null)) {
         resultsContainer.classList.remove('active');
       }
     });

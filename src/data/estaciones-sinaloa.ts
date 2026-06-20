@@ -994,7 +994,7 @@ export function getEstacionesByMunicipio(municipio: string): Estacion[] {
 }
 
 export function getMunicipios(): string[] {
-  return [...new Set(estacionesSinaloa.map(e => e.municipio))].sort();
+  return [...new Set(estacionesSinaloa.map(e => e.municipio).filter((v): v is string => v !== undefined))].sort();
 }
 
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {

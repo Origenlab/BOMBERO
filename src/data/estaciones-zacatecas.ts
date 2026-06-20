@@ -509,7 +509,7 @@ export const estacionesZacatecas: Estacion[] = [
 ];
 
 export function getMunicipios(): string[] {
-  const municipiosSet = new Set(estacionesZacatecas.map((e) => e.municipio));
+  const municipiosSet = new Set(estacionesZacatecas.map((e) => e.municipio).filter((v): v is string => v !== undefined));
   return Array.from(municipiosSet);
 }
 

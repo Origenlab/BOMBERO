@@ -990,7 +990,7 @@ export function generarMetaSEO(estacion: Estacion): {
     .replace(/\s+/g, '-');
 
   let contexto = '';
-  let keywordsAdicionales: string[] = [];
+  let keywordsAdicionales: readonly string[] = [];
 
   if (estacion.ciudad === 'León') {
     contexto = 'Capital del Calzado, zona industrial';
@@ -1037,7 +1037,7 @@ export function generarMetaSEO(estacion: Estacion): {
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
-  keywords: string[];
+  keywords: readonly string[];
   color: string;
   icono: string;
 } {
@@ -1146,7 +1146,7 @@ export const ESTADISTICAS_GUANAJUATO = {
   estaciones_bajio_norte: getEstacionesBajioNorte().length,
   estaciones_pueblos_magicos: getEstacionesPueblosMagicos().length,
   estaciones_hazmat: getEstacionesHAZMAT().length,
-  municipios_cubiertos: new Set(estacionesGuanajuato.map(e => e.municipio)).size,
+  municipios_cubiertos: new Set(estacionesGuanajuato.map(e => e.municipio).filter((v): v is string => v !== undefined)).size,
   riesgo_principal: 'Incendios industriales (automotriz, calzado, refinería)',
   industria_principal: 'Automotriz (#1 nacional) y Calzado (70% producción nacional)',
 };

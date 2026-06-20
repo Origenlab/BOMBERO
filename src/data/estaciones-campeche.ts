@@ -542,7 +542,7 @@ export function getEstacionesByMunicipio(municipio: string): Estacion[] {
 
 
 export function getMunicipios(): string[] {
-  return [...new Set(estacionesCampeche.map((e) => e.municipio))].sort();
+  return [...new Set(estacionesCampeche.map((e) => e.municipio).filter((v): v is string => v !== undefined))].sort();
 }
 
 

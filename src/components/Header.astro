@@ -235,7 +235,7 @@ const waTextMobile  = encodeURIComponent("Hola, necesito cotizar equipo para bom
   var header = document.querySelector(".header");
 
   // Bloqueo de scroll robusto: html + body + clase en body (para ocultar floats).
-  function setScrollLock(locked) {
+  function setScrollLock(locked: boolean) {
     document.documentElement.style.overflow = locked ? "hidden" : "";
     document.body.style.overflow = locked ? "hidden" : "";
     document.body.classList.toggle("menu-open", locked);
@@ -246,13 +246,13 @@ const waTextMobile  = encodeURIComponent("Hola, necesito cotizar equipo para bom
   }
 
   // Focus trap: mantiene el foco dentro del drawer mientras está abierto (a11y)
-  function trapFocus(e) {
+  function trapFocus(e: KeyboardEvent) {
     if (e.key !== "Tab" || !isOpen() || !mobileMenu) return;
     var f = mobileMenu.querySelectorAll('a[href],button:not([disabled])');
     if (!f.length) return;
     var first = f[0], last = f[f.length - 1];
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); (last as HTMLElement).focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); (first as HTMLElement).focus(); }
   }
 
   function openMenu() {
@@ -265,7 +265,7 @@ const waTextMobile  = encodeURIComponent("Hola, necesito cotizar equipo para bom
     setScrollLock(true);
     // Enfocar el primer enlace para lectores de pantalla / teclado
     var firstLink = mobileMenu.querySelector("a[href],button");
-    if (firstLink) { try { firstLink.focus({ preventScroll: true }); } catch (e) { firstLink.focus(); } }
+    if (firstLink) { try { (firstLink as HTMLElement).focus({ preventScroll: true }); } catch (e) { (firstLink as HTMLElement).focus(); } }
   }
 
   function closeMenu() {
@@ -308,7 +308,7 @@ const waTextMobile  = encodeURIComponent("Hola, necesito cotizar equipo para bom
 
   // Cerrar al hacer clic fuera del header
   document.addEventListener("click", function(e) {
-    var target = e.target;
+    var target = e.target as Element | null;
     if (isOpen() && target && target.closest && !target.closest(".header")) closeMenu();
   });
 

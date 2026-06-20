@@ -878,7 +878,7 @@ export function getEstacionesByMunicipio(municipio: string): Estacion[] {
 }
 
 export function getMunicipios(): string[] {
-  return [...new Set(estacionesTabasco.map(e => e.municipio))];
+  return [...new Set(estacionesTabasco.map(e => e.municipio).filter((v): v is string => v !== undefined))];
 }
 
 export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion[] {
