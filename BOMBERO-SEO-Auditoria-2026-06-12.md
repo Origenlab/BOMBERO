@@ -48,8 +48,8 @@
 
 ## 🔍 Análisis competitivo — FIREFIGHTER.mx
 
-### ALERTA: Mismo número de teléfono
-**FIREFIGHTER.mx y BOMBERO.MX comparten el número +52 55 7008 1816** (WhatsApp y teléfono). Ambos sitios también tienen directorio de estaciones de bomberos. Esto puede indicar que son la misma empresa, marcas distintas del mismo distribuidor, o alguna relación de socio/reseller. Frank debe confirmar si esto es intencional y si quiere diferenciación de marca o si son complementarios.
+### ✅ RESUELTO (2026-06-20): Número de teléfono diferenciado
+**Hasta el 2026-06-20, FIREFIGHTER.mx y BOMBERO.MX compartían el número +52 55 7008 1816.** El 2026-06-20 se cambió el número de contacto de BOMBERO.MX a **+52 55 6034 8981** (teléfono y WhatsApp) en todo el sitio, eliminando la coincidencia. Ambos sitios mantienen directorio de estaciones de bomberos. Queda pendiente que Frank confirme la relación de marca con FIREFIGHTER.mx si aplica.
 
 ### Comparativa estructural
 
