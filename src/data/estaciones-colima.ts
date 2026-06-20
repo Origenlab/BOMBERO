@@ -578,7 +578,7 @@ export function generarMetaSEO(estacion: Estacion): {
 
   // Determinar contexto de la estación
   let contexto = '';
-  let keywordsAdicionales: string[] = [];
+  let keywordsAdicionales: readonly string[] = [];
 
   if (estacion.ciudad === 'Colima') {
     contexto = 'capital del estado, coordinación volcánica';
@@ -621,7 +621,7 @@ export function generarMetaSEO(estacion: Estacion): {
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
-  keywords: string[];
+  keywords: readonly string[];
   color: string;
   icono: string;
 } {
@@ -746,8 +746,8 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
 
 export const ESTADISTICAS_COLIMA = {
   total_estaciones: estacionesColima.length,
-  total_bomberos: estacionesColima.reduce((sum, e) => sum + e.personal, 0),
-  total_unidades: estacionesColima.reduce((sum, e) => sum + e.unidades, 0),
+  total_bomberos: estacionesColima.reduce((sum, e) => sum + (e.personal ?? 0), 0),
+  total_unidades: estacionesColima.reduce((sum, e) => sum + (e.unidades ?? 0), 0),
   estaciones_metropolitanas: getEstacionesMetropolitanas().length,
   estaciones_portuarias: getEstacionesPortuarias().length,
   estaciones_volcanicas: getEstacionesVolcanicas().length,

@@ -6,7 +6,7 @@ import {
   getAlcaldias,
 } from "@data/estaciones-cdmx";
 import { getEstadosVecinos } from "@data/estados-vecinos";
-import { breadcrumbJsonLd } from "@utils/seo";
+import { breadcrumbJsonLd } from "@lib/seo";
 import { DIRECTORIO_VERIFICADO_ISO } from "@data/directorio-stats";
 
 const estadosVecinos = getEstadosVecinos("ciudad-de-mexico");
@@ -32,7 +32,7 @@ const zonasDef = [
 ];
 
 const zonas = zonasDef.map((z) => {
-  const est = estacionesCDMX.filter((e) => z.alcaldias.includes(e.alcaldia));
+  const est = estacionesCDMX.filter((e) => z.alcaldias.includes(e.alcaldia ?? ''));
   return {
     ...z,
     nEst:  est.length,

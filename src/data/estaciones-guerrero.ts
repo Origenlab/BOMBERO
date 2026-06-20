@@ -987,7 +987,7 @@ export function generarMetaSEO(estacion: Estacion): {
     .replace(/\s+/g, '-');
 
   let contexto = '';
-  let keywordsAdicionales: string[] = [];
+  let keywordsAdicionales: readonly string[] = [];
 
   if (estacion.ciudad === 'Acapulco de Juárez') {
     contexto = 'principal destino turístico de playa en México';
@@ -1031,7 +1031,7 @@ export function generarMetaSEO(estacion: Estacion): {
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
-  keywords: string[];
+  keywords: readonly string[];
   color: string;
   icono: string;
 } {
@@ -1151,7 +1151,7 @@ export const ESTADISTICAS_GUERRERO = {
   estaciones_costa_chica: getEstacionesCostaChica().length,
   estaciones_montana: getEstacionesMontana().length,
   estaciones_rescate_acuatico: getEstacionesRescateAcuatico().length,
-  municipios_cubiertos: new Set(estacionesGuerrero.map(e => e.municipio)).size,
+  municipios_cubiertos: new Set(estacionesGuerrero.map(e => e.municipio).filter((v): v is string => v !== undefined)).size,
   riesgo_principal: 'Huracanes categoría 5, sismos (Brecha de Guerrero), tsunamis',
   industria_principal: 'Turismo (12M visitantes anuales)',
 };

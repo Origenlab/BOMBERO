@@ -606,7 +606,7 @@ export function getEstacionesByAlcaldia(alcaldia: string): Estacion[] {
 
 // Obtener todas las alcaldías
 export function getAlcaldias(): string[] {
-  return [...new Set(estacionesCDMX.map(e => e.alcaldia))].sort();
+  return [...new Set(estacionesCDMX.map(e => e.alcaldia).filter((v): v is string => v !== undefined))].sort();
 }
 
 // Obtener estaciones cercanas (simulado por alcaldías vecinas)

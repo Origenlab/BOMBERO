@@ -358,7 +358,7 @@ export function getEstacionesByMunicipio(municipio: string): Estacion[] {
 
 
 export function getMunicipios(): string[] {
-  return [...new Set(estacionesBajaCaliforniaSur.map(e => e.municipio))].sort();
+  return [...new Set(estacionesBajaCaliforniaSur.map(e => e.municipio).filter((v): v is string => v !== undefined))].sort();
 }
 
 
@@ -411,5 +411,5 @@ export function getEstacionesRescateAcuatico(): Estacion[] {
 
 export function getEstacionesTuristicas(): Estacion[] {
   const municipiosTuristicos = ['Los Cabos', 'Loreto'];
-  return estacionesBajaCaliforniaSur.filter(e => municipiosTuristicos.includes(e.municipio));
+  return estacionesBajaCaliforniaSur.filter(e => municipiosTuristicos.includes(e.municipio ?? ''));
 }

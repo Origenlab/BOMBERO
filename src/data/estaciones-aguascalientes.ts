@@ -568,7 +568,7 @@ export function getEstacionesByMunicipio(municipio: string): Estacion[] {
 
 
 export function getMunicipios(): string[] {
-  return [...new Set(estacionesAguascalientes.map(e => e.municipio))].sort();
+  return [...new Set(estacionesAguascalientes.map(e => e.municipio).filter((v): v is string => v !== undefined))].sort();
 }
 
 
@@ -590,5 +590,5 @@ export function getEstacionesPorRegion(region: 'metropolitana' | 'norte' | 'sur'
     oriente: ['El Llano', 'Pabellón de Arteaga']
   };
 
-  return estacionesAguascalientes.filter(e => regiones[region]?.includes(e.municipio));
+  return estacionesAguascalientes.filter(e => regiones[region]?.includes(e.municipio ?? ''));
 }

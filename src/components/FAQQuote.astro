@@ -219,15 +219,16 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
     const form    = document.getElementById("faqq-form");
     if (!form) return;
     const phone   = "525570081816";
-    const btn     = document.getElementById("faqq-submit");
+    const btn     = document.getElementById("faqq-submit") as HTMLButtonElement | null;
     const btnText = document.getElementById("faqq-text");
     const btnIcon = document.getElementById("faqq-icon");
+    if (!btn || !btnText || !btnIcon) return;
 
     /* ── helpers ── */
-    function getEl(id) { return document.getElementById(id); }
-    function val(id)   { return (getEl(id) || {}).value || ""; }
+    function getEl(id: string) { return document.getElementById(id); }
+    function val(id: string)   { return ((getEl(id) || {}) as HTMLInputElement).value || ""; }
 
-    function setError(fieldWrapId, errSpanId, msg) {
+    function setError(fieldWrapId: string, errSpanId: string, msg: string) {
       const wrap = getEl(fieldWrapId);
       const span = getEl(errSpanId);
       if (!wrap || !span) return;
@@ -239,7 +240,7 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
       if (input) input.setAttribute("aria-invalid", "true");
     }
 
-    function clearFieldError(fieldWrapId, errSpanId) {
+    function clearFieldError(fieldWrapId: string, errSpanId: string) {
       const wrap = getEl(fieldWrapId);
       const span = getEl(errSpanId);
       if (!wrap || !span) return;
@@ -250,7 +251,7 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
       if (input) input.removeAttribute("aria-invalid");
     }
 
-    function markOk(fieldWrapId) {
+    function markOk(fieldWrapId: string) {
       const wrap = getEl(fieldWrapId);
       if (wrap) wrap.classList.add("faqq__field--ok");
     }
@@ -284,7 +285,7 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
     }
     function validateAviso() {
       const cb = getEl("faqq-aviso");
-      if (cb && !cb.checked) {
+      if (cb && !(cb as HTMLInputElement).checked) {
         const span = getEl("faqq-e-aviso");
         const wrap = getEl("faqq-f-aviso");
         if (span) { span.textContent = "Debes aceptar el aviso de privacidad."; span.hidden = false; }
@@ -299,7 +300,7 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
     }
 
     /* blur validation */
-    const blurMap = [
+    const blurMap: [string, () => boolean][] = [
       ["faqq-nombre",     validateNombre],
       ["faqq-telefono",   validateTelefono],
       ["faqq-email",      validateEmail],

@@ -11,7 +11,7 @@ import FAQQuote from "@components/FAQQuote.astro";
 const { frontmatter, headings = [] } = Astro.props;
 
 // Índice de contenidos automático (homologado con [slug].astro)
-const tocItems = (headings || []).filter((h) => h.depth === 2 || h.depth === 3);
+const tocItems = (headings || []).filter((h: { depth: number; slug: string; text: string }) => h.depth === 2 || h.depth === 3);
 const {
   title,
   description,
@@ -25,7 +25,7 @@ const {
 
 const canonical = slug ? `/blog/${slug}/` : undefined;
 const seoImage = typeof image === "string" ? image : image?.url;
-const toISO = (d) => {
+const toISO = (d: string | number | Date | undefined | null) => {
   if (!d) return undefined;
   const date = d instanceof Date ? d : new Date(d);
   return Number.isNaN(date.getTime()) ? undefined : date.toISOString();
@@ -50,7 +50,7 @@ const toISO = (d) => {
         <nav class="toc-box" aria-label="Índice de contenidos">
           <p class="toc-box__title"><span aria-hidden="true">📑</span> Índice de Contenidos</p>
           <ol class="toc-box__list">
-            {tocItems.map((h) => (
+            {tocItems.map((h: { depth: number; slug: string; text: string }) => (
               <li class={`toc-item toc-item--h${h.depth}`}>
                 <a href={`#${h.slug}`}>{h.text}</a>
               </li>

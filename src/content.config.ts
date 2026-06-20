@@ -3,7 +3,7 @@ import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
 const pages = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
   schema: z.object({
     title: z.string(),
     description: z.string().max(160),
@@ -15,6 +15,16 @@ const pages = defineCollection({
       .object({
         title: z.string(),
         description: z.string().optional(),
+        // Campos opcionales consumidos por HeroSection vía [...slug].astro.
+        // El frontmatter actual no los usa (se aplican fallbacks), pero el
+        // schema debe reflejar el contrato del template para type-safety.
+        badge: z.string().optional(),
+        blocks: z
+          .tuple([
+            z.object({ title: z.string(), text: z.string() }),
+            z.object({ title: z.string(), text: z.string() }),
+          ])
+          .optional(),
         primaryCTA: z
           .object({ label: z.string(), href: z.string() })
           .optional(),
@@ -98,7 +108,7 @@ const productos = defineCollection({
     specsTitle: z.string().optional(),
     specsDesc: z.string().optional(),
     especificaciones: z.array(z.object({ categoria: z.string(), label: z.string(), valor: z.string() })),
-    catClass: z.record(z.string()).optional(),
+    catClass: z.record(z.string(), z.string()).optional(),
 
     // Aplicaciones
     aplicacionesLabel: z.string().optional(),

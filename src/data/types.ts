@@ -89,7 +89,7 @@ export interface Estacion {
   alcaldia?: string;
 
 
-  estado: string;
+  estado?: string;
 
 
   cp?: string;
@@ -168,6 +168,30 @@ export interface Estacion {
 
 
   galeria?: string[];
+
+  // ─── Campos extendidos (poblados por archivos estaciones-*.ts) ───
+
+  // Contacto adicional
+  telefonoEmergencias?: string;
+  telefonoAlterno?: string;
+  sitioWeb?: string;
+
+  // Operación
+  tiempoRespuestaMinutos?: number;
+
+  // Cobertura
+  municipiosCubiertos?: string[];
+
+  // Características / servicios extendidos
+  caracteristicasEspeciales?: string[];
+  idiomas?: string[];
+  copiasActa?: boolean;
+
+  // Localización adicional
+  descripcionEn?: string;
+
+  // Algunas estaciones declaran facebook a nivel raíz (además de redes.facebook)
+  facebook?: string;
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════════════════════

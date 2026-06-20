@@ -1452,8 +1452,8 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
 
 export const ESTADISTICAS_CHIHUAHUA = {
   total_estaciones: estacionesChihuahua.length,
-  total_bomberos: estacionesChihuahua.reduce((sum, e) => sum + e.personal, 0),
-  total_unidades: estacionesChihuahua.reduce((sum, e) => sum + e.unidades, 0),
+  total_bomberos: estacionesChihuahua.reduce((sum, e) => sum + (e.personal ?? 0), 0),
+  total_unidades: estacionesChihuahua.reduce((sum, e) => sum + (e.unidades ?? 0), 0),
   estaciones_capital: getEstacionesCapital().length,
   estaciones_juarez: getEstacionesCiudadJuarez().length,
   estaciones_sierra: getEstacionesSierraTarahumara().length,

@@ -801,7 +801,7 @@ export function generarMetaSEO(estacion: Estacion): {
 
   // Determinar contexto de la estación
   let contexto = '';
-  let keywordsAdicionales: string[] = [];
+  let keywordsAdicionales: readonly string[] = [];
 
   if (estacion.ciudad === 'Durango') {
     contexto = 'capital del estado, coordinación forestal';
@@ -847,7 +847,7 @@ export function generarMetaSEO(estacion: Estacion): {
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
-  keywords: string[];
+  keywords: readonly string[];
   color: string;
   icono: string;
 } {
@@ -992,8 +992,8 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
 
 export const ESTADISTICAS_DURANGO = {
   total_estaciones: estacionesDurango.length,
-  total_bomberos: estacionesDurango.reduce((sum, e) => sum + e.personal, 0),
-  total_unidades: estacionesDurango.reduce((sum, e) => sum + e.unidades, 0),
+  total_bomberos: estacionesDurango.reduce((sum, e) => sum + (e.personal ?? 0), 0),
+  total_unidades: estacionesDurango.reduce((sum, e) => sum + (e.unidades ?? 0), 0),
   estaciones_metropolitanas: getEstacionesMetropolitanas().length,
   estaciones_laguna: getEstacionesLaLaguna().length,
   estaciones_sierra: getEstacionesSierra().length,

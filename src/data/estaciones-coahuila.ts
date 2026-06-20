@@ -1261,7 +1261,7 @@ export function generarMetaSEO(estacion: Estacion): {
 
   // Determinar contexto de la estación
   let contexto = '';
-  let keywordsAdicionales: string[] = [];
+  let keywordsAdicionales: readonly string[] = [];
 
   if (['Saltillo', 'Ramos Arizpe'].includes(estacion.ciudad)) {
     contexto = 'capital de Coahuila, zona automotriz';
@@ -1313,7 +1313,7 @@ export function generarMetaSEO(estacion: Estacion): {
 export function getContextoZona(ciudad: string): {
   tipo: string;
   descripcion: string;
-  keywords: string[];
+  keywords: readonly string[];
   color: string;
 } {
   if (['Saltillo', 'Ramos Arizpe'].includes(ciudad)) {
@@ -1420,8 +1420,8 @@ export function getEstacionesCercanas(slug: string, limit: number = 3): Estacion
 
 export const ESTADISTICAS_COAHUILA = {
   total_estaciones: estacionesCoahuila.length,
-  total_bomberos: estacionesCoahuila.reduce((sum, e) => sum + e.personal, 0),
-  total_unidades: estacionesCoahuila.reduce((sum, e) => sum + e.unidades, 0),
+  total_bomberos: estacionesCoahuila.reduce((sum, e) => sum + (e.personal ?? 0), 0),
+  total_unidades: estacionesCoahuila.reduce((sum, e) => sum + (e.unidades ?? 0), 0),
   estaciones_saltillo: getEstacionesSaltillo().length,
   estaciones_laguna: getEstacionesLaLaguna().length,
   estaciones_monclova: getEstacionesMonclova().length,

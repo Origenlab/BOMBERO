@@ -1,6 +1,6 @@
 
 
-import { SITE, type SEOProps } from "@data/site";
+import { SITE, type SEOProps } from "@config/site";
 
 
 export function canonicalURL(path: string): string {
