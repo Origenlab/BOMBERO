@@ -38,8 +38,8 @@ Av. Tamaulipas 150, Piso 13
 Col. Condesa, Cuauhtémoc
 06140 Ciudad de México, CDMX
 
-**Teléfono:** 55 7008 1816
-**WhatsApp:** 55 7008 1816
+**Teléfono:** +52 55 6034 8981
+**WhatsApp:** +52 55 6034 8981
 **Email:** ventas.bomberosmx@gmail.com
 
 **Horario:** Lunes a Viernes 9:00 - 18:00 hrs

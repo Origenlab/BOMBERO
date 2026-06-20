@@ -8,8 +8,8 @@ hero:
 
 ## Datos de contacto
 
-- **Teléfono:** +52 55 7008 1816
-- **WhatsApp:** +52 55 7008 1816
+- **Teléfono:** +52 55 6034 8981
+- **WhatsApp:** +52 55 6034 8981
 - **Correo:** ventas.bomberosmx@gmail.com
 - **Horario:** Lunes a Viernes, 09:00 a 18:00
 

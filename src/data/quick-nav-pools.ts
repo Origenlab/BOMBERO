@@ -73,7 +73,7 @@ export const CTA_DEFAULT: Pill = {
 export const CTA_WHATSAPP: Pill = {
   label: "WhatsApp",
   norm: "Directo",
-  href: "https://wa.me/525570081816?text=Hola%2C%20quiero%20cotizar%20equipo%20NFPA",
+  href: "https://wa.me/525560348981?text=Hola%2C%20quiero%20cotizar%20equipo%20NFPA",
 };
 
 /* ──────────────────────────────────────────────────────────────
