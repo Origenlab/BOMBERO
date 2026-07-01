@@ -1,6 +1,7 @@
 ---
 
 import SectionHeader from "./SectionHeader.astro";
+import { SITE } from "@config/site";
 
 interface FAQItem {
   question: string;
@@ -97,9 +98,9 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
           </div>
           <div class="faqq__support-body">
             <strong>¿Tu duda no está aquí?</strong>
-            <span>Escríbenos por WhatsApp o llama al +52 55 6034 8981. Atención de lunes a viernes 9:00 - 18:00 hrs.</span>
+            <span>Escríbenos por WhatsApp o llama al {SITE.contact.phone}. Atención de lunes a viernes 9:00 - 18:00 hrs.</span>
           </div>
-          <a href="https://wa.me/525560348981?text=Hola%2C%20tengo%20una%20duda%20sobre%20equipo%20para%20bomberos"
+          <a href={`https://wa.me/${SITE.contact.whatsapp}?text=Hola%2C%20tengo%20una%20duda%20sobre%20equipo%20para%20bomberos`}
              target="_blank" rel="noopener"
              class="faqq__support-cta">
             Escribir
@@ -121,7 +122,7 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
           </p>
         </header>
 
-        <form class="faqq__form" id="faqq-form" novalidate>
+        <form class="faqq__form" id="faqq-form" data-wa={SITE.contact.whatsapp} novalidate>
 
           <div class="faqq__row">
             <div class="faqq__field" id="faqq-f-nombre">
@@ -218,7 +219,7 @@ const faqs = items && items.length > 0 ? items : defaultFaqs;
   (function () {
     const form    = document.getElementById("faqq-form");
     if (!form) return;
-    const phone   = "525560348981";
+    const phone   = (form as HTMLFormElement).dataset.wa ?? "525560348981";
     const btn     = document.getElementById("faqq-submit") as HTMLButtonElement | null;
     const btnText = document.getElementById("faqq-text");
     const btnIcon = document.getElementById("faqq-icon");
