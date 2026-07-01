@@ -13,7 +13,7 @@ export const articulo: ArticuloData = {
   excerpt:
     "Por décadas, el traje oscuro de hollín fue señal de trabajo bien hecho. Hoy la ciencia lo llama algo diferente: mapa de exposición a carcinógenos. Esta guía te explica —sin alarmismos pero sin suavizar la evidencia— qué absorbe tu traje en cada intervención, qué le hace a tu cuerpo, y qué puedes hacer concretamente para reducir ese riesgo.",
   imagen:
-    "/images/trajes-para-bombero/traje-bombero-contaminacion-decontaminacion-campo-01.avif",
+    "/images/trajes-para-bombero/traje-bombero-incendio-urbano-manguera-agua-01.avif",
   categoria: "Seguridad",
   tags: [
     "Carcinógenos",
@@ -86,7 +86,7 @@ En incendios con material electrónico, pinturas industriales o plásticos de al
 
 Aquí la capa exterior del traje actúa bien como barrera: retiene las partículas. El problema viene cuando manipulas el traje sin guantes después del incendio.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-bombero-contaminacion-decontaminacion-campo-01.avif" alt="Bombero realizando descontaminación del traje estructural en campo inmediatamente después de intervención" loading="lazy" width="900" height="600" /><figcaption>La descontaminación en campo empieza antes de subir al vehículo. Un cepillado húmedo de arriba hacia abajo, traje en bolsa sellada: tres minutos que cambian la ecuación de exposición del día.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-bombero-incendio-urbano-manguera-agua-01.avif" alt="Bombero realizando descontaminación del traje estructural en campo inmediatamente después de intervención" loading="lazy" width="900" height="600" /><figcaption>La descontaminación en campo empieza antes de subir al vehículo. Un cepillado húmedo de arriba hacia abajo, traje en bolsa sellada: tres minutos que cambian la ecuación de exposición del día.</figcaption></figure>
 
 ## Lo que el traje puede y no puede hacer ante la química del humo
 
@@ -142,7 +142,7 @@ Cada lavado es una oportunidad de ver qué le pasó al traje. Los puntos crític
 - **¿La barrera térmica se siente uniforme?** Si hay zonas comprimidas, quemadas o con pérdida de relleno, la protección térmica en ese punto está reducida.
 - **¿Los reflectantes funcionan?** La visibilidad nocturna depende de ellos y se deterioran con el uso y el lavado.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/inspeccion-traje-bombero-post-lavado-barrera-humedad-01.avif" alt="Test de repelencia de la barrera de humedad del traje de bombero tras lavado técnico" loading="lazy" width="900" height="600" /><figcaption>Si el agua no perla sobre el tejido limpio, la barrera de humedad ha perdido eficacia. No lo des más vueltas: hay que evaluar si se puede restaurar o el traje sale de servicio.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/chaqueton-bombero-goretex-sistema-3-capas-detalle-01.avif" alt="Test de repelencia de la barrera de humedad del traje de bombero tras lavado técnico" loading="lazy" width="900" height="600" /><figcaption>Si el agua no perla sobre el tejido limpio, la barrera de humedad ha perdido eficacia. No lo des más vueltas: hay que evaluar si se puede restaurar o el traje sale de servicio.</figcaption></figure>
 
 ## Cuándo la exposición justifica el retiro anticipado del traje
 

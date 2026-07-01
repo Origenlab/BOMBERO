@@ -48,7 +48,7 @@ export const POOL_DIRECTORIO_ESTADOS: Pill[] = [
   { label: "CDMX",           norm: "Bomberos",          href: "/directorio/ciudad-de-mexico/" },
   { label: "Jalisco",        norm: "Bomberos",          href: "/directorio/jalisco/" },
   { label: "Nuevo León",     norm: "Bomberos",          href: "/directorio/nuevo-leon/" },
-  { label: "Edomex",         norm: "Bomberos",          href: "/directorio/edomex/" },
+  { label: "Edomex",         norm: "Bomberos",          href: "/directorio/estado-de-mexico/" },
   { label: "Puebla",         norm: "Bomberos",          href: "/directorio/puebla/" },
   { label: "Guanajuato",     norm: "Bomberos",          href: "/directorio/guanajuato/" },
   { label: "Querétaro",      norm: "Bomberos",          href: "/directorio/queretaro/" },

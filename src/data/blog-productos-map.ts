@@ -99,12 +99,12 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   "rescate-vehicular-tecnicas": [
     {
       label: "Cascos de Rescate NFPA 1951",
-      href: "/productos/cascos-para-bomberos/rescate-nfpa-1951/",
+      href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/",
       ctaText: "Ver cascos de rescate",
     },
     {
       label: "Guantes Técnicos de Rescate",
-      href: "/productos/guantes-para-bomberos/rescate-extricacion/",
+      href: "/productos/guantes-para-bomberos/rescate/",
       ctaText: "Explorar guantes de rescate",
     },
     {
@@ -147,17 +147,17 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   "incendios-forestales-mexico": [
     {
       label: "Cascos Forestales NFPA 1977",
-      href: "/productos/cascos-para-bomberos/forestal-nfpa-1977/",
+      href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/",
       ctaText: "Ver cascos forestales",
     },
     {
       label: "Trajes Forestales NFPA 1977",
-      href: "/productos/trajes-para-bomberos/forestales/",
+      href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
       ctaText: "Explorar trajes forestales",
     },
     {
       label: "Guantes Forestales",
-      href: "/productos/guantes-para-bomberos/forestales-nfpa-1977/",
+      href: "/productos/guantes-para-bomberos/forestales/",
       ctaText: "Ver guantes forestales",
     },
     {
@@ -176,12 +176,12 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
     },
     {
       label: "Cascos Forestales NFPA 1977",
-      href: "/productos/cascos-para-bomberos/forestal-nfpa-1977/",
+      href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/",
       ctaText: "Explorar cascos forestales",
     },
     {
       label: "Cascos de Rescate NFPA 1951",
-      href: "/productos/cascos-para-bomberos/rescate-nfpa-1951/",
+      href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/",
       ctaText: "Ver cascos de rescate",
     },
     {
@@ -224,7 +224,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
     },
     {
       label: "Guantes Químicos HAZMAT",
-      href: "/productos/guantes-para-bomberos/hazmat-proteccion-quimica/",
+      href: "/productos/guantes-para-bomberos/hazmat/",
       ctaText: "Ver guantes químicos",
     },
     {
@@ -243,7 +243,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   "traje-aproximacion-calor-radiante": [
     {
       label: "Trajes de Aproximación ARFF",
-      href: "/productos/trajes-para-bomberos/aproximacion-calor-radiante/",
+      href: "/productos/trajes-para-bomberos/traje-aproximacion/",
       ctaText: "Ver trajes de aproximación",
     },
     {
@@ -291,17 +291,17 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   "casco-forestal-nfpa-1977": [
     {
       label: "Cascos Forestales NFPA 1977",
-      href: "/productos/cascos-para-bomberos/forestal-nfpa-1977/",
+      href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/",
       ctaText: "Ver cascos forestales",
     },
     {
       label: "Trajes Forestales",
-      href: "/productos/trajes-para-bomberos/forestales/",
+      href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
       ctaText: "Ver trajes forestales",
     },
     {
       label: "Guantes Forestales",
-      href: "/productos/guantes-para-bomberos/forestales-nfpa-1977/",
+      href: "/productos/guantes-para-bomberos/forestales/",
       ctaText: "Explorar guantes",
     },
     {
@@ -315,12 +315,12 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   "casco-rescate-nfpa-1951": [
     {
       label: "Cascos de Rescate NFPA 1951",
-      href: "/productos/cascos-para-bomberos/rescate-nfpa-1951/",
+      href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/",
       ctaText: "Ver cascos de rescate",
     },
     {
       label: "Guantes de Rescate",
-      href: "/productos/guantes-para-bomberos/rescate-extricacion/",
+      href: "/productos/guantes-para-bomberos/rescate/",
       ctaText: "Ver guantes técnicos",
     },
     {
@@ -363,12 +363,12 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   "guantes-rescate-extricacion": [
     {
       label: "Guantes de Rescate",
-      href: "/productos/guantes-para-bomberos/rescate-extricacion/",
+      href: "/productos/guantes-para-bomberos/rescate/",
       ctaText: "Ver guantes de rescate",
     },
     {
       label: "Cascos de Rescate",
-      href: "/productos/cascos-para-bomberos/rescate-nfpa-1951/",
+      href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/",
       ctaText: "Ver cascos técnicos",
     },
     {
@@ -387,7 +387,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   "guantes-hazmat-proteccion-quimica": [
     {
       label: "Guantes Químicos HAZMAT",
-      href: "/productos/guantes-para-bomberos/hazmat-proteccion-quimica/",
+      href: "/productos/guantes-para-bomberos/hazmat/",
       ctaText: "Ver guantes químicos",
     },
     {
@@ -411,17 +411,17 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   "guantes-forestales-nfpa-1977": [
     {
       label: "Guantes Forestales NFPA 1977",
-      href: "/productos/guantes-para-bomberos/forestales-nfpa-1977/",
+      href: "/productos/guantes-para-bomberos/forestales/",
       ctaText: "Ver guantes forestales",
     },
     {
       label: "Cascos Forestales",
-      href: "/productos/cascos-para-bomberos/forestal-nfpa-1977/",
+      href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/",
       ctaText: "Ver cascos forestales",
     },
     {
       label: "Trajes Forestales",
-      href: "/productos/trajes-para-bomberos/forestales/",
+      href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
       ctaText: "Explorar trajes",
     },
     {

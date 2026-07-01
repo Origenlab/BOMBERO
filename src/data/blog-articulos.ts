@@ -18178,7 +18178,7 @@ En **BOMBERO MX** trabajamos con **ambas marcas** y te asesoramos según tu oper
   "extintores-tipos-clases-fuego-mexico": {
     titulo: "Tipos de Extintor por Clase de Fuego en México: Guía NOM 2026",
     excerpt: "Guía 2026 sobre clases de fuego A, B, C, D y K: qué extintor usar, distancia máxima NOM-002-STPS, revisión NOM-154-SCFI, errores frecuentes y selección para tu planta, bodega o edificio.",
-    imagen: "/images/extintores/extintor-pqs-polvo-quimico-seco-01.avif",
+    imagen: "/images/extintores/extintores-hero.avif",
     categoria: "Equipo",
     tags: ["Extintores", "NOM-002-STPS", "NOM-154-SCFI", "Clases de Fuego", "PQS", "CO2", "Clase K", "NFPA 10"],
     autor: "Equipo BOMBERO.MX",
@@ -18209,7 +18209,7 @@ México adopta la clasificación de fuegos **A, B, C, D y K**, alineada con la *
 </div>
 
 <figure>
-  <img src="/images/extintores/extintor-pqs-polvo-quimico-seco-01.avif" alt="Extintor PQS ABC certificado NOM-100 para combate de fuegos Clase A B y C" loading="lazy" width="900" height="600" />
+  <img src="/images/extintores/extintores-hero.avif" alt="Extintor PQS ABC certificado NOM-100 para combate de fuegos Clase A B y C" loading="lazy" width="900" height="600" />
   <figcaption>Extintor PQS ABC — el más común en México, pero NO sirve para Clase D ni K. La elección incorrecta es la causa #1 de extinción fallida.</figcaption>
 </figure>
 
@@ -19039,7 +19039,7 @@ La selección, distribución y mantenimiento de extintores requiere coordinació
   "extintores-seleccion-norma-nom-100": {
     titulo: "Selección Técnica de Extintores Portátiles bajo NOM-100, NOM-002-STPS y NFPA 10: Cálculo de Carga, Distribución y Cumplimiento Auditable",
     excerpt: "Manual operativo de selección de extintores portátiles en México: marco convergente NOM-100/NOM-002-STPS/NFPA 10, clases de fuego A/B/C/D/K, agentes extintores con compatibilidad eléctrica y química, cálculo de rating por área, distancias máximas de recorrido y programa de inspección NFPA 10 + NOM-154-SCFI.",
-    imagen: "/images/extintores/extintor-portatil-co2-estructura.avif",
+    imagen: "/images/extintores/extintores-producto.avif",
     categoria: "Normativas",
     tags: ["Extintores", "NOM-100", "NOM-002-STPS", "NFPA 10", "NOM-154-SCFI", "Selección Técnica", "Auditoría STPS"],
     autor: "Equipo BOMBERO.MX",
@@ -19074,7 +19074,7 @@ Este manual estructura la **metodología técnica de selección**: identificaci�
 </div>
 
 <figure>
-  <img src="/images/extintores/extintor-portatil-co2-estructura.avif" alt="Extintor portátil CO2 con estructura de soporte y señalización conforme NOM-026-STPS" loading="lazy" width="900" height="600" />
+  <img src="/images/extintores/extintores-producto.avif" alt="Extintor portátil CO2 con estructura de soporte y señalización conforme NOM-026-STPS" loading="lazy" width="900" height="600" />
   <figcaption>Extintor portátil CO₂ — agente no conductivo y sin residuo, óptimo para equipos eléctricos energizados y áreas con instrumentación sensible.</figcaption>
 </figure>
 
@@ -19362,7 +19362,7 @@ R: **El patrón**. Según NOM-004-STPS (Capacitación en brigadas), el patrón t
   "ropa-proteccion-calor-industrial-categorias": {
     titulo: "Ropa de Protección Contra Calor Industrial: NFPA 2112, NFPA 70E y EN ISO 11612 — Categorías HRC, ATPV y Selección por Energía Incidente",
     excerpt: "Manual técnico de ropa FR (flame-resistant) bajo NFPA 2112 (flash fire), NFPA 70E (arco eléctrico), EN ISO 11612 (calor industrial). Categorías HRC 1-4 con ATPV mínimo (cal/cm²), análisis de energía incidente, selección por industria (petroquímica, eléctrica, soldadura) y aplicación en México.",
-    imagen: "/images/trajes-para-bombero/traje-proteccion-calor-industrial.avif",
+    imagen: "/images/trajes-para-bombero/traje-bombero-industrial-01.avif",
     categoria: "EPP Industrial",
     tags: ["Ropa FR", "NFPA 2112", "NFPA 70E", "EN ISO 11612", "HRC", "ATPV", "Flash Fire", "Arco Eléctrico"],
     autor: "Equipo BOMBERO.MX",
@@ -19397,7 +19397,7 @@ Este manual estructura las **categorías HRC con su ATPV mínimo**, el **diferen
 </div>
 
 <figure>
-  <img src="/images/trajes-para-bombero/traje-proteccion-calor-industrial.avif" alt="Ropa FR de protección contra calor industrial — uniforme técnico con fibras Nomex/modacrílico" loading="lazy" width="900" height="600" />
+  <img src="/images/trajes-para-bombero/traje-bombero-industrial-01.avif" alt="Ropa FR de protección contra calor industrial — uniforme técnico con fibras Nomex/modacrílico" loading="lazy" width="900" height="600" />
   <figcaption>Ropa FR industrial — Nomex IIIA, modacrílico/cotton, PBI blend o Tecasafe. La fibra autoextingue en menos de 4 segundos y no se funde sobre la piel del trabajador.</figcaption>
 </figure>
 
@@ -19735,7 +19735,7 @@ R: Una prenda FR bien cuidada dura **2-3 años** de uso diario. Cada lavado (inc
   "sistemas-sprinkler-nfpa-13-guia-instalacion": {
     titulo: "Sistemas Sprinkler NFPA 13: Manual Técnico de Diseño, Instalación e Inspección NFPA 25 en México",
     excerpt: "Manual técnico de sistemas automáticos de rociadores bajo NFPA 13: clasificación por tipo de sistema (húmedo, seco, diluvio, preacción), cabezales por respuesta y temperatura, densidades de descarga por clasificación de ocupación (Light/Ordinary/Extra Hazard), diseño hidráulico, instalación NFPA 13 y mantenimiento NFPA 25 en México.",
-    imagen: "/images/equipos-bomberos/sistema-sprinkler-instalacion.avif",
+    imagen: "/images/equipo-contra-incendios/equipo-incendios-hero.avif",
     categoria: "Sistemas Contra Incendio",
     tags: ["Sistemas Sprinkler", "NFPA 13", "NFPA 13D", "NFPA 13R", "NFPA 25", "Cabezales ESFR", "Diseño Hidráulico", "UL FM"],
     autor: "Equipo BOMBERO.MX",
@@ -19770,7 +19770,7 @@ Este manual estructura los cuatro pilares operativos: **clasificación de sistem
 </div>
 
 <figure>
-  <img src="/images/equipos-bomberos/sistema-sprinkler-instalacion.avif" alt="Sistema sprinkler en instalación con cabezales pendientes y tubería certificada UL" loading="lazy" width="900" height="600" />
+  <img src="/images/equipo-contra-incendios/equipo-incendios-hero.avif" alt="Sistema sprinkler en instalación con cabezales pendientes y tubería certificada UL" loading="lazy" width="900" height="600" />
   <figcaption>Instalación de sistema sprinkler — cada componente (cabezal, tubería, válvula, bomba) debe contar con certificación UL o FM Approved verificable y trazabilidad de lote.</figcaption>
 </figure>
 
@@ -20497,7 +20497,7 @@ Un sistema de detección y alarma activa la respuesta operativa. La brigada inte
   "equipo-rescate-tecnico-componentes-normas": {
     titulo: "Equipo de Rescate Técnico bajo NFPA 1006, 1670 y 1983: Componentes Operativos para Disciplinas USAR, Vertical, Vehicular y Acuático",
     excerpt: "Manual técnico del equipo de rescate especializado bajo NFPA 1006 (competencias), NFPA 1670 (operaciones), NFPA 1983 (cuerdas y EPP), NFPA 1936 (rescate vehicular). Sistemas de cuerda, arneses, herramientas hidráulicas, equipo de aire y comunicaciones para disciplinas USAR, vertical, vehicular, acuático, espacios confinados y derrumbe.",
-    imagen: "/images/equipo-bomberos/equipo-rescate-tecnico-nfpa-1006.avif",
+    imagen: "/images/herramientas-rescate/herramientas-rescate-hero.avif",
     categoria: "Rescate",
     tags: ["Rescate Técnico", "NFPA 1006", "NFPA 1670", "NFPA 1983", "NFPA 1936", "USAR", "TRT", "INSARAG"],
     autor: "Equipo BOMBERO.MX",
@@ -20532,7 +20532,7 @@ Este manual estructura los **componentes operativos del rescate técnico por dis
 </div>
 
 <figure>
-  <img src="/images/equipo-bomberos/equipo-rescate-tecnico-nfpa-1006.avif" alt="Equipo de rescate técnico desplegado con sistema de cuerdas, arneses y EPP NFPA" loading="lazy" width="900" height="600" />
+  <img src="/images/herramientas-rescate/herramientas-rescate-hero.avif" alt="Equipo de rescate técnico desplegado con sistema de cuerdas, arneses y EPP NFPA" loading="lazy" width="900" height="600" />
   <figcaption>Sistema integrado de rescate técnico — equipo de cuerda NFPA 1983, EPP NFPA 1951, herramientas hidráulicas NFPA 1936 y comunicaciones. La integración es tan crítica como cada componente individual.</figcaption>
 </figure>
 

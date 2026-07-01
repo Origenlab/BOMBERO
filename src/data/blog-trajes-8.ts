@@ -13,7 +13,7 @@ export const articulo: ArticuloData = {
   excerpt:
     "Un incendio de aeronave no es un incendio de edificio con alas. La temperatura de la kerosina ardiendo, la velocidad de propagación y la necesidad de moverse dentro de las llamas para alcanzar ocupantes cambian completamente lo que el traje tiene que hacer. Guía técnica completa del traje ARFF: qué lo hace diferente, qué normas lo rigen, y por qué la capa aluminizada no es un lujo sino el corazón de todo el sistema.",
   imagen:
-    "/images/trajes-para-bombero/traje-arff-aeroportuario-bombero-aeropuerto-01.avif",
+    "/images/trajes-para-bombero/traje-bombero-proximidad-01.avif",
   categoria: "Equipo",
   tags: [
     "Traje ARFF",
@@ -92,7 +92,7 @@ Los trajes de entrada son significativamente más caros y más limitantes en mov
 
 En México, la mayoría de las brigadas aeroportuarias equipan con trajes ARFF estándar de proximidad. Los trajes de entrada son más frecuentes en brigadas de instalaciones industriales con procesos de alto riesgo de incendio masivo (refinerías, plantas petroquímicas).
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-arff-aeroportuario-bombero-aeropuerto-01.avif" alt="Bombero ARFF en traje de proximidad aluminizado en posición de intervención aeroportuaria" loading="lazy" width="900" height="600" /><figcaption>La capa aluminizada exterior no es un accesorio estético: es el componente que hace posible que el bombero ARFF trabaje a distancias que destruirían un traje estructural convencional en segundos.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-bombero-proximidad-01.avif" alt="Bombero ARFF en traje de proximidad aluminizado en posición de intervención aeroportuaria" loading="lazy" width="900" height="600" /><figcaption>La capa aluminizada exterior no es un accesorio estético: es el componente que hace posible que el bombero ARFF trabaje a distancias que destruirían un traje estructural convencional en segundos.</figcaption></figure>
 
 ## El sistema normativo que regula el EPP ARFF en México
 
@@ -142,7 +142,7 @@ La capa aluminizada es el componente más delicado del traje ARFF desde el punto
 
 **Indicador de degradación**: la reflectividad disminuye visualmente. Un traje ARFF bien mantenido tiene una superficie brillante y uniforme. Zonas opacas, fisuras bajo luz directa o decoloración indican que esas zonas ya no reflejan el calor radiante con la eficiencia original.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-arff-detalle-capa-aluminizada-reflexion-01.avif" alt="Detalle de la capa exterior aluminizada del traje ARFF mostrando la reflexión activa frente a fuente de calor" loading="lazy" width="900" height="600" /><figcaption>La reflexión visible en la capa aluminizada no es solo aspecto: es la propiedad que convierte el calor radiante en calor reflejado antes de que llegue a las capas interiores del sistema.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-bombero-proximidad-02.avif" alt="Detalle de la capa exterior aluminizada del traje ARFF mostrando la reflexión activa frente a fuente de calor" loading="lazy" width="900" height="600" /><figcaption>La reflexión visible en la capa aluminizada no es solo aspecto: es la propiedad que convierte el calor radiante en calor reflejado antes de que llegue a las capas interiores del sistema.</figcaption></figure>
 
 ## Brigadas aeroportuarias en México: la realidad del equipamiento
 

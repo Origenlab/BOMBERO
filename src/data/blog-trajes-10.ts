@@ -13,7 +13,7 @@ export const articulo: ArticuloData = {
   excerpt:
     "Llevamos más de una década viendo cómo esta pregunta se responde mal: alguien pregunta qué marca es mejor, alguien responde con el nombre de la que tiene en stock, y el cuerpo compra sin entender por qué. Esta es la comparativa que debería haber existido: cuatro marcas principales, sus fortalezas reales, sus debilidades reales, y cómo el contexto operativo en México cambia qué marca tiene sentido para qué cuerpo.",
   imagen:
-    "/images/trajes-para-bombero/marcas-trajes-bombero-globe-lion-msa-honeywell-comparativa-01.avif",
+    "/images/trajes-para-bombero/traje-bombero-cuerpo-completo-marcas-certificadas-01.avif",
   categoria: "Equipo",
   tags: [
     "Globe Manufacturing trajes",
@@ -82,7 +82,7 @@ La línea Lion Omega ha tenido buena recepción en México por su equilibrio ent
 
 **Ideal para**: intervenciones largas donde el confort térmico interior es tan importante como la protección exterior, brigadas mixtas (urbano + forestal) que buscan versatilidad en una sola línea de trajes, y cuerpos donde el estrés térmico por calor climático es un factor operativo importante.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/marcas-trajes-bombero-globe-lion-msa-honeywell-comparativa-01.avif" alt="Comparativa visual de trajes estructurales de bombero de las marcas Globe, Lion, MSA y Honeywell" loading="lazy" width="900" height="600" /><figcaption>Las cuatro marcas ofrecen trajes certificados NFPA 1971. Las diferencias están en la construcción, los materiales disponibles, la ergonomía, la red de servicio y el posicionamiento de precio. Ninguna es universalmente superior: cada una responde mejor a contextos específicos.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-bombero-cuerpo-completo-marcas-certificadas-01.avif" alt="Comparativa visual de trajes estructurales de bombero de las marcas Globe, Lion, MSA y Honeywell" loading="lazy" width="900" height="600" /><figcaption>Las cuatro marcas ofrecen trajes certificados NFPA 1971. Las diferencias están en la construcción, los materiales disponibles, la ergonomía, la red de servicio y el posicionamiento de precio. Ninguna es universalmente superior: cada una responde mejor a contextos específicos.</figcaption></figure>
 
 ## MSA Safety
 

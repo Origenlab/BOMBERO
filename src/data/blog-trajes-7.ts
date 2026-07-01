@@ -13,7 +13,7 @@ export const articulo: ArticuloData = {
   excerpt:
     "Un jefe de cuerpo nos preguntó si sus trajes de 12 años podían seguir en servicio porque 'se ven bien'. Esa conversación es exactamente para lo que existe NFPA 1851. Guía completa y honesta de los tres niveles de inspección, los criterios de retiro que no puedes ignorar, y cómo construir un programa de mantenimiento real en un cuerpo mexicano con recursos limitados.",
   imagen:
-    "/images/trajes-para-bombero/inspeccion-traje-bombero-nfpa-1851-detalle-costura-01.avif",
+    "/images/trajes-para-bombero/bandas-reflectantes-traje-bombero-detalle-01.avif",
   categoria: "Normativas",
   tags: [
     "NFPA 1851",
@@ -98,7 +98,7 @@ Lo que la inspección detallada añade a la rutinaria:
 
 Todo lo anterior queda en un **registro firmado** con fecha, nombre del inspector y resultado. Sin ese registro, la inspección no ocurrió en términos de cumplimiento normativo.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/inspeccion-traje-bombero-nfpa-1851-detalle-costura-01.avif" alt="Inspección de Nivel 2 NFPA 1851 — verificación de costuras y barrera de humedad del traje estructural" loading="lazy" width="900" height="600" /><figcaption>La inspección detallada no es revisar a ojo que "se ve bien". Es ir costura por costura, barrera por barrera, con criterios específicos y dejando registro escrito del resultado.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/bandas-reflectantes-traje-bombero-detalle-01.avif" alt="Inspección de Nivel 2 NFPA 1851 — verificación de costuras y barrera de humedad del traje estructural" loading="lazy" width="900" height="600" /><figcaption>La inspección detallada no es revisar a ojo que "se ve bien". Es ir costura por costura, barrera por barrera, con criterios específicos y dejando registro escrito del resultado.</figcaption></figure>
 
 ### Nivel 3 — Inspección avanzada: cuando el Nivel 2 no alcanza
 
@@ -157,7 +157,7 @@ Por qué esto importa: una costura reparada con hilo o materiales no certificado
 - Degradación de la barrera térmica que hace razonablemente dudar de que el TPP sigue superando el mínimo normativo
 - Contaminación química profunda que no se elimina tras dos ciclos de lavado técnico
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-bombero-retiro-etiqueta-fecha-nfpa-1851-01.avif" alt="Etiqueta de fabricación del traje de bombero con fecha de manufactura — base del criterio de retiro NFPA 1851" loading="lazy" width="900" height="600" /><figcaption>La etiqueta de fabricación es el documento más importante del traje desde la perspectiva de NFPA 1851. La fecha que aparece ahí establece el límite de vida útil. Si no está legible, hay que recuperarla con el fabricante.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/certificacion-nfpa-1971-tejido-nomex-goretex-01.avif" alt="Etiqueta de fabricación del traje de bombero con fecha de manufactura — base del criterio de retiro NFPA 1851" loading="lazy" width="900" height="600" /><figcaption>La etiqueta de fabricación es el documento más importante del traje desde la perspectiva de NFPA 1851. La fecha que aparece ahí establece el límite de vida útil. Si no está legible, hay que recuperarla con el fabricante.</figcaption></figure>
 
 ## Qué documentación tienes que tener y por qué
 

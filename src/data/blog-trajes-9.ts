@@ -13,7 +13,7 @@ export const articulo: ArticuloData = {
   excerpt:
     "Un traje demasiado grande expone el torso al moverse. Uno demasiado pequeño restringe el movimiento y fatiga al bombero antes de que llegue al tercer piso. Ninguna cantidad de certificación NFPA compensa un traje que no ajusta bien al cuerpo que lo va a usar. Guía completa de medición, ajuste correcto, fit test, y lo que significa comprar trajes para un grupo cuando cada cuerpo es distinto.",
   imagen:
-    "/images/trajes-para-bombero/talla-ajuste-traje-bombero-medicion-corporal-01.avif",
+    "/images/trajes-para-bombero/bunker-gear-bombero-estacion-vista-frontal-trasera-01.avif",
   categoria: "Equipo",
   tags: [
     "Talla traje bombero",
@@ -110,7 +110,7 @@ Un fit test básico incluye:
 
 **Posición de arrastre (simulando rescate de víctima)**: agacharse, girar y hacer el movimiento de tirar hacia atrás simula la posición más exigente en términos de separación de interfaz. Si hay exposición en esta posición, la talla no es correcta.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/talla-ajuste-traje-bombero-medicion-corporal-01.avif" alt="Proceso de medición corporal para selección de talla de traje de bombero estructural NFPA 1971" loading="lazy" width="900" height="600" /><figcaption>Las seis medidas estándar son el punto de partida. El fit test con el traje puesto y el SCBA completo es la verificación que no se puede saltar. Sin ese paso, la selección de talla es una estimación, no una confirmación.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/bunker-gear-bombero-estacion-vista-frontal-trasera-01.avif" alt="Proceso de medición corporal para selección de talla de traje de bombero estructural NFPA 1971" loading="lazy" width="900" height="600" /><figcaption>Las seis medidas estándar son el punto de partida. El fit test con el traje puesto y el SCBA completo es la verificación que no se puede saltar. Sin ese paso, la selección de talla es una estimación, no una confirmación.</figcaption></figure>
 
 ## El tema que muchos fabricantes todavía no resuelven: los trajes para bomberas
 
@@ -150,7 +150,7 @@ Un detalle que vale la pena mencionar porque se ignora frecuentemente: el bomber
 
 El programa de inspección conforme a NFPA 1851 es el momento natural para verificar también el ajuste —no solo el estado del material. Si el bombero reporta que el traje ya no cierra bien, o si el inspector nota que el ajuste es diferente al registrado en el expediente inicial, ese es el momento de gestionar el reajuste o la reasignación antes de que sea un problema en intervención.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-bombero-fit-test-interfaz-chaqueton-pantalon-01.avif" alt="Verificación de la zona de interfaz entre chaquetón y pantalón del traje de bombero durante fit test" loading="lazy" width="900" height="600" /><figcaption>La zona de interfaz es el punto más crítico del ajuste. El solapamiento mínimo tiene que mantenerse en todas las posiciones de trabajo, incluyendo brazos extendidos sobre la cabeza y posición de arrastre. Si no se mantiene, el traje no protege completamente en esa posición.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-completo-estrutural-bombero-01.avif" alt="Verificación de la zona de interfaz entre chaquetón y pantalón del traje de bombero durante fit test" loading="lazy" width="900" height="600" /><figcaption>La zona de interfaz es el punto más crítico del ajuste. El solapamiento mínimo tiene que mantenerse en todas las posiciones de trabajo, incluyendo brazos extendidos sobre la cabeza y posición de arrastre. Si no se mantiene, el traje no protege completamente en esa posición.</figcaption></figure>
 
 ## Preguntas frecuentes sobre talla y ajuste
 
