@@ -100,11 +100,9 @@ export const SITE = {
   // ─── Organization (JSON-LD) ───
   organization: {
     name: "BOMBERO.MX",
-    legalName: "BOMBERO.MX S.A. de C.V.",
     logo: "/images/logo-equipo-para-bomberos.avif",
     foundingDate: "2010",
     founders: ["BOMBERO.MX"],
-    numberOfEmployees: "50-100",
     sameAs: [
       "https://facebook.com/bombero.mx",
       "https://instagram.com/bombero.mx",

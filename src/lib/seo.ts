@@ -192,7 +192,6 @@ export function organizationJsonLd() {
     "@type": "Organization",
     "@id": `${SITE.url}/#organization`,
     name: SITE.organization.name,
-    legalName: SITE.organization.legalName,
     url: SITE.url,
     logo: {
       "@type": "ImageObject",
@@ -203,10 +202,6 @@ export function organizationJsonLd() {
     image: canonicalURL(SITE.organization.logo),
     description: SITE.seo.description,
     foundingDate: SITE.organization.foundingDate,
-    numberOfEmployees: {
-      "@type": "QuantitativeValue",
-      value: SITE.organization.numberOfEmployees,
-    },
     address: {
       "@type": "PostalAddress",
       streetAddress: "Av. Tamaulipas 150, Piso 13, Col. Condesa",
