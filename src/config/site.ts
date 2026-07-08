@@ -147,4 +147,10 @@ export type SEOProps = {
   modifiedTime?: string;
   author?: string;
   keywords?: string[] | string;
+  /**
+   * Controla el sufijo de marca " | BOMBERO.MX" en el <title>.
+   * true  (default) → páginas dinero (home, categorías de producto): conservan marca corta.
+   * false → páginas long-tail (directorio, blog): sin sufijo, todo el espacio para keywords.
+   */
+  brand?: boolean;
 };

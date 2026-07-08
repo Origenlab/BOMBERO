@@ -32,9 +32,23 @@ function capTitleCore(text: string, max: number): string {
   return cut.replace(/[\s|·•\-–—,;:]+$/g, "").trim();
 }
 
-export function formatTitle(title?: string): string {
+const BRAND_TAIL = new RegExp(
+  `\\s*[|·•\\-–—]\\s*[^|]*${SITE.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[^|]*$`,
+  "i",
+);
+
+export function formatTitle(title?: string, brand = true): string {
   if (!title) return SITE.seo.title;
   const trimmed = title.trim();
+
+  // Páginas long-tail (directorio, blog): sin sufijo de marca. Se elimina cualquier
+  // marca "BOMBERO.MX" incrustada en el título de origen y se recorta a 60 caracteres,
+  // dejando todo el ancho útil del <title> para keywords de intención.
+  if (!brand) {
+    const core = trimmed.replace(BRAND_TAIL, "").replace(/[\s|·•\-–—]+$/g, "").trim() || trimmed;
+    return capTitleCore(core, TITLE_MAX);
+  }
+
   const branded = new RegExp(SITE.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i").test(trimmed);
 
   // Título ya marcado (incluye "BOMBERO.MX"): respetar si cabe; si no, recortar
@@ -172,7 +186,7 @@ export function resolveSEO(props: SEOProps) {
   }
 
   return {
-    title: formatTitle(props.title),
+    title: formatTitle(props.title, props.brand ?? true),
     description: truncateMetaDescription(props.description ?? SITE.seo.description),
     image: props.image ?? SITE.seo.image,
     type: props.type ?? SITE.seo.type,
