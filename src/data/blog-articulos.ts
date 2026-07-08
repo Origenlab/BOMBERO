@@ -6,6 +6,7 @@ import { articulosMonitoresV2Data } from "./blog-articulos-monitores-v2";
 import { articulosTrajesData } from "./blog-articulos-trajes";
 import { articulosEmpresaData } from "./blog-articulos-empresa";
 import { articulosNormasData } from "./blog-articulos-normas";
+import { articulosConceptosData } from "./blog-articulos-conceptos";
 
 export interface ArticuloData {
   titulo: string;
@@ -35,6 +36,7 @@ export const articulosData: Record<string, ArticuloData> = {
   ...articulosTrajesData,
   ...articulosEmpresaData,
   ...articulosNormasData,
+  ...articulosConceptosData,
   "nfpa-1971-guia-completa": {
     titulo: "NFPA 1971: Guía Técnica del Estándar para EPP Estructural de Bomberos — Edición 2024",
     excerpt: "Manual técnico de la norma NFPA 1971 (edición 2024): requisitos del conjunto de protección estructural y de proximidad, sistema de 3 capas, ensayos TPP/THL, certificación UL/Intertek/SEI y aplicación operativa en cuerpos de bomberos y brigadas industriales en México.",
