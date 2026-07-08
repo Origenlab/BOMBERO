@@ -15,6 +15,7 @@ import {
   getMunicipiosByEstado,
   getAllMunicipios,
   getEstadoInfo,
+  getEspecialidadesEstado,
 } from "@lib/directorio-index";
 import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
 import { truncateMetaDescription } from "@lib/seo";
@@ -29,6 +30,7 @@ export function getStaticPaths() {
 
 const { estadoSlug } = Astro.props as { estadoSlug: string };
 const estadoInfo = getEstadoInfo(estadoSlug);
+const tieneEspecialidades = getEspecialidadesEstado(estadoSlug).length > 0;
 if (!estadoInfo) return Astro.redirect("/404");
 
 const rows = getMunicipiosByEstado(estadoSlug)
@@ -118,8 +120,12 @@ const itemList = {
         <p>
           Para una vista global del estado, consulta el
           <a href={`/directorio/${estadoSlug}/`}>directorio completo de bomberos en {estadoInfo.nombre}</a>.
-          Si buscas una capacidad específica (HAZMAT, ARFF, rescate acuático…), revisa las
-          <a href={`/directorio/${estadoSlug}/especialidades/`}>especialidades publicadas</a> del estado.
+          {tieneEspecialidades && (
+            <Fragment>
+              {" "}Si buscas una capacidad específica (HAZMAT, ARFF, rescate acuático…), revisa las
+              <a href={`/directorio/${estadoSlug}/especialidades/`}> especialidades publicadas</a> del estado.
+            </Fragment>
+          )}
         </p>
       </section>
     </div>

@@ -21,6 +21,7 @@ import {
   findMunicipio,
   getEstadoInfo,
   ESPECIALIDADES_CANONICAS,
+  getEspecialidadesEstado,
 } from "@lib/directorio-index";
 import { DIRECTORIO_VERIFICADO_ISO, DIRECTORIO_VERIFICADO_LEGIBLE } from "@data/directorio-stats";
 import { truncateMetaDescription } from "@lib/seo";
@@ -42,6 +43,10 @@ const { estadoSlug, municipioSlug } = Astro.props as {
 
 const row = findMunicipio(estadoSlug, municipioSlug);
 const estadoInfo = getEstadoInfo(estadoSlug);
+// Slugs de especialidades que realmente generan landing en este estado (evita enlaces rotos).
+const especialidadesGeneradas = new Set(
+  getEspecialidadesEstado(estadoSlug).map((e) => e.especialidadSlug),
+);
 
 if (!row || !estadoInfo) {
   return Astro.redirect("/404");
@@ -212,7 +217,7 @@ const breadcrumb = {
               const cano = Object.values(ESPECIALIDADES_CANONICAS).find(c => esp.toLowerCase().includes(c.slug.replace(/-/g, ' ')) || c.label.toLowerCase().includes(esp.toLowerCase()));
               return (
                 <li class="muni-esp__item">
-                  {cano ? (
+                  {cano && especialidadesGeneradas.has(cano.slug) ? (
                     <a href={`/directorio/${estadoSlug}/especialidades/${cano.slug}/`}>
                       <strong>{esp}</strong>
                     </a>
@@ -255,6 +260,7 @@ const breadcrumb = {
   <MunicipiosPhonesTable
     estado={row.estadoNombre}
     estaciones={row.estaciones as any}
+    slug={row.estadoSlug}
   />
 
   <FAQDirectorio

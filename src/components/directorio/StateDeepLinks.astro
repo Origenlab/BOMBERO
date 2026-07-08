@@ -14,6 +14,8 @@ interface EstadoVecino {
   slug: string;
 }
 
+import { getEspecialidadesEstado } from "@lib/directorio-index";
+
 interface Props {
   estadoSlug: string;
   estadoNombre: string;
@@ -22,6 +24,10 @@ interface Props {
 }
 
 const { estadoSlug, estadoNombre, capital, estadosVecinos = [] } = Astro.props;
+
+// Solo enlazar el hub de especialidades si realmente se generan páginas para el estado
+// (evita enlaces rotos a /especialidades/ en estados sin datos de especialidad).
+const tieneEspecialidades = getEspecialidadesEstado(estadoSlug).length > 0;
 ---
 
 <section class="state-dl" aria-label={`Más recursos del directorio ${estadoNombre}`}>
@@ -38,11 +44,13 @@ const { estadoSlug, estadoNombre, capital, estadosVecinos = [] } = Astro.props;
         <strong>Líneas directas verificadas</strong>
         <span class="state-dl__meta">Tabla limpia · pensada para AI/voz</span>
       </a>
-      <a class="state-dl__card" href={`/directorio/${estadoSlug}/especialidades/`}>
-        <span class="state-dl__tag">Especialidades</span>
-        <strong>Capacidades operativas</strong>
-        <span class="state-dl__meta">HAZMAT, ARFF, rescate acuático, vertical…</span>
-      </a>
+      {tieneEspecialidades && (
+        <a class="state-dl__card" href={`/directorio/${estadoSlug}/especialidades/`}>
+          <span class="state-dl__tag">Especialidades</span>
+          <strong>Capacidades operativas</strong>
+          <span class="state-dl__meta">HAZMAT, ARFF, rescate acuático, vertical…</span>
+        </a>
+      )}
       <a class="state-dl__card" href="/directorio/">
         <span class="state-dl__tag">Nacional</span>
         <strong>Directorio nacional</strong>

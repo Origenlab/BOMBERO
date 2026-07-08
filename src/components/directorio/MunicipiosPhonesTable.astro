@@ -25,11 +25,23 @@ interface EstacionData {
 interface Props {
   estado: string;
   estaciones: EstacionData[];
+  /** Slug canónico del estado para las URLs (evita slugificar el nombre oficial:
+   *  "Coahuila de Zaragoza" → "coahuila-de-zaragoza" cuando la página vive en "coahuila"). */
+  slug?: string;
 }
 
 import { SITE } from "@config/site";
 
-const { estado, estaciones } = Astro.props;
+const { estado, estaciones, slug } = Astro.props;
+
+// URL slug del estado: usa el canónico si se pasa; si no, deriva del nombre (fallback).
+const estadoSlug =
+  slug ??
+  estado
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/á/g, 'a').replace(/é/g, 'e').replace(/í/g, 'i')
+    .replace(/ó/g, 'o').replace(/ú/g, 'u').replace(/ñ/g, 'n');
 
 // Agrupar por municipio (o ciudad como fallback)
 type Row = { municipio: string; estaciones: EstacionData[] };
@@ -81,7 +93,7 @@ const rows: Row[] = Object.entries(grupos)
                 </th>
               ) : null}
               <td itemprop="name">
-                <a href={`/directorio/${estado.toLowerCase().replace(/\s+/g, '-').replace(/á/g,'a').replace(/é/g,'e').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/ñ/g,'n')}/${est.slug}/`}>
+                <a href={`/directorio/${estadoSlug}/${est.slug}/`}>
                   {est.nombreCorto}
                 </a>
               </td>

@@ -13,7 +13,7 @@
  * exploración desde una sola ficha).
  * ──────────────────────────────────────────────────────────────────
  */
-import { toSlug, ESPECIALIDADES_CANONICAS } from "@lib/directorio-index";
+import { toSlug, ESPECIALIDADES_CANONICAS, getEspecialidadesEstado } from "@lib/directorio-index";
 
 interface Props {
   estadoSlug: string;
@@ -51,6 +51,15 @@ const canonEsps = Array.from(
       .map((c) => JSON.stringify(c)),
   ),
 ).map((s) => JSON.parse(s) as ReturnType<typeof mapToCanonical>);
+
+// Solo enlazar especialidades que realmente generan página en este estado
+// (la ficha puede inferir especialidades que no existen como landing → enlace roto).
+const especialidadesGeneradas = new Set(
+  getEspecialidadesEstado(estadoSlug).map((e) => e.especialidadSlug),
+);
+const canonEspsConPagina = canonEsps.filter(
+  (c) => c && especialidadesGeneradas.has(c.slug),
+);
 ---
 
 <section class="sdl" aria-label="Explora más del directorio">
@@ -76,7 +85,7 @@ const canonEsps = Array.from(
         <span class="sdl__meta">Tabla limpia por municipio · ideal voz/AI</span>
       </a>
 
-      {canonEsps.slice(0, 3).map((c) => (
+      {canonEspsConPagina.slice(0, 3).map((c) => (
         c && (
           <a class="sdl__card sdl__card--esp" href={`/directorio/${estadoSlug}/especialidades/${c.slug}/`}>
             <span class="sdl__tag">Especialidad</span>
