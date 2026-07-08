@@ -157,7 +157,7 @@ export function getAllMunicipios(): MunicipioRow[] {
         new Set(ests.flatMap((e) => e.servicios || [])),
       ).sort();
       const especialidadesUnicas = Array.from(
-        new Set(ests.flatMap((e) => (e.especialidades || []) as string[])),
+        new Set(ests.flatMap((e) => especialidadesCanonicasDeEstacion(e))),
       ).sort();
 
       result.push({
@@ -288,6 +288,38 @@ export const ESPECIALIDADES_CANONICAS: Record<
   },
 };
 
+/** Normaliza un texto (especialidad declarada o servicio) a una especialidad canónica, o null. */
+export function mapEspecialidadCanonica(esp: string): string | null {
+  if (/hazmat/i.test(esp)) return "HAZMAT";
+  if (/arff/i.test(esp)) return "ARFF";
+  if (/acuat/i.test(esp)) return "Rescate Acuático";
+  if (/vertical|alturas/i.test(esp)) return "Rescate Vertical";
+  if (/vehicular|excarcel/i.test(esp)) return "Rescate Vehicular";
+  if (/urbano|usar/i.test(esp)) return "Rescate Urbano";
+  if (/forestal/i.test(esp)) return "Incendios Forestales";
+  if (/industri/i.test(esp)) return "Incendios Industriales";
+  if (/buceo/i.test(esp)) return "Buceo";
+  if (/^k9|canino/i.test(esp)) return "K9";
+  if (/masiv|evento/i.test(esp)) return "Eventos Masivos";
+  if (/volc[áa]n/i.test(esp)) return "Emergencias Volcánicas";
+  if (/s[íi]smic|sismo|terremoto/i.test(esp)) return "Emergencias Sísmicas";
+  return null;
+}
+
+/**
+ * Especialidades canónicas de una estación. Prioriza el campo `especialidades`;
+ * si no mapea a ninguna canónica (muchos estados solo declaran `servicios`), las
+ * deriva de los servicios. No fabrica datos: clasifica lo que la estación ya declara.
+ */
+export function especialidadesCanonicasDeEstacion(est: Estacion): string[] {
+  const desde = (fuente: string[]) =>
+    Array.from(
+      new Set(fuente.map(mapEspecialidadCanonica).filter((x): x is string => Boolean(x))),
+    );
+  const porEspecialidad = desde(((est.especialidades ?? []) as string[]));
+  return porEspecialidad.length ? porEspecialidad : desde(est.servicios ?? []);
+}
+
 /** Devuelve todos los pares (estado, especialidad) para getStaticPaths. */
 export function getAllEspecialidades(): EspecialidadRow[] {
   const result: EspecialidadRow[] = [];
@@ -297,25 +329,7 @@ export function getAllEspecialidades(): EspecialidadRow[] {
 
     const grupo: Record<string, Estacion[]> = {};
     for (const est of estaciones) {
-      const esps = (est.especialidades || []) as string[];
-      for (const esp of esps) {
-        // Normalizar nombres alternativos
-        let canonico = esp;
-        if (/hazmat/i.test(esp)) canonico = "HAZMAT";
-        else if (/arff/i.test(esp)) canonico = "ARFF";
-        else if (/acuat/i.test(esp)) canonico = "Rescate Acuático";
-        else if (/vertical|alturas/i.test(esp)) canonico = "Rescate Vertical";
-        else if (/vehicular|excarcel/i.test(esp)) canonico = "Rescate Vehicular";
-        else if (/urbano|usar/i.test(esp)) canonico = "Rescate Urbano";
-        else if (/forestal/i.test(esp)) canonico = "Incendios Forestales";
-        else if (/industri/i.test(esp)) canonico = "Incendios Industriales";
-        else if (/buceo/i.test(esp)) canonico = "Buceo";
-        else if (/^k9|canino/i.test(esp)) canonico = "K9";
-        else if (/masiv|evento/i.test(esp)) canonico = "Eventos Masivos";
-        else if (/volc[áa]n/i.test(esp)) canonico = "Emergencias Volcánicas";
-        else if (/s[íi]smic|sismo|terremoto/i.test(esp)) canonico = "Emergencias Sísmicas";
-        else continue; // Si no es una de las canónicas, no generamos landing
-
+      for (const canonico of especialidadesCanonicasDeEstacion(est)) {
         if (!grupo[canonico]) grupo[canonico] = [];
         if (!grupo[canonico].includes(est)) grupo[canonico].push(est);
       }
