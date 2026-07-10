@@ -51,6 +51,33 @@ const articulosCdn = articulos.map(a => ({
   imagen: cdnW(a.imagen, 600),
   readMin: readingTime(a.contenido),
 }));
+
+// Schema del hub: Blog + CollectionPage (la página lista todos los artículos)
+const blogJsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["Blog", "CollectionPage"],
+  "@id": "https://bombero.mx/blog/",
+  name: "Artículos para Bomberos México — Guías NFPA, EPP y Rescate",
+  description:
+    "Artículos para bomberos en México: NFPA 1971/1977, EPP, SCBA y rescate. Verificado por especialistas con 15 años en corporaciones de bomberos.",
+  url: "https://bombero.mx/blog/",
+  inLanguage: "es-MX",
+  publisher: { "@id": "https://bombero.mx/#organization" },
+};
+
+// ItemList con los artículos reales del blog (dinámico)
+const blogItemListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Artículos sobre equipo y normativa para bomberos",
+  numberOfItems: allArticulos.length,
+  itemListElement: allArticulos.map((a, idx) => ({
+    "@type": "ListItem",
+    position: idx + 1,
+    url: `https://bombero.mx/blog/${a.slug}/`,
+    name: a.titulo,
+  })),
+};
 ---
 
 <PageLayout
@@ -60,6 +87,7 @@ const articulosCdn = articulos.map(a => ({
   description="Artículos para bomberos en México: NFPA 1971/1977, EPP, SCBA y rescate. Verificado por especialistas con 15 años en corporaciones de bomberos."
   keywords={["artículos para bomberos", "guías NFPA 1971", "normativas bomberos México", "mantenimiento EPP bomberos", "técnicas rescate bomberos"]}
   canonical="https://bombero.mx/blog/"
+  jsonLd={[blogJsonLd, blogItemListJsonLd]}
 >
 
   <Breadcrumb items={breadcrumb} />
