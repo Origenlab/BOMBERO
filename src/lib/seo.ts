@@ -210,8 +210,9 @@ export function organizationJsonLd() {
     logo: {
       "@type": "ImageObject",
       url: canonicalURL(SITE.organization.logo),
-      width: "512",
-      height: "512",
+      // Dimensiones reales del archivo (PIL, 2026-07-10) — antes decía 512×512.
+      width: "1905",
+      height: "474",
     },
     image: canonicalURL(SITE.organization.logo),
     description: SITE.seo.description,

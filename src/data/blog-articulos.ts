@@ -20166,7 +20166,7 @@ Un proyecto sprinkler NFPA 13 requiere coordinación entre **distribuidor de com
   "deteccion-temprana-incendio-tipos-detectores": {
     titulo: "Sistemas de Detección Temprana de Incendio: Tipos de Detectores según NFPA 72 — Guía Técnica",
     excerpt: "Guía técnica sobre tipos de detectores de incendio bajo NFPA 72: iónicos, fotoeléctricos, térmicos, multisensor y por aspiración. Principios de funcionamiento, selección por tipo de ocupación, integración con sistemas de alarma y rociadores, y cumplimiento NOM-002-STPS-2010.",
-    imagen: "/images/equipos-bomberos/detector-humo-incendio.avif",
+    imagen: "/images/equipo-contra-incendios/equipo-incendios-producto.avif",
     categoria: "Equipo",
     tags: ["Detectores Incendio", "NFPA 72", "Detector Fotoeléctrico", "Detector Iónico", "Detector Térmico", "NOM-002-STPS", "Sistema Alarma"],
     autor: "Equipo BOMBERO.MX",
@@ -20926,7 +20926,7 @@ R: Sí, frecuentemente. Casos de derrumbes, atrapamientos profundos o complejos 
   "arff-bomberos-aeroportuarios-mexico": {
     titulo: "Bomberos ARFF en México: NFPA 1003, 402, 403 y 405 — Marco Operativo Aeroportuario 2026",
     excerpt: "Manual técnico 2026 sobre ARFF (Aircraft Rescue and Fire Fighting) en México. Requisitos NFPA 1003/1976/402/403/405, categorías OACI Anexo 14, vehículos Oshkosh Striker / Rosenbauer Panther, EPP de proximidad, espuma AR-AFFF y aplicación en AICM, AIFA, CUN, GDL, MTY, AIQ.",
-    imagen: "/images/directorio/arff-bomberos-aeroportuarios-01.avif",
+    imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     categoria: "Técnicas",
     tags: ["ARFF", "NFPA 1003", "NFPA 1976", "NFPA 402", "NFPA 403", "OACI Anexo 14", "AFAC", "Rosenbauer Panther", "Oshkosh Striker"],
     autor: "Equipo BOMBERO.MX",

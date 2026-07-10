@@ -10,9 +10,42 @@ const canonicalCandidate = (resolved.canonical ?? Astro.url.pathname).trim();
 const canonical = canonicalCandidate.match(/^https?:\/\//i)
   ? (/\.\w+$/.test(canonicalCandidate) || canonicalCandidate.endsWith("/") ? canonicalCandidate : `${canonicalCandidate}/`)
   : canonicalURL(canonicalCandidate);
-const imageURL = resolved.image?.startsWith("http")
+const rawImageURL = resolved.image?.startsWith("http")
   ? resolved.image
   : canonicalURL(resolved.image);
+
+// ─── OG en JPEG (2026-07-10) ─────────────────────────────────────────────
+// Los crawlers sociales (WhatsApp/Facebook/Twitter/LinkedIn) NO renderizan
+// AVIF/WebP como og:image. Si la imagen resuelta es .avif/.webp se sirve el
+// espejo JPEG 1200×630 pre-generado en /images/og/ (nombre = ruta bajo
+// /images/ aplanada dir-a-guiones). Generador: scripts (ver CHANGELOG-SEO).
+const ogPathname = (() => {
+  try {
+    return new URL(rawImageURL).pathname;
+  } catch {
+    return rawImageURL ?? "";
+  }
+})();
+const needsJpegMirror = /\.(avif|webp)$/i.test(ogPathname);
+const flatOgBase = ogPathname
+  .replace(/^\/images\//, "")
+  .replace(/^\//, "")
+  .replace(/\.(avif|webp)$/i, "")
+  .split("/")
+  .filter(Boolean)
+  .join("-");
+const imageURL = needsJpegMirror ? canonicalURL(`/images/og/${flatOgBase}.jpg`) : rawImageURL;
+
+// og:image:type dinámico según la extensión REAL de la imagen final.
+const ogImageExt = (imageURL.split(".").pop() ?? "").toLowerCase();
+const ogImageType =
+  ogImageExt === "jpg" || ogImageExt === "jpeg"
+    ? "image/jpeg"
+    : ogImageExt === "png"
+      ? "image/png"
+      : ogImageExt === "svg"
+        ? "image/svg+xml"
+        : undefined;
 
 // Normalize page keywords (supports array or comma-separated string)
 const pageKeywords = Array.isArray(resolved.keywords)
@@ -50,6 +83,7 @@ const allKeywords = [...new Set([...pageKeywords, ...SITE.seo.keywords])].join("
 <meta property="og:description" content={resolved.description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:image" content={imageURL} />
+{ogImageType && <meta property="og:image:type" content={ogImageType} />}
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content={resolved.description ?? `${SITE.name} - Equipo para Bomberos en México`} />

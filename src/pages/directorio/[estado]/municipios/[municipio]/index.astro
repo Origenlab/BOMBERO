@@ -104,21 +104,8 @@ const placeSchema = {
   url: canonical,
 };
 
-const breadcrumb = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Inicio", item: "https://bombero.mx/" },
-    { "@type": "ListItem", position: 2, name: "Directorio", item: "https://bombero.mx/directorio/" },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: row.estadoNombre,
-      item: `https://bombero.mx/directorio/${estadoSlug}/`,
-    },
-    { "@type": "ListItem", position: 4, name: `${row.municipio}` },
-  ],
-};
+// BreadcrumbList inline eliminado (2026-07-10): duplicaba el JSON-LD que ya
+// emite el componente <Breadcrumb> (mismos 4 niveles) — había 2 por página.
 ---
 
 <PageLayout
@@ -135,7 +122,7 @@ const breadcrumb = {
     `emergencias ${row.municipio.toLowerCase()}`,
     `bomberos ${row.estadoNombre.toLowerCase()}`,
   ]}
-  jsonLd={[itemListSchema, placeSchema, breadcrumb]}
+  jsonLd={[itemListSchema, placeSchema]}
 >
   <Breadcrumb items={[
     { label: "Directorio", href: "/directorio/" },

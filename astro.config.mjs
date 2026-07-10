@@ -1,7 +1,103 @@
 import { defineConfig } from "astro/config";
 import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+import { execSync } from "node:child_process";
+import { existsSync, statSync, readdirSync, readFileSync } from "node:fs";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+
+// ─── Sitemap lastmod dinámico (2026-07-10, patrón EVENTECH) ─────────────────
+// Resuelve URL → archivo fuente → fecha real (git log → mtime → omitir).
+// Mejor omitir lastmod que mentir con la fecha del build.
+const ROOT = dirname(fileURLToPath(import.meta.url));
+const _dateCache = new Map();
+
+function sourceDate(relPath) {
+  if (_dateCache.has(relPath)) return _dateCache.get(relPath);
+  let date = null;
+  const abs = join(ROOT, relPath);
+  if (existsSync(abs)) {
+    try {
+      const out = execSync(`git log -1 --format=%cI -- "${relPath}"`, {
+        cwd: ROOT,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "ignore"],
+      }).trim();
+      if (out) date = new Date(out);
+    } catch {}
+    if (!date) {
+      try {
+        date = statSync(abs).mtime;
+      } catch {}
+    }
+  }
+  _dateCache.set(relPath, date);
+  return date;
+}
+
+// Artículos data-driven del blog: el slug vive como clave en src/data/blog-*.ts
+let _blogRegistry = null;
+function blogRegistryFileFor(slug) {
+  if (_blogRegistry === null) {
+    _blogRegistry = [];
+    try {
+      const dataDir = join(ROOT, "src/data");
+      for (const f of readdirSync(dataDir)) {
+        if (/^blog-(articulos|trajes)/.test(f) && f.endsWith(".ts")) {
+          _blogRegistry.push({
+            rel: `src/data/${f}`,
+            text: readFileSync(join(dataDir, f), "utf8"),
+          });
+        }
+      }
+    } catch {}
+  }
+  const needle = `"${slug}"`;
+  for (const f of _blogRegistry) {
+    if (f.text.includes(needle)) return f.rel;
+  }
+  return null;
+}
+
+function lastmodForUrl(url) {
+  const path = new URL(url).pathname.replace(/\/+$/, "");
+  const rel = path === "" ? "index" : path.replace(/^\//, "");
+  const parts = rel.split("/");
+  const last = parts[parts.length - 1];
+  const candidates = [
+    `src/pages/${rel}/index.astro`,
+    `src/pages/${rel}.astro`,
+    `src/pages/${rel}/index.mdx`,
+    `src/pages/${rel}.mdx`,
+    `src/pages/${rel}/index.md`,
+    `src/pages/${rel}.md`,
+  ];
+  // Content collections
+  if (parts.length === 1) candidates.push(`src/content/pages/${last}.md`);
+  if (parts[0] === "productos" && parts.length > 1) {
+    const sub = parts.slice(1).join("/");
+    candidates.push(`src/content/productos/${sub}.json`);
+    candidates.push(`src/content/productos/${sub}.md`);
+  }
+  for (const c of candidates) {
+    const d = sourceDate(c);
+    if (d) return d;
+  }
+  // Blog registry (artículos en src/data/blog-articulos*.ts / blog-trajes-*.ts)
+  if (parts[0] === "blog" && parts.length === 2) {
+    const f = blogRegistryFileFor(last);
+    if (f) {
+      const d = sourceDate(f);
+      if (d) return d;
+    }
+  }
+  // Directorio: estaciones y municipios salen de src/data/estaciones-<estado>.ts
+  if (parts[0] === "directorio" && parts.length >= 2) {
+    const d = sourceDate(`src/data/estaciones-${parts[1]}.ts`);
+    if (d) return d;
+  }
+  return null; // sin fuente clara → omitir lastmod
+}
 
 export default defineConfig({
   // ─── Site URL (required for sitemap, canonical URLs, OG images) ───
@@ -15,9 +111,16 @@ export default defineConfig({
       filter: (page) => !page.includes("/draft/") && !page.includes("/api/"),
       changefreq: "weekly",
       priority: 0.7,
-      lastmod: new Date(),
       // Custom serialization for SEO priorities
       serialize: (item) => {
+        // lastmod real por archivo fuente (git log → mtime → omitir).
+        // Antes: lastmod: new Date() → las 1724 URLs con la fecha del build.
+        const lm = lastmodForUrl(item.url);
+        if (lm) {
+          item.lastmod = lm.toISOString();
+        } else {
+          delete item.lastmod;
+        }
         // Homepage - highest priority
         if (item.url === "https://bombero.mx/") {
           return { ...item, priority: 1.0, changefreq: "daily" };
