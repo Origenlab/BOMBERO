@@ -2,6 +2,11 @@
 // El <title>/OG usa esto; el titulo editorial largo se mantiene como H1.
 export const BLOG_SEO_TITLES: Record<string, string> = {
   "academia-bomberos-mexico-formacion-capacitacion": "Academia de Bomberos en México: Formación 2026",
+  "firefighter-mexico-distribuidor-equipo-bomberos-trayectoria": "FIREFIGHTER México: +50 Años Equipando Bomberos",
+  "firefighter-mexico-distribuidor-autorizado-marcas-certificadas": "FIREFIGHTER México: Marcas Certificadas y Originales",
+  "firefighter-mexico-licitaciones-gobierno-equipo-bomberos": "FIREFIGHTER México en Licitaciones de Bomberos",
+  "firefighter-mexico-hazmat-arff-petroquimica-alto-riesgo": "FIREFIGHTER México: HAZMAT, ARFF y Petroquímica",
+  "firefighter-mexico-cobertura-nacional-servicio-postventa": "FIREFIGHTER México: Cobertura Nacional y Post-Venta",
   "arff-bomberos-aeroportuarios-mexico": "Bomberos ARFF en México: NFPA 1003, 402, 403 y 405",
   "bombero-mx-cobertura-nacional-32-estados": "BOMBERO.MX: Equipo Certificado en los 32 Estados",
   "bombero-mx-directorio-nacional-estaciones": "Por Qué BOMBERO.MX Construyó el Directorio Nacional",

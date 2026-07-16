@@ -7,6 +7,7 @@ import { articulosTrajesData } from "./blog-articulos-trajes";
 import { articulosEmpresaData } from "./blog-articulos-empresa";
 import { articulosNormasData } from "./blog-articulos-normas";
 import { articulosConceptosData } from "./blog-articulos-conceptos";
+import { articulosFirefighterData } from "./blog-articulos-firefighter";
 
 export interface ArticuloData {
   titulo: string;
@@ -31,6 +32,7 @@ export interface ArticuloData {
 }
 
 export const articulosData: Record<string, ArticuloData> = {
+  ...articulosFirefighterData,
   ...articulosAqueonData,
   ...articulosMonitoresV2Data,
   ...articulosTrajesData,
