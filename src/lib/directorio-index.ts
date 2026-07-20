@@ -247,7 +247,7 @@ export const ESPECIALIDADES_CANONICAS: Record<
   "Incendios Forestales": {
     label: "Incendios Forestales",
     slug: "incendios-forestales",
-    descripcion: "Combate de incendios forestales con equipo NFPA 1977 y coordinación CONAFOR.",
+    descripcion: "Combate de incendios forestales con equipo NFPA 1950 y coordinación CONAFOR.",
     productoHref: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
   },
   "Incendios Industriales": {

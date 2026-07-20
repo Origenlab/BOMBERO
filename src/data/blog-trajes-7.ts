@@ -1,6 +1,6 @@
 /**
  * Serie editorial: Trajes para Bomberos — Artículo 7
- * NFPA 1851 — inspección, mantenimiento y criterios de retiro
+ * NFPA 1850 — inspección, mantenimiento y criterios de retiro
  * Categoría: Normativas — REWRITE humanizado, voz experta de campo
  */
 
@@ -9,14 +9,14 @@ import type { ArticuloData } from "./blog-articulos";
 export const slug = "nfpa-1851-inspeccion-retiro-traje-bombero";
 
 export const articulo: ArticuloData = {
-  titulo: "NFPA 1851: la norma que decide cuándo tu traje de bombero ya no puede protegerte",
+  titulo: "NFPA 1850: la norma que decide cuándo tu traje de bombero ya no puede protegerte",
   excerpt:
-    "Un jefe de cuerpo nos preguntó si sus trajes de 12 años podían seguir en servicio porque 'se ven bien'. Esa conversación es exactamente para lo que existe NFPA 1851. Guía completa y honesta de los tres niveles de inspección, los criterios de retiro que no puedes ignorar, y cómo construir un programa de mantenimiento real en un cuerpo mexicano con recursos limitados.",
+    "Un jefe de cuerpo nos preguntó si sus trajes de 12 años podían seguir en servicio porque 'se ven bien'. Esa conversación es exactamente para lo que existe NFPA 1850. Guía completa y honesta de los tres niveles de inspección, los criterios de retiro que no puedes ignorar, y cómo construir un programa de mantenimiento real en un cuerpo mexicano con recursos limitados.",
   imagen:
     "/images/trajes-para-bombero/bandas-reflectantes-traje-bombero-detalle-01.avif",
   categoria: "Normativas",
   tags: [
-    "NFPA 1851",
+    "NFPA 1850",
     "Inspección EPP",
     "Retiro traje bombero",
     "Mantenimiento turnout gear",
@@ -28,16 +28,16 @@ export const articulo: ArticuloData = {
   autor: "Departamento de Ingeniería BOMBERO.MX",
   autorRol: "Especialistas en normativa NFPA y gestión de EPP",
   anchorKeyword:
-    "NFPA 1851 inspección mantenimiento y retiro del traje de bombero en México",
+    "NFPA 1850 inspección mantenimiento y retiro del traje de bombero en México",
   pubDate: "2026-06-15T10:00:00-06:00",
   heroSeoBlocks: [
     {
       title: "Un traje que se ve bien puede no proteger nada",
-      text: "La degradación de las aramidas y la membrana de humedad no siempre es visible a simple vista. Por eso existe <strong>NFPA 1851</strong>: para ir más allá de lo que el ojo ve. En <a href=\"/productos/trajes-para-bomberos/\">BOMBERO.MX</a> no solo vendemos trajes: te ayudamos a gestionarlos durante toda su vida útil.",
+      text: "La degradación de las aramidas y la membrana de humedad no siempre es visible a simple vista. Por eso existe <strong>NFPA 1850</strong>: para ir más allá de lo que el ojo ve. En <a href=\"/productos/trajes-para-bomberos/\">BOMBERO.MX</a> no solo vendemos trajes: te ayudamos a gestionarlos durante toda su vida útil.",
     },
     {
       title: "El cumplimiento que protege y el que documenta",
-      text: "En licitaciones <strong>FORTASEG y FASP</strong>, la gestión documentada del EPP conforme a NFPA 1851 es cada vez más exigida. Esta guía te da el protocolo técnico y el sistema de documentación que necesitas. <a href=\"/cotizar/\">Pide asesoría en gestión de EPP</a>.",
+      text: "En licitaciones <strong>FORTASEG y FASP</strong>, la gestión documentada del EPP conforme a NFPA 1850 es cada vez más exigida. Esta guía te da el protocolo técnico y el sistema de documentación que necesitas. <a href=\"/cotizar/\">Pide asesoría en gestión de EPP</a>.",
     },
   ],
   contenido: `
@@ -49,22 +49,22 @@ Le dijimos lo que la norma dice: **un traje estructural tiene una vida útil má
 
 Lo que más le costó aceptar no era el dato —era que nadie le había dicho eso antes. Había comprado los trajes, los había usado, los había lavado a veces, y nadie en el proceso había mencionado que existía una norma que establece exactamente cómo debe gestionarse ese EPP durante toda su vida útil, ni que esa vida tiene un límite objetivo que no se negocia.
 
-Esa norma es **NFPA 1851**. Y esta guía existe para que esa conversación no te tome por sorpresa.
+Esa norma es **NFPA 1850**. Y esta guía existe para que esa conversación no te tome por sorpresa.
 
 <div class="stats-grid">
   <div class="stat"><span class="stat__num">10 años</span><span class="stat__label">Vida útil máxima desde fecha de fabricación — criterio objetivo de retiro, sin excepciones</span></div>
-  <div class="stat"><span class="stat__num">3</span><span class="stat__label">Niveles de inspección definidos por NFPA 1851, cada uno con frecuencias y responsables distintos</span></div>
+  <div class="stat"><span class="stat__num">3</span><span class="stat__label">Niveles de inspección definidos por NFPA 1850, cada uno con frecuencias y responsables distintos</span></div>
   <div class="stat"><span class="stat__num">12 meses</span><span class="stat__label">Frecuencia máxima entre inspecciones detalladas de Nivel 2</span></div>
-  <div class="stat"><span class="stat__num">≥ 40°C</span><span class="stat__label">Temperatura mínima de lavado técnico conforme a NFPA 1851</span></div>
+  <div class="stat"><span class="stat__num">≥ 40°C</span><span class="stat__label">Temperatura mínima de lavado técnico conforme a NFPA 1850</span></div>
 </div>
 
-> **Para entender esta norma hay que entender su propósito:** NFPA 1971 certifica lo que el traje puede hacer cuando es nuevo. NFPA 1851 verifica que lo siga pudiendo hacer después de años de uso, lavado, exposición y almacenamiento. Una sin la otra no tiene sentido operativo.
+> **Para entender esta norma hay que entender su propósito:** NFPA 1970 certifica lo que el traje puede hacer cuando es nuevo. NFPA 1850 verifica que lo siga pudiendo hacer después de años de uso, lavado, exposición y almacenamiento. Una sin la otra no tiene sentido operativo.
 
 ## Por qué un traje certificado puede no proteger
 
 Aquí hay algo que vale la pena detenerse a entender, porque no es intuitivo.
 
-Cuando un traje sale de fábrica con la certificación NFPA 1971, ese certificado representa lo que el material hacía en el laboratorio, en ese momento, en condiciones controladas. Lo que pasa después de que el traje entra en servicio es un proceso continuo de degradación: cada lavado estrecha las fibras, cada intervención somete los materiales a calor y tensión, cada año en almacenamiento expone la barrera de humedad a la oxidación del ambiente.
+Cuando un traje sale de fábrica con la certificación NFPA 1970, ese certificado representa lo que el material hacía en el laboratorio, en ese momento, en condiciones controladas. Lo que pasa después de que el traje entra en servicio es un proceso continuo de degradación: cada lavado estrecha las fibras, cada intervención somete los materiales a calor y tensión, cada año en almacenamiento expone la barrera de humedad a la oxidación del ambiente.
 
 La barrera de humedad —el componente que más se degrada— puede perder su eficacia imperceptiblemente. No se rompe de golpe. Se va deteriorando ciclo a ciclo hasta que un día el agua ya no perla sobre el tejido limpio. Para ese momento, el bombero ha estado usando un traje que ya no cumple lo que el etiquetado promete.
 
@@ -82,7 +82,7 @@ La inspección rutinaria tiene un principio simple: si ves algo que no está bie
 
 ### Nivel 2 — Inspección detallada: el ojo entrenado una vez al año
 
-Esta inspección la hace una persona designada y entrenada en los criterios de NFPA 1851 dentro del cuerpo. No necesita ser un técnico externo. Sí necesita haber recibido formación documentada y saber exactamente qué busca.
+Esta inspección la hace una persona designada y entrenada en los criterios de NFPA 1850 dentro del cuerpo. No necesita ser un técnico externo. Sí necesita haber recibido formación documentada y saber exactamente qué busca.
 
 Frecuencia mínima: una vez cada 12 meses. Adicionalmente, después de cualquier intervención con exposición severa —flashover, explosión, incendio de materiales peligrosos— y cada vez que la inspección rutinaria detectó algo que requiere evaluación más profunda.
 
@@ -98,13 +98,13 @@ Lo que la inspección detallada añade a la rutinaria:
 
 Todo lo anterior queda en un **registro firmado** con fecha, nombre del inspector y resultado. Sin ese registro, la inspección no ocurrió en términos de cumplimiento normativo.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/bandas-reflectantes-traje-bombero-detalle-01.avif" alt="Inspección de Nivel 2 NFPA 1851 — verificación de costuras y barrera de humedad del traje estructural" loading="lazy" width="900" height="600" /><figcaption>La inspección detallada no es revisar a ojo que "se ve bien". Es ir costura por costura, barrera por barrera, con criterios específicos y dejando registro escrito del resultado.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/bandas-reflectantes-traje-bombero-detalle-01.avif" alt="Inspección de Nivel 2 NFPA 1850 — verificación de costuras y barrera de humedad del traje estructural" loading="lazy" width="900" height="600" /><figcaption>La inspección detallada no es revisar a ojo que "se ve bien". Es ir costura por costura, barrera por barrera, con criterios específicos y dejando registro escrito del resultado.</figcaption></figure>
 
 ### Nivel 3 — Inspección avanzada: cuando el Nivel 2 no alcanza
 
-Esta es la evaluación técnica en profundidad que puede incluir ensayos de laboratorio reales: medir el TPP del traje después de años de uso para ver si todavía supera los 35 cal/cm² mínimos de NFPA 1971, probar la barrera de humedad bajo presión, analizar la resistencia a tracción de la capa exterior.
+Esta es la evaluación técnica en profundidad que puede incluir ensayos de laboratorio reales: medir el TPP del traje después de años de uso para ver si todavía supera los 35 cal/cm² mínimos de NFPA 1970, probar la barrera de humedad bajo presión, analizar la resistencia a tracción de la capa exterior.
 
-La realiza un **IMSP (Independent Service Provider)** certificado conforme a NFPA 1851, o el fabricante original del traje. No la puede hacer personal del cuerpo sin esa certificación.
+La realiza un **IMSP (Independent Service Provider)** certificado conforme a NFPA 1850, o el fabricante original del traje. No la puede hacer personal del cuerpo sin esa certificación.
 
 No tiene periodicidad fija. Se dispara cuando la inspección de Nivel 2 encuentra algo que no puede resolver —una degradación que no se puede clasificar visualmente, una exposición severa documentada que hace dudar del estado real del material, o una sospecha de que el traje ya no cumple sus prestaciones certificadas.
 
@@ -122,7 +122,7 @@ En la práctica, la inspección de Nivel 3 es la que dice "este traje sigue sien
 
 ### El lavado: el mantenimiento más frecuente y el más malentendido
 
-NFPA 1851 establece que los trajes en servicio activo deben lavarse al menos cada seis meses, y además después de cada intervención con fuego o contaminantes. No cuando "ya están muy sucios". Después de cada intervención.
+NFPA 1850 establece que los trajes en servicio activo deben lavarse al menos cada seis meses, y además después de cada intervención con fuego o contaminantes. No cuando "ya están muy sucios". Después de cada intervención.
 
 El proceso correcto:
 - **Máquina exclusiva para EPP**, sin mezcla con ropa personal ni con otros materiales del cuartel
@@ -136,7 +136,7 @@ Si el cuerpo no tiene una lavadora exclusiva para EPP, la alternativa correcta e
 
 Las reparaciones al traje —reemplazo de cremalleras, restauración de costuras, parcheo de la capa exterior, sustitución de reflectantes— **deben hacerlas el fabricante original o un IMSP certificado**. No el sastre de la esquina. No el soldador del cuartel. No con materiales comprados en la ferretería.
 
-Por qué esto importa: una costura reparada con hilo o materiales no certificados puede invalidar la certificación NFPA 1971 del conjunto. No porque lo diga un papel, sino porque el hilo no certificado puede tener propiedades de fusión o retracción bajo calor completamente distintas al material original, creando una zona de protección comprometida exactamente donde acabas de "arreglar" el traje.
+Por qué esto importa: una costura reparada con hilo o materiales no certificados puede invalidar la certificación NFPA 1970 del conjunto. No porque lo diga un papel, sino porque el hilo no certificado puede tener propiedades de fusión o retracción bajo calor completamente distintas al material original, creando una zona de protección comprometida exactamente donde acabas de "arreglar" el traje.
 
 ## Los criterios de retiro: cuándo el traje ya no puede proteger
 
@@ -144,7 +144,7 @@ Por qué esto importa: una costura reparada con hilo o materiales no certificado
 
 **10 años desde la fecha de fabricación**: se acabó. Sin excepciones, sin "pero se ve como nuevo", sin "lo compramos hace 7 años". La fecha relevante es la de fabricación en la etiqueta cosida al interior del traje, no la fecha de compra. Si esa etiqueta dice 2014, el traje sale de servicio estructural en 2024, punto.
 
-**Etiqueta de certificación ilegible o ausente**: sin trazabilidad de la certificación, el traje es tela. No puede considerarse conforme a NFPA 1971 para ningún propósito operativo.
+**Etiqueta de certificación ilegible o ausente**: sin trazabilidad de la certificación, el traje es tela. No puede considerarse conforme a NFPA 1970 para ningún propósito operativo.
 
 **Modificaciones no autorizadas**: cualquier cambio que altere los componentes certificados invalida el conjunto.
 
@@ -157,11 +157,11 @@ Por qué esto importa: una costura reparada con hilo o materiales no certificado
 - Degradación de la barrera térmica que hace razonablemente dudar de que el TPP sigue superando el mínimo normativo
 - Contaminación química profunda que no se elimina tras dos ciclos de lavado técnico
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/certificacion-nfpa-1971-tejido-nomex-goretex-01.avif" alt="Etiqueta de fabricación del traje de bombero con fecha de manufactura — base del criterio de retiro NFPA 1851" loading="lazy" width="900" height="600" /><figcaption>La etiqueta de fabricación es el documento más importante del traje desde la perspectiva de NFPA 1851. La fecha que aparece ahí establece el límite de vida útil. Si no está legible, hay que recuperarla con el fabricante.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/certificacion-nfpa-1971-tejido-nomex-goretex-01.avif" alt="Etiqueta de fabricación del traje de bombero con fecha de manufactura — base del criterio de retiro NFPA 1850" loading="lazy" width="900" height="600" /><figcaption>La etiqueta de fabricación es el documento más importante del traje desde la perspectiva de NFPA 1850. La fecha que aparece ahí establece el límite de vida útil. Si no está legible, hay que recuperarla con el fabricante.</figcaption></figure>
 
 ## Qué documentación tienes que tener y por qué
 
-Un programa conforme a NFPA 1851 requiere un **expediente por traje** —no por persona, sino por traje, porque el traje puede cambiar de usuario. El expediente mínimo incluye:
+Un programa conforme a NFPA 1850 requiere un **expediente por traje** —no por persona, sino por traje, porque el traje puede cambiar de usuario. El expediente mínimo incluye:
 
 | Documento | Por qué importa |
 |---|---|
@@ -172,11 +172,11 @@ Un programa conforme a NFPA 1851 requiere un **expediente por traje** —no por 
 | Registro de exposiciones severas (flashover, HAZMAT documentado) | Dispara el proceso de inspección adicional |
 | Registro de retiro (criterio, fecha, disposición) | Cierra el expediente correctamente |
 
-Este expediente se conserva durante **toda la vida útil del traje y mínimo 5 años después del retiro**. En una auditoría de licitación FORTASEG, en una inspección de protección civil estatal, en cualquier proceso de evaluación de cumplimiento normativo, este expediente es la evidencia de que gestionas el EPP conforme a norma. Sin él, el certificado NFPA 1971 del traje nuevo vale; los trajes que llevan años en servicio no tienen respaldo.
+Este expediente se conserva durante **toda la vida útil del traje y mínimo 5 años después del retiro**. En una auditoría de licitación FORTASEG, en una inspección de protección civil estatal, en cualquier proceso de evaluación de cumplimiento normativo, este expediente es la evidencia de que gestionas el EPP conforme a norma. Sin él, el certificado NFPA 1970 del traje nuevo vale; los trajes que llevan años en servicio no tienen respaldo.
 
 ## Cómo implementar esto en la realidad de un cuerpo mexicano
 
-La pregunta más frecuente que recibimos cuando explicamos NFPA 1851 es: "¿y cómo hacemos eso con los recursos que tenemos?"
+La pregunta más frecuente que recibimos cuando explicamos NFPA 1850 es: "¿y cómo hacemos eso con los recursos que tenemos?"
 
 Es una pregunta legítima. La realidad de muchos cuerpos municipales en México es que el presupuesto para EPP llega cuando llega, la persona responsable del equipo tiene otras diez responsabilidades, y nadie tiene formación específica en normativa NFPA. Entonces lo que parece un programa estructurado se convierte en una aspiración de papel.
 
@@ -208,11 +208,11 @@ Hay que recuperar esa información con el fabricante. Si el número de serie est
 
 ### ¿Una reparación de un sastre local invalida la certificación?
 
-Técnicamente sí. Una modificación con materiales o técnicas no certificados por el fabricante puede invalidar la certificación NFPA 1971 del conjunto, porque los materiales introducidos no han sido evaluados con el resto del sistema. En la práctica, lo que ocurre es que el traje queda con una zona de protección desconocida en el punto reparado, que puede ser mayor o menor que la original. El riesgo no está en el papel de la certificación: está en que ese punto puede fallar de manera diferente bajo calor.
+Técnicamente sí. Una modificación con materiales o técnicas no certificados por el fabricante puede invalidar la certificación NFPA 1970 del conjunto, porque los materiales introducidos no han sido evaluados con el resto del sistema. En la práctica, lo que ocurre es que el traje queda con una zona de protección desconocida en el punto reparado, que puede ser mayor o menor que la original. El riesgo no está en el papel de la certificación: está en que ese punto puede fallar de manera diferente bajo calor.
 
 ## La norma no es el problema: no implementarla sí lo es
 
-NFPA 1851 existe porque sin ella, el EPP de un cuerpo de bomberos es una caja negra que nadie sabe si sigue funcionando. La norma da estructura a algo que de otra manera depende de la memoria de una persona, del ojo de quien abre el casillero, o de que el problema se haga evidente en el peor momento posible.
+NFPA 1850 existe porque sin ella, el EPP de un cuerpo de bomberos es una caja negra que nadie sabe si sigue funcionando. La norma da estructura a algo que de otra manera depende de la memoria de una persona, del ojo de quien abre el casillero, o de que el problema se haga evidente en el peor momento posible.
 
 No es un documento para auditorías. Es el protocolo que permite que el jefe de cuerpo pueda decirle a su gente, con respaldo técnico, que el traje que se ponen protege. Y que cuando ya no puede proteger, salga de servicio antes de que eso lo descubra el fuego.
 

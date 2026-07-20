@@ -256,7 +256,7 @@ export const SAN_LUIS_POTOSI_SEO = {
         precioRango: "$25,000 - $150,000 MXN"
       },
       {
-        producto: "Trajes Estructurales NFPA 1971",
+        producto: "Trajes Estructurales NFPA 1970",
         slug: "/productos/trajes-para-bomberos/",
         contexto: "Incendios industriales y urbanos",
         prioridad: "alta",

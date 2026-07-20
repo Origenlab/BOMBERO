@@ -18,7 +18,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   // ─── Serie Trajes para Bomberos (impulso del servicio de venta de trajes) ───
   "traje-bombero-nomex-vs-pbi-materiales": [
     { label: "Trajes para Bomberos NFPA", href: "/productos/trajes-para-bomberos/", ctaText: "Ver catálogo de trajes" },
-    { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", ctaText: "Ver traje estructural" },
+    { label: "Traje Estructural NFPA 1970", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", ctaText: "Ver traje estructural" },
     { label: "Capuchas Nomex® / PBI Gold®", href: "/productos/capuchas-para-bomberos/", ctaText: "Ver capuchas" },
     { label: "Cotizar trajes certificados", href: "/cotizar/", ctaText: "Solicitar cotización" },
   ],
@@ -30,37 +30,37 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   ],
   "mantenimiento-vida-util-traje-bombero": [
     { label: "Trajes para Bomberos NFPA", href: "/productos/trajes-para-bomberos/", ctaText: "Renovar trajes vencidos" },
-    { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", ctaText: "Ver traje estructural" },
+    { label: "Traje Estructural NFPA 1970", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", ctaText: "Ver traje estructural" },
     { label: "Capuchas de repuesto", href: "/productos/capuchas-para-bomberos/", ctaText: "Ver capuchas" },
     { label: "Cotizar reposición", href: "/cotizar/", ctaText: "Solicitar cotización" },
   ],
   "traje-forestal-nfpa-1977-guia": [
-    { label: "Traje Forestal NFPA 1977", href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/", ctaText: "Ver traje forestal" },
+    { label: "Traje Forestal NFPA 1950", href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/", ctaText: "Ver traje forestal" },
     { label: "Equipo Forestal", href: "/productos/forestales/", ctaText: "Ver equipo forestal" },
-    { label: "Casco Forestal NFPA 1977", href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/", ctaText: "Ver casco forestal" },
+    { label: "Casco Forestal NFPA 1950", href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/", ctaText: "Ver casco forestal" },
     { label: "Cotizar equipo forestal", href: "/cotizar/", ctaText: "Solicitar cotización" },
   ],
   "especificacion-tecnica-trajes-bombero-licitacion": [
     { label: "Trajes para Bomberos NFPA", href: "/productos/trajes-para-bomberos/", ctaText: "Ver catálogo certificado" },
-    { label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", ctaText: "Ver ficha técnica" },
+    { label: "Traje Estructural NFPA 1970", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", ctaText: "Ver ficha técnica" },
     { label: "EPP completo para licitación", href: "/productos/", ctaText: "Ver catálogo completo" },
     { label: "Apoyo a especificación sin costo", href: "/cotizar/", ctaText: "Solicitar asesoría" },
   ],
 
-  // NFPA 1971 - Normativa General (EPP Estructural Completo)
+  // NFPA 1970 - Normativa General (EPP Estructural Completo)
   "nfpa-1971-guia-completa": [
     {
-      label: "Trajes Estructurales NFPA 1971",
+      label: "Trajes Estructurales NFPA 1970",
       href: "/productos/trajes-para-bomberos/",
       ctaText: "Ver catálogo de trajes",
     },
     {
-      label: "Cascos Estructurales NFPA 1971",
+      label: "Cascos Estructurales NFPA 1970",
       href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/",
       ctaText: "Explorar cascos certificados",
     },
     {
-      label: "Guantes Estructurales NFPA 1971",
+      label: "Guantes Estructurales NFPA 1970",
       href: "/productos/guantes-para-bomberos/estructurales/",
       ctaText: "Ver guantes de protección",
     },
@@ -89,7 +89,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
       ctaText: "Ver repuestos disponibles",
     },
     {
-      label: "Capacitación NFPA 1852",
+      label: "Capacitación NFPA 1850",
       href: "/cotizar/",
       ctaText: "Solicitar capacitación",
     },
@@ -146,12 +146,12 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   // Incendios Forestales
   "incendios-forestales-mexico": [
     {
-      label: "Cascos Forestales NFPA 1977",
+      label: "Cascos Forestales NFPA 1950",
       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/",
       ctaText: "Ver cascos forestales",
     },
     {
-      label: "Trajes Forestales NFPA 1977",
+      label: "Trajes Forestales NFPA 1950",
       href: "/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/",
       ctaText: "Explorar trajes forestales",
     },
@@ -170,12 +170,12 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   // Cascos - Tipos Generales
   "cascos-bombero-tipos": [
     {
-      label: "Cascos Estructurales NFPA 1971",
+      label: "Cascos Estructurales NFPA 1970",
       href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/",
       ctaText: "Ver cascos estructurales",
     },
     {
-      label: "Cascos Forestales NFPA 1977",
+      label: "Cascos Forestales NFPA 1950",
       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/",
       ctaText: "Explorar cascos forestales",
     },
@@ -191,7 +191,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
     },
   ],
 
-  // Traje Estructural NFPA 1971
+  // Traje Estructural NFPA 1970
   "traje-estructural-nfpa-1971": [
     {
       label: "Catálogo de Trajes Estructurales",
@@ -199,7 +199,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
       ctaText: "Ver trajes disponibles",
     },
     {
-      label: "Cascos Estructurales NFPA 1971",
+      label: "Cascos Estructurales NFPA 1970",
       href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/",
       ctaText: "Ver cascos certificados",
     },
@@ -263,10 +263,10 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
     },
   ],
 
-  // Casco Estructural NFPA 1971
+  // Casco Estructural NFPA 1970
   "casco-estructural-nfpa-1971": [
     {
-      label: "Cascos Estructurales NFPA 1971",
+      label: "Cascos Estructurales NFPA 1970",
       href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/",
       ctaText: "Ver cascos disponibles",
     },
@@ -287,10 +287,10 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
     },
   ],
 
-  // Casco Forestal NFPA 1977
+  // Casco Forestal NFPA 1950
   "casco-forestal-nfpa-1977": [
     {
-      label: "Cascos Forestales NFPA 1977",
+      label: "Cascos Forestales NFPA 1950",
       href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/",
       ctaText: "Ver cascos forestales",
     },
@@ -335,10 +335,10 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
     },
   ],
 
-  // Guantes Estructurales NFPA 1971
+  // Guantes Estructurales NFPA 1970
   "guantes-estructurales-nfpa-1971": [
     {
-      label: "Guantes Estructurales NFPA 1971",
+      label: "Guantes Estructurales NFPA 1970",
       href: "/productos/guantes-para-bomberos/estructurales/",
       ctaText: "Ver guantes disponibles",
     },
@@ -407,10 +407,10 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
     },
   ],
 
-  // Guantes Forestales NFPA 1977
+  // Guantes Forestales NFPA 1950
   "guantes-forestales-nfpa-1977": [
     {
-      label: "Guantes Forestales NFPA 1977",
+      label: "Guantes Forestales NFPA 1950",
       href: "/productos/guantes-para-bomberos/forestales/",
       ctaText: "Ver guantes forestales",
     },
@@ -1034,10 +1034,10 @@ function getCtaHeading(slug: string): string {
  */
 function getCtaDescription(slug: string): string {
   if (slug.includes("nfpa-1971")) {
-    return "Contamos con equipamiento completo certificado NFPA 1971. Nuestros especialistas pueden ayudarte a seleccionar la mejor opción para tu equipo.";
+    return "Contamos con equipamiento completo certificado NFPA 1970. Nuestros especialistas pueden ayudarte a seleccionar la mejor opción para tu equipo.";
   }
   if (slug.includes("forestales")) {
-    return "Equipamiento NFPA 1977 diseñado específicamente para combate de incendios forestales. Ligero, transpirable y altamente protector.";
+    return "Equipamiento NFPA 1950 diseñado específicamente para combate de incendios forestales. Ligero, transpirable y altamente protector.";
   }
   if (slug.includes("hazmat") || slug.includes("quimica")) {
     return "Protección química certificada con compatibilidad comprobada contra múltiples sustancias. Máxima seguridad para operaciones HAZMAT.";
@@ -1046,7 +1046,7 @@ function getCtaDescription(slug: string): string {
     return "Equipo técnico especializado para operaciones de rescate con estándares NFPA 1951 y procedimientos de seguridad.";
   }
   if (slug.includes("scba")) {
-    return "Sistemas respiratorios de aire comprimido certificados NFPA 1981 con mantenimiento profesional garantizado.";
+    return "Sistemas respiratorios de aire comprimido certificados NFPA 1970 con mantenimiento profesional garantizado.";
   }
   if (slug.includes("extintor")) {
     return "Extintores certificados conforme a normas NOM con servicio de recarga y mantenimiento en toda la CDMX.";

@@ -15,17 +15,17 @@ export interface Pill {
    ────────────────────────────────────────────────────────────── */
 
 export const POOL_PRODUCTOS_EPP: Pill[] = [
-  { label: "Trajes",         norm: "NFPA 1971",   href: "/productos/trajes-para-bomberos/" },
-  { label: "Cascos",         norm: "NFPA 1971",   href: "/productos/cascos-para-bomberos/" },
-  { label: "Guantes",        norm: "NFPA 1971",   href: "/productos/guantes-para-bomberos/" },
-  { label: "Botas",          norm: "NFPA 1971",   href: "/productos/botas-para-bomberos/" },
+  { label: "Trajes",         norm: "NFPA 1970",   href: "/productos/trajes-para-bomberos/" },
+  { label: "Cascos",         norm: "NFPA 1970",   href: "/productos/cascos-para-bomberos/" },
+  { label: "Guantes",        norm: "NFPA 1970",   href: "/productos/guantes-para-bomberos/" },
+  { label: "Botas",          norm: "NFPA 1970",   href: "/productos/botas-para-bomberos/" },
   { label: "Capuchas",       norm: "Anti-flama",  href: "/productos/capuchas-para-bomberos/" },
   { label: "Gafas",          norm: "Visión 360°", href: "/productos/gafas-para-bomberos/" },
 ];
 
 export const POOL_PRODUCTOS_TECNICOS: Pill[] = [
-  { label: "SCBA",           norm: "NFPA 1981",   href: "/productos/scba/" },
-  { label: "Forestales",     norm: "NFPA 1977",   href: "/productos/forestales/" },
+  { label: "SCBA",           norm: "NFPA 1970",   href: "/productos/scba/" },
+  { label: "Forestales",     norm: "NFPA 1950",   href: "/productos/forestales/" },
   { label: "Herramientas",   norm: "Rescate",     href: "/productos/herramientas-rescate/" },
   { label: "HAZMAT",         norm: "NFPA 1991",   href: "/productos/hazmat/" },
   { label: "Tecnología",     norm: "TIC · Drones",href: "/productos/tecnologia/" },
@@ -34,7 +34,7 @@ export const POOL_PRODUCTOS_TECNICOS: Pill[] = [
 ];
 
 export const POOL_BLOG_DESTACADO: Pill[] = [
-  { label: "NFPA 1971",      norm: "Guía completa",     href: "/blog/nfpa-1971-guia-completa/" },
+  { label: "NFPA 1970",      norm: "Guía completa",     href: "/blog/nfpa-1971-guia-completa/" },
   { label: "SCBA",           norm: "Mantenimiento",     href: "/blog/mantenimiento-scba/" },
   { label: "Rescate",        norm: "Técnicas",          href: "/blog/rescate-vehicular-tecnicas/" },
   { label: "Brigadas",       norm: "EPP Industrial",    href: "/blog/brigadas-industriales-epp/" },

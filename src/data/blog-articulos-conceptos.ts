@@ -7,7 +7,7 @@ import type { ArticuloData } from "./blog-articulos";
  * las guías amplias existentes; los near-duplicados se redirigen al canónico
  * (ver astro.config.mjs).
  *
- * Precisión (2026): NFPA consolidó 1971/1975/1981/1982 → NFPA 1970 (2024);
+ * Precisión (2026): NFPA consolidó 1971/1975/1981/1982 → NFPA 1970 (ed. 2025);
  * 1991/1992/1994 → NFPA 1990; 1670/1983 → NFPA 2500. Se conserva el número
  * histórico como término de búsqueda y se aclara la consolidación.
  * Regla: sin superlativos sin proof. NO usar comillas dobles dentro de strings.
@@ -20,10 +20,10 @@ export const articulosConceptosData: Record<string, ArticuloData> = {
   // ─────────────────── COMPARATIVAS (X vs Y) ───────────────────
   "brigada-industrial-vs-bombero-nfpa": {
     titulo: "Brigada Industrial vs. Bombero Profesional: EPP",
-    excerpt: "Un bombero profesional y un brigadista industrial enfrentan riesgos distintos y, por tanto, EPP distinto. El bombero municipal se rige por NFPA 1971/1970 para fuego estructural; la brigada industrial combina NOM-002-STPS, NOM-017-STPS y ropa FR ISO 11612/NFPA 2112 según el proceso.",
+    excerpt: "Un bombero profesional y un brigadista industrial enfrentan riesgos distintos y, por tanto, EPP distinto. El bombero municipal se rige por NFPA 1970 para fuego estructural; la brigada industrial combina NOM-002-STPS, NOM-017-STPS y ropa FR ISO 11612/NFPA 2112 según el proceso.",
     imagen: "/images/blog/blog-normativa-nfpa-bomberos-mexico.avif",
     categoria: "Industrial",
-    tags: ["Brigada Industrial", "Bombero Profesional", "NFPA 1971", "NOM-002-STPS", "EPP"],
+    tags: ["Brigada Industrial", "Bombero Profesional", "NFPA 1970", "NOM-002-STPS", "EPP"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "brigada industrial vs bombero profesional EPP",
@@ -32,12 +32,12 @@ export const articulosConceptosData: Record<string, ArticuloData> = {
 
 Confundir al **bombero profesional** con el **brigadista industrial** lleva a comprar el EPP equivocado. Ambos combaten fuego, pero su exposición, su marco normativo y su equipo son distintos.
 
-- El **bombero profesional** (municipal, estatal, ARFF) entra a estructuras en llamas, con exposición sostenida a calor, humo y colapso. Su referencia es **NFPA 1971** —hoy consolidada en **NFPA 1970 (2024)**— y equivalentes (EN 469, ISO 11999).
+- El **bombero profesional** (municipal, estatal, ARFF) entra a estructuras en llamas, con exposición sostenida a calor, humo y colapso. Su referencia es **NFPA 1970** (ed. 2025, que consolidó a NFPA 1971) y equivalentes (EN 469:2020, ISO 11999).
 - El **brigadista industrial** es un trabajador capacitado para la **respuesta inicial** dentro de una planta. Su marco es la mexicana **NOM-002-STPS** (prevención y protección contra incendios en centros de trabajo), la **NOM-017-STPS** (selección de EPP) y ropa FR industrial (**ISO 11612**, **NFPA 2112**).
 
 ## Qué cambia en el EPP
 
-El bombero estructural necesita el **conjunto completo de 3 capas** (barrera exterior, de humedad y térmica), SCBA, casco NFPA 1971/1970, capucha, guantes y botas certificadas. Está diseñado para *inmersión* en el incendio.
+El bombero estructural necesita el **conjunto completo de 3 capas** (barrera exterior, de humedad y térmica), SCBA, casco NFPA 1970, capucha, guantes y botas certificadas. Está diseñado para *inmersión* en el incendio.
 
 La brigada industrial suele necesitar **ropa FR** apropiada al proceso (petroquímica, eléctrica, metal fundido) y equipo de **respuesta inicial** (extintores, mangueras, a veces SCBA), no necesariamente el conjunto estructural completo —salvo que la brigada tenga rol de ataque interior, en cuyo caso sube al estándar de bombero.
 
@@ -49,7 +49,7 @@ Equipar a una brigada industrial con trajes estructurales NFPA porque suenan má
 
 Parte del **análisis de riesgo del rol**, no del catálogo:
 
-- ¿Ataque interior a fuego estructural? → estándar de bombero (**NFPA 1971/1970**).
+- ¿Ataque interior a fuego estructural? → estándar de bombero (**NFPA 1970**).
 - ¿Respuesta inicial en planta con riesgo de proceso? → ropa FR por sector (**ISO 11612 / NFPA 2112**) bajo **NOM-002/017-STPS**.
 - ¿Rol mixto? → el EPP debe cubrir el escenario más severo.
 
@@ -59,10 +59,10 @@ Parte del **análisis de riesgo del rol**, no del catálogo:
 
   "diferencia-traje-estructural-forestal": {
     titulo: "Traje Estructural vs. Forestal: Diferencias Clave",
-    excerpt: "El traje estructural (NFPA 1971/1970) protege contra calor extremo e inmersión en fuego con un sistema pesado de 3 capas; el forestal (NFPA 1977) prioriza ligereza y transpirabilidad para jornadas largas. Usar uno en el escenario del otro es un error de selección peligroso.",
+    excerpt: "El traje estructural (NFPA 1970) protege contra calor extremo e inmersión en fuego con un sistema pesado de 3 capas; el forestal (NFPA 1950) prioriza ligereza y transpirabilidad para jornadas largas. Usar uno en el escenario del otro es un error de selección peligroso.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Forestales",
-    tags: ["Traje Estructural", "Traje Forestal", "NFPA 1971", "NFPA 1977", "Selección"],
+    tags: ["Traje Estructural", "Traje Forestal", "NFPA 1970", "NFPA 1950", "Selección"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "diferencia traje estructural forestal bombero",
@@ -76,9 +76,9 @@ El **traje estructural** y el **traje forestal** responden a incendios opuestos 
 
 ## Qué exige cada norma
 
-**NFPA 1971** (estructural, hoy **NFPA 1970**) obliga a un **sistema de 3 capas** —barrera exterior FR, barrera de humedad y barrera térmica— que aísla del calor extremo pero pesa y retiene calor corporal.
+**NFPA 1970** (estructural, hoy **NFPA 1970**) obliga a un **sistema de 3 capas** —barrera exterior FR, barrera de humedad y barrera térmica— que aísla del calor extremo pero pesa y retiene calor corporal.
 
-**NFPA 1977** (forestal) prioriza lo contrario: **una sola capa ligera y transpirable** de material inherentemente FR (Nomex®), que permite disipar el calor del cuerpo y moverse en pendiente durante horas.
+**NFPA 1950** (forestal) prioriza lo contrario: **una sola capa ligera y transpirable** de material inherentemente FR (Nomex®), que permite disipar el calor del cuerpo y moverse en pendiente durante horas.
 
 ## El error de usar el equivocado
 
@@ -89,8 +89,8 @@ El **traje estructural** y el **traje forestal** responden a incendios opuestos 
 
 Selecciona por **escenario dominante**, no por versatilidad aparente:
 
-- Cuerpos urbanos/municipales con ataque estructural → **NFPA 1971/1970**.
-- Brigadas **CONAFOR**, forestales y de interfaz → **NFPA 1977**, con casco ligero y protección de nuca.
+- Cuerpos urbanos/municipales con ataque estructural → **NFPA 1970**.
+- Brigadas **CONAFOR**, forestales y de interfaz → **NFPA 1950**, con casco ligero y protección de nuca.
 - Cuerpos mixtos → dos conjuntos, no uno intermedio: no existe un traje que haga bien ambas cosas.
 
 [Cotiza trajes](/cotizar/) por disciplina y te ayudamos a definir el conjunto correcto para cada escenario.
@@ -99,10 +99,10 @@ Selecciona por **escenario dominante**, no por versatilidad aparente:
 
   "diferencia-casco-forestal-estructural": {
     titulo: "Casco Forestal vs. Estructural: Cuándo Usar Cada Uno",
-    excerpt: "El casco estructural (NFPA 1971/1970) resiste calor extremo e impacto con visor y protección de nuca robusta; el forestal (NFPA 1977) es ligero, ventilado y de ala corta para jornadas largas en terreno agreste. La elección se hace por escenario, no por preferencia.",
+    excerpt: "El casco estructural (NFPA 1970) resiste calor extremo e impacto con visor y protección de nuca robusta; el forestal (NFPA 1950) es ligero, ventilado y de ala corta para jornadas largas en terreno agreste. La elección se hace por escenario, no por preferencia.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     categoria: "Forestales",
-    tags: ["Casco Estructural", "Casco Forestal", "NFPA 1971", "NFPA 1977", "Selección"],
+    tags: ["Casco Estructural", "Casco Forestal", "NFPA 1970", "NFPA 1950", "Selección"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "casco forestal vs estructural bombero cuándo usar",
@@ -111,7 +111,7 @@ Selecciona por **escenario dominante**, no por versatilidad aparente:
 
 El casco estructural y el forestal comparten propósito —proteger cráneo, cara y nuca— pero optimizan variables opuestas: **resistencia térmica** uno, **ligereza y ventilación** el otro.
 
-## Casco estructural (NFPA 1971 / NFPA 1970)
+## Casco estructural (NFPA 1970)
 
 Diseñado para el **fuego interior**:
 
@@ -120,7 +120,7 @@ Diseñado para el **fuego interior**:
 - Compatibilidad con **máscara de SCBA** y capucha.
 - Mayor peso —tolerable en intervenciones cortas e intensas.
 
-## Casco forestal (NFPA 1977)
+## Casco forestal (NFPA 1950)
 
 Diseñado para la **jornada larga** al aire libre:
 
@@ -139,8 +139,8 @@ Para **rescate vertical, acuático y en cuerda**, ninguno es ideal: ahí se usa 
 
 ## Cómo decidir en México
 
-- Ataque estructural → **NFPA 1971/1970**.
-- Brigada forestal / CONAFOR → **NFPA 1977**, ligero y ventilado.
+- Ataque estructural → **NFPA 1970**.
+- Brigada forestal / CONAFOR → **NFPA 1950**, ligero y ventilado.
 - Rescate técnico → casco de perfil bajo (**EN 12492**).
 
 [Cotiza cascos](/cotizar/) por disciplina con certificación por lote.
@@ -149,10 +149,10 @@ Para **rescate vertical, acuático y en cuerda**, ninguno es ideal: ahí se usa 
 
   "guantes-forestal-vs-estructural-bombero": {
     titulo: "Guante Forestal vs. Estructural de Bombero",
-    excerpt: "El guante estructural (NFPA 1971/1970) prioriza barrera térmica y de humedad para el fuego interior; el forestal (NFPA 1977) prioriza destreza, transpirabilidad y agarre para manejar herramienta manual durante horas. Elegir mal cuesta destreza o protección.",
+    excerpt: "El guante estructural (NFPA 1970) prioriza barrera térmica y de humedad para el fuego interior; el forestal (NFPA 1950) prioriza destreza, transpirabilidad y agarre para manejar herramienta manual durante horas. Elegir mal cuesta destreza o protección.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-combate-incendio-manguera-01.avif",
     categoria: "Forestales",
-    tags: ["Guante Estructural", "Guante Forestal", "NFPA 1971", "NFPA 1977", "Destreza"],
+    tags: ["Guante Estructural", "Guante Forestal", "NFPA 1970", "NFPA 1950", "Destreza"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "guante forestal vs estructural bombero",
@@ -161,14 +161,14 @@ Para **rescate vertical, acuático y en cuerda**, ninguno es ideal: ahí se usa 
 
 En ambos incendios la mano es la herramienta principal, pero el guante que la protege es distinto porque el riesgo y la tarea son distintos.
 
-## Guante estructural (NFPA 1971 / NFPA 1970)
+## Guante estructural (NFPA 1970)
 
 - **Barrera térmica** multicapa (Nomex®, Kevlar®, forro aislante) contra calor extremo.
 - **Barrera de humedad** que impide entrada de agua y vapor.
 - Destreza validada con **ASTM F2703** —suficiente para operar, aunque el guante es más voluminoso.
 - Pensado para **intervenciones cortas e intensas**.
 
-## Guante forestal (NFPA 1977)
+## Guante forestal (NFPA 1950)
 
 - **Ligero y transpirable** —la jornada dura horas y la mano suda.
 - **Palma de cuero** para agarre y resistencia a la abrasión al manejar **Pulaski, McLeod, azadón y motosierra**.
@@ -233,7 +233,7 @@ Kevlar® y **Nomex®** tampoco compiten: Nomex® manda en resistencia a la llama
 
 ## Cómo leer un guante antes de comprar
 
-Pide la **construcción por zonas**: material de palma, de dorso, de costuras y de forro. Un guante que dice solo Kevlar sin cuero puede tener mal agarre; uno solo de cuero, mala resistencia al corte en costuras. La certificación **NFPA 1971/1970** valida el sistema; la construcción explica el desempeño.
+Pide la **construcción por zonas**: material de palma, de dorso, de costuras y de forro. Un guante que dice solo Kevlar sin cuero puede tener mal agarre; uno solo de cuero, mala resistencia al corte en costuras. La certificación **NFPA 1970** valida el sistema; la construcción explica el desempeño.
 
 [Cotiza guantes](/cotizar/) y te compartimos la construcción por zonas de cada modelo.
 `,
@@ -294,20 +294,20 @@ Su límite: no iguala al butilo en gases ni al Viton® en aromáticos.
   },
 
   "nfpa-1951-vs-1971-diferencias": {
-    titulo: "NFPA 1951 vs. NFPA 1971: Rescate vs. Estructural",
-    excerpt: "NFPA 1971 (hoy NFPA 1970) rige el conjunto de fuego estructural: barrera térmica pesada contra calor extremo. NFPA 1951 rige el EPP de rescate técnico: prioriza destreza, resistencia al corte y bajo perfil. Son escenarios distintos con EPP distinto; mezclarlos deja huecos.",
+    titulo: "NFPA 1951 vs. NFPA 1970: Rescate vs. Estructural",
+    excerpt: "NFPA 1970 rige el conjunto de fuego estructural: barrera térmica pesada contra calor extremo. NFPA 1951 rige el EPP de rescate técnico: prioriza destreza, resistencia al corte y bajo perfil. Son escenarios distintos con EPP distinto; mezclarlos deja huecos.",
     imagen: "/images/accion/bomberos-rescate-vehicular.avif",
     categoria: "Normativas",
-    tags: ["NFPA 1951", "NFPA 1971", "Rescate Técnico", "Estructural", "Selección"],
+    tags: ["NFPA 1951", "NFPA 1970", "Rescate Técnico", "Estructural", "Selección"],
     autor: AUTOR,
     autorRol: ROL,
-    anchorKeyword: "NFPA 1951 vs NFPA 1971 diferencias rescate estructural",
+    anchorKeyword: "NFPA 1951 vs NFPA 1970 diferencias rescate estructural",
     contenido: `
 ## Dos normas, dos misiones
 
-**NFPA 1971** y **NFPA 1951** se confunden porque ambas visten al bombero, pero protegen contra riesgos opuestos.
+**NFPA 1970** y **NFPA 1951** se confunden porque ambas visten al bombero, pero protegen contra riesgos opuestos.
 
-- **NFPA 1971** (Structural Firefighting, hoy consolidada en **NFPA 1970, 2024**): protege del **calor extremo y la inmersión en fuego**. Su conjunto de 3 capas es grueso y aislante.
+- **NFPA 1970** (Structural Firefighting, hoy consolidada en **NFPA 1970, 2024**): protege del **calor extremo y la inmersión en fuego**. Su conjunto de 3 capas es grueso y aislante.
 - **NFPA 1951** (Technical Rescue Incidents): protege en **rescate técnico** —vehicular, cuerda, USAR, acuático— donde el riesgo no es el fuego, sino el **corte, la abrasión, el impacto y la necesidad de moverse con destreza**.
 
 ## En qué difieren en la práctica
@@ -331,7 +331,7 @@ Su límite: no iguala al butilo en gases ni al Viton® en aromáticos.
 
 ## Cómo decidir en México
 
-- ¿Vas a entrar a un incendio de estructura? → **NFPA 1971/1970**.
+- ¿Vas a entrar a un incendio de estructura? → **NFPA 1970**.
 - ¿Extricación vehicular, rescate en cuerda, USAR, acuático? → **NFPA 1951** (y equipo de cuerda **NFPA 1983/2500**).
 - Cuerpos que hacen ambas → **dos conjuntos**, seleccionados por incidente.
 
@@ -387,17 +387,17 @@ La selección del nivel es una **decisión de mando basada en identificación de
 
   "termoplastico-vs-material-compuesto": {
     titulo: "Casco Termoplástico vs. Material Compuesto",
-    excerpt: "La carcasa del casco de bombero se fabrica en termoplástico (economía y buen desempeño) o en material compuesto/fibra (mayor resistencia térmica y menor peso, mayor costo). Ambos cumplen NFPA 1971/1970; la elección depende de presupuesto, exposición térmica y vida útil esperada.",
+    excerpt: "La carcasa del casco de bombero se fabrica en termoplástico (economía y buen desempeño) o en material compuesto/fibra (mayor resistencia térmica y menor peso, mayor costo). Ambos cumplen NFPA 1970; la elección depende de presupuesto, exposición térmica y vida útil esperada.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-02.avif",
     categoria: "Equipo",
-    tags: ["Casco", "Termoplástico", "Material Compuesto", "NFPA 1971", "Carcasa"],
+    tags: ["Casco", "Termoplástico", "Material Compuesto", "NFPA 1970", "Carcasa"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "casco termoplástico vs material compuesto bombero",
     contenido: `
 ## La carcasa define costo, peso y tolerancia al calor
 
-Dos cascos igualmente certificados **NFPA 1971** (hoy **NFPA 1970**) pueden sentirse y comportarse distinto según el material de su carcasa. Las dos familias principales son el **termoplástico** y el **material compuesto**.
+Dos cascos igualmente certificados **NFPA 1970** pueden sentirse y comportarse distinto según el material de su carcasa. Las dos familias principales son el **termoplástico** y el **material compuesto**.
 
 ## Termoplástico
 
@@ -423,7 +423,7 @@ No hay una respuesta única; hay un análisis de uso:
 - Cuerpo municipal con presupuesto ajustado y exposición moderada → **termoplástico** certificado es una decisión sólida.
 - Estación con **exposición térmica severa y frecuente** (industrial, ARFF, alto volumen de intervenciones) → el **compuesto** amortiza su costo en durabilidad y confort.
 
-En ambos casos, lo no negociable es la **certificación NFPA 1971/1970 por lote** y el estado del **sistema de suspensión**, que envejece antes que la carcasa.
+En ambos casos, lo no negociable es la **certificación NFPA 1970 por lote** y el estado del **sistema de suspensión**, que envejece antes que la carcasa.
 
 [Cotiza cascos](/cotizar/) y te ayudamos a equilibrar presupuesto, peso y exposición térmica.
 `,
@@ -431,7 +431,7 @@ En ambos casos, lo no negociable es la **certificación NFPA 1971/1970 por lote*
 
   "traje-proximidad-vs-entrada": {
     titulo: "Traje de Proximidad vs. Entrada al Fuego",
-    excerpt: "El traje de proximidad (aluminizado, NFPA 1971 proximidad / NFPA 1976) refleja calor radiante extremo para aproximarse a incendios de combustible sin entrar en la llama. El traje de entrada/estructural es para inmersión breve en fuego. Son equipos distintos para riesgos térmicos distintos.",
+    excerpt: "El traje de proximidad (aluminizado, NFPA 1970 proximidad / NFPA 1976) refleja calor radiante extremo para aproximarse a incendios de combustible sin entrar en la llama. El traje de entrada/estructural es para inmersión breve en fuego. Son equipos distintos para riesgos térmicos distintos.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Equipo",
     tags: ["Traje de Proximidad", "Aluminizado", "NFPA 1976", "Calor Radiante", "ARFF"],
@@ -454,7 +454,7 @@ Este artículo compara los dos primeros con el estructural, porque son los que s
 Diseñado contra el **calor radiante extremo** de incendios de combustible, gas y metal:
 
 - Superficie **aluminizada reflectiva** que devuelve gran parte de la energía radiante (ver **ASTM F1891/F1939**, RPP).
-- Normas: **NFPA 1971 en su variante de proximidad** (hoy **NFPA 1970**) y la histórica **NFPA 1976**; en Europa, **EN 1486**.
+- Normas: **NFPA 1970 en su variante de proximidad** (hoy **NFPA 1970**) y la histórica **NFPA 1976**; en Europa, **EN 1486**.
 - Uso típico: **ARFF aeroportuario**, siderurgia, petroquímica.
 
 ## Traje de entrada al fuego
@@ -463,7 +463,7 @@ El **traje de entrada** (fire entry) es un equipo extremo y poco común, diseña
 
 ## Traje estructural (referencia)
 
-El **estructural (NFPA 1971/1970)** protege contra el calor de un incendio de edificio —convectivo y radiante— para **inmersión breve en el ambiente** del fuego, no en la llama directa ni en radiación de combustible sostenida.
+El **estructural (NFPA 1970)** protege contra el calor de un incendio de edificio —convectivo y radiante— para **inmersión breve en el ambiente** del fuego, no en la llama directa ni en radiación de combustible sostenida.
 
 ## El error de selección
 
@@ -471,7 +471,7 @@ Usar un **estructural donde se necesita proximidad** deja al bombero sin la refl
 
 ## Cómo decidir en México
 
-- Incendio de edificio → **estructural (NFPA 1971/1970)**.
+- Incendio de edificio → **estructural (NFPA 1970)**.
 - Aproximación a combustible/gas/metal, ARFF → **proximidad aluminizado (NFPA 1976 / EN 1486)**.
 - Entrada al fuego → equipo especializado, uso excepcional.
 
@@ -481,10 +481,10 @@ Usar un **estructural donde se necesita proximidad** deja al bombero sin la refl
 
   "suspension-casco-bombero-4-vs-6-puntos": {
     titulo: "Suspensión del Casco: 4 vs. 6 Puntos",
-    excerpt: "El sistema de suspensión reparte el impacto y sostiene el casco sobre la cabeza. Los de 4 puntos son ligeros y económicos; los de 6 puntos distribuyen mejor la energía y el peso, con más estabilidad y confort en jornadas largas. Ambos deben cumplir NFPA 1971/1970.",
+    excerpt: "El sistema de suspensión reparte el impacto y sostiene el casco sobre la cabeza. Los de 4 puntos son ligeros y económicos; los de 6 puntos distribuyen mejor la energía y el peso, con más estabilidad y confort en jornadas largas. Ambos deben cumplir NFPA 1970.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-03.avif",
     categoria: "Equipo",
-    tags: ["Casco", "Suspensión", "4 puntos", "6 puntos", "NFPA 1971"],
+    tags: ["Casco", "Suspensión", "4 puntos", "6 puntos", "NFPA 1970"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "suspensión casco bombero 4 vs 6 puntos",
@@ -498,7 +498,7 @@ Al comprar un casco, la atención va a la carcasa y al visor. Pero el componente
 - **Cuatro anclajes** de la banda de cabeza a la carcasa.
 - **Ligera y económica**; suficiente para muchos escenarios.
 - Reparte el impacto en cuatro zonas; en golpes fuertes, la distribución es menos uniforme que con 6 puntos.
-- Buena opción de entrada para cuerpos con presupuesto ajustado, siempre con **certificación NFPA 1971/1970**.
+- Buena opción de entrada para cuerpos con presupuesto ajustado, siempre con **certificación NFPA 1970**.
 
 ## Suspensión de 6 puntos
 
@@ -527,22 +527,22 @@ La suspensión es **plástico y textil**: se degrada con sudor, calor y UV **ant
   },
 
   "nfpa-1971-vs-en-1486-arff": {
-    titulo: "NFPA 1971 vs. EN 1486 para Bomberos ARFF",
-    excerpt: "Para ARFF aeroportuario conviven dos marcos: NFPA 1971 (proximidad, hoy NFPA 1970) del sistema norteamericano y EN 1486 del europeo, ambos para trajes reflectantes ante calor radiante de jet fuel. La elección suele venir del marco regulatorio del aeropuerto (AFAC/ICAO) y del fabricante.",
+    titulo: "NFPA 1970 vs. EN 1486 para Bomberos ARFF",
+    excerpt: "Para ARFF aeroportuario conviven dos marcos: NFPA 1970 (proximidad) del sistema norteamericano y EN 1486 del europeo, ambos para trajes reflectantes ante calor radiante de jet fuel. La elección suele venir del marco regulatorio del aeropuerto (AFAC/ICAO) y del fabricante.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     categoria: "Normativas",
-    tags: ["NFPA 1971", "EN 1486", "ARFF", "Proximidad", "ICAO"],
+    tags: ["NFPA 1970", "EN 1486", "ARFF", "Proximidad", "ICAO"],
     autor: AUTOR,
     autorRol: ROL,
-    anchorKeyword: "NFPA 1971 vs EN 1486 ARFF aeroportuario",
+    anchorKeyword: "NFPA 1970 vs EN 1486 ARFF aeroportuario",
     contenido: `
 ## Dos caminos hacia el mismo objetivo: el fuego de aviación
 
 El rescate y extinción de incendios de aeronaves (**ARFF**) enfrenta un riesgo particular: el **calor radiante extremo del combustible de aviación (jet fuel)**. Dos marcos normativos regulan la ropa reflectante que lo enfrenta, y en México pueden verse ambos.
 
-## NFPA 1971 (proximidad) / NFPA 1970
+## NFPA 1970 (proximidad)
 
-En el sistema **norteamericano**, la protección de proximidad para ARFF se cubre con la variante de proximidad de **NFPA 1971** —consolidada desde 2024 en **NFPA 1970**— apoyada en la histórica **NFPA 1976** y en ensayos de material aluminizado (**ASTM F1891/F1939**, RPP).
+En el sistema **norteamericano**, la protección de proximidad para ARFF se cubre con la variante de proximidad de **NFPA 1970** —consolidada desde 2024 en **NFPA 1970**— apoyada en la histórica **NFPA 1976** y en ensayos de material aluminizado (**ASTM F1891/F1939**, RPP).
 
 - Enfoque en **reflectividad** de la superficie aluminizada y desempeño ante calor radiante.
 - Muy extendido por la cercanía de México con la industria estadounidense.
@@ -597,7 +597,7 @@ A mayor reflectividad, más **segundos de operación** cerca del fuego —los se
 - **Siderurgia y fundición** (radiación de metal fundido).
 - **Petroquímica** (incendios de tanque y proceso).
 
-Se rige por **NFPA 1971 proximidad / NFPA 1976** y, en Europa, **EN 1486**.
+Se rige por **NFPA 1970 proximidad / NFPA 1976** y, en Europa, **EN 1486**.
 
 ## Su punto débil: el mantenimiento
 
@@ -620,7 +620,7 @@ No compres un traje aluminizado por su apariencia: pide la referencia a **ASTM F
     excerpt: "La barrera de humedad (a menudo con membrana tipo Gore-Tex®) es la capa intermedia del traje estructural que impide el paso de agua, químicos y patógenos hacia el bombero mientras deja salir el vapor. Es la capa que evita quemaduras por vapor y mantiene el aislamiento térmico.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Equipo",
-    tags: ["Gore-Tex", "Barrera de Humedad", "Sistema 3 capas", "NFPA 1971", "Vapor"],
+    tags: ["Gore-Tex", "Barrera de Humedad", "Sistema 3 capas", "NFPA 1970", "Vapor"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "Gore-Tex barrera de humedad traje bombero",
@@ -648,11 +648,11 @@ Además, una capa térmica **mojada pierde aislamiento**: el agua conduce el cal
 - **Barrera de humedad (Gore-Tex® u otra):** líquidos y patógenos afuera, vapor de sudor hacia afuera.
 - **Barrera térmica (thermal liner):** aislamiento (TPP/THL).
 
-Las tres se ensayan como conjunto en la certificación **NFPA 1971/1970**.
+Las tres se ensayan como conjunto en la certificación **NFPA 1970**.
 
 ## Mantenimiento: la barrera se puede dañar
 
-La membrana se degrada con **calor excesivo en secado, lavado inadecuado y contaminación**. Por eso el mantenimiento **NFPA 1851** exige lavado y secado controlados y **pruebas de integridad de la barrera de humedad**. Una barrera perforada o delaminada deja de proteger contra líquidos y patógenos.
+La membrana se degrada con **calor excesivo en secado, lavado inadecuado y contaminación**. Por eso el mantenimiento **NFPA 1850** exige lavado y secado controlados y **pruebas de integridad de la barrera de humedad**. Una barrera perforada o delaminada deja de proteger contra líquidos y patógenos.
 
 ## Cómo comprar y cuidar en México
 
@@ -662,17 +662,17 @@ Verifica el **tipo de barrera de humedad** del traje y su compatibilidad con el 
 
   "sistema-3-capas-bombero": {
     titulo: "El Sistema de 3 Capas del Traje de Bombero",
-    excerpt: "El traje estructural NFPA 1971/1970 no es una tela: es un sistema de 3 capas —barrera exterior (flama y abrasión), barrera de humedad (líquidos y patógenos) y barrera térmica (aislamiento)— que se ensaya en conjunto con TPP y THL. Entender las 3 capas es entender por qué protege.",
+    excerpt: "El traje estructural NFPA 1970 no es una tela: es un sistema de 3 capas —barrera exterior (flama y abrasión), barrera de humedad (líquidos y patógenos) y barrera térmica (aislamiento)— que se ensaya en conjunto con TPP y THL. Entender las 3 capas es entender por qué protege.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Equipo",
-    tags: ["Sistema 3 capas", "Traje Estructural", "NFPA 1971", "TPP", "THL"],
+    tags: ["Sistema 3 capas", "Traje Estructural", "NFPA 1970", "TPP", "THL"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "sistema 3 capas traje bombero cómo funciona",
     contenido: `
 ## Un traje no es una tela: es un sistema
 
-El error más común al evaluar un traje estructural es mirar solo la **capa exterior** —la que se ve. Pero la protección real la da un **sistema de tres capas** que trabajan juntas, y que la norma **NFPA 1971** (hoy **NFPA 1970**) ensaya **como conjunto**, no por separado.
+El error más común al evaluar un traje estructural es mirar solo la **capa exterior** —la que se ve. Pero la protección real la da un **sistema de tres capas** que trabajan juntas, y que la norma **NFPA 1970** ensaya **como conjunto**, no por separado.
 
 ## Capa 1: barrera exterior (outer shell)
 
@@ -705,7 +705,7 @@ Aquí está la tensión de diseño del traje: **más TPP** (aislamiento) tiende 
 
 ## Por qué las 3 capas se compran juntas
 
-Cambiar una capa por otra incompatible **rompe el sistema**: una barrera de humedad inadecuada, una térmica mojada o una exterior degradada comprometen el conjunto. Por eso se certifica y se mantiene (**NFPA 1851**) como sistema.
+Cambiar una capa por otra incompatible **rompe el sistema**: una barrera de humedad inadecuada, una térmica mojada o una exterior degradada comprometen el conjunto. Por eso se certifica y se mantiene (**NFPA 1850**) como sistema.
 
 ## Cómo evaluar en México
 
@@ -715,10 +715,10 @@ Pide la **composición de las 3 capas** y sus valores **TPP/THL**, no solo el ma
 
   "tpp-calor-bombero-explicacion": {
     titulo: "TPP y THL: Qué Significan en el Traje de Bombero",
-    excerpt: "El TPP (Thermal Protective Performance) mide cuánto protege el traje contra transferencia de calor; el THL (Total Heat Loss) mide cuánto calor corporal deja escapar. NFPA 1971/1970 exige mínimos de ambos porque el estrés térmico también es un riesgo mortal, no solo la llama.",
+    excerpt: "El TPP (Thermal Protective Performance) mide cuánto protege el traje contra transferencia de calor; el THL (Total Heat Loss) mide cuánto calor corporal deja escapar. NFPA 1970 exige mínimos de ambos porque el estrés térmico también es un riesgo mortal, no solo la llama.",
     imagen: "/images/blog/bombero-equipo-estructural-nfpa-1971.avif",
     categoria: "Normativas",
-    tags: ["TPP", "THL", "Estrés Térmico", "NFPA 1971", "Traje Estructural"],
+    tags: ["TPP", "THL", "Estrés Térmico", "NFPA 1970", "Traje Estructural"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "TPP THL traje bombero qué significa",
@@ -731,7 +731,7 @@ En la ficha de un traje estructural aparecen dos siglas decisivas: **TPP** y **T
 
 El **TPP (Thermal Protective Performance)** mide **cuánto aísla el traje frente a la transferencia de calor** de un incendio (combinación de convección y radiación). En términos operativos, un TPP más alto significa **más segundos** antes de que la piel alcance el umbral de quemadura de segundo grado.
 
-**NFPA 1971** (hoy **NFPA 1970**) exige un **TPP mínimo** para el conjunto. Es la métrica que la gente asocia intuitivamente con protección.
+**NFPA 1970** exige un **TPP mínimo** para el conjunto. Es la métrica que la gente asocia intuitivamente con protección.
 
 ## THL: disipación del calor propio
 
@@ -749,7 +749,7 @@ Por eso NFPA exige **mínimos de ambos**: obliga a equilibrar, no a maximizar un
 
 - No pidas solo el **TPP más alto**: pide **ambos valores** y evalúa el equilibrio para tu clima y tipo de operación.
 - En climas **cálidos y húmedos** (gran parte de México), el **THL** cobra especial peso: un traje que no respira multiplica el riesgo de golpe de calor.
-- Verifica que ambos cumplen o superan el mínimo **NFPA 1971/1970**.
+- Verifica que ambos cumplen o superan el mínimo **NFPA 1970**.
 
 [Cotiza trajes estructurales](/cotizar/) y te comparamos modelos por TPP y THL para tu operación.
 `,
@@ -872,7 +872,7 @@ Es el mismo principio del acabado aluminizado del traje ARFF, aplicado a la prot
 
 ## Dónde encaja en el sistema ARFF
 
-El casco ARFF con visor dorado forma parte de un **conjunto de proximidad** (**NFPA 1971 proximidad / NFPA 1976 / EN 1486**), dimensionado según la **categoría del aeropuerto (ICAO Anexo 14)**. El visor trabaja junto con el protector facial, la capucha y la máscara del SCBA.
+El casco ARFF con visor dorado forma parte de un **conjunto de proximidad** (**NFPA 1970 proximidad / NFPA 1976 / EN 1486**), dimensionado según la **categoría del aeropuerto (ICAO Anexo 14)**. El visor trabaja junto con el protector facial, la capucha y la máscara del SCBA.
 
 ## Mantenimiento
 
@@ -886,10 +886,10 @@ Para cuerpos ARFF, especifica el **casco de proximidad con visor dorado (filtro 
 
   "protector-nuca-bombero-forestal": {
     titulo: "Protector de Nuca: Por Qué es Esencial en Forestal",
-    excerpt: "El protector de nuca del casco forestal (NFPA 1977) cubre cuello y nuca contra pavesas, radiación solar y calor de la línea de fuego durante jornadas prolongadas al aire libre. Es una pieza pequeña que previene quemaduras y golpe de calor en operaciones de horas.",
+    excerpt: "El protector de nuca del casco forestal (NFPA 1950) cubre cuello y nuca contra pavesas, radiación solar y calor de la línea de fuego durante jornadas prolongadas al aire libre. Es una pieza pequeña que previene quemaduras y golpe de calor en operaciones de horas.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     categoria: "Forestales",
-    tags: ["Protector de Nuca", "Casco Forestal", "NFPA 1977", "Pavesas", "CONAFOR"],
+    tags: ["Protector de Nuca", "Casco Forestal", "NFPA 1950", "Pavesas", "CONAFOR"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "protector de nuca bombero forestal por qué es esencial",
@@ -908,11 +908,11 @@ Suele fabricarse en **material inherentemente FR (Nomex®)** ligero y transpirab
 
 ## Por qué en forestal sí y en estructural de otra forma
 
-En el **fuego estructural**, el casco (NFPA 1971/1970) ya integra un protector de nuca robusto y la exposición es breve. En **forestal (NFPA 1977)**, la exposición es **prolongada y ambiental** (sol, pavesas, viento), por lo que el protector de nuca cumple un papel **sostenido** de prevención de quemaduras y estrés térmico, no de resistencia a inmersión en llama.
+En el **fuego estructural**, el casco (NFPA 1970) ya integra un protector de nuca robusto y la exposición es breve. En **forestal (NFPA 1950)**, la exposición es **prolongada y ambiental** (sol, pavesas, viento), por lo que el protector de nuca cumple un papel **sostenido** de prevención de quemaduras y estrés térmico, no de resistencia a inmersión en llama.
 
 ## Parte de un sistema forestal coherente
 
-El protector de nuca acompaña al resto del EPP forestal ligero: **casco ventilado**, gafas **ANSI Z87.1** contra humo y ceniza, guantes forestales, traje **NFPA 1977** monocapa y bota forestal. Todo optimizado para la **jornada larga**.
+El protector de nuca acompaña al resto del EPP forestal ligero: **casco ventilado**, gafas **ANSI Z87.1** contra humo y ceniza, guantes forestales, traje **NFPA 1950** monocapa y bota forestal. Todo optimizado para la **jornada larga**.
 
 ## Cómo comprar en México
 
@@ -966,18 +966,18 @@ Podemos surtir cascos de brigada **por color y rol** con la certificación corre
 
   // ─────────────────── TÉCNICAS / MANTENIMIENTO ───────────────────
   "como-lavar-guantes-nfpa-1971": {
-    titulo: "Cómo Lavar Guantes NFPA 1971 Correctamente",
-    excerpt: "Los guantes estructurales acumulan carcinógenos del humo que se absorben por la piel. El lavado adecuado bajo NFPA 1851 —agua tibia, detergente neutro, sin blanqueador ni calor excesivo, secado a la sombra— preserva la barrera térmica y de humedad y reduce la exposición a contaminantes.",
+    titulo: "Cómo Lavar Guantes NFPA 1970 Correctamente",
+    excerpt: "Los guantes estructurales acumulan carcinógenos del humo que se absorben por la piel. El lavado adecuado bajo NFPA 1850 —agua tibia, detergente neutro, sin blanqueador ni calor excesivo, secado a la sombra— preserva la barrera térmica y de humedad y reduce la exposición a contaminantes.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-combate-incendio-manguera-01.avif",
     categoria: "Mantenimiento",
-    tags: ["Guantes", "NFPA 1851", "Lavado", "Carcinógenos", "Mantenimiento"],
+    tags: ["Guantes", "NFPA 1850", "Lavado", "Carcinógenos", "Mantenimiento"],
     autor: AUTOR,
     autorRol: ROL,
-    anchorKeyword: "cómo lavar guantes NFPA 1971 mantenimiento",
+    anchorKeyword: "cómo lavar guantes NFPA 1970 mantenimiento",
     contenido: `
 ## Un guante sucio es un riesgo de salud, no solo de higiene
 
-Los guantes estructurales absorben **hollín y productos de combustión** —muchos de ellos **carcinógenos**— que quedan en el material y se transfieren a la piel de las manos, una de las vías de absorción más eficientes del cuerpo. Lavarlos bien no es estética: es **prevención de cáncer ocupacional** y conservación de la protección. La referencia es **NFPA 1851** (cuidado y mantenimiento del EPP estructural).
+Los guantes estructurales absorben **hollín y productos de combustión** —muchos de ellos **carcinógenos**— que quedan en el material y se transfieren a la piel de las manos, una de las vías de absorción más eficientes del cuerpo. Lavarlos bien no es estética: es **prevención de cáncer ocupacional** y conservación de la protección. La referencia es **NFPA 1850** (cuidado y mantenimiento del EPP estructural).
 
 ## Qué NO hacer
 
@@ -999,11 +999,11 @@ Un guante se retira si presenta **quemaduras, cortes, rigidez que impide operar,
 
 ## Documenta el mantenimiento
 
-Bajo **NFPA 1851**, el cuidado del EPP se **documenta**: fechas de lavado, inspección avanzada y retiro. En licitaciones y auditorías, ese registro es evidencia de un programa serio.
+Bajo **NFPA 1850**, el cuidado del EPP se **documenta**: fechas de lavado, inspección avanzada y retiro. En licitaciones y auditorías, ese registro es evidencia de un programa serio.
 
 ## Cómo apoyarte en México
 
-Podemos orientar tu **programa de cuidado NFPA 1851** y surtir refacciones. [Cotiza guantes y EPP](/cotizar/) y te compartimos las guías de lavado por material.
+Podemos orientar tu **programa de cuidado NFPA 1850** y surtir refacciones. [Cotiza guantes y EPP](/cotizar/) y te compartimos las guías de lavado por material.
 `,
   },
 
@@ -1056,10 +1056,10 @@ Podemos asesorar la **selección de casco compatible** y el plan de descontamina
 
   "golpe-de-calor-bombero-forestal": {
     titulo: "Golpe de Calor en Bombero Forestal: Prevención",
-    excerpt: "En incendios forestales el estrés térmico puede ser tan letal como el fuego: jornadas largas, EPP, esfuerzo y calor ambiental elevan la temperatura corporal. La prevención combina EPP forestal transpirable (NFPA 1977), hidratación, rotación, aclimatación y vigilancia de signos tempranos.",
+    excerpt: "En incendios forestales el estrés térmico puede ser tan letal como el fuego: jornadas largas, EPP, esfuerzo y calor ambiental elevan la temperatura corporal. La prevención combina EPP forestal transpirable (NFPA 1950), hidratación, rotación, aclimatación y vigilancia de signos tempranos.",
     imagen: "/images/accion/bomberos-capacitacion-torre-entrenamiento.avif",
     categoria: "Forestales",
-    tags: ["Golpe de Calor", "Estrés Térmico", "Forestal", "NFPA 1977", "Prevención"],
+    tags: ["Golpe de Calor", "Estrés Térmico", "Forestal", "NFPA 1950", "Prevención"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "golpe de calor bombero forestal prevención",
@@ -1073,7 +1073,7 @@ En el combate de **incendios forestales**, uno de los mayores riesgos no es la l
 - **Duración:** operaciones de muchas horas o días, no minutos.
 - **Esfuerzo:** caminar en pendiente, cavar líneas, manejar herramienta y motosierra.
 - **Ambiente:** temporada de incendios = calor y baja humedad.
-- **EPP:** aun el ligero (NFPA 1977) añade carga térmica.
+- **EPP:** aun el ligero (NFPA 1950) añade carga térmica.
 
 Por eso el traje forestal prioriza **transpirabilidad** (a diferencia del estructural): reducir la carga térmica del equipo es parte de la prevención.
 
@@ -1091,7 +1091,7 @@ La **confusión** es una bandera roja: puede indicar **golpe de calor**, que req
 1. **Aclimatación** progresiva al calor antes de la temporada.
 2. **Hidratación** planificada (antes, durante y después), con electrolitos.
 3. **Rotación y descansos** en sombra; el trabajo/descanso se ajusta al índice de calor.
-4. **EPP forestal transpirable (NFPA 1977)** —no usar traje estructural en forestal.
+4. **EPP forestal transpirable (NFPA 1950)** —no usar traje estructural en forestal.
 5. **Vigilancia mutua (buddy system):** cada quien observa signos en su compañero.
 6. **Nutrición y sueño** adecuados: la fatiga acumulada aumenta el riesgo.
 
@@ -1101,7 +1101,7 @@ Un EPP forestal ligero, ventilado y bien ajustado **reduce la carga térmica**; 
 
 ## Cómo equipar en México
 
-[Cotiza EPP forestal (NFPA 1977)](/cotizar/) diseñado para jornadas largas, y capacita a tu brigada en prevención de estrés térmico.
+[Cotiza EPP forestal (NFPA 1950)](/cotizar/) diseñado para jornadas largas, y capacita a tu brigada en prevención de estrés térmico.
 `,
   },
 
@@ -1110,7 +1110,7 @@ Un EPP forestal ligero, ventilado y bien ajustado **reduce la carga térmica**; 
     excerpt: "El casco de bombero tiene vida útil limitada aunque se vea bien: NFPA fija un retiro obligatorio (típicamente 10 años desde fabricación para el EPP estructural) y retiro inmediato tras impacto o exposición térmica severa. La suspensión y el visor se degradan antes que la carcasa.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-03.avif",
     categoria: "Mantenimiento",
-    tags: ["Vida Útil", "Casco", "NFPA 1851", "Retiro", "Mantenimiento"],
+    tags: ["Vida Útil", "Casco", "NFPA 1850", "Retiro", "Mantenimiento"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "vida útil casco bombero retiro NFPA",
@@ -1121,7 +1121,7 @@ Un error costoso —y peligroso— es asumir que un casco de bombero sirve **mie
 
 ## Retiro por antigüedad
 
-Para el **EPP estructural**, el marco NFPA (**NFPA 1851**, dentro del ecosistema de **NFPA 1971/1970**) establece un **retiro obligatorio por antigüedad** —típicamente **10 años desde la fecha de fabricación**— independientemente de su apariencia. La lógica: aunque el casco se vea bien, sus polímeros y su suspensión han envejecido.
+Para el **EPP estructural**, el marco NFPA (**NFPA 1850**, dentro del ecosistema de **NFPA 1970**) establece un **retiro obligatorio por antigüedad** —típicamente **10 años desde la fecha de fabricación**— independientemente de su apariencia. La lógica: aunque el casco se vea bien, sus polímeros y su suspensión han envejecido.
 
 *(Verifica siempre la edición vigente de la norma y las indicaciones del fabricante, que pueden fijar criterios específicos.)*
 
@@ -1146,7 +1146,7 @@ Inspeccionar y **reemplazar estos componentes** extiende la vida útil segura **
 
 ## Documenta la vida del casco
 
-Registra **fecha de fabricación, puesta en servicio, inspecciones, impactos y retiro**. Bajo **NFPA 1851** es parte del programa; en auditoría y licitación, es evidencia de gestión seria.
+Registra **fecha de fabricación, puesta en servicio, inspecciones, impactos y retiro**. Bajo **NFPA 1850** es parte del programa; en auditoría y licitación, es evidencia de gestión seria.
 
 ## Cómo apoyarte en México
 
@@ -1206,7 +1206,7 @@ El error caro es comprar un traje HAZMAT genérico y suponer que sirve para todo
   // ─────────────────── EPP POR DISCIPLINA ───────────────────
   "epp-completo-bombero-arff": {
     titulo: "EPP Completo para Bombero ARFF en México",
-    excerpt: "El bombero ARFF aeroportuario requiere un conjunto de proximidad completo: traje aluminizado (NFPA 1971 proximidad / NFPA 1976 / EN 1486), casco ARFF con visor dorado, guantes y botas resistentes a hidrocarburos, SCBA y protección respiratoria. El nivel se dimensiona por la categoría ICAO del aeropuerto.",
+    excerpt: "El bombero ARFF aeroportuario requiere un conjunto de proximidad completo: traje aluminizado (NFPA 1970 proximidad / NFPA 1976 / EN 1486), casco ARFF con visor dorado, guantes y botas resistentes a hidrocarburos, SCBA y protección respiratoria. El nivel se dimensiona por la categoría ICAO del aeropuerto.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     categoria: "Equipo",
     tags: ["ARFF", "EPP Completo", "Proximidad", "ICAO", "Aeropuerto"],
@@ -1220,7 +1220,7 @@ El bombero de **rescate y extinción de incendios de aeronaves (ARFF)** enfrenta
 
 ## Los componentes del conjunto ARFF
 
-**Traje de proximidad aluminizado.** Refleja el calor radiante (ver **capa aluminizada** y **RPP / ASTM F1939**). Normas: **NFPA 1971 proximidad / NFPA 1976** o, en marco europeo, **EN 1486**.
+**Traje de proximidad aluminizado.** Refleja el calor radiante (ver **capa aluminizada** y **RPP / ASTM F1939**). Normas: **NFPA 1970 proximidad / NFPA 1976** o, en marco europeo, **EN 1486**.
 
 **Casco ARFF con visor dorado.** El recubrimiento **filtra el infrarrojo** que ataca cara y ojos; compatible con capucha y máscara.
 
@@ -1250,21 +1250,21 @@ Podemos **dimensionar el conjunto ARFF** según la categoría de tu aeródromo y
 
   "epp-brigada-forestal-conafor": {
     titulo: "EPP para Brigada Forestal CONAFOR: Qué se Requiere",
-    excerpt: "La brigada forestal (CONAFOR, estatal, municipal, voluntaria) requiere EPP NFPA 1977 optimizado para jornadas largas: traje monocapa transpirable, casco ligero con protector de nuca, gafas ANSI Z87.1, guantes forestales, bota forestal y herramienta manual. Prioriza ligereza y prevención de golpe de calor.",
+    excerpt: "La brigada forestal (CONAFOR, estatal, municipal, voluntaria) requiere EPP NFPA 1950 optimizado para jornadas largas: traje monocapa transpirable, casco ligero con protector de nuca, gafas ANSI Z87.1, guantes forestales, bota forestal y herramienta manual. Prioriza ligereza y prevención de golpe de calor.",
     imagen: "/images/accion/bomberos-capacitacion-torre-entrenamiento.avif",
     categoria: "Forestales",
-    tags: ["CONAFOR", "Brigada Forestal", "NFPA 1977", "EPP", "Incendios Forestales"],
+    tags: ["CONAFOR", "Brigada Forestal", "NFPA 1950", "EPP", "Incendios Forestales"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "EPP brigada forestal CONAFOR qué se requiere",
     contenido: `
 ## Equipar para la jornada, no para el minuto
 
-La brigada forestal —de **CONAFOR**, estatal, municipal o voluntaria— combate incendios de **vegetación** en operaciones de **horas o días**, en terreno agreste y bajo calor ambiental. Su EPP se rige por la lógica opuesta al estructural: **ligereza, transpirabilidad y resistencia a la abrasión**, para proteger sin provocar **golpe de calor**. La referencia es **NFPA 1977**.
+La brigada forestal —de **CONAFOR**, estatal, municipal o voluntaria— combate incendios de **vegetación** en operaciones de **horas o días**, en terreno agreste y bajo calor ambiental. Su EPP se rige por la lógica opuesta al estructural: **ligereza, transpirabilidad y resistencia a la abrasión**, para proteger sin provocar **golpe de calor**. La referencia es **NFPA 1950**.
 
 ## El conjunto forestal
 
-**Traje forestal (NFPA 1977).** Monocapa de material **inherentemente FR** (Nomex®), ligero y transpirable. No es un traje estructural: aquí el enemigo principal es el **estrés térmico** propio, no la inmersión en llama.
+**Traje forestal (NFPA 1950).** Monocapa de material **inherentemente FR** (Nomex®), ligero y transpirable. No es un traje estructural: aquí el enemigo principal es el **estrés térmico** propio, no la inmersión en llama.
 
 **Casco forestal ligero y ventilado**, con **protector de nuca** contra pavesas y sol.
 
@@ -1286,7 +1286,7 @@ El EPP forestal correcto es parte de la estrategia contra el golpe de calor, jun
 
 ## Cómo equipar en México
 
-Podemos armar el **conjunto forestal NFPA 1977** para tu brigada —municipal, estatal o de apoyo a CONAFOR— priorizando ligereza y certificación. [Cotiza EPP forestal](/cotizar/) por disciplina.
+Podemos armar el **conjunto forestal NFPA 1950** para tu brigada —municipal, estatal o de apoyo a CONAFOR— priorizando ligereza y certificación. [Cotiza EPP forestal](/cotizar/) por disciplina.
 `,
   },
 

@@ -59,7 +59,7 @@ En México, buena parte del equipo para bomberos se vende a través de casas de 
 
 No es necesariamente mala fe. Es que un vendedor que cubre cuarenta familias de producto no puede dominar ninguna. Y en protección contra incendios, la diferencia entre dominar y no dominar tiene nombres técnicos concretos:
 
-- Un traje **NFPA 1971** (estructural) y uno **NFPA 2112** (brigadista industrial, contra flash fire) no son intercambiables. Se parecen. Protegen contra amenazas distintas.
+- Un traje **NFPA 1970** (estructural) y uno **NFPA 2112** (brigadista industrial, contra flash fire) no son intercambiables. Se parecen. Protegen contra amenazas distintas.
 - Un **SCBA** sin certificación NIOSH puede fallar en atmósfera IDLH sin darle aviso previo al usuario.
 - Un traje certificado en 2014 bajo la edición vigente entonces puede estar fuera de norma hoy, aunque se vea impecable.
 
@@ -92,7 +92,7 @@ La empresa organiza su propuesta alrededor de cuatro compromisos. Los reproducim
 |---|---|---|
 | Distribuidor autorizado | Contrato vigente con el fabricante; garantía tramitada de fábrica | Pida el número de distribución autorizada y confírmelo directamente con la marca |
 | Equipos certificados | Certificado de laboratorio acreditado por partida, no declaración del fabricante | Exija el certificado con número de serie y la edición de la norma citada |
-| Asesoría especializada | Un ejecutivo que distingue NFPA 1971 de NFPA 2112 sin consultarlo | Pregunte qué norma aplica a su riesgo antes de hablar de precio |
+| Asesoría especializada | Un ejecutivo que distingue NFPA 1970 de NFPA 2112 sin consultarlo | Pregunte qué norma aplica a su riesgo antes de hablar de precio |
 | Servicio post-venta | Refacciones originales y mantenimiento programado | Solicite por escrito la política de refacciones y los plazos de garantía por línea |
 
 Si un proveedor —cualquiera, incluidos nosotros— se incomoda con esa segunda columna, ya obtuvo su respuesta.
@@ -111,7 +111,7 @@ El equipamiento contra incendios en México está fragmentado por líneas, marca
 
 Por eso publicamos abiertamente con quién trabajamos. Puede revisar a [las empresas del sector que trabajan con BOMBERO.MX](/#testimonios) en la página principal, FIREFIGHTER México entre ellas.
 
-Y si lo que necesita es empezar por la especificación correcta, nuestro [catálogo de trajes estructurales NFPA 1971](/productos/trajes-para-bomberos/) y el resto de las [categorías de producto](/productos/) parten del mismo principio que este artículo defiende: equipo original, certificado y con documentación que sobreviva una auditoría.
+Y si lo que necesita es empezar por la especificación correcta, nuestro [catálogo de trajes estructurales NFPA 1970](/productos/trajes-para-bomberos/) y el resto de las [categorías de producto](/productos/) parten del mismo principio que este artículo defiende: equipo original, certificado y con documentación que sobreviva una auditoría.
 
 ## Preguntas Frecuentes
 
@@ -125,7 +125,7 @@ Es una empresa aliada del sector. Ambas son casas especializadas en protección 
 
 ### ¿Por qué importa que un proveedor sea especialista y no generalista?
 
-Porque el EPP contra incendios tiene distinciones técnicas que no perdonan aproximaciones: un traje NFPA 1971 no es un traje NFPA 2112, y un SCBA sin certificación NIOSH puede fallar en atmósfera IDLH. Un vendedor que cubre decenas de familias de producto rara vez domina esas diferencias.
+Porque el EPP contra incendios tiene distinciones técnicas que no perdonan aproximaciones: un traje NFPA 1970 no es un traje NFPA 2112, y un SCBA sin certificación NIOSH puede fallar en atmósfera IDLH. Un vendedor que cubre decenas de familias de producto rara vez domina esas diferencias.
 
 ### ¿La antigüedad de un distribuidor garantiza la calidad del equipo?
 
@@ -133,7 +133,7 @@ No por sí sola. La antigüedad indica continuidad y relaciones sostenidas con f
 
 ## Artículos relacionados
 
-- [NFPA 1971: guía completa del EPP estructural](/blog/nfpa-1971-guia-completa/)
+- [NFPA 1970: guía completa del EPP estructural](/blog/nfpa-1971-guia-completa/)
 - [Cómo cotizar equipo NFPA para un cuerpo de bomberos](/blog/equipo-bomberos-municipal-como-cotizar/)
 - [EPP para brigadas industriales en México](/blog/brigadas-industriales-epp/)
     `,
@@ -159,8 +159,8 @@ No por sí sola. La antigüedad indica continuidad y relaciones sostenidas con f
 
 En una ficha técnica mexicana promedio conviven, sin distinción visible, dos frases:
 
-- **Certificado NFPA 1971.**
-- **Fabricado conforme a NFPA 1971** (o su primo hermano: *compatible con NFPA 1971*).
+- **Certificado NFPA 1970.**
+- **Fabricado conforme a NFPA 1970** (o su primo hermano: *compatible con NFPA 1970*).
 
 La primera implica que un laboratorio acreditado —UL, Intertek o SEI— sometió el conjunto a ensayo y emitió un certificado con número de serie. La segunda no implica nada. Es una declaración del fabricante sobre sí mismo. Puede ser rigurosamente cierta. También puede ser un párrafo redactado por el área de marketing.
 
@@ -213,7 +213,7 @@ Un buen ejecutivo le dirá cuál de las dos necesita. Un mal vendedor le vender�
 
 Un detalle que todavía no llega a la mayoría de los pliegos mexicanos: en su edición 2024, la NFPA consolidó varias normas de EPP —entre ellas la 1971, la 1975, la 1981 y la 1982— dentro de la **NFPA 1970**. Algo equivalente ocurrió con la protección química (NFPA 1990).
 
-En la práctica, el mercado, los fabricantes y las áreas de compras siguen citando los números históricos, y así seguirán algunos años. Pero si su pliego dice “NFPA 1971” sin especificar edición, está abriendo la puerta a que le oferten un equipo certificado bajo una edición antigua. **Cite siempre la edición.** Es la línea de defensa más barata que existe.
+En la práctica, el mercado, los fabricantes y las áreas de compras siguen citando los números históricos, y así seguirán algunos años. Pero si su pliego dice “NFPA 1970” sin especificar edición, está abriendo la puerta a que le oferten un equipo certificado bajo una edición antigua. **Cite siempre la edición.** Es la línea de defensa más barata que existe.
 
 ## Verificar a su proveedor en cinco minutos
 
@@ -249,7 +249,7 @@ Porque sin edición, un oferente puede presentar equipo certificado bajo una ver
 
 ## Artículos relacionados
 
-- [SCBA para bomberos: guía completa NFPA 1981](/blog/scba-guia-completa-bomberos-mexico/)
+- [SCBA para bomberos: guía completa NFPA 1970](/blog/scba-guia-completa-bomberos-mexico/)
 - [Casco Bullard vs. Cairns: comparativa técnica](/blog/casco-bombero-bullard-vs-cairns/)
 - [MSA G1 vs. Scott Air-Pak: análisis de SCBA](/blog/scba-msag1-vs-scott-airpak/)
     `,
@@ -273,7 +273,7 @@ Porque sin edición, un oferente puede presentar equipo certificado bajo una ver
     contenido: `
 ## Nadie pierde una licitación de bomberos por cara
 
-Se pierde por un anexo técnico que cita “NFPA 1971” sin edición. Por un certificado de laboratorio que ampara el modelo pero no el lote ofertado. Por una carta de distribuidor firmada por el propio distribuidor. Por una partida COG mal asignada en la factura, tres meses después del fallo, cuando el recurso ya se ejerció y el área de compras descubre que no puede comprobarlo.
+Se pierde por un anexo técnico que cita “NFPA 1970” sin edición. Por un certificado de laboratorio que ampara el modelo pero no el lote ofertado. Por una carta de distribuidor firmada por el propio distribuidor. Por una partida COG mal asignada en la factura, tres meses después del fallo, cuando el recurso ya se ejerció y el área de compras descubre que no puede comprobarlo.
 
 Quien ha trabajado adquisiciones públicas de equipo de protección lo sabe: el precio decide entre las ofertas que llegaron completas. El resto se descartó antes, en la mesa de revisión documental, por razones que en el papel parecen tecnicismos y en la realidad son la diferencia entre una brigada equipada y un ejercicio presupuestal fallido.
 
@@ -383,7 +383,7 @@ Depende de la línea. El equipo de stock (trajes en tallas estándar, cascos, gu
     excerpt: "Un fuego de hidrocarburos, un derrame de H2S y un incendio de combustible de aviación exigen tres sistemas de protección distintos. Guía de especificación para los sectores donde un nivel de protección mal elegido no se corrige sobre la marcha.",
     imagen: "/images/directorio/estacion-bomberos-refineria-01.avif",
     categoria: "Industrial",
-    tags: ["FIREFIGHTER México", "HAZMAT", "ARFF", "Petroquímica", "PEMEX", "SCBA", "NFPA 1981"],
+    tags: ["FIREFIGHTER México", "HAZMAT", "ARFF", "Petroquímica", "PEMEX", "SCBA", "NFPA 1970"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Editorial — Aliados del Sector",
     anchorKeyword: "FIREFIGHTER México HAZMAT ARFF petroquímica equipo alto riesgo",
@@ -422,7 +422,7 @@ Desarrollamos la lógica completa en la [guía de niveles de protección HAZMAT 
 
 <div class="stats-grid">
   <div class="stat">
-    <span class="stat__num">NFPA 1981</span>
+    <span class="stat__num">NFPA 1970</span>
     <span class="stat__label">SCBA para atmósferas IDLH</span>
   </div>
   <div class="stat">
@@ -457,7 +457,7 @@ Son dos mundos con presupuestos, tiempos y lenguajes distintos. El punto en com�
 
 ## Cinco errores de especificación que se repiten
 
-1. **Confundir NFPA 1971 con NFPA 2112.** El estructural protege contra fuego desarrollado; el industrial, contra flash fire de corta duración. No son sustitutos.
+1. **Confundir NFPA 1970 con NFPA 2112.** El estructural protege contra fuego desarrollado; el industrial, contra flash fire de corta duración. No son sustitutos.
 2. **Comprar nivel C para atmósfera no medida.** Sin detección multigás previa, es una apuesta.
 3. **Especificar SCBA sin definir autonomía.** Un cilindro de 30 minutos no rinde 30 minutos bajo esfuerzo real.
 4. **Olvidar la clasificación ATEX** en herramienta e iluminación dentro de zona clasificada.
@@ -483,7 +483,7 @@ Porque filtra el aire existente pero no lo genera. En una atmósfera deficiente 
 
 El marco principal es el Anexo 14 de la ICAO, con referencia a las normas NFPA aplicables al equipo. Exige trajes de proximidad aluminizados, cascos ARFF, SCBA de perfil bajo y herramientas de acceso a fuselaje, todos con certificación verificable.
 
-### ¿Un traje NFPA 1971 sirve para una brigada industrial?
+### ¿Un traje NFPA 1970 sirve para una brigada industrial?
 
 Puede resultar excesivo e inadecuado. El estructural está diseñado para fuego desarrollado y añade peso y carga térmica. Para fuego incipiente y riesgo de flash fire en planta, la referencia es NFPA 2112 y NFPA 2113. Especificar el estándar equivocado penaliza al brigadista.
 
@@ -501,14 +501,14 @@ Puede resultar excesivo e inadecuado. El estructural está diseñado para fuego 
     excerpt: "Los trajes de bombero rara vez fallan en el incendio. Fallan en la bodega, tres años después, por un lavado mal hecho o una inspección que nadie llevó. El servicio post-venta no es un extra comercial: es lo que determina la vida útil real del equipo.",
     imagen: "/images/accion/estacion-bomberos-mexico-moderna.avif",
     categoria: "Equipo",
-    tags: ["FIREFIGHTER México", "Cobertura Nacional", "Post-Venta", "Garantía", "Refacciones", "NFPA 1851"],
+    tags: ["FIREFIGHTER México", "Cobertura Nacional", "Post-Venta", "Garantía", "Refacciones", "NFPA 1850"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Editorial — Aliados del Sector",
     anchorKeyword: "FIREFIGHTER México cobertura nacional servicio post-venta garantía",
     pubDate: "2026-07-08T10:00:00-06:00",
     heroSeoBlocks: [
       { title: "32 estados", text: "Entrega declarada de <strong>24-48 h</strong> en CDMX y 3-5 días hábiles al resto del país." },
-      { title: "Ciclo de vida", text: "Inspección y retiro del EPP según <a href=\"/blog/nfpa-1851-inspeccion-retiro-traje-bombero/\">NFPA 1851</a>, explicado por BOMBERO.MX." },
+      { title: "Ciclo de vida", text: "Inspección y retiro del EPP según <a href=\"/blog/nfpa-1851-inspeccion-retiro-traje-bombero/\">NFPA 1850</a>, explicado por BOMBERO.MX." },
     ],
     contenido: `
 ## El traje no muere en el incendio
@@ -527,10 +527,10 @@ La vida útil del EPP está normada. No es una recomendación del fabricante ni 
 
 | Componente | Referencia | Rutina | Retiro |
 |---|---|---|---|
-| Conjunto estructural | NFPA 1851 | Inspección de rutina tras cada uso; inspección avanzada al menos anual | 10 años desde la fecha de fabricación |
-| SCBA (equipo) | NFPA 1852 | Inspección tras uso y mensual; mantenimiento por técnico autorizado | Según fabricante y desempeño en prueba |
+| Conjunto estructural | NFPA 1850 | Inspección de rutina tras cada uso; inspección avanzada al menos anual | 10 años desde la fecha de fabricación |
+| SCBA (equipo) | NFPA 1850 | Inspección tras uso y mensual; mantenimiento por técnico autorizado | Según fabricante y desempeño en prueba |
 | Cilindro SCBA | Reglamentación de recipientes a presión | Prueba hidrostática periódica (típicamente cada 5 años) | Los cilindros de material compuesto tienen vida limitada (del orden de 15 años) |
-| Casco, guantes, botas | NFPA 1971 / 1851 | Inspección visual y funcional periódica | Al perder integridad estructural o cumplir vida útil |
+| Casco, guantes, botas | NFPA 1970 / 1850 | Inspección visual y funcional periódica | Al perder integridad estructural o cumplir vida útil |
 
 La fecha que importa no es la de compra: es la de **fabricación**. Un traje que llevaba dos años en el almacén del proveedor llega a su corporación con dos años menos de vida útil. Pregúntela. Está en la etiqueta.
 
@@ -548,7 +548,7 @@ La fecha que importa no es la de compra: es la de **fabricación**. Un traje que
     <span class="stat__label">Garantía máxima declarada</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1851</span>
+    <span class="stat__num">NFPA 1850</span>
     <span class="stat__label">Inspección y retiro del EPP</span>
   </div>
 </div>
@@ -591,7 +591,7 @@ Porque la certificación NFPA o NIOSH ampara el equipo como conjunto. Sustituir 
 
 ### ¿Cuándo debe retirarse de servicio un traje estructural?
 
-La NFPA 1851 establece una vida útil máxima de diez años contados desde la **fecha de fabricación**, no desde la compra, además del retiro anticipado cuando la inspección detecta pérdida de integridad. Verifique siempre la etiqueta de fabricación al recibir el equipo.
+La NFPA 1850 establece una vida útil máxima de diez años contados desde la **fecha de fabricación**, no desde la compra, además del retiro anticipado cuando la inspección detecta pérdida de integridad. Verifique siempre la etiqueta de fabricación al recibir el equipo.
 
 ### ¿Cada cuánto se prueba un cilindro de SCBA?
 
@@ -599,9 +599,9 @@ Los recipientes a presión requieren prueba hidrostática periódica, típicamen
 
 ## Artículos relacionados
 
-- [NFPA 1851: inspección y retiro del traje de bombero](/blog/nfpa-1851-inspeccion-retiro-traje-bombero/)
+- [NFPA 1850: inspección y retiro del traje de bombero](/blog/nfpa-1851-inspeccion-retiro-traje-bombero/)
 - [Mantenimiento, lavado y vida útil del traje de bombero](/blog/mantenimiento-vida-util-traje-bombero/)
-- [Mantenimiento SCBA: protocolo NFPA 1852](/blog/mantenimiento-scba/)
+- [Mantenimiento SCBA: protocolo NFPA 1850](/blog/mantenimiento-scba/)
     `,
   },
 

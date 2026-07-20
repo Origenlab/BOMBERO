@@ -11,7 +11,7 @@ export const slug = "traje-bombero-nomex-vs-pbi-materiales";
 export const articulo: ArticuloData = {
   titulo: "Nomex® vs PBI Gold®: qué material de traje de bombero elegir",
   excerpt:
-    "Comparativa técnica profunda de los materiales de un traje de bombero: capa exterior Nomex® IIIA vs PBI Gold®, barrera de humedad Gore-Tex®/CROSSTECH y barrera térmica. Guía de compra NFPA 1971 para jefes de cuerpo y responsables de adquisición.",
+    "Comparativa técnica profunda de los materiales de un traje de bombero: capa exterior Nomex® IIIA vs PBI Gold®, barrera de humedad Gore-Tex®/CROSSTECH y barrera térmica. Guía de compra NFPA 1970 para jefes de cuerpo y responsables de adquisición.",
   imagen:
     "/images/trajes-para-bombero/traje-bombero-detalle-material-nomex-resistencia-01.avif",
   categoria: "Equipo",
@@ -21,19 +21,19 @@ export const articulo: ArticuloData = {
     "Gore-Tex",
     "CROSSTECH",
     "Kevlar",
-    "NFPA 1971",
+    "NFPA 1970",
     "Materiales",
     "Sistema 3 capas",
   ],
   autor: "Departamento de Ingeniería BOMBERO.MX",
   autorRol: "Especialistas en EPP estructural NFPA",
   anchorKeyword:
-    "comparativa de materiales para traje de bombero Nomex IIIA vs PBI Gold NFPA 1971 México",
+    "comparativa de materiales para traje de bombero Nomex IIIA vs PBI Gold NFPA 1970 México",
   pubDate: "2026-06-11T09:00:00-06:00",
   heroSeoBlocks: [
     {
       title: "La decisión está en el tejido",
-      text: "Dos trajes pueden verse idénticos y cumplir <strong>NFPA 1971</strong>, pero la fibra de su capa exterior —<strong>Nomex® IIIA</strong> o <strong>PBI Gold®</strong>— define su comportamiento en flashover, su durabilidad y su costo. En la <a href=\"/productos/trajes-para-bomberos/\">línea de trajes para bomberos de BOMBERO.MX</a> seleccionamos cada componente del sistema de 3 capas según la operación real del cuerpo.",
+      text: "Dos trajes pueden verse idénticos y cumplir <strong>NFPA 1970</strong>, pero la fibra de su capa exterior —<strong>Nomex® IIIA</strong> o <strong>PBI Gold®</strong>— define su comportamiento en flashover, su durabilidad y su costo. En la <a href=\"/productos/trajes-para-bomberos/\">línea de trajes para bomberos de BOMBERO.MX</a> seleccionamos cada componente del sistema de 3 capas según la operación real del cuerpo.",
     },
     {
       title: "Compra técnica, no por catálogo",
@@ -41,14 +41,14 @@ export const articulo: ArticuloData = {
     },
   ],
   contenido: `
-La elección del material de un traje de bombero rara vez se decide donde debería: en la mesa técnica. Con demasiada frecuencia se decide por precio de lista, por la foto del catálogo o por "lo que siempre hemos comprado". El problema es que dos chaquetones que cumplen la misma norma —**NFPA 1971**— pueden comportarse de forma muy distinta frente a un flashover, durar la mitad de ciclos de lavado o costar 40% más sin que el cuerpo lo aproveche. La diferencia casi nunca está en la costura: está en la **fibra de la capa exterior** y en cómo se combinan las tres capas del sistema.
+La elección del material de un traje de bombero rara vez se decide donde debería: en la mesa técnica. Con demasiada frecuencia se decide por precio de lista, por la foto del catálogo o por "lo que siempre hemos comprado". El problema es que dos chaquetones que cumplen la misma norma —**NFPA 1970**— pueden comportarse de forma muy distinta frente a un flashover, durar la mitad de ciclos de lavado o costar 40% más sin que el cuerpo lo aproveche. La diferencia casi nunca está en la costura: está en la **fibra de la capa exterior** y en cómo se combinan las tres capas del sistema.
 
 Este documento está escrito para quien firma la orden de compra: jefes de cuerpo, responsables de adquisiciones de protección civil municipal y coordinadores de brigada industrial. No es un folleto. Es una comparativa técnica de los materiales que componen un traje estructural —**Nomex® IIIA, PBI Gold®, Kevlar® y los tejidos aluminizados**— y de las barreras de humedad y térmica que completan el sistema, con el objetivo de que cada peso invertido corresponda a una protección real medible.
 
-Partimos de una premisa que conviene fijar desde el inicio: la norma define el **mínimo aceptable**, no el óptimo para cada operación. Entender qué hay por encima de ese mínimo es lo que permite especificar bien. Si quieres el marco normativo completo antes de seguir, nuestra [guía completa de NFPA 1971](/blog/nfpa-1971-guia-completa/) lo desglosa a fondo; aquí nos concentramos en los materiales.
+Partimos de una premisa que conviene fijar desde el inicio: la norma define el **mínimo aceptable**, no el óptimo para cada operación. Entender qué hay por encima de ese mínimo es lo que permite especificar bien. Si quieres el marco normativo completo antes de seguir, nuestra [guía completa de NFPA 1970](/blog/nfpa-1971-guia-completa/) lo desglosa a fondo; aquí nos concentramos en los materiales.
 
 <div class="stats-grid">
-  <div class="stat"><span class="stat__num">35</span><span class="stat__label">cal/cm² TPP mínimo NFPA 1971</span></div>
+  <div class="stat"><span class="stat__num">35</span><span class="stat__label">cal/cm² TPP mínimo NFPA 1970</span></div>
   <div class="stat"><span class="stat__num">3</span><span class="stat__label">capas del sistema estructural</span></div>
   <div class="stat"><span class="stat__num">10</span><span class="stat__label">años de vida útil máxima</span></div>
   <div class="stat"><span class="stat__num">+30%</span><span class="stat__label">costo extra de PBI Gold vs Nomex</span></div>
@@ -58,7 +58,7 @@ Partimos de una premisa que conviene fijar desde el inicio: la norma define el *
 
 ## El sistema de 3 capas: por qué un traje es un sistema, no una tela
 
-Antes de comparar marcas conviene entender la arquitectura. Un traje estructural certificado **NFPA 1971** se construye con tres capas laminadas o ensambladas que el bombero nunca ve por separado pero que trabajan en conjunto en cada intervención:
+Antes de comparar marcas conviene entender la arquitectura. Un traje estructural certificado **NFPA 1970** se construye con tres capas laminadas o ensambladas que el bombero nunca ve por separado pero que trabajan en conjunto en cada intervención:
 
 - **Capa exterior (outer shell):** es la cara que enfrenta la llama directa, la abrasión, los cortes y la radiación térmica. Aquí viven el Nomex® IIIA y el PBI Gold®. Determina la resistencia a la llama y buena parte de la durabilidad del traje.
 - **Barrera de humedad (moisture barrier):** una membrana que impide que el agua, los líquidos peligrosos y los patógenos lleguen al cuerpo, pero que **debe dejar salir el vapor** que el bombero genera. Aquí compiten Gore-Tex®, CROSSTECH® y membranas alternativas de PTFE/poliuretano.
@@ -66,7 +66,7 @@ Antes de comparar marcas conviene entender la arquitectura. Un traje estructural
 
 <figure class="articulo-figure"><img src="/images/trajes-para-bombero/sistema-3-capas-traje-bombero-exploded-view-01.avif" alt="Vista despiezada del sistema de 3 capas de un traje de bombero: capa exterior Nomex, barrera de humedad y barrera térmica" loading="lazy" width="900" height="600" /><figcaption>Vista despiezada del sistema de 3 capas: capa exterior, barrera de humedad y barrera térmica. La norma evalúa el conjunto, no las capas por separado.</figcaption></figure>
 
-La consecuencia práctica de esta arquitectura es directa: **no se puede mejorar una capa ignorando las otras danándolas**. Una capa exterior de PBI Gold® de gama alta combinada con una barrera térmica mediocre rinde por debajo de su potencial. Por eso, al evaluar la [línea de trajes estructurales NFPA 1971](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/), la pregunta correcta no es "¿qué fibra trae?" sino "¿cómo está balanceado el sistema completo?".
+La consecuencia práctica de esta arquitectura es directa: **no se puede mejorar una capa ignorando las otras danándolas**. Una capa exterior de PBI Gold® de gama alta combinada con una barrera térmica mediocre rinde por debajo de su potencial. Por eso, al evaluar la [línea de trajes estructurales NFPA 1970](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/), la pregunta correcta no es "¿qué fibra trae?" sino "¿cómo está balanceado el sistema completo?".
 
 ## Capa exterior: Nomex® IIIA vs PBI Gold® vs blends
 
@@ -88,7 +88,7 @@ El costo de esa diferencia es literal: un conjunto con capa exterior de PBI Gold
 
 Entre ambos extremos existen **tejidos mixtos (blends)** que combinan Nomex®, Kevlar® y otras aramidas buscando un punto intermedio de desempeño y precio. El **Kevlar®** rara vez se usa solo en la capa exterior: su valor está en la **resistencia a corte, abrasión y punción**, por lo que aparece como refuerzo en codos, rodillas y como componente de los blends. Los **tejidos aluminizados**, por su parte, no pertenecen al traje estructural sino al [traje de aproximación (proximity)](/productos/trajes-para-bomberos/traje-aproximacion/), diseñado para reflejar calor radiante intenso en incendios de combustibles.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/certificacion-nfpa-1971-tejido-nomex-goretex-01.avif" alt="Etiqueta de certificación NFPA 1971 sobre tejido de capa exterior Nomex y barrera Gore-Tex" loading="lazy" width="900" height="600" /><figcaption>La etiqueta de certificación identifica los componentes del sistema. Verificar la composición de cada capa es parte de una compra técnica responsable.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/certificacion-nfpa-1971-tejido-nomex-goretex-01.avif" alt="Etiqueta de certificación NFPA 1970 sobre tejido de capa exterior Nomex y barrera Gore-Tex" loading="lazy" width="900" height="600" /><figcaption>La etiqueta de certificación identifica los componentes del sistema. Verificar la composición de cada capa es parte de una compra técnica responsable.</figcaption></figure>
 
 ## Tabla comparativa de materiales de capa exterior
 
@@ -116,12 +116,12 @@ La barrera térmica acolchada es la que más aporta al **TPP** y, por tanto, a l
 
 Estos son los dos números que todo responsable de compra debe entender:
 
-- **TPP (Thermal Protective Performance):** mide cuánto calor aísla el traje. **NFPA 1971 exige un mínimo de 35 cal/cm².** Más TPP = más protección frente a la llama.
-- **THL (Total Heat Loss):** mide cuánto calor metabólico **deja escapar** el traje. **NFPA 1971 exige un mínimo de 205 W/m².** Más THL = menos estrés térmico para el bombero.
+- **TPP (Thermal Protective Performance):** mide cuánto calor aísla el traje. **NFPA 1970 exige un mínimo de 35 cal/cm².** Más TPP = más protección frente a la llama.
+- **THL (Total Heat Loss):** mide cuánto calor metabólico **deja escapar** el traje. **NFPA 1970 exige un mínimo de 205 W/m².** Más THL = menos estrés térmico para el bombero.
 
 El conflicto es físico: **subir el TPP tiende a bajar el THL y viceversa**. Un traje súper aislante (TPP altísimo) puede ahogar al usuario en su propio calor (THL bajo), y un traje muy transpirable puede quedar corto de protección. Un buen diseño no maximiza un número: **equilibra ambos** según la operación. Un cuerpo que hace ataques largos y físicamente exigentes a menudo necesita priorizar THL; uno expuesto a calor radiante extremo prioriza TPP.
 
-| Parámetro | Qué mide | Mínimo NFPA 1971 | Si es muy alto |
+| Parámetro | Qué mide | Mínimo NFPA 1970 | Si es muy alto |
 |-----------|----------|------------------|----------------|
 | **TPP** | Aislamiento térmico (protección) | ≥ 35 cal/cm² | Riesgo de estrés térmico (THL cae) |
 | **THL** | Pérdida de calor metabólico (confort) | ≥ 205 W/m² | Posible menor margen de protección |
@@ -135,23 +135,23 @@ Reducido a lo esencial, así recomendamos especificar:
 - **Elige un blend** si buscas un punto intermedio razonable: más desempeño y refuerzo mecánico que el Nomex® base, sin el salto de precio del PBI Gold®.
 - **Reserva el aluminizado** exclusivamente para tareas de **aproximación**; no es un traje de combate estructural.
 
-Como referencia presupuestaria —siempre como **rango**, no como precio cerrado— un conjunto estructural de entrada en Nomex® suele ubicarse entre **$18,000 y $25,000 MXN**, mientras que un conjunto premium con capa exterior PBI Gold® se mueve entre **$35,000 y $55,000 MXN**. Si quieres entender qué hay detrás de esas cifras, lo analizamos en [cuánto cuesta un traje de bombero en México](/blog/cuanto-cuesta-traje-bombero-mexico/). Y para una metodología completa de selección, consulta [cómo elegir un traje de bombero NFPA 1971](/blog/como-elegir-traje-bombero-nfpa-1971/).
+Como referencia presupuestaria —siempre como **rango**, no como precio cerrado— un conjunto estructural de entrada en Nomex® suele ubicarse entre **$18,000 y $25,000 MXN**, mientras que un conjunto premium con capa exterior PBI Gold® se mueve entre **$35,000 y $55,000 MXN**. Si quieres entender qué hay detrás de esas cifras, lo analizamos en [cuánto cuesta un traje de bombero en México](/blog/cuanto-cuesta-traje-bombero-mexico/). Y para una metodología completa de selección, consulta [cómo elegir un traje de bombero NFPA 1970](/blog/como-elegir-traje-bombero-nfpa-1971/).
 
 Recuerda que el traje es solo una parte del conjunto certificado: la protección es sistémica. Una buena especificación de chaquetón y pantalón debe acompañarse de [cascos](/productos/cascos-para-bomberos/), [guantes](/productos/guantes-para-bomberos/) y [capuchas](/productos/capuchas-para-bomberos/) del mismo nivel, porque la norma evalúa el ensamble completo y la zona desprotegida más débil define el riesgo real.
 
 ### Un dato de actualidad normativa
 
-Desde septiembre de 2024, la **NFPA 1971** se consolidó dentro de la nueva **NFPA 1970**, que reúne en un solo documento las normas 1971, 1975, 1981 y 1982. La designación **"1971" se conserva** en las etiquetas y en las especificaciones, y sigue siendo el término que la industria y las búsquedas utilizan. Mencionarlo en tus bases de licitación demuestra que tu especificación está actualizada.
+Desde septiembre de 2024, la **NFPA 1970** se consolidó dentro de la nueva **NFPA 1970**, que reúne en un solo documento las normas 1971, 1975, 1981 y 1982. La designación **"1971" se conserva** en las etiquetas y en las especificaciones, y sigue siendo el término que la industria y las búsquedas utilizan. Mencionarlo en tus bases de licitación demuestra que tu especificación está actualizada.
 
 ## Preguntas Frecuentes
 
 ### ¿Es siempre mejor PBI Gold® que Nomex® IIIA?
 
-No necesariamente. El PBI Gold® ofrece la mayor resistencia térmica del mercado y no se carboniza ni se encoge en condiciones que sí afectan a la aramida pura, pero cuesta entre 30% y 40% más. Para la mayoría de los cuerpos municipales y de protección civil, el Nomex® IIIA cubre el requerimiento NFPA 1971 con holgura y permite equipar a más personal con la misma inversión. "Mejor" depende del perfil de riesgo y del presupuesto de tu operación.
+No necesariamente. El PBI Gold® ofrece la mayor resistencia térmica del mercado y no se carboniza ni se encoge en condiciones que sí afectan a la aramida pura, pero cuesta entre 30% y 40% más. Para la mayoría de los cuerpos municipales y de protección civil, el Nomex® IIIA cubre el requerimiento NFPA 1970 con holgura y permite equipar a más personal con la misma inversión. "Mejor" depende del perfil de riesgo y del presupuesto de tu operación.
 
 ### ¿Qué es más importante, el TPP o el THL?
 
-Ambos son obligatorios bajo NFPA 1971 (TPP mínimo 35 cal/cm² y THL mínimo 205 W/m²) y están en tensión: subir uno tiende a bajar el otro. Un buen traje no maximiza un solo número, sino que equilibra los dos según la operación. Cuerpos con ataques largos y físicamente exigentes suelen priorizar THL para evitar estrés térmico; los expuestos a calor radiante extremo priorizan TPP.
+Ambos son obligatorios bajo NFPA 1970 (TPP mínimo 35 cal/cm² y THL mínimo 205 W/m²) y están en tensión: subir uno tiende a bajar el otro. Un buen traje no maximiza un solo número, sino que equilibra los dos según la operación. Cuerpos con ataques largos y físicamente exigentes suelen priorizar THL para evitar estrés térmico; los expuestos a calor radiante extremo priorizan TPP.
 
 ### ¿La barrera de humedad tiene que ser Gore-Tex® o CROSSTECH®?
 
@@ -159,7 +159,7 @@ No es obligatorio que sea de marca Gore, pero Gore-Tex®/CROSSTECH® son la refe
 
 ### ¿El traje aluminizado sirve para combate estructural?
 
-No. El tejido aluminizado pertenece al traje de aproximación (proximity), diseñado para reflejar calor radiante intenso en incendios de combustibles. No sustituye al traje estructural NFPA 1971 para combate interior. Son herramientas para escenarios distintos y deben especificarse por separado.
+No. El tejido aluminizado pertenece al traje de aproximación (proximity), diseñado para reflejar calor radiante intenso en incendios de combustibles. No sustituye al traje estructural NFPA 1970 para combate interior. Son herramientas para escenarios distintos y deben especificarse por separado.
 
 ### ¿Cómo afecta el material a la vida útil del traje?
 
@@ -169,6 +169,6 @@ La capa exterior determina buena parte de la durabilidad: el PBI Gold® resiste 
 
 La diferencia entre una buena y una mala adquisición de trajes no está en la marca de la etiqueta, sino en la coherencia entre el material, la operación real de tu cuerpo y el presupuesto disponible. Un Nomex® IIIA bien balanceado puede ser una compra más inteligente que un PBI Gold® mal aprovechado —y al revés, ahorrar en la fibra equivocada puede salir muy caro en exposición.
 
-En **BOMBERO.MX** acompañamos esa decisión con criterio técnico, no con un catálogo genérico. Revisa la [línea completa de trajes para bomberos](/productos/trajes-para-bomberos/), compara el [modelo estructural NFPA 1971](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/) con el [traje de aproximación](/productos/trajes-para-bomberos/traje-aproximacion/) y, cuando tengas claro tu requerimiento, [solicita una cotización asesorada](/cotizar/). Te ayudamos a traducir tu operación en una especificación que proteja a tu gente y cuide tu presupuesto.
+En **BOMBERO.MX** acompañamos esa decisión con criterio técnico, no con un catálogo genérico. Revisa la [línea completa de trajes para bomberos](/productos/trajes-para-bomberos/), compara el [modelo estructural NFPA 1970](/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/) con el [traje de aproximación](/productos/trajes-para-bomberos/traje-aproximacion/) y, cuando tengas claro tu requerimiento, [solicita una cotización asesorada](/cotizar/). Te ayudamos a traducir tu operación en una especificación que proteja a tu gente y cuide tu presupuesto.
 `,
 };

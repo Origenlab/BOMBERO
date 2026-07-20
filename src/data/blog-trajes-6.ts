@@ -19,7 +19,7 @@ export const articulo: ArticuloData = {
     "Carcinógenos",
     "Contaminación EPP",
     "Descontaminación",
-    "NFPA 1851",
+    "NFPA 1850",
     "Cáncer en bomberos",
     "HAP",
     "Protocolo decon",
@@ -28,7 +28,7 @@ export const articulo: ArticuloData = {
   autor: "Departamento de Ingeniería BOMBERO.MX",
   autorRol: "Especialistas en EPP estructural NFPA",
   anchorKeyword:
-    "contaminación por carcinógenos en traje de bombero descontaminación NFPA 1851 México",
+    "contaminación por carcinógenos en traje de bombero descontaminación NFPA 1850 México",
   pubDate: "2026-06-15T09:00:00-06:00",
   heroSeoBlocks: [
     {
@@ -90,7 +90,7 @@ Aquí la capa exterior del traje actúa bien como barrera: retiene las partícul
 
 ## Lo que el traje puede y no puede hacer ante la química del humo
 
-Aquí hay que ser honestos sobre algo que los catálogos no siempre dicen con claridad: **el traje estructural NFPA 1971 no fue diseñado para proteger contra vapores químicos**. Fue diseñado para proteger contra calor, llama y agua líquida. Esas tres amenazas las resuelve muy bien. Los vapores orgánicos son otro asunto.
+Aquí hay que ser honestos sobre algo que los catálogos no siempre dicen con claridad: **el traje estructural NFPA 1970 no fue diseñado para proteger contra vapores químicos**. Fue diseñado para proteger contra calor, llama y agua líquida. Esas tres amenazas las resuelve muy bien. Los vapores orgánicos son otro asunto.
 
 La barrera de humedad —Gore-Tex®, CROSSTECH® o membranas alternativas de PTFE— bloquea eficazmente el agua líquida, los patógenos y la mayoría de los líquidos peligrosos. Pero frente a vapores de HAP o benceno bajo condiciones de calor, su resistencia es **parcial y limitada**. Las membranas se dilatan con el calor, la difusión molecular se acelera, y en el tiempo de una intervención típica de combate interior los vapores más pequeños ya están cruzando.
 
@@ -146,7 +146,7 @@ Cada lavado es una oportunidad de ver qué le pasó al traje. Los puntos crític
 
 ## Cuándo la exposición justifica el retiro anticipado del traje
 
-La vida útil máxima de un traje estructural es **10 años desde fabricación**, según NFPA 1851. Pero hay situaciones donde la contaminación —no la edad, sino la exposición química— justifica retirar el traje antes. Estas son:
+La vida útil máxima de un traje estructural es **10 años desde fabricación**, según NFPA 1850. Pero hay situaciones donde la contaminación —no la edad, sino la exposición química— justifica retirar el traje antes. Estas son:
 
 - **Incendio de instalación industrial con presencia confirmada de materiales peligrosos** (PVC, productos químicos, materiales radiactivos): retiro provisional hasta evaluación por parte del fabricante o un inspector certificado.
 - **Barrera de humedad que no pasa el test de goteo** después de dos ciclos de lavado técnico y aplicación de tratamiento DWR: retiro para reparación o reemplazo.
@@ -177,7 +177,7 @@ El cáncer laboral tarda entre 10 y 30 años en manifestarse. Los departamentos 
 
 ### "¿El lavado doméstico no es suficiente si lo lavo bien?"
 
-No. El ciclo de lavado doméstico no alcanza la temperatura correcta de forma consistente, el detergente no está formulado para las fibras de aramida, y la máquina queda contaminada para el siguiente ciclo de ropa del hogar. Además, el centrifugado de alta velocidad puede dañar las costuras del traje. El lavado doméstico es mejor que no lavar, pero no cumple los requisitos de NFPA 1851.
+No. El ciclo de lavado doméstico no alcanza la temperatura correcta de forma consistente, el detergente no está formulado para las fibras de aramida, y la máquina queda contaminada para el siguiente ciclo de ropa del hogar. Además, el centrifugado de alta velocidad puede dañar las costuras del traje. El lavado doméstico es mejor que no lavar, pero no cumple los requisitos de NFPA 1850.
 
 ### "¿Si el traje tiene CROSSTECH® Black está protegido contra los vapores químicos?"
 

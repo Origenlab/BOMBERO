@@ -43,7 +43,7 @@ export const articulo: ArticuloData = {
   contenido: `
 Si existe una pregunta que recibimos más frecuentemente que cualquier otra sobre trajes para bomberos es esta: "¿cuál marca es mejor?"
 
-La pregunta es lógica. Las marcas que aparecen repetidamente en este mercado —Globe Manufacturing, Lion Apparel, MSA Safety, Honeywell First Responder— son todas de calidad real, todas certificadas NFPA 1971, todas con décadas de historial en servicio de bomberos. ¿Cuál es la mejor?
+La pregunta es lógica. Las marcas que aparecen repetidamente en este mercado —Globe Manufacturing, Lion Apparel, MSA Safety, Honeywell First Responder— son todas de calidad real, todas certificadas NFPA 1970, todas con décadas de historial en servicio de bomberos. ¿Cuál es la mejor?
 
 La respuesta honesta es que la pregunta está mal planteada. No porque sea imposible diferenciarlas —sí se pueden diferenciar, y en esta guía lo hacemos con detalle— sino porque "mejor" depende de qué hace tu cuerpo, en qué condiciones, con qué presupuesto, y con qué capacidad de mantenimiento. Una marca que es la elección correcta para un cuerpo municipal de alta rotación en zona calurosa puede ser subóptima para una brigada forestal que opera en altitud y requiere movilidad extrema.
 
@@ -52,8 +52,8 @@ Lo que podemos ofrecer, después de más de quince años equipando cuerpos en lo
 <div class="stats-grid">
   <div class="stat"><span class="stat__num">4</span><span class="stat__label">Marcas con presencia consolidada en el mercado mexicano de trajes estructurales para bomberos</span></div>
   <div class="stat"><span class="stat__num">>50 años</span><span class="stat__label">Antigüedad promedio de fabricación de EPP para bomberos entre Globe, Lion, MSA y Honeywell</span></div>
-  <div class="stat"><span class="stat__num">NFPA 1971</span><span class="stat__label">Certificación base requerida en los cuatro casos — punto de partida mínimo, no factor diferenciador</span></div>
-  <div class="stat"><span class="stat__num">10 años</span><span class="stat__label">Vida útil máxima del traje según NFPA 1851 — parámetro que hace el costo de servicio tan importante como el precio de compra</span></div>
+  <div class="stat"><span class="stat__num">NFPA 1970</span><span class="stat__label">Certificación base requerida en los cuatro casos — punto de partida mínimo, no factor diferenciador</span></div>
+  <div class="stat"><span class="stat__num">10 años</span><span class="stat__label">Vida útil máxima del traje según NFPA 1850 — parámetro que hace el costo de servicio tan importante como el precio de compra</span></div>
 </div>
 
 > **Una advertencia antes de comparar marcas:** la mejor marca del mundo con el distribuidor equivocado o sin red de servicio en México es peor inversión que una segunda marca con soporte local sólido. El traje se compra una vez; el mantenimiento, los repuestos, las inspecciones avanzadas y el soporte en garantía duran diez años. La cadena de distribución importa tanto como el fabricante.
@@ -82,7 +82,7 @@ La línea Lion Omega ha tenido buena recepción en México por su equilibrio ent
 
 **Ideal para**: intervenciones largas donde el confort térmico interior es tan importante como la protección exterior, brigadas mixtas (urbano + forestal) que buscan versatilidad en una sola línea de trajes, y cuerpos donde el estrés térmico por calor climático es un factor operativo importante.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-bombero-cuerpo-completo-marcas-certificadas-01.avif" alt="Comparativa visual de trajes estructurales de bombero de las marcas Globe, Lion, MSA y Honeywell" loading="lazy" width="900" height="600" /><figcaption>Las cuatro marcas ofrecen trajes certificados NFPA 1971. Las diferencias están en la construcción, los materiales disponibles, la ergonomía, la red de servicio y el posicionamiento de precio. Ninguna es universalmente superior: cada una responde mejor a contextos específicos.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-bombero-cuerpo-completo-marcas-certificadas-01.avif" alt="Comparativa visual de trajes estructurales de bombero de las marcas Globe, Lion, MSA y Honeywell" loading="lazy" width="900" height="600" /><figcaption>Las cuatro marcas ofrecen trajes certificados NFPA 1970. Las diferencias están en la construcción, los materiales disponibles, la ergonomía, la red de servicio y el posicionamiento de precio. Ninguna es universalmente superior: cada una responde mejor a contextos específicos.</figcaption></figure>
 
 ## MSA Safety
 
@@ -92,7 +92,7 @@ MSA (Mine Safety Appliances) es un fabricante de EPP con más de cien años de h
 
 MSA tiene también una presencia institucional sólida en México, con distribuidores certificados en las principales regiones industriales del país, lo que hace que el soporte post-venta sea generalmente más accesible que el de marcas con distribución más concentrada.
 
-**Lo que hay que tener en cuenta con MSA**: la línea de trajes para bombero no es el producto central de MSA de la misma manera que lo es para Globe o Lion. Eso no significa que la calidad sea inferior —los trajes MSA cumplen NFPA 1971 con los mismos estándares— pero significa que el nivel de innovación específica en materiales de traje estructural puede ser menor que el de los fabricantes cuyo negocio principal son los trajes.
+**Lo que hay que tener en cuenta con MSA**: la línea de trajes para bombero no es el producto central de MSA de la misma manera que lo es para Globe o Lion. Eso no significa que la calidad sea inferior —los trajes MSA cumplen NFPA 1970 con los mismos estándares— pero significa que el nivel de innovación específica en materiales de traje estructural puede ser menor que el de los fabricantes cuyo negocio principal son los trajes.
 
 **Ideal para**: cuerpos que buscan un proveedor único para EPP integrado (trajes + SCBA + casco), compras institucionales grandes que valoran el soporte post-venta establecido y la presencia local, y contextos industriales donde el EPP de bombero convive con EPP de seguridad industrial de la misma marca.
 
@@ -121,7 +121,7 @@ La inversión de Honeywell en materiales de alto rendimiento para otros sectores
 | **Durabilidad estructural documentada** | ★★★★★ | ★★★★ | ★★★★ | ★★★★ |
 | **Opciones de personalización** | ★★★★★ | ★★★★ | ★★★ | ★★★ |
 
-*Calificación relativa dentro del mercado de trajes estructurales certificados NFPA 1971 para el mercado mexicano, basada en experiencia directa de distribución y seguimiento post-venta.*
+*Calificación relativa dentro del mercado de trajes estructurales certificados NFPA 1970 para el mercado mexicano, basada en experiencia directa de distribución y seguimiento post-venta.*
 
 ## Lo que nadie te dice antes de que compres
 
@@ -135,13 +135,13 @@ Hay tres aspectos de la comparativa de marcas que generalmente no aparecen en lo
 
 ## La decisión que tiene más impacto que la marca
 
-Podría sonar contradictorio en una guía de comparativa de marcas, pero el factor que más impacta la protección real a lo largo del ciclo de vida del traje no es la marca: es si el cuerpo tiene o no un programa de inspección y mantenimiento conforme a NFPA 1851.
+Podría sonar contradictorio en una guía de comparativa de marcas, pero el factor que más impacta la protección real a lo largo del ciclo de vida del traje no es la marca: es si el cuerpo tiene o no un programa de inspección y mantenimiento conforme a NFPA 1850.
 
 Un traje Globe sin programa de mantenimiento a los cinco años puede proteger menos que un traje Honeywell con programa riguroso al mismo tiempo. La barrera de humedad que no se revisa, el cierre que se empieza a ceder sin que nadie lo documente, la contaminación que se acumula sin lavados técnicos adecuados: todo eso degrada el sistema independientemente de cuánto costó o qué marca dice en la etiqueta.
 
 La marca importa en el momento de compra. El mantenimiento importa durante los diez años siguientes.
 
-Si quieres profundizar en ese aspecto, el [artículo sobre NFPA 1851 inspección y retiro del traje](/blog/nfpa-1851-inspeccion-retiro-traje-bombero/) es el complemento directo de esta guía. Y si quieres entender qué pasa con la contaminación acumulada en el traje a lo largo del tiempo, el [artículo sobre carcinógenos y descontaminación](/blog/contaminacion-carcinogenos-traje-bombero/) tiene contexto que cambia cómo se ve el mantenimiento.
+Si quieres profundizar en ese aspecto, el [artículo sobre NFPA 1850 inspección y retiro del traje](/blog/nfpa-1851-inspeccion-retiro-traje-bombero/) es el complemento directo de esta guía. Y si quieres entender qué pasa con la contaminación acumulada en el traje a lo largo del tiempo, el [artículo sobre carcinógenos y descontaminación](/blog/contaminacion-carcinogenos-traje-bombero/) tiene contexto que cambia cómo se ve el mantenimiento.
 
 ## Cómo tomamos la decisión en BOMBERO.MX
 

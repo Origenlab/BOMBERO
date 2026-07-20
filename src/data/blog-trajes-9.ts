@@ -23,7 +23,7 @@ export const articulo: ArticuloData = {
     "Ergonomía EPP",
     "Traje bombero mujer",
     "Compra colectiva trajes",
-    "NFPA 1971 ajuste",
+    "NFPA 1970 ajuste",
   ],
   autor: "Departamento de Ingeniería BOMBERO.MX",
   autorRol: "Especialistas en selección y adaptación de EPP",
@@ -33,7 +33,7 @@ export const articulo: ArticuloData = {
   heroSeoBlocks: [
     {
       title: "El traje que ajusta bien protege mejor",
-      text: "La certificación <strong>NFPA 1971</strong> garantiza lo que el material puede hacer. La talla correcta garantiza que eso ocurra en tu cuerpo específico. En <a href=\"/productos/trajes-para-bomberos/\">BOMBERO.MX</a> incluimos asesoría de medición y fit test en cada proceso de equipamiento colectivo.",
+      text: "La certificación <strong>NFPA 1970</strong> garantiza lo que el material puede hacer. La talla correcta garantiza que eso ocurra en tu cuerpo específico. En <a href=\"/productos/trajes-para-bomberos/\">BOMBERO.MX</a> incluimos asesoría de medición y fit test en cada proceso de equipamiento colectivo.",
     },
     {
       title: "Equipamiento personalizado para cuerpos reales",
@@ -43,7 +43,7 @@ export const articulo: ArticuloData = {
   contenido: `
 En algún momento de nuestra experiencia equipando cuerpos de bomberos hemos visto esto: un bombero en turno con un traje que le queda dos tallas grande porque "era lo que había cuando llegué". El chaquetón le llega a medio muslo. Cuando levanta los brazos, la interfaz con el pantalón se separa lo suficiente para que quede expuesta una franja de ropa interior.
 
-Ese bombero tiene un traje certificado NFPA 1971. El material es de alta calidad. La construcción es correcta. Y aun así, si entra a un incendio y hace un movimiento de trabajo normal —levantar un hacha, arrastrar una manguera, bajar una escalera—, hay una zona del cuerpo que queda sin protección en ese momento.
+Ese bombero tiene un traje certificado NFPA 1970. El material es de alta calidad. La construcción es correcta. Y aun así, si entra a un incendio y hace un movimiento de trabajo normal —levantar un hacha, arrastrar una manguera, bajar una escalera—, hay una zona del cuerpo que queda sin protección en ese momento.
 
 La certificación garantiza lo que el material puede hacer. No garantiza que eso ocurra en tu cuerpo si el traje no te ajusta bien.
 
@@ -110,7 +110,7 @@ Un fit test básico incluye:
 
 **Posición de arrastre (simulando rescate de víctima)**: agacharse, girar y hacer el movimiento de tirar hacia atrás simula la posición más exigente en términos de separación de interfaz. Si hay exposición en esta posición, la talla no es correcta.
 
-<figure class="articulo-figure"><img src="/images/trajes-para-bombero/bunker-gear-bombero-estacion-vista-frontal-trasera-01.avif" alt="Proceso de medición corporal para selección de talla de traje de bombero estructural NFPA 1971" loading="lazy" width="900" height="600" /><figcaption>Las seis medidas estándar son el punto de partida. El fit test con el traje puesto y el SCBA completo es la verificación que no se puede saltar. Sin ese paso, la selección de talla es una estimación, no una confirmación.</figcaption></figure>
+<figure class="articulo-figure"><img src="/images/trajes-para-bombero/bunker-gear-bombero-estacion-vista-frontal-trasera-01.avif" alt="Proceso de medición corporal para selección de talla de traje de bombero estructural NFPA 1970" loading="lazy" width="900" height="600" /><figcaption>Las seis medidas estándar son el punto de partida. El fit test con el traje puesto y el SCBA completo es la verificación que no se puede saltar. Sin ese paso, la selección de talla es una estimación, no una confirmación.</figcaption></figure>
 
 ## El tema que muchos fabricantes todavía no resuelven: los trajes para bomberas
 
@@ -138,9 +138,9 @@ Este proceso añade tiempo al proceso de compra. A cambio, elimina el riesgo de 
 
 ## Ajustes y modificaciones: qué se puede y qué no
 
-Los trajes estructurales NFPA 1971 tienen elementos de ajuste integrados en el diseño —correas de hombro, fajillas en cintura, sistemas de suspensión del pantalón— que permiten ajuste fino dentro de una talla. Esos ajustes son parte del diseño certificado y pueden y deben usarse.
+Los trajes estructurales NFPA 1970 tienen elementos de ajuste integrados en el diseño —correas de hombro, fajillas en cintura, sistemas de suspensión del pantalón— que permiten ajuste fino dentro de una talla. Esos ajustes son parte del diseño certificado y pueden y deben usarse.
 
-Lo que no se puede hacer sin comprometer la certificación: modificar el patrón del traje (acortar mangas, ajustar el largo del tronco, estrechar el pantalón) mediante costuras o cortes con materiales no certificados. El patrón es parte del sistema certificado. Una modificación estructural hecha por sastre externo puede invalidar la certificación NFPA 1971 del conjunto, exactamente igual que una reparación con materiales incorrectos.
+Lo que no se puede hacer sin comprometer la certificación: modificar el patrón del traje (acortar mangas, ajustar el largo del tronco, estrechar el pantalón) mediante costuras o cortes con materiales no certificados. El patrón es parte del sistema certificado. Una modificación estructural hecha por sastre externo puede invalidar la certificación NFPA 1970 del conjunto, exactamente igual que una reparación con materiales incorrectos.
 
 Las modificaciones admisibles deben hacerlas el fabricante o un IMSP certificado, con materiales del mismo sistema certificado, y deben quedar documentadas en el expediente del traje.
 
@@ -148,7 +148,7 @@ Las modificaciones admisibles deben hacerlas el fabricante o un IMSP certificado
 
 Un detalle que vale la pena mencionar porque se ignora frecuentemente: el bombero que tenía talla M cuando compró el traje hace tres años puede no tener la misma talla hoy. Los cambios de peso y composición corporal son parte de la vida. Un traje que ajustaba bien puede dejar de ajustar.
 
-El programa de inspección conforme a NFPA 1851 es el momento natural para verificar también el ajuste —no solo el estado del material. Si el bombero reporta que el traje ya no cierra bien, o si el inspector nota que el ajuste es diferente al registrado en el expediente inicial, ese es el momento de gestionar el reajuste o la reasignación antes de que sea un problema en intervención.
+El programa de inspección conforme a NFPA 1850 es el momento natural para verificar también el ajuste —no solo el estado del material. Si el bombero reporta que el traje ya no cierra bien, o si el inspector nota que el ajuste es diferente al registrado en el expediente inicial, ese es el momento de gestionar el reajuste o la reasignación antes de que sea un problema en intervención.
 
 <figure class="articulo-figure"><img src="/images/trajes-para-bombero/traje-completo-estrutural-bombero-01.avif" alt="Verificación de la zona de interfaz entre chaquetón y pantalón del traje de bombero durante fit test" loading="lazy" width="900" height="600" /><figcaption>La zona de interfaz es el punto más crítico del ajuste. El solapamiento mínimo tiene que mantenerse en todas las posiciones de trabajo, incluyendo brazos extendidos sobre la cabeza y posición de arrastre. Si no se mantiene, el traje no protege completamente en esa posición.</figcaption></figure>
 
@@ -172,6 +172,6 @@ No hay atajo aquí. La talla correcta requiere medición individual, proceso de 
 
 En BOMBERO.MX incluimos asesoría de medición y fit test en todos nuestros procesos de equipamiento colectivo. No porque sea un servicio adicional —sino porque sin ese paso, la selección de trajes no está completa. [Habla con nosotros](/cotizar/) sobre cómo integramos eso en tu proceso de contratación, sea por licitación pública o compra directa.
 
-Puedes complementar esta guía con la [comparativa de marcas de trajes para bombero](/blog/marcas-trajes-bombero-globe-lion-msa-comparativa/) y el [artículo sobre NFPA 1851 y gestión del ciclo de vida](/blog/nfpa-1851-inspeccion-retiro-traje-bombero/).
+Puedes complementar esta guía con la [comparativa de marcas de trajes para bombero](/blog/marcas-trajes-bombero-globe-lion-msa-comparativa/) y el [artículo sobre NFPA 1850 y gestión del ciclo de vida](/blog/nfpa-1851-inspeccion-retiro-traje-bombero/).
 `,
 };

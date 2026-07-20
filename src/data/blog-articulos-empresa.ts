@@ -129,7 +129,7 @@ Si tu estación, unidad de Protección Civil o brigada está evaluando equipo, [
 ### Artículos relacionados
 
 - [Cómo garantizamos que tu equipo es legítimo: certificado por lote y carta de distribución](/blog/bombero-mx-equipo-original-certificado-lote/)
-- [NFPA 1971: qué dice exactamente el estándar](/blog/nfpa-1971-guia-completa/)
+- [NFPA 1970: qué dice exactamente el estándar](/blog/nfpa-1971-guia-completa/)
 - [Guía comparativa de trajes para bomberos en México](/blog/guia-comparativa-trajes-bomberos-mexico/)
     `,
   },
@@ -231,7 +231,7 @@ Nosotros lo entregamos en cada cotización, desde hace 15 años. [Solicita la tu
 ### Artículos relacionados
 
 - [BOMBERO.MX: 15 años equipando a los bomberos de México](/blog/bombero-mx-distribuidor-equipo-bomberos-mexico/)
-- [NFPA 1971: guía técnica del estándar](/blog/nfpa-1971-guia-completa/)
+- [NFPA 1970: guía técnica del estándar](/blog/nfpa-1971-guia-completa/)
 - [Cómo acompañamos licitaciones LAASSP de principio a fin](/blog/bombero-mx-licitaciones-laassp-equipo-bomberos/)
     `,
   },
@@ -262,8 +262,8 @@ Nos contactó hace tiempo el área de compras de un municipio del centro del pa�
 Cuando nos buscaron para la siguiente compra, la conversación no empezó por el catálogo. Empezó por una hoja en blanco y una pregunta: **¿qué debió decir aquella convocatoria?** Ese es, desde entonces, nuestro verdadero trabajo en compras públicas.
 
 <figure>
-  <img src="/images/trajes-para-bombero/traje-turnout-nfpa-1971-01.avif" alt="Traje turnout estructural certificado NFPA 1971 — el tipo de equipo que una buena especificación garantiza" loading="lazy" width="900" height="600" />
-  <figcaption>Un traje turnout NFPA 1971 legítimo. Que uno así — y no su imitación barata — gane la licitación depende de tres párrafos bien redactados.</figcaption>
+  <img src="/images/trajes-para-bombero/traje-turnout-nfpa-1971-01.avif" alt="Traje turnout estructural certificado NFPA 1970 — el tipo de equipo que una buena especificación garantiza" loading="lazy" width="900" height="600" />
+  <figcaption>Un traje turnout NFPA 1970 legítimo. Que uno así — y no su imitación barata — gane la licitación depende de tres párrafos bien redactados.</figcaption>
 </figure>
 
 ---
@@ -343,7 +343,7 @@ Detrás de cada partida CUCOP y cada acta de entrega hay una persona que va a po
 ### Artículos relacionados
 
 - [Cómo garantizamos equipo legítimo: certificado por lote y carta de distribución](/blog/bombero-mx-equipo-original-certificado-lote/)
-- [NFPA 1971: guía técnica del estándar](/blog/nfpa-1971-guia-completa/)
+- [NFPA 1970: guía técnica del estándar](/blog/nfpa-1971-guia-completa/)
 - [Guía comparativa de trajes para bomberos en México](/blog/guia-comparativa-trajes-bomberos-mexico/)
     `,
   },
@@ -388,7 +388,7 @@ En 2014 decidimos que nuestra respuesta a esa pregunta sería siempre la misma: 
 
 **Tercero, la documentación viaja CON el equipo.** Ficha técnica, certificado de laboratorio por lote y carta de garantía van en el envío, no “en un correo la próxima semana”. Para compras de gobierno, coordinamos el acta de entrega con la recepción formal de la convocante, aunque eso implique ajustarnos a la agenda del municipio y no al revés.
 
-**Cuarto, la posventa no conoce geografía.** Garantías, reposiciones y dudas de mantenimiento bajo NFPA 1851 se resuelven por los mismos canales remotos. El expediente digital de cada cliente nos permite responder sin el clásico “¿me puede reenviar todo?”.
+**Cuarto, la posventa no conoce geografía.** Garantías, reposiciones y dudas de mantenimiento bajo NFPA 1850 se resuelven por los mismos canales remotos. El expediente digital de cada cliente nos permite responder sin el clásico “¿me puede reenviar todo?”.
 
 <div class="stats-grid">
   <div class="stat">
@@ -420,14 +420,14 @@ Quince años de entregas nos enseñaron algo que ningún catálogo dice: cada re
 | Norte industrial (NL, Coah, Chih) | El riesgo vive en las plantas, no solo en las casas | Trajes estructurales, SCBA, detección de gases |
 | Bajío manufacturero (Gto, Qro, Ags) | La NOM-002-STPS mueve más compras que los incendios | EPP de brigada, extintores, capacitación |
 | Costas turísticas (QR, BCS, Gro) | Un hotel es una pequeña ciudad vertical con alberca | Rescate acuático, extintores, brigadas hoteleras |
-| Zonas forestales (Dgo, Mich, Oax, Chis) | La temporada de incendios no espera al presupuesto | EPP forestal NFPA 1977, herramientas de línea |
+| Zonas forestales (Dgo, Mich, Oax, Chis) | La temporada de incendios no espera al presupuesto | EPP forestal NFPA 1950, herramientas de línea |
 | Corredores petroleros (Tab, Ver, Camp) | Los fuegos clase B exigen otra categoría de respeto | Trajes de aproximación, espuma, monitores |
 
 Cuando nos llama una corporación de Oaxaca en marzo, no partimos de cero: partimos de saber que la temporada forestal ya empezó y que el pedido urge más de lo que la orden de compra sugiere.
 
 <figure>
-  <img src="/images/trajes-para-bombero/traje-incendios-forestales-nfpa-1977-02.avif" alt="Traje forestal NFPA 1977 para combate de incendios de vegetación" loading="lazy" width="900" height="600" />
-  <figcaption>EPP forestal NFPA 1977: en Durango, Michoacán u Oaxaca, este es el pedido que no puede llegar tarde.</figcaption>
+  <img src="/images/trajes-para-bombero/traje-incendios-forestales-nfpa-1977-02.avif" alt="Traje forestal NFPA 1950 para combate de incendios de vegetación" loading="lazy" width="900" height="600" />
+  <figcaption>EPP forestal NFPA 1950: en Durango, Michoacán u Oaxaca, este es el pedido que no puede llegar tarde.</figcaption>
 </figure>
 
 ---

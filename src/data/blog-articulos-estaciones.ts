@@ -78,8 +78,8 @@ No necesariamente. Aunque compartan parte del equipo, el perfil de servicio y ex
 
 ### Artículos relacionados
 
-- [**Traje estructural NFPA 1971: sistema de 3 capas →**](/blog/traje-estructural-nfpa-1971/)
-- [**Mantenimiento SCBA: protocolo NFPA 1852 →**](/blog/mantenimiento-scba/)
+- [**Traje estructural NFPA 1970: sistema de 3 capas →**](/blog/traje-estructural-nfpa-1971/)
+- [**Mantenimiento SCBA: protocolo NFPA 1850 →**](/blog/mantenimiento-scba/)
 - [**Cascos para bombero: tipos y certificaciones →**](/blog/cascos-bombero-tipos/)
 - [**Solicitar cotización para equipamiento →**](/cotizar)
     `,
@@ -150,7 +150,7 @@ Sí. La certificación no garantiza por sí sola que el equipo sea el adecuado p
 
 ### Artículos relacionados
 
-- [**Guantes estructurales NFPA 1971 →**](/blog/guantes-estructurales-nfpa-1971/)
+- [**Guantes estructurales NFPA 1970 →**](/blog/guantes-estructurales-nfpa-1971/)
 - [**Botas para bomberos: guía NFPA →**](/blog/botas-para-bomberos-guia-nfpa/)
 - [**Mantenimiento SCBA →**](/blog/mantenimiento-scba/)
 - [**Cotizar equipo para bomberos →**](/cotizar)
@@ -228,7 +228,7 @@ Sí. Cuando se eligen mejor las configuraciones y marcas, es más fácil planear
 ### Artículos relacionados
 
 - [**Cascos para bombero: tipos y certificaciones →**](/blog/cascos-bombero-tipos/)
-- [**Traje estructural NFPA 1971 →**](/blog/traje-estructural-nfpa-1971/)
+- [**Traje estructural NFPA 1970 →**](/blog/traje-estructural-nfpa-1971/)
 - [**Mantenimiento de SCBA →**](/blog/mantenimiento-scba/)
 - [**Solicitar asesoría para equipamiento →**](/cotizar)
     `,
@@ -303,8 +303,8 @@ No. También debe considerar comodidad operativa, desempeño, mantenimiento, com
 
 ### Artículos relacionados
 
-- [**Mantenimiento SCBA: protocolo NFPA 1852 →**](/blog/mantenimiento-scba/)
-- [**Guantes estructurales NFPA 1971 →**](/blog/guantes-estructurales-nfpa-1971/)
+- [**Mantenimiento SCBA: protocolo NFPA 1850 →**](/blog/mantenimiento-scba/)
+- [**Guantes estructurales NFPA 1970 →**](/blog/guantes-estructurales-nfpa-1971/)
 - [**Botas para bomberos: guía NFPA →**](/blog/botas-para-bomberos-guia-nfpa/)
 - [**Cotizar equipo certificado →**](/cotizar)
     `,
@@ -371,7 +371,7 @@ No. Obliga a comprar lo correcto para la operación. Muchas veces la mejor compr
 ### Artículos relacionados
 
 - [**Cascos para bombero: tipos y certificaciones →**](/blog/cascos-bombero-tipos/)
-- [**Traje estructural NFPA 1971 →**](/blog/traje-estructural-nfpa-1971/)
+- [**Traje estructural NFPA 1970 →**](/blog/traje-estructural-nfpa-1971/)
 - [**Guía de SCBA para bomberos →**](/blog/scba-guia-completa-bomberos-mexico/)
 - [**Solicitar cotización técnica →**](/cotizar)
     `,
@@ -427,7 +427,7 @@ Sí. Siempre que sea posible, la mejor compra se apoya en evaluación técnica y
 
 ### Artículos relacionados
 
-- [**NFPA 1971: guía completa →**](/blog/nfpa-1971-guia-completa/)
+- [**NFPA 1970: guía completa →**](/blog/nfpa-1971-guia-completa/)
 - [**Cascos para bombero →**](/blog/cascos-bombero-tipos/)
 - [**SCBA: guía completa para bomberos en México →**](/blog/scba-guia-completa-bomberos-mexico/)
 - [**Pedir cotización →**](/cotizar)
@@ -483,7 +483,7 @@ Porque evita compras genéricas y permite invertir primero donde realmente hay r
 ### Artículos relacionados
 
 - [**Mantenimiento de SCBA →**](/blog/mantenimiento-scba/)
-- [**Traje estructural NFPA 1971 →**](/blog/traje-estructural-nfpa-1971/)
+- [**Traje estructural NFPA 1970 →**](/blog/traje-estructural-nfpa-1971/)
 - [**Guantes estructurales →**](/blog/guantes-estructurales-nfpa-1971/)
 - [**Cotizar equipo certificado →**](/cotizar)
     `,
@@ -591,8 +591,8 @@ Ordena mejor la inversión, reduce errores y ayuda a que cada compra futura teng
 
 ### Artículos relacionados
 
-- [**NFPA 1971: guía completa →**](/blog/nfpa-1971-guia-completa/)
-- [**Traje estructural NFPA 1971 →**](/blog/traje-estructural-nfpa-1971/)
+- [**NFPA 1970: guía completa →**](/blog/nfpa-1971-guia-completa/)
+- [**Traje estructural NFPA 1970 →**](/blog/traje-estructural-nfpa-1971/)
 - [**Mantenimiento SCBA →**](/blog/mantenimiento-scba/)
 - [**Solicitar asesoría de renovación →**](/cotizar)
     `,
@@ -694,7 +694,7 @@ Sí. De hecho, esa es una de las claves de una compra técnica bien hecha.
 
 ### Artículos relacionados
 
-- [**Traje estructural NFPA 1971 →**](/blog/traje-estructural-nfpa-1971/)
+- [**Traje estructural NFPA 1970 →**](/blog/traje-estructural-nfpa-1971/)
 - [**SCBA: guía completa →**](/blog/scba-guia-completa-bomberos-mexico/)
 - [**Botas para bomberos →**](/blog/botas-para-bomberos-guia-nfpa/)
 - [**Solicitar cotización →**](/cotizar)

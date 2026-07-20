@@ -13,25 +13,25 @@ export const faqExtra: Record<string, string> = {
   "casco-estructural-nfpa-1971": `
 ## Preguntas Frecuentes
 
-### ¿Cada cuánto debe reemplazarse un casco estructural NFPA 1971?
+### ¿Cada cuánto debe reemplazarse un casco estructural NFPA 1970?
 
-La NFPA 1851 establece una vida útil máxima de 10 años desde la fecha de fabricación, sin importar su apariencia. Debe retirarse antes si presenta deformación del casco exterior, degradación del sistema de suspensión, daño térmico visible o tras un impacto severo, aunque no haya marcas externas.
+La NFPA 1850 establece una vida útil máxima de 10 años desde la fecha de fabricación, sin importar su apariencia. Debe retirarse antes si presenta deformación del casco exterior, degradación del sistema de suspensión, daño térmico visible o tras un impacto severo, aunque no haya marcas externas.
 
 ### ¿Un casco estructural sirve para rescate técnico o incendio forestal?
 
-No es lo recomendable. El casco estructural es más pesado y está optimizado para calor radiante y caída de objetos en combate interior; para rescate técnico la referencia es NFPA 1951 (más ligero, con barboquejo de 3 puntos) y para forestal NFPA 1977 (ventilado y de baja masa). Usar el casco equivocado fatiga al operador y reduce la protección específica.
+No es lo recomendable. El casco estructural es más pesado y está optimizado para calor radiante y caída de objetos en combate interior; para rescate técnico la referencia es NFPA 1951 (más ligero, con barboquejo de 3 puntos) y para forestal NFPA 1950 (ventilado y de baja masa). Usar el casco equivocado fatiga al operador y reduce la protección específica.
 
 ### ¿Cómo verifico que un casco está certificado de verdad?
 
-Busque la etiqueta interior permanente con la norma y edición (NFPA 1971-2024), el sello del laboratorio certificador (UL, Intertek o SEI) y el modelo exacto. Puede cotejar el modelo en los directorios públicos del laboratorio; si el vendedor no puede mostrar el certificado, no es equipo certificado.
+Busque la etiqueta interior permanente con la norma y edición (NFPA 1970-2024), el sello del laboratorio certificador (UL, Intertek o SEI) y el modelo exacto. Puede cotejar el modelo en los directorios públicos del laboratorio; si el vendedor no puede mostrar el certificado, no es equipo certificado.
 `,
 
   "casco-forestal-nfpa-1977": `
 ## Preguntas Frecuentes
 
-### ¿Qué diferencia a un casco forestal NFPA 1977 de un casco industrial común?
+### ¿Qué diferencia a un casco forestal NFPA 1950 de un casco industrial común?
 
-El casco forestal está ensayado para resistencia térmica, inflamabilidad y penetración conforme a NFPA 1977, además de integrarse con goggles, protector de nuca y barboquejo para trabajo en pendiente. Un casco industrial (ANSI Z89.1) no está evaluado para exposición a fuego de vegetación y puede deformarse con el calor radiante de un frente de llama.
+El casco forestal está ensayado para resistencia térmica, inflamabilidad y penetración conforme a NFPA 1950, además de integrarse con goggles, protector de nuca y barboquejo para trabajo en pendiente. Un casco industrial (ANSI Z89.1) no está evaluado para exposición a fuego de vegetación y puede deformarse con el calor radiante de un frente de llama.
 
 ### ¿Puedo usar el mismo casco para brecha, motosierra y línea de fuego?
 
@@ -39,7 +39,7 @@ Sí, siempre que mantenga los accesorios correctos por tarea: protección auditi
 
 ### ¿Cuál es el error más común al comprar cascos forestales en México?
 
-Comprar cascos "tipo forestal" sin certificación NFPA 1977 por precio. En temporada alta trabajan jornadas de 12 a 16 horas: un casco no certificado, mal ventilado y pesado se traduce en golpe de calor y menor atención situacional, además de incumplimiento en auditorías de CONAFOR o protección civil.
+Comprar cascos "tipo forestal" sin certificación NFPA 1950 por precio. En temporada alta trabajan jornadas de 12 a 16 horas: un casco no certificado, mal ventilado y pesado se traduce en golpe de calor y menor atención situacional, además de incumplimiento en auditorías de CONAFOR o protección civil.
 `,
 
   "casco-rescate-nfpa-1951": `
@@ -63,7 +63,7 @@ Linterna certificada con soporte integrado, goggles con banda resistente a llama
 
 ### ¿Cada cuánto se reemplazan los guantes estructurales?
 
-NFPA 1851 marca 10 años como máximo absoluto, pero en la práctica los guantes son el componente que más rápido se degrada del EPP: con uso intensivo, 2 a 4 años es lo habitual. Retírelos ante costuras abiertas, barrera de humedad perforada, rigidez por exposición térmica o pérdida de destreza táctil.
+NFPA 1850 marca 10 años como máximo absoluto, pero en la práctica los guantes son el componente que más rápido se degrada del EPP: con uso intensivo, 2 a 4 años es lo habitual. Retírelos ante costuras abiertas, barrera de humedad perforada, rigidez por exposición térmica o pérdida de destreza táctil.
 
 ### ¿Cómo debe quedar la talla de un guante estructural?
 
@@ -71,7 +71,7 @@ Ajustado sin comprimir: debe permitir cerrar el puño por completo y manipular u
 
 ### ¿Se pueden lavar los guantes estructurales?
 
-Sí, conforme al manual del fabricante y NFPA 1851: lavado suave con detergente neutro, sin blanqueador, secado a la sombra y nunca sobre fuentes de calor directas. El lavado posterior a cada incendio elimina hidrocarburos cancerígenos absorbidos — un punto de higiene ocupacional que cada vez más cuerpos de bomberos en México formalizan en sus protocolos.
+Sí, conforme al manual del fabricante y NFPA 1850: lavado suave con detergente neutro, sin blanqueador, secado a la sombra y nunca sobre fuentes de calor directas. El lavado posterior a cada incendio elimina hidrocarburos cancerígenos absorbidos — un punto de higiene ocupacional que cada vez más cuerpos de bomberos en México formalizan en sus protocolos.
 `,
 
   "guantes-rescate-extricacion": `
@@ -109,7 +109,7 @@ En Nivel A van sellados al traje encapsulado, generalmente en doble capa (guante
   "guantes-forestales-nfpa-1977": `
 ## Preguntas Frecuentes
 
-### ¿Qué exige NFPA 1977 a un guante forestal?
+### ¿Qué exige NFPA 1950 a un guante forestal?
 
 Resistencia a llama e inflamabilidad, aislamiento al calor, resistencia mecánica (abrasión, corte, punción) y destreza suficiente para herramienta manual durante jornadas largas. El cuero tratado o tejidos aramídicos con palma reforzada son las construcciones típicas certificadas.
 
@@ -199,7 +199,7 @@ Centralizar simplifica administración y suele mejorar precio por volumen, pero 
 
 ### ¿Cómo comparo cotizaciones de equipos certificados?
 
-Compare partida por partida contra la misma norma y edición (no "casco NFPA" sino "casco NFPA 1971-2024 certificado UL"), incluya vida útil esperada y costo de mantenimiento, y pondere tiempos de entrega documentados. La cotización más barata con especificación ambigua suele ser la más cara a 5 años.
+Compare partida por partida contra la misma norma y edición (no "casco NFPA" sino "casco NFPA 1970-2024 certificado UL"), incluya vida útil esperada y costo de mantenimiento, y pondere tiempos de entrega documentados. La cotización más barata con especificación ambigua suele ser la más cara a 5 años.
 `,
 
   "industria-proteccion-contra-incendio-mexico-analisis": `
@@ -239,7 +239,7 @@ Sirve para investigación de mercado y para integrar catálogos, pero la propues
 
 ### ¿Qué familias de producto concentran la demanda en México?
 
-EPP estructural certificado NFPA 1971 (trajes, cascos, guantes, botas), equipos de aire SCBA, extintores y recarga, sistemas fijos (detección, rociadores, monitores) y equipo de rescate técnico. Los compradores principales son municipios, brigadas industriales y contratistas de obra.
+EPP estructural certificado NFPA 1970 (trajes, cascos, guantes, botas), equipos de aire SCBA, extintores y recarga, sistemas fijos (detección, rociadores, monitores) y equipo de rescate técnico. Los compradores principales son municipios, brigadas industriales y contratistas de obra.
 
 ### ¿Cómo afecta el tipo de cambio a la compra de equipo certificado?
 
@@ -303,7 +303,7 @@ Utilice los criterios de evaluación documental como anexos técnicos de sus bas
 
 ### ¿Cada cuánto se prueba hidrostáticamente un cilindro SCBA?
 
-Los cilindros de fibra de carbono se prueban cada 5 años y tienen vida útil de 15 años (según fabricante y norma DOT/TC aplicable); los de aluminio cada 5 años sin límite de vida si pasan la prueba. El equipo completo requiere además prueba de flujo anual en banco certificado conforme a NFPA 1852.
+Los cilindros de fibra de carbono se prueban cada 5 años y tienen vida útil de 15 años (según fabricante y norma DOT/TC aplicable); los de aluminio cada 5 años sin límite de vida si pasan la prueba. El equipo completo requiere además prueba de flujo anual en banco certificado conforme a NFPA 1850.
 
 ### ¿Qué autonomía real tiene un cilindro de 30 minutos?
 
@@ -355,7 +355,7 @@ De enero a junio, con pico entre marzo y mayo, cuando coinciden estiaje, vientos
 
 ### ¿Qué equipo mínimo debe portar un combatiente forestal?
 
-EPP NFPA 1977 completo (camisola y pantalón aramídicos, casco, goggles, guantes, botas de piel con suela vulcanizada), refugio contra fuego donde la doctrina lo adopte, hidratación, y herramienta de línea (McLeod, Pulaski, batefuegos). El refugio y la condición física son los dos factores que más vidas salvan.
+EPP NFPA 1950 completo (camisola y pantalón aramídicos, casco, goggles, guantes, botas de piel con suela vulcanizada), refugio contra fuego donde la doctrina lo adopte, hidratación, y herramienta de línea (McLeod, Pulaski, batefuegos). El refugio y la condición física son los dos factores que más vidas salvan.
 
 ### ¿Cómo se coordinan brigadas municipales con CONAFOR?
 
@@ -383,15 +383,15 @@ Acercarse sin identificar el producto, elegir nivel por disponibilidad y no por 
 
 ### ¿Botas de hule o de cuero para combate estructural?
 
-Ambas pueden certificarse NFPA 1971. El hule ofrece estanqueidad total y menor costo con más peso y menos soporte; el cuero da mejor ergonomía, soporte de tobillo y confort en jornadas largas con mayor precio y mantenimiento. Cuerpos con alta carga operativa tienden a cuero; brigadas con uso esporádico optimizan con hule.
+Ambas pueden certificarse NFPA 1970. El hule ofrece estanqueidad total y menor costo con más peso y menos soporte; el cuero da mejor ergonomía, soporte de tobillo y confort en jornadas largas con mayor precio y mantenimiento. Cuerpos con alta carga operativa tienden a cuero; brigadas con uso esporádico optimizan con hule.
 
 ### ¿Qué elementos de protección debe traer una bota certificada?
 
-Puntera y plantilla resistentes a impacto y punción, barrera de humedad y patógenos, aislamiento térmico, suela antiderrapante resistente a calor por contacto y tirantes de colocación rápida. La etiqueta interior debe citar NFPA 1971 con su edición y el laboratorio certificador.
+Puntera y plantilla resistentes a impacto y punción, barrera de humedad y patógenos, aislamiento térmico, suela antiderrapante resistente a calor por contacto y tirantes de colocación rápida. La etiqueta interior debe citar NFPA 1970 con su edición y el laboratorio certificador.
 
 ### ¿Cuándo se da de baja una bota estructural?
 
-Ante perforación de la barrera (entra agua), separación de suela, deformación de puntera, grietas profundas del cuero o hule, o cumplidos 10 años de NFPA 1851 — lo que ocurra primero. La bota comprometida es vía directa de quemaduras y de exposición a fluidos contaminados.
+Ante perforación de la barrera (entra agua), separación de suela, deformación de puntera, grietas profundas del cuero o hule, o cumplidos 10 años de NFPA 1850 — lo que ocurra primero. La bota comprometida es vía directa de quemaduras y de exposición a fluidos contaminados.
 `,
 
   "flashover-backdraft-bomberos-guia-supervision": `
@@ -415,7 +415,7 @@ Permite leer la temperatura de la capa de gases y de superficies antes y durante
 
 ### ¿Cómo especifico correctamente equipo NFPA en bases de licitación?
 
-Cite norma, edición y certificación por partida ("Traje estructural conforme a NFPA 1971 edición 2024, certificado por UL/Intertek/SEI, con etiqueta permanente"), exija certificados del lote y carta de fabricante o distribuidor autorizado, y defina criterios de evaluación documental con puntaje. La ambigüedad en bases es la puerta de entrada del equipo no certificado.
+Cite norma, edición y certificación por partida ("Traje estructural conforme a NFPA 1970 edición 2025, certificado por UL/Intertek/SEI, con etiqueta permanente"), exija certificados del lote y carta de fabricante o distribuidor autorizado, y defina criterios de evaluación documental con puntaje. La ambigüedad en bases es la puerta de entrada del equipo no certificado.
 
 ### ¿Puede un municipio exigir NFPA si no es norma oficial mexicana?
 
@@ -435,11 +435,11 @@ Protege el cuello, orejas y rostro —las zonas de piel más expuestas y sensibl
 
 ### ¿Qué son las capuchas "barrera" o de protección contra partículas?
 
-La generación actual certificada bajo NFPA 1971 incorpora una barrera que bloquea partículas de humo (hollín con hidrocarburos cancerígenos) hacia la piel del cuello y cara, área de máxima absorción dérmica. Son la respuesta del estándar a la evidencia sobre cáncer ocupacional en bomberos.
+La generación actual certificada bajo NFPA 1970 incorpora una barrera que bloquea partículas de humo (hollín con hidrocarburos cancerígenos) hacia la piel del cuello y cara, área de máxima absorción dérmica. Son la respuesta del estándar a la evidencia sobre cáncer ocupacional en bomberos.
 
 ### ¿Cuántas capuchas debe tener cada elemento y cómo se lavan?
 
-Mínimo dos por bombero para rotación post-incendio: la capucha contaminada se lava conforme a NFPA 1851 (ciclo suave, detergente neutro, sin suavizante) antes de reutilizarse. Usar capucha sucia de hollín equivale a aplicar el contaminante directamente sobre la piel durante horas.
+Mínimo dos por bombero para rotación post-incendio: la capucha contaminada se lava conforme a NFPA 1850 (ciclo suave, detergente neutro, sin suavizante) antes de reutilizarse. Usar capucha sucia de hollín equivale a aplicar el contaminante directamente sobre la piel durante horas.
 `,
 
   "gafas-proteccion-visual-bomberos-nfpa": `
@@ -447,7 +447,7 @@ Mínimo dos por bombero para rotación post-incendio: la capucha contaminada se 
 
 ### ¿Goggles, lentes de seguridad o pantalla del casco: qué exige la norma?
 
-NFPA 1971 acepta protección primaria con goggles certificados ANSI Z87.1+ integrados al sistema del casco; la pantalla abatible del casco es protección secundaria, no sustituto. Para rescate técnico y forestal, los goggles sellados con banda resistente a llama son el estándar operativo.
+NFPA 1970 acepta protección primaria con goggles certificados ANSI Z87.1+ integrados al sistema del casco; la pantalla abatible del casco es protección secundaria, no sustituto. Para rescate técnico y forestal, los goggles sellados con banda resistente a llama son el estándar operativo.
 
 ### ¿Cómo evito el empañamiento en operaciones?
 
@@ -479,7 +479,7 @@ La NOM-002-STPS exige brigada capacitada y simulacros documentados; la formació
 
 ### ¿Qué diferencia hay entre ropa de aproximación, de bombero estructural y aluminizada de proximidad?
 
-La estructural (NFPA 1971) protege del calor convectivo y radiante del combate interior; la de proximidad aluminizada refleja radiación extrema para acercamiento a grandes fuegos de hidrocarburos o metales fundidos; la de aproximación industrial (resistente a llama, NFPA 2112 en su caso) protege de fogonazos (flash fire) en procesos, no de exposición sostenida. Especificar la categoría equivocada deja al trabajador desprotegido o lo sobrecarga innecesariamente.
+La estructural (NFPA 1970) protege del calor convectivo y radiante del combate interior; la de proximidad aluminizada refleja radiación extrema para acercamiento a grandes fuegos de hidrocarburos o metales fundidos; la de aproximación industrial (resistente a llama, NFPA 2112 en su caso) protege de fogonazos (flash fire) en procesos, no de exposición sostenida. Especificar la categoría equivocada deja al trabajador desprotegido o lo sobrecarga innecesariamente.
 
 ### ¿Qué exige NFPA 2112 a la ropa industrial resistente a llama?
 
@@ -558,8 +558,8 @@ export const tablasExtra: Record<string, string> = {
 
 | Familia de producto | Norma de referencia | Certificación esperada | Comprador típico |
 |---------------------|---------------------|------------------------|------------------|
-| **EPP estructural** | NFPA 1971 | UL / Intertek / SEI | Municipios, brigadas |
-| **Equipos SCBA** | NFPA 1981 / 1852 | NIOSH + NFPA | Cuerpos de bomberos |
+| **EPP estructural** | NFPA 1970 | UL / Intertek / SEI | Municipios, brigadas |
+| **Equipos SCBA** | NFPA 1970 / 1850 | NIOSH + NFPA | Cuerpos de bomberos |
 | **Extintores** | NOM-154-SCFI / NOM-002-STPS | NOM + UL en su caso | Comercios, industria |
 | **Detección y alarma** | NFPA 72 | UL / FM | Industria, inmobiliario |
 | **Rociadores y redes** | NFPA 13 / 24 / 25 | UL / FM | Industria, logística |
@@ -572,12 +572,12 @@ export const tablasExtra: Record<string, string> = {
 
 | Función operativa | Equipamiento clave | Norma de referencia | Prioridad |
 |-------------------|--------------------|---------------------|-----------|
-| **Combate estructural** | Trajes completos, cascos, capuchas, guantes, botas | NFPA 1971 | Crítica |
-| **Protección respiratoria** | SCBA con cilindros de respaldo | NFPA 1981 / 1852 | Crítica |
+| **Combate estructural** | Trajes completos, cascos, capuchas, guantes, botas | NFPA 1970 | Crítica |
+| **Protección respiratoria** | SCBA con cilindros de respaldo | NFPA 1970 / 1850 | Crítica |
 | **Rescate vehicular** | Herramienta hidráulica de corte y separación | NFPA 1936 | Alta |
 | **Rescate en estructuras colapsadas** | Apuntalamiento, cámaras de búsqueda, cuerdas | NFPA 1006 / 1983 | Alta (zona sísmica) |
 | **Material peligroso** | Detección multigas, trajes de protección química | NFPA 1670 | Media-Alta |
-| **Incendio forestal interfaz** | EPP ligero NFPA 1977, herramienta manual | NFPA 1977 | Estacional |
+| **Incendio forestal interfaz** | EPP ligero NFPA 1950, herramienta manual | NFPA 1950 | Estacional |
 `,
 
   "equipo-bomberos-municipal-como-cotizar": `
@@ -585,12 +585,12 @@ export const tablasExtra: Record<string, string> = {
 
 | Partida | Especificación mínima correcta | Documento a exigir |
 |---------|--------------------------------|--------------------|
-| **Traje estructural** | NFPA 1971 ed. 2024, 3 capas, tallas por elemento | Certificado UL/Intertek/SEI del modelo |
-| **Casco estructural** | NFPA 1971, suspensión + barboquejo | Certificado y etiqueta permanente |
-| **Guantes y botas** | NFPA 1971, tallas verificadas | Certificado por partida |
-| **SCBA** | NFPA 1981, cilindro 30/45 min, máscara incluida | Certificado NIOSH + NFPA |
+| **Traje estructural** | NFPA 1970 ed. 2025, 3 capas, tallas por elemento | Certificado UL/Intertek/SEI del modelo |
+| **Casco estructural** | NFPA 1970, suspensión + barboquejo | Certificado y etiqueta permanente |
+| **Guantes y botas** | NFPA 1970, tallas verificadas | Certificado por partida |
+| **SCBA** | NFPA 1970, cilindro 30/45 min, máscara incluida | Certificado NIOSH + NFPA |
 | **Capacitación** | Curso con constancia DC-3 | Registro STPS del capacitador |
-| **Mantenimiento** | Programa NFPA 1851/1852 primer año | Contrato con tiempos de respuesta |
+| **Mantenimiento** | Programa NFPA 1850 primer año | Contrato con tiempos de respuesta |
 `,
 
   "sistemas-sprinkler-nfpa-13-guia-instalacion": `

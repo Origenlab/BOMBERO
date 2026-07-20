@@ -4,7 +4,7 @@ import type { ArticuloData } from "./blog-articulos";
  * Glosario de normas y métodos de ensayo — referencias técnicas únicas.
  * Objetivo: cubrir las normas de componente/ensayo (ASTM, EN, ISO, ANSI, ICAO,
  * NOM) que se citan en las fichas de producto pero que NO tienen artículo
- * comprensivo propio. Las normas de conjunto amplias (NFPA 1971/1977/1951/1991…)
+ * comprensivo propio. Las normas de conjunto amplias (NFPA 1970/1950/1951/1991…)
  * ya tienen su guía completa: esas se enlazan, no se duplican aquí.
  *
  * Precisión (2026): NFPA consolidó sus normas — 1971/1975/1981/1982 → NFPA 1970
@@ -20,17 +20,17 @@ export const articulosNormasData: Record<string, ArticuloData> = {
   // ─────────────────────────── ASTM ───────────────────────────
   "astm-d6413": {
     titulo: "ASTM D6413: Prueba de Flama Vertical del Textil FR",
-    excerpt: "ASTM D6413 es el ensayo de flama vertical que mide la resistencia inherente a la llama de los textiles ignífugos usados en trajes de bombero: longitud de carbonización, tiempo de flama residual y de incandescencia. Es la base de la certificación NFPA 1971/1970 y de la barrera exterior Nomex/PBI.",
+    excerpt: "ASTM D6413 es el ensayo de flama vertical que mide la resistencia inherente a la llama de los textiles ignífugos usados en trajes de bombero: longitud de carbonización, tiempo de flama residual y de incandescencia. Es la base de la certificación NFPA 1970 y de la barrera exterior Nomex/PBI.",
     imagen: "/images/blog/blog-normativa-nfpa-bomberos-mexico.avif",
     categoria: "Normativas",
-    tags: ["ASTM D6413", "Flama Vertical", "Textil FR", "Nomex", "PBI", "NFPA 1971"],
+    tags: ["ASTM D6413", "Flama Vertical", "Textil FR", "Nomex", "PBI", "NFPA 1970"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "ASTM D6413 prueba de flama vertical textil bombero",
     contenido: `
 ## Qué es ASTM D6413
 
-**ASTM D6413** (Standard Test Method for Flame Resistance of Textiles — Vertical Test) es el método de ensayo que mide **cómo reacciona un tejido a una llama directa**. No es una norma de producto: es el ensayo que las normas de producto —como **NFPA 1971**, hoy consolidada en **NFPA 1970 (2024)**— exigen para validar que la capa exterior del traje de bombero es realmente ignífuga.
+**ASTM D6413** (Standard Test Method for Flame Resistance of Textiles — Vertical Test) es el método de ensayo que mide **cómo reacciona un tejido a una llama directa**. No es una norma de producto: es el ensayo que las normas de producto —como **NFPA 1970** (ed. 2025, que consolidó a NFPA 1971)— exigen para validar que la capa exterior del traje de bombero es realmente ignífuga.
 
 En la práctica mexicana, cuando un fabricante afirma que su chaquetón es de material *inherentemente resistente a la flama* (Nomex®, PBI®, Kevlar®), la prueba que respalda esa afirmación es ASTM D6413. Sin ese reporte, la afirmación no es verificable.
 
@@ -58,7 +58,7 @@ En BOMBERO.MX, cada traje estructural se entrega con la documentación de labora
 
   "astm-f1939": {
     titulo: "ASTM F1939: Resistencia al Calor Radiante (RPP)",
-    excerpt: "ASTM F1939 mide la resistencia al calor radiante de los materiales de EPP mediante el índice RPP (Radiant Protective Performance). Es clave para trajes de proximidad y aproximación aluminizados (NFPA 1971 proximidad / NFPA 1976) expuestos a calor radiante extremo sin contacto directo con la llama.",
+    excerpt: "ASTM F1939 mide la resistencia al calor radiante de los materiales de EPP mediante el índice RPP (Radiant Protective Performance). Es clave para trajes de proximidad y aproximación aluminizados (NFPA 1970 proximidad / NFPA 1976) expuestos a calor radiante extremo sin contacto directo con la llama.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Normativas",
     tags: ["ASTM F1939", "Calor Radiante", "RPP", "Traje de Proximidad", "Aluminizado"],
@@ -76,7 +76,7 @@ A diferencia del calor por convección (aire caliente) o conducción (contacto),
 
 ASTM F1939 es determinante para el **traje de aproximación y de proximidad** —los conjuntos aluminizados que reflejan la radiación. Aparece en los requisitos de:
 
-- **NFPA 1971** en su opción de proximidad (hoy dentro de **NFPA 1970**, 2024).
+- **NFPA 1970** en su opción de proximidad (hoy dentro de **NFPA 1970**, 2024).
 - **NFPA 1976**, la norma histórica de proximidad para incendios de combustible.
 - Equipos **ARFF** aeroportuarios expuestos a incendios de jet fuel.
 
@@ -162,7 +162,7 @@ Un guante moderno de rescate suele reportar **ambos** sistemas. Al comparar mode
 
 ## Para compras en México
 
-Para brigadas de rescate vehicular, especifica el **nivel de corte** con su método (ASTM F1790 en gramos o EN 388 nivel A–F) en la requisición. Un guante estructural NFPA 1971 no está optimizado para corte: mezclar aplicaciones deja huecos de protección.
+Para brigadas de rescate vehicular, especifica el **nivel de corte** con su método (ASTM F1790 en gramos o EN 388 nivel A–F) en la requisición. Un guante estructural NFPA 1970 no está optimizado para corte: mezclar aplicaciones deja huecos de protección.
 
 [Cotiza guantes de rescate](/cotizar/) y te orientamos según la disciplina (extricación, cuerda, USAR).
 `,
@@ -194,7 +194,7 @@ El acabado aluminizado **refleja gran parte de la energía radiante** en lugar d
 - **ARFF aeroportuario** (rescate y extinción en aeronaves), donde se combina con **ICAO Anexo 14**.
 - **Industria pesada:** siderúrgicas, fundiciones, petroquímica (PEMEX).
 
-Estos conjuntos se rigen por normas de producto como **NFPA 1971** en su variante de proximidad (hoy **NFPA 1970**) y la histórica **NFPA 1976**, que apoyan sus requisitos de material en ASTM F1891 y F1939.
+Estos conjuntos se rigen por normas de producto como **NFPA 1970** en su variante de proximidad (hoy **NFPA 1970**) y la histórica **NFPA 1976**, que apoyan sus requisitos de material en ASTM F1891 y F1939.
 
 ## Selección para México
 
@@ -206,10 +206,10 @@ Un traje aluminizado no es un traje estructural con recubrimiento brillante: es 
 
   "astm-f2703": {
     titulo: "ASTM F2703: Destreza y Función en Guantes de Bombero",
-    excerpt: "ASTM F2703 evalúa la destreza y funcionalidad de los guantes estructurales de bombero: la capacidad de manipular objetos y operar equipo con el guante puesto. Complementa la protección térmica de NFPA 1971/1970 con un requisito de desempeño operativo real.",
+    excerpt: "ASTM F2703 evalúa la destreza y funcionalidad de los guantes estructurales de bombero: la capacidad de manipular objetos y operar equipo con el guante puesto. Complementa la protección térmica de NFPA 1970 con un requisito de desempeño operativo real.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-combate-incendio-manguera-03.avif",
     categoria: "Normativas",
-    tags: ["ASTM F2703", "Destreza", "Guantes Estructurales", "NFPA 1971", "NFPA 1970"],
+    tags: ["ASTM F2703", "Destreza", "Guantes Estructurales", "NFPA 1970"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "ASTM F2703 destreza guantes bombero",
@@ -220,7 +220,7 @@ Un traje aluminizado no es un traje estructural con recubrimiento brillante: es 
 
 ## Por qué la destreza es seguridad, no comodidad
 
-Un guante que impide operar una válvula, cargar un cilindro o manejar una manguera **obliga a quitárselo**, y un bombero sin guante es un bombero expuesto. Por eso NFPA 1971 (hoy **NFPA 1970**, 2024) incorporó ensayos de destreza como ASTM F2703: la protección térmica solo sirve si el guante se puede usar de verdad.
+Un guante que impide operar una válvula, cargar un cilindro o manejar una manguera **obliga a quitárselo**, y un bombero sin guante es un bombero expuesto. Por eso NFPA 1970 (ed. 2025) incorporó ensayos de destreza como ASTM F2703: la protección térmica solo sirve si el guante se puede usar de verdad.
 
 El ensayo evalúa tareas de manipulación con el guante y las compara con la mano desnuda, obteniendo un índice de desempeño. Un buen guante estructural equilibra **barrera térmica** (Nomex, Kevlar, barrera de humedad) con **destreza suficiente** para operar.
 
@@ -274,7 +274,7 @@ La clave práctica: para materiales anticorte de alto desempeño (HPPE, Kevlar®
 
 ## EN 388 en rescate y extricación
 
-En **extricación vehicular** el riesgo es el corte con metal y vidrio. Un guante con nivel **D, E o F** de corte protege donde un guante estructural NFPA 1971 no está diseñado para hacerlo. Muchos guantes de rescate combinan **EN 388 + NFPA 1951** para cubrir corte y desempeño de rescate técnico.
+En **extricación vehicular** el riesgo es el corte con metal y vidrio. Un guante con nivel **D, E o F** de corte protege donde un guante estructural NFPA 1970 no está diseñado para hacerlo. Muchos guantes de rescate combinan **EN 388 + NFPA 1951** para cubrir corte y desempeño de rescate técnico.
 
 ## Para compras en México
 
@@ -324,21 +324,21 @@ No compres un guante químico por su Tipo (A/B/C) aislado: pide la **tabla de qu
 
   "en-443": {
     titulo: "EN 443: Norma Europea de Cascos de Bombero",
-    excerpt: "EN 443 es la norma europea para cascos de bombero en la lucha contra incendios en edificios y estructuras. Define zonas de protección, resistencia térmica y mecánica, y compatibilidad con visor y equipo respiratorio. Es el equivalente europeo del casco estructural NFPA 1971/1970.",
+    excerpt: "EN 443:2008 es la norma europea para cascos de bombero en la lucha contra incendios en edificios y estructuras. Define zonas de protección, resistencia térmica y mecánica, y compatibilidad con visor y equipo respiratorio. Es el equivalente europeo del casco estructural NFPA 1970.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     categoria: "Normativas",
-    tags: ["EN 443", "Cascos Bombero", "Europa", "Estructural", "NFPA 1971"],
+    tags: ["EN 443:2008", "Cascos Bombero", "Europa", "Estructural", "NFPA 1970"],
     autor: AUTOR,
     autorRol: ROL,
-    anchorKeyword: "EN 443 casco bombero norma europea",
+    anchorKeyword: "EN 443:2008 casco bombero norma europea",
     contenido: `
-## Qué es EN 443
+## Qué es EN 443:2008
 
-**EN 443** es la norma europea que especifica los **cascos para la lucha contra incendios en edificios y estructuras**. Es la referencia europea equivalente al casco estructural bajo **NFPA 1971** (hoy consolidada en **NFPA 1970**, 2024). Muchos cascos que se comercializan en México certifican **ambos marcos**, EN 443 y NFPA, porque los fabricantes venden globalmente.
+**EN 443:2008** es la norma europea que especifica los **cascos para la lucha contra incendios en edificios y estructuras**. Es la referencia europea equivalente al casco estructural bajo **NFPA 1970** (hoy consolidada en **NFPA 1970**, 2024). Muchos cascos que se comercializan en México certifican **ambos marcos**, EN 443:2008 y NFPA, porque los fabricantes venden globalmente.
 
 ## Qué exige
 
-EN 443 evalúa el casco como sistema:
+EN 443:2008 evalúa el casco como sistema:
 
 - **Zonas de protección (área 1a/1b/2/3):** define qué superficie de la cabeza cubre el casco, distinguiendo modelos de cobertura amplia (tipo *jet/gallet*) de los de línea de sombrero.
 - **Resistencia mecánica:** absorción de impacto y resistencia a la penetración.
@@ -346,25 +346,25 @@ EN 443 evalúa el casco como sistema:
 - **Aislamiento eléctrico** y resistencia de la carcasa.
 - **Compatibilidad** con visor ocular/facial, protector de nuca y máscara de equipo de respiración.
 
-## EN 443 frente a NFPA 1971/1970
+## EN 443:2008 frente a NFPA 1970
 
 Ambas normas persiguen lo mismo (proteger cráneo, cara y nuca del bombero estructural) con ensayos distintos. Diferencias típicas:
 
-- Los cascos **EN 443** suelen ofrecer geometrías de **cobertura integral** (estilo europeo) muy popularizadas.
+- Los cascos **EN 443:2008** suelen ofrecer geometrías de **cobertura integral** (estilo europeo) muy popularizadas.
 - Los cascos **NFPA** incluyen tradicionalmente el estilo americano de ala completa además de los cascos tipo *jet*.
 - La certificación cruzada (EN + NFPA) da flexibilidad operativa y de licitación.
 
 ## Para compras en México
 
-Un casco certificado EN 443 es válido y de alto nivel; lo importante es **verificar la certificación por lote** y la compatibilidad con el resto del EPP (capucha, máscara, visor). Evita mezclar componentes no compatibles: la interfaz casco–máscara–capucha es donde más fallan los sistemas improvisados.
+Un casco certificado EN 443:2008 es válido y de alto nivel; lo importante es **verificar la certificación por lote** y la compatibilidad con el resto del EPP (capucha, máscara, visor). Evita mezclar componentes no compatibles: la interfaz casco–máscara–capucha es donde más fallan los sistemas improvisados.
 
-[Cotiza cascos certificados](/cotizar/) (EN 443 y/o NFPA) con su documentación de laboratorio.
+[Cotiza cascos certificados](/cotizar/) (EN 443:2008 y/o NFPA) con su documentación de laboratorio.
 `,
   },
 
   "en-1486": {
     titulo: "EN 1486: Trajes Reflectantes de Bombero (Europa)",
-    excerpt: "EN 1486 es la norma europea de ropa de protección reflectante para bomberos en operaciones especializadas de lucha contra el fuego con calor radiante intenso (proximidad). Es el equivalente europeo del traje aluminizado de proximidad frente a NFPA 1971/1976.",
+    excerpt: "EN 1486 es la norma europea de ropa de protección reflectante para bomberos en operaciones especializadas de lucha contra el fuego con calor radiante intenso (proximidad). Es el equivalente europeo del traje aluminizado de proximidad frente a NFPA 1970/1976.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Normativas",
     tags: ["EN 1486", "Proximidad", "Aluminizado", "Calor Radiante", "ARFF"],
@@ -376,7 +376,7 @@ Un casco certificado EN 443 es válido y de alto nivel; lo importante es **verif
 
 **EN 1486** es la norma europea de **ropa de protección reflectante para bomberos** en operaciones especializadas con **calor radiante intenso** —lo que en el marco NFPA se llama *proximidad*. Regula los trajes aluminizados usados para aproximarse a incendios de combustible, gas y metal fundido.
 
-Es, en esencia, el análogo europeo de los conjuntos de proximidad **NFPA 1971 (variante proximidad, hoy NFPA 1970)** y de la histórica **NFPA 1976**.
+Es, en esencia, el análogo europeo de los conjuntos de proximidad **NFPA 1970 (variante proximidad, hoy NFPA 1970)** y de la histórica **NFPA 1976**.
 
 ## Qué protege
 
@@ -392,7 +392,7 @@ Se apoya en ensayos de material como los que en Norteamérica cubren **ASTM F189
 
 En **rescate y extinción de incendios de aeronaves (ARFF)** conviven ambos marcos. Un aeropuerto en México puede especificar el traje según:
 
-- **NFPA 1971/1976** (marco norteamericano), y/o
+- **NFPA 1970/1976** (marco norteamericano), y/o
 - **EN 1486** (marco europeo), junto con **ICAO Anexo 14** que define la categoría ARFF del aeródromo.
 
 ## Para compras en México
@@ -419,7 +419,7 @@ El traje de proximidad EN 1486 es un equipo especializado —no reemplaza al tra
 
 ## Por qué el rescate técnico usa cascos de montañismo
 
-Un casco estructural NFPA 1971 está optimizado para calor y caída de objetos, pero es **voluminoso y de ala amplia**, lo que estorba en una cuerda o en un espacio confinado. El casco EN 12492 aporta:
+Un casco estructural NFPA 1970 está optimizado para calor y caída de objetos, pero es **voluminoso y de ala amplia**, lo que estorba en una cuerda o en un espacio confinado. El casco EN 12492 aporta:
 
 - **Perfil bajo y compacto:** no engancha en cuerdas ni estructuras.
 - **Retención reforzada (barbuquejo):** diseñado para **no salirse** ante un impacto o una caída invertida —requisito crítico cuando trabajas suspendido.
@@ -526,10 +526,10 @@ Al equipar una brigada industrial, no basta pedir ropa FR: especifica los **cód
 
   "iso-11999": {
     titulo: "ISO 11999: EPP de Bombero (Serie Internacional)",
-    excerpt: "ISO 11999 es la serie internacional de EPP para bomberos que atienden estructuras: cubre conjunto, guantes, cascos, botas y capuchas con requisitos de desempeño térmico y mecánico. Es el marco ISO paralelo a NFPA 1971/1970 y EN 469 para el traje estructural.",
+    excerpt: "ISO 11999 es la serie internacional de EPP para bomberos que atienden estructuras: cubre conjunto, guantes, cascos, botas y capuchas con requisitos de desempeño térmico y mecánico. Es el marco ISO paralelo a NFPA 1970 y EN 469:2020 para el traje estructural.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Normativas",
-    tags: ["ISO 11999", "EPP Bombero", "Estructural", "Internacional", "NFPA 1971"],
+    tags: ["ISO 11999", "EPP Bombero", "Estructural", "Internacional", "NFPA 1970"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "ISO 11999 EPP bombero norma internacional",
@@ -538,7 +538,7 @@ Al equipar una brigada industrial, no basta pedir ropa FR: especifica los **cód
 
 **ISO 11999** es la **serie internacional de normas de EPP para bomberos** que combaten incendios en estructuras. A diferencia de una norma nacional, la serie ISO busca un lenguaje común entre países, con partes dedicadas al **conjunto, guantes, cascos, calzado, capuchas y equipo de respiración**.
 
-Es el marco ISO paralelo a los dos sistemas más usados en la práctica: **NFPA 1971** (Norteamérica, hoy **NFPA 1970**) y **EN 469** (traje estructural europeo).
+Es el marco ISO paralelo a los dos sistemas más usados en la práctica: **NFPA 1970** (Norteamérica, hoy **NFPA 1970**) y **EN 469:2020** (traje estructural europeo).
 
 ## Qué cubre la serie
 
@@ -555,7 +555,7 @@ NFPA y EN evolucionaron por separado con ensayos distintos. ISO 11999 pretende q
 
 ## Qué significa para una compra
 
-Para la mayoría de las estaciones mexicanas, la certificación de referencia sigue siendo **NFPA 1971/1970**. ISO 11999 es válida y de alto nivel, pero conviene:
+Para la mayoría de las estaciones mexicanas, la certificación de referencia sigue siendo **NFPA 1970**. ISO 11999 es válida y de alto nivel, pero conviene:
 
 - Verificar **qué parte de la serie** certifica cada componente.
 - No mezclar certificaciones sin confirmar compatibilidad del sistema.
@@ -600,7 +600,7 @@ Si tu planta trabaja bajo ISO 45001, la compra de EPP debe cerrar el ciclo: ries
   // ─────────────────────────── ANSI ───────────────────────────
   "ansi-z87": {
     titulo: "ANSI Z87.1: Protección Ocular y Facial de Seguridad",
-    excerpt: "ANSI Z87.1 es la norma norteamericana de protección ocular y facial: define resistencia al impacto (marcas Z87 y Z87+), protección contra salpicaduras, polvo y radiación óptica. Es la referencia para goggles y gafas de bombero y brigada, complementando NFPA 1971/1970.",
+    excerpt: "ANSI Z87.1 es la norma norteamericana de protección ocular y facial: define resistencia al impacto (marcas Z87 y Z87+), protección contra salpicaduras, polvo y radiación óptica. Es la referencia para goggles y gafas de bombero y brigada, complementando NFPA 1970.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     categoria: "Normativas",
     tags: ["ANSI Z87.1", "Protección Ocular", "Goggles", "Impacto", "Z87+"],
@@ -626,10 +626,10 @@ Un goggle sin marca Z87+ no debe usarse donde hay riesgo de proyectil.
 
 La protección ocular del bombero tiene dos capas:
 
-- El **visor del casco** (protección primaria facial, integrada al casco NFPA 1971/1970).
+- El **visor del casco** (protección primaria facial, integrada al casco NFPA 1970).
 - El **goggle o gafa ANSI Z87.1** como protección ocular *sellada*, indispensable en **extricación vehicular** (esquirlas de vidrio y metal), rescate técnico e incendio forestal (humo, ceniza, ramas).
 
-NFPA 1971 exige protección primaria facial, pero el goggle sellado ANSI Z87.1 cubre el ojo donde el visor no llega.
+NFPA 1970 exige protección primaria facial, pero el goggle sellado ANSI Z87.1 cubre el ojo donde el visor no llega.
 
 ## Para compras en México
 
@@ -672,7 +672,7 @@ Los tres marcos cubren el casco industrial con ensayos análogos. En México, el
 
 ## Cuándo NO es suficiente
 
-El casco industrial ANSI Z89.1 **no es un casco de bombero estructural**: su resistencia a calor y llama es limitada. Para combate de incendio estructural se requiere **NFPA 1971/1970** o **EN 443**. Usar un casco industrial en fuego interior es un error de selección peligroso.
+El casco industrial ANSI Z89.1 **no es un casco de bombero estructural**: su resistencia a calor y llama es limitada. Para combate de incendio estructural se requiere **NFPA 1970** o **EN 443:2008**. Usar un casco industrial en fuego interior es un error de selección peligroso.
 
 ## Para brigadas en México
 
@@ -753,7 +753,7 @@ Un aeropuerto que recibe aviones grandes exige categoría alta —más agente, m
 
 La categoría ARFF no solo define camiones y espuma: **determina el equipamiento del personal**. Un cuerpo ARFF requiere:
 
-- **Traje de aproximación/proximidad** (aluminizado) para incendios de **jet fuel** —validado con marcos como **NFPA 1971 proximidad / NFPA 1976** o **EN 1486**.
+- **Traje de aproximación/proximidad** (aluminizado) para incendios de **jet fuel** —validado con marcos como **NFPA 1970 proximidad / NFPA 1976** o **EN 1486**.
 - **Cascos ARFF** con visor dorado (filtro IR) y compatibilidad con equipo de respiración.
 - Guantes y botas resistentes a hidrocarburos.
 
@@ -792,7 +792,7 @@ Su lógica es análoga a la norteamericana **ANSI Z89.1** (Tipos I/II, Clases G/
 
 ## Dónde aplica en el mundo del bombero
 
-La NOM-115-STPS es la referencia para **cascos de brigada industrial** y de protección civil en centros de trabajo. **No sustituye** a las normas de casco de bombero estructural (**NFPA 1971/1970**, **EN 443**), que exigen resistencia térmica muy superior para el fuego interior.
+La NOM-115-STPS es la referencia para **cascos de brigada industrial** y de protección civil en centros de trabajo. **No sustituye** a las normas de casco de bombero estructural (**NFPA 1970**, **EN 443:2008**), que exigen resistencia térmica muy superior para el fuego interior.
 
 En una planta, la brigada usa casco NOM-115-STPS; en combate de incendio estructural, se requiere casco certificado NFPA/EN.
 
@@ -807,7 +807,7 @@ Para brigadas industriales, exige cascos con **cumplimiento NOM-115-STPS demostr
     excerpt: "Nomex® es una fibra de aramida meta con resistencia a la llama inherente (no se pierde con el lavado), base de trajes, capuchas y guantes de bombero certificados NFPA. Se combina con PBI®, Kevlar® y barreras de humedad en el sistema de 3 capas del traje estructural.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Normativas",
-    tags: ["Nomex", "Aramida", "PBI", "Kevlar", "Inherente", "NFPA 1971"],
+    tags: ["Nomex", "Aramida", "PBI", "Kevlar", "Inherente", "NFPA 1970"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "Nomex fibra ignífuga inherente bombero NFPA",
@@ -816,7 +816,7 @@ Para brigadas industriales, exige cascos con **cumplimiento NOM-115-STPS demostr
 
 **Nomex®** (marca de DuPont™) es una **fibra de aramida meta** con resistencia a la llama **inherente**: la protección forma parte de la química de la fibra, no es un tratamiento aplicado. Por eso **no se pierde con los lavados ni con el uso** —la diferencia crítica frente a los textiles tratados con químico.
 
-Es uno de los materiales base del EPP de bombero: aparece en **trajes, capuchas (monjas), forros y guantes** certificados **NFPA 1971** (hoy **NFPA 1970**, 2024).
+Es uno de los materiales base del EPP de bombero: aparece en **trajes, capuchas (monjas), forros y guantes** certificados **NFPA 1970** (ed. 2025).
 
 ## Por qué "inherente" importa tanto
 

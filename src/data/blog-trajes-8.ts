@@ -19,7 +19,7 @@ export const articulo: ArticuloData = {
     "Traje ARFF",
     "Bombero aeroportuario",
     "Protección contra calor radiante",
-    "NFPA 1971 ARFF",
+    "NFPA 1970 ARFF",
     "Traje de proximidad",
     "Kerosina incendio",
     "FAA 139",
@@ -33,7 +33,7 @@ export const articulo: ArticuloData = {
   heroSeoBlocks: [
     {
       title: "Protección para el entorno más exigente de la aviación",
-      text: "El traje <strong>ARFF conforme a NFPA 1971</strong> y <strong>FAA AC 150/5210-14</strong> es el EPP especializado para operaciones de rescate y extinción en aeronaves. En <a href=\"/productos/trajes-para-bomberos/\">BOMBERO.MX</a> asesoramos a brigadas aeroportuarias en México en la selección y gestión de este equipo crítico.",
+      text: "El traje <strong>ARFF conforme a NFPA 1970</strong> y <strong>FAA AC 150/5210-14</strong> es el EPP especializado para operaciones de rescate y extinción en aeronaves. En <a href=\"/productos/trajes-para-bomberos/\">BOMBERO.MX</a> asesoramos a brigadas aeroportuarias en México en la selección y gestión de este equipo crítico.",
     },
     {
       title: "Equipamiento aeroportuario con cumplimiento FAA e ICAO",
@@ -51,7 +51,7 @@ Ese contexto lo cambia todo. Cambia el vehículo. Cambia el agente extintor. Y c
   <div class="stat"><span class="stat__num">260°C+</span><span class="stat__label">Temperatura de llama de kerosina en combustión abierta — significativamente mayor que gasolina o madera</span></div>
   <div class="stat"><span class="stat__num">3 min</span><span class="stat__label">Tiempo de respuesta requerido por ICAO para categorías aeroportuarias altas desde alerta hasta agente extintor en pista</span></div>
   <div class="stat"><span class="stat__num">≥ 1000 cal/cm²</span><span class="stat__label">Resistencia al calor radiante que ofrecen los trajes de proximidad aluminizados de alta prestación</span></div>
-  <div class="stat"><span class="stat__num">NFPA 1971</span><span class="stat__label">Norma base para trajes ARFF en México, complementada por FAA AC 150/5210-14 e ICAO Annex 14</span></div>
+  <div class="stat"><span class="stat__num">NFPA 1970</span><span class="stat__label">Norma base para trajes ARFF en México, complementada por FAA AC 150/5210-14 e ICAO Annex 14</span></div>
 </div>
 
 > **La diferencia fundamental entre un traje estructural y un traje ARFF está en el calor radiante.** Un traje estructural protege contra el calor por conducción y convección cuando el fuego toca el tejido. Un traje ARFF, además, debe reflejar el calor radiante masivo de un pool fire de kerosina antes de que llegue al cuerpo del bombero. Sin esa capacidad de reflexión, el bombero no puede mantenerse en posición de trabajo a la distancia que la operación requiere.
@@ -72,7 +72,7 @@ Para entender por qué el traje ARFF existe como categoría separada, hay que en
 
 ### Traje ARFF (Aircraft Rescue and Firefighting)
 
-Este es el traje de intervención estándar para bomberos aeroportuarios. Está certificado conforme a **NFPA 1971, sección de proximidad**, lo que significa que cumple los requisitos del traje estructural más los requisitos adicionales de reflexión de calor radiante y resistencia a la radiación de llama.
+Este es el traje de intervención estándar para bomberos aeroportuarios. Está certificado conforme a **NFPA 1970, sección de proximidad**, lo que significa que cumple los requisitos del traje estructural más los requisitos adicionales de reflexión de calor radiante y resistencia a la radiación de llama.
 
 Constructivamente, se diferencia del traje estructural en la capa exterior: en lugar de las aramidas expuestas del traje estructural, el traje ARFF tiene una **capa de tejido aluminizado** —típicamente aluminio sobre Nomex, PBI, o Kevlar— que actúa como espejo reflectante frente al calor radiante.
 
@@ -96,9 +96,9 @@ En México, la mayoría de las brigadas aeroportuarias equipan con trajes ARFF e
 
 ## El sistema normativo que regula el EPP ARFF en México
 
-### NFPA 1971 — Sección Proximity
+### NFPA 1970 — Sección Proximity
 
-La norma base para trajes ARFF en México, igual que para el traje estructural, es **NFPA 1971**. La edición vigente incluye una sección específica para *proximity protective clothing* que establece requisitos adicionales a los del traje estructural:
+La norma base para trajes ARFF en México, igual que para el traje estructural, es **NFPA 1970**. La edición vigente incluye una sección específica para *proximity protective clothing* que establece requisitos adicionales a los del traje estructural:
 
 - **Calor radiante**: el sistema debe resistir calor radiante durante tiempo definido sin que la temperatura interior supere 70°C
 - **Reflexión de calor radiante**: la capa exterior debe tener coeficiente de reflexión mínimo establecido en norma
@@ -106,7 +106,7 @@ La norma base para trajes ARFF en México, igual que para el traje estructural, 
 
 ### FAA Advisory Circular 150/5210-14
 
-Para aeropuertos civiles con certificación FAA Part 139 (que incluye todos los aeropuertos internacionales comerciales de México en la red de la FAA), este Advisory Circular especifica los requisitos de equipo ARFF, incluyendo el EPP personal. No sustituye a NFPA 1971 como norma de producto, sino que referencia NFPA y establece los requisitos de dotación mínima.
+Para aeropuertos civiles con certificación FAA Part 139 (que incluye todos los aeropuertos internacionales comerciales de México en la red de la FAA), este Advisory Circular especifica los requisitos de equipo ARFF, incluyendo el EPP personal. No sustituye a NFPA 1970 como norma de producto, sino que referencia NFPA y establece los requisitos de dotación mínima.
 
 ### ICAO Annex 14 y Doc 9137
 
@@ -116,7 +116,7 @@ La AFAC (Agencia Federal de Aviación Civil de México) aplica los estándares I
 
 ## Comparativa: traje estructural vs. traje de proximidad ARFF
 
-| Parámetro | Traje Estructural NFPA 1971 | Traje ARFF de Proximidad |
+| Parámetro | Traje Estructural NFPA 1970 | Traje ARFF de Proximidad |
 |---|---|---|
 | **Capa exterior** | Aramida (Nomex/PBI/Kevlar) | Tejido aluminizado sobre aramida |
 | **Protección principal** | Conducción + convección | Conducción + convección + calor radiante |
@@ -124,7 +124,7 @@ La AFAC (Agencia Federal de Aviación Civil de México) aplica los estándares I
 | **Movilidad** | Alta | Media-alta (algo mayor peso y rigidez) |
 | **Entornos primarios** | Incendios estructurales, rescate urbano | Incendios de aeronave, pool fires de combustible |
 | **Costo relativo** | Base de referencia | 40-80% superior al estructural equivalente |
-| **Mantenimiento** | NFPA 1851 | NFPA 1851 + cuidados específicos de capa aluminizada |
+| **Mantenimiento** | NFPA 1850 | NFPA 1850 + cuidados específicos de capa aluminizada |
 
 ## Cuidados específicos de la capa aluminizada
 
@@ -146,11 +146,11 @@ La capa aluminizada es el componente más delicado del traje ARFF desde el punto
 
 ## Brigadas aeroportuarias en México: la realidad del equipamiento
 
-Hay algo que vale la pena mencionar porque lo vemos con cierta frecuencia: brigadas aeroportuarias con trajes que en su etiqueta dicen cumplir NFPA 1971 pero que son, en realidad, trajes estructurales estándar a los que se añadió un cubrebotas y una capucha aluminizados como accesorios.
+Hay algo que vale la pena mencionar porque lo vemos con cierta frecuencia: brigadas aeroportuarias con trajes que en su etiqueta dicen cumplir NFPA 1970 pero que son, en realidad, trajes estructurales estándar a los que se añadió un cubrebotas y una capucha aluminizados como accesorios.
 
 Eso no es un traje de proximidad. El sistema de protección contra calor radiante de un traje ARFF está integrado en el chaquetón y el pantalón desde la fabricación —la capa exterior del conjunto completo es aluminizada, no solo los accesorios. Un traje estructural con accesorios aluminizados ofrece protección parcial e inconsistente.
 
-La forma de verificar que el traje cumple los requisitos ARFF de proximidad es revisar el etiquetado específico: debe indicar cumplimiento con el capítulo de *proximity protective clothing* de NFPA 1971, no solo con el capítulo estructural. Son evaluaciones y ensayos de laboratorio distintos.
+La forma de verificar que el traje cumple los requisitos ARFF de proximidad es revisar el etiquetado específico: debe indicar cumplimiento con el capítulo de *proximity protective clothing* de NFPA 1970, no solo con el capítulo estructural. Son evaluaciones y ensayos de laboratorio distintos.
 
 Cuando recibimos una solicitud de equipamiento ARFF en BOMBERO.MX, lo primero que preguntamos es la categoría aeroportuaria de la instalación y el marco regulatorio bajo el que opera. Eso define cuál es el nivel de protección requerido antes de hablar de modelos o precios.
 
@@ -166,7 +166,7 @@ No. La capa aluminizada no es una propiedad que se puede restaurar una vez compr
 
 ### ¿Qué vigencia tiene la certificación NFPA de un traje ARFF?
 
-El mismo criterio que el traje estructural: **10 años desde la fecha de fabricación**, bajo programa de inspección y mantenimiento conforme a NFPA 1851. El criterio de 10 años no se extiende porque el traje sea de mayor valor o porque esté en operación aeroportuaria de baja frecuencia.
+El mismo criterio que el traje estructural: **10 años desde la fecha de fabricación**, bajo programa de inspección y mantenimiento conforme a NFPA 1850. El criterio de 10 años no se extiende porque el traje sea de mayor valor o porque esté en operación aeroportuaria de baja frecuencia.
 
 ### ¿Qué pasa con el mantenimiento si no hay servicio ARFF certificado cerca?
 
@@ -180,6 +180,6 @@ El traje ARFF existe porque el traje estructural no alcanza para ese entorno. No
 
 Si tu brigada opera en o para instalaciones aeroportuarias, o si tu instalación industrial maneja combustibles de aviación o procesos de riesgo equivalente, [habla con nosotros](/cotizar/) sobre la evaluación de tu situación específica. La selección correcta del traje empieza por entender el escenario de riesgo.
 
-Puedes complementar esta guía con el [artículo sobre NFPA 1851 y gestión del ciclo de vida del traje](/blog/nfpa-1851-inspeccion-retiro-traje-bombero/) y la [comparativa de marcas de trajes para bombero](/blog/marcas-trajes-bombero-globe-lion-msa-comparativa/) donde analizamos los fabricantes con líneas ARFF disponibles en México.
+Puedes complementar esta guía con el [artículo sobre NFPA 1850 y gestión del ciclo de vida del traje](/blog/nfpa-1851-inspeccion-retiro-traje-bombero/) y la [comparativa de marcas de trajes para bombero](/blog/marcas-trajes-bombero-globe-lion-msa-comparativa/) donde analizamos los fabricantes con líneas ARFF disponibles en México.
 `,
 };

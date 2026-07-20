@@ -21,7 +21,7 @@ const PRODUCTOS = {
   trajEstructural: {
     nombre: "Trajes Estructurales",
     href: "/productos/trajes-para-bomberos/",
-    desc: "Trajes NFPA 1971 para bomberos",
+    desc: "Trajes NFPA 1970 para bomberos",
   },
   cascos: {
     nombre: "Cascos de Bombero",
@@ -56,17 +56,17 @@ const PRODUCTOS = {
   guantes: {
     nombre: "Guantes para Bombero",
     href: "/productos/guantes-para-bomberos/",
-    desc: "Guantes estructurales NFPA 1971",
+    desc: "Guantes estructurales NFPA 1970",
   },
   botas: {
     nombre: "Botas para Bombero",
     href: "/productos/botas-para-bomberos/",
-    desc: "Botas certificadas NFPA 1971",
+    desc: "Botas certificadas NFPA 1970",
   },
   forestales: {
     nombre: "Equipos Forestales",
     href: "/productos/forestales/",
-    desc: "Equipo NFPA 1977 para incendios forestales",
+    desc: "Equipo NFPA 1950 para incendios forestales",
   },
   rescateAcuatico: {
     nombre: "Rescate Acuático",

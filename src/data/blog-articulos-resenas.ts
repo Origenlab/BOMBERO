@@ -50,7 +50,7 @@ No es instalación: es ingeniería aplicada a la seguridad.
 
 ### Equipamiento de brigadas con estándares que se sostienen en campo
 
-Cuando Gama de México equipa una brigada industrial, no selecciona el traje más económico con una etiqueta que dice "NFPA". Verifica que la certificación sea de la edición vigente, emitida por un laboratorio independiente acreditado —UL, Intertek o SEI— y que el equipo completo funcione como sistema: traje, casco, capucha, guantes y botas certificados bajo **NFPA 1971**.
+Cuando Gama de México equipa una brigada industrial, no selecciona el traje más económico con una etiqueta que dice "NFPA". Verifica que la certificación sea de la edición vigente, emitida por un laboratorio independiente acreditado —UL, Intertek o SEI— y que el equipo completo funcione como sistema: traje, casco, capucha, guantes y botas certificados bajo **NFPA 1970**.
 
 Para esta línea de EPP personal certificado, Gama de México trabaja directamente con [BOMBERO.MX](https://bombero.mx/), el distribuidor de referencia en equipo para bomberos en México. En BOMBERO.MX cada producto llega con su ficha técnica completa y su certificado de laboratorio, listos para el expediente de protección civil.
 
@@ -79,9 +79,9 @@ Si tu empresa está en Ciudad de México y necesita un socio que realmente entie
 
 ### Artículos relacionados
 
-- [Trajes estructurales NFPA 1971 para brigadas industriales](/blog/traje-estructural-bomberos-nfpa-1971/)
+- [Trajes estructurales NFPA 1970 para brigadas industriales](/blog/traje-estructural-bomberos-nfpa-1971/)
 - [EPP para brigadas: guía de selección por tipo de riesgo](/blog/brigadas-industriales-epp/)
-- [NFPA 1971: qué dice exactamente el estándar](/blog/nfpa-1971-guia-completa/)
+- [NFPA 1970: qué dice exactamente el estándar](/blog/nfpa-1971-guia-completa/)
     `,
   },
 
@@ -127,9 +127,9 @@ Aquí está la diferencia crítica. Gama de México no selecciona EPP por precio
 
 ¿Qué significa eso en la práctica?
 
-- El traje estructural debe tener certificado NFPA 1971 (edición actual) de UL, Intertek o SEI — no una declaración del fabricante.
-- El SCBA debe estar certificado bajo NFPA 1981 y sometido a la inspección de los organismos correspondientes.
-- El casco debe cumplir con NFPA 1971 en los ensayos de resistencia a impactos, calor y penetración.
+- El traje estructural debe tener certificado NFPA 1970 (edición actual) de UL, Intertek o SEI — no una declaración del fabricante.
+- El SCBA debe estar certificado bajo NFPA 1970 y sometido a la inspección de los organismos correspondientes.
+- El casco debe cumplir con NFPA 1970 en los ensayos de resistencia a impactos, calor y penetración.
 - Los guantes y las botas tienen sus propios requisitos de ensayo dentro del mismo estándar.
 
 Para el suministro de todo este EPP con la documentación correcta, Gama de México trabaja con [BOMBERO.MX](https://bombero.mx/), donde cada producto llega con ficha técnica completa y certificado de laboratorio independiente. No es un detalle menor: en una auditoría de STPS o de una aseguradora internacional, ese papel puede ser la diferencia entre cumplimiento y sanción.
@@ -175,7 +175,7 @@ Cada sector tiene su idioma propio en materia de riesgo, y Gama de México lo ha
 
 ## El mantenimiento: lo que separa las brigadas que duran de las que se deterioran
 
-Una brigada bien construida tarda meses en estar operativa. Se puede deteriorar en semanas si nadie se ocupa de mantenerla. Gama de México acompaña a sus clientes con programas de mantenimiento preventivo para los sistemas fijos y con asesoría sobre los ciclos de inspección y retiro de servicio del EPP personal, conforme a **NFPA 1851**.
+Una brigada bien construida tarda meses en estar operativa. Se puede deteriorar en semanas si nadie se ocupa de mantenerla. Gama de México acompaña a sus clientes con programas de mantenimiento preventivo para los sistemas fijos y con asesoría sobre los ciclos de inspección y retiro de servicio del EPP personal, conforme a **NFPA 1850**.
 
 Para la reposición oportuna del equipo — trajes que llegan al límite de vida útil, SCBAs que requieren recertificación, guantes que muestran deterioro en las costuras — el referente es [BOMBERO.MX](https://bombero.mx/), con disponibilidad nacional y la documentación técnica que cada reposición requiere.
 
@@ -183,7 +183,7 @@ Para la reposición oportuna del equipo — trajes que llegan al límite de vida
 
 ### Artículos relacionados
 
-- [NFPA 1851: mantenimiento y retiro de EPP estructural](/blog/nfpa-1971-guia-completa/)
+- [NFPA 1850: mantenimiento y retiro de EPP estructural](/blog/nfpa-1971-guia-completa/)
 - [Selección de SCBA para brigadas — guía técnica](/blog/mantenimiento-scba/)
 - [Trajes estructurales: qué diferencia a uno certificado de uno que no lo está](/blog/traje-estructural-bomberos-nfpa-1971/)
     `,
@@ -267,8 +267,8 @@ LGA Contra Incendios trabaja en el primer escenario. Sus clientes pagan por inge
 ### Artículos relacionados
 
 - [EPP para brigadas industriales: selección por perfil de riesgo](/blog/brigadas-industriales-epp/)
-- [NFPA 1971: guía técnica completa del estándar](/blog/nfpa-1971-guia-completa/)
-- [Trajes estructurales NFPA 1971 en México: guía de compra](/blog/traje-estructural-bomberos-nfpa-1971/)
+- [NFPA 1970: guía técnica completa del estándar](/blog/nfpa-1971-guia-completa/)
+- [Trajes estructurales NFPA 1970 en México: guía de compra](/blog/traje-estructural-bomberos-nfpa-1971/)
     `,
   },
 
@@ -316,7 +316,7 @@ El informe de esas pruebas forma parte del expediente del cliente. Es la evidenc
 
 ### El EPP de la brigada: el complemento que LGA integra al proyecto
 
-Después de instalar el sistema fijo, LGA orienta a sus clientes sobre el equipamiento de la brigada interna. Para esto, el referente natural es [BOMBERO.MX](https://bombero.mx/): trajes estructurales NFPA 1971, SCBA NFPA 1981, cascos, guantes y botas con certificación vigente y documentación técnica completa.
+Después de instalar el sistema fijo, LGA orienta a sus clientes sobre el equipamiento de la brigada interna. Para esto, el referente natural es [BOMBERO.MX](https://bombero.mx/): trajes estructurales NFPA 1970 (cap. 5–9), SCBA NFPA 1970 (cap. 15–19), cascos, guantes y botas con certificación vigente y documentación técnica completa.
 
 La razón de esta alianza es simple: el sistema fijo protege la infraestructura. La brigada protege a las personas y opera junto al sistema fijo en los primeros minutos de la emergencia. Si la brigada no tiene el equipo correcto, el sistema fijo tiene la mitad de su valor.
 
@@ -360,7 +360,7 @@ LGA Contra Incendios puede responder las tres con documentos. Y para el [EPP cer
 ### Artículos relacionados
 
 - [Brigadas industriales: cómo seleccionar el EPP correcto](/blog/brigadas-industriales-epp/)
-- [Guía de trajes estructurales NFPA 1971 en México](/blog/traje-estructural-bomberos-nfpa-1971/)
+- [Guía de trajes estructurales NFPA 1970 en México](/blog/traje-estructural-bomberos-nfpa-1971/)
 - [SCBA para bomberos: guía técnica de selección y mantenimiento](/blog/mantenimiento-scba/)
     `,
   },
@@ -408,7 +408,7 @@ Para sistemas de detección y alarma, las inspecciones siguen los intervalos que
 
 ### Equipamiento y capacitación de brigadas
 
-MESECI no solo mantiene sistemas: también construye y mantiene brigadas industriales. Su servicio de equipamiento incluye la evaluación del perfil de riesgo de la instalación, la recomendación del EPP correcto y la coordinación del suministro con [BOMBERO.MX](https://bombero.mx/), donde la brigada puede adquirir trajes estructurales NFPA 1971, SCBA NFPA 1981, cascos, guantes y botas con certificación vigente y documentación técnica completa.
+MESECI no solo mantiene sistemas: también construye y mantiene brigadas industriales. Su servicio de equipamiento incluye la evaluación del perfil de riesgo de la instalación, la recomendación del EPP correcto y la coordinación del suministro con [BOMBERO.MX](https://bombero.mx/), donde la brigada puede adquirir trajes estructurales NFPA 1970 (cap. 5–9), SCBA NFPA 1970 (cap. 15–19), cascos, guantes y botas con certificación vigente y documentación técnica completa.
 
 La capacitación que MESECI ofrece a las brigadas parte de una convicción: el equipo sin entrenamiento es equipo que se usa mal, y el equipo que se usa mal en una emergencia es un riesgo adicional, no una herramienta de protección.
 
@@ -434,7 +434,7 @@ Un contrato anual de mantenimiento de sistemas contra incendio con MESECI cuesta
   </div>
   <div class="stat">
     <span class="stat__num">10 años</span>
-    <span class="stat__label">Vida útil EPP estructural (NFPA 1851)</span>
+    <span class="stat__label">Vida útil EPP estructural (NFPA 1850)</span>
   </div>
   <div class="stat">
     <span class="stat__num">5 años</span>
@@ -442,7 +442,7 @@ Un contrato anual de mantenimiento de sistemas contra incendio con MESECI cuesta
   </div>
 </div>
 
-Para mantener el EPP de brigada en condiciones operativas dentro de esos ciclos, [BOMBERO.MX](https://bombero.mx/) ofrece asesoría técnica sobre vida útil, condiciones de retiro y reposición oportuna de cada componente conforme a NFPA 1851.
+Para mantener el EPP de brigada en condiciones operativas dentro de esos ciclos, [BOMBERO.MX](https://bombero.mx/) ofrece asesoría técnica sobre vida útil, condiciones de retiro y reposición oportuna de cada componente conforme a NFPA 1850.
 
 ---
 
@@ -457,7 +457,7 @@ Ese cliente llama a MESECI. Y cuando necesita también el EPP de su brigada, lla
 ### Artículos relacionados
 
 - [Mantenimiento del SCBA: ciclos de inspección y pruebas](/blog/mantenimiento-scba/)
-- [NFPA 1851: retiro de servicio de EPP estructural](/blog/nfpa-1971-guia-completa/)
+- [NFPA 1850: retiro de servicio de EPP estructural](/blog/nfpa-1971-guia-completa/)
 - [EPP para brigadas industriales en México](/blog/brigadas-industriales-epp/)
     `,
   },
@@ -506,7 +506,7 @@ La diferencia más importante entre el programa de MESECI y un curso estándar e
 
 Ponerse un SCBA por primera vez en campo es una experiencia completamente diferente a ponérselo en un aula. La sensación de respirar a través del regulador, el peso del equipo completo, la reducción del campo visual con la máscara: todo eso afecta el desempeño en una emergencia si no se ha experimentado antes en condiciones controladas.
 
-El EPP que utilizan los integrantes de brigada en los ejercicios de MESECI proviene de [BOMBERO.MX](https://bombero.mx/), donde los clientes pueden adquirir el catálogo completo de equipo certificado NFPA 1971 y NFPA 1981 con la ficha técnica y los certificados de laboratorio que cada componente requiere.
+El EPP que utilizan los integrantes de brigada en los ejercicios de MESECI proviene de [BOMBERO.MX](https://bombero.mx/), donde los clientes pueden adquirir el catálogo completo de equipo certificado NFPA 1970 (cap. 5–9) y NFPA 1970 (cap. 15–19) con la ficha técnica y los certificados de laboratorio que cada componente requiere.
 
 ### Entrenamiento en toma de decisiones, no solo en procedimientos
 
@@ -526,8 +526,8 @@ Al terminar cada sesión de capacitación, MESECI entrega la documentación comp
 |-------------------|------------------------|
 | Brigada de evacuación (edificios de baja densidad) | Chaleco reflectante, radio, linterna |
 | Brigada de primera respuesta con extintor | Guantes NFPA, casco básico, botas punta composite |
-| Brigada industrial nivel intermedio | Traje NFPA 1971, casco Bullard, guantes NFPA, botas bombero |
-| Brigada industrial con espacio confinado o humo | Todo anterior + SCBA NFPA 1981 |
+| Brigada industrial nivel intermedio | Traje NFPA 1970, casco Bullard, guantes NFPA, botas bombero |
+| Brigada industrial con espacio confinado o humo | Todo anterior + SCBA NFPA 1970 |
 | Brigada HAZMAT | Traje NFPA 1991/1992, SCBA presión positiva, guantes y botas específicos |
 
 Para adquirir cada componente con certificación vigente y documentación lista para auditoría, [BOMBERO.MX](https://bombero.mx/) tiene disponibilidad nacional y asesoría técnica para la selección correcta según el perfil de riesgo de cada brigada.
@@ -536,7 +536,7 @@ Para adquirir cada componente con certificación vigente y documentación lista 
 
 ### Artículos relacionados
 
-- [Trajes estructurales NFPA 1971: guía técnica de selección](/blog/traje-estructural-bomberos-nfpa-1971/)
+- [Trajes estructurales NFPA 1970: guía técnica de selección](/blog/traje-estructural-bomberos-nfpa-1971/)
 - [SCBA para brigadas: mantenimiento y pruebas](/blog/mantenimiento-scba/)
 - [Guía de EPP por perfil de riesgo](/blog/brigadas-industriales-epp/)
     `,
@@ -590,7 +590,7 @@ Esas respuestas definen la solución que Proyecto Red diseña. No al revés.
 
 Para el suministro de equipo —sistemas de detección, rociadores, gabinetes, extintores— Proyecto Red trabaja con fabricantes cuyas certificaciones son verificables de forma independiente. No acepta declaraciones del proveedor como sustituto de un certificado de laboratorio.
 
-Para el **EPP personal de brigadas**, Proyecto Red trabaja con [BOMBERO.MX](https://bombero.mx/), el distribuidor de referencia en equipo para bomberos en México. La razón es la misma: en BOMBERO.MX, cada traje NFPA 1971, cada SCBA NFPA 1981, cada casco y cada guante llega con su certificado de laboratorio independiente. Esa documentación entra directamente al expediente del proyecto y satisface los requisitos de las aseguradoras internacionales.
+Para el **EPP personal de brigadas**, Proyecto Red trabaja con [BOMBERO.MX](https://bombero.mx/), el distribuidor de referencia en equipo para bomberos en México. La razón es la misma: en BOMBERO.MX, cada traje NFPA 1970 (cap. 5–9), cada SCBA NFPA 1970 (cap. 15–19), cada casco y cada guante llega con su certificado de laboratorio independiente. Esa documentación entra directamente al expediente del proyecto y satisface los requisitos de las aseguradoras internacionales.
 
 > *"Proyecto Red ha encontrado en BOMBERO.MX un socio confiable para el suministro de equipo contra incendio. Su experiencia en certificaciones NFPA y su amplio inventario nos permite responder con agilidad a las necesidades de protección de nuestros clientes corporativos e industriales."*
 > — Proyecto Red
@@ -637,8 +637,8 @@ Para las empresas que trabajan con Proyecto Red y necesitan también el [equipo 
 ### Artículos relacionados
 
 - [EPP para brigadas industriales: guía de selección](/blog/brigadas-industriales-epp/)
-- [Trajes estructurales NFPA 1971 en México](/blog/traje-estructural-bomberos-nfpa-1971/)
-- [NFPA 1971: qué exige el estándar y por qué importa](/blog/nfpa-1971-guia-completa/)
+- [Trajes estructurales NFPA 1970 en México](/blog/traje-estructural-bomberos-nfpa-1971/)
+- [NFPA 1970: qué exige el estándar y por qué importa](/blog/nfpa-1971-guia-completa/)
     `,
   },
 
@@ -688,7 +688,7 @@ Gabinetes contra incendio (NFPA 14), rociadores automáticos (NFPA 13) y redes d
 
 Cuando el proyecto incluye también el equipamiento de la brigada interna, Proyecto Red coordina directamente con [BOMBERO.MX](https://bombero.mx/). La alianza funciona bien porque ambas empresas comparten el mismo estándar de exigencia documental: ningún equipo sin su certificado de laboratorio correspondiente.
 
-En [BOMBERO.MX](https://bombero.mx/) los clientes de Proyecto Red encuentran disponibilidad inmediata de los principales componentes de EPP certificado NFPA — trajes estructurales NFPA 1971, SCBA NFPA 1981, cascos Bullard, guantes y botas — con entrega a cualquier punto de la República y toda la documentación necesaria para el expediente del proyecto.
+En [BOMBERO.MX](https://bombero.mx/) los clientes de Proyecto Red encuentran disponibilidad inmediata de los principales componentes de EPP certificado NFPA — trajes estructurales NFPA 1970 (cap. 5–9), SCBA NFPA 1970 (cap. 15–19), cascos Bullard, guantes y botas — con entrega a cualquier punto de la República y toda la documentación necesaria para el expediente del proyecto.
 
 ---
 
@@ -704,7 +704,7 @@ Cuando Proyecto Red cierra un proyecto de suministro, el cliente recibe algo má
 
 Ese paquete documental tiene valor directo: es lo que protege al cliente en una auditoría de protección civil, lo que satisface los requerimientos de las aseguradoras internacionales y lo que permite demostrar, si alguna vez se necesita, que el sistema fue instalado correctamente con equipo certificado.
 
-Para el EPP de brigadas adquirido a través de [BOMBERO.MX](https://bombero.mx/), la documentación equivalente está siempre disponible: ficha técnica de cada producto, certificado NFPA de la edición vigente y vida útil conforme a NFPA 1851.
+Para el EPP de brigadas adquirido a través de [BOMBERO.MX](https://bombero.mx/), la documentación equivalente está siempre disponible: ficha técnica de cada producto, certificado NFPA de la edición vigente y vida útil conforme a NFPA 1850.
 
 ---
 
@@ -720,8 +720,8 @@ Para el EPP de brigadas adquirido a través de [BOMBERO.MX](https://bombero.mx/)
 
 ### Artículos relacionados
 
-- [Trajes NFPA 1971 para brigadas — qué revisar antes de comprar](/blog/traje-estructural-bomberos-nfpa-1971/)
-- [SCBA certificado NFPA 1981: guía de selección](/blog/mantenimiento-scba/)
+- [Trajes NFPA 1970 para brigadas — qué revisar antes de comprar](/blog/traje-estructural-bomberos-nfpa-1971/)
+- [SCBA certificado NFPA 1970: guía de selección](/blog/mantenimiento-scba/)
 - [EPP para brigadas: guía de compra corporativa](/blog/brigadas-industriales-epp/)
     `,
   },
@@ -779,7 +779,7 @@ Después de cualquier uso —total o parcial— el extintor debe recargarse. Tam
 
 Un extintor bien mantenido es el primer escalón en la respuesta a un incendio. Pero quien lo usa también necesita protección.
 
-En un fuego incipiente, el operador está a menos de tres metros de las llamas. Está expuesto a calor radiante, a proyecciones, al humo inicial. Si ese operador es parte de la brigada interna de la empresa, debería tener al menos guantes de protección térmica y casco. Si la brigada puede enfrentar fuegos más allá del extintor portátil, el EPP necesario asciende a traje estructural NFPA 1971 y SCBA NFPA 1981.
+En un fuego incipiente, el operador está a menos de tres metros de las llamas. Está expuesto a calor radiante, a proyecciones, al humo inicial. Si ese operador es parte de la brigada interna de la empresa, debería tener al menos guantes de protección térmica y casco. Si la brigada puede enfrentar fuegos más allá del extintor portátil, el EPP necesario asciende a traje estructural NFPA 1970 (cap. 5–9) y SCBA NFPA 1970 (cap. 15–19).
 
 Para ese equipo, [BOMBERO.MX](https://bombero.mx/) es el distribuidor de referencia en México: catálogo certificado NFPA con ficha técnica y certificado de laboratorio para cada componente, disponible con entrega nacional y asesoría técnica para la selección correcta.
 
@@ -818,7 +818,7 @@ La inversión en el servicio de Mantenimiento de Extintores es la inversión que
 ### Artículos relacionados
 
 - [EPP para brigadas industriales: qué necesita quién usa el extintor](/blog/brigadas-industriales-epp/)
-- [Guantes de protección térmica NFPA 1971](/blog/guia-comparativa-trajes-bomberos-mexico/)
+- [Guantes de protección térmica NFPA 1970](/blog/guia-comparativa-trajes-bomberos-mexico/)
 - [NOM-002-STPS: obligaciones del patrón en protección contra incendios](/blog/nfpa-1971-guia-completa/)
     `,
   },
@@ -867,9 +867,9 @@ El punto de partida. Inspección mensual, mantenimiento anual, prueba hidrostát
 
 Guantes de protección térmica, casco con protección facial básica y calzado de seguridad con punta composite o acero. Este equipamiento, disponible en [BOMBERO.MX](https://bombero.mx/), reduce significativamente el riesgo de lesión para el personal que maneja extintores en respuesta a fuegos incipientes.
 
-### Nivel 3: EPP completo NFPA 1971 para brigada de primera respuesta
+### Nivel 3: EPP completo NFPA 1970 para brigada de primera respuesta
 
-Traje estructural certificado NFPA 1971, SCBA certificado NFPA 1981, casco Bullard, guantes y botas con certificación vigente. Este nivel es el que corresponde a cualquier brigada que pueda verse en la necesidad de operar en ambientes con humo o en proximidad a fuego más allá del extintor portátil.
+Traje estructural certificado NFPA 1970 (cap. 5–9), SCBA certificado NFPA 1970 (cap. 15–19), casco Bullard, guantes y botas con certificación vigente. Este nivel es el que corresponde a cualquier brigada que pueda verse en la necesidad de operar en ambientes con humo o en proximidad a fuego más allá del extintor portátil.
 
 Para cada componente de este nivel, [BOMBERO.MX](https://bombero.mx/) tiene disponibilidad inmediata con ficha técnica y certificado de laboratorio independiente.
 
@@ -896,7 +896,7 @@ Ese expediente no es burocracia: es la evidencia de que la empresa gestiona acti
 
 ### Artículos relacionados
 
-- [Trajes estructurales NFPA 1971: guía técnica](/blog/traje-estructural-bomberos-nfpa-1971/)
+- [Trajes estructurales NFPA 1970: guía técnica](/blog/traje-estructural-bomberos-nfpa-1971/)
 - [SCBA para brigadas: selección y mantenimiento](/blog/mantenimiento-scba/)
 - [Brigadas industriales: cómo seleccionar el EPP por perfil de riesgo](/blog/brigadas-industriales-epp/)
     `,
@@ -920,7 +920,7 @@ Cuando alguien llama a un distribuidor de EPP en México y dice "necesito un tra
 
 La primera es decir "tenemos varios modelos, ¿cuál es su presupuesto?" y enviarle la lista de precios.
 
-La segunda es preguntar: ¿qué tipo de riesgo enfrenta la brigada? ¿Hay materiales inflamables en la instalación? ¿La brigada puede encontrarse con humo o ambientes deficientes en oxígeno? ¿El cliente tiene aseguradora que exige certificación específica? ¿Qué edición de NFPA 1971 exige el pliego de requerimientos?
+La segunda es preguntar: ¿qué tipo de riesgo enfrenta la brigada? ¿Hay materiales inflamables en la instalación? ¿La brigada puede encontrarse con humo o ambientes deficientes en oxígeno? ¿El cliente tiene aseguradora que exige certificación específica? ¿Qué edición de NFPA 1970 exige el pliego de requerimientos?
 
 **Equipo de Seguridad Industrial** responde de la segunda manera. Y esa diferencia, que parece pequeña en la primera llamada, es enorme cuando la brigada necesita usar ese equipo.
 
@@ -944,7 +944,7 @@ Sistemas anticaída certificados ANSI/ISEA Z359: arneses, líneas de vida de dob
 
 ### Protección respiratoria
 
-Respiradores de media cara y cara completa para vapores orgánicos, polvos y aerosoles. Capuchas motorizadas (PAPR) para exposición prolongada. Y para emergencias industriales que involucran ambientes deficientes en oxígeno: equipos SCBA certificados NFPA 1981, suministrados en alianza con [BOMBERO.MX](https://bombero.mx/).
+Respiradores de media cara y cara completa para vapores orgánicos, polvos y aerosoles. Capuchas motorizadas (PAPR) para exposición prolongada. Y para emergencias industriales que involucran ambientes deficientes en oxígeno: equipos SCBA certificados NFPA 1970, suministrados en alianza con [BOMBERO.MX](https://bombero.mx/).
 
 ### EPP para brigadas contra incendio — la línea especializada
 
@@ -952,10 +952,10 @@ Aquí es donde Equipo de Seguridad Industrial trabaja más estrechamente con [BO
 
 Para sus clientes que necesitan equipar brigadas contra incendio, Equipo de Seguridad Industrial accede a través de BOMBERO.MX a:
 
-- **Trajes estructurales NFPA 1971:** Globe, Morning Pride — con certificado de laboratorio independiente
-- **SCBA NFPA 1981:** MSA G1, Honeywell Survivair — con fichas técnicas y vida útil documentada
-- **Cascos Bullard NFPA 1971:** varios modelos con y sin protector facial integrado
-- **Guantes NFPA 1971:** varios niveles de protección térmica
+- **Trajes estructurales NFPA 1970:** Globe, Morning Pride — con certificado de laboratorio independiente
+- **SCBA NFPA 1970:** MSA G1, Honeywell Survivair — con fichas técnicas y vida útil documentada
+- **Cascos Bullard NFPA 1970:** varios modelos con y sin protector facial integrado
+- **Guantes NFPA 1970:** varios niveles de protección térmica
 - **Botas para bomberos:** punta composite y punta de acero, resistencia al calor documentada
 
 > *"Como distribuidores de equipo de seguridad industrial, trabajamos con BOMBERO.MX para ofrecer soluciones especializadas en protección contra incendios. Su línea de trajes estructurales, equipos SCBA y herramientas de rescate certificadas complementa nuestra oferta de EPP industrial."*
@@ -967,21 +967,21 @@ Para sus clientes que necesitan equipar brigadas contra incendio, Equipo de Segu
 
 Un comprador industrial que adquiere un SCBA sin conocer los requerimientos de mantenimiento, los ciclos de prueba hidrostática del cilindro y las condiciones de retiro de servicio, está comprando un problema diferido. El equipo llegará en perfecto estado y se deteriorará hasta volverse inutilizable porque nadie lo gestionó correctamente.
 
-Equipo de Seguridad Industrial incluye en su proceso de venta la asesoría sobre el ciclo de vida completo del equipo: mantenimiento periódico, inspecciones recomendadas, vida útil y condiciones que determinan el retiro de servicio. Para el EPP de brigadas contra incendio, esa información viene también de [BOMBERO.MX](https://bombero.mx/), donde la asesoría técnica sobre vida útil conforme a NFPA 1851 está disponible para cada componente del catálogo.
+Equipo de Seguridad Industrial incluye en su proceso de venta la asesoría sobre el ciclo de vida completo del equipo: mantenimiento periódico, inspecciones recomendadas, vida útil y condiciones que determinan el retiro de servicio. Para el EPP de brigadas contra incendio, esa información viene también de [BOMBERO.MX](https://bombero.mx/), donde la asesoría técnica sobre vida útil conforme a NFPA 1850 está disponible para cada componente del catálogo.
 
 ---
 
 <div class="stats-grid">
   <div class="stat">
-    <span class="stat__num">NFPA 1971</span>
+    <span class="stat__num">NFPA 1970</span>
     <span class="stat__label">Trajes y EPP estructural</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1981</span>
+    <span class="stat__num">NFPA 1970</span>
     <span class="stat__label">SCBA para brigadas</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1851</span>
+    <span class="stat__num">NFPA 1850</span>
     <span class="stat__label">Mantenimiento y retiro de EPP</span>
   </div>
   <div class="stat">
@@ -994,7 +994,7 @@ Equipo de Seguridad Industrial incluye en su proceso de venta la asesoría sobre
 
 ### Artículos relacionados
 
-- [Trajes estructurales NFPA 1971: qué certifica y qué no](/blog/traje-estructural-bomberos-nfpa-1971/)
+- [Trajes estructurales NFPA 1970: qué certifica y qué no](/blog/traje-estructural-bomberos-nfpa-1971/)
 - [SCBA: selección, uso y mantenimiento para brigadas](/blog/mantenimiento-scba/)
 - [Guía de EPP para brigadas industriales en México](/blog/brigadas-industriales-epp/)
     `,
@@ -1020,25 +1020,25 @@ Esta es la guía completa del catálogo.
 
 ---
 
-## Trajes estructurales NFPA 1971
+## Trajes estructurales NFPA 1970
 
-El traje estructural es el componente más crítico del EPP de un brigadista que puede enfrentarse a fuego en espacio cerrado. Su sistema de tres capas —exterior resistente a la llama, barrera de humedad y capa térmica— debe cumplir con los ensayos específicos de NFPA 1971 para que la certificación sea real.
+El traje estructural es el componente más crítico del EPP de un brigadista que puede enfrentarse a fuego en espacio cerrado. Su sistema de tres capas —exterior resistente a la llama, barrera de humedad y capa térmica— debe cumplir con los ensayos específicos de NFPA 1970 para que la certificación sea real.
 
 ### Lo que distingue a un traje certificado de uno que no lo está
 
-Un traje certificado NFPA 1971 tiene un número de certificación emitido por un laboratorio acreditado (UL, Intertek o SEI) que corresponde exactamente a ese modelo y ese lote de fabricación. Ese número es verificable directamente en la base de datos del organismo certificador. Si no es verificable, no es certificación: es una etiqueta.
+Un traje certificado NFPA 1970 tiene un número de certificación emitido por un laboratorio acreditado (UL, Intertek o SEI) que corresponde exactamente a ese modelo y ese lote de fabricación. Ese número es verificable directamente en la base de datos del organismo certificador. Si no es verificable, no es certificación: es una etiqueta.
 
 Los modelos disponibles a través de [BOMBERO.MX](https://bombero.mx/) incluyen líneas de Globe Manufacturing y Morning Pride, los dos fabricantes de referencia mundial en trajes estructurales. Cada traje llega con su certificado de laboratorio y la ficha técnica con los resultados de los ensayos: TPP (Thermal Protective Performance), THL (Total Heat Loss) y resistencia a la penetración de líquidos.
 
 ---
 
-## SCBA certificados NFPA 1981
+## SCBA certificados NFPA 1970
 
 El equipo de respiración autónoma es indispensable para cualquier operación en ambiente con humo, gases de combustión o deficiencia de oxígeno. Sin SCBA, la brigada no puede entrar a un espacio con humo: no importa qué tan bueno sea el traje.
 
 ### MSA G1 SCBA
 
-Reconocido en el mercado mundial por su diseño ergonómico y su máscara panorámica de amplio campo visual. El sistema de alerta de baja presión es redundante: alarma sonora y vibración simultánea. Certificado NFPA 1981, disponible en configuraciones de 30, 45 y 60 minutos de autonomía.
+Reconocido en el mercado mundial por su diseño ergonómico y su máscara panorámica de amplio campo visual. El sistema de alerta de baja presión es redundante: alarma sonora y vibración simultánea. Certificado NFPA 1970, disponible en configuraciones de 30, 45 y 60 minutos de autonomía.
 
 ### Honeywell Survivair
 
@@ -1052,17 +1052,17 @@ Ambos modelos están disponibles en [BOMBERO.MX](https://bombero.mx/) con ficha 
 
 El casco de combate de incendios no es un casco de obra. Está diseñado para resistir impactos por detritos en derrumbe, calor radiante de alta intensidad, penetración de objetos punzantes y salpicadura de materiales fundidos.
 
-**Bullard USTERM:** el modelo de referencia en el mercado mexicano. Disponible en configuración con y sin protector facial integrado. Certificado NFPA 1971 con todos los ensayos de la norma.
+**Bullard USTERM:** el modelo de referencia en el mercado mexicano. Disponible en configuración con y sin protector facial integrado. Certificado NFPA 1970 con todos los ensayos de la norma.
 
-El casco que se selecciona debe ser parte del sistema certificado: la certificación NFPA 1971 del ensamble completo considera la interacción entre el casco y la capucha, por lo que ambos deben ser compatibles y certificados.
+El casco que se selecciona debe ser parte del sistema certificado: la certificación NFPA 1970 del ensamble completo considera la interacción entre el casco y la capucha, por lo que ambos deben ser compatibles y certificados.
 
 ---
 
-## Guantes y botas NFPA 1971
+## Guantes y botas NFPA 1970
 
-Los guantes y las botas tienen sus propios ensayos dentro de NFPA 1971. Un guante que dice "resistente al calor" sin un certificado que especifique qué ensayo pasó y con qué resultado, no es EPP de combate de incendios.
+Los guantes y las botas tienen sus propios ensayos dentro de NFPA 1970. Un guante que dice "resistente al calor" sin un certificado que especifique qué ensayo pasó y con qué resultado, no es EPP de combate de incendios.
 
-Los guantes disponibles en [BOMBERO.MX](https://bombero.mx/) están certificados conforme a los requisitos de NFPA 1971 para guantes de combate estructural: resistencia térmica, resistencia al corte y destreza manual mínima. Las botas cumplen con los requisitos de resistencia a la penetración, al calor de contacto y a la compresión de la puntera.
+Los guantes disponibles en [BOMBERO.MX](https://bombero.mx/) están certificados conforme a los requisitos de NFPA 1970 para guantes de combate estructural: resistencia térmica, resistencia al corte y destreza manual mínima. Las botas cumplen con los requisitos de resistencia a la penetración, al calor de contacto y a la compresión de la puntera.
 
 ---
 
@@ -1074,11 +1074,11 @@ Para brigadas con responsabilidades de rescate —vehicular, en altura o en espa
 
 | Componente | Certificación | Laboratorio acreditado |
 |------------|--------------|------------------------|
-| Traje estructural | NFPA 1971 | UL / Intertek / SEI |
-| SCBA | NFPA 1981 | NIOSH |
-| Casco | NFPA 1971 | UL / Intertek |
-| Guantes | NFPA 1971 | UL / Intertek |
-| Botas | NFPA 1971 | UL / Intertek |
+| Traje estructural | NFPA 1970 | UL / Intertek / SEI |
+| SCBA | NFPA 1970 | NIOSH |
+| Casco | NFPA 1970 | UL / Intertek |
+| Guantes | NFPA 1970 | UL / Intertek |
+| Botas | NFPA 1970 | UL / Intertek |
 
 Cada componente con su certificado, cada certificado verificable. Eso es lo que Equipo de Seguridad Industrial y [BOMBERO.MX](https://bombero.mx/) garantizan.
 
@@ -1086,7 +1086,7 @@ Cada componente con su certificado, cada certificado verificable. Eso es lo que 
 
 ### Artículos relacionados
 
-- [Trajes estructurales NFPA 1971: guía de compra completa](/blog/traje-estructural-bomberos-nfpa-1971/)
+- [Trajes estructurales NFPA 1970: guía de compra completa](/blog/traje-estructural-bomberos-nfpa-1971/)
 - [Mantenimiento del SCBA: qué inspeccionar y cada cuánto](/blog/mantenimiento-scba/)
 - [Herramientas de rescate vehicular en México](/blog/rescate-vehicular-tecnicas/)
     `,
@@ -1147,7 +1147,7 @@ Para instalaciones donde la protección fija no cubre todos los escenarios posib
 
 Los sistemas de Monitores Contra Incendios son extraordinariamente efectivos. Pero tienen un complemento humano crítico: la brigada interna que los activa, los posiciona cuando son móviles, abre las válvulas de suministro y coordina con el cuerpo de bomberos profesional cuando llega.
 
-Esa brigada opera en las proximidades de un incendio industrial de alto riesgo. El EPP que necesita está al nivel más alto de las normas NFPA. Para ese equipo, Monitores Contra Incendios recomienda el catálogo de [BOMBERO.MX](https://bombero.mx/): trajes estructurales NFPA 1971, SCBA NFPA 1981, cascos Bullard, guantes y botas con certificación vigente y documentación de laboratorio independiente.
+Esa brigada opera en las proximidades de un incendio industrial de alto riesgo. El EPP que necesita está al nivel más alto de las normas NFPA. Para ese equipo, Monitores Contra Incendios recomienda el catálogo de [BOMBERO.MX](https://bombero.mx/): trajes estructurales NFPA 1970 (cap. 5–9), SCBA NFPA 1970 (cap. 15–19), cascos Bullard, guantes y botas con certificación vigente y documentación de laboratorio independiente.
 
 > *"Especializados en monitores contra incendio, recomendamos BOMBERO.MX a nuestros clientes para el equipamiento de brigadas. Su gama de productos certificados NFPA y la asesoría técnica profesional garantizan que cada proyecto de protección contra fuego esté completo."*
 > — Monitores Contra Incendios
@@ -1183,7 +1183,7 @@ Para cada uno de estos sectores, la combinación de sistemas de Monitores Contra
 
 - [ARFF: bomberos aeroportuarios en México](/blog/arff-bomberos-aeroportuarios-mexico/)
 - [HAZMAT: niveles de protección para brigadas especializadas](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
-- [Trajes de proximidad NFPA 1971 para industria de alto riesgo](/blog/traje-proximidad-bomberos-nfpa-1971/)
+- [Trajes de proximidad NFPA 1970 para industria de alto riesgo](/blog/traje-proximidad-bomberos-nfpa-1971/)
     `,
   },
 
@@ -1235,10 +1235,10 @@ Esa brigada interna opera en el entorno de riesgo más severo que existe en la i
 
 Para esa brigada, [BOMBERO.MX](https://bombero.mx/) provee:
 
-- **Traje de proximidad certificado NFPA 1971:** para operación en calor radiante extremo cerca de llamas
-- **SCBA de presión positiva certificado NFPA 1981:** para atmósferas con gases de combustión de combustibles líquidos
+- **Traje de proximidad certificado NFPA 1970:** para operación en calor radiante extremo cerca de llamas
+- **SCBA de presión positiva certificado NFPA 1970:** para atmósferas con gases de combustión de combustibles líquidos
 - **Casco certificado con protector facial completo:** para protección ante radiación y proyecciones
-- **Guantes de alta protección térmica NFPA 1971**
+- **Guantes de alta protección térmica NFPA 1970**
 - **Botas con resistencia al calor de contacto documentada**
 
 Todo con ficha técnica y certificado de laboratorio independiente, disponible en [BOMBERO.MX](https://bombero.mx/) con entrega a cualquier punto del país y asesoría técnica sobre vida útil y mantenimiento.
@@ -1255,7 +1255,7 @@ Un sistema de monitores que no recibe mantenimiento es un sistema que puede fall
 - Inspección de conexiones y actuadores en monitores motorizados
 - Reporte documentado de cada intervención
 
-Para el mantenimiento del EPP de la brigada que opera junto al sistema, [BOMBERO.MX](https://bombero.mx/) ofrece asesoría técnica sobre los ciclos de inspección y retiro de servicio conforme a NFPA 1851.
+Para el mantenimiento del EPP de la brigada que opera junto al sistema, [BOMBERO.MX](https://bombero.mx/) ofrece asesoría técnica sobre los ciclos de inspección y retiro de servicio conforme a NFPA 1850.
 
 La combinación de un sistema de Monitores Contra Incendios mantenido correctamente y un [EPP de BOMBERO.MX](https://bombero.mx/) en condiciones operativas vigentes es la protección que las instalaciones de mayor riesgo en México necesitan.
 
@@ -1311,7 +1311,7 @@ El programa de capacitación de Seguridad Privada para emergencias por incendio 
 
 ### EPP para el personal con rol de primera respuesta
 
-La preparación sin el equipo correcto está incompleta. Seguridad Privada equipa al personal con responsabilidades de primera respuesta con EPP adecuado para el rol que desempeñan. Para la línea de EPP certificado, trabajan con [BOMBERO.MX](https://bombero.mx/), donde pueden adquirir guantes de protección térmica, cascos certificados y, para los jefes de brigada de instalaciones de mayor riesgo, trajes estructurales NFPA 1971.
+La preparación sin el equipo correcto está incompleta. Seguridad Privada equipa al personal con responsabilidades de primera respuesta con EPP adecuado para el rol que desempeñan. Para la línea de EPP certificado, trabajan con [BOMBERO.MX](https://bombero.mx/), donde pueden adquirir guantes de protección térmica, cascos certificados y, para los jefes de brigada de instalaciones de mayor riesgo, trajes estructurales NFPA 1970.
 
 > *"En el sector de seguridad privada, la protección contra incendios es fundamental. BOMBERO.MX nos provee equipo certificado para capacitar y equipar brigadas en corporativos, centros comerciales y desarrollos inmobiliarios. Respuesta rápida y productos de calidad internacional."*
 > — Seguridad Privada
@@ -1339,7 +1339,7 @@ Para el equipamiento del personal con [EPP certificado NFPA](https://bombero.mx/
 
 - [EPP básico para brigadas de primera respuesta](/blog/brigadas-industriales-epp/)
 - [Cascos para bomberos certificados: guía de selección](/blog/guia-comparativa-trajes-bomberos-mexico/)
-- [Guantes NFPA 1971: protección térmica para brigadas](/blog/guia-comparativa-trajes-bomberos-mexico/)
+- [Guantes NFPA 1970: protección térmica para brigadas](/blog/guia-comparativa-trajes-bomberos-mexico/)
     `,
   },
 
@@ -1397,7 +1397,7 @@ Cuando los bomberos profesionales llegan, el personal de seguridad no desaparece
 |-----|-----------|
 | Guardia de evacuación | Chaleco reflectante, radio, linterna alta potencia |
 | Operador de extintor | Guantes térmicos, casco seguridad, botas punta composite |
-| Jefe de brigada | Casco NFPA 1971, guantes NFPA 1971, traje de acercamiento |
+| Jefe de brigada | Casco NFPA 1970, guantes NFPA 1970, traje de acercamiento |
 | Coordinador con bomberos | Casco identificación, chaleco comando, radio con frecuencia coordinada |
 
 Para los niveles de jefe de brigada y coordinador, el [EPP certificado NFPA disponible en BOMBERO.MX](https://bombero.mx/) es el referente: fichas técnicas y certificados de laboratorio listos para el expediente del cliente.
@@ -1462,7 +1462,7 @@ Seguridad Privada Condominios realiza recorridos periódicos de verificación de
 
 En desarrollos de cierto tamaño, protección civil exige una brigada interna de emergencias. Seguridad Privada Condominios organiza esa brigada con el personal de seguridad disponible, define los roles (evacuación, primeros auxilios, combate inicial), capacita al equipo y coordina el equipamiento con [BOMBERO.MX](https://bombero.mx/).
 
-Para los integrantes de brigada que pueden verse en la necesidad de operar en ambientes con humo o en proximidad a fuego, el EPP correcto es determinante. En [BOMBERO.MX](https://bombero.mx/) la brigada de Seguridad Privada Condominios puede adquirir desde guantes de protección térmica y cascos certificados hasta trajes estructurales NFPA 1971 y SCBA NFPA 1981 para los escenarios más exigentes (como incendio de vehículo en estacionamiento subterráneo).
+Para los integrantes de brigada que pueden verse en la necesidad de operar en ambientes con humo o en proximidad a fuego, el EPP correcto es determinante. En [BOMBERO.MX](https://bombero.mx/) la brigada de Seguridad Privada Condominios puede adquirir desde guantes de protección térmica y cascos certificados hasta trajes estructurales NFPA 1970 (cap. 5–9) y SCBA NFPA 1970 (cap. 15–19) para los escenarios más exigentes (como incendio de vehículo en estacionamiento subterráneo).
 
 > *"Administramos la seguridad en condominios y fraccionamientos residenciales. BOMBERO.MX es nuestro proveedor de confianza para equipar brigadas internas con extintores, equipo de protección y señalización. Cumplimiento normativo garantizado y excelente servicio."*
 > — Seguridad Privada Condominios
@@ -1545,7 +1545,7 @@ Seguridad Privada Condominios mantiene ese expediente organizado y actualizado c
 
 ### Equipamiento de brigada con documentación de primer nivel
 
-El EPP de la brigada interna es parte del expediente de cumplimiento, y la documentación que requieren las aseguradoras y los auditores de protección civil es específica: ficha técnica del equipo, certificado del laboratorio que validó la certificación NFPA, número de serie del producto y vida útil conforme a NFPA 1851.
+El EPP de la brigada interna es parte del expediente de cumplimiento, y la documentación que requieren las aseguradoras y los auditores de protección civil es específica: ficha técnica del equipo, certificado del laboratorio que validó la certificación NFPA, número de serie del producto y vida útil conforme a NFPA 1850.
 
 Para que esa documentación esté siempre disponible, Seguridad Privada Condominios equipa a sus brigadas a través de [BOMBERO.MX](https://bombero.mx/), donde cada componente de EPP —guantes, cascos, trajes y SCBA según el nivel de la brigada— llega con toda esa documentación incluida.
 
@@ -1588,7 +1588,7 @@ Para el [EPP de la brigada interna](https://bombero.mx/) con certificación NFPA
 
 - [EPP para brigadas residenciales: guía de selección](/blog/brigadas-industriales-epp/)
 - [SCBA para estacionamientos subterráneos con humo](/blog/mantenimiento-scba/)
-- [Guantes de protección térmica NFPA 1971](/blog/guia-comparativa-trajes-bomberos-mexico/)
+- [Guantes de protección térmica NFPA 1970](/blog/guia-comparativa-trajes-bomberos-mexico/)
     `,
   },
 

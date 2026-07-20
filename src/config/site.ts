@@ -14,7 +14,7 @@ export const SITE = {
     title: "Venta de Equipo para Bomberos en México | BOMBERO.MX",
     titleTemplate: "%s | BOMBERO.MX - Equipo para Bomberos",
     description:
-      "Distribuidor autorizado de equipo para bomberos en México. Trajes estructurales NFPA 1971, cascos, guantes, botas, equipos SCBA, extintores y herramientas de rescate certificadas. Envíos a CDMX, Monterrey, Guadalajara y los 32 estados. Cotiza sin compromiso.",
+      "Distribuidor autorizado de equipo para bomberos en México. Trajes estructurales NFPA 1970, cascos, guantes, botas, equipos SCBA, extintores y herramientas de rescate certificadas. Envíos a CDMX, Monterrey, Guadalajara y los 32 estados. Cotiza sin compromiso.",
     image: "/images/logo-equipo-para-bomberos.avif",
     type: "website" as const,
     keywords: [
@@ -115,7 +115,7 @@ export const SITE = {
 
   // ─── Product Categories for SEO ───
   productKeywords: {
-    "epp-bomberos": "trajes de bombero, trajes estructurales, NFPA 1971, equipo de protección personal bomberos",
+    "epp-bomberos": "trajes de bombero, trajes estructurales, NFPA 1970, equipo de protección personal bomberos",
     "cascos": "cascos para bombero, cascos NFPA, cascos de rescate, protección facial bomberos",
     "guantes-botas": "guantes de bombero, botas de bombero, guantes estructurales, botas NFPA",
     "scba": "equipos SCBA, respiración autónoma, máscaras de bombero, cilindros de aire",
@@ -129,7 +129,7 @@ export const SITE = {
   certifications: [
     { name: "NFPA", fullName: "National Fire Protection Association" },
     { name: "UL", fullName: "Underwriters Laboratories" },
-    { name: "EN", fullName: "European Standards (EN 469, EN 443)" },
+    { name: "EN", fullName: "European Standards (EN 469:2020, EN 443:2008)" },
     { name: "ISO", fullName: "ISO 9001:2015" },
     { name: "NOM", fullName: "Norma Oficial Mexicana" },
   ],
