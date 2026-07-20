@@ -11481,8 +11481,8 @@ La información presentada tiene fines informativos y no constituye una recomend
   // ══════════════════════════════════════════════════
 
   "scba-guia-completa-bomberos-mexico": {
-    titulo: "SCBA para Bomberos: Guía Completa NFPA 1970 (cap. 15–24) y NFPA 1850 — Manual Técnico 2026",
-    excerpt: "Manual técnico 2026 sobre Equipo de Respiración Autónomo (SCBA) bajo NFPA 1970 (cap. 15–19 y 20–24)/1850. Componentes (máscara, regulador presión positiva, cilindro, PASS, arnés), tipos de cilindro acero/composite/carbono 30-60 min, fit test cuantitativo y costos reales en México.",
+    titulo: "SCBA para Bomberos: Guía Completa NFPA 1970 y 1850 — Manual Técnico 2026",
+    excerpt: "Manual técnico 2026 sobre Equipo de Respiración Autónomo (SCBA) bajo NFPA 1970 (cap. 15–24) y NFPA 1850. Componentes (máscara, regulador presión positiva, cilindro, PASS, arnés), tipos de cilindro acero/composite/carbono 30-60 min, fit test cuantitativo y costos reales en México.",
     imagen: "/images/directorio/bomberos-guardia-nocturna-scba-equipo-02.avif",
     categoria: "Equipo",
     tags: ["SCBA", "NFPA 1970 (cap. 15–19)", "NFPA 1970 (cap. 20–24)", "NFPA 1850", "PASS", "ERA", "Cilindro Composite", "Fit Test"],
@@ -17033,7 +17033,7 @@ Un bombero estructural en México necesita el siguiente equipamiento certificado
 </div>
 
 1. **Etiqueta del laboratorio certificador** — UL (Underwriters Laboratories), **Intertek** o **SEI** (Safety Equipment Institute). Sin etiqueta visible y verificable, no es NFPA.
-2. **Edición de la norma** — Debe ser la **vigente**: NFPA 1970 ed. 2025, que consolidó NFPA 1971 (cap. 5–9) y NFPA 1970 (cap. 15–19).
+2. **Edición de la norma** — Debe ser la **vigente**: NFPA 1970 ed. 2025, que consolidó NFPA 1971 (hoy cap. 5–9) y NFPA 1981 (hoy cap. 15–19).
 3. **Certificado de conformidad** — Todo equipo NFPA genuino se entrega con **certificado del laboratorio + ficha técnica + número de lote**.
 4. **Distribuidor autorizado** — Pide a tu proveedor la **carta del fabricante** que lo acredita como distribuidor. En **BOMBERO MX** todos los productos incluyen certificación original.
 
