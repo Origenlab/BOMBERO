@@ -70,9 +70,9 @@ const tablaRows = [
 {chr(10).join(rows)}
 ];
 const relacionadoCards = [
-  {{ title: "Trajes de Bombero", icon: "shield", image: "/images/base/traje-estructural.avif", href: "/productos/trajes-para-bomberos/", buttonText: "Ver Trajes", items: [{{label:"Traje Estructural NFPA 1971",href:"/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/"}}] }},
-  {{ title: "Cascos para Bombero", icon: "helmet", image: "/images/base/casco-estructural.avif", href: "/productos/cascos-para-bomberos/", buttonText: "Ver Cascos", items: [{{label:"Casco Estructural NFPA 1971",href:"/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/"}}] }},
-  {{ title: "SCBA Autónomo", icon: "shield", image: "/images/base/equipo-completo.avif", href: "/productos/scba/", buttonText: "Ver SCBA", items: [{{label:"SCBA NFPA 1981",href:"/productos/scba/circuito-abierto-nfpa-1981/"}}] }},
+  {{ title: "Trajes de Bombero", icon: "shield", image: "/images/base/traje-estructural.avif", href: "/productos/trajes-para-bomberos/", buttonText: "Ver Trajes", items: [{{label:"Traje Estructural NFPA 1970",href:"/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/"}}] }},
+  {{ title: "Cascos para Bombero", icon: "helmet", image: "/images/base/casco-estructural.avif", href: "/productos/cascos-para-bomberos/", buttonText: "Ver Cascos", items: [{{label:"Casco Estructural NFPA 1970",href:"/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/"}}] }},
+  {{ title: "SCBA Autónomo", icon: "shield", image: "/images/base/equipo-completo.avif", href: "/productos/scba/", buttonText: "Ver SCBA", items: [{{label:"SCBA NFPA 1970",href:"/productos/scba/circuito-abierto-nfpa-1981/"}}] }},
   {{ title: "Guantes de Bombero", icon: "glove", image: "/images/base/guantes-estructural.avif", href: "/productos/guantes-para-bomberos/", buttonText: "Ver Guantes", items: [{{label:"Guantes Estructurales NFPA",href:"/productos/guantes-para-bomberos/estructurales/"}}] }},
 ];
 const faqs = [
@@ -233,11 +233,11 @@ const IMAGE = "{p_img}";
   ]}}
   otrosModelosSeeAllHref="/productos/{cat_slug}/{subcat_slug}/"
   epp={{[
-    {{ label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", tag: "Traje" }},
-    {{ label: "Casco Estructural NFPA 1971", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/", tag: "Casco" }},
+    {{ label: "Traje Estructural NFPA 1970", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", tag: "Traje" }},
+    {{ label: "Casco Estructural NFPA 1970", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/", tag: "Casco" }},
     {{ label: "Guantes Estructurales", href: "/productos/guantes-para-bomberos/estructurales/", tag: "Guantes" }},
     {{ label: "Botas Estructurales", href: "/productos/botas-para-bomberos/estructural/", tag: "Pies" }},
-    {{ label: "SCBA NFPA 1981", href: "/productos/scba/circuito-abierto-nfpa-1981/", tag: "Respiración" }},
+    {{ label: "SCBA NFPA 1970", href: "/productos/scba/circuito-abierto-nfpa-1981/", tag: "Respiración" }},
   ]}}
   articulos={{[
     {{ label: "Catálogo {e(cat_label)}", href: "/productos/{cat_slug}/", tag: "Catálogo" }},
@@ -258,8 +258,8 @@ const IMAGE = "{p_img}";
     {{ q: "¿Realizan envíos a toda la República?", a: "<strong>BOMBERO.MX</strong> realiza envíos a los <strong>32 estados de México</strong>. Stock disponible para envío inmediato. Cotización especial para cuerpos de bomberos y licitaciones." }},
   ]}}
   relacionados={{[
-    {{ title: "Trajes de Bombero", badge: "NFPA 1971", description: "Trajes estructurales y forestales certificados NFPA.", href: "/productos/trajes-para-bomberos/", buttonText: "Ver Trajes", image: "/images/base/traje-estructural.avif" }},
-    {{ title: "Cascos Certificados", badge: "NFPA 1971", description: "Cascos estructurales y de rescate certificados NFPA.", href: "/productos/cascos-para-bomberos/", buttonText: "Ver Cascos", image: "/images/base/casco-estructural.avif" }},
+    {{ title: "Trajes de Bombero", badge: "NFPA 1970", description: "Trajes estructurales y forestales certificados NFPA.", href: "/productos/trajes-para-bomberos/", buttonText: "Ver Trajes", image: "/images/base/traje-estructural.avif" }},
+    {{ title: "Cascos Certificados", badge: "NFPA 1970", description: "Cascos estructurales y de rescate certificados NFPA.", href: "/productos/cascos-para-bomberos/", buttonText: "Ver Cascos", image: "/images/base/casco-estructural.avif" }},
     {{ title: "Equipo Completo", badge: "EPP", description: "Sistema EPP completo certificado para bomberos profesionales.", href: "/productos/", buttonText: "Ver Catálogo", image: "/images/base/equipo-completo.avif" }},
   ]}}
 />
@@ -350,15 +350,15 @@ ALL_CATS = {
     ]),
     # ── 2. SCBA ────────────────────────────────────────────────────────────
     "scba": ("SCBA — Respiración Autónoma", [
-        ("circuito-abierto-nfpa-1981", "SCBA Circuito Abierto NFPA 1981", "NFPA 1981 / EN 137", [
-            ("SCBA 30 min — Circuito Abierto", "scba-30min", "30 min", "SCBA circuito abierto 30 min a 40 L/min. Cilindro carbono 6.0 L 300 bar. Máscara panorámica incluida. NFPA 1981.",
-             ["Cilindro carbono 6.0 L 300 bar","Duración: 30 min @ 40 L/min","Máscara panorámica NFPA 1981","Arnés ajustable ergonómico multitalla","NFPA 1981 / EN 137 certificado"], "Incendio estructural · Rescate · 1ª intervención"),
-            ("SCBA 45 min — Estándar Bombero", "scba-45min", "45 min", "SCBA estándar 45 min para incendio estructural. Cilindro carbono 6.8 L 300 bar. HUD display integrado. NFPA 1981.",
-             ["Cilindro carbono 6.8 L 300 bar","Duración: 45 min @ 40 L/min","HUD display presión integrado","PASS automático integrado","NFPA 1981 / EN 137"], "Estructural · HAZMAT · Rescate urbano"),
-            ("SCBA 60 min — Larga Duración", "scba-60min", "60 min", "SCBA 60 min para operaciones largas en IDLH extendido. Cilindro 9.0 L 300 bar. Alarma PASS integrada. NFPA 1981.",
-             ["Cilindro carbono 9.0 L 300 bar","Duración: 60 min @ 40 L/min","Sistema alarma PASS integrado","RIC-PAC compatible de fábrica","NFPA 1981 / EN 137 / EN 402"], "Operaciones largas · IDLH · HAZMAT A"),
+        ("circuito-abierto-nfpa-1981", "SCBA Circuito Abierto NFPA 1970", "NFPA 1970 / EN 137", [
+            ("SCBA 30 min — Circuito Abierto", "scba-30min", "30 min", "SCBA circuito abierto 30 min a 40 L/min. Cilindro carbono 6.0 L 300 bar. Máscara panorámica incluida. NFPA 1970.",
+             ["Cilindro carbono 6.0 L 300 bar","Duración: 30 min @ 40 L/min","Máscara panorámica NFPA 1970","Arnés ajustable ergonómico multitalla","NFPA 1970 / EN 137 certificado"], "Incendio estructural · Rescate · 1ª intervención"),
+            ("SCBA 45 min — Estándar Bombero", "scba-45min", "45 min", "SCBA estándar 45 min para incendio estructural. Cilindro carbono 6.8 L 300 bar. HUD display integrado. NFPA 1970.",
+             ["Cilindro carbono 6.8 L 300 bar","Duración: 45 min @ 40 L/min","HUD display presión integrado","PASS automático integrado","NFPA 1970 / EN 137"], "Estructural · HAZMAT · Rescate urbano"),
+            ("SCBA 60 min — Larga Duración", "scba-60min", "60 min", "SCBA 60 min para operaciones largas en IDLH extendido. Cilindro 9.0 L 300 bar. Alarma PASS integrada. NFPA 1970.",
+             ["Cilindro carbono 9.0 L 300 bar","Duración: 60 min @ 40 L/min","Sistema alarma PASS integrado","RIC-PAC compatible de fábrica","NFPA 1970 / EN 137 / EN 402"], "Operaciones largas · IDLH · HAZMAT A"),
             ("SCBA 45 min — Máscara Panorámica 220°", "scba-panoramico", "220°", "SCBA 45 min con máscara panorámica 220° de campo visual. Compatible con comunicación TETRA digital.",
-             ["Máscara panorámica 220° visión","Cilindro 6.8 L 300 bar carbono","Compatible comunicación TETRA","Válvula demanda certificada","NFPA 1981 / EN 136"], "Incendio · Búsqueda y rescate · CBRN"),
+             ["Máscara panorámica 220° visión","Cilindro 6.8 L 300 bar carbono","Compatible comunicación TETRA","Válvula demanda certificada","NFPA 1970 / EN 136"], "Incendio · Búsqueda y rescate · CBRN"),
         ]),
         ("circuito-cerrado-minero", "SCBA Circuito Cerrado Minero", "EN 145 / MSHA", [
             ("Circuito Cerrado 60 min — Confinado", "cc-60min", "60 min", "Aparato circuito cerrado 60 min para espacios confinados industriales. Regeneración química CO₂. EN 145.",
@@ -370,43 +370,43 @@ ALL_CATS = {
             ("Kit Rescate Minero BG4 — 4 h", "cc-bg4", "BG4", "Kit rescate minero BG4 con 4 h autonomía, comunicación de voz y enfriamiento de aire. Estándar de rescate minero.",
              ["Autonomía BG4: 4 h certificada","Enfriamiento termoeléctrico aire","Comunicación voz integrada","Resistencia gases CBRN","EN 145 / MSHA / VDE"], "Rescate minero · Brigadas · Gases tóxicos"),
         ]),
-        ("mascara-facial", "Máscaras Faciales para SCBA", "NFPA 1981 / EN 136", [
-            ("Máscara Panorámica — Policarbonato 220°", "mascara-panoramica", "220°", "Máscara facial panorámica policarbonato 220° para SCBA. Compatible reguladores NFPA 1981. Sello silicona.",
-             ["Visor panorámico PC 220°","Sello silicona baja presión","Compatible SCBA universal","Protección UV y anti-rayado","NFPA 1981 / EN 136"], "SCBA · Incendio estructural · HAZMAT"),
-            ("Máscara con HUD — Display Digital", "mascara-hud", "HUD", "Máscara con HUD display digital. Presión del cilindro, tiempo restante y alertas PASS en visor. NFPA 1981.",
-             ["HUD display presión tiempo real","Alertas visuales tiempo restante","Pantalla integrada en visor","Compatible cilindros 300 bar","NFPA 1981 / EN 136"], "SCBA avanzado · Operaciones críticas"),
+        ("mascara-facial", "Máscaras Faciales para SCBA", "NFPA 1970 / EN 136", [
+            ("Máscara Panorámica — Policarbonato 220°", "mascara-panoramica", "220°", "Máscara facial panorámica policarbonato 220° para SCBA. Compatible reguladores NFPA 1970. Sello silicona.",
+             ["Visor panorámico PC 220°","Sello silicona baja presión","Compatible SCBA universal","Protección UV y anti-rayado","NFPA 1970 / EN 136"], "SCBA · Incendio estructural · HAZMAT"),
+            ("Máscara con HUD — Display Digital", "mascara-hud", "HUD", "Máscara con HUD display digital. Presión del cilindro, tiempo restante y alertas PASS en visor. NFPA 1970.",
+             ["HUD display presión tiempo real","Alertas visuales tiempo restante","Pantalla integrada en visor","Compatible cilindros 300 bar","NFPA 1970 / EN 136"], "SCBA avanzado · Operaciones críticas"),
             ("Máscara CBRN — Protección Total", "mascara-cbrn", "CBRN", "Máscara facial para agentes CBRN. Filtros ABEK2P3. Compatible SCBA y filtros NBC. EN 136.",
              ["Filtros ABEK2P3 para CBRN","Sello hermético 6 puntos","Compatible SCBA + filtros NBC","Resistente líquidos peligrosos","EN 136 / EN 14387 / STANAG 4571"], "CBRN · HAZMAT · Defensa civil"),
             ("Máscara Reutilizable — Bajo Mantenimiento", "mascara-reutilizable", "Multi-uso", "Máscara facial reutilizable de bajo mantenimiento. Visor reemplazable, arnés ajustable, válvulas intercambiables.",
-             ["Visor reemplazable individual","Arnés ajustable 4 puntos","Válvulas exhale intercambiables","Esterilizable NaOCl 0.5%","NFPA 1981 / EN 136"], "Mantenimiento · Entrenamiento"),
+             ["Visor reemplazable individual","Arnés ajustable 4 puntos","Válvulas exhale intercambiables","Esterilizable NaOCl 0.5%","NFPA 1970 / EN 136"], "Mantenimiento · Entrenamiento"),
         ]),
         ("cilindros-repuesto", "Cilindros de Repuesto SCBA", "DOT/TC / EN 12245", [
-            ("Cilindro Carbono 6.0 L 300 bar — 30 min", "cilindro-6l", "6.0 L", "Cilindro fibra carbono 6.0 L 300 bar para SCBA 30 min. Peso 1.5 kg vacío. Compatible universal NFPA 1981.",
-             ["Fibra carbono 6.0 L 300 bar","Peso vacío: 1.5 kg ultraligero","Duración: 30 min @ 40 L/min","Compatible NFPA 1981 universal","DOT/TC / EN 12245 / ISO 11119"], "SCBA 30 min · Incendio estructural"),
+            ("Cilindro Carbono 6.0 L 300 bar — 30 min", "cilindro-6l", "6.0 L", "Cilindro fibra carbono 6.0 L 300 bar para SCBA 30 min. Peso 1.5 kg vacío. Compatible universal NFPA 1970.",
+             ["Fibra carbono 6.0 L 300 bar","Peso vacío: 1.5 kg ultraligero","Duración: 30 min @ 40 L/min","Compatible NFPA 1970 universal","DOT/TC / EN 12245 / ISO 11119"], "SCBA 30 min · Incendio estructural"),
             ("Cilindro Carbono 6.8 L 300 bar — 45 min", "cilindro-68l", "6.8 L", "Cilindro fibra carbono 6.8 L 300 bar para SCBA 45 min. El más vendido. Compatible universal. Peso 1.8 kg.",
-             ["Fibra carbono 6.8 L 300 bar","Duración: 45 min @ 40 L/min","Peso vacío: 1.8 kg ultraligero","Rosca M18×1.5 universal","DOT/TC / EN 12245 / NFPA 1981"], "SCBA 45 min · Estándar bombero"),
+             ["Fibra carbono 6.8 L 300 bar","Duración: 45 min @ 40 L/min","Peso vacío: 1.8 kg ultraligero","Rosca M18×1.5 universal","DOT/TC / EN 12245 / NFPA 1970"], "SCBA 45 min · Estándar bombero"),
             ("Cilindro Carbono 9.0 L 300 bar — 60 min", "cilindro-9l", "9.0 L", "Cilindro fibra carbono 9.0 L 300 bar para SCBA 60 min. Máxima capacidad estándar. Peso 2.4 kg vacío.",
-             ["Fibra carbono 9.0 L 300 bar","Peso vacío: 2.4 kg","Duración: 60 min @ 40 L/min","Rosca M18×1.5 estándar","DOT/TC / EN 12245 / NFPA 1981"], "SCBA 60 min · Operaciones largas"),
+             ["Fibra carbono 9.0 L 300 bar","Peso vacío: 2.4 kg","Duración: 60 min @ 40 L/min","Rosca M18×1.5 estándar","DOT/TC / EN 12245 / NFPA 1970"], "SCBA 60 min · Operaciones largas"),
             ("Cilindro Aluminio 6.8 L 200 bar — Económico", "cilindro-aluminio", "Al 6.8L", "Cilindro aluminio 6.8 L 200 bar. Alternativa económica. Vida útil 15 años. Para entrenamiento y respaldo.",
              ["Aluminio 6.8 L 200 bar","Peso vacío: 2.8 kg","Vida útil: 15 años sin prueba","Costo optimizado entrenamiento","DOT 3AL / EN 12245"], "Entrenamiento · Brigadas · Respaldo"),
         ]),
-        ("sistemas-comunicacion", "Comunicación Integrada SCBA", "NFPA 1981 / ETSI TETRA", [
-            ("Radio TETRA Integrado en Máscara", "radio-tetra-scba", "TETRA", "Radio TETRA integrado en máscara SCBA. Full-duplex manos libres con puesto de mando. IP67. NFPA 1981.",
-             ["Radio TETRA integrado en máscara","Full-duplex manos libres","Compatible NFPA 1981 universal","Resistente agua IP67","NFPA 1981 / ETSI TETRA"], "Comando · Operaciones · Rescate"),
+        ("sistemas-comunicacion", "Comunicación Integrada SCBA", "NFPA 1970 / ETSI TETRA", [
+            ("Radio TETRA Integrado en Máscara", "radio-tetra-scba", "TETRA", "Radio TETRA integrado en máscara SCBA. Full-duplex manos libres con puesto de mando. IP67. NFPA 1970.",
+             ["Radio TETRA integrado en máscara","Full-duplex manos libres","Compatible NFPA 1970 universal","Resistente agua IP67","NFPA 1970 / ETSI TETRA"], "Comando · Operaciones · Rescate"),
             ("Sistema Bluetooth — Manos Libres", "bluetooth-scba", "BT 5.0", "Sistema Bluetooth 5.0 para SCBA con micrófono de garganta. Pairing con radio portátil. IP67.",
              ["Bluetooth 5.0 clase 2","Autonomía batería: 12 h continuas","Micrófono garganta vibración","Pairing doble radio + smartphone","IP67 / MIL-STD-810G"], "Radio interoperabilidad · Comando"),
             ("Amplificador de Voz para Máscara", "amplificador-voz", "Voz", "Amplificador de voz electrónico para máscaras SCBA. 18 dB de amplificación. Pila AA 100+ horas. Plug & play.",
-             ["Amplificación 18 dB de voz clara","Montaje exterior máscara estándar","Pila AA 100+ horas autonomía","Sin configuración — plug & play","EN 136 / NFPA 1981 compatible"], "Comunicación básica · Sin radio"),
+             ["Amplificación 18 dB de voz clara","Montaje exterior máscara estándar","Pila AA 100+ horas autonomía","Sin configuración — plug & play","EN 136 / NFPA 1970 compatible"], "Comunicación básica · Sin radio"),
             ("PTT Inalámbrico — Comando Avanzado", "ptt-comando", "PTT", "PTT inalámbrico de muñeca con display de presión SCBA. Alertas de equipos. Compatible TETRA/P25/DMR.",
              ["PTT inalámbrico de muñeca","Display presión SCBA tiempo real","Alertas equipos del equipo","Compatible TETRA/P25/DMR","IP68 / MIL-STD-810H"], "Comando avanzado · Gestión incidentes"),
         ]),
-        ("soporte-comando", "Soporte Comando y RIC-PAC", "NFPA 1981 / NFPA 1982", [
-            ("RIC-PAC — Rescate Bombero Atrapado", "ricpac", "RIC-PAC", "RIC-PAC SCBA de rescate para bombero atrapado. 15 min emergencia, manguera 3 m acople rápido. NFPA 1981.",
-             ["SCBA emergencia 15 min","Manguera transfusión 3 m","Acople rápido SCBA del atrapado","Peso: < 4 kg listo para uso","NFPA 1981 / NFPA 1710"], "Rescate bombero atrapado · RIT"),
+        ("soporte-comando", "Soporte Comando y RIC-PAC", "NFPA 1970 (cap. 15–19 / 20–24)", [
+            ("RIC-PAC — Rescate Bombero Atrapado", "ricpac", "RIC-PAC", "RIC-PAC SCBA de rescate para bombero atrapado. 15 min emergencia, manguera 3 m acople rápido. NFPA 1970.",
+             ["SCBA emergencia 15 min","Manguera transfusión 3 m","Acople rápido SCBA del atrapado","Peso: < 4 kg listo para uso","NFPA 1970 / NFPA 1710"], "Rescate bombero atrapado · RIT"),
             ("Maletero RIT — Kit Rescate Rápido", "maletero-rit", "RIT Kit", "Maletero RIT con RIC-PAC, cuerda guía 30 m y herramientas básicas. Despliegue completo < 60 s. NFPA 1710.",
-             ["RIC-PAC + cuerda guía 30 m","Herramientas extricación ligera","Maletero polietileno rugged","Despliegue completo < 60 s","NFPA 1981 / NFPA 1710"], "RIT · Rescate técnico · Comando"),
-            ("PASS Integrado — Alarma Bombero", "pass-integrado", "PASS", "PASS (Personal Alert Safety System) de activación automática. Alarma 95 dB. 30 s inmovilidad. NFPA 1982.",
-             ["Alarma PASS 95 dB certificada","Activación automática 30 s inmovilidad","Modo manual de emergencia","Integrable con radio TETRA","NFPA 1982 / EN 61000"], "Seguridad bombero · Alerta atrapado"),
+             ["RIC-PAC + cuerda guía 30 m","Herramientas extricación ligera","Maletero polietileno rugged","Despliegue completo < 60 s","NFPA 1970 / NFPA 1710"], "RIT · Rescate técnico · Comando"),
+            ("PASS Integrado — Alarma Bombero", "pass-integrado", "PASS", "PASS (Personal Alert Safety System) de activación automática. Alarma 95 dB. 30 s inmovilidad. NFPA 1970.",
+             ["Alarma PASS 95 dB certificada","Activación automática 30 s inmovilidad","Modo manual de emergencia","Integrable con radio TETRA","NFPA 1970 / EN 61000"], "Seguridad bombero · Alerta atrapado"),
             ("Manifold Recarga 4 Líneas — 300 bar", "manifold-4lineas", "4 líneas", "Manifold de recarga SCBA 4 líneas simultáneas 300 bar. Aislamiento individual por línea. Para operación en escena.",
              ["4 líneas llenado simultáneo","Presión de trabajo: 300 bar","Aislamiento individual por línea","Manómetro calibrado por línea","EN 12245 / DOT compatible"], "Operaciones largas · Recarga escena"),
         ]),
@@ -415,10 +415,10 @@ ALL_CATS = {
              ["Presión trabajo: 300 bar","Caudal: 100–250 L/min","Filtros coalescentes + carbón activado","Análisis aire según EN 12021","CE / EN 12245 / DIN 3188"], "Estaciones bomberos · Campo · Recarga"),
             ("Banco Recarga 4 Puertos — Cuartel", "banco-recarga", "4 puertos", "Banco recarga 4 cilindros simultáneos 300 bar para cuartel. Panel válvulas individuales y manómetros calibrados.",
              ["4 cilindros simultáneos 300 bar","Válvulas individuales aislamiento","Manómetros calibrados por línea","Conexión compresor o cascada","CE / DIN 3188"], "Cuartel · Brigada · Operación intensiva"),
-            ("Kit Mantenimiento SCBA — Completo", "kit-mantenimiento-scba", "Kit", "Kit de mantenimiento anual SCBA: torque, lubricante Molykote®, O-rings Viton® y checklist NFPA 1981.",
-             ["Herramientas torque calibradas","Lubricante certificado Molykote®","O-rings reemplazo Viton®","Checklist inspección NFPA 1981","NFPA 1981 / EN 137"], "Mantenimiento anual · Servicio"),
+            ("Kit Mantenimiento SCBA — Completo", "kit-mantenimiento-scba", "Kit", "Kit de mantenimiento anual SCBA: torque, lubricante Molykote®, O-rings Viton® y checklist NFPA 1970.",
+             ["Herramientas torque calibradas","Lubricante certificado Molykote®","O-rings reemplazo Viton®","Checklist inspección NFPA 1970","NFPA 1970 / EN 137"], "Mantenimiento anual · Servicio"),
             ("Probador Presión y Caudal — Test SCBA", "probador-scba", "Test", "Instrumento prueba presión y caudal para verificación SCBA. Mide caudal, presión demanda y hermeticidad máscara.",
-             ["Prueba caudal y presión dinámica","Verificación hermeticidad máscara","Calibrado trazable NIST/CENAM","Almacenamiento 1000 resultados","NFPA 1981 / EN 137"], "Inspección · Certificación anual"),
+             ["Prueba caudal y presión dinámica","Verificación hermeticidad máscara","Calibrado trazable NIST/CENAM","Almacenamiento 1000 resultados","NFPA 1970 / EN 137"], "Inspección · Certificación anual"),
         ]),
     ]),
     # ── 3. EQUIPO CONTRA INCENDIOS ─────────────────────────────────────────
@@ -619,15 +619,15 @@ ALL_CATS = {
             ("Kit Airbags — Sistema Completo", "kit-airbags", "Kit", "Kit completo de airbags: 2 alta presión (20+40 ton) + controlador dual + mangueras + bolsa transporte. NFPA 1670.",
              ["2 airbags: 20 + 40 ton","Controlador dual con regulador","Mangueras 10 m incluidas","Bolsa transporte Cordura","NFPA 1670 / EN 13731"], "Kit completo · Rescate · Operaciones"),
         ]),
-        ("iluminacion-rescate", "Iluminación de Rescate", "NFPA 1971 / ATEX", [
+        ("iluminacion-rescate", "Iluminación de Rescate", "NFPA 1970 / ATEX", [
             ("Torre de Luz LED — 50,000 lm", "torre-luz-led", "Torre LED", "Torre de luz LED portátil 50,000 lm para iluminación de escena nocturna. Extensión 4.5 m. Generador incluido.",
              ["Luminosidad: 50,000 lm LED","Extensión telescópica 4.5 m","Generador Honda portátil","Autonomía: 8 h continuas","NFPA 1901 / IP65"], "Escena nocturna · Rescate · Operaciones"),
             ("Faro Portátil LED — Recargable", "faro-portatil-led", "Faro LED", "Faro portátil LED recargable 5,000 lm. Batería Li-Ion 8 h. Trípode incluido. IP67 sumergible.",
              ["Luminosidad: 5,000 lm LED","Batería Li-Ion recargable 8 h","Trípode ajustable incluido","IP67 sumergible 1 m","CE / IP67"], "Iluminación portátil · Campo · Rescate"),
             ("Linterna de Bombero — ATEX", "linterna-bombero-atex", "ATEX", "Linterna de bombero certificada ATEX Zona 1. LED 300 lm. Cuerpo polímero antiimpacto. Batería AA.",
-             ["LED 300 lm — haz ajustable","ATEX Zona 1 certificada","Cuerpo polímero antiimpacto","Pilas AA 2× — 12 h continuas","ATEX / IECEx / NFPA 1971"], "ATEX · HAZMAT · Incendio estructural"),
-            ("Linterna Casco — Montaje Rápido", "linterna-casco", "Casco", "Linterna de casco con montaje rápido para cascos NFPA 1971. LED dual (spot + flood). Batería recargable.",
-             ["LED dual: spot 200 lm + flood","Montaje rápido casco NFPA 1971","Batería recargable Li-Ion","IP68 sumergible 2 m","NFPA 1971 / IP68"], "Casco bombero · Hands-free · Rescate"),
+             ["LED 300 lm — haz ajustable","ATEX Zona 1 certificada","Cuerpo polímero antiimpacto","Pilas AA 2× — 12 h continuas","ATEX / IECEx / NFPA 1970"], "ATEX · HAZMAT · Incendio estructural"),
+            ("Linterna Casco — Montaje Rápido", "linterna-casco", "Casco", "Linterna de casco con montaje rápido para cascos NFPA 1970. LED dual (spot + flood). Batería recargable.",
+             ["LED dual: spot 200 lm + flood","Montaje rápido casco NFPA 1970","Batería recargable Li-Ion","IP68 sumergible 2 m","NFPA 1970 / IP68"], "Casco bombero · Hands-free · Rescate"),
         ]),
         ("cuerdas-sistemas", "Cuerdas y Sistemas de Rescate", "NFPA 1983 / EN 1891", [
             ("Cuerda Estática Kernmantle 11 mm — NFPA", "cuerda-estatica-11mm", "11 mm", "Cuerda estática kernmantle 11 mm certificada NFPA 1983 para rescate. Poliamida 6.6. Resistencia 30 kN.",

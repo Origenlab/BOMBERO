@@ -882,9 +882,9 @@ const IMAGE = "{img_src}";
   otrosModelosSeeAllHref="/productos/extintores/{subcat_slug}/"
   epp={{[
     {{ label: "Equipo Contra Incendios", href: "/productos/equipo-contra-incendios/", tag: "Sistemas" }},
-    {{ label: "SCBA Autónomo NFPA 1981", href: "/productos/scba/circuito-abierto-nfpa-1981/", tag: "Respiración" }},
-    {{ label: "Traje Estructural NFPA 1971", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", tag: "Traje" }},
-    {{ label: "Casco Estructural NFPA 1971", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/", tag: "Casco" }},
+    {{ label: "SCBA Autónomo NFPA 1970", href: "/productos/scba/circuito-abierto-nfpa-1981/", tag: "Respiración" }},
+    {{ label: "Traje Estructural NFPA 1970", href: "/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/", tag: "Traje" }},
+    {{ label: "Casco Estructural NFPA 1970", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/", tag: "Casco" }},
     {{ label: "Guantes Estructurales", href: "/productos/guantes-para-bomberos/estructurales/", tag: "Guantes" }},
   ]}}
   articulos={{[
