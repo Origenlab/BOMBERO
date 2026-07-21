@@ -41,7 +41,7 @@ const PRODUCTOS = {
   hazmat: {
     nombre: "Trajes HAZMAT",
     href: "/productos/hazmat/",
-    desc: "Protección NFPA 1991/1992/1994",
+    desc: "Protección NFPA 1990",
   },
   extintores: {
     nombre: "Extintores Certificados",

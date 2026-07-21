@@ -19,7 +19,7 @@ La NFPA 1850 establece una vida útil máxima de 10 años desde la fecha de fabr
 
 ### ¿Un casco estructural sirve para rescate técnico o incendio forestal?
 
-No es lo recomendable. El casco estructural es más pesado y está optimizado para calor radiante y caída de objetos en combate interior; para rescate técnico la referencia es NFPA 1951 (más ligero, con barboquejo de 3 puntos) y para forestal NFPA 1950 (ventilado y de baja masa). Usar el casco equivocado fatiga al operador y reduce la protección específica.
+No es lo recomendable. El casco estructural es más pesado y está optimizado para calor radiante y caída de objetos en combate interior; para rescate técnico y para forestal la referencia es NFPA 1950 (más ligero y con barboquejo de 3 puntos en rescate; ventilado y de baja masa en forestal). Usar el casco equivocado fatiga al operador y reduce la protección específica.
 
 ### ¿Cómo verifico que un casco está certificado de verdad?
 
@@ -45,13 +45,13 @@ Comprar cascos "tipo forestal" sin certificación NFPA 1950 por precio. En tempo
   "casco-rescate-nfpa-1951": `
 ## Preguntas Frecuentes
 
-### ¿Por qué el casco de rescate NFPA 1951 no lleva ala como el estructural?
+### ¿Por qué el casco de rescate NFPA 1950 no lleva ala como el estructural?
 
-El perfil compacto sin ala evita enganches en espacios confinados, vehículos siniestrados y trabajo con cuerdas, donde el ala del casco estructural estorba y puede transmitir cargas al cuello. El diseño de NFPA 1951 prioriza retención (barboquejo de 3 o 4 puntos), impacto multidireccional y compatibilidad con linterna y comunicaciones.
+El perfil compacto sin ala evita enganches en espacios confinados, vehículos siniestrados y trabajo con cuerdas, donde el ala del casco estructural estorba y puede transmitir cargas al cuello. El diseño de NFPA 1950 prioriza retención (barboquejo de 3 o 4 puntos), impacto multidireccional y compatibilidad con linterna y comunicaciones.
 
 ### ¿Un casco de alpinismo certificado EN 12492 es equivalente?
 
-No para operaciones de bomberos. EN 12492 evalúa impacto y retención para montañismo, pero NFPA 1951 añade requisitos de resistencia a llama, calor, penetración y visibilidad propios del entorno de emergencias urbanas. Para brigadas de rescate técnico profesional, la referencia correcta es NFPA 1951.
+No para operaciones de bomberos. EN 12492 evalúa impacto y retención para montañismo, pero NFPA 1950 añade requisitos de resistencia a llama, calor, penetración y visibilidad propios del entorno de emergencias urbanas. Para brigadas de rescate técnico profesional, la referencia correcta es NFPA 1950.
 
 ### ¿Qué accesorios conviene especificar al cotizar cascos de rescate?
 
@@ -79,7 +79,7 @@ Sí, conforme al manual del fabricante y NFPA 1850: lavado suave con detergente 
 
 ### ¿Qué norma aplica a los guantes de extricación vehicular?
 
-La referencia es NFPA 1951 para operaciones de rescate técnico, que evalúa resistencia al corte, abrasión, punción y destreza. Para riesgos con vidrio y lámina, busque también niveles de corte ANSI/ISEA 105 A4 o superiores en la palma.
+La referencia es NFPA 1950 para operaciones de rescate técnico, que evalúa resistencia al corte, abrasión, punción y destreza. Para riesgos con vidrio y lámina, busque también niveles de corte ANSI/ISEA 105 A4 o superiores en la palma.
 
 ### ¿Por qué no usar guantes estructurales para extricación?
 
@@ -317,9 +317,9 @@ No: regulador, arnés, máscara y cilindro están certificados como sistema y la
   "camara-termica-tic-bomberos-nfpa-1801": `
 ## Preguntas Frecuentes
 
-### ¿Qué aporta la certificación NFPA 1801 frente a una cámara térmica comercial?
+### ¿Qué aporta la certificación NFPA 1930 frente a una cámara térmica comercial?
 
-NFPA 1801 exige resistencia a impacto, calor e inmersión, interfaz estandarizada (paleta de colores y indicadores uniformes entre marcas) y desempeño mínimo de imagen en condiciones de incendio. Una cámara industrial común puede fallar precisamente cuando más se necesita: dentro del fuego.
+NFPA 1930 exige resistencia a impacto, calor e inmersión, interfaz estandarizada (paleta de colores y indicadores uniformes entre marcas) y desempeño mínimo de imagen en condiciones de incendio. Una cámara industrial común puede fallar precisamente cuando más se necesita: dentro del fuego.
 
 ### ¿La cámara térmica ve a través del humo y de las paredes?
 
@@ -525,7 +525,7 @@ Prueba funcional y limpieza al menos anual (NFPA 72), cambio de baterías según
   "equipo-rescate-tecnico-componentes-normas": `
 ## Preguntas Frecuentes
 
-### ¿Qué significa la clasificación T y G en equipo de cuerdas NFPA 1983?
+### ¿Qué significa la clasificación T y G en equipo de cuerdas NFPA 2500?
 
 La designación técnica (T) cubre equipo para cargas de un rescatista con factores de seguridad de uso técnico, y la general (G) exige resistencias mayores para cargas de dos personas en sistemas de rescate. Arneses, cuerdas, conectores y descensores deben especificarse por clase según la doctrina del equipo — mezclar clases sin criterio compromete el factor de seguridad del sistema.
 
@@ -564,7 +564,7 @@ export const tablasExtra: Record<string, string> = {
 | **Detección y alarma** | NFPA 72 | UL / FM | Industria, inmobiliario |
 | **Rociadores y redes** | NFPA 13 / 24 / 25 | UL / FM | Industria, logística |
 | **Monitores y espuma** | NFPA 15 / 11 | FM Approved | Petroquímica, energía |
-| **Rescate técnico** | NFPA 1983 / 1936 / 1006 | UL / fabricante | Bomberos, protección civil |
+| **Rescate técnico** | NFPA 2500 / 1936 / 1006 | UL / fabricante | Bomberos, protección civil |
 `,
 
   "bomberos-puebla-equipo-nfpa": `
@@ -575,8 +575,8 @@ export const tablasExtra: Record<string, string> = {
 | **Combate estructural** | Trajes completos, cascos, capuchas, guantes, botas | NFPA 1970 | Crítica |
 | **Protección respiratoria** | SCBA con cilindros de respaldo | NFPA 1970 / 1850 | Crítica |
 | **Rescate vehicular** | Herramienta hidráulica de corte y separación | NFPA 1936 | Alta |
-| **Rescate en estructuras colapsadas** | Apuntalamiento, cámaras de búsqueda, cuerdas | NFPA 1006 / 1983 | Alta (zona sísmica) |
-| **Material peligroso** | Detección multigas, trajes de protección química | NFPA 1670 | Media-Alta |
+| **Rescate en estructuras colapsadas** | Apuntalamiento, cámaras de búsqueda, cuerdas | NFPA 1006 / 2500 | Alta (zona sísmica) |
+| **Material peligroso** | Detección multigas, trajes de protección química | NFPA 2500 | Media-Alta |
 | **Incendio forestal interfaz** | EPP ligero NFPA 1950, herramienta manual | NFPA 1950 | Estacional |
 `,
 

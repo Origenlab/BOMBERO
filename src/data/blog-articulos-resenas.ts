@@ -528,7 +528,7 @@ Al terminar cada sesión de capacitación, MESECI entrega la documentación comp
 | Brigada de primera respuesta con extintor | Guantes NFPA, casco básico, botas punta composite |
 | Brigada industrial nivel intermedio | Traje NFPA 1970, casco Bullard, guantes NFPA, botas bombero |
 | Brigada industrial con espacio confinado o humo | Todo anterior + SCBA NFPA 1970 |
-| Brigada HAZMAT | Traje NFPA 1991/1992, SCBA presión positiva, guantes y botas específicos |
+| Brigada HAZMAT | Traje NFPA 1990, SCBA presión positiva, guantes y botas específicos |
 
 Para adquirir cada componente con certificación vigente y documentación lista para auditoría, [BOMBERO.MX](https://bombero.mx/) tiene disponibilidad nacional y asesoría técnica para la selección correcta según el perfil de riesgo de cada brigada.
 

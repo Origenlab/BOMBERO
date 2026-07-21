@@ -1075,7 +1075,7 @@ const faqs = [
 |---|---|---|
 | Traje Forestal NFPA 1977 | `/productos/trajes-para-bomberos/traje-forestal-nfpa-1977/` | ✅ Plantilla maestra |
 | Traje Estructural NFPA 1971 | `/productos/trajes-para-bomberos/traje-estructural-nfpa-1971/` | ✅ Migrado |
-| Traje HAZMAT NFPA 1991 | `/productos/trajes-para-bomberos/traje-hazmat/` | ✅ Migrado |
+| Traje HAZMAT NFPA 1990 | `/productos/trajes-para-bomberos/traje-hazmat/` | ✅ Migrado |
 | Traje de Aproximación | `/productos/trajes-para-bomberos/traje-aproximacion/` | ✅ Migrado |
 
 ### Próximas migraciones pendientes

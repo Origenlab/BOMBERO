@@ -54,7 +54,7 @@ export const productCategories: NavItem[] = [
     children: [
       { label: "Casco Estructural NFPA 1970", href: "/productos/cascos-para-bomberos/casco-estructural-nfpa-1971/" },
       { label: "Casco Forestal NFPA 1950", href: "/productos/cascos-para-bomberos/casco-forestal-nfpa-1977/" },
-      { label: "Casco Rescate NFPA 1951", href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/" },
+      { label: "Casco Rescate NFPA 1950", href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/" },
       { label: "Casco ARFF Aeroportuario", href: "/productos/cascos-para-bomberos/casco-arff-aeroportuario/" },
       { label: "Casco Brigada Industrial", href: "/productos/cascos-para-bomberos/casco-brigada-industrial/" },
     ],
@@ -145,9 +145,9 @@ export const secondaryCategories: NavItem[] = [
     label: "Rescate Vertical",
     href: "/productos/rescate-vertical/",
     icon: "rope",
-    description: "Arneses y sistemas NFPA 1983. Petzl y CMC.",
+    description: "Arneses y sistemas NFPA 2500. Petzl y CMC.",
     children: [
-      { label: "Arnés de Rescate NFPA 1983", href: "/productos/rescate-vertical/" },
+      { label: "Arnés de Rescate NFPA 2500", href: "/productos/rescate-vertical/" },
       { label: "Sistema Descenso Controlado", href: "/productos/rescate-vertical/" },
       { label: "Polipasto y Sistemas de Izaje", href: "/productos/rescate-vertical/" },
       { label: "Cuerdas y Accesorios", href: "/productos/rescate-vertical/" },

@@ -8,7 +8,7 @@ import type { ArticuloData } from "./blog-articulos";
  * (ver astro.config.mjs).
  *
  * Precisión (2026): NFPA consolidó 1971/1975/1981/1982 → NFPA 1970 (ed. 2025);
- * 1991/1992/1994 → NFPA 1990; 1670/1983 → NFPA 2500. Se conserva el número
+ * 1991/1992/1994 → NFPA 1990; 2500 → NFPA 2500. Se conserva el número
  * histórico como término de búsqueda y se aclara la consolidación.
  * Regla: sin superlativos sin proof. NO usar comillas dobles dentro de strings.
  */
@@ -135,7 +135,7 @@ Un **casco estructural en operación forestal** añade peso y calor que aceleran
 
 ## Rescate técnico: un tercer caso
 
-Para **rescate vertical, acuático y en cuerda**, ninguno es ideal: ahí se usa un casco de perfil bajo tipo **EN 12492 / NFPA 1951**, con retención reforzada. Es otro escenario, otro casco.
+Para **rescate vertical, acuático y en cuerda**, ninguno es ideal: ahí se usa un casco de perfil bajo tipo **EN 12492 / NFPA 1950**, con retención reforzada. Es otro escenario, otro casco.
 
 ## Cómo decidir en México
 
@@ -182,7 +182,7 @@ En ambos incendios la mano es la herramienta principal, pero el guante que la pr
 
 ## Rescate y HAZMAT: otros guantes
 
-Para **extricación** manda la resistencia al corte (**EN 388 / ASTM F1790**, **NFPA 1951**); para **HAZMAT**, la permeación química (**ASTM F739 / EN 374**, **NFPA 1991/1990**). Ningún guante cubre bien todos los escenarios.
+Para **extricación** manda la resistencia al corte (**EN 388 / ASTM F1790**, **NFPA 1950**); para **HAZMAT**, la permeación química (**ASTM F739 / EN 374**, **NFPA 1990**). Ningún guante cubre bien todos los escenarios.
 
 ## Cómo decidir en México
 
@@ -261,7 +261,7 @@ El **butilo** (caucho sintético) destaca en:
 - **Cetonas** (acetona, MEK) y **ésteres**, donde otros materiales fallan rápido.
 - Ácidos y bases fuertes.
 
-Su límite: los **hidrocarburos y solventes aromáticos** lo degradan. Es el material de referencia para **encapsulados NFPA 1991** (vapor).
+Su límite: los **hidrocarburos y solventes aromáticos** lo degradan. Es el material de referencia para **encapsulados NFPA 1990** (vapor).
 
 ## Viton® (fluoroelastómero)
 
@@ -294,21 +294,21 @@ Su límite: no iguala al butilo en gases ni al Viton® en aromáticos.
   },
 
   "nfpa-1951-vs-1971-diferencias": {
-    titulo: "NFPA 1951 vs. NFPA 1970: Rescate vs. Estructural",
-    excerpt: "NFPA 1970 rige el conjunto de fuego estructural: barrera térmica pesada contra calor extremo. NFPA 1951 rige el EPP de rescate técnico: prioriza destreza, resistencia al corte y bajo perfil. Son escenarios distintos con EPP distinto; mezclarlos deja huecos.",
+    titulo: "NFPA 1950 vs. NFPA 1970: Rescate vs. Estructural",
+    excerpt: "NFPA 1970 rige el conjunto de fuego estructural: barrera térmica pesada contra calor extremo. NFPA 1950 rige el EPP de rescate técnico: prioriza destreza, resistencia al corte y bajo perfil. Son escenarios distintos con EPP distinto; mezclarlos deja huecos.",
     imagen: "/images/accion/bomberos-rescate-vehicular.avif",
     categoria: "Normativas",
-    tags: ["NFPA 1951", "NFPA 1970", "Rescate Técnico", "Estructural", "Selección"],
+    tags: ["NFPA 1950", "NFPA 1970", "Rescate Técnico", "Estructural", "Selección"],
     autor: AUTOR,
     autorRol: ROL,
-    anchorKeyword: "NFPA 1951 vs NFPA 1970 diferencias rescate estructural",
+    anchorKeyword: "NFPA 1950 vs NFPA 1970 diferencias rescate estructural",
     contenido: `
 ## Dos normas, dos misiones
 
-**NFPA 1970** y **NFPA 1951** se confunden porque ambas visten al bombero, pero protegen contra riesgos opuestos.
+**NFPA 1970** y **NFPA 1950** se confunden porque ambas visten al bombero, pero protegen contra riesgos opuestos.
 
 - **NFPA 1970** (Structural Firefighting, hoy consolidada en **NFPA 1970, 2024**): protege del **calor extremo y la inmersión en fuego**. Su conjunto de 3 capas es grueso y aislante.
-- **NFPA 1951** (Technical Rescue Incidents): protege en **rescate técnico** —vehicular, cuerda, USAR, acuático— donde el riesgo no es el fuego, sino el **corte, la abrasión, el impacto y la necesidad de moverse con destreza**.
+- **NFPA 1950** (Technical Rescue Incidents): protege en **rescate técnico** —vehicular, cuerda, USAR, acuático— donde el riesgo no es el fuego, sino el **corte, la abrasión, el impacto y la necesidad de moverse con destreza**.
 
 ## En qué difieren en la práctica
 
@@ -332,7 +332,7 @@ Su límite: no iguala al butilo en gases ni al Viton® en aromáticos.
 ## Cómo decidir en México
 
 - ¿Vas a entrar a un incendio de estructura? → **NFPA 1970**.
-- ¿Extricación vehicular, rescate en cuerda, USAR, acuático? → **NFPA 1951** (y equipo de cuerda **NFPA 1983/2500**).
+- ¿Extricación vehicular, rescate en cuerda, USAR, acuático? → **NFPA 1950** (y equipo de cuerda **NFPA 2500**).
 - Cuerpos que hacen ambas → **dos conjuntos**, seleccionados por incidente.
 
 [Cotiza EPP](/cotizar/) por disciplina —estructural y rescate— con su certificación.
@@ -341,10 +341,10 @@ Su límite: no iguala al butilo en gases ni al Viton® en aromáticos.
 
   "nivel-a-vs-nivel-b-hazmat": {
     titulo: "HAZMAT Nivel A vs. Nivel B: Diferencias Clave",
-    excerpt: "El Nivel A HAZMAT es el traje totalmente encapsulado y hermético a vapor (NFPA 1991/1990) con SCBA interior: máxima protección respiratoria y cutánea. El Nivel B protege contra salpicadura líquida (NFPA 1992) con SCBA, pero no es hermético a vapor. La diferencia define quién puede entrar y a dónde.",
+    excerpt: "El Nivel A HAZMAT es el traje totalmente encapsulado y hermético a vapor (NFPA 1990) con SCBA interior: máxima protección respiratoria y cutánea. El Nivel B protege contra salpicadura líquida (NFPA 1990) con SCBA, pero no es hermético a vapor. La diferencia define quién puede entrar y a dónde.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Industrial",
-    tags: ["HAZMAT", "Nivel A", "Nivel B", "NFPA 1991", "NFPA 1992", "Encapsulado"],
+    tags: ["HAZMAT", "Nivel A", "Nivel B", "NFPA 1990", "NFPA 1990", "Encapsulado"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "HAZMAT nivel A vs nivel B diferencias EPP",
@@ -431,10 +431,10 @@ En ambos casos, lo no negociable es la **certificación NFPA 1970 por lote** y e
 
   "traje-proximidad-vs-entrada": {
     titulo: "Traje de Proximidad vs. Entrada al Fuego",
-    excerpt: "El traje de proximidad (aluminizado, NFPA 1970 proximidad / NFPA 1976) refleja calor radiante extremo para aproximarse a incendios de combustible sin entrar en la llama. El traje de entrada/estructural es para inmersión breve en fuego. Son equipos distintos para riesgos térmicos distintos.",
+    excerpt: "El traje de proximidad (aluminizado, NFPA 1970 proximidad) refleja calor radiante extremo para aproximarse a incendios de combustible sin entrar en la llama. El traje de entrada/estructural es para inmersión breve en fuego. Son equipos distintos para riesgos térmicos distintos.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Equipo",
-    tags: ["Traje de Proximidad", "Aluminizado", "NFPA 1976", "Calor Radiante", "ARFF"],
+    tags: ["Traje de Proximidad", "Aluminizado", "NFPA 1970", "Calor Radiante", "ARFF"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "traje de proximidad vs entrada al fuego diferencias",
@@ -472,7 +472,7 @@ Usar un **estructural donde se necesita proximidad** deja al bombero sin la refl
 ## Cómo decidir en México
 
 - Incendio de edificio → **estructural (NFPA 1970)**.
-- Aproximación a combustible/gas/metal, ARFF → **proximidad aluminizado (NFPA 1976 / EN 1486)**.
+- Aproximación a combustible/gas/metal, ARFF → **proximidad aluminizado (NFPA 1970 / EN 1486)**.
 - Entrada al fuego → equipo especializado, uso excepcional.
 
 [Solicita asesoría](/cotizar/) para seleccionar el conjunto correcto según tu exposición térmica.
@@ -597,7 +597,7 @@ A mayor reflectividad, más **segundos de operación** cerca del fuego —los se
 - **Siderurgia y fundición** (radiación de metal fundido).
 - **Petroquímica** (incendios de tanque y proceso).
 
-Se rige por **NFPA 1970 proximidad / NFPA 1976** y, en Europa, **EN 1486**.
+Se rige por **NFPA 1970 proximidad** y, en Europa, **EN 1486**.
 
 ## Su punto débil: el mantenimiento
 
@@ -791,7 +791,7 @@ Junto al breakthrough se reporta la **tasa de permeación**: con qué velocidad 
 
 ## Por qué importa la tabla, no la etiqueta
 
-Un guante Tipo A (EN 374) o certificado NFPA 1991/1990 protege contra **los químicos para los que fue ensayado**. Si tu agente no está en la lista, no asumas protección: exige el dato o selecciona otro material (butilo, Viton®, neopreno según el caso).
+Un guante Tipo A (EN 374) o certificado NFPA 1990 protege contra **los químicos para los que fue ensayado**. Si tu agente no está en la lista, no asumas protección: exige el dato o selecciona otro material (butilo, Viton®, neopreno según el caso).
 
 ## Cómo comprar bien en México
 
@@ -872,7 +872,7 @@ Es el mismo principio del acabado aluminizado del traje ARFF, aplicado a la prot
 
 ## Dónde encaja en el sistema ARFF
 
-El casco ARFF con visor dorado forma parte de un **conjunto de proximidad** (**NFPA 1970 proximidad / NFPA 1976 / EN 1486**), dimensionado según la **categoría del aeropuerto (ICAO Anexo 14)**. El visor trabaja junto con el protector facial, la capucha y la máscara del SCBA.
+El casco ARFF con visor dorado forma parte de un **conjunto de proximidad** (**NFPA 1970 proximidad / EN 1486**), dimensionado según la **categoría del aeropuerto (ICAO Anexo 14)**. El visor trabaja junto con el protector facial, la capucha y la máscara del SCBA.
 
 ## Mantenimiento
 
@@ -1182,8 +1182,8 @@ A diferencia de un incendio, en una emergencia de **materiales peligrosos** la p
 **4. Monitorear la atmósfera.** **Detector multigas** (O₂, LEL, CO, H₂S) y, según el caso, PID/colorimetría. El monitoreo define el **nivel de EPP**.
 
 **5. Seleccionar el nivel de EPP.**
-- **Nivel A:** encapsulado hermético a vapor con SCBA interior (**NFPA 1991/1990**) —vapor cutáneo o agente desconocido.
-- **Nivel B:** salpicadura líquida con SCBA (**NFPA 1992**).
+- **Nivel A:** encapsulado hermético a vapor con SCBA interior (**NFPA 1990**) —vapor cutáneo o agente desconocido.
+- **Nivel B:** salpicadura líquida con SCBA (**NFPA 1990**).
 - **Nivel C:** respirador purificador (APR/PAPR) —solo si la atmósfera lo permite.
 - **Nivel D:** uniforme de trabajo, nunca en zona caliente.
 
@@ -1206,7 +1206,7 @@ El error caro es comprar un traje HAZMAT genérico y suponer que sirve para todo
   // ─────────────────── EPP POR DISCIPLINA ───────────────────
   "epp-completo-bombero-arff": {
     titulo: "EPP Completo para Bombero ARFF en México",
-    excerpt: "El bombero ARFF aeroportuario requiere un conjunto de proximidad completo: traje aluminizado (NFPA 1970 proximidad / NFPA 1976 / EN 1486), casco ARFF con visor dorado, guantes y botas resistentes a hidrocarburos, SCBA y protección respiratoria. El nivel se dimensiona por la categoría ICAO del aeropuerto.",
+    excerpt: "El bombero ARFF aeroportuario requiere un conjunto de proximidad completo: traje aluminizado (NFPA 1970 proximidad / EN 1486), casco ARFF con visor dorado, guantes y botas resistentes a hidrocarburos, SCBA y protección respiratoria. El nivel se dimensiona por la categoría ICAO del aeropuerto.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     categoria: "Equipo",
     tags: ["ARFF", "EPP Completo", "Proximidad", "ICAO", "Aeropuerto"],
@@ -1220,7 +1220,7 @@ El bombero de **rescate y extinción de incendios de aeronaves (ARFF)** enfrenta
 
 ## Los componentes del conjunto ARFF
 
-**Traje de proximidad aluminizado.** Refleja el calor radiante (ver **capa aluminizada** y **RPP / ASTM F1939**). Normas: **NFPA 1970 proximidad / NFPA 1976** o, en marco europeo, **EN 1486**.
+**Traje de proximidad aluminizado.** Refleja el calor radiante (ver **capa aluminizada** y **RPP / ASTM F1939**). Normas: **NFPA 1970 proximidad** o, en marco europeo, **EN 1486**.
 
 **Casco ARFF con visor dorado.** El recubrimiento **filtra el infrarrojo** que ataca cara y ojos; compatible con capucha y máscara.
 
@@ -1291,14 +1291,14 @@ Podemos armar el **conjunto forestal NFPA 1950** para tu brigada —municipal, e
   },
 
   "guantes-cbrn-nfpa-1994-mexico": {
-    titulo: "Guantes CBRN NFPA 1994 para Respuesta en México",
+    titulo: "Guantes CBRN NFPA 1990 para Respuesta en México",
     excerpt: "Los guantes CBRN protegen contra agentes químicos, biológicos, radiológicos y nucleares en respuesta a incidentes de terrorismo o industriales severos. Bajo NFPA 1994 (hoy NFPA 1990) combinan permeación química (ASTM F739) y barrera biológica, con destreza suficiente para operar bajo amenaza.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-combate-incendio-manguera-03.avif",
     categoria: "Industrial",
-    tags: ["Guantes CBRN", "NFPA 1994", "NFPA 1990", "HAZMAT", "Terrorismo"],
+    tags: ["Guantes CBRN", "NFPA 1990", "NFPA 1990", "HAZMAT", "Terrorismo"],
     autor: AUTOR,
     autorRol: ROL,
-    anchorKeyword: "guantes CBRN NFPA 1994 respuesta México",
+    anchorKeyword: "guantes CBRN NFPA 1990 respuesta México",
     contenido: `
 ## Cuando el agente puede ser un arma
 
@@ -1311,9 +1311,9 @@ La respuesta a incidentes **CBRN** —**Químicos, Biológicos, Radiológicos y 
 - **Integridad del sistema**: sellado con el traje y la manga, sin puntos de fuga.
 - **Destreza suficiente** para operar equipo, comunicaciones y tareas de rescate bajo amenaza —la funcionalidad es parte de la protección.
 
-## Clases dentro de NFPA 1994
+## Clases dentro de NFPA 1990
 
-**NFPA 1994** define **clases de conjunto** según el nivel de amenaza y la duración de exposición esperada, desde escenarios de vapor de alta concentración hasta zonas de menor riesgo tras la dispersión. La clase determina qué tan robusta debe ser la barrera —y, en consecuencia, el guante que la acompaña.
+**NFPA 1990** define **clases de conjunto** según el nivel de amenaza y la duración de exposición esperada, desde escenarios de vapor de alta concentración hasta zonas de menor riesgo tras la dispersión. La clase determina qué tan robusta debe ser la barrera —y, en consecuencia, el guante que la acompaña.
 
 ## CBRN frente a HAZMAT industrial
 
@@ -1327,7 +1327,7 @@ Aunque comparten principios (permeación, niveles A/B/C), la respuesta CBRN suel
 
 Para unidades con misión CBRN (aeropuertos, eventos masivos, industria estratégica, apoyo militar/protección civil), los guantes deben:
 
-1. Cumplir **NFPA 1994/1990** con clase apropiada a la amenaza.
+1. Cumplir **NFPA 1990** con clase apropiada a la amenaza.
 2. Tener **datos de permeación** frente a los agentes del escenario.
 3. Ser **compatibles** con el traje y el respirador del conjunto.
 
@@ -1363,7 +1363,7 @@ No hay una sola norma universal; los cascos de swiftwater suelen apoyarse en:
 
 - **EN 12492** (cascos de montañismo/altura) por su perfil bajo y retención.
 - Certificaciones específicas de **rescate acuático/watersport**.
-- El marco de **rescate técnico NFPA 1951 / NFPA 2500** para el conjunto operativo.
+- El marco de **rescate técnico NFPA 1950 / NFPA 2500** para el conjunto operativo.
 
 ## Parte de un sistema acuático
 

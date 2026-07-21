@@ -27,7 +27,7 @@ export const POOL_PRODUCTOS_TECNICOS: Pill[] = [
   { label: "SCBA",           norm: "NFPA 1970",   href: "/productos/scba/" },
   { label: "Forestales",     norm: "NFPA 1950",   href: "/productos/forestales/" },
   { label: "Herramientas",   norm: "Rescate",     href: "/productos/herramientas-rescate/" },
-  { label: "HAZMAT",         norm: "NFPA 1991",   href: "/productos/hazmat/" },
+  { label: "HAZMAT",         norm: "NFPA 1990",   href: "/productos/hazmat/" },
   { label: "Tecnología",     norm: "TIC · Drones",href: "/productos/tecnologia/" },
   { label: "Extintores",     norm: "NOM-154",     href: "/productos/extintores/" },
   { label: "Combate CI",     norm: "Hidrantes",   href: "/productos/equipo-contra-incendios/" },

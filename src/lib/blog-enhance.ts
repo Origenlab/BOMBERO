@@ -72,8 +72,8 @@ const IMG_KEYWORDS: ImgCandidate[] = [
   { re: /extintor/i, src: "/images/directorio/extintor-polvo-quimico-01.avif", alt: "Extintor de polvo químico seco certificado para protección contra incendio" },
   { re: /sprinkler|rociador|nfpa-13/i, src: "/images/directorio/manguera-incendios-presion-01.avif", alt: "Sistema hidráulico contra incendios a presión conforme a NFPA" },
   { re: /detec|humo|gas/i, src: "/images/directorio/detector-multigas-hazmat-01.avif", alt: "Detector multigas profesional para atmósferas peligrosas" },
-  { re: /camara-termica|tic/i, src: "/images/directorio/camara-termica-bomberos-01.avif", alt: "Cámara térmica TIC para bomberos conforme a NFPA 1801" },
-  { re: /rescate-en-altura|cuerda|vertical/i, src: "/images/directorio/cuerdas-rappel-bomberos-01.avif", alt: "Cuerdas y sistemas de rescate vertical certificados NFPA 1983" },
+  { re: /camara-termica|tic/i, src: "/images/directorio/camara-termica-bomberos-01.avif", alt: "Cámara térmica TIC para bomberos conforme a NFPA 1930" },
+  { re: /rescate-en-altura|cuerda|vertical/i, src: "/images/directorio/cuerdas-rappel-bomberos-01.avif", alt: "Cuerdas y sistemas de rescate vertical certificados NFPA 2500" },
   { re: /rescate|extricacion|jaws/i, src: "/images/directorio/equipo-corte-rescate-01.avif", alt: "Equipo hidráulico de corte y rescate vehicular para bomberos" },
   { re: /traje|epp|ropa/i, src: "/images/directorio/traje-bombero-estructural-nfpa-01.avif", alt: "Traje estructural de bombero certificado NFPA 1970" },
   { re: /monitor|refineria|petrol/i, src: "/images/directorio/estacion-bomberos-refineria-01.avif", alt: "Protección contra incendios industrial en instalación de refinería" },
@@ -113,7 +113,7 @@ const IMG_POOLS: Record<string, ImgCandidate[]> = {
   ],
   rescate: [
     { re: /./, src: "/images/directorio/equipo-rescate-tecnico-01.avif", alt: "Equipo de rescate técnico certificado para bomberos" },
-    { re: /./, src: "/images/directorio/equipo-rescate-vertical-01.avif", alt: "Equipo de rescate vertical y trabajo en cuerdas NFPA 1983" },
+    { re: /./, src: "/images/directorio/equipo-rescate-vertical-01.avif", alt: "Equipo de rescate vertical y trabajo en cuerdas NFPA 2500" },
   ],
 };
 
@@ -160,7 +160,7 @@ function figureGridHtml(imgs: ImgCandidate[], caption: string): string {
 const CITY_RE = /^bomberos-([a-z-]+)-equipo-nfpa$/;
 
 function cityTable(cityName: string): string {
-  return `\n\n## Equipamiento NFPA Esencial por Función Operativa\n\nLa siguiente tabla resume el equipamiento mínimo recomendado para un cuerpo de bomberos como el de ${cityName}, organizado por función operativa y con su norma NFPA de referencia. Esta matriz es la base que utilizamos al preparar cotizaciones y documentación técnica para licitaciones municipales.\n\n| Función operativa | Equipamiento clave | Norma de referencia | Prioridad |\n|-------------------|--------------------|---------------------|-----------|\n| **Combate estructural** | Traje completo (chaquetón + pantalón), casco, capucha, guantes, botas | NFPA 1970 | Crítica |\n| **Protección respiratoria** | SCBA con cilindro de respaldo y máscara facial | NFPA 1970 / 1850 | Crítica |\n| **Rescate vehicular** | Herramienta hidráulica de corte/separación, estabilizadores | NFPA 1936 | Alta |\n| **Rescate con cuerdas** | Arneses, cuerdas estáticas, mosquetones, poleas | NFPA 1983 | Alta |\n| **Atención prehospitalaria** | Botiquín avanzado, camilla, oxígeno portátil | Protocolos locales | Alta |\n| **Detección de atmósferas** | Detector multigas (O2, CO, H2S, LEL) | NFPA 1670 | Media-Alta |\n| **Incendio forestal** | Traje ligero NFPA 1950, herramienta manual, motobomba | NFPA 1950 | Según región |\n\n> **Recomendación profesional:** antes de cualquier adquisición municipal, valide que cada partida especifique la edición vigente de la norma NFPA y la certificación de un laboratorio acreditado (UL, Intertek o SEI). Esto evita impugnaciones en licitación y garantiza equipo operable por una década.\n`;
+  return `\n\n## Equipamiento NFPA Esencial por Función Operativa\n\nLa siguiente tabla resume el equipamiento mínimo recomendado para un cuerpo de bomberos como el de ${cityName}, organizado por función operativa y con su norma NFPA de referencia. Esta matriz es la base que utilizamos al preparar cotizaciones y documentación técnica para licitaciones municipales.\n\n| Función operativa | Equipamiento clave | Norma de referencia | Prioridad |\n|-------------------|--------------------|---------------------|-----------|\n| **Combate estructural** | Traje completo (chaquetón + pantalón), casco, capucha, guantes, botas | NFPA 1970 | Crítica |\n| **Protección respiratoria** | SCBA con cilindro de respaldo y máscara facial | NFPA 1970 / 1850 | Crítica |\n| **Rescate vehicular** | Herramienta hidráulica de corte/separación, estabilizadores | NFPA 1936 | Alta |\n| **Rescate con cuerdas** | Arneses, cuerdas estáticas, mosquetones, poleas | NFPA 2500 | Alta |\n| **Atención prehospitalaria** | Botiquín avanzado, camilla, oxígeno portátil | Protocolos locales | Alta |\n| **Detección de atmósferas** | Detector multigas (O2, CO, H2S, LEL) | NFPA 2500 | Media-Alta |\n| **Incendio forestal** | Traje ligero NFPA 1950, herramienta manual, motobomba | NFPA 1950 | Según región |\n\n> **Recomendación profesional:** antes de cualquier adquisición municipal, valide que cada partida especifique la edición vigente de la norma NFPA y la certificación de un laboratorio acreditado (UL, Intertek o SEI). Esto evita impugnaciones en licitación y garantiza equipo operable por una década.\n`;
 }
 
 /* ─── FAQ → JSON-LD (GEO) ──────────────────────────────────────────────── */

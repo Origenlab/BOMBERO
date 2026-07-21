@@ -746,10 +746,10 @@ Un SCBA bien mantenido es la diferencia entre completar una misión exitosa o su
   },
   "rescate-vehicular-tecnicas": {
     titulo: "Rescate Vehicular Moderno: Técnicas de Extricación con UHSS, Vehículos Eléctricos y Sistemas de Airbag de Nueva Generación",
-    excerpt: "Análisis técnico de rescate vehicular moderno bajo NFPA 1670/1006. Aceros UHSS de >1,500 MPa, vehículos eléctricos 400-800V, sistemas de airbag de 10-14 unidades, protocolos de aislamiento eléctrico, identificación de baterías de litio y herramientas hidráulicas de 3ª generación (Holmatro, LUKAS, Hurst).",
+    excerpt: "Análisis técnico de rescate vehicular moderno bajo NFPA 2500/1006. Aceros UHSS de >1,500 MPa, vehículos eléctricos 400-800V, sistemas de airbag de 10-14 unidades, protocolos de aislamiento eléctrico, identificación de baterías de litio y herramientas hidráulicas de 3ª generación (Holmatro, LUKAS, Hurst).",
     imagen: "/images/trajes-para-bombero/traje-bombero-operacion-rescate-equipo-accion-01.avif",
     categoria: "Técnicas",
-    tags: ["Rescate Vehicular", "Extricación", "UHSS", "Vehículos Eléctricos", "Airbags", "NFPA 1670", "Holmatro", "LUKAS"],
+    tags: ["Rescate Vehicular", "Extricación", "UHSS", "Vehículos Eléctricos", "Airbags", "NFPA 2500", "Holmatro", "LUKAS"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Rescate Vehicular",
     anchorKeyword: "Técnicas rescate vehicular extricación bomberos México",
@@ -760,7 +760,7 @@ El **rescate vehicular** ha experimentado en los últimos quince años una trans
 
 El resultado operativo es paradójico: los vehículos modernos son **más seguros para sus ocupantes pero más complejos para los equipos de rescate**. Una cizalla hidráulica de primera o segunda generación, comprada antes de 2010, **literalmente no corta el acero UHSS** de un pilar B de un sedán moderno. Un protocolo de extricación que ignora el aislamiento eléctrico de un vehículo híbrido expone al equipo a electrocución. Una herramienta que activa accidentalmente un airbag inflado puede causar lesiones graves al rescatista y al ocupante.
 
-Este análisis describe los **tres ejes técnicos** del rescate vehicular moderno (UHSS, sistemas eléctricos de alta tensión, airbags de nueva generación), los **protocolos NFPA 1670 / NFPA 1006** aplicables, la **generación correcta de herramientas hidráulicas** según vehículo objetivo, y la **dotación de EPP** complementaria.
+Este análisis describe los **tres ejes técnicos** del rescate vehicular moderno (UHSS, sistemas eléctricos de alta tensión, airbags de nueva generación), los **protocolos NFPA 2500 / NFPA 1006** aplicables, la **generación correcta de herramientas hidráulicas** según vehículo objetivo, y la **dotación de EPP** complementaria.
 
 <div class="stats-grid">
   <div class="stat">
@@ -1113,7 +1113,7 @@ El rescate vehicular ya no es una disciplina estática. Los vehículos evolucion
     <p class="feature__text">Líneas cordless para despliegue rápido sin unidad de poder. Compatibles con backup de batería extendida para operaciones largas.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">EPP NFPA 1970 + 1951</h4>
+    <h4 class="feature__title">EPP NFPA 1970 + 1950</h4>
     <p class="feature__text">Trajes estructurales (riesgo incendio post-impacto) + cascos rescate técnico para versatilidad operativa.</p>
   </div>
   <div class="feature">
@@ -1132,7 +1132,7 @@ El rescate vehicular ya no es una disciplina estática. Los vehículos evolucion
 
 <div class="cta-box">
   <h3>Equipo de extricación vehicular para rescate moderno</h3>
-  <p>Herramientas Holmatro / LUKAS / Hurst de 3ª generación · EPP NFPA 1970/1951 · Protocolo de aislamiento eléctrico · Capacitación coordinada con fabricante</p>
+  <p>Herramientas Holmatro / LUKAS / Hurst de 3ª generación · EPP NFPA 1970/1950 · Protocolo de aislamiento eléctrico · Capacitación coordinada con fabricante</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
     <a href="https://wa.me/525560348981" class="alt">WhatsApp directo</a>
@@ -1143,11 +1143,11 @@ El rescate vehicular ya no es una disciplina estática. Los vehículos evolucion
 
 ## Referencias Normativas
 
-- **NFPA 1670** — Standard on Operations and Training for Technical Search and Rescue Incidents
+- **NFPA 2500** — Standard on Operations and Training for Technical Search and Rescue Incidents
 - **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications
 - **NFPA 1936** — Standard on Powered Rescue Tools
 - **NFPA 1970** — EPP estructural (riesgo incendio post-impacto)
-- **NFPA 1951** — EPP rescate técnico
+- **NFPA 1950** — EPP rescate técnico
 - **NFPA 1006** — Vehicle Rescue Operations
 - **SAE J3026** — Identification of Battery Locations for First Responders (vehículos eléctricos)
 - **ISO/TR 17427-1** — Cooperative Intelligent Transport Systems (referencia para vehículos conectados)
@@ -1158,9 +1158,9 @@ El rescate vehicular ya no es una disciplina estática. Los vehículos evolucion
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
 - [Extricación Vehicular Jaws of Life — Guía Holmatro/LUKAS/Hurst](/blog/extricacion-vehicular-jaws-of-life-mexico/)
-- [Casco Rescate Técnico NFPA 1951](/blog/casco-rescate-nfpa-1951/)
+- [Casco Rescate Técnico NFPA 1950](/blog/casco-rescate-nfpa-1951/)
 - [Cascos para Bombero — Tipos NFPA](/blog/cascos-bombero-tipos/)
-- [Guantes para Bombero — Rescate Técnico NFPA 1951](/blog/guantes-para-bombero-guia-completa/)
+- [Guantes para Bombero — Rescate Técnico NFPA 1950](/blog/guantes-para-bombero-guia-completa/)
 - [Bomberos CDMX — Periférico, Viaducto](/blog/bomberos-cdmx-equipo-nfpa/)
 - [Bomberos Querétaro — Autopista 57D](/blog/bomberos-queretaro-equipo-nfpa/)
 - [Bomberos Monterrey — Saltillo/Periférico](/blog/bomberos-monterrey-equipo-nfpa/)
@@ -1172,7 +1172,7 @@ El rescate vehicular ya no es una disciplina estática. Los vehículos evolucion
     excerpt: "Análisis técnico de EPP para brigadas industriales mexicanas: marco normativo NFPA 600 + NOM-002-STPS + NOM-017-STPS, evaluación de riesgo por sector (petroquímica, automotriz, siderurgia, alimenticia, farmacéutica), matriz de selección de EPP estructural/HAZMAT/ARFF y aplicación operativa en plantas mexicanas.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-brigada-industrial-01.avif",
     categoria: "Industrial",
-    tags: ["Brigadas Industriales", "EPP Industrial", "NFPA 600", "NFPA 1994", "NOM-002-STPS", "NOM-017-STPS", "HAZMAT"],
+    tags: ["Brigadas Industriales", "EPP Industrial", "NFPA 600", "NFPA 1990", "NOM-002-STPS", "NOM-017-STPS", "HAZMAT"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — EPP Industrial",
     anchorKeyword: "EPP brigadas industriales México selección certificación",
@@ -1183,7 +1183,7 @@ Las **brigadas industriales internas** son el componente humano más crítico de
 
 El marco normativo mexicano para brigadas industriales combina **tres regulaciones convergentes**: la **NFPA 600** (*Standard on Facility Fire Brigades*) como referencia técnica internacional de organización, capacitación y equipamiento; la **NOM-002-STPS-2010** que establece las condiciones de seguridad y prevención de incendio para centros de trabajo (incluida la obligación de brigada cuando aplica por riesgo); y la **NOM-017-STPS-2024** que regula la selección, uso y mantenimiento del EPP. La aplicación correcta de estas tres normas no es opcional: la falla en cualquiera genera exposición regulatoria ante STPS y exposición legal civil ante la responsabilidad por lesión documentable del personal.
 
-Este análisis describe la **metodología de evaluación de riesgo por sector industrial** (petroquímica, automotriz, siderurgia, alimenticia, farmacéutica, logística), la **matriz de selección de EPP** correspondiente (estructural NFPA 1970, HAZMAT NFPA 1991/1992, ARFF NFPA 1976, forestal NFPA 1950 según aplique), las **referencias del corredor industrial mexicano** y la dotación mínima exigible bajo marco normativo combinado.
+Este análisis describe la **metodología de evaluación de riesgo por sector industrial** (petroquímica, automotriz, siderurgia, alimenticia, farmacéutica, logística), la **matriz de selección de EPP** correspondiente (estructural y ARFF de proximidad NFPA 1970, HAZMAT NFPA 1990, forestal NFPA 1950 según aplique), las **referencias del corredor industrial mexicano** y la dotación mínima exigible bajo marco normativo combinado.
 
 <div class="stats-grid">
   <div class="stat">
@@ -1316,11 +1316,11 @@ Para instalaciones que manejan sustancias químicas peligrosas.
 
 | Estándar | Tipo de Protección | Aplicación Industrial |
 |----------|-------------------|----------------------|
-| **NFPA 1991** | Vapor-tight (Nivel A) | Químicos gaseosos, desconocidos |
-| **NFPA 1992** | Liquid splash (Nivel B) | Derrames líquidos |
-| **NFPA 1994 Clase 2** | Splash + vapor limitado | Respuesta terrorista CBRN |
-| **NFPA 1994 Clase 3** | Partículas + líquidos | Limpieza, descontaminación |
-| **NFPA 1994 Clase 4** | Escape solamente | Evacuación de área |
+| **NFPA 1990** | Vapor-tight (Nivel A) | Químicos gaseosos, desconocidos |
+| **NFPA 1990** | Liquid splash (Nivel B) | Derrames líquidos |
+| **NFPA 1990 Clase 2** | Splash + vapor limitado | Respuesta terrorista CBRN |
+| **NFPA 1990 Clase 3** | Partículas + líquidos | Limpieza, descontaminación |
+| **NFPA 1990 Clase 4** | Escape solamente | Evacuación de área |
 
 #### Compatibilidad Química de Guantes
 
@@ -1347,9 +1347,9 @@ Para instalaciones con riesgos de atrapamiento, caídas o espacios confinados.
 | Componente | Estándar | Especificación |
 |------------|----------|---------------|
 | **Arnés de cuerpo completo** | ANSI Z359.11 | Con puntos de anclaje dorsal y frontal |
-| **Casco de rescate** | NFPA 1951 / EN 12492 | Perfil bajo, múltiples puntos de anclaje |
+| **Casco de rescate** | NFPA 1950 / EN 12492 | Perfil bajo, múltiples puntos de anclaje |
 | **Líneas de vida** | ANSI Z359.3 | Absorción de impacto certificada |
-| **Dispositivos de descenso** | NFPA 1983 | Certificación para carga de rescate |
+| **Dispositivos de descenso** | NFPA 2500 | Certificación para carga de rescate |
 | **Guantes técnicos** | EN 388 / ANSI A4+ | Resistencia a corte y destreza |
 
 #### EPP para Espacios Confinados
@@ -1371,7 +1371,7 @@ Para instalaciones con riesgos de atrapamiento, caídas o espacios confinados.
 | Riesgo Principal | EPP Especializado |
 |------------------|-------------------|
 | **Incendio de hidrocarburos** | Traje de aproximación aluminizado, SCBA |
-| **Derrames de crudo** | Trajes NFPA 1992, respiradores con filtros OV |
+| **Derrames de crudo** | Trajes NFPA 1990, respiradores con filtros OV |
 | **H2S (ácido sulfhídrico)** | SCBA obligatorio (no APR), detector personal |
 | **Espacios confinados** | SAR o SCBA, detector multigas, arnés de rescate |
 | **Arco eléctrico** | Ropa arc-rated (8+ cal/cm²), protección facial |
@@ -1544,7 +1544,7 @@ Un traje estructural de $50,000 MXN es insignificante comparado con una demanda 
     <p class="feature__text">Trajes, cascos, capuchas, guantes, botas certificados para brigadas con respuesta a incendio estructural en planta.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">EPP HAZMAT NFPA 1991/1992</h4>
+    <h4 class="feature__title">EPP HAZMAT NFPA 1990</h4>
     <p class="feature__text">Trajes encapsulados y splash para brigadas químicas. Matriz de compatibilidad química documentada por planta.</p>
   </div>
   <div class="feature">
@@ -1552,7 +1552,7 @@ Un traje estructural de $50,000 MXN es insignificante comparado con una demanda 
     <p class="feature__text">MSA G1, Scott Air-Pak, Dräger PSS + detectores RAE/MSA/Dräger calibrados para los agentes específicos de la planta.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">EPP de aproximación NFPA 1976</h4>
+    <h4 class="feature__title">EPP de aproximación NFPA 1970</h4>
     <p class="feature__text">Para brigadas con exposición a calor radiante (siderurgia, refinería, fundición). Trajes aluminizados con SCBA compatible.</p>
   </div>
   <div class="feature">
@@ -1581,11 +1581,11 @@ Un traje estructural de $50,000 MXN es insignificante comparado con una demanda 
 - **NFPA 600** — Standard on Facility Fire Brigades
 - **NFPA 1081** — Standard for Industrial Fire Brigade Member Professional Qualifications
 - **NFPA 1970** — Protective Ensembles for Structural Fire Fighting
-- **NFPA 1976** — Protective Ensembles for Proximity Fire Fighting (siderurgia, refinería)
+- **NFPA 1970** — Protective Ensembles for Proximity Fire Fighting (siderurgia, refinería)
 - **NFPA 1970** — Open-Circuit SCBA
-- **NFPA 1991** — Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A)
-- **NFPA 1992** — Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
-- **NFPA 1994** — Protective Ensembles for First Responders to CBRN Terrorism Incidents
+- **NFPA 1990** — Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A)
+- **NFPA 1990** — Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
+- **NFPA 1990** — Protective Ensembles for First Responders to CBRN Terrorism Incidents
 - **NOM-002-STPS-2010** — Condiciones de seguridad – Prevención y protección contra incendios en los centros de trabajo
 - **NOM-017-STPS-2024** — EPP en centros de trabajo
 - **NOM-018-STPS-2015** — Sistema Armonizado para la Identificación y Comunicación de Peligros (HDS)
@@ -1597,7 +1597,7 @@ Un traje estructural de $50,000 MXN es insignificante comparado con una demanda 
 ### Artículos Relacionados
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Trajes HAZMAT — Compatibilidad Química](/blog/traje-hazmat-proteccion-quimica/)
 - [Traje de Aproximación NFPA 1970 Cap.8](/blog/traje-aproximacion-calor-radiante/)
 - [SCBA NFPA 1970 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
@@ -2004,11 +2004,11 @@ En **BOMBERO.MX** estamos comprometidos con equipar a quienes protegen nuestros 
     `,
   },
   "cascos-bombero-tipos": {
-    titulo: "Cascos para Bombero: Guía Técnica NFPA 1970, NFPA 1950 y 1951 — Comparativa de Categorías Operativas",
-    excerpt: "Guía técnica sobre tipos de cascos para bombero certificados NFPA: estructural (NFPA 1970), forestal (NFPA 1950), rescate técnico (NFPA 1951), ARFF (NFPA 1976). Comparativa de materiales, marcas (Bullard, Cairns/MSA), criterios de selección y aplicación operativa en México.",
+    titulo: "Cascos para Bombero: Guía Técnica NFPA 1970, NFPA 1950 — Comparativa de Categorías Operativas",
+    excerpt: "Guía técnica sobre tipos de cascos para bombero certificados NFPA: estructural y ARFF de proximidad (NFPA 1970), forestal y rescate técnico (NFPA 1950). Comparativa de materiales, marcas (Bullard, Cairns/MSA), criterios de selección y aplicación operativa en México.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-estructural-nfpa-1971-01.avif",
     categoria: "Equipo",
-    tags: ["Cascos Bombero", "NFPA 1970", "NFPA 1950", "NFPA 1951", "Bullard", "Cairns", "MSA"],
+    tags: ["Cascos Bombero", "NFPA 1970", "NFPA 1950", "NFPA 1950", "Bullard", "Cairns", "MSA"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — EPP NFPA",
     anchorKeyword: "Guía completa cascos NFPA para bomberos México",
@@ -2129,9 +2129,9 @@ Muchos departamentos cometen el error de usar **cascos estructurales en operacio
 
 ---
 
-### 3. Casco de Rescate Técnico NFPA 1951 — Para Operaciones Sin Fuego
+### 3. Casco de Rescate Técnico NFPA 1950 — Para Operaciones Sin Fuego
 
-El **casco de rescate técnico NFPA 1951** está diseñado para operaciones donde **no hay exposición a fuego directo**: rescate vehicular, rescate en alturas, espacios confinados y rescate acuático.
+El **casco de rescate técnico NFPA 1950** está diseñado para operaciones donde **no hay exposición a fuego directo**: rescate vehicular, rescate en alturas, espacios confinados y rescate acuático.
 
 #### Características del Casco de Rescate:
 
@@ -2184,7 +2184,7 @@ Antes de comprar cascos, responde estas preguntas:
 |-------------------|---------------------|
 | Combate estructural | NFPA 1970 (edición 2025) |
 | Combate forestal | NFPA 1950 (edición 2025) |
-| Rescate técnico | NFPA 1951 o EN 12492 |
+| Rescate técnico | NFPA 1950 o EN 12492 |
 | ARFF | NFPA 1970 Capítulo ARFF |
 
 ### 3. Compatibilidad con Equipo Existente
@@ -2308,8 +2308,8 @@ La selección de casco para bombero **no se resuelve por marca ni por precio**: 
 
 - **NFPA 1970** — Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting (sección 6.4 — casco)
 - **NFPA 1950** — Standard on Protective Clothing and Equipment for Wildland Fire Fighting
-- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents
-- **NFPA 1976** — Standard on Protective Ensembles for Proximity Fire Fighting (ARFF)
+- **NFPA 1950** — Standard on Protective Ensembles for Technical Rescue Incidents
+- **NFPA 1970** — Standard on Protective Ensembles for Proximity Fire Fighting (ARFF)
 - **NFPA 1850** — Selection, Care, and Maintenance of Protective Ensembles (vida útil 10 años)
 - **ANSI Z89.1** — Industrial Head Protection (referencia complementaria)
 
@@ -2371,7 +2371,7 @@ Este análisis describe técnicamente el **sistema de 3 capas** (outer shell, mo
   <span class="callout__icon">i</span>
   <div class="callout__body">
     <span class="callout__title">Único traje admitido en combate interior</span>
-    <p>NFPA 1970 es la <strong>única categoría normativa que autoriza la entrada a estructura activa</strong>. Trajes NFPA 1950 (forestal) o NFPA 1951 (rescate técnico) <strong>no son sustitutos</strong>: no resisten el calor convectivo ni el calor radiante prolongado del combate interior. Operar con la categoría incorrecta es exposición documentada a riesgo evitable.</p>
+    <p>NFPA 1970 es la <strong>única categoría normativa que autoriza la entrada a estructura activa</strong>. Trajes NFPA 1950 (forestales o de rescate técnico) <strong>no son sustitutos</strong>: no resisten el calor convectivo ni el calor radiante prolongado del combate interior. Operar con la categoría incorrecta es exposición documentada a riesgo evitable.</p>
   </div>
 </div>
 
@@ -2382,8 +2382,8 @@ Este análisis describe técnicamente el **sistema de 3 capas** (outer shell, mo
 | **Estructural** | NFPA 1970 | Entrada a edificios en llamas | Máxima (260°C/500°F) |
 | **Forestal** | NFPA 1950 | Incendios de vegetación | Moderada (150°C) |
 | **Aproximación** | NFPA 1970 Proximity | Calor radiante extremo | Muy alta (radiante) |
-| **HAZMAT** | NFPA 1991/1992/1994 | Químicos peligrosos | Variable (química) |
-| **Rescate técnico** | NFPA 1951 | Rescate sin fuego | Baja |
+| **HAZMAT** | NFPA 1990 | Químicos peligrosos | Variable (química) |
+| **Rescate técnico** | NFPA 1950 | Rescate sin fuego | Baja |
 
 > **Importante:** El traje estructural NFPA 1970 es el **único** autorizado para combate de incendios interior en edificaciones. Usar cualquier otro tipo de protección es inadecuado y peligroso.
 
@@ -2744,34 +2744,34 @@ El traje estructural NFPA 1970 es **el componente del EPP de mayor inversión po
     `,
   },
   "traje-hazmat-proteccion-quimica": {
-    titulo: "Trajes HAZMAT: Análisis Técnico de Niveles A/B/C/D, Compatibilidad Química y Selección NFPA 1991/1992/1994",
-    excerpt: "Análisis técnico de trajes HAZMAT bajo niveles EPA/OSHA A/B/C/D y normas NFPA 1991 (vapor encapsulado), 1992 (salpicadura líquida), 1994 (CBRN). Matriz de compatibilidad química por familia de agente (Viton, butilo, Tychem, Trellchem), ensayos de permeación ASTM F739 y aplicación operativa en industria mexicana.",
+    titulo: "Trajes HAZMAT: Análisis Técnico de Niveles A/B/C/D, Compatibilidad Química y Selección NFPA 1990",
+    excerpt: "Análisis técnico de trajes HAZMAT bajo niveles EPA/OSHA A/B/C/D y normas NFPA 1990 (vapor encapsulado, salpicadura líquida y CBRN). Matriz de compatibilidad química por familia de agente (Viton, butilo, Tychem, Trellchem), ensayos de permeación ASTM F739 y aplicación operativa en industria mexicana.",
     imagen: "/images/directorio/traje-hazmat-nivel-a-01.avif",
     categoria: "Equipo",
-    tags: ["Traje HAZMAT", "NFPA 1991", "NFPA 1992", "NFPA 1994", "Nivel A", "Tychem", "Trellchem", "ASTM F739"],
+    tags: ["Traje HAZMAT", "NFPA 1990", "NFPA 1990", "NFPA 1990", "Nivel A", "Tychem", "Trellchem", "ASTM F739"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Protección Química",
     anchorKeyword: "Traje HAZMAT niveles protección química bomberos México",
     contenido: `
-## Trajes HAZMAT: Marco Técnico de Protección Química bajo NFPA 1991/1992/1994
+## Trajes HAZMAT: Marco Técnico de Protección Química bajo NFPA 1990
 
 Un traje **HAZMAT** (*Hazardous Materials*) es un componente del EPP cuya función es **impedir el contacto directo y la permeación química** entre el agente involucrado en un incidente y la piel del operador. A diferencia del traje estructural NFPA 1970 —que protege contra calor convectivo y radiante—, el traje HAZMAT enfrenta un perfil de amenaza **molecular**: las moléculas del agente intentan **atravesar el material del traje por permeación, penetración o degradación** del sustrato. La eficacia del traje depende menos de su apariencia y mucho más de la **compatibilidad química documentada del material constructivo con el agente específico** del incidente.
 
 Esta diferencia es decisiva: un traje HAZMAT "genérico" sin certificación NFPA para la familia química del agente involucrado **no protege** —y, peor, genera una falsa sensación de seguridad que aumenta el tiempo de exposición del operador. La selección correcta requiere consultar la **matriz de compatibilidad química del fabricante** (no del distribuidor) contra la **identificación positiva del agente** mediante hoja de datos de seguridad (HDS) o detector multigas calibrado.
 
-Este análisis describe el **marco normativo HAZMAT** (NFPA 1991/1992/1994, EPA/OSHA niveles A-D), los **materiales constructivos referencia** (Viton, butilo, neopreno, Tychem, Trellchem HPS), los **ensayos de permeación ASTM F739** que cuantifican la resistencia química, y los **criterios operativos de selección** aplicables a brigadas industriales del corredor químico mexicano (Coatzacoalcos, Tula, Apodaca, El Salto) y a cuerpos municipales con responsabilidad HAZMAT.
+Este análisis describe el **marco normativo HAZMAT** (NFPA 1990, EPA/OSHA niveles A-D), los **materiales constructivos referencia** (Viton, butilo, neopreno, Tychem, Trellchem HPS), los **ensayos de permeación ASTM F739** que cuantifican la resistencia química, y los **criterios operativos de selección** aplicables a brigadas industriales del corredor químico mexicano (Coatzacoalcos, Tula, Apodaca, El Salto) y a cuerpos municipales con responsabilidad HAZMAT.
 
 <div class="stats-grid">
   <div class="stat">
-    <span class="stat__num">NFPA 1991</span>
+    <span class="stat__num">NFPA 1990</span>
     <span class="stat__label">Nivel A — vapor encapsulado</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1992</span>
+    <span class="stat__num">NFPA 1990</span>
     <span class="stat__label">Nivel B — salpicadura líquida</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1994</span>
+    <span class="stat__num">NFPA 1990</span>
     <span class="stat__label">CBRN (eventos terroristas)</span>
   </div>
   <div class="stat">
@@ -2782,14 +2782,14 @@ Este análisis describe el **marco normativo HAZMAT** (NFPA 1991/1992/1994, EPA/
 
 <figure>
   <img src="/images/directorio/traje-hazmat-nivel-a-01.avif" alt="Traje HAZMAT Nivel A encapsulado para vapor — configuración con SCBA interior y visor panorámico" loading="lazy" width="900" height="600" />
-  <figcaption>Traje HAZMAT Nivel A encapsulado bajo NFPA 1991 — el SCBA opera dentro del ensemble. La operación tiene ciclo limitado por carga térmica interna y autonomía del cilindro.</figcaption>
+  <figcaption>Traje HAZMAT Nivel A encapsulado bajo NFPA 1990 — el SCBA opera dentro del ensemble. La operación tiene ciclo limitado por carga térmica interna y autonomía del cilindro.</figcaption>
 </figure>
 
 <div class="callout callout--fire">
   <span class="callout__icon">!</span>
   <div class="callout__body">
     <span class="callout__title">El material del traje importa más que el nivel</span>
-    <p>Un Nivel A NFPA 1991 hecho de butilo <strong>no protege contra todos los químicos</strong>: el butilo es excelente contra cetonas y aldehídos pero <strong>permeable a hidrocarburos clorados</strong>. Un Nivel A de Viton es óptimo contra hidrocarburos pero <strong>fallará rápidamente contra metanol</strong>. La <strong>matriz de compatibilidad química del fabricante</strong> (no la categoría de nivel) es lo que determina si el traje protege contra el agente específico del incidente.</p>
+    <p>Un Nivel A NFPA 1990 hecho de butilo <strong>no protege contra todos los químicos</strong>: el butilo es excelente contra cetonas y aldehídos pero <strong>permeable a hidrocarburos clorados</strong>. Un Nivel A de Viton es óptimo contra hidrocarburos pero <strong>fallará rápidamente contra metanol</strong>. La <strong>matriz de compatibilidad química del fabricante</strong> (no la categoría de nivel) es lo que determina si el traje protege contra el agente específico del incidente.</p>
   </div>
 </div>
 
@@ -2806,7 +2806,7 @@ Cada material constructivo de traje HAZMAT presenta un perfil de resistencia dis
 | **Trellchem HPS / VPS** | Espectro muy amplio incluido CBRN | Costoso, sobre-especificado para uso general | Brigadas profesionales CBRN |
 | **PVC** | Ácidos diluidos, bases, sales | Solventes orgánicos en general | Decontaminación primaria |
 
-Las matrices completas del fabricante incluyen tres parámetros por agente: **tiempo de permeación normalizado** (en minutos antes de detección a través del material), **tasa de permeación** (μg/cm²/min) y **degradación visible** (sí/no en 60 min). Un traje certificado NFPA 1991 con tiempo de permeación >480 min contra el agente del incidente es operativamente seguro para el ciclo completo del SCBA.
+Las matrices completas del fabricante incluyen tres parámetros por agente: **tiempo de permeación normalizado** (en minutos antes de detección a través del material), **tasa de permeación** (μg/cm²/min) y **degradación visible** (sí/no en 60 min). Un traje certificado NFPA 1990 con tiempo de permeación >480 min contra el agente del incidente es operativamente seguro para el ciclo completo del SCBA.
 
 ### Escenarios que Requieren Protección HAZMAT
 
@@ -2817,7 +2817,7 @@ Las matrices completas del fabricante incluyen tres parámetros por agente: **ti
 | **Derrame de ácido/base** | Medio-Alto | Nivel B o C |
 | **Descontaminación de víctimas** | Medio | Nivel C |
 | **Limpieza post-incidente** | Bajo | Nivel D |
-| **Incidente CBRN (terrorismo)** | Variable | NFPA 1994 |
+| **Incidente CBRN (terrorismo)** | Variable | NFPA 1990 |
 
 ---
 
@@ -2831,7 +2831,7 @@ El **Nivel A** proporciona la máxima protección disponible contra vapores, gas
 
 | Componente | Especificación |
 |------------|---------------|
-| **Traje** | Totalmente encapsulado, hermético a vapores (NFPA 1991) |
+| **Traje** | Totalmente encapsulado, hermético a vapores (NFPA 1990) |
 | **Protección respiratoria** | SCBA o SAR con línea de escape |
 | **Guantes** | Dobles, resistentes al químico específico |
 | **Botas** | Integrales o sobre-botas químicas |
@@ -2859,7 +2859,7 @@ El **Nivel B** proporciona máxima protección respiratoria pero protección de 
 
 | Componente | Especificación |
 |------------|---------------|
-| **Traje** | Resistente a salpicaduras químicas (NFPA 1992) |
+| **Traje** | Resistente a salpicaduras químicas (NFPA 1990) |
 | **Protección respiratoria** | SCBA o SAR |
 | **Guantes** | Resistentes al químico específico |
 | **Botas** | Sobre-botas químicas |
@@ -2927,7 +2927,7 @@ El **Nivel D** es protección básica que no proporciona protección respiratori
 
 ## Normas NFPA para Trajes de Protección Química
 
-### NFPA 1991: Trajes Herméticos a Vapor (Nivel A)
+### NFPA 1990: Trajes Herméticos a Vapor (Nivel A)
 
 | Requisito | Especificación |
 |-----------|---------------|
@@ -2937,16 +2937,16 @@ El **Nivel D** es protección básica que no proporciona protección respiratori
 | **Visibilidad** | Visor integrado con antiempañante |
 | **Duración mínima** | 60 minutos de uso efectivo |
 
-### NFPA 1992: Trajes de Protección contra Salpicaduras (Nivel B)
+### NFPA 1990: Trajes de Protección contra Salpicaduras (Nivel B)
 
 | Requisito | Especificación |
 |-----------|---------------|
 | **Penetración** | Resistencia a salpicaduras líquidas |
 | **Costuras** | Selladas o soldadas |
 | **Compatibilidad** | Con SCBA externo |
-| **Movilidad** | Mayor que NFPA 1991 |
+| **Movilidad** | Mayor que NFPA 1990 |
 
-### NFPA 1994: Trajes de Protección CBRN
+### NFPA 1990: Trajes de Protección CBRN
 
 | Clase | Protección | Aplicación |
 |-------|------------|------------|
@@ -2955,7 +2955,7 @@ El **Nivel D** es protección básica que no proporciona protección respiratori
 | **Clase 3** | Partículas + líquidos | Descontaminación |
 | **Clase 4** | Escape | Evacuación de civiles |
 
-> **Nota:** Los trajes NFPA 1994 están diseñados específicamente para incidentes de **terrorismo CBRN** y tienen requisitos adicionales de resistencia a agentes de guerra química y biológica.
+> **Nota:** Los trajes NFPA 1990 están diseñados específicamente para incidentes de **terrorismo CBRN** y tienen requisitos adicionales de resistencia a agentes de guerra química y biológica.
 
 ---
 
@@ -2988,7 +2988,7 @@ El **tiempo de breakthrough** es cuánto tarda un químico en penetrar el materi
 
 ## Marcas y Modelos de Trajes HAZMAT
 
-### Trajes Nivel A (NFPA 1991)
+### Trajes Nivel A (NFPA 1990)
 
 | Marca | Modelo | Características |
 |-------|--------|-----------------|
@@ -2997,7 +2997,7 @@ El **tiempo de breakthrough** es cuánto tarda un químico en penetrar el materi
 | **Saint-Gobain** | ONESuit® Pro | Máxima movilidad |
 | **Ansell** | Trellchem® VPS | Europeo, muy robusto |
 
-### Trajes Nivel B (NFPA 1992)
+### Trajes Nivel B (NFPA 1990)
 
 | Marca | Modelo | Características |
 |-------|--------|-----------------|
@@ -3005,7 +3005,7 @@ El **tiempo de breakthrough** es cuánto tarda un químico en penetrar el materi
 | **DuPont** | Tychem® 6000 | Buena protección, reutilizable |
 | **Kappler** | Zytron® 500 | Balance costo/protección |
 
-### Trajes CBRN (NFPA 1994)
+### Trajes CBRN (NFPA 1990)
 
 | Marca | Modelo | Clase |
 |-------|--------|-------|
@@ -3109,7 +3109,7 @@ El proceso de vestirse (donning) y quitarse (doffing) el traje es **crítico** p
 
 | Beneficio | Lo Que Obtienes |
 |-----------|-----------------|
-| **Trajes certificados** | NFPA 1991, 1992, 1994 verificables |
+| **Trajes certificados** | NFPA 1990 verificables |
 | **Marcas líderes** | Lakeland, DuPont, Saint-Gobain, Kappler |
 | **Asesoría técnica** | Selección por químico específico |
 | **Capacitación** | Cursos de uso y mantenimiento |
@@ -3126,9 +3126,9 @@ El proceso de vestirse (donning) y quitarse (doffing) el traje es **crítico** p
 
 ## Preguntas Frecuentes sobre Trajes HAZMAT
 
-### ¿Cuál es la diferencia entre NFPA 1991 y NFPA 1994?
+### ¿Qué diferencia hay entre las clases industriales y las clases CBRN de NFPA 1990?
 
-**NFPA 1991** es para respuesta a incidentes químicos industriales. **NFPA 1994** agrega requisitos específicos para agentes de guerra química y biológica (CBRN), pensado para respuesta a terrorismo.
+**NFPA 1990** cubre la respuesta a incidentes químicos industriales y, en sus clases CBRN, agrega requisitos específicos para agentes de guerra química y biológica, pensados para respuesta a terrorismo.
 
 ### ¿Puedo reutilizar un traje HAZMAT?
 
@@ -3160,15 +3160,15 @@ México concentra zonas de exposición HAZMAT recurrente que justifican dotació
 
 <div class="feature-grid">
   <div class="feature">
-    <h4 class="feature__title">Nivel A — NFPA 1991</h4>
+    <h4 class="feature__title">Nivel A — NFPA 1990</h4>
     <p class="feature__text">Trajes encapsulados Trellchem HPS, DuPont Tychem TK/10000, configurables por matriz de compatibilidad química del cliente.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">Nivel B — NFPA 1992</h4>
+    <h4 class="feature__title">Nivel B — NFPA 1990</h4>
     <p class="feature__text">Trajes no encapsulados resistentes a salpicadura ASTM F903, para operación tras estabilización del foco emisor.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">CBRN — NFPA 1994</h4>
+    <h4 class="feature__title">CBRN — NFPA 1990</h4>
     <p class="feature__text">Para escenarios con armas químicas/biológicas/radiológicas/nucleares. Configuración Trellchem VPS.</p>
   </div>
   <div class="feature">
@@ -3200,9 +3200,9 @@ México concentra zonas de exposición HAZMAT recurrente que justifican dotació
 
 - **NFPA 472** — Standard for Competence of Responders to Hazardous Materials/Weapons of Mass Destruction Incidents
 - **NFPA 1072** — Hazardous Materials/WMD Emergency Response Personnel Professional Qualifications
-- **NFPA 1991** — Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A)
-- **NFPA 1992** — Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
-- **NFPA 1994** — Protective Ensembles for First Responders to CBRN Terrorism Incidents
+- **NFPA 1990** — Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A)
+- **NFPA 1990** — Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
+- **NFPA 1990** — Protective Ensembles for First Responders to CBRN Terrorism Incidents
 - **NFPA 1970** — Open-Circuit SCBA for Emergency Services (componente integrado)
 - **29 CFR 1910.120 (HAZWOPER)** — OSHA Hazardous Waste Operations and Emergency Response
 - **ASTM F739** — Standard Test Method for Permeation of Liquids and Gases through Protective Clothing Materials under Continuous Contact
@@ -3231,7 +3231,7 @@ México concentra zonas de exposición HAZMAT recurrente que justifican dotació
     excerpt: "Análisis técnico del traje de aproximación (proximity suit) certificado NFPA 1970 Chapter 8: tecnología aluminizada con reflexión >95% de calor radiante, aplicación en ARFF aeroportuario, plantas siderúrgicas, fundiciones y operaciones con calor radiante extremo. Diferencias con traje estructural y selección por sector.",
     imagen: "/images/trajes-para-bombero/traje-bombero-incendio-estructural-accion-01.avif",
     categoria: "Equipo",
-    tags: ["Traje Aproximación", "Proximity Suit", "ARFF", "NFPA 1970", "NFPA 1976", "Siderurgia", "Aluminizado", "Calor Radiante"],
+    tags: ["Traje Aproximación", "Proximity Suit", "ARFF", "NFPA 1970", "NFPA 1970", "Siderurgia", "Aluminizado", "Calor Radiante"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Protección Térmica Avanzada",
     anchorKeyword: "Traje aproximación proximity suit ARFF bomberos México",
@@ -3240,9 +3240,9 @@ México concentra zonas de exposición HAZMAT recurrente que justifican dotació
 
 El **traje de aproximación** —denominación operativa estadounidense: *proximity suit* o *approach suit*— es un componente especializado del EPP diseñado para operaciones donde el bombero debe **acercarse a una fuente de calor radiante extremo** sin entrar al núcleo del incendio: incendios de combustible aeronáutico Jet A, derrames de hidrocarburos refinados en patios de almacenamiento, coladas siderúrgicas, fundiciones de aluminio, magnesio y aceros especiales, y operaciones en hornos industriales. La amenaza dominante es **radiación térmica direccional** —desde 84 hasta más de 200 kW/m² en operación cercana— que el traje estructural NFPA 1970 estándar **no puede manejar** por más de segundos.
 
-La solución técnica es la **capa exterior aluminizada de alta reflectividad**, capaz de reflejar más del **95% de la radiación infrarroja incidente** sobre el sistema multicapa interior. La norma aplicable es **NFPA 1970 Chapter 8** (Proximity Fire Fighting) o, para aplicación específicamente aeroportuaria, **NFPA 1976** (Proximity Fire Fighting). Ambas certifican el ensemble completo —traje, capucha, guantes, botas— como sistema integrado, no componente por componente.
+La solución técnica es la **capa exterior aluminizada de alta reflectividad**, capaz de reflejar más del **95% de la radiación infrarroja incidente** sobre el sistema multicapa interior. La norma aplicable es **NFPA 1970 Chapter 8** (Proximity Fire Fighting) o, para aplicación específicamente aeroportuaria, **NFPA 1970** (Proximity Fire Fighting). Ambas certifican el ensemble completo —traje, capucha, guantes, botas— como sistema integrado, no componente por componente.
 
-Este análisis describe el **marco normativo NFPA 1970 Cap.8 / 1976**, la **tecnología de aluminización** (reflectividad, capas constructivas), la **comparativa frente al traje estructural** convencional, los **sectores operativos** (ARFF aeroportuario, siderurgia, petroquímica, fundición), modelos referencia disponibles en México y el **marco operativo de selección** para brigadas industriales con exposición a calor radiante.
+Este análisis describe el **marco normativo NFPA 1970 Cap.8 (proximidad)**, la **tecnología de aluminización** (reflectividad, capas constructivas), la **comparativa frente al traje estructural** convencional, los **sectores operativos** (ARFF aeroportuario, siderurgia, petroquímica, fundición), modelos referencia disponibles en México y el **marco operativo de selección** para brigadas industriales con exposición a calor radiante.
 
 <div class="stats-grid">
   <div class="stat">
@@ -3272,7 +3272,7 @@ Este análisis describe el **marco normativo NFPA 1970 Cap.8 / 1976**, la **tecn
   <span class="callout__icon">!</span>
   <div class="callout__body">
     <span class="callout__title">Aproximación ≠ Entrada</span>
-    <p>El traje de aproximación <strong>NO está certificado para entrar al núcleo del fuego</strong>. Su función es proteger durante el ataque desde proximidad mediante monitor, lanza o aplicación de espuma. La entrada a estructura activa requiere traje NFPA 1970 estándar; la operación HAZMAT con riesgo químico requiere NFPA 1991/1992 (las funciones no son sustituibles).</p>
+    <p>El traje de aproximación <strong>NO está certificado para entrar al núcleo del fuego</strong>. Su función es proteger durante el ataque desde proximidad mediante monitor, lanza o aplicación de espuma. La entrada a estructura activa requiere traje NFPA 1970 estándar; la operación HAZMAT con riesgo químico requiere NFPA 1990 (las funciones no son sustituibles).</p>
   </div>
 </div>
 
@@ -3608,12 +3608,12 @@ Los trajes de aproximación son más costosos que los estructurales debido a los
 
 ---
 
-## Equipamiento BOMBERO MX — Trajes de Aproximación NFPA 1970 Cap.8 / NFPA 1976
+## Equipamiento BOMBERO MX — Trajes de Aproximación NFPA 1970 Cap.8 (proximidad)
 
 <div class="feature-grid">
   <div class="feature">
     <h4 class="feature__title">Ensemble ARFF aeroportuario</h4>
-    <p class="feature__text">Conjunto completo certificado NFPA 1976 con capa aluminizada exterior, capucha aluminizada, guantes y botas integradas.</p>
+    <p class="feature__text">Conjunto completo certificado NFPA 1970 con capa aluminizada exterior, capucha aluminizada, guantes y botas integradas.</p>
   </div>
   <div class="feature">
     <h4 class="feature__title">Versión siderúrgica reforzada</h4>
@@ -3643,7 +3643,7 @@ Los trajes de aproximación son más costosos que los estructurales debido a los
 ## Referencias Normativas
 
 - **NFPA 1970** — Standard on Protective Ensembles for Structural Fire Fighting and Proximity Fire Fighting (Chapter 7-8: Proximity)
-- **NFPA 1976** — Standard on Protective Ensembles for Proximity Fire Fighting
+- **NFPA 1970** — Standard on Protective Ensembles for Proximity Fire Fighting
 - **NFPA 412** — Standard for Evaluating Aircraft Rescue and Fire-Fighting Foam Equipment
 - **NFPA 1003** — Standard for Airport Fire Fighter Professional Qualifications
 - **NFPA 600** — Standard on Facility Fire Brigades (aplicación industrial)
@@ -3662,7 +3662,7 @@ Los trajes de aproximación son más costosos que los estructurales debido a los
 - [Bomberos Pachuca — Refinería Tula](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
 - [Bomberos Querétaro — Clúster Aeroespacial AIQ](/blog/bomberos-queretaro-equipo-nfpa/)
 - [SCBA NFPA 1970 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
     `,
   },
 
@@ -4455,26 +4455,26 @@ NFPA 1950 (que absorbió a NFPA 1950) no fija una vida útil máxima para el cas
   },
 
   "casco-rescate-nfpa-1951": {
-    titulo: "Casco Rescate Técnico NFPA 1951: Especialización para USAR, TRT, Rescate Vertical y Operaciones Especiales",
+    titulo: "Casco Rescate Técnico NFPA 1950: Especialización para USAR, TRT, Rescate Vertical y Operaciones Especiales",
     excerpt: "Análisis técnico del casco de rescate NFPA 1951 (edición 2020): aplicación en USAR (Urban Search and Rescue), TRT (Technical Rescue Team), rescate vertical, vehicular, espacios confinados. Comparativa Petzl Vertex Vent, Team Wendy EXFIL Rescue, CMC Cascade, Kask Plasma — certificaciones complementarias EN 12492 y aplicación con protocolos INSARAG.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-rescate-tecnico-01.avif",
     categoria: "Equipo",
-    tags: ["Casco Rescate", "NFPA 1951", "USAR", "TRT", "Petzl Vertex", "Team Wendy", "CMC", "INSARAG"],
+    tags: ["Casco Rescate", "NFPA 1950", "USAR", "TRT", "Petzl Vertex", "Team Wendy", "CMC", "INSARAG"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Rescate Especializado",
-    anchorKeyword: "Casco rescate técnico NFPA 1951 USAR TRT bomberos México",
+    anchorKeyword: "Casco rescate técnico NFPA 1950 USAR TRT bomberos México",
     contenido: `
-## Casco de Rescate Técnico NFPA 1951: Marco Operativo Especializado
+## Casco de Rescate Técnico NFPA 1950: Marco Operativo Especializado
 
-El **casco de rescate técnico certificado NFPA 1951** (*Standard on Protective Ensembles for Technical Rescue Incidents*, edición 2020) cubre un perfil operativo **estructuralmente distinto al combate de incendios**: operaciones de USAR (Urban Search and Rescue), TRT (Technical Rescue Team), rescate vertical en estructura o terreno natural, rescate vehicular complejo, espacios confinados y operaciones especiales en ambientes sin exposición directa a llama. La amenaza dominante no es térmica —es **mecánica e ergonómica**: impacto por escombro o herramienta, jornada extendida en posición forzada, compatibilidad con sistemas de ascenso/descenso, comunicaciones constantes con sistemas radio bajo casco.
+El **casco de rescate técnico certificado NFPA 1950** (*Standard on Protective Ensembles for Technical Rescue Incidents*, edición 2020) cubre un perfil operativo **estructuralmente distinto al combate de incendios**: operaciones de USAR (Urban Search and Rescue), TRT (Technical Rescue Team), rescate vertical en estructura o terreno natural, rescate vehicular complejo, espacios confinados y operaciones especiales en ambientes sin exposición directa a llama. La amenaza dominante no es térmica —es **mecánica e ergonómica**: impacto por escombro o herramienta, jornada extendida en posición forzada, compatibilidad con sistemas de ascenso/descenso, comunicaciones constantes con sistemas radio bajo casco.
 
-Esta especialización se traduce en un diseño que **diverge intencionalmente** del casco estructural NFPA 1970: perfil compacto y aerodinámico para espacios confinados, sistema de retención reforzado para resistir tirones laterales durante descenso, compatibilidad con auriculares de comunicación, ventilación activa para jornadas prolongadas, y peso reducido (típicamente **450-650 g** vs 1,000-1,500 g del estructural). La contrapartida normativa: **NFPA 1951 no certifica protección contra calor de incendio activo**; un equipo que combina rescate técnico con respuesta de incendio requiere **dos cascos independientes** o un modelo con **certificación dual** documentada.
+Esta especialización se traduce en un diseño que **diverge intencionalmente** del casco estructural NFPA 1970: perfil compacto y aerodinámico para espacios confinados, sistema de retención reforzado para resistir tirones laterales durante descenso, compatibilidad con auriculares de comunicación, ventilación activa para jornadas prolongadas, y peso reducido (típicamente **450-650 g** vs 1,000-1,500 g del estructural). La contrapartida normativa: **NFPA 1950 no certifica protección contra calor de incendio activo**; un equipo que combina rescate técnico con respuesta de incendio requiere **dos cascos independientes** o un modelo con **certificación dual** documentada.
 
-Este análisis describe el **marco normativo NFPA 1951**, los **escenarios operativos típicos** (USAR / TRT / vertical / vehicular / acuático), los **modelos referencia internacionales** (Petzl Vertex Vent, Team Wendy EXFIL Rescue, CMC Cascade, Kask Plasma), las **certificaciones complementarias** (EN 12492 trabajo en altura, EN 397 industrial) y la **aplicación con protocolos INSARAG** para equipos USAR mexicanos.
+Este análisis describe el **marco normativo NFPA 1950**, los **escenarios operativos típicos** (USAR / TRT / vertical / vehicular / acuático), los **modelos referencia internacionales** (Petzl Vertex Vent, Team Wendy EXFIL Rescue, CMC Cascade, Kask Plasma), las **certificaciones complementarias** (EN 12492 trabajo en altura, EN 397 industrial) y la **aplicación con protocolos INSARAG** para equipos USAR mexicanos.
 
 <div class="stats-grid">
   <div class="stat">
-    <span class="stat__num">NFPA 1951</span>
+    <span class="stat__num">NFPA 1950</span>
     <span class="stat__label">Edición 2020 vigente</span>
   </div>
   <div class="stat">
@@ -4492,21 +4492,21 @@ Este análisis describe el **marco normativo NFPA 1951**, los **escenarios opera
 </div>
 
 <figure>
-  <img src="/images/cascos-para-bomberos/casco-bombero-rescate-tecnico-01.avif" alt="Casco de rescate técnico NFPA 1951 con perfil compacto y sistema de retención reforzado" loading="lazy" width="900" height="600" />
-  <figcaption>Casco rescate técnico NFPA 1951 — perfil compacto, retención reforzada y compatibilidad con sistemas de comunicación. No sustituye al estructural en operación de incendio activo.</figcaption>
+  <img src="/images/cascos-para-bomberos/casco-bombero-rescate-tecnico-01.avif" alt="Casco de rescate técnico NFPA 1950 con perfil compacto y sistema de retención reforzado" loading="lazy" width="900" height="600" />
+  <figcaption>Casco rescate técnico NFPA 1950 — perfil compacto, retención reforzada y compatibilidad con sistemas de comunicación. No sustituye al estructural en operación de incendio activo.</figcaption>
 </figure>
 
 <div class="callout callout--fire">
   <span class="callout__icon">!</span>
   <div class="callout__body">
     <span class="callout__title">Sin certificación NFPA 1970, no apto para incendio</span>
-    <p>Un casco NFPA 1951 <strong>no protege contra flashover, calor radiante prolongado o exposición convectiva</strong> propios del combate de incendio estructural. Si tu cuerpo combina rescate técnico con respuesta a incendio, necesitas <strong>dos cascos independientes</strong> o un modelo con certificación dual NFPA 1970/1951 documentada en etiqueta interior.</p>
+    <p>Un casco NFPA 1950 <strong>no protege contra flashover, calor radiante prolongado o exposición convectiva</strong> propios del combate de incendio estructural. Si tu cuerpo combina rescate técnico con respuesta a incendio, necesitas <strong>dos cascos independientes</strong> o un modelo con certificación dual NFPA 1970/1950 documentada en etiqueta interior.</p>
   </div>
 </div>
 
 ### ¿Por Qué el Rescate Técnico Requiere un Casco Especializado?
 
-| Desafío del Rescate Técnico | Solución del Casco NFPA 1951 |
+| Desafío del Rescate Técnico | Solución del Casco NFPA 1950 |
 |-----------------------------|------------------------------|
 | **Uso de cuerdas/ascensores** | Diseño low-profile sin bordes que interfieran |
 | **Espacios confinados** | Perfil compacto, sin protuberancias |
@@ -4515,13 +4515,13 @@ Este análisis describe el **marco normativo NFPA 1951**, los **escenarios opera
 | **Jornadas largas (12-72 hrs en desastre)** | Peso reducido, suspensión de confort |
 | **Trabajo con herramientas** | Resistencia a impactos de herramienta |
 
-> **Nota importante:** El casco NFPA 1951 **no está certificado para combate de incendios estructurales**. Para equipos que realizan rescate técnico Y combate de incendios, se requiere un casco dual-certificado o dos cascos separados.
+> **Nota importante:** El casco NFPA 1950 **no está certificado para combate de incendios estructurales**. Para equipos que realizan rescate técnico Y combate de incendios, se requiere un casco dual-certificado o dos cascos separados.
 
 ---
 
-## Requisitos de Certificación NFPA 1951
+## Requisitos de Certificación NFPA 1950
 
-La norma **NFPA 1951** establece requisitos específicos para cascos de rescate técnico:
+La norma **NFPA 1950** establece requisitos específicos para cascos de rescate técnico:
 
 ### Pruebas de Rendimiento Obligatorias
 
@@ -4616,7 +4616,7 @@ Muchos cascos de rescate también cumplen:
 **Diseño:** Casco estructural con certificación adicional para rescate técnico.
 
 **Características:**
-- Cumple NFPA 1970 + NFPA 1951
+- Cumple NFPA 1970 + NFPA 1950
 - Peso: 900-1200g
 - Menor ventilación que casco de rescate puro
 - Protección térmica completa
@@ -4841,7 +4841,7 @@ Empresas con equipos de rescate técnico interno (PEMEX, CFE, minería) típicam
 Departamentos de bomberos con equipos TRT (Technical Rescue Team):
 
 - Casco estructural NFPA 1970 para combate de incendios
-- Casco de rescate NFPA 1951 separado para TRT
+- Casco de rescate NFPA 1950 separado para TRT
 - O casco dual-certificado según presupuesto
 
 ---
@@ -4850,7 +4850,7 @@ Departamentos de bomberos con equipos TRT (Technical Rescue Team):
 
 El casco es parte del **sistema de protección personal para rescate técnico**:
 
-- **[Arnés de rescate certificado](/productos/herramientas-rescate/):** NFPA 1983, Petzl, CMC
+- **[Arnés de rescate certificado](/productos/herramientas-rescate/):** NFPA 2500, Petzl, CMC
 - **[Guantes de rescate técnico](/productos/guantes-para-bomberos/rescate/):** Cuero y sintético
 - **[Botas de rescate](/productos/botas-para-bomberos/):** Tracción y protección
 - **[Goggles de protección](/productos/gafas-para-bomberos/):** ESS, Wiley X
@@ -4864,12 +4864,12 @@ El casco es parte del **sistema de protección personal para rescate técnico**:
 
 ---
 
-## Equipamiento BOMBERO MX — Cascos NFPA 1951 y Sistema Vertical Completo
+## Equipamiento BOMBERO MX — Cascos NFPA 1950 y Sistema Vertical Completo
 
 <div class="feature-grid">
   <div class="feature">
     <h4 class="feature__title">Petzl Vertex Vent</h4>
-    <p class="feature__text">Referencia europea en rescate vertical. Certificación dual EN 12492 + NFPA 1951. Ventilación regulable y compatibilidad con lámpara frontal.</p>
+    <p class="feature__text">Referencia europea en rescate vertical. Certificación dual EN 12492 + NFPA 1950. Ventilación regulable y compatibilidad con lámpara frontal.</p>
   </div>
   <div class="feature">
     <h4 class="feature__title">Team Wendy EXFIL Rescue</h4>
@@ -4877,15 +4877,15 @@ El casco es parte del **sistema de protección personal para rescate técnico**:
   </div>
   <div class="feature">
     <h4 class="feature__title">CMC Cascade</h4>
-    <p class="feature__text">Especialización USAR / TRT. Carcasa ABS reforzada, sistema de retención de 6 puntos, certificación NFPA 1951 vigente.</p>
+    <p class="feature__text">Especialización USAR / TRT. Carcasa ABS reforzada, sistema de retención de 6 puntos, certificación NFPA 1950 vigente.</p>
   </div>
   <div class="feature">
     <h4 class="feature__title">Kask Plasma AQ</h4>
     <p class="feature__text">Versatilidad vertical + estructural ligero. Certificación EN 12492 y compatibilidad con protección auditiva integrada.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">Equipo NFPA 1983 vertical</h4>
-    <p class="feature__text">Arneses, cuerdas estáticas, descensores y poleas para sistema completo de rescate vertical bajo NFPA 1983.</p>
+    <h4 class="feature__title">Equipo NFPA 2500 vertical</h4>
+    <p class="feature__text">Arneses, cuerdas estáticas, descensores y poleas para sistema completo de rescate vertical bajo NFPA 2500.</p>
   </div>
   <div class="feature">
     <h4 class="feature__title">Capacitación INSARAG</h4>
@@ -4894,7 +4894,7 @@ El casco es parte del **sistema de protección personal para rescate técnico**:
 </div>
 
 <div class="cta-box">
-  <h3>Cascos NFPA 1951 y sistema de rescate vertical completo</h3>
+  <h3>Cascos NFPA 1950 y sistema de rescate vertical completo</h3>
   <p>Petzl, Team Wendy, CMC, Kask. Asesoría técnica imparcial · Refacciones y accesorios · Coordinación con capacitación INSARAG</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
@@ -4906,9 +4906,9 @@ El casco es parte del **sistema de protección personal para rescate técnico**:
 
 ## Referencias Normativas
 
-- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents (edición 2020)
-- **NFPA 1983** — Standard on Life Safety Rope and Equipment for Emergency Services
-- **NFPA 1670** — Standard on Operations and Training for Technical Search and Rescue Incidents
+- **NFPA 1950** — Standard on Protective Ensembles for Technical Rescue Incidents (edición 2020)
+- **NFPA 2500** — Standard on Life Safety Rope and Equipment for Emergency Services
+- **NFPA 2500** — Standard on Operations and Training for Technical Search and Rescue Incidents
 - **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications
 - **EN 12492** — Mountaineering Helmets (certificación complementaria para trabajo en altura)
 - **EN 397** — Industrial Safety Helmets (referencia industrial)
@@ -5318,26 +5318,26 @@ El guante estructural es parte del **sistema de protección de extremidades**:
   },
 
   "guantes-rescate-extricacion": {
-    titulo: "Guantes de Rescate Técnico NFPA 1951: Análisis de Destreza, Resistencia al Corte (ANSI A4–A9) y Selección por Disciplina USAR/TRT/Extricación",
-    excerpt: "Manual técnico de guantes de rescate bajo NFPA 1951, ANSI/ISEA 105-2016 y EN 388:2016. Niveles de corte A4-A9, materiales (cuero sintético, Kevlar, HPPE, TPR), marcas referencia Ringers/Mechanix/HexArmor, configuraciones específicas por disciplina (extricación vehicular, USAR, TRT, rescate vertical) y aplicación operativa.",
+    titulo: "Guantes de Rescate Técnico NFPA 1950: Análisis de Destreza, Resistencia al Corte (ANSI A4–A9) y Selección por Disciplina USAR/TRT/Extricación",
+    excerpt: "Manual técnico de guantes de rescate bajo NFPA 1950, ANSI/ISEA 105-2016 y EN 388:2016. Niveles de corte A4-A9, materiales (cuero sintético, Kevlar, HPPE, TPR), marcas referencia Ringers/Mechanix/HexArmor, configuraciones específicas por disciplina (extricación vehicular, USAR, TRT, rescate vertical) y aplicación operativa.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-rescate-nfpa-1951-01.avif",
     categoria: "Equipo",
-    tags: ["Guantes Rescate", "NFPA 1951", "ANSI/ISEA 105", "EN 388", "Ringers", "Mechanix", "HexArmor", "TRT", "USAR"],
+    tags: ["Guantes Rescate", "NFPA 1950", "ANSI/ISEA 105", "EN 388", "Ringers", "Mechanix", "HexArmor", "TRT", "USAR"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Rescate Especializado",
     anchorKeyword: "Guantes rescate extricación vehicular TRT USAR bomberos México",
     contenido: `
-## Guantes de Rescate NFPA 1951: Marco Técnico de Destreza, Resistencia y Selección por Disciplina
+## Guantes de Rescate NFPA 1950: Marco Técnico de Destreza, Resistencia y Selección por Disciplina
 
 Las operaciones de **rescate técnico** —extricación vehicular, USAR (Urban Search and Rescue), TRT (Technical Rescue Team), rescate vertical, rescate acuático, espacios confinados— exigen del guante un **perfil de protección estructuralmente distinto** al combate de incendio estructural. La amenaza dominante no es térmica sino **mecánica**: cortes por vidrio templado y acero laminado en vehículos modernos, abrasión continua de cuerdas dinámicas y estáticas en sistemas verticales, punción por escombros y varilla expuesta en derrumbe, manipulación prolongada de herramientas hidráulicas con vibración y carga.
 
-La norma **NFPA 1951** (*Standard on Protective Ensembles for Technical Rescue Incidents*) certifica los guantes de rescate como ensemble integrado con el resto del EPP de rescate técnico, pero el rendimiento operativo se evalúa adicionalmente bajo **ANSI/ISEA 105-2016** (niveles de corte **A1-A9**), **EN 388:2016** (resistencia mecánica europea) y, para arc flash, **ASTM F2675**. La diferencia entre un guante de corte ANSI **A4** (1,500-2,199 g de fuerza) y un guante ANSI **A9** (>6,000 g) no es marginal: es el factor que determina si un rescatista puede operar cizalla hidráulica con cubierta de cristal templado del parabrisas sin sufrir corte profundo en palma o dedos.
+La norma **NFPA 1950** (*Standard on Protective Ensembles for Technical Rescue Incidents*) certifica los guantes de rescate como ensemble integrado con el resto del EPP de rescate técnico, pero el rendimiento operativo se evalúa adicionalmente bajo **ANSI/ISEA 105-2016** (niveles de corte **A1-A9**), **EN 388:2016** (resistencia mecánica europea) y, para arc flash, **ASTM F2675**. La diferencia entre un guante de corte ANSI **A4** (1,500-2,199 g de fuerza) y un guante ANSI **A9** (>6,000 g) no es marginal: es el factor que determina si un rescatista puede operar cizalla hidráulica con cubierta de cristal templado del parabrisas sin sufrir corte profundo en palma o dedos.
 
 Este manual estructura los **niveles de protección mecánica** (ANSI A4-A9, EN 388 cut score), los **materiales constructivos referencia** (cuero sintético tipo Hipora, Kevlar/Nomex, HPPE Spectra/Dyneema, TPR overlays), las **marcas y modelos** disponibles en México (Ringers R-10/R-23, Mechanix M-Pact/Original, HexArmor 4023/4026, Petzl Cordex/Cordex Plus) y la **configuración por disciplina operativa** específica.
 
 <div class="stats-grid">
   <div class="stat">
-    <span class="stat__num">NFPA 1951</span>
+    <span class="stat__num">NFPA 1950</span>
     <span class="stat__label">Norma rescate técnico</span>
   </div>
   <div class="stat">
@@ -5355,8 +5355,8 @@ Este manual estructura los **niveles de protección mecánica** (ANSI A4-A9, EN 
 </div>
 
 <figure>
-  <img src="/images/guantes-para-bomberos/guante-bombero-rescate-nfpa-1951-01.avif" alt="Guante de rescate técnico NFPA 1951 con palma reforzada anti-corte y TPR sobre dorso" loading="lazy" width="900" height="600" />
-  <figcaption>Guante de rescate NFPA 1951 — palma reforzada con Kevlar/HPPE para corte, TPR overlays sobre dorso para impacto, manguito ajustable para integración con uniforme.</figcaption>
+  <img src="/images/guantes-para-bomberos/guante-bombero-rescate-nfpa-1951-01.avif" alt="Guante de rescate técnico NFPA 1950 con palma reforzada anti-corte y TPR sobre dorso" loading="lazy" width="900" height="600" />
+  <figcaption>Guante de rescate NFPA 1950 — palma reforzada con Kevlar/HPPE para corte, TPR overlays sobre dorso para impacto, manguito ajustable para integración con uniforme.</figcaption>
 </figure>
 
 <div class="callout callout--info">
@@ -5377,7 +5377,7 @@ Este manual estructura los **niveles de protección mecánica** (ANSI A4-A9, EN 
 | **Resistencia al corte** | A2-A4 | A4-A9 (superior) |
 | **Sensibilidad táctil** | Baja | Alta |
 | **Peso por guante** | 200-300g | 80-150g |
-| **Certificación típica** | NFPA 1970 | NFPA 1951 / EN 388 / ANSI A4+ |
+| **Certificación típica** | NFPA 1970 | NFPA 1950 / EN 388 / ANSI A4+ |
 
 > **Advertencia:** Los guantes de rescate **NO** están diseñados para combate de incendios estructurales. Nunca sustituir un guante estructural con uno de rescate en operaciones con fuego activo.
 
@@ -5385,9 +5385,9 @@ Este manual estructura los **niveles de protección mecánica** (ANSI A4-A9, EN 
 
 ## Certificaciones y Normativas
 
-### NFPA 1951 — Technical Rescue
+### NFPA 1950 — Technical Rescue
 
-La norma **NFPA 1951** (Standard on Protective Ensembles for Technical Rescue Incidents) establece requisitos para guantes de rescate técnico:
+La norma **NFPA 1950** (Standard on Protective Ensembles for Technical Rescue Incidents) establece requisitos para guantes de rescate técnico:
 
 | Prueba | Requisito | Propósito |
 |--------|-----------|-----------|
@@ -5625,7 +5625,7 @@ La mayoría de guantes de rescate usan tallaje estándar S-XXL basado en circunf
 
 Los guantes son parte del **sistema de protección para rescate técnico**:
 
-- **[Casco de rescate NFPA 1951](/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/):** Protección de cabeza
+- **[Casco de rescate NFPA 1950](/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/):** Protección de cabeza
 - **[Arnés de rescate](/productos/herramientas-rescate/):** Sistema de cuerdas
 - **[Goggles de protección](/productos/gafas-para-bomberos/):** Protección ocular
 - **[Botas de rescate](/productos/botas-para-bomberos/):** Tracción y protección
@@ -5633,7 +5633,7 @@ Los guantes son parte del **sistema de protección para rescate técnico**:
 ### Artículos Relacionados
 
 - [**Técnicas de rescate vehicular** →](/blog/rescate-vehicular-tecnicas/)
-- [**Casco de rescate NFPA 1951** →](/blog/casco-rescate-nfpa-1951/)
+- [**Casco de rescate NFPA 1950** →](/blog/casco-rescate-nfpa-1951/)
 - [**Guantes estructurales NFPA 1970** →](/blog/guantes-estructurales-nfpa-1971/)
 - [**EPP para brigadas industriales** →](/blog/brigadas-industriales-epp/)
 
@@ -5656,7 +5656,7 @@ Los guantes son parte del **sistema de protección para rescate técnico**:
   </div>
   <div class="feature">
     <h4 class="feature__title">Petzl Cordex / Cordex Plus</h4>
-    <p class="feature__text">Específico para rescate vertical con sistema de cuerdas NFPA 1983. Palma de cuero ajustable + dorso transpirable.</p>
+    <p class="feature__text">Específico para rescate vertical con sistema de cuerdas NFPA 2500. Palma de cuero ajustable + dorso transpirable.</p>
   </div>
   <div class="feature">
     <h4 class="feature__title">Configuración por disciplina</h4>
@@ -5669,7 +5669,7 @@ Los guantes son parte del **sistema de protección para rescate técnico**:
 </div>
 
 <div class="cta-box">
-  <h3>Guantes de rescate NFPA 1951 con configuración por disciplina</h3>
+  <h3>Guantes de rescate NFPA 1950 con configuración por disciplina</h3>
   <p>Ringers, Mechanix, HexArmor, Petzl. Recomendación por operación predominante · Documentación NFPA + ANSI · Tallaje individual</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
@@ -5681,10 +5681,10 @@ Los guantes son parte del **sistema de protección para rescate técnico**:
 
 ## Referencias Normativas
 
-- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents
-- **NFPA 1983** — Life Safety Rope and Equipment for Emergency Services (interfaz con guantes)
+- **NFPA 1950** — Standard on Protective Ensembles for Technical Rescue Incidents
+- **NFPA 2500** — Life Safety Rope and Equipment for Emergency Services (interfaz con guantes)
 - **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications
-- **NFPA 1670** — Operations and Training for Technical Search and Rescue Incidents
+- **NFPA 2500** — Operations and Training for Technical Search and Rescue Incidents
 - **ANSI/ISEA 105-2016** — American National Standard for Hand Protection Classification (niveles A1-A9)
 - **EN 388:2016** — Protective gloves against mechanical risks (referencia europea)
 - **ASTM F1790** — Standard Test Method for Measuring Cut Resistance of Materials
@@ -5698,40 +5698,40 @@ Los guantes son parte del **sistema de protección para rescate técnico**:
 - [Guantes para Bombero — Guía Técnica Completa](/blog/guantes-para-bombero-guia-completa/)
 - [Guantes Estructurales NFPA 1970](/blog/guantes-estructurales-nfpa-1971/)
 - [Guantes Forestales NFPA 1950](/blog/guantes-forestales-nfpa-1977/)
-- [Equipo Rescate Técnico NFPA 1006/1670/1983](/blog/equipo-rescate-tecnico-componentes-normas/)
-- [Rescate en Altura NFPA 1983](/blog/rescate-en-altura-cuerdas-nfpa-1983/)
+- [Equipo Rescate Técnico NFPA 1006/2500](/blog/equipo-rescate-tecnico-componentes-normas/)
+- [Rescate en Altura NFPA 2500](/blog/rescate-en-altura-cuerdas-nfpa-1983/)
 - [Rescate Vehicular Moderno UHSS / EV](/blog/rescate-vehicular-tecnicas/)
 - [Extricación Vehicular Jaws of Life](/blog/extricacion-vehicular-jaws-of-life-mexico/)
-- [Casco Rescate Técnico NFPA 1951](/blog/casco-rescate-nfpa-1951/)
+- [Casco Rescate Técnico NFPA 1950](/blog/casco-rescate-nfpa-1951/)
 - [Catálogo de guantes](/productos/guantes-para-bomberos/)
     `,
   },
 
   "guantes-hazmat-proteccion-quimica": {
-    titulo: "Guantes HAZMAT NFPA 1991/1992/1994: Análisis de Compatibilidad Química, Permeación ASTM F739 y Selección por Familia de Agente",
-    excerpt: "Manual técnico de guantes de protección química bajo NFPA 1991 (Nivel A vapor encapsulado), NFPA 1992 (Nivel B salpicadura líquida), NFPA 1994 (CBRN). Matriz de compatibilidad química por material (butilo, Viton, neopreno, nitrilo, Tychem 10000), ensayos de permeación ASTM F739, marcas Ansell/North Safety/MAPA y selección por familia química.",
+    titulo: "Guantes HAZMAT NFPA 1990: Análisis de Compatibilidad Química, Permeación ASTM F739 y Selección por Familia de Agente",
+    excerpt: "Manual técnico de guantes de protección química bajo NFPA 1990 (Nivel A vapor encapsulado, Nivel B salpicadura líquida y clases CBRN). Matriz de compatibilidad química por material (butilo, Viton, neopreno, nitrilo, Tychem 10000), ensayos de permeación ASTM F739, marcas Ansell/North Safety/MAPA y selección por familia química.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-hazmat-nfpa-1991-01.avif",
     categoria: "Equipo",
-    tags: ["Guantes HAZMAT", "NFPA 1991", "NFPA 1992", "NFPA 1994", "Viton", "Butilo", "ASTM F739", "Permeación"],
+    tags: ["Guantes HAZMAT", "NFPA 1990", "NFPA 1990", "NFPA 1990", "Viton", "Butilo", "ASTM F739", "Permeación"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Protección Química",
     anchorKeyword: "Guantes HAZMAT protección química butilo Viton bomberos México",
     contenido: `
-## Guantes HAZMAT NFPA 1991/1992/1994: Marco Técnico de Compatibilidad Química
+## Guantes HAZMAT NFPA 1990: Marco Técnico de Compatibilidad Química
 
 En operaciones con **materiales peligrosos (HAZMAT)**, los guantes son el **componente del EPP con mayor probabilidad documentada de falla por incompatibilidad química mal evaluada**. Las manos están en contacto directo y continuo con válvulas, contenedores, equipos contaminados y, en operaciones de rescate, con víctimas expuestas al agente. La falla del guante no se produce típicamente por rotura visible —se produce por **permeación molecular**: el agente atraviesa el material del guante sin generar daño aparente, contaminando la piel del rescatista durante minutos u horas antes de que el operador advierta la exposición.
 
-La selección correcta de guante HAZMAT exige cumplir simultáneamente tres requisitos: **certificación NFPA** apropiada al nivel de protección (1991 para Nivel A encapsulado, 1992 para Nivel B salpicadura líquida, 1994 para CBRN); **compatibilidad química documentada del material constructivo** con el agente específico mediante ensayo **ASTM F739** (permeación normalizada en condiciones de laboratorio); y **tiempo de permeación normalizado superior al ciclo operativo planificado** —típicamente >480 min para operación con SCBA de 45-60 min más descontaminación. Un guante NFPA 1991 con butilo es excelente contra cetonas pero **permeable a hidrocarburos clorados en minutos**. Un guante con Viton es óptimo contra hidrocarburos pero **falla rápidamente contra metanol**. La matriz de compatibilidad química del fabricante —no la categoría de nivel— es lo que determina la selección.
+La selección correcta de guante HAZMAT exige cumplir simultáneamente tres requisitos: **certificación NFPA** apropiada al nivel de protección (1991 para Nivel A encapsulado, 1992 para Nivel B salpicadura líquida, 1994 para CBRN); **compatibilidad química documentada del material constructivo** con el agente específico mediante ensayo **ASTM F739** (permeación normalizada en condiciones de laboratorio); y **tiempo de permeación normalizado superior al ciclo operativo planificado** —típicamente >480 min para operación con SCBA de 45-60 min más descontaminación. Un guante NFPA 1990 con butilo es excelente contra cetonas pero **permeable a hidrocarburos clorados en minutos**. Un guante con Viton es óptimo contra hidrocarburos pero **falla rápidamente contra metanol**. La matriz de compatibilidad química del fabricante —no la categoría de nivel— es lo que determina la selección.
 
 Este manual estructura los **cinco materiales constructivos referencia** (butilo, Viton, neopreno, nitrilo, Tychem 10000) con sus perfiles de resistencia química, los **ensayos ASTM F739** (tiempo de permeación, tasa, degradación), las **marcas referencia disponibles en México** (Ansell, North Safety, MAPA, Trelleborg, Showa) y la **selección operativa por familia de agente** y aplicación en el corredor químico industrial mexicano.
 
 <div class="stats-grid">
   <div class="stat">
-    <span class="stat__num">NFPA 1991</span>
+    <span class="stat__num">NFPA 1990</span>
     <span class="stat__label">Nivel A vapor encapsulado</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1992</span>
+    <span class="stat__num">NFPA 1990</span>
     <span class="stat__label">Nivel B salpicadura líquida</span>
   </div>
   <div class="stat">
@@ -5745,8 +5745,8 @@ Este manual estructura los **cinco materiales constructivos referencia** (butilo
 </div>
 
 <figure>
-  <img src="/images/guantes-para-bomberos/guante-bombero-hazmat-nfpa-1991-01.avif" alt="Guante HAZMAT NFPA 1991 con material butilo y manguito largo sellado" loading="lazy" width="900" height="600" />
-  <figcaption>Guante HAZMAT NFPA 1991 — material constructivo seleccionado por compatibilidad química con el agente específico del incidente, no por categoría genérica.</figcaption>
+  <img src="/images/guantes-para-bomberos/guante-bombero-hazmat-nfpa-1991-01.avif" alt="Guante HAZMAT NFPA 1990 con material butilo y manguito largo sellado" loading="lazy" width="900" height="600" />
+  <figcaption>Guante HAZMAT NFPA 1990 — material constructivo seleccionado por compatibilidad química con el agente específico del incidente, no por categoría genérica.</figcaption>
 </figure>
 
 <div class="callout callout--fire">
@@ -5960,7 +5960,7 @@ Este manual estructura los **cinco materiales constructivos referencia** (butilo
 
 ## Normativas NFPA para Guantes HAZMAT
 
-### NFPA 1991 — Nivel A (Vapor-Protective)
+### NFPA 1990 — Nivel A (Vapor-Protective)
 
 Para trajes encapsulados de Nivel A, los guantes deben cumplir:
 
@@ -5971,7 +5971,7 @@ Para trajes encapsulados de Nivel A, los guantes deben cumplir:
 
 **Guantes típicos:** Butilo o Viton de 0.5-0.8 mm, integrados o con anillo de conexión
 
-### NFPA 1992 — Nivel B/C (Liquid Splash-Protective)
+### NFPA 1990 — Nivel B/C (Liquid Splash-Protective)
 
 Para trajes de salpicadura, los guantes deben:
 
@@ -5981,7 +5981,7 @@ Para trajes de salpicadura, los guantes deben:
 
 **Guantes típicos:** Nitrilo, Neopreno o Butilo según químico
 
-### NFPA 1994 — CBRN
+### NFPA 1990 — CBRN
 
 Para protección contra agentes CBRN, clasificación por clase:
 
@@ -6172,9 +6172,9 @@ Los guantes son parte del **sistema de protección química completo**:
 
 ## Referencias Normativas
 
-- **NFPA 1991** — Standard on Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A — incluye guantes)
-- **NFPA 1992** — Standard on Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
-- **NFPA 1994** — Protective Ensembles for First Responders to CBRN Terrorism Incidents
+- **NFPA 1990** — Standard on Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A — incluye guantes)
+- **NFPA 1990** — Standard on Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
+- **NFPA 1990** — Protective Ensembles for First Responders to CBRN Terrorism Incidents
 - **NFPA 472 / 1072** — Competencias del personal HAZMAT
 - **ASTM F739** — Standard Test Method for Permeation of Liquids and Gases through Protective Clothing Materials under Continuous Contact
 - **ASTM F903** — Standard Test Method for Resistance of Materials Used in Protective Clothing to Penetration by Liquids
@@ -6190,7 +6190,7 @@ Los guantes son parte del **sistema de protección química completo**:
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
 - [Guantes para Bombero — Guía Técnica Completa](/blog/guantes-para-bombero-guia-completa/)
 - [Guantes Estructurales NFPA 1970](/blog/guantes-estructurales-nfpa-1971/)
-- [Trajes HAZMAT — Compatibilidad Química NFPA 1991/1992](/blog/traje-hazmat-proteccion-quimica/)
+- [Trajes HAZMAT — Compatibilidad Química NFPA 1990](/blog/traje-hazmat-proteccion-quimica/)
 - [HAZMAT Niveles de Protección](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Bomberos Monterrey — Apodaca/Pesquería](/blog/bomberos-monterrey-equipo-nfpa/)
 - [Bomberos Pachuca — Refinería Tula](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
@@ -7711,7 +7711,7 @@ Para el componente complementario —**EPP NFPA personal de las brigadas operati
 - [PROYECTO RED — Plataforma de Proveedores](/blog/proyecto-red-plataforma-equipos-contra-incendio/)
 - [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
 - [Extintores por Clase de Fuego](/blog/extintores-tipos-clases-fuego-mexico/)
-- [HAZMAT NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Bomberos CDMX — Equipo NFPA](/blog/bomberos-cdmx-equipo-nfpa/)
     `,
   },
@@ -9186,7 +9186,7 @@ Independientemente del proveedor seleccionado para sistema fijo, mantenimiento o
 - **NOM-017-STPS-2024** — EPP en centros de trabajo
 - **NOM-154-SCFI-2005** — Extintores contra incendio – Mantenimiento y recarga
 - **NFPA 1, 10, 13, 14, 24, 25** — Estándares aplicables a sistemas fijos
-- **NFPA 1970 (cap. 5–9 y 15–19), 1991/1992** — EPP por categoría operativa
+- **NFPA 1970 (cap. 5–9 y 15–19), NFPA 1990** — EPP por categoría operativa
 - **UL / FM Approval Standards** — Listado y aprobación internacional
 
 ---
@@ -9898,7 +9898,7 @@ El análisis sectorial converge en una conclusión operativa: **el sistema fijo 
 - **IMARC Group** — Mexico Fire Protection Chemicals Market
 - **Elkhart Brass / Safe Fleet** — Información de producto y certificaciones internacionales
 - **NFPA 1, 10, 13, 14, 24, 25** — Estándares aplicables a sistemas fijos
-- **NFPA 1970 (cap. 5–9 y 15–19), 1991/1992** — EPP por categoría operativa
+- **NFPA 1970 (cap. 5–9 y 15–19), NFPA 1990** — EPP por categoría operativa
 
 ---
 
@@ -10115,7 +10115,7 @@ Los sistemas fijos validados por PROYECTO RED protegen la instalación. El **per
 - [Distribución Autorizada Elkhart Brass (Gama de México)](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
 - [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
 - [Extintores por Clase de Fuego — Guía NOM](/blog/extintores-tipos-clases-fuego-mexico/)
-- [HAZMAT NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
   },
@@ -10342,7 +10342,7 @@ Un sistema fijo de protección contra incendio (detección, alarma, supresión) 
 ### Artículos Relacionados
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Extintores por Clase de Fuego — Guía NOM](/blog/extintores-tipos-clases-fuego-mexico/)
 - [Distribución Autorizada Elkhart Brass (Gama de México)](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
 - [SCBA MSA G1 vs Scott Air-Pak](/blog/scba-msag1-vs-scott-airpak/)
@@ -11123,7 +11123,7 @@ Independientemente del proveedor seleccionado para sistemas fijos, mantenimiento
 - **NOM-017-STPS-2024** — EPP en centros de trabajo
 - **NOM-154-SCFI-2005** — Extintores contra incendio – Servicio de mantenimiento y recarga
 - **NFPA 1, 10, 13, 14, 24, 25** — Estándares de sistemas fijos
-- **NFPA 1970 (cap. 5–9 y 15–19), 1976, NFPA 1950 y 1991/1992** — EPP por categoría operativa
+- **NFPA 1970 (cap. 5–9, 15–19 y proximidad), NFPA 1950 y NFPA 1990** — EPP por categoría operativa
 - **UL Listing / FM Approval Standards** — Certificación internacional
 
 ---
@@ -11769,21 +11769,21 @@ La decisión correcta depende de 3 factores:
 - [Mantenimiento de Equipo NFPA 1850](/blog/mantenimiento-equipo-nfpa-bomberos/)
 - [Capuchas Monjas NFPA — Protección Particulada](/blog/capuchas-monjas-bombero-nfpa-guia/)
 - [Cascos Bullard vs Cairns](/blog/casco-bombero-bullard-vs-cairns/)
-- [Cámara Termográfica TIC NFPA 1801](/blog/camara-termica-tic-bomberos-nfpa-1801/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [Cámara Termográfica TIC NFPA 1930](/blog/camara-termica-tic-bomberos-nfpa-1801/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Catálogo SCBA BOMBERO.MX](/productos/scba/)
     `,
   },
 
   "camara-termica-tic-bomberos-nfpa-1801": {
-    titulo: "Cámara Termográfica (TIC) para Bomberos: NFPA 1801, FLIR K-Series y MSA Evolution — Guía Técnica 2026",
-    excerpt: "Manual técnico 2026 sobre cámaras termográficas para combate de incendios. Requisitos NFPA 1801 (resistencia térmica, IP67, frecuencia mínima 9 Hz), comparativa FLIR K-Series vs MSA Evolution 6000 vs Bullard QXT, protocolos de barrido y selección por tipo de cuerpo.",
+    titulo: "Cámara Termográfica (TIC) para Bomberos: NFPA 1930, FLIR K-Series y MSA Evolution — Guía Técnica 2026",
+    excerpt: "Manual técnico 2026 sobre cámaras termográficas para combate de incendios. Requisitos NFPA 1930 (resistencia térmica, IP67, frecuencia mínima 9 Hz), comparativa FLIR K-Series vs MSA Evolution 6000 vs Bullard QXT, protocolos de barrido y selección por tipo de cuerpo.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estacion-equipo-scba-asesoria-01.avif",
     categoria: "Equipo",
-    tags: ["Cámara Termográfica", "TIC", "NFPA 1801", "FLIR", "MSA Evolution", "Bullard QXT", "Búsqueda de Víctimas"],
+    tags: ["Cámara Termográfica", "TIC", "NFPA 1930", "FLIR", "MSA Evolution", "Bullard QXT", "Búsqueda de Víctimas"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Tecnología Operativa",
-    anchorKeyword: "cámara termográfica TIC bomberos NFPA 1801 México FLIR",
+    anchorKeyword: "cámara termográfica TIC bomberos NFPA 1930 México FLIR",
     contenido: `
 ## Cámara Termográfica (TIC) para Bomberos: Función Operativa y Marco Normativo
 
@@ -11793,7 +11793,7 @@ Su aplicación no se limita a la búsqueda. La TIC también permite **lectura t�
 
 <div class="stats-grid">
   <div class="stat">
-    <span class="stat__num">NFPA 1801</span>
+    <span class="stat__num">NFPA 1930</span>
     <span class="stat__label">Norma específica para TIC</span>
   </div>
   <div class="stat">
@@ -11837,11 +11837,11 @@ En un incendio con 300°C de temperatura ambiente, un cuerpo humano a 37°C pued
 
 ---
 
-## La Norma NFPA 1801: Requisitos de la TIC para Bomberos
+## La Norma NFPA 1930: Requisitos de la TIC para Bomberos
 
-La **NFPA 1801** (Standard on Thermal Imagers for the Fire Service) es la norma que regula las cámaras termográficas diseñadas específicamente para uso en emergencias. No cualquier cámara termográfica cumple con NFPA 1801 — las cámaras industriales o de inspección no están diseñadas para las condiciones extremas del combate de incendios.
+La **NFPA 1930** (Standard on Thermal Imagers for the Fire Service) es la norma que regula las cámaras termográficas diseñadas específicamente para uso en emergencias. No cualquier cámara termográfica cumple con NFPA 1930 — las cámaras industriales o de inspección no están diseñadas para las condiciones extremas del combate de incendios.
 
-### Requisitos Mínimos NFPA 1801
+### Requisitos Mínimos NFPA 1930
 
 | Requisito | Especificación |
 |-----------|----------------|
@@ -11853,7 +11853,7 @@ La **NFPA 1801** (Standard on Thermal Imagers for the Fire Service) es la norma 
 | **Frecuencia de imagen** | Mínimo 9 Hz (imágenes por segundo) |
 | **Alarma de temperatura** | Alerta cuando la temperatura del detector supera límites seguros |
 
-> ⚠️ **Advertencia crítica**: Una TIC que no cumple NFPA 1801 puede fallar catastróficamente dentro del incendio. La cámara podría sobrecalentarse, el display puede oscurecerse o el sensor puede dañarse —dejando al bombero sin visibilidad en el peor momento posible.
+> ⚠️ **Advertencia crítica**: Una TIC que no cumple NFPA 1930 puede fallar catastróficamente dentro del incendio. La cámara podría sobrecalentarse, el display puede oscurecerse o el sensor puede dañarse —dejando al bombero sin visibilidad en el peor momento posible.
 
 ---
 
@@ -11872,7 +11872,7 @@ El **FLIR K2** es la cámara termográfica más distribuida en cuerpos de bomber
 | **Display** | 3.5" a color |
 | **Batería** | 4 horas de uso continuo |
 | **Peso** | ~700 g |
-| **Certificación** | NFPA 1801, IP67 |
+| **Certificación** | NFPA 1930, IP67 |
 | **Precio aprox. México** | $45,000 – $65,000 MXN |
 
 ### Cuándo Elegir el FLIR K2
@@ -11978,7 +11978,7 @@ Una TIC básica (FLIR K2, ~$55,000 MXN) es la inversión de menor costo/impacto 
 <div class="feature-grid">
   <div class="feature">
     <h4 class="feature__title">FLIR K-Series (K2, K33, K55, K65)</h4>
-    <p class="feature__text">Línea de referencia para cuerpos municipales y brigadas industriales. Certificación NFPA 1801 vigente, sensor microbolómetro sin refrigeración, batería intercambiable.</p>
+    <p class="feature__text">Línea de referencia para cuerpos municipales y brigadas industriales. Certificación NFPA 1930 vigente, sensor microbolómetro sin refrigeración, batería intercambiable.</p>
   </div>
   <div class="feature">
     <h4 class="feature__title">MSA Evolution 6000 / 6000+</h4>
@@ -12003,7 +12003,7 @@ Una TIC básica (FLIR K2, ~$55,000 MXN) es la inversión de menor costo/impacto 
 </div>
 
 <div class="cta-box">
-  <h3>Cámara termográfica certificada NFPA 1801 para tu cuerpo</h3>
+  <h3>Cámara termográfica certificada NFPA 1930 para tu cuerpo</h3>
   <p>Asesoría técnica de selección por presupuesto y operación · Capacitación coordinada con el fabricante · Documentación lista para licitación</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
@@ -12015,7 +12015,7 @@ Una TIC básica (FLIR K2, ~$55,000 MXN) es la inversión de menor costo/impacto 
 
 ## Referencias Normativas
 
-- **NFPA 1801** — Standard on Thermal Imagers for the Fire Service (edición vigente)
+- **NFPA 1930** — Standard on Thermal Imagers for the Fire Service (edición vigente)
 - **NFPA 1410** — Standard on Training for Initial Emergency Scene Operations
 - **NFPA 1500** — Standard on Fire Department Occupational Safety, Health, and Wellness Program (sección de uso de tecnología)
 - **NFPA 1970** — Standard on Open-Circuit Self-Contained Breathing Apparatus (SCBA) — interacción con TIC integrada
@@ -12517,14 +12517,14 @@ Los estados y municipios que reciben presupuesto CONAFOR para combate de incendi
   },
 
   "hazmat-niveles-proteccion-bomberos-mexico": {
-    titulo: "HAZMAT en México: Niveles de Protección A/B/C/D según NFPA 1991, 1992 y EPA — Guía Técnica 2026",
+    titulo: "HAZMAT en México: Niveles de Protección A/B/C/D según NFPA 1990 y EPA — Guía Técnica 2026",
     excerpt: "Manual técnico 2026 para respuesta a materiales peligrosos. Selección de Nivel A/B/C/D según EPA/OSHA/NFPA, criterios de zonificación, decontaminación SOP, brigadas industriales mexicanas y referencias normativas NOM-005-STPS, NOM-018-STPS, SETIQ.",
     imagen: "/images/directorio/bombero-hernandez-capucha-scba-estacion-02.avif",
     categoria: "Técnicas",
-    tags: ["HAZMAT", "NFPA 1991", "NFPA 1992", "Nivel A", "Nivel B", "EPA", "OSHA", "NOM-005-STPS", "SETIQ", "Descontaminación"],
+    tags: ["HAZMAT", "NFPA 1990", "NFPA 1990", "Nivel A", "Nivel B", "EPA", "OSHA", "NOM-005-STPS", "SETIQ", "Descontaminación"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico de EPP HAZMAT",
-    anchorKeyword: "HAZMAT niveles protección A B C D bomberos México NFPA 1991 1992",
+    anchorKeyword: "HAZMAT niveles protección A B C D bomberos México NFPA 1990 1992",
     contenido: `
 ## Respuesta HAZMAT: Marco Operativo y Normativo para Brigadas en México
 
@@ -12538,11 +12538,11 @@ México concentra zonas de alta densidad química industrial: el **corredor petr
     <span class="stat__label">Niveles de protección (EPA/OSHA)</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1991</span>
+    <span class="stat__num">NFPA 1990</span>
     <span class="stat__label">Trajes encapsulados Nivel A</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1992</span>
+    <span class="stat__num">NFPA 1990</span>
     <span class="stat__label">Trajes salpicadura Nivel B</span>
   </div>
   <div class="stat">
@@ -12597,7 +12597,7 @@ El **Nivel A** es la única configuración que provee protección encapsulada co
 - La sustancia tiene **alta volatilidad y toxicidad dérmica** (carcinógenos categoría 1A/1B, agentes nerviosos, ácidos volátiles concentrados)
 - La concentración medida excede los límites del Nivel B
 
-**Equipamiento estándar (NFPA 1991):**
+**Equipamiento estándar (NFPA 1990):**
 - Traje completamente encapsulado para vapor, con costuras selladas y visor integrado
 - SCBA presión positiva (NFPA 1970) o SCBA de línea con escape de emergencia, cilindro composite ≥45 minutos
 - Guantes interior + exterior químicamente compatibles con la sustancia identificada (típicamente Viton, butilo o neopreno)
@@ -12617,7 +12617,7 @@ El **Nivel A** es la única configuración que provee protección encapsulada co
 
 El **Nivel B** se selecciona cuando la **identificación del agente está confirmada**, la concentración respiratoria justifica SCBA, pero la sustancia **no penetra la piel intacta por contacto breve** (riesgo dérmico limitado a salpicadura, no a vapor).
 
-**Equipamiento estándar (NFPA 1992):**
+**Equipamiento estándar (NFPA 1990):**
 - Traje químico no encapsulado, resistente a penetración líquida según ASTM F903
 - SCBA presión positiva (NFPA 1970)
 - Guantes interior + exterior (típicamente nitrilo + neopreno)
@@ -12728,11 +12728,11 @@ Como distribuidor especializado en EPP certificado, **BOMBERO MX** abastece a br
 
 <div class="feature-grid">
   <div class="feature">
-    <h4 class="feature__title">Trajes encapsulados NFPA 1991</h4>
+    <h4 class="feature__title">Trajes encapsulados NFPA 1990</h4>
     <p class="feature__text">Configuraciones con compatibilidad química documentada (Viton, butilo, Tychem TK, Trellchem HPS) según el matriz de sustancias de la planta o región operativa.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">Trajes splash NFPA 1992</h4>
+    <h4 class="feature__title">Trajes splash NFPA 1990</h4>
     <p class="feature__text">Para Nivel B con resistencia a salpicadura ASTM F903 verificada. Incluye fichas de compatibilidad química por familia de agente.</p>
   </div>
   <div class="feature">
@@ -12768,8 +12768,8 @@ Como distribuidor especializado en EPP certificado, **BOMBERO MX** abastece a br
 
 - **NFPA 472** — Standard for Competence of Responders to Hazardous Materials/Weapons of Mass Destruction Incidents
 - **NFPA 1072** — Standard for Hazardous Materials/Weapons of Mass Destruction Emergency Response Personnel Professional Qualifications
-- **NFPA 1991** — Standard on Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A)
-- **NFPA 1992** — Standard on Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
+- **NFPA 1990** — Standard on Vapor-Protective Ensembles for Hazardous Materials Emergencies (Nivel A)
+- **NFPA 1990** — Standard on Liquid Splash-Protective Ensembles for Hazardous Materials Emergencies (Nivel B)
 - **NFPA 1970** — Standard on Open-Circuit Self-Contained Breathing Apparatus (SCBA) for Emergency Services
 - **29 CFR 1910.120** — Hazardous Waste Operations and Emergency Response (HAZWOPER), OSHA
 - **NOM-005-STPS-1998** — Condiciones de seguridad e higiene para el manejo, transporte y almacenamiento de sustancias químicas peligrosas
@@ -13900,11 +13900,11 @@ La protección ocular es la categoría de EPP con menor costo unitario por bombe
   },
 
   "guantes-para-bombero-guia-completa": {
-    titulo: "Guantes para Bombero: Análisis Técnico de NFPA 1970/1950/1991/1951/1999 — Dextreridad, Protección y Compatibilidad de Sistema",
-    excerpt: "Análisis técnico de guantes para bombero bajo NFPA 1970 (estructural), 1977 (forestal), 1991 (HAZMAT), 1951 (rescate técnico) y 1999 (médico). Ensayos de protección térmica (TPP), dextreridad mínima, materiales (Kevlar, Nomex, Vibram), compatibilidad con manguito de chaqueta y selección por tipo de operación en México.",
+    titulo: "Guantes para Bombero: Análisis Técnico de NFPA 1970/1950/1990 — Dextreridad, Protección y Compatibilidad de Sistema",
+    excerpt: "Análisis técnico de guantes para bombero bajo NFPA 1970 (estructural), NFPA 1950 (forestal, rescate técnico y médico) y NFPA 1990 (HAZMAT). Ensayos de protección térmica (TPP), dextreridad mínima, materiales (Kevlar, Nomex, Vibram), compatibilidad con manguito de chaqueta y selección por tipo de operación en México.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-estructural-nfpa-1971-01.avif",
     categoria: "Equipo",
-    tags: ["Guantes Bombero", "NFPA 1970", "NFPA 1950", "NFPA 1991", "NFPA 1951", "Kevlar", "Nomex", "Dextreridad"],
+    tags: ["Guantes Bombero", "NFPA 1970", "NFPA 1950", "NFPA 1990", "NFPA 1950", "Kevlar", "Nomex", "Dextreridad"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Protección de Manos",
     anchorKeyword: "guantes para bomberos NFPA certificados México",
@@ -13945,7 +13945,7 @@ Este análisis describe los **cinco tipos de guantes NFPA aplicables a operació
   <span class="callout__icon">!</span>
   <div class="callout__body">
     <span class="callout__title">No existe un guante universal</span>
-    <p>Un guante NFPA 1970 estructural <strong>no protege adecuadamente</strong> contra químicos (NFPA 1991) ni ofrece la dextreridad fina del NFPA 1951 para rescate técnico. Inversamente, un guante NFPA 1950 forestal carece de la barrera térmica necesaria para entrada a estructura activa. Brigadas con operación mixta requieren <strong>inventario diferenciado</strong>, no compromiso con un solo modelo "polivalente" (que no existe en certificación NFPA real).</p>
+    <p>Un guante NFPA 1970 estructural <strong>no protege adecuadamente</strong> contra químicos (NFPA 1990) ni ofrece la dextreridad fina del guante de rescate técnico NFPA 1950. Inversamente, un guante forestal NFPA 1950 carece de la barrera térmica necesaria para entrada a estructura activa. Brigadas con operación mixta requieren <strong>inventario diferenciado</strong>, no compromiso con un solo modelo "polivalente" (que no existe en certificación NFPA real).</p>
   </div>
 </div>
 
@@ -13959,9 +13959,9 @@ Este análisis describe los **cinco tipos de guantes NFPA aplicables a operació
 |------------|---------------|---------------|
 | **NFPA 1970** | Guante estructural | Combate de incendios en edificaciones |
 | **NFPA 1950** | Guante forestal | Incendios en vegetación y wildland |
-| **NFPA 1991** | Guante HAZMAT Nivel A/B | Materiales peligrosos encapsulados |
-| **NFPA 1951** | Guante de rescate técnico | USAR, rescate vehicular, derrumbes |
-| **NFPA 1999** | Guante de protección médica | Emergencias médicas con riesgo biológico |
+| **NFPA 1990** | Guante HAZMAT Nivel A/B | Materiales peligrosos encapsulados |
+| **NFPA 1950** | Guante de rescate técnico | USAR, rescate vehicular, derrumbes |
+| **NFPA 1950** | Guante de protección médica | Emergencias médicas con riesgo biológico |
 
 Cada norma establece pruebas específicas, materiales admitidos y niveles mínimos de rendimiento. Un guante certificado bajo NFPA 1970 **no sustituye** a uno certificado bajo NFPA 1950 para incendio forestal, y viceversa.
 
@@ -14076,7 +14076,7 @@ En México, las brigadas de la **CONAFOR (Comisión Nacional Forestal)** y los e
 
 ---
 
-## 3. Guantes HAZMAT — NFPA 1991 y 1992
+## 3. Guantes HAZMAT — NFPA 1990
 
 ### ¿Para Qué Son?
 
@@ -14086,14 +14086,14 @@ La protección HAZMAT se divide en **niveles** según la norma NFPA:
 
 | Nivel | Norma | Descripción | Guante |
 |-------|-------|-------------|--------|
-| **Nivel A** | NFPA 1991 | Traje encapsulado — mayor riesgo químico | Guante interior + exterior de neopreno/butilo |
-| **Nivel B** | NFPA 1992 | Protección respiratoria alta, traje no encapsulado | Guante químicamente resistente |
+| **Nivel A** | NFPA 1990 | Traje encapsulado — mayor riesgo químico | Guante interior + exterior de neopreno/butilo |
+| **Nivel B** | NFPA 1990 | Protección respiratoria alta, traje no encapsulado | Guante químicamente resistente |
 | **Nivel C** | — | Respirador purificante, menor riesgo | Guante de nitrilo/neopreno según agente |
 | **Nivel D** | — | Sin protección química activa | Guante mecánico básico |
 
-### Guantes para HAZMAT Nivel A (NFPA 1991)
+### Guantes para HAZMAT Nivel A (NFPA 1990)
 
-El **traje NFPA 1991 Nivel A** requiere un sistema de doble guante:
+El **traje NFPA 1990 Nivel A** requiere un sistema de doble guante:
 
 1. **Guante interior:** neopreno o nitrilo 15-20 mil (0.38-0.50 mm) — barrera química primaria
 2. **Guante exterior:** butilo o neopreno 30 mil (0.76 mm) o más — resistencia química reforzada
@@ -14122,7 +14122,7 @@ Las zonas industriales con mayor demanda de guantes HAZMAT certificados en Méxi
 
 ---
 
-## 4. Guantes de Rescate Técnico — NFPA 1951
+## 4. Guantes de Rescate Técnico — NFPA 1950
 
 ### ¿Para Qué Son?
 
@@ -14133,11 +14133,11 @@ Las operaciones de **rescate técnico** (USAR — Urban Search and Rescue, resca
 - **Abrasión extrema:** manipulación de escombros, trabajo con herramientas neumáticas
 - **Exposición química moderada:** fluidos de vehículo, materiales de construcción
 
-La norma **NFPA 1951** (Standard on Protective Ensembles for Technical Rescue Incidents) establece los requisitos para guantes de rescate técnico.
+La norma **NFPA 1950** (Standard on Protective Ensembles for Technical Rescue Incidents) establece los requisitos para guantes de rescate técnico.
 
-### Diferencias NFPA 1951 vs. NFPA 1970
+### Diferencias NFPA 1950 vs. NFPA 1970
 
-| Característica | NFPA 1970 (Estructural) | NFPA 1951 (Rescate) |
+| Característica | NFPA 1970 (Estructural) | NFPA 1950 (Rescate) |
 |----------------|------------------------|---------------------|
 | **Protección térmica** | Muy alta (TPP ≥ 35) | Media (rescate no implica llama directa) |
 | **Resistencia a cortes** | Media | Muy alta (vidrio, metal) |
@@ -14145,7 +14145,7 @@ La norma **NFPA 1951** (Standard on Protective Ensembles for Technical Rescue In
 | **Protección mecánica** | Media | Alta (nudillos reforzados, dorso semi-rígido) |
 | **Peso** | Mayor | Menor — el rescatista trabaja muchas horas |
 
-### Características de los Guantes NFPA 1951
+### Características de los Guantes NFPA 1950
 
 - **Dorso:** Kevlar® o UHMWPE (polietileno de ultra alto peso molecular) — protección a cortes Nivel 4-5 EN 388
 - **Palma:** cuero de vaca o sintético de alta resistencia con puntos de agarre
@@ -14161,13 +14161,13 @@ La norma **NFPA 1951** (Standard on Protective Ensembles for Technical Rescue In
 | Incendio en edificio, bodega, nave industrial | Estructural | NFPA 1970 |
 | Incendio en pastizal, matorral, bosque | Forestal | NFPA 1950 |
 | Incendio en aeropuerto (ARFF) | Estructural proximidad | NFPA 1970 |
-| Emergencia química Nivel A/B | HAZMAT neopreno/butilo | NFPA 1991/1992 |
-| Rescate vehicular (accidentes carretera) | Rescate técnico | NFPA 1951 |
-| Derrumbe, USAR | Rescate técnico | NFPA 1951 |
-| Emergencia médica con riesgo biológico | Guante médico desechable + guante FR | NFPA 1999 |
-| Capacitación y prácticas en estación | Estructural o rescate (depende de la práctica) | NFPA 1970/1951 |
+| Emergencia química Nivel A/B | HAZMAT neopreno/butilo | NFPA 1990 |
+| Rescate vehicular (accidentes carretera) | Rescate técnico | NFPA 1950 |
+| Derrumbe, USAR | Rescate técnico | NFPA 1950 |
+| Emergencia médica con riesgo biológico | Guante médico desechable + guante FR | NFPA 1950 |
+| Capacitación y prácticas en estación | Estructural o rescate (depende de la práctica) | NFPA 1970/1950 |
 
-> **Recomendación BOMBERO.MX:** Un cuerpo de bomberos urbano completo debe tener al mínimo **guantes estructurales NFPA 1970** para cada elemento, más un inventario de **guantes de rescate NFPA 1951** para equipos de extricación. Si manejan emergencias HAZMAT, los guantes químicos son obligatorios.
+> **Recomendación BOMBERO.MX:** Un cuerpo de bomberos urbano completo debe tener al mínimo **guantes estructurales NFPA 1970** para cada elemento, más un inventario de **guantes de rescate NFPA 1950** para equipos de extricación. Si manejan emergencias HAZMAT, los guantes químicos son obligatorios.
 
 ---
 
@@ -14256,7 +14256,7 @@ Depende del uso, pero como guía general: guantes estructurales con uso intensiv
 
 ### ¿Los guantes estructurales protegen contra materiales peligrosos?
 
-**Limitadamente.** Los guantes NFPA 1970 tienen barrera de humedad que ofrece cierta protección contra líquidos, pero no están diseñados ni certificados para resistir la permeación de productos químicos. Para emergencias HAZMAT Nivel B o superior, son obligatorios guantes certificados NFPA 1991.
+**Limitadamente.** Los guantes NFPA 1970 tienen barrera de humedad que ofrece cierta protección contra líquidos, pero no están diseñados ni certificados para resistir la permeación de productos químicos. Para emergencias HAZMAT Nivel B o superior, son obligatorios guantes certificados NFPA 1990.
 
 ### ¿Qué talla de guante necesito?
 
@@ -14264,7 +14264,7 @@ La talla se determina midiendo el **perímetro de la mano** (a la altura de los 
 
 ### ¿Cuánto cuestan guantes de bombero certificados en México?
 
-Guantes estructurales NFPA 1970 certificados van desde $1,200 MXN (cuero básico) hasta $8,000+ MXN (PBI®/Kevlar® premium). Los de rescate NFPA 1951 están entre $1,500 y $5,000 MXN. Los guantes HAZMAT tienen rango más amplio según el nivel de protección requerido.
+Guantes estructurales NFPA 1970 certificados van desde $1,200 MXN (cuero básico) hasta $8,000+ MXN (PBI®/Kevlar® premium). Los de rescate NFPA 1950 están entre $1,500 y $5,000 MXN. Los guantes HAZMAT tienen rango más amplio según el nivel de protección requerido.
 
 ### ¿Puedo comprar guantes de bombero con factura para mi empresa?
 
@@ -14276,11 +14276,11 @@ Sí. En **BOMBERO.MX** vendemos con factura a cuerpos de bomberos municipales, b
 
 Los guantes son **el componente del EPP con menor costo unitario y mayor frecuencia de uso operativo**. Esta combinación los convierte en el componente más eficiente por unidad de inversión —y, simultáneamente, en el más expuesto a degradación temprana por uso intensivo. La selección correcta exige tres decisiones independientes: **categoría normativa** (por tipo de operación), **talla individualizada** (por bombero) y **plan de reemplazo programado** (por ciclo de vida útil).
 
-**BOMBERO MX** opera el catálogo completo de guantes NFPA 1970/1950/1991/1951 con plantilla de medición individual, documentación auditable y soporte de reposición continua.
+**BOMBERO MX** opera el catálogo completo de guantes NFPA 1970/1950/1990 con plantilla de medición individual, documentación auditable y soporte de reposición continua.
 
 <div class="cta-box">
   <h3>Guantes NFPA por categoría operativa</h3>
-  <p>Estructural (NFPA 1970), forestal (NFPA 1950), HAZMAT (NFPA 1991), rescate técnico (NFPA 1951). Plantilla de tallas individual, certificación auditable y reposición continua.</p>
+  <p>Estructural (NFPA 1970), forestal y rescate técnico (NFPA 1950), HAZMAT (NFPA 1990). Plantilla de tallas individual, certificación auditable y reposición continua.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
     <a href="/productos/guantes-para-bomberos/" class="alt">Ver catálogo</a>
@@ -14293,9 +14293,9 @@ Los guantes son **el componente del EPP con menor costo unitario y mayor frecuen
 
 - **NFPA 1970** — Standard on Protective Ensembles for Structural Fire Fighting (sección de guantes)
 - **NFPA 1950** — Standard on Protective Clothing and Equipment for Wildland Fire Fighting
-- **NFPA 1991** — Vapor-Protective Ensembles for Hazardous Materials Emergencies
-- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents
-- **NFPA 1999** — Standard on Protective Clothing for Emergency Medical Operations
+- **NFPA 1990** — Vapor-Protective Ensembles for Hazardous Materials Emergencies
+- **NFPA 1950** — Standard on Protective Ensembles for Technical Rescue Incidents
+- **NFPA 1950** — Standard on Protective Clothing for Emergency Medical Operations
 - **NFPA 1850** — Selection, Care, and Maintenance of Protective Ensembles (vida útil)
 - **ASTM F2675** — Standard Test Method for Determining Arc Ratings of Hand Protective Products
 - **EN 659:2003+A1:2008** — Protective Gloves for Firefighters (estándar europeo equivalente)
@@ -14318,26 +14318,26 @@ Los guantes son **el componente del EPP con menor costo unitario y mayor frecuen
 
 
   "rescate-en-altura-cuerdas-nfpa-1983": {
-    titulo: "Rescate en Altura NFPA 1983: Cuerdas de Vida, Sistemas de Anclaje y Equipo Vertical — Guía Técnica 2026",
+    titulo: "Rescate en Altura NFPA 2500: Cuerdas de Vida, Sistemas de Anclaje y Equipo Vertical — Guía Técnica 2026",
     excerpt: "Manual técnico de rescate vertical bajo NFPA 1983 (edición 2017): cuerdas estáticas General Use vs Technical Use, arneses NFPA, descensores asistidos (Petzl ID, CMC MPD), sistemas de anclaje, factores de seguridad 15:1, protocolo de operación dual-tensioned y aplicación en operaciones USAR/TRT mexicanas.",
     imagen: "/images/directorio/equipo-rescate-vertical-01.avif",
     categoria: "Técnicas",
-    tags: ["Rescate Altura", "NFPA 1983", "Cuerdas de Vida", "Petzl ID", "CMC MPD", "Rescate Vertical", "Anclaje", "NOM-033-STPS"],
+    tags: ["Rescate Altura", "NFPA 2500", "Cuerdas de Vida", "Petzl ID", "CMC MPD", "Rescate Vertical", "Anclaje", "NOM-033-STPS"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Rescate Vertical",
-    anchorKeyword: "rescate en altura bomberos cuerdas NFPA 1983 México",
+    anchorKeyword: "rescate en altura bomberos cuerdas NFPA 2500 México",
     contenido: `
-## Rescate en Altura NFPA 1983: Marco Técnico del Componente Más Crítico del Rescate Especializado
+## Rescate en Altura NFPA 2500: Marco Técnico del Componente Más Crítico del Rescate Especializado
 
-El **rescate vertical** o **rescate en altura** es la disciplina operativa donde la dependencia del equipo es **absoluta**: cada componente del sistema —cuerda, arnés, conector, anclaje, descensor— soporta cargas que en falla generan caída libre sin posibilidad de recuperación. La norma **NFPA 1983** (*Standard on Life Safety Rope and Equipment for Emergency Services*, edición 2017) codifica los requisitos de diseño, materiales, ensayo y certificación de cada componente del sistema, y define dos clases operativas: **General Use** (para cargas de dos personas en operación con factor de seguridad 15:1) y **Technical Use** (para una persona, factor 10:1, escape personal).
+El **rescate vertical** o **rescate en altura** es la disciplina operativa donde la dependencia del equipo es **absoluta**: cada componente del sistema —cuerda, arnés, conector, anclaje, descensor— soporta cargas que en falla generan caída libre sin posibilidad de recuperación. La norma **NFPA 2500** (*Standard on Life Safety Rope and Equipment for Emergency Services*, edición 2017) codifica los requisitos de diseño, materiales, ensayo y certificación de cada componente del sistema, y define dos clases operativas: **General Use** (para cargas de dos personas en operación con factor de seguridad 15:1) y **Technical Use** (para una persona, factor 10:1, escape personal).
 
-En México, la verticalización urbana acelerada —**torres de Reforma, Santa Fe e Insurgentes en CDMX**, **Puerta de Hierro y Andares en Guadalajara**, **San Pedro Garza García en Monterrey**, **Distrito Federal corporativo de Mítikah**, infraestructura industrial PEMEX/CFE, torres de telecomunicaciones 5G— genera demanda creciente de capacidad de rescate vertical en cuerpos municipales. La NFPA 1983 es la referencia técnica universal, complementada en operaciones de espacios confinados por la **NOM-033-STPS-2015** mexicana.
+En México, la verticalización urbana acelerada —**torres de Reforma, Santa Fe e Insurgentes en CDMX**, **Puerta de Hierro y Andares en Guadalajara**, **San Pedro Garza García en Monterrey**, **Distrito Federal corporativo de Mítikah**, infraestructura industrial PEMEX/CFE, torres de telecomunicaciones 5G— genera demanda creciente de capacidad de rescate vertical en cuerpos municipales. La NFPA 2500 es la referencia técnica universal, complementada en operaciones de espacios confinados por la **NOM-033-STPS-2015** mexicana.
 
-Este manual estructura el **marco técnico del rescate vertical NFPA 1983**: clasificación General Use / Technical Use, **especificaciones de cuerda estática** (diámetro, fuerza mínima de ruptura MBS, alargamiento bajo carga), **arneses certificados**, **descensores asistidos modernos** (Petzl I'D, CMC MPD), **sistemas de anclaje** y **factores de seguridad** aplicables. La aplicación operativa cubre equipos USAR/TRT, brigadas industriales con riesgo vertical y cuerpos municipales metropolitanos.
+Este manual estructura el **marco técnico del rescate vertical NFPA 2500**: clasificación General Use / Technical Use, **especificaciones de cuerda estática** (diámetro, fuerza mínima de ruptura MBS, alargamiento bajo carga), **arneses certificados**, **descensores asistidos modernos** (Petzl I'D, CMC MPD), **sistemas de anclaje** y **factores de seguridad** aplicables. La aplicación operativa cubre equipos USAR/TRT, brigadas industriales con riesgo vertical y cuerpos municipales metropolitanos.
 
 <div class="stats-grid">
   <div class="stat">
-    <span class="stat__num">NFPA 1983</span>
+    <span class="stat__num">NFPA 2500</span>
     <span class="stat__label">Edición 2017 vigente</span>
   </div>
   <div class="stat">
@@ -14355,23 +14355,23 @@ Este manual estructura el **marco técnico del rescate vertical NFPA 1983**: cla
 </div>
 
 <figure>
-  <img src="/images/directorio/equipo-rescate-vertical-01.avif" alt="Equipo de rescate vertical NFPA 1983 con cuerda estática, arnés y descensor asistido" loading="lazy" width="900" height="600" />
-  <figcaption>Sistema de rescate vertical NFPA 1983 — cuerda estática + arnés + descensor asistido + sistema de anclaje. Cada componente certificado individualmente bajo la misma norma.</figcaption>
+  <img src="/images/directorio/equipo-rescate-vertical-01.avif" alt="Equipo de rescate vertical NFPA 2500 con cuerda estática, arnés y descensor asistido" loading="lazy" width="900" height="600" />
+  <figcaption>Sistema de rescate vertical NFPA 2500 — cuerda estática + arnés + descensor asistido + sistema de anclaje. Cada componente certificado individualmente bajo la misma norma.</figcaption>
 </figure>
 
 <div class="callout callout--fire">
   <span class="callout__icon">!</span>
   <div class="callout__body">
-    <span class="callout__title">Sin certificación NFPA 1983, no apto para servicio</span>
-    <p>Una cuerda de escalada deportiva o industrial <strong>no es equivalente</strong> a una cuerda NFPA 1983 General Use. La diferencia no es solo de etiqueta: los ensayos de carga, el comportamiento bajo absorción de energía y la trazabilidad documental son distintos. Operar con equipo deportivo en servicio de rescate profesional <strong>anula seguros y expone responsabilidad civil</strong> del responsable institucional.</p>
+    <span class="callout__title">Sin certificación NFPA 2500, no apto para servicio</span>
+    <p>Una cuerda de escalada deportiva o industrial <strong>no es equivalente</strong> a una cuerda NFPA 2500 General Use. La diferencia no es solo de etiqueta: los ensayos de carga, el comportamiento bajo absorción de energía y la trazabilidad documental son distintos. Operar con equipo deportivo en servicio de rescate profesional <strong>anula seguros y expone responsabilidad civil</strong> del responsable institucional.</p>
   </div>
 </div>
 
 ---
 
-## ¿Qué es la NFPA 1983 y Qué Cubre?
+## ¿Qué es la NFPA 2500 y Qué Cubre?
 
-La **NFPA 1983** es la norma publicada por la National Fire Protection Association que establece los requisitos mínimos de diseño, rendimiento, pruebas y certificación para:
+La **NFPA 2500** es la norma publicada por la National Fire Protection Association que establece los requisitos mínimos de diseño, rendimiento, pruebas y certificación para:
 
 - **Cuerdas de vida** (life safety rope)
 - **Arneses de cuerpo completo** para rescate
@@ -14381,21 +14381,21 @@ La **NFPA 1983** es la norma publicada por la National Fire Protection Associati
 - **Sistemas de anclaje**
 - **Dispositivos de ascenso mecánico**
 
-| Aspecto | Detalle NFPA 1983 |
+| Aspecto | Detalle NFPA 2500 |
 |---------|-------------------|
 | **Edición vigente** | 2017 (revisión 2022 en proceso) |
 | **Alcance** | Equipo de cuerda para servicios de emergencia |
 | **Clasificación** | General Use (uso general) y Technical Use (uso técnico/escape) |
 | **Laboratorios certificadores** | UL, Intertek, SEI |
-| **Complementa** | NFPA 1006 (competencias de rescatista), NFPA 1670 (operaciones de rescate) |
+| **Complementa** | NFPA 1006 (competencias de rescatista), NFPA 2500 (operaciones de rescate) |
 
-> **Dato clave para México:** No existe una NOM equivalente a NFPA 1983 para cuerdas de rescate de bomberos. La norma NFPA es el referente de facto en licitaciones de protección civil y compras gubernamentales de cuerpos de bomberos municipales.
+> **Dato clave para México:** No existe una NOM equivalente a NFPA 2500 para cuerdas de rescate de bomberos. La norma NFPA es el referente de facto en licitaciones de protección civil y compras gubernamentales de cuerpos de bomberos municipales.
 
 ---
 
-## Clasificación de Equipo según NFPA 1983
+## Clasificación de Equipo según NFPA 2500
 
-La NFPA 1983 clasifica todo el equipo en dos categorías según su capacidad de carga:
+La NFPA 2500 clasifica todo el equipo en dos categorías según su capacidad de carga:
 
 ### General Use (Uso General) — Para Rescate con Víctima
 
@@ -14456,7 +14456,7 @@ No todas las cuerdas son iguales. La selección correcta puede marcar la diferen
 
 ### ¿Cuál Usa un Bombero en México?
 
-Para **rescate vertical con víctima** (la operación más frecuente), la cuerda correcta es **estática o semi-estática, certificada NFPA 1983 General Use**. Las cuerdas dinámicas se reservan para situaciones donde existe riesgo real de caída libre del rescatista — un escenario menos común en bomberos que en escalada técnica.
+Para **rescate vertical con víctima** (la operación más frecuente), la cuerda correcta es **estática o semi-estática, certificada NFPA 2500 General Use**. Las cuerdas dinámicas se reservan para situaciones donde existe riesgo real de caída libre del rescatista — un escenario menos común en bomberos que en escalada técnica.
 
 | Material de Cuerda | Resistencia UV | Resistencia Química | Punto de Fusión | Uso Recomendado |
 |--------------------|---------------|---------------------|-----------------|-----------------|
@@ -14476,21 +14476,21 @@ Un sistema completo de rescate vertical para bomberos incluye mucho más que una
 
 ### 1. Arnés de Cuerpo Completo (Full Body Harness)
 
-El arnés NFPA 1983 para rescate se diferencia significativamente de un arnés industrial NOM-009-STPS:
+El arnés NFPA 2500 para rescate se diferencia significativamente de un arnés industrial NOM-009-STPS:
 
-| Característica | Arnés NFPA 1983 (Bombero) | Arnés Industrial NOM-009 |
+| Característica | Arnés NFPA 2500 (Bombero) | Arnés Industrial NOM-009 |
 |----------------|--------------------------|--------------------------|
 | **Puntos de anclaje** | Dorsal + esternal + pélvico + lateral | Dorsal (mínimo) |
 | **Carga de ruptura** | ≥ 40 kN (General Use) | ≥ 22.2 kN |
 | **Diseño** | Para rescate activo — permite movimiento libre | Para detención de caídas |
 | **Padding** | Acolchado en cintura y piernas (suspensión prolongada) | Básico |
-| **Compatibilidad** | Con descensores, ascensores y poleas NFPA 1983 | Con absorbedor de impacto |
+| **Compatibilidad** | Con descensores, ascensores y poleas NFPA 2500 | Con absorbedor de impacto |
 
 > **Error común en México:** Usar arneses industriales NOM-009-STPS para rescate vertical de bomberos. Son equipos con propósitos diferentes. Un arnés industrial está diseñado para **detener una caída**; un arnés de rescate está diseñado para **trabajar suspendido y maniobrar con una víctima**.
 
 ### 2. Mosquetones y Conectores
 
-Los mosquetones NFPA 1983 deben cumplir:
+Los mosquetones NFPA 2500 deben cumplir:
 
 | Tipo | Carga Gate Closed | Carga Gate Open | Tipo de Cierre |
 |------|------------------|-----------------|----------------|
@@ -14519,7 +14519,7 @@ Los mosquetones de **acero** son preferidos para rescate (más resistentes al de
 | **Polea Prusik-minding** | 70-80% | Sistemas 3:1 y 5:1 con autobloqueo |
 | **Polea de alta eficiencia (rodamiento)** | 90-95% | Sistemas de poleas complejos, tirolesas |
 
-Las poleas NFPA 1983 General Use deben soportar **≥ 40 kN** de carga de ruptura. Para tirolesas de evacuación, se recomienda la combinación de **polea de alta eficiencia + mosquetón de acero + cuerda estática de 13 mm**.
+Las poleas NFPA 2500 General Use deben soportar **≥ 40 kN** de carga de ruptura. Para tirolesas de evacuación, se recomienda la combinación de **polea de alta eficiencia + mosquetón de acero + cuerda estática de 13 mm**.
 
 ### 5. Dispositivos de Ascenso
 
@@ -14662,7 +14662,7 @@ En México, no todos los cuerpos de bomberos tienen equipo y personal capacitado
 | Cuerpo de Bomberos | Capacidad | Equipo |
 |--------------------|-----------|--------|
 | **Bomberos CDMX (Heroico)** | Grupo USAR completo, rescate vertical certificado | CMC, Petzl, Sterling |
-| **Bomberos Guadalajara** | Equipo de rescate técnico | Equipo NFPA 1983 |
+| **Bomberos Guadalajara** | Equipo de rescate técnico | Equipo NFPA 2500 |
 | **Bomberos Monterrey** | Rescate en altura e industrial | Equipo PEMEX-compatible |
 | **Bomberos Querétaro** | Rescate técnico en formación | En proceso de certificación |
 | **Bomberos de Puebla** | Grupo de rescate especializado | Equipo NFPA mixto |
@@ -14686,11 +14686,11 @@ Aunque no existe una NOM específica para rescate en altura de bomberos, el marc
 |-------|---------------------|
 | **NOM-009-STPS-2011** | Trabajos en altura — protección contra caídas (industrial, no bomberos) |
 | **NFPA 1006** | Competencias profesionales de rescatistas (referencia internacional) |
-| **NFPA 1670** | Operaciones de rescate técnico — niveles de capacitación |
-| **NFPA 1983** | Equipo de cuerda y rescate — certificación de hardware y cuerdas |
+| **NFPA 2500** | Operaciones de rescate técnico — niveles de capacitación |
+| **NFPA 2500** | Equipo de cuerda y rescate — certificación de hardware y cuerdas |
 | **NOM-017-STPS-2024** | Selección de EPP en centros de trabajo |
 
-> **Recomendación para municipios:** Al licitar equipo de rescate en altura, especificar "Equipo certificado NFPA 1983, edición vigente, por laboratorio acreditado ante ILAC" — esto elimina proveedores de equipo genérico sin certificación real.
+> **Recomendación para municipios:** Al licitar equipo de rescate en altura, especificar "Equipo certificado NFPA 2500, edición vigente, por laboratorio acreditado ante ILAC" — esto elimina proveedores de equipo genérico sin certificación real.
 
 ---
 
@@ -14698,16 +14698,16 @@ Aunque no existe una NOM específica para rescate en altura de bomberos, el marc
 
 | Equipo | Cantidad | Especificación |
 |--------|----------|---------------|
-| Cuerda estática 13 mm × 60 m | 2 | NFPA 1983 General Use, ≥ 40 kN |
-| Cuerda estática 11 mm × 60 m | 1 | NFPA 1983 Technical Use (línea de seguridad) |
-| Arnés cuerpo completo | 4 | NFPA 1983 General Use |
-| Arnés de evacuación (víctima) | 2 | NFPA 1983 o EN 1497 |
-| Mosquetones acero auto-lock | 16 | NFPA 1983, ≥ 40 kN |
-| Mosquetones aluminio auto-lock | 8 | NFPA 1983, ≥ 27 kN |
-| Descensor autobloqueante | 2 | NFPA 1983, tipo Petzl I'D o equivalente |
+| Cuerda estática 13 mm × 60 m | 2 | NFPA 2500 General Use, ≥ 40 kN |
+| Cuerda estática 11 mm × 60 m | 1 | NFPA 2500 Technical Use (línea de seguridad) |
+| Arnés cuerpo completo | 4 | NFPA 2500 General Use |
+| Arnés de evacuación (víctima) | 2 | NFPA 2500 o EN 1497 |
+| Mosquetones acero auto-lock | 16 | NFPA 2500, ≥ 40 kN |
+| Mosquetones aluminio auto-lock | 8 | NFPA 2500, ≥ 27 kN |
+| Descensor autobloqueante | 2 | NFPA 2500, tipo Petzl I'D o equivalente |
 | Ocho descendedor | 2 | Respaldo / entrenamiento |
-| Poleas dobles alta eficiencia | 2 | NFPA 1983, rodamientos sellados |
-| Poleas simples | 4 | NFPA 1983, ≥ 40 kN |
+| Poleas dobles alta eficiencia | 2 | NFPA 2500, rodamientos sellados |
+| Poleas simples | 4 | NFPA 2500, ≥ 40 kN |
 | Puño de ascenso (par) | 2 | Para ascenso en cuerda fija |
 | Cordino Prusik 8 mm × 1.5 m | 8 | Nylon o Technora® |
 | Eslingas de anclaje 25 kN | 4 | Poliéster, 1.2 m y 2.0 m |
@@ -14721,23 +14721,23 @@ Aunque no existe una NOM específica para rescate en altura de bomberos, el marc
 
 ---
 
-## Preguntas Frecuentes sobre Rescate en Altura y NFPA 1983
+## Preguntas Frecuentes sobre Rescate en Altura y NFPA 2500
 
 ### ¿Puedo usar equipo de escalada deportiva para rescate de bomberos?
 
-**No.** El equipo de escalada deportiva (arneses, cuerdas dinámicas, mosquetones tipo D) está diseñado para un usuario individual en ascenso. El equipo de rescate NFPA 1983 está diseñado para **dos personas** (rescatista + víctima), cargas dinámicas mayores y operaciones donde la vida del civil depende del sistema. Las cargas de ruptura, los factores de seguridad y los protocolos de certificación son completamente diferentes.
+**No.** El equipo de escalada deportiva (arneses, cuerdas dinámicas, mosquetones tipo D) está diseñado para un usuario individual en ascenso. El equipo de rescate NFPA 2500 está diseñado para **dos personas** (rescatista + víctima), cargas dinámicas mayores y operaciones donde la vida del civil depende del sistema. Las cargas de ruptura, los factores de seguridad y los protocolos de certificación son completamente diferentes.
 
-### ¿Cada cuánto debe recertificarse el equipo NFPA 1983?
+### ¿Cada cuánto debe recertificarse el equipo NFPA 2500?
 
-La NFPA 1983 no exige "recertificación" periódica del equipo como tal. Lo que exige es:
+La NFPA 2500 no exige "recertificación" periódica del equipo como tal. Lo que exige es:
 - **Inspección antes de cada uso** — visual y táctil
 - **Inspección anual detallada** — por persona competente, documentada
 - **Retiro por daño o edad** — según criterios del fabricante y la norma
 - **Registro de uso** — cada cuerda y componente debe tener historial documentado
 
-### ¿Qué diferencia hay entre NFPA 1983 y EN 1891 (norma europea)?
+### ¿Qué diferencia hay entre NFPA 2500 y EN 1891 (norma europea)?
 
-| Aspecto | NFPA 1983 | EN 1891 |
+| Aspecto | NFPA 2500 | EN 1891 |
 |---------|-----------|---------|
 | **Origen** | Estados Unidos (NFPA) | Europa (CEN) |
 | **Clasificación** | General Use / Technical Use | Tipo A / Tipo B |
@@ -14745,7 +14745,7 @@ La NFPA 1983 no exige "recertificación" periódica del equipo como tal. Lo que 
 | **Factor de seguridad** | 15:1 | 10:1 |
 | **Aceptación en México** | Estándar de referencia | Aceptada en industria, menos en bomberos |
 
-La NFPA 1983 es **más exigente** en carga de ruptura y factor de seguridad que la EN 1891. Para bomberos en México, la NFPA 1983 es la especificación estándar en licitaciones públicas.
+La NFPA 2500 es **más exigente** en carga de ruptura y factor de seguridad que la EN 1891. Para bomberos en México, la NFPA 2500 es la especificación estándar en licitaciones públicas.
 
 ### ¿Un nudo reduce la resistencia de la cuerda?
 
@@ -14759,7 +14759,7 @@ La NFPA 1983 es **más exigente** en carga de ruptura y factor de seguridad que 
 | **Prusik** | 30-35% |
 | **Ballestrinque** | 40-50% |
 
-Por eso la NFPA 1983 exige que las cuerdas se prueben **con nudos** para garantizar que incluso con la reducción del nudo, la carga de ruptura sigue siendo ≥ 40 kN (General Use).
+Por eso la NFPA 2500 exige que las cuerdas se prueben **con nudos** para garantizar que incluso con la reducción del nudo, la carga de ruptura sigue siendo ≥ 40 kN (General Use).
 
 ### ¿Cuánto cuesta capacitar a un grupo de rescate en altura?
 
@@ -14767,20 +14767,20 @@ En México, los cursos de rescate vertical de nivel operativo (40-80 horas) cues
 
 ### ¿Necesito equipo especial para rescate en espacios confinados con componente vertical?
 
-**Sí.** Los espacios confinados con entrada vertical (pozos, silos, tanques) requieren además del equipo NFPA 1983: **trípode de rescate** con winche, **monitor de gases** (4 gases mínimo: O₂, CO, H₂S, LEL), y **ventilador de presión positiva** o sistema de ventilación. La norma complementaria es la **NOM-033-STPS-2015** para espacios confinados en México.
+**Sí.** Los espacios confinados con entrada vertical (pozos, silos, tanques) requieren además del equipo NFPA 2500: **trípode de rescate** con winche, **monitor de gases** (4 gases mínimo: O₂, CO, H₂S, LEL), y **ventilador de presión positiva** o sistema de ventilación. La norma complementaria es la **NOM-033-STPS-2015** para espacios confinados en México.
 
 ---
 
-## Equipamiento BOMBERO MX — Sistema Vertical NFPA 1983 Completo
+## Equipamiento BOMBERO MX — Sistema Vertical NFPA 2500 Completo
 
 <div class="feature-grid">
   <div class="feature">
-    <h4 class="feature__title">Cuerdas estáticas NFPA 1983</h4>
+    <h4 class="feature__title">Cuerdas estáticas NFPA 2500</h4>
     <p class="feature__text">Sterling, PMI, Yale Cordage en diámetros 11 mm (Technical Use) y 12.5 mm (General Use). MBS documentado y trazabilidad de lote.</p>
   </div>
   <div class="feature">
     <h4 class="feature__title">Arneses de cuerpo completo</h4>
-    <p class="feature__text">Petzl Avao Bod, CMC ProSeries, Yates Voyager. Certificación NFPA 1983 con puntos de anclaje frontal y dorsal.</p>
+    <p class="feature__text">Petzl Avao Bod, CMC ProSeries, Yates Voyager. Certificación NFPA 2500 con puntos de anclaje frontal y dorsal.</p>
   </div>
   <div class="feature">
     <h4 class="feature__title">Descensores asistidos</h4>
@@ -14795,14 +14795,14 @@ En México, los cursos de rescate vertical de nivel operativo (40-80 horas) cues
     <p class="feature__text">Mosquetones de aluminio aviación y acero forjado, eslingas de cinta certificadas, anclajes desmontables.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">Cascos rescate técnico NFPA 1951</h4>
+    <h4 class="feature__title">Cascos rescate técnico NFPA 1950</h4>
     <p class="feature__text">Petzl Vertex Vent, Team Wendy EXFIL Rescue, CMC Cascade — compatibilidad documentada con sistema vertical.</p>
   </div>
 </div>
 
 <div class="cta-box">
-  <h3>Sistema completo de rescate vertical NFPA 1983</h3>
-  <p>Cuerdas, arneses, descensores, poleas, anclajes, cascos NFPA 1951. Documentación auditable · Coordinación de capacitación · Refacciones</p>
+  <h3>Sistema completo de rescate vertical NFPA 2500</h3>
+  <p>Cuerdas, arneses, descensores, poleas, anclajes, cascos NFPA 1950. Documentación auditable · Coordinación de capacitación · Refacciones</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización</a>
     <a href="https://wa.me/525560348981" class="alt">WhatsApp directo</a>
@@ -14813,8 +14813,8 @@ En México, los cursos de rescate vertical de nivel operativo (40-80 horas) cues
 
 ## Referencias Normativas
 
-- **NFPA 1983** — Standard on Life Safety Rope and Equipment for Emergency Services (edición 2017)
-- **NFPA 1670** — Standard on Operations and Training for Technical Search and Rescue Incidents
+- **NFPA 2500** — Standard on Life Safety Rope and Equipment for Emergency Services (edición 2017)
+- **NFPA 2500** — Standard on Operations and Training for Technical Search and Rescue Incidents
 - **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications (Rope Rescue)
 - **NFPA 1500** — Standard on Fire Department Occupational Safety, Health, and Wellness Program
 - **NFPA 1407** — Standard for Training Fire Service Rapid Intervention Crews
@@ -14827,8 +14827,8 @@ En México, los cursos de rescate vertical de nivel operativo (40-80 horas) cues
 ### Artículos Relacionados
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
-- [Casco Rescate Técnico NFPA 1951](/blog/casco-rescate-nfpa-1951/)
-- [Guantes para Bombero — NFPA 1951](/blog/guantes-para-bombero-guia-completa/)
+- [Casco Rescate Técnico NFPA 1950](/blog/casco-rescate-nfpa-1951/)
+- [Guantes para Bombero — NFPA 1950](/blog/guantes-para-bombero-guia-completa/)
 - [Bomberos CDMX — Operación Vertical Reforma/Santa Fe](/blog/bomberos-cdmx-equipo-nfpa/)
 - [Bomberos Guadalajara — Puerta de Hierro/Andares](/blog/bomberos-guadalajara-equipo-nfpa/)
 - [Bomberos Monterrey — KOI Tower San Pedro](/blog/bomberos-monterrey-equipo-nfpa/)
@@ -15043,7 +15043,7 @@ La **México–Pachuca (85D)** y el **Arco Norte** transportan más de 70,000 ve
 | **NFPA 1970** | Incendio estructural | Trajes, cascos, guantes, botas, capuchas |
 | **NFPA 1950** | Incendio forestal | Trajes y cascos forestales |
 | **NFPA 1970** | Respiración autónoma | SCBA completos |
-| **NFPA 1991** | Materiales peligrosos | Trajes HAZMAT Nivel A |
+| **NFPA 1990** | Materiales peligrosos | Trajes HAZMAT Nivel A |
 | **NFPA 1936** | Rescate vehicular | Herramientas hidráulicas |
 | **NOM-002-STPS** | Prevención industrial | Extintores y señalización |
 
@@ -15525,7 +15525,7 @@ Zapopan concentra más de **70 torres residenciales y corporativas de más de 25
 
 **Equipo prioritario:**
 - SCBA con cilindros de 60 minutos (composite)
-- Equipo de rescate vertical NFPA 1983
+- Equipo de rescate vertical NFPA 2500
 - Radios con repetidor de planta
 - EPP NFPA 1970 con TPP alto
 
@@ -15565,7 +15565,7 @@ Con más de 50,000 vehículos/día, la Guadalajara–Colima es punto recurrente 
   </div>
   <div class="feature">
     <span class="feature__icon">🪜</span>
-    <h4 class="feature__title">Rescate vertical NFPA 1983</h4>
+    <h4 class="feature__title">Rescate vertical NFPA 2500</h4>
     <p class="feature__text">Arneses, cuerdas, descensores y poleas para operación en torres y la Barranca de Huentitán.</p>
   </div>
   <div class="feature">
@@ -15802,7 +15802,7 @@ La proximidad de la **Sierra Madre Oriental** con zonas residenciales de San Ped
 
 ### 4. Edificios Corporativos San Pedro y Centro Monterrey — Operación Vertical
 
-San Pedro Garza García concentra las torres corporativas más altas del norte de México: **KOI Tower (279 m), T.Op, Pabellón M, Punto Central**. El combate vertical exige SCBA de alta autonomía y equipo de rescate NFPA 1983.
+San Pedro Garza García concentra las torres corporativas más altas del norte de México: **KOI Tower (279 m), T.Op, Pabellón M, Punto Central**. El combate vertical exige SCBA de alta autonomía y equipo de rescate NFPA 2500.
 
 ### 5. Autopista Monterrey–Saltillo y Periférico — Extricación
 
@@ -15939,7 +15939,7 @@ Sí. Equipamos brigadas internas de plantas químicas (Cydsa, Alpek), automotric
 
 ### ¿Qué EPP necesita una estación para combatir incendios en San Pedro?
 
-San Pedro combina dos perfiles: **estructural en torres corporativas** (SCBA 60 min + EPP NFPA 1970 + rescate vertical NFPA 1983) y **forestal en faldas de Chipinque** (EPP NFPA 1950 + mochilas de agua). Una estación que cubre San Pedro idealmente tiene ambos sets disponibles.
+San Pedro combina dos perfiles: **estructural en torres corporativas** (SCBA 60 min + EPP NFPA 1970 + rescate vertical NFPA 2500) y **forestal en faldas de Chipinque** (EPP NFPA 1950 + mochilas de agua). Una estación que cubre San Pedro idealmente tiene ambos sets disponibles.
 
 ---
 
@@ -16399,7 +16399,7 @@ La **Autopista Federal 1D** (más conocida como la Tijuana–Ensenada o Escénic
 - [Herramientas hidráulicas Holmatro/Hurst](/blog/extricacion-vehicular-jaws-of-life-mexico/)
 - EPP NFPA 1970 + arneses para trabajo en pendiente
 - Equipo HAZMAT
-- Sistemas de descenso técnico NFPA 1983
+- Sistemas de descenso técnico NFPA 2500
 
 ---
 
@@ -16621,7 +16621,7 @@ CDMX concentra los edificios más altos de México: **Torre Reforma (246 m), Tor
 
 **Equipo prioritario:**
 - SCBA NFPA 1970 con cilindros composite de **60 minutos**
-- [Equipo de rescate vertical NFPA 1983](/productos/rescate-vertical/) — arneses, cuerdas, descensores
+- [Equipo de rescate vertical NFPA 2500](/productos/rescate-vertical/) — arneses, cuerdas, descensores
 - Radios con repetidor y antena externa
 - EPP NFPA 1970 con TPP alto (>40 cal/cm²)
 - Capuchas particuladas anti-humo extremo
@@ -16704,7 +16704,7 @@ CDMX registra más de **20 accidentes vehiculares con extricación diarios**. Lo
   </div>
   <div class="feature">
     <span class="feature__icon">🪜</span>
-    <h4 class="feature__title">Rescate Vertical NFPA 1983</h4>
+    <h4 class="feature__title">Rescate Vertical NFPA 2500</h4>
     <p class="feature__text">Arneses, cuerdas estáticas, descensores y poleas para torres y rescate técnico.</p>
   </div>
   <div class="feature">
@@ -16814,7 +16814,7 @@ CDMX registra más de **20 accidentes vehiculares con extricación diarios**. Lo
 - [**Trajes estructurales NFPA 1970**](/productos/trajes-para-bomberos/) — Edición 2024
 - [**Cascos NFPA**](/productos/cascos-para-bomberos/) — Bullard, Cairns, MSA
 - [**SCBA 60 min composite**](/productos/scba/) — Para edificios altos
-- [**Equipo de rescate vertical NFPA 1983**](/productos/rescate-vertical/)
+- [**Equipo de rescate vertical NFPA 2500**](/productos/rescate-vertical/)
 - [**Botas estructurales de cuero**](/productos/botas-para-bomberos/)
 - [**Capuchas NFPA**](/productos/capuchas-para-bomberos/)
 
@@ -16824,7 +16824,7 @@ CDMX registra más de **20 accidentes vehiculares con extricación diarios**. Lo
 
 ### ¿Qué equipo necesitan los bomberos para combatir incendios en edificios altos de CDMX?
 
-Para operaciones en torres de Reforma, Santa Fe e Insurgentes se requiere: **SCBA NFPA 1970 (cap. 15–19) con cilindros composite de 60 minutos**, **equipo de rescate vertical NFPA 1983** (arneses, cuerdas, descensores), **radios con repetidor** y **EPP NFPA 1970 (cap. 5–9)** con alta resistencia térmica. La autonomía es crítica: la subida puede consumir más del 40% del cilindro.
+Para operaciones en torres de Reforma, Santa Fe e Insurgentes se requiere: **SCBA NFPA 1970 (cap. 15–19) con cilindros composite de 60 minutos**, **equipo de rescate vertical NFPA 2500** (arneses, cuerdas, descensores), **radios con repetidor** y **EPP NFPA 1970 (cap. 5–9)** con alta resistencia térmica. La autonomía es crítica: la subida puede consumir más del 40% del cilindro.
 
 ### ¿BOMBERO MX puede entregar equipo el mismo día en CDMX?
 
@@ -16959,9 +16959,9 @@ La **NFPA (National Fire Protection Association)** es la organización internaci
 | **NFPA 1970** | Incendio estructural | Trajes, cascos, guantes, botas, capuchas |
 | **NFPA 1950** | Incendio forestal | Trajes, cascos forestales, botas |
 | **NFPA 1970** | Respiración autónoma | SCBA completos + cilindros |
-| **NFPA 1991** | Materiales peligrosos | Trajes HAZMAT Nivel A encapsulados |
+| **NFPA 1990** | Materiales peligrosos | Trajes HAZMAT Nivel A encapsulados |
 | **NFPA 1936** | Rescate vehicular | Cizallas, expansores, herramientas hidráulicas |
-| **NFPA 1983** | Rescate vertical | Cuerdas estáticas, arneses, descensores |
+| **NFPA 2500** | Rescate vertical | Cuerdas estáticas, arneses, descensores |
 
 <div class="callout callout--info">
   <span class="callout__icon">ℹ️</span>
@@ -19037,7 +19037,7 @@ La selección, distribución y mantenimiento de extintores requiere coordinació
 - [Extintores: Selección bajo NOM-100 y NFPA 10](/blog/extintores-seleccion-norma-nom-100/)
 - [MANEXT — Mantenimiento NOM-154-SCFI](/blog/manext-mantenimiento-extintores-cdmx/)
 - [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Brigadas Industriales: EPP por Sector](/blog/brigadas-industriales-epp/)
 - [Bomberos CDMX — Equipo NFPA](/blog/bomberos-cdmx-equipo-nfpa/)
 - [Bomberos Monterrey — Corredor Industrial](/blog/bomberos-monterrey-equipo-nfpa/)
@@ -19362,7 +19362,7 @@ R: **El patrón**. Según NOM-004-STPS (Capacitación en brigadas), el patrón t
 - [MESECI — Servicio Integral 360°](/blog/meseci-equipos-contra-incendio-mexico/)
 - [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
 - [Brigadas Industriales: EPP por Sector](/blog/brigadas-industriales-epp/)
-- [HAZMAT NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Bomberos CDMX — Equipo NFPA](/blog/bomberos-cdmx-equipo-nfpa/)
     `,
   },
@@ -19730,7 +19730,7 @@ R: Una prenda FR bien cuidada dura **2-3 años** de uso diario. Cada lavado (inc
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
 - [Brigadas Industriales — EPP por Sector](/blog/brigadas-industriales-epp/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Trajes HAZMAT — Compatibilidad Química](/blog/traje-hazmat-proteccion-quimica/)
 - [Traje de Aproximación NFPA 1970 Cap.8](/blog/traje-aproximacion-calor-radiante/)
 - [Guantes para Bombero — 5 Normas NFPA](/blog/guantes-para-bombero-guia-completa/)
@@ -20161,7 +20161,7 @@ Un proyecto sprinkler NFPA 13 requiere coordinación entre **distribuidor de com
 - [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
 - [Extintores por Clase de Fuego NOM](/blog/extintores-tipos-clases-fuego-mexico/)
 - [Brigadas Industriales — EPP por Sector](/blog/brigadas-industriales-epp/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
     `,
   },
 
@@ -20494,7 +20494,7 @@ Un sistema de detección y alarma activa la respuesta operativa. La brigada inte
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
 - [Extintores por Clase de Fuego — Guía NOM](/blog/extintores-tipos-clases-fuego-mexico/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Detector de Gases Multigas (LEL, CO, H2S)](/blog/detector-gases-multigas-monitor/)
 - [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
 - [MANEXT — Mantenimiento NOM-154-SCFI](/blog/manext-mantenimiento-extintores-cdmx/)
@@ -20503,11 +20503,11 @@ Un sistema de detección y alarma activa la respuesta operativa. La brigada inte
   },
 
   "equipo-rescate-tecnico-componentes-normas": {
-    titulo: "Equipo de Rescate Técnico bajo NFPA 1006, 1670 y 1983: Componentes Operativos para Disciplinas USAR, Vertical, Vehicular y Acuático",
-    excerpt: "Manual técnico del equipo de rescate especializado bajo NFPA 1006 (competencias), NFPA 1670 (operaciones), NFPA 1983 (cuerdas y EPP), NFPA 1936 (rescate vehicular). Sistemas de cuerda, arneses, herramientas hidráulicas, equipo de aire y comunicaciones para disciplinas USAR, vertical, vehicular, acuático, espacios confinados y derrumbe.",
+    titulo: "Equipo de Rescate Técnico bajo NFPA 1006, 2500: Componentes Operativos para Disciplinas USAR, Vertical, Vehicular y Acuático",
+    excerpt: "Manual técnico del equipo de rescate especializado bajo NFPA 1006 (competencias), NFPA 2500 (operaciones, cuerdas y EPP de rescate), NFPA 1936 (rescate vehicular). Sistemas de cuerda, arneses, herramientas hidráulicas, equipo de aire y comunicaciones para disciplinas USAR, vertical, vehicular, acuático, espacios confinados y derrumbe.",
     imagen: "/images/herramientas-rescate/herramientas-rescate-hero.avif",
     categoria: "Rescate",
-    tags: ["Rescate Técnico", "NFPA 1006", "NFPA 1670", "NFPA 1983", "NFPA 1936", "USAR", "TRT", "INSARAG"],
+    tags: ["Rescate Técnico", "NFPA 1006", "NFPA 2500", "NFPA 2500", "NFPA 1936", "USAR", "TRT", "INSARAG"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Rescate Especializado",
     anchorKeyword: "Equipo rescate técnico NFPA 1006 componentes esenciales",
@@ -20516,7 +20516,7 @@ Un sistema de detección y alarma activa la respuesta operativa. La brigada inte
 
 El **rescate técnico** designa un conjunto de disciplinas operativas que comparten un denominador común: la **ausencia total de margen para improvisación**. A diferencia del combate de incendio estructural —donde el operador combate contra un ambiente hostil pero con cierta flexibilidad táctica—, el rescate técnico exige **precisión absoluta** en cálculo de cargas, instalación de sistemas, anclaje de equipos y secuencia operativa. Un error de cálculo en un sistema de cuerda con ventaja mecánica 4:1 desliza directamente a la caída libre de víctima y rescatistas. Un acceso mal asegurado a espacio confinado expone a atmósfera IDLH sin posibilidad de retiro. Una mala identificación de batería de litio en vehículo eléctrico genera *thermal runaway* y electrocución.
 
-Esta exigencia operativa se traduce en un **marco normativo NFPA específico** y multinivel: **NFPA 1006** (*Standard for Technical Rescue Personnel Professional Qualifications*) define las competencias del personal por disciplina y nivel (Awareness / Operations / Technician); **NFPA 1670** (*Operations and Training for Technical Search and Rescue Incidents*) define los protocolos operativos por disciplina; **NFPA 1983** certifica el equipo de cuerda y EPP vertical; **NFPA 1936** certifica las herramientas hidráulicas de rescate vehicular; **NFPA 1951** certifica el EPP estructural del rescatista. La aplicación coordinada de estas cinco normas constituye la base técnica de un equipo de rescate profesional.
+Esta exigencia operativa se traduce en un **marco normativo NFPA específico** y multinivel: **NFPA 1006** (*Standard for Technical Rescue Personnel Professional Qualifications*) define las competencias del personal por disciplina y nivel (Awareness / Operations / Technician); **NFPA 2500** (*Operations and Training for Technical Search and Rescue Incidents*) define los protocolos operativos por disciplina; **NFPA 2500** certifica el equipo de cuerda y EPP vertical; **NFPA 1936** certifica las herramientas hidráulicas de rescate vehicular; **NFPA 1950** certifica el EPP estructural del rescatista. La aplicación coordinada de estas cinco normas constituye la base técnica de un equipo de rescate profesional.
 
 Este manual estructura los **componentes operativos del rescate técnico por disciplina**: USAR (Urban Search and Rescue), rescate vertical, rescate vehicular, rescate acuático, espacios confinados, derrumbe estructural. Cada disciplina con su matriz de equipamiento certificado, marcas referencia (Petzl, CMC, Yates, Sterling, Holmatro, LUKAS, Hurst), capacitación NFPA 1006 requerida y aplicación con protocolos INSARAG para clasificación internacional de equipos USAR mexicanos.
 
@@ -20526,7 +20526,7 @@ Este manual estructura los **componentes operativos del rescate técnico por dis
     <span class="stat__label">Competencias del rescatista</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1670</span>
+    <span class="stat__num">NFPA 2500</span>
     <span class="stat__label">Operaciones de rescate técnico</span>
   </div>
   <div class="stat">
@@ -20541,7 +20541,7 @@ Este manual estructura los **componentes operativos del rescate técnico por dis
 
 <figure>
   <img src="/images/herramientas-rescate/herramientas-rescate-hero.avif" alt="Equipo de rescate técnico desplegado con sistema de cuerdas, arneses y EPP NFPA" loading="lazy" width="900" height="600" />
-  <figcaption>Sistema integrado de rescate técnico — equipo de cuerda NFPA 1983, EPP NFPA 1951, herramientas hidráulicas NFPA 1936 y comunicaciones. La integración es tan crítica como cada componente individual.</figcaption>
+  <figcaption>Sistema integrado de rescate técnico — equipo de cuerda NFPA 2500, EPP NFPA 1950, herramientas hidráulicas NFPA 1936 y comunicaciones. La integración es tan crítica como cada componente individual.</figcaption>
 </figure>
 
 <div class="callout callout--fire">
@@ -20856,7 +20856,7 @@ R: Sí, frecuentemente. Casos de derrumbes, atrapamientos profundos o complejos 
 
 <div class="feature-grid">
   <div class="feature">
-    <h4 class="feature__title">Equipo de cuerda NFPA 1983</h4>
+    <h4 class="feature__title">Equipo de cuerda NFPA 2500</h4>
     <p class="feature__text">Cuerdas estáticas Sterling/PMI/Yale, arneses Petzl Avao Bod/CMC ProSeries, descensores Petzl I'D / CMC MPD, poleas, anclajes.</p>
   </div>
   <div class="feature">
@@ -20864,7 +20864,7 @@ R: Sí, frecuentemente. Casos de derrumbes, atrapamientos profundos o complejos 
     <p class="feature__text">Holmatro CORE, LUKAS eFORCE, Hurst eDRAULIC. Cizallas, expansores, arietes y combos con ≥600 kN para UHSS.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">EPP de rescate NFPA 1951</h4>
+    <h4 class="feature__title">EPP de rescate NFPA 1950</h4>
     <p class="feature__text">Cascos Petzl Vertex Vent, Team Wendy EXFIL Rescue, CMC Cascade. Guantes y trajes para perfil de rescate técnico.</p>
   </div>
   <div class="feature">
@@ -20895,10 +20895,10 @@ R: Sí, frecuentemente. Casos de derrumbes, atrapamientos profundos o complejos 
 ## Referencias Normativas
 
 - **NFPA 1006** — Standard for Technical Rescue Personnel Professional Qualifications
-- **NFPA 1670** — Standard on Operations and Training for Technical Search and Rescue Incidents
-- **NFPA 1983** — Standard on Life Safety Rope and Equipment for Emergency Services
+- **NFPA 2500** — Standard on Operations and Training for Technical Search and Rescue Incidents
+- **NFPA 2500** — Standard on Life Safety Rope and Equipment for Emergency Services
 - **NFPA 1936** — Standard on Powered Rescue Tools (extricación vehicular)
-- **NFPA 1951** — Standard on Protective Ensembles for Technical Rescue Incidents
+- **NFPA 1950** — Standard on Protective Ensembles for Technical Rescue Incidents
 - **NFPA 1407** — Standard for Training Fire Service Rapid Intervention Crews
 - **NFPA 1500** — Standard on Fire Department Occupational Safety, Health, and Wellness Program
 - **NFPA 1006** — Vehicle Rescue Operations
@@ -20913,11 +20913,11 @@ R: Sí, frecuentemente. Casos de derrumbes, atrapamientos profundos o complejos 
 ### Artículos Relacionados
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
-- [Rescate en Altura NFPA 1983](/blog/rescate-en-altura-cuerdas-nfpa-1983/)
+- [Rescate en Altura NFPA 2500](/blog/rescate-en-altura-cuerdas-nfpa-1983/)
 - [Rescate Vehicular Moderno UHSS / EV](/blog/rescate-vehicular-tecnicas/)
 - [Extricación Vehicular Jaws of Life](/blog/extricacion-vehicular-jaws-of-life-mexico/)
-- [Casco Rescate Técnico NFPA 1951](/blog/casco-rescate-nfpa-1951/)
-- [Guantes para Bombero — NFPA 1951](/blog/guantes-para-bombero-guia-completa/)
+- [Casco Rescate Técnico NFPA 1950](/blog/casco-rescate-nfpa-1951/)
+- [Guantes para Bombero — NFPA 1950](/blog/guantes-para-bombero-guia-completa/)
 - [SCBA NFPA 1970 — Guía Completa](/blog/scba-guia-completa-bomberos-mexico/)
 - [HAZMAT Niveles de Protección](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Bomberos CDMX — Edificios Altos](/blog/bomberos-cdmx-equipo-nfpa/)
@@ -20927,10 +20927,10 @@ R: Sí, frecuentemente. Casos de derrumbes, atrapamientos profundos o complejos 
 
   "arff-bomberos-aeroportuarios-mexico": {
     titulo: "Bomberos ARFF en México: NFPA 1003, 402, 403 y 405 — Marco Operativo Aeroportuario 2026",
-    excerpt: "Manual técnico 2026 sobre ARFF (Aircraft Rescue and Fire Fighting) en México. Requisitos NFPA 1003/1976/402/403/405, categorías OACI Anexo 14, vehículos Oshkosh Striker / Rosenbauer Panther, EPP de proximidad, espuma AR-AFFF y aplicación en AICM, AIFA, CUN, GDL, MTY, AIQ.",
+    excerpt: "Manual técnico 2026 sobre ARFF (Aircraft Rescue and Fire Fighting) en México. Requisitos NFPA 1003/1970/402/403/405, categorías OACI Anexo 14, vehículos Oshkosh Striker / Rosenbauer Panther, EPP de proximidad, espuma AR-AFFF y aplicación en AICM, AIFA, CUN, GDL, MTY, AIQ.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-01.avif",
     categoria: "Técnicas",
-    tags: ["ARFF", "NFPA 1003", "NFPA 1976", "NFPA 402", "NFPA 403", "OACI Anexo 14", "AFAC", "Rosenbauer Panther", "Oshkosh Striker"],
+    tags: ["ARFF", "NFPA 1003", "NFPA 1970", "NFPA 402", "NFPA 403", "OACI Anexo 14", "AFAC", "Rosenbauer Panther", "Oshkosh Striker"],
     autor: "Equipo BOMBERO.MX",
     autorRol: "Equipo Técnico — Línea ARFF",
     anchorKeyword: "Bomberos ARFF aeroportuarios México equipo y protocolo",
@@ -20951,7 +20951,7 @@ La aviación comercial mexicana movió más de **90 millones de pasajeros en 202
     <span class="stat__label">Cualificación profesional</span>
   </div>
   <div class="stat">
-    <span class="stat__num">NFPA 1976</span>
+    <span class="stat__num">NFPA 1970</span>
     <span class="stat__label">EPP de proximidad ARFF</span>
   </div>
   <div class="stat">
@@ -20969,7 +20969,7 @@ La aviación comercial mexicana movió más de **90 millones de pasajeros en 202
   <span class="callout__icon">i</span>
   <div class="callout__body">
     <span class="callout__title">Diferencia operativa fundamental</span>
-    <p>Un bombero estructural NFPA 1970 NO está cualificado para operar como ARFF sin la <strong>certificación NFPA 1003 + capacitación específica de vehículo y EPP NFPA 1976</strong>. La inversa también aplica: un bombero ARFF no está cualificado para combate estructural sin recertificación. Esta es una distinción regulatoria, no jerárquica.</p>
+    <p>Un bombero estructural NFPA 1970 NO está cualificado para operar como ARFF sin la <strong>certificación NFPA 1003 + capacitación específica de vehículo y EPP NFPA 1970</strong>. La inversa también aplica: un bombero ARFF no está cualificado para combate estructural sin recertificación. Esta es una distinción regulatoria, no jerárquica.</p>
   </div>
 </div>
 
@@ -21022,7 +21022,7 @@ El agente primario es la **espuma fluoroproteínica AR-AFFF** (Alcohol-Resistant
 
 El EPP para ARFF difiere del estructural. Consulta nuestra guía sobre [**NFPA 1970 →**](/blog/nfpa-1971-guia-completa/) para entender las diferencias con el [**Traje Estructural →**](/blog/traje-estructural-nfpa-1971/).
 
-**EPP específico ARFF (NFPA 1976):**
+**EPP específico ARFF (NFPA 1970):**
 
 - **Traje de Proximidad:** Reflectivo aluminizado, resistencia a calor radiante de hasta 1,000°C a corta distancia
 - **Casco ARFF:** Visera de policarbonato tintado, protección de cuello extendida
@@ -21065,11 +21065,11 @@ Esta comparación es frecuentemente malentendida. No es una cuestión de jerarqu
 
 | Característica | Bomberos ARFF | Bomberos Municipales |
 |---|---|---|
-| **Norma principal** | NFPA 1003 + NFPA 1976 | NFPA 1001 + NFPA 1970 |
+| **Norma principal** | NFPA 1003 + NFPA 1970 | NFPA 1001 + NFPA 1970 |
 | **Agente extintor primario** | Espuma AR-AFFF, halón | Agua, espuma, polvo |
 | **Vehículos** | ARFF Trucks especializados | Autobomba convencional |
 | **Velocidad de respuesta** | 3 min (norma OACI) | Variable (5-10 min urbano) |
-| **Traje** | NFPA 1976 (proximidad) | NFPA 1970 (estructural) |
+| **Traje** | NFPA 1970 (proximidad) | NFPA 1970 (estructural) |
 | **Jurisdicción** | Perímetro aeroportuario | Área municipal |
 | **Capacitación base** | 300+ horas ARFF específico | 240+ horas bombero general |
 | **Conocimiento de aeronaves** | Obligatorio | Básico/opcional |
@@ -21128,7 +21128,7 @@ La OACI exige **un simulacro a escala completa cada 2 años** en aeropuertos de 
 No. La AFAC exige certificación NFPA 1003 o equivalente. Un bombero municipal puede hacer la transición, pero debe completar la capacitación específica.
 
 **¿Qué diferencia al Traje de Proximidad del Traje de Entrada al Fuego?**
-El traje de proximidad (NFPA 1976) protege del calor radiante intenso sin entrar al fuego. El traje de entrada (NFPA 1970) permite penetrar el núcleo del fuego por tiempo muy limitado.
+El traje de proximidad (NFPA 1970) protege del calor radiante intenso sin entrar al fuego. El traje de entrada (NFPA 1970) permite penetrar el núcleo del fuego por tiempo muy limitado.
 
 **¿El AICM tiene brigada ARFF propia o contratada?**
 El AICM opera brigada propia bajo supervisión de la AFAC, con personal certificado a nivel internacional.
@@ -21141,7 +21141,7 @@ La operación ARFF tiene una matriz de equipamiento específica que no comparte 
 
 <div class="feature-grid">
   <div class="feature">
-    <h4 class="feature__title">EPP de proximidad NFPA 1976</h4>
+    <h4 class="feature__title">EPP de proximidad NFPA 1970</h4>
     <p class="feature__text">Trajes con recubrimiento aluminizado reflectivo para calor radiante de combustible aeronáutico. Configuración con cascos ARFF y guantes de proximidad de alta dexteridad.</p>
   </div>
   <div class="feature">
@@ -21157,7 +21157,7 @@ La operación ARFF tiene una matriz de equipamiento específica que no comparte 
     <p class="feature__text">Elkhart Brass Spitfire, RAM, Cobra y Sidewinder para aplicación de espuma y agua a alto caudal en operaciones de cobertura de fuselaje.</p>
   </div>
   <div class="feature">
-    <h4 class="feature__title">Cámaras termográficas NFPA 1801</h4>
+    <h4 class="feature__title">Cámaras termográficas NFPA 1930</h4>
     <p class="feature__text">FLIR K-Series y MSA Evolution para localización de víctimas en humo de cabina y verificación de puntos calientes post-aplicación de espuma.</p>
   </div>
   <div class="feature">
@@ -21180,7 +21180,7 @@ La operación ARFF tiene una matriz de equipamiento específica que no comparte 
 ## Referencias Normativas
 
 - **NFPA 1003** — Standard for Airport Fire Fighter Professional Qualifications
-- **NFPA 1976** — Standard on Protective Ensembles for Proximity Fire Fighting
+- **NFPA 1970** — Standard on Protective Ensembles for Proximity Fire Fighting
 - **NFPA 402** — Guide for Aircraft Rescue and Fire-Fighting Operations
 - **NFPA 403** — Standard for Aircraft Rescue and Fire-Fighting Services at Airports
 - **NFPA 405** — Standard for the Recurring Proficiency of Airport Fire Fighters
@@ -21198,7 +21198,7 @@ La operación ARFF tiene una matriz de equipamiento específica que no comparte 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
 - [Bomberos Querétaro — Clúster Aeroespacial AIQ](/blog/bomberos-queretaro-equipo-nfpa/)
 - [SCBA MSA G1 vs Scott Air-Pak](/blog/scba-msag1-vs-scott-airpak/)
-- [Cámara Termográfica TIC NFPA 1801](/blog/camara-termica-tic-bomberos-nfpa-1801/)
+- [Cámara Termográfica TIC NFPA 1930](/blog/camara-termica-tic-bomberos-nfpa-1801/)
 - [HAZMAT Niveles de Protección](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [NFPA 1970: Guía Completa del EPP Estructural](/blog/nfpa-1971-guia-completa/)
     `,
@@ -21407,7 +21407,7 @@ Para la línea complementaria de **EPP NFPA personal** que las brigadas operativ
 - [Distribución Autorizada Elkhart Brass](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
 - [Logística Nacional Gama de México](/blog/gama-de-mexico-logistica-nacional-cdmx-queretaro/)
 - [Cumplimiento NFPA / NOM-002-STPS](/blog/gama-de-mexico-cumplimiento-normativo-nfpa-mexico/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Bomberos Monterrey — corredor industrial](/blog/bomberos-monterrey-equipo-nfpa/)
 - [Licitaciones NFPA para Municipios](/blog/nfpa-licitaciones-bomberos-municipios-mexico/)
     `,
@@ -21626,7 +21626,7 @@ En el caso mexicano, **Gama de México** ha consolidado el rol de distribuidor a
 ### Artículos Relacionados
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
-- [HAZMAT: Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT: Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Bomberos Monterrey — corredor industrial Apodaca](/blog/bomberos-monterrey-equipo-nfpa/)
 - [Bomberos Pachuca — refinería Tula](/blog/bomberos-pachuca-hidalgo-equipo-nfpa/)
 - [Extintores por Clase de Fuego NOM-002-STPS](/blog/extintores-tipos-clases-fuego-mexico/)
@@ -21796,7 +21796,7 @@ NFPA 25 exige inspección, prueba y mantenimiento periódico. Gama de México su
 
 Si la lista tiene huecos, la siguiente inspección puede convertirse en un problema serio. Trabajar con un proveedor como Gama de México resuelve la parte del equipo y la documentación; el resto corresponde a la implementación y mantenimiento del cliente.
 
-Para extender el cumplimiento hacia el [equipo de protección contra incendios](https://bombero.mx/) que las brigadas y bomberos profesionales usan en operaciones de combate y rescate (NFPA 1970 (cap. 5–9 y 15–19), NFPA 1950 y 1983), conviene mantener proveedores especializados en cada frente.
+Para extender el cumplimiento hacia el [equipo de protección contra incendios](https://bombero.mx/) que las brigadas y bomberos profesionales usan en operaciones de combate y rescate (NFPA 1970 (cap. 5–9 y 15–19), NFPA 1950 y 2500), conviene mantener proveedores especializados en cada frente.
 
 ---
 
@@ -21859,7 +21859,7 @@ Para responsables de seguridad industrial mexicanos, **Gama de México** ofrece 
 - **NOM-018-STPS-2015** — Sistema Armonizado para la Identificación y Comunicación de Peligros y Riesgos por Sustancias Químicas Peligrosas
 - **NOM-154-SCFI-2005** — Extintores contra incendio – Servicio de mantenimiento y recarga
 - **NFPA 10, 13, 14, 20, 24, 25, 1962** — Estándares aplicables a sistemas fijos y consumibles
-- **NFPA 1970 (cap. 5–9 y 15–19), 1976, NFPA 1950 y 1991, 1992** — EPP por categoría operativa
+- **NFPA 1970 (cap. 5–9, 15–19 y proximidad), NFPA 1950 y NFPA 1990** — EPP por categoría operativa
 - **UL 162 / 199 / 711** y **FM Approval Standards** — listado y aprobación internacional
 
 ---
@@ -21867,7 +21867,7 @@ Para responsables de seguridad industrial mexicanos, **Gama de México** ofrece 
 ### Artículos Relacionados
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Extintores por Clase de Fuego NOM-002-STPS](/blog/extintores-tipos-clases-fuego-mexico/)
 - [Mantenimiento de Equipo NFPA 1850](/blog/mantenimiento-equipo-nfpa-bomberos/)
 - [Distribución Autorizada Elkhart Brass](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
@@ -22098,7 +22098,7 @@ El modelo de dos hubs estratégicos (CDMX + Querétaro) con inventario verificab
 ### Artículos Relacionados
 
 - [Equipo NFPA México: Guía Pilar](/blog/equipo-nfpa-mexico-guia-completa/)
-- [HAZMAT Niveles de Protección NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT Niveles de Protección NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [Bomberos Querétaro — Logística Bajío](/blog/bomberos-queretaro-equipo-nfpa/)
 - [Cómo Cotizar Equipo Municipal](/blog/equipo-bomberos-municipal-como-cotizar/)
 - [Mantenimiento de Equipo NFPA 1850](/blog/mantenimiento-equipo-nfpa-bomberos/)
@@ -22347,7 +22347,7 @@ La especificación de equipo contra incendio por sector industrial es un ejercic
 
 <div class="cta-box">
   <h3>EPP NFPA para brigadas internas por sector</h3>
-  <p>Configuraciones específicas por sector: estructural NFPA 1970, HAZMAT NFPA 1991/1992, ARFF NFPA 1976, forestal NFPA 1950. Documentación lista para auditoría.</p>
+  <p>Configuraciones específicas por sector: estructural y ARFF de proximidad NFPA 1970, HAZMAT NFPA 1990, forestal NFPA 1950. Documentación lista para auditoría.</p>
   <div class="cta-btns">
     <a href="/cotizar/">Solicitar cotización EPP</a>
     <a href="https://wa.me/525560348981" class="alt">WhatsApp directo</a>
@@ -22376,7 +22376,7 @@ La especificación de equipo contra incendio por sector industrial es un ejercic
 - [Gama de México — Aliado Industrial](/blog/gama-de-mexico-aliado-industria-mexicana/)
 - [Distribución Autorizada Elkhart Brass](/blog/gama-de-mexico-elkhart-brass-distribuidor-autorizado/)
 - [Logística Nacional Gama de México](/blog/gama-de-mexico-logistica-nacional-cdmx-queretaro/)
-- [HAZMAT NFPA 1991/1992](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
+- [HAZMAT NFPA 1990](/blog/hazmat-niveles-proteccion-bomberos-mexico/)
 - [ARFF Bomberos Aeroportuarios](/blog/arff-bomberos-aeroportuarios-mexico/)
 - [Bomberos Monterrey — corredor industrial](/blog/bomberos-monterrey-equipo-nfpa/)
     `,

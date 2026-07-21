@@ -98,7 +98,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
   // Rescate Vehicular - Técnicas
   "rescate-vehicular-tecnicas": [
     {
-      label: "Cascos de Rescate NFPA 1951",
+      label: "Cascos de Rescate NFPA 1950",
       href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/",
       ctaText: "Ver cascos de rescate",
     },
@@ -180,7 +180,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
       ctaText: "Explorar cascos forestales",
     },
     {
-      label: "Cascos de Rescate NFPA 1951",
+      label: "Cascos de Rescate NFPA 1950",
       href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/",
       ctaText: "Ver cascos de rescate",
     },
@@ -311,10 +311,10 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
     },
   ],
 
-  // Casco Rescate NFPA 1951
+  // Casco Rescate NFPA 1950
   "casco-rescate-nfpa-1951": [
     {
-      label: "Cascos de Rescate NFPA 1951",
+      label: "Cascos de Rescate NFPA 1950",
       href: "/productos/cascos-para-bomberos/casco-rescate-tecnico-nfpa-1951/",
       ctaText: "Ver cascos de rescate",
     },
@@ -800,7 +800,7 @@ export const BLOG_PRODUCTOS_MAP: Record<string, ProductLink[]> = {
       ctaText: "Solicitar cotización técnica",
     },
     {
-      label: "Trajes HAZMAT NFPA 1991",
+      label: "Trajes HAZMAT NFPA 1990",
       href: "/productos/trajes-para-bomberos/traje-hazmat/",
       ctaText: "Ver trajes encapsulados",
     },
@@ -1043,7 +1043,7 @@ function getCtaDescription(slug: string): string {
     return "Protección química certificada con compatibilidad comprobada contra múltiples sustancias. Máxima seguridad para operaciones HAZMAT.";
   }
   if (slug.includes("rescate")) {
-    return "Equipo técnico especializado para operaciones de rescate con estándares NFPA 1951 y procedimientos de seguridad.";
+    return "Equipo técnico especializado para operaciones de rescate con estándares NFPA 1950 y procedimientos de seguridad.";
   }
   if (slug.includes("scba")) {
     return "Sistemas respiratorios de aire comprimido certificados NFPA 1970 con mantenimiento profesional garantizado.";

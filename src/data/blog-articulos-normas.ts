@@ -4,11 +4,11 @@ import type { ArticuloData } from "./blog-articulos";
  * Glosario de normas y métodos de ensayo — referencias técnicas únicas.
  * Objetivo: cubrir las normas de componente/ensayo (ASTM, EN, ISO, ANSI, ICAO,
  * NOM) que se citan en las fichas de producto pero que NO tienen artículo
- * comprensivo propio. Las normas de conjunto amplias (NFPA 1970/1950/1951/1991…)
+ * comprensivo propio. Las normas de conjunto amplias (NFPA 1970/1950/1990…)
  * ya tienen su guía completa: esas se enlazan, no se duplican aquí.
  *
  * Precisión (2026): NFPA consolidó sus normas — 1971/1975/1981/1982 → NFPA 1970
- * (2024); 1991/1992/1994 → NFPA 1990; 1670/1983 → NFPA 2500. Se conserva el número
+ * (2024); 1991/1992/1994 → NFPA 1990; 2500 → NFPA 2500. Se conserva el número
  * histórico como término de búsqueda y se aclara la consolidación.
  * Regla: sin superlativos sin proof. NO usar comillas dobles dentro de strings.
  */
@@ -58,7 +58,7 @@ En BOMBERO.MX, cada traje estructural se entrega con la documentación de labora
 
   "astm-f1939": {
     titulo: "ASTM F1939: Resistencia al Calor Radiante (RPP)",
-    excerpt: "ASTM F1939 mide la resistencia al calor radiante de los materiales de EPP mediante el índice RPP (Radiant Protective Performance). Es clave para trajes de proximidad y aproximación aluminizados (NFPA 1970 proximidad / NFPA 1976) expuestos a calor radiante extremo sin contacto directo con la llama.",
+    excerpt: "ASTM F1939 mide la resistencia al calor radiante de los materiales de EPP mediante el índice RPP (Radiant Protective Performance). Es clave para trajes de proximidad y aproximación aluminizados (NFPA 1970 proximidad) expuestos a calor radiante extremo sin contacto directo con la llama.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Normativas",
     tags: ["ASTM F1939", "Calor Radiante", "RPP", "Traje de Proximidad", "Aluminizado"],
@@ -77,7 +77,7 @@ A diferencia del calor por convección (aire caliente) o conducción (contacto),
 ASTM F1939 es determinante para el **traje de aproximación y de proximidad** —los conjuntos aluminizados que reflejan la radiación. Aparece en los requisitos de:
 
 - **NFPA 1970** en su opción de proximidad (hoy dentro de **NFPA 1970**, 2024).
-- **NFPA 1976**, la norma histórica de proximidad para incendios de combustible.
+- **NFPA 1970**, la norma histórica de proximidad para incendios de combustible.
 - Equipos **ARFF** aeroportuarios expuestos a incendios de jet fuel.
 
 El acabado **aluminizado** de estos trajes existe precisamente para maximizar el RPP: la capa reflectiva devuelve gran parte de la energía radiante en lugar de absorberla.
@@ -99,7 +99,7 @@ En operaciones de **PEMEX, refinerías y fundiciones**, el traje estructural NFP
     excerpt: "ASTM F739 mide la permeación de sustancias químicas a través de guantes y trajes HAZMAT: tiempo de ruptura (breakthrough) y tasa de permeación. Es la base para seleccionar el material correcto (butilo, Viton, neopreno) según el agente químico en respuesta a materiales peligrosos.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-combate-incendio-manguera-01.avif",
     categoria: "Normativas",
-    tags: ["ASTM F739", "Permeación Química", "HAZMAT", "Butilo", "Viton", "NFPA 1991"],
+    tags: ["ASTM F739", "Permeación Química", "HAZMAT", "Butilo", "Viton", "NFPA 1990"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "ASTM F739 permeación química guantes trajes HAZMAT",
@@ -131,10 +131,10 @@ En BOMBERO.MX asesoramos la selección por familia de agente químico. [Cotiza t
 
   "astm-f1790": {
     titulo: "ASTM F1790: Resistencia al Corte de Guantes y EPP",
-    excerpt: "ASTM F1790 mide la resistencia al corte por deslizamiento de guantes y materiales de protección, expresada en gramos de carga hasta el corte. Es clave para guantes de rescate técnico y extricación vehicular (NFPA 1951), donde el bordes cortantes del metal son el riesgo dominante.",
+    excerpt: "ASTM F1790 mide la resistencia al corte por deslizamiento de guantes y materiales de protección, expresada en gramos de carga hasta el corte. Es clave para guantes de rescate técnico y extricación vehicular (NFPA 1950), donde el bordes cortantes del metal son el riesgo dominante.",
     imagen: "/images/guantes-para-bomberos/guante-bombero-combate-incendio-manguera-02.avif",
     categoria: "Normativas",
-    tags: ["ASTM F1790", "Resistencia al Corte", "Rescate", "Extricación", "NFPA 1951"],
+    tags: ["ASTM F1790", "Resistencia al Corte", "Rescate", "Extricación", "NFPA 1950"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "ASTM F1790 resistencia al corte guantes rescate",
@@ -147,7 +147,7 @@ Es el ensayo de referencia en Norteamérica para guantes donde el corte —no el
 
 ## Dónde aplica
 
-El corte es el riesgo dominante en **rescate técnico y extricación vehicular**: al abrir un auto accidentado con herramienta hidráulica, el metal desgarrado y el vidrio laminado son cuchillas. La norma de conjunto **NFPA 1951** (Protective Ensembles for Technical Rescue Incidents) apoya sus guantes en ensayos de corte como ASTM F1790.
+El corte es el riesgo dominante en **rescate técnico y extricación vehicular**: al abrir un auto accidentado con herramienta hidráulica, el metal desgarrado y el vidrio laminado son cuchillas. La norma de conjunto **NFPA 1950** (Protective Ensembles for Technical Rescue Incidents) apoya sus guantes en ensayos de corte como ASTM F1790.
 
 También es relevante en guantes de **rescate con cuerda, USAR y manejo de escombros**, donde la destreza debe convivir con la protección anticorte.
 
@@ -274,7 +274,7 @@ La clave práctica: para materiales anticorte de alto desempeño (HPPE, Kevlar®
 
 ## EN 388 en rescate y extricación
 
-En **extricación vehicular** el riesgo es el corte con metal y vidrio. Un guante con nivel **D, E o F** de corte protege donde un guante estructural NFPA 1970 no está diseñado para hacerlo. Muchos guantes de rescate combinan **EN 388 + NFPA 1951** para cubrir corte y desempeño de rescate técnico.
+En **extricación vehicular** el riesgo es el corte con metal y vidrio. Un guante con nivel **D, E o F** de corte protege donde un guante estructural NFPA 1970 no está diseñado para hacerlo. Muchos guantes de rescate combinan **EN 388 + NFPA 1950** para cubrir corte y desempeño de rescate técnico.
 
 ## Para compras en México
 
@@ -312,7 +312,7 @@ Cada químico tiene una **letra clave** (por ejemplo, metanol, acetona, ácido s
 
 EN 374 usa pictogramas para comunicar el nivel: el **matraz Erlenmeyer** (protección química, con las letras de los químicos resistidos) y el de **riesgo biológico** (protección frente a bacterias, hongos y, en su caso, virus).
 
-## EN 374 frente a NFPA 1991/1990
+## EN 374 frente a NFPA 1990
 
 Para HAZMAT de alto riesgo (vapor, encapsulado), las normas norteamericanas **NFPA 1991/1992/1994** —consolidadas en **NFPA 1990**— exigen ensayos de permeación más severos (ASTM F739) sobre una lista de químicos industriales y agentes CBRN. EN 374 y NFPA se complementan; en licitaciones mexicanas es común ver ambos.
 
@@ -364,7 +364,7 @@ Un casco certificado EN 443:2008 es válido y de alto nivel; lo importante es **
 
   "en-1486": {
     titulo: "EN 1486: Trajes Reflectantes de Bombero (Europa)",
-    excerpt: "EN 1486 es la norma europea de ropa de protección reflectante para bomberos en operaciones especializadas de lucha contra el fuego con calor radiante intenso (proximidad). Es el equivalente europeo del traje aluminizado de proximidad frente a NFPA 1970/1976.",
+    excerpt: "EN 1486 es la norma europea de ropa de protección reflectante para bomberos en operaciones especializadas de lucha contra el fuego con calor radiante intenso (proximidad). Es el equivalente europeo del traje aluminizado de proximidad frente a NFPA 1970.",
     imagen: "/images/trajes-para-bombero/traje-bombero-estructural-nfpa-1971-modelo-frontal-01.avif",
     categoria: "Normativas",
     tags: ["EN 1486", "Proximidad", "Aluminizado", "Calor Radiante", "ARFF"],
@@ -392,7 +392,7 @@ Se apoya en ensayos de material como los que en Norteamérica cubren **ASTM F189
 
 En **rescate y extinción de incendios de aeronaves (ARFF)** conviven ambos marcos. Un aeropuerto en México puede especificar el traje según:
 
-- **NFPA 1970/1976** (marco norteamericano), y/o
+- **NFPA 1970** (marco norteamericano), y/o
 - **EN 1486** (marco europeo), junto con **ICAO Anexo 14** que define la categoría ARFF del aeródromo.
 
 ## Para compras en México
@@ -405,10 +405,10 @@ El traje de proximidad EN 1486 es un equipo especializado —no reemplaza al tra
 
   "en-12492": {
     titulo: "EN 12492: Cascos de Montañismo y Rescate Vertical",
-    excerpt: "EN 12492 es la norma europea de cascos de montañismo, adoptada en rescate técnico y vertical por su bajo perfil, retención de barbuquejo reforzado y protección lateral. Complementa a NFPA 1951 en operaciones de cuerda, altura y espacios confinados.",
+    excerpt: "EN 12492 es la norma europea de cascos de montañismo, adoptada en rescate técnico y vertical por su bajo perfil, retención de barbuquejo reforzado y protección lateral. Complementa a NFPA 1950 en operaciones de cuerda, altura y espacios confinados.",
     imagen: "/images/cascos-para-bomberos/casco-bombero-arff-aeroportuario-02.avif",
     categoria: "Normativas",
-    tags: ["EN 12492", "Rescate Vertical", "Montañismo", "Cuerda", "NFPA 1951"],
+    tags: ["EN 12492", "Rescate Vertical", "Montañismo", "Cuerda", "NFPA 1950"],
     autor: AUTOR,
     autorRol: ROL,
     anchorKeyword: "EN 12492 casco rescate vertical montañismo",
@@ -425,9 +425,9 @@ Un casco estructural NFPA 1970 está optimizado para calor y caída de objetos, 
 - **Retención reforzada (barbuquejo):** diseñado para **no salirse** ante un impacto o una caída invertida —requisito crítico cuando trabajas suspendido.
 - **Protección de impacto frontal, lateral, trasera y superior**, no solo superior.
 
-## Relación con NFPA 1951 y NFPA 2500
+## Relación con NFPA 1950 y NFPA 2500
 
-La norma de conjunto **NFPA 1951** (EPP para incidentes de rescate técnico) y el marco de **NFPA 2500** (que consolidó cuerda y equipo de rescate NFPA 1983/1670) contemplan cascos con estas características. En la práctica, muchos equipos de rescate en México usan cascos que certifican **EN 12492** por su desempeño en cuerda, combinados con protección ocular ANSI Z87.1.
+La norma de conjunto **NFPA 1950** (EPP para incidentes de rescate técnico) y el marco de **NFPA 2500** (que consolidó cuerda y equipo de rescate, antes NFPA 1983 y NFPA 1670) contemplan cascos con estas características. En la práctica, muchos equipos de rescate en México usan cascos que certifican **EN 12492** por su desempeño en cuerda, combinados con protección ocular ANSI Z87.1.
 
 ## Cuándo NO usarlo
 
@@ -682,7 +682,7 @@ Especifica **Tipo (I/II) y Clase (G/E/C)** según el riesgo, con cumplimiento **
 
   "ansi-z359": {
     titulo: "ANSI Z359: Sistemas de Protección contra Caídas",
-    excerpt: "ANSI Z359 es la familia de normas norteamericanas de protección contra caídas de altura: arneses de cuerpo completo, conectores, líneas de vida, anclajes y desaceleradores. Es la referencia para trabajo en altura y rescate vertical, complementando NFPA 1983/2500 y NOM-009-STPS.",
+    excerpt: "ANSI Z359 es la familia de normas norteamericanas de protección contra caídas de altura: arneses de cuerpo completo, conectores, líneas de vida, anclajes y desaceleradores. Es la referencia para trabajo en altura y rescate vertical, complementando NFPA 2500 y NOM-009-STPS.",
     imagen: "/images/accion/bomberos-rescate-vehicular.avif",
     categoria: "Normativas",
     tags: ["ANSI Z359", "Protección contra Caídas", "Altura", "Arnés", "Rescate Vertical"],
@@ -712,13 +712,13 @@ La familia Z359 aborda el sistema completo:
 Conviene distinguir dos mundos que comparten equipo:
 
 - **Protección personal contra caídas (Z359):** evita que el trabajador caiga. Factores de seguridad orientados a **una persona**.
-- **Rescate con cuerda (NFPA 1983/2500):** cargas y factores de seguridad mayores porque se manejan **dos personas** (rescatista + víctima) y cargas dinámicas.
+- **Rescate con cuerda (NFPA 2500):** cargas y factores de seguridad mayores porque se manejan **dos personas** (rescatista + víctima) y cargas dinámicas.
 
 Un arnés de posicionamiento industrial no equivale a un sistema de rescate técnico. Selecciona según la operación.
 
 ## Para compras en México
 
-Para trabajo en altura, especifica componentes **ANSI Z359** con cumplimiento **NOM-009-STPS**; para rescate vertical, sube a equipo con calificación de rescate (**NFPA 1983/2500**). [Cotiza equipo vertical](/cotizar/) según la disciplina.
+Para trabajo en altura, especifica componentes **ANSI Z359** con cumplimiento **NOM-009-STPS**; para rescate vertical, sube a equipo con calificación de rescate (**NFPA 2500**). [Cotiza equipo vertical](/cotizar/) según la disciplina.
 `,
   },
 
@@ -753,7 +753,7 @@ Un aeropuerto que recibe aviones grandes exige categoría alta —más agente, m
 
 La categoría ARFF no solo define camiones y espuma: **determina el equipamiento del personal**. Un cuerpo ARFF requiere:
 
-- **Traje de aproximación/proximidad** (aluminizado) para incendios de **jet fuel** —validado con marcos como **NFPA 1970 proximidad / NFPA 1976** o **EN 1486**.
+- **Traje de aproximación/proximidad** (aluminizado) para incendios de **jet fuel** —validado con marcos como **NFPA 1970 proximidad** o **EN 1486**.
 - **Cascos ARFF** con visor dorado (filtro IR) y compatibilidad con equipo de respiración.
 - Guantes y botas resistentes a hidrocarburos.
 
